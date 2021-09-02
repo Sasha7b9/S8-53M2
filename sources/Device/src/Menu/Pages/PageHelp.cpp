@@ -113,8 +113,7 @@ static const arrayItems itemsHelp =
 
 static const Page mpHelp            ///< ÏÎÌÎÙÜ
 (
-    0, 0,
-//    &mainPage, 0,
+    &mainPage, 0,
     "ÏÎÌÎÙÜ", "HELP",
     "Îòêðûòü ðàçäåëû ïîìîùè",
     "To open sections of the help",
