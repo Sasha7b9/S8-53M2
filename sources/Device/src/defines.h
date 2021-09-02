@@ -6,7 +6,7 @@
 #endif
 
 
-#include <stm32f2xx_hal.h>
+#include <stm32f4xx_hal.h>
 
 
 #define NUM_VER "1.3"
@@ -45,9 +45,6 @@ typedef enum
     COLOR_FLASH_01,
     SET_INVERSE
 } Color;
-
-
-#define DEBUG
 
 
 #define __IO volatile
@@ -121,3 +118,4 @@ typedef struct
 void HardwareErrorHandler(const char *file, const char *function, int line);
 
 #include "Globals.h"
+#include "Log.h"

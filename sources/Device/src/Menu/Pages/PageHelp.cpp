@@ -3,6 +3,7 @@
 #include "Menu/MenuItems.h"
 #include "Definition.h"
 #include "HelpContent.h"
+#include "Menu/Pages/PageHelp.h"
 
 
 /** @addtogroup Menu
@@ -112,7 +113,8 @@ static const arrayItems itemsHelp =
 
 static const Page mpHelp            ///< ÏÎÌÎÙÜ
 (
-    &mainPage, 0,
+    0, 0,
+//    &mainPage, 0,
     "ÏÎÌÎÙÜ", "HELP",
     "Îòêðûòü ðàçäåëû ïîìîùè",
     "To open sections of the help",

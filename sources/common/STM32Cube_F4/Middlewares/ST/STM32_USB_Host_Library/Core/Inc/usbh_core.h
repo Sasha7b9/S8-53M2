@@ -25,7 +25,7 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include <usbh_conf_.h>
+#include <usbh_conf.h>
 #include "usbh_def.h"
 #include "usbh_ioreq.h"
 #include "usbh_pipes.h"

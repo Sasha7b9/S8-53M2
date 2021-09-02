@@ -1,9 +1,7 @@
-
-
-#include <stm32f2xx_hal.h>
-#include <stm32f2xx_hal_hcd.h>
+#include <stm32f4xx_hal.h>
+#include <stm32f4xx_hal_hcd.h>
 #include <usbh_core.h>
-#include <stm32f207xx.h>
+#include <stm32f429xx.h>
 
 /*
     Функции инициализации и деинициализации аппаратной части USBH, используемого для работы с флеш-диском.

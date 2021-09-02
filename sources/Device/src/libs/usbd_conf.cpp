@@ -1,5 +1,5 @@
 #include "defines.h"
-#include "stm32f2xx_hal.h"
+#include "stm32f4xx_hal.h"
 #include "usbd_core.h"
 #include "VCP/VCP.h"
 #include "Hardware/Timer.h"

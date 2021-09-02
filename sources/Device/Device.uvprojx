@@ -739,36 +739,6 @@
               <FilePath>.\src\libs\lwipopts.h</FilePath>
             </File>
             <File>
-              <FileName>startup_stm32f207xx.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\src\libs\startup_stm32f207xx.s</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_conf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\libs\stm32f2xx_hal_conf.h</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_msp.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\libs\stm32f2xx_hal_msp.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_it.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\libs\stm32f2xx_it.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_it.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\libs\stm32f2xx_it.h</FilePath>
-            </File>
-            <File>
-              <FileName>system_stm32f2xx.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\libs\system_stm32f2xx.c</FilePath>
-            </File>
-            <File>
               <FileName>usbd_cdc_interface.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\libs\usbd_cdc_interface.cpp</FilePath>
@@ -807,6 +777,46 @@
               <FileName>usbh_conf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\libs\usbh_conf.h</FilePath>
+            </File>
+            <File>
+              <FileName>startup_stm32f429xx.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\src\libs\startup_stm32f429xx.s</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_hal_conf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\libs\stm32f4xx_hal_conf.h</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_hal_msp.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\libs\stm32f4xx_hal_msp.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_it.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\libs\stm32f4xx_it.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_it.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\libs\stm32f4xx_it.h</FilePath>
+            </File>
+            <File>
+              <FileName>system_stm32f4xx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\libs\system_stm32f4xx.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbh_diskio.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\libs\usbh_diskio.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>usbh_diskio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\libs\usbh_diskio.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1324,11 +1334,6 @@
               <FilePath>.\src\defines.h</FilePath>
             </File>
             <File>
-              <FileName>err.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\err.txt</FilePath>
-            </File>
-            <File>
               <FileName>Globals.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Globals.cpp</FilePath>
@@ -1715,7 +1720,7 @@
               <MiscControls>--cpp</MiscControls>
               <Define>USE_HAL_DRIVER, STM32F429xx, __cplusplus, DEBUG, DEVICE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\common\STM32Cube_F4\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\common\STM32Cube_F4\Drivers\STM32F4xx_HAL_Driver\Inc;..\common\STM32Cube_F4\Drivers\STM32F4xx_HAL_Driver\Src;..\common\STM32Cube_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;..\common\STM32Cube_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc;..\common\STM32Cube_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Src;..\common\STM32Cube_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src;..\common\STM32Cube_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc;..\common\STM32Cube_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src;..\common\STM32Cube_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc;..\common\STM32Cube_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Src;..\common\STM32Cube_F4\Middlewares\Third_Party\LwIP\src;..\common\STM32Cube_F4\Middlewares\Third_Party\LwIP\src\include;..\common\STM32Cube_F4\Middlewares\Third_Party\LwIP\system;..\common\STM32Cube_F4\Middlewares\Third_Party\LwIP\src\include\ipv4;..\common\STM32Cube_F4\Middlewares\Third_Party\FatFs\src;..\common\STM32Cube_F4\Middlewares\Third_Party\FatFs\src\drivers;.\src;.\src\libs;..\common\Hardware\FatFS;..\common\Hardware\USBH;..\common\STM32Cube_F4\Middlewares\Third_Party\LwIP\src\include\lwip;..\common\STM32Cube_F4\Drivers\CMSIS\Include;.\src\Hardware\HAL;.\src\Hardware\USBD;.\src\Hardware\LwIP;..\..\sources</IncludePath>
+              <IncludePath>..\common\STM32Cube_F4\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\common\STM32Cube_F4\Drivers\STM32F4xx_HAL_Driver\Inc;..\common\STM32Cube_F4\Drivers\STM32F4xx_HAL_Driver\Src;..\common\STM32Cube_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;..\common\STM32Cube_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc;..\common\STM32Cube_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Src;..\common\STM32Cube_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src;..\common\STM32Cube_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc;..\common\STM32Cube_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src;..\common\STM32Cube_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc;..\common\STM32Cube_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Src;..\common\STM32Cube_F4\Middlewares\Third_Party\LwIP\src;..\common\STM32Cube_F4\Middlewares\Third_Party\LwIP\src\include;..\common\STM32Cube_F4\Middlewares\Third_Party\LwIP\system;..\common\STM32Cube_F4\Middlewares\Third_Party\LwIP\src\include\ipv4;..\common\STM32Cube_F4\Middlewares\Third_Party\FatFs\src;.\src;.\src\libs;..\common\Hardware\FatFS;..\common\Hardware\USBH;..\common\STM32Cube_F4\Middlewares\Third_Party\LwIP\src\include\lwip;..\common\STM32Cube_F4\Drivers\CMSIS\Include;.\src\Hardware\HAL;.\src\Hardware\USBD;.\src\Hardware\LwIP;..\..\sources</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2115,36 +2120,6 @@
               <FilePath>.\src\libs\lwipopts.h</FilePath>
             </File>
             <File>
-              <FileName>startup_stm32f207xx.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\src\libs\startup_stm32f207xx.s</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_conf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\libs\stm32f2xx_hal_conf.h</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_msp.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\libs\stm32f2xx_hal_msp.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_it.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\libs\stm32f2xx_it.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_it.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\libs\stm32f2xx_it.h</FilePath>
-            </File>
-            <File>
-              <FileName>system_stm32f2xx.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\libs\system_stm32f2xx.c</FilePath>
-            </File>
-            <File>
               <FileName>usbd_cdc_interface.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\libs\usbd_cdc_interface.cpp</FilePath>
@@ -2183,6 +2158,46 @@
               <FileName>usbh_conf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\libs\usbh_conf.h</FilePath>
+            </File>
+            <File>
+              <FileName>startup_stm32f429xx.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\src\libs\startup_stm32f429xx.s</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_hal_conf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\libs\stm32f4xx_hal_conf.h</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_hal_msp.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\libs\stm32f4xx_hal_msp.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_it.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\libs\stm32f4xx_it.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_it.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\libs\stm32f4xx_it.h</FilePath>
+            </File>
+            <File>
+              <FileName>system_stm32f4xx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\libs\system_stm32f4xx.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbh_diskio.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\libs\usbh_diskio.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>usbh_diskio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\libs\usbh_diskio.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2698,11 +2713,6 @@
               <FileName>defines.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\defines.h</FilePath>
-            </File>
-            <File>
-              <FileName>err.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\err.txt</FilePath>
             </File>
             <File>
               <FileName>Globals.cpp</FileName>
