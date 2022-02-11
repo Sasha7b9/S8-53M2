@@ -325,7 +325,7 @@ void Painter::SetPoint(int x, int y)
 
     if (address < Display::display_back_buffer_end)
     {
-        *address = Color::Get().ValueForDraw();
+        *address = Painter::CurrentColor();
     }
 
     CommandBuffer command(4, SET_POINT);
