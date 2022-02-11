@@ -1,3 +1,4 @@
+// 2022/2/11 19:22:07 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "main.h"
 #include "lwip/dhcp.h"
 #include "app_ethernet.h"

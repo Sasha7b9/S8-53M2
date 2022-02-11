@@ -1,3 +1,4 @@
+// 2022/2/11 19:22:17 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include <stm32f4xx_hal.h>
 #include "lwip/timeouts.h"
 #include "netif/etharp.h"
