@@ -17,7 +17,7 @@
 
 //static void Netif_Config();
 
-static struct netif gnetif;
+//static struct netif gnetif;
 
 
 /*
@@ -58,6 +58,7 @@ void LAN::Init(void)
 
 void LAN::Update(uint timeMS)
 {
+    /*
     uint time = gTimerMS;
 
     do 
@@ -67,6 +68,7 @@ void LAN::Update(uint timeMS)
         ethernetif_input(&gnetif);
         sys_check_timeouts();
     } while (gTimerMS - time < timeMS);
+    */
 }
 
 
