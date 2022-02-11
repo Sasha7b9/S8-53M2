@@ -1,6 +1,6 @@
 # (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 
-project (Loader)
+project (Loader LANGUAGES CXX)
 
 set(CMAKE_UNITY_BUILD OFF)
 
@@ -51,8 +51,25 @@ else()
 
 endif()
 
-file(GLOB SRC             src/*.cpp src/*.h)
+file(GLOB SRC              src/*.cpp src/*.h)
+file(GLOB DISPLAY          src/Display/*.*)
+file(GLOB DISPLAY_FONTS    src/Display/fonts/*.*)
+file(GLOB UTILS            src/Utils/*.*)
+file(GLOB FLASHDRIVE       src/FlashDrive/*.*)
+file(GLOB HARDWARE         src/Hardware/*.*)
+file(GLOB LIBS             src/libs/*.*)
+file(GLOB PANEL            src/Panel/*.*)
+file(GLOB SETTINGS         src/Settings/*.*)
 
-source_group(src          FILES ${SRC})
+source_group(src           FILES ${SRC})
+source_group(Display       FILES ${DISPLAY})
+source_group(Display/fonts FILES ${DISPLAY_FONTS})
+source_group(FlashDrive    FILES ${FLASHDRIVE})
+source_group(Hardware      FILES ${HARDWARE})
+source_group(libs          FILES ${LIBS})
+source_group(Panel         FILES ${PANEL})
+source_group(Settings      FILES ${SETTINGS})
+source_group(Utils         FILES ${UTILS})
 
-add_library(${PROJECT_NAME} ${SRC})
+add_library(${PROJECT_NAME} ${SRC} ${DISPLAY} ${DISPLAY_FONTS} ${FLASHDRIVE} ${HARDWARE} ${LIBS}
+                            ${PANEL} ${SETTINGS} ${UTILS})
