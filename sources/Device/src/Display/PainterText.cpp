@@ -21,11 +21,10 @@ void Painter::SetFont(TypeFont typeFont)
         return;
     }
     font = fonts[typeFont];
-    uint8 command[4];
-    command[0] = SET_FONT;
-    command[1] = (uint8)typeFont;
-    Painter::SendToDisplay(command, 4);
-    Painter::SendToVCP(command, 2);
+
+    CommandBuffer command(4, SET_FONT);
+    command.PushByte(typeFont);
+    Painter::SendToVCP(command.Data(), 2);
 }
 
 

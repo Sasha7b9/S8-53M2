@@ -5,6 +5,17 @@
 #include "Tables.h"
 
 
+struct CommandBuffer
+{
+    CommandBuffer(int size, uint8 type);
+    void PushByte(uint8);
+    void PushByte(int);
+    void PushHalfWord(uint16);
+    void PushHalfWord(int);
+    uint8 *Data();
+};
+
+
 class Display
 {
 public:

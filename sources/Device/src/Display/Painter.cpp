@@ -190,10 +190,12 @@ void Painter::SetColor(Color color)
         {
             CalculateColor((uint8 *)&color);
         }
-        uint8 command[4] = {SET_COLOR};
-        command[1] = color;
+
+        CommandBuffer command(4, SET_COLOR);
+        command.PushByte(color);
+        SendToVCP(command.Data(), 2);
+
         SendToDisplay(command, 4);
-        SendToVCP(command, 2);
     }
 }
 
@@ -207,13 +209,14 @@ Color Painter::CurrentColor(void)
 void Painter::DrawHLine(int y, int x0, int x1)
 {
     CalculateCurrentColor();
-    uint8 command[8];
-    command[0] = DRAW_HLINE;
-    *(command + 1) = (uint8)y;
-    *((int16*)(command + 2)) = (int16)x0;
-    *((int16*)(command + 4)) = (int16)x1;
+
     SendToDisplay(command, 8);
-    SendToVCP(command, 6);
+
+    CommandBuffer command(8, DRAW_HLINE);
+    command.PushByte(y);
+    command.PushHalfWord(x0);
+    command.PushHalfWord(x1);
+    SendToVCP(command.Data(), 6);
 }
 
 
@@ -227,13 +230,14 @@ void Painter::DrawHLineC(int y, int x0, int x1, Color color)
 void Painter::DrawVLine(int x, int y0, int y1)
 {
     CalculateCurrentColor();
-    uint8 command[8];
-    command[0] = DRAW_VLINE;
-    *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = (uint8)y0;
-    *(command + 4) = (uint8)y1;
+
     SendToDisplay(command, 8);
-    SendToVCP(command, 5);
+
+    CommandBuffer command(8, DRAW_VLINE);
+    command.PushHalfWord(x);
+    command.PushByte(y0);
+    command.PushByte(y1);
+    SendToVCP(command.Data(), 5);
 }
 
 
@@ -254,14 +258,11 @@ void Painter::DrawLineC(int x0, int y0, int x1, int y1, Color color)
 void Painter::DrawVPointLine(int x, int y0, int y1, float delta, Color color)
 {
     SetColor(color);
-    uint8 numPoints = (y1 - y0) / delta;
-    uint8 command[6];
-    command[0] = DRAW_VPOINT_LINE;
-    *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = (uint8)y0;
-    *(command + 4) = delta;
-    *(command + 5) = (uint8)numPoints;
-    SendToDisplay(command, 6);
+
+    for (int y = y0; y <= y1; y += (int)delta)
+    {
+        SetPoint(x, y);
+    }
 }
 
 
@@ -368,13 +369,23 @@ void Painter::DrawLine(int x0, int y0, int x1, int y1)
 void Painter::FillRegion(int x, int y, int width, int height)
 {
     CalculateCurrentColor();
+
+    if (width == 0 || height == 0)
+    {
+        return;
+    }
+
+    for (int i = y; i <= y + height - 1; i++)
+    {
+        DrawHLine(i, x, x + width - 1);
+    }
+
     uint8 command[8];
     command[0] = FILL_REGION;
     *((int16*)(command + 1)) = (int16)x;
     *(command + 3) = (uint8)y;
     *((int16*)(command + 4)) = (int16)width;
     *(command + 6) = (uint8)height;
-    SendToDisplay(command, 8);
     SendToVCP(command, 7);
 }
 
@@ -439,6 +450,15 @@ int NumberColorsInSceneCol(void)
 void Painter::DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color)
 {
     SetColor(color);
+
+    for (; numLines > 0; numLines--)
+    {
+        int y0 = *y0y1++;
+        int y1 = *y0y1++;
+
+        DrawVLine(x++, y0, y1);
+    }
+
     uint8 command[255 * 2 + 4 + 4];
     command[0] = DRAW_VLINES_ARRAY;
     *((int16*)(command + 1)) = (int16)x;
@@ -457,7 +477,7 @@ void Painter::DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color)
     {
         numBytes++;
     }
-    SendToDisplay(command, numBytes);
+
     SendToVCP(command, 1 + 2 + 1 + 2 * numLines);
 }
 
