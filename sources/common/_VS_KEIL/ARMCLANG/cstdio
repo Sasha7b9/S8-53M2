@@ -1,0 +1,17 @@
+#pragma once
+#include <stddef.h>
+
+
+namespace std //-V1061
+{
+#ifdef WIN32
+#pragma warning(push, 0)
+#endif
+    int vsprintf(char *__restrict, const char *__restrict, struct va_list);
+#ifdef WIN32
+#pragma warning(pop)
+#endif
+    int sprintf(char *__restrict, const char *__restrict, ...);
+    int snprintf(char *__restrict, size_t, const char *__restrict, ...);
+    int printf(const char *__restrict, ...);
+}

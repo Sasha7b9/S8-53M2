@@ -4,3 +4,4 @@ sources/Loader/Objects/*
 sources/Device/DebugConfig/*
 sources/Device/Listings/*
 sources/Device/Objects/*
+sources/generated/*

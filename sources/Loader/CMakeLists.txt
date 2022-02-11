@@ -1,6 +1,6 @@
 # (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 
-project (DLoader)
+project (Loader)
 
 include_directories(      src
                           src/Hardware/HAL

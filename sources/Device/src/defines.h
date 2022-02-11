@@ -47,11 +47,6 @@ typedef enum
 } Color;
 
 
-#define DEBUG
-
-
-#define __IO volatile
-
 typedef void    (*pFuncVV)();               // ”казатель на функцию, ничего не принимающую и ничего не возвращающую.
 typedef void    (*pFuncVpV)(void*);             // ”казатель на функцию, принимающую указатель на void и ничего не возвращающую.
 typedef bool    (*pFuncBV)();

@@ -1,0 +1,7 @@
+#pragma once
+
+
+namespace std //-V1061
+{
+#include "math.h"
+}
