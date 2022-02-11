@@ -17,8 +17,7 @@ include_directories(../common/_VS_KEIL/ARMCLANG
                     ../STM32Cube_FW_F4/Middlewares/Third_Party/LwIP/src/include
                     ../STM32Cube_FW_F4/Middlewares/Third_Party/LwIP/system
                     src
-                    src/libs
-)
+                    src/libs)
 
 add_definitions(-DSTM32F429xx -DUSE_HAL_DRIVER -DDEVICE)
 
@@ -69,19 +68,42 @@ file(GLOB LIBS            src/libs/*.*)
 file(GLOB DISPLAY         src/Display/*.*)
 file(GLOB DISPLAY_FONT    src/Display/font/*.*)
 file(GLOB ETHERNET        src/Ethernet/*.*)
+file(GLOB FLASHDRIVE      src/FlashDrive/*.*)
+file(GLOB FPGA            src/FPGA/*.*)
+file(GLOB HARDWARE        src/Hardware/*.*)
+file(GLOB MENU            src/Menu/*.*)
+file(GLOB MENU_PAGES      src/Menu/Pages/*.*)
+file(GLOB PANEL           src/Panel/*.*)
+file(GLOB SETTINGS        src/Settings/*.*)
+file(GLOB UTILS           src/Utils/*.*)
+file(GLOB VCP             src/VCP/*.*)
+file(GLOB VCP_SCPI        src/VCP/SCPI/*.*)
 
 source_group(src          FILES ${SRC})
 source_group(libs         FILES ${LIBS})
 source_group(Display      FILES ${DISPLAY})
 source_group(Display/font FILES ${DISPLAY_FONT})
 source_group(Ethernet     FILES ${ETHERNET})
+source_group(FlashDrive   FILES ${FLASHDRIVE})
+source_group(FPGA         FILES ${FPGA})
+source_group(Hardware     FILES ${HARDWARE})
+source_group(Menu         FILES ${MENU})
+source_group(Menu/Pages   FILES ${MENU_PAGES})
+source_group(Panel        FILES ${PANEL})
+source_group(Settings     FILES ${SETTINGS})
+source_group(Utils        FILES ${UTILS})
+source_group(VCP          FILES ${VCP})
+source_group(VCP/SCPI     FILES ${VCP_SCPI})
 
 set_source_files_properties(src/libs/ethernetif.cpp
                             src/libs/usbd_desc.cpp
                             src/libs/app_ethernet.cpp
                             src/libs/usbd_cdc_interface.cpp
                             src/libs/usbd_conf.c
+                            src/Menu/Pages/PageHelp.cpp
+                            src/Panel/PanelFunctions.cpp
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
-
-add_library(${PROJECT_NAME} ${SRC} ${LIBS} ${DISPLAY} ${DISPLAY_FONT} ${ETHERNET})
+add_library(${PROJECT_NAME} ${SRC} ${LIBS} ${DISPLAY} ${DISPLAY_FONT} ${ETHERNET}
+                            ${FLASHDRIVE} ${FPGA} ${HARDWARE} ${MENU} ${MENU_PAGES}
+                            ${PANEL} ${SETTINGS} ${UTILS} ${VCP} ${VCP_SCPI})

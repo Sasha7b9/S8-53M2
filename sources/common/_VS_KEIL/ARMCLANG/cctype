@@ -4,6 +4,5 @@
 
 namespace std //-V1061
 {
-    int toupper(int);
-	int tolower(int);
+#include <ctype.h>
 }

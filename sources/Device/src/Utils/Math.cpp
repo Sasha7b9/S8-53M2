@@ -4,8 +4,6 @@
 #include "FPGA/FPGA_Types.h"
 #include "Display/Grid.h"
 #include "Hardware/Timer.h"
-
-
 #include <math.h>
 
 

@@ -1,6 +1,4 @@
 #pragma once
 
-namespace std
-{
-	#include <cctype>
-}
+int toupper(int);
+int tolower(int);
