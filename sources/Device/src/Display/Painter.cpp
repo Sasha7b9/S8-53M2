@@ -645,12 +645,11 @@ void Painter::EndScene(bool endScene)
 
     HAL_LTDC::ToggleBuffers();
 
-    CommandBuffer command(4, END_SCENE);
-
     if (endScene)
     {
         if (InterCom::TransmitGUIinProcess())
         {
+            CommandBuffer command(4, END_SCENE);
             InterCom::Send(command.Data(), 1);
         }
     }
