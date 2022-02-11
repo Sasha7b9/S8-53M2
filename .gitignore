@@ -1,4 +1,6 @@
-sources/Loader53/DebugConfig/*
-sources/Loader53/Listings/*
-sources/Loader53/Objects/*
-sources/S8-53/DebugConfig/*
+sources/Loader/DebugConfig/*
+sources/Loader/Listings/*
+sources/Loader/Objects/*
+sources/Device/DebugConfig/*
+sources/Device/Listings/*
+sources/Device/Objects/*

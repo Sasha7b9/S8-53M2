@@ -8,7 +8,7 @@
   <WorkspaceName>WorkSpace</WorkspaceName>
 
   <project>
-    <PathAndName>.\Loader53\Loader53.uvprojx</PathAndName>
+    <PathAndName>.\Loader\Loader.uvprojx</PathAndName>
     <NodeIsActive>1</NodeIsActive>
   </project>
 
