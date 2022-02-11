@@ -277,12 +277,12 @@ void Painter::DrawHPointLine(int y, int x0, int x1, float delta)
 
 void Painter::SetPoint(int x, int y)
 {
-    uint8 command[4];
-    command[0] = SET_POINT;
-    *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = (uint8)y;
     SendToDisplay(command, 4);
-    SendToVCP(command, 4);
+
+    CommandBuffer command(4, SET_POINT);
+    command.PushHalfWord(x);
+    command.PushByte(y);
+    SendToVCP(command.Data(), 4);
 }
 
 
@@ -295,26 +295,26 @@ void Painter::DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, in
     }
 
     SetColor(color);
-    uint8 command[60];
-    command[0] = DRAW_MULTI_VPOINT_LINES;
-    *(command + 1) = (uint8)numLines;
-    *(command + 2) = (uint8)y;
-    *(command + 3) = (uint8)count;
-    *(command + 4) = (uint8)delta;
-    *(command + 5) = 0;
-    uint8 *pointer = command + 6;
-    for(int i = 0; i < numLines; i++) 
+
+    SendToDisplay(command, numBytes);
+
+    CommandBuffer command(60, DRAW_MULTI_VPOINT_LINES);
+    command.PushByte(numLines);
+    command.PushByte(y);
+    command.PushByte(count);
+    command.PushByte(delta);
+    command.PushByte(0);
+    for (int i = 0; i < numLines; i++)
     {
-        *((uint16*)pointer) = x[i];
-        pointer += 2;
+        command.PushHalfWord(x[i]);
     }
     int numBytes = 1 + 1 + 1 + numLines * 2 + 1 + 1;
     while(numBytes % 4) 
     {
         numBytes++;
     }
-    SendToDisplay(command, numBytes);
-    SendToVCP(command, 1 + 1 + 1 + 1 + 1 + 1 + numLines * 2);
+
+    SendToVCP(command.Data(), 1 + 1 + 1 + 1 + 1 + 1 + numLines * 2);
 }
 
 
@@ -326,17 +326,17 @@ void Painter::DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int
         return;
     }
     SetColor(color);
-    uint8 command[30];
-    command[0] = DRAW_MULTI_HPOINT_LINES_2;
-    *(command + 1) = (uint8)numLines;
-    *((uint16*)(command + 2)) = (uint16)x;
-    *(command + 4) = (uint8)count;
-    *(command + 5) = (uint8)delta;
-    uint8 *pointer = command + 6;
+
+    SendToDisplay(command, numBytes);
+
+    CommandBuffer command(30, DRAW_MULTI_HPOINT_LINES_2);
+    command.PushByte(numLines);
+    command.PushHalfWord(x);
+    command.PushByte(count);
+    command.PushByte(delta);
     for (int i = 0; i < numLines; i++)
     {
-        *pointer = y[i];
-        pointer++;
+        command.PushByte(y[i]);
     }
     int numBytes = 1 +     // command
         1 +     // numLines
@@ -348,8 +348,8 @@ void Painter::DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int
     {
         numBytes++;
     }
-    SendToDisplay(command, numBytes);
-    SendToVCP(command, 1 + 1 + 2 + 1 + 1 + numLines);
+
+    SendToVCP(command.Data(), 1 + 1 + 2 + 1 + 1 + numLines);
 }
 
 
