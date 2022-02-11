@@ -692,7 +692,7 @@ void Math_CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoints
 {
     if (numSmoothing < 2)
     {
-        memcpy(dataOut, dataIn, numPoints);
+        memcpy(dataOut, dataIn, (uint)numPoints);
     }
     else
     {

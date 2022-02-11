@@ -438,7 +438,7 @@ void DrawGovernorColorValue(int x, int y, GovernorColor *govColor, int delta)
         Color_Init(ct);
     }
 
-    int vals[4] = {ct->brightness * 100, blue, green, red};
+    int vals[4] = {(int)(ct->brightness * 100), blue, green, red};
 
     Painter::FillRegionC(x, y, MI_WIDTH + delta - 2, MI_HEIGHT / 2 - 3, COLOR_BLACK);
     x += 92;

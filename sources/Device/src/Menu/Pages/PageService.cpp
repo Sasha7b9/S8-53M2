@@ -790,10 +790,10 @@ static void OnChanged_Ethernet_Enable(bool active)
 // СЕРВИС - ETHERNET - IP адрес ----------------------------------------------------------------------------------------------------------------------
 static const IPaddressStruct structIP =
 {
-    Item_IP, &ppEthernet, 0,
+    { Item_IP, &ppEthernet, 0,
     {   "IP адрес", "IP-address",
         "Установка IP адреса",
-        "Set of IP-address",  },
+        "Set of IP-address",  } },
     &IP_ADDR0, &IP_ADDR1, &IP_ADDR2, &IP_ADDR3,
     OnChanged_Ethernet_Enable,
     &PORT
@@ -808,10 +808,10 @@ static const IPaddress ipEthernet_IP
 // СЕРВИС - ETHERNET - Маска подсети -----------------------------------------------------------------------------------------------------------------
 static const IPaddressStruct structMask =
 {
-    Item_IP, &ppEthernet, 0,
+    { Item_IP, &ppEthernet, 0,
     {   "Маска подсети", "Network mask",
         "Установка маски подсети",
-        "Set of network mask",    },
+        "Set of network mask",    } },
     &NETMASK_ADDR0, &NETMASK_ADDR1, &NETMASK_ADDR2, &NETMASK_ADDR3,
     OnChanged_Ethernet_Enable    
 };
@@ -824,10 +824,10 @@ static const IPaddress ipEthernet_Mask
 // СЕРВИС - ETHERNET - Шлюз --------------------------------------------------------------------------------------------------------------------------
 static const IPaddressStruct structGateway =
 {
-    Item_IP, &ppEthernet, 0,
+    { Item_IP, &ppEthernet, 0,
     {   "Шлюз", "Gateway",
         "Установка адреса основного шлюза",
-        "Set of gateway address", },
+        "Set of gateway address", } },
     &GW_ADDR0, &GW_ADDR1, &GW_ADDR2, &GW_ADDR3,
     OnChanged_Ethernet_Enable
 };

@@ -493,8 +493,8 @@ static void Draw_ADC_Balance_Mode(int x, int y)
 {
     int8 shift[2][3] =
     {
-        {0, SET_BALANCE_ADC_A, BALANCE_ADC_A},
-        {0, SET_BALANCE_ADC_B, BALANCE_ADC_B}
+        {0, SET_BALANCE_ADC_A, (int8)BALANCE_ADC_A},
+        {0, SET_BALANCE_ADC_B, (int8)BALANCE_ADC_B}
     };
 
     shiftADCA = shift[0][BALANCE_ADC_TYPE];

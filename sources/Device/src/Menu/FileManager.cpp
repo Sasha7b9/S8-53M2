@@ -358,7 +358,7 @@ LabelNextNumber:
     strcpy(name, currentDir);
     strcat(name, "\\");
 
-    int size = strlen(FILE_NAME);
+    int size = (int)strlen(FILE_NAME);
     if (size == 0)
     {
         return false;

@@ -42,7 +42,7 @@ void VCP::SendDataAsinch(uint8 *buffer, int size)
 
     size = Math_MinInt(size, SIZE_BUFFER);
     while (!PrevSendingComplete())  {};
-    memcpy(trBuf, buffer, size);
+    memcpy(trBuf, buffer, (uint)size);
 
     USBD_CDC_SetTxBuffer(&handleUSBD, trBuf, (uint16)size);
     USBD_CDC_TransmitPacket(&handleUSBD);
@@ -83,7 +83,7 @@ void VCP::SendDataSynch(const uint8 *buffer, int size)
             int reqBytes = SIZE_BUFFER_VCP - sizeBuffer;
             LIMITATION(reqBytes, reqBytes, 0, size);
             while (pCDC->TxState == 1) {};
-            memcpy(buffSend + sizeBuffer, buffer, reqBytes);
+            memcpy(buffSend + sizeBuffer, buffer, (uint)reqBytes);
             USBD_CDC_SetTxBuffer(&handleUSBD, buffSend, SIZE_BUFFER_VCP);
             USBD_CDC_TransmitPacket(&handleUSBD);
             size -= reqBytes;
@@ -92,7 +92,7 @@ void VCP::SendDataSynch(const uint8 *buffer, int size)
         }
         else
         {
-            memcpy(buffSend + sizeBuffer, buffer, size);
+            memcpy(buffSend + sizeBuffer, buffer, (uint)size);
             sizeBuffer += size;
             size = 0;
         }
@@ -106,12 +106,12 @@ void SendData(const uint8 *buffer, int size)
 
 void VCP::SendStringAsinch(char *data)
 {
-    SendDataAsinch((uint8*)data, strlen(data));
+    SendDataAsinch((uint8*)data, (int)strlen(data));
 }
 
 void VCP::SendStringSynch(char *data)
 {
-    SendDataSynch((uint8*)data, strlen(data));
+    SendDataSynch((uint8*)data, (int)strlen(data));
 }
 
 void VCP::SendFormatStringAsynch(char *format, ...)
@@ -123,7 +123,7 @@ void VCP::SendFormatStringAsynch(char *format, ...)
     vsprintf(buffer, format, args);
     va_end(args);
     strcat(buffer, "\n");
-    SendDataAsinch((uint8*)buffer, strlen(buffer));
+    SendDataAsinch((uint8*)buffer, (int)strlen(buffer));
 }
 
 void VCP::SendFormatStringSynch(char *format, ...) {
@@ -134,7 +134,7 @@ void VCP::SendFormatStringSynch(char *format, ...) {
     vsprintf(buffer, format, args);
     va_end(args);
     strcat(buffer, "\n");
-    SendDataSynch((uint8*)buffer, strlen(buffer));
+    SendDataSynch((uint8*)buffer, (int)strlen(buffer));
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

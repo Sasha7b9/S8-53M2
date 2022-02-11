@@ -95,7 +95,7 @@ char* Float2String(float value, bool alwaysSign, int numDigits, char bufferOut[2
     }
 
     bool signExist = alwaysSign || value < 0;
-    while(strlen(bufferOut) < numDigits + (signExist ? 2 : 1))
+    while((int)strlen(bufferOut) < numDigits + (signExist ? 2 : 1))
     {
         strcat(bufferOut, "0");
     }
@@ -127,7 +127,7 @@ bool String2Int(char *str, int *value)
     {
         str++;
     }
-    int length = strlen(str);
+    int length = (int)strlen(str);
     if (length == 0)
     {
         return false;
