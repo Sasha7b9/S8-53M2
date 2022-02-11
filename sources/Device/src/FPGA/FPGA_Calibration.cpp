@@ -393,9 +393,9 @@ float CalculateDeltaADC(Channel chan, float *avgADC1, float *avgADC2, float *del
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void AlignmentADC(void)
 {
-    shiftADC0 = (deltaADCold[0] > 0) ? (deltaADCold[0] + 0.5) : (deltaADCold[0] - 0.5);
+    shiftADC0 = (deltaADCold[0] > 0) ? (deltaADCold[0] + 0.5f) : (deltaADCold[0] - 0.5f);
     SET_BALANCE_ADC_A = shiftADC0;
-    shiftADC1 = (deltaADCold[1] > 0) ? (deltaADCold[1] + 0.5) : (deltaADCold[1] - 0.5);
+    shiftADC1 = (deltaADCold[1] > 0) ? (deltaADCold[1] + 0.5f) : (deltaADCold[1] - 0.5f);
     SET_BALANCE_ADC_B = shiftADC1;
     FSMC::Write(WR_ADD_RSHIFT_DAC1, (uint8)SET_BALANCE_ADC_A);
     FSMC::Write(WR_ADD_RSHIFT_DAC2, (uint8)SET_BALANCE_ADC_B);

@@ -568,7 +568,7 @@ int FPGA::CalculateShift(void)            // \todo Не забыть восстановить функци
     if (sTime_RandomizeModeEnabled())
     {
         float tin = (float)(rand - min) / (max - min) * 10e-9f;
-        int retValue = tin / 10e-9 * Kr[SET_TBASE];
+        int retValue = tin / 10e-9f * Kr[SET_TBASE];
         return retValue;
     }
 
@@ -887,22 +887,22 @@ uint8 FPGA::CalculateMaxWithout255(uint8 buffer[100])
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 TBase CalculateTBase(float freq_)
 {
-    if     (freq_ >= 100e6)  { return TBase_2ns;   }
-    else if(freq_ >= 40e6)   { return TBase_5ns;   }
-    else if(freq_ >= 20e6)   { return TBase_10ns;  }
-    else if(freq_ >= 10e6)   { return TBase_20ns;  }
-    else if(freq_ >= 3e6)    { return TBase_50ns;  }
-    else if(freq_ >= 2e6)    { return TBase_100ns; }
-    else if(freq_ >= 900e3)  { return TBase_200ns; }
-    else if(freq_ >= 400e3)  { return TBase_500ns; }
-    else if(freq_ >= 200e3)  { return TBase_1us;   }
-    else if(freq_ >= 90e3)   { return TBase_2us;   }
-    else if(freq_ >= 30e3)   { return TBase_5us;   }
-    else if(freq_ >= 20e3)   { return TBase_10us;  }
-    else if(freq_ >= 10e3)   { return TBase_20us;  }
-    else if(freq_ >= 4e3)    { return TBase_50us;  }
-    else if(freq_ >= 2e3)    { return TBase_100us; }
-    else if(freq_ >= 1e3)    { return TBase_200us; }
+    if     (freq_ >= 100e6f)  { return TBase_2ns;   }
+    else if(freq_ >= 40e6f)   { return TBase_5ns;   }
+    else if(freq_ >= 20e6f)   { return TBase_10ns;  }
+    else if(freq_ >= 10e6f)   { return TBase_20ns;  }
+    else if(freq_ >= 3e6f)    { return TBase_50ns;  }
+    else if(freq_ >= 2e6f)    { return TBase_100ns; }
+    else if(freq_ >= 900e3f)  { return TBase_200ns; }
+    else if(freq_ >= 400e3f)  { return TBase_500ns; }
+    else if(freq_ >= 200e3f)  { return TBase_1us;   }
+    else if(freq_ >= 90e3f)   { return TBase_2us;   }
+    else if(freq_ >= 30e3f)   { return TBase_5us;   }
+    else if(freq_ >= 20e3f)   { return TBase_10us;  }
+    else if(freq_ >= 10e3f)   { return TBase_20us;  }
+    else if(freq_ >= 4e3f)    { return TBase_50us;  }
+    else if(freq_ >= 2e3f)    { return TBase_100us; }
+    else if(freq_ >= 1e3f)    { return TBase_200us; }
     else if(freq_ >= 350.0f) { return TBase_500us; }
     else if(freq_ >= 200.0f) { return TBase_1ms;   }
     else if(freq_ >= 100.0f) { return TBase_2ms;   }
@@ -1093,7 +1093,7 @@ TBase FPGA::FindTBase(Channel chan)
         tBase = CalculateTBase(fr);
         FPGA::SetTBase(tBase);
         FPGA::Start();
-        FPGA::SetTrigInput(fr < 500e3 ? TrigInput_LPF : TrigInput_HPF);
+        FPGA::SetTrigInput(fr < 500e3f ? TrigInput_LPF : TrigInput_HPF);
         return tBase;
     }
     else
