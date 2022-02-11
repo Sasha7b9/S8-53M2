@@ -59,7 +59,7 @@ void Display_Init(void)
         float red = i / 14.0f * 31.0f + 0.5f;
         float green = i / 14.0f * 63.0f + 0.5f;
         float blue = i / 14.0f * 31.0f + 0.5f;
-        set.display.colors[i + 2] = MAKE_COLOR((int)red, (int)green, (int)blue);
+        set.display.colors[i + 2] = (uint16)MAKE_COLOR((int)red, (int)green, (int)blue);
     }
 
     Painter_ResetFlash();
@@ -162,7 +162,7 @@ void Display_Update(void)
 
         int height = 30;
         int fullWidth = 280;
-        int width = fullWidth * ms->percentUpdate;
+        int width = (int)(fullWidth * ms->percentUpdate);
 
         Painter_FillRegion(20, 130, width, height);
         Painter_DrawRectangle(20, 130, fullWidth, height);
@@ -206,7 +206,7 @@ void DrawProgressBar(uint dT)
     Painter_DrawStringInCenterRect(X, y0 + 2 * dH, WIDTH, 10, "Подождите...");
 
     Painter_DrawRectangle(X, Y, WIDTH, HEIGHT);
-    Painter_FillRegion(X, Y, ms->display.value, HEIGHT);
+    Painter_FillRegion(X, Y, (int)ms->display.value, HEIGHT);
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -230,7 +230,7 @@ static void DrawBigMNIPI(void)
     uint time = HAL_GetTick() - startTime;
 
     int numColor = 0;
-    LIMITATION(numColor, time / (float)TIME_WAIT * 13.0f, 0, 13);
+    LIMITATION(numColor, (int)(time / (float)TIME_WAIT * 13.0f), 0, 13);
     Painter_SetColor((Color)(numColor + 2));
 
     float amplitude = 3.0f - (time / (TIME_WAIT / 2.0f)) * 3;
@@ -249,7 +249,7 @@ static void DrawBigMNIPI(void)
 
     for (int i = 0; i < numPoints; i++)
     {
-        int x = array[i].x + shift[array[i].y];
+        int x = (int)(array[i].x + shift[array[i].y]);
         int y = array[i].y;
         if (x > 0 && x < 319 && y > 0 && y < 239)
         {
@@ -271,33 +271,10 @@ static void InitPoints(void)
         {
             if (buffer[x][y])
             {
-                array[numPoints].x = x;
-                array[numPoints].y = y;
+                array[numPoints].x = (uint16)x;
+                array[numPoints].y = (uint8)y;
                 numPoints++;
             }
         }
     }
 }
-
-/*
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawSeconds(void)
-{
-    Painter_DrawTextFormatting(5, 200, COLOR_WHITE, "%f секунд", HAL_GetTick() / 1000.0f);
-}
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------
-static void DrawFrames(void)
-{
-    static int numFrames = 0;
-
-    numFrames++;
-    
-    for (int i = 0; i < numFrames; i++)
-    {
-        Painter_SetPoint(i + 1, 1);
-    }
-
-    Painter_DrawTextFormatting(5, 15, COLOR_WHITE, "%d кадров", numFrames);
-}
-*/

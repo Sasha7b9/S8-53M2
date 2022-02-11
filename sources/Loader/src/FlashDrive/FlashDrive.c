@@ -45,6 +45,8 @@ void FDrive_Init(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8 id)
 {
+    (void)phost;
+
     switch (id)
     {
         case HOST_USER_SELECT_CONFIGURATION:
@@ -96,7 +98,7 @@ void ToLower(char *str)
 {
     while (*str)
     {
-        *str = tolower(*str);
+        *str = (char)tolower((int)*str);
         str++;
     }
 }

@@ -17,7 +17,7 @@ Color gColorChan[4];
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static void SetColor(ColorType *colorType)
 {
-    set.display.colors[colorType->color] = MAKE_COLOR((int)colorType->red, (int)colorType->green, (int)colorType->blue);
+    set.display.colors[colorType->color] = (uint16)MAKE_COLOR((int)colorType->red, (int)colorType->green, (int)colorType->blue);
     Painter_SetPalette(colorType->color);
 }
 
@@ -57,7 +57,7 @@ Color LightShadingTextColor(void)
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
-void Color_Log(Color color)
+void Color_Log(Color)
 {
 }
 

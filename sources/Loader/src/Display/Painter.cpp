@@ -48,11 +48,11 @@ void CalculateColor(uint8 *color)
     currentColor = (Color)*color;
     if (*color == COLOR_FLASH_10)
     {
-        *color = inverseColors ? gColorBack : gColorFill;
+        *color = inverseColors ? (uint8)gColorBack : (uint8)gColorFill;
     }
     else if (*color == COLOR_FLASH_01)
     {
-        *color = inverseColors ? gColorFill : gColorBack;
+        *color = inverseColors ? (uint8)gColorFill : (uint8)gColorBack;
     }
 }
 
@@ -164,7 +164,7 @@ void Painter_SetPalette(Color color)
 {
     uint8 command[4];
     command[0] = SET_PALETTE;
-    *(command + 1) = color;
+    *(command + 1) = (uint8)color;
     *((uint16*)(command + 2)) = set.display.colors[color];
     Painter_SendToDisplay(command, 4);
 }
@@ -180,7 +180,7 @@ void Painter_SetColor(Color color)
             CalculateColor((uint8 *)&color);
         }
         uint8 command[4] = {SET_COLOR};
-        command[1] = color;
+        command[1] = (uint8)color;
         Painter_SendToDisplay(command, 4);
     }
 }
@@ -191,7 +191,7 @@ void Painter_DrawHLine(int y, int x0, int x1)
     CalculateCurrentColor();
     uint8 command[8];
     command[0] = DRAW_HLINE;
-    *(command + 1) = (int8)y;
+    *(command + 1) = (uint8)y;
     *((int16*)(command + 2)) = (int16)x0;
     *((int16*)(command + 4)) = (int16)x1;
     Painter_SendToDisplay(command, 8);
@@ -204,8 +204,8 @@ void Painter_DrawVLine(int x, int y0, int y1)
     uint8 command[8];
     command[0] = DRAW_VLINE;
     *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = (int8)y0;
-    *(command + 4) = (int8)y1;
+    *(command + 3) = (uint8)y0;
+    *(command + 4) = (uint8)y1;
     Painter_SendToDisplay(command, 8);
 }
 
@@ -213,20 +213,20 @@ void Painter_DrawVLine(int x, int y0, int y1)
 void Painter_DrawVPointLine(int x, int y0, int y1, float delta, Color color)
 {
     Painter_SetColor(color);
-    int8 numPoints = (y1 - y0) / delta;
+    int8 numPoints = (int8)((y1 - y0) / delta);
     uint8 command[6];
     command[0] = DRAW_VPOINT_LINE;
     *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = y0;
-    *(command + 4) = delta;
-    *(command + 5) = numPoints;
+    *(command + 3) = (uint8)y0;
+    *(command + 4) = (uint8)delta;
+    *(command + 5) = (uint8)numPoints;
     Painter_SendToDisplay(command, 6);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter_DrawHPointLine(int y, int x0, int x1, float delta)
 {
-    for (int x = x0; x <= x1; x += delta)
+    for (int x = x0; x <= x1; x += (int)delta)
     {
         Painter_SetPoint(x, y);
     }
@@ -238,7 +238,7 @@ void Painter_SetPoint(int x, int y)
     uint8 command[4];
     command[0] = SET_POINT;
     *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = (int8)y;
+    *(command + 3) = (uint8)y;
     Painter_SendToDisplay(command, 4);
 }
 
@@ -247,7 +247,7 @@ static void DrawMultiVPointLineColorEmulate(int numLines, int y, uint16 x[], int
 {
     for (int i = 0; i < numLines; i++)
     {
-        Painter_DrawVPointLine(x[i], y, y + count * delta, delta, color);
+        Painter_DrawVPointLine(x[i], y, y + count * delta, (float)delta, color);
     }
 }
 
@@ -273,10 +273,10 @@ void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int
     Painter_SetColor(color);
     uint8 command[60];
     command[0] = DRAW_MULTI_VPOINT_LINES;
-    *(command + 1) = numLines;
-    *(command + 2) = y;
-    *(command + 3) = count;
-    *(command + 4) = delta;
+    *(command + 1) = (uint8)numLines;
+    *(command + 2) = (uint8)y;
+    *(command + 3) = (uint8)count;
+    *(command + 4) = (uint8)delta;
     *(command + 5) = 0;
     uint8 *pointer = command + 6;
     for(int i = 0; i < numLines; i++) 
@@ -302,10 +302,10 @@ void Painter_DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int 
     Painter_SetColor(color);
     uint8 command[30];
     command[0] = DRAW_MULTI_HPOINT_LINES_2;
-    *(command + 1) = numLines;
-    *((uint16*)(command + 2)) = x;
-    *(command + 4) = count;
-    *(command + 5) = delta;
+    *(command + 1) = (uint8)numLines;
+    *((uint16*)(command + 2)) = (uint8)x;
+    *(command + 4) = (uint8)count;
+    *(command + 5) = (uint8)delta;
     uint8 *pointer = command + 6;
     for (int i = 0; i < numLines; i++)
     {
@@ -345,9 +345,9 @@ void Painter_FillRegion(int x, int y, int width, int height)
     uint8 command[8];
     command[0] = FILL_REGION;
     *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = (int8)y;
+    *(command + 3) = (uint8)y;
     *((int16*)(command + 4)) = (int16)width;
-    *(command + 6) = (int8)height;
+    *(command + 6) = (uint8)height;
     Painter_SendToDisplay(command, 8);
 }
 
@@ -412,7 +412,7 @@ void Painter_DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color)
     {
         numLines = 255;
     }
-    *(command + 3) = numLines;
+    *(command + 3) = (uint8)numLines;
     for (int i = 0; i < numLines; i++)
     {
         *(command + 4 + i * 2) = *(y0y1 + i * 2);
@@ -430,7 +430,7 @@ void Painter_DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color)
 void Painter_DrawSignal(int x, uint8 data[281], bool modeLines)
 {
     uint8 command[284];
-    command[0] = modeLines ? DRAW_SIGNAL_LINES : DRAW_SIGNAL_POINTS;
+    command[0] = (uint8)(modeLines ? DRAW_SIGNAL_LINES : DRAW_SIGNAL_POINTS);
     *((int16*)(command + 1)) = (int16)x;
     for (int i = 0; i < 281; i++)
     {
@@ -509,7 +509,7 @@ Color GetColor(int x, int y)
     uint8 command[4];
     command[0] = GET_POINT;
     *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = (int8)y;
+    *(command + 3) = (uint8)y;
     Painter_SendToDisplay(command, 4);
 
     Get4Bytes(command);
@@ -523,7 +523,7 @@ void Get8Points(int x, int y, uint8 buffer[4])
     uint8 command[4];
     command[0] = GET_POINT;
     *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = (int8)y;
+    *(command + 3) = (uint8)y;
     Painter_SendToDisplay(command, 4);
     Get4Bytes(buffer);
 }
@@ -545,11 +545,11 @@ void Painter_DrawPicture(int x, int y, int width, int height, uint8 *address)
 {
     uint8 command[4];
     command[0] = DRAW_PICTURE;
-    *((uint16*)(command + 1)) = x;
-    *(command + 3) = y;
+    *((uint16*)(command + 1)) = (uint8)x;
+    *(command + 3) = (uint8)y;
     Painter_SendToDisplay(command, 4);
-    *((uint16*)(command)) = width;
-    *(command + 2) = height;
+    *((uint16*)(command)) = (uint8)width;
+    *(command + 2) = (uint8)height;
     *(command + 3) = 0;
     Painter_SendToDisplay(command, 4);
     for (int i = 0; i < width * height / 2 / 4; i++)
@@ -565,11 +565,11 @@ void Painter_DrawPicture(int x, int y, int width, int height, uint8 *address)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 uint16 Painter_ReduceBrightness(uint16 colorValue, float newBrightness)
 {
-    int red = R_FROM_COLOR(colorValue) * newBrightness;
+    int red = (int)(R_FROM_COLOR(colorValue) * newBrightness);
     LIMITATION(red, red, 0, 31);
-    int green = G_FROM_COLOR(colorValue) * newBrightness;
+    int green = (int)(G_FROM_COLOR(colorValue) * newBrightness);
     LIMITATION(green, green, 0, 63);
-    int blue = B_FROM_COLOR(colorValue) * newBrightness;
+    int blue = (int)(B_FROM_COLOR(colorValue) * newBrightness);
     LIMITATION(blue, blue, 0, 31);
-    return MAKE_COLOR(red, green, blue);
+    return (uint16)MAKE_COLOR(red, green, blue);
 }
