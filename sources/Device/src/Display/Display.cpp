@@ -2330,7 +2330,7 @@ int Display::CalculateFreeSize()
     {
         return SIZE_BUFFER_FOR_STRINGS;
     }
-    return SIZE_BUFFER_FOR_STRINGS - (strings[firstEmptyString - 1] - bufferForStrings) - strlen(strings[firstEmptyString - 1]) - 1;
+    return (int)(SIZE_BUFFER_FOR_STRINGS - (strings[firstEmptyString - 1] - bufferForStrings) - strlen(strings[firstEmptyString - 1]) - 1);
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2340,7 +2340,7 @@ void Display::DeleteFirstString()
     {
         return;
     }
-    int delta = strlen(strings[0]) + 1;
+    int delta = (int)strlen(strings[0]) + 1;
     int numStrings = FirstEmptyString();
     for(int i = 1; i < numStrings; i++)
     {
@@ -2364,15 +2364,18 @@ void Display::AddString(const char *string)
     {
         return;
     }
+
     static int num = 0;
     char buffer[100];
     sprintf(buffer, "%d\x11", num++);
     strcat(buffer, string);
-    int size = strlen(buffer) + 1;
+    int size = (int)strlen(buffer) + 1;
+
     while(CalculateFreeSize() < size)
     {
         DeleteFirstString();
     }
+
     if(!strings[0])
     {
         strings[0] = bufferForStrings;
@@ -2513,7 +2516,7 @@ void Display::OnTimerShowWarning()
     uint time = gTimerMS;
     for (int i = 0; i < NUM_WARNINGS; i++)
     {
-        if (time - timeWarnings[i] > TIME_MESSAGES * 1000)
+        if (time - timeWarnings[i] > (uint)TIME_MESSAGES * 1000)
         {
             timeWarnings[i] = 0;
             warnings[i] = 0;

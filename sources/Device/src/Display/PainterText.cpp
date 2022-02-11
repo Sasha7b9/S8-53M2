@@ -56,12 +56,14 @@ bool ByteFontNotEmpty(int eChar, int byte)
 {
     static const uint8 *bytes = 0;
     static int prevChar = -1;
+
     if (eChar != prevChar)
     {
         prevChar = eChar;
         bytes = font->symbol[prevChar].bytes;
     }
-    return bytes[byte];
+
+    return bytes[byte] != 0;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -393,7 +395,8 @@ static bool FindNextTransfer(char *letters, int8 *lettersInSyllable)
 
     bool consonant[20];
 
-    int size = strlen(letters);
+    int size = (int)strlen(letters);
+
     for (int i = 0; i < size; i++)
     {
         consonant[i] = IsConsonant(letters[i]);
@@ -465,11 +468,13 @@ static int8* BreakWord(char *word)
 static char* PartWordForTransfer(char *word, int8* lengthSyllables, int numSyllables, int numSyllable, char buffer[30])
 {
     int length = 0;
+
     for (int i = 0; i <= numSyllable; i++)
     {
         length += lengthSyllables[i];
     }
-    memcpy((void*)buffer, (void*)word, length);
+
+    memcpy((void*)buffer, (void*)word, (uint)length);
     buffer[length] = '-';
     buffer[length + 1] = '\0';
     return buffer;
@@ -501,7 +506,8 @@ int Painter::DrawPartWord(char *word, int x, int y, int xRight, bool draw)
             {
                 DrawText(x, y, subString);
             }
-            return strlen(subString) - 1;
+
+            return (int)strlen(subString) - 1;
         }
     }
 
@@ -517,7 +523,7 @@ int Painter::DrawTextInRectWithTransfers(int eX, int eY, int eWidth, int eHeight
     int bottom = eY + eHeight;
 
     char buffer[20];
-    int numSymb = strlen(text);
+    int numSymb = (int)strlen(text);
 
     int y = top - 1;
     int x = left;
@@ -574,7 +580,7 @@ int Painter::DrawTextInRectWithTransfers(int eX, int eY, int eWidth, int eHeight
 bool Painter::GetHeightTextWithTransfers(int left, int top, int right, const char *text, int *height)
 {
     char buffer[20];
-    int numSymb = strlen(text);
+    int numSymb = (int)strlen(text);
 
     int y = top - 1;
     int x = left;
@@ -830,7 +836,7 @@ void Painter::Draw10SymbolsInRect(int x, int y, char eChar)
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 void Painter::DrawBigText(int eX, int eY, int size, const char *text)
 {
-    int numSymbols = strlen(text);
+    int numSymbols = (int)strlen(text);
 
     int x = eX;
 

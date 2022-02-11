@@ -28,7 +28,7 @@ static void FuncConnect(void)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 char *GetStringFromBuffer(const char *buffer, uint length, char *string)
 {
-    memcpy(string, buffer, (int)length);
+    memcpy(string, buffer, (uint)length);
     string[length] = 'E';
     string[length + 1] = '\0';
     return string;

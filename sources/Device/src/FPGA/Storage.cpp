@@ -126,7 +126,7 @@ void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
 
     if(NumElementsInStorage() == 0 || NUM_MIN_MAX == 1 || (!SettingsIsEquals(dss, GetSettingsDataFromEnd(0))))
     {
-        for(int i = 0; i < numElements; i++)
+        for(uint i = 0; i < numElements; i++)
         {
             limitDown[0][i] = limitUp[0][i] = data0[i];
             limitDown[1][i] = limitUp[1][i] = data1[i];
@@ -139,7 +139,7 @@ void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
         
         if(NumElementsWithSameSettings() >= NUM_MIN_MAX)
         {
-            for(int i = 0; i < numElements; i++)
+            for(uint i = 0; i < numElements; i++)
             {
                 limitDown[0][i] = limitUp[0][i] = data0[i];
                 limitDown[1][i] = limitUp[1][i] = data1[i];
@@ -151,7 +151,7 @@ void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
         {
             const uint8 *dataA = GetData(A, numData);
             const uint8 *dataB = GetData(B, numData);
-            for(int i = 0; i < numElements; i++)
+            for(uint i = 0; i < numElements; i++)
             {
                 if(dataA[i] < limitDown[0][i])  limitDown[0][i] = dataA[i];
                 if(dataA[i] > limitUp[0][i])    limitUp[0][i] = dataA[i];
@@ -185,7 +185,7 @@ void Storage::CalculateSums(void)
         numAveragings = sDisplay_NumAverage();
     }
 
-    for(int i = 0; i < numPoints; i++)
+    for(uint i = 0; i < numPoints; i++)
     {
         sum[0][i] = data0[i];
         sum[1][i] = data1[i];
@@ -200,7 +200,7 @@ void Storage::CalculateSums(void)
         for(int i = 1; i < numAveragings; i++)
         {
             GetDataFromEnd(i, &ds, &data0, &data1);
-            for(int point = 0; point < numPoints; point++)
+            for(uint point = 0; point < numPoints; point++)
             {
                 sum[0][point] += data0[point];
                 sum[1][point] += data1[point];
@@ -326,7 +326,7 @@ bool Storage::CopyData(DataSettings *ds, Channel chan, uint8 datatImportRel[2][F
         address += length;
     }
 
-    memcpy(pointer, address, (int)length);
+    memcpy(pointer, address, length);
 
     return true;
 }
@@ -358,7 +358,7 @@ uint8* Storage::GetAverageData(Channel chan)
     {
         float *floatAveData = (chan == A) ? aveData0 : aveData1;
         
-        for (int i = 0; i < numPoints; i++)
+        for (uint i = 0; i < numPoints; i++)
         {
             data[chan][i] = (uint8)(floatAveData[i]);
         }
@@ -369,7 +369,7 @@ uint8* Storage::GetAverageData(Channel chan)
 
     LIMIT_ABOVE(numAveraging, NumElementsWithSameSettings());
 
-    for(int i = 0; i < numPoints; i++)
+    for(uint i = 0; i < numPoints; i++)
     {
         data[chan][i] = sum[chan][i] / numAveraging;
     }
@@ -406,7 +406,7 @@ int Storage::NumberAvailableEntries(void)
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 #define COPY_AND_INCREASE(address, data, length)    \
-    memcpy((address), (data), (int)(length));       \
+    memcpy((address), (data), (length));       \
     address += (length);
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

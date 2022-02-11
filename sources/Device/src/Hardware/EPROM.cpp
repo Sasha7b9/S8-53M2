@@ -86,7 +86,7 @@ bool EPROM::LoadSettings(void)
         {                                                                                   // за пределы сектора (глюк предыдущей версии сохранения)
             --record;                                                                       // то воспользуемся предыдущими сохранёнными настройками
         }
-        memcpy(&set, (const void *)(record->addrData - 4), record->sizeData);               // Считываем их
+        memcpy(&set, (const void *)(record->addrData - 4), (uint)record->sizeData);               // Считываем их
         EraseSector(ADDR_SECTOR_SETTINGS);                                                  // Стираем сектор настроек
         EPROM::SaveSettings(true);                                                           // И сохраняем настройки в новом формате
     }
@@ -103,7 +103,7 @@ bool EPROM::LoadSettings(void)
         
         if (addressPrev != 0)                   // Если по этому адресу что-то записано
         {
-            memcpy(&set, (const void *)addressPrev, (int)READ_WORD(addressPrev));    // Счтываем сохранённые настройки
+            memcpy(&set, (const void *)addressPrev, READ_WORD(addressPrev));    // Счтываем сохранённые настройки
             return true;
         }
     }
@@ -298,9 +298,9 @@ int EPROM::CalculateSizeData(DataSettings *ds)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-uint EPROM::FreeMemory()
+int EPROM::FreeMemory()
 {
-    return ADDR_SECTOR_DATA_MAIN + 128 * 1024 - FindAddressNextDataInfo() - 1 - 4 * MAX_NUM_SAVED_WAVES - 3000;
+    return (int)(ADDR_SECTOR_DATA_MAIN + 128 * 1024 - FindAddressNextDataInfo() - 1 - 4 * MAX_NUM_SAVED_WAVES - 3000);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -541,7 +541,7 @@ bool OTP::SaveSerialNumber(char *serialNumber)
 
     if (address < (uint8*)FLASH_OTP_END - 16)
     {
-        EPROM::WriteBufferBytes((uint)address, (uint8*)serialNumber, strlen(serialNumber) + 1);
+        EPROM::WriteBufferBytes((uint)address, (uint8*)serialNumber, (int)strlen(serialNumber) + 1);
         return true;
     }
 

@@ -29,7 +29,7 @@
 
 #define MAX_NUM_SAVED_WAVES 23  ///< Пока ограничено количеством квадратиков, которые можно вывести в одну линию внизу сетки
 
-class RecordConfig;
+struct RecordConfig;
 
 class EPROM
 {
@@ -63,7 +63,7 @@ private:
     static int CalculateSizeData(DataSettings *ds);
     static uint FindActualDataInfo();
     static uint FindAddressNextDataInfo();
-    static uint FreeMemory();
+    static int FreeMemory();
     static uint GetSector(uint startAddress);
     static bool RecordExist();
 };

@@ -338,7 +338,7 @@ bool FlashDrive::WriteToFile(uint8* data, int sizeData, StructForWrite *structFo
             dataToCopy = SIZE_FLASH_TEMP_BUFFER - structForWrite->sizeData;
         }
         sizeData -= dataToCopy;
-        memcpy(structForWrite->tempBuffer + structForWrite->sizeData, data, dataToCopy);
+        memcpy(structForWrite->tempBuffer + structForWrite->sizeData, data, (uint)dataToCopy);
         data += dataToCopy;
         structForWrite->sizeData += dataToCopy;
         if (structForWrite->sizeData == SIZE_FLASH_TEMP_BUFFER)
