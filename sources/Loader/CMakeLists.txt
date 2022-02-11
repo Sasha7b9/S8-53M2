@@ -138,10 +138,9 @@ source_group(Settings              FILES ${SETTINGS})
 source_group(Utils                 FILES ${UTILS})
 source_group(Utils/Containers      FILES ${UTILS_CONTAINERS})
 
-                   
-add_library(DLoader ${VS_KEIL_CMSIS} ${VS_KEIL_ARMCLANG} ${VS_KEIL_FATFS} ${LIBS_CMSIS}
-                    ${LIBS_FATFS} ${LIBS_HAL} ${LIBS_USBH}
-                    ${HARDWARE} ${HARDWARE_CMSIS} ${HARDWARE_HAL} ${HARDWARE_FDRIVE}
-                    ${SRC} ${DISPLAY} ${DISPLAY_FONT} ${DISPLAY_PAINTER} ${PANEL} ${SETTINGS}
-                    ${UTILS} ${UTILS_CONTAINERS})
-                    
+
+add_library(${PROJECT_NAME} ${VS_KEIL_CMSIS} ${VS_KEIL_ARMCLANG} ${VS_KEIL_FATFS} ${LIBS_CMSIS}
+                            ${LIBS_FATFS} ${LIBS_HAL} ${LIBS_USBH}
+                            ${HARDWARE} ${HARDWARE_CMSIS} ${HARDWARE_HAL} ${HARDWARE_FDRIVE}
+                            ${SRC} ${DISPLAY} ${DISPLAY_FONT} ${DISPLAY_PAINTER} ${PANEL} ${SETTINGS}
+                            ${UTILS} ${UTILS_CONTAINERS})

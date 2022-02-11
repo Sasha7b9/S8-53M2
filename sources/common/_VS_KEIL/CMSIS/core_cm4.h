@@ -10,7 +10,7 @@
 #endif
 
 #ifndef __STATIC_INLINE
-    #define __STATIC_INLINE
+    #define __STATIC_INLINE inline
 #endif
 
 inline uint32_t __RBIT(uint32_t value)
