@@ -249,7 +249,28 @@ void Painter::DrawVLine(int x, int y0, int y1)
 {
     CalculateCurrentColor();
 
-    SendToDisplay(command, 8);
+    if (x < 0 || x >= Display::WIDTH)
+    {
+        return;
+    }
+
+    BoundingY(y0);
+    BoundingY(y1);
+
+    Math_Sort(&y0, &y1);
+
+    uint8 *address = Display::display_back_buffer + Display::WIDTH * y0 + x;
+
+    int counter = y1 - y0 + 1;
+
+    uint8 value = Painter::CurrentColor();
+
+    do
+    {
+        *address = value;
+        address += Display::WIDTH;
+
+    } while (--counter > 0);
 
     CommandBuffer command(8, DRAW_VLINE);
     command.PushHalfWord(x);

@@ -80,3 +80,14 @@ void Math_Swap(T *value0, T *value1)
 {
     T temp = *value0; *value0 = *value1; *value1 = temp;
 }
+
+template<class T>
+void Math_Sort(T *value1, T *value2)
+{
+    if (*value1 > *value2)
+    {
+        T temp = *value1;
+        *value1 = *value2;
+        *value2 = temp;
+    }
+}
