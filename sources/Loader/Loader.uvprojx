@@ -384,19 +384,9 @@
           <GroupName>Display</GroupName>
           <Files>
             <File>
-              <FileName>Colors.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Display\Colors.c</FilePath>
-            </File>
-            <File>
               <FileName>Colors.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Colors.h</FilePath>
-            </File>
-            <File>
-              <FileName>Display.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Display\Display.c</FilePath>
             </File>
             <File>
               <FileName>Display.h</FileName>
@@ -409,11 +399,6 @@
               <FilePath>.\src\Display\DisplayTypes.h</FilePath>
             </File>
             <File>
-              <FileName>Painter.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Display\Painter.c</FilePath>
-            </File>
-            <File>
               <FileName>Painter.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Painter.h</FilePath>
@@ -424,14 +409,29 @@
               <FilePath>.\src\Display\PainterC.h</FilePath>
             </File>
             <File>
-              <FileName>PainterText.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Display\PainterText.c</FilePath>
-            </File>
-            <File>
               <FileName>PainterText.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\PainterText.h</FilePath>
+            </File>
+            <File>
+              <FileName>Colors.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Colors.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Display.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Display.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Painter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Painter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>PainterText.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\PainterText.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -709,11 +709,6 @@
           <GroupName>Settings</GroupName>
           <Files>
             <File>
-              <FileName>Settings.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Settings\Settings.c</FilePath>
-            </File>
-            <File>
               <FileName>Settings.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Settings\Settings.h</FilePath>
@@ -722,6 +717,11 @@
               <FileName>SettingsTypes.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Settings\SettingsTypes.h</FilePath>
+            </File>
+            <File>
+              <FileName>Settings.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Settings\Settings.cpp</FilePath>
             </File>
           </Files>
         </Group>
