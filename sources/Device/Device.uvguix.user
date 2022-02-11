@@ -6,7 +6,7 @@
   <Header>### uVision Project, (C) Keil Software</Header>
 
   <PrjGuiSettings>
-    <LastAddFilePath></LastAddFilePath>
+    <LastAddFilePath>C:\Projects\S8-53M2\sources\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src</LastAddFilePath>
   </PrjGuiSettings>
 
   <ViewPool/>
@@ -15,7 +15,7 @@
     <View>
       <WinId>38003</WinId>
       <ViewName>Registers</ViewName>
-      <TableColWidths>115 77</TableColWidths>
+      <TableColWidths>162 162</TableColWidths>
     </View>
     <View>
       <WinId>346</WinId>

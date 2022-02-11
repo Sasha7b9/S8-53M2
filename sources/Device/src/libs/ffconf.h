@@ -9,7 +9,7 @@
 / Additional user header to be used  
 /-----------------------------------------------------------------------------*/
 /* Replace 'stm32xxx' with the STM32 Serie used, ex: stm32f4xx_hal.h */
-#include "stm32f2xx_hal.h" 
+#include "stm32f4xx_hal.h" 
 
 /* If uSD is used, then include the uSD BSP header file. 
    Replace 'stm32xxx' with your EVAL board name, ex: stm324x9i_eval_sd.h 
