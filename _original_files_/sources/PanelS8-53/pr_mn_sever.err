@@ -1,7 +1,0 @@
->>> Warning 203 "pr_mn_sever.c" Line 216(1,1): Condition always TRUE
->>> Warning 202 "pr_mn_sever.c" Line 56(6,10): Variable never used:   buff
->>> Warning 202 "pr_mn_sever.c" Line 56(16,18): Variable never used:   tt
->>> Warning 202 "pr_mn_sever.c" Line 56(19,20): Variable never used:   i
-      Memory usage:   ROM=5%      RAM=4% - 4%
-      0 Errors,  4 Warnings.
-Build Successful.
