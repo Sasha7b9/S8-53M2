@@ -395,6 +395,7 @@ bool TCPSocket_Init(void(*_funcConnect)(void), void(*_funcReciever)(const char *
 
 bool TCPSocket_Send(const char *buffer, uint length)
 {
+    /*
     if (pcbClient)
     {
         struct pbuf *tcpBuffer = pbuf_alloc(PBUF_RAW, (uint16)length, PBUF_POOL);
@@ -407,6 +408,9 @@ bool TCPSocket_Send(const char *buffer, uint length)
         mem_free(ss);
     }
     return pcbClient != 0;
+    */
+
+    return true;
 }
 
 
