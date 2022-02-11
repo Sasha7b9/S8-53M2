@@ -136,8 +136,8 @@ static bool GetNameFile(const char *fullPath, int numFile, char *nameFileOut, St
     memcpy(s->nameDir, fullPath, strlen(fullPath));
     s->nameDir[strlen(fullPath)] = '\0';
 
-    s->fno.lfname = s->lfn;
-    s->fno.lfsize = sizeof(s->lfn);
+    strcpy(s->fno.fname, s->lfn);
+    s->fno.fsize = sizeof(s->lfn);
 
     DIR *pDir = &s->dir;
     FILINFO *pFNO = &s->fno;
@@ -163,7 +163,7 @@ static bool GetNameFile(const char *fullPath, int numFile, char *nameFileOut, St
                 }
                 alreadyNull = true;
             }
-            char *fn = *(pFNO->lfname) ? pFNO->lfname : pFNO->fname;
+            char *fn = *(pFNO->fname) ? pFNO->fname : pFNO->fname;
             if (numFile == numFiles && (pFNO->fattrib & AM_DIR) == 0)
             {
                 strcpy(nameFileOut, fn);
@@ -203,7 +203,7 @@ static bool GetNextNameFile(char *nameFileOut, StructForReadDir *s)
         }
         else
         {
-            char *fn = *(pFNO->lfname) ? pFNO->lfname : pFNO->fname;
+            char *fn = *(pFNO->lfname) ? pFNO->fname : pFNO->fname;
             if ((pFNO->fattrib & AM_DIR) == 0 && pFNO->fname[0] != '.')
             {
                 strcpy(nameFileOut, fn);

@@ -31,7 +31,7 @@ Color LightShadingTextColor(void);
 #define DarkShadingTextColor()      COLOR_MENU_TITLE_DARK
 
 
-typedef struct
+struct ColorType
 {
     float   red;
     float   green;
@@ -43,7 +43,7 @@ typedef struct
     Color   color;
     int8    currentField;
     bool    alreadyUsed;
-} ColorType;
+};
 
 /// Вывести в лог значение цвета.
 void Color_Log(Color color);

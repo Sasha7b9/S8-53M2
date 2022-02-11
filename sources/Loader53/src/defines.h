@@ -4,11 +4,13 @@
 #include "globals.h"
 
 typedef unsigned char uint8;
-typedef unsigned int uint;
-typedef signed char int8;
+typedef unsigned int  uint;
+typedef signed char   int8;
 typedef unsigned short int uint16;
-typedef signed short int int16;
-typedef unsigned char uchar;
+typedef signed short int   int16;
+typedef unsigned char      uchar;
+typedef unsigned char     *pchar;
+typedef pchar const        pstring;
 
 #ifndef __cplusplus
 typedef unsigned char bool;

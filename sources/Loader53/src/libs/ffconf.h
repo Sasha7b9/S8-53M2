@@ -4,18 +4,49 @@
   *  Copyright (C) 2017, ChaN, all right reserved.
   *
   ******************************************************************************
-  * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V.
   * All rights reserved.</center></h2>
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                             www.st.com/SLA0044
+  * Redistribution and use in source and binary forms, with or without
+  * modification, are permitted, provided that the following conditions are met:
+  *
+  * 1. Redistribution of source code must retain the above copyright notice,
+  *    this list of conditions and the following disclaimer.
+  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  *    this list of conditions and the following disclaimer in the documentation
+  *    and/or other materials provided with the distribution.
+  * 3. Neither the name of STMicroelectronics nor the names of other
+  *    contributors to this software may be used to endorse or promote products
+  *    derived from this software without specific written permission.
+  * 4. This software, including modifications and/or derivative works of this
+  *    software, must execute solely and exclusively on microcontroller or
+  *    microprocessor devices manufactured by or for STMicroelectronics.
+  * 5. Redistribution and use of this software other than as permitted under
+  *    this license is void and will automatically terminate your rights under
+  *    this license.
+  *
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS"
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR ChA
+  * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT
+  * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
   */
+
+#ifdef WIN32
+#ifndef __weak
+#define __weak
+#endif
+#endif
 
 /*---------------------------------------------------------------------------/
 /  FatFs - FAT file system module configuration file
@@ -44,7 +75,7 @@
 /   3: f_lseek() function is removed in addition to 2. */
 
 
-#define	_USE_STRFUNC	0
+#define	_USE_STRFUNC	1
 /* This option switches string functions, f_gets(), f_putc(), f_puts() and
 /  f_printf().
 /
@@ -70,7 +101,7 @@
 /* This option switches f_expand function. (0:Disable or 1:Enable) */
 
 
-#define _USE_CHMOD		0
+#define _USE_CHMOD		1
 /* This option switches attribute manipulation functions, f_chmod() and f_utime().
 /  (0:Disable or 1:Enable) Also _FS_READONLY needs to be 0 to enable this option. */
 
@@ -117,7 +148,7 @@
 */
 
 
-#define	_USE_LFN	0
+#define	_USE_LFN	3
 #define	_MAX_LFN	255
 /* The _USE_LFN switches the support of long file name (LFN).
 /
@@ -176,7 +207,7 @@
 /  When _STR_VOLUME_ID is set to 1, also pre-defined strings can be used as drive
 /  number in the path name. _VOLUME_STRS defines the drive ID strings for each
 /  logical drives. Number of items must be equal to _VOLUMES. Valid characters for
-/  the drive ID strings are: A-Z and 0-9. */
+/  the drive ID strings are: ChA-Z and 0-9. */
 
 
 #define	_MULTI_PARTITION	0
@@ -262,8 +293,9 @@
 #define _FS_REENTRANT	0
 
 #if _FS_REENTRANT
+#include "cmsis_os.h"
 #define _FS_TIMEOUT		1000
-#define	_SYNC_t       NULL
+#define	_SYNC_t         osSemaphoreId
 #endif
 /* The option _FS_REENTRANT switches the re-entrancy (thread safe) of the FatFs
 /  module itself. Note that regardless of this option, file access to different
@@ -279,22 +311,24 @@
 /
 /  The _FS_TIMEOUT defines timeout period in unit of time tick.
 /  The _SYNC_t defines O/S dependent sync object type. e.g. HANDLE, ID, OS_EVENT*,
-/  SemaphoreHandle_t and etc.. A header file for O/S definitions needs to be
+/  SemaphoreHandle_t and etc.. ChA header file for O/S definitions needs to be
 /  included somewhere in the scope of ff.h. */
 
 /* #include <windows.h>	// O/S definitions  */
 
-#if _USE_LFN == 3
-#if !defined(ff_malloc) || !defined(ff_free)
-#include <stdlib.h>
-#endif
-
+//#if _USE_LFN == 3
+//#if !defined(ff_malloc) || !defined(ff_free)
+//#include <stdlib.h>
+//#endif
+//
 #if !defined(ff_malloc)
+#include <stdlib.h>
 #define ff_malloc malloc
 #endif
-
+//
 #if !defined(ff_free)
+#include <stdlib.h>
 #define ff_free free
 #endif
-#endif
+//#endif
 /*--- End of configuration options ---*/
