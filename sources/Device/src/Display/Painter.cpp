@@ -15,6 +15,7 @@
 #include "FlashDrive/FlashDrive.h"
 #include "Menu/FileManager.h"
 #include "Hardware/HAL/HAL.h"
+#include "Hardware/InterCom.h"
 #include <cstring>
 
 
@@ -176,13 +177,16 @@ static int numberColorsUsed = 0;
 
 
 
-void Painter::SendToVCP(uint8 *pointer, int size)
+void InterCom::Send(uint8 *pointer, int size)
 {
-    if(stateTransmit == StateTransmit_InProcess)
-    {
-        VCP::SendDataSynch(pointer, size);
-        TCPSocket_Send((const char *)pointer, (uint)size);
-    }
+    VCP::SendDataSynch(pointer, size);
+    TCPSocket_Send((const char *)pointer, (uint)size);
+}
+
+
+bool InterCom::TransmitGUIinProcess()
+{
+    return (stateTransmit == StateTransmit_InProcess);
 }
 
 
@@ -191,14 +195,18 @@ void Painter::SetColor(Color color)
     if (color != currentColor)
     {
         currentColor = color;
+
         if (currentColor > NUM_COLORS)
         {
             CalculateColor((uint8 *)&color);
         }
 
-        CommandBuffer command(4, SET_COLOR);
-        command.PushByte(color);
-        SendToVCP(command.Data(), 2);
+        if (InterCom::TransmitGUIinProcess())
+        {
+            CommandBuffer command(4, SET_COLOR);
+            command.PushByte(color);
+            InterCom::Send(command.Data(), 2);
+        }
     }
 }
 
@@ -230,11 +238,14 @@ void Painter::DrawHLine(int y, int x0, int x1)
 
     std::memset(start, Painter::CurrentColor(), (uint)(x1 - x0 + 1));
 
-    CommandBuffer command(8, DRAW_HLINE);
-    command.PushByte(y);
-    command.PushHalfWord(x0);
-    command.PushHalfWord(x1);
-    SendToVCP(command.Data(), 6);
+    if (InterCom::TransmitGUIinProcess())
+    {
+        CommandBuffer command(8, DRAW_HLINE);
+        command.PushByte(y);
+        command.PushHalfWord(x0);
+        command.PushHalfWord(x1);
+        InterCom::Send(command.Data(), 6);
+    }
 }
 
 
@@ -272,11 +283,14 @@ void Painter::DrawVLine(int x, int y0, int y1)
 
     } while (--counter > 0);
 
-    CommandBuffer command(8, DRAW_VLINE);
-    command.PushHalfWord(x);
-    command.PushByte(y0);
-    command.PushByte(y1);
-    SendToVCP(command.Data(), 5);
+    if (InterCom::TransmitGUIinProcess())
+    {
+        CommandBuffer command(8, DRAW_VLINE);
+        command.PushHalfWord(x);
+        command.PushByte(y0);
+        command.PushByte(y1);
+        InterCom::Send(command.Data(), 5);
+    }
 }
 
 
@@ -328,10 +342,13 @@ void Painter::SetPoint(int x, int y)
         *address = Painter::CurrentColor();
     }
 
-    CommandBuffer command(4, SET_POINT);
-    command.PushHalfWord(x);
-    command.PushByte(y);
-    SendToVCP(command.Data(), 4);
+    if (InterCom::TransmitGUIinProcess())
+    {
+        CommandBuffer command(4, SET_POINT);
+        command.PushHalfWord(x);
+        command.PushByte(y);
+        InterCom::Send(command.Data(), 4);
+    }
 }
 
 
@@ -376,23 +393,26 @@ void Painter::DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, in
         }
     }
 
-    CommandBuffer command(60, DRAW_MULTI_VPOINT_LINES);
-    command.PushByte(numLines);
-    command.PushByte(y);
-    command.PushByte(count);
-    command.PushByte(delta);
-    command.PushByte(0);
-    for (int i = 0; i < numLines; i++)
+    if (InterCom::TransmitGUIinProcess())
     {
-        command.PushHalfWord(x[i]);
-    }
-    int numBytes = 1 + 1 + 1 + numLines * 2 + 1 + 1;
-    while(numBytes % 4) 
-    {
-        numBytes++;
-    }
+        CommandBuffer command(60, DRAW_MULTI_VPOINT_LINES);
+        command.PushByte(numLines);
+        command.PushByte(y);
+        command.PushByte(count);
+        command.PushByte(delta);
+        command.PushByte(0);
+        for (int i = 0; i < numLines; i++)
+        {
+            command.PushHalfWord(x[i]);
+        }
+        int numBytes = 1 + 1 + 1 + numLines * 2 + 1 + 1;
+        while (numBytes % 4)
+        {
+            numBytes++;
+        }
 
-    SendToVCP(command.Data(), 1 + 1 + 1 + 1 + 1 + 1 + numLines * 2);
+        InterCom::Send(command.Data(), 1 + 1 + 1 + 1 + 1 + 1 + numLines * 2);
+    }
 }
 
 
@@ -414,27 +434,30 @@ void Painter::DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int
         }
     }
 
-    CommandBuffer command(30, DRAW_MULTI_HPOINT_LINES_2);
-    command.PushByte(numLines);
-    command.PushHalfWord(x);
-    command.PushByte(count);
-    command.PushByte(delta);
-    for (int i = 0; i < numLines; i++)
+    if (InterCom::TransmitGUIinProcess())
     {
-        command.PushByte(y[i]);
-    }
-    int numBytes = 1 +      // command
-        1 +                 // numLines
-        2 +                 // x
-        numLines +          // numLines
-        1 +
-        1;
-    while (numBytes % 4)
-    {
-        numBytes++;
-    }
+        CommandBuffer command(30, DRAW_MULTI_HPOINT_LINES_2);
+        command.PushByte(numLines);
+        command.PushHalfWord(x);
+        command.PushByte(count);
+        command.PushByte(delta);
+        for (int i = 0; i < numLines; i++)
+        {
+            command.PushByte(y[i]);
+        }
+        int numBytes = 1 +      // command
+            1 +                 // numLines
+            2 +                 // x
+            numLines +          // numLines
+            1 +
+            1;
+        while (numBytes % 4)
+        {
+            numBytes++;
+        }
 
-    SendToVCP(command.Data(), 1 + 1 + 2 + 1 + 1 + numLines);
+        InterCom::Send(command.Data(), 1 + 1 + 2 + 1 + 1 + numLines);
+    }
 }
 
 
@@ -465,12 +488,15 @@ void Painter::FillRegion(int x, int y, int width, int height)
         DrawHLine(i, x, x + width - 1);
     }
 
-    CommandBuffer command(8, FILL_REGION);
-    command.PushHalfWord(x);
-    command.PushByte(y);
-    command.PushHalfWord(width);
-    command.PushByte(height);
-    SendToVCP(command.Data(), 7);
+    if (InterCom::TransmitGUIinProcess())
+    {
+        CommandBuffer command(8, FILL_REGION);
+        command.PushHalfWord(x);
+        command.PushByte(y);
+        command.PushHalfWord(width);
+        command.PushByte(height);
+        InterCom::Send(command.Data(), 7);
+    }
 }
 
 
@@ -529,25 +555,28 @@ void Painter::DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color)
         DrawVLine(x++, y0, y1);
     }
 
-    CommandBuffer command(255 * 2 + 4 + 4, DRAW_VLINES_ARRAY);
-    command.PushHalfWord(x);
-    if (numLines > 255)
+    if (InterCom::TransmitGUIinProcess())
     {
-        numLines = 255;
-    }
-    command.PushHalfWord(numLines);
-    for (int i = 0; i < numLines; i++)
-    {
-        command.PushByte(*(y0y1 + i * 2));
-        command.PushByte(*(y0y1 + i * 2 + 1));
-    }
-    int numBytes = numLines * 2 + 4;
-    while (numBytes % 4)
-    {
-        numBytes++;
-    }
+        CommandBuffer command(255 * 2 + 4 + 4, DRAW_VLINES_ARRAY);
+        command.PushHalfWord(x);
+        if (numLines > 255)
+        {
+            numLines = 255;
+        }
+        command.PushHalfWord(numLines);
+        for (int i = 0; i < numLines; i++)
+        {
+            command.PushByte(*(y0y1 + i * 2));
+            command.PushByte(*(y0y1 + i * 2 + 1));
+        }
+        int numBytes = numLines * 2 + 4;
+        while (numBytes % 4)
+        {
+            numBytes++;
+        }
 
-    SendToVCP(command.Data(), 1 + 2 + 1 + 2 * numLines);
+        InterCom::Send(command.Data(), 1 + 2 + 1 + 2 * numLines);
+    }
 }
 
 
@@ -555,13 +584,16 @@ void Painter::DrawSignal(int x, uint8 data[281], bool modeLines)
 {
 //    SendToDisplay(command, 284);
 
-    CommandBuffer command(284, modeLines ? DRAW_SIGNAL_LINES : DRAW_SIGNAL_POINTS);
-    command.PushHalfWord(x);
-    for (int i = 0; i < 281; i++)
+    if (InterCom::TransmitGUIinProcess())
     {
-        command.PushByte(data[i]);
+        CommandBuffer command(284, modeLines ? DRAW_SIGNAL_LINES : DRAW_SIGNAL_POINTS);
+        command.PushHalfWord(x);
+        for (int i = 0; i < 281; i++)
+        {
+            command.PushByte(data[i]);
+        }
+        InterCom::Send(command.Data(), 284);
     }
-    SendToVCP(command.Data(), 284);
 }
 
 
@@ -617,7 +649,10 @@ void Painter::EndScene(bool endScene)
 
     if (endScene)
     {
-        SendToVCP(command.Data(), 1);
+        if (InterCom::TransmitGUIinProcess())
+        {
+            InterCom::Send(command.Data(), 1);
+        }
     }
     if (stateTransmit == StateTransmit_InProcess)
     {

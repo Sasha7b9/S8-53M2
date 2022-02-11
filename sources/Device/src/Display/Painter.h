@@ -11,8 +11,6 @@ public:
 
     static void SetPalette(Color);
 
-    static void SendToVCP(uint8 *pointer, int size);
-
     static void BeginScene(Color color);
 
     static void EndScene(bool endScene = true);
@@ -80,7 +78,7 @@ public:
 
     static int DrawCharC(int x, int y, char symbol, Color color);
 
-    static int DrawText(int x, int y, const char *text);
+    static int DrawText(int x, int y, const char * const text);
 
     static int DrawTextC(int x, int y, const char *text, Color color);
     /// Выводит текст на прямоугольнике цвета colorBackgound

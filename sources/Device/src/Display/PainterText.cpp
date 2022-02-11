@@ -7,6 +7,7 @@
 #include "Utils/Math.h"
 #include "Menu/MenuItems.h"
 #include "Settings/Settings.h"
+#include "Hardware/InterCom.h"
 #include <stdarg.h>
 
 
@@ -21,28 +22,35 @@ void Painter::SetFont(TypeFont typeFont)
     }
     font = fonts[typeFont];
 
-    CommandBuffer command(4, SET_FONT);
-    command.PushByte(typeFont);
-    Painter::SendToVCP(command.Data(), 2);
+    if (InterCom::TransmitGUIinProcess())
+    {
+        CommandBuffer command(4, SET_FONT);
+        command.PushByte(typeFont);
+        InterCom::Send(command.Data(), 2);
+    }
 }
 
 
 void Painter::LoadFont(TypeFont typeFont)
 {
-    uint8 *pFont = (uint8 *)fonts[typeFont];
-
-    CommandBuffer command(2 + 4, LOAD_FONT);
-    command.PushByte(typeFont);
-    command.PushWord(fonts[typeFont]->height);
-    Painter::SendToVCP(command.Data(), 2 + 4);
-
-    pFont += 4;
-
-    for(int i = 0; i < 256; i++)
+    if (InterCom::TransmitGUIinProcess())
     {
-        Painter::SendToVCP(pFont, sizeof(Symbol));
-        pFont += sizeof(Symbol);
-        Timer::PauseOnTicks(10000);
+        uint8 *pFont = (uint8 *)fonts[typeFont];
+
+        CommandBuffer command(2 + 4, LOAD_FONT);
+        command.PushByte(typeFont);
+        command.PushWord(fonts[typeFont]->height);
+
+        InterCom::Send(command.Data(), 2 + 4);
+
+        pFont += 4;
+
+        for (int i = 0; i < 256; i++)
+        {
+            InterCom::Send(pFont, sizeof(Symbol));
+            pFont += sizeof(Symbol);
+            Timer::PauseOnTicks(10000);
+        }
     }
 }
 
@@ -171,54 +179,58 @@ int Painter::DrawCharC(int x, int y, char symbol, Color color)
 }
 
 
-int Painter::DrawText(int x, int y, const char *text)
+int Painter::DrawText(int x, int y, const char * const _text)
 {
-    if (*text == 0)
+    if (*_text == 0)
     {
         return x;
     }
+
     CalculateCurrentColor();
 
-    int retValue = x;
     y += (8 - Font_GetSize());
 
-    const int SIZE_BUFFER = 100;
+    pchar text = _text;
 
-    CommandBuffer command(SIZE_BUFFER, DRAW_TEXT);
-    command.PushHalfWord(x);
-    command.PushByte(y + 1);
-    command.PushByte(0);
-
-    uint8 length = 0;
-
-    int counter = 0;
-    while (*text && length < (SIZE_BUFFER - 7))
+    if (InterCom::TransmitGUIinProcess())
     {
-        command.PushByte(*text);
-        retValue += Font_GetLengthSymbol((uint8)*text);
-        text++;
-        length++;
-        counter++;
+        const int SIZE_BUFFER = 100;
+
+        CommandBuffer command(SIZE_BUFFER, DRAW_TEXT);
+        command.PushHalfWord(x);
+        command.PushByte(y + 1);
+        command.PushByte(0);
+
+        uint8 length = 0;
+
+        int counter = 0;
+        while (*text && length < (SIZE_BUFFER - 7))
+        {
+            command.PushByte(*text);
+            text++;
+            length++;
+            counter++;
+        }
+
+        if (*text != 0)
+        {
+            LOG_WRITE("big string - %s", text);
+        }
+
+        command.PushByte(0);
+        *(command.Data() + 4) = length;
+
+        InterCom::Send(command.Data(), 1 + 2 + 1 + 1 + length);
     }
 
-    if (*text != 0)
+    text = _text;
+
+    while (*text != '\0')
     {
-        LOG_WRITE("big string - %s", text);
+        x = DrawChar(x, y, *text) + 1;
     }
 
-    command.PushByte(0);
-    *(command.Data() + 4) = length;
-
-    Painter::SendToVCP(command.Data(), 1 + 2 + 1 + 1 + length);
-
-    pchar pointer = text;
-
-    while (*pointer != '\0')
-    {
-        x = DrawChar(x, y, *pointer) + 1;
-    }
-
-    return retValue;
+    return x;
 }
 
 
