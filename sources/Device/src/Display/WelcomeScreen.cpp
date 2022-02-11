@@ -1,7 +1,6 @@
 // 2022/02/11 17:45:43 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "WelcomeScreen.h"
-#include "Math3D.h"
 #include "DisplayTypes.h"
 #include "Display/Display.h"
 #include "Display/Painter.h"
