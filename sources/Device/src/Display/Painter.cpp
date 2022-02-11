@@ -345,7 +345,14 @@ void Painter::DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, in
 
     SetColor(color);
 
-    SendToDisplay(command, numBytes);
+    for (int i = 0; i < numLines; i++)
+    {
+        for (int j = 0; j < count; i++)
+        {
+            SetPoint(x[j], y);
+            y += delta;
+        }
+    }
 
     CommandBuffer command(60, DRAW_MULTI_VPOINT_LINES);
     command.PushByte(numLines);
@@ -517,7 +524,7 @@ void Painter::DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color)
 
 void Painter::DrawSignal(int x, uint8 data[281], bool modeLines)
 {
-    SendToDisplay(command, 284);
+//    SendToDisplay(command, 284);
 
     CommandBuffer command(284, modeLines ? DRAW_SIGNAL_LINES : DRAW_SIGNAL_POINTS);
     command.PushHalfWord(x);
