@@ -456,18 +456,17 @@ void Painter::DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color)
         DrawVLine(x++, y0, y1);
     }
 
-    uint8 command[255 * 2 + 4 + 4];
-    command[0] = DRAW_VLINES_ARRAY;
-    *((int16*)(command + 1)) = (int16)x;
+    CommandBuffer command(255 * 2 + 4 + 4, DRAW_VLINES_ARRAY);
+    command.PushHalfWord(x);
     if (numLines > 255)
     {
         numLines = 255;
     }
-    *(command + 3) = (uint8)numLines;
+    command.PushHalfWord(numLines);
     for (int i = 0; i < numLines; i++)
     {
-        *(command + 4 + i * 2) = *(y0y1 + i * 2);
-        *(command + 4 + i * 2 + 1) = *(y0y1 + i * 2 + 1);
+        command.PushByte(*(y0y1 + i * 2));
+        command.PushByte(*(y0y1 + i * 2 + 1));
     }
     int numBytes = numLines * 2 + 4;
     while (numBytes % 4)
@@ -475,21 +474,21 @@ void Painter::DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color)
         numBytes++;
     }
 
-    SendToVCP(command, 1 + 2 + 1 + 2 * numLines);
+    SendToVCP(command.Data(), 1 + 2 + 1 + 2 * numLines);
 }
 
 
 void Painter::DrawSignal(int x, uint8 data[281], bool modeLines)
 {
-    uint8 command[284];
-    command[0] = modeLines ? DRAW_SIGNAL_LINES : DRAW_SIGNAL_POINTS;
-    *((int16*)(command + 1)) = (int16)x;
+    SendToDisplay(command, 284);
+
+    CommandBuffer command(284, modeLines ? DRAW_SIGNAL_LINES : DRAW_SIGNAL_POINTS);
+    command.PushHalfWord(x);
     for (int i = 0; i < 281; i++)
     {
-        *(command + 3 + i) = data[i];
+        command.PushByte(data[i]);
     }
-    SendToDisplay(command, 284);
-    SendToVCP(command, 284);
+    SendToVCP(command.Data(), 284);
 }
 
 
@@ -527,8 +526,6 @@ void Painter::BeginScene(Color color)
 
 void Painter::RunDisplay()
 {
-    uint8 command[4];
-    command[0] = RUN_BUFFER;
     SendToDisplay(command, 4);
 }
 
