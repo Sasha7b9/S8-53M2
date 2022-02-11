@@ -1,7 +1,5 @@
+// 2022/02/11 17:44:28 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-
-
-//#include "defines.h"
 
 
 #define SCREEN_WIDTH            320

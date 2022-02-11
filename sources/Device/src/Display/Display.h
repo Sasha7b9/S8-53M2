@@ -1,3 +1,4 @@
+// 2022/02/11 17:43:18 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "DisplayTypes.h"
 #include "Settings/SettingsTypes.h"

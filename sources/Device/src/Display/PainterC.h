@@ -1,5 +1,4 @@
-
-
+// 2022/02/11 17:45:07 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 
 #define Painter_SetPointC(x, y, color)          Painter_SetColor(color); Painter_SetPoint(x, y);

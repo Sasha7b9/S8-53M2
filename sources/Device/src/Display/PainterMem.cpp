@@ -1,13 +1,10 @@
-
-
+// 2022/02/11 17:45:13 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "PainterMem.h"
-
 
 
 static uint8 *buffer;
 static int width;
 volatile static int height;
-
 
 
 static uint8* FindByte(int x, int y)

@@ -1,7 +1,7 @@
+// 2022/02/11 17:44:44 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "Math3D.h"
 #include <string.h>
 #include <math.h>
-
 
 
 void FillMatriceRotation(Mat4x4 *mat, float angleX, float angleY, float angleZ)
