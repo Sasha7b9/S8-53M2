@@ -48,6 +48,8 @@
 #endif
 #endif
 
+#define  HOST_HANDLE   handleUSBH 
+
 /*---------------------------------------------------------------------------/
 /  FatFs - FAT file system module configuration file
 /---------------------------------------------------------------------------*/

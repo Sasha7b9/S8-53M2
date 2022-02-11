@@ -218,7 +218,7 @@ int FDrive_OpenFileForRead(char *fileName)
 {
     if (f_open(&ms->drive.file, fileName, FA_READ) == FR_OK)
     {
-        return (int)ms->drive.file.fsize;
+        return (int)ms->drive.file.obj.objsize;
     }
     return -1;
 }
