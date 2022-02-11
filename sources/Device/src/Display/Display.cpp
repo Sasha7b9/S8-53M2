@@ -28,11 +28,8 @@
 #include "Utils/ProcessingSignal.h"
 #include "Hardware/Timer.h"
 #include "Log.h"
-#include "PainterMem.h"
 #include <math.h>
 #include <limits.h>
-#include "Hardware/DisplayHardware.inc"
-
 
 
 #define NUM_P2P_POINTS (FPGA_MAX_POINTS)
@@ -59,18 +56,7 @@ static pFuncVV funcAfterDraw    = 0;
 
 void Display::Init() 
 {
-    /*
-    PainterMem_SetBuffer(buffer, 100, 100);
-    PainterMem_FillRect(0, 0, 99, 99, ColorChannel(A));
-    PainterMem_DrawRectangle(10, 10, 10, 30, COLOR_FILL);
-    PainterMem_DrawHLine(90, 10, 90, ColorChannel(B));
-    PainterMem_DrawVLine(90, 10, 90, COLOR_BACK);
-    PainterMem_DrawRectangle(0, 0, 99, 99, COLOR_FILL);
-    */
-
     Painter::ResetFlash();
-
-    InitHardware();
 
     Painter::LoadFont(TypeFont_5);
     Painter::LoadFont(TypeFont_8);
