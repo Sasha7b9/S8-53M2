@@ -208,7 +208,7 @@ int Painter::DrawText(int x, int y, const char *text)
 
     command.PushByte(0);
     *(command.Data() + 4) = length;
-    int numBytes = ((length + 4) / 4) * 4 + 4;
+
     Painter::SendToVCP(command.Data(), 1 + 2 + 1 + 1 + length);
 
     pchar pointer = text;

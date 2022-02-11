@@ -335,6 +335,28 @@ void Painter::SetPoint(int x, int y)
 }
 
 
+Color Painter::GetColor(int x, int y)
+{
+    if (x < 0 || y < 0 || (x > Display::WIDTH - 1) || (y > Display::HEIGHT - 1))
+    {
+        return COLOR_BACK;
+    }
+
+    uint8 *address = Display::display_back_buffer + Display::WIDTH * y + x;
+
+    if (address < Display::display_back_buffer_end)
+    {
+        return (Color)*address;
+    }
+
+    CommandBuffer command(4, GET_POINT);
+    command.PushHalfWord(x);
+    command.PushByte(y);
+
+    return (Color)(command.Data()[0] & 0x0f);
+}
+
+
 void Painter::DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color color) 
 {
     if(numLines > 20) 
@@ -575,12 +597,6 @@ void Painter::BeginScene(Color color)
 }
 
 
-void Painter::RunDisplay()
-{
-    SendToDisplay(command, 4);
-}
-
-
 void Painter::EndScene(bool endScene)
 {
     if (FRAMES_ELAPSED != 1)
@@ -589,7 +605,13 @@ void Painter::EndScene(bool endScene)
         return;
     }
 
-    SendToDisplay(command, 4);
+#ifdef DEBUG
+
+    DrawTextC(260, 21, LANG_RU ? "Отладка" : "Debug", COLOR_FILL);
+
+#endif
+
+    HAL_LTDC::ToggleBuffers();
 
     CommandBuffer command(4, END_SCENE);
 
@@ -602,20 +624,6 @@ void Painter::EndScene(bool endScene)
         VCP::Flush();
         stateTransmit = StateTransmit_Free;
     }
-
-    RunDisplay();
-}
-
-
-Color Painter::GetColor(int x, int y)
-{
-    SendToDisplay(command, 4);
-
-    CommandBuffer command(4, GET_POINT);
-    command.PushHalfWord(x);
-    command.PushByte(y);
-
-    return (Color)(command.Data()[0] & 0x0f);
 }
 
 

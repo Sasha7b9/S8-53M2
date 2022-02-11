@@ -124,8 +124,6 @@ public:
 
 private:
 
-    static void RunDisplay();
-
     static void CalculateCurrentColor();
 
     static Color GetColor(int x, int y);

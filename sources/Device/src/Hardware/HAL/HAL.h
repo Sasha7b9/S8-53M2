@@ -11,9 +11,20 @@ namespace HAL_DAC1
     void SetBrightness(int value);
 };
 
+
 // Используется для связи с FPGA и RAM
 namespace HAL_FMC
 {
     extern uint16 *const ADDR_RAM_DISPLAY_FRONT;    // Видимое изображение дисплея. Находится в RAM и не может исполь-
                                                     // зоваться для других целей
 }
+
+
+namespace HAL_LTDC
+{
+    void Init(uint8 *frontBuffer, uint8 *backBuffer);
+
+    void LoadPalette();
+
+    void ToggleBuffers();
+};
