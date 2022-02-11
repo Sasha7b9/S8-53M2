@@ -15,15 +15,16 @@
 
 
 
-static void Netif_Config();
+//static void Netif_Config();
 
 static struct netif gnetif;
 
 
+/*
 static void FuncConnect(void)
 {
 }
-
+*/
 
 
 char *GetStringFromBuffer(const char *buffer, uint length, char *string)
@@ -35,21 +36,23 @@ char *GetStringFromBuffer(const char *buffer, uint length, char *string)
 }
 
 
+/*
 static void FuncReceiver(const char *buffer, uint length)
 {
     SCPI::AddNewData((uint8 *)buffer, length);
 }
+*/
 
 
 void LAN::Init(void)
 {
-    // Initilaize the LwIP stack
+    /*
     lwip_init();
 
-    // Configure the Network interface
     Netif_Config();
 
     TCPSocket_Init(FuncConnect, FuncReceiver);
+    */
 }
 
 
@@ -67,6 +70,7 @@ void LAN::Update(uint timeMS)
 }
 
 
+/*
 static void Netif_Config(void)
 {
     ip_addr_t ipaddr;
@@ -98,3 +102,4 @@ static void Netif_Config(void)
     // Set the link callback function, this function is called on change of link status
     netif_set_link_callback(&gnetif, ethernetif_update_config);
 }
+*/
