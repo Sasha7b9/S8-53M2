@@ -13,6 +13,9 @@ include_directories(../common/_VS_KEIL/ARMCLANG
                     ../STM32Cube_FW_F4/Middlewares/ST/STM32_USB_Host_Library/Core/Inc
                     ../STM32Cube_FW_F4/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc
                     ../STM32Cube_FW_F4/Middlewares/Third_Party/FatFs/src
+                    ../STM32Cube_FW_F4/Middlewares/ST/STM32_USB_Host_Library/Class/MSC/Inc
+                    ../STM32Cube_FW_F4/Middlewares/Third_Party/LwIP/src/include
+                    ../STM32Cube_FW_F4/Middlewares/Third_Party/LwIP/system
                     src
                     src/libs
 )
@@ -22,9 +25,11 @@ add_definitions(-DSTM32F429xx -DUSE_HAL_DRIVER -DDEVICE)
 if(WIN32)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
 
+    add_compile_options(/wd4100)
     add_compile_options(/wd4103)    # alignment changed after including header, may be due to missing #pragma pack(pop)
     add_compile_options(/wd4201)    # nonstandard extension used : nameless struct/union
     add_compile_options(/wd4211)    # nonstandard extension used : redefined extern to static
+    add_compile_options(/wd4244)
     add_compile_options(/wd4310)    # cast truncates constant value
     add_compile_options(/wd4505)    # 'function': unreferenced function with internal linkage has been removed
     add_compile_options(/wd4514)    # 'function' : unreferenced inline function has been removed
@@ -59,9 +64,24 @@ else()
 
 endif()
 
-file(GLOB SRC        src/*.cpp src/*.h)
+file(GLOB SRC             src/*.cpp src/*.h)
+file(GLOB LIBS            src/libs/*.*)
+file(GLOB DISPLAY         src/Display/*.*)
+file(GLOB DISPLAY_FONT    src/Display/font/*.*)
+file(GLOB ETHERNET        src/Ethernet/*.*)
 
-source_group(src     FILES ${SRC})
+source_group(src          FILES ${SRC})
+source_group(libs         FILES ${LIBS})
+source_group(Display      FILES ${DISPLAY})
+source_group(Display/font FILES ${DISPLAY_FONT})
+source_group(Ethernet     FILES ${ETHERNET})
+
+set_source_files_properties(src/libs/ethernetif.cpp
+                            src/libs/usbd_desc.cpp
+                            src/libs/app_ethernet.cpp
+                            src/libs/usbd_cdc_interface.cpp
+                            src/libs/usbd_conf.c
+                            PROPERTIES HEADER_FILE_ONLY TRUE)
 
 
-add_library(${PROJECT_NAME} ${SRC})
+add_library(${PROJECT_NAME} ${SRC} ${LIBS} ${DISPLAY} ${DISPLAY_FONT} ${ETHERNET})

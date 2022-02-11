@@ -1221,7 +1221,7 @@ bool Display::NeedForClearScreen()
         NEED_FINISH_REDRAW = 0;
         return true;
     }
-    if (MODE_ACCUM_IS_RESET && NUM_DRAWING_SIGNALS >= numAccum)
+    if (MODE_ACCUM_IS_RESET && NUM_DRAWING_SIGNALS >= (uint)numAccum)
     {
         NUM_DRAWING_SIGNALS = 0;
         return true;
