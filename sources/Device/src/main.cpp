@@ -20,7 +20,7 @@
 #include "Utils/ProcessingSignal.h"
 
 
-static void ProcessingSignal();
+//static void ProcessingSignal();
 
 #define TICS ((gTimerTics - time) / 120.0f)
 
@@ -29,6 +29,7 @@ extern void main3();
 
 int main(void)
 {
+    /*
     Hardware::Init();
     VCP::Init();
     Settings::Load(false);
@@ -55,10 +56,12 @@ int main(void)
         Menu::UpdateInput();                 // Обновляем состояние меню
         //VCP::Update();
     }
+    */
 }
 
 
-void ProcessingSignal() 
+/*
+static void ProcessingSignal()
 {
     uint8 **data0 = &gData0;
     uint8 **data1 = &gData1;
@@ -106,3 +109,4 @@ void ProcessingSignal()
 
     Cursors_Update();    // В случае, если находимся в режиме курсорных измерений, обновляем их положение, если нужно.
 }
+*/
