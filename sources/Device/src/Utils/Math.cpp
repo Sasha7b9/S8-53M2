@@ -160,7 +160,7 @@ void Math_PointsRelToVoltage(const uint8 *points, int numPoints, Range range, in
     int voltInPixel = voltsInPixelInt[range];
     float maxVoltsOnScreen = MAX_VOLTAGE_ON_SCREEN(range);
     float rShiftAbs = RSHIFT_2_ABS(rShift, range);
-    int diff = (MIN_VALUE * voltInPixel) + (maxVoltsOnScreen + rShiftAbs) * 20e3;;
+    int diff = (MIN_VALUE * voltInPixel) + (maxVoltsOnScreen + rShiftAbs) * 20e3f;
     float koeff = 1.0f / 20e3f;
     for (int i = 0; i < numPoints; i++)
     {
@@ -321,7 +321,7 @@ static void MultiplyToWindow(float *data, int numPoints)
     {
         for (int i = 0; i < numPoints; i++)
         {
-            data[i] *= 0.5f * (1.0f - cos(2.0f * 3.1415926 * i / (numPoints - 1.0f)));
+            data[i] *= 0.5f * (1.0f - cos(2.0f * 3.1415926f * i / (numPoints - 1.0f)));
         }
     }
 #endif
@@ -333,7 +333,7 @@ static void MultiplyToWindow(float *data, int numPoints)
 
 void Math_CalculateFFT(float *dataR, int numPoints, float *result, float *freq0, float *density0, float *freq1, float *density1, int *y0, int *y1)
 {
-    float scale = 1.0 / absStepTShift[SET_TBASE] / 1024.0;
+    float scale = 1.0f / absStepTShift[SET_TBASE] / 1024.0f;
 
     float K = 1024.0 / numPoints;
 
