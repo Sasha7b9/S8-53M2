@@ -1,16 +1,7 @@
-
-
+// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "SettingsTypes.h"
 #include "defines.h"
-
-
-/** @addtogroup Settings
- *  @{
- *  @defgroup SettingsTime
- *  @{
- */
-
 
 
 #define SET_TBASE                           (set.time.tBase)        ///< SettingTime.tBase
@@ -108,7 +99,3 @@ int16 sTime_TShiftMin();
 int16 sTime_TShiftZero();
 /// Если true, значит, работает рандомизатор.
 bool sTime_RandomizeModeEnabled();
-
-
-/** @}  @}
- */

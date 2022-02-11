@@ -1,13 +1,6 @@
+// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "Utils/Measures.h"
-
-
-/** @addtogroup Settings
- *  @{
- *  @defgroup SettingsMeasures
- *  @{
- */
-
 
 
 #define MEAS_NUM                        (set.measures.number)                           ///< SettingsMeasuers.number
@@ -94,8 +87,3 @@ typedef struct
     CursActive      cursActive;         ///<  акие курсоры активны - по времени или напр€жению.
     Measure         markedMeasure;      ///< »змерение, на которое нужно выводить маркеры.
 } SettingsMeasures;
-
-
-
-/** @}  @}
- */

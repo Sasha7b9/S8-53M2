@@ -1,16 +1,6 @@
-
-
+// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 
-
-
-
-
-/** @addtogroup Settings
- *  @{
- *  @defgroup SettingsCursors Settings Cursors
- *  @{
- */
 
 #define CURSORS_SHOW_FREQ           (set.cursors.showFreq)                      ///< SettingsCursors.showFreq
 #define CURS_MOVEMENT               (set.cursors.movement)                      ///< SettingsCursors.movement
@@ -86,7 +76,3 @@ const char* sCursors_GetCursorTime(Channel source, int numCur, char buffer[20]);
 const char* sCursors_GetCursorPercentsU(Channel source, char buffer[20]);
 /// Получить строку процентов курсоров времени.
 const char* sCursors_GetCursorPercentsT(Channel source, char buffer[20]);
-
-
-/** @}  @}
- */

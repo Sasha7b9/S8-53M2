@@ -1,13 +1,5 @@
+// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-
-
-
-/** @addtogroup Settings
- *  @{
- *  @defgroup SettingsService
- *  @{
- */
-
 
 
 #define SOUND_ENABLED       (set.service.soundEnabled)          ///< SettingsService.soundEnabled
@@ -56,6 +48,3 @@ typedef struct
 bool sService_MathEnabled();
 
 float sService_MathGetFFTmaxDBabs();
-
-/** @}  @}
- */

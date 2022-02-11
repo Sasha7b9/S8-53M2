@@ -1,13 +1,8 @@
+// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "Globals.h"
 #include "VCP/VCP.h"
 #include "Ethernet/TcpSocket.h"
-
-
-/** @defgroup SCPI
- *  @{
- */
-
 
 
 #define ENTER_ANALYSIS                                  \
@@ -141,7 +136,3 @@ private:
         static void OFFSET(uint8 *buffer);
     };
 };
-
-
-/** @}
- */

@@ -1,15 +1,8 @@
+// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "defines.h"
 #include "SettingsTypes.h"
 #include "Display/Colors.h"
-
-
-/** @addtogroup Settings
- *  @{
- *  @defgroup SettingsDisplay
- *  @{
- */
-
 
 
 #define TIME_SHOW_LEVELS            (set.display.timeShowLevels)                ///< SettingsDisplay.timeShowLevels
@@ -242,7 +235,3 @@ void sDisplay_SetBrightness(int16 brightness);
 ModeAveraging sDisplay_ModeAveraging();
 
 int sDisplay_NumAverage();
-
-
-/** @}  @}
- */

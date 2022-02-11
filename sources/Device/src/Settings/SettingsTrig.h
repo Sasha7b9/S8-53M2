@@ -1,16 +1,7 @@
-
-
+// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "defines.h"
 #include "SettingsTypes.h"
-
-
-/** @addtogroup Settings
- *  @{
- *  @addtogroup SettingsTrig
- *  @{
- */
-
 
 
 #define START_MODE              (set.trig.startMode)                    ///< SettingsTrig.startMode
@@ -103,7 +94,3 @@ typedef struct
     ModeLongPressTrig   modeLongPressTrig;  ///< Режим работы длительного нажатия кнопки СИНХР.
     TrigModeFind        modeFind;           ///< Поиск синхронизации - вручную или автоматически.
 } SettingsTrig;
-
-
-/** @}  @}
- */

@@ -1,13 +1,6 @@
+// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "defines.h"
-
-
-/** @addtogroup Settings
- *  @{
- *  @defgroup SettingsMemory
- *  @{
- */
-
 
 
 #define ENUM_POINTS                 (set.memory.fpgaNumPoints)                      ///< SettingsMemory.fpgaNumPoints
@@ -118,7 +111,3 @@ typedef struct
 int sMemory_GetNumPoints(bool forCalculate);
 
 ENUM_POINTS_FPGA sMemory_IntNumPoints2FPGA_NUM_POINTS(int numPoints);
-
-
-/** @}  @}
- */

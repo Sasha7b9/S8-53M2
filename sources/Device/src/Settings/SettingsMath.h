@@ -1,12 +1,5 @@
+// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-
-
-/** @addtogroup Settings
- *  @{
- *  @defgroup SettingsMath
- *  @{
- */
-
 
 
 #define SCALE_FFT                   (set.math.scaleFFT)                 ///< SettingMath.scaleFFT
@@ -126,7 +119,3 @@ typedef struct
     Divider      multiplier;     ///< Множитель масштаба математического сигнала.
     int16           rShift;         ///< Смещение по вертикальной оси математического сигнала.
 } SettingsMath;
-
-
-/** @}  @}
- */
