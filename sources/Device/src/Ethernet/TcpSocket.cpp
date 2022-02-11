@@ -342,6 +342,7 @@ err_t CallbackOnAcceptPolicyPort(void *_arg, struct tcp_pcb *_newPCB, err_t _err
 
 bool TCPSocket_Init(void(*_funcConnect)(void), void(*_funcReciever)(const char *_buffer, uint _length))
 {
+    /*
     struct tcp_pcb *pcb = tcp_new();
     if (pcb != NULL)
     {
@@ -385,6 +386,8 @@ bool TCPSocket_Init(void(*_funcConnect)(void), void(*_funcReciever)(const char *
     }
 
     pcbClient = 0;
+
+    */
 
     return true;
 }
