@@ -35,7 +35,7 @@ int main(void)
     FPGA::Init();    
     Timer::PauseOnTime(250);
     FPGA::OnPressStartStop();
-    LAN::Init();
+//    LAN::Init();
     Display::Init();
 
     while(1)
@@ -48,7 +48,7 @@ int main(void)
 
         Timer::StartMultiMeasurement();      // Сброс таймера для замера длительности временных интервалов в течение одной итерации цикла.
         FlashDrive::Update();
-        LAN::Update(0);
+//        LAN::Update(0);
         FPGA::Update();                      // Обновляем аппаратную часть.
         ProcessingSignal();
         Display::Update();                   // Рисуем экран.
