@@ -23,8 +23,6 @@ public:
 
     static void LoadPalette();
 
-    static void SetPalette(Color color);
-
     static void SetPoint(int x, int y);
 
     static void DrawHLine(int y, int x0, int x1);

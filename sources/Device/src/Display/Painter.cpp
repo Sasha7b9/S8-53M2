@@ -181,17 +181,6 @@ static void Get4Bytes(uint8 bytes[4])
 }
 
 
-void Painter::SetPalette(Color color)
-{
-    uint8 command[4];
-    command[0] = SET_PALETTE;
-    *(command + 1) = color;
-    *((uint16*)(command + 2)) = set.display.colors[color];
-    SendToDisplay(command, 4);
-    SendToVCP(command, 4);
-}
-
-
 void Painter::SetColor(Color color)
 {
     if (color != currentColor)
