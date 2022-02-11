@@ -200,7 +200,22 @@ void Painter::DrawHLine(int y, int x0, int x1)
 {
     CalculateCurrentColor();
 
-    SendToDisplay(command, 8);
+    if (y < 0 || y >= Display::HEIGHT)
+    {
+        return;
+    }
+
+    BoundingX(x0);
+    BoundingX(x1);
+
+    if (x0 > x1)
+    {
+        Math::Swap(&x0, &x1);
+    }
+
+    uint8 *start = &Display::back[y][x0];
+
+    std::memset(start, Color::Get().ValueForDraw(), (uint)(x1 - x0 + 1));
 
     CommandBuffer command(8, DRAW_HLINE);
     command.PushByte(y);
@@ -267,7 +282,17 @@ void Painter::DrawHPointLine(int y, int x0, int x1, float delta)
 
 void Painter::SetPoint(int x, int y)
 {
-    SendToDisplay(command, 4);
+    if (x < 0 || y < 0 || (x > Display::WIDTH - 1) || (y > Display::HEIGHT - 1))
+    {
+        return;
+    }
+
+    uint8 *address = Display::display_back_buffer + Display::WIDTH * y + x;
+
+    if (address < Display::display_back_buffer_end)
+    {
+        *address = Color::Get().ValueForDraw();
+    }
 
     CommandBuffer command(4, SET_POINT);
     command.PushHalfWord(x);

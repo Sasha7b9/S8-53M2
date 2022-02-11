@@ -7,6 +7,9 @@
 class Painter 
 {
 public:
+
+    static void SetPalette(Color);
+
     static void SendToVCP(uint8 *pointer, int size);
 
     static void BeginScene(Color color);

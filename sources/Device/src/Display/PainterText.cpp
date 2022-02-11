@@ -174,9 +174,6 @@ int Painter::DrawCharC(int x, int y, char symbol, Color color)
 
 int Painter::DrawText(int x, int y, const char *text)
 {
-#undef SIZE_BUFFER
-#define SIZE_BUFFER 100
-
     if (*text == 0)
     {
         return x;
@@ -185,6 +182,8 @@ int Painter::DrawText(int x, int y, const char *text)
 
     int retValue = x;
     y += (8 - Font_GetSize());
+
+    const int SIZE_BUFFER = 100;
 
     CommandBuffer command(SIZE_BUFFER, DRAW_TEXT);
     command.PushHalfWord(x);
@@ -214,8 +213,6 @@ int Painter::DrawText(int x, int y, const char *text)
     Painter::SendToDisplay(command, numBytes);
     Painter::SendToVCP(command.Data(), 1 + 2 + 1 + 1 + length);
     return retValue;
-#undef SIZE_BUFFER
-
 }
 
 
