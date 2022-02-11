@@ -1,5 +1,4 @@
-
-
+// 2022/02/11 15:58:35 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Display/DisplayTypes.h"
 #include "font.h"

@@ -1,3 +1,4 @@
+// 2022/02/11 15:58:49 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "Colors.h"
 #include "Settings/Settings.h"
 #include "Log.h"
