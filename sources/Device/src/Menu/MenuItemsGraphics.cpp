@@ -1,3 +1,4 @@
+// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "MenuItemsGraphics.h"
 #include "MenuItemsLogic.h"
 #include "Menu.h"

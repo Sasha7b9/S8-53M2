@@ -1,3 +1,4 @@
+// 2022/2/11 19:32:45 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "stm32f4xx_hal.h"
 #include "usbd_core.h"

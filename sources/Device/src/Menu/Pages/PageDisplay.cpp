@@ -1,10 +1,10 @@
+// 2022/2/11 19:48:06 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "Menu/MenuItems.h"
 #include "defines.h"
 #include "Menu/Menu.h"
 #include "Tables.h"
 #include "Display/Painter.h"
 #include "FPGA/FPGA.h"
-//#include "FPGA/DataStorage.h"
 #include "Settings/SettingsTypes.h"
 #include "Settings/Settings.h"
 #include "Utils/GlobalFunctions.h"

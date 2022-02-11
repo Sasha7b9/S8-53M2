@@ -1,3 +1,4 @@
+// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "Settings.h"
 #include "Hardware/EPROM.H"
 #include "Display/Display.h"
@@ -11,11 +12,6 @@
 #include "Menu/Menu.h"
 #include "Log.h"
 #include <string.h>
-
-
-/** @addtogroup Settings
- *  @{
- */
 
 
 static const Settings defaultSettings =
@@ -370,6 +366,3 @@ Range& operator--(Range &range)
     range = (Range)((int)range - 1);
     return range;
 }
-
-/** @}
- */

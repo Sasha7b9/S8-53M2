@@ -1,17 +1,6 @@
-
-
+// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "SettingsTypes.h"
-
-
-
-
-
-/** @addtogroup Settings
- *  @{
- *  @defgroup SettingsChannel Settings Channel
- *  @{
- */
 
 
 #define SET_INVERSE(ch)         (set.chan[ch].inverse)          ///< SettingsChannel.inverse
@@ -67,6 +56,3 @@ bool sChannel_Enabled(Channel chan);
 const char *sChannel_Range2String(Range range, Divider multiplier);
 
 const char *sChannel_RShift2String(int16 rShiftRel, Range range, Divider multiplier, char buffer[20]);
-
-/** @}  @}
- */

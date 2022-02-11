@@ -1,3 +1,4 @@
+// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "SettingsTypes.h"
 #include "Utils/Measures.h"
@@ -16,13 +17,7 @@
 #include "SettingsMath.h"
 
 
-/** @defgroup Settings
- *  @{
- */
-
-
 #define RSHIFT_ADD(ch, range, closed) set.chan[ch].rShiftAdd[range][closed]
-
 
  
  /// Настройки каналов
@@ -236,7 +231,3 @@ struct Settings
 };
 
 extern Settings set;
-
-
-/** @}
- */

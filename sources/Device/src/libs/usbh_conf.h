@@ -1,3 +1,4 @@
+// 2022/2/11 19:33:20 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include <stm32f4xx.h>
 #include <stdio.h>

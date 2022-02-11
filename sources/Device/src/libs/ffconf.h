@@ -1,4 +1,4 @@
-//
+// 2022/2/11 19:25:26 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #ifdef WIN32
 #ifndef __weak
 #define __weak

@@ -1,5 +1,4 @@
-
-
+// 2022/2/11 19:25:31 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #ifdef WIN32
 #define __attribute__(x)

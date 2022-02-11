@@ -1,5 +1,4 @@
-
-
+// 2022/2/11 19:32:11 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "main.h"
 #include "Globals.h"
 #include "VCP/VCP.h"

@@ -1,3 +1,4 @@
+// 2022/2/11 19:49:24 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "Utils/GlobalFunctions.h"
 #include "Globals.h"
 #include "Menu/MenuItems.h"

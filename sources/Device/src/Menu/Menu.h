@@ -1,11 +1,7 @@
+// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "Panel/Controls.h"
 #include "MenuItems.h"
-
-
-/** @defgroup Menu
- *  @{
- */
 
 
 class Menu
@@ -172,6 +168,3 @@ private:
     
     static void ProcessButtonForHint(PanelButton button);
 };
-
-/** @}
- */
