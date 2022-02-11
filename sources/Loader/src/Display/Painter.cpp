@@ -518,17 +518,6 @@ Color GetColor(int x, int y)
 }
 
 
-void Get8Points(int x, int y, uint8 buffer[4])
-{
-    uint8 command[4];
-    command[0] = GET_POINT;
-    *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = (uint8)y;
-    Painter_SendToDisplay(command, 4);
-    Get4Bytes(buffer);
-}
-
-
 uint8 Get2Points(int x, int y)
 {
     while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET) {};

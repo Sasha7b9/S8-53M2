@@ -32,13 +32,10 @@ void Painter::LoadFont(TypeFont typeFont)
 {
     uint8 *pFont = (uint8 *)fonts[typeFont];
 
-    uint8 command[2 + 4];
-    command[0] = LOAD_FONT;
-    command[1] = typeFont;
-    *(uint*)(command + 2) = (uint)fonts[typeFont]->height;
-    Painter::SendToVCP(command, 2 + 4);
-
-    //Painter::SendToVCP(pFont + 4, sizeof(Font) - 4);
+    CommandBuffer command(2 + 4, LOAD_FONT);
+    command.PushByte(typeFont);
+    command.PushWord(fonts[typeFont]->height);
+    Painter::SendToVCP(command.Data(), 2 + 4);
 
     pFont += 4;
 
@@ -188,20 +185,20 @@ int Painter::DrawText(int x, int y, const char *text)
 
     int retValue = x;
     y += (8 - Font_GetSize());
-    uint8 command[SIZE_BUFFER];
-    command[0] = DRAW_TEXT;
-    *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = (uint8)(y + 1);
-    uint8 *pointer = command + 5;
+
+    CommandBuffer command(SIZE_BUFFER, DRAW_TEXT);
+    command.PushHalfWord(x);
+    command.PushByte(y + 1);
+    command.PushByte(0);
+
     uint8 length = 0;
 
     int counter = 0;
     while (*text && length < (SIZE_BUFFER - 7))
     {
-        *pointer = (uint8)(*text);
+        command.PushByte(*text);
         retValue += Font_GetLengthSymbol((uint8)*text);
         text++;
-        pointer++;
         length++;
         counter++;
     }
@@ -211,11 +208,11 @@ int Painter::DrawText(int x, int y, const char *text)
         LOG_WRITE("big string - %s", text);
     }
 
-    *pointer = 0;
-    *(command + 4) = length;
+    command.PushByte(0);
+    *(command.Data() + 4) = length;
     int numBytes = ((length + 4) / 4) * 4 + 4;
     Painter::SendToDisplay(command, numBytes);
-    Painter::SendToVCP(command, 1 + 2 + 1 + 1 + length);
+    Painter::SendToVCP(command.Data(), 1 + 2 + 1 + 1 + length);
     return retValue;
 #undef SIZE_BUFFER
 

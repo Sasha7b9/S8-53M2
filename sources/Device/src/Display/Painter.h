@@ -68,8 +68,6 @@ public:
     /// modeLines - true - точками, false - точками
     static void DrawSignal(int x, uint8 data[281], bool modeLines);
 
-    static void DrawPicture(int x, int y, int width, int height, uint8 *address);
-
     static bool SaveScreenToFlashDrive();
 
     static void SetFont(TypeFont typeFont);
@@ -129,8 +127,6 @@ private:
     static void CalculateCurrentColor();
 
     static Color GetColor(int x, int y);
-
-    static void Get8Points(int x, int y, uint8 buffer[4]);
 
     static void DrawCharHardCol(int x, int y, char symbol);
 

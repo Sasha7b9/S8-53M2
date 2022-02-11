@@ -12,6 +12,7 @@ struct CommandBuffer
     void PushByte(int);
     void PushHalfWord(uint16);
     void PushHalfWord(int);
+    void PushWord(int);
     uint8 *Data();
 };
 

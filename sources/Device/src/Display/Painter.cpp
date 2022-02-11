@@ -570,17 +570,6 @@ Color Painter::GetColor(int x, int y)
 }
 
 
-void Painter::Get8Points(int x, int y, uint8 buffer[4])
-{
-    uint8 command[4];
-    command[0] = GET_POINT;
-    *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = (uint8)y;
-    SendToDisplay(command, 4);
-    Get4Bytes(buffer);
-}
-
-
 uint8 Get2Points(int x, int y)
 {
     while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET) {};
@@ -590,28 +579,6 @@ uint8 Get2Points(int x, int y)
     *ADDR_CDISPLAY = (uint8)y;
     while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET) {};
     return *ADDR_CDISPLAY;
-}
-
-
-void Painter::DrawPicture(int x, int y, int width, int height, uint8 *address)
-{
-    uint8 command[4];
-    command[0] = DRAW_PICTURE;
-    *((uint16*)(command + 1)) = (uint16)x;
-    *(command + 3) = (uint8)y;
-    SendToDisplay(command, 4);
-    *((uint16*)(command)) = (uint16)width;
-    *(command + 2) = (uint8)height;
-    *(command + 3) = 0;
-    SendToDisplay(command, 4);
-    for (int i = 0; i < width * height / 2 / 4; i++)
-    {
-        *(command) = *address++;
-        *(command + 1) = *address++;
-        *(command + 2) = *address++;
-        *(command + 3) = *address++;
-        SendToDisplay(command, 4);
-    }
 }
 
 
