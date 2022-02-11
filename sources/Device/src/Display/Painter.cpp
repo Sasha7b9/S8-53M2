@@ -383,7 +383,14 @@ void Painter::DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int
     }
     SetColor(color);
 
-    SendToDisplay(command, numBytes);
+    for (int i = 0; i < numLines; i++)
+    {
+        for (int j = 0; j < count; j++)
+        {
+            SetPoint(x, y[j]);
+            x += delta;
+        }
+    }
 
     CommandBuffer command(30, DRAW_MULTI_HPOINT_LINES_2);
     command.PushByte(numLines);
@@ -394,10 +401,10 @@ void Painter::DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int
     {
         command.PushByte(y[i]);
     }
-    int numBytes = 1 +     // command
-        1 +     // numLines
-        2 +     // x
-        numLines +    // numLines
+    int numBytes = 1 +      // command
+        1 +                 // numLines
+        2 +                 // x
+        numLines +          // numLines
         1 +
         1;
     while (numBytes % 4)
