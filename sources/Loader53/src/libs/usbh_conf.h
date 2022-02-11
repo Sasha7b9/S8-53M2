@@ -1,22 +1,4 @@
-/**
-  ******************************************************************************
-  * @file    FatFs/FatFs_USBDisk/Inc/usbh_conf.h
-  * @author  MCD Application Team
-  * @brief   General low level driver configuration
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                             www.st.com/SLA0044
-  *
-  ******************************************************************************
-  */
-/* Define to prevent recursive inclusion -------------------------------------*/
+// 2021/06/24 14:59:22 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #ifndef __USBH_CONF_H
 #define __USBH_CONF_H
 
