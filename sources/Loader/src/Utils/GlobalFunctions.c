@@ -1,12 +1,11 @@
+// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "GlobalFunctions.h"
 #include "Settings/Settings.h"
 #include "Math.h"
-
 #include <math.h>
 #include <string.h>
 #include <ctype.h>
-
 
 
 

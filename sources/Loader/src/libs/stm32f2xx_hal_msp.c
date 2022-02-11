@@ -1,3 +1,4 @@
+// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "Hardware/Hardware.h"
 #include <stm32f4xx_hal.h>
 #include <stm32f4xx_hal_sram.h>

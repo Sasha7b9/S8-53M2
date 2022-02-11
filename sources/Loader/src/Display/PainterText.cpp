@@ -1,3 +1,4 @@
+// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "PainterText.h"
 #include "DisplayTypes.h"
 #include "font/Font.h"
@@ -5,9 +6,7 @@
 #include <stdarg.h>
 
 
-
 static TypeFont currentTypeFont = TypeFont_None;
-
 
 
 void Painter_SetFont(TypeFont typeFont)

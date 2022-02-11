@@ -1012,19 +1012,9 @@
               <FilePath>.\src\Display\WelcomeScreen.h</FilePath>
             </File>
             <File>
-              <FileName>PainterMem.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\PainterMem.h</FilePath>
-            </File>
-            <File>
               <FileName>Symbols.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Symbols.h</FilePath>
-            </File>
-            <File>
-              <FileName>PainterMem.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\PainterMem.cpp</FilePath>
             </File>
             <File>
               <FileName>Colors.cpp</FileName>
@@ -1669,11 +1659,6 @@
               <FilePath>.\src\Settings\SettingsDisplay.cpp</FilePath>
             </File>
             <File>
-              <FileName>SettingsMeasures.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Settings\SettingsMeasures.cpp</FilePath>
-            </File>
-            <File>
               <FileName>SettingsMeasures.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Settings\SettingsMeasures.h</FilePath>
@@ -1732,16 +1717,6 @@
               <FileName>ProcessingSignal.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\ProcessingSignal.h</FilePath>
-            </File>
-            <File>
-              <FileName>Stack2500uint16.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Stack2500uint16.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Stack2500uint16.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\Stack2500uint16.h</FilePath>
             </File>
             <File>
               <FileName>CreateTables.py</FileName>
@@ -2918,19 +2893,9 @@
               <FilePath>.\src\Display\WelcomeScreen.h</FilePath>
             </File>
             <File>
-              <FileName>PainterMem.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\PainterMem.h</FilePath>
-            </File>
-            <File>
               <FileName>Symbols.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Symbols.h</FilePath>
-            </File>
-            <File>
-              <FileName>PainterMem.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\PainterMem.cpp</FilePath>
             </File>
             <File>
               <FileName>Colors.cpp</FileName>
@@ -3575,11 +3540,6 @@
               <FilePath>.\src\Settings\SettingsDisplay.cpp</FilePath>
             </File>
             <File>
-              <FileName>SettingsMeasures.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Settings\SettingsMeasures.cpp</FilePath>
-            </File>
-            <File>
               <FileName>SettingsMeasures.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Settings\SettingsMeasures.h</FilePath>
@@ -3638,16 +3598,6 @@
               <FileName>ProcessingSignal.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\ProcessingSignal.h</FilePath>
-            </File>
-            <File>
-              <FileName>Stack2500uint16.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Stack2500uint16.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Stack2500uint16.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\Stack2500uint16.h</FilePath>
             </File>
             <File>
               <FileName>CreateTables.py</FileName>

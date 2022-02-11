@@ -1,3 +1,4 @@
+// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "Panel.h"
 #include "Controls.h"
 #include "Utils/Math.h"
@@ -5,12 +6,8 @@
 #include "Settings/Settings.h"
 #include "Display/Display.h"
 #include "Hardware/Timer.h"
-
-
 #include <stm32f4xx_hal.h>
 #include <stm32f4xx_hal_gpio.h>
-
-
 #include <stdio.h>
 #include <string.h>
 

@@ -1,8 +1,7 @@
+// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "Math.h"
 #include "Settings/Settings.h"
 #include "Hardware/Timer.h"
-
-
 #include <math.h>
 
 

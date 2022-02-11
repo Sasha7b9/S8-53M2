@@ -6,7 +6,7 @@
 #include "Display/Painter.h"
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"
-#include "Display/Math3D.h
+#include "Display/Math3D.h"
 
 
 static Point points[8] =

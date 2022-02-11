@@ -185,8 +185,6 @@ void Painter::SetColor(Color color)
         CommandBuffer command(4, SET_COLOR);
         command.PushByte(color);
         SendToVCP(command.Data(), 2);
-
-        SendToDisplay(command, 4);
     }
 }
 
