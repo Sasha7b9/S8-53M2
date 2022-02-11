@@ -102,9 +102,8 @@ void FlashDrive::GetNumDirsAndFiles(const char* fullPath, int *numDirs, int *num
     memcpy(nameDir, fullPath, strlen(fullPath));
     nameDir[strlen(fullPath)] = '\0';
 
-    char lfn[(_MAX_LFN + 1)];
-    fno.lfname = lfn;
-    fno.lfsize = sizeof(lfn);
+    fno.fname[0] = '\0';
+    fno.fsize = 0;
 
     if (f_opendir(&dir, nameDir) == FR_OK)
     {
@@ -126,7 +125,7 @@ void FlashDrive::GetNumDirsAndFiles(const char* fullPath, int *numDirs, int *num
                 continue;
             }
             numReadingElements++;
-            char *fn = *fno.lfname ? fno.lfname : fno.fname;
+            char *fn = *fno.fname ? fno.fname : fno.fname;
             if (fn[0] != '.')
             {
                 if (fno.fattrib & AM_DIR)
@@ -149,8 +148,8 @@ bool FlashDrive::GetNameDir(const char *fullPath, int numDir, char *nameDirOut, 
     memcpy(s->nameDir, fullPath, strlen(fullPath));
     s->nameDir[strlen(fullPath)] = '\0';
 
-    s->fno.lfname = s->lfn;
-    s->fno.lfsize = sizeof(s->lfn);
+    strcpy(s->fno.fname, s->lfn);
+    s->fno.fsize = sizeof(s->lfn);
 
     DIR *pDir = &s->dir;
     if (f_opendir(pDir, s->nameDir) == FR_OK)
@@ -176,7 +175,7 @@ bool FlashDrive::GetNameDir(const char *fullPath, int numDir, char *nameDirOut, 
                 }
                 alreadyNull = true;
             }
-            char *fn = *(pFNO->lfname) ? pFNO->lfname : pFNO->fname;
+            char *fn = *(pFNO->fname) ? pFNO->fname : pFNO->fname;
             if (numDir == numDirs && (pFNO->fattrib & AM_DIR))
             {
                 strcpy(nameDirOut, fn);
@@ -217,7 +216,7 @@ bool FlashDrive::GetNextNameDir(char *nameDirOut, StructForReadDir *s)
         }
         else
         {
-            char *fn = *(pFNO->lfname) ? pFNO->lfname : pFNO->fname;
+            char *fn = *(pFNO->fname) ? pFNO->fname : pFNO->fname;
             if (pFNO->fattrib & AM_DIR)
             {
                 strcpy(nameDirOut, fn);
@@ -239,8 +238,8 @@ bool FlashDrive::GetNameFile(const char *fullPath, int numFile, char *nameFileOu
     memcpy(s->nameDir, fullPath, strlen(fullPath));
     s->nameDir[strlen(fullPath)] = '\0';
 
-    s->fno.lfname = s->lfn;
-    s->fno.lfsize = sizeof(s->lfn);
+    strcpy(s->fno.fname, s->lfn);
+    s->fno.fsize = sizeof(s->lfn);
 
     DIR *pDir = &s->dir;
     FILINFO *pFNO = &s->fno;
@@ -266,7 +265,7 @@ bool FlashDrive::GetNameFile(const char *fullPath, int numFile, char *nameFileOu
                 }
                 alreadyNull = true;
             }
-            char *fn = *(pFNO->lfname) ? pFNO->lfname : pFNO->fname;
+            char *fn = *(pFNO->fname) ? pFNO->fname : pFNO->fname;
             if (numFile == numFiles && (pFNO->fattrib & AM_DIR) == 0)
             {
                 strcpy(nameFileOut, fn);
@@ -306,7 +305,7 @@ bool FlashDrive::GetNextNameFile(char *nameFileOut, StructForReadDir *s)
         }
         else
         {
-            char *fn = *(pFNO->lfname) ? pFNO->lfname : pFNO->fname;
+            char *fn = *(pFNO->fname) ? pFNO->fname : pFNO->fname;
             if ((pFNO->fattrib & AM_DIR) == 0 && pFNO->fname[0] != '.')
             {
                 strcpy(nameFileOut, fn);

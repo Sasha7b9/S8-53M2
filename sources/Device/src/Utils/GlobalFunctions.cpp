@@ -183,17 +183,17 @@ char* Voltage2String(float voltage, bool alwaysSign, char buffer[20])
         strcat(buffer, ERROR_STRING_VALUE);
         return buffer;
     }
-    else if(fabs(voltage) + 0.5e-4 < 1e-3)
+    else if(fabs(voltage) + 0.5e-4f < 1e-3f)
     {
         suffix = set.common.lang == Russian ? "\x10ìêÂ" : "\x10uV";
-        voltage *= 1e6;
+        voltage *= 1e6f;
     }
-    else if(fabs(voltage) + 0.5e-4 < 1)
+    else if(fabs(voltage) + 0.5e-4f < 1)
     {
         suffix = set.common.lang == Russian ? "\x10ìÂ" : "\x10mV" ;
-        voltage *= 1e3;
+        voltage *= 1e3f;
     }
-    else if(fabs(voltage) + 0.5e-4 < 1000)
+    else if(fabs(voltage) + 0.5e-4f < 1000)
     {
         suffix = set.common.lang == Russian ? "\x10Â" : "\x10V";
     }
@@ -220,20 +220,20 @@ char* Time2String(float time, bool alwaysSign, char buffer[20])
         strcat(buffer, ERROR_STRING_VALUE);
         return buffer;
     }
-    else if(fabs(time) + 0.5e-10 < 1e-6)
+    else if(fabs(time) + 0.5e-10f < 1e-6f)
     {
         suffix = set.common.lang == Russian ? "íñ" : "ns";
-        time *= 1e9;
+        time *= 1e9f;
     }
-    else if(fabs(time) + 0.5e-7 < 1e-3)
+    else if(fabs(time) + 0.5e-7f < 1e-3f)
     {
         suffix = set.common.lang == Russian ? "ìêñ" : "us";
-        time *= 1e6;
+        time *= 1e6f;
     }
-    else if(fabs(time) + 0.5e-3 < 1)
+    else if(fabs(time) + 0.5e-3f < 1)
     {
         suffix = set.common.lang == Russian ? "ìñ" : "ms";
-        time *= 1e3;
+        time *= 1e3f;
     }
     else
     {
@@ -262,15 +262,15 @@ char *  Freq2String(float freq, bool alwaysSign, char bufferOut[20])
         strcat(bufferOut, ERROR_STRING_VALUE);
         return bufferOut;
     }
-    if(freq >= 1e6)
+    if(freq >= 1e6f)
     {
         suffix = set.common.lang == Russian ? "ÌÃö" : "MHz";
-        freq /= 1e6;
+        freq /= 1e6f;
     }
-    else if (freq >= 1e3)
+    else if (freq >= 1e3f)
     {
         suffix = set.common.lang == Russian ? "êÃö" : "kHz";
-        freq /= 1e3;
+        freq /= 1e3f;
     }
     else
     {

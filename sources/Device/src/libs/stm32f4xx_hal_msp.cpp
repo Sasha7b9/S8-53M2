@@ -1,8 +1,6 @@
-
-
 #include "Hardware/Hardware.h"
-#include <stm32f2xx_hal.h>
-#include <stm32f2xx_hal_sram.h>
+#include <stm32f4xx_hal.h>
+#include <stm32f4xx_hal_sram.h>
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -56,7 +54,7 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef *hspi)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void HAL_SRAM_MspInit(SRAM_HandleTypeDef *hsram)
 {
-    __FSMC_CLK_ENABLE();
+    __FMC_CLK_ENABLE();
     __GPIOB_CLK_ENABLE();
     __GPIOD_CLK_ENABLE();
     __GPIOE_CLK_ENABLE();
@@ -75,7 +73,7 @@ void HAL_SRAM_MspInit(SRAM_HandleTypeDef *hsram)
         GPIO_MODE_AF_PP,
         GPIO_NOPULL,
         GPIO_SPEED_FAST,
-        GPIO_AF12_FSMC
+        GPIO_AF12_FMC
     };
     HAL_GPIO_Init(GPIOD, &isGPIOD);
 
@@ -92,7 +90,7 @@ void HAL_SRAM_MspInit(SRAM_HandleTypeDef *hsram)
         GPIO_MODE_AF_PP,
         GPIO_NOPULL,
         GPIO_SPEED_FAST,
-        GPIO_AF12_FSMC
+        GPIO_AF12_FMC
     };
     HAL_GPIO_Init(GPIOE, &isGPIOE_B);
 
