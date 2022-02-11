@@ -7,7 +7,7 @@
 #include <stm32f4xx_hal_rtc.h>
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 #define VALUE_FOR_RTC 0x644
 
 
@@ -40,7 +40,7 @@ const RTC_HandleTypeDef Clock::handle =
     }
 };
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void Clock::Init(void)
 {
     if (HAL_RTC_Init((RTC_HandleTypeDef*)(&handle)) != HAL_OK)
@@ -57,7 +57,7 @@ void Clock::Init(void)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 PackedTime Clock::GetPackedTime(void)
 {
     PackedTime time;
@@ -79,7 +79,7 @@ PackedTime Clock::GetPackedTime(void)
     return time;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Clock::SetTimeAndData(int8 day, int8 month, int8 year, int8 hours, int8 minutes, int8 seconds)
 {
     RTC_DateTypeDef dateStruct =

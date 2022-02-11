@@ -14,7 +14,7 @@
 #include <math.h>
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 static void TIM7_Config(uint16 prescaler, uint16 period);
 static uint16 CalculatePeriodForTIM();
 static void SetWave();
@@ -30,7 +30,7 @@ static float amplitude = 0.0f;
 static TypeWave typeWave = TypeWave_Sine;
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void Sound::Init(void)
 {
     DAC_ChannelConfTypeDef config =
@@ -46,7 +46,7 @@ void Sound::Init(void)
     HAL_DAC_ConfigChannel(&handleDAC, &config, DAC_CHANNEL_1);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void Stop(void)
 {
     HAL_DAC_Stop_DMA(&handleDAC, DAC_CHANNEL_1);
@@ -54,7 +54,7 @@ static void Stop(void)
     SOUND_WARN_IS_BEEP = 0;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Sound_Beep(TypeWave typeWave_, float frequency_, float amplitude_, int duration)
 {
     if (SOUND_WARN_IS_BEEP)
@@ -83,14 +83,14 @@ void Sound_Beep(TypeWave typeWave_, float frequency_, float amplitude_, int dura
     Timer::Enable(kStopSound, duration, Stop);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Sound::ButtonPress(void)
 {
     Sound_Beep(TypeWave_Sine, 2000.0f, 0.5f, 50);
     BUTTON_IS_PRESSED = 1;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Sound::ButtonRelease(void)
 {
     if (BUTTON_IS_PRESSED)
@@ -100,28 +100,28 @@ void Sound::ButtonRelease(void)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Sound::GovernorChangedValue(void)
 {
     Sound_Beep(TypeWave_Sine, 1000.0f, 0.5f, 50);
     BUTTON_IS_PRESSED = 0;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Sound::RegulatorShiftRotate(void)
 {
     Sound_Beep(TypeWave_Sine, 1.0f, 0.35f, 3);
     BUTTON_IS_PRESSED = 0;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Sound::RegulatorSwitchRotate(void)
 {
     Sound_Beep(TypeWave_Triangle, 2500.0f, 0.5f, 25);
     BUTTON_IS_PRESSED = 0;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Sound::WarnBeepBad(void)
 {
     Sound_Beep(TypeWave_Meandr, 250.0f, 1.0f, 500);
@@ -129,14 +129,14 @@ void Sound::WarnBeepBad(void)
     BUTTON_IS_PRESSED = 0;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Sound::WarnBeepGood(void)
 {
     Sound_Beep(TypeWave_Triangle, 1000.0f, 0.5f, 250);
     BUTTON_IS_PRESSED = 0;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SetWave(void)
 {
     TIM7_Config(0, CalculatePeriodForTIM());
@@ -155,7 +155,7 @@ void SetWave(void)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void TIM7_Config(uint16 prescaler, uint16 period)
 {
     static TIM_HandleTypeDef htim =
@@ -185,13 +185,13 @@ void TIM7_Config(uint16 prescaler, uint16 period)
     HAL_TIM_Base_Start(&htim);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 uint16 CalculatePeriodForTIM(void)
 {
     return 120e6f / frequency / POINTS_IN_PERIOD;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void CalculateSine(void)
 {
     for (int i = 0; i < POINTS_IN_PERIOD; i++)
@@ -202,7 +202,7 @@ void CalculateSine(void)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void CalculateMeandr(void)
 {
     for (int i = 0; i < POINTS_IN_PERIOD / 2; i++)
@@ -215,7 +215,7 @@ void CalculateMeandr(void)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void CalculateTriangle(void)
 {
     float k = 255.0 / POINTS_IN_PERIOD;

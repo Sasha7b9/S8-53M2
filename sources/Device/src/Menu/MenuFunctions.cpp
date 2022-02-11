@@ -21,30 +21,30 @@
 #include "Hardware/Sound.h"
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 extern const Page mainPage;
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 TypeItem Menu::TypeMenuItem(void *address) 
 {
     return address ? (*((TypeItem*)address)) : Item_None;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Menu::CurrentItemIsOpened(NamePage namePage)
 {
     bool retValue = _GET_BIT(MenuPosActItem(namePage), 7) == 1;
     return retValue;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int8 Menu::PosCurrentItem(const Page *page)
 {
     return MenuPosActItem(page->name) & 0x7f;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::SetCurrentItem(const void *item, bool active)
 {
     if(item != 0)
@@ -68,27 +68,27 @@ void Menu::SetCurrentItem(const void *item, bool active)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 TypeItem Menu::TypeOpenedItem()
 {
     return TypeMenuItem(OpenedItem());
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void* Menu::OpenedItem()
 {
     TypeItem type = Item_None;
     return RetLastOpened((Page*)&mainPage, &type);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void* Menu::Item(const Page *page, int numElement)
 {
     const arrayItems &array = (*page->items);
     return array[numElement + (PageIsSB(page) ? 1 : 0)];
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void* Menu::CurrentItem()
 {
     TypeItem type = Item_None;
@@ -101,7 +101,7 @@ void* Menu::CurrentItem()
     return lastOpened;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Menu::HeightOpenedItem(void *item) 
 {
     TypeItem type = TypeMenuItem(item);
@@ -118,31 +118,31 @@ int Menu::HeightOpenedItem(void *item)
     return MI_HEIGHT;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Menu::NumCurrentSubPage(Page *page)
 {
     return MenuCurrentSubPage(page->name);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 const char* Menu::TitleItem(void *item) 
 {
     return TITLE((Page*)item);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Menu::PosItemOnTop(Page *page)
 {
     return NumCurrentSubPage(page) * MENU_ITEMS_ON_DISPLAY;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Menu::IsFunctionalButton(PanelButton button)
 {
     return button >= B_F1 && button <= B_F5;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ChangeSubPage(const Page *page, int delta)
 {
     if (page)
@@ -160,13 +160,13 @@ void Menu::ChangeSubPage(const Page *page, int delta)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Menu::NumSubPages(const Page *page)
 {
     return (NumItemsInPage(page) - 1) / MENU_ITEMS_ON_DISPLAY + 1;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void* Menu::RetLastOpened(Page *page, TypeItem *type)
 {
     if(CurrentItemIsOpened(GetNamePage(page)))
@@ -187,7 +187,7 @@ void* Menu::RetLastOpened(Page *page, TypeItem *type)
     return page;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::CloseOpenedItem()
 {
     void *item = OpenedItem();
@@ -218,7 +218,7 @@ void Menu::CloseOpenedItem()
     } 
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::OpenItem(const void *item, bool open)
 {
     if(item)
@@ -228,7 +228,7 @@ void Menu::OpenItem(const void *item, bool open)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Menu::ItemIsOpened(void *item)
 {
     TypeItem type = TypeMenuItem(item);
@@ -240,14 +240,14 @@ bool Menu::ItemIsOpened(void *item)
     return (MenuPosActItem(page->name) & 0x80) != 0;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 Page* Menu::Keeper(const void *item)
 {
     const Page* page = ((Page*)(item))->keeper;
     return (Page *)page;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 NamePage Menu::GetNamePage(const Page *page)
 {
     if(TypeMenuItem((void*)page) != Item_Page)
@@ -257,20 +257,20 @@ NamePage Menu::GetNamePage(const Page *page)
     return page->name;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 NamePage Menu::GetNameOpenedPage()
 {
     return GetNamePage((const Page *)OpenedItem());
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::OpenPageAndSetItCurrent(void *page)
 {
     SetCurrentItem(page, true);
     OpenItem((Page *)page, !ItemIsOpened((Page *)page));
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Menu::ItemIsActive(void *item)
 {
     TypeItem type = TypeMenuItem(item);
@@ -287,7 +287,7 @@ bool Menu::ItemIsActive(void *item)
     return true;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Menu::NumItemsInPage(const Page * const page) 
 {
     if (page->name == Page_MainPage)
@@ -311,7 +311,7 @@ int Menu::NumItemsInPage(const Page * const page)
     return 0;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Menu::ChangeOpenedItem(void *item, int delta)
 {
     if (delta < 2 && delta > -2)
@@ -345,7 +345,7 @@ bool Menu::ChangeOpenedItem(void *item, int delta)
     return true;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ChangeItem(void *item, int delta)
 {
     TypeItem type = TypeMenuItem(item);
@@ -371,7 +371,7 @@ void Menu::ChangeItem(void *item, int delta)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ShortPressOnPageItem(Page *page, int numItem)
 {
     if (TypeMenuItem(page) != Item_Page)
@@ -389,19 +389,19 @@ void Menu::ShortPressOnPageItem(Page *page, int numItem)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 Page* Menu::PagePointerFromName(NamePage namePage)
 {
     return 0;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Menu::PageIsSB(const Page *page)
 {
     return page->name >= Page_SB_Curs;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 SmallButton* Menu::SmallButonFromPage(Page *page, int numButton)
 {
     return (SmallButton *)(*page->items)[numButton];

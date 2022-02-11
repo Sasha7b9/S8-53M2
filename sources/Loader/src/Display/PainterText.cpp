@@ -5,11 +5,11 @@
 #include <stdarg.h>
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 static TypeFont currentTypeFont = TypeFont_None;
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void Painter_SetFont(TypeFont typeFont)
 {
     if (typeFont == currentTypeFont)
@@ -23,12 +23,12 @@ void Painter_SetFont(TypeFont typeFont)
     Painter_SendToDisplay(command, 4);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter_LoadFont(TypeFont)
 {
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool ByteFontNotEmpty(int eChar, int byte)
 {
     static const uint8 *bytes = 0;
@@ -41,7 +41,7 @@ bool ByteFontNotEmpty(int eChar, int byte)
     return bytes[byte] != 0;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static bool BitInFontIsExist(int eChar, int numByte, int bit)
 {
     static uint8 prevByte = 0;      // WARN здесь точно статики нужны?
@@ -56,7 +56,7 @@ static bool BitInFontIsExist(int eChar, int numByte, int bit)
     return prevByte & (1 << bit);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void DrawCharInColorDisplay(int eX, int eY, uchar symbol)
 {
     int8 width = (int8)font->symbol[symbol].width;
@@ -81,7 +81,7 @@ static void DrawCharInColorDisplay(int eX, int eY, uchar symbol)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static int Painter_DrawBigChar(int eX, int eY, int size, char symbol)
 {
     int8 width = (int8)font->symbol[symbol].width;
@@ -114,7 +114,7 @@ static int Painter_DrawBigChar(int eX, int eY, int size, char symbol)
     return eX + width * size;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void DrawCharHardCol(int x, int y, char symbol)
 {
 #ifdef _MS_VS
@@ -128,10 +128,10 @@ static void DrawCharHardCol(int x, int y, char symbol)
     Painter_DrawText(x, y, str);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 extern void CalculateCurrentColor(void);
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Painter_DrawChar(int x, int y, char symbol)
 {
     CalculateCurrentColor();
@@ -150,14 +150,14 @@ int Painter_DrawChar(int x, int y, char symbol)
     return x + Font_GetLengthSymbol((uchar)symbol);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Painter_DrawCharC(int x, int y, char symbol, Color color)
 {
     Painter_SetColor(color);
     return Painter_DrawChar(x, y, symbol);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Painter_DrawText(int x, int y, const char *text)
 {
 #undef SIZE_BUFFER
@@ -198,14 +198,14 @@ int Painter_DrawText(int x, int y, const char *text)
 
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Painter_DrawTextC(int x, int y, const char *text, Color color)
 {
     Painter_SetColor(color);
     return Painter_DrawText(x, y, text);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static int DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int limitY, int limitWidth, int limitHeight)
 {
     int8 width = (int8)font->symbol[symbol].width;
@@ -235,7 +235,7 @@ static int DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int 
     return eX + width + 1;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Painter_DrawTextWithLimitationC(int x, int y, const char* text, Color color, int limitX, int limitY, int limitWidth, int limitHeight)
 {
     Painter_SetColor(color);
@@ -249,7 +249,7 @@ int Painter_DrawTextWithLimitationC(int x, int y, const char* text, Color color,
     return retValue + 1;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static bool IsLetter(char symbol)
 {
     static const bool isLetter[256] =
@@ -275,7 +275,7 @@ static bool IsLetter(char symbol)
     return isLetter[(uint8)symbol];
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static char *GetWord(const char *firstSymbol, int *length, char buffer[20])
 {
     int pointer = 0;
@@ -293,7 +293,7 @@ static char *GetWord(const char *firstSymbol, int *length, char buffer[20])
     return buffer;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static bool IsConsonant(char symbol)
 {
     static const bool isConsonat[256] =
@@ -319,7 +319,7 @@ static bool IsConsonant(char symbol)
     return isConsonat[(uint8)symbol];
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static bool CompareArrays(const bool *array1, const bool *array2, int numElems)
 {
     for (int i = 0; i < numElems; i++)
@@ -332,7 +332,7 @@ static bool CompareArrays(const bool *array1, const bool *array2, int numElems)
     return true;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 /// Находит следующий перенос. C letters начинается часть слово, где нужно найти перенос, в lettersInSyllable будет записано число букв в найденном 
 /// слоге. Если слово закончилось, функция возвращает false
 static bool FindNextTransfer(char *letters, int8 *lettersInSyllable)
@@ -401,7 +401,7 @@ static bool FindNextTransfer(char *letters, int8 *lettersInSyllable)
     return false;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static int8* BreakWord(char *word)
 {
     int num = 0;
@@ -426,14 +426,14 @@ static int8* BreakWord(char *word)
     return lengthSyllables;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Painter_DrawTextInRectWithTransfersC(int x, int y, int width, int height, const char *text, Color color)
 {
     Painter_SetColor(color);
     return Painter_DrawTextInRectWithTransfers(x, y, width, height, text);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Painter_DrawTextFormatting(int x, int y, Color color, char *text, ...)
 {
 #undef SIZE_BUFFER
@@ -452,7 +452,7 @@ int Painter_DrawTextFormatting(int x, int y, Color color, char *text, ...)
 #undef SIZE_BUFFER
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Painter_DrawStringInCenterRect(int eX, int eY, int width, int eHeight, const char *text)
 {
     int lenght = Font_GetLengthText(text);
@@ -462,14 +462,14 @@ int Painter_DrawStringInCenterRect(int eX, int eY, int width, int eHeight, const
     return Painter_DrawText(x, y, text);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Painter_DrawStringInCenterRectC(int x, int y, int width, int height, const char *text, Color color)
 {
     Painter_SetColor(color);
     return Painter_DrawStringInCenterRect(x, y, width, height, text);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter_DrawStringInCenterRectOnBackgroundC(int x, int y, int width, int height, const char *text, Color colorText, int widthBorder, Color colorBackground)
 {
     int lenght = Font_GetLengthText(text);
@@ -480,7 +480,7 @@ void Painter_DrawStringInCenterRectOnBackgroundC(int x, int y, int width, int he
     Painter_DrawStringInCenterRectC(x, y, width, height, text, colorText);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Painter_DrawStringInCenterRectAndBoundItC(int x, int y, int width, int height, const char *text, Color colorBackground, Color colorFill)
 {
     Painter_DrawRectangleC(x, y, width, height, colorFill);
@@ -489,7 +489,7 @@ int Painter_DrawStringInCenterRectAndBoundItC(int x, int y, int width, int heigh
     return Painter_DrawStringInCenterRect(x, y, width, height, text);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static int GetLenghtSubString(char *text)
 {
     int retValue = 0;
@@ -501,7 +501,7 @@ static int GetLenghtSubString(char *text)
     return retValue;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static int DrawSubString(int x, int y, char *text)
 {
     int numSymbols = 0;
@@ -514,7 +514,7 @@ static int DrawSubString(int x, int y, char *text)
     return numSymbols;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static int DrawSpaces(int x, int y, char *text, int *numSymbols)
 {
     *numSymbols = 0;
@@ -527,7 +527,7 @@ static int DrawSpaces(int x, int y, char *text, int *numSymbols)
     return x;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter_DrawTextInRect(int x, int y, int width, char *text)
 {
     int xStart = x;
@@ -550,21 +550,21 @@ void Painter_DrawTextInRect(int x, int y, int width, char *text)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter_DrawTextRelativelyRight(int xRight, int y, const char *text)
 {
     int lenght = Font_GetLengthText(text);
     Painter_DrawText(xRight - lenght, y, text);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter_Draw2SymbolsC(int x, int y, char symbol1, char symbol2, Color color1, Color color2)
 {
     Painter_DrawCharC(x, y, symbol1, color1);
     Painter_DrawCharC(x, y, symbol2, color2);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter_Draw4SymbolsInRect(int x, int y, char eChar)
 {
     for (int i = 0; i < 2; i++)
@@ -574,7 +574,7 @@ void Painter_Draw4SymbolsInRect(int x, int y, char eChar)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter_Draw10SymbolsInRect(int x, int y, char eChar)
 {
     for (int i = 0; i < 5; i++)
@@ -584,7 +584,7 @@ void Painter_Draw10SymbolsInRect(int x, int y, char eChar)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter_DrawBigText(int eX, int eY, int size, const char *text)
 {
     int numSymbols = (int)strlen(text);
@@ -598,7 +598,7 @@ void Painter_DrawBigText(int eX, int eY, int size, const char *text)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 /// Возвращает часть слова до слога numSyllable(включительн) вместе со знаком переноса
 static char* PartWordForTransfer(char *word, int8* lengthSyllables, int numSyllable, char buffer[30])
 {
@@ -613,7 +613,7 @@ static char* PartWordForTransfer(char *word, int8* lengthSyllables, int numSylla
     return buffer;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 /// Если draw == false, то рисовать символ не надо, фунция используется только для вычислений
 static int DrawPartWord(char *word, int x, int y, int xRight, bool draw)
 {
@@ -646,7 +646,7 @@ static int DrawPartWord(char *word, int x, int y, int xRight, bool draw)
     return 0;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Painter_DrawTextInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, const char *text)
 {
     int top = eY;
@@ -707,7 +707,7 @@ int Painter_DrawTextInRectWithTransfers(int eX, int eY, int eWidth, int eHeight,
     return y;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static int Painter_DrawBigCharInBuffer(int eX, int eY, int size, char symbol, uint8 buffer[320][240])
 {
     int8 width = (int8)font->symbol[symbol].width;
@@ -746,7 +746,7 @@ static int Painter_DrawBigCharInBuffer(int eX, int eY, int size, char symbol, ui
     return eX + width * size;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter_DrawBigTextInBuffer(int eX, int eY, int size, const char* text, uint8 buffer[320][240])
 {
     for (int x = 0; x < 320; x++)

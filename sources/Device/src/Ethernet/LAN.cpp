@@ -14,18 +14,18 @@
 
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 static void Netif_Config();
 
 static struct netif gnetif;
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 static void FuncConnect(void)
 {
 }
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 char *GetStringFromBuffer(const char *buffer, uint length, char *string)
 {
     memcpy(string, buffer, (uint)length);
@@ -35,13 +35,12 @@ char *GetStringFromBuffer(const char *buffer, uint length, char *string)
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 static void FuncReceiver(const char *buffer, uint length)
 {
     SCPI::AddNewData((uint8 *)buffer, length);
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void LAN::Init(void)
 {
     // Initilaize the LwIP stack
@@ -53,7 +52,7 @@ void LAN::Init(void)
     TCPSocket_Init(FuncConnect, FuncReceiver);
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void LAN::Update(uint timeMS)
 {
     uint time = gTimerMS;
@@ -67,8 +66,8 @@ void LAN::Update(uint timeMS)
     } while (gTimerMS - time < timeMS);
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-void Netif_Config(void)
+
+static void Netif_Config(void)
 {
     ip_addr_t ipaddr;
     ip_addr_t netmask;

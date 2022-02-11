@@ -11,7 +11,7 @@
 #include <ctype.h>
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 typedef struct
 {
     char nameDir[_MAX_LFN + 1];
@@ -21,13 +21,13 @@ typedef struct
 } StructForReadDir;
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 static bool GetNameFile(const char *fullPath, int numFile, char *nameFileOut, StructForReadDir *s);
 static bool GetNextNameFile(char *nameFileOut, StructForReadDir *s);
 static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8 id);
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void FDrive_Init(void)
 {
     ms->drive.state = StateDisk_Idle;
@@ -42,7 +42,7 @@ void FDrive_Init(void)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8 id)
 {
     (void)phost;
@@ -74,7 +74,7 @@ void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8 id)
     }
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool FDrive_Update(void)
 {
     USBH_Process(&handleUSBH);
@@ -93,7 +93,7 @@ bool FDrive_Update(void)
     return false;
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void ToLower(char *str)
 {
     while (*str)
@@ -103,7 +103,7 @@ void ToLower(char *str)
     }
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool FDrive_FileExist(char *fileName)
 {
     char nameFile[255];
@@ -132,7 +132,7 @@ bool FDrive_FileExist(char *fileName)
     return false;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static bool GetNameFile(const char *fullPath, int numFile, char *nameFileOut, StructForReadDir *s)
 {
     memcpy(s->nameDir, fullPath, strlen(fullPath));
@@ -180,7 +180,7 @@ static bool GetNameFile(const char *fullPath, int numFile, char *nameFileOut, St
     return false;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static bool GetNextNameFile(char *nameFileOut, StructForReadDir *s)
 {
     FILINFO *pFNO = &s->fno;
@@ -215,7 +215,7 @@ static bool GetNextNameFile(char *nameFileOut, StructForReadDir *s)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int FDrive_OpenFileForRead(char *fileName)
 {
     if (f_open(&ms->drive.file, fileName, FA_READ) == FR_OK)
@@ -225,7 +225,7 @@ int FDrive_OpenFileForRead(char *fileName)
     return -1;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int FDrive_ReadFromFile(int numBytes, uint8 *buffer)
 {
     uint readed = 0;
@@ -236,7 +236,7 @@ int FDrive_ReadFromFile(int numBytes, uint8 *buffer)
     return -1;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FDrive_CloseOpenedFile(void)
 {
     f_close(&ms->drive.file);

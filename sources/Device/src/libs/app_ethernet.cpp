@@ -6,7 +6,7 @@
 #endif
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 #ifdef USE_DHCP
 #define MAX_DHCP_TRIES  4
 uint32_t DHCPfineTimer = 0;
@@ -14,7 +14,7 @@ __IO uint8_t DHCP_state = DHCP_OFF;
 #endif
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 /**
   * @brief  Notify the User about the nework interface config status 
   * @param  netif: the network interface
@@ -35,7 +35,7 @@ void User_notification(struct netif *netif)
 #endif  /* USE_DHCP */
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 /**
   * @brief  This function notify user about link status changement.
   * @param  netif: the network interface
@@ -83,7 +83,7 @@ void ethernetif_notify_conn_changed(struct netif *netif)
 }
 
 #ifdef USE_DHCP
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 /**
   * @brief  DHCP_Process_Handle
   */
@@ -144,7 +144,7 @@ void DHCP_Process(struct netif *netif)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 /**
   * @brief  DHCP periodic check
   * @param  localtime the current LocalTime value

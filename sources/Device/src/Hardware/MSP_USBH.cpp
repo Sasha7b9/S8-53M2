@@ -8,7 +8,7 @@
 */
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void HAL_HCD_MspInit(HCD_HandleTypeDef *hhcd) {
 
     __GPIOB_CLK_ENABLE();
@@ -30,7 +30,7 @@ void HAL_HCD_MspInit(HCD_HandleTypeDef *hhcd) {
     HAL_NVIC_EnableIRQ(OTG_HS_IRQn);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void HAL_HCD_MspDeInit(HCD_HandleTypeDef *hhcd)
 {
     __USB_OTG_HS_CLK_DISABLE();

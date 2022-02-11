@@ -19,7 +19,7 @@
 #include "Utils/Generator.h"
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 #define NULL_TSHIFT 1000000
 
 static float freq = 0.0f;           // Частота, намеренная альтерой.
@@ -63,19 +63,19 @@ void FPGA::Init(void)
     FPGA::SetNumberMeasuresForGates(NUM_MEAS_FOR_GATES);
 } 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::SetNumSignalsInSec(int numSigInSec) 
 {
     Timer::Enable(kNumSignalsInSec, 1000.f / numSigInSec, OnTimerCanReadData);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void OnTimerCanReadData(void)
 {
     FPGA_CAN_READ_DATA = 1;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::Start(void)
 {
     if(SET_TBASE >= MIN_TBASE_P2P)
@@ -95,14 +95,14 @@ void FPGA::Start(void)
     FPGA_CRITICAL_SITUATION = 0;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::SwitchingTrig(void)
 {
     FSMC::Write(WR_TRIG_F, TRIG_POLARITY_IS_FRONT ? 0x00U : 0x01U);
     FSMC::Write(WR_TRIG_F, TRIG_POLARITY_IS_FRONT ? 0x01U : 0x00U);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool FPGA::ProcessingData(void)
 {
     bool retValue = false;
@@ -163,7 +163,7 @@ bool FPGA::ProcessingData(void)
     return retValue;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::Update(void)
 {
     ReadFlag();
@@ -200,13 +200,13 @@ void FPGA::Update(void)
     FPGA_CAN_READ_DATA = 0;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 StateWorkFPGA FPGA::CurrentStateWork(void)
 {
     return stateWork;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::OnPressStartStop(void)
 {
     if(stateWork == StateWorkFPGA_Stop) 
@@ -219,7 +219,7 @@ void FPGA::OnPressStartStop(void)
     } 
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::Stop(bool pause) 
 {
     Timer::Disable(kP2P);
@@ -227,13 +227,13 @@ void FPGA::Stop(bool pause)
     stateWork = pause ? StateWorkFPGA_Pause : StateWorkFPGA_Stop;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool FPGA::IsRunning(void)
 {
     return stateWork != StateWorkFPGA_Stop;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 #define WRITE_AND_OR_INVERSE(addr, data, ch)                                                      \
     if(SET_INVERSE(ch))                                                                   \
     {                                                                                               \
@@ -252,7 +252,7 @@ static uint8 InverseIfNecessary(uint8 data, Channel chan)
 }
 */
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::ReadRandomizeMode(void)
 {
     int Tsm = CalculateShift();
@@ -364,7 +364,7 @@ void FPGA::ReadRandomizeMode(void)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::ReadRealMode(bool necessaryShift)
 {
     uint8 *p0 = &dataRel0[0];
@@ -434,7 +434,7 @@ void FPGA::ReadRealMode(bool necessaryShift)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::DataRead(bool necessaryShift, bool saveToStorage) 
 {
     Panel::EnableLEDTrig(false);
@@ -470,13 +470,13 @@ void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
     FPGA_IN_PROCESS_READ = 0;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::SetAdditionShift(int shift)
 {
     additionShift = shift;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool FPGA::CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
 {   
     if(FPGA_FIRST_AFTER_WRITE)
@@ -541,7 +541,7 @@ bool FPGA::CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
     return true;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int FPGA::CalculateShift(void)            // \todo Не забыть восстановить функцию
 {
     uint16 rand = ADConverter::GetValue();
@@ -581,7 +581,7 @@ int FPGA::CalculateShift(void)            // \todo Не забыть восстановить функци
                                             //можно раскомментировать при необходимости
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::WriteToHardware(uint8 *address, uint8 value, bool restart)
 {
     FPGA_FIRST_AFTER_WRITE = 1;
@@ -614,7 +614,7 @@ void FPGA::WriteToHardware(uint8 *address, uint8 value, bool restart)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void ReadPoint(void)
 {
     if(_GET_BIT(ReadFlag(), BIT_POINT_READY))
@@ -627,14 +627,14 @@ void ReadPoint(void)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::SaveState(void)
 {
     gStateFPGA.stateWorkBeforeCalibration = stateWork;
     storingSettings = set;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::RestoreState(void)
 {
     int16 rShiftAdd[2][RangeSize][2];
@@ -667,10 +667,10 @@ void FPGA::RestoreState(void)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static bool readPeriod = false;     ///< Установленный в true флаг означает, что частоту нужно считать по счётчику периода
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static BitSet32 ReadRegFreq(void)
 {
     BitSet32 fr;
@@ -681,7 +681,7 @@ static BitSet32 ReadRegFreq(void)
     return fr;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static BitSet32 ReadRegPeriod(void)
 {
     BitSet32 period;
@@ -692,13 +692,13 @@ static BitSet32 ReadRegPeriod(void)
     return period;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static float FreqCounterToValue(BitSet32 *fr)
 {
     return fr->word * 10.0f;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static float PeriodCounterToValue(BitSet32 *period)
 {
     if (period->word == 0)
@@ -708,7 +708,7 @@ static float PeriodCounterToValue(BitSet32 *period)
     return 10e6f / (float)period->word;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void ReadFreq(void)                         // Чтение счётчика частоты производится после того, как бит 4 флага RD_FL установится в едицину
 {                                           // После чтения автоматически запускается новый цикл счёта
     BitSet32 freqFPGA = ReadRegFreq();
@@ -732,7 +732,7 @@ static void ReadFreq(void)                         // Чтение счётчика частоты пр
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void ReadPeriod(void)
 {
     BitSet32 periodFPGA = ReadRegPeriod();
@@ -749,7 +749,7 @@ void ReadPeriod(void)
     readPeriod = false;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static uint8 ReadFlag(void)
 {
     uint8 flag = FSMC::Read(RD_FL);
@@ -768,7 +768,7 @@ static uint8 ReadFlag(void)
     return flag;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static float CalculateFreqFromCounterFreq(void)
 {
     while (_GET_BIT(FSMC::Read(RD_FL), BIT_FREQ_READY) == 0) {};
@@ -782,7 +782,7 @@ static float CalculateFreqFromCounterFreq(void)
     return 0.0f;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static float CalculateFreqFromCounterPeriod(void)
 {
     uint time = gTimerMS;
@@ -798,20 +798,20 @@ static float CalculateFreqFromCounterPeriod(void)
     return 0.0f;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 float FPGA::GetFreq(void) 
 {
     return freq;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::ClearData(void)
 {
     memset(dataRel0, 0, FPGA_MAX_POINTS);
     memset(dataRel1, 0, FPGA_MAX_POINTS);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool FPGA::AllPointsRandomizer(void)
 {
     if(SET_TBASE < TBase_100ns) 
@@ -827,7 +827,7 @@ bool FPGA::AllPointsRandomizer(void)
     return true;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::InverseDataIsNecessary(Channel chan, uint8 *data)
 {
     if(SET_INVERSE(chan))
@@ -839,19 +839,19 @@ void FPGA::InverseDataIsNecessary(Channel chan, uint8 *data)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::SetNumberMeasuresForGates(int number)
 {
     numberMeasuresForGates = number;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::StartAutoFind(void)
 {
 	AUTO_FIND_IN_PROGRESS = 1;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 uint8 FPGA::CalculateMinWithout0(uint8 buffer[100])
 {
     /// \todo На одном экземпляре был страшенныый глюк, когда без сигнала выбивались значения 0 и 255 в рандомных местах
@@ -868,7 +868,7 @@ uint8 FPGA::CalculateMinWithout0(uint8 buffer[100])
     return min;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 uint8 FPGA::CalculateMaxWithout255(uint8 buffer[100])
 {
     /// \todo На одном экземпляре был страшенныый глюк, когда без сигнала выбивались значения 0 и 255 в рандомных местах
@@ -884,7 +884,7 @@ uint8 FPGA::CalculateMaxWithout255(uint8 buffer[100])
     return max;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 TBase CalculateTBase(float freq_)
 {
     if     (freq_ >= 100e6f)  { return TBase_2ns;   }
@@ -914,7 +914,7 @@ TBase CalculateTBase(float freq_)
     return TBase_200ms;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::AutoFind(void)
 {
     //LOG_WRITE(" ");
@@ -936,7 +936,7 @@ void FPGA::AutoFind(void)
     AUTO_FIND_IN_PROGRESS = 0;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool FPGA::FindWave(Channel chan)
 {
     Settings settings = set;    // Сохраняем предыдущие настройки
@@ -966,7 +966,7 @@ bool FPGA::FindWave(Channel chan)
     return false;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 Range FPGA::AccurateFindRange(Channel chan)
 {
     /*
@@ -1058,7 +1058,7 @@ Range FPGA::AccurateFindRange(Channel chan)
     return RangeSize;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 TBase FPGA::AccurateFindTBase(Channel chan)
 {
     for (int i = 0; i < 5; i++)
@@ -1074,7 +1074,7 @@ TBase FPGA::AccurateFindTBase(Channel chan)
     return TBaseSize;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 TBase FPGA::FindTBase(Channel chan)
 {
     SetTrigInput(TrigInput_Full);
@@ -1113,21 +1113,21 @@ TBase FPGA::FindTBase(Channel chan)
     return TBaseSize;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void StopTemporaryPause(void)
 {
     FPGA_TEMPORARY_PAUSE = 0;
     Timer::Disable(kTemporaryPauseFPGA);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::TemporaryPause(void)
 {
     FPGA_TEMPORARY_PAUSE = 1;
     Timer::Enable(kTemporaryPauseFPGA, 500, StopTemporaryPause);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::FillDataPointer(DataSettings *dp)
 {
     dp->enableCh0 = sChannel_Enabled(A) ? 1U : 0U;
@@ -1150,7 +1150,7 @@ void FPGA::FillDataPointer(DataSettings *dp)
     dp->multiplier1 = SET_DIVIDER_B;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::FindAndSetTrigLevel(void)
 {
     TrigSource trigSource = TRIG_SOURCE;
@@ -1182,7 +1182,7 @@ void FPGA::FindAndSetTrigLevel(void)
     FPGA::SetTrigLev(trigSource, trigLev);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 #define pinCLC      GPIO_PIN_2
 #define pinData     GPIO_PIN_3
 #define CHIP_SELECT_IN_LOW  HAL_GPIO_WritePin(GPIOG, pinSelect, GPIO_PIN_RESET);
@@ -1191,7 +1191,7 @@ void FPGA::FindAndSetTrigLevel(void)
 #define CLC_LOW             HAL_GPIO_WritePin(GPIOG, pinCLC, GPIO_PIN_RESET);
 #define DATA_SET(x)         HAL_GPIO_WritePin(GPIOG, pinData, x);
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::WriteToAnalog(TypeWriteAnalog type, uint data)
 {
 #define pinSelect   GPIO_PIN_5
@@ -1233,7 +1233,7 @@ void FPGA::WriteToAnalog(TypeWriteAnalog type, uint data)
     CHIP_SELECT_IN_HI;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::WriteToDAC(TypeWriteDAC type, uint16 data)
 {
 #undef pinSelect

@@ -8,11 +8,11 @@
 #include "FPGA/FPGA.h"
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 static Channel chan = A;
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 ENTER_PARSE_FUNC(SCPI::ProcessCHANNEL)
         {"INPUT",       SCPI::CHANNEL::INPUT},
         {"COUPLING",    SCPI::CHANNEL::COUPLE},
@@ -33,7 +33,7 @@ ENTER_PARSE_FUNC(SCPI::ProcessCHANNEL)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::CHANNEL::INPUT(uint8 *buffer)
 {
     static const MapElement map[] = 
@@ -54,12 +54,12 @@ void SCPI::CHANNEL::INPUT(uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 extern void OnChanged_CoupleA(bool);
 extern void OnChanged_CoupleB(bool);
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::CHANNEL::COUPLE(uint8 *buffer)
 {
     static const pFuncVB func[2] = {OnChanged_CoupleA, OnChanged_CoupleB};
@@ -84,12 +84,12 @@ void SCPI::CHANNEL::COUPLE(uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 extern void OnChanged_FiltrA(bool activate);
 extern void OnChanged_FiltrB(bool activate);
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::CHANNEL::FILTR(uint8 *buffer)
 {
     static const pFuncVB func[2] = {OnChanged_FiltrA, OnChanged_FiltrB};
@@ -112,7 +112,7 @@ void SCPI::CHANNEL::FILTR(uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::CHANNEL::INVERSE(uint8 *buffer)
 {
     static const MapElement map[] =
@@ -133,7 +133,7 @@ void SCPI::CHANNEL::INVERSE(uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::CHANNEL::RANGE(uint8 *buffer)
 {
     static const MapElement map[] = 
@@ -164,7 +164,7 @@ void SCPI::CHANNEL::RANGE(uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::CHANNEL::OFFSET(uint8 *buffer)
 {
     static const MapElement map[] =
@@ -189,7 +189,7 @@ void SCPI::CHANNEL::OFFSET(uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::CHANNEL::FACTOR(uint8 *buffer)
 {
     static const MapElement map[] =

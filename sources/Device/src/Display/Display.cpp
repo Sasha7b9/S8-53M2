@@ -33,7 +33,7 @@
 #include "Hardware/DisplayHardware.inc"
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 #define NUM_P2P_POINTS (FPGA_MAX_POINTS)
 static uint8 dataP2P_0[NUM_P2P_POINTS];
 static uint8 dataP2P_1[NUM_P2P_POINTS];
@@ -55,7 +55,7 @@ static pFuncVV funcAdditionDraw = 0;
 static pFuncVV funcAfterDraw    = 0;
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void Display::Init() 
 {
     /*
@@ -81,7 +81,7 @@ void Display::Init()
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawStringNavigation() 
 {
     char buffer[100];
@@ -96,7 +96,7 @@ void Display::DrawStringNavigation()
     }
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::RotateRShift(Channel chan)
 {
     ResetP2Ppoints(true);
@@ -110,19 +110,19 @@ void Display::RotateRShift(Channel chan)
     Display::Redraw();
 };
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::FuncOnTimerDisableShowLevelRShiftA()
 {
     DisableShowLevelRShiftA();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::FuncOnTimerDisableShowLevelRShiftB()
 {
     Display::DisableShowLevelRShiftB();
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::RotateTrigLev()
 {
     if (TIME_SHOW_LEVELS)
@@ -133,19 +133,19 @@ void Display::RotateTrigLev()
     Display::Redraw();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::FuncOnTimerDisableShowLevelTrigLev()
 {
     Display::DisableShowLevelTrigLev();
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::Redraw(void)
 {
     NEED_FINISH_REDRAW = 1;
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Display::ChannelNeedForDraw(const uint8 *data, Channel chan, const DataSettings *ds)
 {
     if (!data)
@@ -175,7 +175,7 @@ bool Display::ChannelNeedForDraw(const uint8 *data, Channel chan, const DataSett
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawMarkersForMeasure(float scale, Channel chan)
 {
     if (chan == Math)
@@ -201,14 +201,14 @@ void Display::DrawMarkersForMeasure(float scale, Channel chan)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 #define CONVERT_DATA_TO_DISPLAY(out, in)                \
     out = (uint8)(maxY - ((in) - MIN_VALUE) * scaleY);  \
     if(out < minY)          { out = (uint8)minY; }      \
     else if (out > maxY)    { out = (uint8)maxY; };
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawSignalLined(const uint8 *data, const DataSettings *ds, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, 
     bool calculateFiltr)
 {
@@ -295,7 +295,7 @@ void Display::DrawSignalLined(const uint8 *data, const DataSettings *ds, int sta
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawSignalPointed(const uint8 *data, const DataSettings *ds, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX)
 {
     int numPoints = sMemory_GetNumPoints(false);
@@ -339,7 +339,7 @@ void Display::DrawSignalPointed(const uint8 *data, const DataSettings *ds, int s
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 // Если data == 0, то данные брать из GetData
 void Display::DrawDataChannel(uint8 *data, Channel chan, DataSettings *ds, int minY, int maxY)
 {
@@ -404,7 +404,7 @@ void Display::DrawDataChannel(uint8 *data, Channel chan, DataSettings *ds, int m
     }
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawMath()
 {
     if (DISABLED_DRAW_MATH || Storage::GetData(A, 0) == 0 || Storage::GetData(B, 0) == 0)
@@ -445,7 +445,7 @@ void Display::DrawMath()
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawSpectrumChannel(const float *spectrum, Color color)
 {
     Painter::SetColor(color);
@@ -459,7 +459,7 @@ void Display::DrawSpectrumChannel(const float *spectrum, Color color)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::WriteParametersFFT(Channel chan, float freq0, float density0, float freq1, float density1)
 {
     int x = Grid::Left() + 259;
@@ -486,7 +486,7 @@ void Display::WriteParametersFFT(Channel chan, float freq0, float density0, floa
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DRAW_SPECTRUM(const uint8 *data, int numPoints, Channel channel)
 {
     if (!sChannel_Enabled(channel))
@@ -519,7 +519,7 @@ void Display::DRAW_SPECTRUM(const uint8 *data, int numPoints, Channel channel)
     }
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawSpectrum()
 {
     if (!ENABLED_FFT)
@@ -565,7 +565,7 @@ void Display::DrawSpectrum()
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawBothChannels(uint8 *data0, uint8 *data1)
 {
 	if (LAST_AFFECTED_CHANNEL_IS_B)
@@ -581,7 +581,7 @@ void Display::DrawBothChannels(uint8 *data0, uint8 *data1)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawDataMemInt()
 {
     if(gDSmemInt != 0)
@@ -592,7 +592,7 @@ void Display::DrawDataMemInt()
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawDataInModeWorkLatest()
 {
     if (gDSmemLast != 0)
@@ -603,7 +603,7 @@ void Display::DrawDataInModeWorkLatest()
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawDataInModePoint2Point()
 {
     uint8 *data0 = 0;
@@ -640,14 +640,14 @@ void Display::DrawDataInModePoint2Point()
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawDataInModeSelfRecorder()
 {
     LOG_TRACE
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Display::DrawDataInModeNormal()
 {
     static void* prevAddr = 0;
@@ -681,7 +681,7 @@ bool Display::DrawDataInModeNormal()
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawDataMinMax()
 {
     ModeDrawSignal modeDrawSignalOld = MODE_DRAW_SIGNAL;
@@ -704,7 +704,7 @@ void Display::DrawDataMinMax()
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Display::DrawDataNormal()
 {
     bool retValue = true;
@@ -721,7 +721,7 @@ bool Display::DrawDataNormal()
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Display::DrawData()
 {
     bool retValue = true;
@@ -764,7 +764,7 @@ bool Display::DrawData()
     return retValue;
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawTime(int x, int y)
 {
     int dField = 10;
@@ -810,14 +810,14 @@ void Display::DrawTime(int x, int y)
     Painter::DrawText(x + 2 * dField + 2 * dSeparator, y, Int2String((int)time.seconds, false, 2, buffer));
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawHiPart()
 {
     WriteCursors();
     DrawHiRightPart();
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена иниформация о максимумах.
 void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, Channel chan, int shiftForPeakDet)
 {
@@ -914,7 +914,7 @@ void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, 
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена иниформация о максимумах.
 void Display::DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI, const uint8 *data, int rightX, Channel chan, int shiftForPeakDet)
 {
@@ -931,7 +931,7 @@ void Display::DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawMemoryWindow()
 {
     uint8 *dat0 = gData0memInt;
@@ -1046,7 +1046,7 @@ void Display::DrawMemoryWindow()
     }
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::WriteCursors()
 {
     char buffer[20];
@@ -1116,7 +1116,7 @@ void Display::WriteCursors()
     }
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawHiRightPart()
     {
     // Синхроимпульс
@@ -1188,7 +1188,7 @@ void Display::DrawHiRightPart()
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawCursorsRShift()
 {
     if (!DISABLED_DRAW_MATH)
@@ -1208,7 +1208,7 @@ void Display::DrawCursorsRShift()
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Display::NeedForClearScreen()
 {
     int numAccum = NUM_ACCUM;
@@ -1229,7 +1229,7 @@ bool Display::NeedForClearScreen()
     return false;
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::Update(bool endScene)
 {
 	uint timeStart = gTimerTics;
@@ -1306,7 +1306,7 @@ void Display::Update(bool endScene)
     }
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::WriteValueTrigLevel()
 {
     if (SHOW_LEVEL_TRIGLEV && MODE_WORK_IS_DIRECT)
@@ -1332,7 +1332,7 @@ void Display::WriteValueTrigLevel()
     }
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawGridSpectrum()
 {
     if (SCALE_FFT_IS_LOG)
@@ -1375,7 +1375,7 @@ void Display::DrawGridSpectrum()
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawFullGrid()
 {
     if (sDisplay_IsSeparate())
@@ -1398,7 +1398,7 @@ void Display::DrawFullGrid()
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Display::CalculateCountV()
 {
     if (MODE_VIEW_SIGNALS_IS_COMPRESS)
@@ -1421,7 +1421,7 @@ int Display::CalculateCountV()
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Display::CalculateCountH()
 {
     if (MODE_VIEW_SIGNALS_IS_COMPRESS)
@@ -1439,7 +1439,7 @@ int Display::CalculateCountH()
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawGridType1(int left, int top, int right, int bottom, float centerX, float centerY, float deltaX, float deltaY, float stepX, float stepY)
 {
     uint16 masX[17];
@@ -1480,7 +1480,7 @@ void Display::DrawGridType1(int left, int top, int right, int bottom, float cent
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawGridType2(int left, int top, int right, int bottom, int deltaX, int deltaY, int stepX, int stepY)
 { 
     uint16 masX[15];
@@ -1503,7 +1503,7 @@ void Display::DrawGridType2(int left, int top, int right, int bottom, int deltaX
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawGridType3(int left, int top, int right, int bottom, int centerX, int centerY, int deltaX, int deltaY, int stepX, int stepY)
 {
     Painter::DrawHPointLine(centerY, left + stepX, right, stepX);
@@ -1516,7 +1516,7 @@ void Display::DrawGridType3(int left, int top, int right, int bottom, int center
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawGrid(int left, int top, int width, int height)
 {
     int right = left + width;
@@ -1560,10 +1560,10 @@ void Display::DrawGrid(int left, int top, int width, int height)
 }
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 #define  DELTA 5
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawScaleLine(int x, bool forTrigLev)
 {
     if(ALT_MARKERS_HIDE)
@@ -1589,7 +1589,7 @@ void Display::DrawScaleLine(int x, bool forTrigLev)
     }
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawCursorsWindow()
 {
     if((!MenuIsMinimize() || !MenuIsShown()) && DRAW_RSHIFT_MARKERS)
@@ -1598,7 +1598,7 @@ void Display::DrawCursorsWindow()
     }
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawCursorTrigLevel()
 {
     TrigSource chan = TRIG_SOURCE;
@@ -1661,7 +1661,7 @@ void Display::DrawCursorTrigLevel()
     }
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawCursorRShift(Channel chan)
 {
     float x = Grid::Right() - Grid::Width() - Measure_GetDeltaGridLeft();
@@ -1723,7 +1723,7 @@ void Display::DrawCursorRShift(Channel chan)
     Painter::SetFont(TypeFont_8);
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawCursorTShift()
 {
     int firstPoint = 0;
@@ -1759,7 +1759,7 @@ void Display::DrawCursorTShift()
     }
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawHorizontalCursor(int y, int xTearing)
 {
     y += GRID_TOP;
@@ -1776,7 +1776,7 @@ void Display::DrawHorizontalCursor(int y, int xTearing)
     Painter::DrawRectangle(Grid::Right() - 1, y - 1, 2, 2);
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawVerticalCursor(int x, int yTearing)
 {
     x += Grid::Left();
@@ -1793,7 +1793,7 @@ void Display::DrawVerticalCursor(int x, int yTearing)
     Painter::DrawRectangle(x - 1, Grid::ChannelBottom() - 1, 2, 2);
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawCursors()
 {
     Channel source = CURS_SOURCE;
@@ -1833,7 +1833,7 @@ void Display::DrawCursors()
     }
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawMeasures()
 {
     if(!SHOW_MEASURES)
@@ -1915,7 +1915,7 @@ void Display::DrawMeasures()
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::WriteTextVoltage(Channel chan, int x, int y)
 {
     static const char *couple[] =
@@ -1972,7 +1972,7 @@ void Display::WriteTextVoltage(Channel chan, int x, int y)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::WriteStringAndNumber(char *text, int x, int y, int number)
 {
     char buffer[100];
@@ -1989,7 +1989,7 @@ void Display::WriteStringAndNumber(char *text, int x, int y, int number)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawLowPart()
 {
     int y0 = SCREEN_HEIGHT - 19;
@@ -2157,7 +2157,7 @@ void Display::DrawLowPart()
     }
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawTimeForFrame(uint timeTicks)
 {
     if(!SHOW_STATS)
@@ -2198,34 +2198,34 @@ void Display::DrawTimeForFrame(uint timeTicks)
     Painter::DrawText(Grid::Left() + 50, Grid::FullBottom() - 9, message);
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DisableShowLevelRShiftA()
 {
     SHOW_LEVEL_RSHIFT_0 = 0;
     Timer::Disable(kShowLevelRShift0);
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DisableShowLevelRShiftB()
 {
     SHOW_LEVEL_RSHIFT_1 = 0;
     Timer::Disable(kShowLevelRShift1);
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DisableShowLevelTrigLev()
 {
     SHOW_LEVEL_TRIGLEV = 0;
     Timer::Disable(kShowLevelTrigLev);
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::EnableTrigLabel(bool enable)
 {
     TRIG_ENABLE = enable ? 1U : 0U;
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::ResetP2Ppoints(bool empty)
 {
     dataP2PIsEmpty = empty;
@@ -2234,7 +2234,7 @@ void Display::ResetP2Ppoints(bool empty)
     memset(dataP2P_1, AVE_VALUE, NUM_P2P_POINTS);
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::AddPoints(uint8 data00, uint8 data01, uint8 data10, uint8 data11)
 {
     dataP2PIsEmpty = false;
@@ -2259,38 +2259,38 @@ void Display::AddPoints(uint8 data00, uint8 data01, uint8 data10, uint8 data11)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::SetDrawMode(DrawMode mode, pFuncVV func)
 {
     funcOnHand = mode == DrawMode_Auto ? 0 : func;
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::SetAddDrawFunction(pFuncVV func)
 {
     funcAdditionDraw = func;
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::RemoveAddDrawFunction()
 {
     funcAdditionDraw = 0;
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::Clear()
 {
     Painter::FillRegionC(0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 2, COLOR_BACK);
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::ShiftScreen(int delta)
 {
     LIMITATION(SHIFT_IN_MEMORY, SHIFT_IN_MEMORY + delta, 0, sMemory_GetNumPoints(false) - 282);
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::ChangedRShiftMarkers()
 {
     DRAW_RSHIFT_MARKERS = ALT_MARKERS_HIDE ? 0U : 1U;
@@ -2302,14 +2302,14 @@ void Display::FuncOnTimerRShiftMarkersAutoHide()
     Display::OnRShiftMarkersAutoHide();
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::OnRShiftMarkersAutoHide()
 {
     DRAW_RSHIFT_MARKERS = 0;
     Timer::Disable(kRShiftMarkersAutoHide);
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Display::FirstEmptyString()
 {
     for(int i = 0; i < MAX_NUM_STRINGS; i++)
@@ -2322,7 +2322,7 @@ int Display::FirstEmptyString()
     return MAX_NUM_STRINGS;
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Display::CalculateFreeSize()
 {
     int firstEmptyString = FirstEmptyString();
@@ -2333,7 +2333,7 @@ int Display::CalculateFreeSize()
     return (int)(SIZE_BUFFER_FOR_STRINGS - (strings[firstEmptyString - 1] - bufferForStrings) - strlen(strings[firstEmptyString - 1]) - 1);
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DeleteFirstString()
 {
     if(FirstEmptyString() < 2)
@@ -2357,7 +2357,7 @@ void Display::DeleteFirstString()
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::AddString(const char *string)
 {
     if(CONSOLE_IN_PAUSE)
@@ -2391,7 +2391,7 @@ void Display::AddString(const char *string)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::AddStringToIndicating(const char *string)
 {
     if(FirstEmptyString() == MAX_NUM_STRINGS)
@@ -2403,7 +2403,7 @@ void Display::AddStringToIndicating(const char *string)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::SetPauseForConsole(bool pause)
 {
     if(pause)
@@ -2417,7 +2417,7 @@ void Display::SetPauseForConsole(bool pause)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::OneStringUp()
 {
     if(!CONSOLE_IN_PAUSE)
@@ -2430,7 +2430,7 @@ void Display::OneStringUp()
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::OneStringDown()
 {
     if(!CONSOLE_IN_PAUSE)
@@ -2443,7 +2443,7 @@ void Display::OneStringDown()
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawConsole()
 {
     int count = 0;
@@ -2486,7 +2486,7 @@ void Display::DrawConsole()
     Painter::SetFont(TypeFont_8);
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::ShowWarn(const char *message)
 {
     if (warnings[0] == 0)
@@ -2510,7 +2510,7 @@ void Display::ShowWarn(const char *message)
     }
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::OnTimerShowWarning()
 {
     uint time = gTimerMS;
@@ -2545,7 +2545,7 @@ void Display::OnTimerShowWarning()
     }
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::ClearFromWarnings()
 {
     Timer::Disable(kShowMessages);
@@ -2557,7 +2557,7 @@ void Display::ClearFromWarnings()
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::ShowWarningBad(Warning warning)
 {
     Painter::ResetFlash();
@@ -2566,7 +2566,7 @@ void Display::ShowWarningBad(Warning warning)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::ShowWarningGood(Warning warning)
 {
     Painter::ResetFlash();
@@ -2574,7 +2574,7 @@ void Display::ShowWarningGood(Warning warning)
     Sound::WarnBeepGood();
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawStringInRectangle(int x, int y, char const *text)
 {
     int width = Font_GetLengthText(text);
@@ -2585,7 +2585,7 @@ void Display::DrawStringInRectangle(int x, int y, char const *text)
     Painter::DrawTextC(Grid::Left() + 3, y + 2, text, COLOR_FLASH_01);
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::DrawWarnings()
 {
     int delta = 12;
@@ -2600,7 +2600,7 @@ void Display::DrawWarnings()
     }
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Display::RunAfterDraw(pFuncVV func)
 {
     funcAfterDraw = func;

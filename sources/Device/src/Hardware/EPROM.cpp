@@ -8,7 +8,7 @@
 #include <stm32f4xx_hal.h>
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 #define CLEAR_FLAGS \
 __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR)
 
@@ -35,11 +35,11 @@ static const uint MAX_UINT = 0xffffffff;
 #define READ_WORD(address) (*((volatile uint*)(address)))
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 static const uint startDataInfo = ADDR_SECTOR_DATA_MAIN;
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void EPROM::PrepareSectorForData()
 {
     EraseSector(ADDR_SECTOR_DATA_MAIN);
@@ -49,7 +49,7 @@ void EPROM::PrepareSectorForData()
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool EPROM::LoadSettings(void)
 {
     /*
@@ -111,7 +111,7 @@ bool EPROM::LoadSettings(void)
     return false;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void EPROM::WriteAddressDataInRecord(RecordConfig *record)
 {
     uint address = (record == FirstRecord()) ? ADDR_FIRST_SET : (record - 1)->addrData + (record - 1)->sizeData;
@@ -119,7 +119,7 @@ void EPROM::WriteAddressDataInRecord(RecordConfig *record)
     WriteWord((uint)(&record->addrData), address);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void EPROM::SaveSettings(bool verifyLoadede)
 {
     if (!verifyLoadede && !SETTINGS_IS_LOADED)
@@ -148,13 +148,13 @@ void EPROM::SaveSettings(bool verifyLoadede)
     WriteBufferBytes(address, (uint8 *)&set, sizeof(set));                      // » банально сохран€ем настройки
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool EPROM::TheFirstInclusion()
 {
     return READ_WORD(ADDR_SECTOR_SETTINGS) == MAX_UINT;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 RecordConfig* EPROM::RecordConfigForRead()
 {
     if (!TheFirstInclusion())
@@ -166,19 +166,19 @@ RecordConfig* EPROM::RecordConfigForRead()
     return 0;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 RecordConfig *EPROM::FirstRecord()
 {
     return (RecordConfig*)ADDR_ARRAY_POINTERS;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool EPROM::RecordExist()
 {
     return READ_WORD(ADDR_ARRAY_POINTERS) != MAX_UINT;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 RecordConfig *EPROM::FirstEmptyRecord()
 {
     RecordConfig *record = FirstRecord();
@@ -196,7 +196,7 @@ RecordConfig *EPROM::FirstEmptyRecord()
     return record;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 uint EPROM::CalculatFreeMemory()
 {
     if (!RecordExist())
@@ -214,7 +214,7 @@ uint EPROM::CalculatFreeMemory()
     return SIZE_MEMORY - (firstEmptyRecord - 1)->addrData - (firstEmptyRecord - 1)->sizeData - 4;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 uint EPROM::FindAddressNextDataInfo()
 {
     uint addressNextInfo = startDataInfo + MAX_NUM_SAVED_WAVES * 4;
@@ -227,13 +227,13 @@ uint EPROM::FindAddressNextDataInfo()
     return addressNextInfo;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 uint EPROM::FindActualDataInfo()
 {
     return FindAddressNextDataInfo() - MAX_NUM_SAVED_WAVES * 4;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void EPROM::GetDataInfo(bool existData[MAX_NUM_SAVED_WAVES])
 {
     uint address = FindActualDataInfo();
@@ -244,21 +244,21 @@ void EPROM::GetDataInfo(bool existData[MAX_NUM_SAVED_WAVES])
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool EPROM::ExistData(int num)
 {
     uint address = FindActualDataInfo();
     return READ_WORD(address + num * 4) != 0;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void EPROM::DeleteData(int num)
 {
     uint address = FindActualDataInfo();
     WriteWord(address + num * 4, 0);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void EPROM::EraseData()
 {
     CLEAR_FLAGS;
@@ -282,7 +282,7 @@ void EPROM::EraseData()
     HAL_FLASH_Lock();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int EPROM::CalculateSizeData(DataSettings *ds)
 {
     int size = sizeof(DataSettings);
@@ -297,13 +297,13 @@ int EPROM::CalculateSizeData(DataSettings *ds)
     return size;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int EPROM::FreeMemory()
 {
     return (int)(ADDR_SECTOR_DATA_MAIN + 128 * 1024 - FindAddressNextDataInfo() - 1 - 4 * MAX_NUM_SAVED_WAVES - 3000);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void EPROM::CompactMemory()
 {
     Display::ClearFromWarnings();
@@ -342,7 +342,7 @@ void EPROM::CompactMemory()
     Display::ClearFromWarnings();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void EPROM::SaveData(int num, DataSettings *ds, uint8 *data0, uint8 *data1)
 {
     /*
@@ -420,7 +420,7 @@ void EPROM::SaveData(int num, DataSettings *ds, uint8 *data0, uint8 *data1)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool EPROM::GetData(int num, DataSettings **ds, uint8 **data0, uint8 **data1)
 {
     uint addrDataInfo = FindActualDataInfo();
@@ -462,7 +462,7 @@ bool EPROM::GetData(int num, DataSettings **ds, uint8 **data0, uint8 **data1)
     return true;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 uint EPROM::GetSector(uint startAddress)
 {
     switch (startAddress)
@@ -480,7 +480,7 @@ uint EPROM::GetSector(uint startAddress)
     return FLASH_SECTOR_11;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void EPROM::EraseSector(uint startAddress)
 {
     __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR);
@@ -500,7 +500,7 @@ void EPROM::EraseSector(uint startAddress)
     HAL_FLASH_Lock();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void EPROM::WriteWord(uint address, uint word)
 {
     __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR);
@@ -512,7 +512,7 @@ void EPROM::WriteWord(uint address, uint word)
     HAL_FLASH_Lock();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void EPROM::WriteBufferBytes(uint address, uint8 *buffer, int size)
 {
     HAL_FLASH_Unlock();
@@ -527,7 +527,7 @@ void EPROM::WriteBufferBytes(uint address, uint8 *buffer, int size)
     HAL_FLASH_Lock();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool OTP::SaveSerialNumber(char *serialNumber)
 {
     // Ќаходим первую пустую строку длиной 16 байт в области OPT, начина€ с начала.
@@ -548,7 +548,7 @@ bool OTP::SaveSerialNumber(char *serialNumber)
     return false;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int OTP::GetSerialNumber(char buffer[17])
 {
     /// \todo улучшить - нельз€ разбрасыватьс€ байтами.  ажда€ запись должна занимать столько места, сколько в ней символов, а не 16, как сейчас.

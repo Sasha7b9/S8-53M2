@@ -25,7 +25,7 @@
 
 extern const Page pDebug;
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 extern const Choice     mcStats;                            ///< ÎÒËÀÄÊÀ - Ñòàòèñòèêà
 extern const Page       mpConsole;                          ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ
 extern const Governor   mgConsole_NumStrings;               ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ×èñëî ñòðîê
@@ -100,7 +100,7 @@ static void           Draw_SerialNumber_Save(int, int);
 extern const       Button bEraseData;                       ///< ÎÒËÀÄÊÀ - Ñòåðåòü äàííûå
 static void       OnPress_EraseData();
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 /// Â ýòîé ñòðóêòóðå áóäóò õðàíèòüñÿ äàííûå ñåðèéíîãî íîìåðà ïðè îòêðûòîé ñòðàíèöå ppSerialNumer
 typedef struct
 {
@@ -141,7 +141,7 @@ const Page pDebug
     Page_Debug, &itemsDebug
 );
 
-// ÎÒËÀÄÊÀ - Ñòàòèñòèêà ------------------------------------------------------------------------------------------------------------------------------
+// ÎÒËÀÄÊÀ - Ñòàòèñòèêà -----
 static const Choice mcStats =
 {
     Item_Choice, &pDebug, 0,
@@ -809,7 +809,7 @@ static const Governor mgRandomizer_Average
 );
 
 
-// ÎÒËÀÄÊÀ - Ðàçìåð íàñòðîåê  ------------------------------------------------------------------------------------------------------------------------
+// ÎÒËÀÄÊÀ - Ðàçìåð íàñòðîåê  
 static const Choice mcSizeSettings =
 {
     Item_Choice, &pDebug, 0,
@@ -831,7 +831,7 @@ static void OnDraw_SizeSettings(int x, int y)
 }
 
 
-// ÎÒËÀÄÊÀ - Ñîõð. ïðîøèâêó --------------------------------------------------------------------------------------------------------------------------
+// ÎÒËÀÄÊÀ - Ñîõð. ïðîøèâêó -
 static const Button mbSaveFirmware
 (
     &pDebug, IsActive_SaveFirmware,
@@ -869,7 +869,7 @@ static void OnPress_SaveFirmware()
 }
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static const Button bEraseData
 (
     &pDebug, EmptyFuncBV,
@@ -990,7 +990,7 @@ static void OnRegSet_SerialNumber(int angle)
     Sound::GovernorChangedValue();
 }
 
-// ÎÒËÀÄÊÀ - Ñ/Í - Âûõîä -----------------------------------------------------------------------------------------------------------------------------
+// ÎÒËÀÄÊÀ - Ñ/Í - Âûõîä ----
 static const SmallButton bSerialNumber_Exit
 (
     &ppSerialNumber,
@@ -1005,7 +1005,7 @@ static void OnPress_SerialNumber_Exit(void)
     FREE_EXTRAMEM();
 }
 
-// ÎÒËÀÄÊÀ - Ñ/Í - Âñòàâèòü --------------------------------------------------------------------------------------------------------------------------
+// ÎÒËÀÄÊÀ - Ñ/Í - Âñòàâèòü -
 static const SmallButton bSerialNumber_Change
 (
     &ppSerialNumber, 0,
@@ -1031,7 +1031,7 @@ static void Draw_SerialNumber_Change(int x, int y)
     Painter::SetFont(TypeFont_8);
 }
 
-// ÎÒËÀÄÊÀ - Ñ/Í - Ñîõðàíèòü -------------------------------------------------------------------------------------------------------------------------
+// ÎÒËÀÄÊÀ - Ñ/Í - Ñîõðàíèòü 
 static const SmallButton bSerialNumber_Save
 (
     &ppSerialNumber, 0,

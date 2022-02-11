@@ -14,7 +14,7 @@
  */
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 /// Структура для описания диапазона масштаба по напряжению.
 typedef struct
@@ -42,13 +42,13 @@ static const RangeStruct ranges[RangeSize] =
 };
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void sChannel_SetRange(Channel chan, Range range)
 {
     SET_RANGE(chan) = range;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int sChannel_MultiplierRel2Abs(Divider multiplier)
 {
     switch (multiplier)
@@ -61,7 +61,7 @@ int sChannel_MultiplierRel2Abs(Divider multiplier)
     return 1;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool sChannel_Enabled(Channel chan)
 {
     if (chan == Math && !DISABLED_DRAW_MATH)
@@ -71,13 +71,13 @@ bool sChannel_Enabled(Channel chan)
     return SET_ENABLED(chan);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 const char* sChannel_Range2String(Range range, Divider multiplier)
 {
     return ranges[range].name[set.common.lang][multiplier];
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 const char* sChannel_RShift2String(int16 rShiftRel, Range range, Divider multiplier, char buffer[20])
 {
     float rShiftVal = RSHIFT_2_ABS(rShiftRel, range) * sChannel_MultiplierRel2Abs(multiplier);

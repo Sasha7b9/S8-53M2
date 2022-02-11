@@ -7,25 +7,25 @@
                        LL Driver Callbacks (HCD -> USB Host Library)
 *******************************************************************************/
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void HAL_HCD_SOF_Callback(HCD_HandleTypeDef *hhcd)
 {
     USBH_LL_IncTimer ((USBH_HandleTypeDef *)hhcd->pData);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void HAL_HCD_Connect_Callback(HCD_HandleTypeDef *hhcd)
 {
     USBH_LL_Connect((USBH_HandleTypeDef *)hhcd->pData);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void HAL_HCD_Disconnect_Callback(HCD_HandleTypeDef *hhcd)
 {
     USBH_LL_Disconnect((USBH_HandleTypeDef *)hhcd->pData);
 } 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void HAL_HCD_HC_NotifyURBChange_Callback(HCD_HandleTypeDef *hhcd, uint8_t chnum, HCD_URBStateTypeDef urb_state)
 {
     (void)hhcd;
@@ -39,7 +39,7 @@ void HAL_HCD_HC_NotifyURBChange_Callback(HCD_HandleTypeDef *hhcd, uint8_t chnum,
                        LL Driver Interface (USB Host Library --> HCD)
 *******************************************************************************/
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 /**
   * @brief  Initializes the Low Level portion of the Host driver.
   */
@@ -66,7 +66,7 @@ USBH_StatusTypeDef USBH_LL_Init(USBH_HandleTypeDef *phost)
     return USBH_OK;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 /**
   * @brief  De-Initializes the Low Level portion of the Host driver.
   */
@@ -76,7 +76,7 @@ USBH_StatusTypeDef USBH_LL_DeInit(USBH_HandleTypeDef *phost)
     return USBH_OK; 
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 /**
   * @brief  Starts the Low Level portion of the Host driver.   
   */
@@ -86,7 +86,7 @@ USBH_StatusTypeDef USBH_LL_Start(USBH_HandleTypeDef *phost)
     return USBH_OK; 
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 /**
   * @brief  Stops the Low Level portion of the Host driver.
   */
@@ -96,7 +96,7 @@ USBH_StatusTypeDef USBH_LL_Stop(USBH_HandleTypeDef *phost)
     return USBH_OK; 
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 /**
   * @brief  Returns the USB Host Speed from the Low Level Driver.
   */
@@ -125,7 +125,7 @@ USBH_SpeedTypeDef USBH_LL_GetSpeed(USBH_HandleTypeDef *phost)
     return speed;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 /**
   * @brief  Resets the Host Port of the Low Level Driver.
   */
@@ -145,7 +145,7 @@ uint32_t USBH_LL_GetLastXferSize(USBH_HandleTypeDef *phost, uint8_t pipe)
     return HAL_HCD_HC_GetXferCount((HCD_HandleTypeDef *)phost->pData, pipe);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 /**
   * @brief  Opens a pipe of the Low Level Driver.
   * @param  pipe: Pipe index
@@ -163,7 +163,7 @@ USBH_StatusTypeDef USBH_LL_OpenPipe(USBH_HandleTypeDef *phost, uint8_t pipe, uin
     return USBH_OK; 
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 /**
   * @brief  Closes a pipe of the Low Level Driver.
   * @param  pipe: Pipe index               
@@ -174,7 +174,7 @@ USBH_StatusTypeDef USBH_LL_ClosePipe(USBH_HandleTypeDef *phost, uint8_t pipe)
     return USBH_OK;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 /**
   * @brief  Submits a new URB to the low level driver.
   * @param  pipe: Pipe index This parameter can be a value from 1 to 15
@@ -195,7 +195,7 @@ USBH_StatusTypeDef USBH_LL_SubmitURB(USBH_HandleTypeDef *phost, uint8_t pipe, ui
     return USBH_OK;   
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 /**
   * @brief  Gets a URB state from the low level driver.
   * @param  pipe: Pipe index  This parameter can be a value from 1 to 15
@@ -207,7 +207,7 @@ USBH_URBStateTypeDef USBH_LL_GetURBState(USBH_HandleTypeDef *phost, uint8_t pipe
     return (USBH_URBStateTypeDef)HAL_HCD_HC_GetURBState ((HCD_HandleTypeDef *)phost->pData, pipe);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 /**
   * @brief  Drives VBUS.
   * @param  phost: Host handle
@@ -223,7 +223,7 @@ USBH_StatusTypeDef USBH_LL_DriverVBUS(USBH_HandleTypeDef *phost, uint8_t state)
     return USBH_OK;  
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 /**
   * @brief  Sets toggle for a pipe.
   * @param  phost: Host handle
@@ -246,7 +246,7 @@ USBH_StatusTypeDef USBH_LL_SetToggle(USBH_HandleTypeDef *phost, uint8_t pipe, ui
     return USBH_OK; 
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 /**
   * @brief  Returns the current toggle of a pipe.
   * @param  phost: Host handle
@@ -270,7 +270,7 @@ uint8_t USBH_LL_GetToggle(USBH_HandleTypeDef *phost, uint8_t pipe)
     return toggle; 
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 /**
   * @brief  Delay routine for the USB Host Library
   * @param  Delay: Delay in ms

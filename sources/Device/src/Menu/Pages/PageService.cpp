@@ -118,7 +118,7 @@ const Page pService                     ///< ÑÅÐÂÈÑ
     Page_Service, &itemsService
 );
 
-// ÑÅÐÂÈÑ - Ñáðîñ íàñòðîåê ---------------------------------------------------------------------------------------------------------------------------
+// ÑÅÐÂÈÑ - Ñáðîñ íàñòðîåê --
 static const Button bResetSettings
 (
     &pService, 0,
@@ -161,7 +161,7 @@ static void OnTimerDraw(void)
 }
 
 
-// ÑÅÐÂÈÑ - Ïîèñê ñèãíàëà ----------------------------------------------------------------------------------------------------------------------------
+// ÑÅÐÂÈÑ - Ïîèñê ñèãíàëà ---
 static const Button bAutoSearch
 (
     &pService, 0,
@@ -821,7 +821,7 @@ static const IPaddress ipEthernet_Mask
     &structMask
 );
 
-// ÑÅÐÂÈÑ - ETHERNET - Øëþç --------------------------------------------------------------------------------------------------------------------------
+// ÑÅÐÂÈÑ - ETHERNET - Øëþç -
 static const IPaddressStruct structGateway =
 {
     { Item_IP, &ppEthernet, 0,
@@ -850,7 +850,7 @@ static const MACaddress macEthernet_MAC =
     OnChanged_Ethernet_Enable
 };
 
-// ÑÅÐÂÈÑ - Çâóê -------------------------------------------------------------------------------------------------------------------------------------
+// ÑÅÐÂÈÑ - Çâóê ------------
 static const Choice cSound =
 {
     Item_Choice, &pService, 0,
@@ -867,7 +867,7 @@ static const Choice cSound =
 };
 
 
-// ÑÅÐÂÈÑ - ßçûê -------------------------------------------------------------------------------------------------------------------------------------
+// ÑÅÐÂÈÑ - ßçûê ------------
 static const Choice cLang =
 {
     Item_Choice, &pService, 0,
@@ -884,7 +884,7 @@ static const Choice cLang =
 };
 
 
-// ÑÅÐÂÈÑ - Âðåìÿ ------------------------------------------------------------------------------------------------------------------------------------
+// ÑÅÐÂÈÑ - Âðåìÿ -----------
 static int8 dServicetime = 0;
 static int8 hours = 0, minutes = 0, secondes = 0, year = 0, month = 0, day = 0;
 static const Time tTime =
@@ -910,7 +910,7 @@ static const Time tTime =
     &dServicetime, &hours, &minutes, &secondes, &month, &day, &year
 };
 
-// ÑÅÐÂÈÑ - Ðåæ äëèò ÑÈÍÕÐ ---------------------------------------------------------------------------------------------------------------------------
+// ÑÅÐÂÈÑ - Ðåæ äëèò ÑÈÍÕÐ --
 static const Choice cModeLongPressButtonTrig =
 {
     Item_Choice, &pService, 0,
@@ -930,7 +930,7 @@ static const Choice cModeLongPressButtonTrig =
     (int8*)&MODE_LONG_PRESS_TRIG
 };
 
-// ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß -------------------------------------------------------------------------------------------------------------------------------
+// ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß ------
 static const arrayItems itemsInformation =
 {
     (void*)&sbInformation_Exit, // ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß - Âûõîä

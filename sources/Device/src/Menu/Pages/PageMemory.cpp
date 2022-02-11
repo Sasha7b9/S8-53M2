@@ -689,7 +689,7 @@ static const SmallButton sbMemIntShowSignalAlways
     &hintsMemIntShowSignalAlways
 );
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void DrawSB_MemInt_ModeShow_Direct(int x, int y)
 {
     Painter::SetFont(TypeFont_UGO2);
@@ -761,7 +761,7 @@ static const SmallButton sbMemIntModeShow
     &hintsMemIntModeShow
 );
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void PressSB_MemInt_Delete()
 {
     EPROM::DeleteData(CURRENT_NUM_INT_SIGNAL);
@@ -784,7 +784,7 @@ static const SmallButton sbMemIntDelete
     DrawSB_MemInt_Delete
 );
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 const SmallButton sbMemIntSave
 (
     &mspMemInt, 0,
@@ -881,7 +881,7 @@ const Choice mcMemoryNumPoints =
     (int8*)&ENUM_POINTS, ChangeC_Memory_NumPoints
 };
 
-// œ¿Ãﬂ“‹ - ¬Õ≈ÿÕ «” ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// œ¿Ãﬂ“‹ - ¬Õ≈ÿÕ «” /////
 extern const Page mspMemoryExt;
 
 // œ¿Ãﬂ“‹ - ¬Õ≈ÿÕ «” - »Ïˇ Ù‡ÈÎ‡
@@ -1349,37 +1349,37 @@ static const Page pMemory              ///< œ¿Ãﬂ“‹
     Page_Memory, &itemsMemory
 );
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void *PageMemory::GetPointer()
 {
     return (void *)&pMemory;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void *PageMemory::Latest::GetPointer()
 {
     return (void *)&mspMemLast;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void *PageMemory::Internal::GetPointer()
 {
     return (void *)&mspMemInt;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void *PageMemory::SetMask::GetPointer()
 {
     return (void *)&mspSetMask;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void *PageMemory::SetName::GetPointer()
 {
     return (void *)&mpSetName;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void *PageMemory::FileManager::GetPointer()
 {
     return (void *)&mspFileManager;

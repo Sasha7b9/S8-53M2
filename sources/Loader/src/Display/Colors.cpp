@@ -7,39 +7,39 @@
 #include <math.h>
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 Color gColorBack;
 Color gColorFill;
 Color gColorGrid;
 Color gColorChan[4];
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 static void SetColor(ColorType *colorType)
 {
     set.display.colors[colorType->color] = (uint16)MAKE_COLOR((int)colorType->red, (int)colorType->green, (int)colorType->blue);
     Painter_SetPalette(colorType->color);
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Color ColorMenuTitle(bool inShade)
 {
     return inShade ? COLOR_MENU_ITEM : COLOR_MENU_TITLE;
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Color ColorMenuItem(bool inShade)
 {
     return inShade ? COLOR_MENU_ITEM_DARK : COLOR_MENU_ITEM;
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Color ColorBorderMenu(bool inShade)
 {
     return ColorMenuTitle(inShade);
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Color ColorContrast(Color color)
 {
     uint16 colorValue = set.display.colors[color];
@@ -50,18 +50,18 @@ Color ColorContrast(Color color)
     return COLOR_WHITE;
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Color LightShadingTextColor(void)
 {
     return ColorMenuTitle(false);
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Color_Log(Color)
 {
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 /*
     Алгоритм изменения яркости.
     1. Инициализация.
@@ -73,7 +73,7 @@ void Color_Log(Color)
     3. При изменения интенсивности цветового канала пересчитывать яркость и шаг изменения каждого канала.
 */
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void ColorType_CalcSteps(ColorType *colorType)
 {
     colorType->stepRed = colorType->red / (colorType->brightness * 100.0f);
@@ -81,7 +81,7 @@ static void ColorType_CalcSteps(ColorType *colorType)
     colorType->stepBlue = colorType->blue / (colorType->brightness * 100.0f);
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void ColorType_SetBrightness(ColorType *colorType)
 {
     colorType->brightness = MaxFloat(colorType->red / 31.0f, colorType->green / 63.0f, colorType->blue / 31.0f);
@@ -89,7 +89,7 @@ static void ColorType_SetBrightness(ColorType *colorType)
     ColorType_CalcSteps(colorType);
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Color_SetBrightness(ColorType *colorType, float brightness)
 {
     int delta = (int)((brightness + 0.0005f) * 100.0f) - (int)(colorType->brightness * 100.0f);
@@ -110,7 +110,7 @@ void Color_SetBrightness(ColorType *colorType, float brightness)
     }
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Color_BrightnessChange(ColorType *colorType, int delta)
 {
     if ((delta > 0 && colorType->brightness == 1.0f) || (delta < 0 && colorType->brightness == 0.0f))
@@ -136,7 +136,7 @@ void Color_BrightnessChange(ColorType *colorType, int delta)
     }
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Color_Init(ColorType *colorType, bool forced)
 {
     if (forced)
@@ -165,7 +165,7 @@ void Color_Init(ColorType *colorType, bool forced)
     }
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Color_ComponentChange(ColorType * const colorType, int delta)
 {
     static const float maxs[4] = {0.0f, 31.0f, 63.0f, 31.0f};
@@ -182,7 +182,7 @@ void Color_ComponentChange(ColorType * const colorType, int delta)
     ColorType_SetBrightness(colorType);
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 static const char* colorNames[] =
 {
     "COLOR_BLACK",
@@ -207,7 +207,7 @@ static const char* colorNames[] =
     "INVERSE"
 };
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 const char* NameColorFromValue(uint16 colorValue)
 {
     for (int i = 0; i < NUM_COLORS; i++)
@@ -220,7 +220,7 @@ const char* NameColorFromValue(uint16 colorValue)
     return "Sorry, this color is not in the palette";
 }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
+
 const char* NameColor(Color color)
 {
     return colorNames[color];

@@ -137,7 +137,7 @@ void VCP::SendFormatStringSynch(char *format, ...) {
     SendDataSynch((uint8*)buffer, (int)strlen(buffer));
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void VCP::Update()
 {
     if(gTimerMS - lastTimeSend > 1000)
@@ -150,7 +150,7 @@ void VCP::Update()
 extern "C" {
 #endif
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void OTG_FS_IRQHandler() {
     HAL_PCD_IRQHandler(&handlePCD);
 }

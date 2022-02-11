@@ -8,7 +8,7 @@
 #include "Hardware/Timer.h"
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 extern USBD_HandleTypeDef handleUSBD;
 
 
@@ -39,7 +39,7 @@ USBD_CDC_ItfTypeDef USBD_CDC_fops =
 };
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 static void SetAttributeConnected()
 {
     CABLE_VCP_IS_CONNECTED = 1;
@@ -48,7 +48,7 @@ static void SetAttributeConnected()
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 static int8_t CDC_Itf_Init(void)
 {
     USBD_CDC_SetRxBuffer(&handleUSBD, UserRxBuffer);
@@ -57,7 +57,7 @@ static int8_t CDC_Itf_Init(void)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 static int8_t CDC_Itf_DeInit(void)
 {
     CABLE_VCP_IS_CONNECTED = 0;
@@ -67,7 +67,7 @@ static int8_t CDC_Itf_DeInit(void)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 static int8_t CDC_Itf_Control (uint8_t cmd, uint8_t* pbuf, uint16_t length)
 { 
     switch (cmd)
@@ -127,7 +127,7 @@ static int8_t CDC_Itf_Control (uint8_t cmd, uint8_t* pbuf, uint16_t length)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 static int8 CDC_Itf_Receive(uint8* buffer, uint *length)
 {
     SCPI::AddNewData(buffer, *length);

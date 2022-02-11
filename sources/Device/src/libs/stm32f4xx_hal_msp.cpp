@@ -3,7 +3,7 @@
 #include <stm32f4xx_hal_sram.h>
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void HAL_RTC_MspInit(RTC_HandleTypeDef *hrtc)
 {
     RCC_OscInitTypeDef oscIS;
@@ -31,7 +31,7 @@ void HAL_RTC_MspInit(RTC_HandleTypeDef *hrtc)
     __HAL_RCC_RTC_ENABLE();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void HAL_RTC_MspDeInit(RTC_HandleTypeDef *hrtc)
 {
     __HAL_RCC_RTC_DISABLE();
@@ -39,19 +39,19 @@ void HAL_RTC_MspDeInit(RTC_HandleTypeDef *hrtc)
     __PWR_CLK_DISABLE();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
 {
 
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void HAL_SPI_MspDeInit(SPI_HandleTypeDef *hspi)
 {
 
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void HAL_SRAM_MspInit(SRAM_HandleTypeDef *hsram)
 {
     __FMC_CLK_ENABLE();
@@ -99,7 +99,7 @@ void HAL_SRAM_MspInit(SRAM_HandleTypeDef *hsram)
 
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void HAL_SRAM_MspDeInit(SRAM_HandleTypeDef *hsram)
 {
     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_7);
@@ -108,7 +108,7 @@ void HAL_SRAM_MspDeInit(SRAM_HandleTypeDef *hsram)
     HAL_GPIO_DeInit(GPIOE, GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void HAL_DAC_MspInit(DAC_HandleTypeDef* hdac)
 {
     GPIO_InitTypeDef structGPIO =
@@ -147,13 +147,13 @@ void HAL_DAC_MspInit(DAC_HandleTypeDef* hdac)
     HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void HAL_DAC_MspDeInit(DAC_HandleTypeDef* hdac)
 {
 
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
 {
     GPIO_InitTypeDef GPIO_InitStructure;
@@ -221,13 +221,13 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void HAL_CRC_MspInit(CRC_HandleTypeDef *hcrc)
 {
     __HAL_RCC_CRC_CLK_ENABLE();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void HAL_CRC_MspDeInit(CRC_HandleTypeDef *hcrc)
 {
     __HAL_RCC_CRC_FORCE_RESET();

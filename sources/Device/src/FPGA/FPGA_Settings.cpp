@@ -10,7 +10,7 @@
 #include "Hardware/Timer.h"
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 static const uint8 masksRange[RangeSize] =
 {
     BINARY_U8(0000000),
@@ -73,7 +73,7 @@ static const TBaseMaskStruct masksTBase[TBaseSize] =
 };
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void FPGA::LoadSettings(void)
 {
     LoadKoeffCalibration(A);
@@ -114,7 +114,7 @@ void FPGA::LoadSettings(void)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog type) 
 {
     uint data = 0;
@@ -160,7 +160,7 @@ void FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog type)
     WriteToAnalog(type, data);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::SetRange(Channel chan, Range range)
 {
     if (!sChannel_Enabled(chan))
@@ -185,7 +185,7 @@ void FPGA::SetRange(Channel chan, Range range)
     }
 };
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::LoadRange(Channel chan)
 {
     SetAttribChannelsAndTrig(TypeWriteAnalog_Range0);
@@ -196,7 +196,7 @@ void FPGA::LoadRange(Channel chan)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::SetTBase(TBase tBase)
 {
     if (!sChannel_Enabled(A) && !sChannel_Enabled(B))
@@ -217,7 +217,7 @@ void FPGA::SetTBase(TBase tBase)
     }
 };
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::LoadTBase(void)
 {
     TBase tBase = SET_TBASE;
@@ -226,7 +226,7 @@ void FPGA::LoadTBase(void)
     ADD_SHIFT_T0 = deltaTShift[tBase];
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::TBaseDecrease(void)
 {
     if (PEAKDET && SET_TBASE <= MIN_TBASE_PEC_DEAT)
@@ -254,7 +254,7 @@ void FPGA::TBaseDecrease(void)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::TBaseIncrease(void)
 {
     if (SET_TBASE < (TBaseSize - 1))
@@ -268,7 +268,7 @@ void FPGA::TBaseIncrease(void)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::SetRShift(Channel chan, int16 rShift)
 {
     if (!sChannel_Enabled(chan))
@@ -296,7 +296,7 @@ void FPGA::SetRShift(Channel chan, int16 rShift)
     Display::RotateRShift(chan);
 };
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::LoadRShift(Channel chan)
 {
     static const uint16 mask[2] = {0x2000, 0x6000};
@@ -319,7 +319,7 @@ void FPGA::LoadRShift(Channel chan)
     WriteToDAC(chan == A ? TypeWriteDAC_RShiftA : TypeWriteDAC_RShiftB, (uint16)(mask[chan] | (rShift << 2)));
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::SetTrigLev(TrigSource chan, int16 trigLev)
 {
     Display::ChangedRShiftMarkers();
@@ -346,7 +346,7 @@ void FPGA::SetTrigLev(TrigSource chan, int16 trigLev)
     }
 };
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::LoadTrigLev(void)
 {
     uint16 data = 0xa000;
@@ -358,7 +358,7 @@ void FPGA::LoadTrigLev(void)
     WriteToDAC(TypeWriteDAC_TrigLev, data);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::SetTShift(int tShift)
 {
     if (!sChannel_Enabled(A) && !sChannel_Enabled(B))
@@ -377,28 +377,28 @@ void FPGA::SetTShift(int tShift)
     Display::Redraw();
 };
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::SetDeltaTShift(int16 shift)
 {
     deltaTShift[SET_TBASE] = shift;
     LoadTShift();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::SetPeackDetMode(PeackDetMode peackDetMode)
 {
     PEAKDET = peackDetMode;
     LoadRegUPR();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::SetCalibratorMode(CalibratorMode calibratorMode)
 {
     CALIBRATOR = calibratorMode;
     LoadRegUPR();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::LoadRegUPR(void)
 {
     uint8 data = 0;
@@ -422,13 +422,13 @@ void FPGA::LoadRegUPR(void)
     FPGA::WriteToHardware(WR_UPR, data, true);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::LoadKoeffCalibration(Channel chan)
 {
     FPGA::WriteToHardware(chan == A ? WR_CAL_A : WR_CAL_B, STRETCH_ADC(chan) * 0x80, false);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::LoadTShift(void)
 {
     static const int16 k[TBaseSize] = {50, 20, 10, 5, 2};
@@ -451,14 +451,14 @@ void FPGA::LoadTShift(void)
     WriteToHardware(WR_PRED_HI, (uint8)(pred >> 8), true);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 const char *FPGA::GetTShiftString(int16 tShiftRel, char buffer[20])
 {
     float tShiftVal = TSHIFT_2_ABS(tShiftRel, SET_TBASE);
     return Time2String(tShiftVal, true, buffer);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool FPGA::RangeIncrease(Channel chan)
 {
     bool retValue = false;
@@ -475,7 +475,7 @@ bool FPGA::RangeIncrease(Channel chan)
     return retValue;
 };
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool FPGA::RangeDecrease(Channel chan)
 {
     bool retValue = false;
@@ -492,7 +492,7 @@ bool FPGA::RangeDecrease(Channel chan)
     return retValue;
 };
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::SetTrigSource(TrigSource trigSource)
 {
     TRIG_SOURCE = trigSource;
@@ -503,27 +503,27 @@ void FPGA::SetTrigSource(TrigSource trigSource)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::SetTrigPolarity(TrigPolarity polarity)
 {
     TRIG_POLARITY = polarity;
     LoadTrigPolarity();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::LoadTrigPolarity(void)
 {
     WriteToHardware(WR_TRIG_F, TRIG_POLARITY_IS_FRONT ? 0x01U : 0x00U, true);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::SetTrigInput(TrigInput trigInput)
 {
     TRIG_INPUT = trigInput;
     SetAttribChannelsAndTrig(TypeWriteAnalog_TrigParam);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::SetModeCouple(Channel chan, ModeCouple modeCoupe)
 {
     SET_COUPLE(chan) = modeCoupe;
@@ -531,7 +531,7 @@ void FPGA::SetModeCouple(Channel chan, ModeCouple modeCoupe)
     SetRShift(chan, SET_RSHIFT(chan));
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::EnableChannelFiltr(Channel chan, bool enable)
 {
     SET_FILTR(chan) = enable;

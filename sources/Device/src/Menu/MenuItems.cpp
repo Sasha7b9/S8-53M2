@@ -4,7 +4,7 @@
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 /// »спользуетс€ дл€ анимации изменени€ значени€ Choice
 typedef struct
 {
@@ -17,7 +17,7 @@ typedef struct
 static TimeStructChoice tsChoice;
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 Control::Control(const ControlStruct *str) : type(str->type), keeper(str->keeper), funcOfActive(str->funcOfActive)
 {
     titleHint[0] = str->titleHint[0];
@@ -26,7 +26,7 @@ Control::Control(const ControlStruct *str) : type(str->type), keeper(str->keeper
     titleHint[3] = str->titleHint[3];
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 Control::Control(TypeItem type_, const Page* keeper_, pFuncBV funcOfActive_, const char *titleRU, const char *titleEN, const char *hintRU, const char *hintEN) :
     type(type_), keeper(keeper_), funcOfActive(funcOfActive_)
 {
@@ -36,7 +36,7 @@ Control::Control(TypeItem type_, const Page* keeper_, pFuncBV funcOfActive_, con
     titleHint[3] = hintEN;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 Page::Page(const Page *keeper_, pFuncBV funcOfActive_, const char *titleRU, const char *titleEN, const char *hintRU, const char *hintEN, 
            NamePage name_, const arrayItems *items_, pFuncVV funcOnPress_, pFuncVV funcOnDraw_, pFuncVI funcRegSetSB_) :
     Control(Item_Page, keeper_, funcOfActive_, titleRU, titleEN, hintRU, hintEN),
@@ -44,7 +44,7 @@ Page::Page(const Page *keeper_, pFuncBV funcOfActive_, const char *titleRU, cons
 {
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 Button::Button(const Page *keeper_, pFuncBV funcOfActive_,
        const char *titleRU, const char *titleEN, const char *hintRU, const char *hintEN, pFuncVV funcOnPress_) :
     Control(Item_Button, keeper_, funcOfActive_, titleRU, titleEN, hintRU, hintEN),
@@ -52,7 +52,7 @@ Button::Button(const Page *keeper_, pFuncBV funcOfActive_,
 {
 };
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 SmallButton::SmallButton(const Page *keeper_, pFuncBV funcOfActive_,
             const char *titleRU, const char *titleEN, const char *hintRU, const char *hintEN,
             pFuncVV funcOnPress_, pFuncVII funcOnDraw_, const arrayHints *hintUGO_) :
@@ -61,7 +61,7 @@ SmallButton::SmallButton(const Page *keeper_, pFuncBV funcOfActive_,
 {
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 Governor::Governor(const Page *keeper_, pFuncBV funcOfActive_,
          const char *titleRU, const char *titleEN, const char *hintRU, const char *hintEN,
          int16 *cell_, int16 minValue_, int16 maxValue_, pFuncVV funcOfChanged_, pFuncVV funcBeforeDraw_) :
@@ -70,32 +70,32 @@ Governor::Governor(const Page *keeper_, pFuncBV funcOfActive_,
 {
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Control::IsPressed()
 {
     return this == Menu::ItemUnderKey();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 IPaddress::IPaddress(const IPaddressStruct *str) :
     Control(&str->str), ip0(str->ip0), ip1(str->ip1), ip2(str->ip2), ip3(str->ip3), funcOfChanged(str->funcOfChanged), port(str->port)
 {
 
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 const char *Choice::NameSubItem(int i)
 {
     return names[i][LANG];
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 const char *Choice::NameCurrentSubItem()
 {
     return (cell == 0) ? "" : names[*cell][LANG];
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 const char *Choice::NameNextSubItem()
 {
     if (cell == 0)
@@ -110,7 +110,7 @@ const char *Choice::NameNextSubItem()
     return names[index][LANG];
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 const char *Choice::NamePrevSubItem()
 {
     if (cell == 0)
@@ -125,7 +125,7 @@ const char *Choice::NamePrevSubItem()
     return names[index][set.common.lang];
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Choice::NumSubItems()
 {
     int i = 0;
@@ -139,7 +139,7 @@ int Choice::NumSubItems()
     return i;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Choice::StartChange(int delta)
 {
     if (tsChoice.choice != 0)
@@ -170,7 +170,7 @@ void Choice::StartChange(int delta)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Choice::FuncOnChanged(bool active)
 {
     if (funcOnChanged)
@@ -179,7 +179,7 @@ void Choice::FuncOnChanged(bool active)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Choice::FuncForDraw(int x, int y)
 {
     if (funcForDraw)
@@ -188,7 +188,7 @@ void Choice::FuncForDraw(int x, int y)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 float Choice::Step()
 {
     static const float speed = 0.1f;
@@ -227,7 +227,7 @@ float Choice::Step()
     return 0.0f;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Choice::ChangeValue(int delta)
 {
     if (delta < 0)

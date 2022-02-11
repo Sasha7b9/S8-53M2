@@ -1,11 +1,11 @@
 #include "Flash.h"
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 #define CLEAR_FLASH_FLAGS   \
     __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR);
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void FLASH_Prepare(void)
 {
     CLEAR_FLASH_FLAGS;
@@ -24,7 +24,7 @@ void FLASH_Prepare(void)
     HAL_FLASH_Lock();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FLASH_WriteData(uint address, uint8 *data, int size)
 {
     CLEAR_FLASH_FLAGS;

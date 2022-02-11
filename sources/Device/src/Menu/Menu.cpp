@@ -25,7 +25,7 @@
 #include <string.h>
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 extern void OnChanged_InputA(bool active);
 extern void OnChanged_InputB(bool active);
                                                 
@@ -50,7 +50,7 @@ static PanelButton bufferForButtons[SIZE_BUFFER_FOR_BUTTONS] = {B_Empty, B_Empty
 static const PanelButton sampleBufferForButtons[SIZE_BUFFER_FOR_BUTTONS] = {B_F5, B_F4, B_F3, B_F2, B_F1};
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void Menu::UpdateInput()
 {
     ProcessingShortPressureButton();
@@ -67,7 +67,7 @@ void Menu::UpdateInput()
     }
 };
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ShortPressureButton(PanelButton button)
 {
     if (!SHOW_HELP_HINTS)
@@ -83,7 +83,7 @@ void Menu::ShortPressureButton(PanelButton button)
 };
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::LongPressureButton(PanelButton button)
 {
     if (SHOW_HELP_HINTS == 0)
@@ -93,7 +93,7 @@ void Menu::LongPressureButton(PanelButton button)
     }
 };
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ProcessButtonForHint(PanelButton button)
 {
     if (button == B_Menu)
@@ -224,7 +224,7 @@ void Menu::ProcessButtonForHint(PanelButton button)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::PressButton(PanelButton button)
 {
     Sound::ButtonPress();
@@ -255,7 +255,7 @@ void Menu::PressButton(PanelButton button)
     pressButton = button;
 };
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ReleaseButton(PanelButton button)
 {
     Sound::ButtonRelease();
@@ -265,7 +265,7 @@ void Menu::ReleaseButton(PanelButton button)
     }
 };
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::RotateRegSetRight(void)
 {   
     if (SHOW_HELP_HINTS == 0)
@@ -275,7 +275,7 @@ void Menu::RotateRegSetRight(void)
     }
 };
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::RotateRegSetLeft(void)
 {
     if (SHOW_HELP_HINTS == 0)
@@ -285,13 +285,13 @@ void Menu::RotateRegSetLeft(void)
     }
 };
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void* Menu::ItemUnderKey(void)
 {
     return itemUnderKey;
 };
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::SetAutoHide(bool active)
 {
     if(!MenuIsShown())
@@ -308,7 +308,7 @@ void Menu::SetAutoHide(bool active)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 char* Menu::StringNavigation(char buffer[100])
 {
     if(SHOW_STRING_NAVIGATION && MenuIsShown())
@@ -342,14 +342,14 @@ char* Menu::StringNavigation(char buffer[100])
     return 0;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::OnTimerAutoHide()
 {
     ShowMenu(false);
     Timer::Disable(kMenuAutoHide);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ProcessingShortPressureButton()
 {
     if(shortPressureButton != B_Empty)
@@ -421,7 +421,7 @@ void Menu::ProcessingShortPressureButton()
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ProcessingLongPressureButton(void)
 {
     if(longPressureButton != B_Empty)
@@ -458,7 +458,7 @@ void Menu::ProcessingLongPressureButton(void)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ProcessingRegulatorSet(void)
 {
     if (angleRegSet == 0)
@@ -509,7 +509,7 @@ void Menu::ProcessingRegulatorSet(void)
     angleRegSet = 0;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ProcessingPressButton(void)
 {
     if (pressButton == B_Start && !MODE_WORK_IS_LATEST)
@@ -526,7 +526,7 @@ void Menu::ProcessingPressButton(void)
     pressButton = B_Empty;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ProcessingReleaseButton(void)
 {
     if(releaseButton >= B_F1 && releaseButton <= B_F5 || pressButton == B_Menu)
@@ -536,7 +536,7 @@ void Menu::ProcessingReleaseButton(void)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ShortPress_Page(void *item)
 {
     Page *page = (Page *)item;
@@ -552,7 +552,7 @@ void Menu::ShortPress_Page(void *item)
     OpenItem((Page*)page, !ItemIsOpened((Page*)page));
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ShortPress_Choice(void *choice)
 {
     if (!ItemIsActive(choice))
@@ -570,7 +570,7 @@ void Menu::ShortPress_Choice(void *choice)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ShortPress_ChoiceReg(void *choice)
 {
     if(!ItemIsActive(choice)) 
@@ -583,13 +583,13 @@ void Menu::ShortPress_ChoiceReg(void *choice)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::FuncOnLongPressItemButton(void *button)
 {
     ShortPress_Button(button);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ShortPress_Button(void *button)
 {
     if(!ItemIsActive(button))
@@ -600,7 +600,7 @@ void Menu::ShortPress_Button(void *button)
     ((Button*)button)->funcOnPress();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::FuncOnLongPressItem(void *item)
 {
     if (CurrentItem() != item)
@@ -610,7 +610,7 @@ void Menu::FuncOnLongPressItem(void *item)
     OpenItem(item, !ItemIsOpened(item));
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::FuncOnLongPressItemTime(void *time)
 {
     if (CurrentItem() != time)
@@ -625,7 +625,7 @@ void Menu::FuncOnLongPressItemTime(void *time)
     ItemTime_SetOpened((Time *)time);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ShortPress_Time(void *time)
 {
     if(!ItemIsOpened(time))
@@ -640,7 +640,7 @@ void Menu::ShortPress_Time(void *time)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ShortPress_Governor(void *governor)
 {
     Governor *gov = (Governor*)governor;
@@ -658,7 +658,7 @@ void Menu::ShortPress_Governor(void *governor)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ShortPress_IP(void *item)
 {
     if (OpenedItem() == item)
@@ -667,7 +667,7 @@ void Menu::ShortPress_IP(void *item)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ShortPress_MAC(void *item)
 {
     if (OpenedItem() == item)
@@ -676,7 +676,7 @@ void Menu::ShortPress_MAC(void *item)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ShortPress_GovernorColor(void *governorColor)
 {
     if(!ItemIsActive(governorColor))
@@ -694,7 +694,7 @@ void Menu::ShortPress_GovernorColor(void *governorColor)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ShortPress_SmallButton(void *smallButton)
 {
     SmallButton *sb = (SmallButton *)smallButton;
@@ -709,7 +709,7 @@ void Menu::ShortPress_SmallButton(void *smallButton)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ExecuteFuncForShortPressOnItem(void *item)
 {
     typedef void(*pFuncMenuVpV)(void*);
@@ -739,7 +739,7 @@ void Menu::ExecuteFuncForShortPressOnItem(void *item)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ExecuteFuncForLongPressureOnItem(void *item)
 {
     typedef void(*pFuncMenuVpV)(void*);
@@ -771,7 +771,7 @@ void Menu::ExecuteFuncForLongPressureOnItem(void *item)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ChangeStateFlashDrive()
 {
     if(FLASH_DRIVE_IS_CONNECTED == 0)
@@ -787,10 +787,10 @@ void Menu::ChangeStateFlashDrive()
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 extern const Page pService;
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::OpenItemTime(void)
 {
     Display::ShowWarningGood(TimeNotSet);
@@ -808,7 +808,7 @@ void Menu::OpenItemTime(void)
     Display::Update();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Menu::NeedForFireSetLED()    // Возвращает true, если лампочка УСТАНОВКА должна гореть
 {
     if (!MenuIsShown())
@@ -852,7 +852,7 @@ bool Menu::NeedForFireSetLED()    // Возвращает true, если лампочка УСТАНОВКА до
     return false;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::SwitchSetLED(void)
 {
     static bool first = true;
@@ -873,7 +873,7 @@ void Menu::SwitchSetLED(void)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::OpenFileManager()
 {
     angleRegSet = 0;

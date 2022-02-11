@@ -130,7 +130,7 @@ static void (*funculatorRight[R_Set + 1])(void) =
 };
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 PanelButton ButtonIsRelease(uint16 command)
 {
     PanelButton button = B_Empty;

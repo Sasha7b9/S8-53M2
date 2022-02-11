@@ -3,20 +3,20 @@
 #include "PainterMem.h"
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 static uint8 *buffer;
 static int width;
 volatile static int height;
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 static uint8* FindByte(int x, int y)
 {
     return buffer + (y * width + x) / 2;
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 static uint8 GetClearMask(int x, int y)
 {
     if (((y * width + x) % 2) == 0)
@@ -27,7 +27,7 @@ static uint8 GetClearMask(int x, int y)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 static uint8 GetMask(int x, int y, int color)
 {
     if (((y * width + x) % 2) == 0)
@@ -38,7 +38,7 @@ static uint8 GetMask(int x, int y, int color)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void PainterMem_SetBuffer(uint8 *address, int eWidth, int eHeight)
 {
     buffer = address;
@@ -47,7 +47,7 @@ void PainterMem_SetBuffer(uint8 *address, int eWidth, int eHeight)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void PainterMem_SetPoint(int x, int y, int color)
 {
     uint8 *byte = FindByte(x, y);
@@ -63,7 +63,7 @@ void PainterMem_SetPoint(int x, int y, int color)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void PainterMem_FillRect(int x, int y, int _width, int _height, int color)
 {
     for(int i = 0; i <= _height; i++)
@@ -73,7 +73,7 @@ void PainterMem_FillRect(int x, int y, int _width, int _height, int color)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void PainterMem_DrawVLine(int x, int y0, int y1, int color)
 {
     for (int y = y0; y <= y1; y++)
@@ -83,7 +83,7 @@ void PainterMem_DrawVLine(int x, int y0, int y1, int color)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void PainterMem_DrawHLine(int y, int x0, int x1, int color)
 {
     for(int x = x0; x <= x1; x++)
@@ -120,7 +120,7 @@ void PainterMem_DrawHLine(int y, int x0, int x1, int color)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void PainterMem_DrawRectangle(int x, int y, int _width, int _height, int color)
 {
     PainterMem_DrawVLine(x, y, y + _height, color);

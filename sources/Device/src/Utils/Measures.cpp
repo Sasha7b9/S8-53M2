@@ -277,7 +277,7 @@ void Measure_DrawPageChoice()
     Painter::SetFont(TypeFont_8);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 Measure& operator++(Measure &measure)
 {
     measure = (Measure)((int)measure + 1);

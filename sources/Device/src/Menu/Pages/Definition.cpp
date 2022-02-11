@@ -16,13 +16,13 @@
  */
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 extern Choice mcCursorsSource;
 extern Choice mcCursorsU;
 extern Choice mcCursorsT;
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void CalculateConditions(int16 pos0, int16 pos1, CursCntrl cursCntrl, bool *cond0, bool *cond1)
 {
     bool zeroLessFirst = pos0 < pos1;
@@ -31,21 +31,21 @@ void CalculateConditions(int16 pos0, int16 pos1, CursCntrl cursCntrl, bool *cond
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 int CalculateYforCurs(int y, bool top)
 {
     return top ? y + MI_HEIGHT / 2 + 4 : y + MI_HEIGHT - 2;
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 int CalculateXforCurs(int x, bool left)
 {
     return left ? x + MI_WIDTH - 20 : x + MI_WIDTH - 5;
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void CalculateXY(int *x0, int *x1, int *y0, int *y1)
 {
     *x0 = CalculateXforCurs(*x0, true);
@@ -55,7 +55,7 @@ void CalculateXY(int *x0, int *x1, int *y0, int *y1)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void DrawMenuCursTime(int x, int y, bool left, bool right)
 {
     x -= 58;
@@ -73,7 +73,7 @@ void DrawMenuCursTime(int x, int y, bool left, bool right)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void DrawMenuCursVoltage(int x, int y, bool top, bool bottom)
 {
     x -= 65;
@@ -90,7 +90,7 @@ void DrawMenuCursVoltage(int x, int y, bool top, bool bottom)
     }
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void DrawSB_Exit(int x, int y)
 {
     Painter::SetFont(TypeFont_UGO2);
@@ -99,7 +99,7 @@ void DrawSB_Exit(int x, int y)
 }
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 extern const Page mainPage;
 
 //#include "PageTrig.c"
@@ -116,7 +116,7 @@ extern const Page pTime;
 extern const Page pTrig;
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 static const arrayItems itemsMainPage =
 {
     (void*)&pDisplay,
@@ -142,7 +142,7 @@ const Page mainPage
 );
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 const void *PageForButton(PanelButton button)
 {
     static const void *pages[] = {  
@@ -171,7 +171,7 @@ const void *PageForButton(PanelButton button)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool IsMainPage(void *item)
 {
     return item == &mainPage;

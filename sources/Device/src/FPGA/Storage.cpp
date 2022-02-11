@@ -11,7 +11,7 @@
 #include <string.h>
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 uint8  Storage::pool[SIZE_POOL] = {0};
 uint8 *Storage::beginPool = &(pool[0]);
 uint8 *Storage::endPool = &(pool[SIZE_POOL - 1]);
@@ -26,7 +26,7 @@ DataSettings *Storage::firstElem = 0;
 DataSettings *Storage::lastElem = 0;
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void Storage::PrintElement(DataSettings *dp)
 {
     if(dp == 0)
@@ -39,7 +39,7 @@ void Storage::PrintElement(DataSettings *dp)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Storage::Clear(void)
 {
     firstElem = 0;
@@ -48,7 +48,7 @@ void Storage::Clear(void)
     ClearLimitsAndSums();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Storage::ClearLimitsAndSums(void)
 {
     memset(limitUp[0], 0, FPGA_MAX_POINTS);
@@ -58,7 +58,7 @@ void Storage::ClearLimitsAndSums(void)
     memset(&(sum[0][0]), 0, 2 * FPGA_MAX_POINTS * 2);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Storage::CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *dss)
 {
     int numAveData = NumElementsWithCurrentSettings();
@@ -94,7 +94,7 @@ void Storage::CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *d
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Storage::AddData(uint8 *data0, uint8 *data1, DataSettings dss)
 {
     dss.time = Clock::GetPackedTime();
@@ -113,13 +113,13 @@ void Storage::AddData(uint8 *data0, uint8 *data1, DataSettings dss)
     allData++;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Storage::AllDatas(void)
 {
     return allData;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
 {
     uint numElements = dss->length1channel * (dss->peakDet == PeackDet_Disable ? 1 : 2);
@@ -162,7 +162,7 @@ void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Storage::CalculateSums(void)
 {
     DataSettings *ds = 0;
@@ -210,7 +210,7 @@ void Storage::CalculateSums(void)
     newSumCalculated[0] = newSumCalculated[1] = true;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Storage::NumElementsWithSameSettings(void)
 {
     int retValue = 0;
@@ -225,7 +225,7 @@ int Storage::NumElementsWithSameSettings(void)
     return retValue;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Storage::NumElementsWithCurrentSettings(void)
 {
     DataSettings dp;
@@ -242,7 +242,7 @@ int Storage::NumElementsWithCurrentSettings(void)
     return retValue;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Storage::NumElementsInStorage(void)
 {
     int retValue = 0;
@@ -265,13 +265,13 @@ int Storage::NumElementsInStorage(void)
     return retValue;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 DataSettings* Storage::GetSettingsDataFromEnd(int fromEnd)
 {
     return FromEnd(fromEnd);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Storage::GetDataFromEnd(int fromEnd, DataSettings **ds, uint8 **data0, uint8 **data1)
 {
     static uint8 dataImportRel[2][FPGA_MAX_POINTS];
@@ -295,7 +295,7 @@ bool Storage::GetDataFromEnd(int fromEnd, DataSettings **ds, uint8 **data0, uint
     return true;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 uint8* Storage::GetData(Channel chan, int fromEnd)
 {
     static uint8 dataImportRel[2][FPGA_MAX_POINTS];
@@ -308,7 +308,7 @@ uint8* Storage::GetData(Channel chan, int fromEnd)
     return CopyData(dp, chan, dataImportRel) ? &dataImportRel[chan][0] : 0;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Storage::CopyData(DataSettings *ds, Channel chan, uint8 datatImportRel[2][FPGA_MAX_POINTS])
 {
     if((chan == A && ds->enableCh0 == 0) || (chan == B && ds->enableCh1 == 0))
@@ -331,7 +331,7 @@ bool Storage::CopyData(DataSettings *ds, Channel chan, uint8 datatImportRel[2][F
     return true;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 uint8* Storage::GetAverageData(Channel chan)
 {
     static uint8 data[NumChannels][FPGA_MAX_POINTS];
@@ -377,7 +377,7 @@ uint8* Storage::GetAverageData(Channel chan)
     return &data[chan][0];
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 uint8* Storage::GetLimitation(Channel chan, int direction)
 {
     uint8 *retValue = 0;
@@ -394,7 +394,7 @@ uint8* Storage::GetLimitation(Channel chan, int direction)
     return retValue;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Storage::NumberAvailableEntries(void)
 {
     if(firstElem == 0)
@@ -404,12 +404,12 @@ int Storage::NumberAvailableEntries(void)
     return SIZE_POOL / SizeElem(lastElem);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 #define COPY_AND_INCREASE(address, data, length)    \
     memcpy((address), (data), (length));       \
     address += (length);
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Storage::PushData(DataSettings *dp, uint8 *data0, uint8 *data1)
 {
     int required = SizeElem(dp);
@@ -462,7 +462,7 @@ void Storage::PushData(DataSettings *dp, uint8 *data0, uint8 *data1)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Storage::MemoryFree(void)
 {
     if (firstElem == 0)
@@ -491,7 +491,7 @@ int Storage::MemoryFree(void)
     return 0;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Storage::SizeElem(DataSettings *dp)
 {
     int retValue = sizeof(DataSettings);
@@ -514,7 +514,7 @@ int Storage::SizeElem(DataSettings *dp)
     return retValue;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Storage::RemoveFirstElement(void)
 {
     firstElem = NextElem(firstElem);
@@ -522,13 +522,13 @@ void Storage::RemoveFirstElement(void)
     allData--;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 DataSettings* Storage::NextElem(DataSettings *elem)
 {
     return (DataSettings*)elem->addrNext;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 DataSettings* Storage::FromEnd(int indexFromEnd)
 {
     if(firstElem == 0)
@@ -549,7 +549,7 @@ DataSettings* Storage::FromEnd(int indexFromEnd)
     return retValue;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Storage::SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1)
 {
     DataSettings* dp0 = FromEnd(elemFromEnd0);
@@ -557,7 +557,7 @@ bool Storage::SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1)
     return SettingsIsEquals(dp0, dp1);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Storage::SettingsIsEquals(DataSettings *dp0, DataSettings *dp1)
 {
     bool retValue = (dp0->enableCh0  == dp1->enableCh0) &&

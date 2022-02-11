@@ -15,7 +15,7 @@
 #include <limits.h>
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 static int16    CalculateAdditionRShift(Channel chan, Range range);	///< Измерить добавочное смещение канала по напряжению.
 static float    CalculateKoeffCalibration(Channel chan);			///< Измерить коэффициент калибровки канала по напряжению.
 static void     AlignmentADC();
@@ -49,13 +49,13 @@ static float koeffCalibrationOld[2];
 
 extern void LoadStretchADC(Channel chan);
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 static void OnTimerDraw(void)
 {
     Display::Update();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FPGA::ProcedureCalibration(void)
 {
     bool chanAenable = SET_ENABLED_A;
@@ -206,7 +206,7 @@ void FPGA::ProcedureCalibration(void)
     FPGA::OnPressStartStop();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void FuncAttScreen(void)
 {
     Painter::BeginScene(COLOR_BLACK);
@@ -300,7 +300,7 @@ void FuncAttScreen(void)
     Painter::EndScene();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void DrawParametersChannel(Channel chan, int eX, int eY, bool inProgress)
 {
     Painter::SetColor(COLOR_FILL);
@@ -335,7 +335,7 @@ void DrawParametersChannel(Channel chan, int eX, int eY, bool inProgress)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 float CalculateDeltaADC(Channel chan, float *avgADC1, float *avgADC2, float *delta)
 {
     uint *startTime = (chan == A) ? &startTimeChan0 : &startTimeChan1;
@@ -390,7 +390,7 @@ float CalculateDeltaADC(Channel chan, float *avgADC1, float *avgADC2, float *del
     return ((*avgADC1) - (*avgADC2)) / 255.0f * 100;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void AlignmentADC(void)
 {
     shiftADC0 = (deltaADCold[0] > 0) ? (deltaADCold[0] + 0.5f) : (deltaADCold[0] - 0.5f);
@@ -401,7 +401,7 @@ void AlignmentADC(void)
     FSMC::Write(WR_ADD_RSHIFT_DAC2, (uint8)SET_BALANCE_ADC_B);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int16 CalculateAdditionRShift(Channel chan, Range range)
 {
     FPGA::SetRange(chan, range);
@@ -466,7 +466,7 @@ int16 CalculateAdditionRShift(Channel chan, Range range)
     return retValue;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 float CalculateKoeffCalibration(Channel chan)
 {
     FPGA::WriteToHardware(WR_UPR, BINARY_U8(00000100), false);

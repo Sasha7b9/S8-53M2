@@ -3,21 +3,21 @@
 #include "Log.h"
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 static void (*f[TypeTimerSize])() = {0};
 static int reactionTimeMS[TypeTimerSize] = {0};
 static int currentTimeMS[TypeTimerSize] = {0};
 static bool isRun[TypeTimerSize] = {false};
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void Timer::PauseOnTicks(uint numTicks)
 {
     uint startTicks = gTimerTics;
     while (gTimerTics - startTicks < numTicks) {};
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Timer::StartMultiMeasurement(void)
 {
     TIM2->CR1 &= (uint16)~TIM_CR1_CEN;
@@ -25,18 +25,18 @@ void Timer::StartMultiMeasurement(void)
     TIM2->CR1 |= TIM_CR1_CEN; 
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static uint timeStartLogging = 0;
 static uint timePrevPoint = 0;
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Timer::StartLogging()
 {
     timeStartLogging = gTimerTics;
     timePrevPoint = timeStartLogging;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 uint Timer::LogPointUS(char *name)
 {
     uint interval = gTimerTics - timePrevPoint;
@@ -45,7 +45,7 @@ uint Timer::LogPointUS(char *name)
     return interval;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 uint Timer::LogPointMS(char *name)
 {
     uint interval = gTimerTics - timePrevPoint;
@@ -54,7 +54,7 @@ uint Timer::LogPointMS(char *name)
     return interval;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Timer::Enable(TypeTimer type, int timeInMS, void(*eF)())
 {
     f[type] = eF;
@@ -63,31 +63,31 @@ void Timer::Enable(TypeTimer type, int timeInMS, void(*eF)())
     isRun[type] = true;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Timer::Disable(TypeTimer type)
 {
     isRun[type] = false;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Timer_Pause(TypeTimer type)
 {
     isRun[type] = false;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Timer_Continue(TypeTimer type)
 {
     isRun[type] = true;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Timer_IsRun(TypeTimer type)
 {
     return isRun[type];
 };
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Timer::Update1ms(void)
 {
     for(int num = 0; num < TypeTimerSize; num++)
@@ -105,7 +105,7 @@ void Timer::Update1ms(void)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Timer_Update10ms(void)
 {
     for(int num = 0; num < TypeTimerSize; num++)

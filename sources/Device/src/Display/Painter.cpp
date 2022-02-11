@@ -15,7 +15,7 @@
 #include "Menu/FileManager.h"
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 static bool inverseColors = false;
 static Color currentColor = NUM_COLORS;
 
@@ -30,7 +30,7 @@ static enum StateTransmit
 static bool noFonts = false;
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void Painter::SendFrame(bool first, bool noFonts_)
 {
     noFonts = noFonts_;
@@ -41,7 +41,7 @@ void Painter::SendFrame(bool first, bool noFonts_)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::CalculateCurrentColor()
 {
     if (currentColor == COLOR_FLASH_10)
@@ -54,7 +54,7 @@ void Painter::CalculateCurrentColor()
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void CalculateColor(uint8 *color)
 {
     currentColor = (Color)*color;
@@ -68,26 +68,26 @@ void CalculateColor(uint8 *color)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void InverseColor(Color *color)
 {
     *color = (*color == COLOR_BLACK) ? COLOR_WHITE : COLOR_BLACK;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void OnTimerFlashDisplay()
 {
     inverseColors = !inverseColors;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::ResetFlash()
 {
     Timer::Enable(kFlashDisplay, 400, OnTimerFlashDisplay);
     inverseColors = false;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::DrawRectangle(int x, int y, int width, int height)
 {
     DrawHLine(y, x, x + width);
@@ -99,14 +99,14 @@ void Painter::DrawRectangle(int x, int y, int width, int height)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::DrawRectangleC(int x, int y, int width, int height, Color color)
 {
     SetColor(color);
     DrawRectangle(x, y, width, height);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::DrawDashedVLine(int x, int y0, int y1, int deltaFill, int deltaEmtpy, int deltaStart)
 {
     if (deltaStart < 0 || deltaStart >= (deltaFill + deltaEmtpy))
@@ -131,7 +131,7 @@ void Painter::DrawDashedVLine(int x, int y0, int y1, int deltaFill, int deltaEmt
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::DrawDashedHLine(int y, int x0, int x1, int deltaFill, int deltaEmpty, int deltaStart)
 {
     if (deltaStart < 0 || deltaStart >= (deltaFill + deltaEmpty))
@@ -160,7 +160,7 @@ void Painter::DrawDashedHLine(int y, int x0, int x1, int deltaFill, int deltaEmp
 static int numberColorsUsed = 0;
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::SendToVCP(uint8 *pointer, int size)
 {
     if(stateTransmit == StateTransmit_InProcess)
@@ -170,7 +170,7 @@ void Painter::SendToVCP(uint8 *pointer, int size)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::SendToDisplay(uint8 *bytes, int numBytes)
 {
     for (int i = 0; i < numBytes; i += 4)
@@ -184,7 +184,7 @@ void Painter::SendToDisplay(uint8 *bytes, int numBytes)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void Get4Bytes(uint8 bytes[4])
 {
     while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET) {};
@@ -194,7 +194,7 @@ static void Get4Bytes(uint8 bytes[4])
     bytes[3] = *ADDR_CDISPLAY;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::SetPalette(Color color)
 {
     uint8 command[4];
@@ -205,7 +205,7 @@ void Painter::SetPalette(Color color)
     SendToVCP(command, 4);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::SetColor(Color color)
 {
     if (color != currentColor)
@@ -222,13 +222,13 @@ void Painter::SetColor(Color color)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 Color Painter::CurrentColor(void)
 {
     return currentColor;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::DrawHLine(int y, int x0, int x1)
 {
     CalculateCurrentColor();
@@ -241,14 +241,14 @@ void Painter::DrawHLine(int y, int x0, int x1)
     SendToVCP(command, 6);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::DrawHLineC(int y, int x0, int x1, Color color)
 {
     SetColor(color);
     DrawHLine(y, x0, x1);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::DrawVLine(int x, int y0, int y1)
 {
     CalculateCurrentColor();
@@ -261,21 +261,21 @@ void Painter::DrawVLine(int x, int y0, int y1)
     SendToVCP(command, 5);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::DrawVLineC(int x, int y0, int y1, Color color)
 {
     SetColor(color);
     DrawVLine(x, y0, y1);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::DrawLineC(int x0, int y0, int x1, int y1, Color color)
 {
     SetColor(color);
     DrawLine(x0, y0, x1, y1);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::DrawVPointLine(int x, int y0, int y1, float delta, Color color)
 {
     SetColor(color);
@@ -289,7 +289,7 @@ void Painter::DrawVPointLine(int x, int y0, int y1, float delta, Color color)
     SendToDisplay(command, 6);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::DrawHPointLine(int y, int x0, int x1, float delta)
 {
     for (int x = x0; x <= x1; x += delta)
@@ -298,7 +298,7 @@ void Painter::DrawHPointLine(int y, int x0, int x1, float delta)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::SetPoint(int x, int y)
 {
     uint8 command[4];
@@ -309,7 +309,7 @@ void Painter::SetPoint(int x, int y)
     SendToVCP(command, 4);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color color) 
 {
     if(numLines > 20) 
@@ -341,7 +341,7 @@ void Painter::DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, in
     SendToVCP(command, 1 + 1 + 1 + 1 + 1 + 1 + numLines * 2);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color color)
 {
     if (numLines > 20)
@@ -376,7 +376,7 @@ void Painter::DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int
     SendToVCP(command, 1 + 1 + 2 + 1 + 1 + numLines);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::DrawLine(int x0, int y0, int x1, int y1)
 {
     if (x0 == x1)
@@ -389,7 +389,7 @@ void Painter::DrawLine(int x0, int y0, int x1, int y1)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::FillRegion(int x, int y, int width, int height)
 {
     CalculateCurrentColor();
@@ -403,14 +403,14 @@ void Painter::FillRegion(int x, int y, int width, int height)
     SendToVCP(command, 7);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::FillRegionC(int x, int y, int width, int height, Color color)
 {
     SetColor(color);
     FillRegion(x, y, width, height);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::DrawVolumeButton(int x, int y, int width, int height, int thickness, Color normal, Color bright, Color dark, bool isPressed, bool inShade)
 {
     if (inShade)
@@ -440,7 +440,7 @@ void Painter::DrawVolumeButton(int x, int y, int width, int height, int thicknes
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::SetBrightnessDisplay(int16 brightness)
 {
     float recValue = 1601.0f;
@@ -454,13 +454,13 @@ void Painter::SetBrightnessDisplay(int16 brightness)
     SendToDisplay(command, 4);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int NumberColorsInSceneCol(void)
 {
     return numberColorsUsed;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color)
 {
     SetColor(color);
@@ -486,7 +486,7 @@ void Painter::DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color)
     SendToVCP(command, 1 + 2 + 1 + 2 * numLines);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::DrawSignal(int x, uint8 data[281], bool modeLines)
 {
     uint8 command[284];
@@ -500,7 +500,7 @@ void Painter::DrawSignal(int x, uint8 data[281], bool modeLines)
     SendToVCP(command, 284);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::LoadPalette(void)
 {
     for (int i = 0; i < NUM_COLORS; i++)
@@ -509,7 +509,7 @@ void Painter::LoadPalette(void)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::BeginScene(Color color)
 {
     if (stateTransmit == StateTransmit_NeedForTransmitFirst || stateTransmit == StateTransmit_NeedForTransmitSecond)
@@ -532,7 +532,7 @@ void Painter::BeginScene(Color color)
     FillRegionC(0, 0, 319, 239, color);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::RunDisplay()
 {
     uint8 command[4];
@@ -540,7 +540,7 @@ void Painter::RunDisplay()
     SendToDisplay(command, 4);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::EndScene(bool endScene)
 {
     if (FRAMES_ELAPSED != 1)
@@ -565,7 +565,7 @@ void Painter::EndScene(bool endScene)
     RunDisplay();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 Color Painter::GetColor(int x, int y)
 {
     uint8 command[4];
@@ -579,7 +579,7 @@ Color Painter::GetColor(int x, int y)
     return (Color)(command[0] & 0x0f);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::Get8Points(int x, int y, uint8 buffer[4])
 {
     uint8 command[4];
@@ -590,7 +590,7 @@ void Painter::Get8Points(int x, int y, uint8 buffer[4])
     Get4Bytes(buffer);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 uint8 Get2Points(int x, int y)
 {
     while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET) {};
@@ -602,7 +602,7 @@ uint8 Get2Points(int x, int y)
     return *ADDR_CDISPLAY;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Painter::DrawPicture(int x, int y, int width, int height, uint8 *address)
 {
     uint8 command[4];
@@ -624,7 +624,7 @@ void Painter::DrawPicture(int x, int y, int width, int height, uint8 *address)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 uint16 Painter::ReduceBrightness(uint16 colorValue, float newBrightness)
 {
     int red = R_FROM_COLOR(colorValue) * newBrightness;
@@ -636,7 +636,7 @@ uint16 Painter::ReduceBrightness(uint16 colorValue, float newBrightness)
     return MAKE_COLOR(red, green, blue);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static uint8 Read2points(int x, int y)
 {
     while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET) {};
@@ -652,7 +652,7 @@ static uint8 Read2points(int x, int y)
     return retValue;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Painter::SaveScreenToFlashDrive(void) {
 
 #pragma pack(1)

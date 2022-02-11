@@ -7,7 +7,7 @@
 #include "Display/font/Font.h"
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 /// Структура для описания диапазона масштаба по времени.
 typedef struct
@@ -62,7 +62,7 @@ const char* symbolsAlphaBet[0x48] =
     //         0x01  0x02  0x03  0x04  0x05  0x06   0x07   - под этими значениями элементы хранятся в set.memory.fileNameMask
 };
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 ENumSignalsInSec Tables_NumSignalsInSecToENUM(int enumSignalsInSec)
 {
     if(enumSignalsInSec == 1)
@@ -89,7 +89,7 @@ ENumSignalsInSec Tables_NumSignalsInSecToENUM(int enumSignalsInSec)
     return NumSignalsInSec_1;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Tables_ENUMtoNumSignalsInSec(ENumSignalsInSec enumSignalsInSec)
 {
     static const int fps[] = {25, 10, 5, 2, 1};
@@ -101,7 +101,7 @@ int Tables_ENUMtoNumSignalsInSec(ENumSignalsInSec enumSignalsInSec)
     return 1;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 const char* Tables_GetWarning(Warning warning)
 {
     static const char *warnings[Warning_NumWarnings][2] =
@@ -137,19 +137,19 @@ const char* Tables_GetWarning(Warning warning)
     return warnings[warning][set.common.lang];
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 const char* Tables_GetTBaseString(TBase tBase)
 {
     return tBases[tBase].name[set.common.lang];
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 const char* Tables_GetTBaseStringEN(TBase tBase)
 {
     return tBases[tBase].name[English];
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 const char* Tables_RangeNameFromValue(Range range)
 {
     static const char* names[RangeSize] =
@@ -171,13 +171,13 @@ const char* Tables_RangeNameFromValue(Range range)
     return names[range];
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Tables_GetNumChannel(Channel chan)
 {
     return (chan == A) ? 1 : 2;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void DrawStr(int index, int x, int y)
 {
     const char *str = symbolsAlphaBet[index];

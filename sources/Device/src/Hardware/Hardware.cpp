@@ -18,7 +18,7 @@
 #include "Panel/Panel.h"
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 static TIM_HandleTypeDef handleTIM6forTimer =
 {
     TIM6,
@@ -33,11 +33,11 @@ static TIM_HandleTypeDef handleTIM6forTimer =
 static CRC_HandleTypeDef crcHandle;
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 static void SystemClock_Config();
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -155,7 +155,7 @@ void Hardware::Init(void)
 extern "C" {
 #endif
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void TIM6_DAC_IRQHandler(void)
 {
     if (__HAL_TIM_GET_FLAG(&handleTIM6forTimer, TIM_FLAG_UPDATE) == SET && __HAL_TIM_GET_ITSTATUS(&handleTIM6forTimer, TIM_IT_UPDATE))
@@ -170,7 +170,7 @@ void TIM6_DAC_IRQHandler(void)
 }
 #endif
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void SystemClock_Config(void)
 {
     RCC_ClkInitTypeDef RCC_ClkInitStruct;
@@ -203,7 +203,7 @@ static void SystemClock_Config(void)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 uint Hardware::CalculateCRC32(uint address, uint numBytes)
 {
     return HAL_CRC_Calculate(&crcHandle, (uint *)address, numBytes);

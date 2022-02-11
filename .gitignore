@@ -1,3 +1,5 @@
+*.bin
+
 sources/Loader/DebugConfig/*
 sources/Loader/Listings/*
 sources/Loader/Objects/*

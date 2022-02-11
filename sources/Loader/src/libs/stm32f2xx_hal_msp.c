@@ -30,7 +30,7 @@ void HAL_SRAM_MspDeInit(SRAM_HandleTypeDef *hsram)
 }
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void HAL_HCD_MspInit(HCD_HandleTypeDef *hhcd)
 {
     (void)hhcd;
@@ -55,7 +55,7 @@ void HAL_HCD_MspInit(HCD_HandleTypeDef *hhcd)
 }
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void HAL_HCD_MspDeInit(HCD_HandleTypeDef *hhcd)
 {
     (void)hhcd;

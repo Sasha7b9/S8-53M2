@@ -18,11 +18,11 @@
 #include "Log.h"
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 static void *itemUnderButton[B_NumButtons] = {0};
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 PanelButton GetFuncButtonFromY(int _y)
 {
     int y = GRID_TOP + GRID_HEIGHT / 12;
@@ -40,7 +40,7 @@ PanelButton GetFuncButtonFromY(int _y)
     return  B_F5;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void DrawHintItem(int x, int y, int width)
 {
     if (!gItemHint)
@@ -84,7 +84,7 @@ static void DrawHintItem(int x, int y, int width)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::Draw()
 {
     if(MenuIsShown() || TypeMenuItem(OpenedItem()) != Item_Page)
@@ -131,7 +131,7 @@ void Menu::Draw()
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::DrawTitlePage(Page *page, int layer, int yTop)
 {
     int x = CalculateX(layer);
@@ -173,7 +173,7 @@ void Menu::DrawTitlePage(Page *page, int layer, int yTop)
     DrawPagesUGO(page, CalculateX(layer) + MP_TITLE_WIDTH - 3 + delta, yTop + MP_TITLE_HEIGHT - 2 + delta);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::DrawPagesUGO(Page *page, int right, int bottom)
 {
     int size = 4;
@@ -199,67 +199,67 @@ void Menu::DrawPagesUGO(Page *page, int right, int bottom)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void DrawGovernor(void* item, int x, int y)
 {
     ItemGovernor_Draw((Governor *)item, x, y, false);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void DrawIPaddress(void* item, int x, int y)
 {
     ItemIPaddress_Draw((IPaddress *)item, x, y, false);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void DrawMACaddress(void* item, int x, int y)
 {
     ItemMACaddress_Draw((MACaddress *)item, x, y, false);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void DrawFormula(void* item, int x, int y)
 {
     ItemFormula_Draw((Formula *)item, x, y, false);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void DrawChoice(void *item, int x, int y)
 {
     ItemChoice_Draw((Choice *)item, x, y, false);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void DrawSmallButton(void *item, int x, int y)
 {
     ItemSmallButton_Draw((SmallButton *)item, LEFT_SB, y + 7);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void DrawTime(void *item, int x, int y)
 {
     ItemTime_Draw((Time *)item, x, y, false);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void DrawGovernorColor(void *item, int x, int y)
 {
     GovernorColor_Draw((GovernorColor *)item, x, y, false);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void DrawButton(void *item, int x, int y)
 {
     ItemButton_Draw((Button *)item, x, y);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 static void DrawPage(void *item, int x, int y)
 {
     ItemPage_Draw((Page *)item, x, y);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::DrawItemsPage(Page *page, int layer, int yTop)
 {
     void (*funcOfDraw[Item_NumberItems])(void*, int, int) = 
@@ -299,7 +299,7 @@ void Menu::DrawItemsPage(Page *page, int layer, int yTop)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::DrawOpenedPage(Page *page, int layer, int yTop)
 {
     DrawTitlePage(page, layer, yTop);
@@ -348,31 +348,31 @@ void Menu::DrawOpenedPage(Page *page, int layer, int yTop)
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Menu::CalculateX(int layer)
 {
     return MP_X - layer * GRID_DELTA / 4;
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Menu::IsShade(void* item)
 {
     return CurrentItemIsOpened(GetNamePage(Keeper(item))) && (item != OpenedItem());
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool Menu::IsPressed(void* item)
 {
     return item == Menu::ItemUnderKey();
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void* Menu::ItemUnderButton(PanelButton button)
 {
     return itemUnderButton[button];
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 void Menu::ResetItemsUnderButton()
 {
     for(int i = 0; i < B_NumButtons; i++)
@@ -381,7 +381,7 @@ void Menu::ResetItemsUnderButton()
     }
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 int Menu::ItemOpenedPosY(void *item)
 {
     Page *page = Keeper(item);

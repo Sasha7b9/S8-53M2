@@ -6,7 +6,7 @@
 #include <stdarg.h>
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 static struct tcp_pcb *pcbClient = 0;      // 0, если клиент не приконнекчен
 
 enum States
@@ -27,7 +27,7 @@ void(*SocketFuncConnect)(void) = 0;                                 // this func
 void(*SocketFuncReciever)(const char *buffer, uint length) = 0;     // this function will be called when a message is recieved from any client
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void CloseConnection(struct tcp_pcb *tpcb, struct State *ss)
 {
     CLIENT_LAN_IS_CONNECTED = 0;
@@ -47,7 +47,6 @@ void CloseConnection(struct tcp_pcb *tpcb, struct State *ss)
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 void Send(struct tcp_pcb *_tpcb, struct State *_ss)
 {
     struct pbuf *ptr;
@@ -95,7 +94,6 @@ void Send(struct tcp_pcb *_tpcb, struct State *_ss)
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 err_t CallbackOnSent(void *_arg, struct tcp_pcb *_tpcb, u16_t _len)
 {
     struct State *ss;
@@ -118,7 +116,6 @@ err_t CallbackOnSent(void *_arg, struct tcp_pcb *_tpcb, u16_t _len)
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 void SendAnswer(void *_arg, struct tcp_pcb *_tpcb)
 {
     static const char policy[] = "<?xml version=\"1.0\"?>"                                                  \
@@ -136,7 +133,6 @@ void SendAnswer(void *_arg, struct tcp_pcb *_tpcb)
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 err_t CallbackOnRecieve(void *_arg, struct tcp_pcb *_tpcb, struct pbuf *_p, err_t _err)
 {
     err_t ret_err;
@@ -238,7 +234,6 @@ err_t CallbackOnRecieve(void *_arg, struct tcp_pcb *_tpcb, struct pbuf *_p, err_
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 void CallbackOnError(void *_arg, err_t _err)
 {
     struct State *ss;
@@ -257,7 +252,6 @@ void CallbackOnError(void *_arg, err_t _err)
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 err_t CallbackOnPoll(void *_arg, struct tcp_pcb *_tpcb)
 {
     err_t ret_err;
@@ -290,7 +284,6 @@ err_t CallbackOnPoll(void *_arg, struct tcp_pcb *_tpcb)
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 err_t CallbackOnAccept(void *_arg, struct tcp_pcb *_newPCB, err_t _err)
 {
     err_t ret_err;
@@ -341,14 +334,12 @@ err_t CallbackOnAccept(void *_arg, struct tcp_pcb *_newPCB, err_t _err)
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 err_t CallbackOnAcceptPolicyPort(void *_arg, struct tcp_pcb *_newPCB, err_t _err)
 {
     return CallbackOnAccept(_arg, _newPCB, _err);
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 bool TCPSocket_Init(void(*_funcConnect)(void), void(*_funcReciever)(const char *_buffer, uint _length))
 {
     struct tcp_pcb *pcb = tcp_new();
@@ -399,7 +390,6 @@ bool TCPSocket_Init(void(*_funcConnect)(void), void(*_funcReciever)(const char *
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 bool TCPSocket_Send(const char *buffer, uint length)
 {
     if (pcbClient)
@@ -417,7 +407,6 @@ bool TCPSocket_Send(const char *buffer, uint length)
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 void TCPSocket_SendFormatString(char *format, ...)
 {
 #undef SIZE_BUFFER

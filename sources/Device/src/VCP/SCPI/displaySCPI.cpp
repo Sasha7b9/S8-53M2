@@ -8,7 +8,7 @@
 #include "Utils/Map.h"
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 ENTER_PARSE_FUNC(SCPI::ProcessDISPLAY)
     {"AUTOSEND",    SCPI::DISPLAY::AUTOSEND},
     {"MAPPING",     SCPI::DISPLAY::MAPPING},    // Отображение
@@ -25,14 +25,14 @@ ENTER_PARSE_FUNC(SCPI::ProcessDISPLAY)
 LEAVE_PARSE_FUNC
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 ENTER_PARSE_FUNC(SCPI::DISPLAY::GRID)
     {"TYPE",        SCPI::DISPLAY::GRID_TYPE},
     {"BRIGHTNESS",  SCPI::DISPLAY::GRID_BRIGHTNESS},
 LEAVE_PARSE_FUNC
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 ENTER_PARSE_FUNC(SCPI::DISPLAY::ACCUM)
     {"NUMBER",  SCPI::DISPLAY::ACCUM_NUMBER},
     {"NUM",     SCPI::DISPLAY::ACCUM_NUMBER},
@@ -41,7 +41,7 @@ ENTER_PARSE_FUNC(SCPI::DISPLAY::ACCUM)
 LEAVE_PARSE_FUNC
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 ENTER_PARSE_FUNC(SCPI::DISPLAY::AVERAGE)
     {"NUMBER",  SCPI::DISPLAY::AVERAGE_NUMBER},
     {"NUM",     SCPI::DISPLAY::AVERAGE_NUMBER},
@@ -49,7 +49,7 @@ ENTER_PARSE_FUNC(SCPI::DISPLAY::AVERAGE)
 LEAVE_PARSE_FUNC
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::DISPLAY::AUTOSEND(uint8 *buffer)
 {
     static int counter = 0;
@@ -70,7 +70,7 @@ void SCPI::DISPLAY::AUTOSEND(uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::DISPLAY::MAPPING(uint8 *buffer)
 {
     static const MapElement map[] =
@@ -88,10 +88,10 @@ void SCPI::DISPLAY::MAPPING(uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 extern void OnPress_Accumulation_Clear();
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::DISPLAY::ACCUM_NUMBER(uint8 *buffer)
 {
     static const MapElement map[] =
@@ -118,7 +118,7 @@ void SCPI::DISPLAY::ACCUM_NUMBER(uint8 *buffer)
     LEAVE_ANALYSIS
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::DISPLAY::ACCUM_MODE(uint8 *buffer)
 {
     static const MapElement map[] =
@@ -137,13 +137,13 @@ void SCPI::DISPLAY::ACCUM_MODE(uint8 *buffer)
     LEAVE_ANALYSIS
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::DISPLAY::ACCUM_CLEAR(uint8 *buffer)
 {
     OnPress_Accumulation_Clear();
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::DISPLAY::AVERAGE_NUMBER(uint8 *buffer)
 {
     static const MapElement map[] =
@@ -172,7 +172,7 @@ void SCPI::DISPLAY::AVERAGE_NUMBER(uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::DISPLAY::AVERAGE_MODE(uint8 *buffer)
 {
     static const MapElement map[] =
@@ -192,7 +192,7 @@ void SCPI::DISPLAY::AVERAGE_MODE(uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::DISPLAY::MINMAX(uint8 *buffer)
 {
     static const MapElement map[] =
@@ -220,7 +220,7 @@ void SCPI::DISPLAY::MINMAX(uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::DISPLAY::FILTR(uint8 *buffer)
 {
     static const MapElement map[] =
@@ -250,11 +250,11 @@ void SCPI::DISPLAY::FILTR(uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 extern void OnChanged_RefreshFPS(bool active);
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::DISPLAY::FPS(uint8 *buffer)
 {
     static const MapElement map[] =
@@ -277,7 +277,7 @@ void SCPI::DISPLAY::FPS(uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::DISPLAY::WINDOW(uint8 *buffer)
 {
     static const MapElement map[] =
@@ -298,11 +298,11 @@ void SCPI::DISPLAY::WINDOW(uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 extern void OnChanged_Grid_Brightness();
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::DISPLAY::GRID_BRIGHTNESS(uint8 *buffer)
 {
     int intVal = 0;
@@ -331,7 +331,7 @@ void SCPI::DISPLAY::GRID_BRIGHTNESS(uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::DISPLAY::GRID_TYPE(uint8 *buffer)
 {
     static const MapElement map[] =

@@ -7,7 +7,7 @@
 #include "FPGA/FPGA.h"
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 ENTER_PARSE_FUNC(SCPI::ProcessTBASE)
     {"SET_RANGE",   SCPI::TBASE::RANGE},
     {"OFFSET",      SCPI::TBASE::OFFSET},
@@ -21,7 +21,7 @@ ENTER_PARSE_FUNC(SCPI::ProcessTBASE)
 LEAVE_PARSE_FUNC
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::TBASE::RANGE(uint8 *buffer)
 {
     static const MapElement map[] = 
@@ -69,7 +69,7 @@ void SCPI::TBASE::RANGE(uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::TBASE::OFFSET(uint8 *buffer)
 {
     static const MapElement map[] =
@@ -96,7 +96,7 @@ void SCPI::TBASE::OFFSET(uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::TBASE::SAMPLING(uint8 *buffer)
 {
     static const MapElement map[] =
@@ -116,7 +116,7 @@ void SCPI::TBASE::SAMPLING(uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::TBASE::PEACKDET(uint8 *buffer)
 {
     extern void OnChanged_PeakDet(bool active);  ///< \todo Вообще-то это нехорошо, как нехорошо и дублировать. Надо бы подумать.
@@ -138,7 +138,7 @@ void SCPI::TBASE::PEACKDET(uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::TBASE::TPOS(uint8 *buffer)
 {
     extern void OnChanged_TPos(bool active);
@@ -161,7 +161,7 @@ void SCPI::TBASE::TPOS(uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::TBASE::SELFRECORDER(uint8 *buffer)
 {
     static const MapElement map[] =
@@ -181,7 +181,7 @@ void SCPI::TBASE::SELFRECORDER(uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::TBASE::FUNCTIMEDIV(uint8 *buffer)
 {
     static const MapElement map[] =

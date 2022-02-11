@@ -5,13 +5,13 @@
 #include <stdarg.h>
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 static bool loggerUSB = false;
 
 
 #define SIZE_BUFFER_LOG 200
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void Log_Write(char *format, ...)
 {
     char buffer[SIZE_BUFFER_LOG];
@@ -27,7 +27,6 @@ void Log_Write(char *format, ...)
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 void Log_Error(const char *module, const char *func, int numLine, char *format, ...)
 {
     char buffer[SIZE_BUFFER_LOG];
@@ -54,7 +53,6 @@ void Log_Error(const char *module, const char *func, int numLine, char *format, 
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 void Log_DisconnectLoggerUSB(void)
 {
     //static uint8 data = 20;
@@ -63,7 +61,6 @@ void Log_DisconnectLoggerUSB(void)
 }
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------
 void Log_EnableLoggerUSB(bool enable)
 {
     loggerUSB = enable;

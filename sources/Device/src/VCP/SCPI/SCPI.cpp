@@ -6,7 +6,7 @@
 #include <ctype.h>
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 typedef enum
 {
     WAIT,
@@ -22,7 +22,7 @@ static uint8 bufData[SIZE_BUFFER];
 static int pointer = 0;
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void SCPI::AddNewData(uint8 *data, uint length)
 {
     memcpy(&bufData[pointer], data, length);
@@ -64,7 +64,7 @@ label_another:
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::ParseNewCommand(uint8 *buf)
 {
     static const StructCommand commands[] =
@@ -101,7 +101,7 @@ void SCPI::ParseNewCommand(uint8 *buf)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 void SCPI::ProcessingCommand(const StructCommand *commands, uint8 *buffer) 
 {
     int sizeNameCommand = FindNumSymbolsInCommand(buffer);
@@ -132,7 +132,7 @@ void SCPI::ProcessingCommand(const StructCommand *commands, uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 int FindNumSymbolsInCommand(uint8 *buffer)
 {
     int pos = 0;
@@ -144,7 +144,7 @@ int FindNumSymbolsInCommand(uint8 *buffer)
 }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
 bool SCPI::FirstIsInt(uint8 *buffer, int *value, int min, int max)
 {
     Word param;

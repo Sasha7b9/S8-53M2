@@ -1,7 +1,7 @@
 #include "SettingsTypes.h"
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 const char *RangeName(Range range)
 {
     static const char *names[RangeSize + 1] =
@@ -24,7 +24,7 @@ const char *RangeName(Range range)
     return names[range];
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------
+
 const char *TBaseName(TBase tBase)
 {
     static const char *names[TBaseSize + 1] =

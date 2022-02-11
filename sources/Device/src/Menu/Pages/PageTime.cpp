@@ -55,7 +55,7 @@ const Page pTime            ///< РАЗВЕРТКА
     Page_Time, &itemsTime
 );
 
-// РАЗВЕРТКА - Выборка -------------------------------------------------------------------------------------------------------------------------------
+// РАЗВЕРТКА - Выборка ------
 static const Choice mcSample =
 {
     Item_Choice, &pTime, IsActive_Sample,
@@ -80,7 +80,7 @@ static bool IsActive_Sample(void)
     return sTime_RandomizeModeEnabled();
 }
 
-// РАЗВЕРТКА - Пик дет -------------------------------------------------------------------------------------------------------------------------------
+// РАЗВЕРТКА - Пик дет ------
 static const Choice mcPeakDet =
 {
     Item_Choice, &pTime, IsActive_PeakDet,
@@ -144,7 +144,7 @@ void OnChanged_PeakDet(bool active)
     }
 }
 
-// РАЗВЕРТКА - To ------------------------------------------------------------------------------------------------------------------------------------
+// РАЗВЕРТКА - To -----------
 static const Choice mcTPos =
 {
     Item_Choice, &pTime, 0,
@@ -167,7 +167,7 @@ void OnChanged_TPos(bool active)
     FPGA::SetTShift(TSHIFT);
 }
 
-// РАЗВЕРТКА - Самописец -----------------------------------------------------------------------------------------------------------------------------
+// РАЗВЕРТКА - Самописец ----
 static const Choice mcSelfRecorder =
 {
     Item_Choice, &pTime, IsActive_SelfRecorder,
@@ -188,7 +188,7 @@ static bool IsActive_SelfRecorder(void)
     return SET_TBASE >= MIN_TBASE_P2P;
 }
 
-// РАЗВЕРТКА - Ф-ция ВР/ДЕЛ --------------------------------------------------------------------------------------------------------------------------
+// РАЗВЕРТКА - Ф-ция ВР/ДЕЛ -
 static const Choice mcDivRole =
 {
     Item_Choice, &pTime, 0,
