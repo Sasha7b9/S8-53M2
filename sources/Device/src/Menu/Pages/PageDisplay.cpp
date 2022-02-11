@@ -8,13 +8,8 @@
 #include "Settings/SettingsTypes.h"
 #include "Settings/Settings.h"
 #include "Utils/GlobalFunctions.h"
+#include "Hardware/HAL/HAL.h"
 
-
-/** @addtogroup Menu
- *  @{
- *  @defgroup PageDisplay
- *  @{
- */
 
 extern const Page pDisplay;
 
@@ -568,7 +563,7 @@ static const Governor mgSettings_Brightness
 
 static void OnChanged_Settings_Brightness(void)
 {
-    Painter::SetBrightnessDisplay(BRIGHTNESS);
+    HAL_DAC1::SetBrightness(BRIGHTNESS);
 }
 
 
@@ -666,26 +661,3 @@ static void OnChanged_Settings_AutoHide(bool autoHide)
 {
     Menu::SetAutoHide(autoHide);
 }
-
-
-// ДИСПЛЕЙ - Окно памяти /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-static const Choice mcDisplMemoryWindow =
-{
-    Item_Choice, &pDisplay, 0,
-    {
-        "Окно памяти", "Window memory",
-        "1. \"Стандартное\" - в верхней части экрана выводится содержимое памяти.\n2. \"Упрощённое\" - выводится положение видимого окна в памяти.",
-        "1. \"Standard\" - in the top part of the screen memory contents are removed.\n2. \"Simplified\" - shows the position of the visible window in memory."
-    },
-    {
-        {"Упрощённое",  "Simplified"},
-        {"Стандартное", "Standard"}
-    },
-    (int8*)&set.display.showFullMemoryWindow
-};
-*/
-
-
-/** @}  @}
- */

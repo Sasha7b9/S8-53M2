@@ -63,8 +63,6 @@ public:
     static void FillRegionC(int x, int y, int width, int height, Color color);
 
     static void DrawVolumeButton(int x, int y, int width, int height, int thickness, Color normal, Color bright, Color dark, bool isPressed, bool inShade);
-    /// Установить яркость дисплея.
-    static void SetBrightnessDisplay(int16 brightness);
 
     static uint16 ReduceBrightness(uint16 colorValue, float newBrightness);
     /// Нарисовать массив вертикальных линий. Линии рисуются одна за другой. y0y1 - массив вертикальных координат.

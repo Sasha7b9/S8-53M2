@@ -475,18 +475,6 @@ void Painter::DrawVolumeButton(int x, int y, int width, int height, int thicknes
 }
 
 
-void Painter::SetBrightnessDisplay(int16 brightness)
-{
-    float recValue = 1601.0f;
-    if (brightness < 100)
-    {
-        recValue = 64.0f + (600.0f - 63.0f) / 100.0f / 100.0f * brightness * brightness;
-    }
-
-    SendToDisplay(command, 4);
-}
-
-
 int NumberColorsInSceneCol(void)
 {
     return numberColorsUsed;

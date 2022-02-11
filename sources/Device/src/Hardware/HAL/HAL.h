@@ -2,6 +2,15 @@
 #pragma once
 
 
+// »спользуетс€ дл€ управлени€ €ркостью диспле€
+namespace HAL_DAC1
+{
+    void Init();
+
+    // «начение value от 0 до 100
+    void SetBrightness(int value);
+};
+
 // »спользуетс€ дл€ св€зи с FPGA и RAM
 namespace HAL_FMC
 {

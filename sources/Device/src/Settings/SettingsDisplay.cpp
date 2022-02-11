@@ -2,7 +2,7 @@
 #include "Settings.h"
 #include "SettingsDisplay.h"
 #include "Utils/Math.h"
-
+#include "Hardware/HAL/HAL.h"
 
 
 int sDisplay_NumSignalsInS()
@@ -54,7 +54,7 @@ bool sDisplay_IsSeparate()
 void sDisplay_SetBrightness(int16 brightness)
 {
     BRIGHTNESS = brightness;
-    Painter::SetBrightnessDisplay(brightness);
+    HAL_DAC1::SetBrightness(BRIGHTNESS);
 }
 
 
