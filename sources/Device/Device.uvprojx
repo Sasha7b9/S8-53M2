@@ -361,7 +361,7 @@
             </VariousControls>
           </Aads>
           <LDads>
-            <umfTarg>0</umfTarg>
+            <umfTarg>1</umfTarg>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
             <noStLib>0</noStLib>
@@ -744,16 +744,6 @@
           <GroupName>libs</GroupName>
           <Files>
             <File>
-              <FileName>startup_stm32f207xx.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\src\libs\startup_stm32f207xx.s</FilePath>
-            </File>
-            <File>
-              <FileName>system_stm32f2xx.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\libs\system_stm32f2xx.c</FilePath>
-            </File>
-            <File>
               <FileName>usbh_conf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\libs\usbh_conf.h</FilePath>
@@ -852,6 +842,16 @@
               <FileName>usbd_conf.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\libs\usbd_conf.c</FilePath>
+            </File>
+            <File>
+              <FileName>startup_stm32f429xx.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\src\libs\startup_stm32f429xx.s</FilePath>
+            </File>
+            <File>
+              <FileName>system_stm32f4xx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\libs\system_stm32f4xx.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2650,16 +2650,6 @@
           <GroupName>libs</GroupName>
           <Files>
             <File>
-              <FileName>startup_stm32f207xx.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\src\libs\startup_stm32f207xx.s</FilePath>
-            </File>
-            <File>
-              <FileName>system_stm32f2xx.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\libs\system_stm32f2xx.c</FilePath>
-            </File>
-            <File>
               <FileName>usbh_conf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\libs\usbh_conf.h</FilePath>
@@ -2758,6 +2748,16 @@
               <FileName>usbd_conf.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\libs\usbd_conf.c</FilePath>
+            </File>
+            <File>
+              <FileName>startup_stm32f429xx.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\src\libs\startup_stm32f429xx.s</FilePath>
+            </File>
+            <File>
+              <FileName>system_stm32f4xx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\libs\system_stm32f4xx.c</FilePath>
             </File>
           </Files>
         </Group>
