@@ -203,7 +203,7 @@ static bool GetNextNameFile(char *nameFileOut, StructForReadDir *s)
         }
         else
         {
-            char *fn = *(pFNO->lfname) ? pFNO->fname : pFNO->fname;
+            char *fn = *(pFNO->fname) ? pFNO->fname : pFNO->fname;
             if ((pFNO->fattrib & AM_DIR) == 0 && pFNO->fname[0] != '.')
             {
                 strcpy(nameFileOut, fn);
