@@ -5,21 +5,24 @@
 
 void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
 {
-
+    (void)hspi;
 }
 
 void HAL_SPI_MspDeInit(SPI_HandleTypeDef *hspi)
 {
-
+    (void)hspi;
 }
 
 
 void HAL_SRAM_MspInit(SRAM_HandleTypeDef *hsram)
 {
+    (void)hsram;
 }
 
 void HAL_SRAM_MspDeInit(SRAM_HandleTypeDef *hsram)
 {
+    (void)hsram;
+
     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_7);
     HAL_GPIO_DeInit(GPIOD, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_7 | GPIO_PIN_11 ||
                     GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15);
@@ -30,6 +33,8 @@ void HAL_SRAM_MspDeInit(SRAM_HandleTypeDef *hsram)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void HAL_HCD_MspInit(HCD_HandleTypeDef *hhcd)
 {
+    (void)hhcd;
+
     __GPIOB_CLK_ENABLE();
     __USB_OTG_HS_CLK_ENABLE();
     __SYSCFG_CLK_ENABLE();
@@ -53,5 +58,7 @@ void HAL_HCD_MspInit(HCD_HandleTypeDef *hhcd)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 void HAL_HCD_MspDeInit(HCD_HandleTypeDef *hhcd)
 {
+    (void)hhcd;
+
     __USB_OTG_HS_CLK_DISABLE();
 }

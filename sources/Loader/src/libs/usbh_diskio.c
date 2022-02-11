@@ -94,7 +94,9 @@ Diskio_drvTypeDef  USBH_Driver =
   */
 DSTATUS USBH_initialize(BYTE lun)
 {
-  return RES_OK;
+    (void)lun;
+
+    return RES_OK;
 }
 
 /**

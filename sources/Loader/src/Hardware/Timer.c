@@ -4,7 +4,7 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static volatile uint gTimerMS = 0;
-static void (*f[TypeTimerSize])() = {0};
+static void (*f[TypeTimerSize])(void) = {0};
 static int reactionTimeMS[TypeTimerSize] = {0};
 static int currentTimeMS[TypeTimerSize] = {0};
 static bool isRun[TypeTimerSize] = {false};
@@ -28,15 +28,15 @@ void Timer_PauseOnTime(uint timeMS)
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Timer_StartMultiMeasurement()
+void Timer_StartMultiMeasurement(void)
 {
-    TIM2->CR1 &= (uint16)~TIM_CR1_CEN;
+    TIM2->CR1 &= (uint)~TIM_CR1_CEN;
     TIM2->CNT = 0;
     TIM2->CR1 |= TIM_CR1_CEN; 
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Timer_StartLogging()
+void Timer_StartLogging(void)
 {
     timeStartLogging = gTimerTics;
     timePrevPoint = timeStartLogging;
@@ -45,6 +45,8 @@ void Timer_StartLogging()
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 uint Timer_LogPointUS(char *name)
 {
+    (void)name;
+
     uint interval = gTimerTics - timePrevPoint;
     timePrevPoint = gTimerTics;
     return interval;
@@ -53,6 +55,8 @@ uint Timer_LogPointUS(char *name)
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 uint Timer_LogPointMS(char *name)
 {
+    (void)name;
+
     uint interval = gTimerTics - timePrevPoint;
     timePrevPoint = gTimerTics;
     return interval;
@@ -92,9 +96,10 @@ bool Timer_IsRun(TypeTimer type)
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Timer_Update1ms()
+void Timer_Update1ms(void)
 {
     gTimerMS++;
+
     for(int num = 0; num < TypeTimerSize; num++)
     {
         if(isRun[num])
@@ -111,9 +116,10 @@ void Timer_Update1ms()
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void Timer_Update10ms()
+void Timer_Update10ms(void)
 {
     gTimerMS += 10;
+
     for(int num = 0; num < TypeTimerSize; num++)
     {
         if(isRun[num])

@@ -71,6 +71,8 @@ float Math_RandFloat(float min, float max)
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 int8 Math_AddInt8WithLimitation(int8 value, int8 delta, int8 min, int8 max)
 {
+    (void)min;
+
     int8 retValue = value + delta;
     if (retValue < 0)
     {

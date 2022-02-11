@@ -149,13 +149,14 @@ void HAL_GPIO_EXTI_Callback(uint16 pin)
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
-void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *handleSPI)
+void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *handle)
 {
     if(!ProcessingCommandFromPIC(dataSPIfromPanel))
     {
-        HAL_SPI_DeInit(handleSPI);
-        HAL_SPI_Init(handleSPI);
+        HAL_SPI_DeInit(handle);
+        HAL_SPI_Init(handle);
     }
+
     SPI1->DR = 0;
 }
 

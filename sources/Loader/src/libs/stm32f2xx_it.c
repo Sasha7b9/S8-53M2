@@ -62,7 +62,7 @@ void OTG_HS_IRQHandler(void)
     HAL_HCD_IRQHandler(&handleHCD);
 }
 
-void DMA1_Stream5_IRQHandler()
+void DMA1_Stream5_IRQHandler(void)
 {
 }
 
