@@ -13,13 +13,14 @@
     #define __STATIC_INLINE inline
 #endif
 
-inline uint32_t __RBIT(uint32_t value)
-{
-    return value;
-}
+#ifdef DEVICE
+    inline uint32_t __RBIT(uint32_t value)
+    {
+        return value;
+    }
+#endif
 
 #ifndef __CLZ
-//    #define __CLZ  (uint8_t)__builtin_clz
 	#define __CLZ
 #endif
 

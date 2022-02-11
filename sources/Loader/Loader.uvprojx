@@ -729,11 +729,6 @@
           <GroupName>src</GroupName>
           <Files>
             <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\main.c</FilePath>
-            </File>
-            <File>
               <FileName>main.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\main.h</FilePath>
@@ -757,6 +752,11 @@
               <FileName>defines.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\defines.c</FilePath>
+            </File>
+            <File>
+              <FileName>main.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\main.cpp</FilePath>
             </File>
           </Files>
         </Group>

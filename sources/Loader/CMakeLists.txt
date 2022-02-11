@@ -2,6 +2,8 @@
 
 project (Loader)
 
+set(CMAKE_UNITY_BUILD OFF)
+
 include_directories(../common/_VS_KEIL/ARMCLANG
                     ../common/_VS_KEIL/CMSIS
                     ../common/_VS_KEIL/FatFS
@@ -14,7 +16,6 @@ include_directories(../common/_VS_KEIL/ARMCLANG
                     ../STM32Cube_FW_F4/Middlewares/ST/STM32_USB_Host_Library/Class/MSC/Inc
                     ../STM32Cube_FW_F4/Middlewares/Third_Party/LwIP/src/include
                     ../STM32Cube_FW_F4/Middlewares/Third_Party/LwIP/system
-                    ../STM32Cube_FW_F4/Drivers/STM32F4xx_HAL_Driver/Inc/
                     src
                     src/libs)
 
