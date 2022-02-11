@@ -22,6 +22,10 @@ class Display
 {
 public:
 
+    static uint8 back[240][320];
+    static uint8 *display_back_buffer;
+    static uint8 *display_back_buffer_end;
+
     static const int WIDTH = 320;
     static const int HEIGHT = 240;
 

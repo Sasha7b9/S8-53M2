@@ -1,8 +1,8 @@
 // 2022/02/11 17:44:57 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Colors.h"
-#include "Painter.h"
-#include "font/Font.h"
+#include "Display/Colors.h"
+#include "Display/Painter.h"
+#include "Display/font/Font.h"
 #include "Log.h"
 #include "Ethernet/LAN.h"
 #include "Ethernet/TcpSocket.h"
@@ -14,7 +14,21 @@
 #include "Utils/GlobalFunctions.h"
 #include "FlashDrive/FlashDrive.h"
 #include "Menu/FileManager.h"
+#include "Hardware/HAL/HAL.h"
+#include <cstring>
 
+
+inline void BoundingX(int &x) { if (x < 0) x = 0; if (x >= Display::WIDTH) x = Display::WIDTH - 1; }
+inline void BoundingY(int &y) { if (y < 0) y = 0; if (y >= Display::HEIGHT) y = Display::HEIGHT - 1; }
+
+
+static const int SIZE_BUFFER = Display::WIDTH * Display::HEIGHT;
+
+static uint8 *front = (uint8 *)HAL_FMC::ADDR_RAM_DISPLAY_FRONT;
+uint8 Display::back[240][320];
+
+uint8 *Display::display_back_buffer = &back[0][0];
+uint8 *Display::display_back_buffer_end = display_back_buffer + SIZE_BUFFER;
 
 
 static bool inverseColors = false;
@@ -209,12 +223,12 @@ void Painter::DrawHLine(int y, int x0, int x1)
 
     if (x0 > x1)
     {
-        Math::Swap(&x0, &x1);
+        Math_Swap(&x0, &x1);
     }
 
     uint8 *start = &Display::back[y][x0];
 
-    std::memset(start, Color::Get().ValueForDraw(), (uint)(x1 - x0 + 1));
+    std::memset(start, Painter::CurrentColor(), (uint)(x1 - x0 + 1));
 
     CommandBuffer command(8, DRAW_HLINE);
     command.PushByte(y);

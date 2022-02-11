@@ -71,6 +71,7 @@ file(GLOB ETHERNET        src/Ethernet/*.*)
 file(GLOB FLASHDRIVE      src/FlashDrive/*.*)
 file(GLOB FPGA            src/FPGA/*.*)
 file(GLOB HARDWARE        src/Hardware/*.*)
+file(GLOB HARDWARE_HAL    src/Hardware/HAL/*.*)
 file(GLOB MENU            src/Menu/*.*)
 file(GLOB MENU_PAGES      src/Menu/Pages/*.*)
 file(GLOB PANEL           src/Panel/*.*)
@@ -87,6 +88,7 @@ source_group(Ethernet     FILES ${ETHERNET})
 source_group(FlashDrive   FILES ${FLASHDRIVE})
 source_group(FPGA         FILES ${FPGA})
 source_group(Hardware     FILES ${HARDWARE})
+source_group(Hardware/HAL FILES ${HARDWARE_HAL})
 source_group(Menu         FILES ${MENU})
 source_group(Menu/Pages   FILES ${MENU_PAGES})
 source_group(Panel        FILES ${PANEL})
@@ -105,5 +107,5 @@ set_source_files_properties(src/libs/ethernetif.cpp
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
 add_library(${PROJECT_NAME} ${SRC} ${LIBS} ${DISPLAY} ${DISPLAY_FONT} ${ETHERNET}
-                            ${FLASHDRIVE} ${FPGA} ${HARDWARE} ${MENU} ${MENU_PAGES}
+                            ${FLASHDRIVE} ${FPGA} ${HARDWARE} ${HARDWARE_HAL} ${MENU} ${MENU_PAGES}
                             ${PANEL} ${SETTINGS} ${UTILS} ${VCP} ${VCP_SCPI})

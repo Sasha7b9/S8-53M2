@@ -74,3 +74,9 @@ float   LimitationFloat(float value, float min, float max);
 
 uint8   Math_CalculateFiltr(const uint8 *data, int x, int numPoints, int numSmoothing);
 void    Math_CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoints, int numSmoothing);
+
+template<class T>
+void Math_Swap(T *value0, T *value1)
+{
+    T temp = *value0; *value0 = *value1; *value1 = temp;
+}
