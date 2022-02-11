@@ -380,13 +380,12 @@ void Painter::FillRegion(int x, int y, int width, int height)
         DrawHLine(i, x, x + width - 1);
     }
 
-    uint8 command[8];
-    command[0] = FILL_REGION;
-    *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = (uint8)y;
-    *((int16*)(command + 4)) = (int16)width;
-    *(command + 6) = (uint8)height;
-    SendToVCP(command, 7);
+    CommandBuffer command(8, FILL_REGION);
+    command.PushHalfWord(x);
+    command.PushByte(y);
+    command.PushHalfWord(width);
+    command.PushByte(height);
+    SendToVCP(command.Data(), 7);
 }
 
 
@@ -434,9 +433,7 @@ void Painter::SetBrightnessDisplay(int16 brightness)
     {
         recValue = 64.0f + (600.0f - 63.0f) / 100.0f / 100.0f * brightness * brightness;
     }
-    uint8 command[4];
-    command[0] = SET_BRIGHTNESS;
-    *((uint16*)(command + 1)) = (uint16)recValue;
+
     SendToDisplay(command, 4);
 }
 
