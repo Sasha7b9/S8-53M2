@@ -537,13 +537,14 @@ void Painter::EndScene(bool endScene)
         FRAMES_ELAPSED = 1;
         return;
     }
-    uint8 command[4];
-    command[0] = END_SCENE;
+
+    SendToDisplay(command, 4);
+
+    CommandBuffer command(4, END_SCENE);
 
     if (endScene)
     {
-        SendToDisplay(command, 4);
-        SendToVCP(command, 1);
+        SendToVCP(command.Data(), 1);
     }
     if (stateTransmit == StateTransmit_InProcess)
     {
@@ -557,13 +558,13 @@ void Painter::EndScene(bool endScene)
 
 Color Painter::GetColor(int x, int y)
 {
-    uint8 command[4];
-    command[0] = GET_POINT;
-    *((int16*)(command + 1)) = (int16)x;
-    *(command + 3) = (uint8)y;
     SendToDisplay(command, 4);
 
-    Get4Bytes(command);
+    CommandBuffer command(4, GET_POINT);
+    command.PushHalfWord(x);
+    command.PushByte(y);
+
+    Get4Bytes(command.Data());
 
     return (Color)(command[0] & 0x0f);
 }
