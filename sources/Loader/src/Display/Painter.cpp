@@ -150,16 +150,6 @@ void Painter_SendToDisplay(uint8 *bytes, int numBytes)
 }
 
 
-static void Get4Bytes(uint8 bytes[4])
-{
-    while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET) {};
-    bytes[0] = *ADDR_CDISPLAY;
-    bytes[1] = *ADDR_CDISPLAY;
-    bytes[2] = *ADDR_CDISPLAY;
-    bytes[3] = *ADDR_CDISPLAY;
-}
-
-
 void Painter_SetPalette(Color color)
 {
     uint8 command[4];
@@ -511,8 +501,6 @@ Color GetColor(int x, int y)
     *((int16*)(command + 1)) = (int16)x;
     *(command + 3) = (uint8)y;
     Painter_SendToDisplay(command, 4);
-
-    Get4Bytes(command);
 
     return (Color)(command[0] & 0x0f);
 }

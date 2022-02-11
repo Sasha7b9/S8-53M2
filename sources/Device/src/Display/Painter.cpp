@@ -171,16 +171,6 @@ void Painter::SendToVCP(uint8 *pointer, int size)
 }
 
 
-static void Get4Bytes(uint8 bytes[4])
-{
-    while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET) {};
-    bytes[0] = *ADDR_CDISPLAY;
-    bytes[1] = *ADDR_CDISPLAY;
-    bytes[2] = *ADDR_CDISPLAY;
-    bytes[3] = *ADDR_CDISPLAY;
-}
-
-
 void Painter::SetColor(Color color)
 {
     if (color != currentColor)
@@ -564,9 +554,7 @@ Color Painter::GetColor(int x, int y)
     command.PushHalfWord(x);
     command.PushByte(y);
 
-    Get4Bytes(command.Data());
-
-    return (Color)(command[0] & 0x0f);
+    return (Color)(command.Data()[0] & 0x0f);
 }
 
 
