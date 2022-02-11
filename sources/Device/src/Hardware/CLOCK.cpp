@@ -1,3 +1,4 @@
+// 2022/02/11 17:49:38 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "Clock.h"
 #include "Hardware/Hardware.h"
 #include "Log.h"

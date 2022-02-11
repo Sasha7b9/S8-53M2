@@ -1,3 +1,4 @@
+// 2022/02/11 17:49:27 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "ADC.h"
 #include "Hardware.h"

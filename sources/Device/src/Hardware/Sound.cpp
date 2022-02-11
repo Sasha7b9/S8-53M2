@@ -1,3 +1,4 @@
+// 2022/02/11 17:51:11 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Sound.h"
 #include "Hardware/Timer.h"

@@ -1,3 +1,4 @@
+// 2022/02/11 17:48:36 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "FPGA.h"
 #include "Storage.h"
 #include "FPGA_Types.h"

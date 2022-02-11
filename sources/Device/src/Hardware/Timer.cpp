@@ -1,14 +1,13 @@
+// 2022/02/11 17:51:53 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Timer.h"
 #include "Log.h"
-
 
 
 static void (*f[TypeTimerSize])() = {0};
 static int reactionTimeMS[TypeTimerSize] = {0};
 static int currentTimeMS[TypeTimerSize] = {0};
 static bool isRun[TypeTimerSize] = {false};
-
 
 
 void Timer::PauseOnTicks(uint numTicks)

@@ -1,3 +1,4 @@
+// 2022/02/11 17:48:54 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "FPGA_Types.h"
 #include "FPGA.h"
 #include "Settings/Settings.h"

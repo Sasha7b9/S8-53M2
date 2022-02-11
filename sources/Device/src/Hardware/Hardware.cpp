@@ -1,3 +1,4 @@
+// 2022/02/11 17:50:56 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include <stm32f429xx.h>
 #include <stm32f4xx_hal.h>
 #include <stm32f4xx_hal_tim.h>

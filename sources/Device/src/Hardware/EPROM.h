@@ -1,8 +1,8 @@
+// 2022/02/11 17:50:41 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "defines.h"
 #include "Settings/SettingsTypes.h"
 #include "Display/Display.h"
-//#include "FPGA/DataStorage.h"
 
 
 /// Программа и константные данные

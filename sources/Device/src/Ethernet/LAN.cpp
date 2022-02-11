@@ -1,3 +1,4 @@
+// 2022/02/11 17:46:13 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Ethernet/LAN.h"
 #include "TcpSocket.h"

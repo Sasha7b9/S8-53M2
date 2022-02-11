@@ -1,10 +1,8 @@
-
-
+// 2022/02/11 17:48:06 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "TcpSocket.h"
 #include <lwip/tcp.h>
 #include <string.h>
 #include <stdarg.h>
-
 
 
 static struct tcp_pcb *pcbClient = 0;      // 0, если клиент не приконнекчен

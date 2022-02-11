@@ -1,3 +1,4 @@
+// 2022/02/11 17:51:06 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include <stm32f4xx_hal.h>
 #include <stm32f4xx_hal_hcd.h>
 #include <usbh_core.h>

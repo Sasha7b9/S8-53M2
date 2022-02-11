@@ -1,35 +1,31 @@
+// 2022/02/11 17:51:45 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "Settings/Settings.h"
 
 
-
-typedef enum
+enum TypeWave
 {
     TypeWave_Sine,
     TypeWave_Meandr,
     TypeWave_Triangle
-} TypeWave;
+};
 
 
-
-
-class Sound
+namespace Sound
 {
-public:
+    void Init();
 
-    static void Init();
+    void ButtonPress();
+    // Функция вызовет звук отпускаемой кнопки только если перед этим проигрывался звук нажатия кнопки.
+    void ButtonRelease();
 
-    static void ButtonPress();
-    /// Функция вызовет звук отпускаемой кнопки только если перед этим проигрывался звук нажатия кнопки.
-    static void ButtonRelease();
+    void GovernorChangedValue();
 
-    static void GovernorChangedValue();
+    void RegulatorShiftRotate();
 
-    static void RegulatorShiftRotate();
+    void RegulatorSwitchRotate();
 
-    static void RegulatorSwitchRotate();
+    void WarnBeepBad();
 
-    static void WarnBeepBad();
-
-    static void WarnBeepGood();
+    void WarnBeepGood();
 };

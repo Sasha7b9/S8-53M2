@@ -1,3 +1,4 @@
+// 2022/02/11 17:50:46 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "FSMC.h"
 #include "Hardware.h"
 #include "FPGA/FPGA_Types.h"

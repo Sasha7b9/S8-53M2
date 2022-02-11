@@ -1,3 +1,4 @@
+// 2022/02/11 17:48:42 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "defines.h"
 #include "FPGA_Types.h"
