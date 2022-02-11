@@ -6,7 +6,7 @@
   <Header>### uVision Project, (C) Keil Software</Header>
 
   <PrjGuiSettings>
-    <LastAddFilePath>C:\Projects\S8-53M2\sources\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\netif</LastAddFilePath>
+    <LastAddFilePath>C:\Projects\S8-53M2\sources\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src</LastAddFilePath>
   </PrjGuiSettings>
 
   <ViewPool/>
