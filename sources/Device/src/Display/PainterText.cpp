@@ -26,7 +26,7 @@ void Painter::SetFont(TypeFont typeFont)
     {
         CommandBuffer command(4, SET_FONT);
         command.PushByte(typeFont);
-        InterCom::Send(command.Data(), 2);
+        command.Transmit(2);
     }
 }
 
@@ -41,7 +41,7 @@ void Painter::LoadFont(TypeFont typeFont)
         command.PushByte(typeFont);
         command.PushWord(fonts[typeFont]->height);
 
-        InterCom::Send(command.Data(), 2 + 4);
+        command.Transmit(2 + 4);
 
         pFont += 4;
 
@@ -218,9 +218,9 @@ int Painter::DrawText(int x, int y, const char * const _text)
         }
 
         command.PushByte(0);
-        *(command.Data() + 4) = length;
+        *command.GetByte(4) = length;
 
-        InterCom::Send(command.Data(), 1 + 2 + 1 + 1 + length);
+        command.Transmit(1 + 2 + 1 + 1 + length);
     }
 
     text = _text;

@@ -10,6 +10,9 @@ struct CommandBuffer
     void PushHalfWord(uint16);
     void PushHalfWord(int);
     void PushWord(int);
+    void Transmit(int);
+    uint8 *GetByte(int num_byte);
+private:
     uint8 *Data();
 };
 

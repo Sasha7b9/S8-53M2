@@ -205,7 +205,7 @@ void Painter::SetColor(Color color)
         {
             CommandBuffer command(4, SET_COLOR);
             command.PushByte(color);
-            InterCom::Send(command.Data(), 2);
+            command.Transmit(2);
         }
     }
 }
@@ -244,7 +244,7 @@ void Painter::DrawHLine(int y, int x0, int x1)
         command.PushByte(y);
         command.PushHalfWord(x0);
         command.PushHalfWord(x1);
-        InterCom::Send(command.Data(), 6);
+        command.Transmit(6);
     }
 }
 
@@ -289,7 +289,7 @@ void Painter::DrawVLine(int x, int y0, int y1)
         command.PushHalfWord(x);
         command.PushByte(y0);
         command.PushByte(y1);
-        InterCom::Send(command.Data(), 5);
+        command.Transmit(5);
     }
 }
 
@@ -347,7 +347,7 @@ void Painter::SetPoint(int x, int y)
         CommandBuffer command(4, SET_POINT);
         command.PushHalfWord(x);
         command.PushByte(y);
-        InterCom::Send(command.Data(), 4);
+        command.Transmit(4);
     }
 }
 
@@ -366,11 +366,7 @@ Color Painter::GetColor(int x, int y)
         return (Color)*address;
     }
 
-    CommandBuffer command(4, GET_POINT);
-    command.PushHalfWord(x);
-    command.PushByte(y);
-
-    return (Color)(command.Data()[0] & 0x0f);
+    return COLOR_BACK;
 }
 
 
@@ -411,7 +407,7 @@ void Painter::DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, in
             numBytes++;
         }
 
-        InterCom::Send(command.Data(), 1 + 1 + 1 + 1 + 1 + 1 + numLines * 2);
+        command.Transmit(1 + 1 + 1 + 1 + 1 + 1 + numLines * 2);
     }
 }
 
@@ -456,7 +452,7 @@ void Painter::DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int
             numBytes++;
         }
 
-        InterCom::Send(command.Data(), 1 + 1 + 2 + 1 + 1 + numLines);
+        command.Transmit(1 + 1 + 2 + 1 + 1 + numLines);
     }
 }
 
@@ -495,7 +491,7 @@ void Painter::FillRegion(int x, int y, int width, int height)
         command.PushByte(y);
         command.PushHalfWord(width);
         command.PushByte(height);
-        InterCom::Send(command.Data(), 7);
+        command.Transmit(7);
     }
 }
 
@@ -575,7 +571,7 @@ void Painter::DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color)
             numBytes++;
         }
 
-        InterCom::Send(command.Data(), 1 + 2 + 1 + 2 * numLines);
+        command.Transmit(1 + 2 + 1 + 2 * numLines);
     }
 }
 
@@ -592,7 +588,7 @@ void Painter::DrawSignal(int x, uint8 data[281], bool modeLines)
         {
             command.PushByte(data[i]);
         }
-        InterCom::Send(command.Data(), 284);
+        command.Transmit(284);
     }
 }
 
@@ -650,9 +646,10 @@ void Painter::EndScene(bool endScene)
         if (InterCom::TransmitGUIinProcess())
         {
             CommandBuffer command(4, END_SCENE);
-            InterCom::Send(command.Data(), 1);
+            command.Transmit(1);
         }
     }
+
     if (stateTransmit == StateTransmit_InProcess)
     {
         VCP::Flush();
