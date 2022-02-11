@@ -1,0 +1,16 @@
+ÀÄpr_mn_sever
+   ÃÄMAIN  0/2096  Ram=2
+   ³  ÃÄ@cinit1  (Inline)  Ram=0
+   ³  ÃÄpit_bykl  0/28  Ram=0
+   ³  ÃÄ@delay_ms1  0/38  Ram=1
+   ³  ÃÄ@const724  0/32  Ram=0
+   ³  ÃÄ@const724  0/32  Ram=0
+   ³  ÃÄ@const727  0/32  Ram=0
+   ³  ÃÄ@const727  0/32  Ram=0
+   ³  ÃÄ@delay_ms1  0/38  Ram=1
+   ³  ÃÄ@delay_ms1  0/38  Ram=1
+   ³  ÃÄ@delay_ms1  0/38  Ram=1
+   ³  ÀÄpit_bkl  0/18  Ram=0
+   ÀÄPrd_kn  0/150  Ram=0
+      ÃÄpit_bkl  0/18  Ram=0
+      ÀÄpit_bykl  0/28  Ram=0
