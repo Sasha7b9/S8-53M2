@@ -5,7 +5,7 @@
 #include "Display/Display.h"
 #include "Display/Painter.h"
 #include "Display/WelcomeScreen.h" 
-#include "Ethernet/Ethernet.h"
+#include "Ethernet/LAN.h"
 #include "FlashDrive/FlashDrive.h"
 #include "FPGA/FPGA.h"
 #include "FPGA/Storage.h"

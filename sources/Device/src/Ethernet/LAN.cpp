@@ -1,5 +1,5 @@
 #include "defines.h"
-#include "Ethernet.h"
+#include "Ethernet/LAN.h"
 #include "TcpSocket.h"
 #include "main.h"
 #include "Hardware/Timer.h"

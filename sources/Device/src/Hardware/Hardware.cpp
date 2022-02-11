@@ -12,7 +12,7 @@
 #include "Utils/GlobalFunctions.h"
 #include "Hardware/Timer.h"
 #include "Log.h"
-#include "Ethernet/Ethernet.h"
+#include "Ethernet/LAN.h"
 #include "Display/Display.h"
 #include "FlashDrive/FlashDrive.h"
 #include "Panel/Panel.h"

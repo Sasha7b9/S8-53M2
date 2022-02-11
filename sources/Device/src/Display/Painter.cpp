@@ -3,7 +3,7 @@
 #include "Painter.h"
 #include "font/Font.h"
 #include "Log.h"
-#include "Ethernet/Ethernet.h"
+#include "Ethernet/LAN.h"
 #include "Ethernet/TcpSocket.h"
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"

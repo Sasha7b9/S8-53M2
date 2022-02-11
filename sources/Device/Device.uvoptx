@@ -1817,32 +1817,32 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Ethernet\Ethernet.h</PathWithFileName>
-      <FilenameWithoutPath>Ethernet.h</FilenameWithoutPath>
+      <PathWithFileName>.\src\Ethernet\LAN.h</PathWithFileName>
+      <FilenameWithoutPath>LAN.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>8</GroupNumber>
       <FileNumber>133</FileNumber>
-      <FileType>5</FileType>
+      <FileType>8</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Ethernet\TcpSocket.h</PathWithFileName>
-      <FilenameWithoutPath>TcpSocket.h</FilenameWithoutPath>
+      <PathWithFileName>.\src\Ethernet\LAN.cpp</PathWithFileName>
+      <FilenameWithoutPath>LAN.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>8</GroupNumber>
       <FileNumber>134</FileNumber>
-      <FileType>8</FileType>
+      <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Ethernet\Ethernet.cpp</PathWithFileName>
-      <FilenameWithoutPath>Ethernet.cpp</FilenameWithoutPath>
+      <PathWithFileName>.\src\Ethernet\TcpSocket.h</PathWithFileName>
+      <FilenameWithoutPath>TcpSocket.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
