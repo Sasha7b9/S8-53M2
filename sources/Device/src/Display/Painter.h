@@ -2,14 +2,11 @@
 #include "Colors.h"
 #include "DisplayTypes.h"
 #include "PainterC.h"
-//#include <ff.h>
 
 
 class Painter 
 {
 public:
-    static void SendToDisplay(uint8 *bytes, int numBytes);
-
     static void SendToVCP(uint8 *pointer, int size);
 
     static void BeginScene(Color color);

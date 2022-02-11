@@ -171,20 +171,6 @@ void Painter::SendToVCP(uint8 *pointer, int size)
 }
 
 
-void Painter::SendToDisplay(uint8 *bytes, int numBytes)
-{
-    for (int i = 0; i < numBytes; i += 4)
-    {
-        while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET) {};
-        Timer::PauseOnTicks(100);
-        *ADDR_CDISPLAY = *bytes++;
-        *ADDR_CDISPLAY = *bytes++;
-        *ADDR_CDISPLAY = *bytes++;
-        *ADDR_CDISPLAY = *bytes++;
-    }
-}
-
-
 static void Get4Bytes(uint8 bytes[4])
 {
     while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET) {};
