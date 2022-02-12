@@ -812,3 +812,9 @@ bool Painter::SaveScreenToFlashDrive(void) {
     
     return true;
 }
+
+
+void Painter::SetPalette(Color)
+{
+
+}
