@@ -7,17 +7,6 @@
 namespace HAL
 {
     static void SystemClock_Config();
-
-    static TIM_HandleTypeDef handleTIM6forTimer =
-    {
-        TIM6,
-        {
-            119,                    // Init.Prescaler
-            TIM_COUNTERMODE_UP,     // Init.CounterMode
-            500,                    // Init.Period
-            TIM_CLOCKDIVISION_DIV1  // Init.ClockDivision
-        }
-    };
 }
 
 
@@ -46,19 +35,7 @@ void HAL::Init()
 
     HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 
-    // Таймер для мс
-    HAL_NVIC_SetPriority(TIM6_DAC_IRQn, 2, 0);
-    HAL_NVIC_EnableIRQ(TIM6_DAC_IRQn);
-
-    if (HAL_TIM_Base_Init(&handleTIM6forTimer) != HAL_OK)
-    {
-        HARDWARE_ERROR
-    }
-
-    if (HAL_TIM_Base_Start_IT(&handleTIM6forTimer) != HAL_OK)
-    {
-        HARDWARE_ERROR
-    }
+    HAL_TIM6::Init();
 
     // Таймер для тиков
     TIM_HandleTypeDef tim2handle =
@@ -158,23 +135,3 @@ uint HAL::CalculateCRC32()
 {
     return 0xab3cadef;
 }
-
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
-    void TIM6_DAC_IRQHandler(void)
-    {
-        if (__HAL_TIM_GET_FLAG(&HAL::handleTIM6forTimer, TIM_FLAG_UPDATE) == SET && __HAL_TIM_GET_ITSTATUS(&HAL::handleTIM6forTimer, TIM_IT_UPDATE))
-        {
-            Timer::Update1ms();
-            __HAL_TIM_CLEAR_FLAG(&HAL::handleTIM6forTimer, TIM_FLAG_UPDATE);
-            __HAL_TIM_CLEAR_IT(&HAL::handleTIM6forTimer, TIM_IT_UPDATE);
-        }
-    }
-
-#ifdef __cplusplus
-}
-#endif

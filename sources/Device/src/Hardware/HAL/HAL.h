@@ -69,3 +69,10 @@ namespace HAL_LTDC
 
     void ToggleBuffers();
 };
+
+
+// Таймер миллисекунд
+namespace HAL_TIM6
+{
+    void Init();
+}
