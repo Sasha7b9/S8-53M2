@@ -96,8 +96,8 @@ void Processing::CalculateMeasures()
             {
                 if(meas == MEAS_MARKED || MEAS_MARKED_IS_NONE)
                 {
-                    markerVert[Chan::A][0] = markerVert[Chan::A][1] = markerVert[B][0] = markerVert[B][1] = ERROR_VALUE_INT;
-                    markerHor[Chan::A][0] = markerHor[Chan::A][1] = markerHor[B][0] = markerHor[B][1] = ERROR_VALUE_INT;
+                    markerVert[Chan::A][0] = markerVert[Chan::A][1] = markerVert[Chan::B][0] = markerVert[Chan::B][1] = ERROR_VALUE_INT;
+                    markerHor[Chan::A][0] = markerHor[Chan::A][1] = markerHor[Chan::B][0] = markerHor[Chan::B][1] = ERROR_VALUE_INT;
                 }
                 if(MEAS_SOURCE_IS_A || MEAS_SOURCE_IS_A_B)
                 {
@@ -105,7 +105,7 @@ void Processing::CalculateMeasures()
                 }
                 if(MEAS_SOURCE_IS_B || MEAS_SOURCE_IS_A_B)
                 {
-                    values[meas].value[B] = func(B);
+                    values[meas].value[Chan::B] = func(B);
                 }
             }
         }
@@ -119,10 +119,10 @@ float Processing::CalculateVoltageMax(Chan::E ch)
     EXIT_IF_ERROR_FLOAT(max);
     if(MEAS_MARKED == Measure_VoltageMax)
     {
-        markerHor[chan][0] = max;                           // Здесь не округляем, потому что max может быть только целым
+        markerHor[ch][0] = max;                           // Здесь не округляем, потому что max может быть только целым
     }
 
-    return POINT_2_VOLTAGE(max, dataSet->range[chan], ch == Chan::A ? dataSet->rShiftCh0 : dataSet->rShiftCh1) * VALUE_MULTIPLIER(ch);
+    return POINT_2_VOLTAGE(max, dataSet->range[ch], ch == Chan::A ? dataSet->rShiftCh0 : dataSet->rShiftCh1) * VALUE_MULTIPLIER(ch);
 }
 
 float Processing::CalculateVoltageMin(Chan::E ch)
@@ -131,10 +131,10 @@ float Processing::CalculateVoltageMin(Chan::E ch)
     EXIT_IF_ERROR_FLOAT(min);
     if(MEAS_MARKED == Measure_VoltageMin)
     {
-        markerHor[chan][0] = min;                           // Здесь не округляем, потому что min может быть только целым
+        markerHor[ch][0] = min;                           // Здесь не округляем, потому что min может быть только целым
     }
 
-    return POINT_2_VOLTAGE(min, dataSet->range[chan], ch == Chan::A ? dataSet->rShiftCh0 : dataSet->rShiftCh1) * VALUE_MULTIPLIER(ch);
+    return POINT_2_VOLTAGE(min, dataSet->range[ch], ch == Chan::A ? dataSet->rShiftCh0 : dataSet->rShiftCh1) * VALUE_MULTIPLIER(ch);
 }
 
 float Processing::CalculateVoltagePic(Chan::E ch)
@@ -146,8 +146,8 @@ float Processing::CalculateVoltagePic(Chan::E ch)
 
     if(MEAS_MARKED == Measure_VoltagePic)
     {
-        markerHor[chan][0] = CalculateMaxRel(ch);
-        markerHor[chan][1] = CalculateMinRel(ch);
+        markerHor[ch][0] = CalculateMaxRel(ch);
+        markerHor[ch][1] = CalculateMinRel(ch);
     }
     return max - min;
 }
@@ -158,10 +158,10 @@ float Processing::CalculateVoltageMinSteady(Chan::E ch)
     EXIT_IF_ERROR_FLOAT(min);
     if(MEAS_MARKED == Measure_VoltageMinSteady)
     {
-        markerHor[chan][0] = ROUND(min);
+        markerHor[ch][0] = ROUND(min);
     }
 
-    return (POINT_2_VOLTAGE(min, dataSet->range[chan], ch == Chan::A ? dataSet->rShiftCh0 : dataSet->rShiftCh1) * VALUE_MULTIPLIER(ch));
+    return (POINT_2_VOLTAGE(min, dataSet->range[ch], ch == Chan::A ? dataSet->rShiftCh0 : dataSet->rShiftCh1) * VALUE_MULTIPLIER(ch));
 }
 
 float Processing::CalculateVoltageMaxSteady(Chan::E ch)
@@ -172,10 +172,10 @@ float Processing::CalculateVoltageMaxSteady(Chan::E ch)
 
     if(MEAS_MARKED == Measure_VoltageMaxSteady)
     {
-        markerHor[chan][0] = max;
+        markerHor[ch][0] = max;
     }
 
-    Range range = dataSet->range[chan];
+    Range range = dataSet->range[ch];
     uint rShift = ch == Chan::A ? dataSet->rShiftCh0 : dataSet->rShiftCh1;
 
     return (POINT_2_VOLTAGE(max, range, rShift) * VALUE_MULTIPLIER(ch));
@@ -190,12 +190,12 @@ float Processing::CalculateVoltageVybrosPlus(Chan::E ch)
 
     if (MEAS_MARKED == Measure_VoltageVybrosPlus)
     {
-        markerHor[chan][0] = max;
-        markerHor[chan][1] = maxSteady;
+        markerHor[ch][0] = max;
+        markerHor[ch][1] = maxSteady;
     }
 
     int16 rShift = ch == Chan::A ? (int16)dataSet->rShiftCh0 : (int16)dataSet->rShiftCh1;
-    return fabsf(POINT_2_VOLTAGE(maxSteady, dataSet->range[chan], rShift) - POINT_2_VOLTAGE(max, dataSet->range[chan], rShift)) * VALUE_MULTIPLIER(ch);
+    return fabsf(POINT_2_VOLTAGE(maxSteady, dataSet->range[ch], rShift) - POINT_2_VOLTAGE(max, dataSet->range[ch], rShift)) * VALUE_MULTIPLIER(ch);
 }
 
 float Processing::CalculateVoltageVybrosMinus(Chan::E ch)
@@ -206,12 +206,12 @@ float Processing::CalculateVoltageVybrosMinus(Chan::E ch)
 
     if (MEAS_MARKED == Measure_VoltageVybrosMinus)
     {
-        markerHor[chan][0] = min;
-        markerHor[chan][1] = minSteady;
+        markerHor[ch][0] = min;
+        markerHor[ch][1] = minSteady;
     }
 
     int16 rShift = ch == Chan::A ? (int16)dataSet->rShiftCh0 : (int16)dataSet->rShiftCh1;
-    return fabsf(POINT_2_VOLTAGE(minSteady, dataSet->range[chan], rShift) - POINT_2_VOLTAGE(min, dataSet->range[chan], rShift)) * VALUE_MULTIPLIER(ch);
+    return fabsf(POINT_2_VOLTAGE(minSteady, dataSet->range[ch], rShift) - POINT_2_VOLTAGE(min, dataSet->range[ch], rShift)) * VALUE_MULTIPLIER(ch);
 }
 
 float Processing::CalculateVoltageAmpl(Chan::E ch)
@@ -223,8 +223,8 @@ float Processing::CalculateVoltageAmpl(Chan::E ch)
 
     if(MEAS_MARKED == Measure_VoltageAmpl)
     {
-        markerHor[chan][0] = CalculateMaxSteadyRel(ch);
-        markerHor[chan][1] = CalculateMinSteadyRel(ch);
+        markerHor[ch][0] = CalculateMaxSteadyRel(ch);
+        markerHor[ch][1] = CalculateMinSteadyRel(ch);
     }
     return max - min;
 }
@@ -236,7 +236,7 @@ float Processing::CalculateVoltageAverage(Chan::E ch)
     EXIT_IF_ERROR_INT(period);
 
     int sum = 0;
-    uint8 *data = &dataIn[chan][firstP];
+    uint8 *data = &dataIn[ch][firstP];
     for(int i = 0; i < period; i++)
     {
         sum += *data++;
@@ -246,10 +246,10 @@ float Processing::CalculateVoltageAverage(Chan::E ch)
 
     if(MEAS_MARKED == Measure_VoltageAverage)
     {
-        markerHor[chan][0] = aveRel;
+        markerHor[ch][0] = aveRel;
     }
 
-    return (POINT_2_VOLTAGE(aveRel, dataSet->range[chan], ch == Chan::A ? dataSet->rShiftCh0 : dataSet->rShiftCh1) * VALUE_MULTIPLIER(ch));
+    return (POINT_2_VOLTAGE(aveRel, dataSet->range[ch], ch == Chan::A ? dataSet->rShiftCh0 : dataSet->rShiftCh1) * VALUE_MULTIPLIER(ch));
 }
 
 float Processing::CalculateVoltageRMS(Chan::E ch)
@@ -262,13 +262,13 @@ float Processing::CalculateVoltageRMS(Chan::E ch)
     int16 rShift = ch == Chan::A ? (int16)dataSet->rShiftCh0 : (int16)dataSet->rShiftCh1;
     for(int i = firstP; i < firstP + period; i++)
     {
-        float volts = POINT_2_VOLTAGE(dataIn[chan][i], dataSet->range[chan], rShift);
+        float volts = POINT_2_VOLTAGE(dataIn[ch][i], dataSet->range[ch], rShift);
         rms +=  volts * volts;
     }
 
     if(MEAS_MARKED == Measure_VoltageRMS)
     {
-        markerHor[chan][0] = Math_VoltageToPoint(sqrt(rms / period), dataSet->range[chan], rShift);
+        markerHor[ch][0] = Math_VoltageToPoint(sqrt(rms / period), dataSet->range[ch], rShift);
     }
 
     return sqrt(rms / period) * VALUE_MULTIPLIER(ch);
@@ -278,12 +278,12 @@ float Processing::CalculatePeriod(Chan::E ch)
 {
     static float period[2] = {0.0f, 0.0f};
 
-    if(!periodIsCaclulating[chan])
+    if(!periodIsCaclulating[ch])
     {
         float aveValue = CalculateAverageRel(ch);
         if(aveValue == ERROR_VALUE_UINT8)
         {
-            period[chan] = ERROR_VALUE_FLOAT;
+            period[ch] = ERROR_VALUE_FLOAT;
         }
         else
         {
@@ -299,18 +299,18 @@ float Processing::CalculatePeriod(Chan::E ch)
 
             float per = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, dataSet->tBase);
 
-            period[chan] = per;
-            periodIsCaclulating[chan] = true;
+            period[ch] = per;
+            periodIsCaclulating[ch] = true;
         }
     }
 
-    return period[chan];
+    return period[ch];
 }
 
 #define EXIT_FROM_PERIOD_ACCURACY               \
-    period[chan] = ERROR_VALUE_INT;             \
-    periodAccurateIsCalculating[chan] = true;   \
-    return period[chan];
+    period[ch] = ERROR_VALUE_INT;             \
+    periodAccurateIsCalculating[ch] = true;   \
+    return period[ch];
 
 int Processing::CalculatePeriodAccurately(Chan::E ch)
 {
@@ -318,9 +318,9 @@ int Processing::CalculatePeriodAccurately(Chan::E ch)
 
     int sums[FPGA_MAX_POINTS];
 
-    if(!periodAccurateIsCalculating[chan])
+    if(!periodAccurateIsCalculating[ch])
     {
-        period[chan] = 0;
+        period[ch] = 0;
         float pic = CalculatePicRel(ch);
 
         if(pic == ERROR_VALUE_FLOAT)
@@ -328,12 +328,12 @@ int Processing::CalculatePeriodAccurately(Chan::E ch)
             EXIT_FROM_PERIOD_ACCURACY
         }
         int delta = pic * 5;
-        sums[firstP] = dataIn[chan][firstP];
+        sums[firstP] = dataIn[ch][firstP];
 
         int i = firstP + 1;
         int *sum = &sums[i];
-        uint8 *data = &dataIn[chan][i];
-        uint8 *end = &dataIn[chan][lastP];
+        uint8 *data = &dataIn[ch][i];
+        uint8 *end = &dataIn[ch][lastP];
 
         while (data < end)
         {
@@ -382,18 +382,18 @@ int Processing::CalculatePeriodAccurately(Chan::E ch)
             if(maxDelta < delta)
             {
                 delta = maxDelta;
-                period[chan] = nextPeriod;
+                period[ch] = nextPeriod;
             }
         }
 
-        if(period[chan] == 0)
+        if(period[ch] == 0)
         {
-            period[chan] = ERROR_VALUE_INT;
+            period[ch] = ERROR_VALUE_INT;
         }
-        periodAccurateIsCalculating[chan] = true;
+        periodAccurateIsCalculating[ch] = true;
     }
 
-    return period[chan];
+    return period[ch];
 }
 
 float Processing::CalculateFreq(Chan::E ch)
@@ -408,7 +408,7 @@ float Processing::FindIntersectionWithHorLine(Chan::E ch, int numIntersection, b
     int x = firstP;
     int compValue = lastP - 1;
 
-    uint8 *data = &dataIn[chan][0];
+    uint8 *data = &dataIn[ch][0];
 
     if(downToUp)
     {
@@ -508,10 +508,10 @@ float Processing::CalculateTimeNarastaniya(Chan::E ch)                    // WAR
 
     if (MEAS_MARKED == Measure_TimeNarastaniya)
     {
-        markerHor[chan][0] = max09;
-        markerHor[chan][1] = min01;
-        markerVert[chan][0] = firstIntersection - SHIFT_IN_MEMORY;
-        markerVert[chan][1] = secondIntersection - SHIFT_IN_MEMORY;
+        markerHor[ch][0] = max09;
+        markerHor[ch][1] = min01;
+        markerVert[ch][0] = firstIntersection - SHIFT_IN_MEMORY;
+        markerVert[ch][1] = secondIntersection - SHIFT_IN_MEMORY;
     }
 
     return retValue;
@@ -544,10 +544,10 @@ float Processing::CalculateTimeSpada(Chan::E ch)                          // WAR
 
     if (MEAS_MARKED == Measure_TimeSpada)
     {
-        markerHor[chan][0] = max09;
-        markerHor[chan][1] = min01;
-        markerVert[chan][0] = firstIntersection - SHIFT_IN_MEMORY;
-        markerVert[chan][1] = secondIntersection - SHIFT_IN_MEMORY;
+        markerHor[ch][0] = max09;
+        markerHor[ch][1] = min01;
+        markerVert[ch][0] = firstIntersection - SHIFT_IN_MEMORY;
+        markerVert[ch][1] = secondIntersection - SHIFT_IN_MEMORY;
     }
 
     return retValue;
@@ -577,19 +577,19 @@ float Processing::CalculateMinSteadyRel(Chan::E ch)
 {
     static float min[2] = {255.0f, 255.0f};
 
-    if(!minSteadyIsCalculating[chan])
+    if(!minSteadyIsCalculating[ch])
     {
         float aveValue = CalculateAverageRel(ch);
         if(aveValue == ERROR_VALUE_FLOAT)
         {
-            min[chan] = ERROR_VALUE_FLOAT;
+            min[ch] = ERROR_VALUE_FLOAT;
         }
         else
         {
             int sum = 0;
             int numSums = 0;
-            uint8 *data = &dataIn[chan][firstP];
-            const uint8 * const end = &dataIn[chan][lastP];
+            uint8 *data = &dataIn[ch][firstP];
+            const uint8 * const end = &dataIn[ch][lastP];
             while(data <= end)
             {
                 uint8 d = *data++;
@@ -599,7 +599,7 @@ float Processing::CalculateMinSteadyRel(Chan::E ch)
                     numSums++;
                 }
             }
-            min[chan] = (float)sum / numSums;
+            min[ch] = (float)sum / numSums;
             int numMin = numSums;
 
             int numDeleted = 0;
@@ -607,14 +607,14 @@ float Processing::CalculateMinSteadyRel(Chan::E ch)
             float pic = CalculatePicRel(ch);
             if (pic == ERROR_VALUE_FLOAT)
             {
-                min[chan] = ERROR_VALUE_FLOAT;
+                min[ch] = ERROR_VALUE_FLOAT;
             }
             else
             {
                 float value = pic / 9.0f;
 
-                data = &dataIn[chan][firstP];
-                float _min = min[chan];
+                data = &dataIn[ch][firstP];
+                float _min = min[ch];
                 while (data <= end)
                 {
                     uint8 d = *data++;
@@ -637,33 +637,33 @@ float Processing::CalculateMinSteadyRel(Chan::E ch)
                         }
                     }
                 }
-                min[chan] = (numDeleted > numMin / 2.0f) ? CalculateMinRel(ch) : (float)sum / numSums;
+                min[ch] = (numDeleted > numMin / 2.0f) ? CalculateMinRel(ch) : (float)sum / numSums;
             }
         }
-        minSteadyIsCalculating[chan] = true;
+        minSteadyIsCalculating[ch] = true;
     }
 
-    return min[chan];
+    return min[ch];
 }
 
 float Processing::CalculateMaxSteadyRel(Chan::E ch)
 {
     static float max[2] = {255.0f, 255.0f};
 
-    if(!maxSteadyIsCalculating[chan])
+    if(!maxSteadyIsCalculating[ch])
     {
         float aveValue = CalculateAverageRel(ch);
         
         if(aveValue == ERROR_VALUE_FLOAT)
         {
-            max[chan] = ERROR_VALUE_FLOAT;
+            max[ch] = ERROR_VALUE_FLOAT;
         }
         else
         {
             int sum = 0;
             int numSums = 0;
-            uint8 *data = &dataIn[chan][firstP];
-            const uint8 * const end = &dataIn[chan][lastP];
+            uint8 *data = &dataIn[ch][firstP];
+            const uint8 * const end = &dataIn[ch][lastP];
             while (data <= end)
             {
                 uint8 d = *data++;
@@ -673,7 +673,7 @@ float Processing::CalculateMaxSteadyRel(Chan::E ch)
                     numSums++;
                 }
             }
-            max[chan] = (float)sum / numSums;
+            max[ch] = (float)sum / numSums;
             int numMax = numSums;
 
             int numDeleted = 0;
@@ -682,14 +682,14 @@ float Processing::CalculateMaxSteadyRel(Chan::E ch)
 
             if (pic == ERROR_VALUE_FLOAT)
             {
-                max[chan] = ERROR_VALUE_FLOAT;
+                max[ch] = ERROR_VALUE_FLOAT;
             }
             else
             {
                 float value = pic / 9.0f;
 
-                data = &dataIn[chan][firstP];
-                uint8 _max = max[chan];
+                data = &dataIn[ch][firstP];
+                uint8 _max = max[ch];
                 while (data <= end)
                 {
                     uint8 d = *data++;
@@ -712,69 +712,69 @@ float Processing::CalculateMaxSteadyRel(Chan::E ch)
                         }
                     }
                 }
-                max[chan] = (numDeleted > numMax / 2) ? CalculateMaxRel(ch) : (float)sum / numSums;
+                max[ch] = (numDeleted > numMax / 2) ? CalculateMaxRel(ch) : (float)sum / numSums;
             }
         }
-        maxSteadyIsCalculating[chan] = true;
+        maxSteadyIsCalculating[ch] = true;
     }
 
-    return max[chan];
+    return max[ch];
 }
 
 float Processing::CalculateMaxRel(Chan::E ch)
 {
     static float max[2] = {0.0f, 0.0f};
 
-    if(!maxIsCalculating[chan])
+    if(!maxIsCalculating[ch])
     {
-        uint8 val = Math_GetMaxFromArrayWithErrorCode(dataIn[chan], firstP, lastP);
-        max[chan] = val == ERROR_VALUE_UINT8 ? ERROR_VALUE_FLOAT : val;
-        maxIsCalculating[chan] = true;
+        uint8 val = Math_GetMaxFromArrayWithErrorCode(dataIn[ch], firstP, lastP);
+        max[ch] = val == ERROR_VALUE_UINT8 ? ERROR_VALUE_FLOAT : val;
+        maxIsCalculating[ch] = true;
     }
 
-    return max[chan];
+    return max[ch];
 }
 
 float Processing::CalculateMinRel(Chan::E ch)
 {
     static float min[2] = {255.0f, 255.0f};
 
-    if (!minIsCalculating[chan])
+    if (!minIsCalculating[ch])
     {
-        uint8 val = Math_GetMinFromArrayWithErrorCode(dataIn[chan], firstP, lastP);
-        min[chan] = val == ERROR_VALUE_UINT8 ? ERROR_VALUE_FLOAT : val;
-        minIsCalculating[chan] = true;
+        uint8 val = Math_GetMinFromArrayWithErrorCode(dataIn[ch], firstP, lastP);
+        min[ch] = val == ERROR_VALUE_UINT8 ? ERROR_VALUE_FLOAT : val;
+        minIsCalculating[ch] = true;
     }
 
-    return min[chan];
+    return min[ch];
 }
 
 float Processing::CalculateAverageRel(Chan::E ch)
 {
     static float ave[2] = {0.0f, 0.0f};
 
-    if(!aveIsCalculating[chan])
+    if(!aveIsCalculating[ch])
     {
         float min = CalculateMinRel(ch);
         float max = CalculateMaxRel(ch);
-        ave[chan] = (min == ERROR_VALUE_FLOAT || max == ERROR_VALUE_FLOAT) ? ERROR_VALUE_FLOAT : (min + max) / 2.0f;
-        aveIsCalculating[chan] = true;
+        ave[ch] = (min == ERROR_VALUE_FLOAT || max == ERROR_VALUE_FLOAT) ? ERROR_VALUE_FLOAT : (min + max) / 2.0f;
+        aveIsCalculating[ch] = true;
     }
-    return ave[chan];
+    return ave[ch];
 }
 
 float Processing::CalculatePicRel(Chan::E ch)
 {
     static float pic[2] = {0.0f, 0.0f};
 
-    if(!picIsCalculating[chan])
+    if(!picIsCalculating[ch])
     {
         float min = CalculateMinRel(ch);
         float max = CalculateMaxRel(ch);
-        pic[chan] = (min == ERROR_VALUE_FLOAT || max == ERROR_VALUE_FLOAT) ? ERROR_VALUE_FLOAT : max - min;
-        picIsCalculating[chan] = true;
+        pic[ch] = (min == ERROR_VALUE_FLOAT || max == ERROR_VALUE_FLOAT) ? ERROR_VALUE_FLOAT : max - min;
+        picIsCalculating[ch] = true;
     }
-    return pic[chan];
+    return pic[ch];
 }
 
 float Processing::CalculateDelayPlus(Chan::E ch)
@@ -887,7 +887,7 @@ void Processing::SetSignal(uint8 *data0, uint8 *data1, DataSettings *ds, int _fi
     int length = (int)ds->length1channel * (ds->peakDet == PeackDet_Disable ? 1 : 2);
 
     Math_CalculateFiltrArray(data0, &dataIn[Chan::A][0], length, numSmoothing);
-    Math_CalculateFiltrArray(data1, &dataIn[B][0], length, numSmoothing);
+    Math_CalculateFiltrArray(data1, &dataIn[Chan::B][0], length, numSmoothing);
 
     dataSet = ds;
 
@@ -914,7 +914,7 @@ float Processing::GetCursU(Chan::E ch, float posCurT)
     sDisplay_PointsOnDisplay(&first, &last);
 
     float retValue = 0.0f;
-    LIMITATION(retValue, 200 - (dataIn[chan])[first + (int)posCurT] + MIN_VALUE, 0, 200);
+    LIMITATION(retValue, 200 - (dataIn[ch])[first + (int)posCurT] + MIN_VALUE, 0, 200);
     return retValue;
 }
 
@@ -924,13 +924,13 @@ float Processing::GetCursT(Chan::E ch, float posCurU, int numCur)
     int lastPoint = 0;
     sDisplay_PointsOnDisplay(&firstPoint, &lastPoint);
 
-    int prevData = 200 - (dataIn[chan])[firstPoint] + MIN_VALUE;
+    int prevData = 200 - (dataIn[ch])[firstPoint] + MIN_VALUE;
 
     int numIntersections = 0;
 
     for(int i = firstPoint + 1; i < lastPoint; i++)
     {
-        int curData = 200 - (dataIn[chan])[i] + MIN_VALUE;
+        int curData = 200 - (dataIn[ch])[i] + MIN_VALUE;
 
         if(curData <= posCurU && prevData > posCurU)
         {
@@ -1091,7 +1091,7 @@ char* Processing::GetStringMeasure(Measure measure, Chan::E ch, char buffer[20])
     {
         char bufferForFunc[20];
         pFuncCFBC func = measures[measure].FucnConvertate;
-        float value = values[measure].value[chan];
+        float value = values[measure].value[ch];
         char *text = func(value, measures[measure].showSign, bufferForFunc);
         strcat(buffer, text);
     }
@@ -1104,12 +1104,12 @@ char* Processing::GetStringMeasure(Measure measure, Chan::E ch, char buffer[20])
 
 int Processing::GetMarkerHorizontal(Chan::E ch, int numMarker)
 {
-    return markerHor[chan][numMarker] - MIN_VALUE;
+    return markerHor[ch][numMarker] - MIN_VALUE;
 }
 
 int Processing::GetMarkerVertical(Chan::E ch, int numMarker)
 {
-    return markerVert[chan][numMarker];
+    return markerVert[ch][numMarker];
 }
 
 void Processing::CountedToCurrentSettings()

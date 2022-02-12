@@ -74,9 +74,9 @@ void SCPI::CHANNEL::COUPLE(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (0 == value)         { SET_COUPLE(ch) = ModeCouple_DC; func[chan](true); }
-        else if (1 == value)    { SET_COUPLE(ch) = ModeCouple_AC; func[chan](true); }
-        else if (2 == value)    { SET_COUPLE(ch) = ModeCouple_GND; func[chan](true); }
+        if (0 == value)         { SET_COUPLE(ch) = ModeCouple_DC; func[ch](true); }
+        else if (1 == value)    { SET_COUPLE(ch) = ModeCouple_AC; func[ch](true); }
+        else if (2 == value)    { SET_COUPLE(ch) = ModeCouple_GND; func[ch](true); }
         else if (3 == value)
         {
             SCPI_SEND(":CHANNEL%d:COUPLING %s", Tables_GetNumChannel(ch), map[SET_COUPLE(ch)].key);
@@ -103,8 +103,8 @@ void SCPI::CHANNEL::FILTR(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (0 == value)         { SET_FILTR(ch) = true; func[chan](true); }
-        else if (1 == value)    { SET_FILTR(ch) = false; func[chan](true); }
+        if (0 == value)         { SET_FILTR(ch) = true; func[ch](true); }
+        else if (1 == value)    { SET_FILTR(ch) = false; func[ch](true); }
         else if (2 == value)
         {
             SCPI_SEND(":CHANNEL%d:FILTR %s", Tables_GetNumChannel(ch), SET_FILTR(ch) ? "ON" : "OFF");

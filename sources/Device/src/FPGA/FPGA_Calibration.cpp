@@ -69,7 +69,7 @@ void FPGA::ProcedureCalibration(void)
     Timer::Enable(kTimerDrawHandFunction, 100, OnTimerDraw);
 
     koeffCalibrationOld[Chan::A] = STRETCH_ADC_A;
-    koeffCalibrationOld[B] = STRETCH_ADC_B;
+    koeffCalibrationOld[Chan::B] = STRETCH_ADC_B;
 
     bar0.fullTime = bar0.passedTime = bar1.fullTime = bar1.passedTime = 0;
 
@@ -96,12 +96,12 @@ void FPGA::ProcedureCalibration(void)
 //        HAL_FMC::Write(WR_ADD_RSHIFT_DAC2, 0);
 
         deltaADCPercentsOld[0] = CalculateDeltaADC(A, &avrADC1old[Chan::A], &avrADC2old[Chan::A], &deltaADCold[Chan::A]);
-        deltaADCPercentsOld[1] = CalculateDeltaADC(B, &avrADC1old[B], &avrADC2old[B], &deltaADCold[B]);
+        deltaADCPercentsOld[1] = CalculateDeltaADC(B, &avrADC1old[Chan::B], &avrADC2old[Chan::B], &deltaADCold[Chan::B]);
 
         AlignmentADC();
 
         deltaADCPercents[Chan::A] = CalculateDeltaADC(A, &avrADC1[Chan::A], &avrADC2[Chan::A], &deltaADC[Chan::A]);
-        deltaADCPercents[B] = CalculateDeltaADC(B, &avrADC1[B], &avrADC2[B], &deltaADC[B]);
+        deltaADCPercents[Chan::B] = CalculateDeltaADC(B, &avrADC1[Chan::B], &avrADC2[Chan::B], &deltaADC[Chan::B]);
 
         gStateFPGA.stateCalibration = StateCalibration_RShift0start;                 
 
@@ -323,13 +323,13 @@ void DrawParametersChannel(Chan::E ch, int eX, int eY, bool inProgress)
         int y = eY + (inProgress ? 110 : 0);
         Painter::DrawText(x, y, "Отклонение от нуля:");
         char buffer[100] = {0};
-        sprintf(buffer, "АЦП1 = %.2f/%.2f, АЦП2 = %.2f/%.2f, d = %.2f/%.2f", avrADC1old[chan] - AVE_VALUE, avrADC1[chan] - AVE_VALUE, 
-                                                                             avrADC2old[chan] - AVE_VALUE, avrADC2[chan] - AVE_VALUE,
-                                                                             deltaADCold[chan], deltaADC[chan]);
+        sprintf(buffer, "АЦП1 = %.2f/%.2f, АЦП2 = %.2f/%.2f, d = %.2f/%.2f", avrADC1old[ch] - AVE_VALUE, avrADC1[ch] - AVE_VALUE, 
+                                                                             avrADC2old[ch] - AVE_VALUE, avrADC2[ch] - AVE_VALUE,
+                                                                             deltaADCold[ch], deltaADC[ch]);
         y += 10;
         Painter::DrawText(x, y, buffer);
         buffer[0] = 0;
-        sprintf(buffer, "Расхождение AЦП = %.2f/%.2f %%", deltaADCPercentsOld[chan], deltaADCPercents[chan]);
+        sprintf(buffer, "Расхождение AЦП = %.2f/%.2f %%", deltaADCPercentsOld[ch], deltaADCPercents[ch]);
         Painter::DrawText(x, y + 11, buffer);
         buffer[0] = 0;
         sprintf(buffer, "Записано %d", SET_BALANCE_ADC(ch));

@@ -139,7 +139,7 @@ void FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog type)
     };
 
     data |= maskCouple[Chan::A][SET_COUPLE_A];
-    data |= maskCouple[B][SET_COUPLE_B];
+    data |= maskCouple[Chan::B][SET_COUPLE_B];
 
     static const uint maskFiltr[2][2] = 
     {
@@ -148,7 +148,7 @@ void FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog type)
     };
 
     data |= maskFiltr[Chan::A][SET_FILTR_A];
-    data |= maskFiltr[B][SET_FILTR_B];
+    data |= maskFiltr[Chan::B][SET_FILTR_B];
 
 
     // Параметры синхронизации
@@ -317,7 +317,7 @@ void FPGA::LoadRShift(Chan::E ch)
     rShift = (uint16)(delta + RShiftZero);
 
     rShift = (uint16)(RShiftMax + RShiftMin - rShift);
-    WriteToDAC(ch == Chan::A ? TypeWriteDAC_RShiftA : TypeWriteDAC_RShiftB, (uint16)(mask[chan] | (rShift << 2)));
+    WriteToDAC(ch == Chan::A ? TypeWriteDAC_RShiftA : TypeWriteDAC_RShiftB, (uint16)(mask[ch] | (rShift << 2)));
 }
 
 

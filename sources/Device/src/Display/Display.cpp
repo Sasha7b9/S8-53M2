@@ -345,7 +345,7 @@ void Display::DrawDataChannel(uint8 *data, Chan::E ch, DataSettings *ds, int min
         }
     }
 
-    if (!ChannelNeedForDraw(data, chan, ds))
+    if (!ChannelNeedForDraw(data, ch, ds))
     {
         return;
     }
@@ -355,7 +355,7 @@ void Display::DrawDataChannel(uint8 *data, Chan::E ch, DataSettings *ds, int min
 
     if(SHOW_MEASURES)
     {
-        DrawMarkersForMeasure(scaleY, chan);
+        DrawMarkersForMeasure(scaleY, ch);
     }
 
     int firstPoint = 0;
@@ -409,7 +409,7 @@ void Display::DrawMath()
     float dataAbs1[FPGA_MAX_POINTS];
 
     Math_PointsRelToVoltage(dataRel0, (int)ds->length1channel, ds->range[Chan::A], (int16)ds->rShiftCh0, dataAbs0);
-    Math_PointsRelToVoltage(dataRel1, (int)ds->length1channel, ds->range[B], (int16)ds->rShiftCh1, dataAbs1);
+    Math_PointsRelToVoltage(dataRel1, (int)ds->length1channel, ds->range[Chan::B], (int16)ds->rShiftCh1, dataAbs1);
 
     Math_CalculateMathFunction(dataAbs0, dataAbs1, (int)ds->length1channel);
     
@@ -909,7 +909,7 @@ void Display::DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int
     {
         DrawDataInRect(1,          xVert0 - 1,              &(data[0]),        startI,                             chan, shiftForPeakDet);
         DrawDataInRect(xVert0 + 2, timeWindowRectWidth - 2, &(data[startI]),   281,                                chan, shiftForPeakDet);
-        DrawDataInRect(xVert1 + 2, rightX - xVert1 + 2,     &(data[endI + 1]), sMemory_GetNumPoints(false) - endI, chan, shiftForPeakDet);
+        DrawDataInRect(xVert1 + 2, rightX - xVert1 + 2,     &(data[endI + 1]), sMemory_GetNumPoints(false) - endI, ch, shiftForPeakDet);
     }
 }
 
@@ -1924,7 +1924,7 @@ void Display::WriteTextVoltage(Chan::E ch, int x, int y)
             inverse = (ch == Chan::A) ? ds->inverseCh0 : ds->inverseCh1;
             modeCouple = (ch == Chan::A) ? ds->modeCouple0 : ds->modeCouple1;
             multiplier = (ch == Chan::A) ? ds->multiplier0 : ds->multiplier1;
-            range = ds->range[chan];
+            range = ds->range[ch];
             rShift = (ch == Chan::A) ? ds->rShiftCh0 : ds->rShiftCh1;
             enable = (ch == Chan::A) ? ds->enableCh0 : ds->enableCh1;
         }

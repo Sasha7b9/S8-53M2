@@ -308,7 +308,7 @@ uint8* Storage::GetData(Chan::E ch, int fromEnd)
         return 0;
     }
 
-    return CopyData(dp, chan, dataImportRel) ? &dataImportRel[chan][0] : 0;
+    return CopyData(dp, ch, dataImportRel) ? &dataImportRel[ch][0] : 0;
 }
 
 
@@ -339,12 +339,12 @@ uint8* Storage::GetAverageData(Chan::E ch)
 {
     static uint8 data[NumChannels][FPGA_MAX_POINTS];
     
-    if (newSumCalculated[chan] == false)
+    if (newSumCalculated[ch] == false)
     {
-        return &data[chan][0];
+        return &data[ch][0];
     }
 
-    newSumCalculated[chan] = false;
+    newSumCalculated[ch] = false;
 
     DataSettings *ds = 0;
     uint8 *d0, *d1;
@@ -363,9 +363,9 @@ uint8* Storage::GetAverageData(Chan::E ch)
         
         for (uint i = 0; i < numPoints; i++)
         {
-            data[chan][i] = (uint8)(floatAveData[i]);
+            data[ch][i] = (uint8)(floatAveData[i]);
         }
-        return &data[chan][0];
+        return &data[ch][0];
     }
 
     int numAveraging = sDisplay_NumAverage();
@@ -374,10 +374,10 @@ uint8* Storage::GetAverageData(Chan::E ch)
 
     for(uint i = 0; i < numPoints; i++)
     {
-        data[chan][i] = sum[chan][i] / numAveraging;
+        data[ch][i] = sum[ch][i] / numAveraging;
     }
 
-    return &data[chan][0];
+    return &data[ch][0];
 }
 
 
@@ -387,11 +387,11 @@ uint8* Storage::GetLimitation(Chan::E ch, int direction)
 
     if(direction == 0)
     {
-        retValue = &(limitDown[chan][0]);
+        retValue = &(limitDown[ch][0]);
     }
     else if(direction == 1)
     {
-        retValue = &(limitUp[chan][0]);
+        retValue = &(limitUp[ch][0]);
     }
 
     return retValue;

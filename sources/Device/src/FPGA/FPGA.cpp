@@ -245,7 +245,7 @@ bool FPGA::IsRunning(void)
 /*
 static uint8 InverseIfNecessary(uint8 data, Chan::E ch)
 {
-    if (set.chan[chan].inverse)  
+    if (set.chan[ch].inverse)  
     {
         return (uint8)((int)(2 * AVE_VALUE) - LimitationUInt8(data, MIN_VALUE, MAX_VALUE));
     }
@@ -600,7 +600,7 @@ void FPGA::RestoreState(void)
         {
             for (int range = 0; range < RangeSize; range++)
             {
-                rShiftAdd[chan][range][mode] = RSHIFT_ADD(ch, range, mode);
+                rShiftAdd[ch][range][mode] = RSHIFT_ADD(ch, range, mode);
             }
         }
     }
@@ -611,7 +611,7 @@ void FPGA::RestoreState(void)
         {
             for (int range = 0; range < RangeSize; range++)
             {
-                 RSHIFT_ADD(ch, range, mode) = rShiftAdd[chan][range][mode];
+                 RSHIFT_ADD(ch, range, mode) = rShiftAdd[ch][range][mode];
             }
         }
     }
