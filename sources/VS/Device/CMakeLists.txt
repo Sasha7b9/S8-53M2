@@ -9,6 +9,7 @@ include_directories(../../common/_VS_GUI/CMSIS
                     ../../STM32Cube_FW_F4/Drivers/CMSIS/Device/ST/STM32F4xx/Include
                     ../../STM32Cube_FW_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Inc
                     ../../STM32Cube_FW_F4/Middlewares/ST/STM32_USB_Host_Library/Core/Inc
+                    ../../STM32Cube_FW_F4/Middlewares/Third_Party/FatFs/src
 
                     ../../VS/ThirdParty/wxWidgets/include 
                     ../../generated/ThirdParty/lib/vc_dll/mswud
@@ -56,14 +57,12 @@ if(WIN32)
     add_compile_options(/wd26812)   # the enum type 'xxx' is unscoped. Prefer 'enum class' over 'enum'
 endif()
 
-file(GLOB SRC                                          src/main_win.cpp
+file(GLOB SRC                             ../../Device/src/main.cpp
                                           ../../Device/src/defines.*
-                                          ../../Device/src/device.*
+                                          ../../Device/src/Device.*
                                           ../../Device/src/Globals.*
-                                          ../../Device/src/Tables.*
-                                              ../../common/defines_.h
-                                              ../../common/Log_.*
-                                              ../../common/redefine_hal_.h)
+                                          ../../Device/src/Tables.*)
+file(GLOB HAL                             ../../common/_VS_GUI/HAL/stm32f4xx_hal.cpp)
 
 file(GLOB RESOURCES                       resources/*)
 
@@ -74,12 +73,14 @@ set_source_files_properties(resources/*
 #                            PROPERTIES HEADER_FILE_ONLY TRUE)
 
 source_group(src                        FILES ${SRC})
+source_group(HAL                        FILES ${HAL})
 
 #set_source_files_properties(
 #                            PROPERTIES SKIP_UNITY_BUILD_INCLUSION ON)
 
 add_executable( ${PROJECT_NAME}
                 ${SRC}
+                ${HAL}
                 )
 
 target_link_libraries(${PROJECT_NAME} wxbase31ud wxmsw31ud_core)
