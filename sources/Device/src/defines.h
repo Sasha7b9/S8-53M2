@@ -60,7 +60,6 @@ typedef bool    (*pFuncBV)();
 typedef void    (*pFuncVB)(bool);
 typedef void    (*pFuncVI)(int);
 typedef void    (*pFuncVII)(int, int);
-typedef void    (*pFuncVIIC)(int, int, Color);
 typedef void    (*pFuncVI16)(int16);
 typedef bool    (*pFuncBU8)(uint8);
 typedef void    (*pFuncVI16pI16pI16)(int16, int16*, int16*);
