@@ -23,13 +23,15 @@ inline void BoundingX(int &x) { if (x < 0) x = 0; if (x >= Display::WIDTH) x = D
 inline void BoundingY(int &y) { if (y < 0) y = 0; if (y >= Display::HEIGHT) y = Display::HEIGHT - 1; }
 
 
-static const int SIZE_BUFFER = Display::WIDTH * Display::HEIGHT;
+namespace Display
+{
+    //static uint8 *front = (uint8 *)HAL_FMC::_ADDR_RAM_DISPLAY_FRONT;
+    uint8 back[240][320];
 
-//static uint8 *front = (uint8 *)HAL_FMC::_ADDR_RAM_DISPLAY_FRONT;
-uint8 Display::back[240][320];
-
-uint8 *Display::display_back_buffer = &back[0][0];
-uint8 *Display::display_back_buffer_end = display_back_buffer + SIZE_BUFFER;
+    static const int SIZE_BUFFER = WIDTH * HEIGHT;
+    uint8* display_back_buffer = &back[0][0];
+    uint8* display_back_buffer_end = display_back_buffer + SIZE_BUFFER;
+}
 
 
 static bool inverseColors = false;

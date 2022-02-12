@@ -54,6 +54,146 @@ static pFuncVV funcAdditionDraw = 0;
 static pFuncVV funcAfterDraw    = 0;
 
 
+namespace Display
+{
+    static void ShowWarn(const char* message);
+    // Ќарисовать сетку.
+    static void DrawGrid(int left, int top, int width, int height);
+    // Ќарисовать полную сетку.
+    static void DrawFullGrid();
+
+    static void DrawCursorsWindow();
+
+    static void DrawCursorsRShift();
+    // Ќарисовать маркеры смещени€ по напр€жению
+    static void DrawCursorRShift(Chan::E ch);
+    // Ќарисовать маркер уровн€ синхронизации.
+    static void DrawCursorTrigLevel();
+    // Ќарисовать маркер смещени€ по времени.
+    static void DrawCursorTShift();
+    // Ќаписать информацию под сеткой - в нижней части диспле€.
+    static void DrawLowPart();
+
+    static void DrawHiPart();
+
+    static void DrawHiRightPart();
+
+    static void DrawMath();
+
+    static void DrawSpectrum();
+    // ¬ывести текущее врем€.
+    static void DrawTime(int x, int y);
+    // Ќарисовать курсоры курсорных измерений.
+    static void DrawCursors();
+    // ¬ывести значени€ курсоров курсорных измерений.
+    static void WriteCursors();
+    // ¬ывести значени€ автоматических измерений.
+    static void DrawMeasures();
+    // Ќаписать сообщени€ отладочной консоли.
+    static void DrawConsole();
+    // Ќаписать предупреждени€.
+    static void DrawWarnings();
+
+    static int CalculateCountV();
+
+    static int CalculateFreeSize();
+
+    static bool ChannelNeedForDraw(const uint8* data, Chan::E ch, const DataSettings* ds);
+
+    static void DrawDataChannel(uint8* data, Chan::E ch, DataSettings* ds, int minY, int maxY);
+
+    static void DrawBothChannels(uint8* data0, uint8* data1);
+
+    static void DrawDataMemInt();
+
+    static void DrawDataInModeWorkLatest();
+
+    static void DrawDataInModePoint2Point();
+
+    static bool DrawDataInModeNormal();
+
+    static void DrawDataMinMax();
+
+    static bool DrawDataNormal();
+
+    static bool DrawData();
+    // Ќарисовать окно пам€ти
+    static void DrawMemoryWindow();
+
+    static void DRAW_SPECTRUM(const uint8* data, int numPoints, Chan::E ch);
+
+    static void DrawGridSpectrum();
+
+    static void DrawMarkersForMeasure(float scale, Chan::E ch);
+
+    static void DrawScaleLine(int x, bool forTrigLev);
+
+    static void WriteParametersFFT(Chan::E ch, float freq0, float density0, float freq1, float density1);
+
+    static void WriteTextVoltage(Chan::E ch, int x, int y);
+
+    static void FuncOnTimerDisableShowLevelRShiftA();
+
+    static void FuncOnTimerDisableShowLevelRShiftB();
+
+    static void FuncOnTimerDisableShowLevelTrigLev();
+
+    static void FuncOnTimerRShiftMarkersAutoHide();
+
+    static void OnTimerShowWarning();
+
+    static void DrawSignalLined(const uint8* data, const DataSettings* ds, int startPoint, int endPoint, int minY, int maxY, float scaleY,
+        float scaleX, bool calculateFiltr);
+
+    static void DrawSignalPointed(const uint8* data, const DataSettings* ds, int startPoint, int endPoint, int minY, int maxY, float scaleY,
+        float scaleX);
+
+    static void DrawSpectrumChannel(const float* spectrum, Color::E);
+
+    static void DrawStringInRectangle(int x, int y, char const* text);
+
+    static void DrawStringNavigation();
+
+    static int FirstEmptyString();
+
+    static bool NeedForClearScreen();
+
+    static void WriteStringAndNumber(char* text, int x, int y, int number);
+
+    static void DrawGridType3(int left, int top, int right, int bottom, int centerX, int centerY, int deltaX, int deltaY, int stepX, int stepY);
+
+    static void DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI, const uint8* data, int rightX,
+        Chan::E ch, int shiftForPeakDet);
+
+    static void DrawDataInModeSelfRecorder();
+
+    static void DrawDataInRect(int x, int width, const uint8* data, int numElems, Chan::E ch, int shiftForPeakDet);
+
+    static void DrawTimeForFrame(uint timeMS);
+
+    static void DeleteFirstString();
+    // Ќарисовать горизонтальный курсор курсорных измерений.
+    static void DrawHorizontalCursor
+    (int y,             // числовое значение курсора.
+        int xTearing        // координата места, в котором необходимо сделать разрыв дл€ квадрата пересечени€.
+    );
+    // Ќарисовать вертикальный курсор курсорных измерений.
+    static void DrawVerticalCursor
+    (int x,             // числовое значение курсора.
+        int yTearing        // координата места, в котором необходимо сделать разрыв дл€ квадрата пересечени€.
+    );
+    // ¬ывести значение уровн€ синхронизации. 
+    static void WriteValueTrigLevel();
+
+    static void AddString(const char* string);
+
+    static int CalculateCountH();
+
+    static void DrawGridType1(int left, int top, int right, int bottom, float centerX, float centerY, float deltaX, float deltaY, float stepX, float stepY);
+
+    static void DrawGridType2(int left, int top, int right, int bottom, int deltaX, int deltaY, int stepX, int stepY);
+}
+
 
 void Display::Init() 
 {
