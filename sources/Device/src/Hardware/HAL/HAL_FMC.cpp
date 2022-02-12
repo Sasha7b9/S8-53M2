@@ -76,7 +76,7 @@ void HAL_FMC::InitFPGA()
 void HAL_FMC::InitRAM()
 {
     // RAM состоит из 1МБ памяти
-// ША - A0...A18, ШД - D0...D15
+    // ША - A0...A18, ШД - D0...D15
 
     __FMC_CLK_ENABLE();
 
