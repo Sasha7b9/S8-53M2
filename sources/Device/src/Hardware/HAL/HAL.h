@@ -1,6 +1,6 @@
 // 2022/2/11 20:59:01 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-#include "defines.h"
+#include "Hardware/HAL/HAL_PINS.h"
 
 
 /*
