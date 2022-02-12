@@ -592,7 +592,7 @@ static void DrawMemoryWave(int num, bool exist)
     int width = 12;
     Painter::FillRegionC(x, y, width, 10, num == CURRENT_NUM_INT_SIGNAL ? Color::FLASH_10 : COLOR_BACK);
     Painter::DrawRectangleC(x, y, width, 10, COLOR_FILL);
-    Painter::SetColor(num == CURRENT_NUM_INT_SIGNAL ? Color::FLASH_01 : COLOR_FILL);
+    Color::SetCurrent(num == CURRENT_NUM_INT_SIGNAL ? Color::FLASH_01 : COLOR_FILL);
     if (exist)
     {
         Painter::DrawText(x + 2, y + 1, Int2String(num + 1, false, 2, buffer));
@@ -1009,7 +1009,7 @@ static void DrawFileMask(int x, int y)
 {
     char *ch = FILE_NAME_MASK;
 
-    Painter::SetColor(COLOR_FILL);
+    Color::SetCurrent(COLOR_FILL);
     while (*ch != '\0')
     {
         if (*ch >= 32)
@@ -1097,7 +1097,7 @@ void DrawSetMask()
     };
 
     deltaY--;
-    Painter::SetColor(COLOR_FILL);
+    Color::SetCurrent(COLOR_FILL);
     for(int i = 0; i < sizeof(strings) / 4; i++)
     {
         Painter::DrawText(x0 + deltaX, y0 + 100 + deltaY * i, strings[i]);

@@ -63,7 +63,7 @@ void HelpContent_Draw()
     uint16 *addr1 = (uint16*)(0x08000000 + (rand() % 65535));
     uint8 *addr2 = (uint8*)(0x08000000 + (rand() % 65535));
 
-    Painter::SetColor(COLOR_FILL);
+    Color::SetCurrent(COLOR_FILL);
     for (int i = 0; i < 10000; i++)
     {
         Painter::SetPoint((*addr1) % WIDTH, Math_LimitationInt(*addr2, 0, 239));

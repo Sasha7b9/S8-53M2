@@ -174,7 +174,7 @@ int Painter::DrawChar(int x, int y, char symbol)
 
 int Painter::DrawCharC(int x, int y, char symbol, Color::E color)
 {
-    Painter::SetColor(color);
+    Color::SetCurrent(color);
     return DrawChar(x, y, symbol);
 }
 
@@ -237,7 +237,7 @@ int Painter::DrawText(int x, int y, const char * const _text)
 
 int Painter::DrawTextC(int x, int y, const char *text, Color::E color)
 {
-    SetColor(color);
+    Color::SetCurrent(color);
     return Painter::DrawText(x, y, text);
 }
 
@@ -249,7 +249,7 @@ int Painter::DrawTextOnBackground(int x, int y, const char *text, Color::E color
 
     Color::E colorText = Painter::CurrentColor();
     FillRegionC(x - 1, y, width, height, colorBackground);
-    SetColor(colorText);
+    Color::SetCurrent(colorText);
 
     return DrawText(x, y, text);
 }
@@ -287,7 +287,7 @@ int Painter::DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, in
 
 int Painter::DrawTextWithLimitationC(int x, int y, const char* text, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight)
 {
-    SetColor(color);
+    Color::SetCurrent(color);
     int retValue = x;
     while (*text)
     {
@@ -661,7 +661,7 @@ int Painter::DrawTextInBoundedRectWithTransfers(int x, int y, int width, const c
 
 int Painter::DrawTextInRectWithTransfersC(int x, int y, int width, int height, const char *text, Color::E color)
 {
-    SetColor(color);
+    Color::SetCurrent(color);
     return DrawTextInRectWithTransfers(x, y, width, height, text);
 }
 
@@ -692,7 +692,7 @@ int Painter::DrawStringInCenterRect(int eX, int eY, int width, int eHeight, cons
 
 int Painter::DrawStringInCenterRectC(int x, int y, int width, int height, const char *text, Color::E color)
 {
-    SetColor(color);
+    Color::SetCurrent(color);
     return DrawStringInCenterRect(x, y, width, height, text);
 }
 
@@ -713,7 +713,7 @@ int Painter::DrawStringInCenterRectAndBoundItC(int x, int y, int width, int heig
 {
     DrawRectangleC(x, y, width, height, colorFill);
     FillRegionC(x + 1, y + 1, width - 2, height - 2, colorBackground);
-    SetColor(colorFill);
+    Color::SetCurrent(colorFill);
     return DrawStringInCenterRect(x, y, width, height, text);
 }
 
@@ -807,7 +807,7 @@ void Painter::DrawTextRelativelyRight(int xRight, int y, const char *text)
 
 void Painter::DrawTextRelativelyRightC(int xRight, int y, const char *text, Color::E color)
 {
-    SetColor(color);
+    Color::SetCurrent(color);
     DrawTextRelativelyRight(xRight, y, text);
 }
 
@@ -831,7 +831,7 @@ void Painter::Draw4SymbolsInRect(int x, int y, char eChar)
 
 void Painter::Draw4SymbolsInRectC(int x, int y, char eChar, Color::E color)
 {
-    SetColor(color);
+    Color::SetCurrent(color);
     Draw4SymbolsInRect(x, y, eChar);
 }
 

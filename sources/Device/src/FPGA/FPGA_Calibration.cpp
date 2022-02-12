@@ -223,7 +223,7 @@ void FuncAttScreen(void)
     int16 y = 10;
     Display::Clear();
     
-    Painter::SetColor(COLOR_FILL);
+    Color::SetCurrent(COLOR_FILL);
     
 #define dX 20
 #define dY -15
@@ -305,7 +305,7 @@ void FuncAttScreen(void)
 
 void DrawParametersChannel(Chan::E ch, int eX, int eY, bool inProgress)
 {
-    Painter::SetColor(COLOR_FILL);
+    Color::SetCurrent(COLOR_FILL);
     if(inProgress)
     {
         Painter::DrawText(eX, eY + 4, (ch == Chan::A) ? " ¿Õ¿À 1" : " ¿Õ¿À 2");

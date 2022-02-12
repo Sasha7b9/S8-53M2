@@ -62,11 +62,11 @@ void Painter::CalculateCurrentColor()
 {
     if (currentColor == Color::FLASH_10)
     {
-        SetColor(inverseColors ? COLOR_BACK : COLOR_FILL);
+        Color::SetCurrent(inverseColors ? COLOR_BACK : COLOR_FILL);
     }
     else if (currentColor == Color::FLASH_01)
     {
-        SetColor(inverseColors ? COLOR_FILL : COLOR_BACK);
+        Color::SetCurrent(inverseColors ? COLOR_FILL : COLOR_BACK);
     }
 }
 
@@ -118,7 +118,7 @@ void Painter::DrawRectangle(int x, int y, int width, int height)
 
 void Painter::DrawRectangleC(int x, int y, int width, int height, Color::E color)
 {
-    SetColor(color);
+    Color::SetCurrent(color);
     DrawRectangle(x, y, width, height);
 }
 
@@ -190,7 +190,7 @@ bool InterCom::TransmitGUIinProcess()
 }
 
 
-void Painter::SetColor(Color::E color)
+void Color::SetCurrent(Color::E color)
 {
     if (color != currentColor)
     {
@@ -251,7 +251,7 @@ void Painter::DrawHLine(int y, int x0, int x1)
 
 void Painter::DrawHLineC(int y, int x0, int x1, Color::E color)
 {
-    SetColor(color);
+    Color::SetCurrent(color);
     DrawHLine(y, x0, x1);
 }
 
@@ -296,21 +296,21 @@ void Painter::DrawVLine(int x, int y0, int y1)
 
 void Painter::DrawVLineC(int x, int y0, int y1, Color::E color)
 {
-    SetColor(color);
+    Color::SetCurrent(color);
     DrawVLine(x, y0, y1);
 }
 
 
 void Painter::DrawLineC(int x0, int y0, int x1, int y1, Color::E color)
 {
-    SetColor(color);
+    Color::SetCurrent(color);
     DrawLine(x0, y0, x1, y1);
 }
 
 
 void Painter::DrawVPointLine(int x, int y0, int y1, float delta, Color::E color)
 {
-    SetColor(color);
+    Color::SetCurrent(color);
 
     for (int y = y0; y <= y1; y += (int)delta)
     {
@@ -378,7 +378,7 @@ void Painter::DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, in
         return;
     }
 
-    SetColor(color);
+    Color::SetCurrent(color);
 
     for (int i = 0; i < numLines; i++)
     {
@@ -419,7 +419,7 @@ void Painter::DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int
         LOG_ERROR("Число линий слишком большое %d", numLines);
         return;
     }
-    SetColor(color);
+    Color::SetCurrent(color);
 
     for (int i = 0; i < numLines; i++)
     {
@@ -498,7 +498,7 @@ void Painter::FillRegion(int x, int y, int width, int height)
 
 void Painter::FillRegionC(int x, int y, int width, int height, Color::E color)
 {
-    SetColor(color);
+    Color::SetCurrent(color);
     FillRegion(x, y, width, height);
 }
 
@@ -541,7 +541,7 @@ int NumberColorsInSceneCol(void)
 
 void Painter::DrawVLineArray(int x, int num_lines, uint8 *y0y1, Color::E color)
 {
-    SetColor(color);
+    Color::SetCurrent(color);
 
     if (InterCom::TransmitGUIinProcess())
     {

@@ -170,7 +170,7 @@ void Menu::DrawTitlePage(Page *page, int layer, int yTop)
 
     delta = 0;
     
-    Painter::SetColor(colorText);
+    Color::SetCurrent(colorText);
     DrawPagesUGO(page, CalculateX(layer) + MP_TITLE_WIDTH - 3 + delta, yTop + MP_TITLE_HEIGHT - 2 + delta);
 }
 

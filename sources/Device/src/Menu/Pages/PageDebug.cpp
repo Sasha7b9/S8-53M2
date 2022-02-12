@@ -948,7 +948,7 @@ static void Draw_EnterSerialNumber(void)
 
     int y = y0 + 50;
 
-    Painter::SetColor(colorText);
+    Color::SetCurrent(colorText);
     int x = Painter::DrawTextOnBackground(x0 + deltaX, y, buffer, colorBackground);
 
     colorText = Color::FLASH_01;
@@ -962,7 +962,7 @@ static void Draw_EnterSerialNumber(void)
 
     snprintf(buffer, 19, "%04d", s->year);
 
-    Painter::SetColor(colorText);
+    Color::SetCurrent(colorText);
     Painter::DrawTextOnBackground(x + 5, y, buffer, colorBackground);
 
     // Теперь выведем информацию об оставшемся месте в OTP-памяти для записи

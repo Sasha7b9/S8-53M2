@@ -223,7 +223,7 @@ void DrawFormulaLowPart(Formula *formula, int x, int y, bool pressed, bool shade
     {
         colorTextDown = ColorMenuItem(false);
     }
-    Painter::SetColor(colorTextDown);
+    Color::SetCurrent(colorTextDown);
     WriteTextFormula(formula, x + 6, y + 21, false);
 }
 
@@ -623,7 +623,7 @@ void ItemChoice_DrawClosed(Choice *choice, int x, int y)
 
     float deltaY = choice->Step();
     Color::E colorText = shade ? LightShadingTextColor() : COLOR_BACK;
-    Painter::SetColor(colorText);
+    Color::SetCurrent(colorText);
     if(deltaY == 0.0f)
     {
         Painter::DrawText(x + 4, y + 21, choice->NameCurrentSubItem());
@@ -719,12 +719,12 @@ void ItemSmallButton_Draw(SmallButton *smallButton, int x, int y)
         if (Menu::IsPressed(smallButton))
         {
             Painter::FillRegionC(x, y, WIDTH_SB, WIDTH_SB, COLOR_FILL);
-            Painter::SetColor(COLOR_BACK);
+            Color::SetCurrent(COLOR_BACK);
         }
         else
         {
             Painter::DrawRectangleC(x, y, WIDTH_SB, WIDTH_SB, COLOR_FILL);
-            Painter::SetColor(COLOR_FILL);
+            Color::SetCurrent(COLOR_FILL);
         }
         smallButton->funcOnDraw(x, y);
     }

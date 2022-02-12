@@ -264,7 +264,7 @@ void Measure_DrawPageChoice()
             bool active = meas == posOnPageChoice;
             Painter::DrawRectangleC(x0, y0, dX, dY, COLOR_FILL);
             Painter::FillRegionC(x0 + 1, y0 + 1, dX - 2, dY - 2, active ? Color::FLASH_10 : COLOR_BACK);
-            Painter::SetColor(active ? Color::FLASH_01 : COLOR_FILL);
+            Color::SetCurrent(active ? Color::FLASH_01 : COLOR_FILL);
             Painter::Draw10SymbolsInRect(x0 + 2, y0 + 1, Measure_GetChar(meas));
             Painter::SetFont(TypeFont_5);
             Painter::DrawTextRelativelyRightC(x0 + dX, y0 + 12, measures[meas].name, active ? Color::FLASH_01 : COLOR_FILL);
