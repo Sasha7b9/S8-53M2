@@ -956,6 +956,16 @@
               <FileType>8</FileType>
               <FilePath>.\src\Log.cpp</FilePath>
             </File>
+            <File>
+              <FileName>Device.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Device.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Device.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Device.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2876,6 +2886,16 @@
               <FileName>Log.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Log.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Device.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Device.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Device.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Device.h</FilePath>
             </File>
           </Files>
         </Group>
