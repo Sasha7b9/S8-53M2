@@ -1715,7 +1715,7 @@ void Display::DrawCursorTShift()
 
     // Рисуем TPos
     int shiftTPos = sTime_TPosInPoints((PeackDetMode)gDSet->peakDet, (int)gDSet->length1channel, SET_TPOS) - SHIFT_IN_MEMORY;
-    float scale = (lastPoint - firstPoint) / Grid::Width();
+    float scale = (float)(lastPoint - firstPoint) / Grid::Width();
     int gridLeft = Grid::Left();
     int x = gridLeft + shiftTPos * scale - 3;
     if (IntInRange(x + 3, gridLeft, Grid::Right() + 1))
@@ -2332,7 +2332,7 @@ void Display::DeleteFirstString()
     }
     for(int i = numStrings - 1; i < MAX_NUM_STRINGS; i++)
     {
-        strings[i] = 0;
+        strings[i] = 0; //-V557
     }
     for(int i = 0; i < SIZE_BUFFER_FOR_STRINGS - delta; i++)
     {
@@ -2369,7 +2369,7 @@ void Display::AddString(const char *string)
     {
         char *addressLastString = strings[FirstEmptyString() - 1];
         char *address = addressLastString + strlen(addressLastString) + 1;
-        strings[FirstEmptyString()] = address;
+        strings[FirstEmptyString()] = address; //-V557
         strcpy(address, buffer);
     }
 }

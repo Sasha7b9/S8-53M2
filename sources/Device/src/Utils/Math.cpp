@@ -163,7 +163,7 @@ void Math_PointsRelToVoltage(const uint8 *points, int numPoints, Range range, in
     float koeff = 1.0f / 20e3f;
     for (int i = 0; i < numPoints; i++)
     {
-        voltage[i] = (points[i] * voltInPixel - diff) * koeff;
+        voltage[i] = (float)(points[i] * voltInPixel - diff) * koeff;
     }
 }
 
@@ -302,7 +302,7 @@ static void MultiplyToWindow(float *data, int numPoints)
     {
         for (int i = 0; i < numPoints; i++)
         {
-            data[i] *= 0.53836 - 0.46164 * cos(2 * 3.1415926 * i / (numPoints - 1));
+            data[i] *= 0.53836 - 0.46164 * cos(2 * M_PI * i / (numPoints - 1));
         }
     }
     else if (WINDOW_FFT_IS_BLACKMAN)
@@ -313,14 +313,14 @@ static void MultiplyToWindow(float *data, int numPoints)
         float a2 = alpha / 2.0f;
         for (int i = 0; i < numPoints; i++)
         {
-            data[i] *= a0 - a1 * cos(2 * 3.1415926 * i / (numPoints - 1)) + a2 * cos(4 * 3.1415926 * i / (numPoints - 1));
+            data[i] *= a0 - a1 * cos(2 * M_PI * i / (numPoints - 1)) + a2 * cos(4 * M_PI * i / (numPoints - 1));
         }
     }
     else if (WINDOW_FFT_IS_HANN)
     {
         for (int i = 0; i < numPoints; i++)
         {
-            data[i] *= 0.5f * (1.0f - cos(2.0f * 3.1415926f * i / (numPoints - 1.0f)));
+            data[i] *= 0.5f * (1.0f - cos(2.0 * M_PI * i / (numPoints - 1.0)));
         }
     }
 #endif
@@ -510,7 +510,7 @@ float Math_RandFloat(float min, float max)
     return min + ((rand() / (float)RAND_MAX) * delta);
 }
 
-int8 Math_AddInt8WithLimitation(int8 value, int8 delta, int8 min, int8 max)
+int8 Math_AddInt8WithLimitation(int8 value, int8 delta, int8, int8 max)
 {
     int8 retValue = value + delta;
     if (retValue < 0)

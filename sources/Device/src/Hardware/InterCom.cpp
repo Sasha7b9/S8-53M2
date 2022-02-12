@@ -3,21 +3,16 @@
 #include "Hardware/InterCom.h"
 
 
-CommandBuffer::CommandBuffer(int size, uint8 type)
+CommandBuffer::CommandBuffer(int _size, uint8 type) : size(_size), pointer(0)
 {
     data = new uint8[(uint)size];
     PushByte(type);
-    pointer = 0;
 }
 
 
 CommandBuffer::~CommandBuffer()
 {
-    if (data)
-    {
-        delete []data;
-        size = 0;
-    }
+    delete []data;
 }
 
 

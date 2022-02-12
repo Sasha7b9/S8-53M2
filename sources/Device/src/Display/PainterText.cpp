@@ -228,6 +228,7 @@ int Painter::DrawText(int x, int y, const char * const _text)
     while (*text != '\0')
     {
         x = DrawChar(x, y, *text) + 1;
+        text++;
     }
 
     return x;
@@ -390,7 +391,7 @@ static bool FindNextTransfer(char *letters, int8 *lettersInSyllable)
 #define CONSONANT   1   // Согласная
 
     *lettersInSyllable = (int8)strlen(letters);
-    if (strlen(letters) <= 3)
+    if (strlen(letters) <= 3) //-V1051
     {
         return false;
     }

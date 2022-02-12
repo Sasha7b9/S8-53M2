@@ -6,7 +6,7 @@
 #include <stdint.h>
 
 #ifndef __IO
-#define __IO
+#define __IO volatile
 #endif
 
 #ifndef __STATIC_INLINE
