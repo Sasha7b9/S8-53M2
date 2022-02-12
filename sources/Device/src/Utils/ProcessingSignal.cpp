@@ -90,11 +90,8 @@ void Processing::CalculateMeasures()
         for(int elem = 0; elem < Measure_NumCols(); elem++)
         {
             Measure meas = Measure_Type(str, elem);
-            if (meas == Measure_TimeNarastaniya)
-            {
-                meas = meas;
-            }
             pFuncFCh func = measures[meas].FuncCalculate;
+
             if(func)
             {
                 if(meas == MEAS_MARKED || MEAS_MARKED_IS_NONE)
@@ -912,11 +909,6 @@ void Processing::GetData(uint8 **data0, uint8 **data1, DataSettings **ds)
 
 float Processing::GetCursU(Channel chan, float posCurT)
 {
-    if(!dataIn[chan])
-    {
-        return 0;
-    }
-    
     int first = 0;
     int last = 0;
     sDisplay_PointsOnDisplay(&first, &last);
@@ -928,11 +920,6 @@ float Processing::GetCursU(Channel chan, float posCurT)
 
 float Processing::GetCursT(Channel chan, float posCurU, int numCur)
 {
-    if(!dataIn[chan])
-    {
-        return 0;
-    }
-
     int firstPoint = 0;
     int lastPoint = 0;
     sDisplay_PointsOnDisplay(&firstPoint, &lastPoint);

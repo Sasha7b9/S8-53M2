@@ -1020,7 +1020,7 @@ TBase FPGA::AccurateFindTBase(Channel chan)
     for (int i = 0; i < 5; i++)
     {
         TBase tBase = FindTBase(chan);
-        TBase secondTBase = FindTBase(chan);
+        TBase secondTBase = FindTBase(chan); //-V656
 
         if (tBase == secondTBase && tBase != TBaseSize)
         {
@@ -1174,7 +1174,7 @@ void FPGA::WriteToAnalog(TypeWriteAnalog type, uint data)
     {
         LOG_WRITE("парам. кан. 2 = %s", str);
     }
-    else if (type == TypeWriteAnalog_All && (IS_SHOW_REG_TRIGPARAM || IS_SHOW_REG_RANGE_A || IS_SHOW_REG_RANGE_B || IS_SHOW_REG_PARAM_A || IS_SHOW_REG_PARAM_B))
+    else if (type == TypeWriteAnalog_All)
     {
         LOG_WRITE("полная запись в аналоговую часть = %s", str);
     }
