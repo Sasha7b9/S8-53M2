@@ -539,39 +539,39 @@ int NumberColorsInSceneCol(void)
 }
 
 
-void Painter::DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color)
+void Painter::DrawVLineArray(int x, int num_lines, uint8 *y0y1, Color color)
 {
     SetColor(color);
-
-    for (; numLines > 0; numLines--)
-    {
-        int y0 = *y0y1++;
-        int y1 = *y0y1++;
-
-        DrawVLine(x++, y0, y1);
-    }
 
     if (InterCom::TransmitGUIinProcess())
     {
         CommandBuffer command(255 * 2 + 4 + 4, DRAW_VLINES_ARRAY);
         command.PushHalfWord(x);
-        if (numLines > 255)
+        if (num_lines > 255)
         {
-            numLines = 255;
+            num_lines = 255;
         }
-        command.PushHalfWord(numLines);
-        for (int i = 0; i < numLines; i++)
+        command.PushHalfWord(num_lines);
+        for (int i = 0; i < num_lines; i++)
         {
             command.PushByte(*(y0y1 + i * 2));
             command.PushByte(*(y0y1 + i * 2 + 1));
         }
-        int numBytes = numLines * 2 + 4;
+        int numBytes = num_lines * 2 + 4;
         while (numBytes % 4)
         {
             numBytes++;
         }
 
-        command.Transmit(1 + 2 + 1 + 2 * numLines);
+        command.Transmit(1 + 2 + 1 + 2 * num_lines);
+    }
+
+    for (; num_lines > 0; num_lines--)
+    {
+        int y0 = *y0y1++;
+        int y1 = *y0y1++;
+
+        DrawVLine(x++, y0, y1);
     }
 }
 
