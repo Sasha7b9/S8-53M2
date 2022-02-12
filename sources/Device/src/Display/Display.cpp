@@ -30,6 +30,7 @@
 #include "Log.h"
 #include <math.h>
 #include <limits.h>
+#include <string.h>
 
 
 #define NUM_P2P_POINTS (FPGA_MAX_POINTS)
@@ -2229,8 +2230,8 @@ void Display::AddPoints(uint8 data00, uint8 data01, uint8 data10, uint8 data11)
     {
         if (lastP2Pdata == NUM_P2P_POINTS)
         {
-            memcpy(dataP2P_0, dataP2P_0 + 2, NUM_P2P_POINTS - 2);
-            memcpy(dataP2P_1, dataP2P_1 + 2, NUM_P2P_POINTS - 2);
+            memmove(dataP2P_0, dataP2P_0 + 2, NUM_P2P_POINTS - 2);
+            memmove(dataP2P_1, dataP2P_1 + 2, NUM_P2P_POINTS - 2);
         }
     }
 
