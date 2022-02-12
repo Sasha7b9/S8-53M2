@@ -350,8 +350,8 @@ float CalculateDeltaADC(Channel chan, float *avgADC1, float *avgADC2, float *del
     FPGA::SetTrigSource((TrigSource)chan);
     FPGA::SetTrigLev((TrigSource)chan, TrigLevZero);
 
-    uint8 *address1 = chan == A ? RD_ADC_A1 : RD_ADC_B1;
-    uint8 *address2 = chan == A ? RD_ADC_A2 : RD_ADC_B2;
+    uint8 *address1 = chan == A ? RD_ADC_A1 : RD_ADC_B1; //-V566
+    uint8 *address2 = chan == A ? RD_ADC_A2 : RD_ADC_B2; //-V566
 
     static const int numCicles = 10;
     for(int cicle = 0; cicle < numCicles; cicle++)
@@ -447,8 +447,8 @@ int16 CalculateAdditionRShift(Channel chan, Range range)
 
         FSMC::Write(WR_STOP, 1);
 
-        uint8 *addressRead1 = chan == A ? RD_ADC_A1 : RD_ADC_B1;
-        uint8 *addressRead2 = chan == A ? RD_ADC_A2 : RD_ADC_B2;
+        uint8 *addressRead1 = chan == A ? RD_ADC_A1 : RD_ADC_B1; //-V566
+        uint8 *addressRead2 = chan == A ? RD_ADC_A2 : RD_ADC_B2; //-V566
 
         for(int j = 0; j < FPGA_MAX_POINTS; j += 2)
         {
@@ -510,8 +510,8 @@ float CalculateKoeffCalibration(Channel chan)
 
         FSMC::Write(WR_STOP, 1);
 
-        uint8 *addressRead1 = chan == A ? RD_ADC_A1 : RD_ADC_B1;
-        uint8 *addressRead2 = chan == A ? RD_ADC_A2 : RD_ADC_B2;
+        uint8 *addressRead1 = chan == A ? RD_ADC_A1 : RD_ADC_B1; //-V566
+        uint8 *addressRead2 = chan == A ? RD_ADC_A2 : RD_ADC_B2; //-V566
 
         for(int j = 0; j < FPGA_MAX_POINTS; j += 2)
         {
