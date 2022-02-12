@@ -56,8 +56,8 @@ void Hardware::Init(void)
     __GPIOE_CLK_ENABLE();
     __GPIOF_CLK_ENABLE();
     __GPIOG_CLK_ENABLE();
+
     __DMA1_CLK_ENABLE();        // Для DAC1 (бикалка)
-    
     __TIM6_CLK_ENABLE();        // Для отсчёта миллисекунд
     __TIM2_CLK_ENABLE();        // Для тиков
     __TIM7_CLK_ENABLE();        // Для DAC1 (бикалка)
@@ -67,9 +67,6 @@ void Hardware::Init(void)
     __SYSCFG_CLK_ENABLE();
 
     HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
-
-    // Timer  /////////////////////////////////////////////////////////////////
-    //RCC_PCLK1Config(RCC_HCLK_Div1);
 
     // Таймер для мс
     HAL_NVIC_SetPriority(TIM6_DAC_IRQn, 2, 0);
