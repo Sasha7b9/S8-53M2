@@ -27,6 +27,7 @@
 #include "Utils/ProcessingSignal.h"
 #include "Hardware/Timer.h"
 #include "Log.h"
+#include "Hardware/HAL/HAL.h"
 #include <math.h>
 #include <limits.h>
 #include <string.h>
@@ -59,7 +60,7 @@ void Display::Init()
     Color::ResetFlash();
 
 //    HAL_LTDC::Init(front, &back[0][0]);
-//
+
 //    BeginFrame(Color::BLACK);
 //
 //    EndFrame();
