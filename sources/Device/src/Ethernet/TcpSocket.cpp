@@ -156,12 +156,8 @@ err_t CallbackOnRecieve(void *_arg, struct tcp_pcb *_tpcb, struct pbuf *_p, err_
     }
     else if (_err != ERR_OK)
     {
-        // cleanup, for unkown reason
-        if (_p != NULL)
-        {
-            ss->p = NULL;
-            pbuf_free(_p);
-        }
+        ss->p = NULL;
+        pbuf_free(_p);
         ret_err = _err;
     }
     else if (ss->state == S_ACCEPTED)
