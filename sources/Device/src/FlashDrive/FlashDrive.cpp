@@ -126,8 +126,8 @@ void FlashDrive::GetNumDirsAndFiles(const char* fullPath, int *numDirs, int *num
                 continue;
             }
             numReadingElements++;
-            char *fn = *fno.fname ? fno.fname : fno.fname;
-            if (fn[0] != '.')
+
+            if (fno.fname[0] != '.')
             {
                 if (fno.fattrib & AM_DIR)
                 {
@@ -176,10 +176,10 @@ bool FlashDrive::GetNameDir(const char *fullPath, int numDir, char *nameDirOut, 
                 }
                 alreadyNull = true;
             }
-            char *fn = *(pFNO->fname) ? pFNO->fname : pFNO->fname;
+
             if (numDir == numDirs && (pFNO->fattrib & AM_DIR))
             {
-                strcpy(nameDirOut, fn);
+                strcpy(nameDirOut, pFNO->fname);
                 return true;
             }
             if ((pFNO->fattrib & AM_DIR) && (pFNO->fname[0] != '.'))
@@ -217,10 +217,10 @@ bool FlashDrive::GetNextNameDir(char *nameDirOut, StructForReadDir *s)
         }
         else
         {
-            char *fn = *(pFNO->fname) ? pFNO->fname : pFNO->fname;
+
             if (pFNO->fattrib & AM_DIR)
             {
-                strcpy(nameDirOut, fn);
+                strcpy(nameDirOut, pFNO->fname);
                 return true;
             }
         }
@@ -266,10 +266,10 @@ bool FlashDrive::GetNameFile(const char *fullPath, int numFile, char *nameFileOu
                 }
                 alreadyNull = true;
             }
-            char *fn = *(pFNO->fname) ? pFNO->fname : pFNO->fname;
+
             if (numFile == numFiles && (pFNO->fattrib & AM_DIR) == 0)
             {
-                strcpy(nameFileOut, fn);
+                strcpy(nameFileOut, pFNO->fname);
                 return true;
             }
             if ((pFNO->fattrib & AM_DIR) == 0 && (pFNO->fname[0] != '.'))
@@ -306,10 +306,9 @@ bool FlashDrive::GetNextNameFile(char *nameFileOut, StructForReadDir *s)
         }
         else
         {
-            char *fn = *(pFNO->fname) ? pFNO->fname : pFNO->fname;
             if ((pFNO->fattrib & AM_DIR) == 0 && pFNO->fname[0] != '.')
             {
-                strcpy(nameFileOut, fn);
+                strcpy(nameFileOut, pFNO->fname);
                 return true;
             }
         }
