@@ -56,7 +56,7 @@ void Storage::ClearLimitsAndSums(void)
     memset(limitUp[1], 0, FPGA_MAX_POINTS);
     memset(limitDown[0], 0xff, FPGA_MAX_POINTS);
     memset(limitDown[1], 0xff, FPGA_MAX_POINTS);
-    memset(&(sum[0][0]), 0, 2 * FPGA_MAX_POINTS * 2);
+    memset(&(sum[0][0]), 0, NumChannels * FPGA_MAX_POINTS * sizeof(uint));
 }
 
 
@@ -89,8 +89,10 @@ void Storage::CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *d
 
         do 
         {
-            *aData0++ = ((*aData0) * numAveDataFless + (float)(*d0++)) * numAveDataInv;
-            *aData1++ = ((*aData1) * numAveDataFless + (float)(*d1++)) * numAveDataInv;
+            *aData0 = ((*aData0) * numAveDataFless + (float)(*d0++)) * numAveDataInv;
+            aData0++;
+            *aData1 = ((*aData1) * numAveDataFless + (float)(*d1++)) * numAveDataInv;
+            aData1++;
         } while (aData0 != endData);
     }
 }

@@ -853,7 +853,9 @@ static void OnPress_SaveFirmware()
 
     FlashDrive::OpenNewFileForWrite("S8-53.bin", &structForWrite);
 
-    uint8 *address = (uint8*)0x08020000;
+    const uint ADDR_START_FIRMWARE = 0x08020000;
+
+    uint8 *address = (uint8*)ADDR_START_FIRMWARE; //-V566
     uint8 *endAddress = address + 128 * 1024 * 3;
 
     int sizeBlock = 512;

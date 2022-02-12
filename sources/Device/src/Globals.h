@@ -260,7 +260,7 @@ extern void *extraMEM;      // Это специальный указатель. Используется для выдел
 
 #define MALLOC_EXTRAMEM(NameStruct, name)   extraMEM = malloc(sizeof(NameStruct));    \
                                             NameStruct *name = (NameStruct*)extraMEM
-#define ACCESS_EXTRAMEM(NameStruct, name)   NameStruct *name = (NameStruct*)extraMEM
+#define ACCESS_EXTRAMEM(NameStruct, name)   NameStruct *(name) = (NameStruct*)extraMEM //-V1003
 #define FREE_EXTRAMEM()                     free(extraMEM)
 
 extern int transmitBytes;

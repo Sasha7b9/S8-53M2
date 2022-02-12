@@ -670,22 +670,6 @@ uint16 Painter::ReduceBrightness(uint16 colorValue, float newBrightness)
 }
 
 
-static uint8 Read2points(int x, int y)
-{
-    while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET) {};
-    Timer::PauseOnTicks(50);
-    *ADDR_CDISPLAY = GET_POINT;
-    *ADDR_CDISPLAY = (uint8)x;
-    *ADDR_CDISPLAY = (uint8)(x >> 8);
-    *ADDR_CDISPLAY = (uint8)y;
-    int counter = 0;
-    while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET) { counter++; };
-    Timer::PauseOnTicks(50);
-    uint8 retValue = *ADDR_CDISPLAY;
-    return retValue;
-}
-
-
 bool Painter::SaveScreenToFlashDrive(void) {
 
 #pragma pack(1)
@@ -790,17 +774,7 @@ bool Painter::SaveScreenToFlashDrive(void) {
     {
         for(int x = 1; x < 320; x += 2)
         {
-            uint8 color = Read2points(x, y);
-
-            while (color != Read2points(x, y))
-            {
-                color = Read2points(x, y);
-            }
-            
-            if(color != 0)
-            {
-                color = color;
-            }
+            uint8 color = GetColor(x, y);
 
             buffer[x / 2] = (uint8)(((color & 0x0f) << 4) + (color >> 4));
         }
