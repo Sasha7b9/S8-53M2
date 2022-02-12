@@ -50,7 +50,7 @@ struct Color
         FLASH_10,
         FLASH_01,
         SET_INVERSE
-    };
+    } value;
 };
 
 
