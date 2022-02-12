@@ -33,9 +33,9 @@ private:
     static void CreateGovernors(Frame *frame);
 
     // Создаёт одну кнопку
-    static void CreateButton(Key::E key, Frame *frame, const wxPoint &pos, const wxSize &size);
+//    static void CreateButton(Key::E key, Frame *frame, const wxPoint &pos, const wxSize &size);
 
-    static void CreateGovernor(Key::E key, Frame *frame, const wxPoint &pos);
+//    static void CreateGovernor(Key::E key, Frame *frame, const wxPoint &pos);
 };
 
 

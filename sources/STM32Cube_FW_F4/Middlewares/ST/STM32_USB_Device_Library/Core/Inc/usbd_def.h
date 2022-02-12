@@ -334,12 +334,14 @@ __STATIC_INLINE uint16_t SWAPBYTE(uint8_t *addr)
   return _SwapVal;
 }
 
-#ifndef LOBYTE
-#define LOBYTE(x)  ((uint8_t)((x) & 0x00FFU))
-#endif
+#ifndef WIN32
+    #ifndef LOBYTE
+        #define LOBYTE(x)  ((uint8_t)((x) & 0x00FFU))
+    #endif
 
-#ifndef HIBYTE
-#define HIBYTE(x)  ((uint8_t)(((x) & 0xFF00U) >> 8U))
+    #ifndef HIBYTE
+        #define HIBYTE(x)  ((uint8_t)(((x) & 0xFF00U) >> 8U))
+    #endif
 #endif
 
 #ifndef MIN
