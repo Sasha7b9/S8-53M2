@@ -35,31 +35,11 @@ void HAL::Init()
 
     HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 
-    HAL_TIM6::Init();
+    HAL_TIM6::Init();           // Миллисекунды
 
-    // Таймер для тиков
-    TIM_HandleTypeDef tim2handle =
-    {
-        TIM2,
-        {
-            0,
-            TIM_COUNTERMODE_UP,
-            0xffffffff,
-            TIM_CLOCKDIVISION_DIV1
-        }
-    };
+    HAL_TIM2::Init();           // Микросекунды
 
-    if (HAL_TIM_Base_Init(&tim2handle) != HAL_OK)
-    {
-        HARDWARE_ERROR
-    }
-
-    if (HAL_TIM_Base_Start(&tim2handle) != HAL_OK)
-    {
-        HARDWARE_ERROR
-    }
-
-    HAL_FMC::Init();
+    HAL_FMC::Init();            // Альтера и ОЗУ
 
     ADConverter::Init();
 }

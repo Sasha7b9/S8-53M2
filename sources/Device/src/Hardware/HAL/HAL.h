@@ -71,6 +71,13 @@ namespace HAL_LTDC
 };
 
 
+// Таймер для тиков
+namespace HAL_TIM2
+{
+    void Init();
+}
+
+
 // Таймер миллисекунд
 namespace HAL_TIM6
 {
