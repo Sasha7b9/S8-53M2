@@ -150,7 +150,7 @@ void SetCursPosU(Channel chan, int numCur, float pos)
         CURS_POS_U(chan, numCur) = LimitationFloat(pos, 0, MAX_POS_U);
     }
     else
-    {
+    { //-V523
         CURS_POS_U(chan, numCur) = LimitationFloat(pos, 0, MAX_POS_U);
     }
 }
@@ -164,7 +164,7 @@ void SetCursPosT(Channel chan, int numCur, float pos)
         CURS_POS_T(chan, numCur) = LimitationFloat(pos, 0, MAX_POS_T);
     }
     else
-    {
+    { //-V523
         CURS_POS_T(chan, numCur) = LimitationFloat(pos, 0, MAX_POS_T);
     }
 }
@@ -356,7 +356,7 @@ static void SetShiftCursPosU(Channel chan, int numCur, float delta)
         CURS_POS_U(chan, numCur) = LimitationFloat(CURS_POS_U(chan, numCur) - delta, 0, MAX_POS_U);
     }
     else
-    {
+    { //-V523
         CURS_POS_U(chan, numCur) = LimitationFloat(CURS_POS_U(chan, numCur) - delta, 0, MAX_POS_U);
     }
 }
@@ -391,7 +391,7 @@ static void SetShiftCursPosT(Channel chan, int numCur, float delta)
         CURS_POS_T(chan, numCur) = LimitationFloat(CURS_POS_T(chan, numCur) + delta, 0, MAX_POS_T);
     }
     else
-    {
+    { //-V523
         CURS_POS_T(chan, numCur) = LimitationFloat(CURS_POS_T(chan, numCur) + delta, 0, MAX_POS_T);
     }
 }
