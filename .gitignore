@@ -1,5 +1,8 @@
 *.bin
 *.out
+*.uvoptx*
+*.uvguix*
+*.uvgui*
 
 sources/Loader/DebugConfig/*
 sources/Loader/Listings/*
