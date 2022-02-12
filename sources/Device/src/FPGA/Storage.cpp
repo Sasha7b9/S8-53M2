@@ -152,8 +152,8 @@ void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
      
         for(int numData = 0; numData < allDatas; numData++)
         {
-            const uint8 *dataA = GetData(A, numData);
-            const uint8 *dataB = GetData(B, numData);
+            const uint8 *dataA = GetData(Chan::A, numData);
+            const uint8 *dataB = GetData(Chan::B, numData);
             for(uint i = 0; i < numElements; i++)
             {
                 if(dataA[i] < limitDown[0][i])  limitDown[0][i] = dataA[i];

@@ -77,13 +77,13 @@ static const TBaseMaskStruct masksTBase[TBaseSize] =
 
 void FPGA::LoadSettings(void)
 {
-    LoadKoeffCalibration(A);
+    LoadKoeffCalibration(Chan::A);
     LoadKoeffCalibration(B);
     SetAttribChannelsAndTrig(TypeWriteAnalog_All);
     LoadTBase();
     LoadTShift();
-    LoadRange(A);
-    LoadRShift(A);
+    LoadRange(Chan::A);
+    LoadRShift(Chan::A);
     LoadRange(B);
     LoadRShift(B);
     LoadTrigLev();

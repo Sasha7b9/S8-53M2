@@ -101,7 +101,7 @@ void Processing::CalculateMeasures()
                 }
                 if(MEAS_SOURCE_IS_A || MEAS_SOURCE_IS_A_B)
                 {
-                    values[meas].value[Chan::A] = func(A);
+                    values[meas].value[Chan::A] = func(Chan::A);
                 }
                 if(MEAS_SOURCE_IS_B || MEAS_SOURCE_IS_A_B)
                 {
@@ -779,7 +779,7 @@ float Processing::CalculatePicRel(Chan::E ch)
 
 float Processing::CalculateDelayPlus(Chan::E ch)
 {
-    float period0 = CalculatePeriod(A);
+    float period0 = CalculatePeriod(Chan::A);
     float period1 = CalculatePeriod(B);
 
     EXIT_IF_ERRORS_FLOAT(period0, period1);
@@ -788,7 +788,7 @@ float Processing::CalculateDelayPlus(Chan::E ch)
         return ERROR_VALUE_FLOAT;
     }
 
-    float average0 = CalculateAverageRel(A);
+    float average0 = CalculateAverageRel(Chan::A);
     float average1 = CalculateAverageRel(B);
 
     EXIT_IF_ERRORS_FLOAT(average0, average1);
@@ -817,7 +817,7 @@ float Processing::CalculateDelayPlus(Chan::E ch)
 
 float Processing::CalculateDelayMinus(Chan::E ch)
 {
-    float period0 = CalculatePeriod(A);
+    float period0 = CalculatePeriod(Chan::A);
     float period1 = CalculatePeriod(B);
 
     EXIT_IF_ERRORS_FLOAT(period0, period1);
@@ -827,7 +827,7 @@ float Processing::CalculateDelayMinus(Chan::E ch)
         return ERROR_VALUE_FLOAT;
     }
 
-    float average0 = CalculateAverageRel(A);
+    float average0 = CalculateAverageRel(Chan::A);
     float average1 = CalculateAverageRel(B);
 
     EXIT_IF_ERRORS_FLOAT(average0, average1);

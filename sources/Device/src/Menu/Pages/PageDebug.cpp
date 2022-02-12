@@ -578,7 +578,7 @@ static void OnChanged_ADC_Stretch_Mode(bool active)
 {
     if(active)
     {
-        LoadStretchADC(A);
+        LoadStretchADC(Chan::A);
         LoadStretchADC(B);
     }
 }
@@ -677,8 +677,8 @@ static void OnPress_ADC_AltRShift_Reset(void)
             }
         }
     }
-    FPGA::SetRShift(A, SET_RSHIFT_A);
-    FPGA::SetRShift(B, SET_RSHIFT_B);
+    FPGA::SetRShift(Chan::A, SET_RSHIFT_A);
+    FPGA::SetRShift(Chan::B, SET_RSHIFT_B);
 }
 
 // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 1Í 2Ï¬ ÔÓÒÚ ---------------------------------------------------------------------------------------------------------
@@ -688,12 +688,12 @@ static const Governor mbADC_AltRShift_2mV_DC_A
     "—Ï 1Í 2Ï¬ ÔÓÒÚ", "Shift 1ch 2mV DC",
     "",
     "",
-    &RSHIFT_ADD(A, Range_2mV, ModeCouple_DC), -100, 100, OnChanged_ADC_AltRShift_A
+    &RSHIFT_ADD(Chan::A, Range_2mV, ModeCouple_DC), -100, 100, OnChanged_ADC_AltRShift_A
 );
 
 static void OnChanged_ADC_AltRShift_A(void)
 {
-    FPGA::SetRShift(A, SET_RSHIFT_A);
+    FPGA::SetRShift(Chan::A, SET_RSHIFT_A);
 }
 
 // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 2Í 2Ï¬ ÔÓÒÚ ---------------------------------------------------------------------------------------------------------
@@ -703,12 +703,12 @@ static const Governor mbADC_AltRShift_2mV_DC_B
     "—Ï 2Í 2Ï¬ ÔÓÒÚ", "Shift 2ch 2mV DC",
     "",
     "",
-    &RSHIFT_ADD(B, Range_2mV, ModeCouple_DC), -100, 100, OnChanged_ADC_AltRShift_B
+    &RSHIFT_ADD(Chan::B, Range_2mV, ModeCouple_DC), -100, 100, OnChanged_ADC_AltRShift_B
 );
 
 static void OnChanged_ADC_AltRShift_B(void)
 {
-    FPGA::SetRShift(B, SET_RSHIFT_B);
+    FPGA::SetRShift(Chan::B, SET_RSHIFT_B);
 }
 
 // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 1Í 5Ï¬ ÔÓÒÚ ---------------------------------------------------------------------------------------------------------
@@ -718,7 +718,7 @@ static const Governor mbADC_AltRShift_5mV_DC_A
     "—Ï 1Í 5Ï¬ ÔÓÒÚ", "Shift 1ch 5mV DC",
     "",
     "",
-    &RSHIFT_ADD(A, Range_5mV, ModeCouple_DC), -100, 100, OnChanged_ADC_AltRShift_A
+    &RSHIFT_ADD(Chan::A, Range_5mV, ModeCouple_DC), -100, 100, OnChanged_ADC_AltRShift_A
 );
 
 // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 2Í 5Ï¬ ÔÓÒÚ ---------------------------------------------------------------------------------------------------------
@@ -728,7 +728,7 @@ static const Governor mbADC_AltRShift_5mV_DC_B
     "—Ï 2Í 5Ï¬ ÔÓÒÚ", "Shift 2ch 5mV DC",
     "",
     "",
-    &RSHIFT_ADD(B, Range_5mV, ModeCouple_DC), -100, 100, OnChanged_ADC_AltRShift_B
+    &RSHIFT_ADD(Chan::B, Range_5mV, ModeCouple_DC), -100, 100, OnChanged_ADC_AltRShift_B
 );
 
 // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 1Í 10Ï¬ ÔÓÒÚ --------------------------------------------------------------------------------------------------------
@@ -738,7 +738,7 @@ static const Governor mbADC_AltRShift_10mV_DC_A
     "—Ï 1Í 10Ï¬ ÔÓÒÚ", "Shift 1ch 10mV DC",
     "",
     "",
-    &RSHIFT_ADD(A, Range_10mV, ModeCouple_DC), -100, 100, OnChanged_ADC_AltRShift_A
+    &RSHIFT_ADD(Chan::A, Range_10mV, ModeCouple_DC), -100, 100, OnChanged_ADC_AltRShift_A
 );
 
 // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ - —Ï 2Í 10Ï¬ ÔÓÒÚ --------------------------------------------------------------------------------------------------------
@@ -748,7 +748,7 @@ static const Governor mbADC_AltRShift_10mV_DC_B
     "—Ï 2Í 10Ï¬ ÔÓÒÚ", "Shift 2ch 10mV DC",
     "",
     "",
-    &RSHIFT_ADD(B, Range_10mV, ModeCouple_DC), -100, 100, OnChanged_ADC_AltRShift_B
+    &RSHIFT_ADD(Chan::B, Range_10mV, ModeCouple_DC), -100, 100, OnChanged_ADC_AltRShift_B
 );
 
 
@@ -1074,8 +1074,8 @@ static void Draw_SerialNumber_Save(int x, int y)
         /*
         static void OnChangeRShiftADC(bool active)
         {
-            FPGA::SetRShift(A, SET_RSHIFT_A);
-            FPGA::SetRShift(B, SET_RSHIFT_B);
+            FPGA::SetRShift(Chan::A, SET_RSHIFT_A);
+            FPGA::SetRShift(Chan::B, SET_RSHIFT_B);
         }
 
         const Choice mcDebugADCrShiftMode =
@@ -1102,7 +1102,7 @@ static void Draw_SerialNumber_Save(int x, int y)
 
         static void OnChangeRShiftADC0(void)
         {
-            FPGA::SetRShift(A, SET_RSHIFT_A);
+            FPGA::SetRShift(Chan::A, SET_RSHIFT_A);
         }
 
         const Governor mgDebugRShiftADC00 =
@@ -1136,7 +1136,7 @@ static void Draw_SerialNumber_Save(int x, int y)
 
         static void OnChangeRShiftADC1(void)
         {
-            FPGA::SetRShift(B, SET_RSHIFT_B);
+            FPGA::SetRShift(Chan::B, SET_RSHIFT_B);
         }
 
         // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ. —Ã≈Ÿ. œ¿Ã.

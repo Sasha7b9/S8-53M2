@@ -132,7 +132,7 @@ static const Choice mcCoupleA =
 
 void OnChanged_CoupleA(bool active)
 {
-    FPGA::SetModeCouple(A, SET_COUPLE_A);
+    FPGA::SetModeCouple(Chan::A, SET_COUPLE_A);
 }
 
 
@@ -154,7 +154,7 @@ static const Choice mcFiltrA =
 
 void OnChanged_FiltrA(bool active)
 {
-    FPGA::EnableChannelFiltr(A, SET_FILTR_A);
+    FPGA::EnableChannelFiltr(Chan::A, SET_FILTR_A);
 }
 
 
@@ -176,7 +176,7 @@ static const Choice mcInverseA =
 
 static void OnChanged_InverseA(bool active)
 {
-    FPGA::SetRShift(A, SET_RSHIFT_A);
+    FPGA::SetRShift(Chan::A, SET_RSHIFT_A);
 }
 
 
@@ -259,7 +259,7 @@ static const Choice mcCoupleB =
 
 void OnChanged_CoupleB(bool active)
 {
-    FPGA::SetModeCouple(B, SET_COUPLE_B);
+    FPGA::SetModeCouple(Chan::B, SET_COUPLE_B);
 }
 
 //  ¿Õ¿À 2 - ‘ËÎ¸Ú ---------
@@ -280,7 +280,7 @@ static const Choice mcFiltrB =
 
 void OnChanged_FiltrB(bool active)
 {
-    FPGA::EnableChannelFiltr(B, SET_FILTR_B);
+    FPGA::EnableChannelFiltr(Chan::B, SET_FILTR_B);
 }
 
 
@@ -302,7 +302,7 @@ static const Choice mcInverseB =
 
 static void OnChanged_InverseB(bool active)
 {
-    FPGA::SetRShift(B, SET_RSHIFT_B);
+    FPGA::SetRShift(Chan::B, SET_RSHIFT_B);
 }
 
 

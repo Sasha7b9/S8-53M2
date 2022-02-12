@@ -395,7 +395,7 @@ void Display::DrawDataChannel(uint8 *data, Chan::E ch, DataSettings *ds, int min
 
 void Display::DrawMath()
 {
-    if (DISABLED_DRAW_MATH || Storage::GetData(A, 0) == 0 || Storage::GetData(B, 0) == 0)
+    if (DISABLED_DRAW_MATH || Storage::GetData(Chan::A, 0) == 0 || Storage::GetData(Chan::B, 0) == 0)
     {
         return;
     }
@@ -661,7 +661,7 @@ bool Display::DrawDataInModeNormal()
     {
         for (int i = 0; i < numSignals; i++)
         {
-            DrawBothChannels(Storage::GetData(A, i), Storage::GetData(B, i));
+            DrawBothChannels(Storage::GetData(Chan::A, i), Storage::GetData(Chan::B, i));
         }
     }
 
@@ -676,17 +676,17 @@ void Display::DrawDataMinMax()
     MODE_DRAW_SIGNAL = ModeDrawSignal_Lines;
     if (LAST_AFFECTED_CHANNEL_IS_B)
     {
-        DrawDataChannel(Storage::GetLimitation(A, 0), A, gDSet, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(A, 1), A, gDSet, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(B, 0), B, gDSet, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(B, 1), B, gDSet, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::GetLimitation(Chan::A, 0), A, gDSet, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::GetLimitation(Chan::A, 1), A, gDSet, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::GetLimitation(Chan::B, 0), B, gDSet, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::GetLimitation(Chan::B, 1), B, gDSet, GRID_TOP, Grid::ChannelBottom());
     }
     else
     {
-        DrawDataChannel(Storage::GetLimitation(B, 0), B, gDSet, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(B, 1), B, gDSet, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(A, 0), A, gDSet, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(A, 1), A, gDSet, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::GetLimitation(Chan::B, 0), B, gDSet, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::GetLimitation(Chan::B, 1), B, gDSet, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::GetLimitation(Chan::A, 0), A, gDSet, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::GetLimitation(Chan::A, 1), A, gDSet, GRID_TOP, Grid::ChannelBottom());
     }
     MODE_DRAW_SIGNAL = modeDrawSignalOld;
 }
@@ -1180,13 +1180,13 @@ void Display::DrawCursorsRShift()
     }
     if(LAST_AFFECTED_CHANNEL_IS_B)
     {
-        DrawCursorRShift(A);
+        DrawCursorRShift(Chan::A);
         DrawCursorRShift(B);
     }
     else
     {
         DrawCursorRShift(B);
-        DrawCursorRShift(A);
+        DrawCursorRShift(Chan::A);
     }
 }
 
@@ -1982,9 +1982,9 @@ void Display::DrawLowPart()
     Painter::DrawHLineC(Grid::ChannelBottom(), 1, Grid::Left() - Measure_GetDeltaGridLeft() - 2, COLOR_FILL);
     Painter::DrawHLine(Grid::FullBottom(), 1, Grid::Left() - Measure_GetDeltaGridLeft() - 2);
 
-    WriteTextVoltage(A, x + 2, y0);
+    WriteTextVoltage(Chan::A, x + 2, y0);
 
-    WriteTextVoltage(B, x + 2, y1);
+    WriteTextVoltage(Chan::B, x + 2, y1);
 
     Painter::DrawVLineC(x + 95, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, COLOR_FILL);
 

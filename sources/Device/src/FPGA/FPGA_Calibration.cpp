@@ -84,24 +84,24 @@ void FPGA::ProcedureCalibration(void)
         FPGA::SetTShift(0);
         STRETCH_ADC_A = 1.0f;
         STRETCH_ADC_B = 1.0f;
-        FPGA::LoadKoeffCalibration(A);
+        FPGA::LoadKoeffCalibration(Chan::A);
         FPGA::LoadKoeffCalibration(B);
-        FPGA::SetRange(A, Range_500mV);
-        FPGA::SetRange(B, Range_500mV);
-        FPGA::SetRShift(A, RShiftZero);
-        FPGA::SetRShift(B, RShiftZero);
-        FPGA::SetModeCouple(A, ModeCouple_GND);
-        FPGA::SetModeCouple(B, ModeCouple_GND);
+        FPGA::SetRange(Chan::A, Range_500mV);
+        FPGA::SetRange(Chan::B, Range_500mV);
+        FPGA::SetRShift(Chan::A, RShiftZero);
+        FPGA::SetRShift(Chan::B, RShiftZero);
+        FPGA::SetModeCouple(Chan::A, ModeCouple_GND);
+        FPGA::SetModeCouple(Chan::B, ModeCouple_GND);
 //        HAL_FMC::Write(WR_ADD_RSHIFT_DAC1, 0);
 //        HAL_FMC::Write(WR_ADD_RSHIFT_DAC2, 0);
 
-        deltaADCPercentsOld[0] = CalculateDeltaADC(A, &avrADC1old[Chan::A], &avrADC2old[Chan::A], &deltaADCold[Chan::A]);
-        deltaADCPercentsOld[1] = CalculateDeltaADC(B, &avrADC1old[Chan::B], &avrADC2old[Chan::B], &deltaADCold[Chan::B]);
+        deltaADCPercentsOld[0] = CalculateDeltaADC(Chan::A, &avrADC1old[Chan::A], &avrADC2old[Chan::A], &deltaADCold[Chan::A]);
+        deltaADCPercentsOld[1] = CalculateDeltaADC(Chan::B, &avrADC1old[Chan::B], &avrADC2old[Chan::B], &deltaADCold[Chan::B]);
 
         AlignmentADC();
 
-        deltaADCPercents[Chan::A] = CalculateDeltaADC(A, &avrADC1[Chan::A], &avrADC2[Chan::A], &deltaADC[Chan::A]);
-        deltaADCPercents[Chan::B] = CalculateDeltaADC(B, &avrADC1[Chan::B], &avrADC2[Chan::B], &deltaADC[Chan::B]);
+        deltaADCPercents[Chan::A] = CalculateDeltaADC(Chan::A, &avrADC1[Chan::A], &avrADC2[Chan::A], &deltaADC[Chan::A]);
+        deltaADCPercents[Chan::B] = CalculateDeltaADC(Chan::B, &avrADC1[Chan::B], &avrADC2[Chan::B], &deltaADC[Chan::B]);
 
         gStateFPGA.stateCalibration = StateCalibration_RShift0start;                 
 
@@ -111,18 +111,18 @@ void FPGA::ProcedureCalibration(void)
         {
 			gStateFPGA.stateCalibration = StateCalibration_RShift0inProgress;
 
-			koeffCal0 = CalculateKoeffCalibration(A);
+			koeffCal0 = CalculateKoeffCalibration(Chan::A);
 			if(koeffCal0 == ERROR_VALUE_FLOAT)
             {
 				gStateFPGA.stateCalibration = StateCalibration_ErrorCalibration0;
 				Panel::WaitPressingButton();
                 DEBUG_STRETCH_ADC_TYPE = StretchADC_Hand;
-                LoadStretchADC(A);
+                LoadStretchADC(Chan::A);
             }
             else
             {
                 STRETCH_ADC_A = koeffCal0;
-                FPGA::LoadKoeffCalibration(A);
+                FPGA::LoadKoeffCalibration(Chan::A);
             }
 			
             for (int range = 0; range < RangeSize; range++)
@@ -131,9 +131,9 @@ void FPGA::ProcedureCalibration(void)
                 {
                     if (!(mode == 0 && (range == Range_2mV || range == Range_5mV || range == Range_10mV)))
                     {
-                        FPGA::SetModeCouple(A, (ModeCouple)mode);
-                        RSHIFT_ADD(A, range, mode) = 0;
-                        RSHIFT_ADD(A, range, mode) = CalculateAdditionRShift(A, (Range)range);
+                        FPGA::SetModeCouple(Chan::A, (ModeCouple)mode);
+                        RSHIFT_ADD(Chan::A, range, mode) = 0;
+                        RSHIFT_ADD(Chan::A, range, mode) = CalculateAdditionRShift(Chan::A, (Range)range);
                     }
                 }
             }
@@ -167,9 +167,9 @@ void FPGA::ProcedureCalibration(void)
                 {
                     if (!(mode == 0 && (range == Range_2mV || range == Range_5mV || range == Range_10mV)))
                     {
-                        FPGA::SetModeCouple(B, (ModeCouple)mode);
-                        RSHIFT_ADD(B, range, mode) = 0;
-                        RSHIFT_ADD(B, range, mode) = CalculateAdditionRShift(B, (Range)range);
+                        FPGA::SetModeCouple(Chan::B, (ModeCouple)mode);
+                        RSHIFT_ADD(Chan::B, range, mode) = 0;
+                        RSHIFT_ADD(Chan::B, range, mode) = CalculateAdditionRShift(Chan::B, (Range)range);
                     }
                 }
             }
@@ -185,12 +185,12 @@ void FPGA::ProcedureCalibration(void)
 //    FSMC::Write(WR_ADD_RSHIFT_DAC1, (uint8)SET_BALANCE_ADC_A);
 //    FSMC::Write(WR_ADD_RSHIFT_DAC2, (uint8)SET_BALANCE_ADC_B);
 
-    FPGA::SetRShift(A, SET_RSHIFT_A);
-    FPGA::SetRShift(B, SET_RSHIFT_B);
+    FPGA::SetRShift(Chan::A, SET_RSHIFT_A);
+    FPGA::SetRShift(Chan::B, SET_RSHIFT_B);
 
     STRETCH_ADC_A = (koeffCal0 == ERROR_VALUE_FLOAT) ? koeffCalibrationOld[0] : koeffCal0;
 
-    FPGA::LoadKoeffCalibration(A);
+    FPGA::LoadKoeffCalibration(Chan::A);
 
     STRETCH_ADC_B = (koeffCal1 == ERROR_VALUE_FLOAT) ? koeffCalibrationOld[1] : koeffCal1;
     FPGA::LoadKoeffCalibration(B);
@@ -238,23 +238,23 @@ void FuncAttScreen(void)
                 Painter::DrawText(10 + dX, 80 + dY, "Поправка нуля 2к :");
                 for (int i = 0; i < RangeSize; i++)
                 {
-                    Painter::DrawFormatText(95 + i * 16 + dX, 55 + dY, COLOR_FILL, "%d", RSHIFT_ADD(A, i, 0));
-                    Painter::DrawFormatText(95 + i * 16 + dX, 65 + dY, COLOR_FILL, "%d", RSHIFT_ADD(A, i, 1));
-                    Painter::DrawFormatText(95 + i * 16 + dX, 80 + dY, COLOR_FILL, "%d", RSHIFT_ADD(B, i, 0));
-                    Painter::DrawFormatText(95 + i * 16 + dX, 90 + dY, COLOR_FILL, "%d", RSHIFT_ADD(B, i, 1));
+                    Painter::DrawFormatText(95 + i * 16 + dX, 55 + dY, COLOR_FILL, "%d", RSHIFT_ADD(Chan::A, i, 0));
+                    Painter::DrawFormatText(95 + i * 16 + dX, 65 + dY, COLOR_FILL, "%d", RSHIFT_ADD(Chan::A, i, 1));
+                    Painter::DrawFormatText(95 + i * 16 + dX, 80 + dY, COLOR_FILL, "%d", RSHIFT_ADD(Chan::B, i, 0));
+                    Painter::DrawFormatText(95 + i * 16 + dX, 90 + dY, COLOR_FILL, "%d", RSHIFT_ADD(Chan::B, i, 1));
                 }
                 
                 Painter::DrawFormatText(10 + dX, 110 + dY, COLOR_FILL, "Коэффициент калибровки 1к : %f, %d", STRETCH_ADC_A, (int)(STRETCH_ADC_A * 0x80));
                 Painter::DrawFormatText(10 + dX, 130 + dY, COLOR_FILL, "Коэфффициент калибровки 2к : %f, %d", STRETCH_ADC_B, (int)(STRETCH_ADC_B * 0x80));
 
-                DrawParametersChannel(A, 10 + dX, 150 + dY, false);
-                DrawParametersChannel(B, 10 + dX, 200 + dY, false);
+                DrawParametersChannel(Chan::A, 10 + dX, 150 + dY, false);
+                DrawParametersChannel(Chan::B, 10 + dX, 200 + dY, false);
         }
             break;
 
         case StateCalibration_ADCinProgress:
-            DrawParametersChannel(A, 5, 25, true);
-            DrawParametersChannel(B, 5, 75, true);
+            DrawParametersChannel(Chan::A, 5, 25, true);
+            DrawParametersChannel(Chan::B, 5, 75, true);
             break;
 
         case StateCalibration_RShift0start:
