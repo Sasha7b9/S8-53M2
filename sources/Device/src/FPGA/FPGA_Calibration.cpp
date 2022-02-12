@@ -1,6 +1,6 @@
 // 2022/02/11 17:48:48 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
-#include "FPGA.h" 
-#include "FPGA_Types.h"
+#include "FPGA/FPGA.h" 
+#include "FPGA/FPGA_Types.h"
 #include "Display/Display.h"
 #include "Display/DisplayPrimitives.h"
 #include "Display/Colors.h"
@@ -12,6 +12,7 @@
 #include "Utils/GlobalFunctions.h"
 #include "Hardware/Timer.h"
 #include "Log.h"
+#include "Hardware/HAL/HAL.h"
 #include <stdio.h>
 #include <limits.h>
 
@@ -91,8 +92,8 @@ void FPGA::ProcedureCalibration(void)
         FPGA::SetRShift(B, RShiftZero);
         FPGA::SetModeCouple(A, ModeCouple_GND);
         FPGA::SetModeCouple(B, ModeCouple_GND);
-        FSMC::Write(WR_ADD_RSHIFT_DAC1, 0);
-        FSMC::Write(WR_ADD_RSHIFT_DAC2, 0);
+//        HAL_FMC::Write(WR_ADD_RSHIFT_DAC1, 0);
+//        HAL_FMC::Write(WR_ADD_RSHIFT_DAC2, 0);
 
         deltaADCPercentsOld[0] = CalculateDeltaADC(A, &avrADC1old[A], &avrADC2old[A], &deltaADCold[A]);
         deltaADCPercentsOld[1] = CalculateDeltaADC(B, &avrADC1old[B], &avrADC2old[B], &deltaADCold[B]);
@@ -181,8 +182,8 @@ void FPGA::ProcedureCalibration(void)
 
     SET_BALANCE_ADC_A = shiftADC0;
     SET_BALANCE_ADC_B = shiftADC1;
-    FSMC::Write(WR_ADD_RSHIFT_DAC1, (uint8)SET_BALANCE_ADC_A);
-    FSMC::Write(WR_ADD_RSHIFT_DAC2, (uint8)SET_BALANCE_ADC_B);
+//    FSMC::Write(WR_ADD_RSHIFT_DAC1, (uint8)SET_BALANCE_ADC_A);
+//    FSMC::Write(WR_ADD_RSHIFT_DAC2, (uint8)SET_BALANCE_ADC_B);
 
     FPGA::SetRShift(A, SET_RSHIFT_A);
     FPGA::SetRShift(B, SET_RSHIFT_B);

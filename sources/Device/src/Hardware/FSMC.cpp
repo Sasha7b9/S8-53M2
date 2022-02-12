@@ -56,6 +56,7 @@ uint8 FSMC::Read(uint8 *address)
 }
 
 
+/*
 void FSMC::Write(uint8 *address, uint8 value)
 {
     char buffer[9];
@@ -74,6 +75,7 @@ void FSMC::Write(uint8 *address, uint8 value)
     };
     *address = value;
 }
+*/
 
 
 void FSMC::Init(void)

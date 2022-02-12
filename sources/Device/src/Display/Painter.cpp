@@ -25,7 +25,7 @@ inline void BoundingY(int &y) { if (y < 0) y = 0; if (y >= Display::HEIGHT) y = 
 
 static const int SIZE_BUFFER = Display::WIDTH * Display::HEIGHT;
 
-static uint8 *front = (uint8 *)HAL_FMC::ADDR_RAM_DISPLAY_FRONT;
+static uint8 *front = (uint8 *)HAL_FMC::_ADDR_RAM_DISPLAY_FRONT;
 uint8 Display::back[240][320];
 
 uint8 *Display::display_back_buffer = &back[0][0];
@@ -655,18 +655,6 @@ void Painter::EndScene(bool endScene)
         VCP::Flush();
         stateTransmit = StateTransmit_Free;
     }
-}
-
-
-uint8 Get2Points(int x, int y)
-{
-    while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET) {};
-    *ADDR_CDISPLAY = GET_POINT;
-    *ADDR_CDISPLAY = (uint8)x;
-    *ADDR_CDISPLAY = (uint8)(x >> 8);
-    *ADDR_CDISPLAY = (uint8)y;
-    while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET) {};
-    return *ADDR_CDISPLAY;
 }
 
 

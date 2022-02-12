@@ -507,18 +507,6 @@ Color GetColor(int x, int y)
 }
 
 
-uint8 Get2Points(int x, int y)
-{
-    while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET) {};
-    *ADDR_CDISPLAY = GET_POINT;
-    *ADDR_CDISPLAY = (uint8)x;
-    *ADDR_CDISPLAY = (uint8)(x >> 8);
-    *ADDR_CDISPLAY = (uint8)y;
-    while (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_11) == GPIO_PIN_RESET) {};
-    return *ADDR_CDISPLAY;
-}
-
-
 void Painter_DrawPicture(int x, int y, int width, int height, uint8 *address)
 {
     uint8 command[4];

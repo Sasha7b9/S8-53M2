@@ -1281,6 +1281,11 @@
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\HAL.h</FilePath>
             </File>
+            <File>
+              <FileName>HAL_FMC.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_FMC.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3181,6 +3186,11 @@
               <FileName>HAL.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\HAL.h</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_FMC.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_FMC.cpp</FilePath>
             </File>
           </Files>
         </Group>
