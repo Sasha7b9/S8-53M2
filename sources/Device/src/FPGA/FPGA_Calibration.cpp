@@ -357,26 +357,26 @@ float CalculateDeltaADC(Chan::E ch, float *avgADC1, float *avgADC2, float *delta
     for(int cicle = 0; cicle < numCicles; cicle++)
     {
         FSMC::Write(WR_START, 1);
-        while(_GET_BIT(FSMC::Read(RD_FL), 2) == 0) {};
+        while(_GET_BIT(HAL_FMC::Read(RD_FL), 2) == 0) {};
         FPGA::SwitchingTrig();
-        while(_GET_BIT(FSMC::Read(RD_FL), 0) == 0) {};
+        while(_GET_BIT(HAL_FMC::Read(RD_FL), 0) == 0) {};
         FSMC::Write(WR_STOP, 1);
 
         for(int i = 0; i < FPGA_MAX_POINTS; i++)
         {
             if(ch == Chan::A)
             {
-                *avgADC1 += FSMC::Read(address1);
-                *avgADC2 += FSMC::Read(address2);
-                FSMC::Read(RD_ADC_B1);
-                FSMC::Read(RD_ADC_B2);
+                *avgADC1 += HAL_FMC::Read(address1);
+                *avgADC2 += HAL_FMC::Read(address2);
+                HAL_FMC::Read(RD_ADC_B1);
+                HAL_FMC::Read(RD_ADC_B2);
             }
             else
             {
-                FSMC::Read(RD_ADC_A1);
-                FSMC::Read(RD_ADC_A2);
-                *avgADC1 += FSMC::Read(address1);
-                *avgADC2 += FSMC::Read(address2);
+                HAL_FMC::Read(RD_ADC_A1);
+                HAL_FMC::Read(RD_ADC_A2);
+                *avgADC1 += HAL_FMC::Read(address1);
+                *avgADC2 += HAL_FMC::Read(address2);
             }
         }
         
@@ -429,7 +429,7 @@ int16 CalculateAdditionRShift(Chan::E ch, Range range)
         const uint timeWait = 100;
 
         FSMC::Write(WR_START, 1);
-        while(_GET_BIT(FSMC::Read(RD_FL), 2) == 0 && (gTimerMS - startTime < timeWait)) {}; 
+        while(_GET_BIT(HAL_FMC::Read(RD_FL), 2) == 0 && (gTimerMS - startTime < timeWait)) {}; 
         if(gTimerMS - startTime > timeWait)                 // Если прошло слишком много времени - 
         {
             return ERROR_VALUE_INT16;                       // выход с ошибкой.
@@ -439,7 +439,7 @@ int16 CalculateAdditionRShift(Chan::E ch, Range range)
 
         startTime = gTimerMS;
 
-        while(_GET_BIT(FSMC::Read(RD_FL), 0) == 0 && (gTimerMS - startTime < timeWait)) {};
+        while(_GET_BIT(HAL_FMC::Read(RD_FL), 0) == 0 && (gTimerMS - startTime < timeWait)) {};
         if(gTimerMS - startTime > timeWait)                 // Если прошло слишком много времени - 
         {
             return ERROR_VALUE_INT16;                       // выход с ошибкой.
@@ -452,8 +452,8 @@ int16 CalculateAdditionRShift(Chan::E ch, Range range)
 
         for(int j = 0; j < FPGA_MAX_POINTS; j += 2)
         {
-            sum += FSMC::Read(addressRead1);
-            sum += FSMC::Read(addressRead2);
+            sum += HAL_FMC::Read(addressRead1);
+            sum += HAL_FMC::Read(addressRead2);
             numPoints += 2;
         }
     }
@@ -493,7 +493,7 @@ float CalculateKoeffCalibration(Chan::E ch)
         startTime = gTimerMS;
 
         FSMC::Write(WR_START, 1);
-        while(_GET_BIT(FSMC::Read(RD_FL), 2) == 0 && (gTimerMS - startTime > timeWait)) {};
+        while(_GET_BIT(HAL_FMC::Read(RD_FL), 2) == 0 && (gTimerMS - startTime > timeWait)) {};
         if(gTimerMS - startTime > timeWait)
         {
             return ERROR_VALUE_FLOAT;
@@ -502,7 +502,7 @@ float CalculateKoeffCalibration(Chan::E ch)
         FPGA::SwitchingTrig();
         startTime = gTimerMS;
 
-        while(_GET_BIT(FSMC::Read(RD_FL), 0) == 0 && (gTimerMS - startTime > timeWait)) {};
+        while(_GET_BIT(HAL_FMC::Read(RD_FL), 0) == 0 && (gTimerMS - startTime > timeWait)) {};
         if(gTimerMS - startTime > timeWait)
         {
             return ERROR_VALUE_FLOAT;
@@ -515,7 +515,7 @@ float CalculateKoeffCalibration(Chan::E ch)
 
         for(int j = 0; j < FPGA_MAX_POINTS; j += 2)
         {
-            uint8 val0 = FSMC::Read(addressRead1);
+            uint8 val0 = HAL_FMC::Read(addressRead1);
             if(val0 > AVE_VALUE + 60)
             {
                 numMAX++;
@@ -527,7 +527,7 @@ float CalculateKoeffCalibration(Chan::E ch)
                 sumMIN += val0;
             }
 
-            uint8 val1 = FSMC::Read(addressRead2);
+            uint8 val1 = HAL_FMC::Read(addressRead2);
             if(val1 > AVE_VALUE + 60)
             {
                 numMAX++;

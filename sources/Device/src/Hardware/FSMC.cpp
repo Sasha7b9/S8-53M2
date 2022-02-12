@@ -49,10 +49,10 @@ static const char *addrNamesForWrite[32] =
 
 
 
-uint8 FSMC::Read(uint8 *address)
-{
-    return(*(address));
-}
+//uint8 HAL_FMC::Read(uint8 *address)
+//{
+//    return(*(address));
+//}
 
 
 void FSMC::Write(uint8 *address, uint8 value)

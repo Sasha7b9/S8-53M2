@@ -118,3 +118,9 @@ void HAL_FMC::InitRAM()
 
     HAL_SRAM_Init(&gSramHandle, timing, timing);
 }
+
+
+uint8 HAL_FMC::Read(uint8*)
+{
+    return 0;
+}

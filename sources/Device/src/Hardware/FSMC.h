@@ -9,7 +9,7 @@
 class FSMC
 {
 public:
-    static uint8 Read(uint8* address);
+//    static uint8 Read(uint8* address);
     static void  Write(uint8 *address, uint8 value);
 };
 
