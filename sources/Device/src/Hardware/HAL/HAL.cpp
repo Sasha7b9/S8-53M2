@@ -1,7 +1,5 @@
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
-#include "Hardware/Sound.h"
-#include "Panel/Panel.h"
 #include "Hardware/ADC.h"
 #include "FlashDrive/FlashDrive.h"
 #include "Hardware/CLOCK.h"
@@ -85,10 +83,6 @@ void HAL::Init()
     {
         HARDWARE_ERROR
     }
-
-    Sound::Init();
-
-    Panel::Init();
 
     HAL_FMC::Init();
 

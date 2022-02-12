@@ -11,6 +11,8 @@
 #include "Hardware/Timer.h"
 #include "FlashDrive/FlashDrive.h"
 #include "Menu/Menu.h"
+#include "Hardware/Sound.h"
+#include "Panel/Panel.h"
 
 
 namespace Device
@@ -69,13 +71,16 @@ namespace Device
 void Device::Init()
 {
     HAL::Init();
+    Sound::Init();
     VCP::Init();
     Settings::Load(false);
     FPGA::Init();
     Timer::PauseOnTime(250);
     FPGA::OnPressStartStop();
-    //    LAN::Init();
     Display::Init();
+    Panel::Init();
+
+    // LAN::Init();
 }
 
 
@@ -89,10 +94,11 @@ void Device::Update()
 
     Timer::StartMultiMeasurement();      // Сброс таймера для замера длительности временных интервалов в течение одной итерации цикла.
     FlashDrive::Update();
-    //        LAN::Update(0);
     FPGA::Update();                      // Обновляем аппаратную часть.
     ProcessingSignal();
     Display::Update();                   // Рисуем экран.
     Menu::UpdateInput();                 // Обновляем состояние меню
-    //VCP::Update();
+
+    // LAN::Update(0);
+    // VCP::Update();
 }
