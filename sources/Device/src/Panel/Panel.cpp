@@ -29,7 +29,7 @@
 #define POWER_OFF           4
 
 static PanelButton pressedKey = B_Empty;
-static PanelButton pressedButton = B_Empty;         // Это используется для отслеживания нажатой кнопки при отключенной панели
+static volatile PanelButton pressedButton = B_Empty;         // Это используется для отслеживания нажатой кнопки при отключенной панели
 static uint16 dataTransmitted[MAX_DATA] = {0x00};
 static uint16 numDataForTransmitted = 0;
 static uint timePrevPressButton = 0;

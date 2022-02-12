@@ -80,7 +80,6 @@ void Send(struct tcp_pcb *_tpcb, struct State *_ss)
         else if (wr_err == ERR_MEM)
         {
             // we are low on memory, try later / harder, defer to poll
-            _ss->p = ptr;
         }
         else
         {
