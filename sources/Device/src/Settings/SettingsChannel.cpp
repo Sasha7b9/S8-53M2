@@ -33,7 +33,7 @@ static const RangeStruct ranges[RangeSize] =
 
 
 
-void sChannel_SetRange(Channel chan, Range range)
+void sChannel_SetRange(Chan::E ch, Range range)
 {
     SET_RANGE(ch) = range;
 }

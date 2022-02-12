@@ -10,7 +10,7 @@
 
 
 
-static Channel chan = A;
+static Chan::E ch = A;
 
 
 
@@ -156,7 +156,7 @@ void SCPI::CHANNEL::RANGE(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value <= (uint8)Range_20V)      { FPGA::SetRange(chan, (Range)value); }
+        if (value <= (uint8)Range_20V)      { FPGA::SetRange(ch, (Range)value); }
         else if (value == (uint8)RangeSize)
         {
             SCPI_SEND(":CHANNEL%d:SET_RANGE %s", Tables_GetNumChannel(ch), map[SET_RANGE(ch)].key);
@@ -177,7 +177,7 @@ void SCPI::CHANNEL::OFFSET(uint8 *buffer)
     if (SCPI::FirstIsInt(buffer, &intVal, -240, 240))
     {
         int rShift = RShiftZero + 2 * intVal;
-        FPGA::SetRShift(chan, (int16)rShift);
+        FPGA::SetRShift(ch, (int16)rShift);
         return;
     }
     ENTER_ANALYSIS

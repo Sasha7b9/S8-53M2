@@ -96,12 +96,12 @@ void Processing::CalculateMeasures()
             {
                 if(meas == MEAS_MARKED || MEAS_MARKED_IS_NONE)
                 {
-                    markerVert[A][0] = markerVert[A][1] = markerVert[B][0] = markerVert[B][1] = ERROR_VALUE_INT;
-                    markerHor[A][0] = markerHor[A][1] = markerHor[B][0] = markerHor[B][1] = ERROR_VALUE_INT;
+                    markerVert[Chan::A][0] = markerVert[Chan::A][1] = markerVert[B][0] = markerVert[B][1] = ERROR_VALUE_INT;
+                    markerHor[Chan::A][0] = markerHor[Chan::A][1] = markerHor[B][0] = markerHor[B][1] = ERROR_VALUE_INT;
                 }
                 if(MEAS_SOURCE_IS_A || MEAS_SOURCE_IS_A_B)
                 {
-                    values[meas].value[A] = func(A);
+                    values[meas].value[Chan::A] = func(A);
                 }
                 if(MEAS_SOURCE_IS_B || MEAS_SOURCE_IS_A_B)
                 {
@@ -287,13 +287,13 @@ float Processing::CalculatePeriod(Chan::E ch)
         }
         else
         {
-            float intersectionDownToTop = FindIntersectionWithHorLine(chan, 1, true, aveValue);
-            float intersectionTopToDown = FindIntersectionWithHorLine(chan, 1, false, aveValue);
+            float intersectionDownToTop = FindIntersectionWithHorLine(ch, 1, true, aveValue);
+            float intersectionTopToDown = FindIntersectionWithHorLine(ch, 1, false, aveValue);
 
             EXIT_IF_ERRORS_FLOAT(intersectionDownToTop, intersectionTopToDown);
 
             float firstIntersection = intersectionDownToTop < intersectionTopToDown ? intersectionDownToTop : intersectionTopToDown;
-            float secondIntersection = FindIntersectionWithHorLine(chan, 2, intersectionDownToTop < intersectionTopToDown, aveValue);
+            float secondIntersection = FindIntersectionWithHorLine(ch, 2, intersectionDownToTop < intersectionTopToDown, aveValue);
 
             EXIT_IF_ERRORS_FLOAT(firstIntersection, secondIntersection);
 
@@ -402,7 +402,7 @@ float Processing::CalculateFreq(Chan::E ch)
     return period == ERROR_VALUE_FLOAT ? ERROR_VALUE_FLOAT : 1.0f / period;
 }
 
-float Processing::FindIntersectionWithHorLine(Channel chan, int numIntersection, bool downToUp, uint8 yLine)
+float Processing::FindIntersectionWithHorLine(Chan::E ch, int numIntersection, bool downToUp, uint8 yLine)
 {
     int num = 0;
     int x = firstP;
@@ -446,14 +446,14 @@ float Processing::CalculateDurationPlus(Chan::E ch)
     float aveValue = CalculateAverageRel(ch);
     EXIT_IF_ERROR_FLOAT(aveValue);
 
-    float firstIntersection = FindIntersectionWithHorLine(chan, 1, true, aveValue);
-    float secondIntersection = FindIntersectionWithHorLine(chan, 1, false, aveValue);
+    float firstIntersection = FindIntersectionWithHorLine(ch, 1, true, aveValue);
+    float secondIntersection = FindIntersectionWithHorLine(ch, 1, false, aveValue);
 
     EXIT_IF_ERRORS_FLOAT(firstIntersection, secondIntersection);
 
     if(secondIntersection < firstIntersection)
     {
-        secondIntersection = FindIntersectionWithHorLine(chan, 2, false, aveValue);
+        secondIntersection = FindIntersectionWithHorLine(ch, 2, false, aveValue);
     }
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
@@ -466,14 +466,14 @@ float Processing::CalculateDurationMinus(Chan::E ch)
     float aveValue = CalculateAverageRel(ch);
     EXIT_IF_ERROR_FLOAT(aveValue);
 
-    float firstIntersection = FindIntersectionWithHorLine(chan, 1, false, aveValue);
-    float secondIntersection = FindIntersectionWithHorLine(chan, 1, true, aveValue);
+    float firstIntersection = FindIntersectionWithHorLine(ch, 1, false, aveValue);
+    float secondIntersection = FindIntersectionWithHorLine(ch, 1, true, aveValue);
 
     EXIT_IF_ERRORS_FLOAT(firstIntersection, secondIntersection);
 
     if(secondIntersection < firstIntersection)
     {
-        secondIntersection = FindIntersectionWithHorLine(chan, 2, true, aveValue);
+        secondIntersection = FindIntersectionWithHorLine(ch, 2, true, aveValue);
     }
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
@@ -492,14 +492,14 @@ float Processing::CalculateTimeNarastaniya(Chan::E ch)                    // WAR
     float max09 = maxSteady - value01;
     float min01 = minSteady + value01;
 
-    float firstIntersection = FindIntersectionWithHorLine(chan, 1, true, min01);
-    float secondIntersection = FindIntersectionWithHorLine(chan, 1, true, max09);
+    float firstIntersection = FindIntersectionWithHorLine(ch, 1, true, min01);
+    float secondIntersection = FindIntersectionWithHorLine(ch, 1, true, max09);
 
     EXIT_IF_ERRORS_FLOAT(firstIntersection, secondIntersection);
     
     if (secondIntersection < firstIntersection)
     {
-        secondIntersection = FindIntersectionWithHorLine(chan, 2, true, max09);
+        secondIntersection = FindIntersectionWithHorLine(ch, 2, true, max09);
     }
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
@@ -528,14 +528,14 @@ float Processing::CalculateTimeSpada(Chan::E ch)                          // WAR
     float max09 = maxSteady - value01;
     float min01 = minSteady + value01;
 
-    float firstIntersection = FindIntersectionWithHorLine(chan, 1, false, max09);
-    float secondIntersection = FindIntersectionWithHorLine(chan, 1, false, min01);
+    float firstIntersection = FindIntersectionWithHorLine(ch, 1, false, max09);
+    float secondIntersection = FindIntersectionWithHorLine(ch, 1, false, min01);
 
     EXIT_IF_ERRORS_FLOAT(firstIntersection, secondIntersection);
 
     if (secondIntersection < firstIntersection)
     {
-        secondIntersection = FindIntersectionWithHorLine(chan, 2, false, min01);
+        secondIntersection = FindIntersectionWithHorLine(ch, 2, false, min01);
     }
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
@@ -886,7 +886,7 @@ void Processing::SetSignal(uint8 *data0, uint8 *data1, DataSettings *ds, int _fi
 
     int length = (int)ds->length1channel * (ds->peakDet == PeackDet_Disable ? 1 : 2);
 
-    Math_CalculateFiltrArray(data0, &dataIn[A][0], length, numSmoothing);
+    Math_CalculateFiltrArray(data0, &dataIn[Chan::A][0], length, numSmoothing);
     Math_CalculateFiltrArray(data1, &dataIn[B][0], length, numSmoothing);
 
     dataSet = ds;
@@ -907,7 +907,7 @@ void Processing::GetData(uint8 **data0, uint8 **data1, DataSettings **ds)
     *ds = dataSet;
 }
 
-float Processing::GetCursU(Channel chan, float posCurT)
+float Processing::GetCursU(Chan::E ch, float posCurT)
 {
     int first = 0;
     int last = 0;
@@ -918,7 +918,7 @@ float Processing::GetCursU(Channel chan, float posCurT)
     return retValue;
 }
 
-float Processing::GetCursT(Channel chan, float posCurU, int numCur)
+float Processing::GetCursT(Chan::E ch, float posCurU, int numCur)
 {
     int firstPoint = 0;
     int lastPoint = 0;
@@ -1084,7 +1084,7 @@ char* Processing::GetStringMeasure(Measure measure, Chan::E ch, char buffer[20])
     {
         strcat(buffer, "-.-");
     }
-    else if((ch == Chan::A && dataSet->enableCh0 == 0) || (chan == B && dataSet->enableCh1 == 0))
+    else if((ch == Chan::A && dataSet->enableCh0 == 0) || (ch == Chan::B && dataSet->enableCh1 == 0))
     {
     }
     else if(measures[measure].FuncCalculate)
@@ -1102,12 +1102,12 @@ char* Processing::GetStringMeasure(Measure measure, Chan::E ch, char buffer[20])
     return buffer;
 }
 
-int Processing::GetMarkerHorizontal(Channel chan, int numMarker)
+int Processing::GetMarkerHorizontal(Chan::E ch, int numMarker)
 {
     return markerHor[chan][numMarker] - MIN_VALUE;
 }
 
-int Processing::GetMarkerVertical(Channel chan, int numMarker)
+int Processing::GetMarkerVertical(Chan::E ch, int numMarker)
 {
     return markerVert[chan][numMarker];
 }

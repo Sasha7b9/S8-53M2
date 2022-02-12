@@ -243,7 +243,7 @@ bool FPGA::IsRunning(void)
     *addr = data;
 
 /*
-static uint8 InverseIfNecessary(uint8 data, Channel chan)
+static uint8 InverseIfNecessary(uint8 data, Chan::E ch)
 {
     if (set.chan[chan].inverse)  
     {
@@ -300,14 +300,14 @@ void FPGA::ReadRandomizeMode(void)
         uint8 data00 = *RD_ADC_A2; //-V566
         if (pData0 >= first0 && pData0 <= last0)
         {
-            WRITE_AND_OR_INVERSE(pData0, data00, A);
+            WRITE_AND_OR_INVERSE(pData0, data00, Chan::A);
         }
 
 //        uint8 *addr = pData0 + addShiftMem;
 
         if (pData1 >= first1 && pData1 <= last1)
         {
-            WRITE_AND_OR_INVERSE(pData1, data10, B);
+            WRITE_AND_OR_INVERSE(pData1, data10, Chan::B);
         }
 
 //        addr = pData1 + addShiftMem;
@@ -414,8 +414,8 @@ void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
         prevTime = gTimerMS;
         if (!sTime_RandomizeModeEnabled())
         {
-            InverseDataIsNecessary(A, dataRel0);
-            InverseDataIsNecessary(B, dataRel1);
+            InverseDataIsNecessary(Chan::A, dataRel0);
+            InverseDataIsNecessary(Chan::B, dataRel1);
         }
 
         Storage::AddData(dataRel0, dataRel1, ds);
@@ -600,7 +600,7 @@ void FPGA::RestoreState(void)
         {
             for (int range = 0; range < RangeSize; range++)
             {
-                rShiftAdd[chan][range][mode] = RSHIFT_ADD(chan, range, mode);
+                rShiftAdd[chan][range][mode] = RSHIFT_ADD(ch, range, mode);
             }
         }
     }
@@ -611,7 +611,7 @@ void FPGA::RestoreState(void)
         {
             for (int range = 0; range < RangeSize; range++)
             {
-                 RSHIFT_ADD(chan, range, mode) = rShiftAdd[chan][range][mode];
+                 RSHIFT_ADD(ch, range, mode) = rShiftAdd[chan][range][mode];
             }
         }
     }
@@ -784,7 +784,7 @@ bool FPGA::AllPointsRandomizer(void)
 }
 
 
-void FPGA::InverseDataIsNecessary(Channel chan, uint8 *data)
+void FPGA::InverseDataIsNecessary(Chan::E ch, uint8 *data)
 {
     if(SET_INVERSE(ch))
     {
@@ -901,8 +901,8 @@ bool FPGA::FindWave(Chan::E ch)
     SET_ENABLED(ch) = true;
     FPGA::SetTrigSource((TrigSource)chan);
     FPGA::SetTrigLev((TrigSource)chan, TrigLevZero);
-    FPGA::SetRShift(chan, RShiftZero);
-    FPGA::SetModeCouple(chan, ModeCouple_AC);
+    FPGA::SetRShift(ch, RShiftZero);
+    FPGA::SetModeCouple(ch, ModeCouple_AC);
     Range range = AccurateFindRange(ch);
     //LOG_WRITE("Range %s", RangeName(range));
     if(range != RangeSize)
@@ -941,14 +941,14 @@ Range FPGA::AccurateFindRange(Chan::E ch)
     uint8 buffer[100];  // —юда будем считывать точки
 
     SetTBase(TBase_50ms);
-    FPGA::SetModeCouple(chan, ModeCouple_AC);
+    FPGA::SetModeCouple(ch, ModeCouple_AC);
     PeackDetMode peackDetMode = PEAKDET;
     FPGA::SetPeackDetMode(PeackDet_Enable);
     for (int range = RangeSize - 1; range >= 0; range--)
     {
         //Timer::LogPointMS("1");
         FPGA::Stop(false);
-        FPGA::SetRange(chan, (Range)range);
+        FPGA::SetRange(ch, (Range)range);
         Timer::PauseOnTime(10);
         FPGA::Start();
 

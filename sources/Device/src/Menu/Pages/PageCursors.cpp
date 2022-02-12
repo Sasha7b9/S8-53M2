@@ -72,14 +72,14 @@ static void DrawSB_Cursors_PointsPercents_Points(int x, int y);
 
 static void MoveCursUonPercentsOrPoints(int delta);
 static void MoveCursTonPercentsOrPoints(int delta);
-static void SetShiftCursPosU(Channel chan, int numCur, float delta);    // »зменить значение позиции курсора напр€жени€ на delta точек
-static void SetShiftCursPosT(Channel chan, int numCurs, float delta);   // »зменить значение позиции курсора времени на delta точек
+static void SetShiftCursPosU(Chan::E ch, int numCur, float delta);    // »зменить значение позиции курсора напр€жени€ на delta точек
+static void SetShiftCursPosT(Chan::E ch, int numCurs, float delta);   // »зменить значение позиции курсора времени на delta точек
 static void SetCursPos100(Chan::E ch);                                // «апомнить позиции курсоров, соответствующие 100%.
 static void SetCursSource(Channel chann);                               // ”становить источник курсорных измерений.
 static void IncCursCntrlU(Chan::E ch);                                // ¬ыбрать следующий курсор.
 static void IncCursCntrlT(Chan::E ch);                                // ¬ыбрать следующий курсор.
-static void SetCursPosU(Channel chan, int numCur, float pos);           // ”становить позицию курсора напр€жени€.
-static void SetCursPosT(Channel chan, int numCur, float pos);           // ”становить значение курсора по времени.
+static void SetCursPosU(Chan::E ch, int numCur, float pos);           // ”становить позицию курсора напр€жени€.
+static void SetCursPosT(Chan::E ch, int numCur, float pos);           // ”становить значение курсора по времени.
 
 
 #define MAX_POS_U   200
@@ -143,29 +143,29 @@ void Cursors_Update()
 }
 
 
-void SetCursPosU(Channel chan, int numCur, float pos)
+void SetCursPosU(Chan::E ch, int numCur, float pos)
 {
     if (CURS_MOVEMENT_IS_PERCENTS)
     {
-        CURS_POS_U(chan, numCur) = LimitationFloat(pos, 0, MAX_POS_U);
+        CURS_POS_U(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_U);
     }
     else
     { //-V523
-        CURS_POS_U(chan, numCur) = LimitationFloat(pos, 0, MAX_POS_U);
+        CURS_POS_U(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_U);
     }
 }
 
 
 
-void SetCursPosT(Channel chan, int numCur, float pos)
+void SetCursPosT(Chan::E ch, int numCur, float pos)
 {
     if (CURS_MOVEMENT_IS_PERCENTS)
     {
-        CURS_POS_T(chan, numCur) = LimitationFloat(pos, 0, MAX_POS_T);
+        CURS_POS_T(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_T);
     }
     else
     { //-V523
-        CURS_POS_T(chan, numCur) = LimitationFloat(pos, 0, MAX_POS_T);
+        CURS_POS_T(ch, numCur) = LimitationFloat(pos, 0, MAX_POS_T);
     }
 }
 
@@ -349,15 +349,15 @@ static void MoveCursUonPercentsOrPoints(int delta)
     Cursors_Update();
 }
 
-static void SetShiftCursPosU(Channel chan, int numCur, float delta)
+static void SetShiftCursPosU(Chan::E ch, int numCur, float delta)
 {
     if (CURS_MOVEMENT_IS_PERCENTS)
     {
-        CURS_POS_U(chan, numCur) = LimitationFloat(CURS_POS_U(chan, numCur) - delta, 0, MAX_POS_U);
+        CURS_POS_U(ch, numCur) = LimitationFloat(CURS_POS_U(ch, numCur) - delta, 0, MAX_POS_U);
     }
     else
     { //-V523
-        CURS_POS_U(chan, numCur) = LimitationFloat(CURS_POS_U(chan, numCur) - delta, 0, MAX_POS_U);
+        CURS_POS_U(ch, numCur) = LimitationFloat(CURS_POS_U(ch, numCur) - delta, 0, MAX_POS_U);
     }
 }
 
@@ -384,15 +384,15 @@ static void MoveCursTonPercentsOrPoints(int delta)
     Cursors_Update();
 }
 
-static void SetShiftCursPosT(Channel chan, int numCur, float delta)
+static void SetShiftCursPosT(Chan::E ch, int numCur, float delta)
 {
     if (CURS_MOVEMENT_IS_PERCENTS)
     {
-        CURS_POS_T(chan, numCur) = LimitationFloat(CURS_POS_T(chan, numCur) + delta, 0, MAX_POS_T);
+        CURS_POS_T(ch, numCur) = LimitationFloat(CURS_POS_T(ch, numCur) + delta, 0, MAX_POS_T);
     }
     else
     { //-V523
-        CURS_POS_T(chan, numCur) = LimitationFloat(CURS_POS_T(chan, numCur) + delta, 0, MAX_POS_T);
+        CURS_POS_T(ch, numCur) = LimitationFloat(CURS_POS_T(ch, numCur) + delta, 0, MAX_POS_T);
     }
 }
 

@@ -673,7 +673,7 @@ static void OnPress_ADC_AltRShift_Reset(void)
         {
             for(int range = 0; range < RangeSize; range++)
             {
-                RSHIFT_ADD(chan, range, mode) = 0;
+                RSHIFT_ADD(ch, range, mode) = 0;
             }
         }
     }

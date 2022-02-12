@@ -139,13 +139,13 @@ private:
     
     static void DrawGridSpectrum();
     
-    static void DrawMarkersForMeasure(float scale, Channel chan);
+    static void DrawMarkersForMeasure(float scale, Chan::E ch);
     
     static void DrawScaleLine(int x, bool forTrigLev);
     
-    static void WriteParametersFFT(Channel chan, float freq0, float density0, float freq1, float density1);
+    static void WriteParametersFFT(Chan::E ch, float freq0, float density0, float freq1, float density1);
     
-    static void WriteTextVoltage(Channel chan, int x, int y);
+    static void WriteTextVoltage(Chan::E ch, int x, int y);
     
     static void FuncOnTimerDisableShowLevelRShiftA();
     
@@ -178,7 +178,7 @@ private:
     static void DrawGridType3(int left, int top, int right, int bottom, int centerX, int centerY, int deltaX, int deltaY, int stepX, int stepY);
     
     static void DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI, const uint8 *data, int rightX, 
-        Channel chan, int shiftForPeakDet);
+        Chan::E ch, int shiftForPeakDet);
     
     static void DrawDataInModeSelfRecorder();
     

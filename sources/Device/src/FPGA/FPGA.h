@@ -57,11 +57,11 @@ public:
     // Найти и установить уровень синхронизации по последнему считанному сигналу
     static void FindAndSetTrigLevel();
     // Установить режим канала по входу.
-    static void SetModeCouple(Channel chan, ModeCouple modeCoupe);
+    static void SetModeCouple(Chan::E ch, ModeCouple modeCoupe);
     // Включить/выключить фильтр на входе канала.
-    static void EnableChannelFiltr(Channel chan, bool enable);
+    static void EnableChannelFiltr(Chan::E ch, bool enable);
     // Установить масштаб по напряжению.
-    static void SetRange(Channel chan, Range range);
+    static void SetRange(Chan::E ch, Range range);
     // Увеличить масштаб по напряжению.
     static bool RangeIncrease(Chan::E ch);
     // Уменьшить масштаб по напряжению.
@@ -73,7 +73,7 @@ public:
     // Увеличить масштаб по времени.
     static void TBaseIncrease();
     // Установить относительное смещение по напряжению.
-    static void SetRShift(Channel chan, int16 rShift);
+    static void SetRShift(Chan::E ch, int16 rShift);
     // Установить относительное смещение по времени.
     static void SetTShift(int tShift);
     // Установить добавочное смещение по времени для режима рандомизатора. В каждой развёртке это смещение должно быть разное.
@@ -132,7 +132,7 @@ private:
 
     static int CalculateShift();
     // Инвертирует данные.
-    static void InverseDataIsNecessary(Channel chan, uint8 *data);
+    static void InverseDataIsNecessary(Chan::E ch, uint8 *data);
 
     static void AutoFind();
 

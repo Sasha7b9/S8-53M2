@@ -138,7 +138,7 @@ void FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog type)
         {0x0800, 0x0000, 0x3000}
     };
 
-    data |= maskCouple[A][SET_COUPLE_A];
+    data |= maskCouple[Chan::A][SET_COUPLE_A];
     data |= maskCouple[B][SET_COUPLE_B];
 
     static const uint maskFiltr[2][2] = 
@@ -147,7 +147,7 @@ void FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog type)
         {0x0000, 0x0100}
     };
 
-    data |= maskFiltr[A][SET_FILTR_A];
+    data |= maskFiltr[Chan::A][SET_FILTR_A];
     data |= maskFiltr[B][SET_FILTR_B];
 
 
@@ -162,7 +162,7 @@ void FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog type)
 }
 
 
-void FPGA::SetRange(Channel chan, Range range)
+void FPGA::SetRange(Chan::E ch, Range range)
 {
     if (!sChannel_Enabled(ch))
     {
@@ -172,7 +172,7 @@ void FPGA::SetRange(Channel chan, Range range)
     {
         float rShiftAbs = RSHIFT_2_ABS(SET_RSHIFT(ch), SET_RANGE(ch));
         float trigLevAbs = RSHIFT_2_ABS(TRIG_LEVEL(ch), SET_RANGE(ch));
-        sChannel_SetRange(chan, range);
+        sChannel_SetRange(ch, range);
         if (LINKING_RSHIFT_IS_VOLTAGE)
         {
             SET_RSHIFT(ch) = (int16)Math_RShift2Rel(rShiftAbs, range);
@@ -270,7 +270,7 @@ void FPGA::TBaseIncrease(void)
 }
 
 
-void FPGA::SetRShift(Channel chan, int16 rShift)
+void FPGA::SetRShift(Chan::E ch, int16 rShift)
 {
     if (!sChannel_Enabled(ch))
     {
@@ -305,7 +305,7 @@ void FPGA::LoadRShift(Chan::E ch)
     Range range = SET_RANGE(ch);
     ModeCouple mode = SET_COUPLE(ch);
     static const int index[3] = {0, 1, 1};
-    int16 rShiftAdd = RSHIFT_ADD(chan, range, index[mode]);
+    int16 rShiftAdd = RSHIFT_ADD(ch, range, index[mode]);
 
     uint16 rShift = (uint16)(SET_RSHIFT(ch) + (SET_INVERSE(ch) ? -1 : 1) * rShiftAdd);
 
@@ -465,7 +465,7 @@ bool FPGA::RangeIncrease(Chan::E ch)
     bool retValue = false;
     if (SET_RANGE(ch) < RangeSize - 1)
     {
-        SetRange(chan, (Range)(SET_RANGE(ch) + 1));
+        SetRange(ch, (Range)(SET_RANGE(ch) + 1));
         retValue = true;
     }
     else
@@ -482,7 +482,7 @@ bool FPGA::RangeDecrease(Chan::E ch)
     bool retValue = false;
     if (SET_RANGE(ch) > 0)
     {
-        SetRange(chan, (Range)(SET_RANGE(ch) - 1));
+        SetRange(ch, (Range)(SET_RANGE(ch) - 1));
         retValue = true;
     }
     else
@@ -525,15 +525,15 @@ void FPGA::SetTrigInput(TrigInput trigInput)
 }
 
 
-void FPGA::SetModeCouple(Channel chan, ModeCouple modeCoupe)
+void FPGA::SetModeCouple(Chan::E ch, ModeCouple modeCoupe)
 {
     SET_COUPLE(ch) = modeCoupe;
     SetAttribChannelsAndTrig(ch == Chan::A ? TypeWriteAnalog_ChanParam0 : TypeWriteAnalog_ChanParam1);
-    SetRShift(chan, SET_RSHIFT(ch));
+    SetRShift(ch, SET_RSHIFT(ch));
 }
 
 
-void FPGA::EnableChannelFiltr(Channel chan, bool enable)
+void FPGA::EnableChannelFiltr(Chan::E ch, bool enable)
 {
     SET_FILTR(ch) = enable;
     SetAttribChannelsAndTrig(ch == Chan::A ? TypeWriteAnalog_ChanParam0 : TypeWriteAnalog_ChanParam1);

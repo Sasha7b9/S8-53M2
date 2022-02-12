@@ -299,7 +299,7 @@ bool Storage::GetDataFromEnd(int fromEnd, DataSettings **ds, uint8 **data0, uint
 }
 
 
-uint8* Storage::GetData(Channel chan, int fromEnd)
+uint8* Storage::GetData(Chan::E ch, int fromEnd)
 {
     static uint8 dataImportRel[2][FPGA_MAX_POINTS];
     DataSettings* dp = FromEnd(fromEnd);
@@ -314,7 +314,7 @@ uint8* Storage::GetData(Channel chan, int fromEnd)
 
 bool Storage::CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[2][FPGA_MAX_POINTS])
 {
-    if((ch == Chan::A && ds->enableCh0 == 0) || (chan == B && ds->enableCh1 == 0))
+    if((ch == Chan::A && ds->enableCh0 == 0) || (ch == Chan::B && ds->enableCh1 == 0))
     {
         return false;
     }
@@ -324,7 +324,7 @@ bool Storage::CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[2][FPG
 
     uint length = ds->length1channel * (ds->peakDet == PeackDet_Disable ? 1 : 2);
 
-    if(chan == B && ds->enableCh0 == 1)
+    if(ch == Chan::B && ds->enableCh0 == 1)
     {
         address += length;
     }
@@ -381,7 +381,7 @@ uint8* Storage::GetAverageData(Chan::E ch)
 }
 
 
-uint8* Storage::GetLimitation(Channel chan, int direction)
+uint8* Storage::GetLimitation(Chan::E ch, int direction)
 {
     uint8 *retValue = 0;
 

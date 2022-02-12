@@ -18,12 +18,12 @@
 
 
 
-static int16    CalculateAdditionRShift(Channel chan, Range range);	///< Измерить добавочное смещение канала по напряжению.
+static int16    CalculateAdditionRShift(Chan::E ch, Range range);	///< Измерить добавочное смещение канала по напряжению.
 static float    CalculateKoeffCalibration(Chan::E ch);			///< Измерить коэффициент калибровки канала по напряжению.
 static void     AlignmentADC();
 static void     FuncAttScreen();								///< Функция обновления экрана в режиме калибровки.
-static float    CalculateDeltaADC(Channel chan, float *avgADC1, float *avgADC2, float *delta);
-static void     DrawParametersChannel(Channel chan, int x, int y, bool inProgress);
+static float    CalculateDeltaADC(Chan::E ch, float *avgADC1, float *avgADC2, float *delta);
+static void     DrawParametersChannel(Chan::E ch, int x, int y, bool inProgress);
 
 static float deltaADC[2] = {0.0f, 0.0f};
 static float deltaADCPercents[2] = {0.0f, 0.0f};
@@ -68,7 +68,7 @@ void FPGA::ProcedureCalibration(void)
     Display::SetDrawMode(DrawMode_Hand, FuncAttScreen);
     Timer::Enable(kTimerDrawHandFunction, 100, OnTimerDraw);
 
-    koeffCalibrationOld[A] = STRETCH_ADC_A;
+    koeffCalibrationOld[Chan::A] = STRETCH_ADC_A;
     koeffCalibrationOld[B] = STRETCH_ADC_B;
 
     bar0.fullTime = bar0.passedTime = bar1.fullTime = bar1.passedTime = 0;
@@ -95,12 +95,12 @@ void FPGA::ProcedureCalibration(void)
 //        HAL_FMC::Write(WR_ADD_RSHIFT_DAC1, 0);
 //        HAL_FMC::Write(WR_ADD_RSHIFT_DAC2, 0);
 
-        deltaADCPercentsOld[0] = CalculateDeltaADC(A, &avrADC1old[A], &avrADC2old[A], &deltaADCold[A]);
+        deltaADCPercentsOld[0] = CalculateDeltaADC(A, &avrADC1old[Chan::A], &avrADC2old[Chan::A], &deltaADCold[Chan::A]);
         deltaADCPercentsOld[1] = CalculateDeltaADC(B, &avrADC1old[B], &avrADC2old[B], &deltaADCold[B]);
 
         AlignmentADC();
 
-        deltaADCPercents[A] = CalculateDeltaADC(A, &avrADC1[A], &avrADC2[A], &deltaADC[A]);
+        deltaADCPercents[Chan::A] = CalculateDeltaADC(A, &avrADC1[Chan::A], &avrADC2[Chan::A], &deltaADC[Chan::A]);
         deltaADCPercents[B] = CalculateDeltaADC(B, &avrADC1[B], &avrADC2[B], &deltaADC[B]);
 
         gStateFPGA.stateCalibration = StateCalibration_RShift0start;                 
@@ -303,7 +303,7 @@ void FuncAttScreen(void)
 }
 
 
-void DrawParametersChannel(Channel chan, int eX, int eY, bool inProgress)
+void DrawParametersChannel(Chan::E ch, int eX, int eY, bool inProgress)
 {
     Painter::SetColor(COLOR_FILL);
     if(inProgress)
@@ -338,7 +338,7 @@ void DrawParametersChannel(Channel chan, int eX, int eY, bool inProgress)
 }
 
 
-float CalculateDeltaADC(Channel chan, float *avgADC1, float *avgADC2, float *delta)
+float CalculateDeltaADC(Chan::E ch, float *avgADC1, float *avgADC2, float *delta)
 {
     uint *startTime = (ch == Chan::A) ? &startTimeChan0 : &startTimeChan1;
     *startTime = gTimerMS;
@@ -404,10 +404,10 @@ void AlignmentADC(void)
 }
 
 
-int16 CalculateAdditionRShift(Channel chan, Range range)
+int16 CalculateAdditionRShift(Chan::E ch, Range range)
 {
-    FPGA::SetRange(chan, range);
-    FPGA::SetRShift(chan, RShiftZero);
+    FPGA::SetRange(ch, range);
+    FPGA::SetRShift(ch, RShiftZero);
     FPGA::SetTBase(TBase_200us);
     FPGA::SetTrigSource(ch == Chan::A ? TrigSource_ChannelA : TrigSource_ChannelB);
     FPGA::SetTrigPolarity(TrigPolarity_Front);
@@ -473,8 +473,8 @@ float CalculateKoeffCalibration(Chan::E ch)
 {
     FPGA::WriteToHardware(WR_UPR, BINARY_U8(00000100), false);
 
-    FPGA::SetRShift(chan, RShiftZero - 40 * 4);
-    FPGA::SetModeCouple(chan, ModeCouple_DC);
+    FPGA::SetRShift(ch, RShiftZero - 40 * 4);
+    FPGA::SetModeCouple(ch, ModeCouple_DC);
     FPGA::SetTrigSource((TrigSource)chan);
     FPGA::SetTrigLev((TrigSource)chan, TrigLevZero + 40 * 4);
     

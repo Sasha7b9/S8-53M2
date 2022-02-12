@@ -150,7 +150,7 @@ bool Display::ChannelNeedForDraw(const uint8 *data, Chan::E ch, const DataSettin
     }
     else if (ds != 0)
     {
-        if ((ch == Chan::A && ds->enableCh0 == 0) || (chan == B && ds->enableCh1 == 0))
+        if ((ch == Chan::A && ds->enableCh0 == 0) || (ch == Chan::B && ds->enableCh1 == 0))
         {
             return false;
         }
@@ -164,22 +164,22 @@ bool Display::ChannelNeedForDraw(const uint8 *data, Chan::E ch, const DataSettin
 
 
 
-void Display::DrawMarkersForMeasure(float scale, Channel chan)
+void Display::DrawMarkersForMeasure(float scale, Chan::E ch)
 {
-    if (chan == Math)
+    if (ch == Chan::Math)
     {
         return;
     }
     Painter::SetColor(ColorCursors(ch));
     for(int numMarker = 0; numMarker < 2; numMarker++)
     {
-        int pos = Processing::GetMarkerHorizontal(chan, numMarker);
+        int pos = Processing::GetMarkerHorizontal(ch, numMarker);
         if(pos != ERROR_VALUE_INT && pos > 0 && pos < 200)
         {
             Painter::DrawDashedHLine(Grid::FullBottom() - pos * scale, Grid::Left(), Grid::Right(), 3, 2, 0);
         }
 
-        pos = Processing::GetMarkerVertical(chan, numMarker);
+        pos = Processing::GetMarkerVertical(ch, numMarker);
         if (pos != ERROR_VALUE_INT && pos > 0 && pos < Grid::Right())
         {
             Painter::DrawDashedVLine(Grid::Left() + pos * scale, GRID_TOP, Grid::FullBottom(), 3, 2, 0);
@@ -380,7 +380,7 @@ void Display::DrawDataChannel(uint8 *data, Chan::E ch, DataSettings *ds, int min
         if (set.display.numAveraging > NumAveraging_1)
         {
             Painter::SetColor(ColorGrid());
-            DrawSignalLined(DS_GetData(chan, 0), ds, firstPoint, lastPoint, minY, maxY, scaleY, scaleX, calculateFiltr);    // WARN
+            DrawSignalLined(DS_GetData(ch, 0), ds, firstPoint, lastPoint, minY, maxY, scaleY, scaleX, calculateFiltr);    // WARN
         }
         Painter::SetColor(ColorChannel(ch));
         */
@@ -408,7 +408,7 @@ void Display::DrawMath()
     float dataAbs0[FPGA_MAX_POINTS];
     float dataAbs1[FPGA_MAX_POINTS];
 
-    Math_PointsRelToVoltage(dataRel0, (int)ds->length1channel, ds->range[A], (int16)ds->rShiftCh0, dataAbs0);
+    Math_PointsRelToVoltage(dataRel0, (int)ds->length1channel, ds->range[Chan::A], (int16)ds->rShiftCh0, dataAbs0);
     Math_PointsRelToVoltage(dataRel1, (int)ds->length1channel, ds->range[B], (int16)ds->rShiftCh1, dataAbs1);
 
     Math_CalculateMathFunction(dataAbs0, dataAbs1, (int)ds->length1channel);
@@ -448,7 +448,7 @@ void Display::DrawSpectrumChannel(const float *spectrum, Color color)
 
 
 
-void Display::WriteParametersFFT(Channel chan, float freq0, float density0, float freq1, float density1)
+void Display::WriteParametersFFT(Chan::E ch, float freq0, float density0, float freq1, float density1)
 {
     int x = Grid::Left() + 259;
     int y = Grid::ChannelBottom() + 5;
@@ -1899,7 +1899,7 @@ void Display::DrawMeasures()
 
 
 
-void Display::WriteTextVoltage(Channel chan, int x, int y)
+void Display::WriteTextVoltage(Chan::E ch, int x, int y)
 {
     static const char *couple[] =
     {

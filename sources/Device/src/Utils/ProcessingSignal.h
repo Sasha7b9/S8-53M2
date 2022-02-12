@@ -13,9 +13,9 @@ public:
     // ѕолучить данные ранее установленного сигнала.
     static void GetData(uint8 **data0, uint8 **data1, DataSettings **ds);
     // ѕолучить позицию курсора напр€жени€, соответствующю заданной позиции курсора posCurT.
-    static float GetCursU(Channel chan, float posCurT);
+    static float GetCursU(Chan::E ch, float posCurT);
     // ѕолучить позицию курсора времени, соответствующую заданной позиции курсора напр€жени€ posCurU.
-    static float GetCursT(Channel chan, float posCurU, int numCur);
+    static float GetCursT(Chan::E ch, float posCurU, int numCur);
     // јппроксимировать единичное измерение режима рандомизатора функцией sinX/X.
     static void InterpolationSinX_X(uint8 data[FPGA_MAX_POINTS], TBase tBase);
     // ¬озвращает строку автоматического измерени€.
@@ -23,9 +23,9 @@ public:
     // –асчитать все измерени€.
     static void CalculateMeasures();
     // ¬озвращает значение горизонтального маркера. ≈сли ERROR_VALUE_INT - маркер рисовать не нужно.
-    static int GetMarkerHorizontal(Channel chan, int numMarker);
+    static int GetMarkerHorizontal(Chan::E ch, int numMarker);
     // ¬озвращает значение вертикального маркера. ≈сли ERROR_VALUE_INT - маркер рисовать не нужно.
-    static int GetMarkerVertical(Channel chan, int numMarker);
+    static int GetMarkerVertical(Chan::E ch, int numMarker);
 private:
     static float CalculateVoltageMax(Chan::E ch);
     static float CalculateVoltageMin(Chan::E ch);
@@ -64,7 +64,7 @@ private:
     static float CalculatePhazaMinus(Chan::E ch);
     // Ќайти точку пересечени€ сигнала с горизонтальной линией, проведЄнной на уровне yLine. numItersection - пор€дковый номер пересечени€, 
     // начинаетс€ с 1. downToTop - если true, ищем пересечение сигнала со средней линией при прохождении из "-" в "+".
-    static float FindIntersectionWithHorLine(Channel chan, int numIntersection, bool downToUp, uint8 yLine);
+    static float FindIntersectionWithHorLine(Chan::E ch, int numIntersection, bool downToUp, uint8 yLine);
 
     static void CountedToCurrentSettings();
 

@@ -21,13 +21,13 @@ public:
     // Получить указатель на данные
     static bool GetDataFromEnd(int fromEnd, DataSettings **ds, uint8 **data0, uint8 **data1);
 
-    static uint8* GetData(Channel chan, int fromEnd);
+    static uint8* GetData(Chan::E ch, int fromEnd);
     // Получить усреднённые данные по нескольким измерениям.
     static uint8* GetAverageData(Chan::E ch);
     // Сколько всего измерений сохранено в памяти.
     static int AllDatas();
     // Получить ограничивающую линию сигнала 0 - снизу, 1 - сверху.
-    static uint8* GetLimitation(Channel chan, int direction);                                      
+    static uint8* GetLimitation(Chan::E ch, int direction);                                      
 
     static int NumberAvailableEntries();
 private:
