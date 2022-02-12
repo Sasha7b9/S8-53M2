@@ -47,7 +47,7 @@ static const arrayItems itemsTime =
     (void*)&mcDivRole       // ĞÀÇÂÅĞÒÊÀ - Ô-öèÿ ÂĞ/ÄÅË    
 };
 
-const Page pTime            ///< ĞÀÇÂÅĞÒÊÀ
+const Page pTime            // ĞÀÇÂÅĞÒÊÀ
 (
     &mainPage, 0,
     "ĞÀÇÂÅĞÒÊÀ", "SCAN",

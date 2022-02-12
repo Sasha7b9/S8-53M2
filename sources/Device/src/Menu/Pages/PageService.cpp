@@ -20,77 +20,77 @@
 extern const Page pService;
 
 
-extern const Button       bResetSettings;               ///< ÑÅÐÂÈÑ - Ñáðîñ íàñòðîåê
+extern const Button       bResetSettings;               // ÑÅÐÂÈÑ - Ñáðîñ íàñòðîåê
 static void        OnPress_ResetSettings();
 static void FuncDraw();
 static void OnTimerDraw();
-extern const Button       bAutoSearch;                  ///< ÑÅÐÂÈÑ - Ïîèñê ñèãíàëà
+extern const Button       bAutoSearch;                  // ÑÅÐÂÈÑ - Ïîèñê ñèãíàëà
 static void        OnPress_AutoSearch();
-extern const Page        ppCalibrator;                  ///< ÑÅÐÂÈÑ - ÊÀËÈÁÐÀÒÎÐ
-extern const Choice       cCalibrator_Mode;             ///< ÑÅÐÂÈÑ - ÊÀËÈÁÐÀÒÎÐ - Êàëèáðàòîð
+extern const Page        ppCalibrator;                  // ÑÅÐÂÈÑ - ÊÀËÈÁÐÀÒÎÐ
+extern const Choice       cCalibrator_Mode;             // ÑÅÐÂÈÑ - ÊÀËÈÁÐÀÒÎÐ - Êàëèáðàòîð
 static void      OnChanged_Calibrator_Mode(bool active);
-extern const Button       cCalibrator_Calibrate;        ///< ÑÅÐÂÈÑ - ÊÀËÈÁÐÀÒÎÐ - Êàëèáðîâàòü
+extern const Button       cCalibrator_Calibrate;        // ÑÅÐÂÈÑ - ÊÀËÈÁÐÀÒÎÐ - Êàëèáðîâàòü
 static void        OnPress_Calibrator_Calibrate();
-extern const Page        ppMath;                        ///< ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ
-extern const Page       pppMath_Function;               ///< ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÔÓÍÊÖÈß
+extern const Page        ppMath;                        // ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ
+extern const Page       pppMath_Function;               // ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÔÓÍÊÖÈß
 static bool       IsActive_Math_Function();
 static void        OnPress_Math_Function();
 static void       OnRegSet_Math_Function(int delta);
-extern const SmallButton sbMath_Function_Exit;          ///< ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÔÓÍÊÖÈß - Âûõîä
-extern const SmallButton sbMath_Function_ModeDraw;      ///< ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÔÓÍÊÖÈß - Ýêðàí
+extern const SmallButton sbMath_Function_Exit;          // ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÔÓÍÊÖÈß - Âûõîä
+extern const SmallButton sbMath_Function_ModeDraw;      // ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÔÓÍÊÖÈß - Ýêðàí
 static void        OnPress_Math_Function_ModeDraw();
 static void           Draw_Math_Function_ModeDraw(int x, int y);
 static void           Draw_Math_Function_ModeDraw_Disable(int x, int y);
 static void           Draw_Math_Function_ModeDraw_Separate(int x, int y);
 static void           Draw_Math_Function_ModeDraw_Together(int x, int y);
-extern const SmallButton sbMath_Function_Type;          ///< ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÔÓÍÊÖÈß - Âèä
+extern const SmallButton sbMath_Function_Type;          // ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÔÓÍÊÖÈß - Âèä
 static void        OnPress_Math_Function_Type();
 static void           Draw_Math_Function_Type(int x, int y);
 static void           Draw_Math_Function_Type_Sum(int x, int y);
 static void           Draw_Math_Function_Type_Mul(int x, int y);
-extern const SmallButton sbMath_Function_ModeRegSet;    ///< ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÔÓÍÊÖÈß - Ðåæèì ðó÷êè ÓÑÒÀÍÎÂÊÀ
+extern const SmallButton sbMath_Function_ModeRegSet;    // ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÔÓÍÊÖÈß - Ðåæèì ðó÷êè ÓÑÒÀÍÎÂÊÀ
 static void        OnPress_Math_Function_ModeRegSet();
 static void           Draw_Math_Function_ModeRegSet(int x, int y);
 static void           Draw_Math_Function_ModeRegSet_Range(int x, int y);
 static void           Draw_Math_Function_ModeRegSet_RShift(int x, int y);
-extern const SmallButton sbMath_Function_RangeA;        ///< ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÔÓÍÊÖÈß - Ìàñøòàá 1-ãî êàíàëà
+extern const SmallButton sbMath_Function_RangeA;        // ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÔÓÍÊÖÈß - Ìàñøòàá 1-ãî êàíàëà
 static void        OnPress_Math_Function_RangeA();
 static void           Draw_Math_Function_RangeA(int x, int y);
-extern const SmallButton sbMath_Function_RangeB;        ///< ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÔÓÍÊÖÈß - Ìàñøòàá 2-ãî êàíàëà
+extern const SmallButton sbMath_Function_RangeB;        // ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÔÓÍÊÖÈß - Ìàñøòàá 2-ãî êàíàëà
 static void        OnPress_Math_Function_RangeB();
 static void           Draw_Math_Function_RangeB(int x, int y);
-extern const Page       pppMath_FFT;                    ///< ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒÐ
+extern const Page       pppMath_FFT;                    // ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒÐ
 static void        OnPress_Math_FFT();
 static bool       IsActive_Math_FFT();
-extern const Choice       cMath_FFT_Enable;             ///< ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒÐ - Îòîáðàæåíèå
-extern const Choice       cMath_FFT_Scale;              ///< ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒÐ - Øêàëà
-extern const Choice       cMath_FFT_Source;             ///< ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒÐ - Èñòî÷íèê
-extern const Choice       cMath_FFT_Window;             ///< ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒÐ - Îêíî
-extern const Page      ppppMath_FFT_Cursors;            ///< ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒÐ - ÊÓÐÑÎÐÛ
+extern const Choice       cMath_FFT_Enable;             // ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒÐ - Îòîáðàæåíèå
+extern const Choice       cMath_FFT_Scale;              // ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒÐ - Øêàëà
+extern const Choice       cMath_FFT_Source;             // ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒÐ - Èñòî÷íèê
+extern const Choice       cMath_FFT_Window;             // ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒÐ - Îêíî
+extern const Page      ppppMath_FFT_Cursors;            // ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒÐ - ÊÓÐÑÎÐÛ
 static bool       IsActive_Math_FFT_Cursors();
 static void       OnRegSet_Math_FFT_Cursors(int angle);
-extern const SmallButton  cMath_FFT_Cursors_Exit;        ///< ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒÐ - ÊÓÐÑÎÐÛ - Âûõîä
+extern const SmallButton  cMath_FFT_Cursors_Exit;        // ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒÐ - ÊÓÐÑÎÐÛ - Âûõîä
 static void        OnPress_Math_FFT_Cursors_Exit();
-extern const SmallButton  cMath_FFT_Cursors_Source;      ///< ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒÐ - ÊÓÐÑÎÐÛ - Èñòî÷íèê
+extern const SmallButton  cMath_FFT_Cursors_Source;      // ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒÐ - ÊÓÐÑÎÐÛ - Èñòî÷íèê
 static void        OnPress_Math_FFT_Cursors_Source();
 static void           Draw_Math_FFT_Cursors_Source(int x, int y);
-extern const Choice       cMath_FFT_Limit;              ///< ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒÐ - Äèàïàçîí
+extern const Choice       cMath_FFT_Limit;              // ÑÅÐÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒÐ - Äèàïàçîí
 static bool       IsActive_Math_FFT_Limit();
-extern const Page        ppEthernet;                    ///< ÑÅÐÂÈÑ - ETHERNET
-extern const Choice       cEthernet_Enable;             ///< ÑÅÐÂÈÑ - ETHERNET - Ethernet
+extern const Page        ppEthernet;                    // ÑÅÐÂÈÑ - ETHERNET
+extern const Choice       cEthernet_Enable;             // ÑÅÐÂÈÑ - ETHERNET - Ethernet
 static void      OnChanged_Ethernet_Enable(bool active);
-extern const IPaddress   ipEthernet_IP;                 ///< ÑÅÐÂÈÑ - ETHERNET - IP àäðåñ
-extern const IPaddress   ipEthernet_Mask;               ///< ÑÅÐÂÈÑ - ETHERNET - Ìàñêà ïîäñåòè
-extern const IPaddress   ipEthernet_Gateway;            ///< ÑÅÐÂÈÑ - ETHERNET - Øëþç
-extern const MACaddress macEthernet_MAC;                ///< ÑÅÐÂÈÑ - ETHERNET - Ôèç àäðåñ
-extern const Choice       cSound;                       ///< ÑÅÐÂÈÑ - Çâóê
-extern const Choice       cLang;                        ///< ÑÅÐÂÈÑ - ßçûê
-extern const Time         tTime;                        ///< ÑÅÐÂÈÑ - Âðåìÿ
-extern const Choice       cModeLongPressButtonTrig;     ///< ÑÅÐÂÈÑ - Ðåæ äëèò ÑÈÍÕÐ
-extern const Page        ppInformation;                 ///< ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß
+extern const IPaddress   ipEthernet_IP;                 // ÑÅÐÂÈÑ - ETHERNET - IP àäðåñ
+extern const IPaddress   ipEthernet_Mask;               // ÑÅÐÂÈÑ - ETHERNET - Ìàñêà ïîäñåòè
+extern const IPaddress   ipEthernet_Gateway;            // ÑÅÐÂÈÑ - ETHERNET - Øëþç
+extern const MACaddress macEthernet_MAC;                // ÑÅÐÂÈÑ - ETHERNET - Ôèç àäðåñ
+extern const Choice       cSound;                       // ÑÅÐÂÈÑ - Çâóê
+extern const Choice       cLang;                        // ÑÅÐÂÈÑ - ßçûê
+extern const Time         tTime;                        // ÑÅÐÂÈÑ - Âðåìÿ
+extern const Choice       cModeLongPressButtonTrig;     // ÑÅÐÂÈÑ - Ðåæ äëèò ÑÈÍÕÐ
+extern const Page        ppInformation;                 // ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß
 static void        OnPress_Information();
 static void Information_Draw();
-extern const SmallButton sbInformation_Exit;             ///< ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß - Âûõîä
+extern const SmallButton sbInformation_Exit;             // ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß - Âûõîä
 static void        OnPress_Information_Exit();
 
 extern Page mainPage;
@@ -110,7 +110,7 @@ static const arrayItems itemsService =
     (void*)&ppInformation               // ÑÅÐÂÈÑ - ÈÍÔÎÐÌÀÖÈß
 };
 
-const Page pService                     ///< ÑÅÐÂÈÑ
+const Page pService                     // ÑÅÐÂÈÑ
 (
     &mainPage, 0,
     "ÑÅÐÂÈÑ", "SERVICE",

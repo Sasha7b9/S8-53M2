@@ -21,25 +21,25 @@ extern const Page pChanB;
 
 
 
-extern const Choice mcInputA;                   ///< ÊÀÍÀË 1 - Âõîä
+extern const Choice mcInputA;                   // ÊÀÍÀË 1 - Âõîä
 void OnChanged_InputA(bool active);
-extern const Choice mcCoupleA;                  ///< ÊÀÍÀË 1 - Ñâÿçü
+extern const Choice mcCoupleA;                  // ÊÀÍÀË 1 - Ñâÿçü
 void OnChanged_CoupleA(bool active);
-extern const Choice mcFiltrA;                   ///< ÊÀÍÀË 1 - Ôèëüòð
+extern const Choice mcFiltrA;                   // ÊÀÍÀË 1 - Ôèëüòð
 void OnChanged_FiltrA(bool active);
-extern const Choice mcInverseA;                 ///< ÊÀÍÀË 1 - Èíâåðñèÿ
+extern const Choice mcInverseA;                 // ÊÀÍÀË 1 - Èíâåðñèÿ
 static void OnChanged_InverseA(bool active);
-extern const Choice mcMultiplierA;              ///< ÊÀÍÀË 1 - Ìíîæèòåëü
+extern const Choice mcMultiplierA;              // ÊÀÍÀË 1 - Ìíîæèòåëü
 
-extern const Choice mcInputB;                   ///< ÊÀÍÀË 2 - Âõîä
+extern const Choice mcInputB;                   // ÊÀÍÀË 2 - Âõîä
 void OnChanged_InputB(bool active);
-extern const Choice mcCoupleB;                  ///< ÊÀÍÀË 2 - Ñâÿçü
+extern const Choice mcCoupleB;                  // ÊÀÍÀË 2 - Ñâÿçü
 void OnChanged_CoupleB(bool active);
-extern const Choice mcFiltrB;                   ///< ÊÀÍÀË 2 - Ôèëüòð
+extern const Choice mcFiltrB;                   // ÊÀÍÀË 2 - Ôèëüòð
 void OnChanged_FiltrB(bool active);
-extern const Choice mcInverseB;                 ///< ÊÀÍÀË 2 - Èíâåðñèÿ
+extern const Choice mcInverseB;                 // ÊÀÍÀË 2 - Èíâåðñèÿ
 static void OnChanged_InverseB(bool active);
-extern const Choice mcMultiplierB;              ///< ÊÀÍÀË 2 - Ìíîæèòåëü
+extern const Choice mcMultiplierB;              // ÊÀÍÀË 2 - Ìíîæèòåëü
 
 
 
@@ -81,7 +81,7 @@ static const arrayItems itemsChanA =
     (void*)&mcMultiplierA   // ÊÀÍÀË 1 - Ìíîæèòåëü
 };
 
-const Page pChanA           ///< ÊÀÍÀË 1
+const Page pChanA           // ÊÀÍÀË 1
 (
     &mainPage, 0,
     "ÊÀÍÀË 1", "CHANNEL 1",
@@ -219,7 +219,7 @@ const Page pChanB
 
 
 // ÊÀÍÀË 2 - Âõîä -----------
-static const Choice mcInputB =  ///< ÊÀÍÀË 2
+static const Choice mcInputB =  // ÊÀÍÀË 2
 {
     Item_Choice, &pChanB, 0,
     {

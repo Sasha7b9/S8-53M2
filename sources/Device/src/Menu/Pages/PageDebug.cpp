@@ -27,87 +27,87 @@
 extern const Page pDebug;
 
 
-extern const Choice     mcStats;                            ///< ÎÒËÀÄÊÀ - Ñòàòèñòèêà
-extern const Page       mpConsole;                          ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ
-extern const Governor   mgConsole_NumStrings;               ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ×èñëî ñòðîê
-extern const Choice     mcConsole_SizeFont;                 ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð øðèôòà
-extern const Page       mpConsole_Registers;                ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ
-extern const Choice     mcConsole_Registers_ShowAll;        ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïîêàçûâàòü âñå
-extern const Choice     mcConsole_Registers_RD_FL;          ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - RD_FL
+extern const Choice     mcStats;                            // ÎÒËÀÄÊÀ - Ñòàòèñòèêà
+extern const Page       mpConsole;                          // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ
+extern const Governor   mgConsole_NumStrings;               // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ×èñëî ñòðîê
+extern const Choice     mcConsole_SizeFont;                 // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - Ðàçìåð øðèôòà
+extern const Page       mpConsole_Registers;                // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ
+extern const Choice     mcConsole_Registers_ShowAll;        // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïîêàçûâàòü âñå
+extern const Choice     mcConsole_Registers_RD_FL;          // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - RD_FL
 static bool      IsActive_Console_Registers_RD_FL();
-extern const Choice     mcConsole_Registers_RShiftA;        ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñì. 1ê
-extern const Choice     mcConsole_Registers_RShiftB;        ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñì. 2ê
-extern const Choice     mcConsole_Registers_TrigLev;        ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñèíõð.
-extern const Choice     mcConsole_Registers_RangeA;         ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÎËÜÒ/ÄÅË 1
-extern const Choice     mcConsole_Registers_RangeB;         ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÎËÜÒ/ÄÅË 2
-extern const Choice     mcConsole_Registers_TrigParam;      ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. ñèíõð.
-extern const Choice     mcConsole_Registers_ChanParamA;     ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. êàí. 1
-extern const Choice     mcConsole_Registers_ChanParamB;     ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. êàí. 2
-extern const Choice     mcConsole_Registers_TBase;          ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÐÅÌß/ÄÅË
-extern const Choice     mcConsole_Registers_tShift;         ///< ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ò ñì.
-extern const Page       mpADC;                              ///< ÎÒËÀÄÊÀ - ÀÖÏ
-extern const Page       mpADC_Balance;                      ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ
-extern const Choice     mcADC_Balance_Mode;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ðåæèì
+extern const Choice     mcConsole_Registers_RShiftA;        // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñì. 1ê
+extern const Choice     mcConsole_Registers_RShiftB;        // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñì. 2ê
+extern const Choice     mcConsole_Registers_TrigLev;        // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - U ñèíõð.
+extern const Choice     mcConsole_Registers_RangeA;         // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÎËÜÒ/ÄÅË 1
+extern const Choice     mcConsole_Registers_RangeB;         // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÎËÜÒ/ÄÅË 2
+extern const Choice     mcConsole_Registers_TrigParam;      // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. ñèíõð.
+extern const Choice     mcConsole_Registers_ChanParamA;     // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. êàí. 1
+extern const Choice     mcConsole_Registers_ChanParamB;     // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ïàðàì. êàí. 2
+extern const Choice     mcConsole_Registers_TBase;          // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - ÂÐÅÌß/ÄÅË
+extern const Choice     mcConsole_Registers_tShift;         // ÎÒËÀÄÊÀ - ÊÎÍÑÎËÜ - ÐÅÃÈÑÒÐÛ - Ò ñì.
+extern const Page       mpADC;                              // ÎÒËÀÄÊÀ - ÀÖÏ
+extern const Page       mpADC_Balance;                      // ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ
+extern const Choice     mcADC_Balance_Mode;                 // ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ðåæèì
 static void     OnChanged_ADC_Balance_Mode(bool active);
 static void          Draw_ADC_Balance_Mode(int x, int y);
-extern const Governor   mgADC_Balance_ShiftA;               ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ñìåùåíèå 1
+extern const Governor   mgADC_Balance_ShiftA;               // ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ñìåùåíèå 1
 static bool      IsActive_ADC_Balance_Shift();
 static void     OnChanged_ADC_Balance_ShiftA();
-extern const Governor   mgADC_Balance_ShiftB;               ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ñìåùåíèå 2
+extern const Governor   mgADC_Balance_ShiftB;               // ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ - Ñìåùåíèå 2
 static void     OnChanged_ADC_Balance_ShiftB();
-extern const Page       mpADC_Stretch;                      ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ
-extern const Choice     mcADC_Stretch_Mode;                 ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðåæèì
+extern const Page       mpADC_Stretch;                      // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ
+extern const Choice     mcADC_Stretch_Mode;                 // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Ðåæèì
 static void     OnChanged_ADC_Stretch_Mode(bool active);
 void LoadStretchADC(Channel chan);
-extern const Governor   mgADC_Stretch_ADC_A;                ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Êîýôô. 1ê
+extern const Governor   mgADC_Stretch_ADC_A;                // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Êîýôô. 1ê
 static bool      IsActive_ADC_Stretch_ADC();
 static void     OnChanged_ADC_Stretch_ADC_A();
-extern const Governor   mgADC_Stretch_ADC_B;                ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Êîýôô. 2ê
+extern const Governor   mgADC_Stretch_ADC_B;                // ÎÒËÀÄÊÀ - ÀÖÏ - ÐÀÑÒßÆÊÀ - Êîýôô. 2ê
 static void     OnChanged_ADC_Stretch_ADC_B();
-extern const Page       mpADC_AltRShift;                    ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ
-extern const Button     mbADC_AltRShift_Reset;              ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñáðîñ
+extern const Page       mpADC_AltRShift;                    // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ
+extern const Button     mbADC_AltRShift_Reset;              // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñáðîñ
 static void       OnPress_ADC_AltRShift_Reset();
-extern const Governor   mbADC_AltRShift_2mV_DC_A;           ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 2ìÂ ïîñò
+extern const Governor   mbADC_AltRShift_2mV_DC_A;           // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 2ìÂ ïîñò
 static void     OnChanged_ADC_AltRShift_A();
-extern const Governor   mbADC_AltRShift_2mV_DC_B;           ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 2ìÂ ïîñò
+extern const Governor   mbADC_AltRShift_2mV_DC_B;           // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 2ìÂ ïîñò
 static void     OnChanged_ADC_AltRShift_B();
-extern const Governor   mbADC_AltRShift_5mV_DC_A;           ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 5ìÂ ïîñò
-extern const Governor   mbADC_AltRShift_5mV_DC_B;           ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 5ìÂ ïîñò
-extern const Governor   mbADC_AltRShift_10mV_DC_A;          ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 10ìÂ ïîñò
-extern const Governor   mbADC_AltRShift_10mV_DC_B;          ///< ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 10ìÂ ïîñò
-extern const Page       mpRandomizer;                       ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ
-extern const Governor   mgRandomizer_SamplesForGates;       ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Âûá-ê/âîðîòà
+extern const Governor   mbADC_AltRShift_5mV_DC_A;           // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 5ìÂ ïîñò
+extern const Governor   mbADC_AltRShift_5mV_DC_B;           // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 5ìÂ ïîñò
+extern const Governor   mbADC_AltRShift_10mV_DC_A;          // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 10ìÂ ïîñò
+extern const Governor   mbADC_AltRShift_10mV_DC_B;          // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 10ìÂ ïîñò
+extern const Page       mpRandomizer;                       // ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ
+extern const Governor   mgRandomizer_SamplesForGates;       // ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Âûá-ê/âîðîòà
 static void     OnChanged_Randomizer_SamplesForGates();
-extern const Governor   mgRandomizer_AltTShift0;            ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - tShift äîï.
+extern const Governor   mgRandomizer_AltTShift0;            // ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - tShift äîï.
 static void     OnChanged_Randomizer_AltTShift0();
-extern const Governor   mgRandomizer_Average;               ///< ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Óñðåäí.
-extern const Choice     mcSizeSettings;                     ///< ÎÒËÀÄÊÀ - Ðàçìåð íàñòðîåê
+extern const Governor   mgRandomizer_Average;               // ÎÒËÀÄÊÀ - ÐÀÍÄ-ÒÎÐ - Óñðåäí.
+extern const Choice     mcSizeSettings;                     // ÎÒËÀÄÊÀ - Ðàçìåð íàñòðîåê
 static void        OnDraw_SizeSettings(int x, int y);
-extern const Button     mbSaveFirmware;                     ///< ÎÒËÀÄÊÀ - Ñîõð. ïðîøèâêó
+extern const Button     mbSaveFirmware;                     // ÎÒËÀÄÊÀ - Ñîõð. ïðîøèâêó
 static bool      IsActive_SaveFirmware();
 static void       OnPress_SaveFirmware();
-extern const       Page ppSerialNumber;                     ///< ÎÒËÀÄÊÀ - Ñ/Í
+extern const       Page ppSerialNumber;                     // ÎÒËÀÄÊÀ - Ñ/Í
 static void       OnPress_SerialNumber();
 static void Draw_EnterSerialNumber();
 static void      OnRegSet_SerialNumber(int);
-extern const SmallButton bSerialNumber_Exit;                ///< ÎÒËÀÄÊÀ - Ñ/Í - Âûõîä
+extern const SmallButton bSerialNumber_Exit;                // ÎÒËÀÄÊÀ - Ñ/Í - Âûõîä
 static void       OnPress_SerialNumber_Exit();
-extern const SmallButton bSerialNumber_Change;              ///< ÎÒËÀÄÊÀ - Ñ/Í - Ïåðåéòè
+extern const SmallButton bSerialNumber_Change;              // ÎÒËÀÄÊÀ - Ñ/Í - Ïåðåéòè
 static void       OnPress_SerialNumber_Change();
 static void          Draw_SerialNumber_Change(int, int);
-extern const  SmallButton bSerialNumber_Save;               ///< ÎÒËÀÄÊÀ - Ñ/Í - Ñîõðàíèòü
+extern const  SmallButton bSerialNumber_Save;               // ÎÒËÀÄÊÀ - Ñ/Í - Ñîõðàíèòü
 static void        OnPress_SerialNumber_Save();
 static void           Draw_SerialNumber_Save(int, int);
-extern const       Button bEraseData;                       ///< ÎÒËÀÄÊÀ - Ñòåðåòü äàííûå
+extern const       Button bEraseData;                       // ÎÒËÀÄÊÀ - Ñòåðåòü äàííûå
 static void       OnPress_EraseData();
 
 
 /// Â ýòîé ñòðóêòóðå áóäóò õðàíèòüñÿ äàííûå ñåðèéíîãî íîìåðà ïðè îòêðûòîé ñòðàíèöå ppSerialNumer
 typedef struct
 {
-    int number;     ///< Ñîîòâåòñòâåííî, ïîðÿäêîâûé íîìåð.
-    int year;       ///< Ñîîòâåòñòâåííî, ãîä.
-    int curDigt;    ///< Ñîîòâåòñòâåííî, íîìåðîì (0) èëè ãîäîì (1) óïðàâëÿåò ðó÷êà ÓÑÒÀÍÎÂÊÀ.
+    int number;     // Ñîîòâåòñòâåííî, ïîðÿäêîâûé íîìåð.
+    int year;       // Ñîîòâåòñòâåííî, ãîä.
+    int curDigt;    // Ñîîòâåòñòâåííî, íîìåðîì (0) èëè ãîäîì (1) óïðàâëÿåò ðó÷êà ÓÑÒÀÍÎÂÊÀ.
 } StructForSN;
 
 

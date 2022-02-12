@@ -18,9 +18,9 @@ public:
     static void Update();
     // Запись в регистр ПЛИС нового значения.
     static void WriteToHardware				        
-                            (uint8 *address,    ///< адрес регистра.
-                                uint8 value,    ///< записываемое значение.
-                                bool restart    ///< true означает, что после записи нужно запусить режим измерений, если до этого прибор не находился в режиме паузы.
+                            (uint8 *address,    // адрес регистра.
+                                uint8 value,    // записываемое значение.
+                                bool restart    // true означает, что после записи нужно запусить режим измерений, если до этого прибор не находился в режиме паузы.
                             );
 
     static StateWorkFPGA FPGA_CurrentStateWork();
@@ -124,8 +124,8 @@ private:
     static void WriteToDAC(TypeWriteDAC type, uint16 data);
     // Прочитать данные.
     static void DataRead(
-                        bool necessaryShift,    ///< Признак того, что сигнал нужно смещать.
-                        bool saveToStorage      ///< Нужно в режиме рандомизатора для указания, что пора сохранять измерение
+                        bool necessaryShift,    // Признак того, что сигнал нужно смещать.
+                        bool saveToStorage      // Нужно в режиме рандомизатора для указания, что пора сохранять измерение
                         );
 
     static bool CalculateGate(uint16 rand, uint16 *min, uint16 *max);

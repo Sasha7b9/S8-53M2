@@ -28,9 +28,9 @@ typedef enum
 /// Режим канала по входу.
 typedef enum
 {
-    ModeCouple_DC,      ///< Открытый вход.
-    ModeCouple_AC,      ///< Закрытый вход.
-    ModeCouple_GND      ///< Вход заземлён.
+    ModeCouple_DC,      // Открытый вход.
+    ModeCouple_AC,      // Закрытый вход.
+    ModeCouple_GND      // Вход заземлён.
 } ModeCouple;
 
 /// Делитель.
@@ -138,18 +138,18 @@ typedef enum
 /// Каким курсором управлять.
 typedef enum
 {
-    CursCntrl_1,            ///< первым.
-    CursCntrl_2,            ///< вторым.
-    CursCntrl_1_2,          ///< обоими.
-    CursCntrl_Disable       ///< никаким.
+    CursCntrl_1,            // первым.
+    CursCntrl_2,            // вторым.
+    CursCntrl_1_2,          // обоими.
+    CursCntrl_Disable       // никаким.
 } CursCntrl;
 
 
 /// Дискретность перемещения курсоров.
 typedef enum
 {
-    CursMovement_Points,    ///< по точкам.
-    CursMovement_Percents   ///< по процентам.
+    CursMovement_Points,    // по точкам.
+    CursMovement_Percents   // по процентам.
 } CursMovement;
 
 /// Какие курсоры сейчас активны. Какие активны, те и будут перемещаться по вращению ручки УСТАНОВКА.
@@ -163,10 +163,10 @@ typedef enum
 /// Режим слежения курсоров.
 typedef enum
 {
-    CursLookMode_None,      ///< Курсоры не следят.
-    CursLookMode_Voltage,   ///< Курсоры следят за напряжением автоматически.
-    CursLookMode_Time,      ///< Курсоры следят за временем автоматически.
-    CursLookMode_Both       ///< Курсоры следят за временем и напряжением, в зависимости от того, какой курсоры вращали последним.
+    CursLookMode_None,      // Курсоры не следят.
+    CursLookMode_Voltage,   // Курсоры следят за напряжением автоматически.
+    CursLookMode_Time,      // Курсоры следят за временем автоматически.
+    CursLookMode_Both       // Курсоры следят за временем и напряжением, в зависимости от того, какой курсоры вращали последним.
 } CursLookMode;
 
 

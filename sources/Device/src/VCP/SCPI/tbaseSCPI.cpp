@@ -120,7 +120,7 @@ void SCPI::TBASE::SAMPLING(uint8 *buffer)
 
 void SCPI::TBASE::PEACKDET(uint8 *buffer)
 {
-    extern void OnChanged_PeakDet(bool active);  ///< \todo Вообще-то это нехорошо, как нехорошо и дублировать. Надо бы подумать.
+    extern void OnChanged_PeakDet(bool active);  // \todo Вообще-то это нехорошо, как нехорошо и дублировать. Надо бы подумать.
 
     static const MapElement map[] =
     {

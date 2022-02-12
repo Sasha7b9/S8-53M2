@@ -9,8 +9,8 @@
 /// Используется для анимации изменения значения Choice
 typedef struct
 {
-    Choice* choice;                 ///< Адрес Choice, который находится в данный момент в движении. Если 0 - все статичны.
-    uint        timeStartMS;        ///< Время начала анимации choice.
+    Choice* choice;                 // Адрес Choice, который находится в данный момент в движении. Если 0 - все статичны.
+    uint        timeStartMS;        // Время начала анимации choice.
     uint        inMoveIncrease : 1;
     uint        inMoveDecrease : 1;
 } TimeStructChoice;

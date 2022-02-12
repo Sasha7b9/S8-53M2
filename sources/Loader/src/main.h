@@ -16,18 +16,18 @@
 #define NUM_OF_PAGES                256
 #define FLASH_PAGE_SIZE             2048
 
-#define TIME_WAIT   5000    ///< Время работы заставки
+#define TIME_WAIT   5000    // Время работы заставки
 
 
 typedef enum
 {
-    State_Start,            ///< Исходное состояние
-    State_Mount,            ///< Монтирование флешки
-    State_WrongFlash,       ///< Флешка есть, но прочитать нельзя
-    State_RequestAction,    ///< Что делать - апгрейдить или нет
-    State_NotFile,          ///< Если диск примонтирован, но обновления на нём нету
-    State_Upgrade,          ///< Процесс апгрейда
-    State_Ok                ///< Обновление удачно завершено
+    State_Start,            // Исходное состояние
+    State_Mount,            // Монтирование флешки
+    State_WrongFlash,       // Флешка есть, но прочитать нельзя
+    State_RequestAction,    // Что делать - апгрейдить или нет
+    State_NotFile,          // Если диск примонтирован, но обновления на нём нету
+    State_Upgrade,          // Процесс апгрейда
+    State_Ok                // Обновление удачно завершено
 } State;
 
 typedef enum

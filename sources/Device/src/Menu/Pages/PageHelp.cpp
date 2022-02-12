@@ -111,7 +111,7 @@ static const arrayItems itemsHelp =
     (void*)&sbHelpParagraphNext    
 };
 
-static const Page mpHelp            ///< ÏÎÌÎÙÜ
+static const Page mpHelp            // ÏÎÌÎÙÜ
 (
     &mainPage, 0,
     "ÏÎÌÎÙÜ", "HELP",

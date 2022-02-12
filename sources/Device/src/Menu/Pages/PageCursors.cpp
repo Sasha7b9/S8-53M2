@@ -29,22 +29,22 @@ extern const Page pCursors;
 
 extern const Choice mcShow;                             // КУРСОРЫ - Показывать
 
-extern const Choice mcTrackingT1U1;                     ///< КУРСОРЫ - Курсоры T1,U1
+extern const Choice mcTrackingT1U1;                     // КУРСОРЫ - Курсоры T1,U1
 
-extern const Choice mcTrackingT2U2;                     ///< КУРСОРЫ - Курсоры T2,U2
+extern const Choice mcTrackingT2U2;                     // КУРСОРЫ - Курсоры T2,U2
 
-extern const Choice mcShowFreq;                         ///< КУРОСРЫ - 1/dT
+extern const Choice mcShowFreq;                         // КУРОСРЫ - 1/dT
 
-extern const Page mspSet;                               ///< КУРСОРЫ - УСТАНОВИТЬ
-static void OnRotate_RegSet_Set(int angle);             ///< Вращение ручки УСТАНОВКА на странице КУРСОРЫ-УСТАНОВИТЬ
-extern const SmallButton sbSetExit;                     ///< КУРСОРЫ - УСТАНОВИТЬ - Выход
+extern const Page mspSet;                               // КУРСОРЫ - УСТАНОВИТЬ
+static void OnRotate_RegSet_Set(int angle);             // Вращение ручки УСТАНОВКА на странице КУРСОРЫ-УСТАНОВИТЬ
+extern const SmallButton sbSetExit;                     // КУРСОРЫ - УСТАНОВИТЬ - Выход
 static void PressSB_Cursors_Exit();
-extern const SmallButton sbSetSource;                   ///< КУРСОРЫ - УСТАНОВИТЬ - Источник
+extern const SmallButton sbSetSource;                   // КУРСОРЫ - УСТАНОВИТЬ - Источник
 static void PressSB_Cursors_Source();
 static void DrawSB_Cursors_Source(int x, int y);
 static void DrawSB_Cursors_SourceA(int x, int y);
 static void DrawSB_Cursors_SourceB(int x, int y);
-extern const SmallButton sbSetU;                        ///< КУРСОРЫ - УСТАНОВИТЬ - Курсоры U . Выбор курсора напряжения - курсор 1, курсор 2, оба курсора или отключены.
+extern const SmallButton sbSetU;                        // КУРСОРЫ - УСТАНОВИТЬ - Курсоры U . Выбор курсора напряжения - курсор 1, курсор 2, оба курсора или отключены.
 static void PressSB_Cursors_U();
 static void DrawSB_Cursors_U(int x, int y);
 static void DrawSB_Cursors_U_Disable(int x, int y);
@@ -52,7 +52,7 @@ static void DrawSB_Cursors_U_Upper(int x, int y);
 static void DrawSB_Cursors_U_Lower(int x, int y);
 static void DrawSB_Cursors_U_Both_Enable(int x, int y);
 static void DrawSB_Cursors_U_Both_Disable(int x, int y);
-extern const SmallButton sbSetT;                        ///< КУРСОРЫ - УСТАНОВИТЬ - Курсоры T . Выбор курсора времени - курсор 1, курсор 2, оба курсора или отключены.
+extern const SmallButton sbSetT;                        // КУРСОРЫ - УСТАНОВИТЬ - Курсоры T . Выбор курсора времени - курсор 1, курсор 2, оба курсора или отключены.
 static void PressSB_Cursors_T();
 static void DrawSB_Cursors_T(int x, int y);
 static void DrawSB_Cursors_T_Disable(int x, int y);
@@ -60,10 +60,10 @@ static void DrawSB_Cursors_T_Both_Disable(int x, int y);
 static void DrawSB_Cursors_T_Left(int x, int y);
 static void DrawSB_Cursors_T_Right(int x, int y);
 static void DrawSB_Cursors_T_Both_Enable(int x, int y);
-extern const SmallButton sbSet100;                      ///< КУРСОРЫ - УСТАНОВИТЬ - 100% . Установка 100 процентов в текущие места курсоров.
+extern const SmallButton sbSet100;                      // КУРСОРЫ - УСТАНОВИТЬ - 100% . Установка 100 процентов в текущие места курсоров.
 static void DrawSB_Cursors_100(int x, int y);
 static void PressSB_Cursors_100();
-extern const SmallButton sbSetPointsPercents;           ///< КУРСОРЫ - УСТАНОВИТЬ - Перемещение . Переключение шага перемещения курсоров - по пикселям или по процентам.
+extern const SmallButton sbSetPointsPercents;           // КУРСОРЫ - УСТАНОВИТЬ - Перемещение . Переключение шага перемещения курсоров - по пикселям или по процентам.
 static void PressSB_Cursors_PointsPercents();
 static void DrawSB_Cursors_PointsPercents(int x, int y);
 static void DrawSB_Cursors_PointsPercents_Percents(int x, int y);
@@ -72,14 +72,14 @@ static void DrawSB_Cursors_PointsPercents_Points(int x, int y);
 
 static void MoveCursUonPercentsOrPoints(int delta);
 static void MoveCursTonPercentsOrPoints(int delta);
-static void SetShiftCursPosU(Channel chan, int numCur, float delta);    ///< Изменить значение позиции курсора напряжения на delta точек
-static void SetShiftCursPosT(Channel chan, int numCurs, float delta);   ///< Изменить значение позиции курсора времени на delta точек
-static void SetCursPos100(Channel chan);                                ///< Запомнить позиции курсоров, соответствующие 100%.
-static void SetCursSource(Channel chann);                               ///< Установить источник курсорных измерений.
-static void IncCursCntrlU(Channel chan);                                ///< Выбрать следующий курсор.
-static void IncCursCntrlT(Channel chan);                                ///< Выбрать следующий курсор.
-static void SetCursPosU(Channel chan, int numCur, float pos);           ///< Установить позицию курсора напряжения.
-static void SetCursPosT(Channel chan, int numCur, float pos);           ///< Установить значение курсора по времени.
+static void SetShiftCursPosU(Channel chan, int numCur, float delta);    // Изменить значение позиции курсора напряжения на delta точек
+static void SetShiftCursPosT(Channel chan, int numCurs, float delta);   // Изменить значение позиции курсора времени на delta точек
+static void SetCursPos100(Channel chan);                                // Запомнить позиции курсоров, соответствующие 100%.
+static void SetCursSource(Channel chann);                               // Установить источник курсорных измерений.
+static void IncCursCntrlU(Channel chan);                                // Выбрать следующий курсор.
+static void IncCursCntrlT(Channel chan);                                // Выбрать следующий курсор.
+static void SetCursPosU(Channel chan, int numCur, float pos);           // Установить позицию курсора напряжения.
+static void SetCursPosT(Channel chan, int numCur, float pos);           // Установить значение курсора по времени.
 
 
 #define MAX_POS_U   200
@@ -182,7 +182,7 @@ static const arrayItems itemsCursors =
     (void*)&mspSet              // КУРСОРЫ - УСТАНОВИТЬ
 };
 
-static const Page pCursors                ///< КУРСОРЫ
+static const Page pCursors                // КУРСОРЫ
 (
     &mainPage, 0,
     "КУРСОРЫ", "CURSORS",

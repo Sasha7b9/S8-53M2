@@ -18,17 +18,17 @@ extern const Page pTrig;
 
 
 
-extern const Choice mcMode;                     ///< ÑÈÍÕÐ - Ðåæèì
+extern const Choice mcMode;                     // ÑÈÍÕÐ - Ðåæèì
 void          OnPress_Mode(bool active);
-extern const Choice mcSource;                   ///< ÑÈÍÕÐ - Èñòî÷íèê
+extern const Choice mcSource;                   // ÑÈÍÕÐ - Èñòî÷íèê
 static void OnChanged_Source(bool active);
-extern const Choice mcPolarity;                 ///< ÑÈÍÕÐ - Ïîëÿðíîñòü
+extern const Choice mcPolarity;                 // ÑÈÍÕÐ - Ïîëÿðíîñòü
 static void OnChanged_Polarity(bool active);
-extern const Choice mcInput;                    ///< ÑÈÍÕÐ - Âõîä
+extern const Choice mcInput;                    // ÑÈÍÕÐ - Âõîä
 static void OnChanged_Input(bool active);
-extern const Page   mpAutoFind;                 ///< ÑÈÍÕÐ - ÏÎÈÑÊ
-extern const Choice mcAutoFind_Mode;            ///< ÑÈÍÕÐ - ÏÎÈÑÊ - Ðåæèì
-extern const Button mbAutoFind_Search;          ///< ÑÈÍÕÐ - ÏÎÈÑÊ - Íàéòè
+extern const Page   mpAutoFind;                 // ÑÈÍÕÐ - ÏÎÈÑÊ
+extern const Choice mcAutoFind_Mode;            // ÑÈÍÕÐ - ÏÎÈÑÊ - Ðåæèì
+extern const Button mbAutoFind_Search;          // ÑÈÍÕÐ - ÏÎÈÑÊ - Íàéòè
 static bool  IsActive_AutoFind_Search();
 static void   OnPress_AutoFind_Search();
 
@@ -44,7 +44,7 @@ static const arrayItems itemsTrig =
     (void*)&mpAutoFind      // ÑÈÍÕÐ - ÏÎÈÑÊ
 };
 
-const Page pTrig              ///< ÑÈÍÕÐ
+const Page pTrig              // ÑÈÍÕÐ
 (
     &mainPage, 0,
     "ÑÈÍÕÐ", "TRIG",

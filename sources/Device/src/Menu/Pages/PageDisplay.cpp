@@ -14,53 +14,53 @@
 extern const Page pDisplay;
 
 
-extern const Choice mcMapping;                              ///<     ÄÈÑÏËÅÉ - Îòîáðàæåíèå
+extern const Choice mcMapping;                              //     ÄÈÑÏËÅÉ - Îòîáðàæåíèå
 
-extern const Page mspAccumulation;                          ///<     ÄÈÑÏËÅÉ - ÍÀÊÎÏËÅÍÈÅ
-static bool IsActive_Accumulation();                        ///< Àêòèâíà ëè ñòðàíèöà ÄÈÑÏËÅÉ-ÍÀÊÎÏËÅÍÈÅ
-extern const Choice mcAccumulation_Number;                  ///< ÄÈÑÏËÅÉ - ÍÀÊÎÏËÅÍÈÅ - Êîëè÷åñòâî
-extern const Choice mcAccumulation_Mode;                    ///< ÄÈÑÏËÅÉ - ÍÀÊÎÏËÅÍÈÅ - Ðåæèì
-extern const Button mcAccumulation_Clear;                   ///< ÄÈÑÏËÅÉ - ÍÀÊÎÏËÅÍÈÅ - Î÷èñòèòü
-static bool IsActive_Accumulation_Clear();                  ///< Àêòèâíà ëè êíîïêà ÄÈÑÏËÅÉ-ÍÀÊÎÏËÅÍÈÅ-Î÷èñòèòü
-void OnPress_Accumulation_Clear();                          ///< Îáðàáîòêà íàæàòèÿ ÄÈÑÏËÅÉ-ÍÀÊÎÏËÅÍÈÅ-Î÷èñòèòü
+extern const Page mspAccumulation;                          //     ÄÈÑÏËÅÉ - ÍÀÊÎÏËÅÍÈÅ
+static bool IsActive_Accumulation();                        // Àêòèâíà ëè ñòðàíèöà ÄÈÑÏËÅÉ-ÍÀÊÎÏËÅÍÈÅ
+extern const Choice mcAccumulation_Number;                  // ÄÈÑÏËÅÉ - ÍÀÊÎÏËÅÍÈÅ - Êîëè÷åñòâî
+extern const Choice mcAccumulation_Mode;                    // ÄÈÑÏËÅÉ - ÍÀÊÎÏËÅÍÈÅ - Ðåæèì
+extern const Button mcAccumulation_Clear;                   // ÄÈÑÏËÅÉ - ÍÀÊÎÏËÅÍÈÅ - Î÷èñòèòü
+static bool IsActive_Accumulation_Clear();                  // Àêòèâíà ëè êíîïêà ÄÈÑÏËÅÉ-ÍÀÊÎÏËÅÍÈÅ-Î÷èñòèòü
+void OnPress_Accumulation_Clear();                          // Îáðàáîòêà íàæàòèÿ ÄÈÑÏËÅÉ-ÍÀÊÎÏËÅÍÈÅ-Î÷èñòèòü
 
-extern const Page mspAveraging;                             ///<     ÄÈÑÏËÅÉ - ÓÑÐÅÄÍÅÍÈÅ
-static bool IsActive_Averaging();                           ///< Àêòèâíà ëè ñòðàíèöà ÄÈÑÏËÅÉ-ÓÑÐÅÄÍÅÍÈÅ
-extern const Choice mcAveraging_Number;                     ///< ÄÈÑÏËÅÉ - ÓÑÐÅÄÍÅÍÈÅ - Êîëè÷åñòâî
-extern const Choice mcAveraging_Mode;                       ///< ÄÈÑÏËÅÉ - ÓÑÐÅÄÍÅÍÈÅ - Ðåæèì
+extern const Page mspAveraging;                             //     ÄÈÑÏËÅÉ - ÓÑÐÅÄÍÅÍÈÅ
+static bool IsActive_Averaging();                           // Àêòèâíà ëè ñòðàíèöà ÄÈÑÏËÅÉ-ÓÑÐÅÄÍÅÍÈÅ
+extern const Choice mcAveraging_Number;                     // ÄÈÑÏËÅÉ - ÓÑÐÅÄÍÅÍÈÅ - Êîëè÷åñòâî
+extern const Choice mcAveraging_Mode;                       // ÄÈÑÏËÅÉ - ÓÑÐÅÄÍÅÍÈÅ - Ðåæèì
 
-extern const Choice mcMinMax;                               ///<     ÄÈÑÏËÅÉ - Ìèí Ìàêñ
-static bool IsActive_MinMax();                              ///< Àêòèâíà ëè íàñòðîéêà ÄÈÑÏËÅÉ-Ìèí Ìàêñ
-static void OnChanged_MinMax(bool active);                  ///< Ðåàêöèÿ íà èçìåíåíèå ÄÈÑÏËÅÉ-Ìèì Ìàêñ
+extern const Choice mcMinMax;                               //     ÄÈÑÏËÅÉ - Ìèí Ìàêñ
+static bool IsActive_MinMax();                              // Àêòèâíà ëè íàñòðîéêà ÄÈÑÏËÅÉ-Ìèí Ìàêñ
+static void OnChanged_MinMax(bool active);                  // Ðåàêöèÿ íà èçìåíåíèå ÄÈÑÏËÅÉ-Ìèì Ìàêñ
 
-extern const Choice mcSmoothing;                            ///<     ÄÈÑÏËÅÉ - Ñãëàæèâàíèå
+extern const Choice mcSmoothing;                            //     ÄÈÑÏËÅÉ - Ñãëàæèâàíèå
 
-extern const Choice mcRefreshFPS;                           ///<     ÄÈÑÏËÅÉ - ×àñòîòà îáíîâë
-void OnChanged_RefreshFPS(bool active);                     ///< Ðåàêöèÿ íà èçìåíåíèå ÄÈÑÏËÅÉ-×àñòîòà îáíîâë
-extern const Page mspGrid;                                  ///<     ÄÈÑÏËÅÉ - ÑÅÒÊÀ
+extern const Choice mcRefreshFPS;                           //     ÄÈÑÏËÅÉ - ×àñòîòà îáíîâë
+void OnChanged_RefreshFPS(bool active);                     // Ðåàêöèÿ íà èçìåíåíèå ÄÈÑÏËÅÉ-×àñòîòà îáíîâë
+extern const Page mspGrid;                                  //     ÄÈÑÏËÅÉ - ÑÅÒÊÀ
 
-extern const Choice mcGrid_Type;                            ///<     ÄÈÑÏËÅÉ - ÑÅÒÊÀ - Òèï
-extern const Governor mgGrid_Brightness;                    ///< ÄÈÑÏËÅÉ - ÑÅÒÊÀ - ßðêîñòü
-void OnChanged_Grid_Brightness();                           ///< Ðåàêöèÿ íà èçìåíåíèå ÄÈÑÏËÅÉ-ÑÅÒÊÀ-ßðêîñòü
-static void BeforeDraw_Grid_Brightness();                   ///< Âûçûâàåòñÿ ïåðåä èçìåíåíèåì ÄÈÑÏËÅÉ-ÑÅÒÊÀ-ßðêîñòü
+extern const Choice mcGrid_Type;                            //     ÄÈÑÏËÅÉ - ÑÅÒÊÀ - Òèï
+extern const Governor mgGrid_Brightness;                    // ÄÈÑÏËÅÉ - ÑÅÒÊÀ - ßðêîñòü
+void OnChanged_Grid_Brightness();                           // Ðåàêöèÿ íà èçìåíåíèå ÄÈÑÏËÅÉ-ÑÅÒÊÀ-ßðêîñòü
+static void BeforeDraw_Grid_Brightness();                   // Âûçûâàåòñÿ ïåðåä èçìåíåíèåì ÄÈÑÏËÅÉ-ÑÅÒÊÀ-ßðêîñòü
 
-extern const Choice mcTypeShift;                            ///<     ÄÈÑÏËÅÉ - Ñìåùåíèå
+extern const Choice mcTypeShift;                            //     ÄÈÑÏËÅÉ - Ñìåùåíèå
 
-extern const Page mspSettings;                              ///<     ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ
-extern const Page mspSettings_Colors;                       ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ÖÂÅÒÀ
-extern const Choice mcSettings_Colors_Scheme;               ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ÖÂÅÒÀ - Öâåòîâàÿ ñõåìà
-extern const GovernorColor mgcSettings_Colors_ChannelA;     ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ÖÂÅÒÀ - Êàíàë 1
-extern const GovernorColor mgcSettings_Colors_ChannelB;     ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ÖÂÅÒÀ - Êàíàë 2
-extern const GovernorColor mgcSettings_Colors_Grid;         ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ÖÂÅÒÀ - Ñåòêà
-extern const Governor mgSettings_Brightness;                ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ßðêîñòü
-static void OnChanged_Settings_Brightness();                ///< Âûçûâàòåñÿ ïðè èçìåíåíèè ÄÈÑÏËÅÉ-ÍÀÑÒÐÎÉÊÈ-ßðêîñòü
-extern const Governor mgSettings_Levels;                    ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Óðîâíè
-extern const Governor mgSettings_TimeMessages;              ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Âðåìÿ
-extern const Choice mcSettings_ShowStringNavigation;        ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Ñòðîêà ìåíþ
-extern const Choice mcSettings_ShowAltMarkers;              ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Äîï. ìàðêåðû
+extern const Page mspSettings;                              //     ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ
+extern const Page mspSettings_Colors;                       // ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ÖÂÅÒÀ
+extern const Choice mcSettings_Colors_Scheme;               // ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ÖÂÅÒÀ - Öâåòîâàÿ ñõåìà
+extern const GovernorColor mgcSettings_Colors_ChannelA;     // ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ÖÂÅÒÀ - Êàíàë 1
+extern const GovernorColor mgcSettings_Colors_ChannelB;     // ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ÖÂÅÒÀ - Êàíàë 2
+extern const GovernorColor mgcSettings_Colors_Grid;         // ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ÖÂÅÒÀ - Ñåòêà
+extern const Governor mgSettings_Brightness;                // ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - ßðêîñòü
+static void OnChanged_Settings_Brightness();                // Âûçûâàòåñÿ ïðè èçìåíåíèè ÄÈÑÏËÅÉ-ÍÀÑÒÐÎÉÊÈ-ßðêîñòü
+extern const Governor mgSettings_Levels;                    // ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Óðîâíè
+extern const Governor mgSettings_TimeMessages;              // ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Âðåìÿ
+extern const Choice mcSettings_ShowStringNavigation;        // ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Ñòðîêà ìåíþ
+extern const Choice mcSettings_ShowAltMarkers;              // ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Äîï. ìàðêåðû
 static void OnChanged_Settings_ShowAltMarkers(bool);
-extern const Choice mcSettings_AutoHide;                    ///< ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Ñêðûâàòü
-static void OnChanged_Settings_AutoHide(bool autoHide);     ///< Âûçûâàåòñÿ ïðè èçìåíåíèè ÄÈÑÏËÅÉ-ÍÀÑÒÐÎÉÊÈ-Ñêðûâàòü
+extern const Choice mcSettings_AutoHide;                    // ÄÈÑÏËÅÉ - ÍÀÑÒÐÎÉÊÈ - Ñêðûâàòü
+static void OnChanged_Settings_AutoHide(bool autoHide);     // Âûçûâàåòñÿ ïðè èçìåíåíèè ÄÈÑÏËÅÉ-ÍÀÑÒÐÎÉÊÈ-Ñêðûâàòü
 
 
 // ÄÈÑÏËÅÉ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -80,7 +80,7 @@ static const arrayItems itemsDisplay =
     //(void*)&mcDisplMemoryWindow,  // ÄÈÑÏËÅÉ - Îêíî ïàìÿòè
 };
 
-const Page pDisplay                 ///< ÄÈÑÏËÅÉ
+const Page pDisplay                 // ÄÈÑÏËÅÉ
 (
     &mainPage, 0,
     "ÄÈÑÏËÅÉ", "DISPLAY",

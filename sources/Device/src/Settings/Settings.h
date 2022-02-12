@@ -23,16 +23,16 @@
  /// Настройки каналов
 typedef struct
 {
-    float       stretchADC;                 ///< Поправочный коэффициент.
+    float       stretchADC;                 // Поправочный коэффициент.
     int16       rShiftRel;
-    int16       rShiftAdd[RangeSize][2];    ///< Добавочное смещение для открытого (0) и закрытого (1) входов.
-    ModeCouple  modeCouple;                 ///< Режим по входу.
-    Divider     divider;                    ///< Множитель.
-    Range       range;                      ///< Масштаб по напряжению.
-    bool        enable;                     ///< Включён ли канал.
-    bool        inverse;                    ///< Инвертирован ли канал.
-    bool        filtr;                      ///< Фильтр
-    int8        balanceShiftADC;            ///< Добавочное смещение для балансировки АЦП.
+    int16       rShiftAdd[RangeSize][2];    // Добавочное смещение для открытого (0) и закрытого (1) входов.
+    ModeCouple  modeCouple;                 // Режим по входу.
+    Divider     divider;                    // Множитель.
+    Range       range;                      // Масштаб по напряжению.
+    bool        enable;                     // Включён ли канал.
+    bool        inverse;                    // Инвертирован ли канал.
+    bool        filtr;                      // Фильтр
+    int8        balanceShiftADC;            // Добавочное смещение для балансировки АЦП.
 } SettingsChannel;
 
 
@@ -96,25 +96,25 @@ typedef struct
 
 
 
-#define LANG            (set.common.lang)       ///< SettingsCommon.lang
+#define LANG            (set.common.lang)       // SettingsCommon.lang
 #define LANG_RU         (LANG == Russian)
 #define LANG_EN         (LANG == English)
                                     
 typedef struct
 {
-    int     countEnables;               ///< Количество включений. Увеличивается при каждом включении.
-    int     countErasedFlashData;       ///< Сколько раз стирался первый сектор с ресурсами.
-    int     countErasedFlashSettings;   ///< Сколько раз стирался сектор с настройкаи.
-    int     workingTimeInSecs;          ///< Время работы в секундах.
-    Language lang;                      ///< Язык меню.
+    int     countEnables;               // Количество включений. Увеличивается при каждом включении.
+    int     countErasedFlashData;       // Сколько раз стирался первый сектор с ресурсами.
+    int     countErasedFlashSettings;   // Сколько раз стирался сектор с настройкаи.
+    int     workingTimeInSecs;          // Время работы в секундах.
+    Language lang;                      // Язык меню.
 } SettingsCommon;
 
 
 
 typedef struct
 {
-    bool    all;            ///< Показывать значения всех регистров.
-    bool    flag;           ///< Выводить ли флаг готовности.
+    bool    all;            // Показывать значения всех регистров.
+    bool    flag;           // Выводить ли флаг готовности.
     bool    rShiftA;
     bool    rShiftB;
     bool    trigLev;
@@ -161,73 +161,73 @@ typedef struct
 /// Отладочные настройки.
 typedef  struct
 {
-    int16           numStrings;                 ///< Число строк в консоли.
-    int8            sizeFont;                   ///< Размер шрифта консоли - 0 - 5, 1 - 8,
-    bool            consoleInPause;             ///< \brief Признак того, что консоль находится в режиме паузы. Режим паузы означает, что новые 
+    int16           numStrings;                 // Число строк в консоли.
+    int8            sizeFont;                   // Размер шрифта консоли - 0 - 5, 1 - 8,
+    bool            consoleInPause;             // \brief Признак того, что консоль находится в режиме паузы. Режим паузы означает, что новые 
                                                     // сообщения она не записывает и не сохраняет.
-    BalanceADCtype  balanceADCtype;             ///< Тип балансировки.
-    int16           balanceADC[2];              ///< Значение дополнительного смещения АЦП для ручной балансировки.
-    StretchADCtype  stretchADCtype;             ///< Тип растяжки канала.
-    int16           stretchADC[2];              ///< Значение растяжки канала для ручного режима.
+    BalanceADCtype  balanceADCtype;             // Тип балансировки.
+    int16           balanceADC[2];              // Значение дополнительного смещения АЦП для ручной балансировки.
+    StretchADCtype  stretchADCtype;             // Тип растяжки канала.
+    int16           stretchADC[2];              // Значение растяжки канала для ручного режима.
     //RShiftADCtype   rShiftADCtype;
     //int16           rShiftADC[RangeSize][2];    // Дополнительное смещение для каналов в режиме ручного управления. 0 - range == Range_2mV, 1 - все остальные
-    int16           numMeasuresForGates;        ///< Число измерений для ворот.
-    int16           shiftT0;                    ///< Дополнительное смещение по времени для данной развёртки режима рандомизатора.
-    bool            showStats;                  ///< Показывать статистику на экране (fps, например).
-    int16           numAveForRand;              ///< По скольким измерениям усреднять сигнал в режиме рандомизатора.
-    bool            viewAlteraWrittingData;     ///< Показывать ли данные, идущие в альтеру.
-    bool            viewAllAlteraWrittingData;  ///< \brief Показывать ли все данные, идущие в альтеру (если false, то постоянно идущие команды вроде 
+    int16           numMeasuresForGates;        // Число измерений для ворот.
+    int16           shiftT0;                    // Дополнительное смещение по времени для данной развёртки режима рандомизатора.
+    bool            showStats;                  // Показывать статистику на экране (fps, например).
+    int16           numAveForRand;              // По скольким измерениям усреднять сигнал в режиме рандомизатора.
+    bool            viewAlteraWrittingData;     // Показывать ли данные, идущие в альтеру.
+    bool            viewAllAlteraWrittingData;  // \brief Показывать ли все данные, идущие в альтеру (если false, то постоянно идущие команды вроде 
                                                     // START, STOP не показываются).
-    int16           altShift;                   ///< Добавочное смещение для устранения эффекта горизонтальной помехи синхронизации.
+    int16           altShift;                   // Добавочное смещение для устранения эффекта горизонтальной помехи синхронизации.
     OutputRegisters showRegisters;
 } SettingsDebug;
 
 typedef struct
 {
-    int8        posActItem[Page_NumPages];      ///< Позиция ативного пункта. bit7 == 1 - item is opened, 0x7f - нет активного пункта
-    int8        currentSubPage[Page_NumPages];  ///< Номер текущей подстраницы.
-    bool        pageDebugActive;                ///< Активна ли кнопка отладки в меню.
-    unsigned    isShown : 1;                    ///< Меню показано.
+    int8        posActItem[Page_NumPages];      // Позиция ативного пункта. bit7 == 1 - item is opened, 0x7f - нет активного пункта
+    int8        currentSubPage[Page_NumPages];  // Номер текущей подстраницы.
+    bool        pageDebugActive;                // Активна ли кнопка отладки в меню.
+    unsigned    isShown : 1;                    // Меню показано.
 } SettingsMenu;
 
 
 
-int8 MenuPosActItem(NamePage namePage);                         ///< Возвращает позицию активного пункта на странице namePage.
-void SetMenuPosActItem(NamePage namePage, int8 pos);            ///< Установить позицию активного пункта на странице namePage.
-int8 MenuCurrentSubPage(NamePage namePage);                     ///< Возвращает номер текущей подстраницы страницы namePage.
-void SetMenuCurrentSubPage(NamePage namePage, int8 posSubPage); ///< Устанавливает номер текущей подстраницы в странице namePage.
-bool MenuIsShown();                                             ///< Отображено ли меню на экране.
-void ShowMenu(bool show);                                       ///< Отобразить/скрыть меню.
-bool MenuIsMinimize();                                          ///< Если true - меню находится в дополнительном режиме.
-bool MenuPageDebugIsActive();                                   ///< Активна ли страница отладки.
-void SetMenuPageDebugActive(bool active);                       ///< Сделать/разделать активной страницу отладки.
-void CurrentPageSBregSet(int angle);                            ///< Повернуть ручку УСТАНОВКА на текущей странице малых кнопок.
-const SmallButton*  GetSmallButton(PanelButton button);         ///< Вернуть указатель на малую кнопку, соответствующую данной кнопки панели.
+int8 MenuPosActItem(NamePage namePage);                         // Возвращает позицию активного пункта на странице namePage.
+void SetMenuPosActItem(NamePage namePage, int8 pos);            // Установить позицию активного пункта на странице namePage.
+int8 MenuCurrentSubPage(NamePage namePage);                     // Возвращает номер текущей подстраницы страницы namePage.
+void SetMenuCurrentSubPage(NamePage namePage, int8 posSubPage); // Устанавливает номер текущей подстраницы в странице namePage.
+bool MenuIsShown();                                             // Отображено ли меню на экране.
+void ShowMenu(bool show);                                       // Отобразить/скрыть меню.
+bool MenuIsMinimize();                                          // Если true - меню находится в дополнительном режиме.
+bool MenuPageDebugIsActive();                                   // Активна ли страница отладки.
+void SetMenuPageDebugActive(bool active);                       // Сделать/разделать активной страницу отладки.
+void CurrentPageSBregSet(int angle);                            // Повернуть ручку УСТАНОВКА на текущей странице малых кнопок.
+const SmallButton*  GetSmallButton(PanelButton button);         // Вернуть указатель на малую кнопку, соответствующую данной кнопки панели.
 
 
 /// Струкура хранит все настройки прибора.
 struct Settings
 {
     uint                size;
-    SettingsDisplay     display;            ///< настройки изображения          (меню ДИСПЛЕЙ).
-    SettingsChannel     chan[NumChannels];  ///< настройки каналов              (меню КАНАЛ 1 и КАНАЛ 2).
-    SettingsTrig        trig;               ///< настройки синхронизации        (меню СИНХР).
-    SettingsTime        time;               ///< временнЫе настройки            (меню РАЗВЁРТКА).
-    SettingsCursors     cursors;            ///< настройки курсорных измерений  (меню КУРСОРЫ).
-    SettingsMemory      memory;             ///< настройки режимов памяти       (меню ПАМЯТЬ).
-    SettingsMeasures    measures;           ///< настройки измерений            (меню ИЗМЕРЕНИЯ).
-    SettingsMath        math;               ///< настройки режима математических измерений.
-    SettingsService     service;            ///< дополнительные настройки       (меню СЕРВИС).
-    SettingsEthernet    eth;                ///< настройки для соединения по локальной сети.
-    SettingsCommon      common;             ///< системные настройки.
-    SettingsMenu        menu;               ///< состояние меню.
-    SettingsDebug       debug;              ///< настройки режима отладки       (меню ОТЛАДКА).
-    uint                crc32;              ///< контрольная сумма. Используется для проверки корректности сохранённых настроек
+    SettingsDisplay     display;            // настройки изображения          (меню ДИСПЛЕЙ).
+    SettingsChannel     chan[NumChannels];  // настройки каналов              (меню КАНАЛ 1 и КАНАЛ 2).
+    SettingsTrig        trig;               // настройки синхронизации        (меню СИНХР).
+    SettingsTime        time;               // временнЫе настройки            (меню РАЗВЁРТКА).
+    SettingsCursors     cursors;            // настройки курсорных измерений  (меню КУРСОРЫ).
+    SettingsMemory      memory;             // настройки режимов памяти       (меню ПАМЯТЬ).
+    SettingsMeasures    measures;           // настройки измерений            (меню ИЗМЕРЕНИЯ).
+    SettingsMath        math;               // настройки режима математических измерений.
+    SettingsService     service;            // дополнительные настройки       (меню СЕРВИС).
+    SettingsEthernet    eth;                // настройки для соединения по локальной сети.
+    SettingsCommon      common;             // системные настройки.
+    SettingsMenu        menu;               // состояние меню.
+    SettingsDebug       debug;              // настройки режима отладки       (меню ОТЛАДКА).
+    uint                crc32;              // контрольная сумма. Используется для проверки корректности сохранённых настроек
     //int temp[5];
-    static void Load(bool _default);  ///< \brief Загрузить настройки. Если _default == true, загружаются настройки по умолчанию, иначе пытается 
-                                      ///< загрузить настройки из ПЗУ, а в случае неудачи - тоже настройки по умолчанию.
-    static void Save();               ///< Сохранить настройки во флеш-память.
-    static bool DebugModeEnable();    ///< Возвращает true, если включён режим отладки.
+    static void Load(bool _default);  // \brief Загрузить настройки. Если _default == true, загружаются настройки по умолчанию, иначе пытается 
+                                      // загрузить настройки из ПЗУ, а в случае неудачи - тоже настройки по умолчанию.
+    static void Save();               // Сохранить настройки во флеш-память.
+    static bool DebugModeEnable();    // Возвращает true, если включён режим отладки.
 };
 
 extern Settings set;

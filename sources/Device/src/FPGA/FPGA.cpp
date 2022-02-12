@@ -37,10 +37,10 @@ static const int Kr[] = {n / 2, n / 5, n / 10, n / 20, n / 50};
 static DataSettings ds;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-static uint8 dataRel0[FPGA_MAX_POINTS] = {0};   ///< Буфер используется для чтения данных первого канала.
-static uint8 dataRel1[FPGA_MAX_POINTS] = {0};   ///< Буфер используется для чтения данных второго канала.
+static uint8 dataRel0[FPGA_MAX_POINTS] = {0};   // Буфер используется для чтения данных первого канала.
+static uint8 dataRel1[FPGA_MAX_POINTS] = {0};   // Буфер используется для чтения данных второго канала.
 
-static Settings storingSettings;                ///< Здесь нужно уменьшить необходимый размер памяти - сохранять настройки только альтеры
+static Settings storingSettings;                // Здесь нужно уменьшить необходимый размер памяти - сохранять настройки только альтеры
 static uint timeStart = 0;
 
 /// Функция вызывается, когда можно считывать очередной сигнал.
@@ -623,7 +623,7 @@ void FPGA::RestoreState(void)
 }
 
 
-static bool readPeriod = false;     ///< Установленный в true флаг означает, что частоту нужно считать по счётчику периода
+static bool readPeriod = false;     // Установленный в true флаг означает, что частоту нужно считать по счётчику периода
 
 
 static BitSet32 ReadRegFreq(void)

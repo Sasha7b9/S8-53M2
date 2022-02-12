@@ -16,10 +16,10 @@ typedef enum
 typedef struct  
 {
     TypePageHelp    type;
-    void*           parent;             ///< јдрес родительской страницы
-    pFuncBV         funcNotUsed;        ///< ќставлено дл€ совместимости с типом Page - нужно дл€ отрисовки.
-    char*           titleHint[4];       ///< Ќазвание страницы на русском и английском €зыках, а затем содержимое на русском и английском (дл€ случа€ TypePage_Description)
-    void*           pages[MAX_PAGES];   ///< ћассив содержит адреса ссылаемых страниц в случае TypePage_Content
+    void*           parent;             // јдрес родительской страницы
+    pFuncBV         funcNotUsed;        // ќставлено дл€ совместимости с типом Page - нужно дл€ отрисовки.
+    char*           titleHint[4];       // Ќазвание страницы на русском и английском €зыках, а затем содержимое на русском и английском (дл€ случа€ TypePage_Description)
+    void*           pages[MAX_PAGES];   // ћассив содержит адреса ссылаемых страниц в случае TypePage_Content
 } PageHelp;
 
 extern const PageHelp helpMenu;
