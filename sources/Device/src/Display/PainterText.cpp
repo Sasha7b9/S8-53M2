@@ -247,7 +247,7 @@ int Painter::DrawTextOnBackground(int x, int y, const char *text, Color::E color
     int width = Font_GetLengthText(text);
     int height = Font_GetSize();
 
-    Color::E colorText = Painter::CurrentColor();
+    Color::E colorText = Color::GetCurrent();
     FillRegionC(x - 1, y, width, height, colorBackground);
     Color::SetCurrent(colorText);
 

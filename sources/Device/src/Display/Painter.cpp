@@ -211,7 +211,7 @@ void Color::SetCurrent(Color::E color)
 }
 
 
-Color::E Painter::CurrentColor(void)
+Color::E Color::GetCurrent(void)
 {
     return currentColor;
 }
@@ -236,7 +236,7 @@ void Painter::DrawHLine(int y, int x0, int x1)
 
     uint8 *start = &Display::back[y][x0];
 
-    std::memset(start, Painter::CurrentColor(), (uint)(x1 - x0 + 1));
+    std::memset(start, Color::GetCurrent(), (uint)(x1 - x0 + 1));
 
     if (InterCom::TransmitGUIinProcess())
     {
@@ -274,7 +274,7 @@ void Painter::DrawVLine(int x, int y0, int y1)
 
     int counter = y1 - y0 + 1;
 
-    uint8 value = Painter::CurrentColor();
+    uint8 value = Color::GetCurrent();
 
     do
     {
@@ -339,7 +339,7 @@ void Painter::SetPoint(int x, int y)
 
     if (address < Display::display_back_buffer_end)
     {
-        *address = Painter::CurrentColor();
+        *address = Color::GetCurrent();
     }
 
     if (InterCom::TransmitGUIinProcess())

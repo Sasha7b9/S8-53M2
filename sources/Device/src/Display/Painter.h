@@ -17,8 +17,6 @@ public:
     // По умолчанию запрашиваем первый фрейм с шрифтами
     static void SendFrame(bool first, bool noFonts = false);
 
-    static Color::E CurrentColor();
-
     static void LoadPalette();
 
     static void SetPoint(int x, int y);

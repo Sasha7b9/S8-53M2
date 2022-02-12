@@ -54,6 +54,7 @@ struct Color
 
     static void ResetFlash();
     static void SetCurrent(Color::E);
+    static Color::E GetCurrent();
 };
 
 
