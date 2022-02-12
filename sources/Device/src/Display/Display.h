@@ -113,9 +113,9 @@ private:
     
     static int CalculateFreeSize();
     
-    static bool ChannelNeedForDraw(const uint8 *data, Channel chan, const DataSettings *ds);
+    static bool ChannelNeedForDraw(const uint8 *data, Chan::E ch, const DataSettings *ds);
     
-    static void DrawDataChannel(uint8 *data, Channel chan, DataSettings *ds, int minY, int maxY);
+    static void DrawDataChannel(uint8 *data, Chan::E ch, DataSettings *ds, int minY, int maxY);
     
     static void DrawBothChannels(uint8 *data0, uint8 *data1);
     
@@ -182,7 +182,7 @@ private:
     
     static void DrawDataInModeSelfRecorder();
     
-    static void DrawDataInRect(int x, int width, const uint8 *data, int numElems, Channel chan, int shiftForPeakDet);
+    static void DrawDataInRect(int x, int width, const uint8 *data, int numElems, Chan::E ch, int shiftForPeakDet);
 
     static void DrawTimeForFrame(uint timeMS);
     

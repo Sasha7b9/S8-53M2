@@ -587,15 +587,15 @@ void LoadStretchADC(Chan::E ch)
 {
     if(DEBUG_STRETCH_ADC_TYPE_IS_DISABLED)
     {
-        FPGA::WriteToHardware(chan == A ? WR_CAL_A : WR_CAL_B, 0x80, true);
+        FPGA::WriteToHardware(ch == Chan::A ? WR_CAL_A : WR_CAL_B, 0x80, true);
     }
     else if(DEBUG_STRETCH_ADC_TYPE_IS_HAND)
     {
-        FPGA::WriteToHardware(chan == A ? WR_CAL_A : WR_CAL_B, (uint8)DEBUG_STRETCH_ADC(chan), true);
+        FPGA::WriteToHardware(ch == Chan::A ? WR_CAL_A : WR_CAL_B, (uint8)DEBUG_STRETCH_ADC(ch), true);
     }
     else if(DEBUG_STRETCH_ADC_TYPE_IS_SETTINGS)
     {
-        FPGA::LoadKoeffCalibration(chan);
+        FPGA::LoadKoeffCalibration(ch);
     }
 }
 

@@ -98,14 +98,14 @@ void SetCursSource(Chan::E ch)
 
 void IncCursCntrlU(Chan::E ch)
 {
-    CircleIncreaseInt8((int8*)&CURsU_CNTRL_CH(chan), 0, 3);
+    CircleIncreaseInt8((int8*)&CURsU_CNTRL_CH(ch), 0, 3);
 }
 
 
 
 void IncCursCntrlT(Chan::E ch)
 {
-    CircleIncreaseInt8((int8*)&CURS_CNTRL_T(chan), 0, 3);
+    CircleIncreaseInt8((int8*)&CURS_CNTRL_T(ch), 0, 3);
 }
 
 
@@ -668,8 +668,8 @@ static void PressSB_Cursors_100(void)
 
 static void SetCursPos100(Chan::E ch)
 {
-    DELTA_U100(chan) = fabs(CURS_POS_U0(chan) - CURS_POS_U1(chan));
-    DELTA_T100(chan) = fabs(CURS_POS_T0(chan) - CURS_POS_T1(chan));
+    DELTA_U100(ch) = fabs(CURS_POS_U0(ch) - CURS_POS_U1(ch));
+    DELTA_T100(ch) = fabs(CURS_POS_T0(ch) - CURS_POS_T1(ch));
 }
 
 static void DrawSB_Cursors_100(int x, int y)

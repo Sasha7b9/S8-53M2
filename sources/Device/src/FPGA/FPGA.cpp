@@ -786,7 +786,7 @@ bool FPGA::AllPointsRandomizer(void)
 
 void FPGA::InverseDataIsNecessary(Channel chan, uint8 *data)
 {
-    if(SET_INVERSE(chan))
+    if(SET_INVERSE(ch))
     {
         for (int i = 0; i < FPGA_MAX_POINTS; i++)
         {
@@ -898,17 +898,17 @@ bool FPGA::FindWave(Chan::E ch)
     Settings settings = set;    // Сохраняем предыдущие настройки
 
     Stop(false);
-    SET_ENABLED(chan) = true;
+    SET_ENABLED(ch) = true;
     FPGA::SetTrigSource((TrigSource)chan);
     FPGA::SetTrigLev((TrigSource)chan, TrigLevZero);
     FPGA::SetRShift(chan, RShiftZero);
     FPGA::SetModeCouple(chan, ModeCouple_AC);
-    Range range = AccurateFindRange(chan);
+    Range range = AccurateFindRange(ch);
     //LOG_WRITE("Range %s", RangeName(range));
     if(range != RangeSize)
     {
-        SET_RANGE(chan) = range;
-        TBase tBase = AccurateFindTBase(chan);
+        SET_RANGE(ch) = range;
+        TBase tBase = AccurateFindTBase(ch);
         if (tBase != TBaseSize)
         {
             SET_TBASE = tBase;
@@ -1019,8 +1019,8 @@ TBase FPGA::AccurateFindTBase(Chan::E ch)
 {
     for (int i = 0; i < 5; i++)
     {
-        TBase tBase = FindTBase(chan);
-        TBase secondTBase = FindTBase(chan); //-V656
+        TBase tBase = FindTBase(ch);
+        TBase secondTBase = FindTBase(ch); //-V656
 
         if (tBase == secondTBase && tBase != TBaseSize)
         {

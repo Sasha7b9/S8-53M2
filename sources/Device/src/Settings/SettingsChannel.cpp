@@ -35,7 +35,7 @@ static const RangeStruct ranges[RangeSize] =
 
 void sChannel_SetRange(Channel chan, Range range)
 {
-    SET_RANGE(chan) = range;
+    SET_RANGE(ch) = range;
 }
 
 
@@ -58,7 +58,7 @@ bool sChannel_Enabled(Chan::E ch)
     {
         return true;
     }
-    return SET_ENABLED(chan);
+    return SET_ENABLED(ch);
 }
 
 

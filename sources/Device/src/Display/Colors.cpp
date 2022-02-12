@@ -35,7 +35,7 @@ Color ColorTrig()
     TrigSource trigChan = TRIG_SOURCE;
     if (trigChan == TrigSource_ChannelA || trigChan == TrigSource_ChannelB)
     {
-        return ColorChannel((Channel)trigChan);
+        return ColorChannel((Chan::E)trigChan);
     }
     return COLOR_FILL;
 }

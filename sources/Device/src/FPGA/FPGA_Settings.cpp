@@ -164,25 +164,25 @@ void FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog type)
 
 void FPGA::SetRange(Channel chan, Range range)
 {
-    if (!sChannel_Enabled(chan))
+    if (!sChannel_Enabled(ch))
     {
         return;
     }
     if (range < RangeSize && (int)range >= 0)
     {
-        float rShiftAbs = RSHIFT_2_ABS(SET_RSHIFT(chan), SET_RANGE(chan));
-        float trigLevAbs = RSHIFT_2_ABS(TRIG_LEVEL(chan), SET_RANGE(chan));
+        float rShiftAbs = RSHIFT_2_ABS(SET_RSHIFT(ch), SET_RANGE(ch));
+        float trigLevAbs = RSHIFT_2_ABS(TRIG_LEVEL(ch), SET_RANGE(ch));
         sChannel_SetRange(chan, range);
         if (LINKING_RSHIFT_IS_VOLTAGE)
         {
-            SET_RSHIFT(chan) = (int16)Math_RShift2Rel(rShiftAbs, range);
-            TRIG_LEVEL(chan) = (int16)Math_RShift2Rel(trigLevAbs, range);
+            SET_RSHIFT(ch) = (int16)Math_RShift2Rel(rShiftAbs, range);
+            TRIG_LEVEL(ch) = (int16)Math_RShift2Rel(trigLevAbs, range);
         }
-        LoadRange(chan);
+        LoadRange(ch);
     }
     else
     {
-        Display::ShowWarningBad(chan == A ? LimitChan1_Volts : LimitChan2_Volts);
+        Display::ShowWarningBad(ch == Chan::A ? LimitChan1_Volts : LimitChan2_Volts);
     }
 };
 
@@ -190,7 +190,7 @@ void FPGA::SetRange(Channel chan, Range range)
 void FPGA::LoadRange(Chan::E ch)
 {
     SetAttribChannelsAndTrig(TypeWriteAnalog_Range0);
-    LoadRShift(chan);
+    LoadRShift(ch);
     if (chan == (Channel)TRIG_SOURCE)
     {
         LoadTrigLev();
@@ -272,7 +272,7 @@ void FPGA::TBaseIncrease(void)
 
 void FPGA::SetRShift(Channel chan, int16 rShift)
 {
-    if (!sChannel_Enabled(chan))
+    if (!sChannel_Enabled(ch))
     {
         return;
     }
@@ -280,7 +280,7 @@ void FPGA::SetRShift(Channel chan, int16 rShift)
 
     if (rShift > RShiftMax || rShift < RShiftMin)
     {
-        Display::ShowWarningBad(chan == A ? LimitChan1_RShift : LimitChan2_RShift);
+        Display::ShowWarningBad(ch == Chan::A ? LimitChan1_RShift : LimitChan2_RShift);
     }
 
     LIMITATION(rShift, rShift, RShiftMin, RShiftMax);
@@ -292,9 +292,9 @@ void FPGA::SetRShift(Channel chan, int16 rShift)
     {
         rShift = (rShift + 1) & 0xfffe;
     }
-    SET_RSHIFT(chan) = rShift;
-    LoadRShift(chan);
-    Display::RotateRShift(chan);
+    SET_RSHIFT(ch) = rShift;
+    LoadRShift(ch);
+    Display::RotateRShift(ch);
 };
 
 
@@ -302,22 +302,22 @@ void FPGA::LoadRShift(Chan::E ch)
 {
     static const uint16 mask[2] = {0x2000, 0x6000};
 
-    Range range = SET_RANGE(chan);
-    ModeCouple mode = SET_COUPLE(chan);
+    Range range = SET_RANGE(ch);
+    ModeCouple mode = SET_COUPLE(ch);
     static const int index[3] = {0, 1, 1};
     int16 rShiftAdd = RSHIFT_ADD(chan, range, index[mode]);
 
-    uint16 rShift = (uint16)(SET_RSHIFT(chan) + (SET_INVERSE(chan) ? -1 : 1) * rShiftAdd);
+    uint16 rShift = (uint16)(SET_RSHIFT(ch) + (SET_INVERSE(ch) ? -1 : 1) * rShiftAdd);
 
     int16 delta = -(rShift - RShiftZero);
-    if (SET_INVERSE(chan))
+    if (SET_INVERSE(ch))
     {
         delta = -delta;
     }
     rShift = (uint16)(delta + RShiftZero);
 
     rShift = (uint16)(RShiftMax + RShiftMin - rShift);
-    WriteToDAC(chan == A ? TypeWriteDAC_RShiftA : TypeWriteDAC_RShiftB, (uint16)(mask[chan] | (rShift << 2)));
+    WriteToDAC(ch == Chan::A ? TypeWriteDAC_RShiftA : TypeWriteDAC_RShiftB, (uint16)(mask[chan] | (rShift << 2)));
 }
 
 
@@ -339,9 +339,9 @@ void FPGA::SetTrigLev(TrigSource chan, int16 trigLev)
         trigLev = (trigLev + 1) & 0xfffe;
     }
 
-    if (TRIG_LEVEL(chan) != trigLev)
+    if (TRIG_LEVEL(ch) != trigLev)
     {
-        TRIG_LEVEL(chan) = trigLev;
+        TRIG_LEVEL(ch) = trigLev;
         LoadTrigLev();
         Display::RotateTrigLev();
     }
@@ -426,7 +426,7 @@ void FPGA::LoadRegUPR(void)
 
 void FPGA::LoadKoeffCalibration(Chan::E ch)
 {
-    FPGA::WriteToHardware(chan == A ? WR_CAL_A : WR_CAL_B, STRETCH_ADC(chan) * 0x80, false);
+    FPGA::WriteToHardware(ch == Chan::A ? WR_CAL_A : WR_CAL_B, STRETCH_ADC(ch) * 0x80, false);
 }
 
 
@@ -463,14 +463,14 @@ const char *FPGA::GetTShiftString(int16 tShiftRel, char buffer[20])
 bool FPGA::RangeIncrease(Chan::E ch)
 {
     bool retValue = false;
-    if (SET_RANGE(chan) < RangeSize - 1)
+    if (SET_RANGE(ch) < RangeSize - 1)
     {
-        SetRange(chan, (Range)(SET_RANGE(chan) + 1));
+        SetRange(chan, (Range)(SET_RANGE(ch) + 1));
         retValue = true;
     }
     else
     {
-       Display::ShowWarningBad(chan == A ? LimitChan1_Volts : LimitChan2_Volts);
+       Display::ShowWarningBad(ch == Chan::A ? LimitChan1_Volts : LimitChan2_Volts);
     }
     Display::Redraw();
     return retValue;
@@ -480,14 +480,14 @@ bool FPGA::RangeIncrease(Chan::E ch)
 bool FPGA::RangeDecrease(Chan::E ch)
 {
     bool retValue = false;
-    if (SET_RANGE(chan) > 0)
+    if (SET_RANGE(ch) > 0)
     {
-        SetRange(chan, (Range)(SET_RANGE(chan) - 1));
+        SetRange(chan, (Range)(SET_RANGE(ch) - 1));
         retValue = true;
     }
     else
     {
-        Display::ShowWarningBad(chan == A ? LimitChan1_Volts : LimitChan2_Volts);
+        Display::ShowWarningBad(ch == Chan::A ? LimitChan1_Volts : LimitChan2_Volts);
     }
     Display::Redraw();
     return retValue;
@@ -527,14 +527,14 @@ void FPGA::SetTrigInput(TrigInput trigInput)
 
 void FPGA::SetModeCouple(Channel chan, ModeCouple modeCoupe)
 {
-    SET_COUPLE(chan) = modeCoupe;
-    SetAttribChannelsAndTrig(chan == A ? TypeWriteAnalog_ChanParam0 : TypeWriteAnalog_ChanParam1);
-    SetRShift(chan, SET_RSHIFT(chan));
+    SET_COUPLE(ch) = modeCoupe;
+    SetAttribChannelsAndTrig(ch == Chan::A ? TypeWriteAnalog_ChanParam0 : TypeWriteAnalog_ChanParam1);
+    SetRShift(chan, SET_RSHIFT(ch));
 }
 
 
 void FPGA::EnableChannelFiltr(Channel chan, bool enable)
 {
-    SET_FILTR(chan) = enable;
-    SetAttribChannelsAndTrig(chan == A ? TypeWriteAnalog_ChanParam0 : TypeWriteAnalog_ChanParam1);
+    SET_FILTR(ch) = enable;
+    SetAttribChannelsAndTrig(ch == Chan::A ? TypeWriteAnalog_ChanParam0 : TypeWriteAnalog_ChanParam1);
 }

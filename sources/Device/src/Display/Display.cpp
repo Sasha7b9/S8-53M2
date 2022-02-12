@@ -88,7 +88,7 @@ void Display::DrawStringNavigation()
 void Display::RotateRShift(Chan::E ch)
 {
     ResetP2Ppoints(true);
-    LAST_AFFECTED_CHANNEL = chan;
+    LAST_AFFECTED_CHANNEL = ch;
     if(TIME_SHOW_LEVELS)
     {
         (ch == Chan::A) ? (SHOW_LEVEL_RSHIFT_0 = 1) : (SHOW_LEVEL_RSHIFT_1 = 1);
@@ -134,7 +134,7 @@ void Display::Redraw(void)
 }
 
 
-bool Display::ChannelNeedForDraw(const uint8 *data, Channel chan, const DataSettings *ds)
+bool Display::ChannelNeedForDraw(const uint8 *data, Chan::E ch, const DataSettings *ds)
 {
     if (!data)
     {
@@ -143,14 +143,14 @@ bool Display::ChannelNeedForDraw(const uint8 *data, Channel chan, const DataSett
 
     if (MODE_WORK_IS_DIRECT)
     {
-        if (!sChannel_Enabled(chan))
+        if (!sChannel_Enabled(ch))
         {
             return false;
         }
     }
     else if (ds != 0)
     {
-        if ((chan == A && ds->enableCh0 == 0) || (chan == B && ds->enableCh1 == 0))
+        if ((ch == Chan::A && ds->enableCh0 == 0) || (chan == B && ds->enableCh1 == 0))
         {
             return false;
         }
@@ -170,7 +170,7 @@ void Display::DrawMarkersForMeasure(float scale, Channel chan)
     {
         return;
     }
-    Painter::SetColor(ColorCursors(chan));
+    Painter::SetColor(ColorCursors(ch));
     for(int numMarker = 0; numMarker < 2; numMarker++)
     {
         int pos = Processing::GetMarkerHorizontal(chan, numMarker);
@@ -329,7 +329,7 @@ void Display::DrawSignalPointed(const uint8 *data, const DataSettings *ds, int s
 
 
 // ≈сли data == 0, то данные брать из GetData
-void Display::DrawDataChannel(uint8 *data, Channel chan, DataSettings *ds, int minY, int maxY)
+void Display::DrawDataChannel(uint8 *data, Chan::E ch, DataSettings *ds, int minY, int maxY)
 {
     bool calculateFiltr = true;
     if (data == 0)
@@ -373,7 +373,7 @@ void Display::DrawDataChannel(uint8 *data, Channel chan, DataSettings *ds, int m
         }
     }
 
-    Painter::SetColor(ColorChannel(chan));
+    Painter::SetColor(ColorChannel(ch));
     if(MODE_DRAW_IS_SIGNAL_LINES)
     {
         /*
@@ -382,7 +382,7 @@ void Display::DrawDataChannel(uint8 *data, Channel chan, DataSettings *ds, int m
             Painter::SetColor(ColorGrid());
             DrawSignalLined(DS_GetData(chan, 0), ds, firstPoint, lastPoint, minY, maxY, scaleY, scaleX, calculateFiltr);    // WARN
         }
-        Painter::SetColor(ColorChannel(chan));
+        Painter::SetColor(ColorChannel(ch));
         */
         DrawSignalLined(data, ds, firstPoint, lastPoint, minY, maxY, scaleY, scaleX, calculateFiltr);
     }
@@ -467,7 +467,7 @@ void Display::WriteParametersFFT(Channel chan, float freq0, float density0, floa
     {
         y += dY * 3 + 4;
     }
-    Painter::SetColor(ColorChannel(chan));
+    Painter::SetColor(ColorChannel(ch));
     Painter::DrawText(x, y, SCALE_FFT_IS_LOG ? Float2Db(density0, 4, buffer) : Float2String(density0, false, 7, buffer));
     y += dY;
     Painter::DrawText(x, y, SCALE_FFT_IS_LOG ? Float2Db(density1, 4, buffer) : Float2String(density1, false, 7, buffer));
@@ -802,7 +802,7 @@ void Display::DrawHiPart()
 
 
 // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена иниформаци€ о максимумах.
-void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, Channel chan, int shiftForPeakDet)
+void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, Chan::E ch, int shiftForPeakDet)
 {
     if(numElems == 0)
     {
@@ -887,19 +887,19 @@ void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, 
     }
 	if(width < 256)
     {
-		Painter::DrawVLineArray(x, width, points, ColorChannel(chan));
+		Painter::DrawVLineArray(x, width, points, ColorChannel(ch));
 	}
     else
     {
-		Painter::DrawVLineArray(x, 255, points, ColorChannel(chan));
-		Painter::DrawVLineArray(x + 255, width - 255, points + 255 * 2, ColorChannel(chan));
+		Painter::DrawVLineArray(x, 255, points, ColorChannel(ch));
+		Painter::DrawVLineArray(x + 255, width - 255, points + 255 * 2, ColorChannel(ch));
 	}
 }
 
 
 
 // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена иниформаци€ о максимумах.
-void Display::DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI, const uint8 *data, int rightX, Channel chan, int shiftForPeakDet)
+void Display::DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI, const uint8 *data, int rightX, Chan::E ch, int shiftForPeakDet)
 {
     if(data == dataP2P_0 && data == dataP2P_1)
     {
@@ -1591,7 +1591,7 @@ void Display::DrawCursorTrigLevel()
         return;
     }
 
-    int trigLev = TRIG_LEVEL(chan) + (SET_RSHIFT(chan) - RShiftZero);
+    int trigLev = TRIG_LEVEL(ch) + (SET_RSHIFT(ch) - RShiftZero);
 
     float scale = 1.0f / ((TrigLevMax - TrigLevMin) / 2.0f / Grid::ChannelHeight());
     int y0 = (GRID_TOP + Grid::ChannelBottom()) / 2 + scale * (TrigLevZero - TrigLevMin);
@@ -1635,7 +1635,7 @@ void Display::DrawCursorTrigLevel()
         int shiftFullMin = RShiftMin + TrigLevMin;
         int shiftFullMax = RShiftMax + TrigLevMax;
         scale = (float)height / (shiftFullMax - shiftFullMin);
-        int shiftFull = TRIG_LEVEL_SOURCE + (TRIG_SOURCE_IS_EXT ? 0 : SET_RSHIFT(chan));
+        int shiftFull = TRIG_LEVEL_SOURCE + (TRIG_SOURCE_IS_EXT ? 0 : SET_RSHIFT(ch));
         int yFull = GRID_TOP + DELTA + height - scale * (shiftFull - RShiftMin - TrigLevMin) - 4;
         Painter::FillRegionC(left + 2, yFull + 1, 4, 6, ColorTrig());
         Painter::SetFont(TypeFont_5);
@@ -1658,12 +1658,12 @@ void Display::DrawCursorRShift(Chan::E ch)
         Painter::DrawCharC(x - 8, y - 5, 'm', COLOR_BACK);
         return;
     }
-    if(!sChannel_Enabled(chan))
+    if(!sChannel_Enabled(ch))
     {
         return;
     }
 
-    int rShift = SET_RSHIFT(chan);
+    int rShift = SET_RSHIFT(ch);
  
     float scale = (float)Grid::ChannelHeight() / (STEP_RSHIFT * 200);
     float y = Grid::ChannelCenterHeight() - scale * (rShift - RShiftZero);
@@ -1673,21 +1673,21 @@ void Display::DrawCursorRShift(Chan::E ch)
 
     if(y > Grid::ChannelBottom())
     {
-        Painter::DrawCharC(x - 7, Grid::ChannelBottom() - 11, SYMBOL_RSHIFT_LOWER, ColorChannel(chan));
+        Painter::DrawCharC(x - 7, Grid::ChannelBottom() - 11, SYMBOL_RSHIFT_LOWER, ColorChannel(ch));
         Painter::SetPoint(x - 5, Grid::ChannelBottom() - 2);
         y = Grid::ChannelBottom() - 7;
         x++;
     }
     else if(y < GRID_TOP)
     {
-        Painter::DrawCharC(x - 7, GRID_TOP + 2, SYMBOL_RSHIFT_ABOVE, ColorChannel(chan));
+        Painter::DrawCharC(x - 7, GRID_TOP + 2, SYMBOL_RSHIFT_ABOVE, ColorChannel(ch));
         Painter::SetPoint(x - 5, GRID_TOP + 2);
         y = GRID_TOP + 7;
         x++;
     }
     else
     {
-        Painter::DrawCharC(x - 8, y - 4, SYMBOL_RSHIFT_NORMAL, ColorChannel(chan));
+        Painter::DrawCharC(x - 8, y - 4, SYMBOL_RSHIFT_NORMAL, ColorChannel(ch));
         if(((ch == Chan::A) ? (SHOW_LEVEL_RSHIFT_0 == 1) : (SHOW_LEVEL_RSHIFT_1 == 1)) && MODE_WORK_IS_DIRECT)
         {
             Painter::DrawDashedHLine(y, Grid::Left(), Grid::Right(), 7, 3, 0);
@@ -1699,10 +1699,10 @@ void Display::DrawCursorRShift(Chan::E ch)
 
     if((!MenuIsMinimize() || !MenuIsShown()) && DRAW_RSHIFT_MARKERS)
     {
-        Painter::FillRegionC(4, yFull - 3, 4, 6, ColorChannel(chan));
-        Painter::DrawCharC(5, yFull - 9 + dY, chan == A ? '1' : '2', COLOR_BACK);
+        Painter::FillRegionC(4, yFull - 3, 4, 6, ColorChannel(ch));
+        Painter::DrawCharC(5, yFull - 9 + dY, ch == Chan::A ? '1' : '2', COLOR_BACK);
     }
-    Painter::DrawCharC(x - 7, y - 9 + dY, chan == A ? '1' : '2', COLOR_BACK);
+    Painter::DrawCharC(x - 7, y - 9 + dY, ch == Chan::A ? '1' : '2', COLOR_BACK);
     Painter::SetFont(TypeFont_8);
 }
 
@@ -1907,14 +1907,14 @@ void Display::WriteTextVoltage(Channel chan, int x, int y)
         "\x91",
         "\x90"
     };
-    Color color = ColorChannel(chan);
+    Color color = ColorChannel(ch);
 
-    bool inverse = SET_INVERSE(chan);
-    ModeCouple modeCouple = SET_COUPLE(chan);
-    Divider multiplier = SET_DIVIDER(chan);
-    Range range = SET_RANGE(chan);
-    uint rShift = (uint)SET_RSHIFT(chan);
-    bool enable = SET_ENABLED(chan);
+    bool inverse = SET_INVERSE(ch);
+    ModeCouple modeCouple = SET_COUPLE(ch);
+    Divider multiplier = SET_DIVIDER(ch);
+    Range range = SET_RANGE(ch);
+    uint rShift = (uint)SET_RSHIFT(ch);
+    bool enable = SET_ENABLED(ch);
 
     if (!MODE_WORK_IS_DIRECT)
     {

@@ -56,7 +56,7 @@ private:
 
     static DataSettings* GetSettingsDataFromEnd(int fromEnd);
     //  опирует данные канала chan из, определ€емые ds, в одну из двух строк массива dataImportRel. ¬озвращаемое значение false означает, что данный канал выключен.
-    static bool CopyData(DataSettings *ds, Channel chan, uint8 datatImportRel[NumChannels][FPGA_MAX_POINTS]);
+    static bool CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[NumChannels][FPGA_MAX_POINTS]);
 
     static void PrintElement(DataSettings *dp);
     

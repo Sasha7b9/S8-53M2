@@ -332,7 +332,7 @@ void DrawParametersChannel(Channel chan, int eX, int eY, bool inProgress)
         sprintf(buffer, "Расхождение AЦП = %.2f/%.2f %%", deltaADCPercentsOld[chan], deltaADCPercents[chan]);
         Painter::DrawText(x, y + 11, buffer);
         buffer[0] = 0;
-        sprintf(buffer, "Записано %d", SET_BALANCE_ADC(chan));
+        sprintf(buffer, "Записано %d", SET_BALANCE_ADC(ch));
         Painter::DrawText(x, y + 19, buffer);
     }
 }
@@ -350,8 +350,8 @@ float CalculateDeltaADC(Channel chan, float *avgADC1, float *avgADC2, float *del
     FPGA::SetTrigSource((TrigSource)chan);
     FPGA::SetTrigLev((TrigSource)chan, TrigLevZero);
 
-    uint8 *address1 = chan == A ? RD_ADC_A1 : RD_ADC_B1; //-V566
-    uint8 *address2 = chan == A ? RD_ADC_A2 : RD_ADC_B2; //-V566
+    uint8 *address1 = ch == Chan::A ? RD_ADC_A1 : RD_ADC_B1; //-V566
+    uint8 *address2 = ch == Chan::A ? RD_ADC_A2 : RD_ADC_B2; //-V566
 
     static const int numCicles = 10;
     for(int cicle = 0; cicle < numCicles; cicle++)
@@ -409,7 +409,7 @@ int16 CalculateAdditionRShift(Channel chan, Range range)
     FPGA::SetRange(chan, range);
     FPGA::SetRShift(chan, RShiftZero);
     FPGA::SetTBase(TBase_200us);
-    FPGA::SetTrigSource(chan == A ? TrigSource_ChannelA : TrigSource_ChannelB);
+    FPGA::SetTrigSource(ch == Chan::A ? TrigSource_ChannelA : TrigSource_ChannelB);
     FPGA::SetTrigPolarity(TrigPolarity_Front);
     FPGA::SetTrigLev((TrigSource)chan, TrigLevZero);
 
@@ -447,8 +447,8 @@ int16 CalculateAdditionRShift(Channel chan, Range range)
 
         FSMC::Write(WR_STOP, 1);
 
-        uint8 *addressRead1 = chan == A ? RD_ADC_A1 : RD_ADC_B1; //-V566
-        uint8 *addressRead2 = chan == A ? RD_ADC_A2 : RD_ADC_B2; //-V566
+        uint8 *addressRead1 = ch == Chan::A ? RD_ADC_A1 : RD_ADC_B1; //-V566
+        uint8 *addressRead2 = ch == Chan::A ? RD_ADC_A2 : RD_ADC_B2; //-V566
 
         for(int j = 0; j < FPGA_MAX_POINTS; j += 2)
         {
@@ -510,8 +510,8 @@ float CalculateKoeffCalibration(Chan::E ch)
 
         FSMC::Write(WR_STOP, 1);
 
-        uint8 *addressRead1 = chan == A ? RD_ADC_A1 : RD_ADC_B1; //-V566
-        uint8 *addressRead2 = chan == A ? RD_ADC_A2 : RD_ADC_B2; //-V566
+        uint8 *addressRead1 = ch == Chan::A ? RD_ADC_A1 : RD_ADC_B1; //-V566
+        uint8 *addressRead2 = ch == Chan::A ? RD_ADC_A2 : RD_ADC_B2; //-V566
 
         for(int j = 0; j < FPGA_MAX_POINTS; j += 2)
         {

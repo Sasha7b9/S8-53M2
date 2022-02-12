@@ -15,7 +15,7 @@
 static const uint MIN_TIME = 500;
 
 
-static void ChangeRShift(int *prevTime, void(*f)(Channel, int16), Channel chan, int16 relStep);
+static void ChangeRShift(int *prevTime, void(*f)(Channel, int16), Chan::E ch, int16 relStep);
 
 
 void HelpLong(void)
@@ -160,15 +160,15 @@ bool CanChangeRShiftOrTrigLev(TrigSource channel, int16 rShift)
     return false;
 }
 
-void ChangeRShift(int *prevTime, void(*f)(Channel, int16), Channel chan, int16 relStep)
+void ChangeRShift(int *prevTime, void(*f)(Channel, int16), Chan::E ch, int16 relStep)
 {
     if (ENUM_ACCUM_IS_NONE)
     {
         FPGA::TemporaryPause();
     }
     int count = CalculateCount(prevTime);
-    int rShiftOld = SET_RSHIFT(chan);
-    int rShift = SET_RSHIFT(chan) + relStep * count;
+    int rShiftOld = SET_RSHIFT(ch);
+    int rShift = SET_RSHIFT(ch) + relStep * count;
     if ((rShiftOld > RShiftZero && rShift < RShiftZero) || (rShiftOld < RShiftZero && rShift > RShiftZero))
     {
         rShift = RShiftZero;
