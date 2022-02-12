@@ -1,6 +1,7 @@
 // 2022/2/12 10:07:17 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
+#include <stm32f4xx_hal.h>
 
 
 namespace HAL_LTDC
