@@ -2,21 +2,6 @@
 #pragma once
 
 
-struct CommandBuffer
-{
-    CommandBuffer(int size, uint8 type);
-    void PushByte(uint8);
-    void PushByte(int);
-    void PushHalfWord(uint16);
-    void PushHalfWord(int);
-    void PushWord(int);
-    void Transmit(int);
-    uint8 *GetByte(int num_byte);
-private:
-    uint8 *Data();
-};
-
-
 // Интерфейс коммуниаций с ПК по USB и LAN
 namespace InterCom
 {
@@ -25,3 +10,23 @@ namespace InterCom
 
     void Send(uint8 *, int);
 }
+
+
+
+struct CommandBuffer
+{
+    CommandBuffer(int size, uint8 type);
+    ~CommandBuffer();
+    void PushByte(uint8 byte)           { data[pointer++] = byte; }
+    void PushByte(int byte)             { PushByte((uint8)byte); }
+    void PushHalfWord(uint16);
+    void PushHalfWord(int half_word)    { PushHalfWord((uint16)half_word); }
+    void PushWord(int);
+    void Transmit(int num_bytes)        { InterCom::Send(Data(), num_bytes); }
+    uint8 *GetByte(int num_byte)        { return &data[num_byte]; }
+private:
+    uint8 *Data() { return data; };
+    uint8 *data;
+    int size;
+    int pointer;
+};
