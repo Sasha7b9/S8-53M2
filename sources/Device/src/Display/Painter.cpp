@@ -25,7 +25,7 @@ inline void BoundingY(int &y) { if (y < 0) y = 0; if (y >= Display::HEIGHT) y = 
 
 static const int SIZE_BUFFER = Display::WIDTH * Display::HEIGHT;
 
-static uint8 *front = (uint8 *)HAL_FMC::_ADDR_RAM_DISPLAY_FRONT;
+//static uint8 *front = (uint8 *)HAL_FMC::_ADDR_RAM_DISPLAY_FRONT;
 uint8 Display::back[240][320];
 
 uint8 *Display::display_back_buffer = &back[0][0];

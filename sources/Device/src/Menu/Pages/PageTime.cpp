@@ -111,11 +111,11 @@ void OnChanged_PeakDet(bool active)
         FPGA::SetTBase(SET_TBASE);
         if (PEAKDET_IS_DISABLE)
         {
-            int8 shift[2][3] =
-            {
-                {0, SET_BALANCE_ADC_A, (int8)BALANCE_ADC_A},
-                {0, SET_BALANCE_ADC_B, (int8)BALANCE_ADC_B}
-            };
+//            int8 shift[2][3] =
+//            {
+//                {0, SET_BALANCE_ADC_A, (int8)BALANCE_ADC_A},
+//                {0, SET_BALANCE_ADC_B, (int8)BALANCE_ADC_B}
+//            };
 
 //            FPGA::WriteToHardware(WR_ADD_RSHIFT_DAC1, (uint8)shift[0][BALANCE_ADC_TYPE], false);
 //            FPGA::WriteToHardware(WR_ADD_RSHIFT_DAC2, (uint8)shift[1][BALANCE_ADC_TYPE], false);

@@ -6,7 +6,7 @@
 
 namespace HAL_LTDC
 {
-    static void SetBuffers(uint8 *frontBuffer, uint8 *backBuffer);
+//    static void SetBuffers(uint8 *frontBuffer, uint8 *backBuffer);
 
     static LTDC_HandleTypeDef handleLTDC;
     static uint frontBuffer = 0;

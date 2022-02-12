@@ -287,7 +287,7 @@ void FPGA::ReadRandomizeMode(void)
         numAve = sDisplay_NumAverage();
     }
 
-    int addShiftMem = step / 2;
+//    int addShiftMem = step / 2;
 
     if (START_MODE_IS_SINGLE || SAMPLE_TYPE_IS_REAL)
     {
@@ -303,13 +303,14 @@ void FPGA::ReadRandomizeMode(void)
             WRITE_AND_OR_INVERSE(pData0, data00, A);
         }
 
-        uint8 *addr = pData0 + addShiftMem;
+//        uint8 *addr = pData0 + addShiftMem;
 
         if (pData1 >= first1 && pData1 <= last1)
         {
             WRITE_AND_OR_INVERSE(pData1, data10, B);
         }
-        addr = pData1 + addShiftMem;
+
+//        addr = pData1 + addShiftMem;
 
         pData0 += step;
         pData1 += step;
