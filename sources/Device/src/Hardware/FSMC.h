@@ -3,8 +3,8 @@
 #include "defines.h"
 
 
-#define ADDR_BANK           0x60000000
-#define ADDR_FPGA           ((uint8*)(ADDR_BANK + 0x00c80000))  // Адрес записи в аппаратные регистры.
+#define ADDR_BANK  0x60000000
+#define ADDR_FPGA  ((uint8*)(ADDR_BANK + 0x00c80000))  // Адрес записи в аппаратные регистры.
 
 class FSMC
 {
