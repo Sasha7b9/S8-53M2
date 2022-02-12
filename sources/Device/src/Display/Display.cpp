@@ -56,6 +56,8 @@ static pFuncVV funcAfterDraw    = 0;
 
 namespace Display
 {
+    static uint8 *front = (uint8 *)HAL_FMC::_ADDR_RAM_DISPLAY_FRONT;
+
     static void ShowWarn(const char* message);
     // Нарисовать сетку.
     static void DrawGrid(int left, int top, int width, int height);
@@ -199,7 +201,7 @@ void Display::Init()
 {
     Color::ResetFlash();
 
-//    HAL_LTDC::Init(front, &back[0][0]);
+    HAL_LTDC::Init(front, &back[0][0]);
 
 //    BeginFrame(Color::BLACK);
 //
