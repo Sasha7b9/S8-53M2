@@ -4,22 +4,25 @@
 
 
 /*
-                         |      Было      |                        Стало                                    |
+                         |      Было                  |                        Стало                                    |
 
-    АЦП рандомизатора    |                | ADC1 ; ADC_CHANNEL_0 ; EXTI4_IRQHandler ; in - PA0 ; it - PH4   |
-    Яркость дисплея      |                | DAC1 ; DAC1_CHANNEL_1 ; out - PA4                               |
-    Звук                 |                | DAC2 ; DMA_CHANNEL_7 ; DAC_CHANNEL_2 ; DMA1_Stream6 ; out - PA5 |
-    Таймер               |                |                                                                 |
-    Панель               |                |                                                                 |
-    OTP                  |                |                                                                 |
-    RTC                  |                |                                                                 |
-    ROM                  |                |                                                                 |
-    PCD                  |                |                                                                 |
-    LTDC                 |                |                                                                 |
-    LAN                  |                |                                                                 |
-    ШИНА                 |                |                                                                 |
+    АЦП рандомизатора    |                            | ADC1 ; ADC_CHANNEL_0 ; EXTI4_IRQHandler ; in - PA0 ; it - PH4   |
+    Яркость дисплея      |                            | DAC1 ; DAC1_CHANNEL_1 ; out - PA4                               |
+    Звук                 | DAC1 ; DMA1                | DAC2 ; DMA_CHANNEL_7 ; DAC_CHANNEL_2 ; DMA1_Stream6 ; out - PA5 |
+    Таймер               | TIM6 ; TIM6_DAC_IRQHandler |                                                                 |
+    Панель               |                            |                                                                 |
+    USB                  |                            |                                                                 |
+    Flash                |                            |                                                                 |
+    Микросекунды         | TIM2                       |                                                                 |
 
-                         |                |                                                                 |
+    OTP                  |                            |                                                                 |
+    RTC                  |                            |                                                                 |
+    ROM                  |                            |                                                                 |
+    LTDC                 |                            |                                                                 |
+    LAN                  |                            |                                                                 |
+    ШИНА                 |                            |                                                                 |
+
+                         |                            |                                                                 |
 */
 
 // Используется для управления яркостью дисплея
