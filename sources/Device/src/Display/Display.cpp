@@ -56,15 +56,23 @@ static pFuncVV funcAfterDraw    = 0;
 
 void Display::Init() 
 {
-    Painter::ResetFlash();
-
-    Painter::LoadFont(TypeFont_5);
-    Painter::LoadFont(TypeFont_8);
-    Painter::LoadFont(TypeFont_UGO);
-    Painter::LoadFont(TypeFont_UGO2);
-    Painter::SetFont(TypeFont_8);
-
-    Painter::LoadPalette();
+//    Color::ResetFlash();
+//
+//    HAL_LTDC::Init(front, &back[0][0]);
+//
+//    BeginFrame(Color::BLACK);
+//
+//    EndFrame();
+//
+//#ifdef DEVICE
+//
+//    PageDisplay::PageSettings::LoadBrightness();
+//
+//#else
+//
+//    HAL_DAC1::SetBrightness(100);
+//
+//#endif
 }
 
 

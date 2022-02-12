@@ -40,7 +40,7 @@ void HAL::Init()
 
     HAL_FMC::Init();            // Альтера и ОЗУ
 
-    HAL_ADC3::Init();
+    HAL_ADC3::Init();           // АЦП рандомизатора
 }
 
 

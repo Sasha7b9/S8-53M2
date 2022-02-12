@@ -1,7 +1,5 @@
 // 2022/02/11 15:58:55 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-
-
 #include "defines.h"
 #include "Settings/SettingsTypes.h"
 #include "DisplayTypes.h"
