@@ -1212,11 +1212,6 @@
               <FilePath>.\src\Hardware\FSMC.h</FilePath>
             </File>
             <File>
-              <FileName>Hardware.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Hardware.h</FilePath>
-            </File>
-            <File>
               <FileName>Sound.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\Sound.cpp</FilePath>
@@ -1232,19 +1227,9 @@
               <FilePath>.\src\Hardware\Timer.h</FilePath>
             </File>
             <File>
-              <FileName>DisplayHardware.inc</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\DisplayHardware.inc</FilePath>
-            </File>
-            <File>
               <FileName>FSMC.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\FSMC.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Hardware.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Hardware.cpp</FilePath>
             </File>
             <File>
               <FileName>MSP_USBH.cpp</FileName>
@@ -3158,11 +3143,6 @@
               <FilePath>.\src\Hardware\FSMC.h</FilePath>
             </File>
             <File>
-              <FileName>Hardware.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Hardware.h</FilePath>
-            </File>
-            <File>
               <FileName>Sound.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\Sound.cpp</FilePath>
@@ -3178,19 +3158,9 @@
               <FilePath>.\src\Hardware\Timer.h</FilePath>
             </File>
             <File>
-              <FileName>DisplayHardware.inc</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\DisplayHardware.inc</FilePath>
-            </File>
-            <File>
               <FileName>FSMC.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\FSMC.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Hardware.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Hardware.cpp</FilePath>
             </File>
             <File>
               <FileName>MSP_USBH.cpp</FileName>

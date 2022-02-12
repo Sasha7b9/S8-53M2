@@ -19,7 +19,6 @@
 #include "Hardware/Timer.h"
 #include "Log.h"
 #include "FPGA/FPGA.h"
-#include "Hardware/Hardware.h"
 #include "Hardware/Sound.h"
 #include "Panel/Panel.h"
 #include <string.h>

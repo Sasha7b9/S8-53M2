@@ -1,7 +1,6 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "SCPI.h"
-#include "Hardware/Hardware.h"
 #include "VCP/VCP.h"
 #include "Settings/Settings.h"
 #include "Hardware/HAL/HAL.h"

@@ -6,7 +6,6 @@
 #include "Hardware/Timer.h"
 #include "Log.h"
 #include "Settings/Settings.h"
-#include "Hardware/Hardware.h"
 #include "Hardware/Sound.h"
 #include "Hardware/CLOCK.h"
 #include "Utils/Math.h"

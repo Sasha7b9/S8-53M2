@@ -2,7 +2,6 @@
 #include "FPGA_Types.h"
 #include "FPGA.h"
 #include "Settings/Settings.h"
-#include "Hardware/Hardware.h"
 #include "Hardware/FSMC.h"
 #include "Display/Display.h"
 #include "Utils/GlobalFunctions.h"

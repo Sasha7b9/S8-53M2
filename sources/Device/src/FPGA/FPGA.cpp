@@ -5,7 +5,6 @@
 #include "Menu/Pages/PageMemory.h"
 #include "Display/Display.h"
 #include "Hardware/FSMC.h"
-#include "Hardware/Hardware.h"
 #include "Hardware/ADC.h"
 #include "Panel/Panel.h"
 #include "Panel/Controls.h"

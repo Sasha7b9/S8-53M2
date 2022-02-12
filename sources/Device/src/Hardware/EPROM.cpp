@@ -1,6 +1,5 @@
 // 2022/02/11 17:50:33 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "EPROM.h"
-#include "Hardware.h"
 #include "Sound.h"
 #include "Settings/Settings.h"
 #include "Hardware/Timer.h"
