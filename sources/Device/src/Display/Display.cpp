@@ -206,16 +206,17 @@ void Display::Init()
     Painter::BeginScene(Color::BLACK);
 
     Painter::EndScene();
-//
-//#ifdef DEVICE
-//
+
+#ifdef DEVICE
+
 //    PageDisplay::PageSettings::LoadBrightness();
-//
-//#else
-//
-//    HAL_DAC1::SetBrightness(100);
-//
-//#endif
+    HAL_DAC1::SetBrightness(100);
+
+#else
+
+    HAL_DAC1::SetBrightness(100);
+
+#endif
 }
 
 
