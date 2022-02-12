@@ -137,8 +137,8 @@ typedef struct
 #define BALANCE_ADC_TYPE_IS_HAND            (BALANCE_ADC_TYPE == BalanceADC_Hand)
 
 #define BALANCE_ADC(ch)                     (set.debug.balanceADC[ch])
-#define BALANCE_ADC_A                       (BALANCE_ADC(A))
-#define BALANCE_ADC_B                       (BALANCE_ADC(B))
+#define BALANCE_ADC_A                       (BALANCE_ADC(Chan::A))
+#define BALANCE_ADC_B                       (BALANCE_ADC(Chan::B))
 
 #define DEBUG_STRETCH_ADC_TYPE              (set.debug.stretchADCtype)
 #define DEBUG_STRETCH_ADC_TYPE_IS_DISABLED  (DEBUG_STRETCH_ADC_TYPE == StretchADC_Disable)
@@ -146,8 +146,8 @@ typedef struct
 #define DEBUG_STRETCH_ADC_TYPE_IS_SETTINGS  (DEBUG_STRETCH_ADC_TYPE == StretchADC_Settings)
 
 #define DEBUG_STRETCH_ADC(ch)               (set.debug.stretchADC[ch])
-#define DEBUG_STRETCH_ADC_A                 (DEBUG_STRETCH_ADC(A))
-#define DEBUG_STRETCH_ADC_B                 (DEBUG_STRETCH_ADC(B))
+#define DEBUG_STRETCH_ADC_A                 (DEBUG_STRETCH_ADC(Chan::A))
+#define DEBUG_STRETCH_ADC_B                 (DEBUG_STRETCH_ADC(Chan::B))
 
 #define NUM_MEAS_FOR_GATES                  (set.debug.numMeasuresForGates)
 

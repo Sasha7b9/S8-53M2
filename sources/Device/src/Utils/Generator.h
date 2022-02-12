@@ -14,7 +14,7 @@ typedef enum
 
 typedef struct
 {
-    void(*SetParametersWave)(Channel channel, TypeWave typeWave, float frequency, float startAngle, float amplWave, float amplNoise);    // numWave = 1, 2. Может быть до двух сигналов.
+    void(*SetParametersWave)(Chan::E ch, TypeWave typeWave, float frequency, float startAngle, float amplWave, float amplNoise);    // numWave = 1, 2. Может быть до двух сигналов.
                                                                                                     // amplWave = 0.0f...1.0f, amplNoise = 0.0f...1.0f - относительно амплитуды сигнала.
     void(*StartNewWave)(Chan::E ch);
     uint8(*GetSampleWave)(Chan::E ch);

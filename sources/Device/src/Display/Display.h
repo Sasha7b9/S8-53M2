@@ -135,7 +135,7 @@ private:
     // Нарисовать окно памяти
     static void DrawMemoryWindow();
     
-    static void DRAW_SPECTRUM(const uint8 *data, int numPoints, Channel channel);
+    static void DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan::E ch);
     
     static void DrawGridSpectrum();
     

@@ -594,7 +594,7 @@ void FPGA::SaveState(void)
 void FPGA::RestoreState(void)
 {
     int16 rShiftAdd[2][RangeSize][2];
-    for (int chan = 0; chan < 2; chan++)
+    for (int ch = 0; ch < 2; ch++)
     {
         for (int mode = 0; mode < 2; mode++)
         {
@@ -605,7 +605,7 @@ void FPGA::RestoreState(void)
         }
     }
     set = storingSettings;
-    for (int chan = 0; chan < 2; chan++)
+    for (int ch = 0; ch < 2; ch++)
     {
         for (int mode = 0; mode < 2; mode++)
         {
@@ -877,10 +877,10 @@ void FPGA::AutoFind(void)
     //Timer::StartLogging();
 
     //LOG_WRITE("Канал 1");
-    if (!FindWave(A))
+    if (!FindWave(Chan::A))
     {
         //LOG_WRITE("Канал 2");
-        if(!FindWave(B))
+        if(!FindWave(Chan::B))
         {
             Display::ShowWarningBad(SignalNotFound);
         }
@@ -899,8 +899,8 @@ bool FPGA::FindWave(Chan::E ch)
 
     Stop(false);
     SET_ENABLED(ch) = true;
-    FPGA::SetTrigSource((TrigSource)chan);
-    FPGA::SetTrigLev((TrigSource)chan, TrigLevZero);
+    FPGA::SetTrigSource((TrigSource)ch);
+    FPGA::SetTrigLev((TrigSource)ch, TrigLevZero);
     FPGA::SetRShift(ch, RShiftZero);
     FPGA::SetModeCouple(ch, ModeCouple_AC);
     Range range = AccurateFindRange(ch);
@@ -912,7 +912,7 @@ bool FPGA::FindWave(Chan::E ch)
         if (tBase != TBaseSize)
         {
             SET_TBASE = tBase;
-            TRIG_SOURCE = (TrigSource)chan;
+            TRIG_SOURCE = (TrigSource)ch;
             return true;
         }
     }
@@ -1086,8 +1086,8 @@ void FPGA::TemporaryPause(void)
 
 void FPGA::FillDataPointer(DataSettings *dp)
 {
-    dp->enableCh0 = sChannel_Enabled(A) ? 1U : 0U;
-    dp->enableCh1 = sChannel_Enabled(B) ? 1U : 0U;
+    dp->enableCh0 = sChannel_Enabled(Chan::A) ? 1U : 0U;
+    dp->enableCh1 = sChannel_Enabled(Chan::B) ? 1U : 0U;
     dp->inverseCh0 = SET_INVERSE_A ? 1U : 0U;
     dp->inverseCh1 = SET_INVERSE_B ? 1U : 0U;
     dp->range[0] = SET_RANGE_A;

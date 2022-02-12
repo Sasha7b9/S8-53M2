@@ -402,7 +402,7 @@ void Menu::ProcessingShortPressureButton()
                 }
                 if(button == B_Channel1 && name == Page_Channel1)
                 {
-                    SET_ENABLED_B = !sChannel_Enabled(B);
+                    SET_ENABLED_B = !sChannel_Enabled(Chan::B);
                     OnChanged_InputB(true);
                     break;
                 }

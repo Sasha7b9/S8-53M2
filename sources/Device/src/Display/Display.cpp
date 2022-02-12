@@ -416,7 +416,7 @@ void Display::DrawMath()
     uint8 points[FPGA_MAX_POINTS];
     Math_PointsVoltageToRel(dataAbs0, (int)ds->length1channel, SET_RANGE_MATH, SET_RSHIFT_MATH, points);
 
-    DrawDataChannel(points, Math, ds, Grid::MathTop(), Grid::MathBottom());
+    DrawDataChannel(points, Chan::Math, ds, Grid::MathTop(), Grid::MathBottom());
 
     static const int width = 71;
     static const int height = 10;
@@ -475,7 +475,7 @@ void Display::WriteParametersFFT(Chan::E ch, float freq0, float density0, float 
 
 
 
-void Display::DRAW_SPECTRUM(const uint8 *data, int numPoints, Channel channel)
+void Display::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan::E ch)
 {
     if (!sChannel_Enabled(channel))
     {
@@ -1181,11 +1181,11 @@ void Display::DrawCursorsRShift()
     if(LAST_AFFECTED_CHANNEL_IS_B)
     {
         DrawCursorRShift(Chan::A);
-        DrawCursorRShift(B);
+        DrawCursorRShift(Chan::B);
     }
     else
     {
-        DrawCursorRShift(B);
+        DrawCursorRShift(Chan::B);
         DrawCursorRShift(Chan::A);
     }
 }
@@ -1876,16 +1876,16 @@ void Display::DrawMeasures()
                 }
                 if(MEAS_SOURCE_IS_A)
                 {
-                    Painter::DrawTextC(x + 2, y + 11, Processing::GetStringMeasure(meas, A, buffer), ColorChannel(A));
+                    Painter::DrawTextC(x + 2, y + 11, Processing::GetStringMeasure(meas, A, buffer), ColorChannel(Chan::A));
                 }
                 else if(MEAS_SOURCE_IS_B)
                 {
-                    Painter::DrawTextC(x + 2, y + 11, Processing::GetStringMeasure(meas, B, buffer), ColorChannel(B));
+                    Painter::DrawTextC(x + 2, y + 11, Processing::GetStringMeasure(meas, B, buffer), ColorChannel(Chan::B));
                 }
                 else
                 {
-                    Painter::DrawTextC(x + 2, y + 11, Processing::GetStringMeasure(meas, A, buffer), ColorChannel(A));
-                    Painter::DrawTextC(x + 2, y + 20, Processing::GetStringMeasure(meas, B, buffer), ColorChannel(B));
+                    Painter::DrawTextC(x + 2, y + 11, Processing::GetStringMeasure(meas, A, buffer), ColorChannel(Chan::A));
+                    Painter::DrawTextC(x + 2, y + 20, Processing::GetStringMeasure(meas, B, buffer), ColorChannel(Chan::B));
                 }
             }
         }

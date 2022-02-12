@@ -11,7 +11,7 @@
 #include <math.h>
 
 
-static void SetParametersWave(Channel channel, TypeWave typeWave, float frequency, float startAngle, float amplWave, float amplNoise);
+static void SetParametersWave(Chan::E ch, TypeWave typeWave, float frequency, float startAngle, float amplWave, float amplNoise);
 static void StartNewWave(Chan::E ch);
 static uint8 GetSampleWave(Chan::E ch);
 
@@ -25,8 +25,8 @@ const SGenerator Generator =
 
 
 static float NewNoiseValue(Chan::E ch);
-static uint8 GetSampleSinusWave(Channel channel, int numSample);
-static uint8 GetSampleMeanderWave(Channel channel, int numSample);
+static uint8 GetSampleSinusWave(Chan::E ch, int numSample);
+static uint8 GetSampleMeanderWave(Chan::E ch, int numSample);
 
 
 static TypeWave type[2] = {Wave_Sinus, Wave_Meander};
@@ -36,7 +36,7 @@ static float ampl[2] = {1.0f, 0.5f};
 static float amplNoise[2] = {0.1f, 0.1f};
 static int numSample[2] = {0, 0};
 
-void SetParametersWave(Channel channel, TypeWave typeWave, float frequency, float startAngle, float amplWave, float amplNoise_)
+void SetParametersWave(Chan::E ch, TypeWave typeWave, float frequency, float startAngle, float amplWave, float amplNoise_)
 {
     type[channel] = typeWave;
     freq[channel] = frequency;
@@ -55,14 +55,14 @@ uint8 GetSampleWave(Chan::E ch)
     return (type[channel] == Wave_Sinus) ? GetSampleSinusWave(channel, (numSample[channel])++) : GetSampleMeanderWave(channel, (numSample[channel])++);
 }
 
-uint8 GetSampleSinusWave(Channel channel, int numSample_)
+uint8 GetSampleSinusWave(Chan::E ch, int numSample_)
 {
     float dT = numSample_ * TSHIFT_2_ABS(1, SET_TBASE);
     float voltage = ampl[channel] * sin(2 * M_PI * freq[channel] * dT + angle[channel]) + NewNoiseValue(channel);
     return Math_VoltageToPoint(voltage, SET_RANGE(channel), SET_RSHIFT(channel));
 }
 
-uint8 GetSampleMeanderWave(Channel channel, int numSample_)
+uint8 GetSampleMeanderWave(Chan::E ch, int numSample_)
 {
     return 0;
 }

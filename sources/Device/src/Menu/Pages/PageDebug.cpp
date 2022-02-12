@@ -579,7 +579,7 @@ static void OnChanged_ADC_Stretch_Mode(bool active)
     if(active)
     {
         LoadStretchADC(Chan::A);
-        LoadStretchADC(B);
+        LoadStretchADC(Chan::B);
     }
 }
 

@@ -19,8 +19,8 @@
 
 #define TRIG_LEVEL(source)      (set.trig.levelRel[source])             // SettingsTrig.levelRel
 #define TRIG_LEVEL_SOURCE       (TRIG_LEVEL(TRIG_SOURCE))               // set.trig.levelRel[set.trig.source]
-#define TRIG_LEVEL_A            (TRIG_LEVEL(A))                         // set.trig.levelRel[Chan::A]
-#define TRIG_LEVEL_B            (TRIG_LEVEL(B))                         // set.trig.levelRel[Chan::B]
+#define TRIG_LEVEL_A            (TRIG_LEVEL(Chan::A))                         // set.trig.levelRel[Chan::A]
+#define TRIG_LEVEL_B            (TRIG_LEVEL(Chan::B))                         // set.trig.levelRel[Chan::B]
 
 #define MODE_LONG_PRESS_TRIG    (set.trig.modeLongPressTrig)            // SettingsTrig.modeLongPressTrig
 /// если \c true, то длительное нажатие кнопки \b СИНХР сбрасывает уровень синхронизации в 0.

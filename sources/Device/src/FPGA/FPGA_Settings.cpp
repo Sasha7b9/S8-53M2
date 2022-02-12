@@ -78,14 +78,14 @@ static const TBaseMaskStruct masksTBase[TBaseSize] =
 void FPGA::LoadSettings(void)
 {
     LoadKoeffCalibration(Chan::A);
-    LoadKoeffCalibration(B);
+    LoadKoeffCalibration(Chan::B);
     SetAttribChannelsAndTrig(TypeWriteAnalog_All);
     LoadTBase();
     LoadTShift();
     LoadRange(Chan::A);
     LoadRShift(Chan::A);
-    LoadRange(B);
-    LoadRShift(B);
+    LoadRange(Chan::B);
+    LoadRShift(Chan::B);
     LoadTrigLev();
     LoadTrigPolarity();
     LoadRegUPR();
@@ -200,7 +200,7 @@ void FPGA::LoadRange(Chan::E ch)
 
 void FPGA::SetTBase(TBase tBase)
 {
-    if (!sChannel_Enabled(A) && !sChannel_Enabled(B))
+    if (!sChannel_Enabled(Chan::A) && !sChannel_Enabled(Chan::B))
     {
         return;
     }
@@ -362,7 +362,7 @@ void FPGA::LoadTrigLev(void)
 
 void FPGA::SetTShift(int tShift)
 {
-    if (!sChannel_Enabled(A) && !sChannel_Enabled(B))
+    if (!sChannel_Enabled(Chan::A) && !sChannel_Enabled(Chan::B))
     {
         return;
     }

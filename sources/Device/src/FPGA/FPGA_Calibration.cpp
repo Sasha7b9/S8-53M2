@@ -85,7 +85,7 @@ void FPGA::ProcedureCalibration(void)
         STRETCH_ADC_A = 1.0f;
         STRETCH_ADC_B = 1.0f;
         FPGA::LoadKoeffCalibration(Chan::A);
-        FPGA::LoadKoeffCalibration(B);
+        FPGA::LoadKoeffCalibration(Chan::B);
         FPGA::SetRange(Chan::A, Range_500mV);
         FPGA::SetRange(Chan::B, Range_500mV);
         FPGA::SetRShift(Chan::A, RShiftZero);
@@ -147,18 +147,18 @@ void FPGA::ProcedureCalibration(void)
         {
 			gStateFPGA.stateCalibration = StateCalibration_RShift1inProgress;
 
-            koeffCal1 = CalculateKoeffCalibration(B);
+            koeffCal1 = CalculateKoeffCalibration(Chan::B);
 			if(koeffCal1 == ERROR_VALUE_FLOAT)
             {
 				gStateFPGA.stateCalibration = StateCalibration_ErrorCalibration1;
 				Panel::WaitPressingButton();
                 DEBUG_STRETCH_ADC_TYPE = StretchADC_Hand;
-                LoadStretchADC(B);
+                LoadStretchADC(Chan::B);
 			}
             else
             {
                 STRETCH_ADC_B = koeffCal1;
-                FPGA::LoadKoeffCalibration(B);
+                FPGA::LoadKoeffCalibration(Chan::B);
             }
 
             for (int range = 0; range < RangeSize; range++)
@@ -193,7 +193,7 @@ void FPGA::ProcedureCalibration(void)
     FPGA::LoadKoeffCalibration(Chan::A);
 
     STRETCH_ADC_B = (koeffCal1 == ERROR_VALUE_FLOAT) ? koeffCalibrationOld[1] : koeffCal1;
-    FPGA::LoadKoeffCalibration(B);
+    FPGA::LoadKoeffCalibration(Chan::B);
 
     gStateFPGA.stateCalibration = StateCalibration_None;
     Panel::WaitPressingButton();
@@ -308,7 +308,7 @@ void DrawParametersChannel(Chan::E ch, int eX, int eY, bool inProgress)
     Painter::SetColor(COLOR_FILL);
     if(inProgress)
     {
-        Painter::DrawText(eX, eY + 4, chan == 0 ? "КАНАЛ 1" : "КАНАЛ 2");
+        Painter::DrawText(eX, eY + 4, (ch == Chan::A) ? "КАНАЛ 1" : "КАНАЛ 2");
         ProgressBar *bar = (ch == Chan::A) ? &bar0 : &bar1;
         bar->width = 240;
         bar->height = 15;
@@ -347,8 +347,8 @@ float CalculateDeltaADC(Chan::E ch, float *avgADC1, float *avgADC2, float *delta
     bar->passedTime = 0;
     bar->fullTime = 0;
 
-    FPGA::SetTrigSource((TrigSource)chan);
-    FPGA::SetTrigLev((TrigSource)chan, TrigLevZero);
+    FPGA::SetTrigSource((TrigSource)ch);
+    FPGA::SetTrigLev((TrigSource)ch, TrigLevZero);
 
     uint8 *address1 = ch == Chan::A ? RD_ADC_A1 : RD_ADC_B1; //-V566
     uint8 *address2 = ch == Chan::A ? RD_ADC_A2 : RD_ADC_B2; //-V566
@@ -411,7 +411,7 @@ int16 CalculateAdditionRShift(Chan::E ch, Range range)
     FPGA::SetTBase(TBase_200us);
     FPGA::SetTrigSource(ch == Chan::A ? TrigSource_ChannelA : TrigSource_ChannelB);
     FPGA::SetTrigPolarity(TrigPolarity_Front);
-    FPGA::SetTrigLev((TrigSource)chan, TrigLevZero);
+    FPGA::SetTrigLev((TrigSource)ch, TrigLevZero);
 
     FPGA::WriteToHardware(WR_UPR, BINARY_U8(00000000), false);   // Устанавливаем выход калибратора в ноль
 
@@ -475,8 +475,8 @@ float CalculateKoeffCalibration(Chan::E ch)
 
     FPGA::SetRShift(ch, RShiftZero - 40 * 4);
     FPGA::SetModeCouple(ch, ModeCouple_DC);
-    FPGA::SetTrigSource((TrigSource)chan);
-    FPGA::SetTrigLev((TrigSource)chan, TrigLevZero + 40 * 4);
+    FPGA::SetTrigSource((TrigSource)ch);
+    FPGA::SetTrigLev((TrigSource)ch, TrigLevZero + 40 * 4);
     
     int numMeasures = 16;
     int sumMIN = 0;

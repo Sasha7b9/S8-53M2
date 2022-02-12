@@ -173,7 +173,7 @@ void ChangeRShift(int *prevTime, void(*f)(Channel, int16), Chan::E ch, int16 rel
     {
         rShift = RShiftZero;
     }
-    if (CanChangeRShiftOrTrigLev((TrigSource)chan, (int16)rShift))
+    if (CanChangeRShiftOrTrigLev((TrigSource)ch, (int16)rShift))
     {
         Sound::RegulatorShiftRotate();
         f(ch, (int16)rShift);
@@ -343,13 +343,13 @@ void Range0Right()
 void Range1Left()
 {
     Sound::RegulatorSwitchRotate();
-    FPGA::RangeIncrease(B);
+    FPGA::RangeIncrease(Chan::B);
 }
 
 void Range1Right()
 {
     Sound::RegulatorSwitchRotate();
-    FPGA::RangeDecrease(B);
+    FPGA::RangeDecrease(Chan::B);
 }
 
 void TBaseLeft()
