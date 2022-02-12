@@ -36,16 +36,16 @@ Color::E LightShadingTextColor();      // Светлый цвет в тени.
 
 typedef struct
 {
-    float   red;
-    float   green;
-    float   blue;
-    float   stepRed;
-    float   stepGreen;
-    float   stepBlue;
-    float   brightness;
-    Color::E   color;
-    int8    currentField;
-    bool    alreadyUsed;
+    float    red;
+    float    green;
+    float    blue;
+    float    stepRed;
+    float    stepGreen;
+    float    stepBlue;
+    float    brightness;
+    Color::E color;
+    int8     currentField;
+    bool     alreadyUsed;
 } ColorType;
 
 void Color_Log(Color::E color);           // Вывести в лог значение цвета.
