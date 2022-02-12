@@ -4,12 +4,13 @@
 #include "Hardware/Hardware.h"
 #include "VCP/VCP.h"
 #include "Settings/Settings.h"
+#include "Hardware/HAL/HAL.h"
 
 
 
 void SCPI::COMMON::IDN(uint8 *buffer)
 {
-    SCPI_SEND("MNIPI,S8-53/1,V%S,%X", NUM_VER, Hardware::CalculateCRC32());
+    SCPI_SEND("MNIPI,S8-53/1,V%S,%X", NUM_VER, HAL::CalculateCRC32());
 }
 
 

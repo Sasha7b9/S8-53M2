@@ -1,7 +1,7 @@
 // 2022/2/12 12:47:12 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Device.h"
-#include "Hardware/Hardware.h"
+#include "Hardware/HAL/HAL.h"
 #include "Settings/Settings.h"
 #include "FPGA/Storage.h"
 #include "Hardware/EPROM.h"
@@ -68,7 +68,7 @@ namespace Device
 
 void Device::Init()
 {
-    Hardware::Init();
+    HAL::Init();
     VCP::Init();
     Settings::Load(false);
     FPGA::Init();

@@ -25,6 +25,14 @@
                          |                            |                                                                 |
 */
 
+
+namespace HAL
+{
+    void Init();
+    uint CalculateCRC32();
+}
+
+
 // »спользуетс€ дл€ управлени€ €ркостью диспле€
 namespace HAL_DAC1
 {

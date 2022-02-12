@@ -1321,6 +1321,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_LTDC.cpp</FilePath>
             </File>
+            <File>
+              <FileName>HAL.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3261,6 +3266,11 @@
               <FileName>HAL_LTDC.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_LTDC.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL.cpp</FilePath>
             </File>
           </Files>
         </Group>

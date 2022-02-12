@@ -9,13 +9,8 @@
 #include "Hardware/Sound.h"
 #include "Hardware/Timer.h"
 #include "Utils/Math.h"
+#include "Hardware/HAL/HAL.h"
 
-
-/** @addtogroup Menu
- *  @{
- *  @addtogroup PageService
- *  @{
- */
 
 extern const Page pService;
 
@@ -993,7 +988,7 @@ static void Information_Draw(void)
     Painter::DrawText(x, y, buffer);
     y += dY;
 
-Painter::DrawFormatText(x, y, COLOR_FILL, "CRC32 : %X", Hardware::CalculateCRC32());
+    Painter::DrawFormatText(x, y, COLOR_FILL, "CRC32 : %X", HAL::CalculateCRC32());
 
     dY = -10;
     Painter::DrawStringInCenterRect(0, 190 + dY, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");
@@ -1018,7 +1013,3 @@ static void OnPress_Information_Exit(void)
     Display::SetDrawMode(DrawMode_Auto, 0);
     Display::RemoveAddDrawFunction();
 }
-
-
-/** @}  @}
- */
