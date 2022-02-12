@@ -20,7 +20,7 @@ struct RecordConfig
     int  sizeData;  // Размер в байтах записанных данных
 };
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 #define SIZE_ARRAY_POINTERS_IN_ELEMENTS 1024
 #define ADDR_ARRAY_POINTERS (ADDR_SECTOR_SETTINGS + 4)
 #define SIZE_ARRAY_POINTERS_IN_BYTES (SIZE_ARRAY_POINTERS_IN_ELEMENTS * sizeof(RecordConfig))

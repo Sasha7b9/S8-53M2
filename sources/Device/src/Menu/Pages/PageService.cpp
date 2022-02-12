@@ -95,7 +95,7 @@ static void        OnPress_Information_Exit();
 
 extern Page mainPage;
 
-// яепбхя ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// яепбхя //////////////////////////
 static const arrayItems itemsService =
 {
     (void*)&bResetSettings,             // яепбхя - яАПНЯ МЮЯРПНЕЙ
@@ -177,7 +177,7 @@ static void OnPress_AutoSearch(void)
     FPGA::StartAutoFind();
 };
 
-// яепбхя - йюкхапюрнп ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// яепбхя - йюкхапюрнп /////////////
 static const arrayItems itemsCalibrator =
 {
     (void*)&cCalibrator_Mode,       // яепбхя - йюкхапюрнп - йЮКХАПЮРНП
@@ -230,7 +230,7 @@ static void OnPress_Calibrator_Calibrate(void)
     gStateFPGA.needCalibration = true;
 }
 
-// яепбхя - люрелюрхйю ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// яепбхя - люрелюрхйю /////////////
 static const arrayItems itemsMath =
 {
     (void*)&pppMath_Function,     // яепбхя - люрелюрхйю - тсмйжхъ
@@ -246,7 +246,7 @@ static const Page ppMath
     Page_Math, &itemsMath
 );
 
-// яепбхя - люрелюрхйю - тсмйжхъ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// яепбхя - люрелюрхйю - тсмйжхъ ///
 static const arrayItems itemsMath_Function =
 {
     (void*)&sbMath_Function_Exit,       // яепбхя - люрелюрхйю - тсмйжхъ - бШУНД
@@ -550,7 +550,7 @@ static void Draw_Math_Function_RangeB(int x, int y)
     Painter::DrawChar(x + 8, y + 5, '2');
 }
 
-// яепбхя - люрелюрхйю - яоейрп //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// яепбхя - люрелюрхйю - яоейрп ////
 static const arrayItems itemsMath_FFT =
 {
     (void*)&cMath_FFT_Enable,       // яепбхя - люрелюрхйю - яоейрп - нРНАПЮФЕМХЕ
@@ -743,7 +743,7 @@ static bool IsActive_Math_FFT_Limit(void)
     return SCALE_FFT_IS_LOG;
 }
 
-// яепбхя - ETHERNET /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// яепбхя - ETHERNET ///////////////
 static const arrayItems itemsEthernet =
 {
     (void*)&cEthernet_Enable,       // яепбхя - ETHERNET - Ethernet

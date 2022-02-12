@@ -137,14 +137,14 @@ void WelcomeScreen::Update() {
         Point p0out = p0;
         Point p1out = p1;
 
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
         Mat4x4 matScale = {0};
         FillMatriceScale(&matScale, scaleX, scaleY, scaleZ);
 
         TransformPoint(&matScale, &p0, &p0out);
         TransformPoint(&matScale, &p1, &p1out);
 
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
         Mat4x4 matRotate = {0};
         FillMatriceRotation(&matRotate, angleX, angleY, angleZ);
 
@@ -154,7 +154,7 @@ void WelcomeScreen::Update() {
         TransformPoint(&matRotate, &p0out, &p0out2);
         TransformPoint(&matRotate, &p1out, &p1out2);
 
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
         Mat4x4 matMove = {0};
         FillMatriceMov(&matMove, x, y, z);
 
