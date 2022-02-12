@@ -56,8 +56,8 @@ static pFuncVV funcAfterDraw    = 0;
 
 void Display::Init() 
 {
-//    Color::ResetFlash();
-//
+    Color::ResetFlash();
+
 //    HAL_LTDC::Init(front, &back[0][0]);
 //
 //    BeginFrame(Color::BLACK);
@@ -2552,7 +2552,7 @@ void Display::ClearFromWarnings()
 
 void Display::ShowWarningBad(Warning warning)
 {
-    Painter::ResetFlash();
+    Color::ResetFlash();
     ShowWarn(Tables_GetWarning(warning));
     Sound::WarnBeepBad();
 }
@@ -2561,7 +2561,7 @@ void Display::ShowWarningBad(Warning warning)
 
 void Display::ShowWarningGood(Warning warning)
 {
-    Painter::ResetFlash();
+    Color::ResetFlash();
     ShowWarn(Tables_GetWarning(warning));
     Sound::WarnBeepGood();
 }

@@ -51,6 +51,8 @@ struct Color
         FLASH_01,
         SET_INVERSE
     } value;
+
+    static void ResetFlash();
 };
 
 

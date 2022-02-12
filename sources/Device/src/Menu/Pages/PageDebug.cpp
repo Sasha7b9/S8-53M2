@@ -1024,7 +1024,7 @@ static void OnPress_SerialNumber_Change(void)
     ACCESS_EXTRAMEM(StructForSN, s);
     ++s->curDigt;
     s->curDigt %= 2;
-    Painter::ResetFlash();
+    Color::ResetFlash();
 }
 
 static void Draw_SerialNumber_Change(int x, int y)

@@ -17,8 +17,6 @@ public:
     // По умолчанию запрашиваем первый фрейм с шрифтами
     static void SendFrame(bool first, bool noFonts = false);
 
-    static void ResetFlash();
-
     static void SetColor(Color::E color);
 
     static Color::E CurrentColor();

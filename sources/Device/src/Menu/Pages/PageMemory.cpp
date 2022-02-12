@@ -398,7 +398,7 @@ void OnMemExtSetMaskNameRegSet(int angle, int maxIndex)
         CircleIncreaseInt8
     };
 
-    Painter::ResetFlash();
+    Color::ResetFlash();
     if (INDEX_SYMBOL > maxIndex)
     {
         INDEX_SYMBOL = maxIndex - 1;
@@ -635,7 +635,7 @@ static void FuncOnRegSetMemInt(int delta)
         CircleIncreaseInt8(&CURRENT_NUM_INT_SIGNAL, 0, MAX_NUM_SAVED_WAVES - 1);
     }
     EPROM::GetData(CURRENT_NUM_INT_SIGNAL, &gDSmemInt, &gData0memInt, &gData1memInt);
-    Painter::ResetFlash();
+    Color::ResetFlash();
 }
 
 static void DrawSB_MemInt_ShowSignalAllways_Yes(int x, int y)

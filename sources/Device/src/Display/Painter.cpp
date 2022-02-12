@@ -97,7 +97,7 @@ static void OnTimerFlashDisplay()
 }
 
 
-void Painter::ResetFlash()
+void Color::ResetFlash()
 {
     Timer::Enable(kFlashDisplay, 400, OnTimerFlashDisplay);
     inverseColors = false;
