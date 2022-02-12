@@ -868,7 +868,7 @@ void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, 
     int height = 14;
     float scale = (float)height / (float)(MAX_VALUE - MIN_VALUE);
 
-#define ORDINATE(x) bottom - scale * LimitationInt(x - MIN_VALUE, 0, 200)
+#define ORDINATE(x) bottom - scale * LimitationInt((x) - MIN_VALUE, 0, 200)
 
 #define NUM_POINTS (300 * 2)
     uint8 points[NUM_POINTS];
@@ -1597,10 +1597,7 @@ void Display::DrawCursorTrigLevel()
     int y0 = (GRID_TOP + Grid::ChannelBottom()) / 2 + scale * (TrigLevZero - TrigLevMin);
     int y = y0 - scale * (trigLev - TrigLevMin);
 
-    if(chan != TrigSource_Ext)
-    {
-        y = (y - Grid::ChannelCenterHeight()) + Grid::ChannelCenterHeight();
-    }
+    y = (y - Grid::ChannelCenterHeight()) + Grid::ChannelCenterHeight();
 
     int x = Grid::Right();
     Painter::SetColor(ColorTrig());
@@ -1656,7 +1653,7 @@ void Display::DrawCursorRShift(Channel chan)
     {
         int rShift = SET_RSHIFT_MATH;
         float scale = (float)Grid::MathHeight() / 960;
-        float y = (Grid::MathTop() + Grid::MathBottom()) / 2 - scale * (rShift - RShiftZero);
+        float y = (Grid::MathTop() + Grid::MathBottom()) / 2.0f - scale * (rShift - RShiftZero);
         Painter::DrawCharC(x - 9, y - 4, SYMBOL_RSHIFT_NORMAL, COLOR_FILL);
         Painter::DrawCharC(x - 8, y - 5, 'm', COLOR_BACK);
         return;
@@ -2016,9 +2013,10 @@ void Display::DrawLowPart()
     Painter::DrawText(x + 35, y0, buffer);
 
     buffer[0] = 0;
-    const char *source[3] = {"1", "2", "\x82"};
+
     if (MODE_WORK_IS_DIRECT)
     {
+        const char *source[3] = {"1", "2", "\x82"};
         sprintf(buffer, "ñ\xa5\x10%s", source[TRIG_SOURCE]);
     }
 
@@ -2561,7 +2559,7 @@ void Display::ShowWarningGood(Warning warning)
 }
 
 
-void Display::DrawStringInRectangle(int x, int y, char const *text)
+void Display::DrawStringInRectangle(int, int y, char const *text)
 {
     int width = Font_GetLengthText(text);
     int height = 8;

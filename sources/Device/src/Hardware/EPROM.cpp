@@ -313,7 +313,7 @@ void EPROM::CompactMemory()
     uint dataInfoRel = FindActualDataInfo() - ADDR_SECTOR_DATA_MAIN;
 
     EraseSector(ADDR_SECTOR_DATA_HELP);
-    WriteBufferBytes(ADDR_SECTOR_DATA_HELP, (uint8*)ADDR_SECTOR_DATA_MAIN, 1024 * 128);
+    WriteBufferBytes(ADDR_SECTOR_DATA_HELP, (uint8*)ADDR_SECTOR_DATA_MAIN, 1024 * 128); //-V566
     PrepareSectorForData();
 
     uint addressDataInfo = ADDR_SECTOR_DATA_HELP + dataInfoRel;
