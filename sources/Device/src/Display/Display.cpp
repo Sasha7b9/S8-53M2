@@ -203,9 +203,9 @@ void Display::Init()
 
     HAL_LTDC::Init(front, &back[0][0]);
 
-//    BeginFrame(Color::BLACK);
-//
-//    EndFrame();
+    Painter::BeginScene(Color::BLACK);
+
+    Painter::EndScene();
 //
 //#ifdef DEVICE
 //
