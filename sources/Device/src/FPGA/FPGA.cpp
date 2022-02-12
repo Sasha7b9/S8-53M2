@@ -296,63 +296,20 @@ void FPGA::ReadRandomizeMode(void)
 
     while (pData0 < &dataRel0[FPGA_MAX_POINTS])
     {
-        uint8 data10 = *RD_ADC_B2;
-        //uint8 data11 = *RD_ADC_B1;
-        uint8 data00 = *RD_ADC_A2;
-        //uint8 data01 = *RD_ADC_A1;
-
-        /*
-        if (*pData0 == 0 || numAve == 1 || startMode == StartMode_Single)
+        uint8 data10 = *RD_ADC_B2; //-V566
+        uint8 data00 = *RD_ADC_A2; //-V566
+        if (pData0 >= first0 && pData0 <= last0)
         {
-        */
-            if (pData0 >= first0 && pData0 <= last0)
-            {
-                WRITE_AND_OR_INVERSE(pData0, data00, A);
-            }
-
-            uint8 *addr = pData0 + addShiftMem;
-            if (addr >= first0 && addr <= last0)
-            {
-//                WRITE_AND_OR_INVERSE(addr, data01, A);
-            }
-
-            if (pData1 >= first1 && pData1 <= last1)
-            {
-                WRITE_AND_OR_INVERSE(pData1, data10, B);
-            }
-            addr = pData1 + addShiftMem;
-            if (addr >= first1 && addr <= last1)
-            {
-//                WRITE_AND_OR_INVERSE(addr, data11, B);
-            }
-        /*
+            WRITE_AND_OR_INVERSE(pData0, data00, A);
         }
-        else
+
+        uint8 *addr = pData0 + addShiftMem;
+
+        if (pData1 >= first1 && pData1 <= last1)
         {
-            if (pData0 >= first0 && pData0 <= last0)
-            {
-                *pData0 = (float)(numAve - 1) / (float)(numAve)* (*pData0) + InverseIfNecessary(data00, A) * 1.0f / (float)numAve;
-            }
-
-            uint8 *addr = pData0 + addShiftMem;
-            if (addr >= first0 && addr <= last0)
-            {
-                *addr = (float)(numAve - 1) / (float)(numAve)* (*(pData0 + addShiftMem)) + InverseIfNecessary(data01, A) * 1.0f / (float)numAve;
-            }
-
-            if (pData1 >= first1 && pData1 <= last1)
-            {
-                *pData1 = (float)(numAve - 1) / (float)(numAve)* (*pData1) + InverseIfNecessary(data10, B) * 1.0f / (float)numAve;
-            }
-
-            addr = pData1 + addShiftMem;
-
-            if (addr >= first1 && addr <= last1)
-            {
-                *addr = (float)(numAve - 1) / (float)(numAve)* (*(pData1 + addShiftMem)) + InverseIfNecessary(data11, B) * 1.0f / (float)numAve;
-            }
+            WRITE_AND_OR_INVERSE(pData1, data10, B);
         }
-        */
+        addr = pData1 + addShiftMem;
 
         pData0 += step;
         pData1 += step;
@@ -380,7 +337,7 @@ void FPGA::ReadRealMode(bool necessaryShift)
         uint8 *p1max = p1min + 512;
         while (p0max < endP && FPGA_IN_PROCESS_READ)
         {
-            uint8 data = *RD_ADC_B2;
+            uint8 data = *RD_ADC_B2; //-V566
             *p1max++ = data;
             data = *RD_ADC_B1;
             *p1min++ = data;
@@ -396,7 +353,7 @@ void FPGA::ReadRealMode(bool necessaryShift)
         {
             *p1++ = *RD_ADC_B2;
             *p1++ = *RD_ADC_B1;
-            uint8 data = *RD_ADC_A2;
+            uint8 data = *RD_ADC_A2; //-V566
             *p0++ = data;
             data = *RD_ADC_A1;
             *p0++ = data;
@@ -516,7 +473,6 @@ bool FPGA::CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
         *eMax = max;
         if(numElements < numValues)
         {
-            //LOG_WRITE("min %u, max %u, rand %d", *eMin, *eMax, rand);
             return true;
         }
         minGate = min;
@@ -530,15 +486,13 @@ bool FPGA::CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
     {
         minGate = 0.9f * minGate + 0.1f * min;
         maxGate = 0.9f * maxGate + 0.1f * max;
-        //LOG_WRITE("%.0f ... %.0f, min = %u, max = %u", minGate, maxGate, min, max);
         numElements = 0;
         min = 0xffff;
         max = 0;
     }
-    *eMin = minGate;
-    *eMax = maxGate;
+    *eMin = minGate; //-V519
+    *eMax = maxGate; //-V519
 
-    //LOG_WRITE("min %u, max %u, rand %d", *eMin, *eMax, rand);
     return true;
 }
 
@@ -546,7 +500,7 @@ bool FPGA::CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
 int FPGA::CalculateShift(void)            // \todo Не забыть восстановить функцию
 {
     uint16 rand = ADConverter::GetValue();
-    //LOG_WRITE("rand = %d", (int)rand);
+
     uint16 min = 0;
     uint16 max = 0;
 
@@ -620,10 +574,10 @@ void ReadPoint(void)
 {
     if(_GET_BIT(ReadFlag(), BIT_POINT_READY))
     {
-        uint8 dataB1 = *RD_ADC_B1;
-        uint8 dataB2 = *RD_ADC_B2;
-        uint8 dataA1 = *RD_ADC_A1;
-        uint8 dataA2 = *RD_ADC_A2;
+        uint8 dataB1 = *RD_ADC_B1; //-V566
+        uint8 dataB2 = *RD_ADC_B2; //-V566
+        uint8 dataA1 = *RD_ADC_A1; //-V566
+        uint8 dataA2 = *RD_ADC_A2; //-V566
         Display::AddPoints(dataA2, dataA1, dataB2, dataB1);
     }
 }
