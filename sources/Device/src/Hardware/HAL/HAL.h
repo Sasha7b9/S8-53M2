@@ -21,12 +21,12 @@ namespace HAL_FMC
 
     void Write(uint16 *const address, uint16 value);
 
-    extern uint16 *const _ADDR_FPGA;                 // Адрес записи в альтеру
+    extern uint16 *const _ADDR_FPGA;                // Адрес записи в альтеру
 
-    extern uint16 *const _ADDR_RAM_DISPLAY_FRONT;    // Видимое изображение дисплея. Находится в RAM и не может исполь-
+    extern uint16 *const _ADDR_RAM_DISPLAY_FRONT;   // Видимое изображение дисплея. Находится в RAM и не может исполь-
                                                     // зоваться для других целей
-    extern uint8 *const _ADDR_RAM_BEGIN;             // Первый свободный адрес в RAM.
-    extern uint8 *const _ADDR_RAM_END;               // Указывает на первый недопустимый адрес RAM. Использовать можно
+    extern uint8 *const _ADDR_RAM_BEGIN;            // Первый свободный адрес в RAM.
+    extern uint8 *const _ADDR_RAM_END;              // Указывает на первый недопустимый адрес RAM. Использовать можно
                                                     // адреса [ADDR_RAM_BEGIN...(ADDR_RAM_END - 1)]
 };
 
