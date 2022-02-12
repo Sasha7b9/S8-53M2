@@ -1,7 +1,6 @@
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/ADC.h"
-#include "FlashDrive/FlashDrive.h"
 #include "Hardware/CLOCK.h"
 #include "Hardware/Timer.h"
 
@@ -87,8 +86,6 @@ void HAL::Init()
     HAL_FMC::Init();
 
     ADConverter::Init();
-
-    FlashDrive::Init();
 
     // Analog and DAC programmable SPI ////////////////////////////////////////
 

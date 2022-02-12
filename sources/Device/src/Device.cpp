@@ -13,6 +13,7 @@
 #include "Menu/Menu.h"
 #include "Hardware/Sound.h"
 #include "Panel/Panel.h"
+#include "FlashDrive/FlashDrive.h"
 
 
 namespace Device
@@ -79,6 +80,7 @@ void Device::Init()
     FPGA::OnPressStartStop();
     Display::Init();
     Panel::Init();
+    FlashDrive::Init();
 
     // LAN::Init();
 }
