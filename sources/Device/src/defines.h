@@ -2,8 +2,10 @@
 #pragma once
 
 #ifdef WIN32
-#define __attribute__(x)
-#define __packed__
+    #define __attribute__(x)
+    #define __packed__
+#else
+    #define nullptr 0
 #endif
 
 

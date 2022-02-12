@@ -382,7 +382,7 @@ void Painter::DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, in
 
     for (int i = 0; i < numLines; i++)
     {
-        for (int j = 0; j < count; i++)
+        for (int j = 0; j < count; j++)
         {
             SetPoint(x[j], y);
             y += delta;
