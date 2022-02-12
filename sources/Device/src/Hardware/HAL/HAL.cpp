@@ -62,26 +62,6 @@ void HAL::Init()
     HAL_FMC::Init();
 
     ADConverter::Init();
-
-    // Analog and DAC programmable SPI ////////////////////////////////////////
-
-    GPIO_InitTypeDef isGPIOG =
-    {
-        GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_5 | GPIO_PIN_7,     // GPIO_PIN_1 - для работы с дисплеем
-        GPIO_MODE_OUTPUT_PP,
-        GPIO_NOPULL,
-        GPIO_SPEED_HIGH,
-        GPIO_AF0_MCO
-    };
-    HAL_GPIO_Init(GPIOG, &isGPIOG);
-
-    isGPIOG.Pin = GPIO_PIN_1;
-    isGPIOG.Mode = GPIO_MODE_OUTPUT_PP;
-    isGPIOG.Pull = GPIO_NOPULL;
-
-    HAL_GPIO_Init(GPIOG, &isGPIOG);
-
-    HAL_GPIO_WritePin(GPIOG, GPIO_PIN_1, GPIO_PIN_RESET);                   // PG1 - когда равен 1, чтение дисплея, в остальных случаях 0
 }
 
 
