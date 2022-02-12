@@ -16,17 +16,17 @@ static void SetColor(ColorType *colorType)
 }
 
 
-Color ColorChannel(Channel chan)
+Color ColorChannel(Chan::E ch)
 {
     static const Color colors[4] = {COLOR_DATA_A, COLOR_DATA_B, COLOR_WHITE, COLOR_WHITE};
-    return colors[chan];
+    return colors[ch];
 }
 
 
-Color ColorCursors(Channel chan)
+Color ColorCursors(Chan::E ch)
 {
     static const Color colors[4] = {COLOR_DATA_A, COLOR_DATA_B, COLOR_WHITE, COLOR_WHITE};
-    return colors[chan];
+    return colors[ch];
 }
 
 

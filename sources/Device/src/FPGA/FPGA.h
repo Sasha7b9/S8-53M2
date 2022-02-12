@@ -63,9 +63,9 @@ public:
     // Установить масштаб по напряжению.
     static void SetRange(Channel chan, Range range);
     // Увеличить масштаб по напряжению.
-    static bool RangeIncrease(Channel chan);
+    static bool RangeIncrease(Chan::E ch);
     // Уменьшить масштаб по напряжению.
-    static bool RangeDecrease(Channel chan);
+    static bool RangeDecrease(Chan::E ch);
     // Установить масштаб по времени.
     static void SetTBase(TBase tBase);
     // Уменьшить масштаб по времени.
@@ -83,7 +83,7 @@ public:
     // Включить/выключить калибратор.
     static void SetCalibratorMode(CalibratorMode calibratorMode);
     // Загрузить в аппарат коэффициенты калибровки каналов.
-    static void LoadKoeffCalibration(Channel chan);
+    static void LoadKoeffCalibration(Chan::E ch);
     // Установить относительный уровень синхронизации.
     static void SetTrigLev(TrigSource chan, int16 trigLev);
     // Установить источник синхронизации.
@@ -107,9 +107,9 @@ private:
     // Загрузка смещения по времени в аппаратную часть.
     static void LoadTShift();
     // Загрузка масштаба по напряжению в аппаратную часть.
-    static void LoadRange(Channel chan);
+    static void LoadRange(Chan::E ch);
     // Загрузка смещения по напряжению в аппаратную часть.
-    static void LoadRShift(Channel chan);
+    static void LoadRShift(Chan::E ch);
     // Загрузка уровня синхронизации в аппаратную часть.
     static void LoadTrigLev();                                  
     // Загузка полярности синхронизации в аппаратную часть.
@@ -146,11 +146,11 @@ private:
 
     static void ReadRealMode(bool necessaryShift);
 
-    static Range AccurateFindRange(Channel chan);
+    static Range AccurateFindRange(Chan::E ch);
 
-    static TBase FindTBase(Channel chan);
+    static TBase FindTBase(Chan::E ch);
 
-    static TBase AccurateFindTBase(Channel chan);
+    static TBase AccurateFindTBase(Chan::E ch);
 
-    static bool FindWave(Channel chan);
+    static bool FindWave(Chan::E ch);
 };

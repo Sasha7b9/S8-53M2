@@ -27,41 +27,41 @@ public:
     // Возвращает значение вертикального маркера. Если ERROR_VALUE_INT - маркер рисовать не нужно.
     static int GetMarkerVertical(Channel chan, int numMarker);
 private:
-    static float CalculateVoltageMax(Channel chan);
-    static float CalculateVoltageMin(Channel chan);
-    static float CalculateVoltagePic(Channel chan);
-    static float CalculateVoltageMaxSteady(Channel chan);
-    static float CalculateVoltageMinSteady(Channel chan);
-    static float CalculateVoltageAmpl(Channel chan);
-    static float CalculateVoltageAverage(Channel chan);
-    static float CalculateVoltageRMS(Channel chan);
-    static float CalculateVoltageVybrosPlus(Channel chan);
-    static float CalculateVoltageVybrosMinus(Channel chan);
-    static float CalculatePeriod(Channel chan);
+    static float CalculateVoltageMax(Chan::E ch);
+    static float CalculateVoltageMin(Chan::E ch);
+    static float CalculateVoltagePic(Chan::E ch);
+    static float CalculateVoltageMaxSteady(Chan::E ch);
+    static float CalculateVoltageMinSteady(Chan::E ch);
+    static float CalculateVoltageAmpl(Chan::E ch);
+    static float CalculateVoltageAverage(Chan::E ch);
+    static float CalculateVoltageRMS(Chan::E ch);
+    static float CalculateVoltageVybrosPlus(Chan::E ch);
+    static float CalculateVoltageVybrosMinus(Chan::E ch);
+    static float CalculatePeriod(Chan::E ch);
     // Точно вычисляет период или целое число периодов в точках сигнала.
-    static int   CalculatePeriodAccurately(Channel chan);
-    static float CalculateFreq(Channel chan);
-    static float CalculateTimeNarastaniya(Channel chan);
-    static float CalculateTimeSpada(Channel chan);
-    static float CalculateDurationPlus(Channel chan);
-    static float CalculateDurationMinus(Channel chan);
-    static float CalculateSkvaznostPlus(Channel chan);
-    static float CalculateSkvaznostMinus(Channel chan);
+    static int   CalculatePeriodAccurately(Chan::E ch);
+    static float CalculateFreq(Chan::E ch);
+    static float CalculateTimeNarastaniya(Chan::E ch);
+    static float CalculateTimeSpada(Chan::E ch);
+    static float CalculateDurationPlus(Chan::E ch);
+    static float CalculateDurationMinus(Chan::E ch);
+    static float CalculateSkvaznostPlus(Chan::E ch);
+    static float CalculateSkvaznostMinus(Chan::E ch);
     // Возвращает минимальное значение относительного сигнала    
-    static float CalculateMinRel(Channel chan);
+    static float CalculateMinRel(Chan::E ch);
     // Возвращает минимальное установившееся значение относительного сигнала
-    static float CalculateMinSteadyRel(Channel chan);
+    static float CalculateMinSteadyRel(Chan::E ch);
     // Возвращает максимальное значение относительного сигнала
-    static float CalculateMaxRel(Channel chan);
+    static float CalculateMaxRel(Chan::E ch);
     // Возвращает максимальное установившееся значение относительного сигнала
-    static float CalculateMaxSteadyRel(Channel chan);
+    static float CalculateMaxSteadyRel(Chan::E ch);
     // Возвращает среденее значение относительного сигнала
-    static float CalculateAverageRel(Channel chan);
-    static float CalculatePicRel(Channel chan);
-    static float CalculateDelayPlus(Channel chan);
-    static float CalculateDelayMinus(Channel chan);
-    static float CalculatePhazaPlus(Channel chan);
-    static float CalculatePhazaMinus(Channel chan);
+    static float CalculateAverageRel(Chan::E ch);
+    static float CalculatePicRel(Chan::E ch);
+    static float CalculateDelayPlus(Chan::E ch);
+    static float CalculateDelayMinus(Chan::E ch);
+    static float CalculatePhazaPlus(Chan::E ch);
+    static float CalculatePhazaMinus(Chan::E ch);
     // Найти точку пересечения сигнала с горизонтальной линией, проведённой на уровне yLine. numItersection - порядковый номер пересечения, 
     // начинается с 1. downToTop - если true, ищем пересечение сигнала со средней линией при прохождении из "-" в "+".
     static float FindIntersectionWithHorLine(Channel chan, int numIntersection, bool downToUp, uint8 yLine);

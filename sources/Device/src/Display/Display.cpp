@@ -85,14 +85,14 @@ void Display::DrawStringNavigation()
 }
 
 
-void Display::RotateRShift(Channel chan)
+void Display::RotateRShift(Chan::E ch)
 {
     ResetP2Ppoints(true);
     LAST_AFFECTED_CHANNEL = chan;
     if(TIME_SHOW_LEVELS)
     {
-        (chan == A) ? (SHOW_LEVEL_RSHIFT_0 = 1) : (SHOW_LEVEL_RSHIFT_1 = 1);
-        Timer::Enable((chan == A) ? kShowLevelRShift0 : kShowLevelRShift1, TIME_SHOW_LEVELS  * 1000, (chan == A) ? FuncOnTimerDisableShowLevelRShiftA :
+        (ch == Chan::A) ? (SHOW_LEVEL_RSHIFT_0 = 1) : (SHOW_LEVEL_RSHIFT_1 = 1);
+        Timer::Enable((ch == Chan::A) ? kShowLevelRShift0 : kShowLevelRShift1, TIME_SHOW_LEVELS  * 1000, (ch == Chan::A) ? FuncOnTimerDisableShowLevelRShiftA :
                      FuncOnTimerDisableShowLevelRShiftB);
     };
     Display::Redraw();
@@ -335,7 +335,7 @@ void Display::DrawDataChannel(uint8 *data, Channel chan, DataSettings *ds, int m
     if (data == 0)
     {
         calculateFiltr = false;
-        if (chan == A)
+        if (ch == Chan::A)
         {
             Processing::GetData(&data, 0, &ds);
         }
@@ -459,7 +459,7 @@ void Display::WriteParametersFFT(Channel chan, float freq0, float density0, floa
     Painter::DrawText(x, y, Freq2String(freq0, false, buffer));
     y += dY;
     Painter::DrawText(x, y, Freq2String(freq1, false, buffer));
-    if (chan == A)
+    if (ch == Chan::A)
     {
         y += dY + 2;
     }
@@ -1645,7 +1645,7 @@ void Display::DrawCursorTrigLevel()
 }
 
 
-void Display::DrawCursorRShift(Channel chan)
+void Display::DrawCursorRShift(Chan::E ch)
 {
     float x = Grid::Right() - Grid::Width() - Measure_GetDeltaGridLeft();
 
@@ -1688,7 +1688,7 @@ void Display::DrawCursorRShift(Channel chan)
     else
     {
         Painter::DrawCharC(x - 8, y - 4, SYMBOL_RSHIFT_NORMAL, ColorChannel(chan));
-        if(((chan == A) ? (SHOW_LEVEL_RSHIFT_0 == 1) : (SHOW_LEVEL_RSHIFT_1 == 1)) && MODE_WORK_IS_DIRECT)
+        if(((ch == Chan::A) ? (SHOW_LEVEL_RSHIFT_0 == 1) : (SHOW_LEVEL_RSHIFT_1 == 1)) && MODE_WORK_IS_DIRECT)
         {
             Painter::DrawDashedHLine(y, Grid::Left(), Grid::Right(), 7, 3, 0);
         }
@@ -1921,12 +1921,12 @@ void Display::WriteTextVoltage(Channel chan, int x, int y)
         DataSettings *ds = MODE_WORK_IS_DIRECT ? gDSet : gDSmemInt;
         if (ds != 0)
         {
-            inverse = (chan == A) ? ds->inverseCh0 : ds->inverseCh1;
-            modeCouple = (chan == A) ? ds->modeCouple0 : ds->modeCouple1;
-            multiplier = (chan == A) ? ds->multiplier0 : ds->multiplier1;
+            inverse = (ch == Chan::A) ? ds->inverseCh0 : ds->inverseCh1;
+            modeCouple = (ch == Chan::A) ? ds->modeCouple0 : ds->modeCouple1;
+            multiplier = (ch == Chan::A) ? ds->multiplier0 : ds->multiplier1;
             range = ds->range[chan];
-            rShift = (chan == A) ? ds->rShiftCh0 : ds->rShiftCh1;
-            enable = (chan == A) ? ds->enableCh0 : ds->enableCh1;
+            rShift = (ch == Chan::A) ? ds->rShiftCh0 : ds->rShiftCh1;
+            enable = (ch == Chan::A) ? ds->enableCh0 : ds->enableCh1;
         }
     }
 
@@ -1943,7 +1943,7 @@ void Display::WriteTextVoltage(Channel chan, int x, int y)
 
         char buffer[100] = {0};
 
-        sprintf(buffer, "%s\xa5%s\xa5%s", (chan == A) ? (set.common.lang == Russian ? "1ê" : "1c") : (set.common.lang == Russian ? "2ê" : "2c"), couple[modeCouple], 
+        sprintf(buffer, "%s\xa5%s\xa5%s", (ch == Chan::A) ? (set.common.lang == Russian ? "1ê" : "1c") : (set.common.lang == Russian ? "2ê" : "2c"), couple[modeCouple], 
             sChannel_Range2String(range, multiplier));
 
         Painter::DrawTextC(x + 1, y, buffer, colorDraw);

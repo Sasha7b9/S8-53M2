@@ -12,8 +12,8 @@
 
 
 static void SetParametersWave(Channel channel, TypeWave typeWave, float frequency, float startAngle, float amplWave, float amplNoise);
-static void StartNewWave(Channel channel);
-static uint8 GetSampleWave(Channel channel);
+static void StartNewWave(Chan::E ch);
+static uint8 GetSampleWave(Chan::E ch);
 
 
 const SGenerator Generator = 
@@ -24,7 +24,7 @@ const SGenerator Generator =
 };
 
 
-static float NewNoiseValue(Channel channel);
+static float NewNoiseValue(Chan::E ch);
 static uint8 GetSampleSinusWave(Channel channel, int numSample);
 static uint8 GetSampleMeanderWave(Channel channel, int numSample);
 
@@ -45,12 +45,12 @@ void SetParametersWave(Channel channel, TypeWave typeWave, float frequency, floa
     amplNoise[channel] = amplNoise_;
 }
 
-void StartNewWave(Channel channel)
+void StartNewWave(Chan::E ch)
 {
     numSample[0] = numSample[1] = 0;
 }
 
-uint8 GetSampleWave(Channel channel)
+uint8 GetSampleWave(Chan::E ch)
 {
     return (type[channel] == Wave_Sinus) ? GetSampleSinusWave(channel, (numSample[channel])++) : GetSampleMeanderWave(channel, (numSample[channel])++);
 }
@@ -67,7 +67,7 @@ uint8 GetSampleMeanderWave(Channel channel, int numSample_)
     return 0;
 }
 
-float NewNoiseValue(Channel channel)
+float NewNoiseValue(Chan::E ch)
 {
     static float prevNoise[2] = {0.0f, 0.0f};            // Здесь хранятся значения шума из предыдущих точек, необходимые для расчёта шума в текущей точке.
 

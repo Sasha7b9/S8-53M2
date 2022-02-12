@@ -893,7 +893,7 @@ void FPGA::AutoFind(void)
 }
 
 
-bool FPGA::FindWave(Channel chan)
+bool FPGA::FindWave(Chan::E ch)
 {
     Settings settings = set;    // Сохраняем предыдущие настройки
 
@@ -923,7 +923,7 @@ bool FPGA::FindWave(Channel chan)
 }
 
 
-Range FPGA::AccurateFindRange(Channel chan)
+Range FPGA::AccurateFindRange(Chan::E ch)
 {
     /*
     Алгоритм поиска.
@@ -961,7 +961,7 @@ Range FPGA::AccurateFindRange(Channel chan)
             FSMC::Read(RD_ADC_A1);
         }
 
-        if (chan == A)
+        if (ch == Chan::A)
         {
             for (int i = 0; i < 100; i += 2)
             {
@@ -985,7 +985,7 @@ Range FPGA::AccurateFindRange(Channel chan)
         }
 
         /*
-        if(chan == A)
+        if(ch == Chan::A)
         {
             LOG_WRITE("min = %d, max = %d", CalculateMinWithout0(buffer), CalculateMaxWithout255(buffer));
         }
@@ -1015,7 +1015,7 @@ Range FPGA::AccurateFindRange(Channel chan)
 }
 
 
-TBase FPGA::AccurateFindTBase(Channel chan)
+TBase FPGA::AccurateFindTBase(Chan::E ch)
 {
     for (int i = 0; i < 5; i++)
     {
@@ -1031,7 +1031,7 @@ TBase FPGA::AccurateFindTBase(Channel chan)
 }
 
 
-TBase FPGA::FindTBase(Channel chan)
+TBase FPGA::FindTBase(Chan::E ch)
 {
     SetTrigInput(TrigInput_Full);
     Timer::PauseOnTime(10);

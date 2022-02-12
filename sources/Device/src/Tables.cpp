@@ -171,9 +171,9 @@ const char* Tables_RangeNameFromValue(Range range)
 }
 
 
-int Tables_GetNumChannel(Channel chan)
+int Tables_GetNumChannel(Chan::E ch)
 {
-    return (chan == A) ? 1 : 2;
+    return (ch == Chan::A) ? 1 : 2;
 }
 
 

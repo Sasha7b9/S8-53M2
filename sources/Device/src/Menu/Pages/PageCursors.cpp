@@ -74,10 +74,10 @@ static void MoveCursUonPercentsOrPoints(int delta);
 static void MoveCursTonPercentsOrPoints(int delta);
 static void SetShiftCursPosU(Channel chan, int numCur, float delta);    // »зменить значение позиции курсора напр€жени€ на delta точек
 static void SetShiftCursPosT(Channel chan, int numCurs, float delta);   // »зменить значение позиции курсора времени на delta точек
-static void SetCursPos100(Channel chan);                                // «апомнить позиции курсоров, соответствующие 100%.
+static void SetCursPos100(Chan::E ch);                                // «апомнить позиции курсоров, соответствующие 100%.
 static void SetCursSource(Channel chann);                               // ”становить источник курсорных измерений.
-static void IncCursCntrlU(Channel chan);                                // ¬ыбрать следующий курсор.
-static void IncCursCntrlT(Channel chan);                                // ¬ыбрать следующий курсор.
+static void IncCursCntrlU(Chan::E ch);                                // ¬ыбрать следующий курсор.
+static void IncCursCntrlT(Chan::E ch);                                // ¬ыбрать следующий курсор.
 static void SetCursPosU(Channel chan, int numCur, float pos);           // ”становить позицию курсора напр€жени€.
 static void SetCursPosT(Channel chan, int numCur, float pos);           // ”становить значение курсора по времени.
 
@@ -89,21 +89,21 @@ void *PageCursors::PageSet::pointer = (void *)&mspSet;
 
 
 
-void SetCursSource(Channel chan)
+void SetCursSource(Chan::E ch)
 {
     CURS_SOURCE = chan;
 }
 
 
 
-void IncCursCntrlU(Channel chan)
+void IncCursCntrlU(Chan::E ch)
 {
     CircleIncreaseInt8((int8*)&CURsU_CNTRL_CH(chan), 0, 3);
 }
 
 
 
-void IncCursCntrlT(Channel chan)
+void IncCursCntrlT(Chan::E ch)
 {
     CircleIncreaseInt8((int8*)&CURS_CNTRL_T(chan), 0, 3);
 }
@@ -666,7 +666,7 @@ static void PressSB_Cursors_100(void)
     SetCursPos100(CURS_SOURCE);
 }
 
-static void SetCursPos100(Channel chan)
+static void SetCursPos100(Chan::E ch)
 {
     DELTA_U100(chan) = fabs(CURS_POS_U0(chan) - CURS_POS_U1(chan));
     DELTA_T100(chan) = fabs(CURS_POS_T0(chan) - CURS_POS_T1(chan));

@@ -21,7 +21,7 @@ public:
 
     static void Update(bool endScene = true);
 
-    static void RotateRShift(Channel channel);
+    static void RotateRShift(Chan::E ch);
 
     static void RotateTrigLev();
 
@@ -81,7 +81,7 @@ private:
 
     static void DrawCursorsRShift();
     // Нарисовать маркеры смещения по напряжению
-    static void DrawCursorRShift(Channel chan);
+    static void DrawCursorRShift(Chan::E ch);
     // Нарисовать маркер уровня синхронизации.
     static void DrawCursorTrigLevel();
     // Нарисовать маркер смещения по времени.

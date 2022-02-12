@@ -7,8 +7,8 @@
 #include "DisplayTypes.h"
 
 
-Color ColorChannel(Channel chan);
-Color ColorCursors(Channel cnan);
+Color ColorChannel(Chan::E);
+Color ColorCursors(Chan::E);
 Color ColorTrig();                  // Возвращает цвет синхронизации.
 Color ColorMenuTitle                    // Цвет заголовка страницы.
                     (bool inShade       // Затенена ли страница.

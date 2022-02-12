@@ -187,7 +187,7 @@ void FPGA::SetRange(Channel chan, Range range)
 };
 
 
-void FPGA::LoadRange(Channel chan)
+void FPGA::LoadRange(Chan::E ch)
 {
     SetAttribChannelsAndTrig(TypeWriteAnalog_Range0);
     LoadRShift(chan);
@@ -298,7 +298,7 @@ void FPGA::SetRShift(Channel chan, int16 rShift)
 };
 
 
-void FPGA::LoadRShift(Channel chan)
+void FPGA::LoadRShift(Chan::E ch)
 {
     static const uint16 mask[2] = {0x2000, 0x6000};
 
@@ -424,7 +424,7 @@ void FPGA::LoadRegUPR(void)
 }
 
 
-void FPGA::LoadKoeffCalibration(Channel chan)
+void FPGA::LoadKoeffCalibration(Chan::E ch)
 {
     FPGA::WriteToHardware(chan == A ? WR_CAL_A : WR_CAL_B, STRETCH_ADC(chan) * 0x80, false);
 }
@@ -460,7 +460,7 @@ const char *FPGA::GetTShiftString(int16 tShiftRel, char buffer[20])
 }
 
 
-bool FPGA::RangeIncrease(Channel chan)
+bool FPGA::RangeIncrease(Chan::E ch)
 {
     bool retValue = false;
     if (SET_RANGE(chan) < RangeSize - 1)
@@ -477,7 +477,7 @@ bool FPGA::RangeIncrease(Channel chan)
 };
 
 
-bool FPGA::RangeDecrease(Channel chan)
+bool FPGA::RangeDecrease(Chan::E ch)
 {
     bool retValue = false;
     if (SET_RANGE(chan) > 0)

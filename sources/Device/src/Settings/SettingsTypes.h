@@ -16,13 +16,16 @@ typedef enum
 
 
 // ChannelX
-
-typedef enum
-{
+struct Chan { enum E {
     A,
     B,
     A_B,
     Math
+}; };
+
+
+typedef enum
+{
 } Channel;
 
 /// Режим канала по входу.

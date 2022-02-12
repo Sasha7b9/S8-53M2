@@ -19,7 +19,7 @@
 
 
 static int16    CalculateAdditionRShift(Channel chan, Range range);	///< Измерить добавочное смещение канала по напряжению.
-static float    CalculateKoeffCalibration(Channel chan);			///< Измерить коэффициент калибровки канала по напряжению.
+static float    CalculateKoeffCalibration(Chan::E ch);			///< Измерить коэффициент калибровки канала по напряжению.
 static void     AlignmentADC();
 static void     FuncAttScreen();								///< Функция обновления экрана в режиме калибровки.
 static float    CalculateDeltaADC(Channel chan, float *avgADC1, float *avgADC2, float *delta);
@@ -49,7 +49,7 @@ static uint startTimeChan1 = 0;                     // Время начала калибровки в
 
 static float koeffCalibrationOld[2];
 
-extern void LoadStretchADC(Channel chan);
+extern void LoadStretchADC(Chan::E ch);
 
 
 static void OnTimerDraw(void)
@@ -309,7 +309,7 @@ void DrawParametersChannel(Channel chan, int eX, int eY, bool inProgress)
     if(inProgress)
     {
         Painter::DrawText(eX, eY + 4, chan == 0 ? "КАНАЛ 1" : "КАНАЛ 2");
-        ProgressBar *bar = (chan == A) ? &bar0 : &bar1;
+        ProgressBar *bar = (ch == Chan::A) ? &bar0 : &bar1;
         bar->width = 240;
         bar->height = 15;
         bar->y = eY;
@@ -340,10 +340,10 @@ void DrawParametersChannel(Channel chan, int eX, int eY, bool inProgress)
 
 float CalculateDeltaADC(Channel chan, float *avgADC1, float *avgADC2, float *delta)
 {
-    uint *startTime = (chan == A) ? &startTimeChan0 : &startTimeChan1;
+    uint *startTime = (ch == Chan::A) ? &startTimeChan0 : &startTimeChan1;
     *startTime = gTimerMS;
     
-    ProgressBar *bar = (chan == A) ? &bar0 : &bar1;
+    ProgressBar *bar = (ch == Chan::A) ? &bar0 : &bar1;
     bar->passedTime = 0;
     bar->fullTime = 0;
 
@@ -364,7 +364,7 @@ float CalculateDeltaADC(Channel chan, float *avgADC1, float *avgADC2, float *del
 
         for(int i = 0; i < FPGA_MAX_POINTS; i++)
         {
-            if(chan == A)
+            if(ch == Chan::A)
             {
                 *avgADC1 += FSMC::Read(address1);
                 *avgADC2 += FSMC::Read(address2);
@@ -469,7 +469,7 @@ int16 CalculateAdditionRShift(Channel chan, Range range)
 }
 
 
-float CalculateKoeffCalibration(Channel chan)
+float CalculateKoeffCalibration(Chan::E ch)
 {
     FPGA::WriteToHardware(WR_UPR, BINARY_U8(00000100), false);
 

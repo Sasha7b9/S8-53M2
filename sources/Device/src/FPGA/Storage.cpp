@@ -318,7 +318,7 @@ bool Storage::CopyData(DataSettings *ds, Channel chan, uint8 datatImportRel[2][F
     {
         return false;
     }
-    uint8* pointer = (chan == A) ? (&datatImportRel[0][0]) : (&datatImportRel[1][0]);
+    uint8* pointer = (ch == Chan::A) ? (&datatImportRel[0][0]) : (&datatImportRel[1][0]);
 
     uint8* address = ((uint8*)ds + sizeof(DataSettings));
 
@@ -335,7 +335,7 @@ bool Storage::CopyData(DataSettings *ds, Channel chan, uint8 datatImportRel[2][F
 }
 
 
-uint8* Storage::GetAverageData(Channel chan)
+uint8* Storage::GetAverageData(Chan::E ch)
 {
     static uint8 data[NumChannels][FPGA_MAX_POINTS];
     
@@ -359,7 +359,7 @@ uint8* Storage::GetAverageData(Channel chan)
 
     if (sDisplay_ModeAveraging() == Averaging_Around)
     {
-        float *floatAveData = (chan == A) ? aveData0 : aveData1;
+        float *floatAveData = (ch == Chan::A) ? aveData0 : aveData1;
         
         for (uint i = 0; i < numPoints; i++)
         {

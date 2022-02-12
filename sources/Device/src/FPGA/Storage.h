@@ -23,7 +23,7 @@ public:
 
     static uint8* GetData(Channel chan, int fromEnd);
     // Получить усреднённые данные по нескольким измерениям.
-    static uint8* GetAverageData(Channel chan);
+    static uint8* GetAverageData(Chan::E ch);
     // Сколько всего измерений сохранено в памяти.
     static int AllDatas();
     // Получить ограничивающую линию сигнала 0 - снизу, 1 - сверху.

@@ -30,8 +30,8 @@ namespace Device
             Storage::GetDataFromEnd(0, &gDSet, &gData0, &gData1);
             if (sDisplay_NumAverage() != 1 || sTime_RandomizeModeEnabled())
             {
-                gData0 = Storage::GetAverageData(A);
-                gData1 = Storage::GetAverageData(B);
+                gData0 = Storage::GetAverageData(Chan::A);
+                gData1 = Storage::GetAverageData(Chan::B);
             }
         }
         else if (MODE_WORK_IS_LATEST)
