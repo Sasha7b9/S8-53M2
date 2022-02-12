@@ -91,7 +91,7 @@ void *PageCursors::PageSet::pointer = (void *)&mspSet;
 
 void SetCursSource(Chan::E ch)
 {
-    CURS_SOURCE = chan;
+    CURS_SOURCE = ch;
 }
 
 
@@ -112,7 +112,7 @@ void IncCursCntrlT(Chan::E ch)
 
 void Cursors_Update()
 {
-    Channel source = CURS_SOURCE;
+    Chan::E source = CURS_SOURCE;
     CursLookMode lookMode0 = CURS_LOOKMODE_0;
     CursLookMode lookMode1 = CURS_LOOKMODE_1;
 
@@ -331,7 +331,7 @@ static void MoveCursUonPercentsOrPoints(int delta)
 
     float value = delta;
 
-    Channel source = CURS_SOURCE;
+    Chan::E source = CURS_SOURCE;
 
     if(CURS_MOVEMENT_IS_PERCENTS)
     {
@@ -363,7 +363,7 @@ static void SetShiftCursPosU(Chan::E ch, int numCur, float delta)
 
 static void MoveCursTonPercentsOrPoints(int delta)
 {
-    Channel source = CURS_SOURCE;
+    Chan::E source = CURS_SOURCE;
     CursCntrl cursCntrl = CURS_CNTRL_T(source);
 
     float value = delta;
@@ -431,7 +431,7 @@ static const SmallButton sbSetSource
 
 static void PressSB_Cursors_Source(void)
 {
-    Channel source = CURS_SOURCE_A ? B : A;
+    Chan::E source = CURS_SOURCE_A ? Chan::B : Chan::A;
     SetCursSource(source);
 }
 
@@ -501,7 +501,7 @@ static void DrawSB_Cursors_U(int x, int y)
         }
         else
         {
-            Channel source = CURS_SOURCE;
+            Chan::E source = CURS_SOURCE;
             bool condTop = false, condDown = false;
             CalculateConditions(sCursors_GetCursPosU(source, 0), sCursors_GetCursPosU(source, 1), cursCntrl, &condTop, &condDown);
             if (condTop && condDown)
@@ -592,7 +592,7 @@ static void PressSB_Cursors_T(void)
 
 static void DrawSB_Cursors_T(int x, int y)
 {
-    Channel source = CURS_SOURCE;
+    Chan::E source = CURS_SOURCE;
     CursCntrl cursCntrl = CURS_CNTRL_T(source);
     if (cursCntrl == CursCntrl_Disable)
     {
