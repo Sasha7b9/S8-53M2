@@ -18,14 +18,14 @@ static void SetColor(ColorType *colorType)
 
 Color::E ColorChannel(Chan::E ch)
 {
-    static const Color::E colors[4] = {COLOR_DATA_A, COLOR_DATA_B, Color::WHITE, Color::WHITE};
+    static const Color::E colors[4] = {Color::DATA_A, Color::DATA_B, Color::WHITE, Color::WHITE};
     return colors[ch];
 }
 
 
 Color::E ColorCursors(Chan::E ch)
 {
-    static const Color::E colors[4] = {COLOR_DATA_A, COLOR_DATA_B, Color::WHITE, Color::WHITE};
+    static const Color::E colors[4] = {Color::DATA_A, Color::DATA_B, Color::WHITE, Color::WHITE};
     return colors[ch];
 }
 
@@ -213,17 +213,17 @@ static const char* colorNames[] =
 {
     "Color::BLACK",
     "Color::WHITE",
-    "COLOR_GRID",
-    "COLOR_DATA_A",
-    "COLOR_DATA_B",
-    "COLOR_MENU_FIELD",
+    "Color::GRID",
+    "Color::DATA_A",
+    "Color::DATA_B",
+    "Color::MENU_FIELD",
     "Color::MENU_TITLE",
     "COLOM_MENU_TITLE_DARK",
-    "COLOR_MENU_TITLE_BRIGHT",
+    "Color::MENU_TITLE_BRIGHT",
     "Color::MENU_ITEM",
     "Color::MENU_ITEM_DARK",
-    "COLOR_MENU_ITEM_BRIGHT",
-    "COLOR_MENU_SHADOW",
+    "Color::MENU_ITEM_BRIGHT",
+    "Color::MENU_SHADOW",
     "Color::COUNT",
     "Color::FLASH_10",
     "Color::FLASH_01",

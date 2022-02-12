@@ -415,7 +415,7 @@ static const Governor mgGrid_Brightness
     &BRIGHTNESS_GRID, 0, 100, OnChanged_Grid_Brightness, BeforeDraw_Grid_Brightness
 );
 
-ColorType colorTypeGrid = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, COLOR_GRID};
+ColorType colorTypeGrid = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, Color::GRID};
 
 void OnChanged_Grid_Brightness(void)
 {
@@ -509,7 +509,7 @@ static const Choice mcSettings_Colors_Scheme =
     (int8*)&COLOR_SCHEME
 };
 
-static ColorType colorT1 = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, COLOR_DATA_A};
+static ColorType colorT1 = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, Color::DATA_A};
 
 // ƒ»—œÀ≈… - Õ¿—“–Œ… » - ÷¬≈“¿ -  ‡Ì‡Î 1 -------------------------------------------------------------------------------------------------------------
 static const GovernorColor mgcSettings_Colors_ChannelA =
@@ -523,7 +523,7 @@ static const GovernorColor mgcSettings_Colors_ChannelA =
     &colorT1
 };
 
-static ColorType colorT2 = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, COLOR_DATA_B};
+static ColorType colorT2 = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, Color::DATA_B};
 
 // ƒ»—œÀ≈… - Õ¿—“–Œ… » - ÷¬≈“¿ -  ‡Ì‡Î 2 -------------------------------------------------------------------------------------------------------------
 static const GovernorColor mgcSettings_Colors_ChannelB =

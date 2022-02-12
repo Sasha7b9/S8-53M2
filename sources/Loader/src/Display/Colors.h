@@ -19,31 +19,31 @@ Color::E ColorContrast(Color::E color);
 Color::E LightShadingTextColor(void);
 
 
-#define ColorMenuField()            COLOR_MENU_FIELD
+#define ColorMenuField()            Color::MENU_FIELD
 /// Чуть менее светлый цвет, чем цвет элемента меню. Используется для создания эффекта объёма.
 #define ColorMenuItemLessBright()   Color::MENU_ITEM_DARK
 /// Чуть более светлый цвет, чем цвет заголовка страницы. Используется для создания эффекта объёма.
-#define ColorMenuTitleBrighter()    COLOR_MENU_TITLE_BRIGHT
+#define ColorMenuTitleBrighter()    Color::MENU_TITLE_BRIGHT
 /// Чуть менее светлый цвет, чем цвет заголовка страницы. Используется для создания эффекта объёма.
-#define ColorMenuTitleLessBright()  COLOR_MENU_TITLE_DARK
+#define ColorMenuTitleLessBright()  Color::MENU_TITLE_DARK
 /// Чуть более светлый цвет, чем цвет элемента меню. Используется для создания эффекта объёма.
-#define ColorMenuItemBrighter()     COLOR_MENU_ITEM_BRIGHT
+#define ColorMenuItemBrighter()     Color::MENU_ITEM_BRIGHT
 /// Тёмный цвет в тени.
-#define DarkShadingTextColor()      COLOR_MENU_TITLE_DARK
+#define DarkShadingTextColor()      Color::MENU_TITLE_DARK
 
 
 struct ColorType
 {
-    float   red;
-    float   green;
-    float   blue;
-    float   stepRed;
-    float   stepGreen;
-    float   stepBlue;
-    float   brightness;
-    Color::E   color;
-    int8    currentField;
-    bool    alreadyUsed;
+    float    red;
+    float    green;
+    float    blue;
+    float    stepRed;
+    float    stepGreen;
+    float    stepBlue;
+    float    brightness;
+    Color::E color;
+    int8     currentField;
+    bool     alreadyUsed;
 };
 
 /// Вывести в лог значение цвета.

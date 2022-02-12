@@ -149,7 +149,7 @@ void Menu::DrawTitlePage(Page *page, int layer, int yTop)
     if (shade)
     {
         Painter::FillRegionC(x + 1, yTop + 1, MP_TITLE_WIDTH - 1, MP_TITLE_HEIGHT - 1, ColorMenuTitleLessBright());
-        Painter::FillRegionC(x + 4, yTop + 4, MP_TITLE_WIDTH - 7, MP_TITLE_HEIGHT - 7, COLOR_MENU_TITLE_DARK);
+        Painter::FillRegionC(x + 4, yTop + 4, MP_TITLE_WIDTH - 7, MP_TITLE_HEIGHT - 7, Color::MENU_TITLE_DARK);
     }
     else
     {

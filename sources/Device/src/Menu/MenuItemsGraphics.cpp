@@ -702,7 +702,7 @@ void ItemButton_Draw(Button *button, int x, int y)
     bool shade = Menu::IsShade(button) || !Menu::ItemIsActive(button);
 
     Painter::DrawHLineC(y + 1, x, x + MI_WIDTH, ColorMenuTitle(shade));
-    Color::E color = shade ? COLOR_MENU_SHADOW : Color::WHITE;
+    Color::E color = shade ? Color::MENU_SHADOW : Color::WHITE;
     Painter::FillRegionC(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, ColorMenuItem(false));
     Painter::DrawVolumeButton(x + 4, y + 5, MI_WIDTH - 8, MI_HEIGHT - 8, 3, ColorMenuItem(false), ColorMenuItemBrighter(), 
                             ColorMenuItemLessBright(), pressed, shade);
