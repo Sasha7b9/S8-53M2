@@ -15,6 +15,6 @@ public:
 private:
     static void SendDataAsinch(uint8 *buffer, int size);
     static void SendStringAsinch(char *data);
-    /// Время последней передачи
+    // Время последней передачи
     static uint lastTimeSend;
 };

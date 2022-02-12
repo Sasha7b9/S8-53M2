@@ -27,7 +27,7 @@ extern const Page pCursors;
 
 
 
-extern const Choice mcShow;                             /// КУРСОРЫ - Показывать
+extern const Choice mcShow;                             // КУРСОРЫ - Показывать
 
 extern const Choice mcTrackingT1U1;                     ///< КУРСОРЫ - Курсоры T1,U1
 

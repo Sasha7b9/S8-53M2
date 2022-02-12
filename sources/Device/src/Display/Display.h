@@ -28,9 +28,9 @@ public:
     static void Redraw();
 
     static void EnableTrigLabel(bool enable);
-    /// Функция должна вызываться для очистки поточечной памяти. Вызывается при изменении масштаба по напряжению.
+    // Функция должна вызываться для очистки поточечной памяти. Вызывается при изменении масштаба по напряжению.
     static void ResetP2Ppoints(bool empty);
-    /// Добавляет точки в режиме поточечного вывода и самописца data00, data01 - для первого канала; data10, data11 - для второго канала
+    // Добавляет точки в режиме поточечного вывода и самописца data00, data01 - для первого канала; data10, data11 - для второго канала
     static void AddPoints(uint8 data00, uint8 data01, uint8 data10, uint8 data11);
 
     static void ShowWarningBad(Warning warning);
@@ -58,11 +58,11 @@ public:
     static void OneStringDown();
 
     static void SetPauseForConsole(bool pause);
-    /// После отрисовки очередного экрана эта функция будет вызвана один раз.
+    // После отрисовки очередного экрана эта функция будет вызвана один раз.
     static void RunAfterDraw(pFuncVV func);
-    /// Отключить вспомогательную линию маркера смещения по напряжению первого канала.
+    // Отключить вспомогательную линию маркера смещения по напряжению первого канала.
     static void DisableShowLevelRShiftA();
-    /// Отключить вспомогательную линию маркера смещения по напряжению второго канала.
+    // Отключить вспомогательную линию маркера смещения по напряжению второго канала.
     static void DisableShowLevelRShiftB();
     
     static void DisableShowLevelTrigLev();
@@ -72,21 +72,21 @@ public:
 private:
 
     static void ShowWarn(const char *message);
-    /// Нарисовать сетку.
+    // Нарисовать сетку.
     static void DrawGrid(int left, int top, int width, int height);
-    /// Нарисовать полную сетку.
+    // Нарисовать полную сетку.
     static void DrawFullGrid();
 
     static void DrawCursorsWindow();
 
     static void DrawCursorsRShift();
-    /// Нарисовать маркеры смещения по напряжению
+    // Нарисовать маркеры смещения по напряжению
     static void DrawCursorRShift(Channel chan);
-    /// Нарисовать маркер уровня синхронизации.
+    // Нарисовать маркер уровня синхронизации.
     static void DrawCursorTrigLevel();
-    /// Нарисовать маркер смещения по времени.
+    // Нарисовать маркер смещения по времени.
     static void DrawCursorTShift();
-    /// Написать информацию под сеткой - в нижней части дисплея.
+    // Написать информацию под сеткой - в нижней части дисплея.
     static void DrawLowPart();
 
     static void DrawHiPart();
@@ -96,17 +96,17 @@ private:
     static void DrawMath();
 
     static void DrawSpectrum();
-    /// Вывести текущее время.
+    // Вывести текущее время.
     static void DrawTime(int x, int y);
-    /// Нарисовать курсоры курсорных измерений.
+    // Нарисовать курсоры курсорных измерений.
     static void DrawCursors();
-    /// Вывести значения курсоров курсорных измерений.
+    // Вывести значения курсоров курсорных измерений.
     static void WriteCursors();
-    /// Вывести значения автоматических измерений.
+    // Вывести значения автоматических измерений.
     static void DrawMeasures();
-    /// Написать сообщения отладочной консоли.
+    // Написать сообщения отладочной консоли.
     static void DrawConsole();
-    /// Написать предупреждения.
+    // Написать предупреждения.
     static void DrawWarnings();
     
     static int CalculateCountV();
@@ -132,7 +132,7 @@ private:
     static bool DrawDataNormal();
     
     static bool DrawData();
-    /// Нарисовать окно памяти
+    // Нарисовать окно памяти
     static void DrawMemoryWindow();
     
     static void DRAW_SPECTRUM(const uint8 *data, int numPoints, Channel channel);
@@ -187,17 +187,17 @@ private:
     static void DrawTimeForFrame(uint timeMS);
     
     static void DeleteFirstString();
-    /// Нарисовать горизонтальный курсор курсорных измерений.
+    // Нарисовать горизонтальный курсор курсорных измерений.
     static void DrawHorizontalCursor
                                 (int y,             ///< числовое значение курсора.
                                 int xTearing        ///< координата места, в котором необходимо сделать разрыв для квадрата пересечения.
                                 );
-    /// Нарисовать вертикальный курсор курсорных измерений.
+    // Нарисовать вертикальный курсор курсорных измерений.
     static void DrawVerticalCursor
                                 (int x,             ///< числовое значение курсора.
                                 int yTearing        ///< координата места, в котором необходимо сделать разрыв для квадрата пересечения.
                                 );
-    /// Вывести значение уровня синхронизации. 
+    // Вывести значение уровня синхронизации. 
     static void WriteValueTrigLevel();
 
     static void AddString(const char *string);

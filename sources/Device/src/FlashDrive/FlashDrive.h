@@ -47,7 +47,7 @@ public:
     static bool GetNameFile(const char *fullPath, int numFile, char *nameFileOut, StructForReadDir *sfrd);
 
     static bool GetNextNameFile(char *nameFileOut, StructForReadDir *sfrd);
-    /// Функция создаст файл для записи. Если такой файл уже существует, сотрёт его, заменит новым нулевой длины и откроет его
+    // Функция создаст файл для записи. Если такой файл уже существует, сотрёт его, заменит новым нулевой длины и откроет его
     static bool OpenNewFileForWrite(const char* fullPathToFile, StructForWrite *structForWrite);
 
     static bool WriteToFile(uint8* data, int sizeData, StructForWrite *structForWrite);

@@ -46,10 +46,10 @@ public:
     static void DrawLine(int x0, int y0, int x1, int y1);
 
     static void DrawLineC(int x0, int y0, int x1, int y1, Color color);
-    /// \brief Рисует прерывистую горизонтальную линию. dFill - длина штриха, dEmpty - расст. между штрихами.
-    /// Линия всегда начинается со штриха. dStart указывает смещение первой рисуемой точки относительно начала штриха.
+    // \brief Рисует прерывистую горизонтальную линию. dFill - длина штриха, dEmpty - расст. между штрихами.
+    // Линия всегда начинается со штриха. dStart указывает смещение первой рисуемой точки относительно начала штриха.
     static void DrawDashedHLine(int y, int x0, int x1, int dFill, int dEmpty, int dStart);
-    ///  Рисует прерывистую вертикальную линию.
+    //  Рисует прерывистую вертикальную линию.
     static void DrawDashedVLine(int x, int y0, int y1, int dFill, int dEmpty, int dStart);
 
     static void DrawRectangle(int x, int y, int width, int height);
@@ -63,15 +63,15 @@ public:
     static void DrawVolumeButton(int x, int y, int width, int height, int thickness, Color normal, Color bright, Color dark, bool isPressed, bool inShade);
 
     static uint16 ReduceBrightness(uint16 colorValue, float newBrightness);
-    /// Нарисовать массив вертикальных линий. Линии рисуются одна за другой. y0y1 - массив вертикальных координат.
+    // Нарисовать массив вертикальных линий. Линии рисуются одна за другой. y0y1 - массив вертикальных координат.
     static void DrawVLineArray(int x, int numLines, uint8 *y0y1, Color color);
-    /// modeLines - true - точками, false - точками
+    // modeLines - true - точками, false - точками
     static void DrawSignal(int x, uint8 data[281], bool modeLines);
 
     static bool SaveScreenToFlashDrive();
 
     static void SetFont(TypeFont typeFont);
-    /// Загрузить шрифта в дисплей.
+    // Загрузить шрифта в дисплей.
     static void LoadFont(TypeFont typeFont);
 
     static int DrawChar(int x, int y, char symbol);
@@ -81,11 +81,11 @@ public:
     static int DrawText(int x, int y, const char * const text);
 
     static int DrawTextC(int x, int y, const char *text, Color color);
-    /// Выводит текст на прямоугольнике цвета colorBackgound
+    // Выводит текст на прямоугольнике цвета colorBackgound
     static int DrawTextOnBackground(int x, int y, const char *text, Color colorBackground);
 
     static int DrawTextWithLimitationC(int x, int y, const char* text, Color color, int limitX, int limitY, int limitWidth, int limitHeight);
-    /// Возвращает нижнюю координату прямоугольника.
+    // Возвращает нижнюю координату прямоугольника.
     static int DrawTextInBoundedRectWithTransfers(int x, int y, int width, const char *text, Color colorBackground, Color colorFill);
 
     static int DrawTextInRectWithTransfersC(int x, int y, int width, int height, const char *text, Color color);
@@ -95,7 +95,7 @@ public:
     static int DrawStringInCenterRect(int x, int y, int width, int height, const char *text);
 
     static int DrawStringInCenterRectC(int x, int y, int width, int height, const char *text, Color color);
-    /// Пишет строку текста в центре области(x, y, width, height)цветом ColorText на прямоугольнике с шириной бордюра widthBorder цвета colorBackground.
+    // Пишет строку текста в центре области(x, y, width, height)цветом ColorText на прямоугольнике с шириной бордюра widthBorder цвета colorBackground.
     static void DrawStringInCenterRectOnBackgroundC(int x, int y, int width, int height, const char *text, Color colorText, int widthBorder, Color colorBackground);
 
     static int DrawStringInCenterRectAndBoundItC(int x, int y, int width, int height, const char *text, Color colorBackground, Color colorFill);
@@ -115,7 +115,7 @@ public:
     static void Draw4SymbolsInRectC(int x, int y, char eChar, Color color);
 
     static void Draw10SymbolsInRect(int x, int y, char eChar);
-    /// Пишет текст с переносами.
+    // Пишет текст с переносами.
     static int DrawTextInRectWithTransfers(int x, int y, int width, int height, const char *text);
 
     static void DrawBigText(int x, int y, int size, const char *text);

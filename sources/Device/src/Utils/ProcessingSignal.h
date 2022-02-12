@@ -8,23 +8,23 @@
 class Processing
 {
 public:
-    /// Установить сигнал для обработки.
+    // Установить сигнал для обработки.
     static void SetSignal(uint8 *data0, uint8 *data1, DataSettings *ds, int firstPoint, int lastPoint);
-    /// Получить данные ранее установленного сигнала.
+    // Получить данные ранее установленного сигнала.
     static void GetData(uint8 **data0, uint8 **data1, DataSettings **ds);
-    /// Получить позицию курсора напряжения, соответствующю заданной позиции курсора posCurT.
+    // Получить позицию курсора напряжения, соответствующю заданной позиции курсора posCurT.
     static float GetCursU(Channel chan, float posCurT);
-    /// Получить позицию курсора времени, соответствующую заданной позиции курсора напряжения posCurU.
+    // Получить позицию курсора времени, соответствующую заданной позиции курсора напряжения posCurU.
     static float GetCursT(Channel chan, float posCurU, int numCur);
-    /// Аппроксимировать единичное измерение режима рандомизатора функцией sinX/X.
+    // Аппроксимировать единичное измерение режима рандомизатора функцией sinX/X.
     static void InterpolationSinX_X(uint8 data[FPGA_MAX_POINTS], TBase tBase);
-    /// Возвращает строку автоматического измерения.
+    // Возвращает строку автоматического измерения.
     static char* GetStringMeasure(Measure measure, Channel chan, char buffer[20]);
-    /// Расчитать все измерения.
+    // Расчитать все измерения.
     static void CalculateMeasures();
-    /// Возвращает значение горизонтального маркера. Если ERROR_VALUE_INT - маркер рисовать не нужно.
+    // Возвращает значение горизонтального маркера. Если ERROR_VALUE_INT - маркер рисовать не нужно.
     static int GetMarkerHorizontal(Channel chan, int numMarker);
-    /// Возвращает значение вертикального маркера. Если ERROR_VALUE_INT - маркер рисовать не нужно.
+    // Возвращает значение вертикального маркера. Если ERROR_VALUE_INT - маркер рисовать не нужно.
     static int GetMarkerVertical(Channel chan, int numMarker);
 private:
     static float CalculateVoltageMax(Channel chan);
@@ -38,7 +38,7 @@ private:
     static float CalculateVoltageVybrosPlus(Channel chan);
     static float CalculateVoltageVybrosMinus(Channel chan);
     static float CalculatePeriod(Channel chan);
-    /// Точно вычисляет период или целое число периодов в точках сигнала.
+    // Точно вычисляет период или целое число периодов в точках сигнала.
     static int   CalculatePeriodAccurately(Channel chan);
     static float CalculateFreq(Channel chan);
     static float CalculateTimeNarastaniya(Channel chan);
@@ -47,23 +47,23 @@ private:
     static float CalculateDurationMinus(Channel chan);
     static float CalculateSkvaznostPlus(Channel chan);
     static float CalculateSkvaznostMinus(Channel chan);
-    /// Возвращает минимальное значение относительного сигнала    
+    // Возвращает минимальное значение относительного сигнала    
     static float CalculateMinRel(Channel chan);
-    /// Возвращает минимальное установившееся значение относительного сигнала
+    // Возвращает минимальное установившееся значение относительного сигнала
     static float CalculateMinSteadyRel(Channel chan);
-    /// Возвращает максимальное значение относительного сигнала
+    // Возвращает максимальное значение относительного сигнала
     static float CalculateMaxRel(Channel chan);
-    /// Возвращает максимальное установившееся значение относительного сигнала
+    // Возвращает максимальное установившееся значение относительного сигнала
     static float CalculateMaxSteadyRel(Channel chan);
-    /// Возвращает среденее значение относительного сигнала
+    // Возвращает среденее значение относительного сигнала
     static float CalculateAverageRel(Channel chan);
     static float CalculatePicRel(Channel chan);
     static float CalculateDelayPlus(Channel chan);
     static float CalculateDelayMinus(Channel chan);
     static float CalculatePhazaPlus(Channel chan);
     static float CalculatePhazaMinus(Channel chan);
-    /// Найти точку пересечения сигнала с горизонтальной линией, проведённой на уровне yLine. numItersection - порядковый номер пересечения, 
-    /// начинается с 1. downToTop - если true, ищем пересечение сигнала со средней линией при прохождении из "-" в "+".
+    // Найти точку пересечения сигнала с горизонтальной линией, проведённой на уровне yLine. numItersection - порядковый номер пересечения, 
+    // начинается с 1. downToTop - если true, ищем пересечение сигнала со средней линией при прохождении из "-" в "+".
     static float FindIntersectionWithHorLine(Channel chan, int numIntersection, bool downToUp, uint8 yLine);
 
     static void CountedToCurrentSettings();
@@ -75,7 +75,7 @@ private:
         char        *name;
         pFuncFCh    FuncCalculate;
         pFuncCFBC   FucnConvertate;
-        /// Если true, нужно показывать знак.
+        // Если true, нужно показывать знак.
         bool        showSign;
     };
 

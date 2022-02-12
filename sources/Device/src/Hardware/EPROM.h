@@ -38,13 +38,13 @@ friend class OTP;
 public:
     static bool LoadSettings();
     static void SaveSettings(bool verifyLoaded = false);
-    /// Если даннные есть, соответствующий элемент массива равен true/.
+    // Если даннные есть, соответствующий элемент массива равен true/.
     static void GetDataInfo(bool existData[MAX_NUM_SAVED_WAVES]);
     static bool ExistData(int num);
     static void SaveData(int num, DataSettings *ds, uint8 *data0, uint8 *data1);
     static bool GetData(int num, DataSettings **ds, uint8 **data0, uint8 **data1);
     static void DeleteData(int num);
-    /// Стирает сектора с данными
+    // Стирает сектора с данными
     static void EraseData();
 
 private:
@@ -72,6 +72,6 @@ class OTP
 {
 public:   
     static bool SaveSerialNumber(char *serialNumber);
-    /// Функция возвращает число свободных мест для записи. Если 0, то места в OTP уже не осталось. 
+    // Функция возвращает число свободных мест для записи. Если 0, то места в OTP уже не осталось. 
     static int GetSerialNumber(char buffer[17]);
 };

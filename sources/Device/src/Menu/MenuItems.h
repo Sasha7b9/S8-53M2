@@ -108,7 +108,7 @@ public:
 public:
     Control(const ControlStruct *str);
     Control(TypeItem type_, const Page* keeper_, pFuncBV funcOfActive_, const char *tileRU, const char *titleEN, const char *hintRU, const char *hintEN);
-    /// Возвращает true, если кнопка, соответствующая данному элементу меню, находится в нажатом положении.
+    // Возвращает true, если кнопка, соответствующая данному элементу меню, находится в нажатом положении.
     bool IsPressed();
 };
 
@@ -280,19 +280,19 @@ public:
     pFuncVB	    funcOnChanged;                          // Функция должна вызываться после изменения значения элемента.
     pFuncVII    funcForDraw;                            // Функция вызывается после отрисовки элемента. 
     const char *NameSubItem(int i);
-    /// Возвращает имя текущего варианта выбора элемента choice, как оно записано в исходном коде программы.
+    // Возвращает имя текущего варианта выбора элемента choice, как оно записано в исходном коде программы.
     const char *NameCurrentSubItem();
-    /// Возвращает имя следующего варианта выбора элемента choice, как оно записано в исходном коде программы.
+    // Возвращает имя следующего варианта выбора элемента choice, как оно записано в исходном коде программы.
     const char *NameNextSubItem();
 
     const char *NamePrevSubItem();
-    /// Возвращает количество вариантов выбора в элементе по адресу choice.
+    // Возвращает количество вариантов выбора в элементе по адресу choice.
     int NumSubItems();
 
     void StartChange(int delta);
-    /// Рассчитывает следующий кадр анимации.
+    // Рассчитывает следующий кадр анимации.
     float Step();
-    /// Изменяет значение choice в зависимости от величины и знака delta.
+    // Изменяет значение choice в зависимости от величины и знака delta.
     void ChangeValue(int delta);
 
     void FuncOnChanged(bool active);
