@@ -194,11 +194,11 @@ void Color_Init(ColorType *colorType)
 void Color_ComponentChange(ColorType *colorType, int delta)
 {
     static const float maxs[4] = {0.0f, 31.0f, 63.0f, 31.0f};
-    float *pointers[4] = {0, &colorType->blue, &colorType->green, &colorType->red};
     int8 index = colorType->currentField;
 
     if (index >= 1 && index <= 3)
     {
+        float *pointers[4] = {0, &colorType->blue, &colorType->green, &colorType->red};
         AddLimitationFloat(pointers[index], (float)Math_Sign(delta), 0.0f, maxs[index]);
     }
 

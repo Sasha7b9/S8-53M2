@@ -695,25 +695,19 @@ void Display::DrawDataMinMax()
 
 bool Display::DrawDataNormal()
 {
-    bool retValue = true;
     if (!dataP2PIsEmpty)
     {
         static const pFuncVV funcs[2] = {DrawDataInModePoint2Point, DrawDataInModeSelfRecorder};
         funcs[(int)SET_SELFRECORDER]();
     }
-    else
-    {
-        retValue = DrawDataInModeNormal();
-    }
-    return retValue;
+
+    return DrawDataInModeNormal();
 }
 
 
 
 bool Display::DrawData()
 {
-    bool retValue = true;
-
     if (Storage::AllDatas())
     {
 
@@ -738,7 +732,8 @@ bool Display::DrawData()
             {
                 DrawDataMemInt();
             }
-            retValue = DrawDataNormal();
+
+            DrawDataNormal();
         }
 
         if (NUM_MIN_MAX != 1)
@@ -749,7 +744,7 @@ bool Display::DrawData()
 
     Painter::DrawRectangleC(Grid::Left(), GRID_TOP, Grid::Width(), Grid::FullHeight(), COLOR_FILL);
 
-    return retValue;
+    return true;
 }
 
 
@@ -1590,12 +1585,15 @@ void Display::DrawCursorsWindow()
 void Display::DrawCursorTrigLevel()
 {
     TrigSource chan = TRIG_SOURCE;
+
     if (chan == TrigSource_Ext)
     {
         return;
     }
-    int trigLev = TRIG_LEVEL(chan) + ((chan == TrigSource_Ext) ? 0 : SET_RSHIFT(chan) - RShiftZero);
-    float scale = 1.0f / ((TrigLevMax - TrigLevMin) / 2 / Grid::ChannelHeight());
+
+    int trigLev = TRIG_LEVEL(chan) + (SET_RSHIFT(chan) - RShiftZero);
+
+    float scale = 1.0f / ((TrigLevMax - TrigLevMin) / 2.0f / Grid::ChannelHeight());
     int y0 = (GRID_TOP + Grid::ChannelBottom()) / 2 + scale * (TrigLevZero - TrigLevMin);
     int y = y0 - scale * (trigLev - TrigLevMin);
 
