@@ -287,11 +287,11 @@ bool Storage::GetDataFromEnd(int fromEnd, DataSettings **ds, uint8 **data0, uint
 
     if(data0 != 0)
     {
-        *data0 = CopyData(dp, A, dataImportRel) ?  &dataImportRel[0][0] : 0;
+        *data0 = CopyData(dp, Chan::A, dataImportRel) ?  &dataImportRel[0][0] : 0;
     }
     if(data1 != 0)
     {
-        *data1 = CopyData(dp, B, dataImportRel) ? &dataImportRel[1][0] : 0;
+        *data1 = CopyData(dp, Chan::B, dataImportRel) ? &dataImportRel[1][0] : 0;
     }
     *ds = dp;
     

@@ -12,9 +12,9 @@
 #define MEAS_NUM_IS_6_2                 (MEAS_NUM == MN_6_2)
 
 #define MEAS_SOURCE                     (set.measures.source)                           // SettingsMeasures.source
-#define MEAS_SOURCE_IS_A                (MEAS_SOURCE == A)
-#define MEAS_SOURCE_IS_B                (MEAS_SOURCE == B)
-#define MEAS_SOURCE_IS_A_B              (MEAS_SOURCE == A_B)
+#define MEAS_SOURCE_IS_A                (MEAS_SOURCE == Chan::A)
+#define MEAS_SOURCE_IS_B                (MEAS_SOURCE == Chan::B)
+#define MEAS_SOURCE_IS_A_B              (MEAS_SOURCE == Chan::A_B)
 
 #define MODE_VIEW_SIGNALS               (set.measures.modeViewSignals)                 // SettingsMeasures.modeViewSignals
 #define MODE_VIEW_SIGNALS_IS_COMPRESS   (MODE_VIEW_SIGNALS == ModeViewSignals_Compress)

@@ -38,11 +38,11 @@ static int numSample[2] = {0, 0};
 
 void SetParametersWave(Chan::E ch, TypeWave typeWave, float frequency, float startAngle, float amplWave, float amplNoise_)
 {
-    type[channel] = typeWave;
-    freq[channel] = frequency;
-    angle[channel] = startAngle;
-    ampl[channel] = amplWave;
-    amplNoise[channel] = amplNoise_;
+    type[ch] = typeWave;
+    freq[ch] = frequency;
+    angle[ch] = startAngle;
+    ampl[ch] = amplWave;
+    amplNoise[ch] = amplNoise_;
 }
 
 void StartNewWave(Chan::E ch)
@@ -52,14 +52,14 @@ void StartNewWave(Chan::E ch)
 
 uint8 GetSampleWave(Chan::E ch)
 {
-    return (type[channel] == Wave_Sinus) ? GetSampleSinusWave(channel, (numSample[channel])++) : GetSampleMeanderWave(channel, (numSample[channel])++);
+    return (type[ch] == Wave_Sinus) ? GetSampleSinusWave(ch, (numSample[ch])++) : GetSampleMeanderWave(ch, (numSample[ch])++);
 }
 
 uint8 GetSampleSinusWave(Chan::E ch, int numSample_)
 {
     float dT = numSample_ * TSHIFT_2_ABS(1, SET_TBASE);
-    float voltage = ampl[channel] * sin(2 * M_PI * freq[channel] * dT + angle[channel]) + NewNoiseValue(channel);
-    return Math_VoltageToPoint(voltage, SET_RANGE(channel), SET_RSHIFT(channel));
+    float voltage = ampl[ch] * sin(2 * M_PI * freq[ch] * dT + angle[ch]) + NewNoiseValue(ch);
+    return Math_VoltageToPoint(voltage, SET_RANGE(ch), SET_RSHIFT(ch));
 }
 
 uint8 GetSampleMeanderWave(Chan::E ch, int numSample_)
@@ -71,9 +71,9 @@ float NewNoiseValue(Chan::E ch)
 {
     static float prevNoise[2] = {0.0f, 0.0f};            // Здесь хранятся значения шума из предыдущих точек, необходимые для расчёта шума в текущей точке.
 
-    float noise = prevNoise[channel];
+    float noise = prevNoise[ch];
 
-    float halfAmplNoiseAbs = ampl[channel] * amplNoise[channel] / 2.0f;
+    float halfAmplNoiseAbs = ampl[ch] * amplNoise[ch] / 2.0f;
 
     float deltaRand = halfAmplNoiseAbs;
 
@@ -89,7 +89,7 @@ float NewNoiseValue(Chan::E ch)
         noise -= Math_RandFloat(0, deltaRand * 2);
     }
 
-    prevNoise[channel] = noise;
+    prevNoise[ch] = noise;
 
     return noise;
 }

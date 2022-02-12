@@ -44,8 +44,8 @@
 #define ENUM_SIGNALS_IN_SEC         (set.display.enumSignalsInSec)              // SettingsDisplay.enumSignalsInSec
 
 #define LAST_AFFECTED_CHANNEL       (set.display.lastAffectedChannel)           // SettingsDisplay.lastAffectedChannel
-#define LAST_AFFECTED_CHANNEL_IS_A  (LAST_AFFECTED_CHANNEL == A)                // \c true, если последний канал, которым управляли - 1.
-#define LAST_AFFECTED_CHANNEL_IS_B  (LAST_AFFECTED_CHANNEL == B)                // \c true, если последний канал, которым управляли - 2.
+#define LAST_AFFECTED_CHANNEL_IS_A  (LAST_AFFECTED_CHANNEL == Chan::A)          // \c true, если последний канал, которым управляли - 1.
+#define LAST_AFFECTED_CHANNEL_IS_B  (LAST_AFFECTED_CHANNEL == Chan::B)          // \c true, если последний канал, которым управляли - 2.
 
 #define MODE_ACCUM                  (set.display.modeAccumulation)              // SettingsDisplay.modeAccumulation
 #define MODE_ACCUM_IS_RESET         (MODE_ACCUM == ModeAccumulation_Reset)      // \c true, если накопление со сбросом.

@@ -145,16 +145,16 @@ bool CanChangeRShiftOrTrigLev(TrigSource channel, int16 rShift)
     static uint time[3] = {0, 0, 0};
     if (rShift == RShiftZero)
     {
-        time[channel] = gTimerMS;
+        time[ch] = gTimerMS;
         return true;
     }
-    else if (time[channel] == 0)
+    else if (time[ch] == 0)
     {
         return true;
     }
-    else if (gTimerMS - time[channel] > MIN_TIME)
+    else if (gTimerMS - time[ch] > MIN_TIME)
     {
-        time[channel] = 0;
+        time[ch] = 0;
         return true;
     }
     return false;
@@ -254,25 +254,25 @@ static void SetRShift(Channel ch, int16 rShift)
 void RShift0Left()
 {
     static int prevTime = 0;
-    ChangeRShift(&prevTime, SetRShift, A, -STEP_RSHIFT);
+    ChangeRShift(&prevTime, SetRShift, Chan::A, -STEP_RSHIFT);
 }
 
 void RShift0Right()
 {
     static int prevTime = 0;
-    ChangeRShift(&prevTime, SetRShift, A, +STEP_RSHIFT);
+    ChangeRShift(&prevTime, SetRShift, Chan::A, +STEP_RSHIFT);
 }
 
 void RShift1Left()
 {
     static int prevTime = 0;
-    ChangeRShift(&prevTime, SetRShift, B, -STEP_RSHIFT);
+    ChangeRShift(&prevTime, SetRShift, Chan::B, -STEP_RSHIFT);
 }
 
 void RShift1Right()
 {
     static int prevTime = 0;
-    ChangeRShift(&prevTime, SetRShift, B, +STEP_RSHIFT);
+    ChangeRShift(&prevTime, SetRShift, Chan::B, +STEP_RSHIFT);
 }
 
 static void SetTrigLev(TrigSource ch, int16 trigLev)
