@@ -590,9 +590,9 @@ static void DrawMemoryWave(int num, bool exist)
     int x = Grid::Left() + 2 + num * 12;
     int y = Grid::FullBottom() - 10;
     int width = 12;
-    Painter::FillRegionC(x, y, width, 10, num == CURRENT_NUM_INT_SIGNAL ? COLOR_FLASH_10 : COLOR_BACK);
+    Painter::FillRegionC(x, y, width, 10, num == CURRENT_NUM_INT_SIGNAL ? Color::FLASH_10 : COLOR_BACK);
     Painter::DrawRectangleC(x, y, width, 10, COLOR_FILL);
-    Painter::SetColor(num == CURRENT_NUM_INT_SIGNAL ? COLOR_FLASH_01 : COLOR_FILL);
+    Painter::SetColor(num == CURRENT_NUM_INT_SIGNAL ? Color::FLASH_01 : COLOR_FILL);
     if (exist)
     {
         Painter::DrawText(x + 2, y + 1, Int2String(num + 1, false, 2, buffer));
@@ -1002,7 +1002,7 @@ void DrawSetName()
     }
 
     int x = Painter::DrawTextC(x0 + deltaX, y0 + 65, FILE_NAME, COLOR_FILL);
-    Painter::FillRegionC(x, y0 + 65, 5, 8, COLOR_FLASH_10);
+    Painter::FillRegionC(x, y0 + 65, 5, 8, Color::FLASH_10);
 }
 
 static void DrawFileMask(int x, int y)
@@ -1032,7 +1032,7 @@ static void DrawFileMask(int x, int y)
         }
         ch++;
     }
-    Painter::FillRegionC(x, y, 5, 8, COLOR_FLASH_10);
+    Painter::FillRegionC(x, y, 5, 8, Color::FLASH_10);
 }
 
 void DrawSetMask()

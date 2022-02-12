@@ -16,21 +16,21 @@ static void SetColor(ColorType *colorType)
 }
 
 
-Color ColorChannel(Chan::E ch)
+Color::E ColorChannel(Chan::E ch)
 {
-    static const Color colors[4] = {COLOR_DATA_A, COLOR_DATA_B, COLOR_WHITE, COLOR_WHITE};
+    static const Color::E colors[4] = {COLOR_DATA_A, COLOR_DATA_B, Color::WHITE, Color::WHITE};
     return colors[ch];
 }
 
 
-Color ColorCursors(Chan::E ch)
+Color::E ColorCursors(Chan::E ch)
 {
-    static const Color colors[4] = {COLOR_DATA_A, COLOR_DATA_B, COLOR_WHITE, COLOR_WHITE};
+    static const Color::E colors[4] = {COLOR_DATA_A, COLOR_DATA_B, Color::WHITE, Color::WHITE};
     return colors[ch];
 }
 
 
-Color ColorTrig()
+Color::E ColorTrig()
 {
     TrigSource trigChan = TRIG_SOURCE;
     if (trigChan == TrigSource_ChannelA || trigChan == TrigSource_ChannelB)
@@ -41,46 +41,46 @@ Color ColorTrig()
 }
 
 
-Color ColorMenuTitle(bool inShade)
+Color::E ColorMenuTitle(bool inShade)
 {
-    return inShade ? COLOR_MENU_ITEM : COLOR_MENU_TITLE;
+    return inShade ? Color::MENU_ITEM : Color::MENU_TITLE;
 }
 
 
-Color ColorMenuItem(bool inShade)
+Color::E ColorMenuItem(bool inShade)
 {
-    return inShade ? COLOR_MENU_ITEM_DARK : COLOR_MENU_ITEM;
+    return inShade ? Color::MENU_ITEM_DARK : Color::MENU_ITEM;
 }
 
 
 
-Color ColorBorderMenu(bool inShade)
+Color::E ColorBorderMenu(bool inShade)
 {
     return ColorMenuTitle(inShade);
 }
 
 
 
-Color ColorContrast(Color color)
+Color::E ColorContrast(Color::E color)
 {
     uint16 colorValue = set.display.colors[color];
     if (R_FROM_COLOR(colorValue) > 16 || G_FROM_COLOR(colorValue) > 32 || B_FROM_COLOR(colorValue) > 16)    //-V112
     {
-        return COLOR_BLACK;
+        return Color::BLACK;
     }
-    return COLOR_WHITE;
+    return Color::WHITE;
 }
 
 
 
-Color LightShadingTextColor()
+Color::E LightShadingTextColor()
 {
     return ColorMenuTitle(false);
 }
 
 
 
-void Color_Log(Color color)
+void Color_Log(Color::E color)
 {
     uint16 colorValue = set.display.colors[color];
     LOG_WRITE("%s   r=%d, g=%d, b=%d", NameColor(color), R_FROM_COLOR(colorValue), G_FROM_COLOR(colorValue), B_FROM_COLOR(colorValue));
@@ -211,22 +211,22 @@ void Color_ComponentChange(ColorType *colorType, int delta)
 
 static const char* colorNames[] =
 {
-    "COLOR_BLACK",
-    "COLOR_WHITE",
+    "Color::BLACK",
+    "Color::WHITE",
     "COLOR_GRID",
     "COLOR_DATA_A",
     "COLOR_DATA_B",
     "COLOR_MENU_FIELD",
-    "COLOR_MENU_TITLE",
+    "Color::MENU_TITLE",
     "COLOM_MENU_TITLE_DARK",
     "COLOR_MENU_TITLE_BRIGHT",
-    "COLOR_MENU_ITEM",
-    "COLOR_MENU_ITEM_DARK",
+    "Color::MENU_ITEM",
+    "Color::MENU_ITEM_DARK",
     "COLOR_MENU_ITEM_BRIGHT",
     "COLOR_MENU_SHADOW",
-    "NUM_COLORS",
-    "COLOR_FLASH_10",
-    "COLOR_FLASH_01",
+    "Color::COUNT",
+    "Color::FLASH_10",
+    "Color::FLASH_01",
     "SET_INVERSE"
 };
 
@@ -234,9 +234,9 @@ static const char* colorNames[] =
 
 const char* NameColorFromValue(uint16 colorValue)
 {
-    for (int i = 0; i < NUM_COLORS; i++)
+    for (int i = 0; i < Color::COUNT; i++)
     {
-        if (set.display.colors[(Color)i] == colorValue)
+        if (set.display.colors[(Color::E)i] == colorValue)
         {
             return colorNames[i];
         }
@@ -246,7 +246,7 @@ const char* NameColorFromValue(uint16 colorValue)
 
 
 
-const char* NameColor(Color color)
+const char* NameColor(Color::E color)
 {
     return colorNames[color];
 }

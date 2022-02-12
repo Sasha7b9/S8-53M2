@@ -211,7 +211,7 @@ void FPGA::ProcedureCalibration(void)
 
 void FuncAttScreen(void)
 {
-    Painter::BeginScene(COLOR_BLACK);
+    Painter::BeginScene(Color::BLACK);
 
     static bool first = true;
     static uint startTime = 0;
@@ -289,15 +289,15 @@ void FuncAttScreen(void)
         int delta = 32;
         width = 80;
         height = 25;
-        DrawRectangle(x, y, width, height, COLOR_BLACK);
-        DrawStringInCenterRect(x, y, width, height, "опнднкфхрэ", COLOR_BLACK, false);
-        DrawRectangle(x, y - delta, width, height, COLOR_BLACK);
-        DrawStringInCenterRect(x, y - delta, width, height, "нрлемхрэ", COLOR_BLACK, false);
+        DrawRectangle(x, y, width, height, Color::BLACK);
+        DrawStringInCenterRect(x, y, width, height, "опнднкфхрэ", Color::BLACK, false);
+        DrawRectangle(x, y - delta, width, height, Color::BLACK);
+        DrawStringInCenterRect(x, y - delta, width, height, "нрлемхрэ", Color::BLACK, false);
     }
     */
     char buffer[100];
     sprintf(buffer, "%.1f", (gTimerMS - startTime) / 1000.0f);
-    Painter::DrawTextC(0, 0, buffer, COLOR_BLACK);
+    Painter::DrawTextC(0, 0, buffer, Color::BLACK);
 
     Painter::EndScene();
 }

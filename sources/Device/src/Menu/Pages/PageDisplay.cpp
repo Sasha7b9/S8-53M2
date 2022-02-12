@@ -498,7 +498,7 @@ static const Choice mcSettings_Colors_Scheme =
 {
     Item_Choice, &mspSettings_Colors, 0,
     {
-        "Цветовая схема", "Color scheme",
+        "Цветовая схема", "Color::E scheme",
         "Режим работы калибратора",
         "Mode of operation of the calibrator"
     },

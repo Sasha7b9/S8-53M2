@@ -29,7 +29,7 @@ void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool pressed
         width += MOI_WIDTH_D_IP;
     }
 
-    Color color = shade ? ColorMenuTitleLessBright() : (IS_COLOR_SCHEME_WHITE_LETTERS ? COLOR_WHITE : COLOR_BLACK);
+    Color::E color = shade ? ColorMenuTitleLessBright() : (IS_COLOR_SCHEME_WHITE_LETTERS ? Color::WHITE : Color::BLACK);
     Painter::DrawHLineC(y + 1, x, x + width + 3, ColorBorderMenu(false));
 
     if (shade)
@@ -85,7 +85,7 @@ void DrawGovernorLowPart(Governor *governor, int x, int y, bool pressed, bool sh
 {
     char buffer[20];
     
-    Color colorTextDown = COLOR_BACK;
+    Color::E colorTextDown = COLOR_BACK;
 
     Painter::DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, ColorMenuField(), 
         ColorMenuItemBrighter(), ColorMenuItemLessBright(), true, shade);
@@ -136,7 +136,7 @@ static void DrawIPaddressLowPart(IPaddress *ip, int x, int y, bool pressed, bool
 {
     char buffer[20];
 
-    Color colorTextDown = COLOR_BACK;
+    Color::E colorTextDown = COLOR_BACK;
 
     Painter::DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, ColorMenuField(),
                              ColorMenuItemBrighter(), ColorMenuItemLessBright(), true, shade);
@@ -162,7 +162,7 @@ static void DrawMACaddressLowPart(MACaddress *mac, int x, int y, bool pressed, b
 {
     char buffer[20];
 
-    Color colorTextDown = COLOR_BACK;
+    Color::E colorTextDown = COLOR_BACK;
 
     Painter::DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, ColorMenuField(),
                              ColorMenuItemBrighter(), ColorMenuItemLessBright(), true, shade);
@@ -215,7 +215,7 @@ void WriteTextFormula(Formula *formula, int x, int y, bool opened)
 
 void DrawFormulaLowPart(Formula *formula, int x, int y, bool pressed, bool shade)
 {
-    Color colorTextDown = COLOR_BACK;
+    Color::E colorTextDown = COLOR_BACK;
 
     Painter::DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, ColorMenuField(),
                      ColorMenuItemBrighter(), ColorMenuItemLessBright(), true, shade);
@@ -440,13 +440,13 @@ void DrawGovernorColorValue(int x, int y, GovernorColor *govColor, int delta)
 
     int vals[4] = {(int)(ct->brightness * 100), blue, green, red};
 
-    Painter::FillRegionC(x, y, MI_WIDTH + delta - 2, MI_HEIGHT / 2 - 3, COLOR_BLACK);
+    Painter::FillRegionC(x, y, MI_WIDTH + delta - 2, MI_HEIGHT / 2 - 3, Color::BLACK);
     x += 92;
     
     for(int i = 0; i < 4; i++)
     {
-        Color colorBack = (field == i) ? COLOR_WHITE : COLOR_BLACK;
-        Color colorDraw = (field == i) ? COLOR_BLACK : COLOR_WHITE;
+        Color::E colorBack = (field == i) ? Color::WHITE : Color::BLACK;
+        Color::E colorDraw = (field == i) ? Color::BLACK : Color::WHITE;
         Painter::FillRegionC(x - 1, y + 1, 29, 10, colorBack);
         Painter::DrawTextC(x, y + 2, texts[i], colorDraw);
         Painter::DrawText(x + 14, y + 2, Int2String(vals[i], false, 1, buffer));
@@ -460,12 +460,12 @@ static void GovernorColor_DrawOpened(GovernorColor *gov, int x, int y)
     static const int delta = 43;
     x -= delta;
     Color_Init(gov->colorType);
-    Painter::DrawRectangleC(x - 1, y - 1, MI_WIDTH + delta + 2, MI_HEIGHT + 2, COLOR_BLACK);
+    Painter::DrawRectangleC(x - 1, y - 1, MI_WIDTH + delta + 2, MI_HEIGHT + 2, Color::BLACK);
     Painter::DrawRectangleC(x, y, MI_WIDTH + delta, MI_HEIGHT, ColorMenuTitle(false));
     Painter::DrawVolumeButton(x + 1, y + 1, MI_WIDTH_VALUE + 2 + delta, MI_HEIGHT_VALUE + 3, 2, ColorMenuItem(false), 
         ColorMenuItemBrighter(), ColorMenuItemLessBright(), Menu::IsPressed(gov), Menu::IsShade(gov));
     Painter::DrawHLineC(y + MI_HEIGHT / 2 + 2, x, x + MI_WIDTH + delta, ColorMenuTitle(false));
-    Painter::DrawStringInCenterRectC(x + (Menu::IsPressed(gov) ? 2 : 1), y + (Menu::IsPressed(gov) ? 2 : 1), MI_WIDTH + delta, MI_HEIGHT / 2 + 2, Menu::TitleItem(gov), COLOR_WHITE);
+    Painter::DrawStringInCenterRectC(x + (Menu::IsPressed(gov) ? 2 : 1), y + (Menu::IsPressed(gov) ? 2 : 1), MI_WIDTH + delta, MI_HEIGHT / 2 + 2, Menu::TitleItem(gov), Color::WHITE);
     DrawGovernorColorValue(x + 1, y + 19, gov, delta);
 }
 
@@ -498,7 +498,7 @@ void ItemChoice_DrawOpened(Choice *choice, int x, int y)
     Painter::DrawRectangleC(x - 1, y, MP_TITLE_WIDTH + 1, height + 1, ColorMenuTitle(false));
  
     Painter::DrawHLine(y + MOI_HEIGHT_TITLE - 1, x, x + MOI_WIDTH);
-    Painter::DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1, height - MOI_HEIGHT_TITLE, 1, COLOR_BLACK, ColorMenuTitleBrighter(),
+    Painter::DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1, height - MOI_HEIGHT_TITLE, 1, Color::BLACK, ColorMenuTitleBrighter(),
                         ColorMenuTitleLessBright(), false, false);
     int index = *((int8*)choice->cell);
     for(int i = 0; i < choice->NumSubItems(); i++)
@@ -510,7 +510,7 @@ void ItemChoice_DrawOpened(Choice *choice, int x, int y)
             Painter::DrawVolumeButton(x + 1, yItem, MOI_WIDTH - 2 , MOSI_HEIGHT - 2, 2, ColorMenuField(), ColorMenuTitleBrighter(),
                 ColorMenuTitleLessBright(), pressed, false);
         }
-        Painter::DrawTextC(x + 4, yItem + 2, choice->NameSubItem(i), pressed ? COLOR_BLACK : ColorMenuField());
+        Painter::DrawTextC(x + 4, yItem + 2, choice->NameSubItem(i), pressed ? Color::BLACK : ColorMenuField());
     }
 }
 
@@ -526,7 +526,7 @@ void ItemTime_DrawOpened(Time *time, int x, int y)
     Painter::DrawRectangleC(x - 1, y, width + 1, height + 1, ColorMenuTitle(false));
 
     Painter::DrawHLine(y + MOI_HEIGHT_TITLE - 1, x, x + MOI_WIDTH);
-    Painter::DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1, height - MOI_HEIGHT_TITLE, 1, COLOR_BLACK, ColorMenuTitleBrighter(),
+    Painter::DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1, height - MOI_HEIGHT_TITLE, 1, Color::BLACK, ColorMenuTitleBrighter(),
                              ColorMenuTitleLessBright(), false, false);
 
     int y0 = 21;
@@ -572,9 +572,9 @@ void ItemTime_DrawOpened(Time *time, int x, int y)
     {
         if (*time->curField == i)
         {
-            Painter::FillRegionC(x + strPaint[i].x - 1, y + strPaint[i].y, strPaint[i].width, 8, COLOR_FLASH_10);
+            Painter::FillRegionC(x + strPaint[i].x - 1, y + strPaint[i].y, strPaint[i].width, 8, Color::FLASH_10);
         }
-        Painter::DrawTextC(x + strPaint[i].x, y + strPaint[i].y, strI[i], *time->curField == i ? COLOR_FLASH_01 : COLOR_FILL);
+        Painter::DrawTextC(x + strPaint[i].x, y + strPaint[i].y, strI[i], *time->curField == i ? Color::FLASH_01 : COLOR_FILL);
     }
 }
 
@@ -585,7 +585,7 @@ static void GovernorIpCommon_DrawOpened(void *item, int x, int y, int dWidth)
     Painter::DrawRectangleC(x - 1, y, MP_TITLE_WIDTH + 1 + dWidth, height + 1, ColorMenuTitle(false));
     Painter::DrawHLine(y + MOI_HEIGHT_TITLE - 1, x, x + MOI_WIDTH + dWidth);
     DrawGovernorChoiceColorFormulaHiPart(item, x - 1, y - 1, Menu::IsPressed(item), false, true);
-    Painter::DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1 + dWidth, height - MOI_HEIGHT_TITLE, 1, COLOR_BLACK, ColorMenuTitleBrighter(),
+    Painter::DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1 + dWidth, height - MOI_HEIGHT_TITLE, 1, Color::BLACK, ColorMenuTitleBrighter(),
                              ColorMenuTitleLessBright(), false, false);
 }
 
@@ -622,7 +622,7 @@ void ItemChoice_DrawClosed(Choice *choice, int x, int y)
     }
 
     float deltaY = choice->Step();
-    Color colorText = shade ? LightShadingTextColor() : COLOR_BACK;
+    Color::E colorText = shade ? LightShadingTextColor() : COLOR_BACK;
     Painter::SetColor(colorText);
     if(deltaY == 0.0f)
     {
@@ -631,7 +631,7 @@ void ItemChoice_DrawClosed(Choice *choice, int x, int y)
     else
     {
         Painter::DrawTextWithLimitationC(x + 4, y + 21 - deltaY, choice->NameCurrentSubItem(), colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
-        Painter::DrawHLineC(y + (deltaY > 0 ? 31 : 19) - deltaY, x + 3, x + MI_WIDTH_VALUE + 1, COLOR_BLACK);
+        Painter::DrawHLineC(y + (deltaY > 0 ? 31 : 19) - deltaY, x + 3, x + MI_WIDTH_VALUE + 1, Color::BLACK);
         Painter::DrawTextWithLimitationC(x + 4, y + (deltaY > 0 ? 33 : 9) - deltaY, deltaY > 0 ? choice->NameNextSubItem() : choice->NamePrevSubItem(), colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
     }
     Painter::DrawHLineC(y + MI_HEIGHT + 1, x, x + MI_WIDTH, ColorBorderMenu(false));
@@ -702,7 +702,7 @@ void ItemButton_Draw(Button *button, int x, int y)
     bool shade = Menu::IsShade(button) || !Menu::ItemIsActive(button);
 
     Painter::DrawHLineC(y + 1, x, x + MI_WIDTH, ColorMenuTitle(shade));
-    Color color = shade ? COLOR_MENU_SHADOW : COLOR_WHITE;
+    Color::E color = shade ? COLOR_MENU_SHADOW : Color::WHITE;
     Painter::FillRegionC(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, ColorMenuItem(false));
     Painter::DrawVolumeButton(x + 4, y + 5, MI_WIDTH - 8, MI_HEIGHT - 8, 3, ColorMenuItem(false), ColorMenuItemBrighter(), 
                             ColorMenuItemLessBright(), pressed, shade);
@@ -747,7 +747,7 @@ void ItemPage_Draw(Page *page, int x, int y)
     {
         Painter::DrawVolumeButton(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, 2, ColorMenuItem(isShade), ColorMenuItemBrighter(), ColorMenuItemLessBright(), isPressed, isShade);
     }
-    Color colorText = isShade ? LightShadingTextColor() : COLOR_BLACK;
+    Color::E colorText = isShade ? LightShadingTextColor() : Color::BLACK;
     int delta = 0;
     if(isPressed && (!isShade))
     {

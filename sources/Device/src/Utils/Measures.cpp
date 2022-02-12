@@ -263,11 +263,11 @@ void Measure_DrawPageChoice()
             int y0 = y + row * dY;
             bool active = meas == posOnPageChoice;
             Painter::DrawRectangleC(x0, y0, dX, dY, COLOR_FILL);
-            Painter::FillRegionC(x0 + 1, y0 + 1, dX - 2, dY - 2, active ? COLOR_FLASH_10 : COLOR_BACK);
-            Painter::SetColor(active ? COLOR_FLASH_01 : COLOR_FILL);
+            Painter::FillRegionC(x0 + 1, y0 + 1, dX - 2, dY - 2, active ? Color::FLASH_10 : COLOR_BACK);
+            Painter::SetColor(active ? Color::FLASH_01 : COLOR_FILL);
             Painter::Draw10SymbolsInRect(x0 + 2, y0 + 1, Measure_GetChar(meas));
             Painter::SetFont(TypeFont_5);
-            Painter::DrawTextRelativelyRightC(x0 + dX, y0 + 12, measures[meas].name, active ? COLOR_FLASH_01 : COLOR_FILL);
+            Painter::DrawTextRelativelyRightC(x0 + dX, y0 + 12, measures[meas].name, active ? Color::FLASH_01 : COLOR_FILL);
             Painter::SetFont(TypeFont_UGO);
             ++meas;
         }

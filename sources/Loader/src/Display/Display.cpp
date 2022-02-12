@@ -52,8 +52,8 @@ void Display_Init(void)
     ms->display.timePrev = 0;
     ms->display.direction = 10.0f;
 
-    gColorBack = COLOR_BLACK;
-    gColorFill = COLOR_WHITE;
+    gColorBack = Color::BLACK;
+    gColorFill = Color::WHITE;
 
     for (int i = 0; i < 14; i++)
     {
@@ -94,13 +94,13 @@ void Display_Update1(void)
 
     uint time = HAL_GetTick();
 
-    Painter_BeginScene(COLOR_BLACK);
+    Painter_BeginScene(Color::BLACK);
 
-    Painter_DrawTextFormatting(5, 200, COLOR_WHITE, "%f секунд", HAL_GetTick() / 1000.0f);
+    Painter_DrawTextFormatting(5, 200, Color::WHITE, "%f секунд", HAL_GetTick() / 1000.0f);
 
-//    Painter_DrawTextFormatting(5, 210, COLOR_WHITE, "%d frames", numFrames);
+//    Painter_DrawTextFormatting(5, 210, Color::WHITE, "%d frames", numFrames);
 
-    Painter_DrawTextFormatting(5, 220, COLOR_WHITE, "min = %d max = %d, current = %d", min , max, current);
+    Painter_DrawTextFormatting(5, 220, Color::WHITE, "min = %d max = %d, current = %d", min , max, current);
 
     Painter_EndScene();
 
@@ -124,9 +124,9 @@ void Display_Update(void)
     uint dT = HAL_GetTick() - ms->display.timePrev;
     ms->display.timePrev = HAL_GetTick();
 
-    Painter_BeginScene(COLOR_BLACK);
+    Painter_BeginScene(Color::BLACK);
 
-    Painter_SetColor(COLOR_WHITE);
+    Painter_SetColor(Color::WHITE);
 
     if (ms->state == State_Start || ms->state == State_Ok)
     {
@@ -134,7 +134,7 @@ void Display_Update(void)
         Painter_SetColor(gColorFill);
         Painter_DrawRectangle(0, 0, 319, 239);
         DrawBigMNIPI();
-        Painter_SetColor(COLOR_WHITE);
+        Painter_SetColor(Color::WHITE);
         Painter_DrawStringInCenterRect(0, 180, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");
         Painter_DrawStringInCenterRect(0, 205, 320, 20, "Отдел маркетинга: тел./факс. 8-017-270-02-00");
         Painter_DrawStringInCenterRect(0, 220, 320, 20, "Разработчики: e-mail: mnipi-24(@)tut.by, тел. 8-017-270-02-23");
@@ -145,8 +145,8 @@ void Display_Update(void)
     }
     else if (ms->state == State_WrongFlash)
     {
-        Painter_DrawStringInCenterRectC(0, 0, 320, 200, "НЕ УДАЛОСЬ ПРОЧИТАТЬ ДИСК", COLOR_FLASH_10);
-        Painter_DrawStringInCenterRectC(0, 20, 320, 200, "УБЕДИТЕСЬ, ЧТО ФАЙЛОВАЯ СИСТЕМА FAT32", COLOR_WHITE);
+        Painter_DrawStringInCenterRectC(0, 0, 320, 200, "НЕ УДАЛОСЬ ПРОЧИТАТЬ ДИСК", Color::FLASH_10);
+        Painter_DrawStringInCenterRectC(0, 20, 320, 200, "УБЕДИТЕСЬ, ЧТО ФАЙЛОВАЯ СИСТЕМА FAT32", Color::WHITE);
     }
     else if (ms->state == State_RequestAction)
     {
@@ -202,7 +202,7 @@ void DrawProgressBar(uint dT)
     int dH = 15;
     int y0 = 50;
 
-    Painter_DrawStringInCenterRectC(X, y0, WIDTH, 10, "Обнаружен USB-диск.", COLOR_WHITE);
+    Painter_DrawStringInCenterRectC(X, y0, WIDTH, 10, "Обнаружен USB-диск.", Color::WHITE);
     Painter_DrawStringInCenterRect(X, y0 + dH, WIDTH, 10, "Идёт поиск программного обеспечения");
     Painter_DrawStringInCenterRect(X, y0 + 2 * dH, WIDTH, 10, "Подождите...");
 
@@ -232,7 +232,7 @@ static void DrawBigMNIPI(void)
 
     int numColor = 0;
     LIMITATION(numColor, (int)(time / (float)TIME_WAIT * 13.0f), 0, 13);
-    Painter_SetColor((Color)(numColor + 2));
+    Painter_SetColor((Color::E)(numColor + 2));
 
     float amplitude = 3.0f - (time / (TIME_WAIT / 2.0f)) * 3;
     LIMIT_BELOW(amplitude, 0.0f);

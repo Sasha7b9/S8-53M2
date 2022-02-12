@@ -159,7 +159,7 @@ void Menu::DrawTitlePage(Page *page, int layer, int yTop)
     Painter::DrawVLineC(x, yTop, yTop + HeightOpenedItem(page), ColorBorderMenu(false));
     bool condDrawRSet = NumSubPages(page) > 1 && TypeMenuItem(CurrentItem()) != Item_ChoiceReg && TypeMenuItem(CurrentItem()) != Item_Governor && TypeOpenedItem() == Item_Page;
     int delta = condDrawRSet ? -10 : 0;
-    Color colorText = shade ? LightShadingTextColor() : COLOR_BLACK;
+    Color::E colorText = shade ? LightShadingTextColor() : Color::BLACK;
     x = Painter::DrawStringInCenterRectC(x, yTop, MP_TITLE_WIDTH + 2 + delta, MP_TITLE_HEIGHT, TitleItem(page), colorText);
     if(condDrawRSet)
     {

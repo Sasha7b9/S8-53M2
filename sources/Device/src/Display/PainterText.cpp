@@ -172,7 +172,7 @@ int Painter::DrawChar(int x, int y, char symbol)
 }
 
 
-int Painter::DrawCharC(int x, int y, char symbol, Color color)
+int Painter::DrawCharC(int x, int y, char symbol, Color::E color)
 {
     Painter::SetColor(color);
     return DrawChar(x, y, symbol);
@@ -235,19 +235,19 @@ int Painter::DrawText(int x, int y, const char * const _text)
 }
 
 
-int Painter::DrawTextC(int x, int y, const char *text, Color color)
+int Painter::DrawTextC(int x, int y, const char *text, Color::E color)
 {
     SetColor(color);
     return Painter::DrawText(x, y, text);
 }
 
 
-int Painter::DrawTextOnBackground(int x, int y, const char *text, Color colorBackground)
+int Painter::DrawTextOnBackground(int x, int y, const char *text, Color::E colorBackground)
 {
     int width = Font_GetLengthText(text);
     int height = Font_GetSize();
 
-    Color colorText = Painter::CurrentColor();
+    Color::E colorText = Painter::CurrentColor();
     FillRegionC(x - 1, y, width, height, colorBackground);
     SetColor(colorText);
 
@@ -285,7 +285,7 @@ int Painter::DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, in
 }
 
 
-int Painter::DrawTextWithLimitationC(int x, int y, const char* text, Color color, int limitX, int limitY, int limitWidth, int limitHeight)
+int Painter::DrawTextWithLimitationC(int x, int y, const char* text, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight)
 {
     SetColor(color);
     int retValue = x;
@@ -647,7 +647,7 @@ bool Painter::GetHeightTextWithTransfers(int left, int top, int right, const cha
 }
 
 
-int Painter::DrawTextInBoundedRectWithTransfers(int x, int y, int width, const char *text, Color colorBackground, Color colorFill)
+int Painter::DrawTextInBoundedRectWithTransfers(int x, int y, int width, const char *text, Color::E colorBackground, Color::E colorFill)
 {
     int height = 0;
     GetHeightTextWithTransfers(x + 3, y + 3, x + width - 8, text, &height);
@@ -659,14 +659,14 @@ int Painter::DrawTextInBoundedRectWithTransfers(int x, int y, int width, const c
 }
 
 
-int Painter::DrawTextInRectWithTransfersC(int x, int y, int width, int height, const char *text, Color color)
+int Painter::DrawTextInRectWithTransfersC(int x, int y, int width, int height, const char *text, Color::E color)
 {
     SetColor(color);
     return DrawTextInRectWithTransfers(x, y, width, height, text);
 }
 
 
-int Painter::DrawFormatText(int x, int y, Color color, char *text, ...)
+int Painter::DrawFormatText(int x, int y, Color::E color, char *text, ...)
 {
 #undef SIZE_BUFFER
 #define SIZE_BUFFER 200
@@ -690,15 +690,15 @@ int Painter::DrawStringInCenterRect(int eX, int eY, int width, int eHeight, cons
 }
 
 
-int Painter::DrawStringInCenterRectC(int x, int y, int width, int height, const char *text, Color color)
+int Painter::DrawStringInCenterRectC(int x, int y, int width, int height, const char *text, Color::E color)
 {
     SetColor(color);
     return DrawStringInCenterRect(x, y, width, height, text);
 }
 
 
-void Painter::DrawStringInCenterRectOnBackgroundC(int x, int y, int width, int height, const char *text, Color colorText, int widthBorder, 
-                                                 Color colorBackground)
+void Painter::DrawStringInCenterRectOnBackgroundC(int x, int y, int width, int height, const char *text, Color::E colorText, int widthBorder, 
+                                                 Color::E colorBackground)
 {
     int lenght = Font_GetLengthText(text);
     int eX = DrawStringInCenterRectC(x, y, width, height, text, colorBackground);
@@ -709,7 +709,7 @@ void Painter::DrawStringInCenterRectOnBackgroundC(int x, int y, int width, int h
 }
 
 
-int Painter::DrawStringInCenterRectAndBoundItC(int x, int y, int width, int height, const char *text, Color colorBackground, Color colorFill)
+int Painter::DrawStringInCenterRectAndBoundItC(int x, int y, int width, int height, const char *text, Color::E colorBackground, Color::E colorFill)
 {
     DrawRectangleC(x, y, width, height, colorFill);
     FillRegionC(x + 1, y + 1, width - 2, height - 2, colorBackground);
@@ -805,14 +805,14 @@ void Painter::DrawTextRelativelyRight(int xRight, int y, const char *text)
 }
 
 
-void Painter::DrawTextRelativelyRightC(int xRight, int y, const char *text, Color color)
+void Painter::DrawTextRelativelyRightC(int xRight, int y, const char *text, Color::E color)
 {
     SetColor(color);
     DrawTextRelativelyRight(xRight, y, text);
 }
 
 
-void Painter::Draw2SymbolsC(int x, int y, char symbol1, char symbol2, Color color1, Color color2)
+void Painter::Draw2SymbolsC(int x, int y, char symbol1, char symbol2, Color::E color1, Color::E color2)
 {
     DrawCharC(x, y, symbol1, color1);
     DrawCharC(x, y, symbol2, color2);
@@ -829,7 +829,7 @@ void Painter::Draw4SymbolsInRect(int x, int y, char eChar)
 }
 
 
-void Painter::Draw4SymbolsInRectC(int x, int y, char eChar, Color color)
+void Painter::Draw4SymbolsInRectC(int x, int y, char eChar, Color::E color)
 {
     SetColor(color);
     Draw4SymbolsInRect(x, y, eChar);

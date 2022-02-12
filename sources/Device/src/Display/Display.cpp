@@ -441,7 +441,7 @@ void Display::DrawMath()
 
 
 
-void Display::DrawSpectrumChannel(const float *spectrum, Color color)
+void Display::DrawSpectrumChannel(const float *spectrum, Color::E color)
 {
     Painter::SetColor(color);
 	int gridLeft = Grid::Left();
@@ -504,7 +504,7 @@ void Display::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan::E ch)
     DrawSpectrumChannel(spectrum, ColorChannel(ch));
     if (!MenuIsShown() || MenuIsMinimize())
     {
-        Color color = COLOR_FILL;
+        Color::E color = COLOR_FILL;
         WriteParametersFFT(ch, freq0, density0, freq1, density1);
         Painter::DrawRectangleC(FFT_POS_CURSOR_0 + Grid::Left() - s, y0 - s, s * 2, s * 2, color);
         Painter::DrawRectangle(FFT_POS_CURSOR_1 + Grid::Left() - s, y1 - s, s * 2, s * 2);
@@ -1053,7 +1053,7 @@ void Display::WriteCursors()
         Painter::DrawVLineC(x, 1, GRID_TOP - 2, COLOR_FILL);
         x += 3;
         Chan::E source = CURS_SOURCE;
-        Color colorText = ColorChannel(source);
+        Color::E colorText = ColorChannel(source);
         if(!CURS_CNTRL_U_IS_DISABLE(source))
         {
             Painter::DrawTextC(x, y1, "1:", colorText);
@@ -1861,7 +1861,7 @@ void Display::DrawMeasures()
             int x = x0 + dX * elem;
             int y = y0 + str * dY;
             bool active = Measure_IsActive(str, elem) && Menu::GetNameOpenedPage() == Page_SB_MeasTuneMeas;
-            Color color = active ? COLOR_BACK : COLOR_FILL;
+            Color::E color = active ? COLOR_BACK : COLOR_FILL;
             Measure meas = Measure_Type(str, elem);
             if(meas != Measure_None)
             {
@@ -1915,7 +1915,7 @@ void Display::WriteTextVoltage(Chan::E ch, int x, int y)
         "\x91",
         "\x90"
     };
-    Color color = ColorChannel(ch);
+    Color::E color = ColorChannel(ch);
 
     bool inverse = SET_INVERSE(ch);
     ModeCouple modeCouple = SET_COUPLE(ch);
@@ -1943,7 +1943,7 @@ void Display::WriteTextVoltage(Chan::E ch, int x, int y)
         const int widthField = 91;
         const int heightField = 8;
 
-        Color colorDraw = inverse ? COLOR_WHITE : color;
+        Color::E colorDraw = inverse ? Color::WHITE : color;
         if(inverse)
         {
             Painter::FillRegionC(x, y, widthField, heightField, color);
@@ -2125,12 +2125,12 @@ void Display::DrawLowPart()
     // Ethernet
     if ((CLIENT_LAN_IS_CONNECTED || CABLE_LAN_IS_CONNECTED) && gTimerMS > 2000)
     {
-        Painter::Draw4SymbolsInRectC(x + 87, GRID_BOTTOM + 2, SYMBOL_ETHERNET, CLIENT_LAN_IS_CONNECTED ? COLOR_FILL : COLOR_FLASH_01);
+        Painter::Draw4SymbolsInRectC(x + 87, GRID_BOTTOM + 2, SYMBOL_ETHERNET, CLIENT_LAN_IS_CONNECTED ? COLOR_FILL : Color::FLASH_01);
     }
 
     if (CLIENT_VCP_IS_CONNECTED || CABLE_VCP_IS_CONNECTED)
     {
-        Painter::Draw4SymbolsInRectC(x + 72, GRID_BOTTOM + 2, SYMBOL_USB, CLIENT_VCP_IS_CONNECTED ? COLOR_FILL : COLOR_FLASH_01);
+        Painter::Draw4SymbolsInRectC(x + 72, GRID_BOTTOM + 2, SYMBOL_USB, CLIENT_VCP_IS_CONNECTED ? COLOR_FILL : Color::FLASH_01);
     }
     
     Painter::SetColor(COLOR_FILL);
@@ -2573,8 +2573,8 @@ void Display::DrawStringInRectangle(int, int y, char const *text)
     int height = 8;
     Painter::DrawRectangleC(Grid::Left(), y, width + 4, height + 4, COLOR_FILL);
     Painter::DrawRectangleC(Grid::Left() + 1, y + 1, width + 2, height + 2, COLOR_BACK);
-    Painter::FillRegionC(Grid::Left() + 2, y + 2, width, height, COLOR_FLASH_10);
-    Painter::DrawTextC(Grid::Left() + 3, y + 2, text, COLOR_FLASH_01);
+    Painter::FillRegionC(Grid::Left() + 2, y + 2, width, height, Color::FLASH_10);
+    Painter::DrawTextC(Grid::Left() + 3, y + 2, text, Color::FLASH_01);
 }
 
 

@@ -3,9 +3,9 @@
 #include <stm32f4xx_hal.h>
 #include "globals.h"
 
-typedef unsigned char uint8;
-typedef unsigned int  uint;
-typedef signed char   int8;
+typedef unsigned char      uint8;
+typedef unsigned int       uint;
+typedef signed char        int8;
 typedef unsigned short int uint16;
 typedef signed short int   int16;
 typedef unsigned char      uchar;
@@ -18,30 +18,34 @@ typedef unsigned char bool;
 #define true    (!false)
 #endif
 
-// ??? ?????
-typedef enum
+
+// Тип цвета
+struct Color
 {
-    COLOR_BLACK             = 0x00,
-    COLOR_WHITE             = 0x01,
-    COLOR_GRID              = 0x02,
-    COLOR_DATA_A            = 0x03,
-    COLOR_DATA_B            = 0x04,
-    COLOR_MENU_FIELD        = 0x05,
-    COLOR_MENU_TITLE        = 0x06,
-    COLOR_MENU_TITLE_DARK   = 0x07,
-    COLOR_MENU_TITLE_BRIGHT = 0x08,
-    COLOR_MENU_ITEM         = 0x09,
-    COLOR_MENU_ITEM_DARK    = 0x0a,
-    COLOR_MENU_ITEM_BRIGHT  = 0x0b,
-    COLOR_DATA_A_WHITE      = 0x0c,
-    COLOR_DATA_B_WHITE      = 0x0d,
-    COLOR_GRID_WHITE        = 0x0e,
-    COLOR_EMPTY             = 0x0f,
-    NUM_COLORS,
-    COLOR_FLASH_10,
-    COLOR_FLASH_01,
-    INVERSE
-} Color;
+    enum E
+    {
+        BLACK             = 0x00,
+        WHITE             = 0x01,
+        GRID              = 0x02,
+        DATA_A            = 0x03,
+        DATA_B            = 0x04,
+        MENU_FIELD        = 0x05,
+        MENU_TITLE        = 0x06,
+        MENU_TITLE_DARK   = 0x07,
+        MENU_TITLE_BRIGHT = 0x08,
+        MENU_ITEM         = 0x09,
+        MENU_ITEM_DARK    = 0x0a,
+        MENU_ITEM_BRIGHT  = 0x0b,
+        MENU_SHADOW       = 0x0c,
+        EMPTY             = 0x0d,
+        EMPTY_A           = 0x0e,
+        EMPTY_B           = 0x0f,
+        COUNT,
+        FLASH_10,
+        FLASH_01,
+        SET_INVERSE
+    };
+};
 
 typedef void    (*pFuncVV)(void);               // ????????? ?? ???????, ?????? ?? ??????????? ? ?????? ?? ????????????.
 typedef void    (*pFuncVpV)(void*);             // ????????? ?? ???????, ??????????? ????????? ?? void ? ?????? ?? ????????????.

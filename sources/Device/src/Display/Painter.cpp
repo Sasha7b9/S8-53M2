@@ -33,7 +33,7 @@ uint8 *Display::display_back_buffer_end = display_back_buffer + SIZE_BUFFER;
 
 
 static bool inverseColors = false;
-static Color currentColor = NUM_COLORS;
+static Color::E currentColor = Color::COUNT;
 
 static enum StateTransmit
 {
@@ -60,11 +60,11 @@ void Painter::SendFrame(bool first, bool noFonts_)
 
 void Painter::CalculateCurrentColor()
 {
-    if (currentColor == COLOR_FLASH_10)
+    if (currentColor == Color::FLASH_10)
     {
         SetColor(inverseColors ? COLOR_BACK : COLOR_FILL);
     }
-    else if (currentColor == COLOR_FLASH_01)
+    else if (currentColor == Color::FLASH_01)
     {
         SetColor(inverseColors ? COLOR_FILL : COLOR_BACK);
     }
@@ -73,21 +73,21 @@ void Painter::CalculateCurrentColor()
 
 void CalculateColor(uint8 *color)
 {
-    currentColor = (Color)*color;
-    if (*color == COLOR_FLASH_10)
+    currentColor = (Color::E)*color;
+    if (*color == Color::FLASH_10)
     {
         *color = inverseColors ? COLOR_BACK : COLOR_FILL;
     }
-    else if (*color == COLOR_FLASH_01)
+    else if (*color == Color::FLASH_01)
     {
         *color = inverseColors ? COLOR_FILL : COLOR_BACK;
     }
 }
 
 
-void InverseColor(Color *color)
+void InverseColor(Color::E *color)
 {
-    *color = (*color == COLOR_BLACK) ? COLOR_WHITE : COLOR_BLACK;
+    *color = (*color == Color::BLACK) ? Color::WHITE : Color::BLACK;
 }
 
 
@@ -116,7 +116,7 @@ void Painter::DrawRectangle(int x, int y, int width, int height)
 }
 
 
-void Painter::DrawRectangleC(int x, int y, int width, int height, Color color)
+void Painter::DrawRectangleC(int x, int y, int width, int height, Color::E color)
 {
     SetColor(color);
     DrawRectangle(x, y, width, height);
@@ -190,13 +190,13 @@ bool InterCom::TransmitGUIinProcess()
 }
 
 
-void Painter::SetColor(Color color)
+void Painter::SetColor(Color::E color)
 {
     if (color != currentColor)
     {
         currentColor = color;
 
-        if (currentColor > NUM_COLORS)
+        if (currentColor > Color::COUNT)
         {
             CalculateColor((uint8 *)&color);
         }
@@ -211,7 +211,7 @@ void Painter::SetColor(Color color)
 }
 
 
-Color Painter::CurrentColor(void)
+Color::E Painter::CurrentColor(void)
 {
     return currentColor;
 }
@@ -249,7 +249,7 @@ void Painter::DrawHLine(int y, int x0, int x1)
 }
 
 
-void Painter::DrawHLineC(int y, int x0, int x1, Color color)
+void Painter::DrawHLineC(int y, int x0, int x1, Color::E color)
 {
     SetColor(color);
     DrawHLine(y, x0, x1);
@@ -294,21 +294,21 @@ void Painter::DrawVLine(int x, int y0, int y1)
 }
 
 
-void Painter::DrawVLineC(int x, int y0, int y1, Color color)
+void Painter::DrawVLineC(int x, int y0, int y1, Color::E color)
 {
     SetColor(color);
     DrawVLine(x, y0, y1);
 }
 
 
-void Painter::DrawLineC(int x0, int y0, int x1, int y1, Color color)
+void Painter::DrawLineC(int x0, int y0, int x1, int y1, Color::E color)
 {
     SetColor(color);
     DrawLine(x0, y0, x1, y1);
 }
 
 
-void Painter::DrawVPointLine(int x, int y0, int y1, float delta, Color color)
+void Painter::DrawVPointLine(int x, int y0, int y1, float delta, Color::E color)
 {
     SetColor(color);
 
@@ -352,7 +352,7 @@ void Painter::SetPoint(int x, int y)
 }
 
 
-Color Painter::GetColor(int x, int y)
+Color::E Painter::GetColor(int x, int y)
 {
     if (x < 0 || y < 0 || (x > Display::WIDTH - 1) || (y > Display::HEIGHT - 1))
     {
@@ -363,14 +363,14 @@ Color Painter::GetColor(int x, int y)
 
     if (address < Display::display_back_buffer_end)
     {
-        return (Color)*address;
+        return (Color::E)*address;
     }
 
     return COLOR_BACK;
 }
 
 
-void Painter::DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color color) 
+void Painter::DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color::E color) 
 {
     if(numLines > 20) 
     {
@@ -412,7 +412,7 @@ void Painter::DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, in
 }
 
 
-void Painter::DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color color)
+void Painter::DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color::E color)
 {
     if (numLines > 20)
     {
@@ -496,14 +496,14 @@ void Painter::FillRegion(int x, int y, int width, int height)
 }
 
 
-void Painter::FillRegionC(int x, int y, int width, int height, Color color)
+void Painter::FillRegionC(int x, int y, int width, int height, Color::E color)
 {
     SetColor(color);
     FillRegion(x, y, width, height);
 }
 
 
-void Painter::DrawVolumeButton(int x, int y, int width, int height, int thickness, Color normal, Color bright, Color dark, bool isPressed, bool inShade)
+void Painter::DrawVolumeButton(int x, int y, int width, int height, int thickness, Color::E normal, Color::E bright, Color::E dark, bool isPressed, bool inShade)
 {
     if (inShade)
     {
@@ -539,7 +539,7 @@ int NumberColorsInSceneCol(void)
 }
 
 
-void Painter::DrawVLineArray(int x, int num_lines, uint8 *y0y1, Color color)
+void Painter::DrawVLineArray(int x, int num_lines, uint8 *y0y1, Color::E color)
 {
     SetColor(color);
 
@@ -595,14 +595,14 @@ void Painter::DrawSignal(int x, uint8 data[281], bool modeLines)
 
 void Painter::LoadPalette(void)
 {
-    for (int i = 0; i < NUM_COLORS; i++)
+    for (int i = 0; i < Color::COUNT; i++)
     {
-        SetPalette((Color)i);
+        SetPalette((Color::E)i);
     }
 }
 
 
-void Painter::BeginScene(Color color)
+void Painter::BeginScene(Color::E color)
 {
     if (stateTransmit == StateTransmit_NeedForTransmitFirst || stateTransmit == StateTransmit_NeedForTransmitSecond)
     {
@@ -788,7 +788,7 @@ bool Painter::SaveScreenToFlashDrive(void) {
 }
 
 
-void Painter::SetPalette(Color)
+void Painter::SetPalette(Color::E)
 {
 
 }

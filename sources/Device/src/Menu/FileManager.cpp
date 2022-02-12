@@ -45,7 +45,7 @@ void FM::DrawLongString(int x, int y, char *string, bool hightlight)
 {
     int length = Font_GetLengthText(string);
 
-    Color color = COLOR_FILL;
+    Color::E color = COLOR_FILL;
     if (hightlight)
     {
         Painter::FillRegionC(x - 1, y, WIDTH_COL + 9, 8, color);
