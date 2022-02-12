@@ -1,7 +1,6 @@
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/ADC.h"
-#include "Hardware/CLOCK.h"
 #include "Hardware/Timer.h"
 
 
@@ -106,8 +105,6 @@ void HAL::Init()
     HAL_GPIO_Init(GPIOG, &isGPIOG);
 
     HAL_GPIO_WritePin(GPIOG, GPIO_PIN_1, GPIO_PIN_RESET);                   // PG1 - когда равен 1, чтение дисплея, в остальных случаях 0
-
-    Clock::Init();
 }
 
 
