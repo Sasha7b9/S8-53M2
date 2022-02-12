@@ -144,6 +144,7 @@ private:
     /// Возвращает функцию обработки длинного нажатия на элемент меню item.
     static void ExecuteFuncForLongPressureOnItem(void *item);
 
+    // Возвращает true, если лампочка УСТАНОВКА должна гореть
     static bool NeedForFireSetLED();
 
     static void DrawOpenedPage(Page *page, int layer, int yTop);

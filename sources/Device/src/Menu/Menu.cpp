@@ -236,7 +236,6 @@ void Menu::PressButton(PanelButton button)
 
     if (pressButton == B_Start)
     {
-        pressButton = button;
     } 
     else if (!MenuIsShown())
     {
@@ -246,12 +245,13 @@ void Menu::PressButton(PanelButton button)
         }
         bufferForButtons[0] = button;
       
-        if (memcmp(bufferForButtons, sampleBufferForButtons, SIZE_BUFFER_FOR_BUTTONS) == 0)
+        if (memcmp(bufferForButtons, sampleBufferForButtons, SIZE_BUFFER_FOR_BUTTONS * sizeof(PanelButton)) == 0)
         {
             SHOW_DEBUG_MENU = 1;
             Display::ShowWarningGood(MenuDebugEnabled);
         }
     }
+
     pressButton = button;
 };
 
@@ -809,7 +809,7 @@ void Menu::OpenItemTime(void)
 }
 
 
-bool Menu::NeedForFireSetLED()    // Возвращает true, если лампочка УСТАНОВКА должна гореть
+bool Menu::NeedForFireSetLED()
 {
     if (!MenuIsShown())
     {
@@ -823,12 +823,12 @@ bool Menu::NeedForFireSetLED()    // Возвращает true, если лампочка УСТАНОВКА до
     }
 
     if (
-        name == Page_SB_MathCursorsFFT                          ||
-        name == Page_SB_MeasTuneMeas                            ||
-        name == Page_SB_MemLatest                               || 
-        name == Page_SB_MemInt                                  ||
-        (name == Page_SB_MathFunction && !DISABLED_DRAW_MATH)   ||
-        name == Page_SB_Curs && sCursors_NecessaryDrawCursors()
+        name == Page_SB_MathCursorsFFT                             ||
+        name == Page_SB_MeasTuneMeas                               ||
+        name == Page_SB_MemLatest                                  || 
+        name == Page_SB_MemInt                                     ||
+        ((name == Page_SB_MathFunction) && !DISABLED_DRAW_MATH)    ||
+        ((name == Page_SB_Curs) && sCursors_NecessaryDrawCursors())
         )
     {
         return true;
