@@ -1,6 +1,5 @@
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
-#include "Hardware/ADC.h"
 #include "Hardware/Timer.h"
 
 
@@ -41,7 +40,7 @@ void HAL::Init()
 
     HAL_FMC::Init();            // Альтера и ОЗУ
 
-    ADConverter::Init();
+    HAL_ADC3::Init();
 }
 
 

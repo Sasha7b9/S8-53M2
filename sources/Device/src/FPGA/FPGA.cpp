@@ -5,7 +5,6 @@
 #include "Menu/Pages/PageMemory.h"
 #include "Display/Display.h"
 #include "Hardware/FSMC.h"
-#include "Hardware/ADC.h"
 #include "Panel/Panel.h"
 #include "Panel/Controls.h"
 #include "Settings/Settings.h"
@@ -17,7 +16,7 @@
 #include "Log.h"
 #include "Settings/Settings.h"
 #include "Utils/Generator.h"
-
+#include "Hardware/HAL/HAL.h"
 
 
 #define NULL_TSHIFT 1000000
@@ -499,7 +498,7 @@ bool FPGA::CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
 
 int FPGA::CalculateShift(void)            // \todo Не забыть восстановить функцию
 {
-    uint16 rand = ADConverter::GetValue();
+    uint16 rand = HAL_ADC3::GetValue();
 
     uint16 min = 0;
     uint16 max = 0;

@@ -33,6 +33,13 @@ namespace HAL
 }
 
 
+namespace HAL_ADC3
+{
+    void Init();
+    uint16 GetValue();
+}
+
+
 // »спользуетс€ дл€ управлени€ €ркостью диспле€
 namespace HAL_DAC1
 {

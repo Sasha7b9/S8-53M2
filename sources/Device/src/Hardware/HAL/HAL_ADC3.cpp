@@ -1,11 +1,14 @@
-// 2022/02/11 17:49:27 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "ADC.h"
-#include <stm32f4xx_hal.h>
+#include "Hardware/HAL/HAL.h"
 
 
+namespace HAL_ADC3
+{
+    static uint16 adcValue = 0;
+}
 
-void ADConverter::Init(void)
+
+void HAL_ADC3::Init(void)
 {
     /*
     АЦП для рандомизатора
@@ -77,16 +80,13 @@ void ADConverter::Init(void)
 }
 
 
-static uint16 adcValue = 0;
+uint16 HAL_ADC3::GetValue(void)
+{
+    return adcValue;
+}
 
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
-    adcValue = (uint16)HAL_ADC_GetValue(hadc);
-}
-
-
-uint16 ADConverter::GetValue(void)
-{
-    return adcValue;
+    HAL_ADC3::adcValue = (uint16)HAL_ADC_GetValue(hadc);
 }

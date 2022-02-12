@@ -1197,16 +1197,6 @@
           <GroupName>Hardware</GroupName>
           <Files>
             <File>
-              <FileName>ADC.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\ADC.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>ADC.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\ADC.h</FilePath>
-            </File>
-            <File>
               <FileName>FSMC.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\FSMC.h</FilePath>
@@ -1320,6 +1310,11 @@
               <FileName>HAL_TIM2.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_TIM2.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_ADC3.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_ADC3.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -3138,16 +3133,6 @@
           <GroupName>Hardware</GroupName>
           <Files>
             <File>
-              <FileName>ADC.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\ADC.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>ADC.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\ADC.h</FilePath>
-            </File>
-            <File>
               <FileName>FSMC.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\FSMC.h</FilePath>
@@ -3261,6 +3246,11 @@
               <FileName>HAL_TIM2.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_TIM2.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_ADC3.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_ADC3.cpp</FilePath>
             </File>
           </Files>
         </Group>
