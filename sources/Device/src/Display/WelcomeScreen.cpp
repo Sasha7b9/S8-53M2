@@ -9,51 +9,55 @@
 #include "Display/Math3D.h"
 
 
-static Point points[8] =
+namespace WelcomeScreen
 {
-    {-1.0,  1.0, -1.0},
-    { 1.0,  1.0, -1.0},
-    { 1.0, -1.0, -1.0},
-    {-1.0, -1.0, -1.0},
-    {-1.0,  1.0,  1.0},
-    { 1.0,  1.0,  1.0},
-    { 1.0, -1.0,  1.0},
-    {-1.0, -1.0,  1.0}
-};
 
-static Edge edges[12] =
-{
-    {0, 1}, {1, 2}, {2, 3}, {3, 0},
-    {0, 4}, {1, 5}, {2, 6}, {3, 7},
-    {4, 7}, {4, 5}, {5, 6}, {6, 7}
-};
+    static Point points[8] =
+    {
+        {-1.0,  1.0, -1.0},
+        { 1.0,  1.0, -1.0},
+        { 1.0, -1.0, -1.0},
+        {-1.0, -1.0, -1.0},
+        {-1.0,  1.0,  1.0},
+        { 1.0,  1.0,  1.0},
+        { 1.0, -1.0,  1.0},
+        {-1.0, -1.0,  1.0}
+    };
 
-static Mesh mesh = {
-    12,
-    edges,
-    8,
-    points
-};
+    static Edge edges[12] =
+    {
+        {0, 1}, {1, 2}, {2, 3}, {3, 0},
+        {0, 4}, {1, 5}, {2, 6}, {3, 7},
+        {4, 7}, {4, 5}, {5, 6}, {6, 7}
+    };
 
-static float x = 0.0; 
-static float y = 0.0;
-static float z = 200.0;
+    static Mesh mesh = {
+        12,
+        edges,
+        8,
+        points
+    };
 
-static float scaleX = 1.0f;
-static float scaleY = 1.0f;
-static float scaleZ = 1.0f;
+    static float x = 0.0;
+    static float y = 0.0;
+    static float z = 200.0;
 
-static float angleX = 0.0;
-static float angleY = 0.0;
-static float angleZ = 0.0;
+    static float scaleX = 1.0f;
+    static float scaleY = 1.0f;
+    static float scaleZ = 1.0f;
 
-static uint startTime = 0;
+    static float angleX = 0.0;
+    static float angleY = 0.0;
+    static float angleZ = 0.0;
 
-static bool isRun = false;
+    static uint startTime = 0;
+
+    static bool isRun = false;
+}
 
 
 
-void WelcomeScreen_Init() {
+void WelcomeScreen::Init() {
 
     if (!set.service.screenWelcomeEnable)
     {
@@ -73,7 +77,7 @@ void WelcomeScreen_Init() {
 
 
 
-bool WelcomeScreen_Run()
+bool WelcomeScreen::Run()
 {
     if (!isRun)
     {
@@ -125,7 +129,7 @@ bool WelcomeScreen_Run()
 }
 
 
-void WelcomeScreen_Update() {
+void WelcomeScreen::Update() {
     Painter::BeginScene(COLOR_WHITE);
     for(int num = 0; num < 12; num++) {
         Point p0 = mesh.points[mesh.edges[num].numPoint0];
