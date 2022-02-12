@@ -24,10 +24,6 @@ struct Chan { enum E {
 }; };
 
 
-typedef enum
-{
-} Channel;
-
 /// Режим канала по входу.
 typedef enum
 {

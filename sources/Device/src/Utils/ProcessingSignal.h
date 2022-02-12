@@ -68,7 +68,7 @@ private:
 
     static void CountedToCurrentSettings();
 
-    typedef float (*pFuncFCh)(Channel);
+    typedef float (*pFuncFCh)(Chan::E);
 
     struct MeasureCalculate
     {

@@ -15,7 +15,7 @@
 static const uint MIN_TIME = 500;
 
 
-static void ChangeRShift(int *prevTime, void(*f)(Channel, int16), Chan::E ch, int16 relStep);
+static void ChangeRShift(int *prevTime, void(*f)(Chan::E, int16), Chan::E ch, int16 relStep);
 
 
 void HelpLong(void)
@@ -140,7 +140,7 @@ bool CanChangeTShift(int16 tShift)
     return false;
 }
 
-bool CanChangeRShiftOrTrigLev(TrigSource channel, int16 rShift)
+bool CanChangeRShiftOrTrigLev(TrigSource ch, int16 rShift)
 {
     static uint time[3] = {0, 0, 0};
     if (rShift == RShiftZero)
@@ -160,7 +160,7 @@ bool CanChangeRShiftOrTrigLev(TrigSource channel, int16 rShift)
     return false;
 }
 
-void ChangeRShift(int *prevTime, void(*f)(Channel, int16), Chan::E ch, int16 relStep)
+void ChangeRShift(int *prevTime, void(*f)(Chan::E, int16), Chan::E ch, int16 relStep)
 {
     if (ENUM_ACCUM_IS_NONE)
     {
@@ -246,7 +246,7 @@ void ChangeShiftScreen(int *prevTime, void(*f)(int), int16 relStep)
     f(step);
 }
 
-static void SetRShift(Channel ch, int16 rShift)
+static void SetRShift(Chan::E ch, int16 rShift)
 {
     FPGA::SetRShift(ch, rShift);
 }

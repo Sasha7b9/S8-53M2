@@ -667,7 +667,7 @@ static const Button mbADC_AltRShift_Reset
 
 static void OnPress_ADC_AltRShift_Reset(void)
 {
-    for(int chan = 0; chan < 2; chan++)
+    for(int ch = 0; ch < 2; ch++)
     {
         for(int mode = 0; mode < 2; mode++)
         {

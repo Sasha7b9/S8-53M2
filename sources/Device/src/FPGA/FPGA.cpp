@@ -1115,14 +1115,14 @@ void FPGA::FindAndSetTrigLevel(void)
         return;
     }
 
-    Channel chanTrig = (Channel)trigSource;
+    Chan::E chanTrig = (Chan::E)trigSource;
     uint8 *data0 = 0;
     uint8 *data1 = 0;
     DataSettings *ds_ = 0;
 
     Storage::GetDataFromEnd(0, &ds_, &data0, &data1);
 
-    const uint8 *data = (chanTrig == A) ? data0 : data1;
+    const uint8 *data = (chanTrig == Chan::A) ? data0 : data1;
 
     int lastPoint = (int)ds_->length1channel - 1;
 

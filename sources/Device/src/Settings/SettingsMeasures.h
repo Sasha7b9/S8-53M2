@@ -75,7 +75,7 @@ typedef enum
 typedef struct
 {
     MeasuresNumber  number;             // Сколько измерений выводить.
-    Channel         source;             // Для каких каналов выводить измерения.
+    Chan::E         source;             // Для каких каналов выводить измерения.
     ModeViewSignals modeViewSignals;    // Сжимать ли сигналы при выводе измерений.
     Measure         measures[15];       // Выбранные для индикации измерения.
     bool            show;               // Показывать ли измерения.

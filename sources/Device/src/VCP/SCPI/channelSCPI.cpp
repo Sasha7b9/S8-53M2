@@ -10,7 +10,7 @@
 
 
 
-static Chan::E ch = A;
+static Chan::E ch = Chan::A;
 
 
 
@@ -28,7 +28,7 @@ ENTER_PARSE_FUNC(SCPI::ProcessCHANNEL)
         {0}
     };
 
-    chan = (char)(*(buffer - 2)) == '1' ? A : B;
+    ch = (char)(*(buffer - 2)) == '1' ? Chan::A : Chan::B;
 
     SCPI::ProcessingCommand(commands, buffer);
 }

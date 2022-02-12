@@ -50,7 +50,7 @@ static const Settings defaultSettings =
         NumMinMax_1,                // enumMinMax
         Smoothing_Disable,          // smoothing
         NumSignalsInSec_25,         // num signals in one second
-        A,                          // lastAffectedChannel
+        Chan::A,                    // lastAffectedChannel
         ModeAccumulation_NoReset,   // modeAccumulation
         AM_Show,                    // altMarkers
         MenuAutoHide_None,          // menuAutoHide
@@ -111,7 +111,7 @@ static const Settings defaultSettings =
     {
         { CursCntrl_Disable, CursCntrl_Disable },   // CursCntrl U
         { CursCntrl_Disable, CursCntrl_Disable },   // CursCntrl T
-        A,                                      // source
+        Chan::A,                                    // source
         { 60.0f,  140.0f, 60.0f, 140.0f },          // posCur U
         { 80.0f,  200.0f, 80.0f, 200.0f },          // posCur T
         { 80.0f,  80.0f },                          // расстояние между курсорами напряжения для 100%
@@ -141,7 +141,7 @@ static const Settings defaultSettings =
     // measures
     {
         MN_1,                       // measures number
-        A_B,                        // source
+        Chan::A_B,                  // source
         ModeViewSignals_AsIs,       // mode view signal
         {
             Measure_VoltageMax,     Measure_VoltageMin,     Measure_VoltagePic,         Measure_VoltageMaxSteady,   Measure_VoltageMinSteady,

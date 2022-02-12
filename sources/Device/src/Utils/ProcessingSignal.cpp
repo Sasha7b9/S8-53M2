@@ -797,8 +797,8 @@ float Processing::CalculateDelayPlus(Chan::E ch)
     float secondIntersection = 0.0f;
     float averageFirst = ch == Chan::A ? average0 : average1;
     float averageSecond = ch == Chan::A ? average1 : average0;
-    Channel firstChannel = ch == Chan::A ? A : B;
-    Channel secondChannel = ch == Chan::A ? B : A;
+    Chan::E firstChannel = ch == Chan::A ? Chan::A : Chan::B;
+    Chan::E secondChannel = ch == Chan::A ? Chan::B : Chan::A;
 
     firstIntersection = FindIntersectionWithHorLine(firstChannel, 1, true, averageFirst);
     secondIntersection = FindIntersectionWithHorLine(secondChannel, 1, true, averageSecond);
@@ -836,8 +836,8 @@ float Processing::CalculateDelayMinus(Chan::E ch)
     float secondIntersection = 0.0f;
     float averageFirst = ch == Chan::A ? average0 : average1;
     float averageSecond = ch == Chan::A ? average1 : average0;
-    Channel firstChannel = ch == Chan::A ? A : B;
-    Channel secondChannel = ch == Chan::A ? B : A;
+    Chan::E firstChannel = ch == Chan::A ? Chan::A : Chan::B;
+    Chan::E secondChannel = ch == Chan::A ? Chan::B : Chan::A;
 
     firstIntersection = FindIntersectionWithHorLine(firstChannel, 1, false, averageFirst);
     secondIntersection = FindIntersectionWithHorLine(secondChannel, 1, false, averageSecond);
