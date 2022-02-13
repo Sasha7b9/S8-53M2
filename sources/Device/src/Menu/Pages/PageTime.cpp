@@ -93,7 +93,7 @@ static const Choice mcPeakDet =
 
 static bool IsActive_PeakDet()
 {
-    return (SET_TBASE >= MIN_TBASE_PEC_DEAT);
+    return (SET_TBASE >= TBase::MIN_PEC_DEAT);
 }
 
 void OnChanged_PeakDet(bool active)

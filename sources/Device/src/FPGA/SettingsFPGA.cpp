@@ -252,7 +252,7 @@ void TBase::Load()
 
 void TBase::Decrease()
 {
-    if (PEAKDET && SET_TBASE <= MIN_TBASE_PEC_DEAT)
+    if (PEAKDET && SET_TBASE <= TBase::MIN_PEC_DEAT)
     {
         Display::ShowWarningBad(LimitSweep_Time);
         Display::ShowWarningBad(EnabledPeakDet);
