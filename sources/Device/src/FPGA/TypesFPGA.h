@@ -41,6 +41,7 @@
 #define WR_UPR                  (HAL_FMC::_ADDR_FPGA + 0x05)
 #define WR_STOP                 (HAL_FMC::_ADDR_FPGA + 0x1f)
 
+#define RD_FL                   (HAL_FMC::_ADDR_FPGA + 0x30)
 
 struct TypeWriteAnalog
 {

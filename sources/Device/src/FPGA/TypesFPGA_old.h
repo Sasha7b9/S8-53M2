@@ -46,7 +46,7 @@
                                                             D5 - завершение измерения периода,\n
                                                             D6 - признак того, что нужно смещать сигналы на 1 точку в сторону. 
                                                             @endverbatim */
-#define RD_FL           (ADDR_FPGA + 0x16)
+//#define RD_FL           (ADDR_FPGA + 0x16)
 #define BIT_DATA_READY          0
 #define BIT_TRIG                1
 #define BIT_POINT_READY         3
