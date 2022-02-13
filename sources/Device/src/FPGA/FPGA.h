@@ -68,7 +68,7 @@ namespace FPGA
     void FindAndSetTrigLevel();
 
     // ¬ключить/выключить режим пикового детектора.
-    void SetPeackDetMode(PeackDetMode peackDetMode);
+    void SetPeackDetMode(PeackDetMode::E peackDetMode);
 
     // ¬ключить/выключить калибратор.
     void SetCalibratorMode(CalibratorMode calibratorMode);

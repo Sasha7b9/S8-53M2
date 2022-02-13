@@ -407,7 +407,7 @@ void TShift::SetDelta(int16 shift)
 }
 
 
-void FPGA::SetPeackDetMode(PeackDetMode peackDetMode)
+void FPGA::SetPeackDetMode(PeackDetMode::E peackDetMode)
 {
     PEAKDET = peackDetMode;
     LoadRegUPR();

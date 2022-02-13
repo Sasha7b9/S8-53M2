@@ -103,7 +103,7 @@ static const Settings defaultSettings =
         FunctionTime_Time,
         TPos_Center,
         SampleType_Equal,
-        PeackDet_Disable,
+        PeackDetMode::Disable,
         false,
         FNP_1024
     },

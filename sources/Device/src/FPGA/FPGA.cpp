@@ -352,7 +352,7 @@ void FPGA::ReadRealMode(bool necessaryShift)
     uint8 *p1 = &dataRel1[0];
     uint8 *endP = &dataRel0[FPGA::MAX_POINTS];
 
-    if (ds.peakDet != PeackDet_Disable)
+    if (ds.peakDet != PeackDetMode::Disable)
     {
         uint8 *p0min = p0;
         uint8 *p0max = p0min + 512;
@@ -959,8 +959,8 @@ Range::E FPGA::AccurateFindRange(Chan::E ch)
 
     TBase::Set(TBase::_50ms);
     ModeCouple::Set(ch, ModeCouple::AC);
-    PeackDetMode peackDetMode = PEAKDET;
-    FPGA::SetPeackDetMode(PeackDet_Enable);
+    PeackDetMode::E peackDetMode = PEAKDET;
+    FPGA::SetPeackDetMode(PeackDetMode::Enable);
     for (int range = Range::Count - 1; range >= 0; range--)
     {
         //Timer::LogPointMS("1");

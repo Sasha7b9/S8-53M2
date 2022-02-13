@@ -20,9 +20,9 @@ void sTime_SetTShift(int16 shift)
 }
 
 
-int sTime_TPosInPoints(PeackDetMode peakDet, int numPoints, TPos tPos)
+int sTime_TPosInPoints(PeackDetMode::E peakDet, int numPoints, TPos tPos)
 {
-    if (peakDet == PeackDet_Disable)
+    if (peakDet == PeackDetMode::Disable)
     {
         static const int m[3][3] =
         {
@@ -45,9 +45,9 @@ int sTime_TPosInPoints(PeackDetMode peakDet, int numPoints, TPos tPos)
 }
 
 
-int sTime_TShiftInPoints(PeackDetMode peakDet)
+int sTime_TShiftInPoints(PeackDetMode::E peakDet)
 {
-    return TSHIFT * (peakDet == PeackDet_Disable ? 2 : 1);
+    return TSHIFT * (peakDet == PeackDetMode::Disable ? 2 : 1);
 }
 
 

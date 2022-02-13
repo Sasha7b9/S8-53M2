@@ -109,6 +109,19 @@ struct ModeCouple
 };
 
 
+// Режим работы пикового детектора.
+struct PeackDetMode
+{
+    enum E
+    {
+        Disable,
+        Enable,
+        Average
+    };
+};
+
+
+
 struct TBase
 {
     enum E
