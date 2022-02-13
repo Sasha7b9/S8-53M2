@@ -100,7 +100,7 @@ static void OnTimerFlashDisplay()
 
 void Color::ResetFlash()
 {
-    Timer::Enable(kFlashDisplay, 400, OnTimerFlashDisplay);
+    Timer::Enable(TypeTimer::FlashDisplay, 400, OnTimerFlashDisplay);
     inverseColors = false;
 }
 

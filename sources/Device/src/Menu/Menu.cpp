@@ -299,11 +299,11 @@ void Menu::SetAutoHide(bool active)
     }
     if(sDisplay_TimeMenuAutoHide() == 0)
     {
-        Timer::Disable(kMenuAutoHide);
+        Timer::Disable(TypeTimer::MenuAutoHide);
     }
     else
     {
-        Timer::Enable(kMenuAutoHide, sDisplay_TimeMenuAutoHide(), OnTimerAutoHide);
+        Timer::Enable(TypeTimer::MenuAutoHide, sDisplay_TimeMenuAutoHide(), OnTimerAutoHide);
     }
 }
 
@@ -345,7 +345,7 @@ char* Menu::StringNavigation(char buffer[100])
 void Menu::OnTimerAutoHide()
 {
     ShowMenu(false);
-    Timer::Disable(kMenuAutoHide);
+    Timer::Disable(TypeTimer::MenuAutoHide);
 }
 
 

@@ -40,7 +40,7 @@ static void SetAttributeConnected()
 {
     CABLE_VCP_IS_CONNECTED = 1;
     CLIENT_VCP_IS_CONNECTED = 0;
-    Timer::Disable(kTemp);
+    Timer::Disable(TypeTimer::Temp);
 }
 
 
@@ -48,7 +48,7 @@ static void SetAttributeConnected()
 static int8_t CDC_Itf_Init()
 {
     USBD_CDC_SetRxBuffer((USBD_HandleTypeDef *)VCP::handleUSBD, UserRxBuffer);
-    Timer::Enable(kTemp, 100, SetAttributeConnected);    // GOVNOCODE Задержка введена для того, чтобы не было ложных срабатываний в 
+    Timer::Enable(TypeTimer::Temp, 100, SetAttributeConnected);    // GOVNOCODE Задержка введена для того, чтобы не было ложных срабатываний в 
     return (USBD_OK);                                   // usbd_conf.c:HAL_PCD_SetupStageCallback при определении подключения хоста
 }
 

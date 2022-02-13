@@ -243,7 +243,7 @@ void Display::RotateRShift(Chan::E ch)
     if(TIME_SHOW_LEVELS)
     {
         (ch == Chan::A) ? (SHOW_LEVEL_RSHIFT_0 = 1) : (SHOW_LEVEL_RSHIFT_1 = 1);
-        Timer::Enable((ch == Chan::A) ? kShowLevelRShift0 : kShowLevelRShift1, TIME_SHOW_LEVELS  * 1000, (ch == Chan::A) ? FuncOnTimerDisableShowLevelRShiftA :
+        Timer::Enable((ch == Chan::A) ? TypeTimer::ShowLevelRShift0 : TypeTimer::ShowLevelRShift1, TIME_SHOW_LEVELS  * 1000, (ch == Chan::A) ? FuncOnTimerDisableShowLevelRShiftA :
                      FuncOnTimerDisableShowLevelRShiftB);
     };
     Display::Redraw();
@@ -267,7 +267,7 @@ void Display::RotateTrigLev()
     if (TIME_SHOW_LEVELS)
     {
         SHOW_LEVEL_TRIGLEV = 1;
-        Timer::Enable(kShowLevelTrigLev, TIME_SHOW_LEVELS * 1000, FuncOnTimerDisableShowLevelTrigLev);
+        Timer::Enable(TypeTimer::ShowLevelTrigLev, TIME_SHOW_LEVELS * 1000, FuncOnTimerDisableShowLevelTrigLev);
     }
     Display::Redraw();
 }
@@ -2338,21 +2338,21 @@ void Display::DrawTimeForFrame(uint timeTicks)
 void Display::DisableShowLevelRShiftA()
 {
     SHOW_LEVEL_RSHIFT_0 = 0;
-    Timer::Disable(kShowLevelRShift0);
+    Timer::Disable(TypeTimer::ShowLevelRShift0);
 }
 
 
 void Display::DisableShowLevelRShiftB()
 {
     SHOW_LEVEL_RSHIFT_1 = 0;
-    Timer::Disable(kShowLevelRShift1);
+    Timer::Disable(TypeTimer::ShowLevelRShift1);
 }
 
 
 void Display::DisableShowLevelTrigLev()
 {
     SHOW_LEVEL_TRIGLEV = 0;
-    Timer::Disable(kShowLevelTrigLev);
+    Timer::Disable(TypeTimer::ShowLevelTrigLev);
 }
 
 
@@ -2430,7 +2430,7 @@ void Display::ShiftScreen(int delta)
 void Display::ChangedRShiftMarkers()
 {
     DRAW_RSHIFT_MARKERS = ALT_MARKERS_HIDE ? 0U : 1U;
-    Timer::Enable(kRShiftMarkersAutoHide, 5000, FuncOnTimerRShiftMarkersAutoHide);
+    Timer::Enable(TypeTimer::RShiftMarkersAutoHide, 5000, FuncOnTimerRShiftMarkersAutoHide);
 }
 
 void Display::FuncOnTimerRShiftMarkersAutoHide()
@@ -2442,7 +2442,7 @@ void Display::FuncOnTimerRShiftMarkersAutoHide()
 void Display::OnRShiftMarkersAutoHide()
 {
     DRAW_RSHIFT_MARKERS = 0;
-    Timer::Disable(kRShiftMarkersAutoHide);
+    Timer::Disable(TypeTimer::RShiftMarkersAutoHide);
 }
 
 
@@ -2627,7 +2627,7 @@ void Display::ShowWarn(const char *message)
 {
     if (warnings[0] == 0)
     {
-        Timer::Enable(kShowMessages, 100, OnTimerShowWarning);
+        Timer::Enable(TypeTimer::ShowMessages, 100, OnTimerShowWarning);
     }
     bool alreadyStored = false;
     for (int i = 0; i < NUM_WARNINGS; i++)
@@ -2677,14 +2677,14 @@ void Display::OnTimerShowWarning()
 
     if (pointer == 0)
     {
-        Timer::Disable(kShowMessages);
+        Timer::Disable(TypeTimer::ShowMessages);
     }
 }
 
 
 void Display::ClearFromWarnings()
 {
-    Timer::Disable(kShowMessages);
+    Timer::Disable(TypeTimer::ShowMessages);
     for (int i = 0; i < NUM_WARNINGS; i++)
     {
         warnings[i] = 0;

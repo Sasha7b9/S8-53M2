@@ -191,7 +191,7 @@ void OnTimerPressedKey()
         }
         pressedKey = B_Empty;
     }
-    Timer::Disable(kPressKey);
+    Timer::Disable(TypeTimer::PressKey);
 }
 
 bool Panel::ProcessingCommandFromPIC(uint16 command)
@@ -238,7 +238,7 @@ bool Panel::ProcessingCommandFromPIC(uint16 command)
         funcOnKeyDown[pressButton]();
         Menu::PressButton(pressButton);
         pressedKey = pressButton;
-        Timer::Enable(kPressKey, 500, OnTimerPressedKey);
+        Timer::Enable(TypeTimer::PressKey, 500, OnTimerPressedKey);
     }
     else if(regLeft != R_Empty)
     {

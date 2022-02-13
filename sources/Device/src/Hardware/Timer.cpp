@@ -7,10 +7,10 @@
 
 namespace Timer
 {
-    void (*f[TypeTimerSize])() = {0};
-    int  reactionTimeMS[TypeTimerSize] = {0};
-    int  currentTimeMS[TypeTimerSize] = {0};
-    bool isRun[TypeTimerSize] = {false};
+    void (*f[TypeTimer::Count])() = {0};
+    int  reactionTimeMS[TypeTimer::Count] = {0};
+    int  currentTimeMS[TypeTimer::Count] = {0};
+    bool isRun[TypeTimer::Count] = {false};
 
     uint timeStartLogging = 0;
     uint timePrevPoint = 0;
@@ -67,7 +67,7 @@ uint Timer::LogPointMS(char *name)
 }
 
 
-void Timer::Enable(TypeTimer type, int timeInMS, void(*eF)())
+void Timer::Enable(TypeTimer::E type, int timeInMS, void(*eF)())
 {
     f[type] = eF;
     reactionTimeMS[type] = timeInMS;
@@ -76,25 +76,25 @@ void Timer::Enable(TypeTimer type, int timeInMS, void(*eF)())
 }
 
 
-void Timer::Disable(TypeTimer type)
+void Timer::Disable(TypeTimer::E type)
 {
     isRun[type] = false;
 }
 
 
-void Timer::Pause(TypeTimer type)
+void Timer::Pause(TypeTimer::E type)
 {
     isRun[type] = false;
 }
 
 
-void Timer::Continue(TypeTimer type)
+void Timer::Continue(TypeTimer::E type)
 {
     isRun[type] = true;
 }
 
 
-bool Timer::IsRun(TypeTimer type)
+bool Timer::IsRun(TypeTimer::E type)
 {
     return isRun[type];
 };
@@ -102,7 +102,7 @@ bool Timer::IsRun(TypeTimer type)
 
 void Timer::Update1ms()
 {
-    for(int num = 0; num < TypeTimerSize; num++)
+    for(int num = 0; num < TypeTimer::Count; num++)
     {
         if(isRun[num])
         {
@@ -120,7 +120,7 @@ void Timer::Update1ms()
 
 void Timer::Update10ms()
 {
-    for(int num = 0; num < TypeTimerSize; num++)
+    for(int num = 0; num < TypeTimer::Count; num++)
     {
         if(isRun[num])
         {
