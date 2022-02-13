@@ -83,10 +83,10 @@ namespace FPGA
     void LoadKoeffCalibration(Chan::E);
 
     // Установить относительный уровень синхронизации.
-    void SetTrigLev(TrigSource chan, int16 trigLev);
+    void SetTrigLev(TrigSource::E chan, int16 trigLev);
 
     // Установить источник синхронизации.
-    void SetTrigSource(TrigSource trigSource);
+    void SetTrigSource(TrigSource::E trigSource);
 
     // Запуск функции калибровки.
     void ProcedureCalibration();

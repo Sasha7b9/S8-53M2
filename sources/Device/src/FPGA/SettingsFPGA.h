@@ -62,6 +62,18 @@ struct TrigPolarity
 };
 
 
+// Источник синхронизации.
+struct TrigSource
+{
+    enum E
+    {
+        ChannelA,        // Канал 1.
+        ChannelB,        // Канал 2.
+        Ext              // Внешняя.
+    };
+};
+
+
 struct TBase
 {
     enum E

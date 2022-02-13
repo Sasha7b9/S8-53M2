@@ -89,7 +89,7 @@ static const Settings defaultSettings =
     // trig
     {
         StartMode_Auto,
-        TrigSource_ChannelA,
+        TrigSource::ChannelA,
         TrigPolarity::Front,
         TrigInput::Full,
         {TrigLevZero, TrigLevZero, TrigLevZero},

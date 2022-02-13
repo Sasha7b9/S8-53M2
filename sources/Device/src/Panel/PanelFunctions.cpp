@@ -140,7 +140,7 @@ bool CanChangeTShift(int16 tShift)
     return false;
 }
 
-bool CanChangeRShiftOrTrigLev(TrigSource ch, int16 rShift)
+bool CanChangeRShiftOrTrigLev(TrigSource::E ch, int16 rShift)
 {
     static uint time[3] = {0, 0, 0};
     if (rShift == RShiftZero)
@@ -173,14 +173,14 @@ void ChangeRShift(int *prevTime, void(*f)(Chan::E, int16), Chan::E ch, int16 rel
     {
         rShift = RShiftZero;
     }
-    if (CanChangeRShiftOrTrigLev((TrigSource)ch, (int16)rShift))
+    if (CanChangeRShiftOrTrigLev((TrigSource::E)ch, (int16)rShift))
     {
         Sound::RegulatorShiftRotate();
         f(ch, (int16)rShift);
     }
 }
 
-void ChangeTrigLev(int *prevTime, void(*f)(TrigSource, int16), TrigSource trigSource, int16 relStep)
+void ChangeTrigLev(int *prevTime, void(*f)(TrigSource::E, int16), TrigSource::E trigSource, int16 relStep)
 {
     int count = CalculateCount(prevTime);
     int trigLevOld = TRIG_LEVEL(trigSource);
@@ -275,7 +275,7 @@ void RShift1Right()
     ChangeRShift(&prevTime, SetRShift, Chan::B, +STEP_RSHIFT);
 }
 
-static void SetTrigLev(TrigSource ch, int16 trigLev)
+static void SetTrigLev(TrigSource::E ch, int16 trigLev)
 {
     FPGA::SetTrigLev(ch, trigLev);
 }
