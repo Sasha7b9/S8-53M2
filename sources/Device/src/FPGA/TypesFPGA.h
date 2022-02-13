@@ -42,6 +42,8 @@
 #define WR_STOP                 (HAL_FMC::_ADDR_FPGA + 0x1f)
 
 //#define RD_ADDR_LAST_RECORD     (HAL_FMC::_ADDR_FPGA + 0x08) // Чтение адреса последней записи
+#define RD_FREQ_LOW             (HAL_FMC::_ADDR_FPGA + 0x10)
+#define RD_FREQ_HI              (HAL_FMC::_ADDR_FPGA + 0x18)
 #define RD_PERIOD_LOW           (HAL_FMC::_ADDR_FPGA + 0x20)
 #define RD_PERIOD_HI            (HAL_FMC::_ADDR_FPGA + 0x28)
 #define RD_FL                   (HAL_FMC::_ADDR_FPGA + 0x30)

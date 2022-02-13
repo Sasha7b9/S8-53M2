@@ -653,10 +653,8 @@ static bool readPeriod = false;     // Установленный в true флаг означает, что ч
 static BitSet32 ReadRegFreq()
 {
     BitSet32 fr;
-    fr.byte[0] = HAL_FMC::Read(RD_ADDR_FREQ_LOW);
-    fr.byte[1] = HAL_FMC::Read(RD_ADDR_FREQ_MID);
-    fr.byte[2] = HAL_FMC::Read(RD_ADDR_FREQ_HI);
-    fr.byte[3] = 0;
+    fr.half_word[0] = HAL_FMC::Read(RD_FREQ_LOW);
+    fr.half_word[1] = HAL_FMC::Read(RD_FREQ_HI);
     return fr;
 }
 
