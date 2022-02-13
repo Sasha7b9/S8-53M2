@@ -86,6 +86,12 @@ struct Range
         _20V,
         Count
     };
+
+    // Установить масштаб по напряжению.
+    static void Set(Chan::E, Range::E range);
+
+    // Загрузка масштаба по напряжению в аппаратную часть.
+    static void Load(Chan::E);
 };
 
 Range::E &operator++(Range::E &range);

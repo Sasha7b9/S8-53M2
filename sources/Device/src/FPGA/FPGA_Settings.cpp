@@ -80,9 +80,6 @@ namespace FPGA
     // Загрузить все параметры напряжения каналов и синхронизации в аппаратную часть.
     void SetAttribChannelsAndTrig(TypeWriteAnalog type);
 
-    // Загрузка масштаба по напряжению в аппаратную часть.
-    void LoadRange(Chan::E ch);
-
     // Загрузка смещения по напряжению в аппаратную часть.
     void LoadRShift(Chan::E ch);
 
@@ -108,9 +105,9 @@ void FPGA::LoadSettings()
     SetAttribChannelsAndTrig(TypeWriteAnalog_All);
     TBase::Load();
     TShift::Load();
-    LoadRange(Chan::A);
+    Range::Load(Chan::A);
     LoadRShift(Chan::A);
-    LoadRange(Chan::B);
+    Range::Load(Chan::B);
     LoadRShift(Chan::B);
     LoadTrigLev();
     LoadTrigPolarity();
@@ -188,7 +185,7 @@ void FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog type)
 }
 
 
-void FPGA::SetRange(Chan::E ch, Range::E range)
+void Range::Set(Chan::E ch, Range::E range)
 {
     if (!sChannel_Enabled(ch))
     {
@@ -199,12 +196,14 @@ void FPGA::SetRange(Chan::E ch, Range::E range)
         float rShiftAbs = RSHIFT_2_ABS(SET_RSHIFT(ch), SET_RANGE(ch));
         float trigLevAbs = RSHIFT_2_ABS(TRIG_LEVEL(ch), SET_RANGE(ch));
         sChannel_SetRange(ch, range);
+
         if (LINKING_RSHIFT_IS_VOLTAGE)
         {
             SET_RSHIFT(ch) = (int16)Math_RShift2Rel(rShiftAbs, range);
             TRIG_LEVEL(ch) = (int16)Math_RShift2Rel(trigLevAbs, range);
         }
-        LoadRange(ch);
+
+        Load(ch);
     }
     else
     {
@@ -213,13 +212,14 @@ void FPGA::SetRange(Chan::E ch, Range::E range)
 };
 
 
-void FPGA::LoadRange(Chan::E ch)
+void Range::Load(Chan::E ch)
 {
-    SetAttribChannelsAndTrig(TypeWriteAnalog_Range0);
-    LoadRShift(ch);
+    FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog_Range0);
+    FPGA::LoadRShift(ch);
+
     if (ch == (Chan::E)TRIG_SOURCE)
     {
-        LoadTrigLev();
+        FPGA::LoadTrigLev();
     }
 }
 
@@ -491,7 +491,7 @@ bool FPGA::RangeIncrease(Chan::E ch)
     bool retValue = false;
     if (SET_RANGE(ch) < Range::Count - 1)
     {
-        SetRange(ch, (Range::E)(SET_RANGE(ch) + 1));
+        Range::Set(ch, (Range::E)(SET_RANGE(ch) + 1));
         retValue = true;
     }
     else
@@ -508,7 +508,7 @@ bool FPGA::RangeDecrease(Chan::E ch)
     bool retValue = false;
     if (SET_RANGE(ch) > 0)
     {
-        SetRange(ch, (Range::E)(SET_RANGE(ch) - 1));
+        Range::Set(ch, (Range::E)(SET_RANGE(ch) - 1));
         retValue = true;
     }
     else

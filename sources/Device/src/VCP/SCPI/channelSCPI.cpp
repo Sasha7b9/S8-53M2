@@ -156,7 +156,7 @@ void SCPI::CHANNEL::RANGE(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value <= (uint8)Range::_20V)      { FPGA::SetRange(ch, (Range::E)value); }
+        if (value <= (uint8)Range::_20V)      { Range::Set(ch, (Range::E)value); }
         else if (value == (uint8)Range::Count)
         {
             SCPI_SEND(":CHANNEL%d:SET_RANGE %s", Tables_GetNumChannel(ch), map[SET_RANGE(ch)].key);

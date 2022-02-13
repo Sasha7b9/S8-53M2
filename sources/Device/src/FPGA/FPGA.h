@@ -73,9 +73,6 @@ namespace FPGA
     // Включить/выключить фильтр на входе канала.
     void EnableChannelFiltr(Chan::E, bool enable);
 
-    // Установить масштаб по напряжению.
-    void SetRange(Chan::E, Range::E range);
-
     // Увеличить масштаб по напряжению.
     bool RangeIncrease(Chan::E);
 

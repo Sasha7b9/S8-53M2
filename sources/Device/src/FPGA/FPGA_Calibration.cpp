@@ -92,8 +92,8 @@ void FPGA::ProcedureCalibration()
         STRETCH_ADC_B = 1.0f;
         FPGA::LoadKoeffCalibration(Chan::A);
         FPGA::LoadKoeffCalibration(Chan::B);
-        FPGA::SetRange(Chan::A, Range::_500mV);
-        FPGA::SetRange(Chan::B, Range::_500mV);
+        Range::Set(Chan::A, Range::_500mV);
+        Range::Set(Chan::B, Range::_500mV);
         FPGA::SetRShift(Chan::A, RShiftZero);
         FPGA::SetRShift(Chan::B, RShiftZero);
         FPGA::SetModeCouple(Chan::A, ModeCouple_GND);
@@ -412,7 +412,7 @@ void FPGA::AlignmentADC()
 
 int16 FPGA::CalculateAdditionRShift(Chan::E ch, Range::E range)
 {
-    FPGA::SetRange(ch, range);
+    Range::Set(ch, range);
     FPGA::SetRShift(ch, RShiftZero);
     TBase::Set(TBase::_200us);
     FPGA::SetTrigSource(ch == Chan::A ? TrigSource_ChannelA : TrigSource_ChannelB);

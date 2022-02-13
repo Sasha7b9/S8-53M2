@@ -965,7 +965,7 @@ Range::E FPGA::AccurateFindRange(Chan::E ch)
     {
         //Timer::LogPointMS("1");
         FPGA::Stop(false);
-        FPGA::SetRange(ch, (Range::E)range);
+        Range::Set(ch, (Range::E)range);
         Timer::PauseOnTime(10);
         FPGA::Start();
 
