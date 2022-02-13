@@ -91,8 +91,6 @@ struct Range
 Range::E &operator++(Range::E &range);
 Range::E &operator--(Range::E &range);
 
-const char *RangeName(Range::E range);
-
 
 struct PackedTime
 {
