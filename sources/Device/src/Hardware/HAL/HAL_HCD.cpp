@@ -2,6 +2,14 @@
 #include "Hardware/HAL/HAL.h"
 
 
+namespace HAL_HCD
+{
+    static HCD_HandleTypeDef handleHCD;
+
+    void *handle = &handleHCD;
+}
+
+
 void HAL_HCD::Init()
 {
     __GPIOB_CLK_ENABLE();

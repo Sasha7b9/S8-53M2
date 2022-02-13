@@ -1,5 +1,6 @@
 // 2022/2/11 19:33:15 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
+#include "Hardware/HAL/HAL.h"
 #include <stm32f4xx_hal.h>
 #include "usbh_core.h"
 
@@ -43,6 +44,8 @@ void HAL_HCD_HC_NotifyURBChange_Callback(HCD_HandleTypeDef *hhcd, uint8_t chnum,
   */
 USBH_StatusTypeDef USBH_LL_Init(USBH_HandleTypeDef *phost)
 {  
+    HCD_HandleTypeDef &handleHCD = *(HCD_HandleTypeDef *)HAL_HCD::handle;
+
     /* Set the LL driver parameters */
     handleHCD.Instance = USB_OTG_HS;
     handleHCD.Init.Host_channels = 12; 
@@ -250,6 +253,8 @@ USBH_StatusTypeDef USBH_LL_DriverVBUS(USBH_HandleTypeDef *phost, uint8_t state)
   */
 USBH_StatusTypeDef USBH_LL_SetToggle(USBH_HandleTypeDef *phost, uint8_t pipe, uint8_t toggle)   
 {
+    HCD_HandleTypeDef &handleHCD = *(HCD_HandleTypeDef *)HAL_HCD::handle;
+
     if(handleHCD.hc[pipe].ep_is_in)
     {
         handleHCD.hc[pipe].toggle_in = toggle;
@@ -270,6 +275,8 @@ USBH_StatusTypeDef USBH_LL_SetToggle(USBH_HandleTypeDef *phost, uint8_t pipe, ui
   */
 uint8_t USBH_LL_GetToggle(USBH_HandleTypeDef *phost, uint8_t pipe)   
 {
+    HCD_HandleTypeDef &handleHCD = *(HCD_HandleTypeDef *)HAL_HCD::handle;
+
     uint8_t toggle = 0;
   
     if(handleHCD.hc[pipe].ep_is_in)

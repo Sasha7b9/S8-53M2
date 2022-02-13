@@ -4,7 +4,11 @@
 
 namespace HAL_ADC3
 {
+    static ADC_HandleTypeDef handleADC;
+
     static uint16 adcValue = 0;
+
+    void *handle = &handleADC;
 }
 
 

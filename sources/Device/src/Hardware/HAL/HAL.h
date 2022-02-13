@@ -38,6 +38,7 @@ namespace HAL_ADC3
 {
     void Init();
     uint16 GetValue();
+    extern void *handle;        // ADC_HandleTypeDef
 }
 
 
@@ -119,4 +120,5 @@ namespace HAL_RTC
 namespace HAL_HCD
 {
     void Init();
+    extern void *handle;        // HCD_HandleTypeDef
 }

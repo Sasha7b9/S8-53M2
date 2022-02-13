@@ -7,17 +7,7 @@ void *extraMEM = 0;
 
 
 
-HCD_HandleTypeDef handleHCD;
-
 USBH_HandleTypeDef handleUSBH;
-
-SPI_HandleTypeDef handleSPI =
-{
-
-};
-
-
-ADC_HandleTypeDef handleADC;
 
 
 DAC_HandleTypeDef handleDAC =

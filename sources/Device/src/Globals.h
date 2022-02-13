@@ -12,8 +12,6 @@ struct DataSettings;
 
 
 extern USBH_HandleTypeDef handleUSBH;
-extern HCD_HandleTypeDef handleHCD;
-extern ADC_HandleTypeDef handleADC;
 extern DAC_HandleTypeDef handleDAC;
 
 

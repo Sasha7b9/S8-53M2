@@ -74,7 +74,7 @@ void SysTick_Handler()
 
 void ADC_IRQHandler()
 {
-    HAL_ADC_IRQHandler(&handleADC);
+    HAL_ADC_IRQHandler((ADC_HandleTypeDef *)HAL_ADC3::handle);
 }
 
 
@@ -94,7 +94,7 @@ void SPI1_IRQHandler()
 
 void OTG_HS_IRQHandler()
 {
-    HAL_HCD_IRQHandler(&handleHCD);
+    HAL_HCD_IRQHandler((HCD_HandleTypeDef *)HAL_HCD::handle);
 }
 
 
