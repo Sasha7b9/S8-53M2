@@ -789,7 +789,7 @@ static const Governor mgRandomizer_AltTShift0
 
 static void OnChanged_Randomizer_AltTShift0()
 {
-    FPGA::SetDeltaTShift(ADD_SHIFT_T0);
+    TShift::SetDelta(ADD_SHIFT_T0);
 }
 
 // Œ“À¿ƒ ¿ - –¿Õƒ-“Œ– - ”ÒÂ‰Ì. ----------------------------------------------------------------------------------------------------------------------

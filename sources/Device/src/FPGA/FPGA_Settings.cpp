@@ -405,10 +405,10 @@ void TShift::Set(int tShift)
 };
 
 
-void FPGA::SetDeltaTShift(int16 shift)
+void TShift::SetDelta(int16 shift)
 {
     deltaTShift[SET_TBASE] = shift;
-    TShift::Load();
+    Load();
 }
 
 

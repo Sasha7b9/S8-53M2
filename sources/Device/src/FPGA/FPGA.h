@@ -85,9 +85,6 @@ namespace FPGA
     // Установить относительное смещение по напряжению.
     void SetRShift(Chan::E, int16 rShift);
 
-    // Установить добавочное смещение по времени для режима рандомизатора. В каждой развёртке это смещение должно быть разное.
-    void SetDeltaTShift(int16 shift);
-
     // Включить/выключить режим пикового детектора.
     void SetPeackDetMode(PeackDetMode peackDetMode);
 
