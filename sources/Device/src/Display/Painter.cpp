@@ -47,6 +47,13 @@ static enum StateTransmit
 static bool noFonts = false;
 
 
+namespace Painter
+{
+    void CalculateCurrentColor();
+
+    Color::E GetColor(int x, int y);
+}
+
 
 void Painter::SendFrame(bool first, bool noFonts_)
 {

@@ -16,6 +16,24 @@
 static TypeFont currentTypeFont = TypeFont_None;
 
 
+namespace Painter
+{
+    void DrawCharHardCol(int x, int y, char symbol);
+
+    int DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int limitY, int limitWidth, int limitHeight);
+
+    int DrawPartWord(char *word, int x, int y, int xRight, bool draw);
+
+    bool GetHeightTextWithTransfers(int left, int top, int right, const char *text, int *height);
+
+    int DrawSubString(int x, int y, char *text);
+
+    int DrawSpaces(int x, int y, char *text, int *numSymbols);
+
+    void CalculateCurrentColor();
+}
+
+
 void Painter::SetFont(TypeFont typeFont)
 {
     if (typeFont == currentTypeFont)
@@ -152,12 +170,10 @@ void Painter::DrawCharHardCol(int x, int y, char symbol)
 }
 
 
-extern void CalculateCurrentColor();
-
-
 int Painter::DrawChar(int x, int y, char symbol)
 {
     CalculateCurrentColor();
+
     if (Font_GetSize() == 5)
     {
         DrawCharHardCol(x, y + 3, symbol);
@@ -170,6 +186,7 @@ int Painter::DrawChar(int x, int y, char symbol)
     {
         DrawCharInColorDisplay(x, y, (uint8)symbol);
     }
+
     return x + Font_GetLengthSymbol((uint8)symbol);
 }
 
