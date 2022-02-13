@@ -470,8 +470,11 @@ void TShift::Load()
     FPGA::WriteToHardware(WR_POST_HI, (uint8)(post >> 8), true);
     uint16 pred = (uint16)((tShift > 511) ? 1023 : (511 - post));
     pred = (uint16)((~(pred - 1)) & 0x1ff);
-    FPGA::WriteToHardware(WR_PRED_LOW, (uint8)pred, true);
-    FPGA::WriteToHardware(WR_PRED_HI, (uint8)(pred >> 8), true);
+
+//    FPGA::WriteToHardware(WR_PRED_LOW, (uint8)pred, true);
+//    FPGA::WriteToHardware(WR_PRED_HI, (uint8)(pred >> 8), true);
+
+    FPGA::WriteToHardware(WR_PRED, pred, true);
 }
 
 
