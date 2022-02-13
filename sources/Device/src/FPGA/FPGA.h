@@ -5,6 +5,7 @@
 #include "Panel/Controls.h"
 #include "Settings/SettingsTrig.h"
 #include "Settings/SettingsService.h"
+#include "FPGA/SettingsFPGA.h"
 
 
 namespace FPGA

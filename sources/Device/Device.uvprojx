@@ -1196,6 +1196,11 @@
               <FileType>5</FileType>
               <FilePath>.\src\FPGA\Storage.h</FilePath>
             </File>
+            <File>
+              <FileName>SettingsFPGA.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\FPGA\SettingsFPGA.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3121,6 +3126,11 @@
               <FileName>Storage.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\FPGA\Storage.h</FilePath>
+            </File>
+            <File>
+              <FileName>SettingsFPGA.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\FPGA\SettingsFPGA.h</FilePath>
             </File>
           </Files>
         </Group>

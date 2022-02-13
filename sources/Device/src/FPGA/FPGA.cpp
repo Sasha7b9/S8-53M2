@@ -20,8 +20,6 @@
 
 namespace FPGA
 {
-    #define NULL_TSHIFT 1000000
-
     static float freq = 0.0f;           // Частота, намеренная альтерой.
     static float prevFreq = 0.0f;
     static StateWorkFPGA stateWork = StateWorkFPGA_Stop;
@@ -298,7 +296,7 @@ static uint8 InverseIfNecessary(uint8 data, Chan::E ch)
 void FPGA::ReadRandomizeMode()
 {
     int Tsm = CalculateShift();
-    if (Tsm == NULL_TSHIFT)
+    if (Tsm == TShift::EMPTY)
     {
         return;
     };
@@ -554,14 +552,9 @@ int FPGA::CalculateShift()            // \todo Не забыть восстановить функцию
 
     if (!CalculateGate(rand, &min, &max))
     {
-        return NULL_TSHIFT;
+        return TShift::EMPTY;
     }
     
-    //LOG_WRITE("ворота %d - %d", min, max);
-
-    //min += 100;
-    //max -= 100;
-
     if (sTime_RandomizeModeEnabled())
     {
         float tin = (float)(rand - min) / (max - min) * 10e-9f;
