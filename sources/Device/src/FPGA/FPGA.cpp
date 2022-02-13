@@ -59,30 +59,6 @@ namespace FPGA
     // Загрузить настройки в аппаратную часть из глобальной структуры SSettings.
     void LoadSettings();
 
-    // Загрузка коэффицента развёртки в аппаратную часть.
-//    void LoadTBase();
-
-    // Загрузка смещения по времени в аппаратную часть.
-//    void LoadTShift();
-
-    // Загрузка масштаба по напряжению в аппаратную часть.
-//    void LoadRange(Chan::E ch);
-
-    // Загрузка смещения по напряжению в аппаратную часть.
-//    void LoadRShift(Chan::E ch);
-
-    // Загрузка уровня синхронизации в аппаратную часть.
-//    void LoadTrigLev();                                  
-
-    // Загузка полярности синхронизации в аппаратную часть.
-//    void LoadTrigPolarity();
-
-    // Загрузить все параметры напряжения каналов и синхронизации в аппаратную часть.
-//    void SetAttribChannelsAndTrig(TypeWriteAnalog type);
-
-    // Загрузить регистр WR_UPR (пиковый детектор и калибратор).
-//    void LoadRegUPR();
-
     void WriteToAnalog(TypeWriteAnalog type, uint data);
 
     void WriteToDAC(TypeWriteDAC type, uint16 data);
