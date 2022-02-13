@@ -19,19 +19,19 @@ static const float tableScalesTBase[TBase::Count] =
 
 const float absStepRShift[] =
 {
-    2e-3f / 20 / STEP_RSHIFT,
-    5e-3f / 20 / STEP_RSHIFT,
-    10e-3f / 20 / STEP_RSHIFT,
-    20e-3f / 20 / STEP_RSHIFT,
-    50e-3f / 20 / STEP_RSHIFT,
+    2e-3f / 20   / STEP_RSHIFT,
+    5e-3f / 20   / STEP_RSHIFT,
+    10e-3f / 20  / STEP_RSHIFT,
+    20e-3f / 20  / STEP_RSHIFT,
+    50e-3f / 20  / STEP_RSHIFT,
     100e-3f / 20 / STEP_RSHIFT,
     200e-3f / 20 / STEP_RSHIFT,
     500e-3f / 20 / STEP_RSHIFT,
-    1.0f / 20 / STEP_RSHIFT,
-    2.0f / 20 / STEP_RSHIFT,
-    5.0f / 20 / STEP_RSHIFT,
-    10.0f / 20 / STEP_RSHIFT,
-    20.0f / 20 / STEP_RSHIFT
+    1.0f / 20   / STEP_RSHIFT,
+    2.0f / 20   / STEP_RSHIFT,
+    5.0f / 20   / STEP_RSHIFT,
+    10.0f / 20  / STEP_RSHIFT,
+    20.0f / 20  / STEP_RSHIFT
 };
 
 const float voltsInPixel[] =
@@ -88,9 +88,9 @@ int Math_MinFrom2Int(int val0, int val1)
 int Math_RShift2Rel(float rShiftAbs, Range::E range)
 {
     int retValue = RShiftZero + rShiftAbs / absStepRShift[range];
-    if(retValue < RShiftMin)
+    if(retValue < RShift::MIN)
     {
-        retValue = RShiftMin;
+        retValue = RShift::MIN;
     }
     else if(retValue > RShiftMax)
     {

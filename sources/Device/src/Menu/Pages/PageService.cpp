@@ -305,10 +305,10 @@ static void OnRegSet_Math_Function(int delta)
         }
         else if (delta < 0)
         {
-            if (rShift > RShiftMin)
+            if (rShift > RShift::MIN)
             {
                 rShift -= 4 * STEP_RSHIFT;
-                LIMIT_BELOW(rShift, RShiftMin);
+                LIMIT_BELOW(rShift, RShift::MIN);
                 if (prevRShift > RShiftZero && rShift < RShiftZero)
                 {
                     rShift = RShiftZero;

@@ -1781,11 +1781,11 @@ void Display::DrawCursorTrigLevel()
         DrawScaleLine(SCREEN_WIDTH - 11, true);
         int left = Grid::Right() + 9;
         int height = Grid::ChannelHeight() - 2 * DELTA;
-        int shiftFullMin = RShiftMin + TrigLevMin;
+        int shiftFullMin = RShift::MIN + TrigLevMin;
         int shiftFullMax = RShiftMax + TrigLevMax;
         scale = (float)height / (shiftFullMax - shiftFullMin);
         int shiftFull = TRIG_LEVEL_SOURCE + (TRIG_SOURCE_IS_EXT ? 0 : SET_RSHIFT(ch));
-        int yFull = GRID_TOP + DELTA + height - scale * (shiftFull - RShiftMin - TrigLevMin) - 4;
+        int yFull = GRID_TOP + DELTA + height - scale * (shiftFull - RShift::MIN - TrigLevMin) - 4;
         Painter::FillRegionC(left + 2, yFull + 1, 4, 6, ColorTrig());
         Painter::SetFont(TypeFont_5);
         Painter::DrawCharC(left + 3, yFull - 5 + dY, simbols[TRIG_SOURCE], COLOR_BACK);
@@ -1817,7 +1817,7 @@ void Display::DrawCursorRShift(Chan::E ch)
     float scale = (float)Grid::ChannelHeight() / (STEP_RSHIFT * 200);
     float y = Grid::ChannelCenterHeight() - scale * (rShift - RShiftZero);
 
-    float scaleFull = (float)Grid::ChannelHeight() / (RShiftMax - RShiftMin) * (sService_MathEnabled() ? 0.9f : 0.91f);
+    float scaleFull = (float)Grid::ChannelHeight() / (RShiftMax - RShift::MIN) * (sService_MathEnabled() ? 0.9f : 0.91f);
     float yFull = Grid::ChannelCenterHeight() - scaleFull *(rShift - RShiftZero);
 
     if(y > Grid::ChannelBottom())
