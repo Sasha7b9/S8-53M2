@@ -206,7 +206,7 @@ static const Choice cCalibrator_Mode =
 
 static void OnChanged_Calibrator_Mode(bool active)
 {
-    FPGA::SetCalibratorMode(CALIBRATOR);
+    CalibratorMode::Set(CALIBRATOR);
 }
 
 // СЕРВИС - КАЛИБРАТОР - Калибровать -----------------------------------------------------------------------------------------------------------------

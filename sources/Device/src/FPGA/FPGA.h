@@ -67,9 +67,6 @@ namespace FPGA
     // Найти и установить уровень синхронизации по последнему считанному сигналу
     void FindAndSetTrigLevel();
 
-    // Включить/выключить калибратор.
-    void SetCalibratorMode(CalibratorMode::E calibratorMode);
-
     // Загрузить в аппарат коэффициенты калибровки каналов.
     void LoadKoeffCalibration(Chan::E);
 
