@@ -26,9 +26,9 @@ void FlashDrive::Init()
 {
     if(FATFS_LinkDriver(&USBH_Driver, USBDISKPath) == FR_OK) 
     {
-        USBH_Init(&handleUSBH, USBH_UserProcess, 0);
-        USBH_RegisterClass(&handleUSBH, USBH_MSC_CLASS);
-        USBH_Start(&handleUSBH);
+        USBH_Init((USBH_HandleTypeDef *)HAL_USBH::handle, USBH_UserProcess, 0);
+        USBH_RegisterClass((USBH_HandleTypeDef *)HAL_USBH::handle, USBH_MSC_CLASS);
+        USBH_Start((USBH_HandleTypeDef *)HAL_USBH::handle);
     }
     else
     {
@@ -39,7 +39,7 @@ void FlashDrive::Init()
 
 void FlashDrive::Update()
 {
-    USBH_Process(&handleUSBH);
+    USBH_Process((USBH_HandleTypeDef *)HAL_USBH::handle);
 }
 
 

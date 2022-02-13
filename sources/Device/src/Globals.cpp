@@ -3,11 +3,8 @@
 #include "Globals.h"
 #include "Display/DisplayTypes.h"
 
+
 void *extraMEM = 0;
-
-
-
-USBH_HandleTypeDef handleUSBH;
 
 
 BitField gBF =
