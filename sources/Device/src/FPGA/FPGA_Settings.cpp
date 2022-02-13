@@ -320,7 +320,7 @@ void RShift::Load(Chan::E ch)
     static const uint16 mask[2] = {0x2000, 0x6000};
 
     Range::E range = SET_RANGE(ch);
-    ModeCouple mode = SET_COUPLE(ch);
+    ModeCouple::E mode = SET_COUPLE(ch);
     static const int index[3] = {0, 1, 1};
     int16 rShiftAdd = RSHIFT_ADD(ch, range, index[mode]);
 
@@ -542,7 +542,7 @@ void TrigInput::Set(TrigInput::E trigInput)
 }
 
 
-void FPGA::SetModeCouple(Chan::E ch, ModeCouple modeCoupe)
+void FPGA::SetModeCouple(Chan::E ch, ModeCouple::E modeCoupe)
 {
     SET_COUPLE(ch) = modeCoupe;
     SetAttribChannelsAndTrig(ch == Chan::A ? TypeWriteAnalog_ChanParam0 : TypeWriteAnalog_ChanParam1);

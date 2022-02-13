@@ -23,16 +23,16 @@
  // Настройки каналов
 struct SettingsChannel
 {
-    float       stretchADC;                 // Поправочный коэффициент.
-    int16       rShiftRel;
-    int16       rShiftAdd[Range::Count][2];    // Добавочное смещение для открытого (0) и закрытого (1) входов.
-    ModeCouple  modeCouple;                 // Режим по входу.
-    Divider     divider;                    // Множитель.
-    Range::E    range;                      // Масштаб по напряжению.
-    bool        enable;                     // Включён ли канал.
-    bool        inverse;                    // Инвертирован ли канал.
-    bool        filtr;                      // Фильтр
-    int8        balanceShiftADC;            // Добавочное смещение для балансировки АЦП.
+    float         stretchADC;                 // Поправочный коэффициент.
+    int16         rShiftRel;
+    int16         rShiftAdd[Range::Count][2]; // Добавочное смещение для открытого (0) и закрытого (1) входов.
+    ModeCouple::E modeCouple;                 // Режим по входу.
+    Divider       divider;                    // Множитель.
+    Range::E      range;                      // Масштаб по напряжению.
+    bool          enable;                     // Включён ли канал.
+    bool          inverse;                    // Инвертирован ли канал.
+    bool          filtr;                      // Фильтр
+    int8          balanceShiftADC;            // Добавочное смещение для балансировки АЦП.
 };
 
 

@@ -74,9 +74,9 @@ void SCPI::CHANNEL::COUPLE(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (0 == value)         { SET_COUPLE(ch) = ModeCouple_DC; func[ch](true); }
-        else if (1 == value)    { SET_COUPLE(ch) = ModeCouple_AC; func[ch](true); }
-        else if (2 == value)    { SET_COUPLE(ch) = ModeCouple_GND; func[ch](true); }
+        if (0 == value)         { SET_COUPLE(ch) = ModeCouple::DC; func[ch](true); }
+        else if (1 == value)    { SET_COUPLE(ch) = ModeCouple::AC; func[ch](true); }
+        else if (2 == value)    { SET_COUPLE(ch) = ModeCouple::GND; func[ch](true); }
         else if (3 == value)
         {
             SCPI_SEND(":CHANNEL%d:COUPLING %s", Tables_GetNumChannel(ch), map[SET_COUPLE(ch)].key);

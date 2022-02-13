@@ -682,7 +682,7 @@ static const Governor mbADC_AltRShift_2mV_DC_A
     "—м 1к 2м¬ пост", "Shift 1ch 2mV DC",
     "",
     "",
-    &RSHIFT_ADD(Chan::A, Range::_2mV, ModeCouple_DC), -100, 100, OnChanged_ADC_AltRShift_A
+    &RSHIFT_ADD(Chan::A, Range::_2mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_A
 );
 
 static void OnChanged_ADC_AltRShift_A()
@@ -697,7 +697,7 @@ static const Governor mbADC_AltRShift_2mV_DC_B
     "—м 2к 2м¬ пост", "Shift 2ch 2mV DC",
     "",
     "",
-    &RSHIFT_ADD(Chan::B, Range::_2mV, ModeCouple_DC), -100, 100, OnChanged_ADC_AltRShift_B
+    &RSHIFT_ADD(Chan::B, Range::_2mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_B
 );
 
 static void OnChanged_ADC_AltRShift_B()
@@ -712,7 +712,7 @@ static const Governor mbADC_AltRShift_5mV_DC_A
     "—м 1к 5м¬ пост", "Shift 1ch 5mV DC",
     "",
     "",
-    &RSHIFT_ADD(Chan::A, Range::_5mV, ModeCouple_DC), -100, 100, OnChanged_ADC_AltRShift_A
+    &RSHIFT_ADD(Chan::A, Range::_5mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_A
 );
 
 // ќ“Ћјƒ ј - ј÷ѕ - ƒќѕ —ћ≈ў - —м 2к 5м¬ пост ---------------------------------------------------------------------------------------------------------
@@ -722,7 +722,7 @@ static const Governor mbADC_AltRShift_5mV_DC_B
     "—м 2к 5м¬ пост", "Shift 2ch 5mV DC",
     "",
     "",
-    &RSHIFT_ADD(Chan::B, Range::_5mV, ModeCouple_DC), -100, 100, OnChanged_ADC_AltRShift_B
+    &RSHIFT_ADD(Chan::B, Range::_5mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_B
 );
 
 // ќ“Ћјƒ ј - ј÷ѕ - ƒќѕ —ћ≈ў - —м 1к 10м¬ пост --------------------------------------------------------------------------------------------------------
@@ -732,7 +732,7 @@ static const Governor mbADC_AltRShift_10mV_DC_A
     "—м 1к 10м¬ пост", "Shift 1ch 10mV DC",
     "",
     "",
-    &RSHIFT_ADD(Chan::A, Range::_10mV, ModeCouple_DC), -100, 100, OnChanged_ADC_AltRShift_A
+    &RSHIFT_ADD(Chan::A, Range::_10mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_A
 );
 
 // ќ“Ћјƒ ј - ј÷ѕ - ƒќѕ —ћ≈ў - —м 2к 10м¬ пост --------------------------------------------------------------------------------------------------------
@@ -742,7 +742,7 @@ static const Governor mbADC_AltRShift_10mV_DC_B
     "—м 2к 10м¬ пост", "Shift 2ch 10mV DC",
     "",
     "",
-    &RSHIFT_ADD(Chan::B, Range::_10mV, ModeCouple_DC), -100, 100, OnChanged_ADC_AltRShift_B
+    &RSHIFT_ADD(Chan::B, Range::_10mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_B
 );
 
 

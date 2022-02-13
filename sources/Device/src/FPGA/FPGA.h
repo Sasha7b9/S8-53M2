@@ -68,7 +68,7 @@ namespace FPGA
     void FindAndSetTrigLevel();
 
     // ”становить режим канала по входу.
-    void SetModeCouple(Chan::E, ModeCouple modeCoupe);
+    void SetModeCouple(Chan::E, ModeCouple::E modeCoupe);
 
     // ¬ключить/выключить фильтр на входе канала.
     void EnableChannelFiltr(Chan::E, bool enable);

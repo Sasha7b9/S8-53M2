@@ -25,14 +25,6 @@ struct Chan { enum E {
 }; };
 
 
-// Режим канала по входу.
-enum ModeCouple
-{
-    ModeCouple_DC,      // Открытый вход.
-    ModeCouple_AC,      // Закрытый вход.
-    ModeCouple_GND      // Вход заземлён.
-};
-
 // Делитель.
 enum Divider
 {
