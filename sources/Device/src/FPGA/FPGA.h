@@ -94,9 +94,6 @@ namespace FPGA
     // Установить режим входа синхронизации.
     void SetTrigInput(TrigInput trigInput);
 
-    // Возвращает установленное смещение по времени в текстовом виде, пригодном для вывода на экран.
-    const char* GetTShiftString(int16 tShiftRel, char buffer[20]);
-
     // Запуск функции калибровки.
     void ProcedureCalibration();
 };

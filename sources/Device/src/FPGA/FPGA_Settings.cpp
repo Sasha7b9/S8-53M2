@@ -476,7 +476,7 @@ void TShift::Load()
 }
 
 
-const char *FPGA::GetTShiftString(int16 tShiftRel, char buffer[20])
+pchar TShift::ToString(int16 tShiftRel, char buffer[20])
 {
     float tShiftVal = TSHIFT_2_ABS(tShiftRel, SET_TBASE);
     return Time2String(tShiftVal, true, buffer);

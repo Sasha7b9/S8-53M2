@@ -2159,7 +2159,7 @@ void Display::DrawLowPart()
 
     buffer[0] = 0;
     char bufForVal[20];
-    sprintf(buffer, "\xa5%s", FPGA::GetTShiftString(tShift, bufForVal));
+    sprintf(buffer, "\xa5%s", TShift::ToString(tShift, bufForVal));
     Painter::DrawText(x + 35, y0, buffer);
 
     buffer[0] = 0;
