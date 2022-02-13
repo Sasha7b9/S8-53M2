@@ -248,7 +248,7 @@ void ChangeShiftScreen(int *prevTime, void(*f)(int), int16 relStep)
 
 static void SetRShift(Chan::E ch, int16 rShift)
 {
-    FPGA::SetRShift(ch, rShift);
+    RShift::Set(ch, rShift);
 }
 
 void RShift0Left()

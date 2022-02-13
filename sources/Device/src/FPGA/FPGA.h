@@ -73,9 +73,6 @@ namespace FPGA
     // ¬ключить/выключить фильтр на входе канала.
     void EnableChannelFiltr(Chan::E, bool enable);
 
-    // ”становить относительное смещение по напр€жению.
-    void SetRShift(Chan::E, int16 rShift);
-
     // ¬ключить/выключить режим пикового детектора.
     void SetPeackDetMode(PeackDetMode peackDetMode);
 

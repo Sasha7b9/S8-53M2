@@ -80,9 +80,6 @@ namespace FPGA
     // Загрузить все параметры напряжения каналов и синхронизации в аппаратную часть.
     void SetAttribChannelsAndTrig(TypeWriteAnalog type);
 
-    // Загрузка смещения по напряжению в аппаратную часть.
-    void LoadRShift(Chan::E ch);
-
     // Загрузка уровня синхронизации в аппаратную часть.
     void LoadTrigLev();
 
@@ -106,9 +103,9 @@ void FPGA::LoadSettings()
     TBase::Load();
     TShift::Load();
     Range::Load(Chan::A);
-    LoadRShift(Chan::A);
+    RShift::Load(Chan::A);
     Range::Load(Chan::B);
-    LoadRShift(Chan::B);
+    RShift::Load(Chan::B);
     LoadTrigLev();
     LoadTrigPolarity();
     LoadRegUPR();
@@ -215,7 +212,7 @@ void Range::Set(Chan::E ch, Range::E range)
 void Range::Load(Chan::E ch)
 {
     FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog_Range0);
-    FPGA::LoadRShift(ch);
+    RShift::Load(ch);
 
     if (ch == (Chan::E)TRIG_SOURCE)
     {
@@ -296,7 +293,7 @@ void TBase::Increase()
 }
 
 
-void FPGA::SetRShift(Chan::E ch, int16 rShift)
+void RShift::Set(Chan::E ch, int16 rShift)
 {
     if (!sChannel_Enabled(ch))
     {
@@ -319,12 +316,12 @@ void FPGA::SetRShift(Chan::E ch, int16 rShift)
         rShift = (rShift + 1) & 0xfffe;
     }
     SET_RSHIFT(ch) = rShift;
-    LoadRShift(ch);
+    Load(ch);
     Display::RotateRShift(ch);
 };
 
 
-void FPGA::LoadRShift(Chan::E ch)
+void RShift::Load(Chan::E ch)
 {
     static const uint16 mask[2] = {0x2000, 0x6000};
 
@@ -343,7 +340,7 @@ void FPGA::LoadRShift(Chan::E ch)
     rShift = (uint16)(delta + RShiftZero);
 
     rShift = (uint16)(RShiftMax + RShiftMin - rShift);
-    WriteToDAC(ch == Chan::A ? TypeWriteDAC_RShiftA : TypeWriteDAC_RShiftB, (uint16)(mask[ch] | (rShift << 2)));
+    FPGA::WriteToDAC(ch == Chan::A ? TypeWriteDAC_RShiftA : TypeWriteDAC_RShiftB, (uint16)(mask[ch] | (rShift << 2)));
 }
 
 
@@ -555,7 +552,7 @@ void FPGA::SetModeCouple(Chan::E ch, ModeCouple modeCoupe)
 {
     SET_COUPLE(ch) = modeCoupe;
     SetAttribChannelsAndTrig(ch == Chan::A ? TypeWriteAnalog_ChanParam0 : TypeWriteAnalog_ChanParam1);
-    SetRShift(ch, SET_RSHIFT(ch));
+    RShift::Set(ch, SET_RSHIFT(ch));
 }
 
 

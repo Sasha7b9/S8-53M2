@@ -94,8 +94,8 @@ void FPGA::ProcedureCalibration()
         FPGA::LoadKoeffCalibration(Chan::B);
         Range::Set(Chan::A, Range::_500mV);
         Range::Set(Chan::B, Range::_500mV);
-        FPGA::SetRShift(Chan::A, RShiftZero);
-        FPGA::SetRShift(Chan::B, RShiftZero);
+        RShift::Set(Chan::A, RShiftZero);
+        RShift::Set(Chan::B, RShiftZero);
         FPGA::SetModeCouple(Chan::A, ModeCouple_GND);
         FPGA::SetModeCouple(Chan::B, ModeCouple_GND);
         HAL_FMC::Write(WR_ADD_RSHIFT_DAC1, 0);
@@ -191,8 +191,8 @@ void FPGA::ProcedureCalibration()
     HAL_FMC::Write(WR_ADD_RSHIFT_DAC1, (uint8)SET_BALANCE_ADC_A);
     HAL_FMC::Write(WR_ADD_RSHIFT_DAC2, (uint8)SET_BALANCE_ADC_B);
 
-    FPGA::SetRShift(Chan::A, SET_RSHIFT_A);
-    FPGA::SetRShift(Chan::B, SET_RSHIFT_B);
+    RShift::Set(Chan::A, SET_RSHIFT_A);
+    RShift::Set(Chan::B, SET_RSHIFT_B);
 
     STRETCH_ADC_A = (koeffCal0 == ERROR_VALUE_FLOAT) ? koeffCalibrationOld[0] : koeffCal0;
 
@@ -413,7 +413,7 @@ void FPGA::AlignmentADC()
 int16 FPGA::CalculateAdditionRShift(Chan::E ch, Range::E range)
 {
     Range::Set(ch, range);
-    FPGA::SetRShift(ch, RShiftZero);
+    RShift::Set(ch, RShiftZero);
     TBase::Set(TBase::_200us);
     FPGA::SetTrigSource(ch == Chan::A ? TrigSource_ChannelA : TrigSource_ChannelB);
     FPGA::SetTrigPolarity(TrigPolarity_Front);
@@ -479,7 +479,7 @@ float FPGA::CalculateKoeffCalibration(Chan::E ch)
 {
     FPGA::WriteToHardware(WR_UPR, BINARY_U8(00000100), false);
 
-    FPGA::SetRShift(ch, RShiftZero - 40 * 4);
+    RShift::Set(ch, RShiftZero - 40 * 4);
     FPGA::SetModeCouple(ch, ModeCouple_DC);
     FPGA::SetTrigSource((TrigSource)ch);
     FPGA::SetTrigLev((TrigSource)ch, TrigLevZero + 40 * 4);

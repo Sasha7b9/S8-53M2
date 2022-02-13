@@ -10,15 +10,8 @@
 #include "Utils/GlobalFunctions.h"
 
 
-/** @addtogroup Menu
- *  @{
- *  @addtogroup PageChannels
- *  @{
- */
-
 extern const Page pChanA;
 extern const Page pChanB;
-
 
 
 extern const Choice mcInputA;                   //  ¿Õ¿À 1 - ¬ıÓ‰
@@ -176,7 +169,7 @@ static const Choice mcInverseA =
 
 static void OnChanged_InverseA(bool active)
 {
-    FPGA::SetRShift(Chan::A, SET_RSHIFT_A);
+    RShift::Set(Chan::A, SET_RSHIFT_A);
 }
 
 
@@ -302,7 +295,7 @@ static const Choice mcInverseB =
 
 static void OnChanged_InverseB(bool active)
 {
-    FPGA::SetRShift(Chan::B, SET_RSHIFT_B);
+    RShift::Set(Chan::B, SET_RSHIFT_B);
 }
 
 
@@ -321,7 +314,3 @@ static const Choice mcMultiplierB =
     },
     (int8*)&SET_DIVIDER(Chan::B)
 };
-
-
-/** @}  @}
- */

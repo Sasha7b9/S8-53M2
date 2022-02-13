@@ -670,8 +670,9 @@ static void OnPress_ADC_AltRShift_Reset()
             }
         }
     }
-    FPGA::SetRShift(Chan::A, SET_RSHIFT_A);
-    FPGA::SetRShift(Chan::B, SET_RSHIFT_B);
+
+    RShift::Set(Chan::A, SET_RSHIFT_A);
+    RShift::Set(Chan::B, SET_RSHIFT_B);
 }
 
 // нркюдйю - южо - дно ялеы - яЛ 1Й 2Лб ОНЯР ---------------------------------------------------------------------------------------------------------
@@ -686,7 +687,7 @@ static const Governor mbADC_AltRShift_2mV_DC_A
 
 static void OnChanged_ADC_AltRShift_A()
 {
-    FPGA::SetRShift(Chan::A, SET_RSHIFT_A);
+    RShift::Set(Chan::A, SET_RSHIFT_A);
 }
 
 // нркюдйю - южо - дно ялеы - яЛ 2Й 2Лб ОНЯР ---------------------------------------------------------------------------------------------------------
@@ -701,7 +702,7 @@ static const Governor mbADC_AltRShift_2mV_DC_B
 
 static void OnChanged_ADC_AltRShift_B()
 {
-    FPGA::SetRShift(Chan::B, SET_RSHIFT_B);
+    RShift::Set(Chan::B, SET_RSHIFT_B);
 }
 
 // нркюдйю - южо - дно ялеы - яЛ 1Й 5Лб ОНЯР ---------------------------------------------------------------------------------------------------------

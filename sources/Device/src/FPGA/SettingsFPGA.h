@@ -16,6 +16,16 @@ struct TShift
 };
 
 
+struct RShift
+{
+    // Установить относительное смещение по напряжению.
+    static void Set(Chan::E, int16 rShift);
+
+    // Загрузка смещения по напряжению в аппаратную часть.
+    static void Load(Chan::E ch);
+};
+
+
 struct TBase
 {
     enum E

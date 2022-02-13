@@ -918,7 +918,7 @@ bool FPGA::FindWave(Chan::E ch)
     SET_ENABLED(ch) = true;
     FPGA::SetTrigSource((TrigSource)ch);
     FPGA::SetTrigLev((TrigSource)ch, TrigLevZero);
-    FPGA::SetRShift(ch, RShiftZero);
+    RShift::Set(ch, RShiftZero);
     FPGA::SetModeCouple(ch, ModeCouple_AC);
     Range::E range = AccurateFindRange(ch);
     //LOG_WRITE("Range %s", RangeName(range));
