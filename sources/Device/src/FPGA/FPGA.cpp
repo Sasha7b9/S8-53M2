@@ -919,7 +919,7 @@ bool FPGA::FindWave(Chan::E ch)
     TrigSource::Set((TrigSource::E)ch);
     TrigLev::Set((TrigSource::E)ch, TrigLevZero);
     RShift::Set(ch, RShiftZero);
-    FPGA::SetModeCouple(ch, ModeCouple::AC);
+    ModeCouple::Set(ch, ModeCouple::AC);
     Range::E range = AccurateFindRange(ch);
     //LOG_WRITE("Range %s", RangeName(range));
     if(range != Range::Count)
@@ -958,7 +958,7 @@ Range::E FPGA::AccurateFindRange(Chan::E ch)
     uint8 buffer[100];  // —юда будем считывать точки
 
     TBase::Set(TBase::_50ms);
-    FPGA::SetModeCouple(ch, ModeCouple::AC);
+    ModeCouple::Set(ch, ModeCouple::AC);
     PeackDetMode peackDetMode = PEAKDET;
     FPGA::SetPeackDetMode(PeackDet_Enable);
     for (int range = Range::Count - 1; range >= 0; range--)

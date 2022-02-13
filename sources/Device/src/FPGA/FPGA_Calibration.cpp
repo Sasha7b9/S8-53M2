@@ -96,8 +96,8 @@ void FPGA::ProcedureCalibration()
         Range::Set(Chan::B, Range::_500mV);
         RShift::Set(Chan::A, RShiftZero);
         RShift::Set(Chan::B, RShiftZero);
-        FPGA::SetModeCouple(Chan::A, ModeCouple::GND);
-        FPGA::SetModeCouple(Chan::B, ModeCouple::GND);
+        ModeCouple::Set(Chan::A, ModeCouple::GND);
+        ModeCouple::Set(Chan::B, ModeCouple::GND);
         HAL_FMC::Write(WR_ADD_RSHIFT_DAC1, 0);
         HAL_FMC::Write(WR_ADD_RSHIFT_DAC2, 0);
 
@@ -137,7 +137,7 @@ void FPGA::ProcedureCalibration()
                 {
                     if (!(mode == 0 && (range == Range::_2mV || range == Range::_5mV || range == Range::_10mV)))
                     {
-                        FPGA::SetModeCouple(Chan::A, (ModeCouple::E)mode);
+                        ModeCouple::Set(Chan::A, (ModeCouple::E)mode);
                         RSHIFT_ADD(Chan::A, range, mode) = 0;
                         RSHIFT_ADD(Chan::A, range, mode) = CalculateAdditionRShift(Chan::A, (Range::E)range);
                     }
@@ -173,7 +173,7 @@ void FPGA::ProcedureCalibration()
                 {
                     if (!(mode == 0 && (range == Range::_2mV || range == Range::_5mV || range == Range::_10mV)))
                     {
-                        FPGA::SetModeCouple(Chan::B, (ModeCouple::E)mode);
+                        ModeCouple::Set(Chan::B, (ModeCouple::E)mode);
                         RSHIFT_ADD(Chan::B, range, mode) = 0;
                         RSHIFT_ADD(Chan::B, range, mode) = CalculateAdditionRShift(Chan::B, (Range::E)range);
                     }
@@ -480,7 +480,7 @@ float FPGA::CalculateKoeffCalibration(Chan::E ch)
     FPGA::WriteToHardware(WR_UPR, BINARY_U8(00000100), false);
 
     RShift::Set(ch, RShiftZero - 40 * 4);
-    FPGA::SetModeCouple(ch, ModeCouple::DC);
+    ModeCouple::Set(ch, ModeCouple::DC);
     TrigSource::Set((TrigSource::E)ch);
     TrigLev::Set((TrigSource::E)ch, TrigLevZero + 40 * 4);
     

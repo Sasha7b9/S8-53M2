@@ -542,10 +542,10 @@ void TrigInput::Set(TrigInput::E trigInput)
 }
 
 
-void FPGA::SetModeCouple(Chan::E ch, ModeCouple::E modeCoupe)
+void ModeCouple::Set(Chan::E ch, ModeCouple::E modeCoupe)
 {
     SET_COUPLE(ch) = modeCoupe;
-    SetAttribChannelsAndTrig(ch == Chan::A ? TypeWriteAnalog_ChanParam0 : TypeWriteAnalog_ChanParam1);
+    FPGA::SetAttribChannelsAndTrig(ch == Chan::A ? TypeWriteAnalog_ChanParam0 : TypeWriteAnalog_ChanParam1);
     RShift::Set(ch, SET_RSHIFT(ch));
 }
 

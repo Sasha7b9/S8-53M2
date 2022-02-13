@@ -125,7 +125,7 @@ static const Choice mcCoupleA =
 
 void OnChanged_CoupleA(bool active)
 {
-    FPGA::SetModeCouple(Chan::A, SET_COUPLE_A);
+    ModeCouple::Set(Chan::A, SET_COUPLE_A);
 }
 
 
@@ -252,7 +252,7 @@ static const Choice mcCoupleB =
 
 void OnChanged_CoupleB(bool active)
 {
-    FPGA::SetModeCouple(Chan::B, SET_COUPLE_B);
+    ModeCouple::Set(Chan::B, SET_COUPLE_B);
 }
 
 //  ¿Õ¿À 2 - ‘ËÎ¸Ú ---------

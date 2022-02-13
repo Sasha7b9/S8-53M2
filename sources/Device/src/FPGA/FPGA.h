@@ -67,9 +67,6 @@ namespace FPGA
     // Найти и установить уровень синхронизации по последнему считанному сигналу
     void FindAndSetTrigLevel();
 
-    // Установить режим канала по входу.
-    void SetModeCouple(Chan::E, ModeCouple::E modeCoupe);
-
     // Включить/выключить фильтр на входе канала.
     void EnableChannelFiltr(Chan::E, bool enable);
 

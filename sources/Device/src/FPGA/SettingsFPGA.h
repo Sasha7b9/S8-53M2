@@ -96,6 +96,9 @@ struct ModeCouple
         AC,      // Закрытый вход.
         GND      // Вход заземлён.
     };
+
+    // Установить режим канала по входу.
+    static void Set(Chan::E, ModeCouple::E modeCoupe);
 };
 
 
