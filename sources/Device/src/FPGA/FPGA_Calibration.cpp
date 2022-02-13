@@ -182,8 +182,8 @@ void FPGA::ProcedureCalibration(void)
 
     SET_BALANCE_ADC_A = shiftADC0;
     SET_BALANCE_ADC_B = shiftADC1;
-//    FSMC::Write(WR_ADD_RSHIFT_DAC1, (uint8)SET_BALANCE_ADC_A);
-//    FSMC::Write(WR_ADD_RSHIFT_DAC2, (uint8)SET_BALANCE_ADC_B);
+//    HAL_FMC::Write(WR_ADD_RSHIFT_DAC1, (uint8)SET_BALANCE_ADC_A);
+//    HAL_FMC::Write(WR_ADD_RSHIFT_DAC2, (uint8)SET_BALANCE_ADC_B);
 
     FPGA::SetRShift(Chan::A, SET_RSHIFT_A);
     FPGA::SetRShift(Chan::B, SET_RSHIFT_B);
@@ -356,11 +356,11 @@ float CalculateDeltaADC(Chan::E ch, float *avgADC1, float *avgADC2, float *delta
     static const int numCicles = 10;
     for(int cicle = 0; cicle < numCicles; cicle++)
     {
-        FSMC::Write(WR_START, 1);
+        HAL_FMC::Write(WR_START, 1);
         while(_GET_BIT(HAL_FMC::Read(RD_FL), 2) == 0) {};
         FPGA::SwitchingTrig();
         while(_GET_BIT(HAL_FMC::Read(RD_FL), 0) == 0) {};
-        FSMC::Write(WR_STOP, 1);
+        HAL_FMC::Write(WR_STOP, 1);
 
         for(int i = 0; i < FPGA_MAX_POINTS; i++)
         {
@@ -399,8 +399,8 @@ void AlignmentADC(void)
     SET_BALANCE_ADC_A = shiftADC0;
     shiftADC1 = (deltaADCold[1] > 0) ? (deltaADCold[1] + 0.5f) : (deltaADCold[1] - 0.5f);
     SET_BALANCE_ADC_B = shiftADC1;
-    FSMC::Write(WR_ADD_RSHIFT_DAC1, (uint8)SET_BALANCE_ADC_A);
-    FSMC::Write(WR_ADD_RSHIFT_DAC2, (uint8)SET_BALANCE_ADC_B);
+    HAL_FMC::Write(WR_ADD_RSHIFT_DAC1, (uint8)SET_BALANCE_ADC_A);
+    HAL_FMC::Write(WR_ADD_RSHIFT_DAC2, (uint8)SET_BALANCE_ADC_B);
 }
 
 
@@ -428,7 +428,7 @@ int16 CalculateAdditionRShift(Chan::E ch, Range range)
         uint startTime = gTimerMS;
         const uint timeWait = 100;
 
-        FSMC::Write(WR_START, 1);
+        HAL_FMC::Write(WR_START, 1);
         while(_GET_BIT(HAL_FMC::Read(RD_FL), 2) == 0 && (gTimerMS - startTime < timeWait)) {}; 
         if(gTimerMS - startTime > timeWait)                 // Если прошло слишком много времени - 
         {
@@ -445,7 +445,7 @@ int16 CalculateAdditionRShift(Chan::E ch, Range range)
             return ERROR_VALUE_INT16;                       // выход с ошибкой.
         }
 
-        FSMC::Write(WR_STOP, 1);
+        HAL_FMC::Write(WR_STOP, 1);
 
         uint8 *addressRead1 = ch == Chan::A ? RD_ADC_A1 : RD_ADC_B1; //-V566
         uint8 *addressRead2 = ch == Chan::A ? RD_ADC_A2 : RD_ADC_B2; //-V566
@@ -492,7 +492,7 @@ float CalculateKoeffCalibration(Chan::E ch)
         while(gTimerMS - startTime < 20) {}
         startTime = gTimerMS;
 
-        FSMC::Write(WR_START, 1);
+        HAL_FMC::Write(WR_START, 1);
         while(_GET_BIT(HAL_FMC::Read(RD_FL), 2) == 0 && (gTimerMS - startTime > timeWait)) {};
         if(gTimerMS - startTime > timeWait)
         {
@@ -508,7 +508,7 @@ float CalculateKoeffCalibration(Chan::E ch)
             return ERROR_VALUE_FLOAT;
         }
 
-        FSMC::Write(WR_STOP, 1);
+        HAL_FMC::Write(WR_STOP, 1);
 
         uint8 *addressRead1 = ch == Chan::A ? RD_ADC_A1 : RD_ADC_B1; //-V566
         uint8 *addressRead2 = ch == Chan::A ? RD_ADC_A2 : RD_ADC_B2; //-V566

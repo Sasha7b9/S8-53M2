@@ -17,11 +17,11 @@ void HAL_TIM2::Init()
 
     if (HAL_TIM_Base_Init(&tim2handle) != HAL_OK)
     {
-        HARDWARE_ERROR
+        ERROR_HANDLER();
     }
 
     if (HAL_TIM_Base_Start(&tim2handle) != HAL_OK)
     {
-        HARDWARE_ERROR
+        ERROR_HANDLER();
     }
 }

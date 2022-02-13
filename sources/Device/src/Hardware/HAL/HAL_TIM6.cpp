@@ -26,12 +26,12 @@ void HAL_TIM6::Init()
 
     if (HAL_TIM_Base_Init(&handleTIM6forTimer) != HAL_OK)
     {
-        HARDWARE_ERROR
+        ERROR_HANDLER();
     }
 
     if (HAL_TIM_Base_Start_IT(&handleTIM6forTimer) != HAL_OK)
     {
-        HARDWARE_ERROR
+        ERROR_HANDLER();
     }
 }
 

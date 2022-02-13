@@ -533,6 +533,11 @@
               <FileType>1</FileType>
               <FilePath>..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma2d.c</FilePath>
             </File>
+            <File>
+              <FileName>stm32f4xx_hal_ltdc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_ltdc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2468,6 +2473,11 @@
               <FileName>stm32f4xx_hal_dma2d.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma2d.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_hal_ltdc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_ltdc.c</FilePath>
             </File>
           </Files>
         </Group>

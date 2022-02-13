@@ -53,8 +53,9 @@ namespace HAL_DAC1
 // Используется для связи с FPGA и RAM
 namespace HAL_FMC
 {
-    // Это старая функция
+    // Это старые функция чтения/записи
     uint8 Read(uint8* address);
+    void  Write(uint8* address, uint8 value);
 
     void Init();
 

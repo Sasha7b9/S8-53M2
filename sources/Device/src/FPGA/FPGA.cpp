@@ -87,7 +87,7 @@ void FPGA::Start(void)
         Timer::Disable(kP2P);
         Display::ResetP2Ppoints(true);
     }
-    FSMC::Write(WR_START, 1);
+    HAL_FMC::Write(WR_START, 1);
     FillDataPointer(&ds);
     timeStart = gTimerMS;
     stateWork = StateWorkFPGA_Wait;
@@ -97,8 +97,8 @@ void FPGA::Start(void)
 
 void FPGA::SwitchingTrig(void)
 {
-    FSMC::Write(WR_TRIG_F, TRIG_POLARITY_IS_FRONT ? 0x00U : 0x01U);
-    FSMC::Write(WR_TRIG_F, TRIG_POLARITY_IS_FRONT ? 0x01U : 0x00U);
+    HAL_FMC::Write(WR_TRIG_F, TRIG_POLARITY_IS_FRONT ? 0x00U : 0x01U);
+    HAL_FMC::Write(WR_TRIG_F, TRIG_POLARITY_IS_FRONT ? 0x01U : 0x00U);
 }
 
 
@@ -222,7 +222,7 @@ void FPGA::OnPressStartStop(void)
 void FPGA::Stop(bool pause) 
 {
     Timer::Disable(kP2P);
-    FSMC::Write(WR_STOP, 1);
+    HAL_FMC::Write(WR_STOP, 1);
     stateWork = pause ? StateWorkFPGA_Pause : StateWorkFPGA_Stop;
 }
 
@@ -545,7 +545,7 @@ void FPGA::WriteToHardware(uint8 *address, uint8 value, bool restart)
         {
             FPGA::Stop(true);
             FPGA_IN_PROCESS_READ = 0;
-            FSMC::Write(address, value);
+            HAL_FMC::Write(address, value);
             FPGA::Start();
         }
         else
@@ -553,18 +553,18 @@ void FPGA::WriteToHardware(uint8 *address, uint8 value, bool restart)
             if(stateWork != StateWorkFPGA_Stop)
             {
                 FPGA::Stop(true);
-                FSMC::Write(address, value);
+                HAL_FMC::Write(address, value);
                 FPGA::Start();
             }
             else
             {
-                FSMC::Write(address, value);
+                HAL_FMC::Write(address, value);
             }
         }
     }
     else
     {
-        FSMC::Write(address, value);
+        HAL_FMC::Write(address, value);
     }
 }
 

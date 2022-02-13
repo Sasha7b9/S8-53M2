@@ -64,7 +64,7 @@ static void HAL::SystemClock_Config(void)
 
     if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
     {
-        HARDWARE_ERROR;
+        ERROR_HANDLER();
     }
 
     RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
@@ -75,7 +75,7 @@ static void HAL::SystemClock_Config(void)
 
     if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_3) != HAL_OK)
     {
-        HARDWARE_ERROR;
+        ERROR_HANDLER();
     }
 
     PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_LTDC;
@@ -85,7 +85,7 @@ static void HAL::SystemClock_Config(void)
 
     if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
     {
-        HARDWARE_ERROR;
+        ERROR_HANDLER();
     }
 }
 
