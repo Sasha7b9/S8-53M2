@@ -40,31 +40,6 @@ enum Divider
     Divider_10
 };
 
-// Масштаб по напряжению.
-enum Range
-{
-    Range_2mV,
-    Range_5mV,
-    Range_10mV,
-    Range_20mV,
-    Range_50mV,
-    Range_100mV,
-    Range_200mV,
-    Range_500mV,
-    Range_1V,
-    Range_2V,
-    Range_5V,
-    Range_10V,
-    Range_20V,
-    RangeSize
-};
-
-Range& operator++(Range &range);
-Range& operator--(Range &range);
-
-const char *RangeName(Range range);
-
-
 // Measures
 
 

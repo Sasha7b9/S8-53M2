@@ -1,6 +1,7 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-#include "SettingsTypes.h"
+#include "Settings/SettingsTypes.h"
+#include "FPGA/SettingsFPGA.h"
 
 
 #define SET_INVERSE(ch)         (set.chan[ch].inverse)          // SettingsChannel.inverse
