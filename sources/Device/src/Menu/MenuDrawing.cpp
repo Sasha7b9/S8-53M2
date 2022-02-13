@@ -17,7 +17,7 @@
 #include "Utils/Measures.h"
 #include "Hardware/Timer.h"
 #include "Log.h"
-
+#include <stdio.h>
 
 
 static void *itemUnderButton[B_NumButtons] = {0};

@@ -2,12 +2,19 @@
 #include "defines.h"
 #include "Timer.h"
 #include "Log.h"
+#include <stm32f4xx_hal.h>
 
 
 static void (*f[TypeTimerSize])() = {0};
 static int reactionTimeMS[TypeTimerSize] = {0};
 static int currentTimeMS[TypeTimerSize] = {0};
 static bool isRun[TypeTimerSize] = {false};
+
+
+void Timer::PauseOnTime(uint timeMS)
+{
+    HAL_Delay(timeMS);
+};
 
 
 void Timer::PauseOnTicks(uint numTicks)

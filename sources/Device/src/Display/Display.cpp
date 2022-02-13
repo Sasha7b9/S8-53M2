@@ -26,9 +26,11 @@
 #include "Hardware/Timer.h"
 #include "Log.h"
 #include "Hardware/HAL/HAL.h"
+#include <stm32f4xx_hal.h>
 #include <math.h>
 #include <limits.h>
 #include <string.h>
+#include <stdio.h>
 
 
 #define NUM_P2P_POINTS (FPGA::MAX_POINTS)

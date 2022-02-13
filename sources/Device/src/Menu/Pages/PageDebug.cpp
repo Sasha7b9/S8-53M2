@@ -15,6 +15,7 @@
 #include "Menu/Pages/PageDebug.h"
 #include "Log.h"
 #include "Hardware/HAL/HAL.h"
+#include <stdio.h>
 
 
 extern const Page pDebug;

@@ -5,7 +5,8 @@
 #include "Utils/Strings.h"
 #include "Utils/GlobalFunctions.h"
 #include <ctype.h>
-
+#include <string.h>
+#include <stdlib.h>
 
 
 enum

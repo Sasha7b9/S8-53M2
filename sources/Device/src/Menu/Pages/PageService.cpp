@@ -9,6 +9,7 @@
 #include "Hardware/Timer.h"
 #include "Utils/Math.h"
 #include "Hardware/HAL/HAL.h"
+#include <stdio.h>
 
 
 extern const Page pService;
@@ -791,7 +792,7 @@ static const IPaddressStruct structIP =
         "Set of IP-address",  } },
     &IP_ADDR0, &IP_ADDR1, &IP_ADDR2, &IP_ADDR3,
     OnChanged_Ethernet_Enable,
-    &PORT
+    &LAN_PORT
 };
 
 static const IPaddress ipEthernet_IP

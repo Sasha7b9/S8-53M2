@@ -349,7 +349,7 @@ const SmallButton* GetSmallButton(PanelButton button)
         SmallButton *sb = (SmallButton *)(*page->items)[button - B_Menu];
         return sb;
     }
-    return NULL;
+    return nullptr;
 }
 
 

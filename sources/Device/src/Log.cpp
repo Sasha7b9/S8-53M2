@@ -4,7 +4,8 @@
 #include "Settings/Settings.h"
 #include "VCP/VCP.h"
 #include <stdarg.h>
-
+#include <stdio.h>
+#include <string.h>
 
 
 static bool loggerUSB = false;

@@ -7,7 +7,7 @@
 #include "Utils/GlobalFunctions.h"
 #include "FPGA/TypesFPGA_old.h"
 #include <math.h>
-
+#include <string.h>
 
 
 float sCursors_GetCursPosU(Chan::E ch, int numCur)

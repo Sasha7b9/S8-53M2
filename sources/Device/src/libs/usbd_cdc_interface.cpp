@@ -1,11 +1,11 @@
 // 2022/2/11 19:32:11 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+#include "defines.h"
 #include "main.h"
 #include "Globals.h"
 #include "VCP/VCP.h"
 #include "VCP/SCPI/SCPI.h"
 #include "Log.h"
 #include "Hardware/Timer.h"
-
 
 
 static USBD_CDC_LineCodingTypeDef LineCoding =

@@ -4,6 +4,7 @@
 #include "Hardware/Sound.h"
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"
+#include <stm32f4xx_hal.h>
 
 
 // »спользуетс€ дл€ анимации изменени€ значени€ Choice

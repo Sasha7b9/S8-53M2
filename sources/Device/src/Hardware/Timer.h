@@ -28,7 +28,7 @@ class Timer
 {
 public:
     // Задержка на timeMS миллисекунд
-    static void PauseOnTime(uint timeMS) { HAL_Delay(timeMS); };
+    static void PauseOnTime(uint timeMS);
 
     static void PauseOnTicks(uint numTicks);
     // Функция вызывается по прерыванию системного таймера для работы таймеров. Увеличивает внутренее время таймеров на 1мс.

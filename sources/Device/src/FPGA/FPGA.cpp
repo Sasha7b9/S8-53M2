@@ -16,6 +16,8 @@
 #include "Settings/Settings.h"
 #include "Utils/Generator.h"
 #include "Hardware/HAL/HAL.h"
+#include <stm32f4xx_hal.h>
+#include <string.h>
 
 
 namespace FPGA

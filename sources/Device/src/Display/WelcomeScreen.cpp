@@ -7,6 +7,7 @@
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"
 #include "Display/Math3D.h"
+#include <stm32f4xx_hal.h>
 
 
 namespace WelcomeScreen

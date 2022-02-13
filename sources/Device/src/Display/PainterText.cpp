@@ -9,6 +9,8 @@
 #include "Settings/Settings.h"
 #include "Hardware/InterCom.h"
 #include <stdarg.h>
+#include <string.h>
+#include <stdio.h>
 
 
 static TypeFont currentTypeFont = TypeFont_None;

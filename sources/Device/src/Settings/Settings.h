@@ -16,10 +16,8 @@
 #include "SettingsMeasures.h"
 #include "SettingsMath.h"
 
-
 #define RSHIFT_ADD(ch, range, closed) set.chan[ch].rShiftAdd[range][closed]
 
- 
  // Настройки каналов
 struct SettingsChannel
 {
@@ -50,7 +48,7 @@ struct SettingsChannel
 #define IP_ADDR2        (set.eth.ip2)
 #define IP_ADDR3        (set.eth.ip3)
 
-#define PORT            (set.eth.port)
+#define LAN_PORT        (set.eth.port)
 
 #define NETMASK_ADDR0   (set.eth.mask0)
 #define NETMASK_ADDR1   (set.eth.mask1)
@@ -63,7 +61,6 @@ struct SettingsChannel
 #define GW_ADDR3        (set.eth.gw3)
 
 #define ETH_ENABLE      (set.eth.enable)
-
 
 struct SettingsEthernet
 {
@@ -124,8 +121,6 @@ struct OutputRegisters
     bool    tShift;
     bool    tBase;
 };
-
-
 
 #define NUM_STRINGS                         (set.debug.numStrings)
 
@@ -231,3 +226,4 @@ struct Settings
 };
 
 extern Settings set;
+

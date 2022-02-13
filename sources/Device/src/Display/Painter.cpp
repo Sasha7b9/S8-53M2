@@ -15,6 +15,7 @@
 #include "Menu/FileManager.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/InterCom.h"
+#include <stm32f4xx_hal.h>
 #include <cstring>
 
 
