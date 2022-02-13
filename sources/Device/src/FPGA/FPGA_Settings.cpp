@@ -80,9 +80,6 @@ namespace FPGA
     // Загрузить все параметры напряжения каналов и синхронизации в аппаратную часть.
     void SetAttribChannelsAndTrig(TypeWriteAnalog type);
 
-    // Загрузка смещения по времени в аппаратную часть.
-    void LoadTShift();
-
     // Загрузка масштаба по напряжению в аппаратную часть.
     void LoadRange(Chan::E ch);
 
@@ -109,8 +106,8 @@ void FPGA::LoadSettings()
     LoadKoeffCalibration(Chan::A);
     LoadKoeffCalibration(Chan::B);
     SetAttribChannelsAndTrig(TypeWriteAnalog_All);
-    TBase::Set(SET_TBASE);
-    LoadTShift();
+    TBase::Load();
+    TShift::Load();
     LoadRange(Chan::A);
     LoadRShift(Chan::A);
     LoadRange(Chan::B);
@@ -238,7 +235,7 @@ void TBase::Set(TBase::E tBase)
         float tShiftAbsOld = TSHIFT_2_ABS(TSHIFT, SET_TBASE);
         sTime_SetTBase(tBase);
         Load();
-        FPGA::SetTShift(TSHIFT_2_REL(tShiftAbsOld, SET_TBASE));
+        TShift::Set(TSHIFT_2_REL(tShiftAbsOld, SET_TBASE));
         Display::Redraw();
     }
     else
@@ -389,7 +386,7 @@ void FPGA::LoadTrigLev()
 }
 
 
-void FPGA::SetTShift(int tShift)
+void TShift::Set(int tShift)
 {
     if (!sChannel_Enabled(Chan::A) && !sChannel_Enabled(Chan::B))
     {
@@ -403,7 +400,7 @@ void FPGA::SetTShift(int tShift)
     }
 
     sTime_SetTShift((int16)tShift);
-    LoadTShift();
+    Load();
     Display::Redraw();
 };
 
@@ -411,7 +408,7 @@ void FPGA::SetTShift(int tShift)
 void FPGA::SetDeltaTShift(int16 shift)
 {
     deltaTShift[SET_TBASE] = shift;
-    LoadTShift();
+    TShift::Load();
 }
 
 
@@ -459,7 +456,7 @@ void FPGA::LoadKoeffCalibration(Chan::E ch)
 }
 
 
-void FPGA::LoadTShift()
+void TShift::Load()
 {
     static const int16 k[TBase::Count] = {50, 20, 10, 5, 2};
     int16 tShift = TSHIFT - sTime_TShiftMin() + 1;
@@ -473,12 +470,12 @@ void FPGA::LoadTShift()
     FPGA::SetAdditionShift(additionShift);
     uint16 post = (uint16)tShift;
     post = (uint16)(~post);
-    WriteToHardware(WR_POST_LOW, (uint8)post, true);
-    WriteToHardware(WR_POST_HI, (uint8)(post >> 8), true);
+    FPGA::WriteToHardware(WR_POST_LOW, (uint8)post, true);
+    FPGA::WriteToHardware(WR_POST_HI, (uint8)(post >> 8), true);
     uint16 pred = (uint16)((tShift > 511) ? 1023 : (511 - post));
     pred = (uint16)((~(pred - 1)) & 0x1ff);
-    WriteToHardware(WR_PRED_LOW, (uint8)pred, true);
-    WriteToHardware(WR_PRED_HI, (uint8)(pred >> 8), true);
+    FPGA::WriteToHardware(WR_PRED_LOW, (uint8)pred, true);
+    FPGA::WriteToHardware(WR_PRED_HI, (uint8)(pred >> 8), true);
 }
 
 

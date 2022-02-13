@@ -158,7 +158,7 @@ static const Choice mcTPos =
 void OnChanged_TPos(bool active)
 {
     ChangeC_Memory_NumPoints(active);
-    FPGA::SetTShift(TSHIFT);
+    TShift::Set(TSHIFT);
 }
 
 // РАЗВЕРТКА - Самописец ----

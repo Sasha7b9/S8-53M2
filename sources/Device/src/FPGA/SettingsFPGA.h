@@ -4,6 +4,12 @@
 struct TShift
 {
     static const int EMPTY = 1000000;
+
+    // Установить относительное смещение по времени.
+    static void Set(int tShift);
+
+    // Загрузка смещения по времени в аппаратную часть.
+    static void Load();
 };
 
 
@@ -51,8 +57,6 @@ struct TBase
 
     // Увеличить масштаб по времени.
     static void Increase();
-
-private:
 
     // Загрузка коэффицента развёртки в аппаратную часть.
     static void Load();

@@ -63,7 +63,7 @@ void ChangeC_Memory_NumPoints(bool active)
             SHIFT_IN_MEMORY = sMemory_GetNumPoints(false) - Grid::Width() - 2;
         }
     }
-    FPGA::SetTShift(TSHIFT);
+    TShift::Set(TSHIFT);
 }
 
 // Активна ли ПАМЯТЬ - ВНЕШН ЗУ - Маска

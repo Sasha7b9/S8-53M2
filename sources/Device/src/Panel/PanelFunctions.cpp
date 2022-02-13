@@ -299,7 +299,7 @@ static void ShiftScreen(int shift)
 
 static void SetTShift(int tShift)
 {
-    FPGA::SetTShift(tShift);
+    TShift::Set(tShift);
 }
 
 void XShift(int delta)
