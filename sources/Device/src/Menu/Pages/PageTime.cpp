@@ -8,7 +8,6 @@
 #include "Display/Display.h"
 #include "Utils/GlobalFunctions.h"
 #include "Utils/Math.h"
-#include "Hardware/FSMC.h"
 #include "Display/Grid.h"
 #include "Hardware/HAL/HAL.h"
 

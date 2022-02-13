@@ -4,7 +4,6 @@
 #include "FPGA_Types.h"
 #include "Menu/Pages/PageMemory.h"
 #include "Display/Display.h"
-#include "Hardware/FSMC.h"
 #include "Panel/Panel.h"
 #include "Panel/Controls.h"
 #include "Settings/Settings.h"

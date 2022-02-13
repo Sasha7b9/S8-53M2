@@ -9,7 +9,6 @@
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"
 #include "VCP/VCP.h"
-#include "Hardware/FSMC.h"
 #include "Utils/Math.h"
 #include "Utils/GlobalFunctions.h"
 #include "FlashDrive/FlashDrive.h"

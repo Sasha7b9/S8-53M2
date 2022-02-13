@@ -10,7 +10,6 @@
 #include "Utils/GlobalFunctions.h"
 #include "FPGA/FPGA.h"
 #include "FPGA/FPGA_Types.h"
-#include "Hardware/FSMC.h"
 #include "Hardware/Sound.h"
 #include "Hardware/EPROM.h"
 #include "Menu/Menu.h"

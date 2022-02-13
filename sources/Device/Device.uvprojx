@@ -1202,11 +1202,6 @@
           <GroupName>Hardware</GroupName>
           <Files>
             <File>
-              <FileName>FSMC.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\FSMC.h</FilePath>
-            </File>
-            <File>
               <FileName>Sound.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\Sound.cpp</FilePath>
@@ -1220,11 +1215,6 @@
               <FileName>Timer.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\Timer.h</FilePath>
-            </File>
-            <File>
-              <FileName>FSMC.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\FSMC.cpp</FilePath>
             </File>
             <File>
               <FileName>MSP_USBH.cpp</FileName>
@@ -3143,11 +3133,6 @@
           <GroupName>Hardware</GroupName>
           <Files>
             <File>
-              <FileName>FSMC.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\FSMC.h</FilePath>
-            </File>
-            <File>
               <FileName>Sound.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\Sound.cpp</FilePath>
@@ -3161,11 +3146,6 @@
               <FileName>Timer.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\Timer.h</FilePath>
-            </File>
-            <File>
-              <FileName>FSMC.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\FSMC.cpp</FilePath>
             </File>
             <File>
               <FileName>MSP_USBH.cpp</FileName>
