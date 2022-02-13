@@ -168,7 +168,7 @@ static const Choice mcInput =
 
 static void OnChanged_Input(bool active)
 {
-    FPGA::SetTrigInput(TRIG_INPUT);
+    TrigInput::Set(TRIG_INPUT);
 }
 
 

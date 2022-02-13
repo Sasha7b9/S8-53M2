@@ -91,9 +91,6 @@ namespace FPGA
     // Установить полярность синхронизации.
     void SetTrigPolarity(TrigPolarity polarity);
 
-    // Установить режим входа синхронизации.
-    void SetTrigInput(TrigInput::E trigInput);
-
     // Запуск функции калибровки.
     void ProcedureCalibration();
 };

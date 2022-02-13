@@ -39,6 +39,9 @@ struct TrigInput
         LPF,              // ФНЧ.
         HPF               // ФВЧ.
     };
+
+    // Установить режим входа синхронизации.
+    static void Set(TrigInput::E trigInput);
 };
 
 
