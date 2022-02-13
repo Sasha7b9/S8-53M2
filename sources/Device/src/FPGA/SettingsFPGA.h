@@ -22,7 +22,7 @@ struct RShift
     static void Set(Chan::E, int16 rShift);
 
     // Загрузка смещения по напряжению в аппаратную часть.
-    static void Load(Chan::E ch);
+    static void Load(Chan::E);
 };
 
 
