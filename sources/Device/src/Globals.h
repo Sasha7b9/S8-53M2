@@ -5,7 +5,6 @@
 #include "Settings/SettingsChannel.h"
 #include "Settings/SettingsTime.h"
 #include <usbd_def.h>
-#include <usbh_def.h>
 
 
 struct DataSettings;
