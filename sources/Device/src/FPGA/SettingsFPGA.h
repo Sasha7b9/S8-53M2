@@ -53,6 +53,12 @@ struct TrigPolarity
         Front,         // Синхронизация по фронту.
         Back           // Синхронизация по срезу.
     };
+
+    // Установить полярность синхронизации.
+    static void Set(TrigPolarity::E polarity);
+
+    // Загузка полярности синхронизации в аппаратную часть.
+    static void Load();
 };
 
 

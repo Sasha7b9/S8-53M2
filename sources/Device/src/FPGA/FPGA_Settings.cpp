@@ -83,9 +83,6 @@ namespace FPGA
     // Загрузка уровня синхронизации в аппаратную часть.
     void LoadTrigLev();
 
-    // Загузка полярности синхронизации в аппаратную часть.
-    void LoadTrigPolarity();
-
     // Загрузить регистр WR_UPR (пиковый детектор и калибратор).
     void LoadRegUPR();
 
@@ -107,7 +104,7 @@ void FPGA::LoadSettings()
     Range::Load(Chan::B);
     RShift::Load(Chan::B);
     LoadTrigLev();
-    LoadTrigPolarity();
+    TrigPolarity::Load();
     LoadRegUPR();
 
     switch(BALANCE_ADC_TYPE) 
@@ -528,16 +525,16 @@ void FPGA::SetTrigSource(TrigSource trigSource)
 }
 
 
-void FPGA::SetTrigPolarity(TrigPolarity::E polarity)
+void TrigPolarity::Set(TrigPolarity::E polarity)
 {
     TRIG_POLARITY = polarity;
-    LoadTrigPolarity();
+    Load();
 }
 
 
-void FPGA::LoadTrigPolarity()
+void TrigPolarity::Load()
 {
-    WriteToHardware(WR_TRIG_F, TRIG_POLARITY_IS_FRONT ? 0x01U : 0x00U, true);
+    FPGA::WriteToHardware(WR_TRIG_F, TRIG_POLARITY_IS_FRONT ? 0x01U : 0x00U, true);
 }
 
 

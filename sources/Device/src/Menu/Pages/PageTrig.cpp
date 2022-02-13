@@ -134,7 +134,7 @@ static const Choice mcPolarity =
 
 static void OnChanged_Polarity(bool active)
 {
-    FPGA::SetTrigPolarity(TRIG_POLARITY);
+    TrigPolarity::Set(TRIG_POLARITY);
 }
 
 

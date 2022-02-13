@@ -88,9 +88,6 @@ namespace FPGA
     // Установить источник синхронизации.
     void SetTrigSource(TrigSource trigSource);
 
-    // Установить полярность синхронизации.
-    void SetTrigPolarity(TrigPolarity::E polarity);
-
     // Запуск функции калибровки.
     void ProcedureCalibration();
 };

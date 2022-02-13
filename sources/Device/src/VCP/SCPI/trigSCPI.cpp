@@ -92,8 +92,8 @@ void SCPI::TRIGGER::POLARITY(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (0 == value)         { FPGA::SetTrigPolarity(TrigPolarity::Front); }
-        else if (1 == value)    { FPGA::SetTrigPolarity(TrigPolarity::Back); }
+        if (0 == value)         { TrigPolarity::Set(TrigPolarity::Front); }
+        else if (1 == value)    { TrigPolarity::Set(TrigPolarity::Back); }
         else if (2 == value)
         {
             SCPI_SEND(":TRIGGER:POLARITY %s", map[TRIG_POLARITY].key);
