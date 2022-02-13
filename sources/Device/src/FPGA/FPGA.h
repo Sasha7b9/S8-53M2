@@ -82,9 +82,6 @@ namespace FPGA
     // Уменьшить масштаб по напряжению.
     bool RangeDecrease(Chan::E);
 
-    // Увеличить масштаб по времени.
-    void TBaseIncrease();
-
     // Установить относительное смещение по напряжению.
     void SetRShift(Chan::E, int16 rShift);
 

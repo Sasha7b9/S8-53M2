@@ -285,7 +285,7 @@ void TBase::Decrease()
 }
 
 
-void FPGA::TBaseIncrease()
+void TBase::Increase()
 {
     if (SET_TBASE < (TBase::Count - 1))
     {

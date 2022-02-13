@@ -355,7 +355,7 @@ void Range1Right()
 void TBaseLeft()
 {
     Sound::RegulatorSwitchRotate();
-    FPGA::TBaseIncrease();
+    TBase::Increase();
 }
 
 void TBaseRight()
