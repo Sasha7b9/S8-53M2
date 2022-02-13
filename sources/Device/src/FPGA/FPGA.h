@@ -43,9 +43,6 @@ namespace FPGA
     // Восстанавливает настройки, ранее сохранённые функцией FPGA_SaveState().
     void RestoreState();
 
-    // Получить значение частоты.
-    float GetFreq();
-
     // Удаляет данные. Нужно для режима рандомизаотра, где информация каждого цикла не является самостоятельной.
     void ClearData();
 
@@ -75,4 +72,10 @@ namespace FPGA
 
     // Запуск функции калибровки.
     void ProcedureCalibration();
+
+    namespace FreqMeter
+    {
+        // Получить значение частоты.
+        float GetFreq();
+    }
 };

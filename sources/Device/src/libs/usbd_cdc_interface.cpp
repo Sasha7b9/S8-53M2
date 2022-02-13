@@ -35,14 +35,12 @@ USBD_CDC_ItfTypeDef USBD_CDC_fops =
 };
 
 
-
 static void SetAttributeConnected()
 {
     CABLE_VCP_IS_CONNECTED = 1;
     CLIENT_VCP_IS_CONNECTED = 0;
     Timer::Disable(TypeTimer::Temp);
 }
-
 
 
 static int8_t CDC_Itf_Init()
@@ -53,7 +51,6 @@ static int8_t CDC_Itf_Init()
 }
 
 
-
 static int8_t CDC_Itf_DeInit()
 {
     CABLE_VCP_IS_CONNECTED = 0;
@@ -61,7 +58,6 @@ static int8_t CDC_Itf_DeInit()
 
     return (USBD_OK);
 }
-
 
 
 static int8_t CDC_Itf_Control (uint8_t cmd, uint8_t* pbuf, uint16_t length)
@@ -121,7 +117,6 @@ static int8_t CDC_Itf_Control (uint8_t cmd, uint8_t* pbuf, uint16_t length)
   
     return (USBD_OK);
 }
-
 
 
 static int8 CDC_Itf_Receive(uint8* buffer, uint *length)

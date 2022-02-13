@@ -22,9 +22,16 @@
 
 namespace FPGA
 {
-    float freq = 0.0f;           // Частота, намеренная альтерой.
-    float prevFreq = 0.0f;
+    namespace FreqMeter
+    {
+        float freq = 0.0f;           // Частота, намеренная альтерой.
+        float prevFreq = 0.0f;
+        bool readPeriod = false;     // Установленный в true флаг означает, что частоту нужно считать по счётчику периода
 
+        void ReadFreq();
+
+        void ReadPeriod();
+    }
 
     volatile int numberMeasuresForGates = 1000;
 
@@ -35,7 +42,6 @@ namespace FPGA
     #undef n
 
     DataSettings ds;
-
 
     uint8 dataRel0[FPGA::MAX_POINTS] = {0};   // Буфер используется для чтения данных первого канала.
     uint8 dataRel1[FPGA::MAX_POINTS] = {0};   // Буфер используется для чтения данных второго канала.
@@ -51,10 +57,6 @@ namespace FPGA
     void ReadPoint();
 
     uint8 ReadFlag();
-
-    void ReadFreq();
-
-    void ReadPeriod();
 
     // Загрузить настройки в аппаратную часть из глобальной структуры SSettings.
     void LoadSettings();
@@ -649,9 +651,6 @@ void FPGA::RestoreState()
 }
 
 
-static bool readPeriod = false;     // Установленный в true флаг означает, что частоту нужно считать по счётчику периода
-
-
 static BitSet32 ReadRegFreq()
 {
     BitSet32 fr;
@@ -686,7 +685,7 @@ static float PeriodCounterToValue(BitSet32 *period)
 }
 
 
-static void FPGA::ReadFreq()            // Чтение счётчика частоты производится после того, как бит 4 флага RD_FL установится в едицину
+void FPGA::FreqMeter::ReadFreq()            // Чтение счётчика частоты производится после того, как бит 4 флага RD_FL установится в едицину
 {                                           // После чтения автоматически запускается новый цикл счёта
     BitSet32 freqFPGA = ReadRegFreq();
 
@@ -710,7 +709,7 @@ static void FPGA::ReadFreq()            // Чтение счётчика частоты производится 
 }
 
 
-void FPGA::ReadPeriod()
+void FPGA::FreqMeter::ReadPeriod()
 {
     BitSet32 periodFPGA = ReadRegPeriod();
     float fr = PeriodCounterToValue(&periodFPGA);
@@ -730,16 +729,16 @@ void FPGA::ReadPeriod()
 static uint8 FPGA::ReadFlag()
 {
     uint8 flag = HAL_FMC::Read(RD_FL);
-    if(!readPeriod) 
+    if(!FreqMeter::readPeriod) 
     {
         if(_GET_BIT(flag, BIT_FREQ_READY)) 
         {
-            ReadFreq();
+            FreqMeter::ReadFreq();
         }
     }
-    if(readPeriod && _GET_BIT(flag, BIT_PERIOD_READY)) 
+    if(FreqMeter::readPeriod && _GET_BIT(flag, BIT_PERIOD_READY)) 
     {
-        ReadPeriod();
+        FreqMeter::ReadPeriod();
     }
 
     return flag;
@@ -776,7 +775,7 @@ static float CalculateFreqFromCounterPeriod()
 }
 
 
-float FPGA::GetFreq() 
+float FPGA::FreqMeter::GetFreq() 
 {
     return freq;
 }
@@ -1071,7 +1070,8 @@ TBase::E FPGA::FindTBase(Chan::E ch)
     else
     {
         TrigInput::Set(TrigInput::LPF);
-        freq = CalculateFreqFromCounterPeriod();
+        FreqMeter::freq = CalculateFreqFromCounterPeriod();
+
         if (fr > 0.0f)
         {
             tBase = CalculateTBase(fr);
