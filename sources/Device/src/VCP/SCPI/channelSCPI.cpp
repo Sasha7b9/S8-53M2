@@ -139,25 +139,25 @@ void SCPI::CHANNEL::RANGE(uint8 *buffer)
 {
     static const MapElement map[] = 
     {
-        {"2MV",   (uint8)Range_2mV},
-        {"5MV",   (uint8)Range_5mV},
-        {"10MV",  (uint8)Range_10mV},
-        {"20MV",  (uint8)Range_20mV},
-        {"50MV",  (uint8)Range_50mV},
-        {"100MV", (uint8)Range_100mV},
-        {"200MV", (uint8)Range_200mV},
-        {"500MV", (uint8)Range_500mV},
-        {"1V",    (uint8)Range_1V},
-        {"2V",    (uint8)Range_2V},
-        {"5V",    (uint8)Range_5V},
-        {"10V",   (uint8)Range_10V},
-        {"20V",   (uint8)Range_20V},
-        {"?",     (uint8)RangeSize},
+        {"2MV",   (uint8)Range::_2mV},
+        {"5MV",   (uint8)Range::_5mV},
+        {"10MV",  (uint8)Range::_10mV},
+        {"20MV",  (uint8)Range::_20mV},
+        {"50MV",  (uint8)Range::_50mV},
+        {"100MV", (uint8)Range::_100mV},
+        {"200MV", (uint8)Range::_200mV},
+        {"500MV", (uint8)Range::_500mV},
+        {"1V",    (uint8)Range::_1V},
+        {"2V",    (uint8)Range::_2V},
+        {"5V",    (uint8)Range::_5V},
+        {"10V",   (uint8)Range::_10V},
+        {"20V",   (uint8)Range::_20V},
+        {"?",     (uint8)Range::Count},
         {0}
     };
     ENTER_ANALYSIS
-        if (value <= (uint8)Range_20V)      { FPGA::SetRange(ch, (Range)value); }
-        else if (value == (uint8)RangeSize)
+        if (value <= (uint8)Range::_20V)      { FPGA::SetRange(ch, (Range::E)value); }
+        else if (value == (uint8)Range::Count)
         {
             SCPI_SEND(":CHANNEL%d:SET_RANGE %s", Tables_GetNumChannel(ch), map[SET_RANGE(ch)].key);
         }

@@ -67,28 +67,31 @@ struct TBase
 
 
 // Масштаб по напряжению.
-enum Range
+struct Range
 {
-    Range_2mV,
-    Range_5mV,
-    Range_10mV,
-    Range_20mV,
-    Range_50mV,
-    Range_100mV,
-    Range_200mV,
-    Range_500mV,
-    Range_1V,
-    Range_2V,
-    Range_5V,
-    Range_10V,
-    Range_20V,
-    RangeSize
+    enum E
+    {
+        _2mV,
+        _5mV,
+        _10mV,
+        _20mV,
+        _50mV,
+        _100mV,
+        _200mV,
+        _500mV,
+        _1V,
+        _2V,
+        _5V,
+        _10V,
+        _20V,
+        Count
+    };
 };
 
-Range& operator++(Range &range);
-Range& operator--(Range &range);
+Range::E &operator++(Range::E &range);
+Range::E &operator--(Range::E &range);
 
-const char *RangeName(Range range);
+const char *RangeName(Range::E range);
 
 
 struct PackedTime
@@ -111,7 +114,7 @@ struct DataSettings
     uint        trigLevCh0      : 10;   // Уровень синхронизации
     int16       tShift;                 // Смещение по времени
     ModeCouple  modeCouple1     : 2;
-    Range       range[2];               // Масштаб по напряжению обоих каналов.
+    Range::E    range[2];               // Масштаб по напряжению обоих каналов.
 
     uint        trigLevCh1      : 10;
     uint        length1channel  : 11;   // Сколько занимает в байтах длина измерения одного канала

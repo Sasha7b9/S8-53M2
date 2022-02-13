@@ -85,7 +85,7 @@ namespace FPGA
 
     void ReadRealMode(bool necessaryShift);
 
-    Range AccurateFindRange(Chan::E);
+    Range::E AccurateFindRange(Chan::E);
 
     TBase::E FindTBase(Chan::E);
 
@@ -610,12 +610,12 @@ void FPGA::SaveState()
 
 void FPGA::RestoreState()
 {
-    int16 rShiftAdd[2][RangeSize][2];
+    int16 rShiftAdd[2][Range::Count][2];
     for (int ch = 0; ch < 2; ch++)
     {
         for (int mode = 0; mode < 2; mode++)
         {
-            for (int range = 0; range < RangeSize; range++)
+            for (int range = 0; range < Range::Count; range++)
             {
                 rShiftAdd[ch][range][mode] = RSHIFT_ADD(ch, range, mode);
             }
@@ -626,7 +626,7 @@ void FPGA::RestoreState()
     {
         for (int mode = 0; mode < 2; mode++)
         {
-            for (int range = 0; range < RangeSize; range++)
+            for (int range = 0; range < Range::Count; range++)
             {
                  RSHIFT_ADD(ch, range, mode) = rShiftAdd[ch][range][mode];
             }
@@ -920,9 +920,9 @@ bool FPGA::FindWave(Chan::E ch)
     FPGA::SetTrigLev((TrigSource)ch, TrigLevZero);
     FPGA::SetRShift(ch, RShiftZero);
     FPGA::SetModeCouple(ch, ModeCouple_AC);
-    Range range = AccurateFindRange(ch);
+    Range::E range = AccurateFindRange(ch);
     //LOG_WRITE("Range %s", RangeName(range));
-    if(range != RangeSize)
+    if(range != Range::Count)
     {
         SET_RANGE(ch) = range;
         TBase::E tBase = AccurateFindTBase(ch);
@@ -940,7 +940,7 @@ bool FPGA::FindWave(Chan::E ch)
 }
 
 
-Range FPGA::AccurateFindRange(Chan::E ch)
+Range::E FPGA::AccurateFindRange(Chan::E ch)
 {
     /*
     Алгоритм поиска.
@@ -961,11 +961,11 @@ Range FPGA::AccurateFindRange(Chan::E ch)
     FPGA::SetModeCouple(ch, ModeCouple_AC);
     PeackDetMode peackDetMode = PEAKDET;
     FPGA::SetPeackDetMode(PeackDet_Enable);
-    for (int range = RangeSize - 1; range >= 0; range--)
+    for (int range = Range::Count - 1; range >= 0; range--)
     {
         //Timer::LogPointMS("1");
         FPGA::Stop(false);
-        FPGA::SetRange(ch, (Range)range);
+        FPGA::SetRange(ch, (Range::E)range);
         Timer::PauseOnTime(10);
         FPGA::Start();
 
@@ -1001,34 +1001,27 @@ Range FPGA::AccurateFindRange(Chan::E ch)
             }
         }
 
-        /*
-        if(ch == Chan::A)
-        {
-            LOG_WRITE("min = %d, max = %d", CalculateMinWithout0(buffer), CalculateMaxWithout255(buffer));
-        }
-        */
-
         if (CalculateMinWithout0(buffer) < MIN_VALUE || CalculateMaxWithout255(buffer) > MAX_VALUE)
         {
-            if (range < Range_20V)
+            if (range < Range::_20V)
             {
                 range++;
             }
             FPGA::SetPeackDetMode(peackDetMode);
-            return (Range)range;
+            return (Range::E)range;
         }
 
         uint8 min = AVE_VALUE - 30;
         uint8 max = AVE_VALUE + 30;
 
-        if(range == Range_2mV && CalculateMinWithout0(buffer) > min && CalculateMaxWithout255(buffer) < max)
+        if(range == Range::_2mV && CalculateMinWithout0(buffer) > min && CalculateMaxWithout255(buffer) < max)
         {
             FPGA::SetPeackDetMode(peackDetMode);
-            return RangeSize;
+            return Range::Count;
         }
     }
     FPGA::SetPeackDetMode(peackDetMode);
-    return RangeSize;
+    return Range::Count;
 }
 
 

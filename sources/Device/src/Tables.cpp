@@ -149,18 +149,18 @@ const char* Tables_GetTBaseStringEN(TBase::E tBase)
 }
 
 
-const char* Tables_RangeNameFromValue(Range range)
+const char* Tables_RangeNameFromValue(Range::E range)
 {
-    static const char* names[RangeSize] =
+    static const char* names[Range::Count] =
     {
-        "Range_2mV",
-        "Range_5mV",
-        "Range_10mV",
+        "Range::_2mV",
+        "Range::_5mV",
+        "Range::_10mV",
         "Range_20mV",
         "Range_50mV",
         "Range_100mV",
         "Range_200mV",
-        "Range_500mV",
+        "Range::_500mV",
         "Range_1V",
         "Range_2V",
         "Range_5V",

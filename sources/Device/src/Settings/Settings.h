@@ -25,10 +25,10 @@ struct SettingsChannel
 {
     float       stretchADC;                 // Поправочный коэффициент.
     int16       rShiftRel;
-    int16       rShiftAdd[RangeSize][2];    // Добавочное смещение для открытого (0) и закрытого (1) входов.
+    int16       rShiftAdd[Range::Count][2];    // Добавочное смещение для открытого (0) и закрытого (1) входов.
     ModeCouple  modeCouple;                 // Режим по входу.
     Divider     divider;                    // Множитель.
-    Range       range;                      // Масштаб по напряжению.
+    Range::E    range;                      // Масштаб по напряжению.
     bool        enable;                     // Включён ли канал.
     bool        inverse;                    // Инвертирован ли канал.
     bool        filtr;                      // Фильтр
@@ -170,7 +170,7 @@ struct SettingsDebug
     StretchADCtype  stretchADCtype;             // Тип растяжки канала.
     int16           stretchADC[2];              // Значение растяжки канала для ручного режима.
     //RShiftADCtype   rShiftADCtype;
-    //int16           rShiftADC[RangeSize][2];    // Дополнительное смещение для каналов в режиме ручного управления. 0 - range == Range_2mV, 1 - все остальные
+    //int16           rShiftADC[Range::Count][2];    // Дополнительное смещение для каналов в режиме ручного управления. 0 - range == Range::_2mV, 1 - все остальные
     int16           numMeasuresForGates;        // Число измерений для ворот.
     int16           shiftT0;                    // Дополнительное смещение по времени для данной развёртки режима рандомизатора.
     bool            showStats;                  // Показывать статистику на экране (fps, например).

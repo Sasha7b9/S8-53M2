@@ -10,7 +10,7 @@
 #include "Hardware/HAL/HAL.h"
 
 
-static const uint8 masksRange[RangeSize] =
+static const uint8 masksRange[Range::Count] =
 {
     BINARY_U8(0000000),
     BINARY_U8(1000000),
@@ -188,13 +188,13 @@ void FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog type)
 }
 
 
-void FPGA::SetRange(Chan::E ch, Range range)
+void FPGA::SetRange(Chan::E ch, Range::E range)
 {
     if (!sChannel_Enabled(ch))
     {
         return;
     }
-    if (range < RangeSize && (int)range >= 0)
+    if (range < Range::Count && (int)range >= 0)
     {
         float rShiftAbs = RSHIFT_2_ABS(SET_RSHIFT(ch), SET_RANGE(ch));
         float trigLevAbs = RSHIFT_2_ABS(TRIG_LEVEL(ch), SET_RANGE(ch));
@@ -328,7 +328,7 @@ void FPGA::LoadRShift(Chan::E ch)
 {
     static const uint16 mask[2] = {0x2000, 0x6000};
 
-    Range range = SET_RANGE(ch);
+    Range::E range = SET_RANGE(ch);
     ModeCouple mode = SET_COUPLE(ch);
     static const int index[3] = {0, 1, 1};
     int16 rShiftAdd = RSHIFT_ADD(ch, range, index[mode]);
@@ -489,9 +489,9 @@ const char *FPGA::GetTShiftString(int16 tShiftRel, char buffer[20])
 bool FPGA::RangeIncrease(Chan::E ch)
 {
     bool retValue = false;
-    if (SET_RANGE(ch) < RangeSize - 1)
+    if (SET_RANGE(ch) < Range::Count - 1)
     {
-        SetRange(ch, (Range)(SET_RANGE(ch) + 1));
+        SetRange(ch, (Range::E)(SET_RANGE(ch) + 1));
         retValue = true;
     }
     else
@@ -508,7 +508,7 @@ bool FPGA::RangeDecrease(Chan::E ch)
     bool retValue = false;
     if (SET_RANGE(ch) > 0)
     {
-        SetRange(ch, (Range)(SET_RANGE(ch) - 1));
+        SetRange(ch, (Range::E)(SET_RANGE(ch) - 1));
         retValue = true;
     }
     else

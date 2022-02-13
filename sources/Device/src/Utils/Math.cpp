@@ -8,7 +8,7 @@
 #include <math.h>
 
 
-const float tableScalesRange[RangeSize] = {2e-3f, 5e-3f, 10e-3f, 20e-3f, 50e-3f, 100e-3f, 200e-3f, 500e-3f, 1.0f, 2.0f, 5.0f, 10.0f, 20.0f};
+const float tableScalesRange[Range::Count] = {2e-3f, 5e-3f, 10e-3f, 20e-3f, 50e-3f, 100e-3f, 200e-3f, 500e-3f, 1.0f, 2.0f, 5.0f, 10.0f, 20.0f};
 /*
 static const float tableScalesTBase[TBase::Count] = 
     {2e-9, 5e-9, 10e-9, 20e-9, 50e-9, 100e-9, 200e-9, 500e-9,
@@ -85,7 +85,7 @@ int Math_MinFrom2Int(int val0, int val1)
     return val1;
 }
 
-int Math_RShift2Rel(float rShiftAbs, Range range)
+int Math_RShift2Rel(float rShiftAbs, Range::E range)
 {
     int retValue = RShiftZero + rShiftAbs / absStepRShift[range];
     if(retValue < RShiftMin)
@@ -99,7 +99,7 @@ int Math_RShift2Rel(float rShiftAbs, Range range)
     return retValue;
 };
 
-float Math_VoltageCursor(float shiftCurU, Range range, int16 rShift)
+float Math_VoltageCursor(float shiftCurU, Range::E range, int16 rShift)
 {
     return MAX_VOLTAGE_ON_SCREEN(range) - shiftCurU * voltsInPixel[range] - RSHIFT_2_ABS(rShift, range);
 }
@@ -154,7 +154,7 @@ void Math_DataExtrapolation(uint8 *data, uint8 *there, int size)
     }
 }
 
-void Math_PointsRelToVoltage(const uint8 *points, int numPoints, Range range, int16 rShift, float *voltage)
+void Math_PointsRelToVoltage(const uint8 *points, int numPoints, Range::E range, int16 rShift, float *voltage)
 {
     int voltInPixel = voltsInPixelInt[range];
     float maxVoltsOnScreen = MAX_VOLTAGE_ON_SCREEN(range);
@@ -167,7 +167,7 @@ void Math_PointsRelToVoltage(const uint8 *points, int numPoints, Range range, in
     }
 }
 
-void Math_PointsVoltageToRel(const float *voltage, int numPoints, Range range, int16 rShift, uint8 *points)
+void Math_PointsVoltageToRel(const float *voltage, int numPoints, Range::E range, int16 rShift, uint8 *points)
 {
     float maxVoltOnScreen = MAX_VOLTAGE_ON_SCREEN(range);
     float rShiftAbs = RSHIFT_2_ABS(rShift, range);
@@ -194,7 +194,7 @@ void Math_PointsVoltageToRel(const float *voltage, int numPoints, Range range, i
     }
 }
 
-uint8 Math_VoltageToPoint(float voltage, Range range, int16 rShift)
+uint8 Math_VoltageToPoint(float voltage, Range::E range, int16 rShift)
 {
     int relValue = (voltage + MAX_VOLTAGE_ON_SCREEN(range) + RSHIFT_2_ABS(rShift, range)) / voltsInPixel[range] + MIN_VALUE;
     LIMITATION(relValue, relValue, 0, 255);

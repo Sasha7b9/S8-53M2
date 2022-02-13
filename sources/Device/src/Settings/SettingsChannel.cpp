@@ -14,7 +14,7 @@ struct RangeStruct
 
 
 // Массив структур описаний масштабов по напряжению.
-static const RangeStruct ranges[RangeSize] =
+static const RangeStruct ranges[Range::Count] =
 {
     {{{"2\x10мВ",     "20\x10мВ"}, {"2\x10mV",  "20\x10mV"}}},
     {{{"5\x10мВ",     "50\x10мВ"}, {"5\x10mV",  "50\x10mV"}}},
@@ -33,7 +33,7 @@ static const RangeStruct ranges[RangeSize] =
 
 
 
-void sChannel_SetRange(Chan::E ch, Range range)
+void sChannel_SetRange(Chan::E ch, Range::E range)
 {
     SET_RANGE(ch) = range;
 }
@@ -62,13 +62,13 @@ bool sChannel_Enabled(Chan::E ch)
 }
 
 
-const char* sChannel_Range2String(Range range, Divider multiplier)
+const char* sChannel_Range2String(Range::E range, Divider multiplier)
 {
     return ranges[range].name[set.common.lang][multiplier];
 }
 
 
-const char* sChannel_RShift2String(int16 rShiftRel, Range range, Divider multiplier, char buffer[20])
+const char* sChannel_RShift2String(int16 rShiftRel, Range::E range, Divider multiplier, char buffer[20])
 {
     float rShiftVal = RSHIFT_2_ABS(rShiftRel, range) * sChannel_MultiplierRel2Abs(multiplier);
     return Voltage2String(rShiftVal, true, buffer);

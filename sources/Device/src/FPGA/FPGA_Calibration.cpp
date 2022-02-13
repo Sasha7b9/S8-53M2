@@ -21,7 +21,7 @@ extern void LoadStretchADC(Chan::E ch);
 
 namespace FPGA
 {
-    static int16 CalculateAdditionRShift(Chan::E ch, Range range);   // Измерить добавочное смещение канала по напряжению.
+    static int16 CalculateAdditionRShift(Chan::E ch, Range::E range);   // Измерить добавочное смещение канала по напряжению.
     static float CalculateKoeffCalibration(Chan::E ch);              // Измерить коэффициент калибровки канала по напряжению.
     static void  AlignmentADC();
     static void  FuncAttScreen();                                    // Функция обновления экрана в режиме калибровки.
@@ -92,8 +92,8 @@ void FPGA::ProcedureCalibration()
         STRETCH_ADC_B = 1.0f;
         FPGA::LoadKoeffCalibration(Chan::A);
         FPGA::LoadKoeffCalibration(Chan::B);
-        FPGA::SetRange(Chan::A, Range_500mV);
-        FPGA::SetRange(Chan::B, Range_500mV);
+        FPGA::SetRange(Chan::A, Range::_500mV);
+        FPGA::SetRange(Chan::B, Range::_500mV);
         FPGA::SetRShift(Chan::A, RShiftZero);
         FPGA::SetRShift(Chan::B, RShiftZero);
         FPGA::SetModeCouple(Chan::A, ModeCouple_GND);
@@ -131,15 +131,15 @@ void FPGA::ProcedureCalibration()
                 FPGA::LoadKoeffCalibration(Chan::A);
             }
 
-            for (int range = 0; range < RangeSize; range++)
+            for (int range = 0; range < Range::Count; range++)
             {
                 for (int mode = 0; mode < 2; mode++)
                 {
-                    if (!(mode == 0 && (range == Range_2mV || range == Range_5mV || range == Range_10mV)))
+                    if (!(mode == 0 && (range == Range::_2mV || range == Range::_5mV || range == Range::_10mV)))
                     {
                         FPGA::SetModeCouple(Chan::A, (ModeCouple)mode);
                         RSHIFT_ADD(Chan::A, range, mode) = 0;
-                        RSHIFT_ADD(Chan::A, range, mode) = CalculateAdditionRShift(Chan::A, (Range)range);
+                        RSHIFT_ADD(Chan::A, range, mode) = CalculateAdditionRShift(Chan::A, (Range::E)range);
                     }
                 }
             }
@@ -167,15 +167,15 @@ void FPGA::ProcedureCalibration()
                 FPGA::LoadKoeffCalibration(Chan::B);
             }
 
-            for (int range = 0; range < RangeSize; range++)
+            for (int range = 0; range < Range::Count; range++)
             {
                 for (int mode = 0; mode < 2; mode++)
                 {
-                    if (!(mode == 0 && (range == Range_2mV || range == Range_5mV || range == Range_10mV)))
+                    if (!(mode == 0 && (range == Range::_2mV || range == Range::_5mV || range == Range::_10mV)))
                     {
                         FPGA::SetModeCouple(Chan::B, (ModeCouple)mode);
                         RSHIFT_ADD(Chan::B, range, mode) = 0;
-                        RSHIFT_ADD(Chan::B, range, mode) = CalculateAdditionRShift(Chan::B, (Range)range);
+                        RSHIFT_ADD(Chan::B, range, mode) = CalculateAdditionRShift(Chan::B, (Range::E)range);
                     }
                 }
             }
@@ -242,7 +242,7 @@ void FPGA::FuncAttScreen()
 
                 Painter::DrawText(10 + dX, 55 + dY, "Поправка нуля 1к :");
                 Painter::DrawText(10 + dX, 80 + dY, "Поправка нуля 2к :");
-                for (int i = 0; i < RangeSize; i++)
+                for (int i = 0; i < Range::Count; i++)
                 {
                     Painter::DrawFormatText(95 + i * 16 + dX, 55 + dY, COLOR_FILL, "%d", RSHIFT_ADD(Chan::A, i, 0));
                     Painter::DrawFormatText(95 + i * 16 + dX, 65 + dY, COLOR_FILL, "%d", RSHIFT_ADD(Chan::A, i, 1));
@@ -410,7 +410,7 @@ void FPGA::AlignmentADC()
 }
 
 
-int16 FPGA::CalculateAdditionRShift(Chan::E ch, Range range)
+int16 FPGA::CalculateAdditionRShift(Chan::E ch, Range::E range)
 {
     FPGA::SetRange(ch, range);
     FPGA::SetRShift(ch, RShiftZero);

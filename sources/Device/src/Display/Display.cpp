@@ -2062,7 +2062,7 @@ void Display::WriteTextVoltage(Chan::E ch, int x, int y)
     bool inverse = SET_INVERSE(ch);
     ModeCouple modeCouple = SET_COUPLE(ch);
     Divider multiplier = SET_DIVIDER(ch);
-    Range range = SET_RANGE(ch);
+    Range::E range = SET_RANGE(ch);
     uint rShift = (uint)SET_RSHIFT(ch);
     bool enable = SET_ENABLED(ch);
 

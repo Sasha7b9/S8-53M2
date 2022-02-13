@@ -31,19 +31,19 @@
 
 #define PI 3.141592653589793f
 
-extern const float tableScalesRange[RangeSize];
+extern const float tableScalesRange[Range::Count];
 extern const float absStepRShift[];
 extern const float voltsInPixel[];
 extern const float absStepTShift[];
 
 int     Math_MinFrom2Int(int val0, int val1);
-int     Math_RShift2Rel(float rShiftAbs, Range range);
-float   Math_VoltageCursor(float shiftCurU, Range range, int16 rShift);
+int     Math_RShift2Rel(float rShiftAbs, Range::E range);
+float   Math_VoltageCursor(float shiftCurU, Range::E range, int16 rShift);
 float   Math_TimeCursor(float shiftCurT, TBase::E tBase);
 void    Math_DataExtrapolation(uint8 *data, uint8 *there, int size);
-void    Math_PointsRelToVoltage(const uint8 *points, int numPoints, Range range, int16 rShift, float *voltage);
-uint8   Math_VoltageToPoint(float voltage, Range range, int16 rShift);
-void	Math_PointsVoltageToRel(const float *voltage, int numPoints, Range range, int16 rShift, uint8 *points);
+void    Math_PointsRelToVoltage(const uint8 *points, int numPoints, Range::E range, int16 rShift, float *voltage);
+uint8   Math_VoltageToPoint(float voltage, Range::E range, int16 rShift);
+void	Math_PointsVoltageToRel(const float *voltage, int numPoints, Range::E range, int16 rShift, uint8 *points);
 uint8   Math_GetMaxFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint);
 uint8   Math_GetMinFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint);
 uint8   Math_GetMaxFromArray(const uint8 *data, int firstPoint, int lastPoint);

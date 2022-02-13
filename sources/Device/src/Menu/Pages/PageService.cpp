@@ -327,7 +327,7 @@ static void OnRegSet_Math_Function(int delta)
 
         if (sum > 2)
         {
-            if (SET_RANGE_MATH < RangeSize - 1)
+            if (SET_RANGE_MATH < Range::Count - 1)
             {
                 ++SET_RANGE_MATH;
                 SET_RSHIFT_MATH = (int16)Math_RShift2Rel(rShiftAbs, SET_RANGE_MATH);

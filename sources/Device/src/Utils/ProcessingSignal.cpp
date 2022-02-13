@@ -175,7 +175,7 @@ float Processing::CalculateVoltageMaxSteady(Chan::E ch)
         markerHor[ch][0] = max;
     }
 
-    Range range = dataSet->range[ch];
+    Range::E range = dataSet->range[ch];
     uint rShift = ch == Chan::A ? dataSet->rShiftCh0 : dataSet->rShiftCh1;
 
     return (POINT_2_VOLTAGE(max, range, rShift) * VALUE_MULTIPLIER(ch));
@@ -1135,7 +1135,7 @@ void Processing::CountedToCurrentSettings()
  
     if (dataSet->enableCh0 == 1U && (dataSet->range[0] != SET_RANGE_A || dataSet->rShiftCh0 != (uint)SET_RSHIFT_A))
     {
-        Range range = SET_RANGE_A;
+        Range::E range = SET_RANGE_A;
         int16 rShift = SET_RSHIFT_A;
 
         for (int i = 0; i < numPoints; i++)
@@ -1150,7 +1150,7 @@ void Processing::CountedToCurrentSettings()
     }
     if (dataSet->enableCh1 == 1 && (dataSet->range[1] != SET_RANGE_B || dataSet->rShiftCh1 != (uint)SET_RSHIFT_B))
     {
-        Range range = SET_RANGE_B;
+        Range::E range = SET_RANGE_B;
         int16 rShift = SET_RSHIFT_B;
 
         for (int i = 0; i < numPoints; i++)
