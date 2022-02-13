@@ -4,14 +4,6 @@
 #include "Settings/SettingsTypes.h"
 #include "Settings/SettingsChannel.h"
 #include "Settings/SettingsTime.h"
-#include <stm32f4xx_hal_def.h>
-#include "stm32f4xx_hal_conf.h"
-#include <stm32f4xx_hal_hcd.h>
-#include <stm32f4xx_hal_pcd.h>
-#include <stm32f4xx_hal_dma.h>
-#include <stm32f4xx_hal_spi.h>
-#include <stm32f4xx_hal_adc.h>
-#include <stm32f4xx_hal_dac.h>
 #include <usbd_def.h>
 #include <usbh_def.h>
 

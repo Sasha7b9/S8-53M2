@@ -9,9 +9,6 @@
 #endif
 
 
-#include <stm32f4xx_hal.h>
-
-
 #define NUM_VER "1.3"
 
 
