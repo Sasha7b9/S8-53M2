@@ -15,6 +15,8 @@ namespace HAL_TIM6
             TIM_CLOCKDIVISION_DIV1  // Init.ClockDivision
         }
     };
+
+    void *handle = &handleTIM6forTimer;
 }
 
 
@@ -34,23 +36,3 @@ void HAL_TIM6::Init()
         ERROR_HANDLER();
     }
 }
-
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
-    void TIM6_DAC_IRQHandler()
-    {
-        if (__HAL_TIM_GET_FLAG(&HAL_TIM6::handleTIM6forTimer, TIM_FLAG_UPDATE) == SET && __HAL_TIM_GET_ITSTATUS(&HAL_TIM6::handleTIM6forTimer, TIM_IT_UPDATE))
-        {
-            Timer::Update1ms();
-            __HAL_TIM_CLEAR_FLAG(&HAL_TIM6::handleTIM6forTimer, TIM_FLAG_UPDATE);
-            __HAL_TIM_CLEAR_IT(&HAL_TIM6::handleTIM6forTimer, TIM_IT_UPDATE);
-        }
-    }
-
-#ifdef __cplusplus
-}
-#endif

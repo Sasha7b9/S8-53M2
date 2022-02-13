@@ -4,6 +4,7 @@
 #include "VCP/VCP.h"
 #include "Log.h"
 #include "Hardware/HAL/HAL.h"
+#include "Hardware/Timer.h"
 #include <usbd_cdc_interface.h>
 
 
@@ -106,6 +107,17 @@ void DMA1_Stream5_IRQHandler()
 void OTG_FS_IRQHandler()
 {
     HAL_PCD_IRQHandler((PCD_HandleTypeDef *)VCP::handlePCD);
+}
+
+
+void TIM6_DAC_IRQHandler()
+{
+    if (__HAL_TIM_GET_FLAG((TIM_HandleTypeDef *)HAL_TIM6::handle, TIM_FLAG_UPDATE) == SET && __HAL_TIM_GET_ITSTATUS((TIM_HandleTypeDef *)HAL_TIM6::handle, TIM_IT_UPDATE))
+    {
+        Timer::Update1ms();
+        __HAL_TIM_CLEAR_FLAG((TIM_HandleTypeDef *)HAL_TIM6::handle, TIM_FLAG_UPDATE);
+        __HAL_TIM_CLEAR_IT((TIM_HandleTypeDef *)HAL_TIM6::handle, TIM_IT_UPDATE);
+    }
 }
 
 #ifdef __cplusplus
