@@ -271,7 +271,7 @@ bool FPGA::IsRunning()
 #define WRITE_AND_OR_INVERSE(addr, data, ch)                                                      \
     if(SET_INVERSE(ch))                                                                   \
     {                                                                                               \
-        data = (uint8)((int)(2 * AVE_VALUE) - LimitationUInt8(data, ValueFPGA::MIN, MAX_VALUE));    \
+        data = (uint8)((int)(2 * ValueFPGA::AVE) - LimitationUInt8(data, ValueFPGA::MIN, MAX_VALUE));    \
     }                                                                                               \
     *addr = data;
 
@@ -807,7 +807,7 @@ void FPGA::InverseDataIsNecessary(Chan::E ch, uint8 *data)
     {
         for (int i = 0; i < FPGA::MAX_POINTS; i++)
         {
-            data[i] = (uint8)((int)(2 * AVE_VALUE) - LimitationUInt8(data[i], ValueFPGA::MIN, MAX_VALUE));
+            data[i] = (uint8)((int)(2 * ValueFPGA::AVE) - LimitationUInt8(data[i], ValueFPGA::MIN, MAX_VALUE));
         }
     }
 }
@@ -1012,8 +1012,8 @@ Range::E FPGA::AccurateFindRange(Chan::E ch)
             return (Range::E)range;
         }
 
-        uint8 min = AVE_VALUE - 30;
-        uint8 max = AVE_VALUE + 30;
+        uint8 min = ValueFPGA::AVE - 30;
+        uint8 max = ValueFPGA::AVE + 30;
 
         if(range == Range::_2mV && CalculateMinWithout0(buffer) > min && CalculateMaxWithout255(buffer) < max)
         {
@@ -1143,9 +1143,9 @@ void FPGA::FindAndSetTrigLevel()
 
     uint8 aveValue = (uint8)(((int)min + (int)max) / 2);
 
-    static const float scale = (float)(TrigLev::MAX - TrigLev::ZERO) / (float)(MAX_VALUE - AVE_VALUE) / 2.4f;
+    static const float scale = (float)(TrigLev::MAX - TrigLev::ZERO) / (float)(MAX_VALUE - ValueFPGA::AVE) / 2.4f;
 
-    int16 trigLev = TrigLev::ZERO + scale * ((int)aveValue - AVE_VALUE) - (SET_RSHIFT(chanTrig) - RShift::ZERO);
+    int16 trigLev = TrigLev::ZERO + scale * ((int)aveValue - ValueFPGA::AVE) - (SET_RSHIFT(chanTrig) - RShift::ZERO);
 
     TrigLev::Set(trigSource, trigLev);
 }

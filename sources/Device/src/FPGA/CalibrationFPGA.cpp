@@ -329,8 +329,8 @@ void FPGA::DrawParametersChannel(Chan::E ch, int eX, int eY, bool inProgress)
         int y = eY + (inProgress ? 110 : 0);
         Painter::DrawText(x, y, "Отклонение от нуля:");
         char buffer[100] = {0};
-        sprintf(buffer, "АЦП1 = %.2f/%.2f, АЦП2 = %.2f/%.2f, d = %.2f/%.2f", avrADC1old[ch] - AVE_VALUE, avrADC1[ch] - AVE_VALUE, 
-                                                                             avrADC2old[ch] - AVE_VALUE, avrADC2[ch] - AVE_VALUE,
+        sprintf(buffer, "АЦП1 = %.2f/%.2f, АЦП2 = %.2f/%.2f, d = %.2f/%.2f", avrADC1old[ch] - ValueFPGA::AVE, avrADC1[ch] - ValueFPGA::AVE, 
+                                                                             avrADC2old[ch] - ValueFPGA::AVE, avrADC2[ch] - ValueFPGA::AVE,
                                                                              deltaADCold[ch], deltaADC[ch]);
         y += 10;
         Painter::DrawText(x, y, buffer);
@@ -465,7 +465,7 @@ int16 FPGA::CalculateAdditionRShift(Chan::E ch, Range::E range)
     }
 
     float aveValue = (float)sum / numPoints;
-    int16 retValue = -(aveValue - AVE_VALUE) * 2;
+    int16 retValue = -(aveValue - ValueFPGA::AVE) * 2;
 
     if(retValue < - 100 || retValue > 100)
     {
@@ -522,24 +522,24 @@ float FPGA::CalculateKoeffCalibration(Chan::E ch)
         for(int j = 0; j < FPGA::MAX_POINTS; j += 2)
         {
             uint8 val0 = HAL_FMC::Read(addressRead1);
-            if(val0 > AVE_VALUE + 60)
+            if(val0 > ValueFPGA::AVE + 60)
             {
                 numMAX++;
                 sumMAX += val0;
             }
-            else if(val0 < AVE_VALUE - 60)
+            else if(val0 < ValueFPGA::AVE - 60)
             {
                 numMIN++;
                 sumMIN += val0;
             }
 
             uint8 val1 = HAL_FMC::Read(addressRead2);
-            if(val1 > AVE_VALUE + 60)
+            if(val1 > ValueFPGA::AVE + 60)
             {
                 numMAX++;
                 sumMAX += val1;
             }
-            else if(val1 < AVE_VALUE - 60)
+            else if(val1 < ValueFPGA::AVE - 60)
             {
                 numMIN++;
                 sumMIN += val1;

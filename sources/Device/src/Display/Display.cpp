@@ -2364,8 +2364,8 @@ void Display::ResetP2Ppoints(bool empty)
 {
     dataP2PIsEmpty = empty;
     lastP2Pdata = 0;
-    memset(dataP2P_0, AVE_VALUE, NUM_P2P_POINTS);
-    memset(dataP2P_1, AVE_VALUE, NUM_P2P_POINTS);
+    memset(dataP2P_0, ValueFPGA::AVE, NUM_P2P_POINTS);
+    memset(dataP2P_1, ValueFPGA::AVE, NUM_P2P_POINTS);
 }
 
 
