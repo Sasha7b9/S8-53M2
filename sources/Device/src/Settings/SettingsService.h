@@ -34,14 +34,14 @@ enum ColorScheme
 
 
 // Настройки меню СЕРВИС.
-typedef struct
+struct SettingsService
 { //-V802
     bool            screenWelcomeEnable;    // Будет ли показываться экран приглашения при включении прибора. \todo убрать этот артефакт.
     bool            soundEnabled;           // Включены ли звуки.
     CalibratorMode  calibrator;             // Режим работы калибратора.
     int8            IPaddress;              // IP-адрес (временно).
     ColorScheme     colorScheme;            // Цветовая схеама.
-} SettingsService;
+};
 
 
 

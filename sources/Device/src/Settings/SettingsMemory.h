@@ -84,7 +84,7 @@ typedef  struct
 } StructMemoryLast;
 
 // Настройки МЕНЮ->ПАМЯТЬ
-typedef struct
+struct SettingsMemory
 {
 #define MAX_SYMBOLS_IN_FILE_NAME 35
     ENUM_POINTS_FPGA    fpgaNumPoints;                          // Число точек.
@@ -104,7 +104,7 @@ typedef struct
     bool                flashAutoConnect;                       // Если true, при подлючении флеш автоматически выводится NC (Нортон Коммандер)
     ModeBtnMemory       modeBtnMemory;
     ModeSaveSignal      modeSaveSignal;                         // В каком виде сохранять сигнал.
-} SettingsMemory;
+};
 
 
 

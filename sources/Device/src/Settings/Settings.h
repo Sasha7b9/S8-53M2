@@ -21,7 +21,7 @@
 
  
  // Настройки каналов
-typedef struct
+struct SettingsChannel
 {
     float       stretchADC;                 // Поправочный коэффициент.
     int16       rShiftRel;
@@ -33,7 +33,7 @@ typedef struct
     bool        inverse;                    // Инвертирован ли канал.
     bool        filtr;                      // Фильтр
     int8        balanceShiftADC;            // Добавочное смещение для балансировки АЦП.
-} SettingsChannel;
+};
 
 
 
@@ -65,7 +65,7 @@ typedef struct
 #define ETH_ENABLE      (set.eth.enable)
 
 
-typedef struct
+struct SettingsEthernet
 {
     uint8 mac0;
     uint8 mac1;
@@ -92,7 +92,7 @@ typedef struct
     uint8 gw3;
 
     bool enable;
-} SettingsEthernet;
+};
 
 
 
@@ -100,18 +100,18 @@ typedef struct
 #define LANG_RU         (LANG == Russian)
 #define LANG_EN         (LANG == English)
                                     
-typedef struct
+struct SettingsCommon
 {
     int     countEnables;               // Количество включений. Увеличивается при каждом включении.
     int     countErasedFlashData;       // Сколько раз стирался первый сектор с ресурсами.
     int     countErasedFlashSettings;   // Сколько раз стирался сектор с настройкаи.
     int     workingTimeInSecs;          // Время работы в секундах.
     Language lang;                      // Язык меню.
-} SettingsCommon;
+};
 
 
 
-typedef struct
+struct OutputRegisters
 {
     bool    all;            // Показывать значения всех регистров.
     bool    flag;           // Выводить ли флаг готовности.
@@ -123,7 +123,7 @@ typedef struct
     bool    trigParam;
     bool    tShift;
     bool    tBase;
-} OutputRegisters;
+};
 
 
 
@@ -159,7 +159,7 @@ typedef struct
 
 
 // Отладочные настройки.
-typedef  struct
+struct SettingsDebug
 {
     int16           numStrings;                 // Число строк в консоли.
     int8            sizeFont;                   // Размер шрифта консоли - 0 - 5, 1 - 8,
@@ -180,15 +180,15 @@ typedef  struct
                                                     // START, STOP не показываются).
     int16           altShift;                   // Добавочное смещение для устранения эффекта горизонтальной помехи синхронизации.
     OutputRegisters showRegisters;
-} SettingsDebug;
+};
 
-typedef struct
+struct SettingsMenu
 {
     int8        posActItem[Page_NumPages];      // Позиция ативного пункта. bit7 == 1 - item is opened, 0x7f - нет активного пункта
     int8        currentSubPage[Page_NumPages];  // Номер текущей подстраницы.
     bool        pageDebugActive;                // Активна ли кнопка отладки в меню.
     unsigned    isShown : 1;                    // Меню показано.
-} SettingsMenu;
+};
 
 
 

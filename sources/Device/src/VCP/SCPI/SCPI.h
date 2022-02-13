@@ -40,11 +40,11 @@ void funcName(uint8 *buffer)                            \
 
 
 
-typedef struct 
+struct StructCommand
 {
     char        *name;
     pFuncpU8    func;
-} StructCommand;
+};
 
 
 

@@ -83,6 +83,7 @@ enum Function
     Function_Mul            // Произведение двух каналов.
 };
 
+
 // Где отрисовывать математический сигнал.
 enum ModeDrawMath
 {
@@ -90,6 +91,7 @@ enum ModeDrawMath
     ModeDrawMath_Separate,  // Математический сигнал отображается на отдельном экране.
     ModeDrawMath_Together   // Математический сигнал отображается поверх текущего сигнала.
 };
+
 
 // Чем управляет ручка УСТАНОВКА, когда включена математическая функция.
 enum ModeRegSet
@@ -99,7 +101,7 @@ enum ModeRegSet
 };
 
 
-typedef struct
+struct SettingsMath
 {
     ScaleFFT        scaleFFT;       // Масштаб шкалы для отображения спектра.
     SourceFFT       sourceFFT;      // Источник сигнала для расчёта и отображения спектра.
@@ -118,4 +120,4 @@ typedef struct
     Range           range;          // Масштаб по напряжению математического сигнала.
     Divider      multiplier;     // Множитель масштаба математического сигнала.
     int16           rShift;         // Смещение по вертикальной оси математического сигнала.
-} SettingsMath;
+};

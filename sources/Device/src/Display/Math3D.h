@@ -2,31 +2,31 @@
 #pragma once
 
 
-typedef struct
+struct Point
 {
     float x;
     float y;
     float z;
-} Point;
+};
 
-typedef struct
+struct Edge
 {
     int numPoint0;
     int numPoint1;
-} Edge;
+};
 
-typedef struct
+struct Mesh
 {
     int numEdges;
     Edge* edges;
     int numPoints;
     Point* points;
-} Mesh;
+};
 
-typedef struct
+struct Mat4x4
 {
     float n[4][4];
-} Mat4x4;
+};
 
 
 void FillMatriceRotation(Mat4x4 *mat, float angleX, float angleY, float angleZ);

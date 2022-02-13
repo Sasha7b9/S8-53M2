@@ -673,7 +673,7 @@ uint16 Painter::ReduceBrightness(uint16 colorValue, float newBrightness)
 bool Painter::SaveScreenToFlashDrive() {
 
 #pragma pack(1)
-    typedef struct
+    struct BITMAPFILEHEADER
     {
         char    type0;      // 0
         char    type1;      // 1
@@ -681,10 +681,10 @@ bool Painter::SaveScreenToFlashDrive() {
         uint16  res1;       // 6
         uint16  res2;       // 8
         uint    offBits;    // 10
-    } BITMAPFILEHEADER;
+    };
     // 14
 
-    typedef struct
+    struct BITMAPINFOHEADER
     {
         uint    size;           // 14
         int     width;          // 18
@@ -698,7 +698,7 @@ bool Painter::SaveScreenToFlashDrive() {
         uint    clrUsed;        // 46
         uint    clrImportant;   // 50
         //uint    notUsed[15];
-    } BITMAPINFOHEADER;
+    };
     // 54
 #pragma pack(4)
 
@@ -743,13 +743,13 @@ bool Painter::SaveScreenToFlashDrive() {
 
     uint8 buffer[320 * 3] = {0};
     
-    typedef struct tagRGBQUAD 
+    struct RGBQUAD
     {
         uint8    blue; 
         uint8    green; 
         uint8    red; 
         uint8    rgbReserved; 
-    } RGBQUAD;
+    };
     
     RGBQUAD colorStruct;    
 

@@ -2,7 +2,7 @@
 #pragma once
 
 
-typedef struct
+struct ProgressBar
 {
     int x;
     int y;
@@ -10,7 +10,7 @@ typedef struct
     int height;
     float fullTime;
     float passedTime;
-} ProgressBar;
+};
 
 
 void ProgressBar_Draw(ProgressBar *bar);

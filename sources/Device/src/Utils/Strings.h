@@ -2,11 +2,11 @@
 #pragma once
 
 
-typedef struct
+struct Word
 {
     uint8*   address;
     int8    numSymbols;
-} Word;
+};
 
 
 int GetNumWordsInString(const uint8 *string);                       // Возвращает количество слов в строке. Разделители - пробелы. Строка заканчивается байтами 0x0d, 0x0a.

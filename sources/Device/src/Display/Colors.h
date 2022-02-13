@@ -34,7 +34,7 @@ Color::E LightShadingTextColor();      // Светлый цвет в тени.
 #define DarkShadingTextColor()      Color::MENU_TITLE_DARK
 
 
-typedef struct
+struct ColorType
 {
     float    red;
     float    green;
@@ -46,7 +46,7 @@ typedef struct
     Color::E color;
     int8     currentField;
     bool     alreadyUsed;
-} ColorType;
+};
 
 void Color_Log(Color::E color);           // Вывести в лог значение цвета.
 void Color_BrightnessChange(ColorType *colorType, int delta);

@@ -31,11 +31,11 @@ static const uint8 masksRange[RangeSize] =
 // Добавочные смещения по времени для разверёток режима рандомизатора.
 static int16 deltaTShift[TBaseSize] = {505, 489, 464, 412, 258};
 
-typedef struct
+struct TBaseMaskStruct
 {
     uint8 maskNorm;         // Маска. Требуется для записи в аппаратную часть при выключенном режиме пикового детектора.
     uint8 maskPeackDet;     // Маска. Требуется для записи в аппаратную часть при включенном режиме пикового детектора.
-} TBaseMaskStruct;
+};
 
 static const TBaseMaskStruct masksTBase[TBaseSize] =
 {

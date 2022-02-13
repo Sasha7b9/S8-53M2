@@ -10,16 +10,14 @@
 #include "Display/Painter.h"
 #include "Display/Grid.h"
 #include "Hardware/Sound.h"
-
-
 #include <stdio.h>
 
 
-typedef struct
+struct StructMeasure
 {
     const char *name;
     const char UGO;
-} StructMeasure;
+};
 
 static const StructMeasure measures[Measure_NumMeasures] =
 {

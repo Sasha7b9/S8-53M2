@@ -96,12 +96,12 @@ static void       OnPress_EraseData();
 
 
 // В этой структуре будут храниться данные серийного номера при открытой странице ppSerialNumer
-typedef struct
+struct StructForSN
 {
     int number;     // Соответственно, порядковый номер.
     int year;       // Соответственно, год.
     int curDigt;    // Соответственно, номером (0) или годом (1) управляет ручка УСТАНОВКА.
-} StructForSN;
+};
 
 
 extern Page mainPage;

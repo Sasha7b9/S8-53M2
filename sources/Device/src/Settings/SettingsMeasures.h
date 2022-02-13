@@ -60,6 +60,7 @@ enum MeasuresNumber
     MN_6_2                      // 6 строк по 2 измерения.
 };
 
+
 // Зона, по которой считаются измрения
 enum MeasuresField
 {
@@ -69,10 +70,8 @@ enum MeasuresField
 };
 
 
-
-
 // Настройки меню ИЗМЕРЕНИЯ
-typedef struct
+struct SettingsMeasures
 {
     MeasuresNumber  number;             // Сколько измерений выводить.
     Chan::E         source;             // Для каких каналов выводить измерения.
@@ -86,4 +85,4 @@ typedef struct
     CursCntrl       cntrlT;             // Активные курсоры времени.
     CursActive      cursActive;         // Какие курсоры активны - по времени или напряжению.
     Measure         markedMeasure;      // Измерение, на которое нужно выводить маркеры.
-} SettingsMeasures;
+};

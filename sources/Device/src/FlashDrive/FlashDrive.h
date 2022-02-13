@@ -12,22 +12,22 @@
 #define _WIN32
 #endif
 
-#define SIZE_FLASH_TEMP_BUFFER 512
-typedef struct
+struct StructForWrite
 {
+    static const int SIZE_FLASH_TEMP_BUFFER = 512;
     uint8 tempBuffer[SIZE_FLASH_TEMP_BUFFER];
     int sizeData;
     FIL fileObj;
     char name[255];
-} StructForWrite;
+};
 
-typedef struct
+struct StructForReadDir
 {
     char nameDir[_MAX_LFN + 1];
     char lfn[(_MAX_LFN + 1)];
     FILINFO fno;
     DIR dir;
-} StructForReadDir;
+};
 
 class FlashDrive
 {

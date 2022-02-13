@@ -190,7 +190,7 @@ enum LinkingRShift
 
 
 // Настройки изображения
-typedef struct
+struct SettingsDisplay
 {
     int16               timeShowLevels;             // Время, в течение которого нужно показывать уровни смещения.
     int16               shiftInMemory;              // Показывает смещение левого края сетки относительно нулевого байта памяти. Нужно для правильного отображения сигнала в окне.
@@ -213,7 +213,7 @@ typedef struct
     bool                showFullMemoryWindow;       // Показывать ли окно памяти вверху экрана. \todo Не используется.
     bool                showStringNavigation;       // Показывать ли строку текущего состояния меню..
     LinkingRShift       linkingRShift;              // Тип привязки смещения по вертикали.
-} SettingsDisplay;
+};
 
 
 

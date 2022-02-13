@@ -1,15 +1,13 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-
-
 #include "Strings.h"
 
 
-typedef struct
+struct MapElement
 {
     char *key;
     uint8 value;
-} MapElement;
+};
 
 
 uint8 GetValueFromMap(const MapElement *map, Word *key);      // ≈сли значение не найдено, возвращеетс€ 255;
