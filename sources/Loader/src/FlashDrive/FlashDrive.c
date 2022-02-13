@@ -29,7 +29,7 @@ static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8 id);
 
 
 
-void FDrive_Init(void)
+void FDrive_Init()
 {
     ms->drive.state = StateDisk_Idle;
     ms->drive.connection = 0;
@@ -76,7 +76,7 @@ void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8 id)
 }
 
 
-bool FDrive_Update(void)
+bool FDrive_Update()
 {
     USBH_Process(&handleUSBH);
     if (ms->drive.state == StateDisk_Start)
@@ -238,7 +238,7 @@ int FDrive_ReadFromFile(int numBytes, uint8 *buffer)
 }
 
 
-void FDrive_CloseOpenedFile(void)
+void FDrive_CloseOpenedFile()
 {
     f_close(&ms->drive.file);
 }

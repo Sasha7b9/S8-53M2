@@ -211,7 +211,7 @@ void Color::SetCurrent(Color::E color)
 }
 
 
-Color::E Color::GetCurrent(void)
+Color::E Color::GetCurrent()
 {
     return currentColor;
 }
@@ -533,7 +533,7 @@ void Painter::DrawVolumeButton(int x, int y, int width, int height, int thicknes
 }
 
 
-int NumberColorsInSceneCol(void)
+int NumberColorsInSceneCol()
 {
     return numberColorsUsed;
 }
@@ -593,7 +593,7 @@ void Painter::DrawSignal(int x, uint8 data[281], bool modeLines)
 }
 
 
-void Painter::LoadPalette(void)
+void Painter::LoadPalette()
 {
     for (int i = 0; i < Color::COUNT; i++)
     {
@@ -670,7 +670,7 @@ uint16 Painter::ReduceBrightness(uint16 colorValue, float newBrightness)
 }
 
 
-bool Painter::SaveScreenToFlashDrive(void) {
+bool Painter::SaveScreenToFlashDrive() {
 
 #pragma pack(1)
     typedef struct

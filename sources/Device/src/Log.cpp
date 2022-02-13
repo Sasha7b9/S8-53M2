@@ -54,7 +54,7 @@ void Log_Error(const char *module, const char *func, int numLine, char *format, 
 }
 
 
-void Log_DisconnectLoggerUSB(void)
+void Log_DisconnectLoggerUSB()
 {
     //static uint8 data = 20;
     //Log_Write("посылаю %d", data);

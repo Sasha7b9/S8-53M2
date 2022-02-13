@@ -3,7 +3,7 @@
 #include "Device.h"
 
 
-int main(void)
+int main()
 {
     Device::Init();
 

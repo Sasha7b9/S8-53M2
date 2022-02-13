@@ -29,9 +29,9 @@ void Timer_PauseOnTime(uint timeMS);
 // Приостанавливает выполнение программы на numTicks тиков
 void Timer_PauseOnTicks(uint numTicks);
 // Функция вызывается по прерыванию системного таймера для работы таймеров. Увеличивает внутренее время таймеров на 1мс.
-void Timer_Update1ms(void);
+void Timer_Update1ms();
 // Функция вызывается по прерыванию системного таймера для работы таймеров. Увеличивает внутреннее время таймеров на 10мс.
-void Timer_Update10ms(void);
+void Timer_Update10ms();
 // Запуск таймера
 void Timer_Enable(TypeTimer type,   // Тип таймера
                   int timeInMS,     // Время срабатывания таймера
@@ -46,9 +46,9 @@ void Timer_Continue(TypeTimer type);
 // С помощью этой функции можно узнать, работает ли таймер
 bool Timer_IsRun(TypeTimer type);
 // Запускает счётчик для измерения малых отрезков времени.
-void Timer_StartMultiMeasurement(void);
+void Timer_StartMultiMeasurement();
 // Устанавливает стартовую точку логгирования. Далее вызовы Timer_LogPoint засекают временные интервалы от это точки.
-void Timer_StartLogging(void);               
+void Timer_StartLogging();
 
 uint Timer_LogPointUS(char *name);
 

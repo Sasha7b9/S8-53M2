@@ -545,7 +545,7 @@ void DrawSB_MemInt_SaveToIntMemory(int x, int y)
 }
 
 
-static void SaveSignalToIntMemory(void)
+static void SaveSignalToIntMemory()
 {
     if (EXIT_FROM_INT_TO_LAST)          // ≈сли перешли во ¬Ќ”“– «” из ѕќ—Ћ≈ƒЌ»≈
     {
@@ -847,7 +847,7 @@ static const SmallButton sbExitMemInt    //  нопка дл€ выхода из режима малых кн
 
 
 // Ќажатие ѕјћя“№ - ¬Ќ≈ЎЌ «” - ћаска
-void OnPressMemoryExtMask(void)
+void OnPressMemoryExtMask()
 {
     Menu::OpenPageAndSetItCurrent(PageMemory::SetMask::GetPointer());
     Display::SetAddDrawFunction(DrawSetMask);
@@ -856,7 +856,7 @@ void OnPressMemoryExtMask(void)
 // ѕјћя“№
 extern const Page pMemory;
 
-static bool FuncActiveMemoryNumPoinst(void)
+static bool FuncActiveMemoryNumPoinst()
 {
     return PEAKDET_IS_DISABLE;
 }

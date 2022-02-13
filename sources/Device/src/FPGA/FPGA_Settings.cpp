@@ -107,7 +107,7 @@ namespace FPGA
 }
 
 
-void FPGA::LoadSettings(void)
+void FPGA::LoadSettings()
 {
     LoadKoeffCalibration(Chan::A);
     LoadKoeffCalibration(Chan::B);
@@ -251,7 +251,7 @@ void FPGA::SetTBase(TBase tBase)
 };
 
 
-void FPGA::LoadTBase(void)
+void FPGA::LoadTBase()
 {
     TBase tBase = SET_TBASE;
     uint8 mask = PEAKDET ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
@@ -260,7 +260,7 @@ void FPGA::LoadTBase(void)
 }
 
 
-void FPGA::TBaseDecrease(void)
+void FPGA::TBaseDecrease()
 {
     if (PEAKDET && SET_TBASE <= MIN_TBASE_PEC_DEAT)
     {
@@ -288,7 +288,7 @@ void FPGA::TBaseDecrease(void)
 }
 
 
-void FPGA::TBaseIncrease(void)
+void FPGA::TBaseIncrease()
 {
     if (SET_TBASE < (TBaseSize - 1))
     {
@@ -380,7 +380,7 @@ void FPGA::SetTrigLev(TrigSource ch, int16 trigLev)
 };
 
 
-void FPGA::LoadTrigLev(void)
+void FPGA::LoadTrigLev()
 {
     uint16 data = 0xa000;
     uint16 trigLev = (uint16)TRIG_LEVEL_SOURCE;
@@ -432,7 +432,7 @@ void FPGA::SetCalibratorMode(CalibratorMode calibratorMode)
 }
 
 
-void FPGA::LoadRegUPR(void)
+void FPGA::LoadRegUPR()
 {
     uint8 data = 0;
     if (sTime_RandomizeModeEnabled())
@@ -462,7 +462,7 @@ void FPGA::LoadKoeffCalibration(Chan::E ch)
 }
 
 
-void FPGA::LoadTShift(void)
+void FPGA::LoadTShift()
 {
     static const int16 k[TBaseSize] = {50, 20, 10, 5, 2};
     int16 tShift = TSHIFT - sTime_TShiftMin() + 1;
@@ -544,7 +544,7 @@ void FPGA::SetTrigPolarity(TrigPolarity polarity)
 }
 
 
-void FPGA::LoadTrigPolarity(void)
+void FPGA::LoadTrigPolarity()
 {
     WriteToHardware(WR_TRIG_F, TRIG_POLARITY_IS_FRONT ? 0x01U : 0x00U, true);
 }

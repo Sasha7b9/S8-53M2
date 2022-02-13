@@ -17,7 +17,7 @@ void Timer::PauseOnTicks(uint numTicks)
 }
 
 
-void Timer::StartMultiMeasurement(void)
+void Timer::StartMultiMeasurement()
 {
     TIM2->CR1 &= (uint16)~TIM_CR1_CEN;
     TIM2->CNT = 0;
@@ -87,7 +87,7 @@ bool Timer_IsRun(TypeTimer type)
 };
 
 
-void Timer::Update1ms(void)
+void Timer::Update1ms()
 {
     for(int num = 0; num < TypeTimerSize; num++)
     {
@@ -105,7 +105,7 @@ void Timer::Update1ms(void)
 }
 
 
-void Timer_Update10ms(void)
+void Timer_Update10ms()
 {
     for(int num = 0; num < TypeTimerSize; num++)
     {

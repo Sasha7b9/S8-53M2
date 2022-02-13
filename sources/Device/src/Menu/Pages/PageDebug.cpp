@@ -254,7 +254,7 @@ static const Choice mcConsole_Registers_RD_FL =
     (int8*)&set.debug.showRegisters.flag
 };
 
-static bool IsActive_Console_Registers_RD_FL(void)
+static bool IsActive_Console_Registers_RD_FL()
 {
     return !IS_SHOW_REGISTERS_ALL;
 }
@@ -505,13 +505,13 @@ static const Governor mgADC_Balance_ShiftA
     &shiftADCA, -125, 125, OnChanged_ADC_Balance_ShiftA
 );
 
-static void OnChanged_ADC_Balance_ShiftA(void)
+static void OnChanged_ADC_Balance_ShiftA()
 {
     BALANCE_ADC_A = shiftADCA;
     FPGA::WriteToHardware(WR_ADD_RSHIFT_DAC1, (uint8)BALANCE_ADC_A, false);
 }
 
-static bool IsActive_ADC_Balance_Shift(void)
+static bool IsActive_ADC_Balance_Shift()
 {
     return BALANCE_ADC_TYPE_IS_HAND;
 }
@@ -526,7 +526,7 @@ static const Governor mgADC_Balance_ShiftB
     &shiftADCB, -125, 125, OnChanged_ADC_Balance_ShiftB
 );
 
-static void OnChanged_ADC_Balance_ShiftB(void)
+static void OnChanged_ADC_Balance_ShiftB()
 {
     BALANCE_ADC_B = shiftADCB;
     FPGA::WriteToHardware(WR_ADD_RSHIFT_DAC2, (uint8)BALANCE_ADC_B, false);
@@ -602,12 +602,12 @@ static const Governor mgADC_Stretch_ADC_A
     &DEBUG_STRETCH_ADC_A, 0, 255, OnChanged_ADC_Stretch_ADC_A
 );
 
-static bool IsActive_ADC_Stretch_ADC(void)
+static bool IsActive_ADC_Stretch_ADC()
 {
     return DEBUG_STRETCH_ADC_TYPE_IS_HAND;
 }
 
-static void OnChanged_ADC_Stretch_ADC_A(void)
+static void OnChanged_ADC_Stretch_ADC_A()
 {
     FPGA::WriteToHardware(WR_CAL_A, (uint8)DEBUG_STRETCH_ADC_A, true);
 }
@@ -623,7 +623,7 @@ static const Governor mgADC_Stretch_ADC_B
     &DEBUG_STRETCH_ADC_B, 0, 255, OnChanged_ADC_Stretch_ADC_B
 );
 
-static void OnChanged_ADC_Stretch_ADC_B(void)
+static void OnChanged_ADC_Stretch_ADC_B()
 {
     FPGA::WriteToHardware(WR_CAL_B, (uint8)DEBUG_STRETCH_ADC_B, true);
 }
@@ -658,7 +658,7 @@ static const Button mbADC_AltRShift_Reset
     OnPress_ADC_AltRShift_Reset
 );
 
-static void OnPress_ADC_AltRShift_Reset(void)
+static void OnPress_ADC_AltRShift_Reset()
 {
     for(int ch = 0; ch < 2; ch++)
     {
@@ -684,7 +684,7 @@ static const Governor mbADC_AltRShift_2mV_DC_A
     &RSHIFT_ADD(Chan::A, Range_2mV, ModeCouple_DC), -100, 100, OnChanged_ADC_AltRShift_A
 );
 
-static void OnChanged_ADC_AltRShift_A(void)
+static void OnChanged_ADC_AltRShift_A()
 {
     FPGA::SetRShift(Chan::A, SET_RSHIFT_A);
 }
@@ -699,7 +699,7 @@ static const Governor mbADC_AltRShift_2mV_DC_B
     &RSHIFT_ADD(Chan::B, Range_2mV, ModeCouple_DC), -100, 100, OnChanged_ADC_AltRShift_B
 );
 
-static void OnChanged_ADC_AltRShift_B(void)
+static void OnChanged_ADC_AltRShift_B()
 {
     FPGA::SetRShift(Chan::B, SET_RSHIFT_B);
 }
@@ -772,7 +772,7 @@ static const Governor mgRandomizer_SamplesForGates
     &NUM_MEAS_FOR_GATES, 1, 2500, OnChanged_Randomizer_SamplesForGates
 );
 
-static void OnChanged_Randomizer_SamplesForGates(void)
+static void OnChanged_Randomizer_SamplesForGates()
 {
     FPGA::SetNumberMeasuresForGates(NUM_MEAS_FOR_GATES);
 }
@@ -787,7 +787,7 @@ static const Governor mgRandomizer_AltTShift0
     &ADD_SHIFT_T0, 0, 510, OnChanged_Randomizer_AltTShift0
 );
 
-static void OnChanged_Randomizer_AltTShift0(void)
+static void OnChanged_Randomizer_AltTShift0()
 {
     FPGA::SetDeltaTShift(ADD_SHIFT_T0);
 }
@@ -901,7 +901,7 @@ static const Page ppSerialNumber
     Page_SB_SerialNumber, &itemsSerialNumber, OnPress_SerialNumber, 0, OnRegSet_SerialNumber
 );
 
-static void OnPress_SerialNumber(void)
+static void OnPress_SerialNumber()
 {
     Menu::OpenPageAndSetItCurrent(PageDebug::SerialNumber::GetPointer());
     Display::SetAddDrawFunction(Draw_EnterSerialNumber);
@@ -911,7 +911,7 @@ static void OnPress_SerialNumber(void)
     s->curDigt = 0;
 }
 
-static void Draw_EnterSerialNumber(void)
+static void Draw_EnterSerialNumber()
 {
     int x0 = Grid::Left() + 40;
     int y0 = GRID_TOP + 20;
@@ -995,7 +995,7 @@ static const SmallButton bSerialNumber_Exit
     DrawSB_Exit
 );
 
-static void OnPress_SerialNumber_Exit(void)
+static void OnPress_SerialNumber_Exit()
 {
     Display::RemoveAddDrawFunction();
     FREE_EXTRAMEM();
@@ -1012,7 +1012,7 @@ static const SmallButton bSerialNumber_Change
     Draw_SerialNumber_Change
 );
 
-static void OnPress_SerialNumber_Change(void)
+static void OnPress_SerialNumber_Change()
 {
     ACCESS_EXTRAMEM(StructForSN, s);
     ++s->curDigt;
@@ -1038,7 +1038,7 @@ static const SmallButton bSerialNumber_Save
     Draw_SerialNumber_Save
 );
 
-static void OnPress_SerialNumber_Save(void)
+static void OnPress_SerialNumber_Save()
 {
     ACCESS_EXTRAMEM(StructForSN, s);
 

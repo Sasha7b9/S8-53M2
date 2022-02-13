@@ -265,7 +265,7 @@ void Menu::ReleaseButton(PanelButton button)
 };
 
 
-void Menu::RotateRegSetRight(void)
+void Menu::RotateRegSetRight()
 {   
     if (SHOW_HELP_HINTS == 0)
     {
@@ -275,7 +275,7 @@ void Menu::RotateRegSetRight(void)
 };
 
 
-void Menu::RotateRegSetLeft(void)
+void Menu::RotateRegSetLeft()
 {
     if (SHOW_HELP_HINTS == 0)
     {
@@ -285,7 +285,7 @@ void Menu::RotateRegSetLeft(void)
 };
 
 
-void* Menu::ItemUnderKey(void)
+void* Menu::ItemUnderKey()
 {
     return itemUnderKey;
 };
@@ -421,7 +421,7 @@ void Menu::ProcessingShortPressureButton()
 }
 
 
-void Menu::ProcessingLongPressureButton(void)
+void Menu::ProcessingLongPressureButton()
 {
     if(longPressureButton != B_Empty)
     {
@@ -458,7 +458,7 @@ void Menu::ProcessingLongPressureButton(void)
 }
 
 
-void Menu::ProcessingRegulatorSet(void)
+void Menu::ProcessingRegulatorSet()
 {
     if (angleRegSet == 0)
     {
@@ -509,7 +509,7 @@ void Menu::ProcessingRegulatorSet(void)
 }
 
 
-void Menu::ProcessingPressButton(void)
+void Menu::ProcessingPressButton()
 {
     if (pressButton == B_Start && !MODE_WORK_IS_LATEST)
     {
@@ -526,7 +526,7 @@ void Menu::ProcessingPressButton(void)
 }
 
 
-void Menu::ProcessingReleaseButton(void)
+void Menu::ProcessingReleaseButton()
 {
     if(releaseButton >= B_F1 && releaseButton <= B_F5 || pressButton == B_Menu)
     {
@@ -790,7 +790,7 @@ void Menu::ChangeStateFlashDrive()
 extern const Page pService;
 
 
-void Menu::OpenItemTime(void)
+void Menu::OpenItemTime()
 {
     Display::ShowWarningGood(TimeNotSet);
     Menu::ShortPressureButton(B_Service);
@@ -852,7 +852,7 @@ bool Menu::NeedForFireSetLED()
 }
 
 
-void Menu::SwitchSetLED(void)
+void Menu::SwitchSetLED()
 {
     static bool first = true;
     static bool prevState = false;  // true - горит, false - не горит

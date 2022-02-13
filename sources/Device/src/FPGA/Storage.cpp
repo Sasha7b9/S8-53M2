@@ -41,7 +41,7 @@ void Storage::PrintElement(DataSettings *dp)
 }
 
 
-void Storage::Clear(void)
+void Storage::Clear()
 {
     firstElem = 0;
     lastElem = (DataSettings*)beginPool;
@@ -50,7 +50,7 @@ void Storage::Clear(void)
 }
 
 
-void Storage::ClearLimitsAndSums(void)
+void Storage::ClearLimitsAndSums()
 {
     memset(limitUp[0], 0, FPGA_MAX_POINTS);
     memset(limitUp[1], 0, FPGA_MAX_POINTS);
@@ -117,7 +117,7 @@ void Storage::AddData(uint8 *data0, uint8 *data1, DataSettings dss)
 }
 
 
-int Storage::AllDatas(void)
+int Storage::AllDatas()
 {
     return allData;
 }
@@ -166,7 +166,7 @@ void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
 }
 
 
-void Storage::CalculateSums(void)
+void Storage::CalculateSums()
 {
     DataSettings *ds = 0;
     uint8 *data0 = 0;
@@ -214,7 +214,7 @@ void Storage::CalculateSums(void)
 }
 
 
-int Storage::NumElementsWithSameSettings(void)
+int Storage::NumElementsWithSameSettings()
 {
     int retValue = 0;
     int numElements = NumElementsInStorage();
@@ -229,7 +229,7 @@ int Storage::NumElementsWithSameSettings(void)
 }
 
 
-int Storage::NumElementsWithCurrentSettings(void)
+int Storage::NumElementsWithCurrentSettings()
 {
     DataSettings dp;
     FPGA::FillDataPointer(&dp);
@@ -246,7 +246,7 @@ int Storage::NumElementsWithCurrentSettings(void)
 }
 
 
-int Storage::NumElementsInStorage(void)
+int Storage::NumElementsInStorage()
 {
     int retValue = 0;
     DataSettings *elem = firstElem;
@@ -398,7 +398,7 @@ uint8* Storage::GetLimitation(Chan::E ch, int direction)
 }
 
 
-int Storage::NumberAvailableEntries(void)
+int Storage::NumberAvailableEntries()
 {
     if(firstElem == 0)
     {
@@ -466,7 +466,7 @@ void Storage::PushData(DataSettings *dp, uint8 *data0, uint8 *data1)
 }
 
 
-int Storage::MemoryFree(void)
+int Storage::MemoryFree()
 {
     if (firstElem == 0)
     {
@@ -518,7 +518,7 @@ int Storage::SizeElem(DataSettings *dp)
 }
 
 
-void Storage::RemoveFirstElement(void)
+void Storage::RemoveFirstElement()
 {
     firstElem = NextElem(firstElem);
     firstElem->addrPrev = 0;

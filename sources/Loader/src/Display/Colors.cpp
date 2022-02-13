@@ -52,7 +52,7 @@ Color::E ColorContrast(Color::E color)
 }
 
 
-Color::E LightShadingTextColor(void)
+Color::E LightShadingTextColor()
 {
     return ColorMenuTitle(false);
 }

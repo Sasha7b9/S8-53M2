@@ -43,7 +43,7 @@ static uint timeStart = 0;
 
 namespace FPGA
 {
-    static void ReadPoint(void);
+    static void ReadPoint();
 
     // Функция вызывается, когда можно считывать очередной сигнал.
     static void OnTimerCanReadData();
@@ -121,7 +121,7 @@ namespace FPGA
 }
 
 
-void FPGA::Init(void) 
+void FPGA::Init() 
 {
     Storage::Clear();
     FPGA::LoadSettings();
@@ -137,13 +137,13 @@ void FPGA::SetNumSignalsInSec(int numSigInSec)
 }
 
 
-void FPGA::OnTimerCanReadData(void)
+void FPGA::OnTimerCanReadData()
 {
     FPGA_CAN_READ_DATA = 1;
 }
 
 
-void FPGA::Start(void)
+void FPGA::Start()
 {
     if(SET_TBASE >= MIN_TBASE_P2P)
     {
@@ -163,14 +163,14 @@ void FPGA::Start(void)
 }
 
 
-void FPGA::SwitchingTrig(void)
+void FPGA::SwitchingTrig()
 {
     HAL_FMC::Write(WR_TRIG_F, TRIG_POLARITY_IS_FRONT ? 0x00U : 0x01U);
     HAL_FMC::Write(WR_TRIG_F, TRIG_POLARITY_IS_FRONT ? 0x01U : 0x00U);
 }
 
 
-bool FPGA::ProcessingData(void)
+bool FPGA::ProcessingData()
 {
     bool retValue = false;
 
@@ -231,7 +231,7 @@ bool FPGA::ProcessingData(void)
 }
 
 
-void FPGA::Update(void)
+void FPGA::Update()
 {
     ReadFlag();
 
@@ -268,13 +268,13 @@ void FPGA::Update(void)
 }
 
 
-StateWorkFPGA FPGA::CurrentStateWork(void)
+StateWorkFPGA FPGA::CurrentStateWork()
 {
     return stateWork;
 }
 
 
-void FPGA::OnPressStartStop(void)
+void FPGA::OnPressStartStop()
 {
     if(stateWork == StateWorkFPGA_Stop) 
     {
@@ -295,7 +295,7 @@ void FPGA::Stop(bool pause)
 }
 
 
-bool FPGA::IsRunning(void)
+bool FPGA::IsRunning()
 {
     return stateWork != StateWorkFPGA_Stop;
 }
@@ -320,7 +320,7 @@ static uint8 InverseIfNecessary(uint8 data, Chan::E ch)
 */
 
 
-void FPGA::ReadRandomizeMode(void)
+void FPGA::ReadRandomizeMode()
 {
     int Tsm = CalculateShift();
     if (Tsm == NULL_TSHIFT)
@@ -564,7 +564,7 @@ bool FPGA::CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
 }
 
 
-int FPGA::CalculateShift(void)            // \todo Не забыть восстановить функцию
+int FPGA::CalculateShift()            // \todo Не забыть восстановить функцию
 {
     uint16 rand = HAL_ADC3::GetValue();
 
@@ -637,7 +637,7 @@ void FPGA::WriteToHardware(uint8 *address, uint8 value, bool restart)
 }
 
 
-void FPGA::ReadPoint(void)
+void FPGA::ReadPoint()
 {
     if(_GET_BIT(ReadFlag(), BIT_POINT_READY))
     {
@@ -650,14 +650,14 @@ void FPGA::ReadPoint(void)
 }
 
 
-void FPGA::SaveState(void)
+void FPGA::SaveState()
 {
     gStateFPGA.stateWorkBeforeCalibration = stateWork;
     storingSettings = set;
 }
 
 
-void FPGA::RestoreState(void)
+void FPGA::RestoreState()
 {
     int16 rShiftAdd[2][RangeSize][2];
     for (int ch = 0; ch < 2; ch++)
@@ -693,7 +693,7 @@ void FPGA::RestoreState(void)
 static bool readPeriod = false;     // Установленный в true флаг означает, что частоту нужно считать по счётчику периода
 
 
-static BitSet32 ReadRegFreq(void)
+static BitSet32 ReadRegFreq()
 {
     BitSet32 fr;
     fr.byte[0] = HAL_FMC::Read(RD_ADDR_FREQ_LOW);
@@ -704,7 +704,7 @@ static BitSet32 ReadRegFreq(void)
 }
 
 
-static BitSet32 ReadRegPeriod(void)
+static BitSet32 ReadRegPeriod()
 {
     BitSet32 period;
     period.byte[0] = HAL_FMC::Read(RD_ADDR_PERIOD_LOW_LOW);
@@ -731,7 +731,7 @@ static float PeriodCounterToValue(BitSet32 *period)
 }
 
 
-static void FPGA::ReadFreq(void)            // Чтение счётчика частоты производится после того, как бит 4 флага RD_FL установится в едицину
+static void FPGA::ReadFreq()            // Чтение счётчика частоты производится после того, как бит 4 флага RD_FL установится в едицину
 {                                           // После чтения автоматически запускается новый цикл счёта
     BitSet32 freqFPGA = ReadRegFreq();
 
@@ -755,7 +755,7 @@ static void FPGA::ReadFreq(void)            // Чтение счётчика частоты производи
 }
 
 
-void FPGA::ReadPeriod(void)
+void FPGA::ReadPeriod()
 {
     BitSet32 periodFPGA = ReadRegPeriod();
     float fr = PeriodCounterToValue(&periodFPGA);
@@ -772,7 +772,7 @@ void FPGA::ReadPeriod(void)
 }
 
 
-static uint8 FPGA::ReadFlag(void)
+static uint8 FPGA::ReadFlag()
 {
     uint8 flag = HAL_FMC::Read(RD_FL);
     if(!readPeriod) 
@@ -791,7 +791,7 @@ static uint8 FPGA::ReadFlag(void)
 }
 
 
-static float CalculateFreqFromCounterFreq(void)
+static float CalculateFreqFromCounterFreq()
 {
     while (_GET_BIT(HAL_FMC::Read(RD_FL), BIT_FREQ_READY) == 0) {};
     ReadRegFreq();
@@ -805,7 +805,7 @@ static float CalculateFreqFromCounterFreq(void)
 }
 
 
-static float CalculateFreqFromCounterPeriod(void)
+static float CalculateFreqFromCounterPeriod()
 {
     uint time = gTimerMS;
     while (gTimerMS - time < 1000 && _GET_BIT(HAL_FMC::Read(RD_FL), BIT_PERIOD_READY) == 0) {};
@@ -821,20 +821,20 @@ static float CalculateFreqFromCounterPeriod(void)
 }
 
 
-float FPGA::GetFreq(void) 
+float FPGA::GetFreq() 
 {
     return freq;
 }
 
 
-void FPGA::ClearData(void)
+void FPGA::ClearData()
 {
     memset(dataRel0, 0, FPGA_MAX_POINTS);
     memset(dataRel1, 0, FPGA_MAX_POINTS);
 }
 
 
-bool FPGA::AllPointsRandomizer(void)
+bool FPGA::AllPointsRandomizer()
 {
     if(SET_TBASE < TBase_100ns) 
     {
@@ -868,7 +868,7 @@ void FPGA::SetNumberMeasuresForGates(int number)
 }
 
 
-void FPGA::StartAutoFind(void)
+void FPGA::StartAutoFind()
 {
 	AUTO_FIND_IN_PROGRESS = 1;
 }
@@ -937,7 +937,7 @@ TBase CalculateTBase(float freq_)
 }
 
 
-void FPGA::AutoFind(void)
+void FPGA::AutoFind()
 {
     //LOG_WRITE(" ");
     //Timer::StartLogging();
@@ -1136,14 +1136,14 @@ TBase FPGA::FindTBase(Chan::E ch)
 }
 
 
-void StopTemporaryPause(void)
+void StopTemporaryPause()
 {
     FPGA_TEMPORARY_PAUSE = 0;
     Timer::Disable(kTemporaryPauseFPGA);
 }
 
 
-void FPGA::TemporaryPause(void)
+void FPGA::TemporaryPause()
 {
     FPGA_TEMPORARY_PAUSE = 1;
     Timer::Enable(kTemporaryPauseFPGA, 500, StopTemporaryPause);
@@ -1173,7 +1173,7 @@ void FPGA::FillDataPointer(DataSettings *dp)
 }
 
 
-void FPGA::FindAndSetTrigLevel(void)
+void FPGA::FindAndSetTrigLevel()
 {
     TrigSource trigSource = TRIG_SOURCE;
     if (Storage::AllDatas() == 0 || TRIG_SOURCE_IS_EXT)

@@ -36,7 +36,7 @@ static uint timePrevPressButton = 0;
 static uint timePrevReleaseButton = 0;
 
 
-static void(*funcOnKeyDown[B_NumButtons])(void)    =
+static void(*funcOnKeyDown[B_NumButtons])()    =
 {    
     0,
     EmptyFuncVV,    // B_Channel0
@@ -59,7 +59,7 @@ static void(*funcOnKeyDown[B_NumButtons])(void)    =
     EmptyFuncVV     // B_F5
 };
 
-static void (*funcOnKeyUp[B_NumButtons])(void)    =
+static void (*funcOnKeyUp[B_NumButtons])()    =
 {
     0,
     EmptyFuncVV,    // B_Channel0
@@ -82,7 +82,7 @@ static void (*funcOnKeyUp[B_NumButtons])(void)    =
     EmptyFuncVV     // B_F5
 };
 
-static void (*funcOnLongPressure[B_NumButtons])(void)    =
+static void (*funcOnLongPressure[B_NumButtons])()    =
 {
     0,
     Channel0Long,   // B_Channel0
@@ -105,7 +105,7 @@ static void (*funcOnLongPressure[B_NumButtons])(void)    =
     F5Long          // B_F5
 };
 
-static void (*funculatorLeft[R_Set + 1])(void)    =
+static void (*funculatorLeft[R_Set + 1])()    =
 {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     Range0Left,     // R_Range0
@@ -117,7 +117,7 @@ static void (*funculatorLeft[R_Set + 1])(void)    =
     TrigLevLeft,    // R_TrigLev
     SetLeft         // R_Set
 };
-static void (*funculatorRight[R_Set + 1])(void) =
+static void (*funculatorRight[R_Set + 1])() =
 {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     Range0Right,    // R_Range0
@@ -182,7 +182,7 @@ void OnTimerPressedKey()
 {
     if(pressedKey != B_Empty)
     {
-        void (*func)(void) = funcOnLongPressure[pressedKey];
+        void (*func)() = funcOnLongPressure[pressedKey];
         Menu::ReleaseButton(pressedKey);
         if(func != 0)
         {

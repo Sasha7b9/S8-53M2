@@ -3,10 +3,10 @@
 #include "defines.h"
 
 
-void Display_Init(void);
+void Display_Init();
 
-void Display_Update(void);
+void Display_Update();
 
-void Display_Update1(void);
+void Display_Update1();
 
-bool Display_IsRun(void);
+bool Display_IsRun();

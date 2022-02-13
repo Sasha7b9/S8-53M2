@@ -21,7 +21,7 @@ struct State
     int numPort;
 };
 
-void(*SocketFuncConnect)(void) = 0;                                 // this function will be called every time a new connection
+void(*SocketFuncConnect)() = 0;                                 // this function will be called every time a new connection
 void(*SocketFuncReciever)(const char *buffer, uint length) = 0;     // this function will be called when a message is recieved from any client
 
 
@@ -333,7 +333,7 @@ err_t CallbackOnAcceptPolicyPort(void *_arg, struct tcp_pcb *_newPCB, err_t _err
 }
 
 
-bool TCPSocket_Init(void(*_funcConnect)(void), void(*_funcReciever)(const char *_buffer, uint _length))
+bool TCPSocket_Init(void(*_funcConnect)(), void(*_funcReciever)(const char *_buffer, uint _length))
 {
     struct tcp_pcb *pcb = tcp_new();
     if (pcb != NULL)

@@ -35,7 +35,7 @@ static PanelButton ButtonIsPress(uint16 command);
 
 
 
-void Panel_Init(void)
+void Panel_Init()
 {
     /*
         SPI1
@@ -81,7 +81,7 @@ void Panel_Init(void)
 
 
 
-void Panel_DeInit(void)
+void Panel_DeInit()
 {
     HAL_NVIC_DisableIRQ(SPI1_IRQn);
     HAL_NVIC_DisableIRQ(EXTI0_IRQn);
@@ -89,7 +89,7 @@ void Panel_DeInit(void)
 
 
 
-PanelButton Panel_PressedButton(void)
+PanelButton Panel_PressedButton()
 {
     return pressedButton;
 }
@@ -163,14 +163,14 @@ extern "C" {
 
 
 // Прервывание NSS на SPI
-void EXTI0_IRQHandler(void)
+void EXTI0_IRQHandler()
 {
     HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
 }
 
 
 
-void SPI1_IRQHandler(void)
+void SPI1_IRQHandler()
 {
     HAL_SPI_IRQHandler(&handleSPI);
 }

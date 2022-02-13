@@ -100,7 +100,7 @@ const uint8_t APBPrescTable[8]  = {0, 0, 0, 0, 1, 2, 3, 4};
   */
 
 #if defined (DATA_IN_ExtSRAM) || defined (DATA_IN_ExtSDRAM)
-  static void SystemInit_ExtMemCtl(void); 
+  static void SystemInit_ExtMemCtl(); 
 #endif /* DATA_IN_ExtSRAM || DATA_IN_ExtSDRAM */
 
 /**
@@ -230,7 +230,7 @@ void SystemCoreClockUpdate(void)
   * @param  None
   * @retval None
   */
-void SystemInit_ExtMemCtl(void)
+void SystemInit_ExtMemCtl()
 {
   __IO uint32_t tmp = 0x00;
 
@@ -384,7 +384,7 @@ void SystemInit_ExtMemCtl(void)
   FMC_Bank1E->BWTR[2] = 0x0fffffff;
 #endif /* STM32F469xx || STM32F479xx */
 
-  (void)(tmp); 
+  ()(tmp); 
 }
 #endif /* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F469xx || STM32F479xx */
 #elif defined (DATA_IN_ExtSRAM) || defined (DATA_IN_ExtSDRAM)
@@ -396,7 +396,7 @@ void SystemInit_ExtMemCtl(void)
   * @param  None
   * @retval None
   */
-void SystemInit_ExtMemCtl(void)
+void SystemInit_ExtMemCtl()
 {
   __IO uint32_t tmp = 0x00;
 #if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx)\
@@ -685,7 +685,7 @@ void SystemInit_ExtMemCtl(void)
 #endif /* DATA_IN_ExtSRAM */
 #endif /* STM32F405xx || STM32F415xx || STM32F407xx || STM32F417xx || STM32F427xx || STM32F437xx ||\
           STM32F429xx || STM32F439xx || STM32F469xx || STM32F479xx || STM32F412Zx || STM32F412Vx  */ 
-  (void)(tmp); 
+  ()(tmp); 
 }
 #endif /* DATA_IN_ExtSRAM && DATA_IN_ExtSDRAM */
 /**

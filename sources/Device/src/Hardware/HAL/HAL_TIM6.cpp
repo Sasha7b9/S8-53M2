@@ -41,7 +41,7 @@ extern "C" {
 #endif
 
 
-    void TIM6_DAC_IRQHandler(void)
+    void TIM6_DAC_IRQHandler()
     {
         if (__HAL_TIM_GET_FLAG(&HAL_TIM6::handleTIM6forTimer, TIM_FLAG_UPDATE) == SET && __HAL_TIM_GET_ITSTATUS(&HAL_TIM6::handleTIM6forTimer, TIM_IT_UPDATE))
         {

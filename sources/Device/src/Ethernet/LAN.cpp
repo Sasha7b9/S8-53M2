@@ -19,7 +19,7 @@ static void Netif_Config();
 static struct netif gnetif;
 
 
-static void FuncConnect(void)
+static void FuncConnect()
 {
 }
 
@@ -39,7 +39,7 @@ static void FuncReceiver(const char *buffer, uint length)
 }
 
 
-void LAN::Init(void)
+void LAN::Init()
 {
     lwip_init();
 
@@ -63,7 +63,7 @@ void LAN::Update(uint timeMS)
 }
 
 
-static void Netif_Config(void)
+static void Netif_Config()
 {
     ip_addr_t ipaddr;
     ip_addr_t netmask;

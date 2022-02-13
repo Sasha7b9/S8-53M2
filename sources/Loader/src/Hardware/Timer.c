@@ -4,7 +4,7 @@
 
 
 static volatile uint gTimerMS = 0;
-static void (*f[TypeTimerSize])(void) = {0};
+static void (*f[TypeTimerSize])() = {0};
 static int reactionTimeMS[TypeTimerSize] = {0};
 static int currentTimeMS[TypeTimerSize] = {0};
 static bool isRun[TypeTimerSize] = {false};
@@ -28,7 +28,7 @@ void Timer_PauseOnTime(uint timeMS)
 }
 
 
-void Timer_StartMultiMeasurement(void)
+void Timer_StartMultiMeasurement()
 {
     TIM2->CR1 &= (uint)~TIM_CR1_CEN;
     TIM2->CNT = 0;
@@ -36,7 +36,7 @@ void Timer_StartMultiMeasurement(void)
 }
 
 
-void Timer_StartLogging(void)
+void Timer_StartLogging()
 {
     timeStartLogging = gTimerTics;
     timePrevPoint = timeStartLogging;
@@ -96,7 +96,7 @@ bool Timer_IsRun(TypeTimer type)
 };
 
 
-void Timer_Update1ms(void)
+void Timer_Update1ms()
 {
     gTimerMS++;
 
@@ -116,7 +116,7 @@ void Timer_Update1ms(void)
 }
 
 
-void Timer_Update10ms(void)
+void Timer_Update10ms()
 {
     gTimerMS += 10;
 

@@ -459,7 +459,7 @@ void SortInt(int *value0, int *value1)
     }
 }
 
-void EmptyFuncVV(void)
+void EmptyFuncVV()
 {
 }
 
@@ -476,7 +476,7 @@ void EmptyFuncVpV(void *empty)
 }
 
 
-bool EmptyFuncBV(void)
+bool EmptyFuncBV()
 {
     return true;
 }

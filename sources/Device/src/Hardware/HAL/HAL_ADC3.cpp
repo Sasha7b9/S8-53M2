@@ -8,7 +8,7 @@ namespace HAL_ADC3
 }
 
 
-void HAL_ADC3::Init(void)
+void HAL_ADC3::Init()
 {
     /*
     АЦП для рандомизатора
@@ -80,7 +80,7 @@ void HAL_ADC3::Init(void)
 }
 
 
-uint16 HAL_ADC3::GetValue(void)
+uint16 HAL_ADC3::GetValue()
 {
     return adcValue;
 }

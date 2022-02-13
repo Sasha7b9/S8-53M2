@@ -47,7 +47,7 @@ static const char *addrNamesForWrite[32] =
 */
 
 
-void FSMC_Init(void);
+void FSMC_Init();
 uint8 FSMC_Read(uint8 *address);
 void FSMC_Write(uint8 *address, uint8 value);
 

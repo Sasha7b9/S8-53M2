@@ -406,7 +406,7 @@ static const SmallButton sbSetExit
     DrawSB_Exit
 );
 
-static void PressSB_Cursors_Exit(void)
+static void PressSB_Cursors_Exit()
 {
     Display::RemoveAddDrawFunction();
 }
@@ -429,7 +429,7 @@ static const SmallButton sbSetSource
     &hintsSetSource
 );
 
-static void PressSB_Cursors_Source(void)
+static void PressSB_Cursors_Source()
 {
     Chan::E source = CURS_SOURCE_A ? Chan::B : Chan::A;
     SetCursSource(source);
@@ -477,7 +477,7 @@ static const SmallButton sbSetU
     &hintsSetU
 );
 
-static void PressSB_Cursors_U(void)
+static void PressSB_Cursors_U()
 {
     if (CURS_ACTIVE_IS_U || CURS_CNTRL_U_IS_DISABLE(CURS_SOURCE))
     {
@@ -581,7 +581,7 @@ static const SmallButton sbSetT
     &hintsSetT
 );
 
-static void PressSB_Cursors_T(void)
+static void PressSB_Cursors_T()
 {
     if (CURS_ACTIVE_IS_T || CURS_CNTRL_T_IS_DISABLE(CURS_SOURCE))
     {
@@ -661,7 +661,7 @@ static const SmallButton sbSet100
     DrawSB_Cursors_100
 );
 
-static void PressSB_Cursors_100(void)
+static void PressSB_Cursors_100()
 {
     SetCursPos100(CURS_SOURCE);
 }
@@ -700,7 +700,7 @@ static const SmallButton sbSetPointsPercents
     &hintsSetPointsPercents
 );
 
-static void PressSB_Cursors_PointsPercents(void)
+static void PressSB_Cursors_PointsPercents()
 {
     CircleIncreaseInt8((int8*)&CURS_MOVEMENT, 0, 1);
 }

@@ -10,11 +10,11 @@ void Painter_SendToDisplay(uint8 *bytes, int numBytes);
 
 void Painter_BeginScene(Color::E color);
 
-void Painter_EndScene(void);
+void Painter_EndScene();
 
 void Painter_SendFrame(bool first);
 
-void Painter_ResetFlash(void);
+void Painter_ResetFlash();
 
 void Painter_SetColor(Color::E color);
 

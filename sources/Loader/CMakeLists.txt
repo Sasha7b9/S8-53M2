@@ -26,6 +26,7 @@ if(WIN32)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
     
     add_compile_options(/wd4201)    # nonstandard extension used : nameless struct/union
+    add_compile_options(/wd4255)
     add_compile_options(/wd4505)    # 'function': unreferenced function with internal linkage has been removed
     add_compile_options(/wd4514)    # 'function' : unreferenced inline function has been removed
     add_compile_options(/wd4623)    # 'derived class' : default constructor was implicitly defined as deleted because a base

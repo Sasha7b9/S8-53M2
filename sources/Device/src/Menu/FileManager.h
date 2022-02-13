@@ -19,7 +19,7 @@ public:
     
     static bool GetNameForNewFile(char name[255]);
 
-    static void PressTab(void);
+    static void PressTab();
 
 private:
     
@@ -31,15 +31,15 @@ private:
 
     static void DrawFiles(int x, int y);
 
-    static void DecCurrentDir(void);
+    static void DecCurrentDir();
 
-    static void DecCurrentFile(void);
+    static void DecCurrentFile();
 
     static void DrawHat(int x, int y, char *string, int num1, int num2);
 
     static void DrawNameCurrentDir(int left, int top);
 
-    static void IncCurrentDir(void);
+    static void IncCurrentDir();
 
-    static void IncCurrentFile(void);
+    static void IncCurrentFile();
 };

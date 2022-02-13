@@ -27,7 +27,7 @@ void VCP::Init()
     USBD_Start(&handleUSBD);
 } 
 
-static bool PrevSendingComplete(void)
+static bool PrevSendingComplete()
 {
     USBD_CDC_HandleTypeDef *pCDC = (USBD_CDC_HandleTypeDef *)handleUSBD.pClassData;
     return pCDC->TxState == 0;

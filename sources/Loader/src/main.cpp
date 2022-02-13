@@ -14,7 +14,7 @@
 /////////////////////////////
 #define FILE_NAME "S8-53.bin"
 
-typedef void(*pFunction)(void);
+typedef void(*pFunction)();
 
 
 
@@ -22,11 +22,11 @@ MainStruct *ms;
 
 
 
-void Upgrade(void);
+void Upgrade();
 
 
 /////////////////////////////
-int main(void)
+int main()
 {
     pFunction JumpToApplication;
 
@@ -118,7 +118,7 @@ int main(void)
 
 
 
-void Upgrade(void)
+void Upgrade()
 {
     const int sizeSector = 1 * 1024;
 

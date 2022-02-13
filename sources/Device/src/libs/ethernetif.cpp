@@ -379,7 +379,7 @@ err_t ethernetif_init(struct netif *netif)
 extern "C" {
 #endif
 
-u32_t sys_now(void)
+u32_t sys_now()
 {
   return HAL_GetTick();
 }

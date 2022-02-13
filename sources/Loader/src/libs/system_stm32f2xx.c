@@ -146,7 +146,7 @@
   */
 
 #ifdef DATA_IN_ExtSRAM
-  static void SystemInit_ExtMemCtl(void); 
+  static void SystemInit_ExtMemCtl(); 
 #endif /* DATA_IN_ExtSRAM */
 
 /**
@@ -164,7 +164,7 @@
   * @param  None
   * @retval None
   */
-void SystemInit(void)
+void SystemInit()
 {
   /* Reset the RCC clock configuration to the default reset state ------------*/
   /* Set HSION bit */
@@ -233,7 +233,7 @@ void SystemInit(void)
   * @param  None
   * @retval None
   */
-void SystemCoreClockUpdate(void)
+void SystemCoreClockUpdate()
 {
   uint32_t tmp = 0, pllvco = 0, pllp = 2, pllsource = 0, pllm = 2;
   
@@ -290,7 +290,7 @@ void SystemCoreClockUpdate(void)
   * @param  None
   * @retval None
   */
-void SystemInit_ExtMemCtl(void)
+void SystemInit_ExtMemCtl()
 {
   __IO uint32_t tmp = 0x00;
 
@@ -299,7 +299,7 @@ void SystemInit_ExtMemCtl(void)
   RCC->AHB1ENR   |= 0x00000078;
   /* Delay after an RCC peripheral clock enabling */
   tmp = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIODEN);
-  (void)(tmp);
+  ()(tmp);
 
   /* Connect PDx pins to FSMC Alternate function */
   GPIOD->AFR[0]  = 0x00CCC0CC;

@@ -12,12 +12,12 @@ extern "C" {
 
 
 
-void NMI_Handler(void)
+void NMI_Handler()
 {
 }
 
 
-void HardFault_Handler(void)
+void HardFault_Handler()
 {
     while (1)
     {
@@ -25,7 +25,7 @@ void HardFault_Handler(void)
 }
 
 
-void MemManage_Handler(void)
+void MemManage_Handler()
 {
   while (1)
   {
@@ -33,7 +33,7 @@ void MemManage_Handler(void)
 }
 
 
-void BusFault_Handler(void)
+void BusFault_Handler()
 {
   while (1)
   {
@@ -41,7 +41,7 @@ void BusFault_Handler(void)
 }
 
 
-void UsageFault_Handler(void)
+void UsageFault_Handler()
 {
   while (1)
   {
@@ -49,48 +49,48 @@ void UsageFault_Handler(void)
 }
 
 
-void SVC_Handler(void)
+void SVC_Handler()
 {
 }
 
 
-void DebugMon_Handler(void)
+void DebugMon_Handler()
 {
 }
 
 
-void PendSV_Handler(void)
+void PendSV_Handler()
 {
 }
 
 
-void SysTick_Handler(void)
+void SysTick_Handler()
 {
   HAL_IncTick();
 }
 
 
-void ADC_IRQHandler(void)
+void ADC_IRQHandler()
 {
     HAL_ADC_IRQHandler(&handleADC);
 }
 
 
 // This interrupt call soft NSS for spi (see Hardware::SPIforPanel.c::PanelInit() and HAL_GPIO_EXTI_Callback().
-void EXTI0_IRQHandler(void)
+void EXTI0_IRQHandler()
 {
     HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
 }
 
 
 // See Hardware::SPIforPanel.c::HAL_SPI_RxCpltCallback().
-void SPI1_IRQHandler(void)
+void SPI1_IRQHandler()
 {
     HAL_SPI_IRQHandler(&handleSPI);
 }
 
 
-void OTG_HS_IRQHandler(void)
+void OTG_HS_IRQHandler()
 {
     HAL_HCD_IRQHandler(&handleHCD);
 }

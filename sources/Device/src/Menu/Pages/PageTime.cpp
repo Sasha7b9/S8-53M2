@@ -69,7 +69,7 @@ static const Choice mcSample =
     (int8*)&SAMPLE_TYPE
 };
 
-static bool IsActive_Sample(void)
+static bool IsActive_Sample()
 {
     return sTime_RandomizeModeEnabled();
 }
@@ -91,7 +91,7 @@ static const Choice mcPeakDet =
     (int8*)&PEAKDET, OnChanged_PeakDet
 };
 
-static bool IsActive_PeakDet(void)
+static bool IsActive_PeakDet()
 {
     return (SET_TBASE >= MIN_TBASE_PEC_DEAT);
 }
@@ -177,7 +177,7 @@ static const Choice mcSelfRecorder =
     (int8*)&SET_SELFRECORDER
 };
 
-static bool IsActive_SelfRecorder(void)
+static bool IsActive_SelfRecorder()
 {
     return SET_TBASE >= MIN_TBASE_P2P;
 }

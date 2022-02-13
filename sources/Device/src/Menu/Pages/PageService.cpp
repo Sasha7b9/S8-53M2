@@ -123,7 +123,7 @@ static const Button bResetSettings
     OnPress_ResetSettings
 );
 
-static void OnPress_ResetSettings(void)
+static void OnPress_ResetSettings()
 {
     Panel::Disable();
     Display::SetDrawMode(DrawMode_Hand, FuncDraw);
@@ -140,7 +140,7 @@ static void OnPress_ResetSettings(void)
     Panel::Enable();
 }
 
-static void FuncDraw(void)
+static void FuncDraw()
 {
     Painter::BeginScene(COLOR_BACK);
 
@@ -150,7 +150,7 @@ static void FuncDraw(void)
     Painter::EndScene();
 }
 
-static void OnTimerDraw(void)
+static void OnTimerDraw()
 {
     Display::Update();
 }
@@ -166,7 +166,7 @@ static const Button bAutoSearch
     OnPress_AutoSearch
 );
 
-static void OnPress_AutoSearch(void)
+static void OnPress_AutoSearch()
 {
     FPGA::StartAutoFind();
 };
@@ -219,7 +219,7 @@ static const Button cCalibrator_Calibrate
     OnPress_Calibrator_Calibrate
 );
 
-static void OnPress_Calibrator_Calibrate(void)
+static void OnPress_Calibrator_Calibrate()
 {
     gStateFPGA.needCalibration = true;
 }
@@ -265,12 +265,12 @@ void *PageService::Math::Function::GetPointer()
     return (void *)&pppMath_Function;
 }
 
-static bool IsActive_Math_Function(void)
+static bool IsActive_Math_Function()
 {
     return !ENABLED_FFT;
 }
 
-static void OnPress_Math_Function(void)
+static void OnPress_Math_Function()
 {
     if (ENABLED_FFT)
     {
@@ -379,7 +379,7 @@ static const SmallButton sbMath_Function_ModeDraw
     &hintsMath_Function_ModeDraw
 );
 
-static void OnPress_Math_Function_ModeDraw(void)
+static void OnPress_Math_Function_ModeDraw()
 {
     if (ENABLED_FFT)
     {
@@ -437,7 +437,7 @@ static const SmallButton sbMath_Function_Type
     &hintsMath_Function_Type
 );
 
-static void OnPress_Math_Function_Type(void)
+static void OnPress_Math_Function_Type()
 {
     CircleIncreaseInt8((int8*)&MATH_FUNC, 0, 1);
 }
@@ -479,7 +479,7 @@ static const SmallButton sbMath_Function_ModeRegSet
     &hintsMath_Function_ModeRegSet
 );
 
-static void OnPress_Math_Function_ModeRegSet(void)
+static void OnPress_Math_Function_ModeRegSet()
 {
     CircleIncreaseInt8((int8*)&MATH_MODE_REG_SET, 0, 1);
 }
@@ -511,7 +511,7 @@ static const SmallButton sbMath_Function_RangeA
     Draw_Math_Function_RangeA
 );
 
-static void OnPress_Math_Function_RangeA(void)
+static void OnPress_Math_Function_RangeA()
 {
     SET_RANGE_MATH = SET_RANGE_A;
     MATH_MULTIPLIER = SET_DIVIDER_A;
@@ -533,7 +533,7 @@ static const SmallButton sbMath_Function_RangeB
     Draw_Math_Function_RangeB
 );
 
-static void OnPress_Math_Function_RangeB(void)
+static void OnPress_Math_Function_RangeB()
 {
     SET_RANGE_MATH = SET_RANGE_B;
     MATH_MULTIPLIER = SET_DIVIDER_B;
@@ -564,12 +564,12 @@ static const Page pppMath_FFT
     Page_MathFFT, &itemsMath_FFT, OnPress_Math_FFT
 );
 
-static bool IsActive_Math_FFT(void)
+static bool IsActive_Math_FFT()
 {
     return DISABLED_DRAW_MATH;
 }
 
-static void OnPress_Math_FFT(void)
+static void OnPress_Math_FFT()
 {
     if (!IsActive_Math_FFT())
     {
@@ -669,7 +669,7 @@ void *PageService::Math::FFT::Cursors::GetPointer()
     return (void *)&ppppMath_FFT_Cursors;
 }
 
-static bool IsActive_Math_FFT_Cursors(void)
+static bool IsActive_Math_FFT_Cursors()
 {
     return ENABLED_FFT;
 }
@@ -689,7 +689,7 @@ static const SmallButton cMath_FFT_Cursors_Exit
     DrawSB_Exit
 );
 
-static void OnPress_Math_FFT_Cursors_Exit(void)
+static void OnPress_Math_FFT_Cursors_Exit()
 {
     Display::RemoveAddDrawFunction();
 }
@@ -705,7 +705,7 @@ static const SmallButton cMath_FFT_Cursors_Source
     Draw_Math_FFT_Cursors_Source
 );
 
-static void OnPress_Math_FFT_Cursors_Source(void)
+static void OnPress_Math_FFT_Cursors_Source()
 {
     FFT_CUR_CURSOR = (uint8)((FFT_CUR_CURSOR + 1) % 2);
 }
@@ -732,7 +732,7 @@ static const Choice cMath_FFT_Limit =
     (int8*)&FFT_MAX_DB
 };
 
-static bool IsActive_Math_FFT_Limit(void)
+static bool IsActive_Math_FFT_Limit()
 {
     return SCALE_FFT_IS_LOG;
 }
@@ -950,13 +950,13 @@ void *PageService::Information::GetPointer()
     return (void *)&ppInformation;
 }
 
-static void OnPress_Information(void)
+static void OnPress_Information()
 {
     Menu::OpenPageAndSetItCurrent(PageService::Information::GetPointer());
     Display::SetDrawMode(DrawMode_Hand, Information_Draw);
 }
 
-static void Information_Draw(void)
+static void Information_Draw()
 {
     Language lang = LANG;
 
@@ -1007,7 +1007,7 @@ const SmallButton sbInformation_Exit
     DrawSB_Exit
 );
 
-static void OnPress_Information_Exit(void)
+static void OnPress_Information_Exit()
 {
     Display::SetDrawMode(DrawMode_Auto, 0);
     Display::RemoveAddDrawFunction();

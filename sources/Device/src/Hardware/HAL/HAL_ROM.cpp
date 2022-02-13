@@ -50,7 +50,7 @@ void HAL_ROM::PrepareSectorForData()
 }
 
 
-bool HAL_ROM::LoadSettings(void)
+bool HAL_ROM::LoadSettings()
 {
     /*
         1. Проверка на первое включение. Выполняется тем, что в первом слове сектора настроек хранится MAX_UINT, если настройки ещё не сохранялись.

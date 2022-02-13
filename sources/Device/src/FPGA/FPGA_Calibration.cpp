@@ -51,13 +51,13 @@ static float koeffCalibrationOld[2];
 extern void LoadStretchADC(Chan::E ch);
 
 
-static void OnTimerDraw(void)
+static void OnTimerDraw()
 {
     Display::Update();
 }
 
 
-void FPGA::ProcedureCalibration(void)
+void FPGA::ProcedureCalibration()
 {
     bool chanAenable = SET_ENABLED_A;
     bool chanBenable = SET_ENABLED_B;
@@ -208,7 +208,7 @@ void FPGA::ProcedureCalibration(void)
 }
 
 
-void FuncAttScreen(void)
+void FuncAttScreen()
 {
     Painter::BeginScene(Color::BLACK);
 
@@ -392,7 +392,7 @@ float CalculateDeltaADC(Chan::E ch, float *avgADC1, float *avgADC2, float *delta
 }
 
 
-void AlignmentADC(void)
+void AlignmentADC()
 {
     shiftADC0 = (deltaADCold[0] > 0) ? (deltaADCold[0] + 0.5f) : (deltaADCold[0] - 0.5f);
     SET_BALANCE_ADC_A = shiftADC0;

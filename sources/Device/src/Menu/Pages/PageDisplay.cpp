@@ -124,7 +124,7 @@ static const Page mspAccumulation
     Page_DisplayAccumulation, &itemsAccumulation
 );
 
-static bool IsActive_Accumulation(void)
+static bool IsActive_Accumulation()
 {
     return SET_TBASE > TBase_50ns;
 }
@@ -194,12 +194,12 @@ static const Button mcAccumulation_Clear
     OnPress_Accumulation_Clear
 );
 
-static bool IsActive_Accumulation_Clear(void)
+static bool IsActive_Accumulation_Clear()
 {
     return ENUM_ACCUM_IS_INFINITY;
 }
 
-void OnPress_Accumulation_Clear(void)
+void OnPress_Accumulation_Clear()
 {
     Display::Redraw();
 }
@@ -221,7 +221,7 @@ static const Page mspAveraging
     Page_DisplayAverage, &itemsAveraging
 );
 
-static bool IsActive_Averaging(void)
+static bool IsActive_Averaging()
 {
     return true;
 }
@@ -300,7 +300,7 @@ static const Choice mcMinMax =
     (int8*)&ENUM_MIN_MAX, OnChanged_MinMax
 };
 
-static bool IsActive_MinMax(void) //-V524
+static bool IsActive_MinMax() //-V524
 {
     return SET_TBASE > TBase_50ns;
 }
@@ -417,12 +417,12 @@ static const Governor mgGrid_Brightness
 
 ColorType colorTypeGrid = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, Color::GRID};
 
-void OnChanged_Grid_Brightness(void)
+void OnChanged_Grid_Brightness()
 {
     Color_SetBrightness(&colorTypeGrid, BRIGHTNESS_GRID / 1e2f);
 }
 
-static void BeforeDraw_Grid_Brightness(void)
+static void BeforeDraw_Grid_Brightness()
 {
     Color_Init(&colorTypeGrid);
     BRIGHTNESS_GRID = (int16)(colorTypeGrid.brightness * 100.0f);
@@ -561,7 +561,7 @@ static const Governor mgSettings_Brightness
     &BRIGHTNESS, 0, 100, OnChanged_Settings_Brightness
 );
 
-static void OnChanged_Settings_Brightness(void)
+static void OnChanged_Settings_Brightness()
 {
     HAL_DAC1::SetBrightness(BRIGHTNESS);
 }

@@ -29,11 +29,11 @@ static TIM_HandleTypeDef handleTIM6forTimer =
 
 
 
-static void SystemClock_Config(void);
+static void SystemClock_Config();
 
 
 
-void Hardware_Init(void) 
+void Hardware_Init() 
 {
     HAL_Init();
 
@@ -115,7 +115,7 @@ extern "C" {
 #endif
 
 
-void TIM6_DAC_IRQHandler(void)
+void TIM6_DAC_IRQHandler()
 {
     if (__HAL_TIM_GET_FLAG(&handleTIM6forTimer, TIM_FLAG_UPDATE) == SET && __HAL_TIM_GET_ITSTATUS(&handleTIM6forTimer, TIM_IT_UPDATE))
     {
@@ -130,7 +130,7 @@ void TIM6_DAC_IRQHandler(void)
 #endif
 
 
-static void SystemClock_Config(void)
+static void SystemClock_Config()
 {
     RCC_ClkInitTypeDef RCC_ClkInitStruct;
     RCC_OscInitTypeDef RCC_OscInitStruct;
