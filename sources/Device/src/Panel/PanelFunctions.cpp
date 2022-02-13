@@ -254,25 +254,25 @@ static void SetRShift(Chan::E ch, int16 rShift)
 void RShift0Left()
 {
     static int prevTime = 0;
-    ChangeRShift(&prevTime, SetRShift, Chan::A, -STEP_RSHIFT);
+    ChangeRShift(&prevTime, SetRShift, Chan::A, -RShift::STEP);
 }
 
 void RShift0Right()
 {
     static int prevTime = 0;
-    ChangeRShift(&prevTime, SetRShift, Chan::A, +STEP_RSHIFT);
+    ChangeRShift(&prevTime, SetRShift, Chan::A, +RShift::STEP);
 }
 
 void RShift1Left()
 {
     static int prevTime = 0;
-    ChangeRShift(&prevTime, SetRShift, Chan::B, -STEP_RSHIFT);
+    ChangeRShift(&prevTime, SetRShift, Chan::B, -RShift::STEP);
 }
 
 void RShift1Right()
 {
     static int prevTime = 0;
-    ChangeRShift(&prevTime, SetRShift, Chan::B, +STEP_RSHIFT);
+    ChangeRShift(&prevTime, SetRShift, Chan::B, +RShift::STEP);
 }
 
 static void SetTrigLev(TrigSource::E ch, int16 trigLev)
@@ -283,13 +283,13 @@ static void SetTrigLev(TrigSource::E ch, int16 trigLev)
 void TrigLevLeft()
 {
     static int prevTime = 0;
-    ChangeTrigLev(&prevTime, SetTrigLev, TRIG_SOURCE, -STEP_RSHIFT);
+    ChangeTrigLev(&prevTime, SetTrigLev, TRIG_SOURCE, -RShift::STEP);
 }
 
 void TrigLevRight()
 {
     static int prevTime = 0;
-    ChangeTrigLev(&prevTime, SetTrigLev, TRIG_SOURCE, +STEP_RSHIFT);
+    ChangeTrigLev(&prevTime, SetTrigLev, TRIG_SOURCE, +RShift::STEP);
 }
 
 static void ShiftScreen(int shift)
