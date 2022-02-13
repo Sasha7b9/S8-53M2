@@ -261,7 +261,7 @@ void TBase::Decrease()
 
     if ((int)SET_TBASE > 0)
     {
-        if (SET_SELFRECORDER && SET_TBASE == MIN_TBASE_P2P)
+        if (SET_SELFRECORDER && SET_TBASE == TBase::MIN_P2P)
         {
             Display::ShowWarningBad(TooFastScanForSelfRecorder);
         }

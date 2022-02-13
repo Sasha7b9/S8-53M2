@@ -3,8 +3,6 @@
 #include "FPGA/TypesFPGA.h"
 
 
-#define MIN_TBASE_P2P       TBase::_20ms      // С этого значения tBase должен включаться режим поточечного вывода.
-
 #define FPGA_MAX_POINTS_FOR_CALCULATE 900
 
 
