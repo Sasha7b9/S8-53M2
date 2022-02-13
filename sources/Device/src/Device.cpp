@@ -4,7 +4,6 @@
 #include "Hardware/HAL/HAL.h"
 #include "Settings/Settings.h"
 #include "FPGA/Storage.h"
-#include "Hardware/EPROM.h"
 #include "Utils/ProcessingSignal.h"
 #include "Menu/Pages/PageCursors.h"
 #include "VCP/VCP.h"

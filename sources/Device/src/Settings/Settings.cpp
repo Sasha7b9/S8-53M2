@@ -1,6 +1,5 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "Settings.h"
-#include "Hardware/EPROM.H"
 #include "Display/Display.h"
 #include "Display/Painter.h"
 #include "Panel/Panel.h"
@@ -11,6 +10,7 @@
 #include "Display/Display.h"
 #include "Menu/Menu.h"
 #include "Log.h"
+#include "Hardware/HAL/HAL.h"
 #include <string.h>
 
 

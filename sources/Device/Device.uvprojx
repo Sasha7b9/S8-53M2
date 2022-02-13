@@ -1227,16 +1227,6 @@
               <FilePath>.\src\Hardware\Timer.cpp</FilePath>
             </File>
             <File>
-              <FileName>EPROM.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\EPROM.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>EPROM.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\EPROM.h</FilePath>
-            </File>
-            <File>
               <FileName>InterCom.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\InterCom.cpp</FilePath>
@@ -1305,6 +1295,16 @@
               <FileName>HAL_RTC.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_RTC.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_ROM.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_ROM.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_ROM.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_ROM.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3153,16 +3153,6 @@
               <FilePath>.\src\Hardware\Timer.cpp</FilePath>
             </File>
             <File>
-              <FileName>EPROM.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\EPROM.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>EPROM.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\EPROM.h</FilePath>
-            </File>
-            <File>
               <FileName>InterCom.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\InterCom.cpp</FilePath>
@@ -3231,6 +3221,16 @@
               <FileName>HAL_RTC.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_RTC.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_ROM.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_ROM.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_ROM.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_ROM.h</FilePath>
             </File>
           </Files>
         </Group>

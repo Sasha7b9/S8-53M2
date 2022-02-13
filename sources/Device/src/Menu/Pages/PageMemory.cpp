@@ -1,8 +1,8 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Settings/SettingsTypes.h"
-#include "PageMemory.h"
-#include "Definition.h"
+#include "Menu/Pages/PageMemory.h"
+#include "Menu/Pages/Definition.h"
 #include "Menu/FileManager.h"
 #include "FPGA/FPGA.h"
 #include "FPGA/Storage.h"
@@ -17,10 +17,10 @@
 #include "Utils/GlobalFunctions.h"
 #include "Utils/Math.h"
 #include "FlashDrive/FlashDrive.h"
-#include "Hardware/EPROM.h"
 #include "Hardware/Sound.h"
 #include "Log.h"
 #include "Tables.h"
+#include "Hardware/HAL/HAL.h"
 #include <string.h>
 #include <stdio.h>
 
