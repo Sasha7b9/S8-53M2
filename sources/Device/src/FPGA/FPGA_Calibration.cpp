@@ -16,39 +16,46 @@
 #include <limits.h>
 
 
-
-static int16    CalculateAdditionRShift(Chan::E ch, Range range);	///< Измерить добавочное смещение канала по напряжению.
-static float    CalculateKoeffCalibration(Chan::E ch);			///< Измерить коэффициент калибровки канала по напряжению.
-static void     AlignmentADC();
-static void     FuncAttScreen();								///< Функция обновления экрана в режиме калибровки.
-static float    CalculateDeltaADC(Chan::E ch, float *avgADC1, float *avgADC2, float *delta);
-static void     DrawParametersChannel(Chan::E ch, int x, int y, bool inProgress);
-
-static float deltaADC[2] = {0.0f, 0.0f};
-static float deltaADCPercents[2] = {0.0f, 0.0f};
-static float avrADC1[2] = {0.0f, 0.0f};
-static float avrADC2[2] = {0.0f, 0.0f};
-
-static float deltaADCold[2] = {0.0f, 0.0f};
-static float deltaADCPercentsOld[2] = {0.0f, 0.0f};
-static float avrADC1old[2] = {0.0f, 0.0f};
-static float avrADC2old[2] = {0.0f, 0.0f};
-
-static int8 shiftADC0 = 0;
-static int8 shiftADC1 = 0;
-
-static float koeffCal0 = -1.0f;
-static float koeffCal1 = -1.0f;
-
-static ProgressBar bar0;                            // Прогресс-бар для калибровки первого канала.
-static ProgressBar bar1;                            // Прогресс-бар для калибровки второго канала.
-
-static uint startTimeChan0 = 0;                     // Время начала калибровки первого канала.
-static uint startTimeChan1 = 0;                     // Время начала калибровки второго канала.
-
-static float koeffCalibrationOld[2];
-
 extern void LoadStretchADC(Chan::E ch);
+
+
+namespace FPGA
+{
+    static int16 CalculateAdditionRShift(Chan::E ch, Range range);   // Измерить добавочное смещение канала по напряжению.
+    static float CalculateKoeffCalibration(Chan::E ch);              // Измерить коэффициент калибровки канала по напряжению.
+    static void  AlignmentADC();
+    static void  FuncAttScreen();                                    // Функция обновления экрана в режиме калибровки.
+    static float CalculateDeltaADC(Chan::E ch, float *avgADC1, float *avgADC2, float *delta);
+    static void  DrawParametersChannel(Chan::E ch, int x, int y, bool inProgress);
+    static void  FuncAttScreen();
+    static void  DrawParametersChannel(Chan::E ch, int eX, int eY, bool inProgress);
+    static float CalculateDeltaADC(Chan::E ch, float *avgADC1, float *avgADC2, float *delta);
+    static void  AlignmentADC();
+
+    static float deltaADC[2] = {0.0f, 0.0f};
+    static float deltaADCPercents[2] = {0.0f, 0.0f};
+    static float avrADC1[2] = {0.0f, 0.0f};
+    static float avrADC2[2] = {0.0f, 0.0f};
+
+    static float deltaADCold[2] = {0.0f, 0.0f};
+    static float deltaADCPercentsOld[2] = {0.0f, 0.0f};
+    static float avrADC1old[2] = {0.0f, 0.0f};
+    static float avrADC2old[2] = {0.0f, 0.0f};
+
+    static int8 shiftADC0 = 0;
+    static int8 shiftADC1 = 0;
+
+    static float koeffCal0 = -1.0f;
+    static float koeffCal1 = -1.0f;
+
+    static ProgressBar bar0;                            // Прогресс-бар для калибровки первого канала.
+    static ProgressBar bar1;                            // Прогресс-бар для калибровки второго канала.
+
+    static uint startTimeChan0 = 0;                     // Время начала калибровки первого канала.
+    static uint startTimeChan1 = 0;                     // Время начала калибровки второго канала.
+
+    static float koeffCalibrationOld[2];
+}
 
 
 static void OnTimerDraw()
@@ -91,8 +98,8 @@ void FPGA::ProcedureCalibration()
         FPGA::SetRShift(Chan::B, RShiftZero);
         FPGA::SetModeCouple(Chan::A, ModeCouple_GND);
         FPGA::SetModeCouple(Chan::B, ModeCouple_GND);
-//        HAL_FMC::Write(WR_ADD_RSHIFT_DAC1, 0);
-//        HAL_FMC::Write(WR_ADD_RSHIFT_DAC2, 0);
+        HAL_FMC::Write(WR_ADD_RSHIFT_DAC1, 0);
+        HAL_FMC::Write(WR_ADD_RSHIFT_DAC2, 0);
 
         deltaADCPercentsOld[0] = CalculateDeltaADC(Chan::A, &avrADC1old[Chan::A], &avrADC2old[Chan::A], &deltaADCold[Chan::A]);
         deltaADCPercentsOld[1] = CalculateDeltaADC(Chan::B, &avrADC1old[Chan::B], &avrADC2old[Chan::B], &deltaADCold[Chan::B]);
@@ -108,13 +115,13 @@ void FPGA::ProcedureCalibration()
 
         if(Panel::WaitPressingButton() == B_Start)             // Ожидаем подтверждения или отмены процедуры калибровки первого канала.
         {
-			gStateFPGA.stateCalibration = StateCalibration_RShift0inProgress;
+            gStateFPGA.stateCalibration = StateCalibration_RShift0inProgress;
 
-			koeffCal0 = CalculateKoeffCalibration(Chan::A);
-			if(koeffCal0 == ERROR_VALUE_FLOAT)
+            koeffCal0 = CalculateKoeffCalibration(Chan::A);
+            if(koeffCal0 == ERROR_VALUE_FLOAT)
             {
-				gStateFPGA.stateCalibration = StateCalibration_ErrorCalibration0;
-				Panel::WaitPressingButton();
+                gStateFPGA.stateCalibration = StateCalibration_ErrorCalibration0;
+                Panel::WaitPressingButton();
                 DEBUG_STRETCH_ADC_TYPE = StretchADC_Hand;
                 LoadStretchADC(Chan::A);
             }
@@ -123,7 +130,7 @@ void FPGA::ProcedureCalibration()
                 STRETCH_ADC_A = koeffCal0;
                 FPGA::LoadKoeffCalibration(Chan::A);
             }
-			
+
             for (int range = 0; range < RangeSize; range++)
             {
                 for (int mode = 0; mode < 2; mode++)
@@ -136,24 +143,24 @@ void FPGA::ProcedureCalibration()
                     }
                 }
             }
-		}
+        }
 
         gStateFPGA.stateCalibration = StateCalibration_RShift1start;
 
         HAL_Delay(500);
 
-		if(Panel::WaitPressingButton() == B_Start)                 // Ожидаем подтверждения или отмены процедуры калибровки второго канала.
+        if(Panel::WaitPressingButton() == B_Start)                 // Ожидаем подтверждения или отмены процедуры калибровки второго канала.
         {
-			gStateFPGA.stateCalibration = StateCalibration_RShift1inProgress;
+            gStateFPGA.stateCalibration = StateCalibration_RShift1inProgress;
 
             koeffCal1 = CalculateKoeffCalibration(Chan::B);
-			if(koeffCal1 == ERROR_VALUE_FLOAT)
+            if(koeffCal1 == ERROR_VALUE_FLOAT)
             {
-				gStateFPGA.stateCalibration = StateCalibration_ErrorCalibration1;
-				Panel::WaitPressingButton();
+                gStateFPGA.stateCalibration = StateCalibration_ErrorCalibration1;
+                Panel::WaitPressingButton();
                 DEBUG_STRETCH_ADC_TYPE = StretchADC_Hand;
                 LoadStretchADC(Chan::B);
-			}
+            }
             else
             {
                 STRETCH_ADC_B = koeffCal1;
@@ -172,7 +179,7 @@ void FPGA::ProcedureCalibration()
                     }
                 }
             }
-		}
+        }
 
         break;
     }
@@ -181,8 +188,8 @@ void FPGA::ProcedureCalibration()
 
     SET_BALANCE_ADC_A = shiftADC0;
     SET_BALANCE_ADC_B = shiftADC1;
-//    HAL_FMC::Write(WR_ADD_RSHIFT_DAC1, (uint8)SET_BALANCE_ADC_A);
-//    HAL_FMC::Write(WR_ADD_RSHIFT_DAC2, (uint8)SET_BALANCE_ADC_B);
+    HAL_FMC::Write(WR_ADD_RSHIFT_DAC1, (uint8)SET_BALANCE_ADC_A);
+    HAL_FMC::Write(WR_ADD_RSHIFT_DAC2, (uint8)SET_BALANCE_ADC_B);
 
     FPGA::SetRShift(Chan::A, SET_RSHIFT_A);
     FPGA::SetRShift(Chan::B, SET_RSHIFT_B);
@@ -208,7 +215,7 @@ void FPGA::ProcedureCalibration()
 }
 
 
-void FuncAttScreen()
+void FPGA::FuncAttScreen()
 {
     Painter::BeginScene(Color::BLACK);
 
@@ -302,7 +309,7 @@ void FuncAttScreen()
 }
 
 
-void DrawParametersChannel(Chan::E ch, int eX, int eY, bool inProgress)
+void FPGA::DrawParametersChannel(Chan::E ch, int eX, int eY, bool inProgress)
 {
     Color::SetCurrent(COLOR_FILL);
     if(inProgress)
@@ -337,7 +344,7 @@ void DrawParametersChannel(Chan::E ch, int eX, int eY, bool inProgress)
 }
 
 
-float CalculateDeltaADC(Chan::E ch, float *avgADC1, float *avgADC2, float *delta)
+float FPGA::CalculateDeltaADC(Chan::E ch, float *avgADC1, float *avgADC2, float *delta)
 {
     uint *startTime = (ch == Chan::A) ? &startTimeChan0 : &startTimeChan1;
     *startTime = gTimerMS;
@@ -392,7 +399,7 @@ float CalculateDeltaADC(Chan::E ch, float *avgADC1, float *avgADC2, float *delta
 }
 
 
-void AlignmentADC()
+void FPGA::AlignmentADC()
 {
     shiftADC0 = (deltaADCold[0] > 0) ? (deltaADCold[0] + 0.5f) : (deltaADCold[0] - 0.5f);
     SET_BALANCE_ADC_A = shiftADC0;
@@ -403,7 +410,7 @@ void AlignmentADC()
 }
 
 
-int16 CalculateAdditionRShift(Chan::E ch, Range range)
+int16 FPGA::CalculateAdditionRShift(Chan::E ch, Range range)
 {
     FPGA::SetRange(ch, range);
     FPGA::SetRShift(ch, RShiftZero);
@@ -468,7 +475,7 @@ int16 CalculateAdditionRShift(Chan::E ch, Range range)
 }
 
 
-float CalculateKoeffCalibration(Chan::E ch)
+float FPGA::CalculateKoeffCalibration(Chan::E ch)
 {
     FPGA::WriteToHardware(WR_UPR, BINARY_U8(00000100), false);
 
