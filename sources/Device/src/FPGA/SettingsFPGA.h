@@ -45,8 +45,6 @@ struct TBase
     };
 };
 
-const char *TBaseName(TBase::E tBase);
-
 
 struct PackedTime
 {
