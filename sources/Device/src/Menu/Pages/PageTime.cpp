@@ -101,7 +101,7 @@ void OnChanged_PeakDet(bool active)
     if (active)
     {
         FPGA::SetPeackDetMode(PEAKDET);
-        FPGA::SetTBase(SET_TBASE);
+        TBase::Set(SET_TBASE);
         if (PEAKDET_IS_DISABLE)
         {
 //            int8 shift[2][3] =

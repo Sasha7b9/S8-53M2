@@ -43,6 +43,13 @@ struct TBase
         _10s,
         Count
     };
+
+    static void Set(TBase::E tBase);
+
+private:
+
+    // Загрузка коэффицента развёртки в аппаратную часть.
+    static void Load();
 };
 
 

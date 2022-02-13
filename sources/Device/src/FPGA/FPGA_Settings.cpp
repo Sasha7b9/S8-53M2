@@ -80,9 +80,6 @@ namespace FPGA
     // Загрузить все параметры напряжения каналов и синхронизации в аппаратную часть.
     void SetAttribChannelsAndTrig(TypeWriteAnalog type);
 
-    // Загрузка коэффицента развёртки в аппаратную часть.
-    void LoadTBase();
-
     // Загрузка смещения по времени в аппаратную часть.
     void LoadTShift();
 
@@ -112,7 +109,7 @@ void FPGA::LoadSettings()
     LoadKoeffCalibration(Chan::A);
     LoadKoeffCalibration(Chan::B);
     SetAttribChannelsAndTrig(TypeWriteAnalog_All);
-    LoadTBase();
+    TBase::Set(SET_TBASE);
     LoadTShift();
     LoadRange(Chan::A);
     LoadRShift(Chan::A);
@@ -130,7 +127,7 @@ void FPGA::LoadSettings()
             break;
         case BalanceADC_Hand:
             SetPeackDetMode(PEAKDET);
-            SetTBase(SET_TBASE);
+            TBase::Set(SET_TBASE);
             if (PEAKDET)
             {
                 WriteToHardware(WR_ADD_RSHIFT_DAC1, 3, false);     // Почему-то при пиковом детекторе смещение появляется. Вот его и компенсируем.
@@ -230,7 +227,7 @@ void FPGA::LoadRange(Chan::E ch)
 }
 
 
-void FPGA::SetTBase(TBase::E tBase)
+void TBase::Set(TBase::E tBase)
 {
     if (!sChannel_Enabled(Chan::A) && !sChannel_Enabled(Chan::B))
     {
@@ -240,7 +237,7 @@ void FPGA::SetTBase(TBase::E tBase)
     {
         float tShiftAbsOld = TSHIFT_2_ABS(TSHIFT, SET_TBASE);
         sTime_SetTBase(tBase);
-        LoadTBase();
+        Load();
         FPGA::SetTShift(TSHIFT_2_REL(tShiftAbsOld, SET_TBASE));
         Display::Redraw();
     }
@@ -251,7 +248,7 @@ void FPGA::SetTBase(TBase::E tBase)
 };
 
 
-void FPGA::LoadTBase()
+void TBase::Load()
 {
     TBase::E tBase = SET_TBASE;
     uint8 mask = PEAKDET ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
@@ -278,7 +275,7 @@ void FPGA::TBaseDecrease()
         else
         {
             TBase::E base = (TBase::E)((int)SET_TBASE - 1);
-            FPGA::SetTBase(base);
+            TBase::Set(base);
         }
     }
     else
@@ -293,7 +290,7 @@ void FPGA::TBaseIncrease()
     if (SET_TBASE < (TBase::Count - 1))
     {
         TBase::E base = (TBase::E)(SET_TBASE + 1);
-        FPGA::SetTBase(base);
+        TBase::Set(base);
     }
     else
     {

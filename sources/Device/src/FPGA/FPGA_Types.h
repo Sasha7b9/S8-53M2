@@ -58,7 +58,7 @@
 
 
 #define WR_START        (ADDR_FPGA)                 //    Запуск цикла измерения. Для запуска нужно записать 1.
-#define WR_RAZVERTKA    (ADDR_FPGA + 4)             //    Установка частоты синхронизации. Используется в LoadTBase().
+#define WR_RAZVERTKA    (ADDR_FPGA + 4)             //    Установка частоты синхронизации. Используется в TBase::Load().
 #define WR_PRED_LOW     (ADDR_FPGA + 5)             //    Младший байт величины предзапуска. Используется совместно с WR_PRED_HI, WR_POST_LOW, WR_POST_HI для загрузки смещения по времени в ПЛИС. Используется в LoadTShift().
 #define WR_PRED_HI      (ADDR_FPGA + 6)             //    Старший байт величины предзапуска. Используется совместно с WR_PRED_LOW, WR_POST_LOW, WR_POST_HI для загрузки смещения по времени в ПЛИС. Используется в LoadTShift().
 #define WR_POST_LOW     (ADDR_FPGA + 7)             //    Младший байт величины послезапуска. Используется совместно с WR_PRED_LOW, WR_PRED_HI, WR_PRED_POST для загрузки смещения по времени в ПЛИС. Используется в LoadTShift().

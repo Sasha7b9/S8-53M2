@@ -82,9 +82,6 @@ namespace FPGA
     // Уменьшить масштаб по напряжению.
     bool RangeDecrease(Chan::E);
 
-    // Установить масштаб по времени.
-    void SetTBase(TBase::E tBase);
-
     // Уменьшить масштаб по времени.
     void TBaseDecrease();
 
