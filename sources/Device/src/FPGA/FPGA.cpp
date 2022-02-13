@@ -40,16 +40,85 @@ static uint8 dataRel1[FPGA_MAX_POINTS] = {0};   // Буфер используется для чтения
 static Settings storingSettings;                // Здесь нужно уменьшить необходимый размер памяти - сохранять настройки только альтеры
 static uint timeStart = 0;
 
-// Функция вызывается, когда можно считывать очередной сигнал.
-static void OnTimerCanReadData();
 
-static void ReadPoint();
+namespace FPGA
+{
+    static void ReadPoint(void);
 
-static uint8 ReadFlag();
+    // Функция вызывается, когда можно считывать очередной сигнал.
+    static void OnTimerCanReadData();
 
-static void ReadFreq();
+    static void ReadPoint();
 
-static void ReadPeriod();
+    static uint8 ReadFlag();
+
+    static void ReadFreq();
+
+    static void ReadPeriod();
+
+    // Загрузить настройки в аппаратную часть из глобальной структуры SSettings.
+    void LoadSettings();
+
+    // Загрузка коэффицента развёртки в аппаратную часть.
+//    void LoadTBase();
+
+    // Загрузка смещения по времени в аппаратную часть.
+//    void LoadTShift();
+
+    // Загрузка масштаба по напряжению в аппаратную часть.
+//    void LoadRange(Chan::E ch);
+
+    // Загрузка смещения по напряжению в аппаратную часть.
+//    void LoadRShift(Chan::E ch);
+
+    // Загрузка уровня синхронизации в аппаратную часть.
+//    void LoadTrigLev();                                  
+
+    // Загузка полярности синхронизации в аппаратную часть.
+//    void LoadTrigPolarity();
+
+    // Загрузить все параметры напряжения каналов и синхронизации в аппаратную часть.
+//    void SetAttribChannelsAndTrig(TypeWriteAnalog type);
+
+    // Загрузить регистр WR_UPR (пиковый детектор и калибратор).
+//    void LoadRegUPR();
+
+    void WriteToAnalog(TypeWriteAnalog type, uint data);
+
+    void WriteToDAC(TypeWriteDAC type, uint16 data);
+
+    // Прочитать данные.
+    // necessaryShift - Признак того, что сигнал нужно смещать.
+    // saveToStorage - Нужно в режиме рандомизатора для указания, что пора сохранять измерение
+    void DataRead(bool necessaryShift, bool saveToStorage);
+
+    bool CalculateGate(uint16 rand, uint16 *min, uint16 *max);
+
+    int CalculateShift();
+
+    // Инвертирует данные.
+    void InverseDataIsNecessary(Chan::E ch, uint8 *data);
+
+    void AutoFind();
+
+    uint8 CalculateMinWithout0(uint8 buffer[100]);
+
+    uint8 CalculateMaxWithout255(uint8 buffer[100]);
+
+    bool ProcessingData();
+
+    void ReadRandomizeMode();
+
+    void ReadRealMode(bool necessaryShift);
+
+    Range AccurateFindRange(Chan::E ch);
+
+    TBase FindTBase(Chan::E ch);
+
+    TBase AccurateFindTBase(Chan::E ch);
+
+    bool FindWave(Chan::E ch);
+}
 
 
 void FPGA::Init(void) 
@@ -68,7 +137,7 @@ void FPGA::SetNumSignalsInSec(int numSigInSec)
 }
 
 
-void OnTimerCanReadData(void)
+void FPGA::OnTimerCanReadData(void)
 {
     FPGA_CAN_READ_DATA = 1;
 }
@@ -568,7 +637,7 @@ void FPGA::WriteToHardware(uint8 *address, uint8 value, bool restart)
 }
 
 
-void ReadPoint(void)
+void FPGA::ReadPoint(void)
 {
     if(_GET_BIT(ReadFlag(), BIT_POINT_READY))
     {
@@ -662,7 +731,7 @@ static float PeriodCounterToValue(BitSet32 *period)
 }
 
 
-static void ReadFreq(void)                         // Чтение счётчика частоты производится после того, как бит 4 флага RD_FL установится в едицину
+static void FPGA::ReadFreq(void)            // Чтение счётчика частоты производится после того, как бит 4 флага RD_FL установится в едицину
 {                                           // После чтения автоматически запускается новый цикл счёта
     BitSet32 freqFPGA = ReadRegFreq();
 
@@ -686,7 +755,7 @@ static void ReadFreq(void)                         // Чтение счётчика частоты пр
 }
 
 
-void ReadPeriod(void)
+void FPGA::ReadPeriod(void)
 {
     BitSet32 periodFPGA = ReadRegPeriod();
     float fr = PeriodCounterToValue(&periodFPGA);
@@ -703,7 +772,7 @@ void ReadPeriod(void)
 }
 
 
-static uint8 ReadFlag(void)
+static uint8 FPGA::ReadFlag(void)
 {
     uint8 flag = HAL_FMC::Read(RD_FL);
     if(!readPeriod) 
