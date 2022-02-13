@@ -8,7 +8,7 @@
 #include "Utils/Math.h"
 #include "Log.h"
 #include "Hardware/Timer.h"
-
+#include "Hardware/HAL/HAL.h"
 
 
 static const uint8 masksRange[RangeSize] =

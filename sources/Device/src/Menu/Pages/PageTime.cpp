@@ -10,13 +10,7 @@
 #include "Utils/Math.h"
 #include "Hardware/FSMC.h"
 #include "Display/Grid.h"
-
-
-/** @addtogroup Menu
- *  @{
- *  @addtogroup PageTime
- *  @{
- */
+#include "Hardware/HAL/HAL.h"
 
 
 extern const Page pTime;
@@ -210,7 +204,3 @@ static const Choice mcDivRole =
     },
     (int8*)&TIME_DIV_XPOS
 };
-
-
-/** @}  @}
- */
