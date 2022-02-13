@@ -271,7 +271,7 @@ bool FPGA::IsRunning()
 #define WRITE_AND_OR_INVERSE(addr, data, ch)                                                      \
     if(SET_INVERSE(ch))                                                                   \
     {                                                                                               \
-        data = (uint8)((int)(2 * AVE_VALUE) - LimitationUInt8(data, MIN_VALUE, MAX_VALUE));    \
+        data = (uint8)((int)(2 * AVE_VALUE) - LimitationUInt8(data, ValueFPGA::MIN, MAX_VALUE));    \
     }                                                                                               \
     *addr = data;
 
@@ -807,7 +807,7 @@ void FPGA::InverseDataIsNecessary(Chan::E ch, uint8 *data)
     {
         for (int i = 0; i < FPGA::MAX_POINTS; i++)
         {
-            data[i] = (uint8)((int)(2 * AVE_VALUE) - LimitationUInt8(data[i], MIN_VALUE, MAX_VALUE));
+            data[i] = (uint8)((int)(2 * AVE_VALUE) - LimitationUInt8(data[i], ValueFPGA::MIN, MAX_VALUE));
         }
     }
 }
@@ -1002,7 +1002,7 @@ Range::E FPGA::AccurateFindRange(Chan::E ch)
             }
         }
 
-        if (CalculateMinWithout0(buffer) < MIN_VALUE || CalculateMaxWithout255(buffer) > MAX_VALUE)
+        if (CalculateMinWithout0(buffer) < ValueFPGA::MIN || CalculateMaxWithout255(buffer) > MAX_VALUE)
         {
             if (range < Range::_20V)
             {

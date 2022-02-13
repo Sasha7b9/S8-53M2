@@ -159,7 +159,7 @@ void Math_PointsRelToVoltage(const uint8 *points, int numPoints, Range::E range,
     int voltInPixel = voltsInPixelInt[range];
     float maxVoltsOnScreen = MAX_VOLTAGE_ON_SCREEN(range);
     float rShiftAbs = RSHIFT_2_ABS(rShift, range);
-    int diff = (MIN_VALUE * voltInPixel) + (maxVoltsOnScreen + rShiftAbs) * 20e3f;
+    int diff = (ValueFPGA::MIN * voltInPixel) + (maxVoltsOnScreen + rShiftAbs) * 20e3f;
     float koeff = 1.0f / 20e3f;
     for (int i = 0; i < numPoints; i++)
     {
@@ -175,7 +175,7 @@ void Math_PointsVoltageToRel(const float *voltage, int numPoints, Range::E range
 
     float add = maxVoltOnScreen + rShiftAbs;
 
-    float delta = add * voltInPixel + MIN_VALUE;
+    float delta = add * voltInPixel + ValueFPGA::MIN;
 
     for (int i = 0; i < numPoints; i++)
     {
@@ -196,7 +196,7 @@ void Math_PointsVoltageToRel(const float *voltage, int numPoints, Range::E range
 
 uint8 Math_VoltageToPoint(float voltage, Range::E range, int16 rShift)
 {
-    int relValue = (voltage + MAX_VOLTAGE_ON_SCREEN(range) + RSHIFT_2_ABS(rShift, range)) / voltsInPixel[range] + MIN_VALUE;
+    int relValue = (voltage + MAX_VOLTAGE_ON_SCREEN(range) + RSHIFT_2_ABS(rShift, range)) / voltsInPixel[range] + ValueFPGA::MIN;
     LIMITATION(relValue, relValue, 0, 255);
     return (uint8)relValue;
 }
@@ -578,7 +578,7 @@ uint8 Math_GetMaxFromArrayWithErrorCode(const uint8 *data, int firstPoint, int l
 uint8 Math_GetMinFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint)
 {
     uint8 min = Math_GetMinFromArray(data, firstPoint, lastPoint);
-    if (min < MIN_VALUE || min >= MAX_VALUE)
+    if (min < ValueFPGA::MIN || min >= MAX_VALUE)
     {
         min = ERROR_VALUE_UINT8;
     }

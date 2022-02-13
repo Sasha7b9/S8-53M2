@@ -340,7 +340,7 @@ void Display::DrawMarkersForMeasure(float scale, Chan::E ch)
 
 
 #define CONVERT_DATA_TO_DISPLAY(out, in)                \
-    out = (uint8)(maxY - ((in) - MIN_VALUE) * scaleY);  \
+    out = (uint8)(maxY - ((in) - ValueFPGA::MIN) * scaleY);  \
     if(out < minY)          { out = (uint8)minY; }      \
     else if (out > maxY)    { out = (uint8)maxY; };
 
@@ -420,7 +420,7 @@ void Display::DrawSignalLined(const uint8 *data, const DataSettings *ds, int sta
         for(int i = 0; i < _numPoints; i++)
         {
             int index = endPoint - startPoint + i;
-            CONVERT_DATA_TO_DISPLAY(dataCD[index], MIN_VALUE);
+            CONVERT_DATA_TO_DISPLAY(dataCD[index], ValueFPGA::MIN);
         }
     }
 
@@ -499,7 +499,7 @@ void Display::DrawDataChannel(uint8 *data, Chan::E ch, DataSettings *ds, int min
         return;
     }
 
-    float scaleY = (float)(maxY - minY) / (MAX_VALUE - MIN_VALUE);
+    float scaleY = (float)(maxY - minY) / (MAX_VALUE - ValueFPGA::MIN);
     float scaleX = (float)Grid::Width() / 280.0f;
 
     if(SHOW_MEASURES)
@@ -1015,9 +1015,9 @@ void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, 
 
     int bottom = 16;
     int height = 14;
-    float scale = (float)height / (float)(MAX_VALUE - MIN_VALUE);
+    float scale = (float)height / (float)(MAX_VALUE - ValueFPGA::MIN);
 
-#define ORDINATE(x) bottom - scale * LimitationInt((x) - MIN_VALUE, 0, 200)
+#define ORDINATE(x) bottom - scale * LimitationInt((x) - ValueFPGA::MIN, 0, 200)
 
 #define NUM_POINTS (300 * 2)
     uint8 points[NUM_POINTS];
