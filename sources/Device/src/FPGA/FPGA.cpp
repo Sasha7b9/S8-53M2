@@ -271,7 +271,7 @@ bool FPGA::IsRunning()
 #define WRITE_AND_OR_INVERSE(addr, data, ch)                                                      \
     if(SET_INVERSE(ch))                                                                   \
     {                                                                                               \
-        data = (uint8)((int)(2 * ValueFPGA::AVE) - LimitationUInt8(data, ValueFPGA::MIN, MAX_VALUE));    \
+        data = (uint8)((int)(2 * ValueFPGA::AVE) - LimitationUInt8(data, ValueFPGA::MIN, ValueFPGA::MAX));    \
     }                                                                                               \
     *addr = data;
 
@@ -807,7 +807,7 @@ void FPGA::InverseDataIsNecessary(Chan::E ch, uint8 *data)
     {
         for (int i = 0; i < FPGA::MAX_POINTS; i++)
         {
-            data[i] = (uint8)((int)(2 * ValueFPGA::AVE) - LimitationUInt8(data[i], ValueFPGA::MIN, MAX_VALUE));
+            data[i] = (uint8)((int)(2 * ValueFPGA::AVE) - LimitationUInt8(data[i], ValueFPGA::MIN, ValueFPGA::MAX));
         }
     }
 }
@@ -1002,7 +1002,7 @@ Range::E FPGA::AccurateFindRange(Chan::E ch)
             }
         }
 
-        if (CalculateMinWithout0(buffer) < ValueFPGA::MIN || CalculateMaxWithout255(buffer) > MAX_VALUE)
+        if (CalculateMinWithout0(buffer) < ValueFPGA::MIN || CalculateMaxWithout255(buffer) > ValueFPGA::MAX)
         {
             if (range < Range::_20V)
             {
@@ -1143,7 +1143,7 @@ void FPGA::FindAndSetTrigLevel()
 
     uint8 aveValue = (uint8)(((int)min + (int)max) / 2);
 
-    static const float scale = (float)(TrigLev::MAX - TrigLev::ZERO) / (float)(MAX_VALUE - ValueFPGA::AVE) / 2.4f;
+    static const float scale = (float)(TrigLev::MAX - TrigLev::ZERO) / (float)(ValueFPGA::MAX - ValueFPGA::AVE) / 2.4f;
 
     int16 trigLev = TrigLev::ZERO + scale * ((int)aveValue - ValueFPGA::AVE) - (SET_RSHIFT(chanTrig) - RShift::ZERO);
 

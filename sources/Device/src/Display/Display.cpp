@@ -499,7 +499,7 @@ void Display::DrawDataChannel(uint8 *data, Chan::E ch, DataSettings *ds, int min
         return;
     }
 
-    float scaleY = (float)(maxY - minY) / (MAX_VALUE - ValueFPGA::MIN);
+    float scaleY = (float)(maxY - minY) / (ValueFPGA::MAX - ValueFPGA::MIN);
     float scaleX = (float)Grid::Width() / 280.0f;
 
     if(SHOW_MEASURES)
@@ -1015,7 +1015,7 @@ void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, 
 
     int bottom = 16;
     int height = 14;
-    float scale = (float)height / (float)(MAX_VALUE - ValueFPGA::MIN);
+    float scale = (float)height / (float)(ValueFPGA::MAX - ValueFPGA::MIN);
 
 #define ORDINATE(x) bottom - scale * LimitationInt((x) - ValueFPGA::MIN, 0, 200)
 
