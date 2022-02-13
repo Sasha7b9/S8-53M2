@@ -2,11 +2,11 @@
 #pragma once
 
 
-typedef enum
+enum TypePageHelp
 {
     TypePage_Content,       // Ќа этой странице расположены ссылки на другие страницы
     TypePage_Description    // Ќа этой странице нет ссылок, только описание
-} TypePageHelp;
+};
 
 
 #define MAX_PAGES 3

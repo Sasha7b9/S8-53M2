@@ -64,24 +64,24 @@
 
 
  // Режим отрисовки сигнала.
-typedef enum
+enum ModeDrawSignal
 {
     ModeDrawSignal_Lines = 0,   // Сигнал рисуется линиями.
     ModeDrawSignal_Points = 1   // Сигнал рисуется точками.
-} ModeDrawSignal;
+};
 
 // Тип сетки на экране.
-typedef enum
+enum TypeGrid
 {
     TypeGrid_1,
     TypeGrid_2,
     TypeGrid_3,
     TypeGrid_4,
     TG_Size
-} TypeGrid;
+};
 
 // Перечисление накоплений.
-typedef enum
+enum ENumAccumulation
 {
     NumAccumulation_1,
     NumAccumulation_2,
@@ -92,10 +92,10 @@ typedef enum
     NumAccumulation_64,
     NumAccumulation_128,
     NumAccumulation_Infinity
-} ENumAccumulation;
+};
 
 // Количество усреднений по измерениям.
-typedef enum
+enum ENumAveraging
 {
     NumAveraging_1,
     NumAveraging_2,
@@ -107,17 +107,17 @@ typedef enum
     NumAveraging_128,
     NumAveraging_256,
     NumAveraging_512
-} ENumAveraging;
+};
 
 // Тип усреднений по измерениям.
-typedef enum
+enum ModeAveraging
 {
     Averaging_Accurately,   // Усреднять точно.
     Averaging_Around        // Усреднять приблизительно.
-} ModeAveraging;
+};
 
 // Количество измерений для расчёта минимального и максимального значений.
-typedef enum
+enum ENumMinMax
 {
     NumMinMax_1,
     NumMinMax_2,
@@ -127,10 +127,10 @@ typedef enum
     NumMinMax_32,
     NumMinMax_64,
     NumMinMax_128
-} ENumMinMax;
+};
 
 // Количество точек для расчёта скользящего фильтра.
-typedef enum
+enum Smoothing
 {
     Smoothing_Disable,
     Smoothing_2points = 1,
@@ -142,35 +142,35 @@ typedef enum
     Smoothing_8points = 7,
     Smoothing_9points = 8,
     Smoothing_10points = 9
-} Smoothing;
+};
 
 // Ограничение FPS.
-typedef enum
+enum ENumSignalsInSec
 {
     NumSignalsInSec_25,
     NumSignalsInSec_10,
     NumSignalsInSec_5,
     NumSignalsInSec_2,
     NumSignalsInSec_1
-} ENumSignalsInSec;
+};
 
 // Режим накопления.
-typedef enum
+enum ModeAccumulation
 {
     ModeAccumulation_NoReset,   // В этом режиме показываются строго N последних измерений.
     ModeAccumulation_Reset      // В этом режиме набираются N последних измерений и потом сбрасываются.
-} ModeAccumulation;
+};
 
 // Режим отображения дополнительных боковых маркеров смещения по напряжению.
-typedef enum
+enum AltMarkers
 {
     AM_Hide,        // Никода не выводить.
     AM_Show,        // Всегда выводить.
     AM_AutoHide     // Выводить и прятать через timeShowLevels.
-} AltMarkers;
+};
 
 // Через какое время после последнего нажатия кнопки скрывать меню.
-typedef enum
+enum MenuAutoHide
 {
     MenuAutoHide_None = 0,  // Никогда.
     MenuAutoHide_5 = 5,     // Через 5 секунд.
@@ -178,14 +178,14 @@ typedef enum
     MenuAutoHide_15 = 15,   // Через 15 секунд.
     MenuAutoHide_30 = 30,   // Через 30 секунд.
     MenuAutoHide_60 = 60    // Через 60 секунд.
-} MenuAutoHide;
+};
 
 // Тип привязки к смещению по вертикали
-typedef enum
+enum LinkingRShift
 {
     LinkingRShift_Voltage,      // Смещение привязано к напряжению
     LinkingRShift_Position      // Смещение привязаоно к позиции на экране
-} LinkingRShift;
+};
 
 
 

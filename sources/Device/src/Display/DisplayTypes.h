@@ -35,20 +35,20 @@
 #define WIDTH_SB                19
 #define LEFT_SB                 299 
 
-typedef enum
+enum DrawMode
 {
     DrawMode_Auto,
     DrawMode_Hand
-} DrawMode;
+};
 
-typedef enum
+enum SourceBuffer
 {
     SB_Signals,
     SB_Send,
     SB_Intermediate
-} SourceBuffer;
+};
 
-typedef enum
+enum TypeFont
 {
     TypeFont_5,
     TypeFont_8,
@@ -56,10 +56,10 @@ typedef enum
     TypeFont_UGO2,
     TypeFont_Number,
     TypeFont_None
-} TypeFont;
+};
 
 
-typedef enum
+enum Command
 {
     SET_COLOR = 0x01,                   // 1 numColor:1
     FILL_REGION = 0x02,                 // 2 x:2 y:1 width:2 height:1
@@ -86,4 +86,4 @@ typedef enum
     SET_REINIT = 0x17,
     SET_ORIENTATION = 0x18,             // Установить ориентацию экрана. 0 - нормальная, 1 - обратная. Действительна только в С8-54
     NUM_COMMANDS
-} Command;
+};

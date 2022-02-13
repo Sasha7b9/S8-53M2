@@ -12,7 +12,7 @@
 
 
 // Разные виды пунктов меню
-typedef enum
+enum TypeItem
 {
     Item_None,           
     Item_Choice,        // Пункт выбора - позволяет выбрать одно из нескольких заданных значений.
@@ -28,10 +28,10 @@ typedef enum
     Item_ChoiceReg,     // Элемент выбора, в котором выбор осуществляется не кнопкой, а ручкой
     Item_SmallButton,   // Кнопка для режима малых кнопок
     Item_NumberItems
-} TypeItem;
+};
 
 // Здесь ID всех представленных в меню страниц
-typedef enum
+enum NamePage
 {
     Page_Display,               // ДИСПЕЙ
     Page_DisplayAccumulation,   // ДИСПЛЕЙ - НАКОПЛЕНИЕ
@@ -84,7 +84,7 @@ typedef enum
     Page_SB_SerialNumber,       // ОТАДКА - С/Н
     Page_NumPages,
     Page_NoPage
-} NamePage;             // При добавлении страниц нужно изменять инициализацию SettingsMenu в SSettings.c
+};             // При добавлении страниц нужно изменять инициализацию SettingsMenu в SSettings.c
 
 class Page;
 

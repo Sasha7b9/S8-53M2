@@ -161,7 +161,7 @@ typedef struct
 extern GMemory gMemory;
 
 
-typedef enum
+enum StateCalibration
 {
     StateCalibration_None,
     StateCalibration_ADCinProgress,
@@ -171,16 +171,16 @@ typedef enum
     StateCalibration_RShift1inProgress,
     StateCalibration_ErrorCalibration0,
     StateCalibration_ErrorCalibration1
-} StateCalibration;
+};
 
-typedef enum
+enum StateWorkFPGA
 {
     StateWorkFPGA_Stop,                             // СТОП - не занимается считыванием информации.
     StateWorkFPGA_Wait,                             // Ждёт поступления синхроимпульса.
     StateWorkFPGA_Work,                             // Идёт работа.
     StateWorkFPGA_Pause                             // Это состояние, когда временно приостановлен прибор, например, для чтения данных или для 
                                                     // записи значений регистров.
-} StateWorkFPGA;
+};
 
 
 typedef struct

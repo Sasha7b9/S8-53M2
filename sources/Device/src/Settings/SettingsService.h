@@ -17,19 +17,19 @@
 
 
 // Режим работы калибратора.
-typedef enum
+enum CalibratorMode
 {
     Calibrator_Freq,            // На выходе калибратора 4В, 1кГц.
     Calibrator_DC,              // На выходе калибратора 4В постоянного напряжения.
     Calibrator_GND              // На выходе калибратора 0В.
-} CalibratorMode;
+};
 
 // Цветовая схема
-typedef enum
+enum ColorScheme
 {
     ColorScheme_WhiteLetters,   // В этом случае заголовки элементов меню пишутся белым - не очень хорошо видно снизу.
     ColorScheme_BlackLetters    // В этом случае заголовки элементов меню пишутся чёрным - не очень красиво выглядит.
-} ColorScheme;
+};
 
 
 

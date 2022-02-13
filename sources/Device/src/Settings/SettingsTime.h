@@ -30,42 +30,42 @@
 
 
 // Функция ручки ВРЕМЯ/ДЕЛ.
-typedef enum
+enum FunctionTime
 {
     FunctionTime_Time,              // Ручка управляет смещением по времени.
     FunctionTime_ShiftInMemory      // Ручка управляет отображаемым на экране участком памяти.
-} FunctionTime;
+};
 
 // Привязка синхронизации к памяти.
-typedef enum
+enum TPos
 {
     TPos_Left,      // Синхронизация привязана к началу памяти.
     TPos_Center,    // Синхронизация привязана к центру памяти.
     TPos_Right      // Синхронизация привязана к концу памяти.
-} TPos;
+};
 
 // Тип выборки для режима рандомизатора.
-typedef enum
+enum SampleType
 {
     SampleType_Real,   // реальное время - в построении участвуют только реально считанные точки, ничего не рассчитывается.
     SampleType_Equal   // эквивалентная - сигнал строится по последним точкам, полученным от рандомизатора.
-} SampleType;
+};
 
 // Режим работы пикового детектора.
-typedef enum
+enum PeackDetMode
 {
     PeackDet_Disable,
     PeackDet_Enable,
     PeackDet_Average
-} PeackDetMode;
+};
 
 // Число точек сигнала, с которым идёт работа.
-typedef enum
+enum ENUM_POINTS_FPGA
 {
     FNP_281,
     FNP_512,
     FNP_1024
-} ENUM_POINTS_FPGA;
+};
 
 
 

@@ -8,7 +8,7 @@
 
 
 
-typedef enum
+enum
 {
     WAIT,
     SAVE_SYMBOLS

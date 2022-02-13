@@ -34,51 +34,51 @@
 
 
 // Режим запуска.
-typedef enum
+enum StartMode
 {
     StartMode_Auto,             // Автоматический.
     StartMode_Wait,             // Ждущий.
     StartMode_Single            // Однократный.
-} StartMode;
+};
 
 // Источник синхронизации.
-typedef enum
+enum TrigSource
 {
     TrigSource_ChannelA,        // Канал 1.
     TrigSource_ChannelB,        // Канал 2.
     TrigSource_Ext              // Внешняя.
-} TrigSource;
+};
 
 // Тип синхронизацц
-typedef enum
+enum TrigPolarity
 {
     TrigPolarity_Front,         // Синхронизация по фронту.
     TrigPolarity_Back           // Синхронизация по срезу.
-} TrigPolarity;
+};
 
 // Вход синхронизации.
-typedef enum
+enum TrigInput
 {
     TrigInput_Full,             // Полный сиганл.
     TrigInput_AC,               // Переменный.
     TrigInput_LPF,              // ФНЧ.
     TrigInput_HPF               // ФВЧ.
-} TrigInput;
+};
 
 // Режим длительного нажатия кнопки СИНХР.
-typedef enum
+enum ModeLongPressTrig
 {
     ModeLongPRessTrig_Level0,   // Сброс уровня синхронизации в 0.
     ModeLongPressTrig_Auto      // Автоматический поиск синхронизации - уровень устанавливается посередине между максимумом и минимумом.
-} ModeLongPressTrig;
+};
 
 
 // Режим установки синхронизации.
-typedef enum
+enum TrigModeFind
 {
     TrigModeFind_Hand,          // Уровень синхронизации устанавливается вручную.
     TrigModeFind_Auto           // Подстройки уровня синхронизации производится автоматически после каждого нового считанного сигнала.
-} TrigModeFind;
+};
 
 
 

@@ -4,7 +4,7 @@
 #include "Utils/GlobalFunctions.h"
 
 
-typedef enum
+enum TypeTimer
 {
     kPressKey,                  // Нужно устанавливать, когда приходит нажатие клавиши.
     kShowLevelRShift0,          // Нужно устанавливать, когда изменяется положение ручки смещения канала 1.
@@ -21,7 +21,7 @@ typedef enum
     kTemporaryPauseFPGA,        // Временная пауза для фиксации сигнала на экране после поворота ручек
     kTimerDrawHandFunction,     // Этот таймер могут использовать функции, использующие свою процедуру рисования
     TypeTimerSize               // Общее количество таймеров.
-} TypeTimer;
+};
 
 
 class Timer

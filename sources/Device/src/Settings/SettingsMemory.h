@@ -38,42 +38,42 @@
 
 
 // Режим работы.
-typedef enum
+enum ModeWork
 {
     ModeWork_Direct,        // Основной режим.
     ModeWork_Latest,        // В этом режиме можно просмотреть последние сохранённые измерения.
     ModeWork_MemInt,        // В этом режиме можно сохранять во flash-памяти измерения просматривать ранее сохранённые.
-} ModeWork;
+};
 
 
 // Режим наименования файлов.
-typedef enum
+enum FileNamingMode
 {
     FileNamingMode_Mask,        // Именовать по маске.
     FileNamingMode_Manually     // Именовать вручную.
-} FileNamingMode;
+};
 
 // Что показывать в режиме Внутр ЗУ - считанный или записанный сигнал.
-typedef enum
+enum ModeShowIntMem
 {
     ModeShowIntMem_Direct,  // Показывать данные реального времени.
     ModeShowIntMem_Saved,   // Показывать сохранённые данные.
     ModeShowIntMem_Both     // Показывать данные реального времени и сохранённые данные.
-} ModeShowIntMem;
+};
 
 // Что делать при нажатии кнопки ПАМЯТЬ.
-typedef enum
+enum ModeBtnMemory
 {
     ModeBtnMemory_Menu,     // Будет открывааться соответствующая страница меню.
     ModeBtnMemory_Save      // Сохранение содержимого экрана на флешку.
-} ModeBtnMemory;
+};
 
 // Как сохранять данные на флешку.
-typedef enum
+enum ModeSaveSignal
 {
     ModeSaveSignal_BMP,     // Сохранять данные на флешку в формате .bmp.
     ModeSaveSignal_TXT      // Сохранять данные на флешку в текствовом виде.
-} ModeSaveSignal;
+};
 
 
 

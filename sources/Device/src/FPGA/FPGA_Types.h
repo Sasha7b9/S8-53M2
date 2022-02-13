@@ -124,7 +124,7 @@
 #define RD_ADDR_FREQ_MID    (ADDR_FPGA + 0x1e)      //    1-й байт замеренного значения периода. Признак того, что счёт периода завершён, находится в D5 RD_FL.
 #define RD_ADDR_FREQ_HI     (ADDR_FPGA + 0x1f)      //    2-й байт замеренного значения периода. Признак того, что счёт периода завершён, находится в D5 RD_FL.
 
-typedef enum
+enum TypeWriteAnalog
 {
     TypeWriteAnalog_All,
     TypeWriteAnalog_Range0,
@@ -132,11 +132,11 @@ typedef enum
     TypeWriteAnalog_TrigParam,
     TypeWriteAnalog_ChanParam0,
     TypeWriteAnalog_ChanParam1
-} TypeWriteAnalog;
+};
 
-typedef enum
+enum TypeWriteDAC
 {
     TypeWriteDAC_RShiftA,
     TypeWriteDAC_RShiftB,
     TypeWriteDAC_TrigLev
-} TypeWriteDAC;
+};

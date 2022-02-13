@@ -2,7 +2,7 @@
 #pragma once
 
 // Здесь ID всех представленных в меню страниц
-typedef enum
+enum
 {
     Page_Display,               // ДИСПЕЙ
     Page_DisplayAccumulation,   // ДИСПЛЕЙ - НАКОПЛЕНИЕ

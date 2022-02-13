@@ -6,12 +6,12 @@
 
 
 // Режим отображения пропущенных сигналов при ограничении частоты кадров.
-typedef enum
+enum MissedSignals
 {
     Missed_Hide,    // Не выводить на экран
     Missed_Show,    // Выводить на экран
     Missed_Average  // Устреднять и выводить на экран
-} MissedSignals;
+};
 
 
 
@@ -26,22 +26,22 @@ struct Chan { enum E {
 
 
 // Режим канала по входу.
-typedef enum
+enum ModeCouple
 {
     ModeCouple_DC,      // Открытый вход.
     ModeCouple_AC,      // Закрытый вход.
     ModeCouple_GND      // Вход заземлён.
-} ModeCouple;
+};
 
 // Делитель.
-typedef enum
+enum Divider
 {
     Divider_1,
     Divider_10
-} Divider;
+};
 
 // Масштаб по напряжению.
-typedef enum
+enum Range
 {
     Range_2mV,
     Range_5mV,
@@ -57,7 +57,7 @@ typedef enum
     Range_10V,
     Range_20V,
     RangeSize
-} Range;
+};
 
 Range& operator++(Range &range);
 Range& operator--(Range &range);
@@ -66,8 +66,7 @@ const char *RangeName(Range range);
 
 // Time
 
-// Масштаб по времени
-typedef enum
+enum TBase
 {
     TBase_2ns,
     TBase_5ns,
@@ -100,7 +99,7 @@ typedef enum
     TBase_5s,
     TBase_10s,
     TBaseSize
-} TBase;
+};
 
 const char *TBaseName(TBase tBase);
 
@@ -110,70 +109,70 @@ const char *TBaseName(TBase tBase);
 
 
 // Сжимать ли сигналы при выводе измерений.
-typedef enum
+enum ModeViewSignals
 {
     ModeViewSignals_AsIs,       // Показывать сигналы как есть
     ModeViewSignals_Compress    // Сжимать сетку с сигналами
-} ModeViewSignals;
+};
 
 
 // Math
 
 
-typedef enum
+enum ScaleMath
 {
     ScaleMath_Channel0,     // Масштаб берётся из канала 1
     ScaleMath_Channel1,     // Масштаб берётся из канала 2
     ScaleMath_Hand          // Масштаб задаётся вручную.
-} ScaleMath;
+};
 
 
 // Курсоры
 
 // Каким курсором управлять.
-typedef enum
+enum CursCntrl
 {
     CursCntrl_1,            // первым.
     CursCntrl_2,            // вторым.
     CursCntrl_1_2,          // обоими.
     CursCntrl_Disable       // никаким.
-} CursCntrl;
+};
 
 
 // Дискретность перемещения курсоров.
-typedef enum
+enum CursMovement
 {
     CursMovement_Points,    // по точкам.
     CursMovement_Percents   // по процентам.
-} CursMovement;
+};
 
 // Какие курсоры сейчас активны. Какие активны, те и будут перемещаться по вращению ручки УСТАНОВКА.
-typedef enum
+enum CursActive
 {
     CursActive_U,
     CursActive_T,
     CursActive_None
-} CursActive;
+};
 
 // Режим слежения курсоров.
-typedef enum
+enum CursLookMode
 {
     CursLookMode_None,      // Курсоры не следят.
     CursLookMode_Voltage,   // Курсоры следят за напряжением автоматически.
     CursLookMode_Time,      // Курсоры следят за временем автоматически.
     CursLookMode_Both       // Курсоры следят за временем и напряжением, в зависимости от того, какой курсоры вращали последним.
-} CursLookMode;
+};
 
 
 // Service
 
 
 // Язык меню
-typedef enum
+enum Language
 {
     Russian,    // Русский
     English     // Английский
-} Language;
+};
 
 
 // Debug
@@ -181,25 +180,25 @@ typedef enum
 
 // Тип балансировки АЦП каналов.
 // Дело в том, что уровни АЦП не совпадают из-за отличия характеристик ( ? ), поэтому мы вводим дополнительное смещение для одного из АЦП канала.
-typedef enum
+enum BalanceADCtype
 {
     BalanceADC_Disable,     // Балансировка выключена.
     BalanceADC_Settings,    // Используются значения балансировки, которые получены автоматически.
     BalanceADC_Hand         // Используются значения балансировки, заданные вручную.
-} BalanceADCtype;
+};
 
 // Тип растяжки АЦП
-typedef enum
+enum StretchADCtype
 {
     StretchADC_Disable,
     StretchADC_Settings,
     StretchADC_Hand
-} StretchADCtype;
+};
 
 // Тип дополнительного смещения
-typedef enum
+enum RShiftADCtype
 {
     RShiftADC_Disable,
     RShiftADC_Settings,
     RShiftADC_Hand
-} RShiftADCtype;
+};
