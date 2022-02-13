@@ -13,11 +13,10 @@
 #include <stdio.h>
 
 
-static TypeFont currentTypeFont = TypeFont_None;
-
-
 namespace Painter
 {
+    TypeFont currentTypeFont = TypeFont_None;
+
     void DrawCharHardCol(int x, int y, char symbol);
 
     int DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int limitY, int limitWidth, int limitHeight);
