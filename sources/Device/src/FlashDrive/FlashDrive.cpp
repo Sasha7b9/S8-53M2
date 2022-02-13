@@ -9,8 +9,8 @@
 #include <usbh_core.h>
 #include <usbh_msc.h>
 #include "ffconf.h"
-#include "Hardware/CLOCK.h"
 #include "FlashDrive.h"
+#include "Hardware/HAL/HAL.h"
 
 
 
@@ -369,7 +369,7 @@ bool FlashDrive::CloseFile(StructForWrite *structForWrite)
     f_close(&structForWrite->fileObj);
 
     FILINFO fno;
-    PackedTime time = Clock::GetPackedTime();
+    PackedTime time = HAL_RTC::GetPackedTime();
     fno.fdate = (WORD)(((time.year + 20) * 512) | (time.month * 32) | time.day);
     fno.ftime = (WORD)((time.hours * 2048) | (time.minutes * 32) | (time.seconds / 2));
     f_utime(structForWrite->name, &fno);

@@ -1,14 +1,14 @@
 // 2022/02/11 17:49:10 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
-#include "Storage.h"
-#include "FPGA_Types.h"
-#include "FPGA.h"
+#include "FPGA/Storage.h"
+#include "FPGA/FPGA_Types.h"
+#include "FPGA/FPGA.h"
 #include "Menu/Pages/PageMemory.h"
 #include "Settings/Settings.h"
 #include "Utils/Math.h"
 #include "Log.h"
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"
-#include "Hardware/CLOCK.h"
+#include "Hardware/HAL/HAL.h"
 #include <string.h>
 
 
@@ -100,7 +100,7 @@ void Storage::CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *d
 
 void Storage::AddData(uint8 *data0, uint8 *data1, DataSettings dss)
 {
-    dss.time = Clock::GetPackedTime();
+    dss.time = HAL_RTC::GetPackedTime();
 
     if(dss.enableCh0 == 0 && dss.enableCh1 == 0)
     {

@@ -1,15 +1,14 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
-#include "Menu.h"
-#include "MenuItemsLogic.h"
+#include "Menu/Menu.h"
+#include "Menu/MenuItemsLogic.h"
 #include "Display/Display.h"
 #include "Display/Painter.h"
 #include "Hardware/Timer.h"
 #include "Log.h"
 #include "Settings/Settings.h"
 #include "Hardware/Sound.h"
-#include "Hardware/CLOCK.h"
 #include "Utils/Math.h"
-
+#include "Hardware/HAL/HAL.h"
 
 
 int8 gCurDigit = 0;
@@ -192,7 +191,7 @@ void IPaddress_NextPosition(IPaddress *ipEthernet_IP)
 
 void ItemTime_SetOpened(Time *item)
 {
-    PackedTime time = Clock::GetPackedTime();
+    PackedTime time = HAL_RTC::GetPackedTime();
     *(item->seconds) = (int8)time.seconds;
     *(item->minutes) = (int8)time.minutes;
     *(item->hours) = (int8)time.hours;
@@ -203,7 +202,7 @@ void ItemTime_SetOpened(Time *item)
 
 void ItemTime_SetNewTime(Time *time)
 {
-    Clock::SetTimeAndData(*time->day, *time->month, *time->year, *time->hours, *time->minutes, *time->seconds);
+    HAL_RTC::SetTimeAndData(*time->day, *time->month, *time->year, *time->hours, *time->minutes, *time->seconds);
 }
 
 void ItemTime_SelectNextPosition(Time *time)

@@ -14,7 +14,6 @@
 #include "Hardware/Sound.h"
 #include "Panel/Panel.h"
 #include "FlashDrive/FlashDrive.h"
-#include "Hardware/CLOCK.h"
 
 
 namespace Device
@@ -35,7 +34,7 @@ void Device::Init()
     Display::Init();
     Panel::Init();
     FlashDrive::Init();
-    Clock::Init();
+    HAL_RTC::Init();
 
     // LAN::Init();
 }

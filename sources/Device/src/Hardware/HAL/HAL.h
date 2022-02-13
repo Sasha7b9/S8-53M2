@@ -98,3 +98,11 @@ namespace HAL_TIM6
 {
     void Init();
 }
+
+
+namespace HAL_RTC
+{
+    void Init();
+    bool SetTimeAndData(int8 day, int8 month, int8 year, int8 hours, int8 minutes, int8 seconds);
+    PackedTime GetPackedTime();
+}

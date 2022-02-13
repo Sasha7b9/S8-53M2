@@ -1,5 +1,5 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
-#include "FileManager.h"
+#include "Menu/FileManager.h"
 #include "Menu/Menu.h"
 #include "Pages/PageMemory.h"
 #include "Settings/Settings.h"
@@ -11,11 +11,11 @@
 #include "Utils/GlobalFunctions.h"
 #include "Utils/Math.h"
 #include "Hardware/Sound.h"
-#include "Hardware/CLOCK.h"
 #include "FlashDrive/FlashDrive.h"
 #include "Panel/Panel.h"
 #include "Log.h"
 #include "Hardware/Timer.h"
+#include "Hardware/HAL/HAL.h"
 #include <string.h>
 
 
@@ -374,7 +374,7 @@ LabelNextNumber:
     }
     else
     {
-        PackedTime time = Clock::GetPackedTime();
+        PackedTime time = HAL_RTC::GetPackedTime();
                            //  1          2           3         4           5             6
         uint values[] = {0, time.year, time.month, time.day, time.hours, time.minutes, time.seconds};
 

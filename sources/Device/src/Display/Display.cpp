@@ -14,7 +14,6 @@
 #include "FPGA/FPGA_Types.h"
 #include "FPGA/Storage.h"
 #include "Hardware/Sound.h"
-#include "Hardware/CLOCK.h"
 #include "VCP/VCP.h"
 #include "Menu/Menu.h"
 #include "Menu/Pages/PageCursors.h"
@@ -903,7 +902,7 @@ void Display::DrawTime(int x, int y)
     int dField = 10;
     int dSeparator = 2;
 
-    PackedTime time = Clock::GetPackedTime();
+    PackedTime time = HAL_RTC::GetPackedTime();
     
     char buffer[20];
     

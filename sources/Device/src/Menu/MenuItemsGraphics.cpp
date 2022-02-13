@@ -1,14 +1,14 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
-#include "MenuItemsGraphics.h"
-#include "MenuItemsLogic.h"
-#include "Menu.h"
-#include "Hardware/CLOCK.h"
+#include "Menu/MenuItemsGraphics.h"
+#include "Menu/MenuItemsLogic.h"
+#include "Menu/Menu.h"
 #include "Display/Colors.h"
 #include "Display/Display.h"
 #include "Display/Painter.h"
 #include "Settings/Settings.h"
 #include "Utils/GlobalFunctions.h"
 #include "Log.h"
+#include "Hardware/HAL/HAL.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -669,7 +669,7 @@ void ItemTime_DrawClosed(Time *item, int x, int y)
     int deltaSeparator = 2;
     int startX = 3;
     y += 21;
-    PackedTime time = Clock::GetPackedTime();
+    PackedTime time = HAL_RTC::GetPackedTime();
     Painter::DrawTextC(x + startX, y, Int2String((int)time.hours, false, 2, buffer), COLOR_BACK);
     Painter::DrawText(x + startX + deltaField, y, ":");
     Painter::DrawText(x + startX + deltaField + deltaSeparator, y, Int2String((int)time.minutes, false, 2, buffer));
