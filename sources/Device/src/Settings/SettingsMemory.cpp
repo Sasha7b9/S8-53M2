@@ -2,6 +2,7 @@
 #include "SettingsMemory.h"
 #include "Settings.h"
 #include "FPGA/TypesFPGA_old.h"
+#include "FPGA/FPGA.h"
 
 
 int sMemory_GetNumPoints(bool forCalculate)
@@ -15,7 +16,7 @@ int sMemory_GetNumPoints(bool forCalculate)
 
     if (ENUM_POINTS_IS_1024 && forCalculate)
     {
-        return FPGA_MAX_POINTS_FOR_CALCULATE;
+        return FPGA::MAX_POINTS_FOR_CALCULATE;
     }
 
     return numPoints[PEAKDET][ENUM_POINTS];
