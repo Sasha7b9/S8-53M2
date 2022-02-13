@@ -3,6 +3,7 @@
 #include "defines.h"
 #include "VCP/VCP.h"
 #include "Log.h"
+#include "Hardware/HAL/HAL.h"
 #include <usbd_cdc_interface.h>
 
 
@@ -86,7 +87,7 @@ void EXTI0_IRQHandler()
 // See Hardware::SPIforPanel.c::HAL_SPI_RxCpltCallback().
 void SPI1_IRQHandler()
 {
-    HAL_SPI_IRQHandler(&handleSPI);
+    HAL_SPI_IRQHandler((SPI_HandleTypeDef *)HAL_SPI1::handle);
 }
 
 

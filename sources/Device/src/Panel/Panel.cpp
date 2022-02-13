@@ -10,6 +10,7 @@
 #include "Hardware/Timer.h"
 #include "Log.h"
 #include "Hardware/Sound.h"
+#include "Hardware/HAL/HAL.h"
 #include <stm32f4xx_hal.h>
 #include <stm32f4xx_hal_gpio.h>
 #include <stdio.h>
@@ -371,7 +372,7 @@ void Panel::Init()
     isGPIOA_B.Pin = GPIO_PIN_5;
     HAL_GPIO_Init(GPIOB, &isGPIOA_B);
     
-    if (HAL_SPI_Init(&handleSPI) != HAL_OK)
+    if (HAL_SPI_Init((SPI_HandleTypeDef *)HAL_SPI1::handle) != HAL_OK)
     {
         ERROR_HANDLER();
     }
@@ -420,7 +421,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t pin)
 {
     if (pin == GPIO_PIN_0)
     {
-        HAL_SPI_Receive_IT(&handleSPI, &dataSPIfromPanel, 1);
+        HAL_SPI_Receive_IT((SPI_HandleTypeDef *)HAL_SPI1::handle, &dataSPIfromPanel, 1);
     }
 }
 

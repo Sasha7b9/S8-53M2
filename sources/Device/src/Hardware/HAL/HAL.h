@@ -87,6 +87,12 @@ namespace HAL_LTDC
 };
 
 
+namespace HAL_SPI1
+{
+    extern void *handle;       // SPI_HandleTypeDef
+}
+
+
 // Таймер для тиков
 namespace HAL_TIM2
 {
