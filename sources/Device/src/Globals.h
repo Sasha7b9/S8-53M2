@@ -8,6 +8,9 @@
 #include <usbh_def.h>
 
 
+struct DataSettings;
+
+
 extern USBH_HandleTypeDef handleUSBH;
 extern HCD_HandleTypeDef handleHCD;
 extern SPI_HandleTypeDef handleSPI;
@@ -199,47 +202,6 @@ struct StateFPGA
     bool             needCalibration;               // Установленное в true значение означает, что необходимо произвести калибровку.
     StateWorkFPGA    stateWorkBeforeCalibration;
     StateCalibration stateCalibration;              // Текущее состояние калибровки. Используется в процессе калибровки.
-};
-
-struct PackedTime
-{
-    uint hours : 5;
-    uint minutes : 6;
-    uint seconds : 6;
-    uint year : 7;
-    uint month : 4;
-    uint day : 5;
-};
-
-struct DataSettings
-{
-    void*       addrNext;               // Адрес следующей записи.
-    void*       addrPrev;               // Адрес предыдущей записи.
-    uint        rShiftCh0       : 10;   // Смещение по напряжению
-    uint        rShiftCh1       : 10;
-    uint        trigLevCh0      : 10;   // Уровень синхронизации
-    int16       tShift;                 // Смещение по времени
-    ModeCouple  modeCouple1     : 2;
-    Range       range[2];               // Масштаб по напряжению обоих каналов.
-
-    uint        trigLevCh1      : 10;
-    uint        length1channel  : 11;   // Сколько занимает в байтах длина измерения одного канала
-    TBase       tBase           : 5;    // Масштаб по времени
-    ModeCouple  modeCouple0     : 2;    // Режим канала по входу
-    uint        peakDet         : 2;    // Включен ли пиковый детектор
-    uint        enableCh0       : 1;    // Включён ли канал 0
-    uint        enableCh1       : 1;    // Включен ли канал 1
-
-    uint        inverseCh0      : 1;
-    uint        inverseCh1      : 1;
-    Divider     multiplier0     : 1;
-    Divider     multiplier1     : 1;
-    PackedTime  time;
-
-    void PrintElement();
-
-    // Вычисляет, сколько памяти трубуется, чтобы сохранить измерения с настройками dp
-    int SizeElem();
 };
 
 

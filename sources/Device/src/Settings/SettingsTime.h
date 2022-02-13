@@ -2,6 +2,7 @@
 #pragma once
 #include "SettingsTypes.h"
 #include "defines.h"
+#include "FPGA/SettingsFPGA.h"
 
 
 #define SET_TBASE                           (set.time.tBase)        // SettingTime.tBase
