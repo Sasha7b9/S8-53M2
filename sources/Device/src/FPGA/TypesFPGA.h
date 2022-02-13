@@ -33,6 +33,9 @@
 */
 
 
+#define WR_START                (HAL_FMC::_ADDR_FPGA + 0x00)
+
+
 struct TypeWriteAnalog
 {
     enum E
