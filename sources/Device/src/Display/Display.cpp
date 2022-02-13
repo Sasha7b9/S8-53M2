@@ -33,29 +33,28 @@
 #include <stdio.h>
 
 
-#define NUM_P2P_POINTS (FPGA::MAX_POINTS)
-static uint8 dataP2P_0[NUM_P2P_POINTS];
-static uint8 dataP2P_1[NUM_P2P_POINTS];
-static int   lastP2Pdata = 0;
-static bool  dataP2PIsEmpty = true;
-
-#define MAX_NUM_STRINGS         35
-#define SIZE_BUFFER_FOR_STRINGS 2000
-static char                     *strings[MAX_NUM_STRINGS] = {0};
-static char                     bufferForStrings[SIZE_BUFFER_FOR_STRINGS] = {0};
-static int                      lastStringForPause = -1;
-
-#define NUM_WARNINGS            10
-static const char               *warnings[NUM_WARNINGS] = {0};      // Здесь предупреждающие сообщения.
-static uint                     timeWarnings[NUM_WARNINGS] = {0};   // Здесь время, когда предупреждающее сообщение поступило на экран.
-
-static pFuncVV funcOnHand       = 0;
-static pFuncVV funcAdditionDraw = 0;
-static pFuncVV funcAfterDraw    = 0;
-
-
 namespace Display
 {
+    #define NUM_P2P_POINTS (FPGA::MAX_POINTS)
+    static uint8 dataP2P_0[NUM_P2P_POINTS];
+    static uint8 dataP2P_1[NUM_P2P_POINTS];
+    static int   lastP2Pdata = 0;
+    static bool  dataP2PIsEmpty = true;
+
+    #define MAX_NUM_STRINGS         35
+    #define SIZE_BUFFER_FOR_STRINGS 2000
+    static char                     *strings[MAX_NUM_STRINGS] = {0};
+    static char                     bufferForStrings[SIZE_BUFFER_FOR_STRINGS] = {0};
+    static int                      lastStringForPause = -1;
+
+    #define NUM_WARNINGS            10
+    static const char               *warnings[NUM_WARNINGS] = {0};      // Здесь предупреждающие сообщения.
+    static uint                     timeWarnings[NUM_WARNINGS] = {0};   // Здесь время, когда предупреждающее сообщение поступило на экран.
+
+    static pFuncVV funcOnHand       = 0;
+    static pFuncVV funcAdditionDraw = 0;
+    static pFuncVV funcAfterDraw    = 0;
+
     uint8 *front = (uint8 *)HAL_FMC::_ADDR_RAM_DISPLAY_FRONT;
 
     void ShowWarn(const char* message);
