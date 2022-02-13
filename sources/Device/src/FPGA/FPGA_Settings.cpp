@@ -503,7 +503,7 @@ bool Range::Increase(Chan::E ch)
 };
 
 
-bool FPGA::RangeDecrease(Chan::E ch)
+bool Range::Decrease(Chan::E ch)
 {
     bool retValue = false;
     if (SET_RANGE(ch) > 0)

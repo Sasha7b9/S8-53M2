@@ -73,9 +73,6 @@ namespace FPGA
     // Включить/выключить фильтр на входе канала.
     void EnableChannelFiltr(Chan::E, bool enable);
 
-    // Уменьшить масштаб по напряжению.
-    bool RangeDecrease(Chan::E);
-
     // Установить относительное смещение по напряжению.
     void SetRShift(Chan::E, int16 rShift);
 
