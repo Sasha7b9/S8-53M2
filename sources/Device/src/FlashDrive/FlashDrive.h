@@ -29,30 +29,30 @@ struct StructForReadDir
     DIR dir;
 };
 
-class FlashDrive
+namespace FlashDrive
 {
-public:
-    static void Init();
+    void Init();
 
-    static void Update();
+    void Update();
 
-    static void GetNumDirsAndFiles(const char* fullPath, int *numDirs, int *numFiles);
+    void GetNumDirsAndFiles(const char* fullPath, int *numDirs, int *numFiles);
 
-    static bool GetNameDir(const char* fuulPath, int numDir, char *nameDirOut, StructForReadDir *sfrd);
+    bool GetNameDir(const char* fuulPath, int numDir, char *nameDirOut, StructForReadDir *sfrd);
 
-    static bool GetNextNameDir(char *nameDirOut, StructForReadDir *sfrd);
+    bool GetNextNameDir(char *nameDirOut, StructForReadDir *sfrd);
 
-    static void CloseCurrentDir(StructForReadDir *sfrd);
+    void CloseCurrentDir(StructForReadDir *sfrd);
 
-    static bool GetNameFile(const char *fullPath, int numFile, char *nameFileOut, StructForReadDir *sfrd);
+    bool GetNameFile(const char *fullPath, int numFile, char *nameFileOut, StructForReadDir *sfrd);
 
-    static bool GetNextNameFile(char *nameFileOut, StructForReadDir *sfrd);
+    bool GetNextNameFile(char *nameFileOut, StructForReadDir *sfrd);
+
     // Функция создаст файл для записи. Если такой файл уже существует, сотрёт его, заменит новым нулевой длины и откроет его
-    static bool OpenNewFileForWrite(const char* fullPathToFile, StructForWrite *structForWrite);
+    bool OpenNewFileForWrite(const char* fullPathToFile, StructForWrite *structForWrite);
 
-    static bool WriteToFile(uint8* data, int sizeData, StructForWrite *structForWrite);
+    bool WriteToFile(uint8* data, int sizeData, StructForWrite *structForWrite);
 
-    static bool CloseFile(StructForWrite *structForWrite);
+    bool CloseFile(StructForWrite *structForWrite);
 
-    static bool AppendStringToFile(const char* string);
+    bool AppendStringToFile(const char* string);
 };
