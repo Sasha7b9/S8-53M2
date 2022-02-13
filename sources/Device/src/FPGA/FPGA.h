@@ -67,9 +67,6 @@ namespace FPGA
     // Найти и установить уровень синхронизации по последнему считанному сигналу
     void FindAndSetTrigLevel();
 
-    // Включить/выключить режим пикового детектора.
-    void SetPeackDetMode(PeackDetMode::E peackDetMode);
-
     // Включить/выключить калибратор.
     void SetCalibratorMode(CalibratorMode calibratorMode);
 

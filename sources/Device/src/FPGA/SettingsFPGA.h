@@ -118,6 +118,9 @@ struct PeackDetMode
         Enable,
         Average
     };
+
+    // ¬ключить/выключить режим пикового детектора.
+    static void Set(PeackDetMode::E);
 };
 
 

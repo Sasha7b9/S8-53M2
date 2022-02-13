@@ -100,7 +100,7 @@ void OnChanged_PeakDet(bool active)
 {
     if (active)
     {
-        FPGA::SetPeackDetMode(PEAKDET);
+        PeackDetMode::Set(PEAKDET);
         TBase::Set(SET_TBASE);
         if (PEAKDET_IS_DISABLE)
         {

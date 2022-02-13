@@ -115,7 +115,7 @@ void FPGA::LoadSettings()
             WriteToHardware(WR_ADD_RSHIFT_DAC2, (uint8)SET_BALANCE_ADC_B, false);
             break;
         case BalanceADC_Hand:
-            SetPeackDetMode(PEAKDET);
+            PeackDetMode::Set(PEAKDET);
             TBase::Set(SET_TBASE);
             if (PEAKDET)
             {
@@ -407,10 +407,10 @@ void TShift::SetDelta(int16 shift)
 }
 
 
-void FPGA::SetPeackDetMode(PeackDetMode::E peackDetMode)
+void PeackDetMode::Set(PeackDetMode::E peackDetMode)
 {
     PEAKDET = peackDetMode;
-    LoadRegUPR();
+    FPGA::LoadRegUPR();
 }
 
 

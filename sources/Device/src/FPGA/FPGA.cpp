@@ -960,7 +960,8 @@ Range::E FPGA::AccurateFindRange(Chan::E ch)
     TBase::Set(TBase::_50ms);
     ModeCouple::Set(ch, ModeCouple::AC);
     PeackDetMode::E peackDetMode = PEAKDET;
-    FPGA::SetPeackDetMode(PeackDetMode::Enable);
+    PeackDetMode::Set(PeackDetMode::Enable);
+
     for (int range = Range::Count - 1; range >= 0; range--)
     {
         //Timer::LogPointMS("1");
@@ -1007,7 +1008,7 @@ Range::E FPGA::AccurateFindRange(Chan::E ch)
             {
                 range++;
             }
-            FPGA::SetPeackDetMode(peackDetMode);
+            PeackDetMode::Set(peackDetMode);
             return (Range::E)range;
         }
 
@@ -1016,11 +1017,12 @@ Range::E FPGA::AccurateFindRange(Chan::E ch)
 
         if(range == Range::_2mV && CalculateMinWithout0(buffer) > min && CalculateMaxWithout255(buffer) < max)
         {
-            FPGA::SetPeackDetMode(peackDetMode);
+            PeackDetMode::Set(peackDetMode);
             return Range::Count;
         }
     }
-    FPGA::SetPeackDetMode(peackDetMode);
+
+    PeackDetMode::Set(peackDetMode);
     return Range::Count;
 }
 
