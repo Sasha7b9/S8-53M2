@@ -291,10 +291,10 @@ static void OnRegSet_Math_Function(int delta)
         int16 rShift = prevRShift;
         if (delta > 0)
         {
-            if (rShift < RShiftMax)
+            if (rShift < RShift::MAX)
             {
                 rShift += 4 * STEP_RSHIFT;
-                LIMIT_ABOVE(rShift, RShiftMax);
+                LIMIT_ABOVE(rShift, RShift::MAX);
                 if (prevRShift < RShift::ZERO && rShift > RShift::ZERO)
                 {
                     rShift = RShift::ZERO;

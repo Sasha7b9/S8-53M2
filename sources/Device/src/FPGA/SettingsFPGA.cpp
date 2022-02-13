@@ -299,12 +299,12 @@ void RShift::Set(Chan::E ch, int16 rShift)
     }
     Display::ChangedRShiftMarkers();
 
-    if (rShift > RShiftMax || rShift < RShift::MIN)
+    if (rShift > RShift::MAX || rShift < RShift::MIN)
     {
         Display::ShowWarningBad(ch == Chan::A ? LimitChan1_RShift : LimitChan2_RShift);
     }
 
-    LIMITATION(rShift, rShift, RShift::MIN, RShiftMax);
+    LIMITATION(rShift, rShift, RShift::MIN, RShift::MAX);
     if (rShift > RShift::ZERO)
     {
         rShift &= 0xfffe;                                            // ƒелаем кратным двум, т.к. у нас 800 значений на 400 точек
@@ -337,7 +337,7 @@ void RShift::Load(Chan::E ch)
     }
     rShift = (uint16)(delta + RShift::ZERO);
 
-    rShift = (uint16)(RShiftMax + RShift::MIN - rShift);
+    rShift = (uint16)(RShift::MAX + RShift::MIN - rShift);
     FPGA::WriteToDAC(ch == Chan::A ? TypeWriteDAC_RShiftA : TypeWriteDAC_RShiftB, (uint16)(mask[ch] | (rShift << 2)));
 }
 

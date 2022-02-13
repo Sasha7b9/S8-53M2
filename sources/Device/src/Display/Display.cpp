@@ -1782,7 +1782,7 @@ void Display::DrawCursorTrigLevel()
         int left = Grid::Right() + 9;
         int height = Grid::ChannelHeight() - 2 * DELTA;
         int shiftFullMin = RShift::MIN + TrigLevMin;
-        int shiftFullMax = RShiftMax + TrigLevMax;
+        int shiftFullMax = RShift::MAX + TrigLevMax;
         scale = (float)height / (shiftFullMax - shiftFullMin);
         int shiftFull = TRIG_LEVEL_SOURCE + (TRIG_SOURCE_IS_EXT ? 0 : SET_RSHIFT(ch));
         int yFull = GRID_TOP + DELTA + height - scale * (shiftFull - RShift::MIN - TrigLevMin) - 4;
@@ -1817,7 +1817,7 @@ void Display::DrawCursorRShift(Chan::E ch)
     float scale = (float)Grid::ChannelHeight() / (STEP_RSHIFT * 200);
     float y = Grid::ChannelCenterHeight() - scale * (rShift - RShift::ZERO);
 
-    float scaleFull = (float)Grid::ChannelHeight() / (RShiftMax - RShift::MIN) * (sService_MathEnabled() ? 0.9f : 0.91f);
+    float scaleFull = (float)Grid::ChannelHeight() / (RShift::MAX - RShift::MIN) * (sService_MathEnabled() ? 0.9f : 0.91f);
     float yFull = Grid::ChannelCenterHeight() - scaleFull *(rShift - RShift::ZERO);
 
     if(y > Grid::ChannelBottom())
