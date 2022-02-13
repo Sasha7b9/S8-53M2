@@ -56,144 +56,154 @@ static pFuncVV funcAfterDraw    = 0;
 
 namespace Display
 {
-    static uint8 *front = (uint8 *)HAL_FMC::_ADDR_RAM_DISPLAY_FRONT;
+    uint8 *front = (uint8 *)HAL_FMC::_ADDR_RAM_DISPLAY_FRONT;
 
-    static void ShowWarn(const char* message);
+    void ShowWarn(const char* message);
+
     // Ќарисовать сетку.
-    static void DrawGrid(int left, int top, int width, int height);
+    void DrawGrid(int left, int top, int width, int height);
+
     // Ќарисовать полную сетку.
-    static void DrawFullGrid();
+    void DrawFullGrid();
 
-    static void DrawCursorsWindow();
+    void DrawCursorsWindow();
 
-    static void DrawCursorsRShift();
+    void DrawCursorsRShift();
     // Ќарисовать маркеры смещени€ по напр€жению
-    static void DrawCursorRShift(Chan::E ch);
+    void DrawCursorRShift(Chan::E ch);
     // Ќарисовать маркер уровн€ синхронизации.
-    static void DrawCursorTrigLevel();
+    void DrawCursorTrigLevel();
     // Ќарисовать маркер смещени€ по времени.
-    static void DrawCursorTShift();
+    void DrawCursorTShift();
     // Ќаписать информацию под сеткой - в нижней части диспле€.
-    static void DrawLowPart();
+    void DrawLowPart();
 
-    static void DrawHiPart();
+    void DrawHiPart();
 
-    static void DrawHiRightPart();
+    void DrawHiRightPart();
 
-    static void DrawMath();
+    void DrawMath();
 
-    static void DrawSpectrum();
+    void DrawSpectrum();
+
     // ¬ывести текущее врем€.
-    static void DrawTime(int x, int y);
+    void DrawTime(int x, int y);
+
     // Ќарисовать курсоры курсорных измерений.
-    static void DrawCursors();
+    void DrawCursors();
+
     // ¬ывести значени€ курсоров курсорных измерений.
-    static void WriteCursors();
+    void WriteCursors();
+
     // ¬ывести значени€ автоматических измерений.
-    static void DrawMeasures();
+    void DrawMeasures();
+
     // Ќаписать сообщени€ отладочной консоли.
-    static void DrawConsole();
+    void DrawConsole();
+
     // Ќаписать предупреждени€.
-    static void DrawWarnings();
+    void DrawWarnings();
 
-    static int CalculateCountV();
+    int CalculateCountV();
 
-    static int CalculateFreeSize();
+    int CalculateFreeSize();
 
-    static bool ChannelNeedForDraw(const uint8* data, Chan::E ch, const DataSettings* ds);
+    bool ChannelNeedForDraw(const uint8* data, Chan::E ch, const DataSettings* ds);
 
-    static void DrawDataChannel(uint8* data, Chan::E ch, DataSettings* ds, int minY, int maxY);
+    void DrawDataChannel(uint8* data, Chan::E ch, DataSettings* ds, int minY, int maxY);
 
-    static void DrawBothChannels(uint8* data0, uint8* data1);
+    void DrawBothChannels(uint8* data0, uint8* data1);
 
-    static void DrawDataMemInt();
+    void DrawDataMemInt();
 
-    static void DrawDataInModeWorkLatest();
+    void DrawDataInModeWorkLatest();
 
-    static void DrawDataInModePoint2Point();
+    void DrawDataInModePoint2Point();
 
-    static bool DrawDataInModeNormal();
+    bool DrawDataInModeNormal();
 
-    static void DrawDataMinMax();
+    void DrawDataMinMax();
 
-    static bool DrawDataNormal();
+    bool DrawDataNormal();
 
-    static bool DrawData();
+    bool DrawData();
+
     // Ќарисовать окно пам€ти
-    static void DrawMemoryWindow();
+    void DrawMemoryWindow();
 
-    static void DRAW_SPECTRUM(const uint8* data, int numPoints, Chan::E ch);
+    void DRAW_SPECTRUM(const uint8* data, int numPoints, Chan::E ch);
 
-    static void DrawGridSpectrum();
+    void DrawGridSpectrum();
 
-    static void DrawMarkersForMeasure(float scale, Chan::E ch);
+    void DrawMarkersForMeasure(float scale, Chan::E ch);
 
-    static void DrawScaleLine(int x, bool forTrigLev);
+    void DrawScaleLine(int x, bool forTrigLev);
 
-    static void WriteParametersFFT(Chan::E ch, float freq0, float density0, float freq1, float density1);
+    void WriteParametersFFT(Chan::E ch, float freq0, float density0, float freq1, float density1);
 
-    static void WriteTextVoltage(Chan::E ch, int x, int y);
+    void WriteTextVoltage(Chan::E ch, int x, int y);
 
-    static void FuncOnTimerDisableShowLevelRShiftA();
+    void FuncOnTimerDisableShowLevelRShiftA();
 
-    static void FuncOnTimerDisableShowLevelRShiftB();
+    void FuncOnTimerDisableShowLevelRShiftB();
 
-    static void FuncOnTimerDisableShowLevelTrigLev();
+    void FuncOnTimerDisableShowLevelTrigLev();
 
-    static void FuncOnTimerRShiftMarkersAutoHide();
+    void FuncOnTimerRShiftMarkersAutoHide();
 
-    static void OnTimerShowWarning();
+    void OnTimerShowWarning();
 
-    static void DrawSignalLined(const uint8* data, const DataSettings* ds, int startPoint, int endPoint, int minY, int maxY, float scaleY,
+    void DrawSignalLined(const uint8* data, const DataSettings* ds, int startPoint, int endPoint, int minY, int maxY, float scaleY,
         float scaleX, bool calculateFiltr);
 
-    static void DrawSignalPointed(const uint8* data, const DataSettings* ds, int startPoint, int endPoint, int minY, int maxY, float scaleY,
+    void DrawSignalPointed(const uint8* data, const DataSettings* ds, int startPoint, int endPoint, int minY, int maxY, float scaleY,
         float scaleX);
 
-    static void DrawSpectrumChannel(const float* spectrum, Color::E);
+    void DrawSpectrumChannel(const float* spectrum, Color::E);
 
-    static void DrawStringInRectangle(int x, int y, char const* text);
+    void DrawStringInRectangle(int x, int y, char const* text);
 
-    static void DrawStringNavigation();
+    void DrawStringNavigation();
 
-    static int FirstEmptyString();
+    int FirstEmptyString();
 
-    static bool NeedForClearScreen();
+    bool NeedForClearScreen();
 
-    static void WriteStringAndNumber(char* text, int x, int y, int number);
+    void WriteStringAndNumber(char* text, int x, int y, int number);
 
-    static void DrawGridType3(int left, int top, int right, int bottom, int centerX, int centerY, int deltaX, int deltaY, int stepX, int stepY);
+    void DrawGridType3(int left, int top, int right, int bottom, int centerX, int centerY, int deltaX, int deltaY, int stepX, int stepY);
 
-    static void DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI, const uint8* data, int rightX,
+    void DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI, const uint8* data, int rightX,
         Chan::E ch, int shiftForPeakDet);
 
-    static void DrawDataInModeSelfRecorder();
+    void DrawDataInModeSelfRecorder();
 
-    static void DrawDataInRect(int x, int width, const uint8* data, int numElems, Chan::E ch, int shiftForPeakDet);
+    void DrawDataInRect(int x, int width, const uint8* data, int numElems, Chan::E ch, int shiftForPeakDet);
 
-    static void DrawTimeForFrame(uint timeMS);
+    void DrawTimeForFrame(uint timeMS);
 
-    static void DeleteFirstString();
+    void DeleteFirstString();
+
     // Ќарисовать горизонтальный курсор курсорных измерений.
-    static void DrawHorizontalCursor
-    (int y,             // числовое значение курсора.
-        int xTearing        // координата места, в котором необходимо сделать разрыв дл€ квадрата пересечени€.
-    );
+    // y - числовое значение курсора.
+    // xTearing - координата места, в котором необходимо сделать разрыв дл€ квадрата пересечени€.
+    void DrawHorizontalCursor(int y, int xTearing);
+
     // Ќарисовать вертикальный курсор курсорных измерений.
-    static void DrawVerticalCursor
-    (int x,             // числовое значение курсора.
-        int yTearing        // координата места, в котором необходимо сделать разрыв дл€ квадрата пересечени€.
-    );
+    // x - числовое значение курсора.
+    // yTearing - координата места, в котором необходимо сделать разрыв дл€ квадрата пересечени€.
+    void DrawVerticalCursor(int x, int yTearing);
+
     // ¬ывести значение уровн€ синхронизации. 
-    static void WriteValueTrigLevel();
+    void WriteValueTrigLevel();
 
-    static void AddString(const char* string);
+    void AddString(const char* string);
 
-    static int CalculateCountH();
+    int CalculateCountH();
 
-    static void DrawGridType1(int left, int top, int right, int bottom, float centerX, float centerY, float deltaX, float deltaY, float stepX, float stepY);
+    void DrawGridType1(int left, int top, int right, int bottom, float centerX, float centerY, float deltaX, float deltaY, float stepX, float stepY);
 
-    static void DrawGridType2(int left, int top, int right, int bottom, int deltaX, int deltaY, int stepX, int stepY);
+    void DrawGridType2(int left, int top, int right, int bottom, int deltaX, int deltaY, int stepX, int stepY);
 }
 
 
