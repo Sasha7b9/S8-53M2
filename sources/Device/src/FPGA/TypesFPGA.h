@@ -36,6 +36,8 @@
 #define WR_START                (HAL_FMC::_ADDR_FPGA + 0x00)    // Запуск цикла измерения. Для запуска нужно записать 1.
 #define WR_RAZV                 (HAL_FMC::_ADDR_FPGA + 0x01)     // Установка частоты синхронизации. Используется в TBase::Load().
 #define WR_PRED                 (HAL_FMC::_ADDR_FPGA + 0x02)
+#define WR_POST                 (HAL_FMC::_ADDR_FPGA + 0x03)
+
 
 struct TypeWriteAnalog
 {

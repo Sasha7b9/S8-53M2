@@ -466,8 +466,11 @@ void TShift::Load()
     FPGA::SetAdditionShift(additionShift);
     uint16 post = (uint16)tShift;
     post = (uint16)(~post);
-    FPGA::WriteToHardware(WR_POST_LOW, (uint8)post, true);
-    FPGA::WriteToHardware(WR_POST_HI, (uint8)(post >> 8), true);
+//    FPGA::WriteToHardware(WR_POST_LOW, (uint8)post, true);
+//    FPGA::WriteToHardware(WR_POST_HI, (uint8)(post >> 8), true);
+
+    FPGA::WriteToHardware(WR_POST, post, true);
+
     uint16 pred = (uint16)((tShift > 511) ? 1023 : (511 - post));
     pred = (uint16)((~(pred - 1)) & 0x1ff);
 

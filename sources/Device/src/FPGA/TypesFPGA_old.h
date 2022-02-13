@@ -7,14 +7,14 @@
 //#define WR_RAZVERTKA    (ADDR_FPGA + 4)             //    Установка частоты синхронизации. Используется в TBase::Load().
 //#define WR_PRED_LOW     (ADDR_FPGA + 5)             //    Младший байт величины предзапуска. Используется совместно с WR_PRED_HI, WR_POST_LOW, WR_POST_HI для загрузки смещения по времени в ПЛИС. Используется в LoadTShift().
 //#define WR_PRED_HI      (ADDR_FPGA + 6)             //    Старший байт величины предзапуска. Используется совместно с WR_PRED_LOW, WR_POST_LOW, WR_POST_HI для загрузки смещения по времени в ПЛИС. Используется в LoadTShift().
-#define WR_POST_LOW     (ADDR_FPGA + 7)             //    Младший байт величины послезапуска. Используется совместно с WR_PRED_LOW, WR_PRED_HI, WR_PRED_POST для загрузки смещения по времени в ПЛИС. Используется в LoadTShift().
-#define WR_POST_HI      (ADDR_FPGA + 8)             //    Cтарший байт величины послезапуска. Используется совместно с WR_PRED_LOW, WR_PRED_HI, WR_POST_LOW для загрузки смещения по времени в ПЛИС. Используется в LoadTShift().
-                                                    /**     @brief Выбор фронта/спада импульса синхронизации и режимов AUTO/RUN.
-                                                            @verbatim
-                                                            D0 - фронт/спад,\n
-                                                            D1 - AUTO/RUN.\n
-                                                            Используется в LoadTrigPolarity(). 
-                                                            @endverbatim */
+//#define WR_POST_LOW     (ADDR_FPGA + 7)             //    Младший байт величины послезапуска. Используется совместно с WR_PRED_LOW, WR_PRED_HI, WR_PRED_POST для загрузки смещения по времени в ПЛИС. Используется в LoadTShift().
+//#define WR_POST_HI      (ADDR_FPGA + 8)             //    Cтарший байт величины послезапуска. Используется совместно с WR_PRED_LOW, WR_PRED_HI, WR_POST_LOW для загрузки смещения по времени в ПЛИС. Используется в LoadTShift().
+//                                                    /**     @brief Выбор фронта/спада импульса синхронизации и режимов AUTO/RUN.
+//                                                            @verbatim
+//                                                            D0 - фронт/спад,\n
+//                                                            D1 - AUTO/RUN.\n
+//                                                            Используется в LoadTrigPolarity(). 
+//                                                            @endverbatim */
 #define WR_TRIG_F       (ADDR_FPGA + 9)
 #define WR_CAL_A        (ADDR_FPGA + 12)            //    Калибровочный коэффициент канала 1.
 #define WR_CAL_B        (ADDR_FPGA + 13)            //    Калибровочный коэффициент канала 2.
