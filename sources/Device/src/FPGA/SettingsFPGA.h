@@ -46,6 +46,9 @@ struct TBase
 
     static void Set(TBase::E);
 
+    // Уменьшить масштаб по времени.
+    static void Decrease();
+
 private:
 
     // Загрузка коэффицента развёртки в аппаратную часть.

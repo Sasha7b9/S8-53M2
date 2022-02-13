@@ -361,7 +361,7 @@ void TBaseLeft()
 void TBaseRight()
 {
     Sound::RegulatorSwitchRotate();
-    FPGA::TBaseDecrease();
+    TBase::Decrease();
 }
 
 void SetLeft()

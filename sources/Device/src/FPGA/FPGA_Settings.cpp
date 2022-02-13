@@ -257,7 +257,7 @@ void TBase::Load()
 }
 
 
-void FPGA::TBaseDecrease()
+void TBase::Decrease()
 {
     if (PEAKDET && SET_TBASE <= MIN_TBASE_PEC_DEAT)
     {
