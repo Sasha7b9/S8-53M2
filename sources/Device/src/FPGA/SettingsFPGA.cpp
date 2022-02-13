@@ -82,12 +82,12 @@ namespace FPGA
     void LoadSettings();
 
     // Загрузить все параметры напряжения каналов и синхронизации в аппаратную часть.
-    void SetAttribChannelsAndTrig(TypeWriteAnalog type);
+    void SetAttribChannelsAndTrig(TypeWriteAnalog::E type);
 
     // Загрузить регистр WR_UPR (пиковый детектор и калибратор).
     void LoadRegUPR();
 
-    void WriteToAnalog(TypeWriteAnalog type, uint data);
+    void WriteToAnalog(TypeWriteAnalog::E type, uint data);
 
     void WriteToDAC(TypeWriteDAC type, uint16 data);
 }
@@ -97,7 +97,7 @@ void FPGA::LoadSettings()
 {
     LoadKoeffCalibration(Chan::A);
     LoadKoeffCalibration(Chan::B);
-    SetAttribChannelsAndTrig(TypeWriteAnalog_All);
+    SetAttribChannelsAndTrig(TypeWriteAnalog::All);
     TBase::Load();
     TShift::Load();
     Range::Load(Chan::A);
@@ -134,7 +134,7 @@ void FPGA::LoadSettings()
 }
 
 
-void FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog type) 
+void FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog::E type) 
 {
     uint data = 0;
 
@@ -209,7 +209,7 @@ void Range::Set(Chan::E ch, Range::E range)
 
 void Range::Load(Chan::E ch)
 {
-    FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog_Range0);
+    FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog::Range0);
     RShift::Load(ch);
 
     if (ch == (Chan::E)TRIG_SOURCE)
@@ -518,7 +518,7 @@ bool Range::Decrease(Chan::E ch)
 void TrigSource::Set(TrigSource::E trigSource)
 {
     TRIG_SOURCE = trigSource;
-    FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog_TrigParam);
+    FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog::TrigParam);
     if (!TRIG_SOURCE_IS_EXT)
     {
         TrigLev::Set(TRIG_SOURCE, TRIG_LEVEL_SOURCE);
@@ -542,14 +542,14 @@ void TrigPolarity::Load()
 void TrigInput::Set(TrigInput::E trigInput)
 {
     TRIG_INPUT = trigInput;
-    FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog_TrigParam);
+    FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog::TrigParam);
 }
 
 
 void ModeCouple::Set(Chan::E ch, ModeCouple::E modeCoupe)
 {
     SET_COUPLE(ch) = modeCoupe;
-    FPGA::SetAttribChannelsAndTrig(ch == Chan::A ? TypeWriteAnalog_ChanParam0 : TypeWriteAnalog_ChanParam1);
+    FPGA::SetAttribChannelsAndTrig(ch == Chan::A ? TypeWriteAnalog::ChanParam0 : TypeWriteAnalog::ChanParam1);
     RShift::Set(ch, SET_RSHIFT(ch));
 }
 
@@ -557,5 +557,5 @@ void ModeCouple::Set(Chan::E ch, ModeCouple::E modeCoupe)
 void Filtr::Enable(Chan::E ch, bool enable)
 {
     SET_FILTR(ch) = enable;
-    FPGA::SetAttribChannelsAndTrig(ch == Chan::A ? TypeWriteAnalog_ChanParam0 : TypeWriteAnalog_ChanParam1);
+    FPGA::SetAttribChannelsAndTrig(ch == Chan::A ? TypeWriteAnalog::ChanParam0 : TypeWriteAnalog::ChanParam1);
 }

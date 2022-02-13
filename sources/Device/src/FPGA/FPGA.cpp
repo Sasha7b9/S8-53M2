@@ -57,7 +57,7 @@ namespace FPGA
     // Загрузить настройки в аппаратную часть из глобальной структуры SSettings.
     void LoadSettings();
 
-    void WriteToAnalog(TypeWriteAnalog type, uint data);
+    void WriteToAnalog(TypeWriteAnalog::E type, uint data);
 
     void WriteToDAC(TypeWriteDAC type, uint16 data);
 
@@ -1160,33 +1160,33 @@ void FPGA::FindAndSetTrigLevel()
 #define DATA_SET(x)         HAL_GPIO_WritePin(GPIOG, pinData, x);
 
 
-void FPGA::WriteToAnalog(TypeWriteAnalog type, uint data)
+void FPGA::WriteToAnalog(TypeWriteAnalog::E type, uint data)
 {
 #define pinSelect   GPIO_PIN_5
 
     char buffer[19];
     char *str = Bin2String16((uint16)data, buffer);
-    if (type == TypeWriteAnalog_Range0 && IS_SHOW_REG_RANGE_A)
+    if (type == TypeWriteAnalog::Range0 && IS_SHOW_REG_RANGE_A)
     {
         LOG_WRITE("range 0 = %s", str);
     }
-    else if (type == TypeWriteAnalog_Range1 && IS_SHOW_REG_RANGE_B)
+    else if (type == TypeWriteAnalog::Range1 && IS_SHOW_REG_RANGE_B)
     {
         LOG_WRITE("range 1 = %s", str);
     }
-    else if (type == TypeWriteAnalog_TrigParam && IS_SHOW_REG_TRIGPARAM)
+    else if (type == TypeWriteAnalog::TrigParam && IS_SHOW_REG_TRIGPARAM)
     {
         LOG_WRITE("парам. синхр. = %s", str);
     }
-    else if (type == TypeWriteAnalog_ChanParam0 && IS_SHOW_REG_PARAM_A)
+    else if (type == TypeWriteAnalog::ChanParam0 && IS_SHOW_REG_PARAM_A)
     {
         LOG_WRITE("парам. кан. 1 = %s", str);
     }
-    else if (type == TypeWriteAnalog_ChanParam1 && IS_SHOW_REG_PARAM_B)
+    else if (type == TypeWriteAnalog::ChanParam1 && IS_SHOW_REG_PARAM_B)
     {
         LOG_WRITE("парам. кан. 2 = %s", str);
     }
-    else if (type == TypeWriteAnalog_All)
+    else if (type == TypeWriteAnalog::All)
     {
         LOG_WRITE("полная запись в аналоговую часть = %s", str);
     }

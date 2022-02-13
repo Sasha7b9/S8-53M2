@@ -32,12 +32,15 @@
 */
 
 
-enum TypeWriteAnalog
+struct TypeWriteAnalog
 {
-    TypeWriteAnalog_All,
-    TypeWriteAnalog_Range0,
-    TypeWriteAnalog_Range1,
-    TypeWriteAnalog_TrigParam,
-    TypeWriteAnalog_ChanParam0,
-    TypeWriteAnalog_ChanParam1
+    enum E
+    {
+        All,
+        Range0,
+        Range1,
+        TrigParam,
+        ChanParam0,
+        ChanParam1
+    };
 };
