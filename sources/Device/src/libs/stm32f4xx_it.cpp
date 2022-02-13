@@ -101,6 +101,12 @@ void DMA1_Stream5_IRQHandler()
     HAL_DMA_IRQHandler(handleDAC.DMA_Handle1);
 }
 
+
+void OTG_FS_IRQHandler()
+{
+    HAL_PCD_IRQHandler((PCD_HandleTypeDef *)VCP::handlePCD);
+}
+
 #ifdef __cplusplus
 }
 #endif

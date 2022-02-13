@@ -10,4 +10,7 @@ namespace VCP
     void SendFormatStringSynch(char *format, ...);      // Эта строка передаётся с завершающими символами \r\n.
     void Flush();
     void Update();
+
+    extern void *handlePCD;
+    extern void *handleUSBD;
 };

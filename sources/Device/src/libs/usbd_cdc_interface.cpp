@@ -8,9 +8,6 @@
 
 
 
-extern USBD_HandleTypeDef handleUSBD;
-
-
 static USBD_CDC_LineCodingTypeDef LineCoding =
 {
     115200, /* baud rate*/
@@ -50,7 +47,7 @@ static void SetAttributeConnected()
 
 static int8_t CDC_Itf_Init()
 {
-    USBD_CDC_SetRxBuffer(&handleUSBD, UserRxBuffer);
+    USBD_CDC_SetRxBuffer((USBD_HandleTypeDef *)VCP::handleUSBD, UserRxBuffer);
     Timer::Enable(kTemp, 100, SetAttributeConnected);    // GOVNOCODE Задержка введена для того, чтобы не было ложных срабатываний в 
     return (USBD_OK);                                   // usbd_conf.c:HAL_PCD_SetupStageCallback при определении подключения хоста
 }
@@ -131,6 +128,6 @@ static int8 CDC_Itf_Receive(uint8* buffer, uint *length)
 {
     SCPI::AddNewData(buffer, *length);
 
-    USBD_CDC_ReceivePacket(&handleUSBD);
+    USBD_CDC_ReceivePacket((USBD_HandleTypeDef *)VCP::handleUSBD);
     return (USBD_OK);
 }

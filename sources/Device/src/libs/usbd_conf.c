@@ -9,10 +9,6 @@
 #include "Settings/Settings.h"
 
 
-
-extern PCD_HandleTypeDef handlePCD;
-extern USBD_HandleTypeDef handleUSBD;
-
 /*******************************************************************************
                        PCD BSP Routines
 *******************************************************************************/
@@ -176,8 +172,10 @@ void HAL_PCD_DisconnectCallback(PCD_HandleTypeDef *hpcd)
 USBD_StatusTypeDef  USBD_LL_Init (USBD_HandleTypeDef *pdev)
 { 
     /* Change Systick prioity */
-    NVIC_SetPriority (SysTick_IRQn, 0);  
-  
+    NVIC_SetPriority (SysTick_IRQn, 0);
+
+    PCD_HandleTypeDef &handlePCD = *(PCD_HandleTypeDef *)VCP::handlePCD;
+
     /*Set LL Driver parameters */
     handlePCD.Instance = USB_OTG_FS;
     handlePCD.Init.dev_endpoints = 4; 
