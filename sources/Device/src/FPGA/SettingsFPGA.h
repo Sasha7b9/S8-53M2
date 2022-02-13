@@ -29,6 +29,13 @@ struct RShift
 };
 
 
+struct Filtr
+{
+    // ¬ключить/выключить фильтр на входе канала.
+    static void Enable(Chan::E, bool);
+};
+
+
 // ¬ход синхронизации.
 struct TrigInput
 {

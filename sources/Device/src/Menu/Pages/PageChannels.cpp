@@ -147,7 +147,7 @@ static const Choice mcFiltrA =
 
 void OnChanged_FiltrA(bool active)
 {
-    FPGA::EnableChannelFiltr(Chan::A, SET_FILTR_A);
+    Filtr::Enable(Chan::A, SET_FILTR_A);
 }
 
 
@@ -273,7 +273,7 @@ static const Choice mcFiltrB =
 
 void OnChanged_FiltrB(bool active)
 {
-    FPGA::EnableChannelFiltr(Chan::B, SET_FILTR_B);
+    Filtr::Enable(Chan::B, SET_FILTR_B);
 }
 
 

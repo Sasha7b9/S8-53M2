@@ -554,8 +554,8 @@ void ModeCouple::Set(Chan::E ch, ModeCouple::E modeCoupe)
 }
 
 
-void FPGA::EnableChannelFiltr(Chan::E ch, bool enable)
+void Filtr::Enable(Chan::E ch, bool enable)
 {
     SET_FILTR(ch) = enable;
-    SetAttribChannelsAndTrig(ch == Chan::A ? TypeWriteAnalog_ChanParam0 : TypeWriteAnalog_ChanParam1);
+    FPGA::SetAttribChannelsAndTrig(ch == Chan::A ? TypeWriteAnalog_ChanParam0 : TypeWriteAnalog_ChanParam1);
 }

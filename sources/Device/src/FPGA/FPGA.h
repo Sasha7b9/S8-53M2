@@ -67,9 +67,6 @@ namespace FPGA
     // Найти и установить уровень синхронизации по последнему считанному сигналу
     void FindAndSetTrigLevel();
 
-    // Включить/выключить фильтр на входе канала.
-    void EnableChannelFiltr(Chan::E, bool enable);
-
     // Включить/выключить режим пикового детектора.
     void SetPeackDetMode(PeackDetMode peackDetMode);
 
