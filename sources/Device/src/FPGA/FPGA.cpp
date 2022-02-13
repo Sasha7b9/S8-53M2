@@ -664,10 +664,8 @@ static BitSet32 ReadRegFreq()
 static BitSet32 ReadRegPeriod()
 {
     BitSet32 period;
-    period.byte[0] = HAL_FMC::Read(RD_ADDR_PERIOD_LOW_LOW);
-    period.byte[1] = HAL_FMC::Read(RD_ADDR_PERIOD_LOW);
-    period.byte[2] = HAL_FMC::Read(RD_ADDR_PERIOD_MID);
-    period.byte[3] = HAL_FMC::Read(RD_ADDR_PERIOD_HI);
+    period.half_word[0] = HAL_FMC::Read(RD_PERIOD_LOW);
+    period.half_word[1] = HAL_FMC::Read(RD_PERIOD_HI);
     return period;
 }
 
