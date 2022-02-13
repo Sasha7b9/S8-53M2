@@ -1,17 +1,9 @@
-// 2022/02/11 17:51:06 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
-#include <stm32f4xx_hal.h>
-#include <stm32f4xx_hal_hcd.h>
-#include <usbh_core.h>
-#include <stm32f429xx.h>
-
-/*
-    Функции инициализации и деинициализации аппаратной части USBH, используемого для работы с флеш-диском.
-*/
+#include "defines.h"
+#include "Hardware/HAL/HAL.h"
 
 
-
-void HAL_HCD_MspInit(HCD_HandleTypeDef *hhcd) {
-
+void HAL_HCD::Init()
+{
     __GPIOB_CLK_ENABLE();
     __USB_OTG_HS_CLK_ENABLE();
     __SYSCFG_CLK_ENABLE();
@@ -29,10 +21,4 @@ void HAL_HCD_MspInit(HCD_HandleTypeDef *hhcd) {
 
     /* Enable USBHS Interrupt */
     HAL_NVIC_EnableIRQ(OTG_HS_IRQn);
-}
-
-
-void HAL_HCD_MspDeInit(HCD_HandleTypeDef *hhcd)
-{
-    __USB_OTG_HS_CLK_DISABLE();
 }

@@ -1217,11 +1217,6 @@
               <FilePath>.\src\Hardware\Timer.h</FilePath>
             </File>
             <File>
-              <FileName>MSP_USBH.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\MSP_USBH.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Timer.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\Timer.cpp</FilePath>
@@ -1305,6 +1300,11 @@
               <FileName>HAL_ROM.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_ROM.h</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_HCD.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_HCD.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -3143,11 +3143,6 @@
               <FilePath>.\src\Hardware\Timer.h</FilePath>
             </File>
             <File>
-              <FileName>MSP_USBH.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\MSP_USBH.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Timer.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\Timer.cpp</FilePath>
@@ -3231,6 +3226,11 @@
               <FileName>HAL_ROM.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_ROM.h</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_HCD.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_HCD.cpp</FilePath>
             </File>
           </Files>
         </Group>

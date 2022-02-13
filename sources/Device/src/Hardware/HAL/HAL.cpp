@@ -34,6 +34,8 @@ void HAL::Init()
 
     HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 
+    HAL_HCD::Init();            // Для флешки
+
     HAL_TIM6::Init();           // Миллисекунды
 
     HAL_TIM2::Init();           // Микросекунды

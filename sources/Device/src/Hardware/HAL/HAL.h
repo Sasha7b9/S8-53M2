@@ -107,3 +107,9 @@ namespace HAL_RTC
     bool SetTimeAndData(int8 day, int8 month, int8 year, int8 hours, int8 minutes, int8 seconds);
     PackedTime GetPackedTime();
 }
+
+
+namespace HAL_HCD
+{
+    void Init();
+}
