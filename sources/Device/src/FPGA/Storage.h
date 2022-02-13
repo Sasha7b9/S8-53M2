@@ -28,7 +28,7 @@ namespace Storage
     uint8* GetData(Chan::E, int fromEnd);
 
     // Получить усреднённые данные по нескольким измерениям.
-    uint8* GetAverageData(Chan::E ch);
+    uint8* GetAverageData(Chan::E);
 
     // Сколько всего измерений сохранено в памяти.
     int AllDatas();

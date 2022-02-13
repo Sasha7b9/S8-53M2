@@ -14,8 +14,8 @@ struct SGenerator
 {
     void(*SetParametersWave)(Chan::E, TypeWave typeWave, float frequency, float startAngle, float amplWave, float amplNoise);    // numWave = 1, 2. Может быть до двух сигналов.
                                                                                                     // amplWave = 0.0f...1.0f, amplNoise = 0.0f...1.0f - относительно амплитуды сигнала.
-    void(*StartNewWave)(Chan::E ch);
-    uint8(*GetSampleWave)(Chan::E ch);
+    void(*StartNewWave)(Chan::E);
+    uint8(*GetSampleWave)(Chan::E);
 };
 
 extern const SGenerator Generator;

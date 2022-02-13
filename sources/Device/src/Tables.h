@@ -53,7 +53,7 @@ const char* Tables_GetTBaseStringEN(TBase tBase);
 
 const char* Tables_RangeNameFromValue(Range range);
 // Возвращает номер канала от 1 до 2
-int Tables_GetNumChannel(Chan::E ch);
+int Tables_GetNumChannel(Chan::E);
 
 extern const char* symbolsAlphaBet[0x48];
 // Выводит строку из таблицы symbolsAlphaBet

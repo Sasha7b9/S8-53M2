@@ -1201,6 +1201,11 @@
               <FileType>5</FileType>
               <FilePath>.\src\FPGA\SettingsFPGA.h</FilePath>
             </File>
+            <File>
+              <FileName>SettingsFPGA.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FPGA\SettingsFPGA.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3131,6 +3136,11 @@
               <FileName>SettingsFPGA.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\FPGA\SettingsFPGA.h</FilePath>
+            </File>
+            <File>
+              <FileName>SettingsFPGA.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FPGA\SettingsFPGA.cpp</FilePath>
             </File>
           </Files>
         </Group>

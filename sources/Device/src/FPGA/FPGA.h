@@ -79,10 +79,10 @@ namespace FPGA
     void SetRange(Chan::E, Range range);
 
     // Увеличить масштаб по напряжению.
-    bool RangeIncrease(Chan::E ch);
+    bool RangeIncrease(Chan::E);
 
     // Уменьшить масштаб по напряжению.
-    bool RangeDecrease(Chan::E ch);
+    bool RangeDecrease(Chan::E);
 
     // Установить масштаб по времени.
     void SetTBase(TBase tBase);
@@ -109,7 +109,7 @@ namespace FPGA
     void SetCalibratorMode(CalibratorMode calibratorMode);
 
     // Загрузить в аппарат коэффициенты калибровки каналов.
-    void LoadKoeffCalibration(Chan::E ch);
+    void LoadKoeffCalibration(Chan::E);
 
     // Установить относительный уровень синхронизации.
     void SetTrigLev(TrigSource chan, int16 trigLev);
