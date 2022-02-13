@@ -47,6 +47,8 @@
 #define RD_PERIOD_LOW           (HAL_FMC::_ADDR_FPGA + 0x20)
 #define RD_PERIOD_HI            (HAL_FMC::_ADDR_FPGA + 0x28)
 #define RD_FL                   (HAL_FMC::_ADDR_FPGA + 0x30)
+    #define BIT_DATA_READY          0
+    #define BIT_TRIG                1
 
 struct TypeWriteAnalog
 {
