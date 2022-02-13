@@ -1299,15 +1299,15 @@ void Display::DrawHiRightPart()
 
         x += 2;
         y = 1;
-        if (FPGA::CurrentStateWork() == StateWorkFPGA_Work)
+        if (StateWorkFPGA::GetCurrent() == StateWorkFPGA::Work)
         {
             Painter::Draw4SymbolsInRect(x, 1, SYMBOL_PLAY);
         }
-        else if (FPGA::CurrentStateWork() == StateWorkFPGA_Stop)
+        else if (StateWorkFPGA::GetCurrent() == StateWorkFPGA::Stop)
         {
             Painter::FillRegion(x + 3, y + 3, 10, 10);
         }
-        else if (FPGA::CurrentStateWork() == StateWorkFPGA_Wait)
+        else if (StateWorkFPGA::GetCurrent() == StateWorkFPGA::Wait)
         {
             int w = 4;
             int h = 14;

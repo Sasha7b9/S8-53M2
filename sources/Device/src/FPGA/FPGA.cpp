@@ -22,7 +22,6 @@ namespace FPGA
 {
     static float freq = 0.0f;           // Частота, намеренная альтерой.
     static float prevFreq = 0.0f;
-    static StateWorkFPGA stateWork = StateWorkFPGA_Stop;
 
 
     volatile static int numberMeasuresForGates = 1000;
@@ -133,7 +132,7 @@ void FPGA::Start()
     HAL_FMC::Write(WR_START, 1);
     FillDataPointer(&ds);
     timeStart = gTimerMS;
-    stateWork = StateWorkFPGA_Wait;
+    StateWorkFPGA::SetCurrent(StateWorkFPGA::Wait);
     FPGA_CRITICAL_SITUATION = 0;
 }
 
@@ -181,7 +180,7 @@ bool FPGA::ProcessingData()
             if (!START_MODE_IS_SINGLE)
             {
                 Start();
-                stateWork = StateWorkFPGA_Work;
+                StateWorkFPGA::SetCurrent(StateWorkFPGA::Work);
             }
             else
             {
@@ -226,8 +225,7 @@ void FPGA::Update()
 		return;
 	}
 
-    //if(((FPGA_CAN_READ_DATA == 0) && !sTime_RandomizeModeEnabled()) || (stateWork == StateWorkFPGA_Stop))
-    if((FPGA_CAN_READ_DATA == 0) || (stateWork == StateWorkFPGA_Stop))
+    if((FPGA_CAN_READ_DATA == 0) || (StateWorkFPGA::GetCurrent() == StateWorkFPGA::Stop))
     {
         return;
     }
@@ -243,15 +241,9 @@ void FPGA::Update()
 }
 
 
-StateWorkFPGA FPGA::CurrentStateWork()
-{
-    return stateWork;
-}
-
-
 void FPGA::OnPressStartStop()
 {
-    if(stateWork == StateWorkFPGA_Stop) 
+    if(StateWorkFPGA::GetCurrent() == StateWorkFPGA::Stop) 
     {
         FPGA::Start();
     } 
@@ -266,13 +258,13 @@ void FPGA::Stop(bool pause)
 {
     Timer::Disable(kP2P);
     HAL_FMC::Write(WR_STOP, 1);
-    stateWork = pause ? StateWorkFPGA_Pause : StateWorkFPGA_Stop;
+    StateWorkFPGA::SetCurrent(pause ? StateWorkFPGA::Pause : StateWorkFPGA::Stop);
 }
 
 
 bool FPGA::IsRunning()
 {
-    return stateWork != StateWorkFPGA_Stop;
+    return (StateWorkFPGA::GetCurrent() != StateWorkFPGA::Stop);
 }
 
 
@@ -282,17 +274,6 @@ bool FPGA::IsRunning()
         data = (uint8)((int)(2 * AVE_VALUE) - LimitationUInt8(data, MIN_VALUE, MAX_VALUE));    \
     }                                                                                               \
     *addr = data;
-
-/*
-static uint8 InverseIfNecessary(uint8 data, Chan::E ch)
-{
-    if (set.chan[ch].inverse)  
-    {
-        return (uint8)((int)(2 * AVE_VALUE) - LimitationUInt8(data, MIN_VALUE, MAX_VALUE));
-    }
-    return data;
-}
-*/
 
 
 void FPGA::ReadRandomizeMode()
@@ -588,7 +569,7 @@ void FPGA::WriteToHardware(uint8 *address, uint8 value, bool restart)
         }
         else
         {
-            if(stateWork != StateWorkFPGA_Stop)
+            if(StateWorkFPGA::GetCurrent() != StateWorkFPGA::Stop)
             {
                 FPGA::Stop(true);
                 HAL_FMC::Write(address, value);
@@ -622,7 +603,7 @@ void FPGA::ReadPoint()
 
 void FPGA::SaveState()
 {
-    gStateFPGA.stateWorkBeforeCalibration = stateWork;
+    gStateFPGA.stateWorkBeforeCalibration.value = StateWorkFPGA::GetCurrent();
     storingSettings = set;
 }
 
@@ -652,9 +633,9 @@ void FPGA::RestoreState()
         }
     }
     FPGA::LoadSettings();
-    if(gStateFPGA.stateWorkBeforeCalibration != StateWorkFPGA_Stop)
+    if(gStateFPGA.stateWorkBeforeCalibration.value != StateWorkFPGA::Stop)
     {
-        gStateFPGA.stateWorkBeforeCalibration = StateWorkFPGA_Stop;
+        gStateFPGA.stateWorkBeforeCalibration = StateWorkFPGA::Stop;
         FPGA::OnPressStartStop();
     }
 }

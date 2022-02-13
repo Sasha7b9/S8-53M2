@@ -128,6 +128,4 @@ namespace FPGA
 
     // Запуск функции калибровки.
     void ProcedureCalibration();
-
-    StateWorkFPGA CurrentStateWork();
 };
