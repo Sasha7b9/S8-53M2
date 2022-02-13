@@ -82,10 +82,3 @@
 #define RD_ADDR_FREQ_LOW    (ADDR_FPGA + 0x1d)      //    0-й байт замеренного значения периода. Признак того, что счёт периода завершён, находится в D5 RD_FL.
 #define RD_ADDR_FREQ_MID    (ADDR_FPGA + 0x1e)      //    1-й байт замеренного значения периода. Признак того, что счёт периода завершён, находится в D5 RD_FL.
 #define RD_ADDR_FREQ_HI     (ADDR_FPGA + 0x1f)      //    2-й байт замеренного значения периода. Признак того, что счёт периода завершён, находится в D5 RD_FL.
-
-enum TypeWriteDAC
-{
-    TypeWriteDAC_RShiftA,
-    TypeWriteDAC_RShiftB,
-    TypeWriteDAC_TrigLev
-};

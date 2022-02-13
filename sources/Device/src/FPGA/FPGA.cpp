@@ -59,7 +59,7 @@ namespace FPGA
 
     void WriteToAnalog(TypeWriteAnalog::E type, uint data);
 
-    void WriteToDAC(TypeWriteDAC type, uint16 data);
+    void WriteToDAC(TypeWriteDAC::E type, uint16 data);
 
     // Прочитать данные.
     // necessaryShift - Признак того, что сигнал нужно смещать.
@@ -1202,20 +1202,20 @@ void FPGA::WriteToAnalog(TypeWriteAnalog::E type, uint data)
 }
 
 
-void FPGA::WriteToDAC(TypeWriteDAC type, uint16 data)
+void FPGA::WriteToDAC(TypeWriteDAC::E type, uint16 data)
 {
 #undef pinSelect
 #define pinSelect   GPIO_PIN_7
     char buffer[19];
-    if (type == TypeWriteDAC_RShiftA && IS_SHOW_REG_RSHIFT_A)
+    if (type == TypeWriteDAC::RShiftA && IS_SHOW_REG_RSHIFT_A)
     {
         LOG_WRITE("rShift 0 = %s", Bin2String16(data, buffer));
     }
-    else if (type == TypeWriteDAC_RShiftB && IS_SHOW_REG_RSHIFT_B)
+    else if (type == TypeWriteDAC::RShiftB && IS_SHOW_REG_RSHIFT_B)
     {
         LOG_WRITE("rShfit 1 = %s", Bin2String16(data, buffer));
     }
-    else if (type == TypeWriteDAC_TrigLev && IS_SHOW_REG_TRIGLEV)
+    else if (type == TypeWriteDAC::TrigLev && IS_SHOW_REG_TRIGLEV)
     {
         LOG_WRITE("trigLev = %s", Bin2String16(data, buffer));
     }

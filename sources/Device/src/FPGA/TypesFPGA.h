@@ -44,3 +44,14 @@ struct TypeWriteAnalog
         ChanParam1
     };
 };
+
+
+struct TypeWriteDAC
+{
+    enum E
+    {
+        RShiftA,
+        RShiftB,
+        TrigLev
+    };
+};

@@ -89,7 +89,7 @@ namespace FPGA
 
     void WriteToAnalog(TypeWriteAnalog::E type, uint data);
 
-    void WriteToDAC(TypeWriteDAC type, uint16 data);
+    void WriteToDAC(TypeWriteDAC::E type, uint16 data);
 }
 
 
@@ -338,7 +338,7 @@ void RShift::Load(Chan::E ch)
     rShift = (uint16)(delta + RShift::ZERO);
 
     rShift = (uint16)(RShift::MAX + RShift::MIN - rShift);
-    FPGA::WriteToDAC(ch == Chan::A ? TypeWriteDAC_RShiftA : TypeWriteDAC_RShiftB, (uint16)(mask[ch] | (rShift << 2)));
+    FPGA::WriteToDAC(ch == Chan::A ? TypeWriteDAC::RShiftA : TypeWriteDAC::RShiftB, (uint16)(mask[ch] | (rShift << 2)));
 }
 
 
@@ -375,9 +375,9 @@ void TrigLev::Load()
     uint16 trigLev = (uint16)TRIG_LEVEL_SOURCE;
     trigLev = (uint16)(TrigLev::MAX + TrigLev::MIN - trigLev);
     data |= trigLev << 2;
-    // FPGA_WriteToHardware(WR_DAC_LOW, data.byte[0], true);
-    // FPGA_WriteToHardware(WR_DAC_HI, data.byte[1], true);
-    FPGA::WriteToDAC(TypeWriteDAC_TrigLev, data);
+//    FPGA::WriteToHardware(WR_DAC_LOW, data.byte[0], true);
+//    FPGA::WriteToHardware(WR_DAC_HI, data.byte[1], true);
+    FPGA::WriteToDAC(TypeWriteDAC::TrigLev, data);
 }
 
 
