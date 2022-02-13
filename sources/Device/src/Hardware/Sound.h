@@ -28,4 +28,6 @@ namespace Sound
     void WarnBeepBad();
 
     void WarnBeepGood();
+
+    extern void *handle;       // DAC_HandleTypeDef
 };

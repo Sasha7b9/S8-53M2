@@ -12,7 +12,6 @@ struct DataSettings;
 
 
 extern USBH_HandleTypeDef handleUSBH;
-extern DAC_HandleTypeDef handleDAC;
 
 
 #define CLIENT_LAN_IS_CONNECTED  (gBF.clientLANisConnected)

@@ -10,12 +10,6 @@ void *extraMEM = 0;
 USBH_HandleTypeDef handleUSBH;
 
 
-DAC_HandleTypeDef handleDAC =
-{
-    DAC
-};
-
-
 BitField gBF =
 {
     0,  // ethTimeLastEthifInput

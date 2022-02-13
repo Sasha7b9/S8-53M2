@@ -16,20 +16,37 @@
 
 
 
-static void TIM7_Config(uint16 prescaler, uint16 period);
-static uint16 CalculatePeriodForTIM();
-static void SetWave();
-static void CalculateSine();
-static void CalculateMeandr();
-static void CalculateTriangle();
+namespace Sound
+{
+    static DAC_HandleTypeDef handleDAC =
+    {
+        DAC
+    };
 
+    void *handle = &handleDAC;
 
-static const int POINTS_IN_PERIOD = 10;
-static uint8 points[POINTS_IN_PERIOD] = {0};
-static float frequency = 0.0f;
-static float amplitude = 0.0f;
-static TypeWave typeWave = TypeWave_Sine;
+    void TIM7_Config(uint16 prescaler, uint16 period);
+    uint16 CalculatePeriodForTIM();
+    void SetWave();
+    void CalculateSine();
+    void CalculateMeandr();
+    void CalculateTriangle();
 
+    void Stop();
+    void Beep(TypeWave typeWave_, float frequency_, float amplitude_, int duration);
+    void SetWave();
+    uint16 CalculatePeriodForTIM();
+    void CalculateSine();
+    void CalculateMeandr();
+    void CalculateTriangle();
+    void TIM7_Config(uint16 prescaler, uint16 period);
+
+    const int POINTS_IN_PERIOD = 10;
+    uint8 points[POINTS_IN_PERIOD] = {0};
+    float frequency = 0.0f;
+    float amplitude = 0.0f;
+    TypeWave typeWave = TypeWave_Sine;
+}
 
 
 void Sound::Init()
@@ -48,7 +65,7 @@ void Sound::Init()
 }
 
 
-static void Stop()
+void Sound::Stop()
 {
     HAL_DAC_Stop_DMA(&handleDAC, DAC_CHANNEL_1);
     SOUND_IS_BEEP = 0;
@@ -56,7 +73,7 @@ static void Stop()
 }
 
 
-void Sound_Beep(TypeWave typeWave_, float frequency_, float amplitude_, int duration)
+void Sound::Beep(TypeWave typeWave_, float frequency_, float amplitude_, int duration)
 {
     if (SOUND_WARN_IS_BEEP)
     {
@@ -87,7 +104,7 @@ void Sound_Beep(TypeWave typeWave_, float frequency_, float amplitude_, int dura
 
 void Sound::ButtonPress()
 {
-    Sound_Beep(TypeWave_Sine, 2000.0f, 0.5f, 50);
+    Beep(TypeWave_Sine, 2000.0f, 0.5f, 50);
     BUTTON_IS_PRESSED = 1;
 }
 
@@ -96,7 +113,7 @@ void Sound::ButtonRelease()
 {
     if (BUTTON_IS_PRESSED)
     {
-        Sound_Beep(TypeWave_Sine, 1000.0f, 0.25f, 50);
+        Beep(TypeWave_Sine, 1000.0f, 0.25f, 50);
         BUTTON_IS_PRESSED = 0;
     }
 }
@@ -104,28 +121,28 @@ void Sound::ButtonRelease()
 
 void Sound::GovernorChangedValue()
 {
-    Sound_Beep(TypeWave_Sine, 1000.0f, 0.5f, 50);
+    Beep(TypeWave_Sine, 1000.0f, 0.5f, 50);
     BUTTON_IS_PRESSED = 0;
 }
 
 
 void Sound::RegulatorShiftRotate()
 {
-    Sound_Beep(TypeWave_Sine, 1.0f, 0.35f, 3);
+    Beep(TypeWave_Sine, 1.0f, 0.35f, 3);
     BUTTON_IS_PRESSED = 0;
 }
 
 
 void Sound::RegulatorSwitchRotate()
 {
-    Sound_Beep(TypeWave_Triangle, 2500.0f, 0.5f, 25);
+    Beep(TypeWave_Triangle, 2500.0f, 0.5f, 25);
     BUTTON_IS_PRESSED = 0;
 }
 
 
 void Sound::WarnBeepBad()
 {
-    Sound_Beep(TypeWave_Meandr, 250.0f, 1.0f, 500);
+    Beep(TypeWave_Meandr, 250.0f, 1.0f, 500);
     SOUND_WARN_IS_BEEP = 1;
     BUTTON_IS_PRESSED = 0;
 }
@@ -133,12 +150,12 @@ void Sound::WarnBeepBad()
 
 void Sound::WarnBeepGood()
 {
-    Sound_Beep(TypeWave_Triangle, 1000.0f, 0.5f, 250);
+    Beep(TypeWave_Triangle, 1000.0f, 0.5f, 250);
     BUTTON_IS_PRESSED = 0;
 }
 
 
-void SetWave()
+void Sound::SetWave()
 {
     TIM7_Config(0, CalculatePeriodForTIM());
 
@@ -157,7 +174,7 @@ void SetWave()
 }
 
 
-void TIM7_Config(uint16 prescaler, uint16 period)
+void Sound::TIM7_Config(uint16 prescaler, uint16 period)
 {
     static TIM_HandleTypeDef htim =
     {
@@ -187,13 +204,13 @@ void TIM7_Config(uint16 prescaler, uint16 period)
 }
 
 
-uint16 CalculatePeriodForTIM()
+uint16 Sound::CalculatePeriodForTIM()
 {
     return 120e6f / frequency / POINTS_IN_PERIOD;
 }
 
 
-void CalculateSine()
+void Sound::CalculateSine()
 {
     for (int i = 0; i < POINTS_IN_PERIOD; i++)
     {
@@ -204,7 +221,7 @@ void CalculateSine()
 }
 
 
-void CalculateMeandr()
+void Sound::CalculateMeandr()
 {
     for (int i = 0; i < POINTS_IN_PERIOD / 2; i++)
     {
@@ -217,7 +234,7 @@ void CalculateMeandr()
 }
 
 
-void CalculateTriangle()
+void Sound::CalculateTriangle()
 {
     float k = 255.0 / POINTS_IN_PERIOD;
     for (int i = 0; i < POINTS_IN_PERIOD; i++)

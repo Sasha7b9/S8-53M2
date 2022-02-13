@@ -5,6 +5,7 @@
 #include "Log.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
+#include "Hardware/Sound.h"
 #include <usbd_cdc_interface.h>
 
 
@@ -100,7 +101,7 @@ void OTG_HS_IRQHandler()
 
 void DMA1_Stream5_IRQHandler()
 {
-    HAL_DMA_IRQHandler(handleDAC.DMA_Handle1);
+    HAL_DMA_IRQHandler(((DAC_HandleTypeDef *)Sound::handle)->DMA_Handle1);
 }
 
 
