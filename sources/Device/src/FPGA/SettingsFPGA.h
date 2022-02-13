@@ -88,4 +88,6 @@ struct DataSettings
 
     // ¬ычисл€ет, сколько пам€ти трубуетс€, чтобы сохранить измерени€ с настройками dp
     int SizeElem();
+
+    void FillDataPointer();
 };

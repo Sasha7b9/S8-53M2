@@ -285,7 +285,7 @@ int Storage::NumElementsWithSameSettings()
 int Storage::NumElementsWithCurrentSettings()
 {
     DataSettings dp;
-    FPGA::FillDataPointer(&dp);
+    dp.FillDataPointer();
     int retValue = 0;
     int numElements = NumElementsInStorage();
     for(retValue = 0; retValue < numElements; retValue++)

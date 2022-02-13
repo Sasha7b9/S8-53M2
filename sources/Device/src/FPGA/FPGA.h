@@ -64,8 +64,6 @@ namespace FPGA
     // ”становить временную паузу после изменени€ ручек - чтобы смещЄнный сигнал зафиксировать на некоторое врем€
     void TemporaryPause();
 
-    void FillDataPointer(DataSettings *dp);
-
     // Ќайти и установить уровень синхронизации по последнему считанному сигналу
     void FindAndSetTrigLevel();
 

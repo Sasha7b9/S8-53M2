@@ -130,7 +130,7 @@ void FPGA::Start()
         Display::ResetP2Ppoints(true);
     }
     HAL_FMC::Write(WR_START, 1);
-    FillDataPointer(&ds);
+    ds.FillDataPointer();
     timeStart = gTimerMS;
     StateWorkFPGA::SetCurrent(StateWorkFPGA::Wait);
     FPGA_CRITICAL_SITUATION = 0;
@@ -1101,26 +1101,26 @@ void FPGA::TemporaryPause()
 }
 
 
-void FPGA::FillDataPointer(DataSettings *dp)
+void DataSettings::FillDataPointer()
 {
-    dp->enableCh0 = sChannel_Enabled(Chan::A) ? 1U : 0U;
-    dp->enableCh1 = sChannel_Enabled(Chan::B) ? 1U : 0U;
-    dp->inverseCh0 = SET_INVERSE_A ? 1U : 0U;
-    dp->inverseCh1 = SET_INVERSE_B ? 1U : 0U;
-    dp->range[0] = SET_RANGE_A;
-    dp->range[1] = SET_RANGE_B;
-    dp->rShiftCh0 = (uint)SET_RSHIFT_A;
-    dp->rShiftCh1 = (uint)SET_RSHIFT_B;
-    dp->tBase = SET_TBASE;
-    dp->tShift = TSHIFT;
-    dp->modeCouple0 = SET_COUPLE_A;
-    dp->modeCouple1 = SET_COUPLE_B;
-    dp->length1channel = (uint)sMemory_GetNumPoints(false);
-    dp->trigLevCh0 = (uint)TRIG_LEVEL_A;
-    dp->trigLevCh1 = (uint)TRIG_LEVEL_B;
-    dp->peakDet = (uint)PEAKDET;
-    dp->multiplier0 = SET_DIVIDER_A;
-    dp->multiplier1 = SET_DIVIDER_B;
+    enableCh0 = sChannel_Enabled(Chan::A) ? 1U : 0U;
+    enableCh1 = sChannel_Enabled(Chan::B) ? 1U : 0U;
+    inverseCh0 = SET_INVERSE_A ? 1U : 0U;
+    inverseCh1 = SET_INVERSE_B ? 1U : 0U;
+    range[0] = SET_RANGE_A;
+    range[1] = SET_RANGE_B;
+    rShiftCh0 = (uint)SET_RSHIFT_A;
+    rShiftCh1 = (uint)SET_RSHIFT_B;
+    tBase = SET_TBASE;
+    tShift = TSHIFT;
+    modeCouple0 = SET_COUPLE_A;
+    modeCouple1 = SET_COUPLE_B;
+    length1channel = (uint)sMemory_GetNumPoints(false);
+    trigLevCh0 = (uint)TRIG_LEVEL_A;
+    trigLevCh1 = (uint)TRIG_LEVEL_B;
+    peakDet = (uint)PEAKDET;
+    multiplier0 = SET_DIVIDER_A;
+    multiplier1 = SET_DIVIDER_B;
 }
 
 
