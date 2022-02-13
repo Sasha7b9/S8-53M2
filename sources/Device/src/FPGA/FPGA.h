@@ -70,13 +70,13 @@ namespace FPGA
     void FindAndSetTrigLevel();
 
     // Установить режим канала по входу.
-    void SetModeCouple(Chan::E ch, ModeCouple modeCoupe);
+    void SetModeCouple(Chan::E, ModeCouple modeCoupe);
 
     // Включить/выключить фильтр на входе канала.
-    void EnableChannelFiltr(Chan::E ch, bool enable);
+    void EnableChannelFiltr(Chan::E, bool enable);
 
     // Установить масштаб по напряжению.
-    void SetRange(Chan::E ch, Range range);
+    void SetRange(Chan::E, Range range);
 
     // Увеличить масштаб по напряжению.
     bool RangeIncrease(Chan::E ch);
@@ -94,7 +94,7 @@ namespace FPGA
     void TBaseIncrease();
 
     // Установить относительное смещение по напряжению.
-    void SetRShift(Chan::E ch, int16 rShift);
+    void SetRShift(Chan::E, int16 rShift);
 
     // Установить относительное смещение по времени.
     void SetTShift(int tShift);

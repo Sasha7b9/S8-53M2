@@ -47,7 +47,7 @@
 
 
 // Установить масштаб по напряжению канала chan.
-void sChannel_SetRange(Chan::E ch, Range range);
+void sChannel_SetRange(Chan::E, Range range);
 
 int sChannel_MultiplierRel2Abs(Divider multiplier);
 // Возвращает true, если канал chan включён.

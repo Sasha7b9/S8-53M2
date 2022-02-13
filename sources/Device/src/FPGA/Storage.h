@@ -25,7 +25,7 @@ namespace Storage
     // Получить указатель на данные
     bool GetDataFromEnd(int fromEnd, DataSettings **ds, uint8 **data0, uint8 **data1);
 
-    uint8* GetData(Chan::E ch, int fromEnd);
+    uint8* GetData(Chan::E, int fromEnd);
 
     // Получить усреднённые данные по нескольким измерениям.
     uint8* GetAverageData(Chan::E ch);
@@ -34,7 +34,7 @@ namespace Storage
     int AllDatas();
 
     // Получить ограничивающую линию сигнала 0 - снизу, 1 - сверху.
-    uint8* GetLimitation(Chan::E ch, int direction);                                      
+    uint8* GetLimitation(Chan::E, int direction);                                      
 
     int NumberAvailableEntries();
 };
