@@ -38,6 +38,7 @@
 #define WR_PRED                 (HAL_FMC::_ADDR_FPGA + 0x02)
 #define WR_POST                 (HAL_FMC::_ADDR_FPGA + 0x03)
 #define WR_TRIG_F               (HAL_FMC::_ADDR_FPGA + 0x04)
+#define WR_UPR                  (HAL_FMC::_ADDR_FPGA + 0x05)
 
 
 struct TypeWriteAnalog
