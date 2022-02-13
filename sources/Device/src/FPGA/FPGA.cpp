@@ -22,39 +22,39 @@
 
 namespace FPGA
 {
-    static float freq = 0.0f;           // Частота, намеренная альтерой.
-    static float prevFreq = 0.0f;
+    float freq = 0.0f;           // Частота, намеренная альтерой.
+    float prevFreq = 0.0f;
 
 
-    volatile static int numberMeasuresForGates = 1000;
+    volatile int numberMeasuresForGates = 1000;
 
-    static int additionShift = 0;
+    int additionShift = 0;
 
     #define n 200
-    static const int Kr[] = {n / 2, n / 5, n / 10, n / 20, n / 50};
+    const int Kr[] = {n / 2, n / 5, n / 10, n / 20, n / 50};
     #undef n
 
-    static DataSettings ds;
+    DataSettings ds;
 
 
-    static uint8 dataRel0[FPGA::MAX_POINTS] = {0};   // Буфер используется для чтения данных первого канала.
-    static uint8 dataRel1[FPGA::MAX_POINTS] = {0};   // Буфер используется для чтения данных второго канала.
+    uint8 dataRel0[FPGA::MAX_POINTS] = {0};   // Буфер используется для чтения данных первого канала.
+    uint8 dataRel1[FPGA::MAX_POINTS] = {0};   // Буфер используется для чтения данных второго канала.
 
-    static Settings storingSettings;                // Здесь нужно уменьшить необходимый размер памяти - сохранять настройки только альтеры
-    static uint timeStart = 0;
+    Settings storingSettings;                // Здесь нужно уменьшить необходимый размер памяти - сохранять настройки только альтеры
+    uint timeStart = 0;
 
-    static void ReadPoint();
+    void ReadPoint();
 
     // Функция вызывается, когда можно считывать очередной сигнал.
-    static void OnTimerCanReadData();
+    void OnTimerCanReadData();
 
-    static void ReadPoint();
+    void ReadPoint();
 
-    static uint8 ReadFlag();
+    uint8 ReadFlag();
 
-    static void ReadFreq();
+    void ReadFreq();
 
-    static void ReadPeriod();
+    void ReadPeriod();
 
     // Загрузить настройки в аппаратную часть из глобальной структуры SSettings.
     void LoadSettings();
