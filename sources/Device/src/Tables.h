@@ -47,9 +47,9 @@ int Tables_ENUMtoNumSignalsInSec(ENumSignalsInSec enumSignalsInSec);
 
 const char* Tables_GetWarning(Warning warning);
 
-const char* Tables_GetTBaseString(TBase::E tBase);
+const char* Tables_GetTBaseString(TBase::E);
 
-const char* Tables_GetTBaseStringEN(TBase::E tBase);
+const char* Tables_GetTBaseStringEN(TBase::E);
 
 const char* Tables_RangeNameFromValue(Range range);
 // Возвращает номер канала от 1 до 2

@@ -44,7 +44,7 @@ struct TBase
         Count
     };
 
-    static void Set(TBase::E tBase);
+    static void Set(TBase::E);
 
 private:
 
