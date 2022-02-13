@@ -1,4 +1,6 @@
 // 2022/2/11 19:33:28 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+#include "defines.h"
+#include "Hardware/HAL/HAL.h"
 #include <string.h>
 #include <usbh_def.h>
 #include <usbh_msc.h>
@@ -7,7 +9,10 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-extern USBH_HandleTypeDef  HOST_HANDLE;
+//extern USBH_HandleTypeDef  HOST_HANDLE;
+
+
+
 #if _USE_BUFF_WO_ALIGNMENT == 0
 /* Local buffer use to handle buffer not aligned 32bits*/
 static DWORD scratch[_MAX_SS / 4];
@@ -60,7 +65,7 @@ DSTATUS USBH_status(BYTE lun)
 {
     DRESULT res = RES_ERROR;
 
-    if (USBH_MSC_UnitIsReady(&HOST_HANDLE, lun))
+    if (USBH_MSC_UnitIsReady((USBH_HandleTypeDef *)HAL_USBH::handle, lun))
     {
         res = RES_OK;
     }
@@ -87,7 +92,7 @@ DRESULT USBH_read(BYTE lun, BYTE *buff, DWORD sector, UINT count)
 #if _USE_BUFF_WO_ALIGNMENT == 0
         while ((count--) && (status == USBH_OK))
         {
-            status = USBH_MSC_Read(&HOST_HANDLE, lun, sector + count, (uint8_t *)scratch, 1);
+            status = USBH_MSC_Read((USBH_HandleTypeDef *)HAL_USBH::handle, lun, sector + count, (uint8_t *)scratch, 1);
             if (status == USBH_OK)
             {
                 memcpy(&buff[count * _MAX_SS], scratch, _MAX_SS);
@@ -103,7 +108,7 @@ DRESULT USBH_read(BYTE lun, BYTE *buff, DWORD sector, UINT count)
     }
     else
     {
-        status = USBH_MSC_Read(&HOST_HANDLE, lun, sector, buff, count);
+        status = USBH_MSC_Read((USBH_HandleTypeDef *)HAL_USBH::handle, lun, sector, buff, count);
     }
 
     if (status == USBH_OK)
@@ -112,7 +117,7 @@ DRESULT USBH_read(BYTE lun, BYTE *buff, DWORD sector, UINT count)
     }
     else
     {
-        USBH_MSC_GetLUNInfo(&HOST_HANDLE, lun, &info);
+        USBH_MSC_GetLUNInfo((USBH_HandleTypeDef *)HAL_USBH::handle, lun, &info);
 
         switch (info.sense.asc)
         {
@@ -153,7 +158,7 @@ DRESULT USBH_write(BYTE lun, const BYTE *buff, DWORD sector, UINT count)
         {
             memcpy(scratch, &buff[count * _MAX_SS], _MAX_SS);
 
-            status = USBH_MSC_Write(&HOST_HANDLE, lun, sector + count, (BYTE *)scratch, 1);
+            status = USBH_MSC_Write((USBH_HandleTypeDef *)HAL_USBH::handle, lun, sector + count, (BYTE *)scratch, 1);
             if (status == USBH_FAIL)
             {
                 break;
@@ -165,7 +170,7 @@ DRESULT USBH_write(BYTE lun, const BYTE *buff, DWORD sector, UINT count)
     }
     else
     {
-        status = USBH_MSC_Write(&HOST_HANDLE, lun, sector, (BYTE *)buff, count);
+        status = USBH_MSC_Write((USBH_HandleTypeDef *)HAL_USBH::handle, lun, sector, (BYTE *)buff, count);
     }
 
     if (status == USBH_OK)
@@ -174,7 +179,7 @@ DRESULT USBH_write(BYTE lun, const BYTE *buff, DWORD sector, UINT count)
     }
     else
     {
-        USBH_MSC_GetLUNInfo(&HOST_HANDLE, lun, &info);
+        USBH_MSC_GetLUNInfo((USBH_HandleTypeDef *)HAL_USBH::handle, lun, &info);
 
         switch (info.sense.asc)
         {
@@ -221,7 +226,7 @@ DRESULT USBH_ioctl(BYTE lun, BYTE cmd, void *buff)
 
         /* Get number of sectors on the disk (DWORD) */
     case GET_SECTOR_COUNT:
-        if (USBH_MSC_GetLUNInfo(&HOST_HANDLE, lun, &info) == USBH_OK)
+        if (USBH_MSC_GetLUNInfo((USBH_HandleTypeDef *)HAL_USBH::handle, lun, &info) == USBH_OK)
         {
             *(DWORD *)buff = info.capacity.block_nbr; //-V525
             res = RES_OK;
@@ -230,7 +235,7 @@ DRESULT USBH_ioctl(BYTE lun, BYTE cmd, void *buff)
 
         /* Get R/W sector size (WORD) */
     case GET_SECTOR_SIZE:
-        if (USBH_MSC_GetLUNInfo(&HOST_HANDLE, lun, &info) == USBH_OK) //-V1037
+        if (USBH_MSC_GetLUNInfo((USBH_HandleTypeDef *)HAL_USBH::handle, lun, &info) == USBH_OK) //-V1037
         {
             *(DWORD *)buff = info.capacity.block_size;
             res = RES_OK;
@@ -240,7 +245,7 @@ DRESULT USBH_ioctl(BYTE lun, BYTE cmd, void *buff)
         /* Get erase block size in unit of sector (DWORD) */
     case GET_BLOCK_SIZE:
 
-        if (USBH_MSC_GetLUNInfo(&HOST_HANDLE, lun, &info) == USBH_OK)
+        if (USBH_MSC_GetLUNInfo((USBH_HandleTypeDef *)HAL_USBH::handle, lun, &info) == USBH_OK)
         {
             *(DWORD *)buff = info.capacity.block_size;
             res = RES_OK;

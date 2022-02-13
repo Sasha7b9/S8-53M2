@@ -839,11 +839,6 @@
               <FilePath>.\src\libs\stm32f4xx_it.h</FilePath>
             </File>
             <File>
-              <FileName>usbh_diskio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\libs\usbh_diskio.c</FilePath>
-            </File>
-            <File>
               <FileName>usbh_diskio.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\libs\usbh_diskio.h</FilePath>
@@ -862,6 +857,11 @@
               <FileName>system_stm32f4xx.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\libs\system_stm32f4xx.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbh_diskio.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\libs\usbh_diskio.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1320,6 +1320,11 @@
               <FileName>HAL_SPI1.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_SPI1.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_USBH.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_USBH.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -2780,11 +2785,6 @@
               <FilePath>.\src\libs\stm32f4xx_it.h</FilePath>
             </File>
             <File>
-              <FileName>usbh_diskio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\libs\usbh_diskio.c</FilePath>
-            </File>
-            <File>
               <FileName>usbh_diskio.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\libs\usbh_diskio.h</FilePath>
@@ -2803,6 +2803,11 @@
               <FileName>system_stm32f4xx.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\libs\system_stm32f4xx.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbh_diskio.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\libs\usbh_diskio.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -3261,6 +3266,11 @@
               <FileName>HAL_SPI1.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_SPI1.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_USBH.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_USBH.cpp</FilePath>
             </File>
           </Files>
         </Group>

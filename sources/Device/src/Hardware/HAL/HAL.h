@@ -122,3 +122,9 @@ namespace HAL_HCD
     void Init();
     extern void *handle;        // HCD_HandleTypeDef
 }
+
+
+namespace HAL_USBH
+{
+    extern void *handle;
+}
