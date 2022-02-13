@@ -331,7 +331,7 @@ void TShiftRight()
 void Range0Left()
 {
     Sound::RegulatorSwitchRotate();
-    FPGA::RangeIncrease(Chan::A);
+    Range::Increase(Chan::A);
 }
 
 void Range0Right()
@@ -343,7 +343,7 @@ void Range0Right()
 void Range1Left()
 {
     Sound::RegulatorSwitchRotate();
-    FPGA::RangeIncrease(Chan::B);
+    Range::Increase(Chan::B);
 }
 
 void Range1Right()

@@ -486,7 +486,7 @@ const char *FPGA::GetTShiftString(int16 tShiftRel, char buffer[20])
 }
 
 
-bool FPGA::RangeIncrease(Chan::E ch)
+bool Range::Increase(Chan::E ch)
 {
     bool retValue = false;
     if (SET_RANGE(ch) < Range::Count - 1)

@@ -90,6 +90,9 @@ struct Range
     // Установить масштаб по напряжению.
     static void Set(Chan::E, Range::E);
 
+    // Увеличить масштаб по напряжению.
+    static bool Increase(Chan::E);
+
     // Загрузка масштаба по напряжению в аппаратную часть.
     static void Load(Chan::E);
 };
