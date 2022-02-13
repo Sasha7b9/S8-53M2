@@ -48,11 +48,11 @@
 // Ќастройки курсорных измерений.
 typedef struct
 {
-    CursCntrl       cntrlU[NumChannels];        // јктивные курсоры напр€жени€.
-    CursCntrl       cntrlT[NumChannels];        // јктивные курсоры напр€жени€.
+    CursCntrl       cntrlU[Chan::Count];        // јктивные курсоры напр€жени€.
+    CursCntrl       cntrlT[Chan::Count];        // јктивные курсоры напр€жени€.
     Chan::E         source;                     // »сточник - к какому каналу относ€тс€ курсоры.
-    float           posCurU[NumChannels][2];    // “екущие позиции курсоров напр€жени€ обоих каналов.
-    float           posCurT[NumChannels][2];    // “екущие позиции курсоров времени обоих каналов.
+    float           posCurU[Chan::Count][2];    // “екущие позиции курсоров напр€жени€ обоих каналов.
+    float           posCurT[Chan::Count][2];    // “екущие позиции курсоров времени обоих каналов.
     float           deltaU100percents[2];       // –ассто€ние между курсорами напр€жени€ дл€ 100%, дл€ обоих каналов.
     float           deltaT100percents[2];       // –ассто€ние между курсорами времени дл€ 100%, дл€ обоих каналов.
     CursMovement    movement;                   //  ак перемещатьс€ курсорам - по точкам или по процентам.

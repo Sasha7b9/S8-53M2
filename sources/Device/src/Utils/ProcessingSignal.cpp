@@ -55,8 +55,8 @@ const Processing::MeasureCalculate Processing::measures[Measure_NumMeasures] =
 
 static MeasureValue values[Measure_NumMeasures] = {{0.0f, 0.0f}};
 
-static int markerHor[NumChannels][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
-static int markerVert[NumChannels][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
+static int markerHor[Chan::Count][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
+static int markerVert[Chan::Count][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
 
 static bool maxIsCalculating[2] = {false, false};
 static bool minIsCalculating[2] = {false, false};

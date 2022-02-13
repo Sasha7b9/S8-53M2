@@ -20,7 +20,8 @@ struct Chan { enum E {
     A,
     B,
     A_B,
-    Math
+    Math,
+    Count = 2
 }; };
 
 
@@ -61,14 +62,9 @@ typedef enum
 Range& operator++(Range &range);
 Range& operator--(Range &range);
 
-#define NumChannels 2
-
 const char *RangeName(Range range);
 
-
-
 // Time
-
 
 // Масштаб по времени
 typedef enum

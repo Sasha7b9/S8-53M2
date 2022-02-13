@@ -210,7 +210,7 @@ struct Settings
 {
     uint                size;
     SettingsDisplay     display;            // настройки изображения          (меню ДИСПЛЕЙ).
-    SettingsChannel     chan[NumChannels];  // настройки каналов              (меню КАНАЛ 1 и КАНАЛ 2).
+    SettingsChannel     chan[Chan::Count];  // настройки каналов              (меню КАНАЛ 1 и КАНАЛ 2).
     SettingsTrig        trig;               // настройки синхронизации        (меню СИНХР).
     SettingsTime        time;               // временнЫе настройки            (меню РАЗВЁРТКА).
     SettingsCursors     cursors;            // настройки курсорных измерений  (меню КУРСОРЫ).

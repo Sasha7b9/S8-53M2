@@ -48,7 +48,7 @@ namespace Storage
     static DataSettings* GetSettingsDataFromEnd(int fromEnd);
 
     // Копирует данные канала chan из, определяемые ds, в одну из двух строк массива dataImportRel. Возвращаемое значение false означает, что данный канал выключен.
-    static bool CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[NumChannels][FPGA_MAX_POINTS]);
+    static bool CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[Chan::Count][FPGA_MAX_POINTS]);
 
     static void PrintElement(DataSettings *dp);
 
@@ -67,13 +67,13 @@ namespace Storage
     static uint8* endPool = &(pool[SIZE_POOL - 1]);
 
     // Здесь хранятся суммы измерений обоих каналов
-    static uint sum[NumChannels][FPGA_MAX_POINTS];
+    static uint sum[Chan::Count][FPGA_MAX_POINTS];
 
     // Максимальные значения каналов
-    static uint8 limitUp[NumChannels][FPGA_MAX_POINTS];
+    static uint8 limitUp[Chan::Count][FPGA_MAX_POINTS];
 
     // Минимальные значения каналов
-    static uint8 limitDown[NumChannels][FPGA_MAX_POINTS];
+    static uint8 limitDown[Chan::Count][FPGA_MAX_POINTS];
 
     // Указатель на первые сохранённые данные
     static DataSettings *firstElem = nullptr;
@@ -89,7 +89,7 @@ namespace Storage
 
     static float aveData1[FPGA_MAX_POINTS] = {0.0f};
     // Если true, то новые суммы рассчитаны, и нужно повторить расчёт среднего
-    static bool newSumCalculated[NumChannels] = {true, true};
+    static bool newSumCalculated[Chan::Count] = {true, true};
 }
 
 
@@ -121,7 +121,7 @@ void Storage::ClearLimitsAndSums()
     memset(limitUp[1], 0, FPGA_MAX_POINTS);
     memset(limitDown[0], 0xff, FPGA_MAX_POINTS);
     memset(limitDown[1], 0xff, FPGA_MAX_POINTS);
-    memset(&(sum[0][0]), 0, NumChannels * FPGA_MAX_POINTS * sizeof(uint));
+    memset(&(sum[0][0]), 0, Chan::Count * FPGA_MAX_POINTS * sizeof(uint));
 }
 
 
@@ -377,7 +377,7 @@ uint8* Storage::GetData(Chan::E ch, int fromEnd)
 }
 
 
-static bool Storage::CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[NumChannels][FPGA_MAX_POINTS])
+static bool Storage::CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[Chan::Count][FPGA_MAX_POINTS])
 {
     if((ch == Chan::A && ds->enableCh0 == 0) || (ch == Chan::B && ds->enableCh1 == 0))
     {
@@ -402,7 +402,7 @@ static bool Storage::CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel
 
 uint8* Storage::GetAverageData(Chan::E ch)
 {
-    static uint8 data[NumChannels][FPGA_MAX_POINTS];
+    static uint8 data[Chan::Count][FPGA_MAX_POINTS];
     
     if (newSumCalculated[ch] == false)
     {
