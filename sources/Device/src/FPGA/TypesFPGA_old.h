@@ -15,7 +15,7 @@
 //                                                            D1 - AUTO/RUN.\n
 //                                                            Используется в LoadTrigPolarity(). 
 //                                                            @endverbatim */
-#define WR_TRIG_F       (ADDR_FPGA + 9)
+//#define WR_TRIG_F       (ADDR_FPGA + 9)
 #define WR_CAL_A        (ADDR_FPGA + 12)            //    Калибровочный коэффициент канала 1.
 #define WR_CAL_B        (ADDR_FPGA + 13)            //    Калибровочный коэффициент канала 2.
                                                     /**     @brief Управление калибратором, пиковым детектором и рандомизатором.
