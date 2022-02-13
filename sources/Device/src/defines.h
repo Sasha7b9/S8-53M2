@@ -75,18 +75,18 @@ typedef void    (*pFuncVpVIIB)(void*, int, int, bool);
 #define _CLEAR_BIT(value, bit) ((value) &= (~(1 << (bit))))
 
 // Объединение размером 32 бита
-typedef union
+union BitSet32
 {
     uint  word;
     uint8 byte[4]; //-V112
-} BitSet32;
+};
 
 // Объединение размером 64 бита
-typedef union
+union BitSet64
 {
     long long unsigned int  dword;
     unsigned int            word[2];
-} BitSet64;
+};
 
 typedef struct
 {
