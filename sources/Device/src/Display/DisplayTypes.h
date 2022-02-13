@@ -48,14 +48,17 @@ enum SourceBuffer
     SB_Intermediate
 };
 
-enum TypeFont
+struct TypeFont
 {
-    TypeFont_5,
-    TypeFont_8,
-    TypeFont_UGO,
-    TypeFont_UGO2,
-    TypeFont_Number,
-    TypeFont_None
+    enum E
+    {
+        _5,
+        _8,
+        UGO,
+        UGO2,
+        Count,
+        None
+    };
 };
 
 

@@ -94,9 +94,9 @@ void DrawMenuCursVoltage(int x, int y, bool top, bool bottom)
 
 void DrawSB_Exit(int x, int y)
 {
-    Painter::SetFont(TypeFont_UGO2);
+    Painter::SetFont(TypeFont::UGO2);
     Painter::Draw4SymbolsInRect(x + 2, y + 1, '\x2e');
-    Painter::SetFont(TypeFont_8);
+    Painter::SetFont(TypeFont::_8);
 }
 
 

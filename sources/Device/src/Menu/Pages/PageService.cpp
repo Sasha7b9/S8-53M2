@@ -457,9 +457,9 @@ static void Draw_Math_Function_Type_Sum(int x, int y)
 
 static void Draw_Math_Function_Type_Mul(int x, int y)
 {
-    Painter::SetFont(TypeFont_UGO2);
+    Painter::SetFont(TypeFont::UGO2);
     Painter::Draw4SymbolsInRect(x + 4, y + 3, SYMBOL_MATH_FUNC_MUL);
-    Painter::SetFont(TypeFont_8);
+    Painter::SetFont(TypeFont::_8);
 }
 
 // ÑÅĞÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÔÓÍÊÖÈß - Ğåæèì ğó÷êè ÓÑÒÀÍÎÂÊÀ ---------------------------------------------------------------------------------------------

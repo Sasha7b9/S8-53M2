@@ -18,7 +18,7 @@ struct Font
 
 
 extern const Font *font;
-extern const Font *fonts[TypeFont_Number];
+extern const Font *fonts[TypeFont::Count];
 
 extern const uchar font5display[3080];
 extern const uchar font8display[3080];

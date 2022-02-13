@@ -298,11 +298,11 @@ void DrawGovernorValue(int x, int y, Governor *governor)
     {
         value = -value;
     }
-    Painter::SetFont(TypeFont_5);
+    Painter::SetFont(TypeFont::_5);
     bool sign = governor->minValue < 0;
     Painter::DrawTextC(x + 55, y - 5, Int2String(governor->maxValue, sign, 1, buffer), COLOR_FILL);
     Painter::DrawText(x + 55, y + 2, Int2String(governor->minValue, sign, 1, buffer));
-    Painter::SetFont(TypeFont_8);
+    Painter::SetFont(TypeFont::_8);
 
     DrawValueWithSelectedPosition(startX, y, value, Governor_NumDigits(governor), gCurDigit, true, true);
 

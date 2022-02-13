@@ -15,7 +15,7 @@
 
 namespace Painter
 {
-    TypeFont currentTypeFont = TypeFont_None;
+    TypeFont::E currentTypeFont = TypeFont::None;
 
     void DrawCharHardCol(int x, int y, char symbol);
 
@@ -33,7 +33,7 @@ namespace Painter
 }
 
 
-void Painter::SetFont(TypeFont typeFont)
+void Painter::SetFont(TypeFont::E typeFont)
 {
     if (typeFont == currentTypeFont)
     {
@@ -50,7 +50,7 @@ void Painter::SetFont(TypeFont typeFont)
 }
 
 
-void Painter::LoadFont(TypeFont typeFont)
+void Painter::LoadFont(TypeFont::E typeFont)
 {
     if (InterCom::TransmitGUIinProcess())
     {
