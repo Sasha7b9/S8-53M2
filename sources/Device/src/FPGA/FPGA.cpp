@@ -18,31 +18,30 @@
 #include "Hardware/HAL/HAL.h"
 
 
-#define NULL_TSHIFT 1000000
-
-static float freq = 0.0f;           // Частота, намеренная альтерой.
-static float prevFreq = 0.0f;
-static StateWorkFPGA stateWork = StateWorkFPGA_Stop;
-
-
-volatile static int numberMeasuresForGates = 1000;
-
-static int additionShift = 0;
-#define n 200
-static const int Kr[] = {n / 2, n / 5, n / 10, n / 20, n / 50};
-
-static DataSettings ds;
-
-
-static uint8 dataRel0[FPGA_MAX_POINTS] = {0};   // Буфер используется для чтения данных первого канала.
-static uint8 dataRel1[FPGA_MAX_POINTS] = {0};   // Буфер используется для чтения данных второго канала.
-
-static Settings storingSettings;                // Здесь нужно уменьшить необходимый размер памяти - сохранять настройки только альтеры
-static uint timeStart = 0;
-
-
 namespace FPGA
 {
+    #define NULL_TSHIFT 1000000
+
+    static float freq = 0.0f;           // Частота, намеренная альтерой.
+    static float prevFreq = 0.0f;
+    static StateWorkFPGA stateWork = StateWorkFPGA_Stop;
+
+
+    volatile static int numberMeasuresForGates = 1000;
+
+    static int additionShift = 0;
+    #define n 200
+    static const int Kr[] = {n / 2, n / 5, n / 10, n / 20, n / 50};
+
+    static DataSettings ds;
+
+
+    static uint8 dataRel0[FPGA_MAX_POINTS] = {0};   // Буфер используется для чтения данных первого канала.
+    static uint8 dataRel1[FPGA_MAX_POINTS] = {0};   // Буфер используется для чтения данных второго канала.
+
+    static Settings storingSettings;                // Здесь нужно уменьшить необходимый размер памяти - сохранять настройки только альтеры
+    static uint timeStart = 0;
+
     static void ReadPoint();
 
     // Функция вызывается, когда можно считывать очередной сигнал.
