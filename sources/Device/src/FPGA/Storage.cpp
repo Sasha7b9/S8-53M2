@@ -19,9 +19,6 @@ namespace Storage
     // Возвращает количество свободной памяти в байтах
     static int MemoryFree();
 
-    // Вычисляет, сколько памяти трубуется, чтобы сохранить измерения с настройками dp
-    static int SizeElem(DataSettings *dp);
-
     // Удалить первое (самое старое) измерение
     static void RemoveFirstElement();
 
@@ -49,8 +46,6 @@ namespace Storage
 
     // Копирует данные канала chan из, определяемые ds, в одну из двух строк массива dataImportRel. Возвращаемое значение false означает, что данный канал выключен.
     static bool CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[Chan::Count][FPGA::MAX_POINTS]);
-
-    static void PrintElement(DataSettings *dp);
 
     static void CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *dss);
 
@@ -93,16 +88,9 @@ namespace Storage
 }
 
 
-static void Storage::PrintElement(DataSettings *dp)
+void DataSettings::PrintElement()
 {
-    if(dp == 0)
-    {
-        LOG_WRITE("Нулевой элемент");
-    }
-    else
-    {
-        LOG_WRITE("addr:%x, addrNext:%x, addrPrev:%x, size:%d", dp, dp->addrNext, dp->addrPrev, SizeElem(dp));
-    }
+    LOG_WRITE("addr:%x, addrNext:%x, addrPrev:%x, size:%d", this, addrNext, addrPrev, SizeElem());
 }
 
 
@@ -469,7 +457,7 @@ int Storage::NumberAvailableEntries()
     {
         return 0;
     }
-    return SIZE_POOL / SizeElem(lastElem);
+    return SIZE_POOL / lastElem->SizeElem();
 }
 
 
@@ -480,7 +468,7 @@ int Storage::NumberAvailableEntries()
 
 void Storage::PushData(DataSettings *dp, uint8 *data0, uint8 *data1)
 {
-    int required = SizeElem(dp);
+    int required = dp->SizeElem();
     while(MemoryFree() < required)
     {
         RemoveFirstElement();
@@ -496,8 +484,8 @@ void Storage::PushData(DataSettings *dp, uint8 *data0, uint8 *data1)
     }
     else
     {
-        addrRecord = (uint8*)lastElem + SizeElem(lastElem);
-        if(addrRecord + SizeElem(dp) > endPool)
+        addrRecord = (uint8*)lastElem + lastElem->SizeElem();
+        if(addrRecord + dp->SizeElem() > endPool)
         {
             addrRecord = beginPool;
         }
@@ -539,13 +527,13 @@ int Storage::MemoryFree()
     }
     else if (firstElem == lastElem)
     {
-        return (endPool - (uint8*)firstElem - (int)SizeElem(firstElem));
+        return (endPool - (uint8*)firstElem - (int)firstElem->SizeElem());
     }
     else if (firstElem < lastElem)
     {
         if ((uint8*)firstElem == beginPool)
         {
-            return (endPool - (uint8*)lastElem - SizeElem(lastElem));
+            return (endPool - (uint8*)lastElem - lastElem->SizeElem());
         }
         else
         {
@@ -554,29 +542,29 @@ int Storage::MemoryFree()
     }
     else if (lastElem < firstElem)
     {
-        return (uint8*)firstElem - (uint8*)lastElem - SizeElem(lastElem);
+        return (uint8*)firstElem - (uint8*)lastElem - lastElem->SizeElem();
     }
     return 0;
 }
 
 
-int Storage::SizeElem(DataSettings *dp)
+int DataSettings::SizeElem()
 {
     int retValue = sizeof(DataSettings);
-    if(dp->enableCh0 == 1)
+    if(enableCh0 == 1)
     {
-        retValue += dp->length1channel;
-        if (dp->peakDet != PeackDet_Disable)
+        retValue += length1channel;
+        if (peakDet != PeackDet_Disable)
         {
-            retValue += dp->length1channel;
+            retValue += length1channel;
         }
     }
-    if(dp->enableCh1 == 1)
+    if(enableCh1 == 1)
     {
-        retValue += dp->length1channel;
-        if (dp->peakDet != PeackDet_Disable)
+        retValue += length1channel;
+        if (peakDet != PeackDet_Disable)
         {
-            retValue += dp->length1channel;
+            retValue += length1channel;
         }
     }
     return retValue;

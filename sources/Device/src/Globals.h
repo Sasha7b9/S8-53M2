@@ -200,7 +200,7 @@ typedef struct
     uint day : 5;
 } PackedTime;
 
-typedef struct
+struct DataSettings
 {
     void*       addrNext;               // Адрес следующей записи.
     void*       addrPrev;               // Адрес предыдущей записи.
@@ -221,10 +221,15 @@ typedef struct
 
     uint        inverseCh0      : 1;
     uint        inverseCh1      : 1;
-    Divider  multiplier0     : 1;
-    Divider  multiplier1     : 1;
+    Divider     multiplier0     : 1;
+    Divider     multiplier1     : 1;
     PackedTime  time;
-} DataSettings;
+
+    void PrintElement();
+
+    // Вычисляет, сколько памяти трубуется, чтобы сохранить измерения с настройками dp
+    int SizeElem();
+};
 
 
 extern const char *gStringForHint;  // Строка подсказки, которую надо выводить в случае включённого режима подсказок.
