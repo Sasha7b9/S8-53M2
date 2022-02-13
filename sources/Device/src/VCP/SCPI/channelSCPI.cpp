@@ -176,14 +176,14 @@ void SCPI::CHANNEL::OFFSET(uint8 *buffer)
     int intVal = 0;
     if (SCPI::FirstIsInt(buffer, &intVal, -240, 240))
     {
-        int rShift = RShiftZero + 2 * intVal;
+        int rShift = RShift::ZERO + 2 * intVal;
         RShift::Set(ch, (int16)rShift);
         return;
     }
     ENTER_ANALYSIS
         if (value == 0)
         {
-            int retValue = 0.5f * (SET_RSHIFT(ch) - RShiftZero);
+            int retValue = 0.5f * (SET_RSHIFT(ch) - RShift::ZERO);
             SCPI_SEND(":CHANNNEL%d:OFFSET %d", Tables_GetNumChannel(ch), retValue);
         }
     LEAVE_ANALYSIS

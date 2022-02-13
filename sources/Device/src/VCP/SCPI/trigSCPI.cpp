@@ -162,7 +162,7 @@ void SCPI::TRIGGER::OFFSET(uint8 *buffer)
     int intVal = 0;
     if (SCPI::FirstIsInt(buffer, &intVal, -240, 240))
     {
-        int trigLev = RShiftZero + 2 * intVal;
+        int trigLev = RShift::ZERO + 2 * intVal;
         TrigLev::Set(TRIG_SOURCE, (int16)trigLev);
         return;
     }
@@ -170,7 +170,7 @@ void SCPI::TRIGGER::OFFSET(uint8 *buffer)
     ENTER_ANALYSIS
         if (value == 0)
         {
-            int retValue = 0.5f * (TRIG_LEVEL_SOURCE - RShiftZero);
+            int retValue = 0.5f * (TRIG_LEVEL_SOURCE - RShift::ZERO);
             SCPI_SEND(":TRIGGER:OFFSET %d", retValue);
         }
     LEAVE_ANALYSIS

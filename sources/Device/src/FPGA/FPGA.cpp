@@ -918,7 +918,7 @@ bool FPGA::FindWave(Chan::E ch)
     SET_ENABLED(ch) = true;
     TrigSource::Set((TrigSource::E)ch);
     TrigLev::Set((TrigSource::E)ch, TrigLevZero);
-    RShift::Set(ch, RShiftZero);
+    RShift::Set(ch, RShift::ZERO);
     ModeCouple::Set(ch, ModeCouple::AC);
     Range::E range = AccurateFindRange(ch);
     //LOG_WRITE("Range %s", RangeName(range));
@@ -1145,7 +1145,7 @@ void FPGA::FindAndSetTrigLevel()
 
     static const float scale = (float)(TrigLevMax - TrigLevZero) / (float)(MAX_VALUE - AVE_VALUE) / 2.4f;
 
-    int16 trigLev = TrigLevZero + scale * ((int)aveValue - AVE_VALUE) - (SET_RSHIFT(chanTrig) - RShiftZero);
+    int16 trigLev = TrigLevZero + scale * ((int)aveValue - AVE_VALUE) - (SET_RSHIFT(chanTrig) - RShift::ZERO);
 
     TrigLev::Set(trigSource, trigLev);
 }

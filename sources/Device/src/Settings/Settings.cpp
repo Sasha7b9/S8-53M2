@@ -62,7 +62,7 @@ static const Settings defaultSettings =
     {
         {
             1.0f,                   // коэффициент калибровки
-            RShiftZero,
+            RShift::ZERO,
             {{0}, {0}},             // rShiftAdd
             ModeCouple::AC,          // ModCouple
             Divider_1,           // Divider
@@ -74,7 +74,7 @@ static const Settings defaultSettings =
         },
         {
             1.0f,                   // коэффициент калибровки
-            RShiftZero,
+            RShift::ZERO,
             {{0}, {0}},             // rShiftAdd
             ModeCouple::AC,          // ModCouple
             Divider_1,           // Divider
@@ -177,7 +177,7 @@ static const Settings defaultSettings =
         ModeRegSet_Range,           // modeRegSet
         Range::_50mV,
         Divider_1,
-        RShiftZero                  // rShift
+        RShift::ZERO                  // rShift
     },
     // service
     {

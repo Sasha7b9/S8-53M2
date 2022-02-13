@@ -1740,7 +1740,7 @@ void Display::DrawCursorTrigLevel()
         return;
     }
 
-    int trigLev = TRIG_LEVEL(ch) + (SET_RSHIFT(ch) - RShiftZero);
+    int trigLev = TRIG_LEVEL(ch) + (SET_RSHIFT(ch) - RShift::ZERO);
 
     float scale = 1.0f / ((TrigLevMax - TrigLevMin) / 2.0f / Grid::ChannelHeight());
     int y0 = (GRID_TOP + Grid::ChannelBottom()) / 2 + scale * (TrigLevZero - TrigLevMin);
@@ -1802,7 +1802,7 @@ void Display::DrawCursorRShift(Chan::E ch)
     {
         int rShift = SET_RSHIFT_MATH;
         float scale = (float)Grid::MathHeight() / 960;
-        float y = (Grid::MathTop() + Grid::MathBottom()) / 2.0f - scale * (rShift - RShiftZero);
+        float y = (Grid::MathTop() + Grid::MathBottom()) / 2.0f - scale * (rShift - RShift::ZERO);
         Painter::DrawCharC(x - 9, y - 4, SYMBOL_RSHIFT_NORMAL, COLOR_FILL);
         Painter::DrawCharC(x - 8, y - 5, 'm', COLOR_BACK);
         return;
@@ -1815,10 +1815,10 @@ void Display::DrawCursorRShift(Chan::E ch)
     int rShift = SET_RSHIFT(ch);
  
     float scale = (float)Grid::ChannelHeight() / (STEP_RSHIFT * 200);
-    float y = Grid::ChannelCenterHeight() - scale * (rShift - RShiftZero);
+    float y = Grid::ChannelCenterHeight() - scale * (rShift - RShift::ZERO);
 
     float scaleFull = (float)Grid::ChannelHeight() / (RShiftMax - RShift::MIN) * (sService_MathEnabled() ? 0.9f : 0.91f);
-    float yFull = Grid::ChannelCenterHeight() - scaleFull *(rShift - RShiftZero);
+    float yFull = Grid::ChannelCenterHeight() - scaleFull *(rShift - RShift::ZERO);
 
     if(y > Grid::ChannelBottom())
     {

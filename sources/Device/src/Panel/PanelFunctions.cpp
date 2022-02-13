@@ -143,7 +143,7 @@ bool CanChangeTShift(int16 tShift)
 bool CanChangeRShiftOrTrigLev(TrigSource::E ch, int16 rShift)
 {
     static uint time[3] = {0, 0, 0};
-    if (rShift == RShiftZero)
+    if (rShift == RShift::ZERO)
     {
         time[ch] = gTimerMS;
         return true;
@@ -169,9 +169,9 @@ void ChangeRShift(int *prevTime, void(*f)(Chan::E, int16), Chan::E ch, int16 rel
     int count = CalculateCount(prevTime);
     int rShiftOld = SET_RSHIFT(ch);
     int rShift = SET_RSHIFT(ch) + relStep * count;
-    if ((rShiftOld > RShiftZero && rShift < RShiftZero) || (rShiftOld < RShiftZero && rShift > RShiftZero))
+    if ((rShiftOld > RShift::ZERO && rShift < RShift::ZERO) || (rShiftOld < RShift::ZERO && rShift > RShift::ZERO))
     {
-        rShift = RShiftZero;
+        rShift = RShift::ZERO;
     }
     if (CanChangeRShiftOrTrigLev((TrigSource::E)ch, (int16)rShift))
     {

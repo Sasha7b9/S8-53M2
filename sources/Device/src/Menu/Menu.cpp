@@ -438,11 +438,11 @@ void Menu::ProcessingLongPressureButton()
         }
         else if(longPressureButton == B_Channel0)
         {
-            RShift::Set(Chan::A, RShiftZero);
+            RShift::Set(Chan::A, RShift::ZERO);
         }
         else if(longPressureButton == B_Channel1)
         {
-            RShift::Set(Chan::B, RShiftZero);
+            RShift::Set(Chan::B, RShift::ZERO);
         }
         else if(longPressureButton == B_Menu)
         {

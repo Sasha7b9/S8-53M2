@@ -94,8 +94,8 @@ void FPGA::ProcedureCalibration()
         FPGA::LoadKoeffCalibration(Chan::B);
         Range::Set(Chan::A, Range::_500mV);
         Range::Set(Chan::B, Range::_500mV);
-        RShift::Set(Chan::A, RShiftZero);
-        RShift::Set(Chan::B, RShiftZero);
+        RShift::Set(Chan::A, RShift::ZERO);
+        RShift::Set(Chan::B, RShift::ZERO);
         ModeCouple::Set(Chan::A, ModeCouple::GND);
         ModeCouple::Set(Chan::B, ModeCouple::GND);
         HAL_FMC::Write(WR_ADD_RSHIFT_DAC1, 0);
@@ -413,7 +413,7 @@ void FPGA::AlignmentADC()
 int16 FPGA::CalculateAdditionRShift(Chan::E ch, Range::E range)
 {
     Range::Set(ch, range);
-    RShift::Set(ch, RShiftZero);
+    RShift::Set(ch, RShift::ZERO);
     TBase::Set(TBase::_200us);
     TrigSource::Set(ch == Chan::A ? TrigSource::ChannelA : TrigSource::ChannelB);
     TrigPolarity::Set(TrigPolarity::Front);
@@ -479,7 +479,7 @@ float FPGA::CalculateKoeffCalibration(Chan::E ch)
 {
     FPGA::WriteToHardware(WR_UPR, BINARY_U8(00000100), false);
 
-    RShift::Set(ch, RShiftZero - 40 * 4);
+    RShift::Set(ch, RShift::ZERO - 40 * 4);
     ModeCouple::Set(ch, ModeCouple::DC);
     TrigSource::Set((TrigSource::E)ch);
     TrigLev::Set((TrigSource::E)ch, TrigLevZero + 40 * 4);

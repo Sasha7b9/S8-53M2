@@ -87,7 +87,7 @@ int Math_MinFrom2Int(int val0, int val1)
 
 int Math_RShift2Rel(float rShiftAbs, Range::E range)
 {
-    int retValue = RShiftZero + rShiftAbs / absStepRShift[range];
+    int retValue = RShift::ZERO + rShiftAbs / absStepRShift[range];
     if(retValue < RShift::MIN)
     {
         retValue = RShift::MIN;

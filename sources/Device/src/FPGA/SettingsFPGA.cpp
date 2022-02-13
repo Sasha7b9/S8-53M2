@@ -305,11 +305,11 @@ void RShift::Set(Chan::E ch, int16 rShift)
     }
 
     LIMITATION(rShift, rShift, RShift::MIN, RShiftMax);
-    if (rShift > RShiftZero)
+    if (rShift > RShift::ZERO)
     {
         rShift &= 0xfffe;                                            // ƒелаем кратным двум, т.к. у нас 800 значений на 400 точек
     }
-    else if (rShift < RShiftZero)
+    else if (rShift < RShift::ZERO)
     {
         rShift = (rShift + 1) & 0xfffe;
     }
@@ -330,12 +330,12 @@ void RShift::Load(Chan::E ch)
 
     uint16 rShift = (uint16)(SET_RSHIFT(ch) + (SET_INVERSE(ch) ? -1 : 1) * rShiftAdd);
 
-    int16 delta = -(rShift - RShiftZero);
+    int16 delta = -(rShift - RShift::ZERO);
     if (SET_INVERSE(ch))
     {
         delta = -delta;
     }
-    rShift = (uint16)(delta + RShiftZero);
+    rShift = (uint16)(delta + RShift::ZERO);
 
     rShift = (uint16)(RShiftMax + RShift::MIN - rShift);
     FPGA::WriteToDAC(ch == Chan::A ? TypeWriteDAC_RShiftA : TypeWriteDAC_RShiftB, (uint16)(mask[ch] | (rShift << 2)));
