@@ -1182,11 +1182,6 @@
               <FilePath>.\src\FPGA\FPGA_Calibration.cpp</FilePath>
             </File>
             <File>
-              <FileName>FPGA_Settings.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\FPGA\FPGA_Settings.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Storage.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\FPGA\Storage.cpp</FilePath>
@@ -3116,11 +3111,6 @@
               <FileName>FPGA_Calibration.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\FPGA\FPGA_Calibration.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>FPGA_Settings.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\FPGA\FPGA_Settings.cpp</FilePath>
             </File>
             <File>
               <FileName>Storage.cpp</FileName>
