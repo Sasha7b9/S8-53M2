@@ -6,10 +6,10 @@ struct TShift
     static const int EMPTY = 1000000;
 
     // Установить относительное смещение по времени.
-    static void Set(int tShift);
+    static void Set(int);
 
     // Установить добавочное смещение по времени для режима рандомизатора. В каждой развёртке это смещение должно быть разное.
-    static void SetDelta(int16 shift);
+    static void SetDelta(int16);
 
     // Загрузка смещения по времени в аппаратную часть.
     static void Load();
@@ -22,7 +22,7 @@ struct TShift
 struct RShift
 {
     // Установить относительное смещение по напряжению.
-    static void Set(Chan::E, int16 rShift);
+    static void Set(Chan::E, int16);
 
     // Загрузка смещения по напряжению в аппаратную часть.
     static void Load(Chan::E);
@@ -55,7 +55,7 @@ struct TrigPolarity
     };
 
     // Установить полярность синхронизации.
-    static void Set(TrigPolarity::E polarity);
+    static void Set(TrigPolarity::E);
 
     // Загузка полярности синхронизации в аппаратную часть.
     static void Load();
