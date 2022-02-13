@@ -41,6 +41,7 @@
 #define WR_UPR                  (HAL_FMC::_ADDR_FPGA + 0x05)
 #define WR_STOP                 (HAL_FMC::_ADDR_FPGA + 0x1f)
 
+//#define RD_ADDR_LAST_RECORD     (HAL_FMC::_ADDR_FPGA + 0x08) // Чтение адреса последней записи
 #define RD_FL                   (HAL_FMC::_ADDR_FPGA + 0x30)
 
 struct TypeWriteAnalog
