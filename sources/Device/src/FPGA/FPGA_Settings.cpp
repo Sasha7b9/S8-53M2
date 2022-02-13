@@ -80,9 +80,6 @@ namespace FPGA
     // Загрузить все параметры напряжения каналов и синхронизации в аппаратную часть.
     void SetAttribChannelsAndTrig(TypeWriteAnalog type);
 
-    // Загрузка уровня синхронизации в аппаратную часть.
-    void LoadTrigLev();
-
     // Загрузить регистр WR_UPR (пиковый детектор и калибратор).
     void LoadRegUPR();
 
@@ -103,7 +100,7 @@ void FPGA::LoadSettings()
     RShift::Load(Chan::A);
     Range::Load(Chan::B);
     RShift::Load(Chan::B);
-    LoadTrigLev();
+    TrigLev::Load();
     TrigPolarity::Load();
     LoadRegUPR();
 
@@ -213,7 +210,7 @@ void Range::Load(Chan::E ch)
 
     if (ch == (Chan::E)TRIG_SOURCE)
     {
-        FPGA::LoadTrigLev();
+        TrigLev::Load();
     }
 }
 
@@ -341,7 +338,7 @@ void RShift::Load(Chan::E ch)
 }
 
 
-void FPGA::SetTrigLev(TrigSource::E ch, int16 trigLev)
+void TrigLev::Set(TrigSource::E ch, int16 trigLev)
 {
     Display::ChangedRShiftMarkers();
     if (trigLev < TrigLevMin || trigLev > TrigLevMax)
@@ -362,13 +359,13 @@ void FPGA::SetTrigLev(TrigSource::E ch, int16 trigLev)
     if (TRIG_LEVEL(ch) != trigLev)
     {
         TRIG_LEVEL(ch) = trigLev;
-        LoadTrigLev();
+        Load();
         Display::RotateTrigLev();
     }
 };
 
 
-void FPGA::LoadTrigLev()
+void TrigLev::Load()
 {
     uint16 data = 0xa000;
     uint16 trigLev = (uint16)TRIG_LEVEL_SOURCE;
@@ -376,7 +373,7 @@ void FPGA::LoadTrigLev()
     data |= trigLev << 2;
     // FPGA_WriteToHardware(WR_DAC_LOW, data.byte[0], true);
     // FPGA_WriteToHardware(WR_DAC_HI, data.byte[1], true);
-    WriteToDAC(TypeWriteDAC_TrigLev, data);
+    FPGA::WriteToDAC(TypeWriteDAC_TrigLev, data);
 }
 
 
@@ -520,7 +517,7 @@ void TrigSource::Set(TrigSource::E trigSource)
     FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog_TrigParam);
     if (!TRIG_SOURCE_IS_EXT)
     {
-        FPGA::SetTrigLev(TRIG_SOURCE, TRIG_LEVEL_SOURCE);
+        TrigLev::Set(TRIG_SOURCE, TRIG_LEVEL_SOURCE);
     }
 }
 

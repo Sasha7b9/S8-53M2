@@ -77,6 +77,16 @@ struct TrigSource
 };
 
 
+struct TrigLev
+{
+    // Установить относительный уровень синхронизации.
+    static void Set(TrigSource::E, int16);
+
+    // Загрузка уровня синхронизации в аппаратную часть.
+    static void Load();
+};
+
+
 struct TBase
 {
     enum E

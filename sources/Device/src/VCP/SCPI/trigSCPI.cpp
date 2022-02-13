@@ -163,7 +163,7 @@ void SCPI::TRIGGER::OFFSET(uint8 *buffer)
     if (SCPI::FirstIsInt(buffer, &intVal, -240, 240))
     {
         int trigLev = RShiftZero + 2 * intVal;
-        FPGA::SetTrigLev(TRIG_SOURCE, (int16)trigLev);
+        TrigLev::Set(TRIG_SOURCE, (int16)trigLev);
         return;
     }
 

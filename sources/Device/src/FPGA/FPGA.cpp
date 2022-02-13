@@ -917,7 +917,7 @@ bool FPGA::FindWave(Chan::E ch)
     Stop(false);
     SET_ENABLED(ch) = true;
     TrigSource::Set((TrigSource::E)ch);
-    FPGA::SetTrigLev((TrigSource::E)ch, TrigLevZero);
+    TrigLev::Set((TrigSource::E)ch, TrigLevZero);
     RShift::Set(ch, RShiftZero);
     FPGA::SetModeCouple(ch, ModeCouple_AC);
     Range::E range = AccurateFindRange(ch);
@@ -1145,7 +1145,7 @@ void FPGA::FindAndSetTrigLevel()
 
     int16 trigLev = TrigLevZero + scale * ((int)aveValue - AVE_VALUE) - (SET_RSHIFT(chanTrig) - RShiftZero);
 
-    FPGA::SetTrigLev(trigSource, trigLev);
+    TrigLev::Set(trigSource, trigLev);
 }
 
 

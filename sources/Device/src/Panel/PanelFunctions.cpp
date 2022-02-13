@@ -277,7 +277,7 @@ void RShift1Right()
 
 static void SetTrigLev(TrigSource::E ch, int16 trigLev)
 {
-    FPGA::SetTrigLev(ch, trigLev);
+    TrigLev::Set(ch, trigLev);
 }
 
 void TrigLevLeft()
