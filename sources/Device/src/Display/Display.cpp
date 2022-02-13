@@ -1742,9 +1742,9 @@ void Display::DrawCursorTrigLevel()
 
     int trigLev = TRIG_LEVEL(ch) + (SET_RSHIFT(ch) - RShift::ZERO);
 
-    float scale = 1.0f / ((TrigLevMax - TrigLevMin) / 2.0f / Grid::ChannelHeight());
-    int y0 = (GRID_TOP + Grid::ChannelBottom()) / 2 + scale * (TrigLevZero - TrigLevMin);
-    int y = y0 - scale * (trigLev - TrigLevMin);
+    float scale = 1.0f / ((TrigLevMax - TrigLev::MIN) / 2.0f / Grid::ChannelHeight());
+    int y0 = (GRID_TOP + Grid::ChannelBottom()) / 2 + scale * (TrigLevZero - TrigLev::MIN);
+    int y = y0 - scale * (trigLev - TrigLev::MIN);
 
     y = (y - Grid::ChannelCenterHeight()) + Grid::ChannelCenterHeight();
 
@@ -1781,11 +1781,11 @@ void Display::DrawCursorTrigLevel()
         DrawScaleLine(SCREEN_WIDTH - 11, true);
         int left = Grid::Right() + 9;
         int height = Grid::ChannelHeight() - 2 * DELTA;
-        int shiftFullMin = RShift::MIN + TrigLevMin;
+        int shiftFullMin = RShift::MIN + TrigLev::MIN;
         int shiftFullMax = RShift::MAX + TrigLevMax;
         scale = (float)height / (shiftFullMax - shiftFullMin);
         int shiftFull = TRIG_LEVEL_SOURCE + (TRIG_SOURCE_IS_EXT ? 0 : SET_RSHIFT(ch));
-        int yFull = GRID_TOP + DELTA + height - scale * (shiftFull - RShift::MIN - TrigLevMin) - 4;
+        int yFull = GRID_TOP + DELTA + height - scale * (shiftFull - RShift::MIN - TrigLev::MIN) - 4;
         Painter::FillRegionC(left + 2, yFull + 1, 4, 6, ColorTrig());
         Painter::SetFont(TypeFont_5);
         Painter::DrawCharC(left + 3, yFull - 5 + dY, simbols[TRIG_SOURCE], COLOR_BACK);

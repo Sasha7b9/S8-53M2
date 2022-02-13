@@ -93,6 +93,8 @@ struct TrigSource
 
 struct TrigLev
 {
+    static const int MIN = RShift::MIN;     // Минимальное значение уровня синхронизации, засылаемое в прибор.
+
     // Установить относительный уровень синхронизации.
     static void Set(TrigSource::E, int16);
 
