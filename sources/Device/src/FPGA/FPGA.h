@@ -68,7 +68,7 @@ namespace FPGA
     void FindAndSetTrigLevel();
 
     // Включить/выключить калибратор.
-    void SetCalibratorMode(CalibratorMode calibratorMode);
+    void SetCalibratorMode(CalibratorMode::E calibratorMode);
 
     // Загрузить в аппарат коэффициенты калибровки каналов.
     void LoadKoeffCalibration(Chan::E);

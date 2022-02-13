@@ -414,7 +414,7 @@ void PeackDetMode::Set(PeackDetMode::E peackDetMode)
 }
 
 
-void FPGA::SetCalibratorMode(CalibratorMode calibratorMode)
+void FPGA::SetCalibratorMode(CalibratorMode::E calibratorMode)
 {
     CALIBRATOR = calibratorMode;
     LoadRegUPR();

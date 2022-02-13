@@ -183,7 +183,7 @@ static const Settings defaultSettings =
     {
         true,                       // screenWelcomeEnable
         true,                       // soundEnable
-        Calibrator_Freq,            // calibratorEnable
+        CalibratorMode::Freq,       // calibratorEnable
         0,                          // IP-адрес (временно)  WARN
         ColorScheme_WhiteLetters    // colorScheme
     },
