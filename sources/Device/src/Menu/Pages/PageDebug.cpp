@@ -877,7 +877,7 @@ static const Button bEraseData
 
 static void OnPress_EraseData()
 {
-    EPROM::EraseData();
+    HAL_ROM::EraseData();
 }
 
 

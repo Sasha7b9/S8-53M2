@@ -31,7 +31,7 @@
 
 struct RecordConfig;
 
-class EPROM
+class HAL_ROM
 {
 friend class OTP;
     

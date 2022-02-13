@@ -228,7 +228,7 @@ void PressSB_MemLast_IntEnter()
 {
     Menu::OpenPageAndSetItCurrent(PageMemory::Internal::GetPointer());
     MODE_WORK = ModeWork_MemInt;
-    EPROM::GetData(CURRENT_NUM_INT_SIGNAL, &gDSmemInt, &gData0memInt, &gData1memInt);
+    HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &gDSmemInt, &gData0memInt, &gData1memInt);
     EXIT_FROM_INT_TO_LAST = 1;
 }
 
@@ -551,8 +551,8 @@ static void SaveSignalToIntMemory(void)
     {
         if  (gDSmemLast != 0)
         {                               // то сохраняем сигнал из последних
-            EPROM::SaveData(CURRENT_NUM_INT_SIGNAL, gDSmemLast, gData0memLast, gData1memLast);
-            EPROM::GetData(CURRENT_NUM_INT_SIGNAL, &gDSmemInt, &gData0memInt, &gData1memInt);
+            HAL_ROM::SaveData(CURRENT_NUM_INT_SIGNAL, gDSmemLast, gData0memLast, gData1memLast);
+            HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &gDSmemInt, &gData0memInt, &gData1memInt);
             Display::ShowWarningGood(SignalIsSaved);
         }
     }
@@ -560,8 +560,8 @@ static void SaveSignalToIntMemory(void)
     {
         if (gDSet != 0)
         {
-            EPROM::SaveData(CURRENT_NUM_INT_SIGNAL, gDSet, gData0, gData1);
-            EPROM::GetData(CURRENT_NUM_INT_SIGNAL, &gDSet, &gData0memInt, &gData1memInt);
+            HAL_ROM::SaveData(CURRENT_NUM_INT_SIGNAL, gDSet, gData0, gData1);
+            HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &gDSet, &gData0memInt, &gData1memInt);
             Display::ShowWarningGood(SignalIsSaved);
         }
     }
@@ -609,7 +609,7 @@ static void FuncAdditionDrawingSPageMemoryInt()
 
     bool exist[MAX_NUM_SAVED_WAVES] = {false};
 
-    EPROM::GetDataInfo(exist);
+    HAL_ROM::GetDataInfo(exist);
 
     for (int i = 0; i < MAX_NUM_SAVED_WAVES; i++)
     {
@@ -634,7 +634,7 @@ static void FuncOnRegSetMemInt(int delta)
     {
         CircleIncreaseInt8(&CURRENT_NUM_INT_SIGNAL, 0, MAX_NUM_SAVED_WAVES - 1);
     }
-    EPROM::GetData(CURRENT_NUM_INT_SIGNAL, &gDSmemInt, &gData0memInt, &gData1memInt);
+    HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &gDSmemInt, &gData0memInt, &gData1memInt);
     Color::ResetFlash();
 }
 
@@ -765,7 +765,7 @@ static const SmallButton sbMemIntModeShow
 
 static void PressSB_MemInt_Delete()
 {
-    EPROM::DeleteData(CURRENT_NUM_INT_SIGNAL);
+    HAL_ROM::DeleteData(CURRENT_NUM_INT_SIGNAL);
 }
 
 static void DrawSB_MemInt_Delete(int x, int y)
@@ -808,7 +808,7 @@ const SmallButton sbMemIntSaveToFlash
 
 void PressSB_MemInt_Exit()
 {
-    EPROM::GetData(CURRENT_NUM_INT_SIGNAL, &gDSmemInt, &gData0memInt, &gData1memInt);
+    HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &gDSmemInt, &gData0memInt, &gData1memInt);
     if (EXIT_FROM_INT_TO_LAST)
     {
         Menu::OpenPageAndSetItCurrent(PageMemory::Latest::GetPointer());
@@ -1285,7 +1285,7 @@ void OnPressMemoryInt()
 {
     Menu::OpenPageAndSetItCurrent(PageMemory::Internal::GetPointer());
     MODE_WORK = ModeWork_MemInt;
-    EPROM::GetData(CURRENT_NUM_INT_SIGNAL, &gDSmemInt, &gData0memInt, &gData1memInt);
+    HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &gDSmemInt, &gData0memInt, &gData1memInt);
 }
 
 static const arrayItems itemsMemInt =

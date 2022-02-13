@@ -238,7 +238,7 @@ void Settings::Load(bool _default)
 {   
     if (!_default)
     {
-        _default = !EPROM::LoadSettings();
+        _default = !HAL_ROM::LoadSettings();
         
     }
     
@@ -278,7 +278,7 @@ void Settings::Load(bool _default)
 
 void Settings::Save()
 {
-    EPROM::SaveSettings();
+    HAL_ROM::SaveSettings();
 }
 
 bool Settings::DebugModeEnable()

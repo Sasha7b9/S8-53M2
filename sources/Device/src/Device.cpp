@@ -90,7 +90,7 @@ static void Device::ProcessingSignal()
         data0 = &gData0memInt;
         data1 = &gData1memInt;
         ds = &gDSmemInt;
-        EPROM::GetData(CURRENT_NUM_INT_SIGNAL, &gDSmemInt, &gData0memInt, &gData1memInt);
+        HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &gDSmemInt, &gData0memInt, &gData1memInt);
     }
 
     if (MODE_WORK_IS_MEMINT)

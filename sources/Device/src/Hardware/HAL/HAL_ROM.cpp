@@ -40,7 +40,7 @@ static const uint startDataInfo = ADDR_SECTOR_DATA_MAIN;
 
 
 
-void EPROM::PrepareSectorForData()
+void HAL_ROM::PrepareSectorForData()
 {
     EraseSector(ADDR_SECTOR_DATA_MAIN);
     for (int i = 0; i < MAX_NUM_SAVED_WAVES; i++)
@@ -50,7 +50,7 @@ void EPROM::PrepareSectorForData()
 }
 
 
-bool EPROM::LoadSettings(void)
+bool HAL_ROM::LoadSettings(void)
 {
     /*
         1. Проверка на первое включение. Выполняется тем, что в первом слове сектора настроек хранится MAX_UINT, если настройки ещё не сохранялись.
@@ -88,7 +88,7 @@ bool EPROM::LoadSettings(void)
         }
         memcpy(&set, (const void *)(record->addrData - 4), (uint)record->sizeData);               // Считываем их
         EraseSector(ADDR_SECTOR_SETTINGS);                                                  // Стираем сектор настроек
-        EPROM::SaveSettings(true);                                                           // И сохраняем настройки в новом формате
+        HAL_ROM::SaveSettings(true);                                                           // И сохраняем настройки в новом формате
     }
     else
     {
@@ -112,7 +112,7 @@ bool EPROM::LoadSettings(void)
 }
 
 
-void EPROM::WriteAddressDataInRecord(RecordConfig *record)
+void HAL_ROM::WriteAddressDataInRecord(RecordConfig *record)
 {
     uint address = (record == FirstRecord()) ? ADDR_FIRST_SET : (record - 1)->addrData + (record - 1)->sizeData;
 
@@ -120,7 +120,7 @@ void EPROM::WriteAddressDataInRecord(RecordConfig *record)
 }
 
 
-void EPROM::SaveSettings(bool verifyLoadede)
+void HAL_ROM::SaveSettings(bool verifyLoadede)
 {
     if (!verifyLoadede && !SETTINGS_IS_LOADED)
     {
@@ -149,13 +149,13 @@ void EPROM::SaveSettings(bool verifyLoadede)
 }
 
 
-bool EPROM::TheFirstInclusion()
+bool HAL_ROM::TheFirstInclusion()
 {
     return READ_WORD(ADDR_SECTOR_SETTINGS) == MAX_UINT;
 }
 
 
-RecordConfig* EPROM::RecordConfigForRead()
+RecordConfig* HAL_ROM::RecordConfigForRead()
 {
     if (!TheFirstInclusion())
     {
@@ -167,19 +167,19 @@ RecordConfig* EPROM::RecordConfigForRead()
 }
 
 
-RecordConfig *EPROM::FirstRecord()
+RecordConfig *HAL_ROM::FirstRecord()
 {
     return (RecordConfig*)ADDR_ARRAY_POINTERS;
 }
 
 
-bool EPROM::RecordExist()
+bool HAL_ROM::RecordExist()
 {
     return READ_WORD(ADDR_ARRAY_POINTERS) != MAX_UINT;
 }
 
 
-RecordConfig *EPROM::FirstEmptyRecord()
+RecordConfig *HAL_ROM::FirstEmptyRecord()
 {
     RecordConfig *record = FirstRecord();
     int numRecord = 0;
@@ -197,7 +197,7 @@ RecordConfig *EPROM::FirstEmptyRecord()
 }
 
 
-uint EPROM::CalculatFreeMemory()
+uint HAL_ROM::CalculatFreeMemory()
 {
     if (!RecordExist())
     {
@@ -215,7 +215,7 @@ uint EPROM::CalculatFreeMemory()
 }
 
 
-uint EPROM::FindAddressNextDataInfo()
+uint HAL_ROM::FindAddressNextDataInfo()
 {
     uint addressNextInfo = startDataInfo + MAX_NUM_SAVED_WAVES * 4;
 
@@ -228,13 +228,13 @@ uint EPROM::FindAddressNextDataInfo()
 }
 
 
-uint EPROM::FindActualDataInfo()
+uint HAL_ROM::FindActualDataInfo()
 {
     return FindAddressNextDataInfo() - MAX_NUM_SAVED_WAVES * 4;
 }
 
 
-void EPROM::GetDataInfo(bool existData[MAX_NUM_SAVED_WAVES])
+void HAL_ROM::GetDataInfo(bool existData[MAX_NUM_SAVED_WAVES])
 {
     uint address = FindActualDataInfo();
 
@@ -245,21 +245,21 @@ void EPROM::GetDataInfo(bool existData[MAX_NUM_SAVED_WAVES])
 }
 
 
-bool EPROM::ExistData(int num)
+bool HAL_ROM::ExistData(int num)
 {
     uint address = FindActualDataInfo();
     return READ_WORD(address + num * 4) != 0;
 }
 
 
-void EPROM::DeleteData(int num)
+void HAL_ROM::DeleteData(int num)
 {
     uint address = FindActualDataInfo();
     WriteWord(address + num * 4, 0);
 }
 
 
-void EPROM::EraseData()
+void HAL_ROM::EraseData()
 {
     CLEAR_FLAGS;
 
@@ -283,7 +283,7 @@ void EPROM::EraseData()
 }
 
 
-int EPROM::CalculateSizeData(DataSettings *ds)
+int HAL_ROM::CalculateSizeData(DataSettings *ds)
 {
     int size = sizeof(DataSettings);
     if (ds->enableCh0 == 1)
@@ -298,13 +298,13 @@ int EPROM::CalculateSizeData(DataSettings *ds)
 }
 
 
-int EPROM::FreeMemory()
+int HAL_ROM::FreeMemory()
 {
     return (int)(ADDR_SECTOR_DATA_MAIN + 128 * 1024 - FindAddressNextDataInfo() - 1 - 4 * MAX_NUM_SAVED_WAVES - 3000);
 }
 
 
-void EPROM::CompactMemory()
+void HAL_ROM::CompactMemory()
 {
     Display::ClearFromWarnings();
     Display::ShowWarningGood(MovingData);
@@ -336,14 +336,14 @@ void EPROM::CompactMemory()
             {
                 data1 = (uint8*)addrDataNew;
             }
-            EPROM::SaveData(i, ds, data0, data1);
+            HAL_ROM::SaveData(i, ds, data0, data1);
         }
     }
     Display::ClearFromWarnings();
 }
 
 
-void EPROM::SaveData(int num, DataSettings *ds, uint8 *data0, uint8 *data1)
+void HAL_ROM::SaveData(int num, DataSettings *ds, uint8 *data0, uint8 *data1)
 {
     /*
         1. Узнаём количество оставшейся памяти.
@@ -421,7 +421,7 @@ void EPROM::SaveData(int num, DataSettings *ds, uint8 *data0, uint8 *data1)
 }
 
 
-bool EPROM::GetData(int num, DataSettings **ds, uint8 **data0, uint8 **data1)
+bool HAL_ROM::GetData(int num, DataSettings **ds, uint8 **data0, uint8 **data1)
 {
     uint addrDataInfo = FindActualDataInfo();
     if (READ_WORD(addrDataInfo + 4 * num) == 0)
@@ -463,7 +463,7 @@ bool EPROM::GetData(int num, DataSettings **ds, uint8 **data0, uint8 **data1)
 }
 
 
-uint EPROM::GetSector(uint startAddress)
+uint HAL_ROM::GetSector(uint startAddress)
 {
     switch (startAddress)
     {
@@ -481,7 +481,7 @@ uint EPROM::GetSector(uint startAddress)
 }
 
 
-void EPROM::EraseSector(uint startAddress)
+void HAL_ROM::EraseSector(uint startAddress)
 {
     __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR);
 
@@ -501,7 +501,7 @@ void EPROM::EraseSector(uint startAddress)
 }
 
 
-void EPROM::WriteWord(uint address, uint word)
+void HAL_ROM::WriteWord(uint address, uint word)
 {
     __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR);
     HAL_FLASH_Unlock();
@@ -513,7 +513,7 @@ void EPROM::WriteWord(uint address, uint word)
 }
 
 
-void EPROM::WriteBufferBytes(uint address, uint8 *buffer, int size)
+void HAL_ROM::WriteBufferBytes(uint address, uint8 *buffer, int size)
 {
     HAL_FLASH_Unlock();
     for (int i = 0; i < size; i++)
@@ -541,7 +541,7 @@ bool OTP::SaveSerialNumber(char *serialNumber)
 
     if (address < (uint8*)FLASH_OTP_END - 16) //-V566
     {
-        EPROM::WriteBufferBytes((uint)address, (uint8*)serialNumber, (int)strlen(serialNumber) + 1);
+        HAL_ROM::WriteBufferBytes((uint)address, (uint8*)serialNumber, (int)strlen(serialNumber) + 1);
         return true;
     }
 
