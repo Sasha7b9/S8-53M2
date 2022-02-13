@@ -388,9 +388,9 @@ void TShift::Set(int tShift)
         return;
     }
 
-    if (tShift < sTime_TShiftMin() || tShift > TShiftMax)
+    if (tShift < sTime_TShiftMin() || tShift > TShift::MAX)
     {
-        LIMITATION(tShift, tShift, sTime_TShiftMin(), TShiftMax);
+        LIMITATION(tShift, tShift, sTime_TShiftMin(), TShift::MAX);
         Display::ShowWarningBad(LimitSweep_TShift);
     }
 
