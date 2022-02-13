@@ -45,6 +45,17 @@ struct TrigInput
 };
 
 
+// Тип синхронизацц
+struct TrigPolarity
+{
+    enum E
+    {
+        Front,         // Синхронизация по фронту.
+        Back           // Синхронизация по срезу.
+    };
+};
+
+
 struct TBase
 {
     enum E
