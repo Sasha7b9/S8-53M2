@@ -70,9 +70,9 @@ void SCPI::TRIGGER::SOURCE(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (0 == value)         { FPGA::SetTrigSource(TrigSource::ChannelA); }
-        else if (1 == value)    { FPGA::SetTrigSource(TrigSource::ChannelB); }
-        else if (2 == value)    { FPGA::SetTrigSource(TrigSource::Ext); }
+        if (0 == value)         { TrigSource::Set(TrigSource::ChannelA); }
+        else if (1 == value)    { TrigSource::Set(TrigSource::ChannelB); }
+        else if (2 == value)    { TrigSource::Set(TrigSource::Ext); }
         else if (3 == value)
         {
             SCPI_SEND(":TRIGGER:SOUCRE %s", map[START_MODE].key);

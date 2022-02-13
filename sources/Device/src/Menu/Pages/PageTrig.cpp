@@ -108,7 +108,7 @@ static const Choice mcSource =
 
 static void OnChanged_Source(bool active)
 {
-    FPGA::SetTrigSource(TRIG_SOURCE);
+    TrigSource::Set(TRIG_SOURCE);
 }
 
 

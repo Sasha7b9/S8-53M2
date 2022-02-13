@@ -514,13 +514,13 @@ bool Range::Decrease(Chan::E ch)
 };
 
 
-void FPGA::SetTrigSource(TrigSource::E trigSource)
+void TrigSource::Set(TrigSource::E trigSource)
 {
     TRIG_SOURCE = trigSource;
-    SetAttribChannelsAndTrig(TypeWriteAnalog_TrigParam);
+    FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog_TrigParam);
     if (!TRIG_SOURCE_IS_EXT)
     {
-        SetTrigLev(TRIG_SOURCE, TRIG_LEVEL_SOURCE);
+        FPGA::SetTrigLev(TRIG_SOURCE, TRIG_LEVEL_SOURCE);
     }
 }
 

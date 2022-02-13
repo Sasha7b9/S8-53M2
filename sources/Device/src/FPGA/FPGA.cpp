@@ -916,7 +916,7 @@ bool FPGA::FindWave(Chan::E ch)
 
     Stop(false);
     SET_ENABLED(ch) = true;
-    FPGA::SetTrigSource((TrigSource::E)ch);
+    TrigSource::Set((TrigSource::E)ch);
     FPGA::SetTrigLev((TrigSource::E)ch, TrigLevZero);
     RShift::Set(ch, RShiftZero);
     FPGA::SetModeCouple(ch, ModeCouple_AC);

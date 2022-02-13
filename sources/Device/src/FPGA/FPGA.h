@@ -85,9 +85,6 @@ namespace FPGA
     // Установить относительный уровень синхронизации.
     void SetTrigLev(TrigSource::E chan, int16 trigLev);
 
-    // Установить источник синхронизации.
-    void SetTrigSource(TrigSource::E trigSource);
-
     // Запуск функции калибровки.
     void ProcedureCalibration();
 };

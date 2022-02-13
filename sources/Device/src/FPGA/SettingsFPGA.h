@@ -71,6 +71,9 @@ struct TrigSource
         ChannelB,        // Канал 2.
         Ext              // Внешняя.
     };
+
+    // Установить источник синхронизации.
+    static void Set(TrigSource::E);
 };
 
 
