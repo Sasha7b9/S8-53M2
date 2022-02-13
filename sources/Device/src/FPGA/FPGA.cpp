@@ -28,8 +28,10 @@ namespace FPGA
     volatile static int numberMeasuresForGates = 1000;
 
     static int additionShift = 0;
+
     #define n 200
     static const int Kr[] = {n / 2, n / 5, n / 10, n / 20, n / 50};
+    #undef n
 
     static DataSettings ds;
 
