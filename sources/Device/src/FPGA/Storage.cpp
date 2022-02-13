@@ -12,20 +12,85 @@
 #include <string.h>
 
 
+namespace Storage
+{
+    static void CalculateSums();
 
-uint8  Storage::pool[SIZE_POOL] = {0};
-uint8 *Storage::beginPool = &(pool[0]);
-uint8 *Storage::endPool = &(pool[SIZE_POOL - 1]);
-int    Storage::allData = 0;
-float  Storage::aveData0[FPGA_MAX_POINTS] = {0.0f};
-float  Storage::aveData1[FPGA_MAX_POINTS] = {0.0f};
-bool   Storage::newSumCalculated[NumChannels] = {true, true};
-uint   Storage::sum[NumChannels][FPGA_MAX_POINTS];
-uint8  Storage::limitUp[NumChannels][FPGA_MAX_POINTS];
-uint8  Storage::limitDown[NumChannels][FPGA_MAX_POINTS];
-DataSettings *Storage::firstElem = 0;
-DataSettings *Storage::lastElem = 0;
+    // Возвращает количество свободной памяти в байтах
+    static int MemoryFree();
 
+    // Вычисляет, сколько памяти трубуется, чтобы сохранить измерения с настройками dp
+    static int SizeElem(DataSettings *dp);
+
+    // Удалить первое (самое старое) измерение
+    static void RemoveFirstElement();
+
+    // Сохранить данные
+    static void PushData(DataSettings *dp, uint8 *data0, uint8 *data1);
+
+    // Возвращает указатель на измерение, следующее за elem
+    static DataSettings* NextElem(DataSettings *elem);
+
+    // Возвращает указатель на данные, отстоящие на indexFromEnd oт последнего сохранённого
+    static DataSettings* FromEnd(int indexFromEnd);
+
+    // Возвращает true, если настройки измерений с индексами elemFromEnd0 и elemFromEnd1 совпадают, и false в ином случае.
+    static bool SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1);
+
+    // Возващает true, если настройки в обоих структурах одинаковы
+    static bool SettingsIsEquals(DataSettings *dp0, DataSettings *dp1);
+
+    // Очистка значений мин, макс и сумм
+    static void ClearLimitsAndSums();
+
+    static void CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss);
+
+    static DataSettings* GetSettingsDataFromEnd(int fromEnd);
+
+    // Копирует данные канала chan из, определяемые ds, в одну из двух строк массива dataImportRel. Возвращаемое значение false означает, что данный канал выключен.
+    static bool CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[NumChannels][FPGA_MAX_POINTS]);
+
+    static void PrintElement(DataSettings *dp);
+
+    static void CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *dss);
+
+    // Количество отведённой для измерений памяти.
+    static const int SIZE_POOL = (30 * 1024);
+
+    // Здесь хранятся данные.
+    static uint8 pool[SIZE_POOL] = {0};
+
+    // Адрес начала памяти для хранения
+    static uint8* beginPool = &(pool[0]);
+
+    // Адрес последнего байта памяти для хранения
+    static uint8* endPool = &(pool[SIZE_POOL - 1]);
+
+    // Здесь хранятся суммы измерений обоих каналов
+    static uint sum[NumChannels][FPGA_MAX_POINTS];
+
+    // Максимальные значения каналов
+    static uint8 limitUp[NumChannels][FPGA_MAX_POINTS];
+
+    // Минимальные значения каналов
+    static uint8 limitDown[NumChannels][FPGA_MAX_POINTS];
+
+    // Указатель на первые сохранённые данные
+    static DataSettings *firstElem = nullptr;
+
+    // Указатель на последние сохранённые данные
+    static DataSettings *lastElem = nullptr;
+
+    // Всего данных сохранено
+    static int allData = 0;
+
+    // В этих массивах хранятся усреднённые значения, подсчитанные по приблизительному алгоритму.
+    static float aveData0[FPGA_MAX_POINTS] = {0.0f};
+
+    static float aveData1[FPGA_MAX_POINTS] = {0.0f};
+    // Если true, то новые суммы рассчитаны, и нужно повторить расчёт среднего
+    static bool newSumCalculated[NumChannels] = {true, true};
+}
 
 
 void Storage::PrintElement(DataSettings *dp)
@@ -312,7 +377,7 @@ uint8* Storage::GetData(Chan::E ch, int fromEnd)
 }
 
 
-bool Storage::CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[2][FPGA_MAX_POINTS])
+static bool Storage::CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[NumChannels][FPGA_MAX_POINTS])
 {
     if((ch == Chan::A && ds->enableCh0 == 0) || (ch == Chan::B && ds->enableCh1 == 0))
     {
