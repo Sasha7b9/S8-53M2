@@ -5,7 +5,7 @@
 #include "SettingsCursors.h"
 #include "Utils/Math.h"
 #include "Utils/GlobalFunctions.h"
-#include "FPGA/FPGA_Types.h"
+#include "FPGA/TypesFPGA.h"
 #include <math.h>
 
 

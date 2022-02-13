@@ -3,7 +3,7 @@
 #include "Measures.h"
 #include "defines.h"
 #include "FPGA/FPGA.h"
-#include "FPGA/FPGA_Types.h"
+#include "FPGA/TypesFPGA.h"
 
 
 class Processing

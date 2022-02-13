@@ -1,7 +1,7 @@
 // 2022/02/11 17:48:42 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "defines.h"
-#include "FPGA_Types.h"
+#include "FPGA/TypesFPGA.h"
 #include "Panel/Controls.h"
 #include "Settings/SettingsTrig.h"
 #include "Settings/SettingsService.h"

@@ -1,7 +1,7 @@
 // 2022/02/11 17:48:36 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
-#include "FPGA.h"
-#include "Storage.h"
-#include "FPGA_Types.h"
+#include "FPGA/FPGA.h"
+#include "FPGA/Storage.h"
+#include "FPGA/TypesFPGA.h"
 #include "Menu/Pages/PageMemory.h"
 #include "Display/Display.h"
 #include "Panel/Panel.h"

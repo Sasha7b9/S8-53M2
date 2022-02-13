@@ -1,7 +1,7 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "SettingsMemory.h"
 #include "Settings.h"
-#include "FPGA/FPGA_types.h"
+#include "FPGA/TypesFPGA.h"
 
 
 int sMemory_GetNumPoints(bool forCalculate)

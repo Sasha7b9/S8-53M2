@@ -1172,16 +1172,6 @@
               <FilePath>.\src\FPGA\FPGA.h</FilePath>
             </File>
             <File>
-              <FileName>FPGA_Types.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FPGA\FPGA_Types.h</FilePath>
-            </File>
-            <File>
-              <FileName>FPGA_Calibration.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\FPGA\FPGA_Calibration.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Storage.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\FPGA\Storage.cpp</FilePath>
@@ -1200,6 +1190,16 @@
               <FileName>SettingsFPGA.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\FPGA\SettingsFPGA.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>TypesFPGA.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\FPGA\TypesFPGA.h</FilePath>
+            </File>
+            <File>
+              <FileName>CalibrationFPGA.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FPGA\CalibrationFPGA.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -3103,16 +3103,6 @@
               <FilePath>.\src\FPGA\FPGA.h</FilePath>
             </File>
             <File>
-              <FileName>FPGA_Types.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FPGA\FPGA_Types.h</FilePath>
-            </File>
-            <File>
-              <FileName>FPGA_Calibration.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\FPGA\FPGA_Calibration.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Storage.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\FPGA\Storage.cpp</FilePath>
@@ -3131,6 +3121,16 @@
               <FileName>SettingsFPGA.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\FPGA\SettingsFPGA.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>TypesFPGA.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\FPGA\TypesFPGA.h</FilePath>
+            </File>
+            <File>
+              <FileName>CalibrationFPGA.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FPGA\CalibrationFPGA.cpp</FilePath>
             </File>
           </Files>
         </Group>
