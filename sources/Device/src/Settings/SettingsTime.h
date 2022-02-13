@@ -73,7 +73,7 @@ enum ENUM_POINTS_FPGA
 // Настройки оси X.
 struct SettingsTime
 { //-V802
-    TBase               tBase;          // Масштаб по времени.
+    TBase::E            tBase;          // Масштаб по времени.
     int16               tShiftRel;      // Смещение по времени.
     FunctionTime        timeDivXPos;
     TPos                tPos;           // Привязка синхронизации к памяти.
@@ -87,7 +87,7 @@ struct SettingsTime
 
 
 // Сохранить масштаб по времени.
-void sTime_SetTBase(TBase tBase);
+void sTime_SetTBase(TBase::E tBase);
 // Сохранить смещение по времени в относительных единицах.
 void sTime_SetTShift(int16 shift);                   
 // Узнать привязку отсительно уровня синхронизации в точках.

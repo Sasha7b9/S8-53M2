@@ -6,7 +6,7 @@
 #include "FPGA/FPGA.h"
 
 
-void sTime_SetTBase(TBase tBase)
+void sTime_SetTBase(TBase::E tBase)
 {
     SET_TBASE = tBase;
     FPGA::ClearData();
@@ -75,5 +75,5 @@ int16 sTime_TShiftZero()
 
 bool sTime_RandomizeModeEnabled()
 {
-    return SET_TBASE < TBase_100ns;
+    return SET_TBASE < TBase::_100ns;
 }

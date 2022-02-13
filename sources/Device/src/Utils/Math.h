@@ -39,7 +39,7 @@ extern const float absStepTShift[];
 int     Math_MinFrom2Int(int val0, int val1);
 int     Math_RShift2Rel(float rShiftAbs, Range range);
 float   Math_VoltageCursor(float shiftCurU, Range range, int16 rShift);
-float   Math_TimeCursor(float shiftCurT, TBase tBase);
+float   Math_TimeCursor(float shiftCurT, TBase::E tBase);
 void    Math_DataExtrapolation(uint8 *data, uint8 *there, int size);
 void    Math_PointsRelToVoltage(const uint8 *points, int numPoints, Range range, int16 rShift, float *voltage);
 uint8   Math_VoltageToPoint(float voltage, Range range, int16 rShift);

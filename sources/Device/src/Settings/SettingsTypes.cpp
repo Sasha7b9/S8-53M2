@@ -27,9 +27,9 @@ const char *RangeName(Range range)
 }
 
 
-const char *TBaseName(TBase tBase)
+const char *TBaseName(TBase::E tBase)
 {
-    static const char *names[TBaseSize + 1] =
+    static const char *names[TBase::Count + 1] =
     {
         "2ns",
         "5ns",
@@ -61,7 +61,7 @@ const char *TBaseName(TBase tBase)
         "2s",
         "5s",
         "10s",
-        "TBaseSize"
+        "TBase::Count"
     };
 
     return names[tBase];

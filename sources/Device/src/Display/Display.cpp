@@ -964,7 +964,7 @@ void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, 
     uint8 max[300];
 
 
-    if (SET_TBASE >= TBase_20ms && PEAKDET)
+    if (SET_TBASE >= TBase::_20ms && PEAKDET)
     {
         for (int col = 0; col < width; col++)
         {
@@ -2141,7 +2141,7 @@ void Display::DrawLowPart()
     x += 98;
     char buffer[100] = {0};
 
-    TBase tBase = SET_TBASE;
+    TBase::E tBase = SET_TBASE;
     int16 tShift = TSHIFT;
 
     if (!MODE_WORK_IS_DIRECT)

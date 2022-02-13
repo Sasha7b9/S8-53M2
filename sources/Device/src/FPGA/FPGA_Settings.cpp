@@ -29,7 +29,7 @@ static const uint8 masksRange[RangeSize] =
 
 
 // Добавочные смещения по времени для разверёток режима рандомизатора.
-static int16 deltaTShift[TBaseSize] = {505, 489, 464, 412, 258};
+static int16 deltaTShift[TBase::Count] = {505, 489, 464, 412, 258};
 
 struct TBaseMaskStruct
 {
@@ -37,7 +37,7 @@ struct TBaseMaskStruct
     uint8 maskPeackDet;     // Маска. Требуется для записи в аппаратную часть при включенном режиме пикового детектора.
 };
 
-static const TBaseMaskStruct masksTBase[TBaseSize] =
+static const TBaseMaskStruct masksTBase[TBase::Count] =
 {
     {BINARY_U8(00000000), BINARY_U8(00000000)},
     {BINARY_U8(00000000), BINARY_U8(00000000)},
@@ -230,13 +230,13 @@ void FPGA::LoadRange(Chan::E ch)
 }
 
 
-void FPGA::SetTBase(TBase tBase)
+void FPGA::SetTBase(TBase::E tBase)
 {
     if (!sChannel_Enabled(Chan::A) && !sChannel_Enabled(Chan::B))
     {
         return;
     }
-    if (tBase < TBaseSize && (int)tBase >= 0)
+    if (tBase < TBase::Count && (int)tBase >= 0)
     {
         float tShiftAbsOld = TSHIFT_2_ABS(TSHIFT, SET_TBASE);
         sTime_SetTBase(tBase);
@@ -253,7 +253,7 @@ void FPGA::SetTBase(TBase tBase)
 
 void FPGA::LoadTBase()
 {
-    TBase tBase = SET_TBASE;
+    TBase::E tBase = SET_TBASE;
     uint8 mask = PEAKDET ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
     FPGA::WriteToHardware(WR_RAZVERTKA, mask, true);
     ADD_SHIFT_T0 = deltaTShift[tBase];
@@ -277,7 +277,7 @@ void FPGA::TBaseDecrease()
         }
         else
         {
-            TBase base = (TBase)((int)SET_TBASE - 1);
+            TBase::E base = (TBase::E)((int)SET_TBASE - 1);
             FPGA::SetTBase(base);
         }
     }
@@ -290,9 +290,9 @@ void FPGA::TBaseDecrease()
 
 void FPGA::TBaseIncrease()
 {
-    if (SET_TBASE < (TBaseSize - 1))
+    if (SET_TBASE < (TBase::Count - 1))
     {
-        TBase base = (TBase)(SET_TBASE + 1);
+        TBase::E base = (TBase::E)(SET_TBASE + 1);
         FPGA::SetTBase(base);
     }
     else
@@ -464,11 +464,11 @@ void FPGA::LoadKoeffCalibration(Chan::E ch)
 
 void FPGA::LoadTShift()
 {
-    static const int16 k[TBaseSize] = {50, 20, 10, 5, 2};
+    static const int16 k[TBase::Count] = {50, 20, 10, 5, 2};
     int16 tShift = TSHIFT - sTime_TShiftMin() + 1;
     int16 tShiftOld = tShift;
-    TBase tBase = SET_TBASE;
-    if (tBase < TBase_100ns)
+    TBase::E tBase = SET_TBASE;
+    if (tBase < TBase::_100ns)
     {
         tShift = tShift / k[tBase] + deltaTShift[tBase];
     }
