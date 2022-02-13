@@ -9,7 +9,7 @@
 #include "Display/Symbols.h"
 #include "Utils/GlobalFunctions.h"
 #include "FPGA/FPGA.h"
-#include "FPGA/TypesFPGA.h"
+#include "FPGA/TypesFPGA_old.h"
 #include "Hardware/Sound.h"
 #include "Menu/Menu.h"
 #include "Menu/Pages/PageDebug.h"

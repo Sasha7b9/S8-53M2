@@ -11,7 +11,7 @@
 #include "Colors.h"
 #include "FlashDrive/FlashDrive.h"
 #include "FPGA/FPGA.h"
-#include "FPGA/TypesFPGA.h"
+#include "FPGA/TypesFPGA_old.h"
 #include "FPGA/Storage.h"
 #include "Hardware/Sound.h"
 #include "VCP/VCP.h"

@@ -1,6 +1,6 @@
 // 2022/02/11 17:48:48 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "FPGA/FPGA.h" 
-#include "FPGA/TypesFPGA.h"
+#include "FPGA/TypesFPGA_old.h"
 #include "Display/Display.h"
 #include "Display/DisplayPrimitives.h"
 #include "Display/Colors.h"

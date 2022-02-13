@@ -1192,14 +1192,14 @@
               <FilePath>.\src\FPGA\SettingsFPGA.cpp</FilePath>
             </File>
             <File>
-              <FileName>TypesFPGA.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FPGA\TypesFPGA.h</FilePath>
-            </File>
-            <File>
               <FileName>CalibrationFPGA.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\FPGA\CalibrationFPGA.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>TypesFPGA_old.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\FPGA\TypesFPGA_old.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3123,14 +3123,14 @@
               <FilePath>.\src\FPGA\SettingsFPGA.cpp</FilePath>
             </File>
             <File>
-              <FileName>TypesFPGA.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FPGA\TypesFPGA.h</FilePath>
-            </File>
-            <File>
               <FileName>CalibrationFPGA.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\FPGA\CalibrationFPGA.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>TypesFPGA_old.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\FPGA\TypesFPGA_old.h</FilePath>
             </File>
           </Files>
         </Group>
