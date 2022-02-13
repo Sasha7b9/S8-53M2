@@ -5,10 +5,20 @@
 #include <stm32f4xx_hal.h>
 
 
-static void (*f[TypeTimerSize])() = {0};
-static int reactionTimeMS[TypeTimerSize] = {0};
-static int currentTimeMS[TypeTimerSize] = {0};
-static bool isRun[TypeTimerSize] = {false};
+namespace Timer
+{
+    void (*f[TypeTimerSize])() = {0};
+    int  reactionTimeMS[TypeTimerSize] = {0};
+    int  currentTimeMS[TypeTimerSize] = {0};
+    bool isRun[TypeTimerSize] = {false};
+
+    uint timeStartLogging = 0;
+    uint timePrevPoint = 0;
+
+    void Pause(TypeTimer);
+    void Continue(TypeTimer);
+    bool IsRun(TypeTimer);
+}
 
 
 void Timer::PauseOnTime(uint timeMS)
@@ -30,10 +40,6 @@ void Timer::StartMultiMeasurement()
     TIM2->CNT = 0;
     TIM2->CR1 |= TIM_CR1_CEN; 
 }
-
-
-static uint timeStartLogging = 0;
-static uint timePrevPoint = 0;
 
 
 void Timer::StartLogging()
@@ -76,19 +82,19 @@ void Timer::Disable(TypeTimer type)
 }
 
 
-void Timer_Pause(TypeTimer type)
+void Timer::Pause(TypeTimer type)
 {
     isRun[type] = false;
 }
 
 
-void Timer_Continue(TypeTimer type)
+void Timer::Continue(TypeTimer type)
 {
     isRun[type] = true;
 }
 
 
-bool Timer_IsRun(TypeTimer type)
+bool Timer::IsRun(TypeTimer type)
 {
     return isRun[type];
 };
@@ -112,7 +118,7 @@ void Timer::Update1ms()
 }
 
 
-void Timer_Update10ms()
+void Timer::Update10ms()
 {
     for(int num = 0; num < TypeTimerSize; num++)
     {
