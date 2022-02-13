@@ -95,7 +95,7 @@ extern const       Button bEraseData;                       // ОТЛАДКА - Стереть
 static void       OnPress_EraseData();
 
 
-/// В этой структуре будут храниться данные серийного номера при открытой странице ppSerialNumer
+// В этой структуре будут храниться данные серийного номера при открытой странице ppSerialNumer
 typedef struct
 {
     int number;     // Соответственно, порядковый номер.

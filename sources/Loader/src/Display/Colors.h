@@ -5,30 +5,30 @@
 #include "DisplayTypes.h"
 
 
-/// Возвращает цвет синхронизации.
+// Возвращает цвет синхронизации.
 Color::E ColorTrig(void);
-/// Цвет заголовка страницы, inShade - затенена ли страница.
+// Цвет заголовка страницы, inShade - затенена ли страница.
 Color::E ColorMenuTitle(bool inShade);
-/// Цвет элемента меню.
+// Цвет элемента меню.
 Color::E ColorMenuItem(bool inShade);
-/// Цвет окантовки меню.
+// Цвет окантовки меню.
 Color::E ColorBorderMenu(bool inShade);
-/// Возвращает цвет, контрастный к color. Может быть белым или чёрным.
+// Возвращает цвет, контрастный к color. Может быть белым или чёрным.
 Color::E ColorContrast(Color::E color);
-/// Светлый цвет в тени.
+// Светлый цвет в тени.
 Color::E LightShadingTextColor(void);
 
 
 #define ColorMenuField()            Color::MENU_FIELD
-/// Чуть менее светлый цвет, чем цвет элемента меню. Используется для создания эффекта объёма.
+// Чуть менее светлый цвет, чем цвет элемента меню. Используется для создания эффекта объёма.
 #define ColorMenuItemLessBright()   Color::MENU_ITEM_DARK
-/// Чуть более светлый цвет, чем цвет заголовка страницы. Используется для создания эффекта объёма.
+// Чуть более светлый цвет, чем цвет заголовка страницы. Используется для создания эффекта объёма.
 #define ColorMenuTitleBrighter()    Color::MENU_TITLE_BRIGHT
-/// Чуть менее светлый цвет, чем цвет заголовка страницы. Используется для создания эффекта объёма.
+// Чуть менее светлый цвет, чем цвет заголовка страницы. Используется для создания эффекта объёма.
 #define ColorMenuTitleLessBright()  Color::MENU_TITLE_DARK
-/// Чуть более светлый цвет, чем цвет элемента меню. Используется для создания эффекта объёма.
+// Чуть более светлый цвет, чем цвет элемента меню. Используется для создания эффекта объёма.
 #define ColorMenuItemBrighter()     Color::MENU_ITEM_BRIGHT
-/// Тёмный цвет в тени.
+// Тёмный цвет в тени.
 #define DarkShadingTextColor()      Color::MENU_TITLE_DARK
 
 
@@ -46,7 +46,7 @@ struct ColorType
     bool     alreadyUsed;
 };
 
-/// Вывести в лог значение цвета.
+// Вывести в лог значение цвета.
 void Color_Log(Color::E color);
 
 struct ColorType;
@@ -54,7 +54,7 @@ struct ColorType;
 void Color_BrightnessChange(ColorType *colorType, int delta);
 
 void Color_SetBrightness(ColorType *colorType, float brightness);
-/// Если forced == false, то инициализация происходит только при первом вызове функции
+// Если forced == false, то инициализация происходит только при первом вызове функции
 void Color_Init(ColorType *colorType, bool forced);
 
 void Color_ComponentChange(ColorType *colorType, int delta);

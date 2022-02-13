@@ -23,7 +23,7 @@
 #define TRIG_LEVEL_B            (TRIG_LEVEL(Chan::B))                         // set.trig.levelRel[Chan::B]
 
 #define MODE_LONG_PRESS_TRIG    (set.trig.modeLongPressTrig)            // SettingsTrig.modeLongPressTrig
-/// если \c true, то длительное нажатие кнопки \b СИНХР сбрасывает уровень синхронизации в 0.
+// если \c true, то длительное нажатие кнопки \b СИНХР сбрасывает уровень синхронизации в 0.
 #define MODE_LONG_PRESS_TRIG_IS_LEVEL0  (MODE_LONG_PRESS_TRIG == ModeLongPRessTrig_Level0)
 
 #define TRIG_MODE_FIND          (set.trig.modeFind)                     // SettingsTrig.modeFind
@@ -33,7 +33,7 @@
 
 
 
-/// Режим запуска.
+// Режим запуска.
 typedef enum
 {
     StartMode_Auto,             // Автоматический.
@@ -41,7 +41,7 @@ typedef enum
     StartMode_Single            // Однократный.
 } StartMode;
 
-/// Источник синхронизации.
+// Источник синхронизации.
 typedef enum
 {
     TrigSource_ChannelA,        // Канал 1.
@@ -49,14 +49,14 @@ typedef enum
     TrigSource_Ext              // Внешняя.
 } TrigSource;
 
-/// Тип синхронизацц
+// Тип синхронизацц
 typedef enum
 {
     TrigPolarity_Front,         // Синхронизация по фронту.
     TrigPolarity_Back           // Синхронизация по срезу.
 } TrigPolarity;
 
-/// Вход синхронизации.
+// Вход синхронизации.
 typedef enum
 {
     TrigInput_Full,             // Полный сиганл.
@@ -65,7 +65,7 @@ typedef enum
     TrigInput_HPF               // ФВЧ.
 } TrigInput;
 
-/// Режим длительного нажатия кнопки СИНХР.
+// Режим длительного нажатия кнопки СИНХР.
 typedef enum
 {
     ModeLongPRessTrig_Level0,   // Сброс уровня синхронизации в 0.
@@ -73,7 +73,7 @@ typedef enum
 } ModeLongPressTrig;
 
 
-/// Режим установки синхронизации.
+// Режим установки синхронизации.
 typedef enum
 {
     TrigModeFind_Hand,          // Уровень синхронизации устанавливается вручную.
@@ -83,7 +83,7 @@ typedef enum
 
 
 
-/// Настройки синхронизации
+// Настройки синхронизации
 typedef struct
 {
     StartMode           startMode;          // Режим запуска.

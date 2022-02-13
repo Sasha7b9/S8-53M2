@@ -24,7 +24,7 @@ struct Chan { enum E {
 }; };
 
 
-/// Режим канала по входу.
+// Режим канала по входу.
 typedef enum
 {
     ModeCouple_DC,      // Открытый вход.
@@ -32,14 +32,14 @@ typedef enum
     ModeCouple_GND      // Вход заземлён.
 } ModeCouple;
 
-/// Делитель.
+// Делитель.
 typedef enum
 {
     Divider_1,
     Divider_10
 } Divider;
 
-/// Масштаб по напряжению.
+// Масштаб по напряжению.
 typedef enum
 {
     Range_2mV,
@@ -70,7 +70,7 @@ const char *RangeName(Range range);
 // Time
 
 
-/// Масштаб по времени
+// Масштаб по времени
 typedef enum
 {
     TBase_2ns,
@@ -134,7 +134,7 @@ typedef enum
 
 // Курсоры
 
-/// Каким курсором управлять.
+// Каким курсором управлять.
 typedef enum
 {
     CursCntrl_1,            // первым.
@@ -144,14 +144,14 @@ typedef enum
 } CursCntrl;
 
 
-/// Дискретность перемещения курсоров.
+// Дискретность перемещения курсоров.
 typedef enum
 {
     CursMovement_Points,    // по точкам.
     CursMovement_Percents   // по процентам.
 } CursMovement;
 
-/// Какие курсоры сейчас активны. Какие активны, те и будут перемещаться по вращению ручки УСТАНОВКА.
+// Какие курсоры сейчас активны. Какие активны, те и будут перемещаться по вращению ручки УСТАНОВКА.
 typedef enum
 {
     CursActive_U,
@@ -159,7 +159,7 @@ typedef enum
     CursActive_None
 } CursActive;
 
-/// Режим слежения курсоров.
+// Режим слежения курсоров.
 typedef enum
 {
     CursLookMode_None,      // Курсоры не следят.

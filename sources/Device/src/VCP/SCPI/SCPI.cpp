@@ -17,9 +17,9 @@ typedef enum
 static int FindNumSymbolsInCommand(uint8 *buffer);
 
 static const int SIZE_BUFFER = 100;
-/// —юда добавл€ем новые данные
+// —юда добавл€ем новые данные
 static uint8 bufData[SIZE_BUFFER];
-/// ”казатель на первый свободный байт буфера
+// ”казатель на первый свободный байт буфера
 static int pointer = 0;
 
 

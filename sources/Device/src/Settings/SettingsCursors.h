@@ -45,7 +45,7 @@
 
 
 
-/// Настройки курсорных измерений.
+// Настройки курсорных измерений.
 typedef struct
 {
     CursCntrl       cntrlU[NumChannels];        // Активные курсоры напряжения.
@@ -64,15 +64,15 @@ typedef struct
 
 
 
-/// Получить позицию курсора напряжения.
+// Получить позицию курсора напряжения.
 float sCursors_GetCursPosU(Chan::E ch, int numCur);
-/// Возвращает true,если нужно рисовать курсоры.
+// Возвращает true,если нужно рисовать курсоры.
 bool sCursors_NecessaryDrawCursors();
-/// Получить строку курсора напряжения.
+// Получить строку курсора напряжения.
 const char* sCursors_GetCursVoltage(Chan::E source, int numCur, char buffer[20]);
-/// Получить строку курсора времени.
+// Получить строку курсора времени.
 const char* sCursors_GetCursorTime(Chan::E source, int numCur, char buffer[20]);
-/// Получить строку процентов курсоров напряжения.
+// Получить строку процентов курсоров напряжения.
 const char* sCursors_GetCursorPercentsU(Chan::E source, char buffer[20]);
-/// Получить строку процентов курсоров времени.
+// Получить строку процентов курсоров времени.
 const char* sCursors_GetCursorPercentsT(Chan::E source, char buffer[20]);

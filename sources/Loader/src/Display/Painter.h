@@ -37,10 +37,10 @@ void Painter_DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int
 void Painter_DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color::E);
 
 void Painter_DrawLine(int x0, int y0, int x1, int y1);
-/// Рисует прерывистую горизонтальную линию. dFill - длина штриха, dEmpty - расст. между штрихами
-/// Линия всегда начинается со штриха. dStart указывает смещение первой рисуемой точки относительно начала штриха.
+// Рисует прерывистую горизонтальную линию. dFill - длина штриха, dEmpty - расст. между штрихами
+// Линия всегда начинается со штриха. dStart указывает смещение первой рисуемой точки относительно начала штриха.
 void Painter_DrawDashedHLine(int y, int x0, int x1, int dFill, int dEmpty, int dStart);
-/// Рисует прерывистую вертикальную линию.
+// Рисует прерывистую вертикальную линию.
 void Painter_DrawDashedVLine(int x, int y0, int y1, int dFill, int dEmpty, int dStart);
 
 void Painter_DrawRectangle(int x, int y, int width, int height);
@@ -51,9 +51,9 @@ void Painter_DrawVolumeButton(int x, int y, int width, int height, int thickness
 
 void Painter_SetBrightnessDisplay(int16 brightness);  // Установить яркость дисплея.
 uint16 Painter_ReduceBrightness(uint16 colorValue, float newBrightness);
-/// Нарисовать массив вертикальных линий. Линии рисуются одна за другой. y0y1 - массив вертикальных координат
+// Нарисовать массив вертикальных линий. Линии рисуются одна за другой. y0y1 - массив вертикальных координат
 void Painter_DrawVLineArray(int x, int numLines, uint8 *y0y1, Color::E);
-/// modeLines - true - точками, false - точками
+// modeLines - true - точками, false - точками
 void Painter_DrawSignal(int x, uint8 data[281], bool modeLines);
 
 void Painter_DrawPicture(int x, int y, int width, int height, uint8 *address);

@@ -173,7 +173,7 @@ const Choice mcMeasuresNumber =
     (int8*)&MEAS_NUM
 };
 
-/// ÈÇÌÅĞÅÍÈß -> Êàíàëû
+// ÈÇÌÅĞÅÍÈß -> Êàíàëû
 const Choice mcMeasuresChannels =
 {
     Item_Choice, &pMeasures, IsActiveChoiceMeasuresChannels,

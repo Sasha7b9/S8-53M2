@@ -20,7 +20,7 @@
 #define RSHIFT_ADD(ch, range, closed) set.chan[ch].rShiftAdd[range][closed]
 
  
- /// Настройки каналов
+ // Настройки каналов
 typedef struct
 {
     float       stretchADC;                 // Поправочный коэффициент.
@@ -158,7 +158,7 @@ typedef struct
 #define NUM_AVE_FOR_RAND                    (set.debug.numAveForRand)
 
 
-/// Отладочные настройки.
+// Отладочные настройки.
 typedef  struct
 {
     int16           numStrings;                 // Число строк в консоли.
@@ -205,7 +205,7 @@ void CurrentPageSBregSet(int angle);                            // Повернуть руч
 const SmallButton*  GetSmallButton(PanelButton button);         // Вернуть указатель на малую кнопку, соответствующую данной кнопки панели.
 
 
-/// Струкура хранит все настройки прибора.
+// Струкура хранит все настройки прибора.
 struct Settings
 {
     uint                size;

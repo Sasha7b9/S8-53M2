@@ -130,7 +130,7 @@ struct PageStruct
     pFuncVI             funcRegSetSB;
 };
 
-/// Описывает страницу меню.
+// Описывает страницу меню.
 class Page : public     Control
 {
 public:
@@ -149,7 +149,7 @@ public:
 };
 
 
-/// Описывает кнопку.
+// Описывает кнопку.
 class Button : public Control
 {
 public:
@@ -170,7 +170,7 @@ public:
 typedef StructHelpSmallButton arrayHints[MAX_NUM_CHOICE_SMALL_BUTTON];
 
 
-/// Описывает кнопку для дополнительного режима меню.
+// Описывает кнопку для дополнительного режима меню.
 class SmallButton : public Control
 {
 public:
@@ -184,7 +184,7 @@ public:
 };
 
 
-/// Описывает регулятор.
+// Описывает регулятор.
 class Governor : public Control
 { 
 public:

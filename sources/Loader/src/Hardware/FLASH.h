@@ -18,7 +18,7 @@
 #define ADDR_FLASH_SECTOR_11    ((uint)0x080E0000)  // Base @ of Sector 11, 128 Kbytes
 
 
-/// ќщищает место дл€ последующей заливки прошивки
+// ќщищает место дл€ последующей заливки прошивки
 void FLASH_Prepare(void);
 
 void FLASH_WriteData(uint address, uint8 *data, int size);

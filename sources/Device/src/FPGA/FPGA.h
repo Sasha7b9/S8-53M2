@@ -12,10 +12,12 @@ class FPGA
 public:
 
     static void Init();
+
     // Установить количество считываемых сигналов в секунду.
     static void SetNumSignalsInSec(int numSigInSec);
 
     static void Update();
+
     // Запись в регистр ПЛИС нового значения.
     static void WriteToHardware				        
                             (uint8 *address,    // адрес регистра.

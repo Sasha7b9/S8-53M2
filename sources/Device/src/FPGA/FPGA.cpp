@@ -40,7 +40,7 @@ static uint8 dataRel1[FPGA_MAX_POINTS] = {0};   // Буфер используется для чтения
 static Settings storingSettings;                // Здесь нужно уменьшить необходимый размер памяти - сохранять настройки только альтеры
 static uint timeStart = 0;
 
-/// Функция вызывается, когда можно считывать очередной сигнал.
+// Функция вызывается, когда можно считывать очередной сигнал.
 static void OnTimerCanReadData();
 
 static void ReadPoint();
