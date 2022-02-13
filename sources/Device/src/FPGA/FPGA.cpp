@@ -36,8 +36,8 @@ namespace FPGA
     static DataSettings ds;
 
 
-    static uint8 dataRel0[FPGA_MAX_POINTS] = {0};   // Буфер используется для чтения данных первого канала.
-    static uint8 dataRel1[FPGA_MAX_POINTS] = {0};   // Буфер используется для чтения данных второго канала.
+    static uint8 dataRel0[FPGA::MAX_POINTS] = {0};   // Буфер используется для чтения данных первого канала.
+    static uint8 dataRel1[FPGA::MAX_POINTS] = {0};   // Буфер используется для чтения данных второго канала.
 
     static Settings storingSettings;                // Здесь нужно уменьшить необходимый размер памяти - сохранять настройки только альтеры
     static uint timeStart = 0;
@@ -312,9 +312,9 @@ void FPGA::ReadRandomizeMode()
     }
 
     uint8 *pData0 = &dataRel0[index];
-    const uint8 * const pData0Last = &dataRel0[FPGA_MAX_POINTS - 1];
+    const uint8 * const pData0Last = &dataRel0[FPGA::MAX_POINTS - 1];
     uint8 *pData1 = &dataRel1[index];
-    const uint8 * const pData1Last = &dataRel1[FPGA_MAX_POINTS - 1];
+    const uint8 * const pData1Last = &dataRel1[FPGA::MAX_POINTS - 1];
 
     const uint8 * const first0 = &dataRel0[0];
     const uint8 * const last0 = pData0Last;
@@ -335,7 +335,7 @@ void FPGA::ReadRandomizeMode()
         FPGA::ClearData();
     }
 
-    while (pData0 < &dataRel0[FPGA_MAX_POINTS])
+    while (pData0 < &dataRel0[FPGA::MAX_POINTS])
     {
         uint8 data10 = *RD_ADC_B2; //-V566
         uint8 data00 = *RD_ADC_A2; //-V566
@@ -369,7 +369,7 @@ void FPGA::ReadRealMode(bool necessaryShift)
 {
     uint8 *p0 = &dataRel0[0];
     uint8 *p1 = &dataRel1[0];
-    uint8 *endP = &dataRel0[FPGA_MAX_POINTS];
+    uint8 *endP = &dataRel0[FPGA::MAX_POINTS];
 
     if (ds.peakDet != PeackDet_Disable)
     {
@@ -416,7 +416,7 @@ void FPGA::ReadRealMode(bool necessaryShift)
             if (shift < 0)
             {
                 shift = -shift;
-                for (int i = FPGA_MAX_POINTS - shift - 1; i >= 0; i--)
+                for (int i = FPGA::MAX_POINTS - shift - 1; i >= 0; i--)
                 {
                     dataRel0[i + shift] = dataRel0[i];
                     dataRel1[i + shift] = dataRel1[i];
@@ -424,7 +424,7 @@ void FPGA::ReadRealMode(bool necessaryShift)
             }
             else
             {
-                for (int i = shift; i < FPGA_MAX_POINTS; i++)
+                for (int i = shift; i < FPGA::MAX_POINTS; i++)
                 {
                     dataRel0[i - shift] = dataRel0[i];
                     dataRel1[i - shift] = dataRel1[i];
@@ -799,8 +799,8 @@ float FPGA::GetFreq()
 
 void FPGA::ClearData()
 {
-    memset(dataRel0, 0, FPGA_MAX_POINTS);
-    memset(dataRel1, 0, FPGA_MAX_POINTS);
+    memset(dataRel0, 0, FPGA::MAX_POINTS);
+    memset(dataRel1, 0, FPGA::MAX_POINTS);
 }
 
 
@@ -824,7 +824,7 @@ void FPGA::InverseDataIsNecessary(Chan::E ch, uint8 *data)
 {
     if(SET_INVERSE(ch))
     {
-        for (int i = 0; i < FPGA_MAX_POINTS; i++)
+        for (int i = 0; i < FPGA::MAX_POINTS; i++)
         {
             data[i] = (uint8)((int)(2 * AVE_VALUE) - LimitationUInt8(data[i], MIN_VALUE, MAX_VALUE));
         }

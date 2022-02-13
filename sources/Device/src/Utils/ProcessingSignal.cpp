@@ -17,10 +17,10 @@ typedef struct
     float value[2];
 } MeasureValue;
 
-static uint8 dataOut0[FPGA_MAX_POINTS];
-static uint8 dataOut1[FPGA_MAX_POINTS];
+static uint8 dataOut0[FPGA::MAX_POINTS];
+static uint8 dataOut1[FPGA::MAX_POINTS];
 static DataSettings *dataSet = 0;
-static uint8 dataIn[2][FPGA_MAX_POINTS];
+static uint8 dataIn[2][FPGA::MAX_POINTS];
 
 static int firstP = 0;
 static int lastP = 0;
@@ -316,7 +316,7 @@ int Processing::CalculatePeriodAccurately(Chan::E ch)
 {
     static int period[2];
 
-    int sums[FPGA_MAX_POINTS];
+    int sums[FPGA::MAX_POINTS];
 
     if(!periodAccurateIsCalculating[ch])
     {
@@ -974,7 +974,7 @@ float Processing::GetCursT(Chan::E ch, float posCurU, int numCur)
     return 0;
 }
 
-void Processing::InterpolationSinX_X(uint8 data[FPGA_MAX_POINTS], TBase tBase)
+void Processing::InterpolationSinX_X(uint8 data[FPGA::MAX_POINTS], TBase tBase)
 {
 /*
      Последовательности x в sin(x)
@@ -992,10 +992,10 @@ void Processing::InterpolationSinX_X(uint8 data[FPGA_MAX_POINTS], TBase tBase)
     int deltas[5] = {50, 20, 10, 5, 2};
     int delta = deltas[tBase];
 
-    uint8 signedData[FPGA_MAX_POINTS / 2];
+    uint8 signedData[FPGA::MAX_POINTS / 2];
     int numSignedPoints = 0;
     
-    for (int pos = 0; pos < FPGA_MAX_POINTS; pos++)
+    for (int pos = 0; pos < FPGA::MAX_POINTS; pos++)
     {
         if (data[pos] > 0)
         {
@@ -1007,7 +1007,7 @@ void Processing::InterpolationSinX_X(uint8 data[FPGA_MAX_POINTS], TBase tBase)
     // Найдём смещение первой значащей точки
 
     int shift = 0;
-    for (int pos = 0; pos < FPGA_MAX_POINTS; pos++)
+    for (int pos = 0; pos < FPGA::MAX_POINTS; pos++)
     {
         if (data[pos] > 0)
         {
@@ -1021,7 +1021,7 @@ void Processing::InterpolationSinX_X(uint8 data[FPGA_MAX_POINTS], TBase tBase)
     float x0 = PI - stepX0;
     int num = 0;
     
-    for(int i = 0; i < FPGA_MAX_POINTS; i++)
+    for(int i = 0; i < FPGA::MAX_POINTS; i++)
     {
         x0 += stepX0;
         if((i % delta) == 0)
@@ -1064,7 +1064,7 @@ void Processing::InterpolationSinX_X(uint8 data[FPGA_MAX_POINTS], TBase tBase)
         }
     }
     
-    int pos = FPGA_MAX_POINTS - 1;
+    int pos = FPGA::MAX_POINTS - 1;
     while (pos > shift)
     {
         data[pos] = data[pos - shift];
@@ -1114,8 +1114,8 @@ int Processing::GetMarkerVertical(Chan::E ch, int numMarker)
 
 void Processing::CountedToCurrentSettings()
 {
-    memset(dataOut0, 0, FPGA_MAX_POINTS);
-    memset(dataOut1, 0, FPGA_MAX_POINTS);
+    memset(dataOut0, 0, FPGA::MAX_POINTS);
+    memset(dataOut1, 0, FPGA::MAX_POINTS);
     
     int numPoints = (int)dataSet->length1channel * (dataSet->peakDet == PeackDet_Disable ? 1 : 2);
 

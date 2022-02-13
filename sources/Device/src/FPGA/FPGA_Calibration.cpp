@@ -368,7 +368,7 @@ float FPGA::CalculateDeltaADC(Chan::E ch, float *avgADC1, float *avgADC2, float 
         while(_GET_BIT(HAL_FMC::Read(RD_FL), 0) == 0) {};
         HAL_FMC::Write(WR_STOP, 1);
 
-        for(int i = 0; i < FPGA_MAX_POINTS; i++)
+        for(int i = 0; i < FPGA::MAX_POINTS; i++)
         {
             if(ch == Chan::A)
             {
@@ -390,8 +390,8 @@ float FPGA::CalculateDeltaADC(Chan::E ch, float *avgADC1, float *avgADC2, float 
         bar->fullTime = bar->passedTime * (float)numCicles / (cicle + 1);
     }
 
-    *avgADC1 /= (FPGA_MAX_POINTS * numCicles);
-    *avgADC2 /= (FPGA_MAX_POINTS * numCicles);
+    *avgADC1 /= (FPGA::MAX_POINTS * numCicles);
+    *avgADC2 /= (FPGA::MAX_POINTS * numCicles);
 
     *delta = *avgADC1 - *avgADC2;
 
@@ -456,7 +456,7 @@ int16 FPGA::CalculateAdditionRShift(Chan::E ch, Range range)
         uint8 *addressRead1 = ch == Chan::A ? RD_ADC_A1 : RD_ADC_B1; //-V566
         uint8 *addressRead2 = ch == Chan::A ? RD_ADC_A2 : RD_ADC_B2; //-V566
 
-        for(int j = 0; j < FPGA_MAX_POINTS; j += 2)
+        for(int j = 0; j < FPGA::MAX_POINTS; j += 2)
         {
             sum += HAL_FMC::Read(addressRead1);
             sum += HAL_FMC::Read(addressRead2);
@@ -519,7 +519,7 @@ float FPGA::CalculateKoeffCalibration(Chan::E ch)
         uint8 *addressRead1 = ch == Chan::A ? RD_ADC_A1 : RD_ADC_B1; //-V566
         uint8 *addressRead2 = ch == Chan::A ? RD_ADC_A2 : RD_ADC_B2; //-V566
 
-        for(int j = 0; j < FPGA_MAX_POINTS; j += 2)
+        for(int j = 0; j < FPGA::MAX_POINTS; j += 2)
         {
             uint8 val0 = HAL_FMC::Read(addressRead1);
             if(val0 > AVE_VALUE + 60)

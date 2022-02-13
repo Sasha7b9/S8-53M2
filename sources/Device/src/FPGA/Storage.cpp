@@ -48,7 +48,7 @@ namespace Storage
     static DataSettings* GetSettingsDataFromEnd(int fromEnd);
 
     // Копирует данные канала chan из, определяемые ds, в одну из двух строк массива dataImportRel. Возвращаемое значение false означает, что данный канал выключен.
-    static bool CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[Chan::Count][FPGA_MAX_POINTS]);
+    static bool CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[Chan::Count][FPGA::MAX_POINTS]);
 
     static void PrintElement(DataSettings *dp);
 
@@ -67,13 +67,13 @@ namespace Storage
     static uint8* endPool = &(pool[SIZE_POOL - 1]);
 
     // Здесь хранятся суммы измерений обоих каналов
-    static uint sum[Chan::Count][FPGA_MAX_POINTS];
+    static uint sum[Chan::Count][FPGA::MAX_POINTS];
 
     // Максимальные значения каналов
-    static uint8 limitUp[Chan::Count][FPGA_MAX_POINTS];
+    static uint8 limitUp[Chan::Count][FPGA::MAX_POINTS];
 
     // Минимальные значения каналов
-    static uint8 limitDown[Chan::Count][FPGA_MAX_POINTS];
+    static uint8 limitDown[Chan::Count][FPGA::MAX_POINTS];
 
     // Указатель на первые сохранённые данные
     static DataSettings *firstElem = nullptr;
@@ -85,15 +85,15 @@ namespace Storage
     static int allData = 0;
 
     // В этих массивах хранятся усреднённые значения, подсчитанные по приблизительному алгоритму.
-    static float aveData0[FPGA_MAX_POINTS] = {0.0f};
+    static float aveData0[FPGA::MAX_POINTS] = {0.0f};
 
-    static float aveData1[FPGA_MAX_POINTS] = {0.0f};
+    static float aveData1[FPGA::MAX_POINTS] = {0.0f};
     // Если true, то новые суммы рассчитаны, и нужно повторить расчёт среднего
     static bool newSumCalculated[Chan::Count] = {true, true};
 }
 
 
-void Storage::PrintElement(DataSettings *dp)
+static void Storage::PrintElement(DataSettings *dp)
 {
     if(dp == 0)
     {
@@ -117,11 +117,11 @@ void Storage::Clear()
 
 void Storage::ClearLimitsAndSums()
 {
-    memset(limitUp[0], 0, FPGA_MAX_POINTS);
-    memset(limitUp[1], 0, FPGA_MAX_POINTS);
-    memset(limitDown[0], 0xff, FPGA_MAX_POINTS);
-    memset(limitDown[1], 0xff, FPGA_MAX_POINTS);
-    memset(&(sum[0][0]), 0, Chan::Count * FPGA_MAX_POINTS * sizeof(uint));
+    memset(limitUp[0], 0, FPGA::MAX_POINTS);
+    memset(limitUp[1], 0, FPGA::MAX_POINTS);
+    memset(limitDown[0], 0xff, FPGA::MAX_POINTS);
+    memset(limitDown[1], 0xff, FPGA::MAX_POINTS);
+    memset(&(sum[0][0]), 0, Chan::Count * FPGA::MAX_POINTS * sizeof(uint));
 }
 
 
@@ -342,7 +342,7 @@ DataSettings* Storage::GetSettingsDataFromEnd(int fromEnd)
 
 bool Storage::GetDataFromEnd(int fromEnd, DataSettings **ds, uint8 **data0, uint8 **data1)
 {
-    static uint8 dataImportRel[2][FPGA_MAX_POINTS];
+    static uint8 dataImportRel[2][FPGA::MAX_POINTS];
 
     DataSettings* dp = FromEnd(fromEnd);
     if(dp == 0)
@@ -366,7 +366,7 @@ bool Storage::GetDataFromEnd(int fromEnd, DataSettings **ds, uint8 **data0, uint
 
 uint8* Storage::GetData(Chan::E ch, int fromEnd)
 {
-    static uint8 dataImportRel[2][FPGA_MAX_POINTS];
+    static uint8 dataImportRel[2][FPGA::MAX_POINTS];
     DataSettings* dp = FromEnd(fromEnd);
     if(dp == 0)
     {
@@ -377,7 +377,7 @@ uint8* Storage::GetData(Chan::E ch, int fromEnd)
 }
 
 
-static bool Storage::CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[Chan::Count][FPGA_MAX_POINTS])
+static bool Storage::CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[Chan::Count][FPGA::MAX_POINTS])
 {
     if((ch == Chan::A && ds->enableCh0 == 0) || (ch == Chan::B && ds->enableCh1 == 0))
     {
@@ -402,7 +402,7 @@ static bool Storage::CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel
 
 uint8* Storage::GetAverageData(Chan::E ch)
 {
-    static uint8 data[Chan::Count][FPGA_MAX_POINTS];
+    static uint8 data[Chan::Count][FPGA::MAX_POINTS];
     
     if (newSumCalculated[ch] == false)
     {

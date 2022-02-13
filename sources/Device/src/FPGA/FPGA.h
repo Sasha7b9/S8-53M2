@@ -10,6 +10,8 @@
 
 namespace FPGA
 {
+    static const int MAX_POINTS = 1024;
+
     void Init();
 
     // Установить количество считываемых сигналов в секунду.
