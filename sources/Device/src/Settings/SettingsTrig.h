@@ -15,7 +15,7 @@
 #define TRIG_POLARITY_IS_FRONT  (TRIG_POLARITY == TrigPolarity_Front)   // \c true, если синхронизация по фронту.
 
 #define TRIG_INPUT              (set.trig.input)                        // SettingsTrig.input
-#define TRIG_INPUT_IS_AC        (TRIG_INPUT == TrigInput_AC)            // \c true, если закрытый вход синхронизации.
+#define TRIG_INPUT_IS_AC        (TRIG_INPUT == TrigInput::AC)            // \c true, если закрытый вход синхронизации.
 
 #define TRIG_LEVEL(source)      (set.trig.levelRel[source])             // SettingsTrig.levelRel
 #define TRIG_LEVEL_SOURCE       (TRIG_LEVEL(TRIG_SOURCE))               // set.trig.levelRel[set.trig.source]
@@ -56,14 +56,6 @@ enum TrigPolarity
     TrigPolarity_Back           // Синхронизация по срезу.
 };
 
-// Вход синхронизации.
-enum TrigInput
-{
-    TrigInput_Full,             // Полный сиганл.
-    TrigInput_AC,               // Переменный.
-    TrigInput_LPF,              // ФНЧ.
-    TrigInput_HPF               // ФВЧ.
-};
 
 // Режим длительного нажатия кнопки СИНХР.
 enum ModeLongPressTrig
@@ -89,7 +81,7 @@ struct SettingsTrig
     StartMode           startMode;          // Режим запуска.
     TrigSource          source;             // Источник.
     TrigPolarity        polarity;           // Тип синхронизации.
-    TrigInput           input;              // Вход синхронизации.
+    TrigInput::E        input;              // Вход синхронизации.
     int16               levelRel[3];        // Уровень синхронизации для трёх источников.
     ModeLongPressTrig   modeLongPressTrig;  // Режим работы длительного нажатия кнопки СИНХР.
     TrigModeFind        modeFind;           // Поиск синхронизации - вручную или автоматически.

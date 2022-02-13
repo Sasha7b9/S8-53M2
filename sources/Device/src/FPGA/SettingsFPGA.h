@@ -29,6 +29,19 @@ struct RShift
 };
 
 
+// Вход синхронизации.
+struct TrigInput
+{
+    enum E
+    {
+        Full,             // Полный сиганл.
+        AC,               // Переменный.
+        LPF,              // ФНЧ.
+        HPF               // ФВЧ.
+    };
+};
+
+
 struct TBase
 {
     enum E

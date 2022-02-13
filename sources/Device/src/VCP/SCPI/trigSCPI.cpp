@@ -115,10 +115,10 @@ void SCPI::TRIGGER::INPUT(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (0 == value)         { FPGA::SetTrigInput(TrigInput_Full); }
-        else if (1 == value)    { FPGA::SetTrigInput(TrigInput_AC); }
-        else if (2 == value)    { FPGA::SetTrigInput(TrigInput_LPF); }
-        else if (3 == value)    { FPGA::SetTrigInput(TrigInput_HPF); }
+        if (0 == value)         { FPGA::SetTrigInput(TrigInput::Full); }
+        else if (1 == value)    { FPGA::SetTrigInput(TrigInput::AC); }
+        else if (2 == value)    { FPGA::SetTrigInput(TrigInput::LPF); }
+        else if (3 == value)    { FPGA::SetTrigInput(TrigInput::HPF); }
         else if (4 == value)
         {
             SCPI_SEND(":TRIGGER:INPUT %s", map[TRIG_INPUT].key);
