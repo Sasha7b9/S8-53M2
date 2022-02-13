@@ -245,7 +245,7 @@ void TBase::Load()
 {
     TBase::E tBase = SET_TBASE;
     uint8 mask = PEAKDET ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
-    FPGA::WriteToHardware(WR_RAZVERTKA, mask, true);
+    FPGA::WriteToHardware(WR_RAZV, mask, true);
     ADD_SHIFT_T0 = deltaTShift[tBase];
 }
 
