@@ -48,12 +48,12 @@
 
 
 // Установить масштаб по напряжению канала chan.
-void sChannel_SetRange(Chan::E, Range::E range);
+void sChannel_SetRange(Chan::E, Range::E);
 
 int sChannel_MultiplierRel2Abs(Divider multiplier);
 // Возвращает true, если канал chan включён.
 bool sChannel_Enabled(Chan::E);
 
-const char *sChannel_Range2String(Range::E range, Divider multiplier);
+const char *sChannel_Range2String(Range::E, Divider multiplier);
 
-const char *sChannel_RShift2String(int16 rShiftRel, Range::E range, Divider multiplier, char buffer[20]);
+const char *sChannel_RShift2String(int16 rShiftRel, Range::E, Divider multiplier, char buffer[20]);
