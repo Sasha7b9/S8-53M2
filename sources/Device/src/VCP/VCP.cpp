@@ -16,7 +16,16 @@
 USBD_HandleTypeDef handleUSBD;
 PCD_HandleTypeDef handlePCD;
 
-uint VCP::lastTimeSend = 0;
+
+namespace VCP
+{
+    void SendDataAsinch(uint8 *buffer, int size);
+
+    void SendStringAsinch(char *data);
+
+    // Время последней передачи
+    uint lastTimeSend = 0;
+}
 
 
 void VCP::Init()
