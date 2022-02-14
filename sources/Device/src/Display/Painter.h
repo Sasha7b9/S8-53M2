@@ -31,9 +31,7 @@ namespace Painter
 
     void DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color::E);
 
-    void DrawLine(int x0, int y0, int x1, int y1);
-
-    void DrawLineC(int x0, int y0, int x1, int y1, Color::E);
+    void DrawLine(int x0, int y0, int x1, int y1, Color::E = Color::COUNT);
     // \brief Рисует прерывистую горизонтальную линию. dFill - длина штриха, dEmpty - расст. между штрихами.
     // Линия всегда начинается со штриха. dStart указывает смещение первой рисуемой точки относительно начала штриха.
     void DrawDashedHLine(int y, int x0, int x1, int dFill, int dEmpty, int dStart);

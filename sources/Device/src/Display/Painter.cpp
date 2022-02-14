@@ -305,13 +305,6 @@ void Painter::DrawVLine(int x, int y0, int y1, Color::E color)
 }
 
 
-void Painter::DrawLineC(int x0, int y0, int x1, int y1, Color::E color)
-{
-    Color::SetCurrent(color);
-    DrawLine(x0, y0, x1, y1);
-}
-
-
 void Painter::DrawVPointLine(int x, int y0, int y1, float delta, Color::E color)
 {
     Color::SetCurrent(color);
@@ -461,8 +454,15 @@ void Painter::DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int
 }
 
 
-void Painter::DrawLine(int x0, int y0, int x1, int y1)
+void Painter::DrawLine(int x0, int y0, int x1, int y1, Color::E color)
 {
+    if (color != Color::COUNT)
+    {
+        Color::SetCurrent(color);
+    }
+
+    CalculateCurrentColor();
+
     if (x0 == x1)
     {
         DrawVLine(x0, y0, y1);

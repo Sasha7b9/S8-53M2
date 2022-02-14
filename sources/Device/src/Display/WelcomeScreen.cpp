@@ -172,7 +172,7 @@ void WelcomeScreen::Update() {
         PresentPointToScreen(&p0out3, &x0, &y0);
         PresentPointToScreen(&p1out3, &x1, &y1);
 
-        Painter::DrawLineC(x0, y0, x1, y1, Color::WHITE);
+        Painter::DrawLine(x0, y0, x1, y1, Color::WHITE);
     }
     Painter::EndScene();
 }
