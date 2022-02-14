@@ -31,8 +31,10 @@ namespace Display
 
 namespace Painter
 {
-    inline void BoundingX(int &x) { if (x < 0) x = 0; if (x >= Display::WIDTH) x = Display::WIDTH - 1; }
-    inline void BoundingY(int &y) { if (y < 0) y = 0; if (y >= Display::HEIGHT) y = Display::HEIGHT - 1; }
+    bool noFonts = false;
+
+    void BoundingX(int &x) { if (x < 0) x = 0; if (x >= Display::WIDTH) x = Display::WIDTH - 1; }
+    void BoundingY(int &y) { if (y < 0) y = 0; if (y >= Display::HEIGHT) y = Display::HEIGHT - 1; }
 }
 
 
@@ -46,8 +48,6 @@ static enum StateTransmit
     StateTransmit_NeedForTransmitSecond, // Это когда нужно передать второй и последующий кадры - шрифты не передаются
     StateTransmit_InProcess
 } stateTransmit = StateTransmit_Free;
-
-static bool noFonts = false;
 
 
 namespace Painter
