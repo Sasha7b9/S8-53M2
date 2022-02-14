@@ -19,9 +19,7 @@ namespace Painter
 
     void SetPoint(int x, int y);
 
-    void DrawHLine(int y, int x0, int x1);
-
-    void DrawHLineC(int y, int x0, int x1, Color::E);
+    void DrawHLine(int y, int x0, int x1, Color::E = Color::COUNT);
 
     void DrawVLine(int x, int y0, int y1);
 

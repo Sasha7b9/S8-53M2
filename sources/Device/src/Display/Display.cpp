@@ -708,7 +708,7 @@ void Display::DrawSpectrum()
         }
     }
 
-    Painter::DrawHLineC(Grid::ChannelBottom(), Grid::Left(), Grid::Right(), COLOR_FILL);
+    Painter::DrawHLine(Grid::ChannelBottom(), Grid::Left(), Grid::Right(), COLOR_FILL);
     Painter::DrawHLine(Grid::MathBottom(), Grid::Left(), Grid::Right());
 }
 
@@ -1487,7 +1487,7 @@ void Display::DrawGridSpectrum()
         for (int i = 1; i < numParts; i++)
         {
             int y = Grid::MathTop() + i * scale;
-            Painter::DrawHLineC(y, Grid::Left(), Grid::Left() + 256, ColorGrid());
+            Painter::DrawHLine(y, Grid::Left(), Grid::Left() + 256, ColorGrid());
             if (!MenuIsMinimize())
             {
                 Color::SetCurrent(COLOR_FILL);
@@ -1507,7 +1507,7 @@ void Display::DrawGridSpectrum()
         for (int i = 1; i < 5; i++)
         {
             int y = Grid::MathTop() + i * scale;
-            Painter::DrawHLineC(y, Grid::Left(), Grid::Left() + 256, ColorGrid());
+            Painter::DrawHLine(y, Grid::Left(), Grid::Left() + 256, ColorGrid());
             if (!MenuIsMinimize())
             {
                 Painter::DrawTextC(5, y - 4, strs[i], COLOR_FILL);
@@ -1532,7 +1532,7 @@ void Display::DrawFullGrid()
         {
             DrawGrid(Grid::Left(), GRID_TOP + Grid::FullHeight() / 2, Grid::Width(), Grid::FullHeight() / 2);
         }
-        Painter::DrawHLineC(GRID_TOP + Grid::FullHeight() / 2, Grid::Left(), Grid::Left() + Grid::Width(), COLOR_FILL);
+        Painter::DrawHLine(GRID_TOP + Grid::FullHeight() / 2, Grid::Left(), Grid::Left() + Grid::Width(), COLOR_FILL);
     }
     else
     {
@@ -2140,7 +2140,7 @@ void Display::DrawLowPart()
     int y1 = SCREEN_HEIGHT - 10;
     int x = -1;
 
-    Painter::DrawHLineC(Grid::ChannelBottom(), 1, Grid::Left() - Measure_GetDeltaGridLeft() - 2, COLOR_FILL);
+    Painter::DrawHLine(Grid::ChannelBottom(), 1, Grid::Left() - Measure_GetDeltaGridLeft() - 2, COLOR_FILL);
     Painter::DrawHLine(Grid::FullBottom(), 1, Grid::Left() - Measure_GetDeltaGridLeft() - 2);
 
     WriteTextVoltage(Chan::A, x + 2, y0);
