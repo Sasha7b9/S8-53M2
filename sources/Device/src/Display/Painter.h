@@ -18,9 +18,9 @@ namespace Painter
 
     void SetPoint(int x, int y);
 
-    void DrawHLine(int y, int x0, int x1, Color::E = Color::COUNT);
+    void DrawHLine(int y, int x0, int x1, Color::E = Color::Count);
 
-    void DrawVLine(int x, int y0, int y1, Color::E = Color::COUNT);
+    void DrawVLine(int x, int y0, int y1, Color::E = Color::Count);
 
     void DrawVPointLine(int x, int y0, int y1, float delta, Color::E);
 
@@ -30,7 +30,7 @@ namespace Painter
 
     void DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color::E);
 
-    void DrawLine(int x0, int y0, int x1, int y1, Color::E = Color::COUNT);
+    void DrawLine(int x0, int y0, int x1, int y1, Color::E = Color::Count);
 
     // \brief Рисует прерывистую горизонтальную линию. dFill - длина штриха, dEmpty - расст. между штрихами.
     // Линия всегда начинается со штриха. dStart указывает смещение первой рисуемой точки относительно начала штриха.
@@ -39,9 +39,9 @@ namespace Painter
     //  Рисует прерывистую вертикальную линию.
     void DrawDashedVLine(int x, int y0, int y1, int dFill, int dEmpty, int dStart);
 
-    void DrawRectangle(int x, int y, int width, int height, Color::E = Color::COUNT);
+    void DrawRectangle(int x, int y, int width, int height, Color::E = Color::Count);
 
-    void FillRegion(int x, int y, int width, int height, Color::E = Color::COUNT);
+    void FillRegion(int x, int y, int width, int height, Color::E = Color::Count);
 
     void DrawVolumeButton(int x, int y, int width, int height, int thickness, Color::E normal, Color::E bright,
         Color::E dark, bool isPressed, bool inShade);
@@ -56,9 +56,9 @@ namespace Painter
 
     bool SaveScreenToFlashDrive();
 
-    int DrawChar(int x, int y, char symbol, Color::E = Color::COUNT);
+    int DrawChar(int x, int y, char symbol, Color::E = Color::Count);
 
-    int DrawText(int x, int y, pchar text, Color::E = Color::COUNT);
+    int DrawText(int x, int y, pchar text, Color::E = Color::Count);
 
     // Выводит текст на прямоугольнике цвета colorBackgound
     int DrawTextOnBackground(int x, int y, pchar text, Color::E colorBackground);
@@ -70,11 +70,11 @@ namespace Painter
     int DrawTextInBoundedRectWithTransfers(int x, int y, int width, pchar text, Color::E colorBackground,
         Color::E colorFill);
 
-    int DrawTextInRectWithTransfers(int x, int y, int width, int height, pchar text, Color::E = Color::COUNT);
+    int DrawTextInRectWithTransfers(int x, int y, int width, int height, pchar text, Color::E = Color::Count);
 
     int DrawFormatText(int x, int y, Color::E color, char *text, ...);
 
-    int DrawStringInCenterRect(int x, int y, int width, int height, pchar text, Color::E = Color::COUNT);
+    int DrawStringInCenterRect(int x, int y, int width, int height, pchar text, Color::E = Color::Count);
 
     // Пишет строку текста в центре области(x, y, width, height)цветом ColorText на прямоугольнике с шириной бордюра
     // widthBorder цвета colorBackground.
@@ -88,11 +88,11 @@ namespace Painter
 
     void DrawTextInRect(int x, int y, int width, int height, char *text);
 
-    void DrawTextRelativelyRight(int xRight, int y, pchar text, Color::E = Color::COUNT);
+    void DrawTextRelativelyRight(int xRight, int y, pchar text, Color::E = Color::Count);
 
     void Draw2Symbols(int x, int y, char symbol1, char symbol2, Color::E color1, Color::E color2);
 
-    void Draw4SymbolsInRect(int x, int y, char eChar, Color::E = Color::COUNT);
+    void Draw4SymbolsInRect(int x, int y, char eChar, Color::E = Color::Count);
 
     void Draw10SymbolsInRect(int x, int y, char eChar);
 

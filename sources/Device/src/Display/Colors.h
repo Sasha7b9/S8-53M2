@@ -26,7 +26,7 @@ struct Color
         EMPTY = 0x0d,
         EMPTY_A = 0x0e,
         EMPTY_B = 0x0f,
-        COUNT,
+        Count,
         FLASH_10,
         FLASH_01,
         SET_INVERSE

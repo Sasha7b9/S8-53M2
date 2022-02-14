@@ -239,7 +239,7 @@ static pchar  colorNames[] =
     "Color::MENU_ITEM_DARK",
     "Color::MENU_ITEM_BRIGHT",
     "Color::MENU_SHADOW",
-    "Color::COUNT",
+    "Color::Count",
     "Color::FLASH_10",
     "Color::FLASH_01",
     "SET_INVERSE"
@@ -249,7 +249,7 @@ static pchar  colorNames[] =
 
 pchar  NameColorFromValue(uint16 colorValue)
 {
-    for (int i = 0; i < Color::COUNT; i++)
+    for (int i = 0; i < Color::Count; i++)
     {
         if (set.display.colors[(Color::E)i] == colorValue)
         {

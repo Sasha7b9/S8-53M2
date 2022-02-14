@@ -108,7 +108,7 @@ void HAL_LTDC::SetBuffers(uint8 *front, uint8 *back)
 
 void HAL_LTDC::LoadPalette()
 {
-    if (HAL_LTDC_ConfigCLUT(&handleLTDC, &COLOR(0), Color::COUNT, 0) != HAL_OK)
+    if (HAL_LTDC_ConfigCLUT(&handleLTDC, &COLOR(0), Color::Count, 0) != HAL_OK)
     {
         ERROR_HANDLER();
     }
@@ -118,7 +118,7 @@ void HAL_LTDC::LoadPalette()
         ERROR_HANDLER();
     }
 
-    for (int i = 0; i < Color::COUNT; i++)
+    for (int i = 0; i < Color::Count; i++)
     {
         SetPalette(i);
     }

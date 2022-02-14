@@ -20,7 +20,7 @@
 
 
 bool     Color::inverse = false;
-Color::E Color::current = Color::COUNT;
+Color::E Color::current = Color::Count;
 
 
 namespace Display
@@ -163,11 +163,11 @@ bool InterCom::TransmitGUIinProcess()
 
 void Color::SetCurrent(Color::E color)
 {
-    if (color != current && color != Color::COUNT)
+    if (color != current && color != Color::Count)
     {
         current = color;
 
-        if (current > Color::COUNT)
+        if (current > Color::Count)
         {
             CalculateColor();
         }
