@@ -1001,7 +1001,7 @@ void DrawSetName()
         position++;
     }
 
-    int x = Painter::DrawTextC(x0 + deltaX, y0 + 65, FILE_NAME, COLOR_FILL);
+    int x = Painter::DrawText(x0 + deltaX, y0 + 65, FILE_NAME, COLOR_FILL);
     Painter::FillRegion(x, y0 + 65, 5, 8, Color::FLASH_10);
 }
 

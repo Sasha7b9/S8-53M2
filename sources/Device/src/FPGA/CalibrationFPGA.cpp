@@ -304,7 +304,7 @@ void FPGA::FuncAttScreen()
     */
     char buffer[100];
     sprintf(buffer, "%.1f", (gTimerMS - startTime) / 1000.0f);
-    Painter::DrawTextC(0, 0, buffer, Color::BLACK);
+    Painter::DrawText(0, 0, buffer, Color::BLACK);
 
     Painter::EndScene();
 }

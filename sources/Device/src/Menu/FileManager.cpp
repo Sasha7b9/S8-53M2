@@ -54,7 +54,7 @@ void FM::DrawLongString(int x, int y, char *string, bool hightlight)
 
     if (length <= WIDTH_COL)
     {
-        Painter::DrawTextC(x, y, string, color);
+        Painter::DrawText(x, y, string, color);
     }
     else
     {

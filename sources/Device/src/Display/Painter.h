@@ -58,9 +58,7 @@ namespace Painter
 
     int DrawChar(int x, int y, char symbol, Color::E = Color::COUNT);
 
-    int DrawText(int x, int y, const char * const text);
-
-    int DrawTextC(int x, int y, const char *text, Color::E);
+    int DrawText(int x, int y, const char *text, Color::E = Color::COUNT);
     // Выводит текст на прямоугольнике цвета colorBackgound
     int DrawTextOnBackground(int x, int y, const char *text, Color::E colorBackground);
 

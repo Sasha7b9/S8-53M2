@@ -195,8 +195,13 @@ int Painter::DrawChar(int x, int y, char symbol, Color::E color)
 }
 
 
-int Painter::DrawText(int x, int y, const char * const _text)
+int Painter::DrawText(int x, int y, const char *const _text, Color::E color)
 {
+    if (color != Color::COUNT)
+    {
+        Color::SetCurrent(color);
+    }
+
     CalculateCurrentColor();
 
     if (*_text == 0)
@@ -248,13 +253,6 @@ int Painter::DrawText(int x, int y, const char * const _text)
     }
 
     return x;
-}
-
-
-int Painter::DrawTextC(int x, int y, const char *text, Color::E color)
-{
-    Color::SetCurrent(color);
-    return Painter::DrawText(x, y, text);
 }
 
 
@@ -691,7 +689,7 @@ int Painter::DrawFormatText(int x, int y, Color::E color, char *text, ...)
     va_start(args, text);
     vsprintf(buffer, text, args);
     va_end(args);
-    return DrawTextC(x, y, buffer, color);
+    return DrawText(x, y, buffer, color);
 #undef SIZE_BUFFER
 }
 
