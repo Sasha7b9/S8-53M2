@@ -49,7 +49,7 @@ namespace Display
 
     void ChangedRShiftMarkers();
 
-    void AddStringToIndicating(const char *string);
+    void AddStringToIndicating(pchar string);
 
     void OneStringUp();
 

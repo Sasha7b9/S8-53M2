@@ -27,6 +27,6 @@ extern const uchar fontUGO2display[3080];
 
 
 int Font_GetSize();
-int Font_GetLengthText(const char *text);
+int Font_GetLengthText(pchar text);
 int Font_GetHeightSymbol(char symbol);
 int Font_GetLengthSymbol(uchar symbol);

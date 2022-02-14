@@ -157,7 +157,7 @@ int Painter_DrawCharC(int x, int y, char symbol, Color::E color)
 }
 
 
-int Painter_DrawText(int x, int y, const char *text)
+int Painter_DrawText(int x, int y, pchar text)
 {
 #undef SIZE_BUFFER
 #define SIZE_BUFFER 100
@@ -198,7 +198,7 @@ int Painter_DrawText(int x, int y, const char *text)
 }
 
 
-int Painter_DrawTextC(int x, int y, const char *text, Color::E color)
+int Painter_DrawTextC(int x, int y, pchar text, Color::E color)
 {
     Painter_SetColor(color);
     return Painter_DrawText(x, y, text);
@@ -275,7 +275,7 @@ static bool IsLetter(char symbol)
 }
 
 
-static char *GetWord(const char *firstSymbol, int *length, char buffer[20])
+static char *GetWord(pchar firstSymbol, int *length, char buffer[20])
 {
     int pointer = 0;
     *length = 0;
@@ -426,7 +426,7 @@ static int8* BreakWord(char *word)
 }
 
 
-int Painter_DrawTextInRectWithTransfersC(int x, int y, int width, int height, const char *text, Color::E color)
+int Painter_DrawTextInRectWithTransfersC(int x, int y, int width, int height, pchar text, Color::E color)
 {
     Painter_SetColor(color);
     return Painter_DrawTextInRectWithTransfers(x, y, width, height, text);
@@ -452,7 +452,7 @@ int Painter_DrawTextFormatting(int x, int y, Color::E color, char *text, ...)
 }
 
 
-int Painter_DrawStringInCenterRect(int eX, int eY, int width, int eHeight, const char *text)
+int Painter_DrawStringInCenterRect(int eX, int eY, int width, int eHeight, pchar text)
 {
     int lenght = Font_GetLengthText(text);
     int height = Font_GetHeightSymbol(text[0]);
@@ -462,14 +462,14 @@ int Painter_DrawStringInCenterRect(int eX, int eY, int width, int eHeight, const
 }
 
 
-int Painter_DrawStringInCenterRectC(int x, int y, int width, int height, const char *text, Color::E color)
+int Painter_DrawStringInCenterRectC(int x, int y, int width, int height, pchar text, Color::E color)
 {
     Painter_SetColor(color);
     return Painter_DrawStringInCenterRect(x, y, width, height, text);
 }
 
 
-void Painter_DrawStringInCenterRectOnBackgroundC(int x, int y, int width, int height, const char *text, Color::E colorText, int widthBorder, Color::E colorBackground)
+void Painter_DrawStringInCenterRectOnBackgroundC(int x, int y, int width, int height, pchar text, Color::E colorText, int widthBorder, Color::E colorBackground)
 {
     int lenght = Font_GetLengthText(text);
     int eX = Painter_DrawStringInCenterRectC(x, y, width, height, text, colorBackground);
@@ -480,7 +480,7 @@ void Painter_DrawStringInCenterRectOnBackgroundC(int x, int y, int width, int he
 }
 
 
-int Painter_DrawStringInCenterRectAndBoundItC(int x, int y, int width, int height, const char *text, Color::E colorBackground, Color::E colorFill)
+int Painter_DrawStringInCenterRectAndBoundItC(int x, int y, int width, int height, pchar text, Color::E colorBackground, Color::E colorFill)
 {
     Painter_DrawRectangleC(x, y, width, height, colorFill);
     Painter_FillRegionC(x + 1, y + 1, width - 2, height - 2, colorBackground);
@@ -550,7 +550,7 @@ void Painter_DrawTextInRect(int x, int y, int width, char *text)
 }
 
 
-void Painter_DrawTextRelativelyRight(int xRight, int y, const char *text)
+void Painter_DrawTextRelativelyRight(int xRight, int y, pchar text)
 {
     int lenght = Font_GetLengthText(text);
     Painter_DrawText(xRight - lenght, y, text);
@@ -584,7 +584,7 @@ void Painter_Draw10SymbolsInRect(int x, int y, char eChar)
 }
 
 
-void Painter_DrawBigText(int eX, int eY, int size, const char *text)
+void Painter_DrawBigText(int eX, int eY, int size, pchar text)
 {
     int numSymbols = (int)strlen(text);
 
@@ -646,7 +646,7 @@ static int DrawPartWord(char *word, int x, int y, int xRight, bool draw)
 }
 
 
-int Painter_DrawTextInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, const char *text)
+int Painter_DrawTextInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, pchar text)
 {
     int top = eY;
     int left = eX;

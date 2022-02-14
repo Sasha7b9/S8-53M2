@@ -6,7 +6,7 @@
 
 
 /*
-volatile static const char *addrNamesForWrite[32] =
+volatile static pchar addrNamesForWrite[32] =
 {
     "WR_START",         // 0x00
     "NONE",             // 0x01

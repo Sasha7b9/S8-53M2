@@ -23,7 +23,7 @@ typedef struct
 
 
 
-static bool GetNameFile(const char *fullPath, int numFile, char *nameFileOut, StructForReadDir *s);
+static bool GetNameFile(pchar fullPath, int numFile, char *nameFileOut, StructForReadDir *s);
 static bool GetNextNameFile(char *nameFileOut, StructForReadDir *s);
 static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8 id);
 
@@ -134,7 +134,7 @@ bool FDrive_FileExist(char *fileName)
 }
 
 
-static bool GetNameFile(const char *fullPath, int numFile, char *nameFileOut, StructForReadDir *s)
+static bool GetNameFile(pchar fullPath, int numFile, char *nameFileOut, StructForReadDir *s)
 {
     memcpy(s->nameDir, fullPath, strlen(fullPath));
     s->nameDir[strlen(fullPath)] = '\0';

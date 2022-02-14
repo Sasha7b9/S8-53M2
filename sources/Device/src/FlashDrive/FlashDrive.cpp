@@ -143,7 +143,7 @@ void FlashDrive::GetNumDirsAndFiles(const char* fullPath, int *numDirs, int *num
 }
 
 
-bool FlashDrive::GetNameDir(const char *fullPath, int numDir, char *nameDirOut, StructForReadDir *s)
+bool FlashDrive::GetNameDir(pchar fullPath, int numDir, char *nameDirOut, StructForReadDir *s)
 {
     memcpy(s->nameDir, fullPath, strlen(fullPath));
     s->nameDir[strlen(fullPath)] = '\0';
@@ -233,7 +233,7 @@ void FlashDrive::CloseCurrentDir(StructForReadDir *s)
 }
 
 
-bool FlashDrive::GetNameFile(const char *fullPath, int numFile, char *nameFileOut, StructForReadDir *s)
+bool FlashDrive::GetNameFile(pchar fullPath, int numFile, char *nameFileOut, StructForReadDir *s)
 {
     memcpy(s->nameDir, fullPath, strlen(fullPath));
     s->nameDir[strlen(fullPath)] = '\0';

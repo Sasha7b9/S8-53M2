@@ -58,29 +58,29 @@ namespace Painter
 
     int DrawChar(int x, int y, char symbol, Color::E = Color::COUNT);
 
-    int DrawText(int x, int y, const char *text, Color::E = Color::COUNT);
+    int DrawText(int x, int y, pchar text, Color::E = Color::COUNT);
     // Выводит текст на прямоугольнике цвета colorBackgound
-    int DrawTextOnBackground(int x, int y, const char *text, Color::E colorBackground);
+    int DrawTextOnBackground(int x, int y, pchar text, Color::E colorBackground);
 
     int DrawTextWithLimitationC(int x, int y, const char* text, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight);
     // Возвращает нижнюю координату прямоугольника.
-    int DrawTextInBoundedRectWithTransfers(int x, int y, int width, const char *text, Color::E colorBackground, Color::E colorFill);
+    int DrawTextInBoundedRectWithTransfers(int x, int y, int width, pchar text, Color::E colorBackground, Color::E colorFill);
 
-    int DrawTextInRectWithTransfers(int x, int y, int width, int height, const char *text, Color::E = Color::COUNT);
+    int DrawTextInRectWithTransfers(int x, int y, int width, int height, pchar text, Color::E = Color::COUNT);
 
     int DrawFormatText(int x, int y, Color::E color, char *text, ...);
 
-    int DrawStringInCenterRect(int x, int y, int width, int height, const char *text, Color::E = Color::COUNT);
+    int DrawStringInCenterRect(int x, int y, int width, int height, pchar text, Color::E = Color::COUNT);
     // Пишет строку текста в центре области(x, y, width, height)цветом ColorText на прямоугольнике с шириной бордюра widthBorder цвета colorBackground.
-    void DrawStringInCenterRectOnBackground(int x, int y, int width, int height, const char *text, Color::E colorText, int widthBorder, Color::E colorBackground);
+    void DrawStringInCenterRectOnBackground(int x, int y, int width, int height, pchar text, Color::E colorText, int widthBorder, Color::E colorBackground);
 
-    int DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, const char *text, Color::E colorBackground, Color::E colorFill);
+    int DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, pchar text, Color::E colorBackground, Color::E colorFill);
 
     void DrawHintsForSmallButton(int x, int y, int width, void *smallButton);
 
     void DrawTextInRect(int x, int y, int width, int height, char *text);
 
-    void DrawTextRelativelyRight(int xRight, int y, const char *text, Color::E = Color::COUNT);
+    void DrawTextRelativelyRight(int xRight, int y, pchar text, Color::E = Color::COUNT);
 
     void Draw2Symbols(int x, int y, char symbol1, char symbol2, Color::E color1, Color::E color2);
 
@@ -88,5 +88,5 @@ namespace Painter
 
     void Draw10SymbolsInRect(int x, int y, char eChar);
 
-    void DrawBigText(int x, int y, int size, const char *text);
+    void DrawBigText(int x, int y, int size, pchar text);
 };

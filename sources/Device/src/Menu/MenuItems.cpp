@@ -29,7 +29,7 @@ Control::Control(const ControlStruct *str) : type(str->type), keeper(str->keeper
 }
 
 
-Control::Control(TypeItem type_, const Page* keeper_, pFuncBV funcOfActive_, const char *titleRU, const char *titleEN, const char *hintRU, const char *hintEN) :
+Control::Control(TypeItem type_, const Page* keeper_, pFuncBV funcOfActive_, pchar titleRU, pchar titleEN, pchar hintRU, pchar hintEN) :
     type(type_), keeper(keeper_), funcOfActive(funcOfActive_)
 {
     titleHint[0] = titleRU;
@@ -39,7 +39,7 @@ Control::Control(TypeItem type_, const Page* keeper_, pFuncBV funcOfActive_, con
 }
 
 
-Page::Page(const Page *keeper_, pFuncBV funcOfActive_, const char *titleRU, const char *titleEN, const char *hintRU, const char *hintEN, 
+Page::Page(const Page *keeper_, pFuncBV funcOfActive_, pchar titleRU, pchar titleEN, pchar hintRU, pchar hintEN, 
            NamePage name_, const arrayItems *items_, pFuncVV funcOnPress_, pFuncVV funcOnDraw_, pFuncVI funcRegSetSB_) :
     Control(Item_Page, keeper_, funcOfActive_, titleRU, titleEN, hintRU, hintEN),
     name(name_), items(items_), funcOnPress(funcOnPress_), funcOnDraw(funcOnDraw_), funcRegSetSB(funcRegSetSB_)
@@ -48,7 +48,7 @@ Page::Page(const Page *keeper_, pFuncBV funcOfActive_, const char *titleRU, cons
 
 
 Button::Button(const Page *keeper_, pFuncBV funcOfActive_,
-       const char *titleRU, const char *titleEN, const char *hintRU, const char *hintEN, pFuncVV funcOnPress_) :
+       pchar titleRU, pchar titleEN, pchar hintRU, pchar hintEN, pFuncVV funcOnPress_) :
     Control(Item_Button, keeper_, funcOfActive_, titleRU, titleEN, hintRU, hintEN),
     funcOnPress(funcOnPress_)
 {
@@ -56,7 +56,7 @@ Button::Button(const Page *keeper_, pFuncBV funcOfActive_,
 
 
 SmallButton::SmallButton(const Page *keeper_, pFuncBV funcOfActive_,
-            const char *titleRU, const char *titleEN, const char *hintRU, const char *hintEN,
+            pchar titleRU, pchar titleEN, pchar hintRU, pchar hintEN,
             pFuncVV funcOnPress_, pFuncVII funcOnDraw_, const arrayHints *hintUGO_) :
     Control(Item_SmallButton, keeper_, funcOfActive_, titleRU, titleEN, hintRU, hintEN),
     funcOnPress(funcOnPress_), funcOnDraw(funcOnDraw_), hintUGO(hintUGO_)
@@ -65,7 +65,7 @@ SmallButton::SmallButton(const Page *keeper_, pFuncBV funcOfActive_,
 
 
 Governor::Governor(const Page *keeper_, pFuncBV funcOfActive_,
-         const char *titleRU, const char *titleEN, const char *hintRU, const char *hintEN,
+         pchar titleRU, pchar titleEN, pchar hintRU, pchar hintEN,
          int16 *cell_, int16 minValue_, int16 maxValue_, pFuncVV funcOfChanged_, pFuncVV funcBeforeDraw_) :
     Control(Item_Governor, keeper_, funcOfActive_, titleRU, titleEN, hintRU, hintEN),
     cell(cell_), minValue(minValue_), maxValue(maxValue_), funcOfChanged(funcOfChanged_), funcBeforeDraw(funcBeforeDraw_)
@@ -86,19 +86,19 @@ IPaddress::IPaddress(const IPaddressStruct *str) :
 }
 
 
-const char *Choice::NameSubItem(int i)
+pchar Choice::NameSubItem(int i)
 {
     return names[i][LANG];
 }
 
 
-const char *Choice::NameCurrentSubItem()
+pchar Choice::NameCurrentSubItem()
 {
     return (cell == 0) ? "" : names[*cell][LANG];
 }
 
 
-const char *Choice::NameNextSubItem()
+pchar Choice::NameNextSubItem()
 {
     if (cell == 0)
     {
@@ -113,7 +113,7 @@ const char *Choice::NameNextSubItem()
 }
 
 
-const char *Choice::NamePrevSubItem()
+pchar Choice::NamePrevSubItem()
 {
     if (cell == 0)
     {

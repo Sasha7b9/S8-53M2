@@ -27,7 +27,7 @@ int Font_GetSize()
 
 
 
-int Font_GetLengthText(const char *text)
+int Font_GetLengthText(pchar text)
 {
     int retValue = 0;
     while (*text)

@@ -124,6 +124,6 @@ struct StructRelAbs
 #define M_PI                3.14159265358979323846
 
 #define ERROR_HANDLER() HardwareErrorHandler(__FILE__, __FUNCTION__, __LINE__)
-void HardwareErrorHandler(const char *file, const char *function, int line);
+void HardwareErrorHandler(pchar file, pchar function, int line);
 
 #include "Globals.h"

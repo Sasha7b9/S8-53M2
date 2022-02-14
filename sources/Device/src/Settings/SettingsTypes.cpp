@@ -4,9 +4,9 @@
 #include "FPGA/SettingsFPGA.h"
 
 
-const char *RangeName(Range::E range)
+pchar RangeName(Range::E range)
 {
-    static const char *names[Range::Count + 1] =
+    static pchar names[Range::Count + 1] =
     {
         "2mV",
         "5mV",
@@ -27,9 +27,9 @@ const char *RangeName(Range::E range)
 }
 
 
-const char *TBaseName(TBase::E tBase)
+pchar TBaseName(TBase::E tBase)
 {
-    static const char *names[TBase::Count + 1] =
+    static pchar names[TBase::Count + 1] =
     {
         "2ns",
         "5ns",

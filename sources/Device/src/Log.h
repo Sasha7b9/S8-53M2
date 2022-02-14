@@ -14,7 +14,7 @@
 #define LOG_FUNC_LEAVE  Log_Write("%s leave", __FUNCTION__);
 #define LOG_TRACE       Log_Write("%s : %d", __MODULE__, __LINE__);
 
-void Log_Error(const char *module, const char *func, int numLine, char *format, ...);
+void Log_Error(pchar module, pchar func, int numLine, char *format, ...);
 void Log_Write(char *format, ...);
 void Log_DisconnectLoggerUSB();
 void Log_EnableLoggerUSB(bool enable);

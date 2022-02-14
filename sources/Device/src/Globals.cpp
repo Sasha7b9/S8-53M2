@@ -84,7 +84,7 @@ StateFPGA gStateFPGA =
     StateCalibration_None
 };
 
-const char *gStringForHint = 0;
+pchar gStringForHint = 0;
 void *gItemHint = 0;
 
 

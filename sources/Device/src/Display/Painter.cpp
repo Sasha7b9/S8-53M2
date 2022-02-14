@@ -168,7 +168,7 @@ static int numberColorsUsed = 0;
 void InterCom::Send(uint8 *pointer, int size)
 {
     VCP::SendDataSynch(pointer, size);
-    TCPSocket_Send((const char *)pointer, (uint)size);
+    TCPSocket_Send((pchar )pointer, (uint)size);
 }
 
 

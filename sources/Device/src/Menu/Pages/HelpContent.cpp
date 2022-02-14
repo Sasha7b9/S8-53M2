@@ -31,7 +31,7 @@ static void DrawPageContent()
     while(currentPage->pages[numPage])
     {
         Page *page = (Page*)currentPage->pages[numPage];
-        const char *title = TITLE(page);
+        pchar title = TITLE(page);
         if(currentParagraph == numPage)
         {
             Painter::DrawStringInCenterRectOnBackground(0, y, WIDTH, 10, title, COLOR_BACK, 2, COLOR_FILL);

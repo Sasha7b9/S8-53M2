@@ -23,7 +23,7 @@ namespace Painter
 
     int DrawPartWord(char *word, int x, int y, int xRight, bool draw);
 
-    bool GetHeightTextWithTransfers(int left, int top, int right, const char *text, int *height);
+    bool GetHeightTextWithTransfers(int left, int top, int right, pchar text, int *height);
 
     int DrawSubString(int x, int y, char *text);
 
@@ -188,7 +188,7 @@ int Painter::DrawChar(int x, int y, char symbol, Color::E color)
 }
 
 
-int Painter::DrawText(int x, int y, const char *const _text, Color::E color)
+int Painter::DrawText(int x, int y, pchar const _text, Color::E color)
 {
     Color::SetCurrent(color);
 
@@ -244,7 +244,7 @@ int Painter::DrawText(int x, int y, const char *const _text, Color::E color)
 }
 
 
-int Painter::DrawTextOnBackground(int x, int y, const char *text, Color::E colorBackground)
+int Painter::DrawTextOnBackground(int x, int y, pchar text, Color::E colorBackground)
 {
     int width = Font_GetLengthText(text);
     int height = Font_GetSize();
@@ -327,7 +327,7 @@ static bool IsLetter(char symbol)
 }
 
 
-static char *GetWord(const char *firstSymbol, int *length, char buffer[20])
+static char *GetWord(pchar firstSymbol, int *length, char buffer[20])
 {
     int pointer = 0;
     *length = 0;
@@ -529,7 +529,7 @@ int Painter::DrawPartWord(char *word, int x, int y, int xRight, bool draw)
 }
 
 
-int Painter::DrawTextInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, const char *text, Color::E color)
+int Painter::DrawTextInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, pchar text, Color::E color)
 {
     Color::SetCurrent(color);
 
@@ -593,7 +593,7 @@ int Painter::DrawTextInRectWithTransfers(int eX, int eY, int eWidth, int eHeight
 
 
 // Возвращает высоту экрана, которую займёт текст text, при выводе от left до right в переменной height. Если bool == false, то текст не влезет на экран 
-bool Painter::GetHeightTextWithTransfers(int left, int top, int right, const char *text, int *height)
+bool Painter::GetHeightTextWithTransfers(int left, int top, int right, pchar text, int *height)
 {
     char buffer[20];
     int numSymb = (int)strlen(text);
@@ -651,7 +651,7 @@ bool Painter::GetHeightTextWithTransfers(int left, int top, int right, const cha
 }
 
 
-int Painter::DrawTextInBoundedRectWithTransfers(int x, int y, int width, const char *text, Color::E colorBackground, Color::E colorFill)
+int Painter::DrawTextInBoundedRectWithTransfers(int x, int y, int width, pchar text, Color::E colorBackground, Color::E colorFill)
 {
     int height = 0;
     GetHeightTextWithTransfers(x + 3, y + 3, x + width - 8, text, &height);
@@ -677,7 +677,7 @@ int Painter::DrawFormatText(int x, int y, Color::E color, char *text, ...)
 }
 
 
-int Painter::DrawStringInCenterRect(int eX, int eY, int width, int eHeight, const char *text, Color::E color)
+int Painter::DrawStringInCenterRect(int eX, int eY, int width, int eHeight, pchar text, Color::E color)
 {
     Color::SetCurrent(color);
 
@@ -689,7 +689,7 @@ int Painter::DrawStringInCenterRect(int eX, int eY, int width, int eHeight, cons
 }
 
 
-void Painter::DrawStringInCenterRectOnBackground(int x, int y, int width, int height, const char *text, Color::E colorText, int widthBorder, 
+void Painter::DrawStringInCenterRectOnBackground(int x, int y, int width, int height, pchar text, Color::E colorText, int widthBorder, 
                                                  Color::E colorBackground)
 {
     int lenght = Font_GetLengthText(text);
@@ -701,7 +701,7 @@ void Painter::DrawStringInCenterRectOnBackground(int x, int y, int width, int he
 }
 
 
-int Painter::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, const char *text, Color::E colorBackground, Color::E colorFill)
+int Painter::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, pchar text, Color::E colorBackground, Color::E colorFill)
 {
     DrawRectangle(x, y, width, height, colorFill);
     FillRegion(x + 1, y + 1, width - 2, height - 2, colorBackground);
@@ -790,7 +790,7 @@ void Painter::DrawTextInRect(int x, int y, int width, int height, char *text)
 }
 
 
-void Painter::DrawTextRelativelyRight(int xRight, int y, const char *text, Color::E color)
+void Painter::DrawTextRelativelyRight(int xRight, int y, pchar text, Color::E color)
 {
     Color::SetCurrent(color);
 
@@ -828,7 +828,7 @@ void Painter::Draw10SymbolsInRect(int x, int y, char eChar)
 }
 
 
-void Painter::DrawBigText(int eX, int eY, int size, const char *text)
+void Painter::DrawBigText(int eX, int eY, int size, pchar text)
 {
     int numSymbols = (int)strlen(text);
 

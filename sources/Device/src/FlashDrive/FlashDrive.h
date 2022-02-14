@@ -43,7 +43,7 @@ namespace FlashDrive
 
     void CloseCurrentDir(StructForReadDir *sfrd);
 
-    bool GetNameFile(const char *fullPath, int numFile, char *nameFileOut, StructForReadDir *sfrd);
+    bool GetNameFile(pchar fullPath, int numFile, char *nameFileOut, StructForReadDir *sfrd);
 
     bool GetNextNameFile(char *nameFileOut, StructForReadDir *sfrd);
 

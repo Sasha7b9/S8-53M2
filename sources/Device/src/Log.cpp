@@ -29,7 +29,7 @@ void Log_Write(char *format, ...)
 }
 
 
-void Log_Error(const char *module, const char *func, int numLine, char *format, ...)
+void Log_Error(pchar module, pchar func, int numLine, char *format, ...)
 {
     char buffer[SIZE_BUFFER_LOG];
     va_list args;

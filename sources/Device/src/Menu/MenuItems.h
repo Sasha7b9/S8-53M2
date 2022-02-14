@@ -107,7 +107,7 @@ public:
 
 public:
     Control(const ControlStruct *str);
-    Control(TypeItem type_, const Page* keeper_, pFuncBV funcOfActive_, const char *tileRU, const char *titleEN, const char *hintRU, const char *hintEN);
+    Control(TypeItem type_, const Page* keeper_, pFuncBV funcOfActive_, pchar tileRU, pchar titleEN, pchar hintRU, pchar hintEN);
     // Возвращает true, если кнопка, соответствующая данному элементу меню, находится в нажатом положении.
     bool IsPressed();
 };
@@ -144,7 +144,7 @@ public:
     //Page(PageStruct *pageStruct);
     
     Page(const Page *keeper_, pFuncBV funcOfActive_,
-         const char *titleRU, const char *titleEN, const char *hintRU, const char *hintEN, NamePage name_,
+         pchar titleRU, pchar titleEN, pchar hintRU, pchar hintEN, NamePage name_,
          const arrayItems *items_, pFuncVV funcOnPress_ = 0, pFuncVV funcOnDraw_ = 0, pFuncVI funcRegSetSB_ = 0);
 };
 
@@ -156,7 +156,7 @@ public:
     pFuncVV         funcOnPress;    // Функция, которая вызывается при нажатии на кнопку.
 
     Button(const Page *keeper_, pFuncBV funcOfActive_,
-            const char *titleRU, const char *titleEN, const char *hintRU, const char *hintEN, pFuncVV funcOnPress_);
+            pchar titleRU, pchar titleEN, pchar hintRU, pchar hintEN, pFuncVV funcOnPress_);
 };
 
 
@@ -164,7 +164,7 @@ class StructHelpSmallButton
 {
 public:
     pFuncVII    funcDrawUGO;    // Указатель на функцию отрисовки изображения варианта кнопки
-    const char *helpUGO[2];     // Подпись к данному изображению.
+    pchar helpUGO[2];     // Подпись к данному изображению.
 };
 
 typedef StructHelpSmallButton arrayHints[MAX_NUM_CHOICE_SMALL_BUTTON];
@@ -179,7 +179,7 @@ public:
     const arrayHints   *hintUGO;
 
     SmallButton(const Page *keeper_, pFuncBV funcOfActive_,
-                const char *titleRU, const char *titleEN, const char *hintRU, const char *hintEN,
+                pchar titleRU, pchar titleEN, pchar hintRU, pchar hintEN,
                 pFuncVV funcOnPress_, pFuncVII funcOnDraw_, const arrayHints *hintUGO_ = 0);
 };
 
@@ -195,7 +195,7 @@ public:
     pFuncVV     funcBeforeDraw;         // Функция, которая вызывается перед отрисовкой
 
     Governor(const Page *keeper_, pFuncBV funcOfActive_,
-             const char *titleRU, const char *titleEN, const char *hintRU, const char *hintEN,
+             pchar titleRU, pchar titleEN, pchar hintRU, pchar hintEN,
              int16 *cell_, int16 minValue_, int16 maxValue_, pFuncVV funcOfChanged_ = 0, pFuncVV funcBeforeDraw_ = 0);
 };
 
@@ -275,17 +275,17 @@ class Choice
 {
 public:
     COMMON_PART_MENU_ITEM
-    const char *names[MAX_NUM_SUBITEMS_IN_CHOICE][2];   // Варианты выбора на русском и английском языках.
+    pchar names[MAX_NUM_SUBITEMS_IN_CHOICE][2];   // Варианты выбора на русском и английском языках.
     int8*       cell;                                   // Адрес ячейки, в которой хранится позиция текущего выбора.
     pFuncVB	    funcOnChanged;                          // Функция должна вызываться после изменения значения элемента.
     pFuncVII    funcForDraw;                            // Функция вызывается после отрисовки элемента. 
-    const char *NameSubItem(int i);
+    pchar NameSubItem(int i);
     // Возвращает имя текущего варианта выбора элемента choice, как оно записано в исходном коде программы.
-    const char *NameCurrentSubItem();
+    pchar NameCurrentSubItem();
     // Возвращает имя следующего варианта выбора элемента choice, как оно записано в исходном коде программы.
-    const char *NameNextSubItem();
+    pchar NameNextSubItem();
 
-    const char *NamePrevSubItem();
+    pchar NamePrevSubItem();
     // Возвращает количество вариантов выбора в элементе по адресу choice.
     int NumSubItems();
 

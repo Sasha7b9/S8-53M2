@@ -313,7 +313,7 @@ char* Menu::StringNavigation(char buffer[100])
     if(SHOW_STRING_NAVIGATION && MenuIsShown())
     {
         buffer[0] = 0;
-        const char *titles[10] = {0};
+        pchar titles[10] = {0};
         int numTitle = 0;
         void *item = OpenedItem();
         if(IsMainPage(item))

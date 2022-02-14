@@ -15,7 +15,7 @@
 
 struct StructMeasure
 {
-    const char *name;
+    pchar name;
     const char UGO;
 };
 

@@ -103,7 +103,7 @@ int Tables_ENUMtoNumSignalsInSec(ENumSignalsInSec enumSignalsInSec)
 
 const char* Tables_GetWarning(Warning warning)
 {
-    static const char *warnings[Warning_NumWarnings][2] =
+    static pchar warnings[Warning_NumWarnings][2] =
     {
         {"опедек йюмюк 1 - бнкэр/дек",      "LIMIT CHANNEL 1 - VOLTS/DIV"},
         {"опедек йюмюк 2 - бнкэр/дек",      "LIMIT CHANNEL 2 - VOLTS/DIV"},
@@ -179,7 +179,7 @@ int Tables_GetNumChannel(Chan::E ch)
 
 void DrawStr(int index, int x, int y)
 {
-    const char *str = symbolsAlphaBet[index];
+    pchar str = symbolsAlphaBet[index];
     if (index == INDEX_SYMBOL)
     {
         Painter::FillRegion(x - 1, y, Font_GetLengthText(str), 9, Color::FLASH_10);

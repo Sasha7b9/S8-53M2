@@ -9,7 +9,7 @@
 #include <stm32f4xx_hal_sram.h>
 
 /*
-static const char *addrNamesForWrite[32] =
+static pchar addrNamesForWrite[32] =
 {
     "WR_START",         // 0x00
     "NONE",             // 0x01
