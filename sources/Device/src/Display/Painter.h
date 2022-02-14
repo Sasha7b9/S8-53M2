@@ -2,7 +2,6 @@
 #pragma once
 #include "Display/Colors.h"
 #include "Display/DisplayTypes.h"
-#include "Display/PainterText.h"
 
 
 namespace Painter 
@@ -55,6 +54,8 @@ namespace Painter
     void SetFont(TypeFont::E typeFont);
     // Загрузить шрифта в дисплей.
     void LoadFont(TypeFont::E typeFont);
+
+    int DrawChar(int x, int y, char symbol, Color::E = Color::COUNT);
 
     int DrawText(int x, int y, pchar text, Color::E = Color::COUNT);
     // Выводит текст на прямоугольнике цвета colorBackgound
