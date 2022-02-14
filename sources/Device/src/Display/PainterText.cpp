@@ -22,13 +22,43 @@ namespace Painter
 
     int DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int limitY, int limitWidth, int limitHeight);
 
+    // Если draw == false, то рисовать символ не надо, фунция используется только для вычислений
     int DrawPartWord(char *word, int x, int y, int xRight, bool draw);
 
+    // Возвращает высоту экрана, которую займёт текст text, при выводе от left до right в переменной height. Если
+    // bool == false, то текст не влезет на экран 
     bool GetHeightTextWithTransfers(int left, int top, int right, pchar text, int *height);
 
     int DrawSubString(int x, int y, char *text);
 
     int DrawSpaces(int x, int y, char *text, int *numSymbols);
+
+    bool ByteFontNotEmpty(int eChar, int byte);
+
+    bool BitInFontIsExist(int eChar, int numByte, int bit);
+
+    void DrawCharInColorDisplay(int eX, int eY, uchar symbol);
+
+    int DrawBigChar(int eX, int eY, int size, char symbol);
+
+    bool IsLetter(char symbol);
+
+    char *GetWord(pchar firstSymbol, int *length, char buffer[20]);
+
+    int GetLenghtSubString(char *text);
+
+    bool IsConsonant(char symbol);
+
+    // Находит следующий перенос. C letters начинается часть слово, где нужно найти перенос, в lettersInSyllable будет
+    // записано число букв в найденном слоге. Если слово закончилось, функция возвращает false
+    bool FindNextTransfer(char *letters, int8 *lettersInSyllable);
+
+    int8 *BreakWord(char *word);
+
+    bool CompareArrays(const bool *array1, const bool *array2, int numElems);
+
+    // Возвращает часть слова до слога numSyllable(включительн) вместе со знаком переноса
+    char *PartWordForTransfer(char *word, int8 *lengthSyllables, int numSyllables, int numSyllable, char buffer[30]);
 }
 
 
@@ -74,7 +104,7 @@ void Painter::LoadFont(TypeFont::E typeFont)
 }
 
 
-bool ByteFontNotEmpty(int eChar, int byte)
+bool Painter::ByteFontNotEmpty(int eChar, int byte)
 {
     static const uint8 *bytes = 0;
     static int prevChar = -1;
@@ -89,7 +119,7 @@ bool ByteFontNotEmpty(int eChar, int byte)
 }
 
 
-static bool BitInFontIsExist(int eChar, int numByte, int bit)
+bool Painter::BitInFontIsExist(int eChar, int numByte, int bit)
 {
     static uint8 prevByte = 0;      // WARN здесь точно статики нужны?
     static int prevChar = -1;
@@ -104,7 +134,7 @@ static bool BitInFontIsExist(int eChar, int numByte, int bit)
 }
 
 
-static void DrawCharInColorDisplay(int eX, int eY, uchar symbol)
+void Painter::DrawCharInColorDisplay(int eX, int eY, uchar symbol)
 {
     int8 width = (int8)Font::font->symbol[symbol].width;
     int8 height = (int8)Font::font->height;
@@ -129,7 +159,7 @@ static void DrawCharInColorDisplay(int eX, int eY, uchar symbol)
 }
 
 
-static int Painter_DrawBigChar(int eX, int eY, int size, char symbol)
+int Painter::DrawBigChar(int eX, int eY, int size, char symbol)
 {
     int8 width = (int8)Font::font->symbol[symbol].width;
     int8 height = (int8)Font::font->height;
@@ -323,7 +353,7 @@ int Painter::DrawTextWithLimitationC(int x, int y, pchar  text, Color::E color, 
 }
 
 
-static bool IsLetter(char symbol)
+bool Painter::IsLetter(char symbol)
 {
     static const bool isLetter[256] =
     {
@@ -349,7 +379,7 @@ static bool IsLetter(char symbol)
 }
 
 
-static char *GetWord(pchar firstSymbol, int *length, char buffer[20])
+char *Painter::GetWord(pchar firstSymbol, int *length, char buffer[20])
 {
     int pointer = 0;
     *length = 0;
@@ -367,7 +397,7 @@ static char *GetWord(pchar firstSymbol, int *length, char buffer[20])
 }
 
 
-static bool IsConsonant(char symbol)
+bool Painter::IsConsonant(char symbol)
 {
     static const bool isConsonat[256] =
     {
@@ -393,7 +423,7 @@ static bool IsConsonant(char symbol)
 }
 
 
-static bool CompareArrays(const bool *array1, const bool *array2, int numElems)
+bool Painter::CompareArrays(const bool *array1, const bool *array2, int numElems)
 {
     for (int i = 0; i < numElems; i++)
     {
@@ -406,9 +436,7 @@ static bool CompareArrays(const bool *array1, const bool *array2, int numElems)
 }
 
 
-// Находит следующий перенос. C letters начинается часть слово, где нужно найти перенос, в lettersInSyllable будет записано число букв в найденном 
-// слоге. Если слово закончилось, функция возвращает false
-static bool FindNextTransfer(char *letters, int8 *lettersInSyllable)
+bool Painter::FindNextTransfer(char *letters, int8 *lettersInSyllable)
 {
 
 #define VOWEL       0   // Гласная
@@ -475,7 +503,7 @@ static bool FindNextTransfer(char *letters, int8 *lettersInSyllable)
 }
 
 
-static int8* BreakWord(char *word)
+int8* Painter::BreakWord(char *word)
 {
     int num = 0;
     static int8 lengthSyllables[10];
@@ -500,8 +528,7 @@ static int8* BreakWord(char *word)
 }
 
 
-// Возвращает часть слова до слога numSyllable(включительн) вместе со знаком переноса
-static char* PartWordForTransfer(char *word, int8* lengthSyllables, int numSyllables, int numSyllable, char buffer[30])
+char* Painter::PartWordForTransfer(char *word, int8* lengthSyllables, int numSyllables, int numSyllable, char buffer[30])
 {
     int length = 0;
 
@@ -517,7 +544,6 @@ static char* PartWordForTransfer(char *word, int8* lengthSyllables, int numSylla
 }
 
 
-// Если draw == false, то рисовать символ не надо, фунция используется только для вычислений
 int Painter::DrawPartWord(char *word, int x, int y, int xRight, bool draw)
 {
     int8 *lengthSyllables = BreakWord(word);
@@ -614,7 +640,6 @@ int Painter::DrawTextInRectWithTransfers(int eX, int eY, int eWidth, int eHeight
 }
 
 
-// Возвращает высоту экрана, которую займёт текст text, при выводе от left до right в переменной height. Если bool == false, то текст не влезет на экран 
 bool Painter::GetHeightTextWithTransfers(int left, int top, int right, pchar text, int *height)
 {
     char buffer[20];
@@ -751,7 +776,7 @@ void Painter::DrawHintsForSmallButton(int x, int y, int width, void *smallButton
 }
 
 
-static int GetLenghtSubString(char *text)
+int Painter::GetLenghtSubString(char *text)
 {
     int retValue = 0;
     while (((*text) != ' ') && ((*text) != '\0'))
@@ -858,7 +883,7 @@ void Painter::DrawBigText(int eX, int eY, int size, pchar text)
 
     for (int i = 0; i < numSymbols; i++)
     {
-        x = Painter_DrawBigChar(x, eY, size, text[i]);
+        x = DrawBigChar(x, eY, size, text[i]);
         x += size;
     }
 }
