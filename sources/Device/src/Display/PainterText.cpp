@@ -69,7 +69,7 @@ void Painter::SetFont(TypeFont::E typeFont)
         return;
     }
 
-    Font::font = fonts[typeFont];
+    Font::font = Font::fonts[typeFont];
 
     if (InterCom::TransmitGUIinProcess())
     {
@@ -84,11 +84,11 @@ void Painter::LoadFont(TypeFont::E typeFont)
 {
     if (InterCom::TransmitGUIinProcess())
     {
-        uint8 *pFont = (uint8 *)fonts[typeFont];
+        uint8 *pFont = (uint8 *)Font::fonts[typeFont];
 
         CommandBuffer command(2 + 4, LOAD_FONT);
         command.PushByte(typeFont);
-        command.PushWord(fonts[typeFont]->height);
+        command.PushWord(Font::fonts[typeFont]->height);
 
         command.Transmit(2 + 4);
 

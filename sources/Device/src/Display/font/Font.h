@@ -16,10 +16,8 @@ struct Font
     Symbol symbol[256];
 
     static const Font *font;
+    static const Font *fonts[TypeFont::Count];
 };
-
-
-extern const Font *fonts[TypeFont::Count];
 
 extern const uchar font5display[3080];
 extern const uchar font8display[3080];

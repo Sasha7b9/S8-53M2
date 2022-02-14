@@ -15,7 +15,7 @@
 
 
 
-const Font *fonts[TypeFont::Count] = {&font5, &font8, &fontUGO, &fontUGO2};
+const Font *Font::fonts[TypeFont::Count] = {&font5, &font8, &fontUGO, &fontUGO2};
 const Font *Font::font = &font8;
 
 
