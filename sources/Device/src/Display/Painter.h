@@ -74,7 +74,7 @@ namespace Painter
 
     int DrawStringInCenterRectC(int x, int y, int width, int height, const char *text, Color::E);
     // Пишет строку текста в центре области(x, y, width, height)цветом ColorText на прямоугольнике с шириной бордюра widthBorder цвета colorBackground.
-    void DrawStringInCenterRectOnBackgroundC(int x, int y, int width, int height, const char *text, Color::E colorText, int widthBorder, Color::E colorBackground);
+    void DrawStringInCenterRectOnBackground(int x, int y, int width, int height, const char *text, Color::E colorText, int widthBorder, Color::E colorBackground);
 
     int DrawStringInCenterRectAndBoundItC(int x, int y, int width, int height, const char *text, Color::E colorBackground, Color::E colorFill);
 

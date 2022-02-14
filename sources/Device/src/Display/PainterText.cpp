@@ -711,7 +711,7 @@ int Painter::DrawStringInCenterRectC(int x, int y, int width, int height, const 
 }
 
 
-void Painter::DrawStringInCenterRectOnBackgroundC(int x, int y, int width, int height, const char *text, Color::E colorText, int widthBorder, 
+void Painter::DrawStringInCenterRectOnBackground(int x, int y, int width, int height, const char *text, Color::E colorText, int widthBorder, 
                                                  Color::E colorBackground)
 {
     int lenght = Font_GetLengthText(text);
