@@ -17,7 +17,7 @@ namespace Painter
 {
     TypeFont::E currentTypeFont = TypeFont::None;
 
-    void DrawCharHardCol(int x, int y, char symbol);
+    void DrawCharHard(int x, int y, char symbol);
 
     int DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int limitY, int limitWidth, int limitHeight);
 
@@ -160,7 +160,7 @@ static int Painter_DrawBigChar(int eX, int eY, int size, char symbol)
 }
 
 
-void Painter::DrawCharHardCol(int x, int y, char symbol)
+void Painter::DrawCharHard(int x, int y, char symbol)
 {
     char str[2] = {symbol, 0};
     DrawText(x, y, str);
@@ -173,11 +173,11 @@ int Painter::DrawChar(int x, int y, char symbol, Color::E color)
 
     if (Font_GetSize() == 5)
     {
-        DrawCharHardCol(x, y + 3, symbol);
+        DrawCharHard(x, y + 3, symbol);
     }
     else if (Font_GetSize() == 8)
     {
-        DrawCharHardCol(x, y, symbol);
+        DrawCharHard(x, y, symbol);
     }
     else
     {
