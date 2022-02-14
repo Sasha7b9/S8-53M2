@@ -48,20 +48,6 @@ enum SourceBuffer
     SB_Intermediate
 };
 
-struct TypeFont
-{
-    enum E
-    {
-        _5,
-        _8,
-        UGO,
-        UGO2,
-        Count,
-        None
-    };
-};
-
-
 enum Command
 {
     SET_COLOR = 0x01,                   // 1 numColor:1

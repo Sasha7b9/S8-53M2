@@ -3,6 +3,20 @@
 #include "defines.h"
 
 
+struct TypeFont
+{
+    enum E
+    {
+        _5,
+        _8,
+        UGO,
+        UGO2,
+        Count,
+        None
+    };
+};
+
+
 struct Symbol
 {
     uchar width;
