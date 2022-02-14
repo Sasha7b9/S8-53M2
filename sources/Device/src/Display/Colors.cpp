@@ -8,10 +8,15 @@
 #include <math.h>
 
 
+uint Color::Make(uint8 r, uint8 g, uint8 b)
+{
+    return ((uint)(b + (g << 8) + (r << 16)));
+}
+
 
 static void SetColor(ColorType *colorType)
 {
-    set.display.colors[colorType->color] = MAKE_COLOR((int)colorType->red, (int)colorType->green, (int)colorType->blue);
+    set.display.colors[colorType->color] = Color::Make(colorType->red, colorType->green, colorType->blue);
     Painter::SetPalette(colorType->color);
 }
 

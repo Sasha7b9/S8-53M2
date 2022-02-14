@@ -596,15 +596,18 @@ void Painter::EndScene(bool endScene)
 }
 
 
-uint16 Painter::ReduceBrightness(uint16 colorValue, float newBrightness)
+uint Painter::ReduceBrightness(uint colorValue, float newBrightness)
 {
     int red = R_FROM_COLOR(colorValue) * newBrightness;
-    LIMITATION(red, red, 0, 31);
+    LIMITATION(red, red, 0, 255);
+
     int green = G_FROM_COLOR(colorValue) * newBrightness;
-    LIMITATION(green, green, 0, 63);
+    LIMITATION(green, green, 0, 255);
+
     int blue = B_FROM_COLOR(colorValue) * newBrightness;
-    LIMITATION(blue, blue, 0, 31);
-    return MAKE_COLOR(red, green, blue);
+    LIMITATION(blue, blue, 0, 255);
+
+    return Color::Make((uint8)red, (uint8)green, (uint8)blue);
 }
 
 

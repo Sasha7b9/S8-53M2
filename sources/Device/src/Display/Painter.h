@@ -46,7 +46,7 @@ namespace Painter
     void DrawVolumeButton(int x, int y, int width, int height, int thickness, Color::E normal, Color::E bright,
         Color::E dark, bool isPressed, bool inShade);
 
-    uint16 ReduceBrightness(uint16 colorValue, float newBrightness);
+    uint ReduceBrightness(uint colorValue, float newBrightness);
 
     // Ќарисовать массив вертикальных линий. Ћинии рисуютс€ одна за другой. y0y1 - массив вертикальных координат.
     void DrawVLineArray(int x, int numLines, uint8 *y0y1, Color::E);

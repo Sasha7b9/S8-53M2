@@ -52,6 +52,7 @@ struct Color
     static void ResetFlash();
     static void SetCurrent(Color::E);
     static Color::E GetCurrent();
+    static uint Make(uint8 r, uint8 g, uint8 b);
 private:
     static void CalculateColor();
     static void OnTimerFlashDisplay();
