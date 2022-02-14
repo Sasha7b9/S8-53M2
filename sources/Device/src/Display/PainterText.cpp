@@ -701,7 +701,7 @@ void Painter::DrawStringInCenterRectOnBackground(int x, int y, int width, int he
 }
 
 
-int Painter::DrawStringInCenterRectAndBoundItC(int x, int y, int width, int height, const char *text, Color::E colorBackground, Color::E colorFill)
+int Painter::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, const char *text, Color::E colorBackground, Color::E colorFill)
 {
     DrawRectangle(x, y, width, height, colorFill);
     FillRegion(x + 1, y + 1, width - 2, height - 2, colorBackground);
