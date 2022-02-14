@@ -12,7 +12,7 @@ void ProgressBar_Draw(ProgressBar *bar)
     char buffer[100] = {0};
     float passedPercents = bar->fullTime == 0 ? 0 : bar->passedTime / bar->fullTime * 100;
     sprintf(buffer, "Завершено %.1f %%", passedPercents);
-    Painter::DrawStringInCenterRectC(x, y - 15, bar->width, bar->height, buffer, COLOR_FILL);
+    Painter::DrawStringInCenterRect(x, y - 15, bar->width, bar->height, buffer, COLOR_FILL);
     Painter::DrawRectangle(bar->x, bar->y, bar->width, bar->height);
     Painter::FillRegion(bar->x, bar->y, bar->width * passedPercents / 100.0f, bar->height);
     buffer[0] = 0;

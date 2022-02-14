@@ -34,7 +34,7 @@ namespace Display
 
 
 static bool inverseColors = false;
-static Color::E currentColor = Color::COUNT;
+Color::E Color::currentColor = Color::COUNT;
 
 static enum StateTransmit
 {
@@ -49,8 +49,6 @@ static bool noFonts = false;
 
 namespace Painter
 {
-    void CalculateCurrentColor();
-
     Color::E GetColor(int x, int y);
 }
 
@@ -66,29 +64,15 @@ void Painter::SendFrame(bool first, bool noFonts_)
 }
 
 
-void Painter::CalculateCurrentColor()
+void Color::CalculateColor()
 {
     if (currentColor == Color::FLASH_10)
     {
-        Color::SetCurrent(inverseColors ? COLOR_BACK : COLOR_FILL);
+        currentColor = inverseColors ? COLOR_BACK : COLOR_FILL;
     }
     else if (currentColor == Color::FLASH_01)
     {
-        Color::SetCurrent(inverseColors ? COLOR_FILL : COLOR_BACK);
-    }
-}
-
-
-void CalculateColor(uint8 *color)
-{
-    currentColor = (Color::E)*color;
-    if (*color == Color::FLASH_10)
-    {
-        *color = inverseColors ? COLOR_BACK : COLOR_FILL;
-    }
-    else if (*color == Color::FLASH_01)
-    {
-        *color = inverseColors ? COLOR_FILL : COLOR_BACK;
+        currentColor = inverseColors ? COLOR_FILL : COLOR_BACK;
     }
 }
 
@@ -114,12 +98,7 @@ void Color::ResetFlash()
 
 void Painter::DrawRectangle(int x, int y, int width, int height, Color::E color)
 {
-    if (color != Color::COUNT)
-    {
-        Color::SetCurrent(color);
-    }
-
-    CalculateCurrentColor();
+    Color::SetCurrent(color);
 
     DrawHLine(y, x, x + width);
     DrawVLine(x, y, y + height);
@@ -201,13 +180,13 @@ bool InterCom::TransmitGUIinProcess()
 
 void Color::SetCurrent(Color::E color)
 {
-    if (color != currentColor)
+    if (color != currentColor && color != Color::COUNT)
     {
         currentColor = color;
 
         if (currentColor > Color::COUNT)
         {
-            CalculateColor((uint8 *)&color);
+            CalculateColor();
         }
 
         if (InterCom::TransmitGUIinProcess())
@@ -228,12 +207,7 @@ Color::E Color::GetCurrent()
 
 void Painter::DrawHLine(int y, int x0, int x1, Color::E color)
 {
-    if (color != Color::COUNT)
-    {
-        Color::SetCurrent(color);
-    }
-
-    CalculateCurrentColor();
+    Color::SetCurrent(color);
 
     if (y < 0 || y >= Display::HEIGHT)
     {
@@ -265,12 +239,7 @@ void Painter::DrawHLine(int y, int x0, int x1, Color::E color)
 
 void Painter::DrawVLine(int x, int y0, int y1, Color::E color)
 {
-    if (color != Color::COUNT)
-    {
-        Color::SetCurrent(color);
-    }
-
-    CalculateCurrentColor();
+    Color::SetCurrent(color);
 
     if (x < 0 || x >= Display::WIDTH)
     {
@@ -457,12 +426,7 @@ void Painter::DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int
 
 void Painter::DrawLine(int x0, int y0, int x1, int y1, Color::E color)
 {
-    if (color != Color::COUNT)
-    {
-        Color::SetCurrent(color);
-    }
-
-    CalculateCurrentColor();
+    Color::SetCurrent(color);
 
     if (x0 == x1)
     {
@@ -477,12 +441,7 @@ void Painter::DrawLine(int x0, int y0, int x1, int y1, Color::E color)
 
 void Painter::FillRegion(int x, int y, int width, int height, Color::E color)
 {
-    if (color != Color::COUNT)
-    {
-        Color::SetCurrent(color);
-    }
-
-    CalculateCurrentColor();
+    Color::SetCurrent(color);
 
     if (width == 0 || height == 0)
     {

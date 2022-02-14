@@ -38,7 +38,7 @@ static void DrawPageContent()
         }
         else
         {
-            Painter::DrawStringInCenterRectC(0, y, WIDTH, 10, title, COLOR_FILL);
+            Painter::DrawStringInCenterRect(0, y, WIDTH, 10, title, COLOR_FILL);
         }
         y += 16;
         numPage++;

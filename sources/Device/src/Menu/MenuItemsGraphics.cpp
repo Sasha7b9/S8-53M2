@@ -465,7 +465,7 @@ static void GovernorColor_DrawOpened(GovernorColor *gov, int x, int y)
     Painter::DrawVolumeButton(x + 1, y + 1, MI_WIDTH_VALUE + 2 + delta, MI_HEIGHT_VALUE + 3, 2, ColorMenuItem(false), 
         ColorMenuItemBrighter(), ColorMenuItemLessBright(), Menu::IsPressed(gov), Menu::IsShade(gov));
     Painter::DrawHLine(y + MI_HEIGHT / 2 + 2, x, x + MI_WIDTH + delta, ColorMenuTitle(false));
-    Painter::DrawStringInCenterRectC(x + (Menu::IsPressed(gov) ? 2 : 1), y + (Menu::IsPressed(gov) ? 2 : 1), MI_WIDTH + delta, MI_HEIGHT / 2 + 2, Menu::TitleItem(gov), Color::WHITE);
+    Painter::DrawStringInCenterRect(x + (Menu::IsPressed(gov) ? 2 : 1), y + (Menu::IsPressed(gov) ? 2 : 1), MI_WIDTH + delta, MI_HEIGHT / 2 + 2, Menu::TitleItem(gov), Color::WHITE);
     DrawGovernorColorValue(x + 1, y + 19, gov, delta);
 }
 
@@ -709,7 +709,7 @@ void ItemButton_Draw(Button *button, int x, int y)
 
     int delta = (pressed && (!shade)) ? 2 : 1;
     
-    Painter::DrawStringInCenterRectC(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, Menu::TitleItem(button), color);
+    Painter::DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, Menu::TitleItem(button), color);
 }
 
 void ItemSmallButton_Draw(SmallButton *smallButton, int x, int y)
@@ -754,5 +754,5 @@ void ItemPage_Draw(Page *page, int x, int y)
         colorText = COLOR_FILL;
         delta = 1;
     }
-    Painter::DrawStringInCenterRectC(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, Menu::TitleItem(page), colorText);
+    Painter::DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, Menu::TitleItem(page), colorText);
 }

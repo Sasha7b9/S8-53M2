@@ -28,8 +28,6 @@ namespace Painter
     int DrawSubString(int x, int y, char *text);
 
     int DrawSpaces(int x, int y, char *text, int *numSymbols);
-
-    void CalculateCurrentColor();
 }
 
 
@@ -171,12 +169,7 @@ void Painter::DrawCharHardCol(int x, int y, char symbol)
 
 int Painter::DrawChar(int x, int y, char symbol, Color::E color)
 {
-    if (color != Color::COUNT)
-    {
-        Color::SetCurrent(color);
-    }
-
-    CalculateCurrentColor();
+    Color::SetCurrent(color);
 
     if (Font_GetSize() == 5)
     {
@@ -197,12 +190,7 @@ int Painter::DrawChar(int x, int y, char symbol, Color::E color)
 
 int Painter::DrawText(int x, int y, const char *const _text, Color::E color)
 {
-    if (color != Color::COUNT)
-    {
-        Color::SetCurrent(color);
-    }
-
-    CalculateCurrentColor();
+    Color::SetCurrent(color);
 
     if (*_text == 0)
     {
@@ -543,12 +531,7 @@ int Painter::DrawPartWord(char *word, int x, int y, int xRight, bool draw)
 
 int Painter::DrawTextInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, const char *text, Color::E color)
 {
-    if (color != Color::COUNT)
-    {
-        Color::SetCurrent(color);
-    }
-
-    CalculateCurrentColor();
+    Color::SetCurrent(color);
 
     int top = eY;
     int left = eX;
@@ -694,8 +677,10 @@ int Painter::DrawFormatText(int x, int y, Color::E color, char *text, ...)
 }
 
 
-int Painter::DrawStringInCenterRect(int eX, int eY, int width, int eHeight, const char *text)
+int Painter::DrawStringInCenterRect(int eX, int eY, int width, int eHeight, const char *text, Color::E color)
 {
+    Color::SetCurrent(color);
+
     int lenght = Font_GetLengthText(text);
     int height = Font_GetHeightSymbol(text[0]);
     int x = eX + (width - lenght) / 2;
@@ -704,22 +689,15 @@ int Painter::DrawStringInCenterRect(int eX, int eY, int width, int eHeight, cons
 }
 
 
-int Painter::DrawStringInCenterRectC(int x, int y, int width, int height, const char *text, Color::E color)
-{
-    Color::SetCurrent(color);
-    return DrawStringInCenterRect(x, y, width, height, text);
-}
-
-
 void Painter::DrawStringInCenterRectOnBackground(int x, int y, int width, int height, const char *text, Color::E colorText, int widthBorder, 
                                                  Color::E colorBackground)
 {
     int lenght = Font_GetLengthText(text);
-    int eX = DrawStringInCenterRectC(x, y, width, height, text, colorBackground);
+    int eX = DrawStringInCenterRect(x, y, width, height, text, colorBackground);
     int w = lenght + widthBorder * 2 - 2;
     int h = 7 + widthBorder * 2 - 1;
     FillRegion(eX - lenght - widthBorder, y - widthBorder + 1, w, h);
-    DrawStringInCenterRectC(x, y, width, height, text, colorText);
+    DrawStringInCenterRect(x, y, width, height, text, colorText);
 }
 
 
