@@ -16,13 +16,13 @@
 
 
 const Font *fonts[TypeFont::Count] = {&font5, &font8, &fontUGO, &fontUGO2};
-const Font *font = &font8;
+const Font *Font::font = &font8;
 
 
 
 int Font_GetSize()
 {
-    return font->height;
+    return Font::font->height;
 }
 
 
@@ -49,5 +49,5 @@ int Font_GetHeightSymbol(char symbol)
 
 int Font_GetLengthSymbol(uchar symbol)
 {
-    return font->symbol[symbol].width + 1;
+    return Font::font->symbol[symbol].width + 1;
 }

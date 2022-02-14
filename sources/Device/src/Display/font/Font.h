@@ -14,10 +14,11 @@ struct Font
 {
     int height;
     Symbol symbol[256];
+
+    static const Font *font;
 };
 
 
-extern const Font *font;
 extern const Font *fonts[TypeFont::Count];
 
 extern const uchar font5display[3080];

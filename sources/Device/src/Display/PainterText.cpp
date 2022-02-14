@@ -17,7 +17,8 @@ namespace Painter
 {
     TypeFont::E currentTypeFont = TypeFont::None;
 
-    void DrawCharHard(int x, int y, char symbol);
+    // Отрисовка непосредственно символа
+    int DrawCharHard(int x, int y, char symbol);
 
     int DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int limitY, int limitWidth, int limitHeight);
 
@@ -37,7 +38,8 @@ void Painter::SetFont(TypeFont::E typeFont)
     {
         return;
     }
-    font = fonts[typeFont];
+
+    Font::font = fonts[typeFont];
 
     if (InterCom::TransmitGUIinProcess())
     {
@@ -80,7 +82,7 @@ bool ByteFontNotEmpty(int eChar, int byte)
     if (eChar != prevChar)
     {
         prevChar = eChar;
-        bytes = font->symbol[prevChar].bytes;
+        bytes = Font::font->symbol[prevChar].bytes;
     }
 
     return bytes[byte] != 0;
@@ -94,7 +96,7 @@ static bool BitInFontIsExist(int eChar, int numByte, int bit)
     static int prevNumByte = -1;
     if (prevNumByte != numByte || prevChar != eChar)
     {
-        prevByte = font->symbol[eChar].bytes[numByte];
+        prevByte = Font::font->symbol[eChar].bytes[numByte];
         prevChar = eChar;
         prevNumByte = numByte;
     }
@@ -104,8 +106,8 @@ static bool BitInFontIsExist(int eChar, int numByte, int bit)
 
 static void DrawCharInColorDisplay(int eX, int eY, uchar symbol)
 {
-    int8 width = (int8)font->symbol[symbol].width;
-    int8 height = (int8)font->height;
+    int8 width = (int8)Font::font->symbol[symbol].width;
+    int8 height = (int8)Font::font->height;
 
     for (int b = 0; b < height; b++)
     {
@@ -129,8 +131,8 @@ static void DrawCharInColorDisplay(int eX, int eY, uchar symbol)
 
 static int Painter_DrawBigChar(int eX, int eY, int size, char symbol)
 {
-    int8 width = (int8)font->symbol[symbol].width;
-    int8 height = (int8)font->height;
+    int8 width = (int8)Font::font->symbol[symbol].width;
+    int8 height = (int8)Font::font->height;
 
     for (int b = 0; b < height; b++)
     {
@@ -160,10 +162,30 @@ static int Painter_DrawBigChar(int eX, int eY, int size, char symbol)
 }
 
 
-void Painter::DrawCharHard(int x, int y, char symbol)
+int Painter::DrawCharHard(int eX, int eY, char symbol)
 {
-    char str[2] = {symbol, 0};
-    DrawText(x, y, str);
+    int8 width = (int8)Font::font->symbol[(uint8)symbol].width;
+    int8 height = (int8)Font::font->height;
+
+    for (int b = 0; b < height; b++)
+    {
+        if (ByteFontNotEmpty(symbol, b))
+        {
+            int x = eX;
+            int y = eY + b + 9 - height;
+            int endBit = 8 - width;
+            for (int bit = 7; bit >= endBit; bit--)
+            {
+                if (BitInFontIsExist(symbol, b, bit))
+                {
+                    SetPoint(x, y);
+                }
+                x++;
+            }
+        }
+    }
+
+    return eX + width;
 }
 
 
@@ -259,8 +281,8 @@ int Painter::DrawTextOnBackground(int x, int y, pchar text, Color::E colorBackgr
 
 int Painter::DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int limitY, int limitWidth, int limitHeight)
 {
-    int8 width = (int8)font->symbol[symbol].width;
-    int8 height = (int8)font->height;
+    int8 width = (int8)Font::font->symbol[symbol].width;
+    int8 height = (int8)Font::font->height;
 
     for (int b = 0; b < height; b++)
     {
