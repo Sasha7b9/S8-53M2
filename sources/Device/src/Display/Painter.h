@@ -82,7 +82,7 @@ namespace Painter
 
     void DrawTextRelativelyRight(int xRight, int y, const char *text, Color::E = Color::COUNT);
 
-    void Draw2SymbolsC(int x, int y, char symbol1, char symbol2, Color::E color1, Color::E color2);
+    void Draw2Symbols(int x, int y, char symbol1, char symbol2, Color::E color1, Color::E color2);
 
     void Draw4SymbolsInRect(int x, int y, char eChar, Color::E = Color::COUNT);
 
