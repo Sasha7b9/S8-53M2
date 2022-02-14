@@ -493,7 +493,7 @@ static void Draw_Math_Function_ModeRegSet(int x, int y)
 
 static void Draw_Math_Function_ModeRegSet_Range(int x, int y)
 {
-    Painter::DrawChar(x + 7, y + 5, set.common.lang == Russian ? 'M' : 'S');
+    Char(set.common.lang == Russian ? 'M' : 'S').Draw(x + 7, y + 5);
 }
 
 static void Draw_Math_Function_ModeRegSet_RShift(int x, int y)
@@ -520,7 +520,7 @@ static void OnPress_Math_Function_RangeA()
 
 static void Draw_Math_Function_RangeA(int x, int y)
 {
-    Painter::DrawChar(x + 8, y + 5, '1');
+    Char('1').Draw(x + 8, y + 5);
 }
 
 // —≈–¬»— - Ã¿“≈Ã¿“» ¿ - ‘”Õ ÷»ﬂ - Ã‡Ò¯Ú‡· 2-„Ó Í‡Ì‡Î‡ -----------------------------------------------------------------------------------------------
@@ -542,7 +542,7 @@ static void OnPress_Math_Function_RangeB()
 
 static void Draw_Math_Function_RangeB(int x, int y)
 {
-    Painter::DrawChar(x + 8, y + 5, '2');
+    Char('2').Draw(x + 8, y + 5);
 }
 
 // —≈–¬»— - Ã¿“≈Ã¿“» ¿ - —œ≈ “– ////

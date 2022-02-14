@@ -196,20 +196,24 @@ void WriteTextFormula(Formula *formula, int x, int y, bool opened)
     bool funcIsMul = function == Function_Mul;
     int8 koeff1 = funcIsMul ? *formula->koeff1mul : *formula->koeff1add;
     int8 koeff2 = funcIsMul ? *formula->koeff2mul : *formula->koeff2add;
+
     if (koeff1 != 0)
     {
-       Painter::DrawChar(x, y, koeff1 < 0 ? '-' : '+');
+       Char(koeff1 < 0 ? '-' : '+').Draw(x, y);
     }
-    Painter::DrawChar(x + 5, y, (char)(koeff1 + 0x30));
-    Painter::DrawChar(x + 10, y, '*');
+
+    Char((char)(koeff1 + 0x30)).Draw(x + 5, y);
+    Char('*'). Draw(x + 10, y);
     Painter::DrawText(x + 14, y, "K1");
-    Painter::DrawChar(x + 27, y, funcIsMul ? '*' : '+');
+    Char(funcIsMul ? '*' : '+').Draw(x + 27, y);
+
     if (koeff2 != 0)
     {
-       Painter::DrawChar(x + 30, y, koeff2 < 0 ? '-' : '+');
+       Char(koeff2 < 0 ? '-' : '+').Draw(x + 30, y);
     }
-    Painter::DrawChar(x + 39, y, (char)(koeff2 + 0x30));
-    Painter::DrawChar(x + 44, y, '*');
+
+    Char((char)(koeff2 + 0x30)).Draw(x + 39, y);
+    Char('*').Draw(x + 44, y);
     Painter::DrawText(x + 48, y, "K2");
 }
 
@@ -273,11 +277,11 @@ static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits
         }
         if (!(rest == 0 && value == 0) || (firstValue == 0 && i == 0))
         {
-            Painter::DrawChar(x, y, rest + 48, selPos == i ? COLOR_BACK : COLOR_FILL);
+            Char(rest + 48).Draw(x, y, selPos == i ? COLOR_BACK : COLOR_FILL);
         }
         else if (fillNull)
         {
-            Painter::DrawChar(x, y, '0', selPos == i ? COLOR_BACK : COLOR_FILL);
+            Char('0').Draw(x, y, selPos == i ? COLOR_BACK : COLOR_FILL);
         }
         if (hLine)
         {
@@ -308,7 +312,7 @@ void DrawGovernorValue(int x, int y, Governor *governor)
 
     if(sign)
     {
-       Painter::DrawChar(startX - 1, y, signGovernor < 0 ? '\x9b' : '\x9a');
+       Char(signGovernor < 0 ? '\x9b' : '\x9a').Draw(startX - 1, y);
     }
 }
 
@@ -335,14 +339,14 @@ static void DrawIPvalue(int x, int y, IPaddress *ip)
         DrawValueWithSelectedPosition(x, y, bytes[i], 3, numIP == i ? selPos : -1, false, true);
         if (i != 3)
         {
-            Painter::DrawChar(x + 5, y, '.', COLOR_FILL);
+            Char('.').Draw(x + 5, y, COLOR_FILL);
         }
         x += 19;
     }
 
     if (ip->port != 0)
     {
-        Painter::DrawChar(x - 13, y, ':', COLOR_FILL);
+        Char(':').Draw(x - 13, y, COLOR_FILL);
         DrawValueWithSelectedPosition(x + 14, y, *ip->port, 5, numIP == 4 ? selPos : -1, false, true);
     }
 }

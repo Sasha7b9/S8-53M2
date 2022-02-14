@@ -167,27 +167,6 @@ void Painter::DrawCharHardCol(int x, int y, char symbol)
 }
 
 
-int Painter::DrawChar(int x, int y, char symbol, Color::E color)
-{
-    Color::SetCurrent(color);
-
-    if (Font_GetSize() == 5)
-    {
-        DrawCharHardCol(x, y + 3, symbol);
-    }
-    else if (Font_GetSize() == 8)
-    {
-        DrawCharHardCol(x, y, symbol);
-    }
-    else
-    {
-        DrawCharInColorDisplay(x, y, (uint8)symbol);
-    }
-
-    return x + Font_GetLengthSymbol((uint8)symbol);
-}
-
-
 int Painter::DrawText(int x, int y, pchar const _text, Color::E color)
 {
     Color::SetCurrent(color);
@@ -236,7 +215,7 @@ int Painter::DrawText(int x, int y, pchar const _text, Color::E color)
 
     while (*text != '\0')
     {
-        x = DrawChar(x, y, *text) + 1;
+        x = Char(*text).Draw(x, y) + 1;
         text++;
     }
 
@@ -565,7 +544,7 @@ int Painter::DrawTextInRectWithTransfers(int eX, int eY, int eWidth, int eHeight
                 {
                     continue;
                 }
-                x = DrawChar(x, y, symbol);
+                x = Char(symbol).Draw(x, y);
             }
             else                                            // ј здесь найдено по крайней мере два буквенных символа, т.е. найдено слово
             {
@@ -746,7 +725,7 @@ int Painter::DrawSubString(int x, int y, char *text)
     int numSymbols = 0;
     while (((*text) != ' ') && ((*text) != '\0'))
     {
-        x = DrawChar(x, y, *text);
+        x = Char(*text).Draw(x, y);
         numSymbols++;
         text++;
     }
@@ -759,7 +738,7 @@ int Painter::DrawSpaces(int x, int y, char *text, int *numSymbols)
     *numSymbols = 0;
     while (*text == ' ')
     {
-        x = DrawChar(x, y, *text);
+        x = Char(*text).Draw(x, y);
         text++;
         (*numSymbols)++;
     }
@@ -801,8 +780,8 @@ void Painter::DrawTextRelativelyRight(int xRight, int y, pchar text, Color::E co
 
 void Painter::Draw2Symbols(int x, int y, char symbol1, char symbol2, Color::E color1, Color::E color2)
 {
-    DrawChar(x, y, symbol1, color1);
-    DrawChar(x, y, symbol2, color2);
+    Char(symbol1).Draw(x, y, color1);
+    Char(symbol2).Draw(x, y, color2);
 }
 
 
@@ -812,8 +791,8 @@ void Painter::Draw4SymbolsInRect(int x, int y, char eChar, Color::E color)
 
     for (int i = 0; i < 2; i++)
     {
-        DrawChar(x + 8 * i, y, eChar + i);
-        DrawChar(x + 8 * i, y + 8, eChar + i + 16);
+        Char(eChar + i).Draw(x + 8 * i, y);
+        Char(eChar + i + 16).Draw(x + 8 * i, y + 8);
     }
 }
 
@@ -822,8 +801,8 @@ void Painter::Draw10SymbolsInRect(int x, int y, char eChar)
 {
     for (int i = 0; i < 5; i++)
     {
-        DrawChar(x + 8 * i, y, eChar + i);
-        DrawChar(x + 8 * i, y + 8, eChar + i + 16);
+        Char(eChar + i).Draw(x + 8 * i, y);
+        Char(eChar + i + 16).Draw(x + 8 * i, y + 8);
     }
 }
 

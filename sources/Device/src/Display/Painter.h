@@ -56,8 +56,6 @@ namespace Painter
     // Загрузить шрифта в дисплей.
     void LoadFont(TypeFont::E typeFont);
 
-    int DrawChar(int x, int y, char symbol, Color::E = Color::COUNT);
-
     int DrawText(int x, int y, pchar text, Color::E = Color::COUNT);
     // Выводит текст на прямоугольнике цвета colorBackgound
     int DrawTextOnBackground(int x, int y, pchar text, Color::E colorBackground);
