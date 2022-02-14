@@ -9,6 +9,7 @@
 #include "Utils/GlobalFunctions.h"
 #include "Log.h"
 #include "Hardware/HAL/HAL.h"
+#include "Display/font/Font.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -38,7 +39,8 @@ void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool pressed
     }
     else
     {
-        Painter::DrawVolumeButton(x + 1, y + 2, width + 2, MI_HEIGHT_VALUE + 3, 2, ColorMenuItem(false), ColorMenuItemBrighter(), ColorMenuItemLessBright(), pressed, shade);
+        Painter::DrawVolumeButton(x + 1, y + 2, width + 2, MI_HEIGHT_VALUE + 3, 2, ColorMenuItem(false),
+            ColorMenuItemBrighter(), ColorMenuItemLessBright(), pressed, shade);
     }
 
     Painter::DrawText(x + 6 + delta, y + 6 + delta, Menu::TitleItem(item), color);
@@ -298,11 +300,12 @@ void DrawGovernorValue(int x, int y, Governor *governor)
     {
         value = -value;
     }
-    Painter::SetFont(TypeFont::_5);
+
+    Font::Set(TypeFont::_5);
     bool sign = governor->minValue < 0;
     Painter::DrawText(x + 55, y - 5, Int2String(governor->maxValue, sign, 1, buffer), COLOR_FILL);
     Painter::DrawText(x + 55, y + 2, Int2String(governor->minValue, sign, 1, buffer));
-    Painter::SetFont(TypeFont::_8);
+    Font::Set(TypeFont::_8);
 
     DrawValueWithSelectedPosition(startX, y, value, Governor_NumDigits(governor), gCurDigit, true, true);
 

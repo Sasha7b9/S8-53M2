@@ -22,6 +22,10 @@ struct Font
     static int GetLengthText(pchar text);
     static int GetHeightSymbol(char symbol);
     static int GetLengthSymbol(uchar symbol);
+
+    static void Set(TypeFont::E);
+
+    static TypeFont::E current;
 };
 
 extern const uchar font5display[3080];

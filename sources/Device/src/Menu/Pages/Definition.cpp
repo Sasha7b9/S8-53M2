@@ -11,17 +11,9 @@
 #include "Settings/SettingsTypes.h"
 #include "Panel/Panel.h"
 
-
-/** @addtogroup Menu
- *  @{
- */
-
-
-
 extern Choice mcCursorsSource;
 extern Choice mcCursorsU;
 extern Choice mcCursorsT;
-
 
 
 void CalculateConditions(int16 pos0, int16 pos1, CursCntrl cursCntrl, bool *cond0, bool *cond1)
@@ -32,19 +24,16 @@ void CalculateConditions(int16 pos0, int16 pos1, CursCntrl cursCntrl, bool *cond
 }
 
 
-
 int CalculateYforCurs(int y, bool top)
 {
     return top ? y + MI_HEIGHT / 2 + 4 : y + MI_HEIGHT - 2;
 }
 
 
-
 int CalculateXforCurs(int x, bool left)
 {
     return left ? x + MI_WIDTH - 20 : x + MI_WIDTH - 5;
 }
-
 
 
 void CalculateXY(int *x0, int *x1, int *y0, int *y1)
@@ -54,7 +43,6 @@ void CalculateXY(int *x0, int *x1, int *y0, int *y1)
     *y0 = CalculateYforCurs(*y0, true);
     *y1 = CalculateYforCurs(*y1, false);
 }
-
 
 
 void DrawMenuCursTime(int x, int y, bool left, bool right)
@@ -72,7 +60,6 @@ void DrawMenuCursTime(int x, int y, bool left, bool right)
         Painter::DrawVLine(x1 - i, y0, y1);
     }
 }
-
 
 
 void DrawMenuCursVoltage(int x, int y, bool top, bool bottom)
@@ -94,17 +81,14 @@ void DrawMenuCursVoltage(int x, int y, bool top, bool bottom)
 
 void DrawSB_Exit(int x, int y)
 {
-    Painter::SetFont(TypeFont::UGO2);
+    Font::Set(TypeFont::UGO2);
     Painter::Draw4SymbolsInRect(x + 2, y + 1, '\x2e');
-    Painter::SetFont(TypeFont::_8);
+    Font::Set(TypeFont::_8);
 }
-
 
 
 extern const Page mainPage;
 
-//#include "PageTrig.c"
-//#include "PageTime.c"
 #include "PageHelp.cpp"
 
 extern const Page pDisplay;
@@ -115,7 +99,6 @@ extern const Page pDebug;
 extern const Page pService;
 extern const Page pTime;
 extern const Page pTrig;
-
 
 
 static const arrayItems itemsMainPage =
@@ -141,7 +124,6 @@ const Page mainPage
     "",
     Page_MainPage, &itemsMainPage
 );
-
 
 
 const void *PageForButton(PanelButton button)
@@ -172,11 +154,7 @@ const void *PageForButton(PanelButton button)
 }
 
 
-
 bool IsMainPage(void *item)
 {
     return item == &mainPage;
 }
-
-/** @}  @}
- */

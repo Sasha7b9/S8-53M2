@@ -15,30 +15,30 @@
 
 void DrawSB_Help_ParagraphEnter(int x, int y)
 {
-    Painter::SetFont(TypeFont::UGO2);
+    Font::Set(TypeFont::UGO2);
     Painter::Draw4SymbolsInRect(x + 2, y + 2, '\x4a');
-    Painter::SetFont(TypeFont::_8);
+    Font::Set(TypeFont::_8);
 }
 
 void DrawSB_Help_ParagraphLeave(int x, int y)
 {
-    Painter::SetFont(TypeFont::UGO2);
+    Font::Set(TypeFont::UGO2);
     Painter::Draw4SymbolsInRect(x + 2, y + 1, '\x48');
-    Painter::SetFont(TypeFont::_8);
+    Font::Set(TypeFont::_8);
 }
 
 void DrawSB_Help_ParagraphPrev(int x, int y)
 {
-    Painter::SetFont(TypeFont::UGO2);
+    Font::Set(TypeFont::UGO2);
     Painter::Draw4SymbolsInRect(x + 2, y + 5, '\x4c');
-    Painter::SetFont(TypeFont::_8);
+    Font::Set(TypeFont::_8);
 }
 
 void DrawSB_Help_ParagraphNext(int x, int y)
 {
-    Painter::SetFont(TypeFont::UGO2);
+    Font::Set(TypeFont::UGO2);
     Painter::Draw4SymbolsInRect(x + 2, y + 5, '\x4e');
-    Painter::SetFont(TypeFont::_8);
+    Font::Set(TypeFont::_8);
 }
 
 void OnHelpRegSet(int angle) 

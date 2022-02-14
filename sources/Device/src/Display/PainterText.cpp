@@ -15,8 +15,6 @@
 
 namespace Painter
 {
-    TypeFont::E currentTypeFont = TypeFont::None;
-
     // Отрисовка непосредственно символа
     int DrawCharHard(int x, int y, char symbol);
 
@@ -62,9 +60,9 @@ namespace Painter
 }
 
 
-void Painter::SetFont(TypeFont::E typeFont)
+void Font::Set(TypeFont::E typeFont)
 {
-    if (typeFont == currentTypeFont)
+    if (typeFont == current)
     {
         return;
     }
