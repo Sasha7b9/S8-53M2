@@ -2,6 +2,7 @@
 #pragma once
 #include "Display/Colors.h"
 #include "Display/DisplayTypes.h"
+#include "Display/PainterText.h"
 
 
 namespace Painter 

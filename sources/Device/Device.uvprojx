@@ -1061,6 +1061,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\Display\PainterText.cpp</FilePath>
             </File>
+            <File>
+              <FileName>PainterText.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\PainterText.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3006,6 +3011,11 @@
               <FileName>PainterText.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\PainterText.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>PainterText.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\PainterText.h</FilePath>
             </File>
           </Files>
         </Group>
