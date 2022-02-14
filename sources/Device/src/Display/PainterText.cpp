@@ -736,8 +736,8 @@ int Painter::DrawStringInCenterRect(int eX, int eY, int width, int eHeight, pcha
 }
 
 
-void Painter::DrawStringInCenterRectOnBackground(int x, int y, int width, int height, pchar text, Color::E colorText, int widthBorder, 
-                                                 Color::E colorBackground)
+void Painter::DrawStringInCenterRectOnBackground(int x, int y, int width, int height, pchar text, Color::E colorText,
+    int widthBorder, Color::E colorBackground)
 {
     int lenght = Font::GetLengthText(text);
     int eX = DrawStringInCenterRect(x, y, width, height, text, colorBackground);
@@ -748,7 +748,8 @@ void Painter::DrawStringInCenterRectOnBackground(int x, int y, int width, int he
 }
 
 
-int Painter::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, pchar text, Color::E colorBackground, Color::E colorFill)
+int Painter::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, pchar text, Color::E colorBackground,
+    Color::E colorFill)
 {
     DrawRectangle(x, y, width, height, colorFill);
     FillRegion(x + 1, y + 1, width - 2, height - 2, colorBackground);
