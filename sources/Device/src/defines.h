@@ -22,45 +22,6 @@ typedef unsigned    char        uchar;
 typedef const char             *pchar;
 
 
-// “ип цвета
-struct Color
-{
-    enum E
-    {
-        BLACK             = 0x00,
-        WHITE             = 0x01,
-        GRID              = 0x02,
-        DATA_A            = 0x03,
-        DATA_B            = 0x04,
-        MENU_FIELD        = 0x05,
-        MENU_TITLE        = 0x06,
-        MENU_TITLE_DARK   = 0x07,
-        MENU_TITLE_BRIGHT = 0x08,
-        MENU_ITEM         = 0x09,
-        MENU_ITEM_DARK    = 0x0a,
-        MENU_ITEM_BRIGHT  = 0x0b,
-        MENU_SHADOW       = 0x0c,
-        EMPTY             = 0x0d,
-        EMPTY_A           = 0x0e,
-        EMPTY_B           = 0x0f,
-        COUNT,
-        FLASH_10,
-        FLASH_01,
-        SET_INVERSE
-    } value;
-
-    static void ResetFlash();
-    static void SetCurrent(Color::E);
-    static Color::E GetCurrent();
-    static uint Make(uint8 r, uint8 g, uint8 b);
-private:
-    static void CalculateColor();
-    static void OnTimerFlashDisplay();
-    static Color::E current;
-    static bool inverse;
-};
-
-
 typedef void    (*pFuncVV)();               // ”казатель на функцию, ничего не принимающую и ничего не возвращающую.
 typedef void    (*pFuncVpV)(void*);             // ”казатель на функцию, принимающую указатель на void и ничего не возвращающую.
 typedef bool    (*pFuncBV)();
