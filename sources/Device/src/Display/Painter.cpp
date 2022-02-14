@@ -19,6 +19,10 @@
 #include <cstring>
 
 
+bool     Color::inverse = false;
+Color::E Color::current = Color::COUNT;
+
+
 namespace Display
 {
     uint8 back[240][320];
@@ -35,11 +39,10 @@ namespace Painter
 
     void BoundingX(int &x) { if (x < 0) x = 0; if (x >= Display::WIDTH) x = Display::WIDTH - 1; }
     void BoundingY(int &y) { if (y < 0) y = 0; if (y >= Display::HEIGHT) y = Display::HEIGHT - 1; }
+
+    Color::E GetColor(int x, int y);
 }
 
-
-bool     Color::inverse = false;
-Color::E Color::current = Color::COUNT;
 
 static enum StateTransmit
 {
@@ -48,12 +51,6 @@ static enum StateTransmit
     StateTransmit_NeedForTransmitSecond, // Это когда нужно передать второй и последующий кадры - шрифты не передаются
     StateTransmit_InProcess
 } stateTransmit = StateTransmit_Free;
-
-
-namespace Painter
-{
-    Color::E GetColor(int x, int y);
-}
 
 
 void Painter::SendFrame(bool first, bool noFonts_)
@@ -458,7 +455,8 @@ void Painter::FillRegion(int x, int y, int width, int height, Color::E color)
 }
 
 
-void Painter::DrawVolumeButton(int x, int y, int width, int height, int thickness, Color::E normal, Color::E bright, Color::E dark, bool isPressed, bool inShade)
+void Painter::DrawVolumeButton(int x, int y, int width, int height, int thickness, Color::E normal, Color::E bright,
+    Color::E dark, bool isPressed, bool inShade)
 {
     if (inShade)
     {
