@@ -37,6 +37,8 @@ void Device::Init()
 //    HAL_RTC::Init();
 
     // LAN::Init();
+
+    set.menu.isShown = true;
 }
 
 
