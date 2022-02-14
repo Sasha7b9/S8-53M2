@@ -46,13 +46,18 @@ struct ColorType
     Color::E color;
     int8     currentField;
     bool     alreadyUsed;
+
+    void BrightnessChange(int delta);
+    void SetBrightness(float brightness);
+    void Init();
+    void ComponentChange(int delta);
+private:
+    void SetBrightness();
+    void CalcSteps();
+    void SetColor();
 };
 
 void Color_Log(Color::E color);           // Вывести в лог значение цвета.
-void Color_BrightnessChange(ColorType *colorType, int delta);
-void Color_SetBrightness(ColorType *colorType, float brightness);
-void Color_Init(ColorType *colorType);
-void Color_ComponentChange(ColorType *colorType, int delta);
 
 
 pchar  NameColorFromValue(uint16 colorValue);

@@ -14,10 +14,17 @@ uint Color::Make(uint8 r, uint8 g, uint8 b)
 }
 
 
-static void SetColor(ColorType *colorType)
+void Color::ResetFlash()
 {
-    set.display.colors[colorType->color] = Color::Make(colorType->red, colorType->green, colorType->blue);
-    Painter::SetPalette(colorType->color);
+    Timer::Enable(TypeTimer::FlashDisplay, 400, OnTimerFlashDisplay);
+    inverse = false;
+}
+
+
+void ColorType::SetColor()
+{
+    set.display.colors[color] = Color::Make(red, green, blue);
+    Painter::SetPalette(color);
 }
 
 
@@ -107,112 +114,112 @@ void Color_Log(Color::E color)
 
 
 
-static void ColorType_CalcSteps(ColorType *colorType)
+void ColorType::CalcSteps()
 {
-    colorType->stepRed = colorType->red / (colorType->brightness * 100.0f);
-    colorType->stepGreen = colorType->green / (colorType->brightness * 100.0f);
-    colorType->stepBlue = colorType->blue / (colorType->brightness * 100.0f);
+    stepRed = red / (brightness * 100.0f);
+    stepGreen = green / (brightness * 100.0f);
+    stepBlue = blue / (brightness * 100.0f);
 }
 
 
 
-static void ColorType_SetBrightness(ColorType *colorType)
+void ColorType::SetBrightness()
 {
-    colorType->brightness = MaxFloat(colorType->red / 31.0f, colorType->green / 63.0f, colorType->blue / 31.0f);
+    brightness = MaxFloat(red / 31.0f, green / 63.0f, blue / 31.0f);
 
-    ColorType_CalcSteps(colorType);
+    CalcSteps();
 }
 
 
 
-void Color_SetBrightness(ColorType *colorType, float brightness)
+void ColorType::SetBrightness(float bright)
 {
-    int delta = (int)((brightness + 0.0005f) * 100.0f) - (int)(colorType->brightness * 100.0f);
+    int delta = (int)((bright + 0.0005f) * 100.0f) - (int)(brightness * 100.0f);
 
     if (delta > 0)
     {
         for (int i = 0; i < delta; i++)
         {
-            Color_BrightnessChange(colorType, 1);
+            BrightnessChange(1);
         }
     }
     else
     {
         for (int i = 0; i < -delta; i++)
         {
-            Color_BrightnessChange(colorType, -1);
+            BrightnessChange(-1);
         }
     }
 }
 
 
 
-void Color_BrightnessChange(ColorType *colorType, int delta)
+void ColorType::BrightnessChange(int delta)
 {
-    if ((delta > 0 && colorType->brightness == 1.0f) || (delta < 0 && colorType->brightness == 0.0f))
+    if ((delta > 0 && brightness == 1.0f) || (delta < 0 && brightness == 0.0f))
     {
         return;
     }
 
     int sign = Math_Sign(delta);
 
-    LIMITATION(colorType->brightness, colorType->brightness + sign * 0.01f, 0.0f, 1.0f);
+    LIMITATION(brightness, brightness + sign * 0.01f, 0.0f, 1.0f);
 
-    colorType->red += sign * colorType->stepRed;
-    colorType->green += sign * colorType->stepGreen;
-    colorType->blue += sign * colorType->stepBlue;
+    red += sign * stepRed;
+    green += sign * stepGreen;
+    blue += sign * stepBlue;
 
-    SetColor(colorType);
+    SetColor();
 
-    if (colorType->stepRed < 0.01f && colorType->stepGreen < 0.01f && colorType->stepBlue < 0.01f)
+    if (stepRed < 0.01f && stepGreen < 0.01f && stepBlue < 0.01f)
     {
-        colorType->stepRed = 0.31f;
-        colorType->stepGreen = 0.63f;
-        colorType->stepBlue = 0.31f;
+        stepRed = 0.31f;
+        stepGreen = 0.63f;
+        stepBlue = 0.31f;
     }
 }
 
 
 
-void Color_Init(ColorType *colorType)
+void ColorType::Init()
 {
-    if (!colorType->alreadyUsed)
+    if (!alreadyUsed)
     {
-        colorType->alreadyUsed = true;                  // Признак того, что начальные установки уже произведены
+        alreadyUsed = true;                  // Признак того, что начальные установки уже произведены
 
-        uint colorValue = COLOR(colorType->color);
+        uint colorValue = COLOR(color);
 
-        colorType->red = (float)R_FROM_COLOR(colorValue);
-        colorType->green = (float)G_FROM_COLOR(colorValue);
-        colorType->blue = (float)B_FROM_COLOR(colorValue);
+        red = (float)R_FROM_COLOR(colorValue);
+        green = (float)G_FROM_COLOR(colorValue);
+        blue = (float)B_FROM_COLOR(colorValue);
 
-        ColorType_SetBrightness(colorType);
+        SetBrightness();
 
-        if (colorType->red == 0.0f && colorType->green == 0.0f && colorType->blue == 0.0f)
+        if (red == 0.0f && green == 0.0f && blue == 0.0f)
         {
-            colorType->stepRed = 0.31f;
-            colorType->stepGreen = 0.63f;
-            colorType->stepBlue = 0.31f;
+            stepRed = 0.31f;
+            stepGreen = 0.63f;
+            stepBlue = 0.31f;
         }
     }
 }
 
 
 
-void Color_ComponentChange(ColorType *colorType, int delta)
+void ColorType::ComponentChange(int delta)
 {
     static const float maxs[4] = {0.0f, 31.0f, 63.0f, 31.0f};
-    int8 index = colorType->currentField;
+    int8 index = currentField;
 
     if (index >= 1 && index <= 3)
     {
-        float *pointers[4] = {0, &colorType->blue, &colorType->green, &colorType->red};
+        float *pointers[4] = {0, &blue, &green, &red};
         AddLimitationFloat(pointers[index], (float)Math_Sign(delta), 0.0f, maxs[index]);
     }
 
-    SetColor(colorType);
+    SetColor();
 
-    ColorType_SetBrightness(colorType);
+    SetBrightness();
 }
 
 

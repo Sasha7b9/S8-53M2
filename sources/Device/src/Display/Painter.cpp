@@ -83,13 +83,6 @@ void Color::OnTimerFlashDisplay()
 }
 
 
-void Color::ResetFlash()
-{
-    Timer::Enable(TypeTimer::FlashDisplay, 400, OnTimerFlashDisplay);
-    inverse = false;
-}
-
-
 void Painter::DrawRectangle(int x, int y, int width, int height, Color::E color)
 {
     Color::SetCurrent(color);

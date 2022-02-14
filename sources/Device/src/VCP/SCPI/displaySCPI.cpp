@@ -324,7 +324,7 @@ void SCPI::DISPLAY::GRID_BRIGHTNESS(uint8 *buffer)
             if (0 == value)
             {
                 extern ColorType colorTypeGrid;
-                Color_Init(&colorTypeGrid);
+                colorTypeGrid.Init();
                 SCPI_SEND(":DISPLAY:GRID:BRIGHTNESS %d", (int)(colorTypeGrid.brightness * 100.0f));
             }
         LEAVE_ANALYSIS

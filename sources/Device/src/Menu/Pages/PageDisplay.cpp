@@ -419,12 +419,12 @@ ColorType colorTypeGrid = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, Color::GRID
 
 void OnChanged_Grid_Brightness()
 {
-    Color_SetBrightness(&colorTypeGrid, BRIGHTNESS_GRID / 1e2f);
+    colorTypeGrid.SetBrightness(BRIGHTNESS_GRID / 1e2f);
 }
 
 static void BeforeDraw_Grid_Brightness()
 {
-    Color_Init(&colorTypeGrid);
+    colorTypeGrid.Init();
     BRIGHTNESS_GRID = (int16)(colorTypeGrid.brightness * 100.0f);
 }
 

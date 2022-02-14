@@ -439,7 +439,7 @@ void DrawGovernorColorValue(int x, int y, GovernorColor *govColor, int delta)
 
     if(!ct->alreadyUsed)
     {
-        Color_Init(ct);
+        ct->Init();
     }
 
     int vals[4] = {(int)(ct->brightness * 100), blue, green, red};
@@ -463,7 +463,7 @@ static void GovernorColor_DrawOpened(GovernorColor *gov, int x, int y)
 {
     static const int delta = 43;
     x -= delta;
-    Color_Init(gov->colorType);
+    gov->colorType->Init();
     Painter::DrawRectangle(x - 1, y - 1, MI_WIDTH + delta + 2, MI_HEIGHT + 2, Color::BLACK);
     Painter::DrawRectangle(x, y, MI_WIDTH + delta, MI_HEIGHT, ColorMenuTitle(false));
     Painter::DrawVolumeButton(x + 1, y + 1, MI_WIDTH_VALUE + 2 + delta, MI_HEIGHT_VALUE + 3, 2, ColorMenuItem(false), 
@@ -475,7 +475,7 @@ static void GovernorColor_DrawOpened(GovernorColor *gov, int x, int y)
 
 static void GovernorColor_DrawClosed(GovernorColor *gov, int x, int y)
 {
-    Color_Init(gov->colorType);
+    gov->colorType->Init();
     DrawGovernorChoiceColorFormulaHiPart(gov, x, y, Menu::IsPressed(gov), Menu::IsShade(gov) || !Menu::ItemIsActive(gov), true);
     Painter::FillRegion(x + 2, y + 20, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1, gov->colorType->color);
 }
