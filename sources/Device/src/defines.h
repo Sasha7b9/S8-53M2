@@ -55,7 +55,7 @@ struct Color
 private:
     static void CalculateColor();
     static void OnTimerFlashDisplay();
-    static Color::E currentColor;
+    static Color::E current;
 };
 
 

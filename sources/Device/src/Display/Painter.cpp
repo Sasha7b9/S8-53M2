@@ -19,22 +19,25 @@
 #include <cstring>
 
 
-inline void BoundingX(int &x) { if (x < 0) x = 0; if (x >= Display::WIDTH) x = Display::WIDTH - 1; }
-inline void BoundingY(int &y) { if (y < 0) y = 0; if (y >= Display::HEIGHT) y = Display::HEIGHT - 1; }
-
-
 namespace Display
 {
     uint8 back[240][320];
 
     static const int SIZE_BUFFER = WIDTH * HEIGHT;
-    uint8* display_back_buffer = &back[0][0];
-    uint8* display_back_buffer_end = display_back_buffer + SIZE_BUFFER;
+    uint8 *display_back_buffer = &back[0][0];
+    uint8 *display_back_buffer_end = display_back_buffer + SIZE_BUFFER;
+}
+
+
+namespace Painter
+{
+    inline void BoundingX(int &x) { if (x < 0) x = 0; if (x >= Display::WIDTH) x = Display::WIDTH - 1; }
+    inline void BoundingY(int &y) { if (y < 0) y = 0; if (y >= Display::HEIGHT) y = Display::HEIGHT - 1; }
 }
 
 
 static bool inverseColors = false;
-Color::E Color::currentColor = Color::COUNT;
+Color::E Color::current = Color::COUNT;
 
 static enum StateTransmit
 {
@@ -66,13 +69,13 @@ void Painter::SendFrame(bool first, bool noFonts_)
 
 void Color::CalculateColor()
 {
-    if (currentColor == Color::FLASH_10)
+    if (current == Color::FLASH_10)
     {
-        currentColor = inverseColors ? COLOR_BACK : COLOR_FILL;
+        current = inverseColors ? COLOR_BACK : COLOR_FILL;
     }
-    else if (currentColor == Color::FLASH_01)
+    else if (current == Color::FLASH_01)
     {
-        currentColor = inverseColors ? COLOR_FILL : COLOR_BACK;
+        current = inverseColors ? COLOR_FILL : COLOR_BACK;
     }
 }
 
@@ -174,11 +177,11 @@ bool InterCom::TransmitGUIinProcess()
 
 void Color::SetCurrent(Color::E color)
 {
-    if (color != currentColor && color != Color::COUNT)
+    if (color != current && color != Color::COUNT)
     {
-        currentColor = color;
+        current = color;
 
-        if (currentColor > Color::COUNT)
+        if (current > Color::COUNT)
         {
             CalculateColor();
         }
@@ -195,7 +198,7 @@ void Color::SetCurrent(Color::E color)
 
 Color::E Color::GetCurrent()
 {
-    return currentColor;
+    return current;
 }
 
 
