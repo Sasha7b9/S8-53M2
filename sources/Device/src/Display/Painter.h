@@ -66,7 +66,7 @@ namespace Painter
     // Возвращает нижнюю координату прямоугольника.
     int DrawTextInBoundedRectWithTransfers(int x, int y, int width, const char *text, Color::E colorBackground, Color::E colorFill);
 
-    int DrawTextInRectWithTransfersC(int x, int y, int width, int height, const char *text, Color::E);
+    int DrawTextInRectWithTransfers(int x, int y, int width, int height, const char *text, Color::E);
 
     int DrawFormatText(int x, int y, Color::E color, char *text, ...);
 
