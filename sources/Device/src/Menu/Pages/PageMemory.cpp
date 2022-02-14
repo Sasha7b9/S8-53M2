@@ -1088,7 +1088,7 @@ void DrawSetMask()
 
     DrawFileMask(x0 + deltaX, y0 + 65);
 
-    static const char* strings[] =
+    static pchar  strings[] =
     {
         "%y - год, %m - месяц, %d - день",
         "%H - часы, %M - минуты, %S - секунды",

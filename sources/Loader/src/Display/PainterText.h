@@ -16,7 +16,7 @@ int Painter_DrawText(int x, int y, pchar text);
 
 int Painter_DrawTextC(int x, int y, pchar text, Color::E);
 
-int Painter_DrawTextWithLimitationC(int x, int y, const char* text, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight);
+int Painter_DrawTextWithLimitationC(int x, int y, pchar  text, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight);
 
 int Painter_DrawTextInRectWithTransfersC(int x, int y, int width, int height, pchar text, Color::E);
 

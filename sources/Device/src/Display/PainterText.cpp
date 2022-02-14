@@ -287,7 +287,7 @@ int Painter::DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, in
 }
 
 
-int Painter::DrawTextWithLimitationC(int x, int y, const char* text, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight)
+int Painter::DrawTextWithLimitationC(int x, int y, pchar  text, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight)
 {
     Color::SetCurrent(color);
     int retValue = x;

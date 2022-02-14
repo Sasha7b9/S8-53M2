@@ -1,8 +1,9 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
-#include "Controls.h"
+#include "defines.h"
+#include "Panel/Controls.h"
 
 
-static const char* namesButtons[] = 
+static pchar  namesButtons[] = 
 {
     "B_Empty",
     "B_Channel0",
@@ -27,7 +28,7 @@ static const char* namesButtons[] =
 
 
 
-const char* NameButton(PanelButton button) 
+pchar  NameButton(PanelButton button) 
 {
     return namesButtons[button];
 }

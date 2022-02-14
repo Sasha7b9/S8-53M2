@@ -11,7 +11,7 @@
 // Структура для описания диапазона масштаба по времени.
 struct TBaseStruct
 {
-    const char* name[2];    // Название диапазона в текстовом виде, пригодном для вывода на экран.
+    pchar  name[2];    // Название диапазона в текстовом виде, пригодном для вывода на экран.
 };
 
 
@@ -51,7 +51,7 @@ static const TBaseStruct tBases[TBase::Count] =
 };
 
 // Таблица символов алфавита и спецсимволов для ввода текста
-const char* symbolsAlphaBet[0x48] =
+pchar  symbolsAlphaBet[0x48] =
 {
     /* 0x00 */ "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", /* 0x19 */
     /* 0x1a */ " ", "_", "-", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", /* 0x26 */
@@ -101,7 +101,7 @@ int Tables_ENUMtoNumSignalsInSec(ENumSignalsInSec enumSignalsInSec)
 }
 
 
-const char* Tables_GetWarning(Warning warning)
+pchar  Tables_GetWarning(Warning warning)
 {
     static pchar warnings[Warning_NumWarnings][2] =
     {
@@ -137,21 +137,21 @@ const char* Tables_GetWarning(Warning warning)
 }
 
 
-const char* Tables_GetTBaseString(TBase::E tBase)
+pchar  Tables_GetTBaseString(TBase::E tBase)
 {
     return tBases[tBase].name[set.common.lang];
 }
 
 
-const char* Tables_GetTBaseStringEN(TBase::E tBase)
+pchar  Tables_GetTBaseStringEN(TBase::E tBase)
 {
     return tBases[tBase].name[English];
 }
 
 
-const char* Tables_RangeNameFromValue(Range::E range)
+pchar  Tables_RangeNameFromValue(Range::E range)
 {
-    static const char* names[Range::Count] =
+    static pchar  names[Range::Count] =
     {
         "Range::_2mV",
         "Range::_5mV",

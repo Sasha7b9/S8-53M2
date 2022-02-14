@@ -76,7 +76,7 @@ public:
     // Возвращает высоту в пикселях открытого элемента Choice или NamePage по адресу item.
     static int HeightOpenedItem(void *item);
     // Возвращает название элемента по адресу item, как оно выглядит на дисплее прибора.
-    static const char* TitleItem(void *item);
+    static pchar  TitleItem(void *item);
     // Возвращает позицию первого элемента страницы по адресу page на экране. Если текущая подстраница 0, это будет 0, если текущая подстраница 1, это будет 5 и т.д.
     static int PosItemOnTop(Page *page);
     // Возвращает true, если button - функциональная клавиша [1..5].

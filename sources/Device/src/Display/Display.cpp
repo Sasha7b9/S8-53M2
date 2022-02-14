@@ -57,7 +57,7 @@ namespace Display
 
     uint8 *front = (uint8 *)HAL_FMC::_ADDR_RAM_DISPLAY_FRONT;
 
-    void ShowWarn(const char* message);
+    void ShowWarn(pchar  message);
 
     // Нарисовать сетку.
     void DrawGrid(int left, int top, int width, int height);
@@ -196,7 +196,7 @@ namespace Display
     // Вывести значение уровня синхронизации. 
     void WriteValueTrigLevel();
 
-    void AddString(const char* string);
+    void AddString(pchar  string);
 
     int CalculateCountH();
 

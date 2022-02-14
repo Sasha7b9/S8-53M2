@@ -984,7 +984,7 @@ static void Information_Draw()
 
     Painter::DrawText(x, y, lang == Russian ? "Программное обеспечение:" : "Software:");
     y += dY;
-    sprintf(buffer, (const char*)((lang == Russian) ? "версия %s" : "version %s"), NUM_VER);
+    sprintf(buffer, (pchar )((lang == Russian) ? "версия %s" : "version %s"), NUM_VER);
     Painter::DrawText(x, y, buffer);
     y += dY;
 

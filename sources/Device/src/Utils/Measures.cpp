@@ -88,7 +88,7 @@ int Measure_GetDX()
     return GRID_WIDTH / 5; 
 }
 
-const char* Measure_Name(int row, int col)
+pchar  Measure_Name(int row, int col)
 {
     int numMeasure = row * Measure_NumCols() + col;
     return measures[MEASURE(numMeasure)].name;

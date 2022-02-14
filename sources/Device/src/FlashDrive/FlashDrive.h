@@ -35,9 +35,9 @@ namespace FlashDrive
 
     void Update();
 
-    void GetNumDirsAndFiles(const char* fullPath, int *numDirs, int *numFiles);
+    void GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles);
 
-    bool GetNameDir(const char* fuulPath, int numDir, char *nameDirOut, StructForReadDir *sfrd);
+    bool GetNameDir(pchar  fuulPath, int numDir, char *nameDirOut, StructForReadDir *sfrd);
 
     bool GetNextNameDir(char *nameDirOut, StructForReadDir *sfrd);
 
@@ -48,11 +48,11 @@ namespace FlashDrive
     bool GetNextNameFile(char *nameFileOut, StructForReadDir *sfrd);
 
     // Функция создаст файл для записи. Если такой файл уже существует, сотрёт его, заменит новым нулевой длины и откроет его
-    bool OpenNewFileForWrite(const char* fullPathToFile, StructForWrite *structForWrite);
+    bool OpenNewFileForWrite(pchar  fullPathToFile, StructForWrite *structForWrite);
 
     bool WriteToFile(uint8* data, int sizeData, StructForWrite *structForWrite);
 
     bool CloseFile(StructForWrite *structForWrite);
 
-    bool AppendStringToFile(const char* string);
+    bool AppendStringToFile(pchar  string);
 };

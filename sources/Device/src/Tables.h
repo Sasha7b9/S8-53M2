@@ -45,16 +45,16 @@ ENumSignalsInSec Tables_NumSignalsInSecToENUM(int enumSignalsInSec);
 
 int Tables_ENUMtoNumSignalsInSec(ENumSignalsInSec enumSignalsInSec);
 
-const char* Tables_GetWarning(Warning warning);
+pchar  Tables_GetWarning(Warning warning);
 
-const char* Tables_GetTBaseString(TBase::E);
+pchar  Tables_GetTBaseString(TBase::E);
 
-const char* Tables_GetTBaseStringEN(TBase::E);
+pchar  Tables_GetTBaseStringEN(TBase::E);
 
-const char* Tables_RangeNameFromValue(Range::E);
+pchar  Tables_RangeNameFromValue(Range::E);
 // Возвращает номер канала от 1 до 2
 int Tables_GetNumChannel(Chan::E);
 
-extern const char* symbolsAlphaBet[0x48];
+extern pchar  symbolsAlphaBet[0x48];
 // Выводит строку из таблицы symbolsAlphaBet
 void DrawStr(int index, int x, int y);

@@ -46,7 +46,7 @@ int Measure_GetDY();
 
 int Measure_GetDX();
 
-const char* Measure_Name(int row, int col);
+pchar  Measure_Name(int row, int col);
 
 Measure Measure_Type(int row, int col);
 

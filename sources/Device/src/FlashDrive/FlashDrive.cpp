@@ -73,7 +73,7 @@ void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8 id)
 }
 
 
-bool FlashDrive::AppendStringToFile(const char* string)
+bool FlashDrive::AppendStringToFile(pchar  string)
 {
     return false;
 }
@@ -89,7 +89,7 @@ void WriteToFile(FIL *file, char *string)
 }
 
 
-void FlashDrive::GetNumDirsAndFiles(const char* fullPath, int *numDirs, int *numFiles)
+void FlashDrive::GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles)
 {
     FILINFO fno;
     DIR dir;
@@ -315,7 +315,7 @@ bool FlashDrive::GetNextNameFile(char *nameFileOut, StructForReadDir *s)
 }
 
 
-bool FlashDrive::OpenNewFileForWrite(const char* fullPathToFile, StructForWrite *structForWrite)
+bool FlashDrive::OpenNewFileForWrite(pchar  fullPathToFile, StructForWrite *structForWrite)
 {
     if (f_open(&structForWrite->fileObj, fullPathToFile, FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
     {

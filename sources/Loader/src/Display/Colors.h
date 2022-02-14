@@ -59,9 +59,9 @@ void Color_Init(ColorType *colorType, bool forced);
 
 void Color_ComponentChange(ColorType *colorType, int delta);
 
-const char* NameColorFromValue(uint16 colorValue);
+pchar  NameColorFromValue(uint16 colorValue);
 
-const char* NameColor(Color::E color);
+pchar  NameColor(Color::E color);
 
 #define MAKE_COLOR(r, g, b) (((b) & 0x1f) + (((g) & 0x3f) << 5) + (((r) & 0x1f) << 11))
 #define R_FROM_COLOR(color) (((uint16)(color) >> 11) & (uint16)0x1f)

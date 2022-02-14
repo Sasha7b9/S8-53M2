@@ -62,13 +62,13 @@ bool sChannel_Enabled(Chan::E ch)
 }
 
 
-const char* sChannel_Range2String(Range::E range, Divider multiplier)
+pchar  sChannel_Range2String(Range::E range, Divider multiplier)
 {
     return ranges[range].name[set.common.lang][multiplier];
 }
 
 
-const char* sChannel_RShift2String(int16 rShiftRel, Range::E range, Divider multiplier, char buffer[20])
+pchar  sChannel_RShift2String(int16 rShiftRel, Range::E range, Divider multiplier, char buffer[20])
 {
     float rShiftVal = RSHIFT_2_ABS(rShiftRel, range) * sChannel_MultiplierRel2Abs(multiplier);
     return Voltage2String(rShiftVal, true, buffer);

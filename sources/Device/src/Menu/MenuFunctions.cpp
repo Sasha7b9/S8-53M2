@@ -126,7 +126,7 @@ int Menu::NumCurrentSubPage(Page *page)
 }
 
 
-const char* Menu::TitleItem(void *item) 
+pchar  Menu::TitleItem(void *item) 
 {
     return TITLE((Page*)item);
 }
