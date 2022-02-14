@@ -206,6 +206,8 @@ namespace Display
 
 void Display::Init() 
 {
+    HAL_DAC1::Init();
+
     Color::ResetFlash();
 
     HAL_LTDC::Init(HAL_FMC::_ADDR_RAM_DISPLAY_FRONT, Display::back_buffer);

@@ -6,11 +6,11 @@
 
 namespace HAL_DAC1
 {
-    static DAC_HandleTypeDef handle = {DAC};
+    DAC_HandleTypeDef handle = {DAC};
 
 
     // imi - входной минимум, oma - выходной максимум
-    static uint CalculateValue(double imi, double omi, double ima, double oma, int value)
+    uint CalculateValue(double imi, double omi, double ima, double oma, int value)
     {
         double b = (omi - oma * imi / ima) / (1.0 - imi / ima);
 
@@ -18,6 +18,42 @@ namespace HAL_DAC1
 
         return (uint)(value * a + b);
     }
+}
+
+void HAL_DAC1::Init()
+{
+#ifndef GUI
+
+    RCC->APB1ENR |= RCC_APB1ENR_DACEN;      // Включаем ЦАП
+
+    HAL_PINS::DAC1_::Init();
+
+    if (HAL_DAC_Init(&handle) != HAL_OK)
+    {
+        ERROR_HANDLER();
+    }
+
+    HAL_NVIC_SetPriority(EXTI9_5_IRQn, 2, 0);
+
+    if (HAL_DAC_Init(&handle) != HAL_OK)
+    {
+        ERROR_HANDLER();
+    }
+
+    DAC_ChannelConfTypeDef configDAC;
+    configDAC.DAC_Trigger = DAC_TRIGGER_NONE;
+    configDAC.DAC_OutputBuffer = DAC_OUTPUTBUFFER_DISABLE;
+
+    if (HAL_DAC_ConfigChannel(&handle, &configDAC, DAC1_CHANNEL_1) != HAL_OK)
+    {
+        ERROR_HANDLER();
+    }
+
+    HAL_DAC_Start(&handle, DAC1_CHANNEL_1);
+
+    SetBrightness(0);
+
+#endif
 }
 
 
