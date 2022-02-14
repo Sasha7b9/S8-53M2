@@ -177,7 +177,7 @@ void FM::Draw()
         Painter::DrawRectangleC(1, 0, width, 239, COLOR_FILL);
         FlashDrive::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
         DrawNameCurrentDir(left + 1, top + 2);
-        Painter::DrawVLineC(left2col, top + 16, 239, COLOR_FILL);
+        Painter::DrawVLine(left2col, top + 16, 239, COLOR_FILL);
         Painter::DrawHLine(top + 15, 0, width);
     }
 

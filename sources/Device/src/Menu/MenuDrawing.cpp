@@ -156,7 +156,7 @@ void Menu::DrawTitlePage(Page *page, int layer, int yTop)
         Painter::DrawVolumeButton(x + 1, yTop + 1, MP_TITLE_WIDTH - 1, MP_TITLE_HEIGHT - 1, 3, ColorMenuTitle(false), ColorMenuTitleBrighter(), ColorMenuTitleLessBright(), shade, false);
     }
     
-    Painter::DrawVLineC(x, yTop, yTop + HeightOpenedItem(page), ColorBorderMenu(false));
+    Painter::DrawVLine(x, yTop, yTop + HeightOpenedItem(page), ColorBorderMenu(false));
     bool condDrawRSet = NumSubPages(page) > 1 && TypeMenuItem(CurrentItem()) != Item_ChoiceReg && TypeMenuItem(CurrentItem()) != Item_Governor && TypeOpenedItem() == Item_Page;
     int delta = condDrawRSet ? -10 : 0;
     Color::E colorText = shade ? LightShadingTextColor() : Color::BLACK;

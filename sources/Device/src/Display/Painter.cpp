@@ -262,8 +262,13 @@ void Painter::DrawHLine(int y, int x0, int x1, Color::E color)
 }
 
 
-void Painter::DrawVLine(int x, int y0, int y1)
+void Painter::DrawVLine(int x, int y0, int y1, Color::E color)
 {
+    if (color != Color::COUNT)
+    {
+        Color::SetCurrent(color);
+    }
+
     CalculateCurrentColor();
 
     if (x < 0 || x >= Display::WIDTH)
@@ -297,13 +302,6 @@ void Painter::DrawVLine(int x, int y0, int y1)
         command.PushByte(y1);
         command.Transmit(5);
     }
-}
-
-
-void Painter::DrawVLineC(int x, int y0, int y1, Color::E color)
-{
-    Color::SetCurrent(color);
-    DrawVLine(x, y0, y1);
 }
 
 
@@ -520,7 +518,7 @@ void Painter::DrawVolumeButton(int x, int y, int width, int height, int thicknes
         {
             DrawHLine(y + i, x + i, x + width - i, dark);
             DrawVLine(x + i, y + 1 + i, y + height - i);
-            DrawVLineC(x + width - i, y + 1 + i, y + height - i, bright);
+            DrawVLine(x + width - i, y + 1 + i, y + height - i, bright);
             DrawHLine(y + height - i, x + 1 + i, x + width - i);
         }
     }
@@ -530,7 +528,7 @@ void Painter::DrawVolumeButton(int x, int y, int width, int height, int thicknes
         {
             DrawHLine(y + i, x + i, x + width - i, bright);
             DrawVLine(x + i, y + 1 + i, y + height - i);
-            DrawVLineC(x + width - i, y + 1 + i, y + height - i, dark);
+            DrawVLine(x + width - i, y + 1 + i, y + height - i, dark);
             DrawHLine(y + height - i, x + 1 + i, x + width - i);
         }
     }

@@ -675,7 +675,7 @@ void Display::DrawSpectrum()
         return;
     }
 
-    Painter::DrawVLineC(Grid::Right(), Grid::ChannelBottom() + 1, Grid::MathBottom() - 1, COLOR_BACK);
+    Painter::DrawVLine(Grid::Right(), Grid::ChannelBottom() + 1, Grid::MathBottom() - 1, COLOR_BACK);
 
     if (MODE_WORK_IS_DIRECT)
     {
@@ -1142,7 +1142,7 @@ void Display::DrawMemoryWindow()
     }
     else
     {
-        Painter::DrawVLineC(leftX - 2, top, bottom, COLOR_FILL);
+        Painter::DrawVLine(leftX - 2, top, bottom, COLOR_FILL);
         Painter::DrawVLine(rightX + 2, top, bottom);
         Painter::DrawHLine((bottom + top) / 2 - 3, leftX, xVert0 - 2);
         Painter::DrawHLine((bottom + top) / 2 + 3, leftX, xVert0 - 2);
@@ -1203,7 +1203,7 @@ void Display::WriteCursors()
     int y2 = 9;
     if(sCursors_NecessaryDrawCursors())
     {
-        Painter::DrawVLineC(x, 1, GRID_TOP - 2, COLOR_FILL);
+        Painter::DrawVLine(x, 1, GRID_TOP - 2, COLOR_FILL);
         x += 3;
         Chan::E source = CURS_SOURCE;
         Color::E colorText = ColorChannel(source);
@@ -1225,7 +1225,7 @@ void Display::WriteCursors()
         }
 
         x = startX + 101;
-        Painter::DrawVLineC(x, 1, GRID_TOP - 2, COLOR_FILL);
+        Painter::DrawVLine(x, 1, GRID_TOP - 2, COLOR_FILL);
         x += 3;
         if(!CURS_CNTRL_T_IS_DISABLE(source))
         {
@@ -1270,7 +1270,7 @@ void Display::DrawHiRightPart()
 
     if (!MODE_WORK_IS_LATEST)
     {
-        Painter::DrawVLineC(x, 1, GRID_TOP - 2, COLOR_FILL);
+        Painter::DrawVLine(x, 1, GRID_TOP - 2, COLOR_FILL);
 
         x += 2;
 
@@ -1292,7 +1292,7 @@ void Display::DrawHiRightPart()
     if(!MODE_WORK_IS_DIRECT)
     {
         x += 18;
-        Painter::DrawVLineC(x, 1, GRID_TOP - 2, COLOR_FILL);
+        Painter::DrawVLine(x, 1, GRID_TOP - 2, COLOR_FILL);
         x += 2;
         Painter::DrawText(set.common.lang == Russian ? x : x + 3, -1, set.common.lang == Russian ? "режим" : "mode");
         Painter::DrawStringInCenterRect(x + 1, 9, 25, 8, strings_[MODE_WORK][set.common.lang]);
@@ -1306,7 +1306,7 @@ void Display::DrawHiRightPart()
     {
 
         x += 27;
-        Painter::DrawVLineC(x, 1, GRID_TOP - 2, COLOR_FILL);
+        Painter::DrawVLine(x, 1, GRID_TOP - 2, COLOR_FILL);
 
         x += 2;
         y = 1;
@@ -1514,7 +1514,7 @@ void Display::DrawGridSpectrum()
             }
         }
     }
-    Painter::DrawVLineC(Grid::Left() + 256, Grid::MathTop(), Grid::MathBottom(), COLOR_FILL);
+    Painter::DrawVLine(Grid::Left() + 256, Grid::MathTop(), Grid::MathBottom(), COLOR_FILL);
 }
 
 
@@ -2147,7 +2147,7 @@ void Display::DrawLowPart()
 
     WriteTextVoltage(Chan::B, x + 2, y1);
 
-    Painter::DrawVLineC(x + 95, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, COLOR_FILL);
+    Painter::DrawVLine(x + 95, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, COLOR_FILL);
 
     x += 98;
     char buffer[100] = {0};
@@ -2224,7 +2224,7 @@ void Display::DrawLowPart()
         Painter::DrawText(x + 63, y1, buffer);
     }
     
-    Painter::DrawVLineC(x + 79, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, COLOR_FILL);
+    Painter::DrawVLine(x + 79, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, COLOR_FILL);
 
     Painter::DrawHLine(GRID_BOTTOM, GRID_RIGHT + 2, SCREEN_WIDTH - 2);
     Painter::DrawHLine(Grid::ChannelBottom(), GRID_RIGHT + 2, SCREEN_WIDTH - 2);
