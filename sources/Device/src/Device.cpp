@@ -17,7 +17,7 @@
 
 namespace Device
 {
-    static void ProcessingSignal();
+//    static void ProcessingSignal();
 }
 
 
@@ -71,6 +71,7 @@ void Device::Update()
 */
 
 
+/*
 static void Device::ProcessingSignal()
 {
     uint8** data0 = &gData0;
@@ -120,3 +121,4 @@ static void Device::ProcessingSignal()
     Cursors_Update();    // В случае, если находимся в режиме курсорных измерений, обновляем их положение, если нужно.
 
 }
+*/

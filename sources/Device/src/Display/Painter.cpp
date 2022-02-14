@@ -36,7 +36,7 @@ namespace Painter
 }
 
 
-static bool inverseColors = false;
+bool     Color::inverse = false;
 Color::E Color::current = Color::COUNT;
 
 static enum StateTransmit
@@ -71,25 +71,25 @@ void Color::CalculateColor()
 {
     if (current == Color::FLASH_10)
     {
-        current = inverseColors ? COLOR_BACK : COLOR_FILL;
+        current = inverse ? COLOR_BACK : COLOR_FILL;
     }
     else if (current == Color::FLASH_01)
     {
-        current = inverseColors ? COLOR_FILL : COLOR_BACK;
+        current = inverse ? COLOR_FILL : COLOR_BACK;
     }
 }
 
 
 void Color::OnTimerFlashDisplay()
 {
-    inverseColors = !inverseColors;
+    inverse = !inverse;
 }
 
 
 void Color::ResetFlash()
 {
     Timer::Enable(TypeTimer::FlashDisplay, 400, OnTimerFlashDisplay);
-    inverseColors = false;
+    inverse = false;
 }
 
 

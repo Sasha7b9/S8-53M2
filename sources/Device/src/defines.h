@@ -56,6 +56,7 @@ private:
     static void CalculateColor();
     static void OnTimerFlashDisplay();
     static Color::E current;
+    static bool inverse;
 };
 
 
