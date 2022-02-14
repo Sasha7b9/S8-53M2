@@ -560,10 +560,10 @@ void Painter::BeginScene(Color::E color)
             LoadPalette();
             if(!noFonts)                // Если был запрос на загрузку шрифтов
             {
-                LoadFont(TypeFont::_5);
-                LoadFont(TypeFont::_8);
-                LoadFont(TypeFont::UGO);
-                LoadFont(TypeFont::UGO2);
+                Font::Load(TypeFont::_5);
+                Font::Load(TypeFont::_8);
+                Font::Load(TypeFont::UGO);
+                Font::Load(TypeFont::UGO2);
             }
         }
     }

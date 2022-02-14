@@ -78,7 +78,7 @@ void Font::Set(TypeFont::E typeFont)
 }
 
 
-void Painter::LoadFont(TypeFont::E typeFont)
+void Font::Load(TypeFont::E typeFont)
 {
     if (InterCom::TransmitGUIinProcess())
     {

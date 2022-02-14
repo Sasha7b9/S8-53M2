@@ -25,6 +25,9 @@ struct Font
 
     static void Set(TypeFont::E);
 
+    // Загрузить шрифта в дисплей.
+    static void Load(TypeFont::E);
+
     static TypeFont::E current;
 };
 

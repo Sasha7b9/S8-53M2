@@ -58,9 +58,6 @@ namespace Painter
 
     bool SaveScreenToFlashDrive();
 
-    // Загрузить шрифта в дисплей.
-    void LoadFont(TypeFont::E typeFont);
-
     int DrawChar(int x, int y, char symbol, Color::E = Color::COUNT);
 
     int DrawText(int x, int y, pchar text, Color::E = Color::COUNT);
