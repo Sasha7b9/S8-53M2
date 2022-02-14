@@ -1,8 +1,7 @@
 // 2022/02/11 17:45:02 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-#include "Colors.h"
-#include "DisplayTypes.h"
-#include "PainterC.h"
+#include "Display/Colors.h"
+#include "Display/DisplayTypes.h"
 
 
 namespace Painter 
