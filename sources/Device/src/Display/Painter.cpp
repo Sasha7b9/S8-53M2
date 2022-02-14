@@ -77,13 +77,7 @@ void Color::CalculateColor()
 }
 
 
-void InverseColor(Color::E *color)
-{
-    *color = (*color == Color::BLACK) ? Color::WHITE : Color::BLACK;
-}
-
-
-static void OnTimerFlashDisplay()
+void Color::OnTimerFlashDisplay()
 {
     inverseColors = !inverseColors;
 }
