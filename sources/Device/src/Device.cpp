@@ -24,6 +24,7 @@ namespace Device
 void Device::Init()
 {
     HAL::Init();
+    Settings::Load(true);
 //    Sound::Init();
 //    VCP::Init();
 //    Settings::Load(false);
