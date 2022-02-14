@@ -265,7 +265,7 @@ void Measure_DrawPageChoice()
             Color::SetCurrent(active ? Color::FLASH_01 : COLOR_FILL);
             Painter::Draw10SymbolsInRect(x0 + 2, y0 + 1, Measure_GetChar(meas));
             Painter::SetFont(TypeFont::_5);
-            Painter::DrawTextRelativelyRightC(x0 + dX, y0 + 12, measures[meas].name, active ? Color::FLASH_01 : COLOR_FILL);
+            Painter::DrawTextRelativelyRight(x0 + dX, y0 + 12, measures[meas].name, active ? Color::FLASH_01 : COLOR_FILL);
             Painter::SetFont(TypeFont::UGO);
             ++meas;
         }

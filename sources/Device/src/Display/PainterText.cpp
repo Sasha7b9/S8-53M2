@@ -790,17 +790,12 @@ void Painter::DrawTextInRect(int x, int y, int width, int height, char *text)
 }
 
 
-void Painter::DrawTextRelativelyRight(int xRight, int y, const char *text)
-{
-    int lenght = Font_GetLengthText(text);
-    DrawText(xRight - lenght, y, text);
-}
-
-
-void Painter::DrawTextRelativelyRightC(int xRight, int y, const char *text, Color::E color)
+void Painter::DrawTextRelativelyRight(int xRight, int y, const char *text, Color::E color)
 {
     Color::SetCurrent(color);
-    DrawTextRelativelyRight(xRight, y, text);
+
+    int lenght = Font_GetLengthText(text);
+    DrawText(xRight - lenght, y, text);
 }
 
 
