@@ -1,16 +1,19 @@
 // 2022/2/12 10:07:17 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
+#include "Settings/Settings.h"
 #include <stm32f4xx_hal.h>
 
 
 namespace HAL_LTDC
 {
-    static void SetBuffers(uint8 *frontBuffer, uint8 *backBuffer);
+    void SetBuffers(uint8 *frontBuffer, uint8 *backBuffer);
 
-    static LTDC_HandleTypeDef handleLTDC;
-    static uint frontBuffer = 0;
-    static uint backBuffer = 0;
+    void SetPalette(int);
+
+    LTDC_HandleTypeDef handleLTDC;
+    uint frontBuffer = 0;
+    uint backBuffer = 0;
 }
 
 
@@ -105,13 +108,24 @@ void HAL_LTDC::SetBuffers(uint8 *front, uint8 *back)
 
 void HAL_LTDC::LoadPalette()
 {
-//    if (HAL_LTDC_ConfigCLUT(&handleLTDC, &COLOR(0), Color::Count, 0) != HAL_OK)
-//    {
-//        ERROR_HANDLER();
-//    }
-//
-//    if (HAL_LTDC_EnableCLUT(&handleLTDC, 0) != HAL_OK)
-//    {
-//        ERROR_HANDLER();
-//    }
+    if (HAL_LTDC_ConfigCLUT(&handleLTDC, &COLOR(0), Color::COUNT, 0) != HAL_OK)
+    {
+        ERROR_HANDLER();
+    }
+
+    if (HAL_LTDC_EnableCLUT(&handleLTDC, 0) != HAL_OK)
+    {
+        ERROR_HANDLER();
+    }
+
+    for (int i = 0; i < Color::COUNT; i++)
+    {
+        SetPalette(i);
+    }
+}
+
+
+void HAL_LTDC::SetPalette(int)
+{
+
 }

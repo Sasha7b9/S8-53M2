@@ -8,26 +8,28 @@
 // Настройки изображения
 typedef struct
 {
-    int16               timeShowLevels;             // Время, в течение которого нужно показывать уровни смещения
-    int16               shiftInMemory;              // Показывает смещение левого края сетки относительно нулевого байта памяти. Нужно для правильного отображения сигнала в окне.
-    int16               timeMessages;               // Время в секундах, на которое сообщение остаётся на экране
-    int16               brightness;                 // Яркость дисплея (только для цветного)
-    int16               brightnessGrid;             // Яркость сетки от 0 до 100
+    int16               timeShowLevels;         // Время, в течение которого нужно показывать уровни смещения
+    int16               shiftInMemory;          // Показывает смещение левого края сетки относительно нулевого байта
+                                                //памяти. Нужно для правильного отображения сигнала в окне.
+    int16               timeMessages;           // Время в секундах, на которое сообщение остаётся на экране
+    int16               brightness;             // Яркость дисплея (только для цветного)
+    int16               brightnessGrid;         // Яркость сетки от 0 до 100
     uint16              colors[16];
-    ModeDrawSignal      modeDrawSignal;             // Режим отрисовки сигнала
-    TypeGrid            typeGrid;                   // Тип сетки
-    NumAccumulation     numAccumulation;            // Число накоплений сигнала на экране
-    NumAveraging        numAve;                     // Число усреднений сигнала
-    ModeAveraging       modeAve;                    // Тип усреднений по измерениям
-    NumMinMax           numMinMax;                  // Число измерений для определения минимумов и максимумов
-    DisplaySmoothing    smoothing;                  // Число точек для скользящего фильтра
-    NumSignalsInSec     numSignalsInSec;            // Число считываний сигнала в секунду
-    Channel             lastAffectedChannel;        // Здесь хранится номер последнего канала, которым управляли ручками. Нужно для того, чтобы знать, какой сигнал рисовать наверху.
-    ModeAccumulation    modeAccumulation;           // Задаёт режим накопления сигналов
-    AltMarkers          altMarkers;                 // Режим отображения дополнительных боковых маркеров смещений
-    MenuAutoHide        menuAutoHide;               // Через сколько времени после последнего нажатия клавиши прятать меню 
-    bool                showFullMemoryWindow;       // Показывать ли окно памяти вверху экрана.
-    bool                showStringNavigation;       // Показывать ли строку текущего состояния меню.
+    ModeDrawSignal      modeDrawSignal;         // Режим отрисовки сигнала
+    TypeGrid            typeGrid;               // Тип сетки
+    NumAccumulation     numAccumulation;        // Число накоплений сигнала на экране
+    NumAveraging        numAve;                 // Число усреднений сигнала
+    ModeAveraging       modeAve;                // Тип усреднений по измерениям
+    NumMinMax           numMinMax;              // Число измерений для определения минимумов и максимумов
+    DisplaySmoothing    smoothing;              // Число точек для скользящего фильтра
+    NumSignalsInSec     numSignalsInSec;        // Число считываний сигнала в секунду
+    Channel             lastAffectedChannel;    // Здесь хранится номер последнего канала, которым управляли ручками.
+                                                // Нужно для того, чтобы знать, какой сигнал рисовать наверху.
+    ModeAccumulation    modeAccumulation;       // Задаёт режим накопления сигналов
+    AltMarkers          altMarkers;             // Режим отображения дополнительных боковых маркеров смещений
+    MenuAutoHide        menuAutoHide;           // Через сколько времени после последнего нажатия клавиши прятать меню 
+    bool                showFullMemoryWindow;   // Показывать ли окно памяти вверху экрана.
+    bool                showStringNavigation;   // Показывать ли строку текущего состояния меню.
 } SettingsDisplay;
 
 

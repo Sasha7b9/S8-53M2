@@ -266,7 +266,7 @@ void Settings::Load(bool _default)
         BALANCE_ADC_TYPE = balanceType;
     }
 
-    Painter::LoadPalette();
+    HAL_LTDC::LoadPalette();
 
     Panel::EnableLEDChannel0(sChannel_Enabled(Chan::A));
     Panel::EnableLEDChannel1(sChannel_Enabled(Chan::B));

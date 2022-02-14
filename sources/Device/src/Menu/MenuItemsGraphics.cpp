@@ -432,10 +432,11 @@ void DrawGovernorColorValue(int x, int y, GovernorColor *govColor, int delta)
     ColorType *ct = govColor->colorType;
     int8 field = ct->currentField;
     char *texts[4] = {"ßð", "Ñí", "Çë", "Êð"};
-    uint16 color = set.display.colors[ct->color];
-    int red = R_FROM_COLOR(color);
-    int green = G_FROM_COLOR(color);
-    int blue = B_FROM_COLOR(color);
+    int color = (int)COLOR(ct->color);
+    int red = (int)R_FROM_COLOR(color);
+    int green = (int)G_FROM_COLOR(color);
+    int blue = (int)B_FROM_COLOR(color);
+
     if(!ct->alreadyUsed)
     {
         Color_Init(ct);

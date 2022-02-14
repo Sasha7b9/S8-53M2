@@ -540,15 +540,6 @@ void Painter::DrawSignal(int x, uint8 data[281], bool modeLines)
 }
 
 
-void Painter::LoadPalette()
-{
-    for (int i = 0; i < Color::COUNT; i++)
-    {
-        SetPalette((Color::E)i);
-    }
-}
-
-
 void Painter::BeginScene(Color::E color)
 {
     if (stateTransmit == StateTransmit_NeedForTransmitFirst || stateTransmit == StateTransmit_NeedForTransmitSecond)
@@ -557,7 +548,7 @@ void Painter::BeginScene(Color::E color)
         stateTransmit = StateTransmit_InProcess;
         if(needForLoadFontsAndPalette) 
         {
-            LoadPalette();
+            HAL_LTDC::LoadPalette();
             if(!noFonts)                // Если был запрос на загрузку шрифтов
             {
                 Font::Load(TypeFont::_5);
@@ -702,7 +693,7 @@ bool Painter::SaveScreenToFlashDrive() {
 
     for(int i = 0; i < 16; i++)
     {
-        uint16 color = set.display.colors[i];
+        uint color = set.display.colors[i];
         colorStruct.blue = (float)B_FROM_COLOR(color) / 31.0f * 255.0f;
         colorStruct.green = (float)G_FROM_COLOR(color) / 63.0f * 255.0f;
         colorStruct.red = (float)R_FROM_COLOR(color) / 31.0f * 255.0f;

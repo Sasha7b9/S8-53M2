@@ -58,6 +58,8 @@ void Color_ComponentChange(ColorType *colorType, int delta);
 pchar  NameColorFromValue(uint16 colorValue);
 pchar  NameColor(Color::E color);
 #define MAKE_COLOR(r, g, b) ((uint16)(((b) & 0x1f) + (((g) & 0x3f) << 5) + (((r) & 0x1f) << 11)))
-#define R_FROM_COLOR(color) (((uint16)(color) >> 11) & (uint16)0x1f)
-#define G_FROM_COLOR(color) (((uint16)(color) >> 5) & (uint16)0x3f)
-#define B_FROM_COLOR(color) ((uint16)(color) & 0x1f)
+
+#define R_FROM_COLOR(color) (((uint)(color) >> 16) & (uint)0xFF)
+#define G_FROM_COLOR(color) (((uint)(color) >> 8) & (uint)0xFF)
+#define B_FROM_COLOR(color) ((uint)(color) & 0xFF)
+#define COLOR(i) set.display.colors[i]
