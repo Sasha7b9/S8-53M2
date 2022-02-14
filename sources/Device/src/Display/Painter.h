@@ -84,9 +84,7 @@ namespace Painter
 
     void Draw2SymbolsC(int x, int y, char symbol1, char symbol2, Color::E color1, Color::E color2);
 
-    void Draw4SymbolsInRect(int x, int y, char eChar);
-
-    void Draw4SymbolsInRectC(int x, int y, char eChar, Color::E);
+    void Draw4SymbolsInRect(int x, int y, char eChar, Color::E = Color::COUNT);
 
     void Draw10SymbolsInRect(int x, int y, char eChar);
 

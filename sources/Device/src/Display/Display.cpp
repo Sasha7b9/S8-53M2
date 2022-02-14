@@ -2278,16 +2278,16 @@ void Display::DrawLowPart()
     // Ethernet
     if ((CLIENT_LAN_IS_CONNECTED || CABLE_LAN_IS_CONNECTED) && gTimerMS > 2000)
     {
-        Painter::Draw4SymbolsInRectC(x + 87, GRID_BOTTOM + 2, SYMBOL_ETHERNET, CLIENT_LAN_IS_CONNECTED ? COLOR_FILL : Color::FLASH_01);
+        Painter::Draw4SymbolsInRect(x + 87, GRID_BOTTOM + 2, SYMBOL_ETHERNET, CLIENT_LAN_IS_CONNECTED ? COLOR_FILL : Color::FLASH_01);
     }
 
     if (CLIENT_VCP_IS_CONNECTED || CABLE_VCP_IS_CONNECTED)
     {
-        Painter::Draw4SymbolsInRectC(x + 72, GRID_BOTTOM + 2, SYMBOL_USB, CLIENT_VCP_IS_CONNECTED ? COLOR_FILL : Color::FLASH_01);
+        Painter::Draw4SymbolsInRect(x + 72, GRID_BOTTOM + 2, SYMBOL_USB, CLIENT_VCP_IS_CONNECTED ? COLOR_FILL : Color::FLASH_01);
     }
     
     Color::SetCurrent(COLOR_FILL);
-    // Пиковый детектор
+
     if(!PEAKDET_IS_DISABLE)
     {
        Painter::DrawChar(x + 38, GRID_BOTTOM + 11, '\x12');
