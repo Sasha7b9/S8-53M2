@@ -205,7 +205,7 @@ void Painter::DrawHLine(int y, int x0, int x1, Color::E color)
         Math_Swap(&x0, &x1);
     }
 
-    uint8 *start = Display::back_buffer;
+    uint8 *start = Display::back_buffer + y * Display::WIDTH + x0;
 
     std::memset(start, Color::GetCurrent(), (uint)(x1 - x0 + 1));
 

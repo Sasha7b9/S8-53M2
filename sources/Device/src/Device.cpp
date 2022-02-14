@@ -17,7 +17,7 @@
 
 namespace Device
 {
-//    static void ProcessingSignal();
+    void ProcessingSignal();
 }
 
 
@@ -42,17 +42,6 @@ void Device::Init()
 
 void Device::Update()
 {
-    Painter::BeginScene(Color::WHITE);
-
-    Painter::FillRegion(10, 10, 100, 100, Color::BLACK);
-
-    Painter::EndScene();
-}
-
-
-/*
-void Device::Update()
-{
     if (NEED_RESET_SETTINGS)
     {
         Settings::Load(true);
@@ -69,11 +58,9 @@ void Device::Update()
     // LAN::Update(0);
     // VCP::Update();
 }
-*/
 
 
-/*
-static void Device::ProcessingSignal()
+void Device::ProcessingSignal()
 {
     uint8** data0 = &gData0;
     uint8** data1 = &gData1;
@@ -122,4 +109,3 @@ static void Device::ProcessingSignal()
     Cursors_Update();    // В случае, если находимся в режиме курсорных измерений, обновляем их положение, если нужно.
 
 }
-*/
