@@ -24,21 +24,32 @@ namespace Device
 void Device::Init()
 {
     HAL::Init();
-    Sound::Init();
-    VCP::Init();
-    Settings::Load(false);
-    FPGA::Init();
-    Timer::PauseOnTime(250);
-    FPGA::OnPressStartStop();
+//    Sound::Init();
+//    VCP::Init();
+//    Settings::Load(false);
+//    FPGA::Init();
+//    Timer::PauseOnTime(250);
+//    FPGA::OnPressStartStop();
     Display::Init();
-    Panel::Init();
-    FlashDrive::Init();
-    HAL_RTC::Init();
+//    Panel::Init();
+//    FlashDrive::Init();
+//    HAL_RTC::Init();
 
     // LAN::Init();
 }
 
 
+void Device::Update()
+{
+    Painter::BeginScene(Color::WHITE);
+
+    Painter::FillRegionC(10, 10, 100, 100, Color::BLACK);
+
+    Painter::EndScene();
+}
+
+
+/*
 void Device::Update()
 {
     if (NEED_RESET_SETTINGS)
@@ -57,6 +68,7 @@ void Device::Update()
     // LAN::Update(0);
     // VCP::Update();
 }
+*/
 
 
 static void Device::ProcessingSignal()

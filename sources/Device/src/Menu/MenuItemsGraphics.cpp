@@ -273,11 +273,11 @@ static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits
         }
         if (!(rest == 0 && value == 0) || (firstValue == 0 && i == 0))
         {
-            Painter::DrawCharC(x, y, rest + 48, selPos == i ? COLOR_BACK : COLOR_FILL);
+            Painter::DrawChar(x, y, rest + 48, selPos == i ? COLOR_BACK : COLOR_FILL);
         }
         else if (fillNull)
         {
-            Painter::DrawCharC(x, y, '0', selPos == i ? COLOR_BACK : COLOR_FILL);
+            Painter::DrawChar(x, y, '0', selPos == i ? COLOR_BACK : COLOR_FILL);
         }
         if (hLine)
         {
@@ -335,14 +335,14 @@ static void DrawIPvalue(int x, int y, IPaddress *ip)
         DrawValueWithSelectedPosition(x, y, bytes[i], 3, numIP == i ? selPos : -1, false, true);
         if (i != 3)
         {
-            Painter::DrawCharC(x + 5, y, '.', COLOR_FILL);
+            Painter::DrawChar(x + 5, y, '.', COLOR_FILL);
         }
         x += 19;
     }
 
     if (ip->port != 0)
     {
-        Painter::DrawCharC(x - 13, y, ':', COLOR_FILL);
+        Painter::DrawChar(x - 13, y, ':', COLOR_FILL);
         DrawValueWithSelectedPosition(x + 14, y, *ip->port, 5, numIP == 4 ? selPos : -1, false, true);
     }
 }

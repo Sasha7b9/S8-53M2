@@ -1155,7 +1155,7 @@ void Display::DrawMemoryWindow()
 
     // Маркер TPos
     Painter::FillRegionC(x0 - 3, 9, 6, 6, COLOR_BACK);
-    Painter::DrawCharC(x0 - 3, 9, SYMBOL_TPOS_1, COLOR_FILL);
+    Painter::DrawChar(x0 - 3, 9, SYMBOL_TPOS_1, COLOR_FILL);
 
     // Маркер tShift
     float scale = (float)(rightX - leftX + 1) / ((float)sMemory_GetNumPoints(false) - (sMemory_GetNumPoints(false) == 281 ? 1 : 0));
@@ -1784,7 +1784,7 @@ void Display::DrawCursorTrigLevel()
     const char simbols[3] = {'1', '2', 'В'};
     int dY = 0;
     
-    Painter::DrawCharC(x + 5, y - 9 + dY, simbols[TRIG_SOURCE], COLOR_BACK);
+    Painter::DrawChar(x + 5, y - 9 + dY, simbols[TRIG_SOURCE], COLOR_BACK);
     Painter::SetFont(TypeFont::_8);
 
     if (DRAW_RSHIFT_MARKERS && !MenuIsMinimize())
@@ -1799,7 +1799,7 @@ void Display::DrawCursorTrigLevel()
         int yFull = GRID_TOP + DELTA + height - scale * (shiftFull - RShift::MIN - TrigLev::MIN) - 4;
         Painter::FillRegionC(left + 2, yFull + 1, 4, 6, ColorTrig());
         Painter::SetFont(TypeFont::_5);
-        Painter::DrawCharC(left + 3, yFull - 5 + dY, simbols[TRIG_SOURCE], COLOR_BACK);
+        Painter::DrawChar(left + 3, yFull - 5 + dY, simbols[TRIG_SOURCE], COLOR_BACK);
         Painter::SetFont(TypeFont::_8);
     }
 }
@@ -1814,8 +1814,8 @@ void Display::DrawCursorRShift(Chan::E ch)
         int rShift = SET_RSHIFT_MATH;
         float scale = (float)Grid::MathHeight() / 960;
         float y = (Grid::MathTop() + Grid::MathBottom()) / 2.0f - scale * (rShift - RShift::ZERO);
-        Painter::DrawCharC(x - 9, y - 4, SYMBOL_RSHIFT_NORMAL, COLOR_FILL);
-        Painter::DrawCharC(x - 8, y - 5, 'm', COLOR_BACK);
+        Painter::DrawChar(x - 9, y - 4, SYMBOL_RSHIFT_NORMAL, COLOR_FILL);
+        Painter::DrawChar(x - 8, y - 5, 'm', COLOR_BACK);
         return;
     }
     if(!sChannel_Enabled(ch))
@@ -1833,21 +1833,21 @@ void Display::DrawCursorRShift(Chan::E ch)
 
     if(y > Grid::ChannelBottom())
     {
-        Painter::DrawCharC(x - 7, Grid::ChannelBottom() - 11, SYMBOL_RSHIFT_LOWER, ColorChannel(ch));
+        Painter::DrawChar(x - 7, Grid::ChannelBottom() - 11, SYMBOL_RSHIFT_LOWER, ColorChannel(ch));
         Painter::SetPoint(x - 5, Grid::ChannelBottom() - 2);
         y = Grid::ChannelBottom() - 7;
         x++;
     }
     else if(y < GRID_TOP)
     {
-        Painter::DrawCharC(x - 7, GRID_TOP + 2, SYMBOL_RSHIFT_ABOVE, ColorChannel(ch));
+        Painter::DrawChar(x - 7, GRID_TOP + 2, SYMBOL_RSHIFT_ABOVE, ColorChannel(ch));
         Painter::SetPoint(x - 5, GRID_TOP + 2);
         y = GRID_TOP + 7;
         x++;
     }
     else
     {
-        Painter::DrawCharC(x - 8, y - 4, SYMBOL_RSHIFT_NORMAL, ColorChannel(ch));
+        Painter::DrawChar(x - 8, y - 4, SYMBOL_RSHIFT_NORMAL, ColorChannel(ch));
         if(((ch == Chan::A) ? (SHOW_LEVEL_RSHIFT_0 == 1) : (SHOW_LEVEL_RSHIFT_1 == 1)) && MODE_WORK_IS_DIRECT)
         {
             Painter::DrawDashedHLine(y, Grid::Left(), Grid::Right(), 7, 3, 0);
@@ -1860,9 +1860,9 @@ void Display::DrawCursorRShift(Chan::E ch)
     if((!MenuIsMinimize() || !MenuIsShown()) && DRAW_RSHIFT_MARKERS)
     {
         Painter::FillRegionC(4, yFull - 3, 4, 6, ColorChannel(ch));
-        Painter::DrawCharC(5, yFull - 9 + dY, ch == Chan::A ? '1' : '2', COLOR_BACK);
+        Painter::DrawChar(5, yFull - 9 + dY, ch == Chan::A ? '1' : '2', COLOR_BACK);
     }
-    Painter::DrawCharC(x - 7, y - 9 + dY, ch == Chan::A ? '1' : '2', COLOR_BACK);
+    Painter::DrawChar(x - 7, y - 9 + dY, ch == Chan::A ? '1' : '2', COLOR_BACK);
     Painter::SetFont(TypeFont::_8);
 }
 

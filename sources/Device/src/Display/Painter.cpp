@@ -643,7 +643,7 @@ void Painter::EndScene(bool endScene)
 
 #ifdef DEBUG
 
-    DrawTextC(260, 21, LANG_RU ? "Отладка" : "Debug", COLOR_FILL);
+    DrawTextC(260, 21, "Debug", COLOR_FILL);
 
 #endif
 

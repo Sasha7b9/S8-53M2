@@ -105,7 +105,8 @@ namespace HAL_TIM2
 namespace HAL_TIM6
 {
     void Init();
-    extern void *handle;   // TIM_HandleTypeDef
+
+    bool CallbackOnIRQ();
 }
 
 

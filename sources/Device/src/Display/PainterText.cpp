@@ -169,8 +169,13 @@ void Painter::DrawCharHardCol(int x, int y, char symbol)
 }
 
 
-int Painter::DrawChar(int x, int y, char symbol)
+int Painter::DrawChar(int x, int y, char symbol, Color::E color)
 {
+    if (color != Color::COUNT)
+    {
+        Color::SetCurrent(color);
+    }
+
     CalculateCurrentColor();
 
     if (Font_GetSize() == 5)
@@ -190,21 +195,14 @@ int Painter::DrawChar(int x, int y, char symbol)
 }
 
 
-int Painter::DrawCharC(int x, int y, char symbol, Color::E color)
-{
-    Color::SetCurrent(color);
-    return DrawChar(x, y, symbol);
-}
-
-
 int Painter::DrawText(int x, int y, const char * const _text)
 {
+    CalculateCurrentColor();
+
     if (*_text == 0)
     {
         return x;
     }
-
-    CalculateCurrentColor();
 
     y += (8 - Font_GetSize());
 
@@ -832,8 +830,8 @@ void Painter::DrawTextRelativelyRightC(int xRight, int y, const char *text, Colo
 
 void Painter::Draw2SymbolsC(int x, int y, char symbol1, char symbol2, Color::E color1, Color::E color2)
 {
-    DrawCharC(x, y, symbol1, color1);
-    DrawCharC(x, y, symbol2, color2);
+    DrawChar(x, y, symbol1, color1);
+    DrawChar(x, y, symbol2, color2);
 }
 
 
