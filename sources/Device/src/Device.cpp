@@ -43,7 +43,7 @@ void Device::Update()
 {
     Painter::BeginScene(Color::WHITE);
 
-    Painter::FillRegionC(10, 10, 100, 100, Color::BLACK);
+    Painter::FillRegion(10, 10, 100, 100, Color::BLACK);
 
     Painter::EndScene();
 }

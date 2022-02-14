@@ -143,13 +143,13 @@ void Menu::DrawTitlePage(Page *page, int layer, int yTop)
     }
     int height = HeightOpenedItem(page);
     bool shade = CurrentItemIsOpened(GetNamePage(page));
-    Painter::FillRegionC(x - 1, yTop, MP_TITLE_WIDTH + 2, height + 2, COLOR_BACK);
+    Painter::FillRegion(x - 1, yTop, MP_TITLE_WIDTH + 2, height + 2, COLOR_BACK);
     Painter::DrawRectangleC(x, yTop, MP_TITLE_WIDTH + 1, height + 1, ColorBorderMenu(shade));
 
     if (shade)
     {
-        Painter::FillRegionC(x + 1, yTop + 1, MP_TITLE_WIDTH - 1, MP_TITLE_HEIGHT - 1, ColorMenuTitleLessBright());
-        Painter::FillRegionC(x + 4, yTop + 4, MP_TITLE_WIDTH - 7, MP_TITLE_HEIGHT - 7, Color::MENU_TITLE_DARK);
+        Painter::FillRegion(x + 1, yTop + 1, MP_TITLE_WIDTH - 1, MP_TITLE_HEIGHT - 1, ColorMenuTitleLessBright());
+        Painter::FillRegion(x + 4, yTop + 4, MP_TITLE_WIDTH - 7, MP_TITLE_HEIGHT - 7, Color::MENU_TITLE_DARK);
     }
     else
     {

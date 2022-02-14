@@ -921,7 +921,7 @@ static void Draw_EnterSerialNumber()
     int height = 160;
 
     Painter::DrawRectangleC(x0, y0, width, height, COLOR_FILL);
-    Painter::FillRegionC(x0 + 1, y0 + 1, width - 2, height - 2, COLOR_BACK);
+    Painter::FillRegion(x0 + 1, y0 + 1, width - 2, height - 2, COLOR_BACK);
 
     int deltaX = 10;
 

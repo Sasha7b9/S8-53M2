@@ -48,7 +48,7 @@ void FM::DrawLongString(int x, int y, char *string, bool hightlight)
     Color::E color = COLOR_FILL;
     if (hightlight)
     {
-        Painter::FillRegionC(x - 1, y, WIDTH_COL + 9, 8, color);
+        Painter::FillRegion(x - 1, y, WIDTH_COL + 9, 8, color);
         color = COLOR_BACK;
     }
 
@@ -66,7 +66,7 @@ void FM::DrawLongString(int x, int y, char *string, bool hightlight)
 
 void FM::DrawHat(int x, int y, char *string, int num1, int num2)
 {
-    Painter::FillRegionC(x - 1, y, WIDTH_COL + 9, RECS_ON_PAGE * 9 + 11, COLOR_BACK);
+    Painter::FillRegion(x - 1, y, WIDTH_COL + 9, RECS_ON_PAGE * 9 + 11, COLOR_BACK);
     Painter::DrawFormatText(x + 60, y, COLOR_FILL, string, num1, num2);
     Painter::DrawHLine(y + 10, x + 2, x + 140);
 }

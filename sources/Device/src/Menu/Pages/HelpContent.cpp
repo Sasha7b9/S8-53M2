@@ -55,7 +55,7 @@ static void DrawPageDescription()
 void HelpContent_Draw()
 {
     uint startTime = gTimerMS;
-    Painter::FillRegionC(Grid::Right(), 0, 319 - Grid::Right(), 20, COLOR_BACK);
+    Painter::FillRegion(Grid::Right(), 0, 319 - Grid::Right(), 20, COLOR_BACK);
     Painter::FillRegion(Grid::Right(), 219, 319 - Grid::Right(), 21);
     Painter::FillRegion(1, 1, WIDTH, 237);
     Painter::DrawRectangleC(0, 0, WIDTH + 2, 239, COLOR_FILL);

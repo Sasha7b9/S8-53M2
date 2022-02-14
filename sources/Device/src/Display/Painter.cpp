@@ -478,8 +478,13 @@ void Painter::DrawLine(int x0, int y0, int x1, int y1)
 }
 
 
-void Painter::FillRegion(int x, int y, int width, int height)
+void Painter::FillRegion(int x, int y, int width, int height, Color::E color)
 {
+    if (color != Color::COUNT)
+    {
+        Color::SetCurrent(color);
+    }
+
     CalculateCurrentColor();
 
     if (width == 0 || height == 0)
@@ -504,20 +509,13 @@ void Painter::FillRegion(int x, int y, int width, int height)
 }
 
 
-void Painter::FillRegionC(int x, int y, int width, int height, Color::E color)
-{
-    Color::SetCurrent(color);
-    FillRegion(x, y, width, height);
-}
-
-
 void Painter::DrawVolumeButton(int x, int y, int width, int height, int thickness, Color::E normal, Color::E bright, Color::E dark, bool isPressed, bool inShade)
 {
     if (inShade)
     {
         thickness = 1;
     }
-    FillRegionC(x + thickness, y + thickness, width - thickness * 2, height - thickness * 2, normal);
+    FillRegion(x + thickness, y + thickness, width - thickness * 2, height - thickness * 2, normal);
     if (isPressed || inShade)
     {
         for (int i = 0; i < thickness; i++)
@@ -629,7 +627,7 @@ void Painter::BeginScene(Color::E color)
         }
     }
 
-    FillRegionC(0, 0, 319, 239, color);
+    FillRegion(0, 0, 319, 239, color);
 }
 
 

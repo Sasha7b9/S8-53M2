@@ -48,9 +48,7 @@ namespace Painter
 
     void DrawRectangleC(int x, int y, int width, int height, Color::E);
 
-    void FillRegion(int x, int y, int width, int height);
-
-    void FillRegionC(int x, int y, int width, int height, Color::E);
+    void FillRegion(int x, int y, int width, int height, Color::E = Color::COUNT);
 
     void DrawVolumeButton(int x, int y, int width, int height, int thickness, Color::E normal, Color::E bright, Color::E dark, bool isPressed, bool inShade);
 

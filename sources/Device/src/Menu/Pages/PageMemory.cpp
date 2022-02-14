@@ -131,7 +131,7 @@ static void FuncDrawingAdditionSPageMemoryLast()
     
     int width = 40;
     int height = 10;
-    Painter::FillRegionC(Grid::Right() - width, GRID_TOP, width, height, COLOR_BACK);
+    Painter::FillRegion(Grid::Right() - width, GRID_TOP, width, height, COLOR_BACK);
     Painter::DrawRectangleC(Grid::Right() - width, GRID_TOP, width, height, COLOR_FILL);
     Painter::DrawText(Grid::Right() - width + 2, GRID_TOP + 1, Int2String(CURRENT_NUM_LATEST_SIGNAL + 1, false, 3, buffer));
     Painter::DrawText(Grid::Right() - width + 17, GRID_TOP + 1, "/");
@@ -590,7 +590,7 @@ static void DrawMemoryWave(int num, bool exist)
     int x = Grid::Left() + 2 + num * 12;
     int y = Grid::FullBottom() - 10;
     int width = 12;
-    Painter::FillRegionC(x, y, width, 10, num == CURRENT_NUM_INT_SIGNAL ? Color::FLASH_10 : COLOR_BACK);
+    Painter::FillRegion(x, y, width, 10, num == CURRENT_NUM_INT_SIGNAL ? Color::FLASH_10 : COLOR_BACK);
     Painter::DrawRectangleC(x, y, width, 10, COLOR_FILL);
     Color::SetCurrent(num == CURRENT_NUM_INT_SIGNAL ? Color::FLASH_01 : COLOR_FILL);
     if (exist)
@@ -967,7 +967,7 @@ void DrawSetName()
     int height = 80;
 
     Painter::DrawRectangleC(x0, y0, width, height, COLOR_FILL);
-    Painter::FillRegionC(x0 + 1, y0 + 1, width - 2, height - 2, COLOR_BACK);
+    Painter::FillRegion(x0 + 1, y0 + 1, width - 2, height - 2, COLOR_BACK);
 
     int index = 0;
     int position = 0;
@@ -1002,7 +1002,7 @@ void DrawSetName()
     }
 
     int x = Painter::DrawTextC(x0 + deltaX, y0 + 65, FILE_NAME, COLOR_FILL);
-    Painter::FillRegionC(x, y0 + 65, 5, 8, Color::FLASH_10);
+    Painter::FillRegion(x, y0 + 65, 5, 8, Color::FLASH_10);
 }
 
 static void DrawFileMask(int x, int y)
@@ -1032,7 +1032,7 @@ static void DrawFileMask(int x, int y)
         }
         ch++;
     }
-    Painter::FillRegionC(x, y, 5, 8, Color::FLASH_10);
+    Painter::FillRegion(x, y, 5, 8, Color::FLASH_10);
 }
 
 void DrawSetMask()
@@ -1043,7 +1043,7 @@ void DrawSetMask()
     int height = 160;
 
     Painter::DrawRectangleC(x0, y0, width, height, COLOR_FILL);
-    Painter::FillRegionC(x0 + 1, y0 + 1, width - 2, height - 2, COLOR_BACK);
+    Painter::FillRegion(x0 + 1, y0 + 1, width - 2, height - 2, COLOR_BACK);
 
     int index = 0;
     int position = 0;
