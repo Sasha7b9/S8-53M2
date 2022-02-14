@@ -156,12 +156,12 @@ float Governor_Step(Governor *governor)
     return 0.0f;
 }
 
-int16 Governor_NextValue(Governor *governor)
+int16 Governor_NextValue(const Governor *governor)
 {
     return ((*governor->cell) < governor->maxValue) ? (*governor->cell) + 1 : governor->minValue;
 }
 
-int16 Governor_PrevValue(Governor *governor)
+int16 Governor_PrevValue(const Governor *governor)
 {
     return ((*governor->cell) > governor->minValue) ? (*governor->cell) - 1 : governor->maxValue;
 }
@@ -174,7 +174,7 @@ void Governor_NextPosition(Governor *governor)
     }
 }
 
-int Governor_NumDigits(Governor *governor)
+int Governor_NumDigits(const Governor *governor)
 {
     int min = Math_NumDigitsInNumber(Math_FabsInt(governor->minValue));
     int max = Math_NumDigitsInNumber(Math_FabsInt(governor->maxValue));
@@ -185,7 +185,7 @@ int Governor_NumDigits(Governor *governor)
     return max;
 }
 
-void IPaddress_NextPosition(IPaddress *ipEthernet_IP)
+void IPaddress_NextPosition(const IPaddress *ipEthernet_IP)
 {
     CircleIncreaseInt8(&gCurDigit, 0, ipEthernet_IP->port == 0 ? 11 : 16);
 }
@@ -201,7 +201,7 @@ void ItemTime_SetOpened(Time *item)
     *(item->year) = (int8)time.year ;
 }
 
-void ItemTime_SetNewTime(Time *time)
+void ItemTime_SetNewTime(const Time *time)
 {
     HAL_RTC::SetTimeAndData(*time->day, *time->month, *time->year, *time->hours, *time->minutes, *time->seconds);
 }
@@ -212,7 +212,7 @@ void ItemTime_SelectNextPosition(Time *time)
     Color::ResetFlash();
 }
 
-void ItemTime_IncCurrentPosition(Time *time)
+void ItemTime_IncCurrentPosition(const Time *time)
 {
     Sound::GovernorChangedValue();
     int8 position = *time->curField;
@@ -232,7 +232,7 @@ void ItemTime_IncCurrentPosition(Time *time)
     }
 }
 
-void ItemTime_DecCurrentPosition(Time *time)
+void ItemTime_DecCurrentPosition(const Time *time)
 {
     Sound::GovernorChangedValue();
     static const int8 max[] = {0, 31, 12, 99, 23, 59, 59};
