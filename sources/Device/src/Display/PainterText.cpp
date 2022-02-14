@@ -541,8 +541,15 @@ int Painter::DrawPartWord(char *word, int x, int y, int xRight, bool draw)
 }
 
 
-int Painter::DrawTextInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, const char *text)
+int Painter::DrawTextInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, const char *text, Color::E color)
 {
+    if (color != Color::COUNT)
+    {
+        Color::SetCurrent(color);
+    }
+
+    CalculateCurrentColor();
+
     int top = eY;
     int left = eX;
     int right = eX + eWidth;
@@ -670,13 +677,6 @@ int Painter::DrawTextInBoundedRectWithTransfers(int x, int y, int width, const c
     FillRegion(x + 1, y + 1, width - 2, height - 2, colorBackground);
     DrawTextInRectWithTransfers(x + 3, y + 3, width - 8, height, text, colorFill);
     return y + height;
-}
-
-
-int Painter::DrawTextInRectWithTransfers(int x, int y, int width, int height, const char *text, Color::E color)
-{
-    Color::SetCurrent(color);
-    return DrawTextInRectWithTransfers(x, y, width, height, text);
 }
 
 

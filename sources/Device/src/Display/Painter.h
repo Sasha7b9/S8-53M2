@@ -66,7 +66,7 @@ namespace Painter
     // Возвращает нижнюю координату прямоугольника.
     int DrawTextInBoundedRectWithTransfers(int x, int y, int width, const char *text, Color::E colorBackground, Color::E colorFill);
 
-    int DrawTextInRectWithTransfers(int x, int y, int width, int height, const char *text, Color::E);
+    int DrawTextInRectWithTransfers(int x, int y, int width, int height, const char *text, Color::E = Color::COUNT);
 
     int DrawFormatText(int x, int y, Color::E color, char *text, ...);
 
@@ -93,8 +93,6 @@ namespace Painter
     void Draw4SymbolsInRectC(int x, int y, char eChar, Color::E);
 
     void Draw10SymbolsInRect(int x, int y, char eChar);
-    // Пишет текст с переносами.
-    int DrawTextInRectWithTransfers(int x, int y, int width, int height, const char *text);
 
     void DrawBigText(int x, int y, int size, const char *text);
 };
