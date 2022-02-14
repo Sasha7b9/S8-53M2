@@ -55,8 +55,6 @@ namespace Display
     static pFuncVV funcAdditionDraw = 0;
     static pFuncVV funcAfterDraw    = 0;
 
-    uint8 *front = (uint8 *)HAL_FMC::_ADDR_RAM_DISPLAY_FRONT;
-
     void ShowWarn(pchar  message);
 
     // Нарисовать сетку.
@@ -210,7 +208,7 @@ void Display::Init()
 {
     Color::ResetFlash();
 
-    HAL_LTDC::Init(front, &back[0][0]);
+    HAL_LTDC::Init(HAL_FMC::_ADDR_RAM_DISPLAY_FRONT, Display::back_buffer);
 
     Painter::BeginScene(Color::BLACK);
 

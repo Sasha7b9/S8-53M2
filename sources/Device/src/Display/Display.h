@@ -8,10 +8,10 @@
 
 namespace Display
 {
-    extern uint8 back[240][320];
-
     const int WIDTH = 320;
     const int HEIGHT = 240;
+
+    extern uint8 *const back_buffer;
 
     void Init();
 

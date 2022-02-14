@@ -25,11 +25,11 @@ Color::E Color::current = Color::Count;
 
 namespace Display
 {
-    uint8 back[240][320];
-
     static const int SIZE_BUFFER = WIDTH * HEIGHT;
-    uint8 *display_back_buffer = &back[0][0];
-    uint8 *display_back_buffer_end = display_back_buffer + SIZE_BUFFER;
+    uint8 back[240][320];                                                       // Здесь будем рисовать изображение
+
+    uint8 * const back_buffer = &back[0][0];
+    uint8 * const back_buffer_end = back_buffer_end + SIZE_BUFFER;              // Конец буфера отрисовки
 }
 
 
@@ -205,7 +205,7 @@ void Painter::DrawHLine(int y, int x0, int x1, Color::E color)
         Math_Swap(&x0, &x1);
     }
 
-    uint8 *start = &Display::back[y][x0];
+    uint8 *start = Display::back_buffer;
 
     std::memset(start, Color::GetCurrent(), (uint)(x1 - x0 + 1));
 
@@ -234,7 +234,7 @@ void Painter::DrawVLine(int x, int y0, int y1, Color::E color)
 
     Math_Sort(&y0, &y1);
 
-    uint8 *address = Display::display_back_buffer + Display::WIDTH * y0 + x;
+    uint8 *address = Display::back_buffer + Display::WIDTH * y0 + x;
 
     int counter = y1 - y0 + 1;
 
@@ -285,9 +285,9 @@ void Painter::SetPoint(int x, int y)
         return;
     }
 
-    uint8 *address = Display::display_back_buffer + Display::WIDTH * y + x;
+    uint8 *address = Display::back_buffer + Display::WIDTH * y + x;
 
-    if (address < Display::display_back_buffer_end)
+    if (address < Display::back_buffer_end)
     {
         *address = Color::GetCurrent();
     }
@@ -309,9 +309,9 @@ Color::E Painter::GetColor(int x, int y)
         return COLOR_BACK;
     }
 
-    uint8 *address = Display::display_back_buffer + Display::WIDTH * y + x;
+    uint8 *address = Display::back_buffer + Display::WIDTH * y + x;
 
-    if (address < Display::display_back_buffer_end)
+    if (address < Display::back_buffer_end)
     {
         return (Color::E)*address;
     }

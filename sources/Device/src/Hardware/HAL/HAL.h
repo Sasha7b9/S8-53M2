@@ -70,7 +70,7 @@ namespace HAL_FMC
 
     extern uint16 *const _ADDR_FPGA;                // Адрес записи в альтеру
 
-    extern uint16 *const _ADDR_RAM_DISPLAY_FRONT;   // Видимое изображение дисплея. Находится в RAM и не может исполь-
+    extern uint8 *const _ADDR_RAM_DISPLAY_FRONT;   // Видимое изображение дисплея. Находится в RAM и не может исполь-
                                                     // зоваться для других целей
     extern uint8 *const _ADDR_RAM_BEGIN;            // Первый свободный адрес в RAM.
     extern uint8 *const _ADDR_RAM_END;              // Указывает на первый недопустимый адрес RAM. Использовать можно
@@ -80,7 +80,7 @@ namespace HAL_FMC
 
 namespace HAL_LTDC
 {
-    void Init(uint8 *frontBuffer, uint8 *backBuffer);
+    void Init(uint8 *front_buffer, uint8 *back_buffer);
 
     void LoadPalette();
 
