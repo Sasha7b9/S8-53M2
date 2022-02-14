@@ -236,7 +236,7 @@ void Display::DrawStringNavigation()
     char *string = Menu::StringNavigation(buffer);
     if(string) 
     {
-        int length = Font_GetLengthText(string);
+        int length = Font::GetLengthText(string);
         int height = 10;
         Painter::DrawRectangle(Grid::Left(), GRID_TOP, length + 2, height, COLOR_FILL);
         Painter::FillRegion(Grid::Left() + 1, GRID_TOP + 1, length, height - 2, COLOR_BACK);
@@ -2593,7 +2593,7 @@ void Display::DrawConsole()
 {
     int count = 0;
     Painter::SetFont(sDebug_GetSizeFontForConsole() == 5 ? TypeFont::_5 : TypeFont::_8);
-    int height = Font_GetSize();
+    int height = Font::GetSize();
 
     int lastString = FirstEmptyString() - 1;
     int numStr = NUM_STRINGS;
@@ -2617,10 +2617,10 @@ void Display::DrawConsole()
     
     for(int numString = firstString; numString <= lastString; numString++)
     {
-        int width = Font_GetLengthText(strings[numString]);
+        int width = Font::GetLengthText(strings[numString]);
         Painter::FillRegion(Grid::Left() + 1, GRID_TOP + 1 + count * (height + 1) + delta, width, height + 1, COLOR_BACK);
         int y = GRID_TOP + 5 + count * (height + 1) - 4;
-        if(Font_GetSize() == 5)
+        if(Font::GetSize() == 5)
         {
             y -= 3;
         }
@@ -2722,7 +2722,7 @@ void Display::ShowWarningGood(Warning warning)
 
 void Display::DrawStringInRectangle(int, int y, char const *text)
 {
-    int width = Font_GetLengthText(text);
+    int width = Font::GetLengthText(text);
     int height = 8;
     Painter::DrawRectangle(Grid::Left(), y, width + 4, height + 4, COLOR_FILL);
     Painter::DrawRectangle(Grid::Left() + 1, y + 1, width + 2, height + 2, COLOR_BACK);

@@ -43,7 +43,7 @@ void FM::Init()
 
 void FM::DrawLongString(int x, int y, char *string, bool hightlight)
 {
-    int length = Font_GetLengthText(string);
+    int length = Font::GetLengthText(string);
 
     Color::E color = COLOR_FILL;
     if (hightlight)
@@ -133,7 +133,7 @@ bool FM::FileIsExist(char name[255])
 void FM::DrawNameCurrentDir(int left, int top)
 {
     Color::SetCurrent(COLOR_FILL);
-    int length = Font_GetLengthText(currentDir);
+    int length = Font::GetLengthText(currentDir);
     if (length < 277)
     {
         Painter::DrawText(left + 1, top + 1, currentDir);
@@ -151,7 +151,7 @@ void FM::DrawNameCurrentDir(int left, int top)
             {
                 return;
             }
-            length = Font_GetLengthText(++pointer);
+            length = Font::GetLengthText(++pointer);
         }
         Painter::DrawText(left + 1, top + 1, pointer);
     }

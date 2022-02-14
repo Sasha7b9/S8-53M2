@@ -17,15 +17,14 @@ struct Font
 
     static const Font *font;
     static const Font *fonts[TypeFont::Count];
+
+    static int GetSize();
+    static int GetLengthText(pchar text);
+    static int GetHeightSymbol(char symbol);
+    static int GetLengthSymbol(uchar symbol);
 };
 
 extern const uchar font5display[3080];
 extern const uchar font8display[3080];
 extern const uchar fontUGOdisplay[3080];
 extern const uchar fontUGO2display[3080];
-
-
-int Font_GetSize();
-int Font_GetLengthText(pchar text);
-int Font_GetHeightSymbol(char symbol);
-int Font_GetLengthSymbol(uchar symbol);

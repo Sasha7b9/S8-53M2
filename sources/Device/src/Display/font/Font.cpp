@@ -20,19 +20,19 @@ const Font *Font::font = &font8;
 
 
 
-int Font_GetSize()
+int Font::GetSize()
 {
     return Font::font->height;
 }
 
 
 
-int Font_GetLengthText(pchar text)
+int Font::GetLengthText(pchar text)
 {
     int retValue = 0;
     while (*text)
     {
-        retValue += Font_GetLengthSymbol((uint8)*text);
+        retValue += Font::GetLengthSymbol((uint8)*text);
         text++;
     }
     return retValue;
@@ -40,14 +40,14 @@ int Font_GetLengthText(pchar text)
 
 
 
-int Font_GetHeightSymbol(char symbol)
+int Font::GetHeightSymbol(char symbol)
 {
     return 9;
 }
 
 
 
-int Font_GetLengthSymbol(uchar symbol)
+int Font::GetLengthSymbol(uchar symbol)
 {
     return Font::font->symbol[symbol].width + 1;
 }

@@ -223,11 +223,11 @@ int Painter::DrawChar(int x, int y, char symbol, Color::E color)
 {
     Color::SetCurrent(color);
 
-    if (Font_GetSize() == 5)
+    if (Font::GetSize() == 5)
     {
         DrawCharHard(x, y + 3, symbol);
     }
-    else if (Font_GetSize() == 8)
+    else if (Font::GetSize() == 8)
     {
         DrawCharHard(x, y, symbol);
     }
@@ -236,7 +236,7 @@ int Painter::DrawChar(int x, int y, char symbol, Color::E color)
         DrawCharInColorDisplay(x, y, (uint8)symbol);
     }
 
-    return x + Font_GetLengthSymbol((uint8)symbol);
+    return x + Font::GetLengthSymbol((uint8)symbol);
 }
 
 
@@ -249,7 +249,7 @@ int Painter::DrawText(int x, int y, pchar const _text, Color::E color)
         return x;
     }
 
-    y += (8 - Font_GetSize());
+    y += (8 - Font::GetSize());
 
     pchar text = _text;
 
@@ -298,8 +298,8 @@ int Painter::DrawText(int x, int y, pchar const _text, Color::E color)
 
 int Painter::DrawTextOnBackground(int x, int y, pchar text, Color::E colorBackground)
 {
-    int width = Font_GetLengthText(text);
-    int height = Font_GetSize();
+    int width = Font::GetLengthText(text);
+    int height = Font::GetSize();
 
     Color::E colorText = Color::GetCurrent();
     FillRegion(x - 1, y, width, height, colorBackground);
@@ -346,7 +346,7 @@ int Painter::DrawTextWithLimitationC(int x, int y, pchar  text, Color::E color, 
     while (*text)
     {
         x = DrawCharWithLimitation(x, y, (uint8)*text, limitX, limitY, limitWidth, limitHeight);
-        retValue += Font_GetLengthSymbol((uint8)*text);
+        retValue += Font::GetLengthSymbol((uint8)*text);
         text++;
     }
     return retValue + 1;
@@ -561,7 +561,7 @@ int Painter::DrawPartWord(char *word, int x, int y, int xRight, bool draw)
     for (int i = numSyllabels - 2; i >= 0; i--)
     {
         char *subString = PartWordForTransfer(word, lengthSyllables, numSyllabels, i, buffer);
-        int length = Font_GetLengthText(subString);
+        int length = Font::GetLengthText(subString);
         if (xRight - x > length - 5)
         {
             if (draw)
@@ -617,7 +617,7 @@ int Painter::DrawTextInRectWithTransfers(int eX, int eY, int eWidth, int eHeight
             }
             else                                            // ј здесь найдено по крайней мере два буквенных символа, т.е. найдено слово
             {
-                int lengthString = Font_GetLengthText(word);
+                int lengthString = Font::GetLengthText(word);
                 if (x + lengthString > right + 5)
                 {
                     int numSymbols = DrawPartWord(word, x, y, right, true);
@@ -669,11 +669,11 @@ bool Painter::GetHeightTextWithTransfers(int left, int top, int right, pchar tex
                 {
                     continue;
                 }
-                x += Font_GetLengthSymbol((uint8)symbol);
+                x += Font::GetLengthSymbol((uint8)symbol);
             }
             else                                            // ј здесь найдено по крайней мере два буквенных символа, т.е. найдено слово
             {
-                int lengthString = Font_GetLengthText(word);
+                int lengthString = Font::GetLengthText(word);
                 if (x + lengthString > right + 5)
                 {
                     int numSymbols = DrawPartWord(word, x, y, right, false);
@@ -684,7 +684,7 @@ bool Painter::GetHeightTextWithTransfers(int left, int top, int right, pchar tex
                 else
                 {
                     curSymbol += length;
-                    x += Font_GetLengthText(word);
+                    x += Font::GetLengthText(word);
                 }
             }
         }
@@ -728,8 +728,8 @@ int Painter::DrawStringInCenterRect(int eX, int eY, int width, int eHeight, pcha
 {
     Color::SetCurrent(color);
 
-    int lenght = Font_GetLengthText(text);
-    int height = Font_GetHeightSymbol(text[0]);
+    int lenght = Font::GetLengthText(text);
+    int height = Font::GetHeightSymbol(text[0]);
     int x = eX + (width - lenght) / 2;
     int y = eY + (eHeight - height) / 2;
     return DrawText(x, y, text);
@@ -739,7 +739,7 @@ int Painter::DrawStringInCenterRect(int eX, int eY, int width, int eHeight, pcha
 void Painter::DrawStringInCenterRectOnBackground(int x, int y, int width, int height, pchar text, Color::E colorText, int widthBorder, 
                                                  Color::E colorBackground)
 {
-    int lenght = Font_GetLengthText(text);
+    int lenght = Font::GetLengthText(text);
     int eX = DrawStringInCenterRect(x, y, width, height, text, colorBackground);
     int w = lenght + widthBorder * 2 - 2;
     int h = 7 + widthBorder * 2 - 1;
@@ -781,7 +781,7 @@ int Painter::GetLenghtSubString(char *text)
     int retValue = 0;
     while (((*text) != ' ') && ((*text) != '\0'))
     {
-        retValue += Font_GetLengthSymbol((uint8)*text);
+        retValue += Font::GetLengthSymbol((uint8)*text);
         text++;
     }
     return retValue;
@@ -825,7 +825,7 @@ void Painter::DrawTextInRect(int x, int y, int width, int height, char *text)
         if (length + x > xEnd)
         {
             x = xStart;
-            y += Font_GetHeightSymbol(*text);
+            y += Font::GetHeightSymbol(*text);
         }
         int numSymbols = 0;
         numSymbols = DrawSubString(x, y, text);
@@ -841,7 +841,7 @@ void Painter::DrawTextRelativelyRight(int xRight, int y, pchar text, Color::E co
 {
     Color::SetCurrent(color);
 
-    int lenght = Font_GetLengthText(text);
+    int lenght = Font::GetLengthText(text);
     DrawText(xRight - lenght, y, text);
 }
 
