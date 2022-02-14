@@ -65,10 +65,12 @@ namespace Painter
     // Выводит текст на прямоугольнике цвета colorBackgound
     int DrawTextOnBackground(int x, int y, pchar text, Color::E colorBackground);
 
-    int DrawTextWithLimitationC(int x, int y, pchar  text, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight);
+    int DrawTextWithLimitationC(int x, int y, pchar  text, Color::E color, int limitX, int limitY, int limitWidth,
+        int limitHeight);
 
     // Возвращает нижнюю координату прямоугольника.
-    int DrawTextInBoundedRectWithTransfers(int x, int y, int width, pchar text, Color::E colorBackground, Color::E colorFill);
+    int DrawTextInBoundedRectWithTransfers(int x, int y, int width, pchar text, Color::E colorBackground,
+        Color::E colorFill);
 
     int DrawTextInRectWithTransfers(int x, int y, int width, int height, pchar text, Color::E = Color::COUNT);
 
@@ -76,10 +78,13 @@ namespace Painter
 
     int DrawStringInCenterRect(int x, int y, int width, int height, pchar text, Color::E = Color::COUNT);
 
-    // Пишет строку текста в центре области(x, y, width, height)цветом ColorText на прямоугольнике с шириной бордюра widthBorder цвета colorBackground.
-    void DrawStringInCenterRectOnBackground(int x, int y, int width, int height, pchar text, Color::E colorText, int widthBorder, Color::E colorBackground);
+    // Пишет строку текста в центре области(x, y, width, height)цветом ColorText на прямоугольнике с шириной бордюра
+    // widthBorder цвета colorBackground.
+    void DrawStringInCenterRectOnBackground(int x, int y, int width, int height, pchar text, Color::E colorText,
+        int widthBorder, Color::E colorBackground);
 
-    int DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, pchar text, Color::E colorBackground, Color::E colorFill);
+    int DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, pchar text, Color::E colorBackground,
+        Color::E colorFill);
 
     void DrawHintsForSmallButton(int x, int y, int width, void *smallButton);
 
