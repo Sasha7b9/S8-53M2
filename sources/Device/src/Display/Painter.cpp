@@ -158,10 +158,6 @@ void Painter::DrawDashedHLine(int y, int x0, int x1, int deltaFill, int deltaEmp
 }
 
 
-static int numberColorsUsed = 0;
-
-
-
 void InterCom::Send(uint8 *pointer, int size)
 {
     VCP::SendDataSynch(pointer, size);
@@ -489,12 +485,6 @@ void Painter::DrawVolumeButton(int x, int y, int width, int height, int thicknes
             DrawHLine(y + height - i, x + 1 + i, x + width - i);
         }
     }
-}
-
-
-int NumberColorsInSceneCol()
-{
-    return numberColorsUsed;
 }
 
 

@@ -10,7 +10,6 @@
 static bool inverseColors = false;
 static Color::E currentColor = Color::COUNT;
 static bool framesElapsed = false;
-static int numberColorsUsed = 0;
 
 static enum StateTransmit
 {
@@ -384,12 +383,6 @@ void Painter_SetBrightnessDisplay(int16 brightness)
     command[0] = SET_BRIGHTNESS;
     *((uint16*)(command + 1)) = (uint16)recValue;
     Painter_SendToDisplay(command, 4);
-}
-
-
-int NumberColorsInSceneCol()
-{
-    return numberColorsUsed;
 }
 
 
