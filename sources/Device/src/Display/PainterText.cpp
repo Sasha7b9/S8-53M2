@@ -668,7 +668,7 @@ int Painter::DrawTextInBoundedRectWithTransfers(int x, int y, int width, const c
     int height = 0;
     GetHeightTextWithTransfers(x + 3, y + 3, x + width - 8, text, &height);
 
-    DrawRectangleC(x, y, width, height, colorFill);
+    DrawRectangle(x, y, width, height, colorFill);
     FillRegion(x + 1, y + 1, width - 2, height - 2, colorBackground);
     DrawTextInRectWithTransfersC(x + 3, y + 3, width - 8, height, text, colorFill);
     return y + height;
@@ -727,7 +727,7 @@ void Painter::DrawStringInCenterRectOnBackgroundC(int x, int y, int width, int h
 
 int Painter::DrawStringInCenterRectAndBoundItC(int x, int y, int width, int height, const char *text, Color::E colorBackground, Color::E colorFill)
 {
-    DrawRectangleC(x, y, width, height, colorFill);
+    DrawRectangle(x, y, width, height, colorFill);
     FillRegion(x + 1, y + 1, width - 2, height - 2, colorBackground);
     Color::SetCurrent(colorFill);
     return DrawStringInCenterRect(x, y, width, height, text);
@@ -738,7 +738,7 @@ void Painter::DrawHintsForSmallButton(int x, int y, int width, void *smallButton
 {
     SmallButton *sb = (SmallButton*)smallButton;
     FillRegion(x, y, width, 239 - y, COLOR_BACK);
-    DrawRectangleC(x, y, width, 239 - y, COLOR_FILL);
+    DrawRectangle(x, y, width, 239 - y, COLOR_FILL);
     const StructHelpSmallButton *structHelp = &(*sb->hintUGO)[0];
     x += 3;
     y += 3;

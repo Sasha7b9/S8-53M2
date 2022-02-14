@@ -38,9 +38,7 @@ namespace Painter
     //  Рисует прерывистую вертикальную линию.
     void DrawDashedVLine(int x, int y0, int y1, int dFill, int dEmpty, int dStart);
 
-    void DrawRectangle(int x, int y, int width, int height);
-
-    void DrawRectangleC(int x, int y, int width, int height, Color::E);
+    void DrawRectangle(int x, int y, int width, int height, Color::E = Color::COUNT);
 
     void FillRegion(int x, int y, int width, int height, Color::E = Color::COUNT);
 

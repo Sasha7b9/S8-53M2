@@ -112,22 +112,23 @@ void Color::ResetFlash()
 }
 
 
-void Painter::DrawRectangle(int x, int y, int width, int height)
+void Painter::DrawRectangle(int x, int y, int width, int height, Color::E color)
 {
+    if (color != Color::COUNT)
+    {
+        Color::SetCurrent(color);
+    }
+
+    CalculateCurrentColor();
+
     DrawHLine(y, x, x + width);
     DrawVLine(x, y, y + height);
     DrawHLine(y + height, x, x + width);
+
     if (x + width < SCREEN_WIDTH)
     {
         DrawVLine(x + width, y, y + height);
     }
-}
-
-
-void Painter::DrawRectangleC(int x, int y, int width, int height, Color::E color)
-{
-    Color::SetCurrent(color);
-    DrawRectangle(x, y, width, height);
 }
 
 

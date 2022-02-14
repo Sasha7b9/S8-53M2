@@ -144,7 +144,7 @@ void Menu::DrawTitlePage(Page *page, int layer, int yTop)
     int height = HeightOpenedItem(page);
     bool shade = CurrentItemIsOpened(GetNamePage(page));
     Painter::FillRegion(x - 1, yTop, MP_TITLE_WIDTH + 2, height + 2, COLOR_BACK);
-    Painter::DrawRectangleC(x, yTop, MP_TITLE_WIDTH + 1, height + 1, ColorBorderMenu(shade));
+    Painter::DrawRectangle(x, yTop, MP_TITLE_WIDTH + 1, height + 1, ColorBorderMenu(shade));
 
     if (shade)
     {

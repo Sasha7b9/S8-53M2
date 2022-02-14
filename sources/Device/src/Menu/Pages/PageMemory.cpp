@@ -132,7 +132,7 @@ static void FuncDrawingAdditionSPageMemoryLast()
     int width = 40;
     int height = 10;
     Painter::FillRegion(Grid::Right() - width, GRID_TOP, width, height, COLOR_BACK);
-    Painter::DrawRectangleC(Grid::Right() - width, GRID_TOP, width, height, COLOR_FILL);
+    Painter::DrawRectangle(Grid::Right() - width, GRID_TOP, width, height, COLOR_FILL);
     Painter::DrawText(Grid::Right() - width + 2, GRID_TOP + 1, Int2String(CURRENT_NUM_LATEST_SIGNAL + 1, false, 3, buffer));
     Painter::DrawText(Grid::Right() - width + 17, GRID_TOP + 1, "/");
     Painter::DrawText(Grid::Right() - width + 23, GRID_TOP + 1, Int2String(Storage::AllDatas(), false, 3, buffer));
@@ -591,7 +591,7 @@ static void DrawMemoryWave(int num, bool exist)
     int y = Grid::FullBottom() - 10;
     int width = 12;
     Painter::FillRegion(x, y, width, 10, num == CURRENT_NUM_INT_SIGNAL ? Color::FLASH_10 : COLOR_BACK);
-    Painter::DrawRectangleC(x, y, width, 10, COLOR_FILL);
+    Painter::DrawRectangle(x, y, width, 10, COLOR_FILL);
     Color::SetCurrent(num == CURRENT_NUM_INT_SIGNAL ? Color::FLASH_01 : COLOR_FILL);
     if (exist)
     {
@@ -966,7 +966,7 @@ void DrawSetName()
     int width = Grid::Width() - 80;
     int height = 80;
 
-    Painter::DrawRectangleC(x0, y0, width, height, COLOR_FILL);
+    Painter::DrawRectangle(x0, y0, width, height, COLOR_FILL);
     Painter::FillRegion(x0 + 1, y0 + 1, width - 2, height - 2, COLOR_BACK);
 
     int index = 0;
@@ -1042,7 +1042,7 @@ void DrawSetMask()
     int width = Grid::Width() - 80;
     int height = 160;
 
-    Painter::DrawRectangleC(x0, y0, width, height, COLOR_FILL);
+    Painter::DrawRectangle(x0, y0, width, height, COLOR_FILL);
     Painter::FillRegion(x0 + 1, y0 + 1, width - 2, height - 2, COLOR_BACK);
 
     int index = 0;

@@ -965,7 +965,7 @@ static void Information_Draw()
     int x = 100;
     int dY = 20;
     int y = 20;
-    Painter::DrawRectangleC(0, 0, 319, 239, COLOR_FILL);
+    Painter::DrawRectangle(0, 0, 319, 239, COLOR_FILL);
     y += dY;
     Painter::DrawText(x, y, lang == Russian ? "»Õ‘Œ–Ã¿÷»ﬂ" : "INFORMATION");
     y += dY;

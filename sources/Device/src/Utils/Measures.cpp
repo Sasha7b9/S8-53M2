@@ -260,7 +260,7 @@ void Measure_DrawPageChoice()
             int x0 = x + col * dX;
             int y0 = y + row * dY;
             bool active = meas == posOnPageChoice;
-            Painter::DrawRectangleC(x0, y0, dX, dY, COLOR_FILL);
+            Painter::DrawRectangle(x0, y0, dX, dY, COLOR_FILL);
             Painter::FillRegion(x0 + 1, y0 + 1, dX - 2, dY - 2, active ? Color::FLASH_10 : COLOR_BACK);
             Color::SetCurrent(active ? Color::FLASH_01 : COLOR_FILL);
             Painter::Draw10SymbolsInRect(x0 + 2, y0 + 1, Measure_GetChar(meas));

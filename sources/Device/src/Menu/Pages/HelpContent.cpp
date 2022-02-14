@@ -58,7 +58,7 @@ void HelpContent_Draw()
     Painter::FillRegion(Grid::Right(), 0, 319 - Grid::Right(), 20, COLOR_BACK);
     Painter::FillRegion(Grid::Right(), 219, 319 - Grid::Right(), 21);
     Painter::FillRegion(1, 1, WIDTH, 237);
-    Painter::DrawRectangleC(0, 0, WIDTH + 2, 239, COLOR_FILL);
+    Painter::DrawRectangle(0, 0, WIDTH + 2, 239, COLOR_FILL);
 
     /*
     uint16 *addr1 = (uint16*)(0x08000000 + (rand() % 65535));
