@@ -146,6 +146,8 @@ public:
     Page(const Page *keeper_, pFuncBV funcOfActive_,
          pchar titleRU, pchar titleEN, pchar hintRU, pchar hintEN, NamePage name_,
          const arrayItems *items_, pFuncVV funcOnPress_ = 0, pFuncVV funcOnDraw_ = 0, pFuncVI funcRegSetSB_ = 0);
+
+    void DrawOpened(int layer, int yTop);
 };
 
 

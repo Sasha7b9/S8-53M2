@@ -29,8 +29,6 @@ namespace Menu
 {
     void ResetItemsUnderButton();
 
-    void DrawOpenedPage(Page *, int layer, int yTop);
-
     int CalculateX(int layer);
 
     void DrawTitlePage(Page *, int layer, int yTop);
@@ -116,7 +114,14 @@ void Menu::Draw()
         void *item = OpenedItem();
         if(MenuIsShown())
         {
-            DrawOpenedPage(TypeMenuItem(item) == Item_Page ? (Page *)item : Keeper(item), 0, GRID_TOP);
+            if (TypeMenuItem(item) == Item_Page)
+            {
+                ((Page *)item)->DrawOpened(0, GRID_TOP);
+            }
+            else
+            {
+                Keeper(item)->DrawOpened(0, GRID_TOP);
+            }
         }
         else
         {
@@ -318,14 +323,16 @@ void Menu::DrawItemsPage(Page *page, int layer, int yTop)
 }
 
 
-void Menu::DrawOpenedPage(Page *page, int layer, int yTop)
+void Page::DrawOpened(int layer, int yTop)
 {
-    DrawTitlePage(page, layer, yTop);
-    DrawItemsPage(page, layer, yTop + MP_TITLE_HEIGHT);
-    if (CurrentItemIsOpened(GetNamePage(page)))
+    Menu::DrawTitlePage(this, layer, yTop);
+    Menu::DrawItemsPage(this, layer, yTop + MP_TITLE_HEIGHT);
+
+    if (Menu::CurrentItemIsOpened(Menu::GetNamePage(this)))
     {
-        int8 posCurItem = PosCurrentItem(page);
-        void *item = Item(page, posCurItem);
+        int8 posCurItem = Menu::PosCurrentItem(this);
+        void *item = Menu::Item(this, posCurItem);
+
         for (int i = 0; i < 5; i++)
         {
             if (itemUnderButton[i + B_F1] != item)
@@ -333,36 +340,36 @@ void Menu::DrawOpenedPage(Page *page, int layer, int yTop)
                 itemUnderButton[i + B_F1] = 0;
             }
         }
-        TypeItem type = TypeMenuItem(item);
+
         if (type == Item_Choice || type == Item_ChoiceReg)
         {
-            ItemChoice_Draw((Choice *)item, CalculateX(1), ItemOpenedPosY(item), true);
+            ItemChoice_Draw((Choice *)item, Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true);
         }
         else if (type == Item_Governor)
         {
-            ItemGovernor_Draw((Governor *)item, CalculateX(1), ItemOpenedPosY(item), true);
+            ItemGovernor_Draw((Governor *)item, Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true);
         }
         else if (type == Item_GovernorColor)
         {
-            GovernorColor_Draw((GovernorColor *)item, CalculateX(1), ItemOpenedPosY(item), true);
+            GovernorColor_Draw((GovernorColor *)item, Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true);
         }
         else if (type == Item_Time)
         {
-            ItemTime_Draw((Time *)item, CalculateX(1), ItemOpenedPosY(item), true);
+            ItemTime_Draw((Time *)item, Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true);
         }
         else if (type == Item_IP)
         {
-            ItemIPaddress_Draw((IPaddress *)item, CalculateX(1), ItemOpenedPosY(item), true);
+            ItemIPaddress_Draw((IPaddress *)item, Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true);
         }
         else if (type == Item_MAC)
         {
-            ItemMACaddress_Draw((MACaddress *)item, CalculateX(1), ItemOpenedPosY(item), true);
+            ItemMACaddress_Draw((MACaddress *)item, Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true);
         }
     }
 
-    if (page->funcOnDraw)
+    if (funcOnDraw)
     {
-        page->funcOnDraw();
+        funcOnDraw();
     }
 }
 
