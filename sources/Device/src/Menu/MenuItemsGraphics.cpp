@@ -356,14 +356,15 @@ static void DrawIPvalue(int x, int y, IPaddress *ip)
     }
 }
 
-static void DrawMACvalue(int x, int y, MACaddress *mac)
+
+void MACaddress::DrawValue(int x, int y)
 {
     if (MACaddress::cur_digit > 5)
     {
         MACaddress::cur_digit = 0;
     }
 
-    uint8 *bytes = mac->mac0;
+    uint8 *bytes = mac0;
     x += MOI_WIDTH - 14;
     y++;
 
@@ -381,6 +382,7 @@ static void DrawMACvalue(int x, int y, MACaddress *mac)
     }
 }
 
+
 void Governor::Draw(int x, int y, bool opened)
 {
     if (funcBeforeDraw)
@@ -397,6 +399,7 @@ void Governor::Draw(int x, int y, bool opened)
     }
 }
 
+
 void IPaddress::Draw(int x, int y, bool opened)
 {
     if (opened)
@@ -408,6 +411,7 @@ void IPaddress::Draw(int x, int y, bool opened)
         ItemIPaddress_DrawClosed(this, x, y);
     }
 }
+
 
 void MACaddress::Draw(int x, int y, bool opened)
 {
@@ -616,7 +620,7 @@ void IPaddress::DrawOpened(int x, int y)
 void MACaddress::DrawOpened(int x, int y)
 {
     GovernorIpCommon_DrawOpened(this, x, y, 0);
-    DrawMACvalue(x, y + 22, this);
+    DrawValue(x, y + 22);
 }
 
 void Choice::DrawClosed(int x, int y)

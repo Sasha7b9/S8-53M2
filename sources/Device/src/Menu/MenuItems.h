@@ -290,6 +290,8 @@ public:
 
     void DrawOpened(int x, int y);
 
+    void DrawValue(int x, int y);
+
     static int8 cur_digit;
 };
 
