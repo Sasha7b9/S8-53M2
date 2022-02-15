@@ -1362,11 +1362,6 @@
               <FilePath>.\src\Menu\MenuItems.h</FilePath>
             </File>
             <File>
-              <FileName>MenuItemsLogic.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\MenuItemsLogic.h</FilePath>
-            </File>
-            <File>
               <FileName>MenuFunctions.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\MenuFunctions.cpp</FilePath>
@@ -3306,11 +3301,6 @@
               <FileName>MenuItems.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Menu\MenuItems.h</FilePath>
-            </File>
-            <File>
-              <FileName>MenuItemsLogic.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Menu\MenuItemsLogic.h</FilePath>
             </File>
             <File>
               <FileName>MenuFunctions.cpp</FileName>

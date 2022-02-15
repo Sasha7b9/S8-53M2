@@ -1,7 +1,7 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Panel/Controls.h"
-#include "Menu.h" 
+#include "Menu/Menu.h" 
 #include "Settings/Settings.h"
 #include "Pages/Definition.h"
 #include "Pages/PageMemory.h"
@@ -9,7 +9,6 @@
 #include "MenuItems.h"
 #include "Menu/Pages/PageMeasures.h"
 #include "defines.h"
-#include "MenuItemsLogic.h"
 #include "Tables.h"
 #include "Display/Display.h"
 #include "Utils/GlobalFunctions.h"
