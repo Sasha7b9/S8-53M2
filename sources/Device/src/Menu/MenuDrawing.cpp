@@ -272,7 +272,7 @@ static void DrawTime(void *item, int x, int y)
 
 static void DrawGovernorColor(void *item, int x, int y)
 {
-    GovernorColor_Draw((GovernorColor *)item, x, y, false);
+    ((GovernorColor *)item)->Draw(x, y, false);
 }
 
 
@@ -351,7 +351,7 @@ void Page::DrawOpened(int layer, int yTop)
         }
         else if (type == Item_GovernorColor)
         {
-            GovernorColor_Draw((GovernorColor *)item, Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true);
+            ((GovernorColor *)item)->Draw(Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true);
         }
         else if (type == Item_Time)
         {

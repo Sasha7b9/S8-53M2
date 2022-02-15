@@ -480,15 +480,15 @@ static void GovernorColor_DrawClosed(GovernorColor *gov, int x, int y)
     Painter::FillRegion(x + 2, y + 20, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1, gov->colorType->color);
 }
 
-void GovernorColor_Draw(GovernorColor *govColor, int x, int y, bool opened)
+void GovernorColor::Draw(int x, int y, bool opened)
 {
     if(opened)
     {
-        GovernorColor_DrawOpened(govColor, x, y);
+        GovernorColor_DrawOpened(this, x, y);
     }
     else
     {
-        GovernorColor_DrawClosed(govColor, x, y);
+        GovernorColor_DrawClosed(this, x, y);
     }
 }
 
