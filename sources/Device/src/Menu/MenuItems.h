@@ -100,6 +100,8 @@ struct ControlStruct
 {
     COMMON_PART_MENU_ITEM
 };
+
+
 class Control
 {
 public:
@@ -120,16 +122,6 @@ typedef void * pVOID;
 typedef pVOID arrayItems[MAX_NUM_ITEMS_IN_PAGE];
 
 
-struct PageStruct
-{
-    COMMON_PART_MENU_ITEM
-    NamePage            name;
-    const arrayItems    items;
-    pFuncVV             funcOnPress;
-    pFuncVV             funcOnDraw;
-    pFuncVI             funcRegSetSB;
-};
-
 // Описывает страницу меню.
 class Page : public     Control
 {
@@ -141,8 +133,6 @@ public:
     pFuncVV             funcOnDraw;                         // Будет вызываться после отрисовки кнопок
     pFuncVI             funcRegSetSB;                       // В странице малых кнопок вызывается при повороте ручки установка
 
-    //Page(PageStruct *pageStruct);
-    
     Page(const Page *keeper_, pFuncBV funcOfActive_,
          pchar titleRU, pchar titleEN, pchar hintRU, pchar hintEN, NamePage name_,
          const arrayItems *items_, pFuncVV funcOnPress_ = 0, pFuncVV funcOnDraw_ = 0, pFuncVI funcRegSetSB_ = 0);
@@ -344,6 +334,8 @@ public:
     void DrawOpened(int x, int y);
 
     void DrawValue(int x, int y, int delta);
+
+    void DrawClosed(int x, int y);
 };
 
 
