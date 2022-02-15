@@ -3,7 +3,7 @@
 #include "MenuItems.h"
 
 
-void ItemIPaddress_Draw(IPaddress *ip, int x, int y, bool opened);
+
 void ItemMACaddress_Draw(MACaddress *mac, int x, int y, bool opened);
 void ItemFormula_Draw(Formula *formula, int x, int y, bool opened);
 void ItemChoice_Draw(Choice *choice, int x, int y, bool opened);

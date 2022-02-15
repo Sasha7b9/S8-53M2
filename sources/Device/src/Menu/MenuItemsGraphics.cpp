@@ -389,15 +389,15 @@ void Governor::Draw(int x, int y, bool opened)
     }
 }
 
-void ItemIPaddress_Draw(IPaddress *ip, int x, int y, bool opened)
+void IPaddress::Draw(int x, int y, bool opened)
 {
     if (opened)
     {
-        ItemIPaddress_DrawOpened(ip, x - (ip->port == 0 ? 0 : MOI_WIDTH_D_IP), y);
+        ItemIPaddress_DrawOpened(this, x - (port == 0 ? 0 : MOI_WIDTH_D_IP), y);
     }
     else
     {
-        ItemIPaddress_DrawClosed(ip, x, y);
+        ItemIPaddress_DrawClosed(this, x, y);
     }
 }
 
