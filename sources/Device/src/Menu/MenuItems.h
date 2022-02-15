@@ -382,4 +382,6 @@ struct Time
     void SetNewTime() const;
 
     void SelectNextPosition();
+
+    void IncCurrentPosition() const;
 };
