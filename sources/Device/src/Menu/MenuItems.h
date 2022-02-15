@@ -207,6 +207,9 @@ public:
              int16 *cell_, int16 minValue_, int16 maxValue_, pFuncVV funcOfChanged_ = 0, pFuncVV funcBeforeDraw_ = 0);
 
     void Draw(int x, int y, bool opened);
+
+    // Запускает процессс анимации инкремента или декремента элемента меню типа Governor (в зависимости от знака delta)
+    void StartChange(int detla);
 };
 
 

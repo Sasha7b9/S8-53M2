@@ -16,21 +16,23 @@
 int8 gCurDigit = 0;
 
 
-void Governor_StartChange(Governor *governor, int delta)
+void Governor::StartChange(int delta)
 {
     Sound::GovernorChangedValue();
-    if (delta > 0 && ADDRESS_GOVERNOR == (uint)governor && IN_MOVE_INCREASE)
+
+    if (delta > 0 && ADDRESS_GOVERNOR == (uint)this && IN_MOVE_INCREASE)
     {
-        *governor->cell = Governor_NextValue(governor);
+        *cell = Governor_NextValue(this);
     }
-    else if (delta < 0 && ADDRESS_GOVERNOR == (uint)governor && IN_MOVE_DECREASE)
+    else if (delta < 0 && ADDRESS_GOVERNOR == (uint)this && IN_MOVE_DECREASE)
     {
-        *governor->cell = Governor_PrevValue(governor);
+        *cell = Governor_PrevValue(this);
     }
     else
     {
         TIME_START_MS = gTimerMS;   
     }
+
     IN_MOVE_INCREASE = (delta > 0) ? 1U : 0U;
     IN_MOVE_DECREASE = (delta < 0) ? 1U : 0U;
 }
