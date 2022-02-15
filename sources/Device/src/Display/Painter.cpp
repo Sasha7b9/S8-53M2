@@ -26,10 +26,10 @@ Color::E Color::current = Color::Count;
 namespace Display
 {
     static const int SIZE_BUFFER = WIDTH * HEIGHT;
-    uint8 back[240][320];                                                       // Здесь будем рисовать изображение
+    uint8 back[240][320];                                           // Здесь будем рисовать изображение
 
     uint8 * const back_buffer = &back[0][0];
-    uint8 * const back_buffer_end = back_buffer_end + SIZE_BUFFER;              // Конец буфера отрисовки
+    uint8 * const back_buffer_end = back_buffer + SIZE_BUFFER;      // Конец буфера отрисовки
 }
 
 
