@@ -342,5 +342,6 @@ struct Time
     int8*       month;
     int8*       day;
     int8*       year;
-};
 
+    void Draw(int x, int y, bool opened);
+};
