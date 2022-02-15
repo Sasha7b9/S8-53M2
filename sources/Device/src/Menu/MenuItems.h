@@ -319,6 +319,9 @@ public:
     ColorType*      colorType;                  // Структура для описания цвета.
 
     void Draw(int x, int y, bool opened);
+
+    // Изменить яркость цвета в governor
+    void ChangeValue(int delta);
 };
 
 

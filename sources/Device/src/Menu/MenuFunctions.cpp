@@ -375,7 +375,7 @@ void Menu::ChangeItem(void *item, int delta)
     }
     else if (type == Item_GovernorColor)
     {
-        GovernorColor_ChangeValue((GovernorColor *)item, delta);
+        ((GovernorColor *)item)->ChangeValue(delta);
     }
 }
 
