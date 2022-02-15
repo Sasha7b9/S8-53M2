@@ -188,14 +188,14 @@ void Governor::NextPosition()
 {
     if (Menu::OpenedItem() == this)
     {
-        CircleIncreaseInt8(&gCurDigit, 0, Governor_NumDigits(this) - 1);
+        CircleIncreaseInt8(&gCurDigit, 0, NumDigits() - 1);
     }
 }
 
-int Governor_NumDigits(const Governor *governor)
+int Governor::NumDigits() const
 {
-    int min = Math_NumDigitsInNumber(Math_FabsInt(governor->minValue));
-    int max = Math_NumDigitsInNumber(Math_FabsInt(governor->maxValue));
+    int min = Math_NumDigitsInNumber(Math_FabsInt(minValue));
+    int max = Math_NumDigitsInNumber(Math_FabsInt(maxValue));
     if (min > max)
     {
         max = min;

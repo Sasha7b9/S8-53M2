@@ -313,7 +313,7 @@ void DrawGovernorValue(int x, int y, Governor *governor)
     PText::DrawText(x + 55, y + 2, Int2String(governor->minValue, sign, 1, buffer));
     Font::Set(TypeFont::_8);
 
-    DrawValueWithSelectedPosition(startX, y, value, Governor_NumDigits(governor), gCurDigit, true, true);
+    DrawValueWithSelectedPosition(startX, y, value, governor->NumDigits(), gCurDigit, true, true);
 
     if(sign)
     {
