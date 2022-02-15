@@ -403,4 +403,8 @@ struct Time
     void IncCurrentPosition() const;
 
     void DecCurrentPosition() const;
+
+    void DrawClosed(int x, int y);
+
+    void DrawOpened(int x, int y);
 };

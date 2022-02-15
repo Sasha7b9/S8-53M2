@@ -519,14 +519,14 @@ void ItemChoice_DrawOpened(Choice *choice, int x, int y)
     }
 }
 
-void ItemTime_DrawOpened(Time *time, int x, int y)
+void Time::DrawOpened(int x, int y)
 {
     char buffer[20];
     
     int width = MI_WIDTH_VALUE + 3;
     int height = 61;
     Painter::DrawRectangle(x - 1, y - 1, width + 2, height + 3, COLOR_BACK);
-    DrawGovernorChoiceColorFormulaHiPart(time, x - 1, y - 1, Menu::IsPressed(time), false, true);
+    DrawGovernorChoiceColorFormulaHiPart(this, x - 1, y - 1, Menu::IsPressed(this), false, true);
 
     Painter::DrawRectangle(x - 1, y, width + 1, height + 1, ColorMenuTitle(false));
 
@@ -562,12 +562,12 @@ void ItemTime_DrawOpened(Time *time, int x, int y)
 
     char strI[8][20];
     strcpy(strI[iEXIT],     "Не сохранять");
-    strcpy(strI[iDAY],      Int2String(*time->day,      false, 2, buffer));
-    strcpy(strI[iMONTH],    Int2String(*time->month,    false, 2, buffer));
-    strcpy(strI[iYEAR],     Int2String(*time->year,     false, 2, buffer));
-    strcpy(strI[iHOURS],    Int2String(*time->hours,    false, 2, buffer));
-    strcpy(strI[iMIN],      Int2String(*time->minutes,  false, 2, buffer));
-    strcpy(strI[iSEC],      Int2String(*time->seconds,  false, 2, buffer));
+    strcpy(strI[iDAY],      Int2String(*day,      false, 2, buffer));
+    strcpy(strI[iMONTH],    Int2String(*month,    false, 2, buffer));
+    strcpy(strI[iYEAR],     Int2String(*year,     false, 2, buffer));
+    strcpy(strI[iHOURS],    Int2String(*hours,    false, 2, buffer));
+    strcpy(strI[iMIN],      Int2String(*minutes,  false, 2, buffer));
+    strcpy(strI[iSEC],      Int2String(*seconds,  false, 2, buffer));
     strcpy(strI[iSET],      "Сохранить");
 
     PText::DrawText(x + 3, y + y0, "д м г - ", COLOR_FILL);
@@ -575,11 +575,11 @@ void ItemTime_DrawOpened(Time *time, int x, int y)
 
     for (int i = 0; i < 8; i++)
     {
-        if (*time->curField == i)
+        if (*curField == i)
         {
             Painter::FillRegion(x + strPaint[i].x - 1, y + strPaint[i].y, strPaint[i].width, 8, Color::FLASH_10);
         }
-        PText::DrawText(x + strPaint[i].x, y + strPaint[i].y, strI[i], *time->curField == i ? Color::FLASH_01 : COLOR_FILL);
+        PText::DrawText(x + strPaint[i].x, y + strPaint[i].y, strI[i], *curField == i ? Color::FLASH_01 : COLOR_FILL);
     }
 }
 
@@ -658,13 +658,13 @@ void Choice::Draw(int x, int y, bool opened)
     }
 }
 
-void ItemTime_DrawClosed(Time *item, int x, int y)
+void Time::DrawClosed(int x, int y)
 {
     char buffer[20];
     
-    bool pressed = Menu::IsPressed(item);
-    bool shade = Menu::IsShade(item);
-    DrawGovernorChoiceColorFormulaHiPart(item, x, y, pressed, shade, false);
+    bool pressed = Menu::IsPressed(this);
+    bool shade = Menu::IsShade(this);
+    DrawGovernorChoiceColorFormulaHiPart(this, x, y, pressed, shade, false);
 
     Painter::DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, shade ? ColorMenuTitleLessBright() : ColorMenuField(), 
         ColorMenuItemBrighter(), ColorMenuItemLessBright(), true, shade);
@@ -693,11 +693,11 @@ void Time::Draw(int x, int y, bool opened)
 {
     if(opened)
     {
-        ItemTime_DrawOpened(this, x, y);
+        DrawOpened(x, y);
     }
     else
     {
-        ItemTime_DrawClosed(this, x, y);
+        DrawClosed(x, y);
     }
 }
 
