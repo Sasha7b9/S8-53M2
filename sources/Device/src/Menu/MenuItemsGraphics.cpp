@@ -700,10 +700,10 @@ void ItemTime_Draw(Time *time, int x, int y, bool opened)
     }
 }
 
-void ItemButton_Draw(Button *button, int x, int y)
+void Button::Draw(int x, int y)
 {
-    bool pressed = Menu::IsPressed(button);
-    bool shade = Menu::IsShade(button) || !Menu::ItemIsActive(button);
+    bool pressed = Menu::IsPressed(this);
+    bool shade = Menu::IsShade(this) || !Menu::ItemIsActive(this);
 
     Painter::DrawHLine(y + 1, x, x + MI_WIDTH, ColorMenuTitle(shade));
     Color::E color = shade ? Color::MENU_SHADOW : Color::WHITE;
@@ -713,7 +713,7 @@ void ItemButton_Draw(Button *button, int x, int y)
 
     int delta = (pressed && (!shade)) ? 2 : 1;
     
-    PText::DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, Menu::TitleItem(button), color);
+    PText::DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, Menu::TitleItem(this), color);
 }
 
 void ItemSmallButton_Draw(SmallButton *smallButton, int x, int y)

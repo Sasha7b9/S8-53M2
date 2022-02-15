@@ -278,7 +278,7 @@ static void DrawGovernorColor(void *item, int x, int y)
 
 static void DrawButton(void *item, int x, int y)
 {
-    ItemButton_Draw((Button *)item, x, y);
+    ((Button *)item)->Draw(x, y);
 }
 
 
