@@ -645,15 +645,15 @@ void ItemChoice_DrawClosed(Choice *choice, int x, int y)
     choice->FuncForDraw(x, y);
 }
 
-void ItemChoice_Draw(Choice *choice, int x, int y, bool opened)
+void Choice::Draw(int x, int y, bool opened)
 {
     if(opened)
     {
-        ItemChoice_DrawOpened(choice, x, y);
+        ItemChoice_DrawOpened(this, x, y);
     }
     else
     {
-        ItemChoice_DrawClosed(choice, x, y);
+        ItemChoice_DrawClosed(this, x, y);
     }
 }
 

@@ -311,6 +311,8 @@ public:
     void FuncOnChanged(bool active);
 
     void FuncForDraw(int x, int y);
+
+    void Draw(int x, int y, bool opened);
 };
 
 

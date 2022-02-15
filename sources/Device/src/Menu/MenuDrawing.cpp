@@ -127,7 +127,7 @@ void Menu::Draw()
         {
             if(TypeMenuItem(item) == Item_Choice)
             {
-                ItemChoice_Draw((Choice *)item, CalculateX(0), GRID_TOP, true);
+                ((Choice *)item)->Draw(CalculateX(0), GRID_TOP, true);
             }
             else if(TypeMenuItem(item) == Item_Governor)
             {
@@ -254,7 +254,7 @@ static void DrawFormula(void* item, int x, int y)
 
 static void DrawChoice(void *item, int x, int y)
 {
-    ItemChoice_Draw((Choice *)item, x, y, false);
+    ((Choice *)item)->Draw(x, y, false);
 }
 
 
@@ -343,7 +343,7 @@ void Page::DrawOpened(int layer, int yTop)
 
         if (type == Item_Choice || type == Item_ChoiceReg)
         {
-            ItemChoice_Draw((Choice *)item, Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true);
+            ((Choice *)item)->Draw(Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true);
         }
         else if (type == Item_Governor)
         {
