@@ -431,9 +431,9 @@ void Painter::FillRegion(int x, int y, int width, int height, Color::E color)
         return;
     }
 
-    for (int i = y; i <= y + height - 1; i++)
+    for (int i = y; i <= y + height; i++)
     {
-        DrawHLine(i, x, x + width - 1);
+        DrawHLine(i, x, x + width);
     }
 
     if (InterCom::TransmitGUIinProcess())
