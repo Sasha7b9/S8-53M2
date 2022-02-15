@@ -148,6 +148,8 @@ public:
          const arrayItems *items_, pFuncVV funcOnPress_ = 0, pFuncVV funcOnDraw_ = 0, pFuncVI funcRegSetSB_ = 0);
 
     void DrawOpened(int layer, int yTop);
+
+    void Draw(int x, int y);
 };
 
 
