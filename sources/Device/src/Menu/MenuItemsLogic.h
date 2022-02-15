@@ -4,7 +4,6 @@
 #include "MenuItems.h"
 
 
-void    Governor_NextPosition(Governor *governor);              // При открытом элементе переставляет курсор на следующую позицию
 int     Governor_NumDigits(const Governor *governor);                 // Возвращает число знакомест в поле для ввода элемента governor. Зависит от максимального значения, которое может принимать governor.
 
 void    IPaddress_NextPosition(const IPaddress *ip);                  // При открытом элементе переставляет курсор на следующую позицию

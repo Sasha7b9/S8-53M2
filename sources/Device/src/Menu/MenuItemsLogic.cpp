@@ -184,11 +184,11 @@ int16 Governor::PrevValue() const
     return ((*cell) > minValue) ? (*cell) - 1 : maxValue;
 }
 
-void Governor_NextPosition(Governor *governor)
+void Governor::NextPosition()
 {
-    if (Menu::OpenedItem() == governor)
+    if (Menu::OpenedItem() == this)
     {
-        CircleIncreaseInt8(&gCurDigit, 0, Governor_NumDigits(   governor) - 1);
+        CircleIncreaseInt8(&gCurDigit, 0, Governor_NumDigits(this) - 1);
     }
 }
 
