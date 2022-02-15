@@ -185,34 +185,38 @@ static void DrawMACaddressLowPart(MACaddress *mac, int x, int y, bool pressed, b
     }
 }
 
-void WriteTextFormula(Formula *formula, int x, int y, bool opened)
+
+void Formula::WriteText(int x, int y, bool opened)
 {
-    Function function = (Function)(*formula->function);
-    
-    if (function != Function_Mul && function != Function_Sum)
+    if (*function != Function_Mul && *function != Function_Sum)
     {
         return;
     }
 
-    bool funcIsMul = function == Function_Mul;
-    int8 koeff1 = funcIsMul ? *formula->koeff1mul : *formula->koeff1add;
-    int8 koeff2 = funcIsMul ? *formula->koeff2mul : *formula->koeff2add;
+    bool funcIsMul = (*function == Function_Mul);
+    int8 koeff1 = funcIsMul ? *koeff1mul : *koeff1add;
+    int8 koeff2 = funcIsMul ? *koeff2mul : *koeff2add;
+
     if (koeff1 != 0)
     {
        PText::DrawChar(x, y, koeff1 < 0 ? '-' : '+');
     }
+
     PText::DrawChar(x + 5, y, (char)(koeff1 + 0x30));
     PText::DrawChar(x + 10, y, '*');
     PText::DrawText(x + 14, y, "K1");
     PText::DrawChar(x + 27, y, funcIsMul ? '*' : '+');
+
     if (koeff2 != 0)
     {
        PText::DrawChar(x + 30, y, koeff2 < 0 ? '-' : '+');
     }
+
     PText::DrawChar(x + 39, y, (char)(koeff2 + 0x30));
     PText::DrawChar(x + 44, y, '*');
     PText::DrawText(x + 48, y, "K2");
 }
+
 
 void DrawFormulaLowPart(Formula *formula, int x, int y, bool pressed, bool shade)
 {
@@ -225,8 +229,9 @@ void DrawFormulaLowPart(Formula *formula, int x, int y, bool pressed, bool shade
         colorTextDown = ColorMenuItem(false);
     }
     Color::SetCurrent(colorTextDown);
-    WriteTextFormula(formula, x + 6, y + 21, false);
+    formula->WriteText(x + 6, y + 21, false);
 }
+
 
 static void Governor_DrawClosed(Governor *governor, int x, int y)
 {
@@ -235,6 +240,7 @@ static void Governor_DrawClosed(Governor *governor, int x, int y)
     governor->DrawLowPart(x, y, pressed, shade);
     DrawGovernorChoiceColorFormulaHiPart(governor, x, y, pressed, shade, false);
 }
+
 
 static void ItemIPaddress_DrawClosed(IPaddress *ip, int x, int y)
 {

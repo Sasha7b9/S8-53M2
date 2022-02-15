@@ -317,6 +317,8 @@ public:
     pFuncVV         funcOfChanged;              // Эта функция вызывается после изменения состояния элемента управления.
 
     void Draw(int x, int y, bool opened);
+
+    void WriteText(int x, int y, bool opened);
 };
 
 
