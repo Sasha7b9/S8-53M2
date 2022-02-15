@@ -671,12 +671,15 @@ void Menu::FuncOnLongPressItemTime(void *time)
     {
         SetCurrentItem(time, true);
     }
+
     if(ItemIsOpened(time) && *((Time*)time)->curField == iSET)
     {
         ItemTime_SetNewTime((Time *)time);
     }
+
     OpenItem(time, !ItemIsOpened(time));
-    ItemTime_SetOpened((Time *)time);
+
+    ((Time *)time)->SetOpened();
 }
 
 
@@ -685,7 +688,7 @@ void Menu::ShortPress_Time(void *time)
     if(!ItemIsOpened(time))
     {
         SetCurrentItem(time, true);
-        ItemTime_SetOpened((Time *)time);
+        ((Time *)time)->SetOpened();
         OpenItem(time, true);
     }
     else

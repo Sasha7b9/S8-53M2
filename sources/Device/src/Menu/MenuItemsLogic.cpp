@@ -208,15 +208,15 @@ void IPaddress::NextPosition() const
     CircleIncreaseInt8(&gCurDigit, 0, port == 0 ? 11 : 16);
 }
 
-void ItemTime_SetOpened(Time *item)
+void Time::SetOpened()
 {
     PackedTime time = HAL_RTC::GetPackedTime();
-    *(item->seconds) = (int8)time.seconds;
-    *(item->minutes) = (int8)time.minutes;
-    *(item->hours) = (int8)time.hours;
-    *(item->day) = (int8)time.day;
-    *(item->month) = (int8)time.month;
-    *(item->year) = (int8)time.year ;
+    *(seconds) = (int8)time.seconds;
+    *(minutes) = (int8)time.minutes;
+    *(hours) = (int8)time.hours;
+    *(day) = (int8)time.day;
+    *(month) = (int8)time.month;
+    *(year) = (int8)time.year ;
 }
 
 void ItemTime_SetNewTime(const Time *time)

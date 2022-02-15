@@ -376,4 +376,6 @@ struct Time
     int8*       year;
 
     void Draw(int x, int y, bool opened);
+
+    void SetOpened();
 };
