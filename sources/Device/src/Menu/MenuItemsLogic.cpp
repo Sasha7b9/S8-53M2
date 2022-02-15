@@ -114,48 +114,61 @@ void IPaddress_GetNumPosIPvalue(int *numIP, int *selPos)
 
 }
 
-float Governor_Step(Governor *governor)
+float Governor::Step()
 {
     static const float speed = 0.05f;
     static const int numLines = 10;
-    if (ADDRESS_GOVERNOR == (uint)governor && IN_MOVE_DECREASE)
+
+    if (ADDRESS_GOVERNOR == (uint)this && IN_MOVE_DECREASE)
     {
         float delta = -speed * (gTimerMS - TIME_START_MS);
+
         if (delta == 0.0f)
         {
             return -0.001f;
         }
+
         if (delta < -numLines)
         {
             IN_MOVE_DECREASE = IN_MOVE_INCREASE = 0;
-            *governor->cell = Governor_PrevValue(governor);
-            if (governor->funcOfChanged)
+            *cell = Governor_PrevValue(this);
+
+            if (funcOfChanged)
             {
-                governor->funcOfChanged();
+                funcOfChanged();
             }
+
             return 0.0f;
         }
+
         return delta;
     }
-    if (ADDRESS_GOVERNOR == (uint)governor && IN_MOVE_INCREASE)
+
+    if (ADDRESS_GOVERNOR == (uint)this && IN_MOVE_INCREASE)
     {
         float delta = speed * (gTimerMS - TIME_START_MS);
+
         if (delta == 0.0f)
         {
             return 0.001f;
         }
+
         if (delta > numLines)
         {
             IN_MOVE_DECREASE = IN_MOVE_INCREASE = 0;
-            *governor->cell = Governor_NextValue(governor);
-            if(governor->funcOfChanged)
+            *cell = Governor_NextValue(this);
+
+            if(funcOfChanged)
             {
-                governor->funcOfChanged();
+                funcOfChanged();
             }
+
             return 0.0f;
         }
+
         return delta;
     }
+
     return 0.0f;
 }
 

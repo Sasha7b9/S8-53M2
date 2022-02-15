@@ -91,15 +91,18 @@ void DrawGovernorLowPart(Governor *governor, int x, int y, bool pressed, bool sh
 
     Painter::DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, ColorMenuField(), 
         ColorMenuItemBrighter(), ColorMenuItemLessBright(), true, shade);
+
     if(shade)
     {
         colorTextDown = ColorMenuItem(false);
     }
 
     x = PText::DrawText(x + 4, y + 21, "\x80", colorTextDown);
+
     if(Menu::OpenedItem() != governor)
     {
-        float delta = Governor_Step(governor);
+        float delta = governor->Step();
+
         if(delta == 0.0f)
         {
             x = PText::DrawText(x + 1, y + 21, Int2String(*governor->cell, false, 1, buffer));
@@ -111,6 +114,7 @@ void DrawGovernorLowPart(Governor *governor, int x, int y, bool pressed, bool sh
             int limY = y + 19;
             int limWidth = MI_WIDTH_VALUE;
             int limHeight = MI_HEIGHT_VALUE - 1;
+
             if(delta > 0.0f)
             {
                 x = PText::DrawTextWithLimitationC(drawX, y + 21 - delta, Int2String(*governor->cell, false, 1, buffer), 
@@ -118,6 +122,7 @@ void DrawGovernorLowPart(Governor *governor, int x, int y, bool pressed, bool sh
                 PText::DrawTextWithLimitationC(drawX, y + 21 + 10 - delta, Int2String(Governor_NextValue(governor), false, 1, buffer),
                                             COLOR_BACK, limX, limY, limWidth, limHeight);
             }
+
             if(delta < 0.0f)
             {
                 x = PText::DrawTextWithLimitationC(drawX, y + 21 - delta, Int2String(*governor->cell, false, 1, buffer), 
@@ -131,6 +136,7 @@ void DrawGovernorLowPart(Governor *governor, int x, int y, bool pressed, bool sh
     {
         x = PText::DrawText(x + 1, y + 21, Int2String(*governor->cell, false, 1, buffer), COLOR_FILL);
     }
+
     PText::DrawText(x + 1, y + 21, "\x81", colorTextDown);
 }
 
