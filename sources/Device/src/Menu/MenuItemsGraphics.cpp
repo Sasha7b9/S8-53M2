@@ -493,20 +493,20 @@ void GovernorColor::Draw(int x, int y, bool opened)
     }
 }
 
-void ItemChoice_DrawOpened(Choice *choice, int x, int y)
+void Choice::DrawOpened(int x, int y)
 {
-    int height = Menu::HeightOpenedItem(choice);
+    int height = Menu::HeightOpenedItem(this);
 
     Painter::DrawRectangle(x - 1, y - 1, MP_TITLE_WIDTH + 2, height + 3, COLOR_BACK);
     
-    DrawGovernorChoiceColorFormulaHiPart(choice, x - 1, y - 1, Menu::IsPressed(choice), false, true);
+    DrawGovernorChoiceColorFormulaHiPart(this, x - 1, y - 1, Menu::IsPressed(this), false, true);
     Painter::DrawRectangle(x - 1, y, MP_TITLE_WIDTH + 1, height + 1, ColorMenuTitle(false));
  
     Painter::DrawHLine(y + MOI_HEIGHT_TITLE - 1, x, x + MOI_WIDTH);
     Painter::DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1, height - MOI_HEIGHT_TITLE, 1, Color::BLACK, ColorMenuTitleBrighter(),
                         ColorMenuTitleLessBright(), false, false);
-    int index = *((int8*)choice->cell);
-    for(int i = 0; i < choice->NumSubItems(); i++)
+    int index = *((int8*)cell);
+    for(int i = 0; i < NumSubItems(); i++)
     {
         int yItem = y + MOI_HEIGHT_TITLE + i * MOSI_HEIGHT + 1;
         bool pressed = i == index;
@@ -515,7 +515,7 @@ void ItemChoice_DrawOpened(Choice *choice, int x, int y)
             Painter::DrawVolumeButton(x + 1, yItem, MOI_WIDTH - 2 , MOSI_HEIGHT - 2, 2, ColorMenuField(), ColorMenuTitleBrighter(),
                 ColorMenuTitleLessBright(), pressed, false);
         }
-        PText::DrawText(x + 4, yItem + 2, choice->NameSubItem(i), pressed ? Color::BLACK : ColorMenuField());
+        PText::DrawText(x + 4, yItem + 2, NameSubItem(i), pressed ? Color::BLACK : ColorMenuField());
     }
 }
 
@@ -612,10 +612,10 @@ void MACaddress::DrawOpened(int x, int y)
     DrawMACvalue(x, y + 22, this);
 }
 
-void ItemChoice_DrawClosed(Choice *choice, int x, int y)
+void Choice::DrawClosed(int x, int y)
 {
-    bool pressed = Menu::IsPressed(choice);
-    bool shade = Menu::IsShade(choice) || !Menu::ItemIsActive(choice);
+    bool pressed = Menu::IsPressed(this);
+    bool shade = Menu::IsShade(this) || !Menu::ItemIsActive(this);
         
     if (shade)
     {
@@ -626,35 +626,35 @@ void ItemChoice_DrawClosed(Choice *choice, int x, int y)
         Painter::DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, ColorMenuField(), ColorMenuItemBrighter(), ColorMenuItemLessBright(), true, shade);
     }
 
-    float deltaY = choice->Step();
+    float deltaY = Step();
     Color::E colorText = shade ? LightShadingTextColor() : COLOR_BACK;
     Color::SetCurrent(colorText);
     if(deltaY == 0.0f)
     {
-        PText::DrawText(x + 4, y + 21, choice->NameCurrentSubItem());
+        PText::DrawText(x + 4, y + 21, NameCurrentSubItem());
     }
     else
     {
-        PText::DrawTextWithLimitationC(x + 4, y + 21 - deltaY, choice->NameCurrentSubItem(), colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
+        PText::DrawTextWithLimitationC(x + 4, y + 21 - deltaY, NameCurrentSubItem(), colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
         Painter::DrawHLine(y + (deltaY > 0 ? 31 : 19) - deltaY, x + 3, x + MI_WIDTH_VALUE + 1, Color::BLACK);
-        PText::DrawTextWithLimitationC(x + 4, y + (deltaY > 0 ? 33 : 9) - deltaY, deltaY > 0 ? choice->NameNextSubItem() : choice->NamePrevSubItem(), colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
+        PText::DrawTextWithLimitationC(x + 4, y + (deltaY > 0 ? 33 : 9) - deltaY, deltaY > 0 ? NameNextSubItem() : NamePrevSubItem(), colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
     }
     Painter::DrawHLine(y + MI_HEIGHT + 1, x, x + MI_WIDTH, ColorBorderMenu(false));
 
-    DrawGovernorChoiceColorFormulaHiPart(choice, x, y, pressed, shade, false);
+    DrawGovernorChoiceColorFormulaHiPart(this, x, y, pressed, shade, false);
 
-    choice->FuncForDraw(x, y);
+    FuncForDraw(x, y);
 }
 
 void Choice::Draw(int x, int y, bool opened)
 {
     if(opened)
     {
-        ItemChoice_DrawOpened(this, x, y);
+        DrawOpened(x, y);
     }
     else
     {
-        ItemChoice_DrawClosed(this, x, y);
+        DrawClosed(x, y);
     }
 }
 
