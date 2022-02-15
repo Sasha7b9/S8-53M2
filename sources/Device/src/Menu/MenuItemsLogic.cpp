@@ -91,9 +91,9 @@ void IPaddress::ChangeValue(int delta)
     }
 }
 
-void MACaddress_ChangeValue(MACaddress *mac, int delta)
+void MACaddress::ChangeValue(int delta)
 {
-    uint8 *value = mac->mac0 + gCurDigit;
+    uint8 *value = mac0 + gCurDigit;
     *value += delta > 0 ? 1 : -1;
     Sound::GovernorChangedValue();
     Display::ShowWarningGood(NeedRebootDevice2);

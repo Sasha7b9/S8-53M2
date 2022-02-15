@@ -5,7 +5,6 @@
 
 
 
-void    MACaddress_ChangeValue(MACaddress *mac, int delta);
 
 void    ItemTime_SetOpened(Time *time);
 void    ItemTime_SetNewTime(const Time *time);
