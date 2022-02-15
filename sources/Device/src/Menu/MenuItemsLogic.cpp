@@ -58,7 +58,7 @@ void IPaddress::ChangeValue(int delta)
     int numByte = 0;
     int numPos = 0;
 
-    IPaddress_GetNumPosIPvalue(&numByte, &numPos);
+    GetNumPosIPvalue(&numByte, &numPos);
 
     int oldValue = 0;
 
@@ -100,7 +100,7 @@ void MACaddress_ChangeValue(MACaddress *mac, int delta)
     Display::ShowWarningGood(NeedRebootDevice1);
 }
 
-void IPaddress_GetNumPosIPvalue(int *numIP, int *selPos)
+void IPaddress::GetNumPosIPvalue(int *numIP, int *selPos)
 {
     if (gCurDigit < 12)
     {

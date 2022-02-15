@@ -5,8 +5,6 @@
 
 
 
-void    IPaddress_GetNumPosIPvalue(int *numIP, int *selPos);        // Возвращает номер текущего байта (4 - номер порта) и номер текущей позиции в байте.
-
 void    MACaddress_ChangeValue(MACaddress *mac, int delta);
 
 void    ItemTime_SetOpened(Time *time);
