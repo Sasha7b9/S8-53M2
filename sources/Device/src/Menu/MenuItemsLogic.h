@@ -10,7 +10,7 @@
 
 
 
-void    ItemTime_DecCurrentPosition(const Time *time);
+
 
 void    GovernorColor_ChangeValue(GovernorColor *governor, int delta);  // »зменить €ркость цвета в governor
 
