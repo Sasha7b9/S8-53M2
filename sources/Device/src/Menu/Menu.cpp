@@ -693,7 +693,7 @@ void Menu::ShortPress_Time(void *time)
     }
     else
     {
-        ItemTime_SelectNextPosition((Time *)time);
+        ((Time *)time)->SelectNextPosition();
     }
 }
 
