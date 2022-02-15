@@ -12,9 +12,6 @@
 #include <stm32f4xx_hal.h>
 
 
-int8 gCurDigit = 0;
-
-
 void Governor::StartChange(int delta)
 {
     Sound::GovernorChangedValue();
@@ -39,7 +36,7 @@ void Governor::StartChange(int delta)
 void Governor::ChangeValue(int delta)
 {
     int16 oldValue = *cell;
-    LIMITATION(*cell, (int16)(oldValue + Math_Sign(delta) * Math_Pow10(gCurDigit)), (int16)minValue, (int16)maxValue);
+    LIMITATION(*cell, (int16)(oldValue + Math_Sign(delta) * Math_Pow10(Governor::cur_digit)), (int16)minValue, (int16)maxValue);
 
     if (*cell != oldValue)
     {
@@ -92,7 +89,7 @@ void IPaddress::ChangeValue(int delta)
 
 void MACaddress::ChangeValue(int delta)
 {
-    uint8 *value = mac0 + gCurDigit;
+    uint8 *value = mac0 + MACaddress::cur_digit;
     *value += delta > 0 ? 1 : -1;
     Sound::GovernorChangedValue();
     Display::ShowWarningGood(NeedRebootDevice2);
@@ -101,15 +98,15 @@ void MACaddress::ChangeValue(int delta)
 
 void IPaddress::GetNumPosIPvalue(int *numIP, int *selPos)
 {
-    if (gCurDigit < 12)
+    if (IPaddress::cur_digit < 12)
     {
-        *numIP = gCurDigit / 3;
-        *selPos = 2 - (gCurDigit - (*numIP * 3));
+        *numIP = IPaddress::cur_digit / 3;
+        *selPos = 2 - (IPaddress::cur_digit - (*numIP * 3));
     }
     else
     {
         *numIP = 4;
-        *selPos = 4 - (gCurDigit - 12);
+        *selPos = 4 - (IPaddress::cur_digit - 12);
     }
 
 
@@ -187,7 +184,7 @@ void Governor::NextPosition()
 {
     if (Menu::OpenedItem() == this)
     {
-        CircleIncreaseInt8(&gCurDigit, 0, NumDigits() - 1);
+        CircleIncreaseInt8(&Governor::cur_digit, 0, NumDigits() - 1);
     }
 }
 
@@ -204,7 +201,7 @@ int Governor::NumDigits() const
 
 void IPaddress::NextPosition() const
 {
-    CircleIncreaseInt8(&gCurDigit, 0, port == 0 ? 11 : 16);
+    CircleIncreaseInt8(&IPaddress::cur_digit, 0, port == 0 ? 11 : 16);
 }
 
 void Time::SetOpened()
