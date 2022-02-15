@@ -37,16 +37,18 @@ void Governor::StartChange(int delta)
     IN_MOVE_DECREASE = (delta < 0) ? 1U : 0U;
 }
 
-void Governor_ChangeValue(Governor *governor, int delta)
+void Governor::ChangeValue(int delta)
 {
-    int16 oldValue = *governor->cell;
-    LIMITATION(*governor->cell, (int16)(oldValue + Math_Sign(delta) * Math_Pow10(gCurDigit)), (int16)governor->minValue, (int16)governor->maxValue);
-    if (*governor->cell != oldValue)
+    int16 oldValue = *cell;
+    LIMITATION(*cell, (int16)(oldValue + Math_Sign(delta) * Math_Pow10(gCurDigit)), (int16)minValue, (int16)maxValue);
+
+    if (*cell != oldValue)
     {
-        if (governor->funcOfChanged)
+        if (funcOfChanged)
         {
-            governor->funcOfChanged();
+            funcOfChanged();
         }
+
         Sound::GovernorChangedValue();
     }
 }
