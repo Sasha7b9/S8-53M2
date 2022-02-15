@@ -246,6 +246,7 @@ struct IPaddressStruct
     uint16 *port;
 };
 
+
 class  IPaddress : public Control
 {
 public:
@@ -289,8 +290,11 @@ public:
 
     void ChangeValue(int delta);
 
+    void DrawOpened(int x, int y);
+
     static int8 cur_digit;
 };
+
 
 // Описывает элемент меню для установки коэффициентов и знаков математической формулы
 #define FIELD_SIGN_MEMBER_1_ADD 0

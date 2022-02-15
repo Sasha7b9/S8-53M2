@@ -12,8 +12,7 @@
 #include <string.h>
 #include <stdio.h>
 
- 
-static void ItemMACaddress_DrawOpened(MACaddress *mac, int x, int y);
+
 static void ItemIPaddress_DrawOpened(IPaddress *ip, int x, int y);
 
 
@@ -411,7 +410,7 @@ void MACaddress::Draw(int x, int y, bool opened)
 {
     if (opened)
     {
-        ItemMACaddress_DrawOpened(this, x, y);
+        DrawOpened(x, y);
     }
     else
     {
@@ -611,10 +610,10 @@ static void ItemIPaddress_DrawOpened(IPaddress *ip, int x, int y)
     DrawIPvalue(x, y + 22, ip);
 }
 
-static void ItemMACaddress_DrawOpened(MACaddress *mac, int x, int y)
+void MACaddress::DrawOpened(int x, int y)
 {
-    GovernorIpCommon_DrawOpened(mac, x, y, 0);
-    DrawMACvalue(x, y + 22, mac);
+    GovernorIpCommon_DrawOpened(this, x, y, 0);
+    DrawMACvalue(x, y + 22, this);
 }
 
 void ItemChoice_DrawClosed(Choice *choice, int x, int y)
