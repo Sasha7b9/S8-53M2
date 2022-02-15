@@ -229,6 +229,8 @@ public:
     // Возвращает число знакомест в поле для ввода элемента governor. Зависит от максимального значения, которое может принимать governor.
     int NumDigits() const;
 
+    void DrawOpened(int x, int y);
+
     static int8 cur_digit;
 };
 

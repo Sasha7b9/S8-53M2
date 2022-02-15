@@ -13,7 +13,6 @@
 #include <stdio.h>
 
  
-static void Governor_DrawOpened(Governor *governor, int x, int y);
 static void ItemMACaddress_DrawOpened(MACaddress *mac, int x, int y);
 static void ItemIPaddress_DrawOpened(IPaddress *ip, int x, int y);
 
@@ -388,7 +387,7 @@ void Governor::Draw(int x, int y, bool opened)
     }
     if(opened)
     {
-        Governor_DrawOpened(this, x, y);
+        DrawOpened(x, y);
     }
     else
     {
@@ -600,10 +599,10 @@ static void GovernorIpCommon_DrawOpened(void *item, int x, int y, int dWidth)
                              ColorMenuTitleLessBright(), false, false);
 }
 
-static void Governor_DrawOpened(Governor *governor, int x, int y)
+void Governor::DrawOpened(int x, int y)
 {
-    GovernorIpCommon_DrawOpened(governor, x, y, 0);
-    DrawGovernorValue(x, y + 22, governor);
+    GovernorIpCommon_DrawOpened(this, x, y, 0);
+    DrawGovernorValue(x, y + 22, this);
 }
 
 static void ItemIPaddress_DrawOpened(IPaddress *ip, int x, int y)
