@@ -165,7 +165,7 @@ void Menu::DrawTitlePage(Page *page, int layer, int yTop)
     int x = CalculateX(layer);
     if (PageIsSB(page))
     {
-        ItemSmallButton_Draw(SmallButonFromPage(page, 0), LEFT_SB, yTop + 3);
+        SmallButonFromPage(page, 0)->Draw(LEFT_SB, yTop + 3);
         return;
     }
     int height = HeightOpenedItem(page);
@@ -260,7 +260,7 @@ static void DrawChoice(void *item, int x, int y)
 
 static void DrawSmallButton(void *item, int x, int y)
 {
-    ItemSmallButton_Draw((SmallButton *)item, LEFT_SB, y + 7);
+    ((SmallButton *)item)->Draw(LEFT_SB, y + 7);
 }
 
 

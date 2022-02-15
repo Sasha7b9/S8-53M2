@@ -185,6 +185,8 @@ public:
     SmallButton(const Page *keeper_, pFuncBV funcOfActive_,
                 pchar titleRU, pchar titleEN, pchar hintRU, pchar hintEN,
                 pFuncVV funcOnPress_, pFuncVII funcOnDraw_, const arrayHints *hintUGO_ = 0);
+
+    void Draw(int x, int y);
 };
 
 

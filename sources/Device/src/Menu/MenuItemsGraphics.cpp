@@ -716,11 +716,11 @@ void Button::Draw(int x, int y)
     PText::DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, Menu::TitleItem(this), color);
 }
 
-void ItemSmallButton_Draw(SmallButton *smallButton, int x, int y)
+void SmallButton::Draw(int x, int y)
 {
-    if (Menu::ItemIsActive(smallButton))
+    if (Menu::ItemIsActive(this))
     {
-        if (Menu::IsPressed(smallButton))
+        if (Menu::IsPressed(this))
         {
             Painter::FillRegion(x, y, WIDTH_SB, WIDTH_SB, COLOR_FILL);
             Color::SetCurrent(COLOR_BACK);
@@ -730,7 +730,7 @@ void ItemSmallButton_Draw(SmallButton *smallButton, int x, int y)
             Painter::DrawRectangle(x, y, WIDTH_SB, WIDTH_SB, COLOR_FILL);
             Color::SetCurrent(COLOR_FILL);
         }
-        smallButton->funcOnDraw(x, y);
+        funcOnDraw(x, y);
     }
     else
     {
