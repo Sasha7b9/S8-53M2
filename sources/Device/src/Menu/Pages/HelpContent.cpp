@@ -22,7 +22,7 @@ static const int WIDTH = 295;
 static void DrawPageContent()
 {
     int y = 50;
-    Painter::DrawStringInCenterRect(0, y, WIDTH, 10, TITLE(currentPage));
+    PText::DrawStringInCenterRect(0, y, WIDTH, 10, TITLE(currentPage));
 
     int numPage = 0;
 
@@ -34,11 +34,11 @@ static void DrawPageContent()
         pchar title = TITLE(page);
         if(currentParagraph == numPage)
         {
-            Painter::DrawStringInCenterRectOnBackground(0, y, WIDTH, 10, title, COLOR_BACK, 2, COLOR_FILL);
+            PText::DrawStringInCenterRectOnBackground(0, y, WIDTH, 10, title, COLOR_BACK, 2, COLOR_FILL);
         }
         else
         {
-            Painter::DrawStringInCenterRect(0, y, WIDTH, 10, title, COLOR_FILL);
+            PText::DrawStringInCenterRect(0, y, WIDTH, 10, title, COLOR_FILL);
         }
         y += 16;
         numPage++;
@@ -47,8 +47,8 @@ static void DrawPageContent()
 
 static void DrawPageDescription()
 {
-    Painter::DrawStringInCenterRect(0, 3, WIDTH, 10, TITLE(currentPage));
-    Painter::DrawTextInRectWithTransfers(2, 15, WIDTH - 5, 240, HINT(currentPage));
+    PText::DrawStringInCenterRect(0, 3, WIDTH, 10, TITLE(currentPage));
+    PText::DrawTextInRectWithTransfers(2, 15, WIDTH - 5, 240, HINT(currentPage));
 }
 
 
@@ -81,7 +81,7 @@ void HelpContent_Draw()
     {
         DrawPageDescription();
     }
-    Painter::DrawFormatText(2, 230, COLOR_FILL, "%d", gTimerMS - startTime);
+    PText::DrawFormatText(2, 230, COLOR_FILL, "%d", gTimerMS - startTime);
 }
 
 static int NumParagraphs(const PageHelp *page)

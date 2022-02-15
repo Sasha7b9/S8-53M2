@@ -118,11 +118,11 @@ bool WelcomeScreen::Run()
         }
     }
 
-    Painter::DrawBigText(45, y0, 8, "МНИПИ");
+    PText::DrawBigText(45, y0, 8, "МНИПИ");
 
-    Painter::DrawStringInCenterRect(0, 190, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");
-    Painter::DrawStringInCenterRect(0, 205, 320, 20, "Отдел маркетинга: тел./факс. 8-017-262-57-50");
-    Painter::DrawStringInCenterRect(0, 220, 320, 20, "Разработчики: e-mail: mnipi-24(@)tut.by, тел. 8-017-262-57-51");
+    PText::DrawStringInCenterRect(0, 190, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");
+    PText::DrawStringInCenterRect(0, 205, 320, 20, "Отдел маркетинга: тел./факс. 8-017-262-57-50");
+    PText::DrawStringInCenterRect(0, 220, 320, 20, "Разработчики: e-mail: mnipi-24(@)tut.by, тел. 8-017-262-57-51");
 
     Painter::EndScene();
 

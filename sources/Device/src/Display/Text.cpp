@@ -13,7 +13,7 @@
 #include <stdio.h>
 
 
-namespace Painter
+namespace PText
 {
     // Отрисовка непосредственно символа
     int DrawCharHard(int x, int y, char symbol);
@@ -102,7 +102,7 @@ void Font::Load(TypeFont::E typeFont)
 }
 
 
-bool Painter::ByteFontNotEmpty(int eChar, int byte)
+bool PText::ByteFontNotEmpty(int eChar, int byte)
 {
     static const uint8 *bytes = 0;
     static int prevChar = -1;
@@ -117,7 +117,7 @@ bool Painter::ByteFontNotEmpty(int eChar, int byte)
 }
 
 
-bool Painter::BitInFontIsExist(int eChar, int numByte, int bit)
+bool PText::BitInFontIsExist(int eChar, int numByte, int bit)
 {
     static uint8 prevByte = 0;      // WARN здесь точно статики нужны?
     static int prevChar = -1;
@@ -132,7 +132,7 @@ bool Painter::BitInFontIsExist(int eChar, int numByte, int bit)
 }
 
 
-void Painter::DrawCharInColorDisplay(int eX, int eY, uchar symbol)
+void PText::DrawCharInColorDisplay(int eX, int eY, uchar symbol)
 {
     int8 width = (int8)Font::font->symbol[symbol].width;
     int8 height = (int8)Font::font->height;
@@ -157,7 +157,7 @@ void Painter::DrawCharInColorDisplay(int eX, int eY, uchar symbol)
 }
 
 
-int Painter::DrawBigChar(int eX, int eY, int size, char symbol)
+int PText::DrawBigChar(int eX, int eY, int size, char symbol)
 {
     int8 width = (int8)Font::font->symbol[symbol].width;
     int8 height = (int8)Font::font->height;
@@ -190,7 +190,7 @@ int Painter::DrawBigChar(int eX, int eY, int size, char symbol)
 }
 
 
-int Painter::DrawCharHard(int eX, int eY, char symbol)
+int PText::DrawCharHard(int eX, int eY, char symbol)
 {
     int8 width = (int8)Font::font->symbol[(uint8)symbol].width;
     int8 height = (int8)Font::font->height;
@@ -206,7 +206,7 @@ int Painter::DrawCharHard(int eX, int eY, char symbol)
             {
                 if (BitInFontIsExist(symbol, b, bit))
                 {
-                    SetPoint(x, y);
+                    Painter::SetPoint(x, y);
                 }
                 x++;
             }
@@ -217,7 +217,7 @@ int Painter::DrawCharHard(int eX, int eY, char symbol)
 }
 
 
-int Painter::DrawChar(int x, int y, char symbol, Color::E color)
+int PText::DrawChar(int x, int y, char symbol, Color::E color)
 {
     Color::SetCurrent(color);
 
@@ -238,7 +238,7 @@ int Painter::DrawChar(int x, int y, char symbol, Color::E color)
 }
 
 
-int Painter::DrawText(int x, int y, pchar const _text, Color::E color)
+int PText::DrawText(int x, int y, pchar const _text, Color::E color)
 {
     Color::SetCurrent(color);
 
@@ -294,20 +294,20 @@ int Painter::DrawText(int x, int y, pchar const _text, Color::E color)
 }
 
 
-int Painter::DrawTextOnBackground(int x, int y, pchar text, Color::E colorBackground)
+int PText::DrawTextOnBackground(int x, int y, pchar text, Color::E colorBackground)
 {
     int width = Font::GetLengthText(text);
     int height = Font::GetSize();
 
     Color::E colorText = Color::GetCurrent();
-    FillRegion(x - 1, y, width, height, colorBackground);
+    Painter::FillRegion(x - 1, y, width, height, colorBackground);
     Color::SetCurrent(colorText);
 
     return DrawText(x, y, text);
 }
 
 
-int Painter::DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int limitY, int limitWidth, int limitHeight)
+int PText::DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int limitY, int limitWidth, int limitHeight)
 {
     int8 width = (int8)Font::font->symbol[symbol].width;
     int8 height = (int8)Font::font->height;
@@ -325,7 +325,7 @@ int Painter::DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, in
                 {
                     if ((x >= limitX) && (x <= (limitX + limitWidth)) && (y >= limitY) && (y <= limitY + limitHeight))
                     {
-                        SetPoint(x, y);
+                        Painter::SetPoint(x, y);
                     }
                 }
                 x++;
@@ -337,7 +337,8 @@ int Painter::DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, in
 }
 
 
-int Painter::DrawTextWithLimitationC(int x, int y, pchar  text, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight)
+int PText::DrawTextWithLimitationC(int x, int y, pchar  text, Color::E color, int limitX, int limitY, int limitWidth,
+    int limitHeight)
 {
     Color::SetCurrent(color);
     int retValue = x;
@@ -351,7 +352,7 @@ int Painter::DrawTextWithLimitationC(int x, int y, pchar  text, Color::E color, 
 }
 
 
-bool Painter::IsLetter(char symbol)
+bool PText::IsLetter(char symbol)
 {
     static const bool isLetter[256] =
     {
@@ -377,7 +378,7 @@ bool Painter::IsLetter(char symbol)
 }
 
 
-char *Painter::GetWord(pchar firstSymbol, int *length, char buffer[20])
+char *PText::GetWord(pchar firstSymbol, int *length, char buffer[20])
 {
     int pointer = 0;
     *length = 0;
@@ -395,7 +396,7 @@ char *Painter::GetWord(pchar firstSymbol, int *length, char buffer[20])
 }
 
 
-bool Painter::IsConsonant(char symbol)
+bool PText::IsConsonant(char symbol)
 {
     static const bool isConsonat[256] =
     {
@@ -421,7 +422,7 @@ bool Painter::IsConsonant(char symbol)
 }
 
 
-bool Painter::CompareArrays(const bool *array1, const bool *array2, int numElems)
+bool PText::CompareArrays(const bool *array1, const bool *array2, int numElems)
 {
     for (int i = 0; i < numElems; i++)
     {
@@ -434,7 +435,7 @@ bool Painter::CompareArrays(const bool *array1, const bool *array2, int numElems
 }
 
 
-bool Painter::FindNextTransfer(char *letters, int8 *lettersInSyllable)
+bool PText::FindNextTransfer(char *letters, int8 *lettersInSyllable)
 {
 
 #define VOWEL       0   // Гласная
@@ -501,7 +502,7 @@ bool Painter::FindNextTransfer(char *letters, int8 *lettersInSyllable)
 }
 
 
-int8* Painter::BreakWord(char *word)
+int8* PText::BreakWord(char *word)
 {
     int num = 0;
     static int8 lengthSyllables[10];
@@ -526,7 +527,7 @@ int8* Painter::BreakWord(char *word)
 }
 
 
-char* Painter::PartWordForTransfer(char *word, int8* lengthSyllables, int numSyllables, int numSyllable, char buffer[30])
+char* PText::PartWordForTransfer(char *word, int8* lengthSyllables, int numSyllables, int numSyllable, char buffer[30])
 {
     int length = 0;
 
@@ -542,7 +543,7 @@ char* Painter::PartWordForTransfer(char *word, int8* lengthSyllables, int numSyl
 }
 
 
-int Painter::DrawPartWord(char *word, int x, int y, int xRight, bool draw)
+int PText::DrawPartWord(char *word, int x, int y, int xRight, bool draw)
 {
     int8 *lengthSyllables = BreakWord(word);
     int numSyllabels = 0;
@@ -575,7 +576,7 @@ int Painter::DrawPartWord(char *word, int x, int y, int xRight, bool draw)
 }
 
 
-int Painter::DrawTextInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, pchar text, Color::E color)
+int PText::DrawTextInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, pchar text, Color::E color)
 {
     Color::SetCurrent(color);
 
@@ -638,7 +639,7 @@ int Painter::DrawTextInRectWithTransfers(int eX, int eY, int eWidth, int eHeight
 }
 
 
-bool Painter::GetHeightTextWithTransfers(int left, int top, int right, pchar text, int *height)
+bool PText::GetHeightTextWithTransfers(int left, int top, int right, pchar text, int *height)
 {
     char buffer[20];
     int numSymb = (int)strlen(text);
@@ -696,19 +697,19 @@ bool Painter::GetHeightTextWithTransfers(int left, int top, int right, pchar tex
 }
 
 
-int Painter::DrawTextInBoundedRectWithTransfers(int x, int y, int width, pchar text, Color::E colorBackground, Color::E colorFill)
+int PText::DrawTextInBoundedRectWithTransfers(int x, int y, int width, pchar text, Color::E colorBackground, Color::E colorFill)
 {
     int height = 0;
     GetHeightTextWithTransfers(x + 3, y + 3, x + width - 8, text, &height);
 
-    DrawRectangle(x, y, width, height, colorFill);
-    FillRegion(x + 1, y + 1, width - 2, height - 2, colorBackground);
+    Painter::DrawRectangle(x, y, width, height, colorFill);
+    Painter::FillRegion(x + 1, y + 1, width - 2, height - 2, colorBackground);
     DrawTextInRectWithTransfers(x + 3, y + 3, width - 8, height, text, colorFill);
     return y + height;
 }
 
 
-int Painter::DrawFormatText(int x, int y, Color::E color, char *text, ...)
+int PText::DrawFormatText(int x, int y, Color::E color, char *text, ...)
 {
 #undef SIZE_BUFFER
 #define SIZE_BUFFER 200
@@ -722,7 +723,7 @@ int Painter::DrawFormatText(int x, int y, Color::E color, char *text, ...)
 }
 
 
-int Painter::DrawStringInCenterRect(int eX, int eY, int width, int eHeight, pchar text, Color::E color)
+int PText::DrawStringInCenterRect(int eX, int eY, int width, int eHeight, pchar text, Color::E color)
 {
     Color::SetCurrent(color);
 
@@ -734,23 +735,23 @@ int Painter::DrawStringInCenterRect(int eX, int eY, int width, int eHeight, pcha
 }
 
 
-void Painter::DrawStringInCenterRectOnBackground(int x, int y, int width, int height, pchar text, Color::E colorText,
+void PText::DrawStringInCenterRectOnBackground(int x, int y, int width, int height, pchar text, Color::E colorText,
     int widthBorder, Color::E colorBackground)
 {
     int lenght = Font::GetLengthText(text);
     int eX = DrawStringInCenterRect(x, y, width, height, text, colorBackground);
     int w = lenght + widthBorder * 2 - 2;
     int h = 7 + widthBorder * 2 - 1;
-    FillRegion(eX - lenght - widthBorder, y - widthBorder + 1, w, h);
+    Painter::FillRegion(eX - lenght - widthBorder, y - widthBorder + 1, w, h);
     DrawStringInCenterRect(x, y, width, height, text, colorText);
 }
 
 
-int Painter::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, pchar text, Color::E colorBackground,
+int PText::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, pchar text, Color::E colorBackground,
     Color::E colorFill)
 {
-    DrawRectangle(x, y, width, height, colorFill);
-    FillRegion(x + 1, y + 1, width - 2, height - 2, colorBackground);
+    Painter::DrawRectangle(x, y, width, height, colorFill);
+    Painter::FillRegion(x + 1, y + 1, width - 2, height - 2, colorBackground);
     Color::SetCurrent(colorFill);
     return DrawStringInCenterRect(x, y, width, height, text);
 }
@@ -768,14 +769,14 @@ void Painter::DrawHintsForSmallButton(int x, int y, int width, void *smallButton
     {
         DrawRectangle(x, y, WIDTH_SB, WIDTH_SB);
         structHelp->funcDrawUGO(x, y);
-        int yNew = DrawTextInRectWithTransfers(x + 23, y + 1, width - 30, 20, structHelp->helpUGO[set.common.lang]);
+        int yNew = PText::DrawTextInRectWithTransfers(x + 23, y + 1, width - 30, 20, structHelp->helpUGO[set.common.lang]);
         y = ((yNew - y) < 22) ? (y + 22) : yNew;
         structHelp++;
     }
 }
 
 
-int Painter::GetLenghtSubString(char *text)
+int PText::GetLenghtSubString(char *text)
 {
     int retValue = 0;
     while (((*text) != ' ') && ((*text) != '\0'))
@@ -787,7 +788,7 @@ int Painter::GetLenghtSubString(char *text)
 }
 
 
-int Painter::DrawSubString(int x, int y, char *text)
+int PText::DrawSubString(int x, int y, char *text)
 {
     int numSymbols = 0;
     while (((*text) != ' ') && ((*text) != '\0'))
@@ -800,7 +801,7 @@ int Painter::DrawSubString(int x, int y, char *text)
 }
 
 
-int Painter::DrawSpaces(int x, int y, char *text, int *numSymbols)
+int PText::DrawSpaces(int x, int y, char *text, int *numSymbols)
 {
     *numSymbols = 0;
     while (*text == ' ')
@@ -813,7 +814,7 @@ int Painter::DrawSpaces(int x, int y, char *text, int *numSymbols)
 }
 
 
-void Painter::DrawTextInRect(int x, int y, int width, int height, char *text)
+void PText::DrawTextInRect(int x, int y, int width, int height, char *text)
 {
     int xStart = x;
     int xEnd = xStart + width;
@@ -836,7 +837,7 @@ void Painter::DrawTextInRect(int x, int y, int width, int height, char *text)
 }
 
 
-void Painter::DrawTextRelativelyRight(int xRight, int y, pchar text, Color::E color)
+void PText::DrawTextRelativelyRight(int xRight, int y, pchar text, Color::E color)
 {
     Color::SetCurrent(color);
 
@@ -845,14 +846,14 @@ void Painter::DrawTextRelativelyRight(int xRight, int y, pchar text, Color::E co
 }
 
 
-void Painter::Draw2Symbols(int x, int y, char symbol1, char symbol2, Color::E color1, Color::E color2)
+void PText::Draw2Symbols(int x, int y, char symbol1, char symbol2, Color::E color1, Color::E color2)
 {
     DrawChar(x, y, symbol1, color1);
     DrawChar(x, y, symbol2, color2);
 }
 
 
-void Painter::Draw4SymbolsInRect(int x, int y, char eChar, Color::E color)
+void PText::Draw4SymbolsInRect(int x, int y, char eChar, Color::E color)
 {
     Color::SetCurrent(color);
 
@@ -864,7 +865,7 @@ void Painter::Draw4SymbolsInRect(int x, int y, char eChar, Color::E color)
 }
 
 
-void Painter::Draw10SymbolsInRect(int x, int y, char eChar)
+void PText::Draw10SymbolsInRect(int x, int y, char eChar)
 {
     for (int i = 0; i < 5; i++)
     {
@@ -874,7 +875,7 @@ void Painter::Draw10SymbolsInRect(int x, int y, char eChar)
 }
 
 
-void Painter::DrawBigText(int eX, int eY, int size, pchar text)
+void PText::DrawBigText(int eX, int eY, int size, pchar text)
 {
     int numSymbols = (int)strlen(text);
 

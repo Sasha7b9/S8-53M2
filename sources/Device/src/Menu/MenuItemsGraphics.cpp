@@ -43,7 +43,7 @@ void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool pressed
             ColorMenuItemBrighter(), ColorMenuItemLessBright(), pressed, shade);
     }
 
-    Painter::DrawText(x + 6 + delta, y + 6 + delta, Menu::TitleItem(item), color);
+    PText::DrawText(x + 6 + delta, y + 6 + delta, Menu::TitleItem(item), color);
     
     TypeItem type = Menu::TypeMenuItem(item);
 
@@ -79,7 +79,7 @@ void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool pressed
             }
         }
 
-        Painter::Draw4SymbolsInRect(x + MI_WIDTH - 13, y + 5 + (Menu::ItemIsOpened(item) ? 0 : 15), symbol, IS_COLOR_SCHEME_WHITE_LETTERS ? COLOR_BACK : COLOR_FILL);
+        PText::Draw4SymbolsInRect(x + MI_WIDTH - 13, y + 5 + (Menu::ItemIsOpened(item) ? 0 : 15), symbol, IS_COLOR_SCHEME_WHITE_LETTERS ? COLOR_BACK : COLOR_FILL);
     }
 }
 
@@ -96,13 +96,13 @@ void DrawGovernorLowPart(Governor *governor, int x, int y, bool pressed, bool sh
         colorTextDown = ColorMenuItem(false);
     }
 
-    x = Painter::DrawText(x + 4, y + 21, "\x80", colorTextDown);
+    x = PText::DrawText(x + 4, y + 21, "\x80", colorTextDown);
     if(Menu::OpenedItem() != governor)
     {
         float delta = Governor_Step(governor);
         if(delta == 0.0f)
         {
-            x = Painter::DrawText(x + 1, y + 21, Int2String(*governor->cell, false, 1, buffer));
+            x = PText::DrawText(x + 1, y + 21, Int2String(*governor->cell, false, 1, buffer));
         }
         else
         {
@@ -113,25 +113,25 @@ void DrawGovernorLowPart(Governor *governor, int x, int y, bool pressed, bool sh
             int limHeight = MI_HEIGHT_VALUE - 1;
             if(delta > 0.0f)
             {
-                x = Painter::DrawTextWithLimitationC(drawX, y + 21 - delta, Int2String(*governor->cell, false, 1, buffer), 
+                x = PText::DrawTextWithLimitationC(drawX, y + 21 - delta, Int2String(*governor->cell, false, 1, buffer), 
                                             COLOR_BACK, limX, limY, limWidth, limHeight);
-                Painter::DrawTextWithLimitationC(drawX, y + 21 + 10 - delta, Int2String(Governor_NextValue(governor), false, 1, buffer),
+                PText::DrawTextWithLimitationC(drawX, y + 21 + 10 - delta, Int2String(Governor_NextValue(governor), false, 1, buffer),
                                             COLOR_BACK, limX, limY, limWidth, limHeight);
             }
             if(delta < 0.0f)
             {
-                x = Painter::DrawTextWithLimitationC(drawX, y + 21 - delta, Int2String(*governor->cell, false, 1, buffer), 
+                x = PText::DrawTextWithLimitationC(drawX, y + 21 - delta, Int2String(*governor->cell, false, 1, buffer), 
                                             COLOR_BACK, limX, limY, limWidth, limHeight);
-                Painter::DrawTextWithLimitationC(drawX, y + 21 - 10 - delta, Int2String(Governor_PrevValue(governor), false, 1, buffer),
+                PText::DrawTextWithLimitationC(drawX, y + 21 - 10 - delta, Int2String(Governor_PrevValue(governor), false, 1, buffer),
                     COLOR_BACK, limX, limY, limWidth, limHeight);
             }
         }
     }
     else
     {
-        x = Painter::DrawText(x + 1, y + 21, Int2String(*governor->cell, false, 1, buffer), COLOR_FILL);
+        x = PText::DrawText(x + 1, y + 21, Int2String(*governor->cell, false, 1, buffer), COLOR_FILL);
     }
-    Painter::DrawText(x + 1, y + 21, "\x81", colorTextDown);
+    PText::DrawText(x + 1, y + 21, "\x81", colorTextDown);
 }
 
 static void DrawIPaddressLowPart(IPaddress *ip, int x, int y, bool pressed, bool shade)
@@ -152,11 +152,11 @@ static void DrawIPaddressLowPart(IPaddress *ip, int x, int y, bool pressed, bool
     if (Menu::OpenedItem() != ip)
     {
         
-        Painter::DrawText(x + 4, y + 21, buffer, colorTextDown);
+        PText::DrawText(x + 4, y + 21, buffer, colorTextDown);
     }
     else
     {
-        Painter::DrawText(x + 4, y + 21, buffer, COLOR_FILL);
+        PText::DrawText(x + 4, y + 21, buffer, COLOR_FILL);
     }
 }
 
@@ -178,11 +178,11 @@ static void DrawMACaddressLowPart(MACaddress *mac, int x, int y, bool pressed, b
     if (Menu::OpenedItem() != mac)
     {
 
-        Painter::DrawText(x + 4, y + 21, buffer, colorTextDown);
+        PText::DrawText(x + 4, y + 21, buffer, colorTextDown);
     }
     else
     {
-        Painter::DrawText(x + 4, y + 21, buffer, COLOR_FILL);
+        PText::DrawText(x + 4, y + 21, buffer, COLOR_FILL);
     }
 }
 
@@ -200,19 +200,19 @@ void WriteTextFormula(Formula *formula, int x, int y, bool opened)
     int8 koeff2 = funcIsMul ? *formula->koeff2mul : *formula->koeff2add;
     if (koeff1 != 0)
     {
-       Painter::DrawChar(x, y, koeff1 < 0 ? '-' : '+');
+       PText::DrawChar(x, y, koeff1 < 0 ? '-' : '+');
     }
-    Painter::DrawChar(x + 5, y, (char)(koeff1 + 0x30));
-    Painter::DrawChar(x + 10, y, '*');
-    Painter::DrawText(x + 14, y, "K1");
-    Painter::DrawChar(x + 27, y, funcIsMul ? '*' : '+');
+    PText::DrawChar(x + 5, y, (char)(koeff1 + 0x30));
+    PText::DrawChar(x + 10, y, '*');
+    PText::DrawText(x + 14, y, "K1");
+    PText::DrawChar(x + 27, y, funcIsMul ? '*' : '+');
     if (koeff2 != 0)
     {
-       Painter::DrawChar(x + 30, y, koeff2 < 0 ? '-' : '+');
+       PText::DrawChar(x + 30, y, koeff2 < 0 ? '-' : '+');
     }
-    Painter::DrawChar(x + 39, y, (char)(koeff2 + 0x30));
-    Painter::DrawChar(x + 44, y, '*');
-    Painter::DrawText(x + 48, y, "K2");
+    PText::DrawChar(x + 39, y, (char)(koeff2 + 0x30));
+    PText::DrawChar(x + 44, y, '*');
+    PText::DrawText(x + 48, y, "K2");
 }
 
 void DrawFormulaLowPart(Formula *formula, int x, int y, bool pressed, bool shade)
@@ -275,11 +275,11 @@ static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits
         }
         if (!(rest == 0 && value == 0) || (firstValue == 0 && i == 0))
         {
-            Painter::DrawChar(x, y, rest + 48, selPos == i ? COLOR_BACK : COLOR_FILL);
+            PText::DrawChar(x, y, rest + 48, selPos == i ? COLOR_BACK : COLOR_FILL);
         }
         else if (fillNull)
         {
-            Painter::DrawChar(x, y, '0', selPos == i ? COLOR_BACK : COLOR_FILL);
+            PText::DrawChar(x, y, '0', selPos == i ? COLOR_BACK : COLOR_FILL);
         }
         if (hLine)
         {
@@ -303,15 +303,15 @@ void DrawGovernorValue(int x, int y, Governor *governor)
 
     Font::Set(TypeFont::_5);
     bool sign = governor->minValue < 0;
-    Painter::DrawText(x + 55, y - 5, Int2String(governor->maxValue, sign, 1, buffer), COLOR_FILL);
-    Painter::DrawText(x + 55, y + 2, Int2String(governor->minValue, sign, 1, buffer));
+    PText::DrawText(x + 55, y - 5, Int2String(governor->maxValue, sign, 1, buffer), COLOR_FILL);
+    PText::DrawText(x + 55, y + 2, Int2String(governor->minValue, sign, 1, buffer));
     Font::Set(TypeFont::_8);
 
     DrawValueWithSelectedPosition(startX, y, value, Governor_NumDigits(governor), gCurDigit, true, true);
 
     if(sign)
     {
-       Painter::DrawChar(startX - 1, y, signGovernor < 0 ? '\x9b' : '\x9a');
+       PText::DrawChar(startX - 1, y, signGovernor < 0 ? '\x9b' : '\x9a');
     }
 }
 
@@ -338,14 +338,14 @@ static void DrawIPvalue(int x, int y, IPaddress *ip)
         DrawValueWithSelectedPosition(x, y, bytes[i], 3, numIP == i ? selPos : -1, false, true);
         if (i != 3)
         {
-            Painter::DrawChar(x + 5, y, '.', COLOR_FILL);
+            PText::DrawChar(x + 5, y, '.', COLOR_FILL);
         }
         x += 19;
     }
 
     if (ip->port != 0)
     {
-        Painter::DrawChar(x - 13, y, ':', COLOR_FILL);
+        PText::DrawChar(x - 13, y, ':', COLOR_FILL);
         DrawValueWithSelectedPosition(x + 14, y, *ip->port, 5, numIP == 4 ? selPos : -1, false, true);
     }
 }
@@ -368,7 +368,7 @@ static void DrawMACvalue(int x, int y, MACaddress *mac)
         }
         char buffer[20];
         sprintf(buffer, "%02X", value);
-        Painter::DrawText(x, y, buffer, gCurDigit == num ? COLOR_BACK : COLOR_FILL);
+        PText::DrawText(x, y, buffer, gCurDigit == num ? COLOR_BACK : COLOR_FILL);
         x -= 12;
     }
 }
@@ -452,8 +452,8 @@ void DrawGovernorColorValue(int x, int y, GovernorColor *govColor, int delta)
         Color::E colorBack = (field == i) ? Color::WHITE : Color::BLACK;
         Color::E colorDraw = (field == i) ? Color::BLACK : Color::WHITE;
         Painter::FillRegion(x - 1, y + 1, 29, 10, colorBack);
-        Painter::DrawText(x, y + 2, texts[i], colorDraw);
-        Painter::DrawText(x + 14, y + 2, Int2String(vals[i], false, 1, buffer));
+        PText::DrawText(x, y + 2, texts[i], colorDraw);
+        PText::DrawText(x + 14, y + 2, Int2String(vals[i], false, 1, buffer));
         x -= 30;
     }
     
@@ -469,7 +469,7 @@ static void GovernorColor_DrawOpened(GovernorColor *gov, int x, int y)
     Painter::DrawVolumeButton(x + 1, y + 1, MI_WIDTH_VALUE + 2 + delta, MI_HEIGHT_VALUE + 3, 2, ColorMenuItem(false), 
         ColorMenuItemBrighter(), ColorMenuItemLessBright(), Menu::IsPressed(gov), Menu::IsShade(gov));
     Painter::DrawHLine(y + MI_HEIGHT / 2 + 2, x, x + MI_WIDTH + delta, ColorMenuTitle(false));
-    Painter::DrawStringInCenterRect(x + (Menu::IsPressed(gov) ? 2 : 1), y + (Menu::IsPressed(gov) ? 2 : 1), MI_WIDTH + delta, MI_HEIGHT / 2 + 2, Menu::TitleItem(gov), Color::WHITE);
+    PText::DrawStringInCenterRect(x + (Menu::IsPressed(gov) ? 2 : 1), y + (Menu::IsPressed(gov) ? 2 : 1), MI_WIDTH + delta, MI_HEIGHT / 2 + 2, Menu::TitleItem(gov), Color::WHITE);
     DrawGovernorColorValue(x + 1, y + 19, gov, delta);
 }
 
@@ -514,7 +514,7 @@ void ItemChoice_DrawOpened(Choice *choice, int x, int y)
             Painter::DrawVolumeButton(x + 1, yItem, MOI_WIDTH - 2 , MOSI_HEIGHT - 2, 2, ColorMenuField(), ColorMenuTitleBrighter(),
                 ColorMenuTitleLessBright(), pressed, false);
         }
-        Painter::DrawText(x + 4, yItem + 2, choice->NameSubItem(i), pressed ? Color::BLACK : ColorMenuField());
+        PText::DrawText(x + 4, yItem + 2, choice->NameSubItem(i), pressed ? Color::BLACK : ColorMenuField());
     }
 }
 
@@ -569,8 +569,8 @@ void ItemTime_DrawOpened(Time *time, int x, int y)
     strcpy(strI[iSEC],      Int2String(*time->seconds,  false, 2, buffer));
     strcpy(strI[iSET],      "—охранить");
 
-    Painter::DrawText(x + 3, y + y0, "д м г - ", COLOR_FILL);
-    Painter::DrawText(x + 3, y + y1, "ч м с - ");
+    PText::DrawText(x + 3, y + y0, "д м г - ", COLOR_FILL);
+    PText::DrawText(x + 3, y + y1, "ч м с - ");
 
     for (int i = 0; i < 8; i++)
     {
@@ -578,7 +578,7 @@ void ItemTime_DrawOpened(Time *time, int x, int y)
         {
             Painter::FillRegion(x + strPaint[i].x - 1, y + strPaint[i].y, strPaint[i].width, 8, Color::FLASH_10);
         }
-        Painter::DrawText(x + strPaint[i].x, y + strPaint[i].y, strI[i], *time->curField == i ? Color::FLASH_01 : COLOR_FILL);
+        PText::DrawText(x + strPaint[i].x, y + strPaint[i].y, strI[i], *time->curField == i ? Color::FLASH_01 : COLOR_FILL);
     }
 }
 
@@ -630,13 +630,13 @@ void ItemChoice_DrawClosed(Choice *choice, int x, int y)
     Color::SetCurrent(colorText);
     if(deltaY == 0.0f)
     {
-        Painter::DrawText(x + 4, y + 21, choice->NameCurrentSubItem());
+        PText::DrawText(x + 4, y + 21, choice->NameCurrentSubItem());
     }
     else
     {
-        Painter::DrawTextWithLimitationC(x + 4, y + 21 - deltaY, choice->NameCurrentSubItem(), colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
+        PText::DrawTextWithLimitationC(x + 4, y + 21 - deltaY, choice->NameCurrentSubItem(), colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
         Painter::DrawHLine(y + (deltaY > 0 ? 31 : 19) - deltaY, x + 3, x + MI_WIDTH_VALUE + 1, Color::BLACK);
-        Painter::DrawTextWithLimitationC(x + 4, y + (deltaY > 0 ? 33 : 9) - deltaY, deltaY > 0 ? choice->NameNextSubItem() : choice->NamePrevSubItem(), colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
+        PText::DrawTextWithLimitationC(x + 4, y + (deltaY > 0 ? 33 : 9) - deltaY, deltaY > 0 ? choice->NameNextSubItem() : choice->NamePrevSubItem(), colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
     }
     Painter::DrawHLine(y + MI_HEIGHT + 1, x, x + MI_WIDTH, ColorBorderMenu(false));
 
@@ -674,18 +674,18 @@ void ItemTime_DrawClosed(Time *item, int x, int y)
     int startX = 3;
     y += 21;
     PackedTime time = HAL_RTC::GetPackedTime();
-    Painter::DrawText(x + startX, y, Int2String((int)time.hours, false, 2, buffer), COLOR_BACK);
-    Painter::DrawText(x + startX + deltaField, y, ":");
-    Painter::DrawText(x + startX + deltaField + deltaSeparator, y, Int2String((int)time.minutes, false, 2, buffer));
-    Painter::DrawText(x + startX + 2 * deltaField + deltaSeparator, y, ":");
-    Painter::DrawText(x + startX + 2 * deltaField + 2 * deltaSeparator, y, Int2String((int)time.seconds, false, 2, buffer));
+    PText::DrawText(x + startX, y, Int2String((int)time.hours, false, 2, buffer), COLOR_BACK);
+    PText::DrawText(x + startX + deltaField, y, ":");
+    PText::DrawText(x + startX + deltaField + deltaSeparator, y, Int2String((int)time.minutes, false, 2, buffer));
+    PText::DrawText(x + startX + 2 * deltaField + deltaSeparator, y, ":");
+    PText::DrawText(x + startX + 2 * deltaField + 2 * deltaSeparator, y, Int2String((int)time.seconds, false, 2, buffer));
 
     startX = 44;
-    Painter::DrawText(x + startX, y, Int2String((int)time.day, false, 2, buffer));
-    Painter::DrawText(x + startX + deltaField, y, ":");
-    Painter::DrawText(x + startX + deltaField + deltaSeparator, y, Int2String((int)time.month, false, 2, buffer));
-    Painter::DrawText(x + startX + 2 * deltaField + deltaSeparator, y, ":");
-    Painter::DrawText(x + startX + 2 * deltaField + 2 * deltaSeparator, y, Int2String((int)time.year, false, 2, buffer));
+    PText::DrawText(x + startX, y, Int2String((int)time.day, false, 2, buffer));
+    PText::DrawText(x + startX + deltaField, y, ":");
+    PText::DrawText(x + startX + deltaField + deltaSeparator, y, Int2String((int)time.month, false, 2, buffer));
+    PText::DrawText(x + startX + 2 * deltaField + deltaSeparator, y, ":");
+    PText::DrawText(x + startX + 2 * deltaField + 2 * deltaSeparator, y, Int2String((int)time.year, false, 2, buffer));
 }
 
 void ItemTime_Draw(Time *time, int x, int y, bool opened)
@@ -713,7 +713,7 @@ void ItemButton_Draw(Button *button, int x, int y)
 
     int delta = (pressed && (!shade)) ? 2 : 1;
     
-    Painter::DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, Menu::TitleItem(button), color);
+    PText::DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, Menu::TitleItem(button), color);
 }
 
 void ItemSmallButton_Draw(SmallButton *smallButton, int x, int y)
@@ -758,5 +758,5 @@ void ItemPage_Draw(Page *page, int x, int y)
         colorText = COLOR_FILL;
         delta = 1;
     }
-    Painter::DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, Menu::TitleItem(page), colorText);
+    PText::DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, Menu::TitleItem(page), colorText);
 }

@@ -76,21 +76,21 @@ bool IsActiveMemoryExtSetMask()
 void DrawSB_MemLastSelect(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 3, y + 2, set.memory.strMemoryLast.isActiveModeSelect ? '\x2a' : '\x28');
+    PText::Draw4SymbolsInRect(x + 3, y + 2, set.memory.strMemoryLast.isActiveModeSelect ? '\x2a' : '\x28');
     Font::Set(TypeFont::_8);
 }
 
 void DrawSB_MemLast_Prev(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 2, y + 2, '\x20');
+    PText::Draw4SymbolsInRect(x + 2, y + 2, '\x20');
     Font::Set(TypeFont::_8);
 }
 
 void DrawSB_MemLast_Next(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 2, y + 2, '\x64');
+    PText::Draw4SymbolsInRect(x + 2, y + 2, '\x64');
     Font::Set(TypeFont::_8);
 }
 
@@ -133,15 +133,15 @@ static void FuncDrawingAdditionSPageMemoryLast()
     int height = 10;
     Painter::FillRegion(Grid::Right() - width, GRID_TOP, width, height, COLOR_BACK);
     Painter::DrawRectangle(Grid::Right() - width, GRID_TOP, width, height, COLOR_FILL);
-    Painter::DrawText(Grid::Right() - width + 2, GRID_TOP + 1, Int2String(CURRENT_NUM_LATEST_SIGNAL + 1, false, 3, buffer));
-    Painter::DrawText(Grid::Right() - width + 17, GRID_TOP + 1, "/");
-    Painter::DrawText(Grid::Right() - width + 23, GRID_TOP + 1, Int2String(Storage::AllDatas(), false, 3, buffer));
+    PText::DrawText(Grid::Right() - width + 2, GRID_TOP + 1, Int2String(CURRENT_NUM_LATEST_SIGNAL + 1, false, 3, buffer));
+    PText::DrawText(Grid::Right() - width + 17, GRID_TOP + 1, "/");
+    PText::DrawText(Grid::Right() - width + 23, GRID_TOP + 1, Int2String(Storage::AllDatas(), false, 3, buffer));
 }
 
 void DrawSB_MemLast_IntEnter(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 2, y + 1, '\x40');
+    PText::Draw4SymbolsInRect(x + 2, y + 1, '\x40');
     Font::Set(TypeFont::_8);
 }
 
@@ -150,7 +150,7 @@ void DrawSB_MemLast_SaveToFlash(int x, int y)
     if (FLASH_DRIVE_IS_CONNECTED)
     {
         Font::Set(TypeFont::UGO2);
-        Painter::Draw4SymbolsInRect(x + 2, y + 1, '\x42');
+        PText::Draw4SymbolsInRect(x + 2, y + 1, '\x42');
         Font::Set(TypeFont::_8);
     }
 }
@@ -160,7 +160,7 @@ static void DrawSB_MemExtSetNameSave(int x, int y)
     if (FLASH_DRIVE_IS_CONNECTED)
     {
         Font::Set(TypeFont::UGO2);
-        Painter::Draw4SymbolsInRect(x + 2, y + 1, '\x42');
+        PText::Draw4SymbolsInRect(x + 2, y + 1, '\x42');
         Font::Set(TypeFont::_8);
     }
 }
@@ -268,14 +268,14 @@ static const SmallButton sbSetNameSave
 void DrawSB_SetMask_Backspace(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_BACKSPACE);
+    PText::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_BACKSPACE);
     Font::Set(TypeFont::_8);
 }
 
 void DrawSB_SetName_Backspace(int x, int y) //-V524
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_BACKSPACE);
+    PText::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_BACKSPACE);
     Font::Set(TypeFont::_8);
 }
 
@@ -308,7 +308,7 @@ void PressSB_SetName_Backspace()
 void DrawSB_SetMask_Delete(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_DELETE);
+    PText::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_DELETE);
     Font::Set(TypeFont::_8);
 }
 
@@ -320,7 +320,7 @@ void PressSB_SetMask_Delete()
 void DrawSB_SetName_Delete(int x, int y) //-V524
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_DELETE);
+    PText::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_DELETE);
     Font::Set(TypeFont::_8);
 }
 
@@ -332,7 +332,7 @@ void PressSB_SetName_Delete()
 void DrawSB_SetMask_Insert(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 2, y + 2, SYMBOL_INSERT);
+    PText::Draw4SymbolsInRect(x + 2, y + 2, SYMBOL_INSERT);
     Font::Set(TypeFont::_8);
 }
 
@@ -375,7 +375,7 @@ void PressSB_SetMask_Insert()
 void DrawSB_SetName_Insert(int x, int y) //-V524
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 2, y + 2, '\x26');
+    PText::Draw4SymbolsInRect(x + 2, y + 2, '\x26');
     Font::Set(TypeFont::_8);
 }
 
@@ -480,28 +480,28 @@ const SmallButton sbSetNameInsert
 void DrawSB_MemExtNewFolder(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 1, y, '\x46');
+    PText::Draw4SymbolsInRect(x + 1, y, '\x46');
     Font::Set(TypeFont::_8);
 }
 
 void DrawSB_FM_LevelDown(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 2, y + 2, '\x4a');
+    PText::Draw4SymbolsInRect(x + 2, y + 2, '\x4a');
     Font::Set(TypeFont::_8);
 }
 
 void DrawSB_FM_LevelUp(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 2, y + 1, '\x48');
+    PText::Draw4SymbolsInRect(x + 2, y + 1, '\x48');
     Font::Set(TypeFont::_8);
 }
 
 static void DrawSB_FM_Tab(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 2, y + 1, '\x6e');
+    PText::Draw4SymbolsInRect(x + 2, y + 1, '\x6e');
     Font::Set(TypeFont::_8);
 }
 
@@ -540,7 +540,7 @@ const SmallButton sbFileManagerLevelUp
 void DrawSB_MemInt_SaveToIntMemory(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_SAVE_TO_MEM);
+    PText::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_SAVE_TO_MEM);
     Font::Set(TypeFont::_8);
 }
 
@@ -578,7 +578,7 @@ void DrawSB_MemInt_SaveToFlashDrive(int x, int y) //-V524
     if (FLASH_DRIVE_IS_CONNECTED)
     {
         Font::Set(TypeFont::UGO2);
-        Painter::Draw4SymbolsInRect(x + 2, y + 1, '\x42');
+        PText::Draw4SymbolsInRect(x + 2, y + 1, '\x42');
         Font::Set(TypeFont::_8);
     }
 }
@@ -595,11 +595,11 @@ static void DrawMemoryWave(int num, bool exist)
     Color::SetCurrent(num == CURRENT_NUM_INT_SIGNAL ? Color::FLASH_01 : COLOR_FILL);
     if (exist)
     {
-        Painter::DrawText(x + 2, y + 1, Int2String(num + 1, false, 2, buffer));
+        PText::DrawText(x + 2, y + 1, Int2String(num + 1, false, 2, buffer));
     }
     else
     {
-        Painter::DrawText(x + 3, y + 1, "\x88");
+        PText::DrawText(x + 3, y + 1, "\x88");
     }
 }
 
@@ -641,14 +641,14 @@ static void FuncOnRegSetMemInt(int delta)
 static void DrawSB_MemInt_ShowSignalAllways_Yes(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 2, y + 1, '\x66');
+    PText::Draw4SymbolsInRect(x + 2, y + 1, '\x66');
     Font::Set(TypeFont::_8);
 }
 
 static void DrawSB_MemInt_ShowSignalAllways_No(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 2, y + 1, '\x68');
+    PText::Draw4SymbolsInRect(x + 2, y + 1, '\x68');
     Font::Set(TypeFont::_8);
 }
 
@@ -694,14 +694,14 @@ static const SmallButton sbMemIntShowSignalAlways
 static void DrawSB_MemInt_ModeShow_Direct(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_MEM_INT_SHOW_DIRECT);
+    PText::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_MEM_INT_SHOW_DIRECT);
     Font::Set(TypeFont::_8);
 }
 
 static void DrawSB_MemInt_ModeShow_Saved(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_MEM_INT_SHOW_SAVED);
+    PText::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_MEM_INT_SHOW_SAVED);
     Font::Set(TypeFont::_8);
 }
 
@@ -771,7 +771,7 @@ static void PressSB_MemInt_Delete()
 static void DrawSB_MemInt_Delete(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_DELETE);
+    PText::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_DELETE);
     Font::Set(TypeFont::_8);
 }
 
@@ -1001,7 +1001,7 @@ void DrawSetName()
         position++;
     }
 
-    int x = Painter::DrawText(x0 + deltaX, y0 + 65, FILE_NAME, COLOR_FILL);
+    int x = PText::DrawText(x0 + deltaX, y0 + 65, FILE_NAME, COLOR_FILL);
     Painter::FillRegion(x, y0 + 65, 5, 8, Color::FLASH_10);
 }
 
@@ -1014,20 +1014,20 @@ static void DrawFileMask(int x, int y)
     {
         if (*ch >= 32)
         {
-            x = Painter::DrawChar(x, y, *ch);
+            x = PText::DrawChar(x, y, *ch);
         }
         else
         {
             if (*ch == 0x07)
             {
-                x = Painter::DrawChar(x, y, '%');
-                x = Painter::DrawChar(x, y, (char)(0x30 | *(ch + 1)));
-                x = Painter::DrawChar(x, y, 'N');
+                x = PText::DrawChar(x, y, '%');
+                x = PText::DrawChar(x, y, (char)(0x30 | *(ch + 1)));
+                x = PText::DrawChar(x, y, 'N');
                 ch++;
             }
             else
             {
-                x = Painter::DrawText(x, y, symbolsAlphaBet[*ch + 0x40]);
+                x = PText::DrawText(x, y, symbolsAlphaBet[*ch + 0x40]);
             }
         }
         ch++;
@@ -1100,7 +1100,7 @@ void DrawSetMask()
     Color::SetCurrent(COLOR_FILL);
     for(int i = 0; i < sizeof(strings) / 4; i++)
     {
-        Painter::DrawText(x0 + deltaX, y0 + 100 + deltaY * i, strings[i]);
+        PText::DrawText(x0 + deltaX, y0 + 100 + deltaY * i, strings[i]);
     }
 }
 

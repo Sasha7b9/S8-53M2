@@ -263,9 +263,9 @@ void Measure_DrawPageChoice()
             Painter::DrawRectangle(x0, y0, dX, dY, COLOR_FILL);
             Painter::FillRegion(x0 + 1, y0 + 1, dX - 2, dY - 2, active ? Color::FLASH_10 : COLOR_BACK);
             Color::SetCurrent(active ? Color::FLASH_01 : COLOR_FILL);
-            Painter::Draw10SymbolsInRect(x0 + 2, y0 + 1, Measure_GetChar(meas));
+            PText::Draw10SymbolsInRect(x0 + 2, y0 + 1, Measure_GetChar(meas));
             Font::Set(TypeFont::_5);
-            Painter::DrawTextRelativelyRight(x0 + dX, y0 + 12, measures[meas].name, active ? Color::FLASH_01 : COLOR_FILL);
+            PText::DrawTextRelativelyRight(x0 + dX, y0 + 12, measures[meas].name, active ? Color::FLASH_01 : COLOR_FILL);
             Font::Set(TypeFont::UGO);
             ++meas;
         }

@@ -823,7 +823,7 @@ static const Choice mcSizeSettings =
 
 static void OnDraw_SizeSettings(int x, int y)
 {
-    Painter::DrawFormatText(x + 5, y + 21, Color::BLACK, "Размер %d", sizeof(Settings));
+    PText::DrawFormatText(x + 5, y + 21, Color::BLACK, "Размер %d", sizeof(Settings));
 }
 
 
@@ -944,7 +944,7 @@ static void Draw_EnterSerialNumber()
     int y = y0 + 50;
 
     Color::SetCurrent(colorText);
-    int x = Painter::DrawTextOnBackground(x0 + deltaX, y, buffer, colorBackground);
+    int x = PText::DrawTextOnBackground(x0 + deltaX, y, buffer, colorBackground);
 
     colorText = Color::FLASH_01;
     colorBackground = Color::FLASH_10;
@@ -958,15 +958,15 @@ static void Draw_EnterSerialNumber()
     snprintf(buffer, 19, "%04d", s->year);
 
     Color::SetCurrent(colorText);
-    Painter::DrawTextOnBackground(x + 5, y, buffer, colorBackground);
+    PText::DrawTextOnBackground(x + 5, y, buffer, colorBackground);
 
     // Теперь выведем информацию об оставшемся месте в OTP-памяти для записи
 
     int allShots = OTP::GetSerialNumber(buffer);
 
-    Painter::DrawFormatText(x0 + deltaX, y0 + 130, COLOR_FILL, "Текущий сохранённый номер %s", buffer[0] == 0 ? "-- ----" : buffer);
+    PText::DrawFormatText(x0 + deltaX, y0 + 130, COLOR_FILL, "Текущий сохранённый номер %s", buffer[0] == 0 ? "-- ----" : buffer);
 
-    Painter::DrawFormatText(x0 + deltaX, y0 + 100, COLOR_FILL, "Осталось места для %d попыток", allShots);
+    PText::DrawFormatText(x0 + deltaX, y0 + 100, COLOR_FILL, "Осталось места для %d попыток", allShots);
 }
 
 static void OnRegSet_SerialNumber(int angle)
@@ -1025,7 +1025,7 @@ static void OnPress_SerialNumber_Change()
 static void Draw_SerialNumber_Change(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 2, y + 2, SYMBOL_TAB);
+    PText::Draw4SymbolsInRect(x + 2, y + 2, SYMBOL_TAB);
     Font::Set(TypeFont::_8);
 }
 
@@ -1057,6 +1057,6 @@ static void OnPress_SerialNumber_Save()
 static void Draw_SerialNumber_Save(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_SAVE_TO_MEM);
+    PText::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_SAVE_TO_MEM);
     Font::Set(TypeFont::_8);
 }

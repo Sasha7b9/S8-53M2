@@ -442,12 +442,12 @@ static void DrawSB_Cursors_Source(int x, int y)
 
 static void DrawSB_Cursors_SourceA(int x, int y)
 {
-    Painter::DrawText(x + 7, y + 5, "1");
+    PText::DrawText(x + 7, y + 5, "1");
 }
 
 static void DrawSB_Cursors_SourceB(int x, int y)
 {
-    Painter::DrawText(x + 7, y + 5, "2");
+    PText::DrawText(x + 7, y + 5, "2");
 }
 
 
@@ -522,7 +522,7 @@ static void DrawSB_Cursors_U(int x, int y)
             set.cursors.lookMode[1] == CursLookMode_Voltage || set.cursors.lookMode[1] == CursLookMode_Both)
         {
             Font::Set(TypeFont::_5);
-            Painter::DrawChar(x + 10, y, 'c');
+            PText::DrawChar(x + 10, y, 'c');
             Font::Set(TypeFont::_8);
         }
         */
@@ -531,7 +531,7 @@ static void DrawSB_Cursors_U(int x, int y)
 
 static void DrawSB_Cursors_U_Disable(int x, int y)
 {
-    Painter::DrawText(x + 7, y + 5, "U");
+    PText::DrawText(x + 7, y + 5, "U");
 }
 
 static void DrawSB_Cursors_U_Upper(int x, int y)
@@ -626,7 +626,7 @@ static void DrawSB_Cursors_T(int x, int y)
 
 static void DrawSB_Cursors_T_Disable(int x, int y)
 {
-    Painter::DrawText(x + 7, y + 5, "T");
+    PText::DrawText(x + 7, y + 5, "T");
 }
 
 static void DrawSB_Cursors_T_Both_Disable(int x, int y)
@@ -675,7 +675,7 @@ static void SetCursPos100(Chan::E ch)
 static void DrawSB_Cursors_100(int x, int y)
 {
     Font::Set(TypeFont::_5);
-    Painter::DrawText(x + 2, y + 3, "100%");
+    PText::DrawText(x + 2, y + 3, "100%");
     Font::Set(TypeFont::_8);
 }
 
@@ -719,13 +719,13 @@ static void DrawSB_Cursors_PointsPercents(int x, int y)
 
 static void DrawSB_Cursors_PointsPercents_Percents(int x, int y)
 {
-    Painter::DrawText(x + 6, y + 5, "\x83");
+    PText::DrawText(x + 6, y + 5, "\x83");
 }
 
 static void DrawSB_Cursors_PointsPercents_Points(int x, int y)
 {
     Font::Set(TypeFont::_5);
-    Painter::DrawText(x + 4, y + 3, "ò÷ê");
+    PText::DrawText(x + 4, y + 3, "ò÷ê");
     Font::Set(TypeFont::_8);
 }
 

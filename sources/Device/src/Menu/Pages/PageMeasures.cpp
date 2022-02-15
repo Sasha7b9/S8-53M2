@@ -29,7 +29,7 @@ bool PageMeasures::choiceMeasuresIsActive = false;
 void DrawSB_MeasTune_Settings(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 2, y + 1, '\x62');
+    PText::Draw4SymbolsInRect(x + 2, y + 1, '\x62');
     Font::Set(TypeFont::_8);
 }
 
@@ -41,7 +41,7 @@ void PressSB_MeasTune_Settings()
 void DrawSB_MeasTune_Markers(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 2, y + 2, '\x60');
+    PText::Draw4SymbolsInRect(x + 2, y + 2, '\x60');
     Font::Set(TypeFont::_8);
 }
 

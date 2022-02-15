@@ -239,20 +239,20 @@ void FPGA::FuncAttScreen()
     {
         case StateCalibration_None:
         {
-                Painter::DrawTextInRect(40 + dX, y + 25 + dY, SCREEN_WIDTH - 100, 200, "Калибровка завершена. Нажмите любую кнопку, чтобы выйти из режима калибровки.");
+                PText::DrawTextInRect(40 + dX, y + 25 + dY, SCREEN_WIDTH - 100, 200, "Калибровка завершена. Нажмите любую кнопку, чтобы выйти из режима калибровки.");
 
-                Painter::DrawText(10 + dX, 55 + dY, "Поправка нуля 1к :");
-                Painter::DrawText(10 + dX, 80 + dY, "Поправка нуля 2к :");
+                PText::DrawText(10 + dX, 55 + dY, "Поправка нуля 1к :");
+                PText::DrawText(10 + dX, 80 + dY, "Поправка нуля 2к :");
                 for (int i = 0; i < Range::Count; i++)
                 {
-                    Painter::DrawFormatText(95 + i * 16 + dX, 55 + dY, COLOR_FILL, "%d", RSHIFT_ADD(Chan::A, i, 0));
-                    Painter::DrawFormatText(95 + i * 16 + dX, 65 + dY, COLOR_FILL, "%d", RSHIFT_ADD(Chan::A, i, 1));
-                    Painter::DrawFormatText(95 + i * 16 + dX, 80 + dY, COLOR_FILL, "%d", RSHIFT_ADD(Chan::B, i, 0));
-                    Painter::DrawFormatText(95 + i * 16 + dX, 90 + dY, COLOR_FILL, "%d", RSHIFT_ADD(Chan::B, i, 1));
+                    PText::DrawFormatText(95 + i * 16 + dX, 55 + dY, COLOR_FILL, "%d", RSHIFT_ADD(Chan::A, i, 0));
+                    PText::DrawFormatText(95 + i * 16 + dX, 65 + dY, COLOR_FILL, "%d", RSHIFT_ADD(Chan::A, i, 1));
+                    PText::DrawFormatText(95 + i * 16 + dX, 80 + dY, COLOR_FILL, "%d", RSHIFT_ADD(Chan::B, i, 0));
+                    PText::DrawFormatText(95 + i * 16 + dX, 90 + dY, COLOR_FILL, "%d", RSHIFT_ADD(Chan::B, i, 1));
                 }
                 
-                Painter::DrawFormatText(10 + dX, 110 + dY, COLOR_FILL, "Коэффициент калибровки 1к : %f, %d", STRETCH_ADC_A, (int)(STRETCH_ADC_A * 0x80));
-                Painter::DrawFormatText(10 + dX, 130 + dY, COLOR_FILL, "Коэфффициент калибровки 2к : %f, %d", STRETCH_ADC_B, (int)(STRETCH_ADC_B * 0x80));
+                PText::DrawFormatText(10 + dX, 110 + dY, COLOR_FILL, "Коэффициент калибровки 1к : %f, %d", STRETCH_ADC_A, (int)(STRETCH_ADC_A * 0x80));
+                PText::DrawFormatText(10 + dX, 130 + dY, COLOR_FILL, "Коэфффициент калибровки 2к : %f, %d", STRETCH_ADC_B, (int)(STRETCH_ADC_B * 0x80));
 
                 DrawParametersChannel(Chan::A, 10 + dX, 150 + dY, false);
                 DrawParametersChannel(Chan::B, 10 + dX, 200 + dY, false);
@@ -265,7 +265,7 @@ void FPGA::FuncAttScreen()
             break;
 
         case StateCalibration_RShift0start:
-            Painter::DrawTextInRect(50, y + 25, SCREEN_WIDTH - 100, 200, "Подключите ко входу канала 1 выход калибратора и нажмите кнопку ПУСК/СТОП. \
+            PText::DrawTextInRect(50, y + 25, SCREEN_WIDTH - 100, 200, "Подключите ко входу канала 1 выход калибратора и нажмите кнопку ПУСК/СТОП. \
 Если вы не хотите калибровать первый канала, нажмите любую другую кнопку.");
             break;
 
@@ -273,7 +273,7 @@ void FPGA::FuncAttScreen()
             break;
 
         case StateCalibration_RShift1start:
-            Painter::DrawTextInRect(50, y + 25, SCREEN_WIDTH - 100, 200, "Подключите ко входу канала 2 выход калибратора и нажмите кнопку ПУСК/СТОП. \
+            PText::DrawTextInRect(50, y + 25, SCREEN_WIDTH - 100, 200, "Подключите ко входу канала 2 выход калибратора и нажмите кнопку ПУСК/СТОП. \
 Если вы не хотите калибровать второй канал, нажмите любую другую кнопку.");
             break;
 
@@ -281,11 +281,11 @@ void FPGA::FuncAttScreen()
             break;
 
         case StateCalibration_ErrorCalibration0:
-            Painter::DrawTextInRect(50, y + 25, SCREEN_WIDTH - 100, 200, "Внимание !!! Канал 1 не скалиброван.");
+            PText::DrawTextInRect(50, y + 25, SCREEN_WIDTH - 100, 200, "Внимание !!! Канал 1 не скалиброван.");
             break;
 
         case StateCalibration_ErrorCalibration1:
-            Painter::DrawTextInRect(50, y + 25, SCREEN_WIDTH - 100, 200, "Внимание !!! Канал 2 не скалиброван.");
+            PText::DrawTextInRect(50, y + 25, SCREEN_WIDTH - 100, 200, "Внимание !!! Канал 2 не скалиброван.");
             break;
     }
 
@@ -304,7 +304,7 @@ void FPGA::FuncAttScreen()
     */
     char buffer[100];
     sprintf(buffer, "%.1f", (gTimerMS - startTime) / 1000.0f);
-    Painter::DrawText(0, 0, buffer, Color::BLACK);
+    PText::DrawText(0, 0, buffer, Color::BLACK);
 
     Painter::EndScene();
 }
@@ -315,7 +315,7 @@ void FPGA::DrawParametersChannel(Chan::E ch, int eX, int eY, bool inProgress)
     Color::SetCurrent(COLOR_FILL);
     if(inProgress)
     {
-        Painter::DrawText(eX, eY + 4, (ch == Chan::A) ? "КАНАЛ 1" : "КАНАЛ 2");
+        PText::DrawText(eX, eY + 4, (ch == Chan::A) ? "КАНАЛ 1" : "КАНАЛ 2");
         ProgressBar *bar = (ch == Chan::A) ? &bar0 : &bar1;
         bar->width = 240;
         bar->height = 15;
@@ -328,19 +328,19 @@ void FPGA::DrawParametersChannel(Chan::E ch, int eX, int eY, bool inProgress)
     {
         int x = inProgress ? 5 : eX;
         int y = eY + (inProgress ? 110 : 0);
-        Painter::DrawText(x, y, "Отклонение от нуля:");
+        PText::DrawText(x, y, "Отклонение от нуля:");
         char buffer[100] = {0};
         sprintf(buffer, "АЦП1 = %.2f/%.2f, АЦП2 = %.2f/%.2f, d = %.2f/%.2f", avrADC1old[ch] - ValueFPGA::AVE, avrADC1[ch] - ValueFPGA::AVE, 
                                                                              avrADC2old[ch] - ValueFPGA::AVE, avrADC2[ch] - ValueFPGA::AVE,
                                                                              deltaADCold[ch], deltaADC[ch]);
         y += 10;
-        Painter::DrawText(x, y, buffer);
+        PText::DrawText(x, y, buffer);
         buffer[0] = 0;
         sprintf(buffer, "Расхождение AЦП = %.2f/%.2f %%", deltaADCPercentsOld[ch], deltaADCPercents[ch]);
-        Painter::DrawText(x, y + 11, buffer);
+        PText::DrawText(x, y + 11, buffer);
         buffer[0] = 0;
         sprintf(buffer, "Записано %d", SET_BALANCE_ADC(ch));
-        Painter::DrawText(x, y + 19, buffer);
+        PText::DrawText(x, y + 19, buffer);
     }
 }
 

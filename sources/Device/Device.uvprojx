@@ -1057,14 +1057,14 @@
               <FilePath>.\src\Display\Math3D.cpp</FilePath>
             </File>
             <File>
-              <FileName>PainterText.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\PainterText.cpp</FilePath>
+              <FileName>Text.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Text.h</FilePath>
             </File>
             <File>
-              <FileName>PainterText.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\PainterText.h</FilePath>
+              <FileName>Text.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Text.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -3008,14 +3008,14 @@
               <FilePath>.\src\Display\Math3D.cpp</FilePath>
             </File>
             <File>
-              <FileName>PainterText.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\PainterText.cpp</FilePath>
+              <FileName>Text.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Text.h</FilePath>
             </File>
             <File>
-              <FileName>PainterText.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\PainterText.h</FilePath>
+              <FileName>Text.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Text.cpp</FilePath>
             </File>
           </Files>
         </Group>

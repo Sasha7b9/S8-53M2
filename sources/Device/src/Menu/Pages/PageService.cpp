@@ -145,7 +145,7 @@ static void FuncDraw()
 {
     Painter::BeginScene(COLOR_BACK);
 
-    Painter::DrawTextInRectWithTransfers(30, 110, 300, 200, "Подтвердите сброс настроек нажатием кнопки ПУСК/СТОП.\n"
+    PText::DrawTextInRectWithTransfers(30, 110, 300, 200, "Подтвердите сброс настроек нажатием кнопки ПУСК/СТОП.\n"
                                          "Нажмите любую другую кнопку, если сброс не нужен.", COLOR_FILL);
 
     Painter::EndScene();
@@ -405,7 +405,7 @@ static void Draw_Math_Function_ModeDraw(int x, int y)
 
 static void Draw_Math_Function_ModeDraw_Disable(int x, int y)
 {
-    Painter::DrawText(x + 2 + (set.common.lang == English ? 2 : 0), y + 5, set.common.lang == Russian ? "Вык" : "Dis");
+    PText::DrawText(x + 2 + (set.common.lang == English ? 2 : 0), y + 5, set.common.lang == Russian ? "Вык" : "Dis");
 }
 
 static void Draw_Math_Function_ModeDraw_Separate(int x, int y)
@@ -458,7 +458,7 @@ static void Draw_Math_Function_Type_Sum(int x, int y)
 static void Draw_Math_Function_Type_Mul(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    Painter::Draw4SymbolsInRect(x + 4, y + 3, SYMBOL_MATH_FUNC_MUL);
+    PText::Draw4SymbolsInRect(x + 4, y + 3, SYMBOL_MATH_FUNC_MUL);
     Font::Set(TypeFont::_8);
 }
 
@@ -493,12 +493,12 @@ static void Draw_Math_Function_ModeRegSet(int x, int y)
 
 static void Draw_Math_Function_ModeRegSet_Range(int x, int y)
 {
-    Painter::DrawChar(x + 7, y + 5, set.common.lang == Russian ? 'M' : 'S');
+    PText::DrawChar(x + 7, y + 5, set.common.lang == Russian ? 'M' : 'S');
 }
 
 static void Draw_Math_Function_ModeRegSet_RShift(int x, int y)
 {
-    Painter::DrawText(x + 5 - (set.common.lang == English ? 3 : 0), y + 5, set.common.lang == Russian ? "См" : "Shif");
+    PText::DrawText(x + 5 - (set.common.lang == English ? 3 : 0), y + 5, set.common.lang == Russian ? "См" : "Shif");
 }
 
 // СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ - Масштаб 1-го канала -----------------------------------------------------------------------------------------------
@@ -520,7 +520,7 @@ static void OnPress_Math_Function_RangeA()
 
 static void Draw_Math_Function_RangeA(int x, int y)
 {
-    Painter::DrawChar(x + 8, y + 5, '1');
+    PText::DrawChar(x + 8, y + 5, '1');
 }
 
 // СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ - Масштаб 2-го канала -----------------------------------------------------------------------------------------------
@@ -542,7 +542,7 @@ static void OnPress_Math_Function_RangeB()
 
 static void Draw_Math_Function_RangeB(int x, int y)
 {
-    Painter::DrawChar(x + 8, y + 5, '2');
+    PText::DrawChar(x + 8, y + 5, '2');
 }
 
 // СЕРВИС - МАТЕМАТИКА - СПЕКТР ////
@@ -713,7 +713,7 @@ static void OnPress_Math_FFT_Cursors_Source()
 
 static void Draw_Math_FFT_Cursors_Source(int x, int y)
 {
-    Painter::DrawText(x + 7, y + 5, FFT_CUR_CURSOR_IS_0 ? "1" : "2");
+    PText::DrawText(x + 7, y + 5, FFT_CUR_CURSOR_IS_0 ? "1" : "2");
 }
 
 // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Диапазон -----------------------------------------------------------------------------------------------------------
@@ -967,9 +967,9 @@ static void Information_Draw()
     int y = 20;
     Painter::DrawRectangle(0, 0, 319, 239, COLOR_FILL);
     y += dY;
-    Painter::DrawText(x, y, lang == Russian ? "ИНФОРМАЦИЯ" : "INFORMATION");
+    PText::DrawText(x, y, lang == Russian ? "ИНФОРМАЦИЯ" : "INFORMATION");
     y += dY;
-    Painter::DrawText(x, y, lang == Russian ? "Модель : С8-53/1" : "Model : S8-53/1");
+    PText::DrawText(x, y, lang == Russian ? "Модель : С8-53/1" : "Model : S8-53/1");
     y += dY;
 
     char buffer[100];
@@ -977,23 +977,23 @@ static void Information_Draw()
     OTP_GetSerialNumber(buffer);
     if (buffer[0])
     {
-        Painter::DrawFormatText(x, y, COLOR_FILL, lang == Russian ? "C/Н : %s" : "S/N : %s", buffer);
+        PText::DrawFormatText(x, y, COLOR_FILL, lang == Russian ? "C/Н : %s" : "S/N : %s", buffer);
         y += dY;
     }
     */
 
-    Painter::DrawText(x, y, lang == Russian ? "Программное обеспечение:" : "Software:");
+    PText::DrawText(x, y, lang == Russian ? "Программное обеспечение:" : "Software:");
     y += dY;
     sprintf(buffer, (pchar )((lang == Russian) ? "версия %s" : "version %s"), NUM_VER);
-    Painter::DrawText(x, y, buffer);
+    PText::DrawText(x, y, buffer);
     y += dY;
 
-    Painter::DrawFormatText(x, y, COLOR_FILL, "CRC32 : %X", HAL::CalculateCRC32());
+    PText::DrawFormatText(x, y, COLOR_FILL, "CRC32 : %X", HAL::CalculateCRC32());
 
     dY = -10;
-    Painter::DrawStringInCenterRect(0, 190 + dY, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");
-    Painter::DrawStringInCenterRect(0, 205 + dY, 320, 20, "Отдел маркетинга: тел./факс. 8-017-270-02-00");
-    Painter::DrawStringInCenterRect(0, 220 + dY, 320, 20, "Разработчики: e-mail: mnipi-24(@)tut.by, тел. 8-017-270-02-23");
+    PText::DrawStringInCenterRect(0, 190 + dY, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");
+    PText::DrawStringInCenterRect(0, 205 + dY, 320, 20, "Отдел маркетинга: тел./факс. 8-017-270-02-00");
+    PText::DrawStringInCenterRect(0, 220 + dY, 320, 20, "Разработчики: e-mail: mnipi-24(@)tut.by, тел. 8-017-270-02-23");
 
     Menu::Draw();
     Painter::EndScene();
