@@ -401,15 +401,15 @@ void IPaddress::Draw(int x, int y, bool opened)
     }
 }
 
-void ItemMACaddress_Draw(MACaddress *mac, int x, int y, bool opened)
+void MACaddress::Draw(int x, int y, bool opened)
 {
     if (opened)
     {
-        ItemMACaddress_DrawOpened(mac, x, y);
+        ItemMACaddress_DrawOpened(this, x, y);
     }
     else
     {
-        ItemMACaddress_DrawClosed(mac, x, y);
+        ItemMACaddress_DrawClosed(this, x, y);
     }
 }
 
