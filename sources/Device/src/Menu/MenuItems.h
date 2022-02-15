@@ -256,6 +256,7 @@ public:
 #define POS_SIGN_MEMBER_2       2
 #define POS_KOEFF_MEMBER_2      3
 
+
 class Formula
 {
 public:
@@ -268,6 +269,8 @@ public:
     int8*           curDigit;                   // Текущий разряд : 0 - знак первого члена, 1 - коэффициент первого члена,
                                                 //  2 - знак второго члена, 3 - коэффициент второго члена
     pFuncVV         funcOfChanged;              // Эта функция вызывается после изменения состояния элемента управления.
+
+    void Draw(int x, int y, bool opened);
 };
 
 

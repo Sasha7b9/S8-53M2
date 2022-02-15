@@ -248,7 +248,7 @@ static void DrawMACaddress(void* item, int x, int y)
 
 static void DrawFormula(void* item, int x, int y)
 {
-    ItemFormula_Draw((Formula *)item, x, y, false);
+    ((Formula *)item)->Draw(x, y, false);
 }
 
 

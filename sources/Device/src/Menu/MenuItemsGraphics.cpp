@@ -413,15 +413,15 @@ void MACaddress::Draw(int x, int y, bool opened)
     }
 }
 
-void ItemFormula_Draw(Formula *formula, int x, int y, bool opened)
+void Formula::Draw(int x, int y, bool opened)
 {
     if (opened)
     {
-        
+
     }
     else
     {
-        Formula_DrawClosed(formula, x, y);
+        Formula_DrawClosed(this, x, y);
     }
 }
 
