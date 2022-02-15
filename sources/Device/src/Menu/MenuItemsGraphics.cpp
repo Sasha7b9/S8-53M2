@@ -127,7 +127,7 @@ void DrawGovernorLowPart(Governor *governor, int x, int y, bool pressed, bool sh
             {
                 x = PText::DrawTextWithLimitationC(drawX, y + 21 - delta, Int2String(*governor->cell, false, 1, buffer), 
                                             COLOR_BACK, limX, limY, limWidth, limHeight);
-                PText::DrawTextWithLimitationC(drawX, y + 21 - 10 - delta, Int2String(Governor_PrevValue(governor), false, 1, buffer),
+                PText::DrawTextWithLimitationC(drawX, y + 21 - 10 - delta, Int2String(governor->PrevValue(), false, 1, buffer),
                     COLOR_BACK, limX, limY, limWidth, limHeight);
             }
         }

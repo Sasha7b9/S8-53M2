@@ -26,7 +26,7 @@ void Governor::StartChange(int delta)
     }
     else if (delta < 0 && ADDRESS_GOVERNOR == (uint)this && IN_MOVE_DECREASE)
     {
-        *cell = Governor_PrevValue(this);
+        *cell = PrevValue();
     }
     else
     {
@@ -133,7 +133,7 @@ float Governor::Step()
         if (delta < -numLines)
         {
             IN_MOVE_DECREASE = IN_MOVE_INCREASE = 0;
-            *cell = Governor_PrevValue(this);
+            *cell = PrevValue();
 
             if (funcOfChanged)
             {
@@ -179,9 +179,9 @@ int16 Governor::NextValue() const
     return ((*cell) < maxValue) ? (*cell) + 1 : minValue;
 }
 
-int16 Governor_PrevValue(const Governor *governor)
+int16 Governor::PrevValue() const
 {
-    return ((*governor->cell) > governor->minValue) ? (*governor->cell) - 1 : governor->maxValue;
+    return ((*cell) > minValue) ? (*cell) - 1 : maxValue;
 }
 
 void Governor_NextPosition(Governor *governor)
