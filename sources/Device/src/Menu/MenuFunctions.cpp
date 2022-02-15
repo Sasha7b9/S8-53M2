@@ -334,7 +334,7 @@ bool Menu::ChangeOpenedItem(void *item, int delta)
     }
     else if (type == Item_IP)
     {
-        IPaddress_ChangeValue((IPaddress *)item, delta);
+        ((IPaddress *)item)->ChangeValue(delta);
     }
     else if (type == Item_MAC)
     {

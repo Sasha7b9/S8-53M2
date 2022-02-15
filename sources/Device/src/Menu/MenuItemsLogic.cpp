@@ -53,7 +53,7 @@ void Governor::ChangeValue(int delta)
     }
 }
 
-void IPaddress_ChangeValue(IPaddress *ip, int delta)
+void IPaddress::ChangeValue(int delta)
 {
     int numByte = 0;
     int numPos = 0;
@@ -64,12 +64,12 @@ void IPaddress_ChangeValue(IPaddress *ip, int delta)
 
     if (numByte < 4)
     {
-        uint8 *bytes = ip->ip0;
+        uint8 *bytes = ip0;
         oldValue = bytes[numByte];
     }
     else
     {
-        oldValue = *ip->port;
+        oldValue = *port;
     }
 
     int newValue = oldValue + Math_Sign(delta) * Math_Pow10(numPos);
@@ -79,11 +79,11 @@ void IPaddress_ChangeValue(IPaddress *ip, int delta)
     {
         if (numByte == 4)
         {
-            *ip->port = (uint16)newValue;
+            *port = (uint16)newValue;
         }
         else
         {
-            ip->ip0[numByte] = (uint8)newValue;
+            ip0[numByte] = (uint8)newValue;
         }
         Sound::GovernorChangedValue();
         Display::ShowWarningGood(NeedRebootDevice2);
