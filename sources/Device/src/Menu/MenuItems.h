@@ -378,4 +378,6 @@ struct Time
     void Draw(int x, int y, bool opened);
 
     void SetOpened();
+
+    void SetNewTime() const;
 };

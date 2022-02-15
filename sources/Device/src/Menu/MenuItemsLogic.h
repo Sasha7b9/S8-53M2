@@ -7,7 +7,7 @@
 
 
 
-void    ItemTime_SetNewTime(const Time *time);
+
 void    ItemTime_SelectNextPosition(Time *time);
 void    ItemTime_IncCurrentPosition(const Time *time);
 void    ItemTime_DecCurrentPosition(const Time *time);
