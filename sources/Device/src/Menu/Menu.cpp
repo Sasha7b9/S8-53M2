@@ -49,6 +49,61 @@ static PanelButton bufferForButtons[SIZE_BUFFER_FOR_BUTTONS] = {B_Empty, B_Empty
 static const PanelButton sampleBufferForButtons[SIZE_BUFFER_FOR_BUTTONS] = {B_F5, B_F4, B_F3, B_F2, B_F1};
 
 
+namespace Menu
+{
+    // Обработка короткого нажатия кнопки.
+    void ProcessingShortPressureButton();
+    // Обработка длинного нажатия кнопки.
+    void ProcessingLongPressureButton();
+    // Обработка опускания кнопки вниз.
+    void ProcessingPressButton();
+    // Обработка поднятия кнопки вверх.
+    void ProcessingReleaseButton();
+    // Обработка поворота ручки УСТАНОВКА.
+    void ProcessingRegulatorSet();
+    // Включить/выключить светодиод ручки УСТАНОВКА, если необходимо.
+    void SwitchSetLED();
+    // Обработка короткого нажатия на элемент NamePage с адресом page.
+    void ShortPress_Page(void *page);
+    // Обработка короткого нажатия на элемент Choice с адресом choice.
+    void ShortPress_Choice(void *choice);
+
+    void ShortPress_Time(void *time);
+    // Обработка короткого нажатия на элемент Button с адресом button.
+    void ShortPress_Button(void *button);
+    // Обработка короткого нажатия на элемент Governor с адресом governor.
+    void ShortPress_Governor(void *governor);
+    // Обработка короткого нажатия на элемент GovernorColor с адресом governorColor.
+    void ShortPress_GovernorColor(void *governorColor);
+
+    void ShortPress_IP(void *item);
+
+    void ShortPress_MAC(void *item);
+
+    void ShortPress_ChoiceReg(void *choice);
+
+    void ShortPress_SmallButton(void *smallButton);
+    // Обработка длинного нажатия на элемент меню item.
+    void FuncOnLongPressItem(void *item);
+
+    void FuncOnLongPressItemTime(void *item);
+    // Обработка длинного нажатия на элемент Button с адресом button.
+    void FuncOnLongPressItemButton(void *button);
+    // Возвращает функцию обработки короткого нажатия на элемент меню item.
+    void ExecuteFuncForShortPressOnItem(void *item);
+    // Возвращает функцию обработки длинного нажатия на элемент меню item.
+    void ExecuteFuncForLongPressureOnItem(void *item);
+
+    // Возвращает true, если лампочка УСТАНОВКА должна гореть
+    bool NeedForFireSetLED();
+
+    void OpenFileManager();
+    // Обработка события таймера автоматического сокрытия меню.
+    void OnTimerAutoHide();
+
+    void ProcessButtonForHint(PanelButton button);
+}
+
 
 void Menu::UpdateInput()
 {

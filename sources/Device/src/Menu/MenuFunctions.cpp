@@ -26,6 +26,12 @@
 extern const Page mainPage;
 
 
+namespace Menu
+{
+    void *RetLastOpened(Page *, TypeItem *);
+}
+
+
 
 TypeItem Menu::TypeMenuItem(void *address) 
 {

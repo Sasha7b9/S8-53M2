@@ -25,6 +25,25 @@ static void *itemUnderButton[B_NumButtons] = {0};
 
 
 
+namespace Menu
+{
+    void ResetItemsUnderButton();
+
+    void DrawOpenedPage(Page *, int layer, int yTop);
+
+    int CalculateX(int layer);
+
+    void DrawTitlePage(Page *, int layer, int yTop);
+
+    void DrawPagesUGO(Page *, int right, int bottom);
+
+    void DrawItemsPage(Page *, int layer, int yTop);
+
+    int ItemOpenedPosY(void *item);
+}
+
+
+
 PanelButton GetFuncButtonFromY(int _y)
 {
     int y = GRID_TOP + GRID_HEIGHT / 12;
