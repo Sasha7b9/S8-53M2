@@ -234,12 +234,12 @@ void Formula::DrawLowPart(int x, int y, bool pressed, bool shade)
 }
 
 
-static void Governor_DrawClosed(Governor *governor, int x, int y)
+void Governor::DrawClosed(int x, int y)
 {
-    bool pressed = Menu::IsPressed(governor);
-    bool shade = Menu::IsShade(governor) || !Menu::ItemIsActive(governor);
-    governor->DrawLowPart(x, y, pressed, shade);
-    DrawGovernorChoiceColorFormulaHiPart(governor, x, y, pressed, shade, false);
+    bool pressed = Menu::IsPressed(this);
+    bool shade = Menu::IsShade(this) || !Menu::ItemIsActive(this);
+    DrawLowPart(x, y, pressed, shade);
+    DrawGovernorChoiceColorFormulaHiPart(this, x, y, pressed, shade, false);
 }
 
 
@@ -393,7 +393,7 @@ void Governor::Draw(int x, int y, bool opened)
     }
     else
     {
-        Governor_DrawClosed(this, x, y);
+        DrawClosed(x, y);
     }
 }
 

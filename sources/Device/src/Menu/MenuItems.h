@@ -223,6 +223,8 @@ public:
 
     void DrawLowPart(int x, int y, bool pressed, bool shade);
 
+    void DrawClosed(int x, int y);
+
     static int8 cur_digit;
 };
 
