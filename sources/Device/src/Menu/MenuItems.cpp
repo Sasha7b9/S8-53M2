@@ -8,13 +8,18 @@
 #include <stm32f4xx_hal.h>
 
 
+int8 MACaddress::cur_digit = 0;
+int8 IPaddress::cur_digit = 0;
+int8 Governor::cur_digit = 0;
+
+
 // Используется для анимации изменения значения Choice
 struct TimeStructChoice
 {
     Choice* choice;                 // Адрес Choice, который находится в данный момент в движении. Если 0 - все статичны.
-    uint        timeStartMS;        // Время начала анимации choice.
-    uint        inMoveIncrease : 1;
-    uint        inMoveDecrease : 1;
+    uint    timeStartMS;            // Время начала анимации choice.
+    uint    inMoveIncrease : 1;
+    uint    inMoveDecrease : 1;
 };
 
 static TimeStructChoice tsChoice;

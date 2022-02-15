@@ -313,7 +313,7 @@ void DrawGovernorValue(int x, int y, Governor *governor)
     PText::DrawText(x + 55, y + 2, Int2String(governor->minValue, sign, 1, buffer));
     Font::Set(TypeFont::_8);
 
-    DrawValueWithSelectedPosition(startX, y, value, governor->NumDigits(), gCurDigit, true, true);
+    DrawValueWithSelectedPosition(startX, y, value, governor->NumDigits(), Governor::cur_digit, true, true);
 
     if(sign)
     {
@@ -323,9 +323,9 @@ void DrawGovernorValue(int x, int y, Governor *governor)
 
 static void DrawIPvalue(int x, int y, IPaddress *ip)
 {
-    if (gCurDigit > (ip->port == 0 ? 11 : 16))
+    if (IPaddress::cur_digit > (ip->port == 0 ? 11 : 16))
     {
-        gCurDigit = 0;
+        IPaddress::cur_digit = 0;
     }
 
     uint8 *bytes = ip->ip0;
@@ -358,23 +358,25 @@ static void DrawIPvalue(int x, int y, IPaddress *ip)
 
 static void DrawMACvalue(int x, int y, MACaddress *mac)
 {
-    if (gCurDigit > 5)
+    if (MACaddress::cur_digit > 5)
     {
-        gCurDigit = 0;
+        MACaddress::cur_digit = 0;
     }
+
     uint8 *bytes = mac->mac0;
     x += MOI_WIDTH - 14;
     y++;
+
     for (int num = 5; num >= 0; num--)
     {
         int value = (int)(*(bytes + num));
-        if (gCurDigit == num)
+        if (MACaddress::cur_digit == num)
         {
             Painter::FillRegion(x - 1, y, 10, 8, COLOR_FILL);
         }
         char buffer[20];
         sprintf(buffer, "%02X", value);
-        PText::DrawText(x, y, buffer, gCurDigit == num ? COLOR_BACK : COLOR_FILL);
+        PText::DrawText(x, y, buffer, (MACaddress::cur_digit == num) ? COLOR_BACK : COLOR_FILL);
         x -= 12;
     }
 }

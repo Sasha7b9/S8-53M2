@@ -729,7 +729,7 @@ void Menu::ShortPress_MAC(void *item)
 {
     if (OpenedItem() == item)
     {
-        CircleIncreaseInt8(&gCurDigit, 0, 5);
+        CircleIncreaseInt8(&MACaddress::cur_digit, 0, 5);
     }
 }
 

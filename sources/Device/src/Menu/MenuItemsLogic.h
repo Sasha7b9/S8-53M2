@@ -2,16 +2,3 @@
 #pragma once
 #include "defines.h"
 #include "MenuItems.h"
-
-
-
-
-
-
-
-
-
-
-
-
-extern int8 gCurDigit;

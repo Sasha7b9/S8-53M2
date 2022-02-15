@@ -228,6 +228,8 @@ public:
 
     // Возвращает число знакомест в поле для ввода элемента governor. Зависит от максимального значения, которое может принимать governor.
     int NumDigits() const;
+
+    static int8 cur_digit;
 };
 
 
@@ -264,6 +266,8 @@ public:
 
     // Возвращает номер текущего байта (4 - номер порта) и номер текущей позиции в байте.
     void GetNumPosIPvalue(int *numIP, int *selPos);
+
+    static int8 cur_digit;
 };
 
 
@@ -282,6 +286,8 @@ public:
     void Draw(int x, int y, bool opened);
 
     void ChangeValue(int delta);
+
+    static int8 cur_digit;
 };
 
 // Описывает элемент меню для установки коэффициентов и знаков математической формулы
