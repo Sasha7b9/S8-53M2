@@ -199,6 +199,8 @@ public:
     Governor(const Page *keeper_, pFuncBV funcOfActive_,
              pchar titleRU, pchar titleEN, pchar hintRU, pchar hintEN,
              int16 *cell_, int16 minValue_, int16 maxValue_, pFuncVV funcOfChanged_ = 0, pFuncVV funcBeforeDraw_ = 0);
+
+    void Draw(int x, int y, bool opened);
 };
 
 

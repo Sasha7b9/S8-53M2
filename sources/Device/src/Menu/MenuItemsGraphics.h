@@ -3,7 +3,6 @@
 #include "MenuItems.h"
 
 
-void ItemGovernor_Draw(Governor *governor, int x, int y, bool opened);
 void ItemIPaddress_Draw(IPaddress *ip, int x, int y, bool opened);
 void ItemMACaddress_Draw(MACaddress *mac, int x, int y, bool opened);
 void ItemFormula_Draw(Formula *formula, int x, int y, bool opened);

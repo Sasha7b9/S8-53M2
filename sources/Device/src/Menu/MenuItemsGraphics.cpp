@@ -373,19 +373,19 @@ static void DrawMACvalue(int x, int y, MACaddress *mac)
     }
 }
 
-void ItemGovernor_Draw(Governor *governor, int x, int y, bool opened)
+void Governor::Draw(int x, int y, bool opened)
 {
-    if (governor->funcBeforeDraw)
+    if (funcBeforeDraw)
     {
-        governor->funcBeforeDraw();
+        funcBeforeDraw();
     }
     if(opened)
     {
-        Governor_DrawOpened(governor, x, y);
+        Governor_DrawOpened(this, x, y);
     }
     else
     {
-        Governor_DrawClosed(governor, x, y);
+        Governor_DrawClosed(this, x, y);
     }
 }
 
