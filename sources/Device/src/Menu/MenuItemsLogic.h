@@ -4,7 +4,6 @@
 #include "MenuItems.h"
 
 
-int16   Governor_NextValue(const Governor *governor);                 // Возвращает следующее большее значение, которое может принять governor.
 int16   Governor_PrevValue(const Governor *governor);                 // Возвращает следующее меньшее значение, которое может принять governor.
 void    Governor_NextPosition(Governor *governor);              // При открытом элементе переставляет курсор на следующую позицию
 int     Governor_NumDigits(const Governor *governor);                 // Возвращает число знакомест в поле для ввода элемента governor. Зависит от максимального значения, которое может принимать governor.
