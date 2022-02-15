@@ -426,11 +426,11 @@ void Formula::Draw(int x, int y, bool opened)
     }
 }
 
-void DrawGovernorColorValue(int x, int y, GovernorColor *govColor, int delta)
+void GovernorColor::DrawValue(int x, int y, int delta)
 {
     char buffer[20];
     
-    ColorType *ct = govColor->colorType;
+    ColorType *ct = colorType;
     int8 field = ct->currentField;
     char *texts[4] = {"ßð", "Ñí", "Çë", "Êð"};
     int color = (int)COLOR(ct->color);
@@ -460,18 +460,18 @@ void DrawGovernorColorValue(int x, int y, GovernorColor *govColor, int delta)
     
 }
 
-static void GovernorColor_DrawOpened(GovernorColor *gov, int x, int y)
+void GovernorColor::DrawOpened(int x, int y)
 {
     static const int delta = 43;
     x -= delta;
-    gov->colorType->Init();
+    colorType->Init();
     Painter::DrawRectangle(x - 1, y - 1, MI_WIDTH + delta + 2, MI_HEIGHT + 2, Color::BLACK);
     Painter::DrawRectangle(x, y, MI_WIDTH + delta, MI_HEIGHT, ColorMenuTitle(false));
     Painter::DrawVolumeButton(x + 1, y + 1, MI_WIDTH_VALUE + 2 + delta, MI_HEIGHT_VALUE + 3, 2, ColorMenuItem(false), 
-        ColorMenuItemBrighter(), ColorMenuItemLessBright(), Menu::IsPressed(gov), Menu::IsShade(gov));
+        ColorMenuItemBrighter(), ColorMenuItemLessBright(), Menu::IsPressed(this), Menu::IsShade(this));
     Painter::DrawHLine(y + MI_HEIGHT / 2 + 2, x, x + MI_WIDTH + delta, ColorMenuTitle(false));
-    PText::DrawStringInCenterRect(x + (Menu::IsPressed(gov) ? 2 : 1), y + (Menu::IsPressed(gov) ? 2 : 1), MI_WIDTH + delta, MI_HEIGHT / 2 + 2, Menu::TitleItem(gov), Color::WHITE);
-    DrawGovernorColorValue(x + 1, y + 19, gov, delta);
+    PText::DrawStringInCenterRect(x + (Menu::IsPressed(this) ? 2 : 1), y + (Menu::IsPressed(this) ? 2 : 1), MI_WIDTH + delta, MI_HEIGHT / 2 + 2, Menu::TitleItem(this), Color::WHITE);
+    DrawValue(x + 1, y + 19, delta);
 }
 
 static void GovernorColor_DrawClosed(GovernorColor *gov, int x, int y)
@@ -485,7 +485,7 @@ void GovernorColor::Draw(int x, int y, bool opened)
 {
     if(opened)
     {
-        GovernorColor_DrawOpened(this, x, y);
+        DrawOpened(x, y);
     }
     else
     {

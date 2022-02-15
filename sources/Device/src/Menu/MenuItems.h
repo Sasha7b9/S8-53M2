@@ -340,6 +340,10 @@ public:
 
     // »зменить €ркость цвета в governor
     void ChangeValue(int delta);
+
+    void DrawOpened(int x, int y);
+
+    void DrawValue(int x, int y, int delta);
 };
 
 
