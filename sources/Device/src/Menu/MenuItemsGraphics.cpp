@@ -218,7 +218,7 @@ void Formula::WriteText(int x, int y, bool opened)
 }
 
 
-void DrawFormulaLowPart(Formula *formula, int x, int y, bool pressed, bool shade)
+void Formula::DrawLowPart(int x, int y, bool pressed, bool shade)
 {
     Color::E colorTextDown = COLOR_BACK;
 
@@ -228,8 +228,9 @@ void DrawFormulaLowPart(Formula *formula, int x, int y, bool pressed, bool shade
     {
         colorTextDown = ColorMenuItem(false);
     }
+
     Color::SetCurrent(colorTextDown);
-    formula->WriteText(x + 6, y + 21, false);
+    WriteText(x + 6, y + 21, false);
 }
 
 
@@ -262,7 +263,7 @@ void Formula_DrawClosed(Formula *formula, int x, int y)
 {
     bool pressed = Menu::IsPressed(formula);
     bool shade = Menu::IsShade(formula) || !Menu::ItemIsActive(formula);
-    DrawFormulaLowPart(formula, x, y, pressed, shade);
+    formula->DrawLowPart(x, y, pressed, shade);
     DrawGovernorChoiceColorFormulaHiPart(formula, x, y, pressed, shade, false);
 }
 

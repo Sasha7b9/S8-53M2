@@ -319,6 +319,8 @@ public:
     void Draw(int x, int y, bool opened);
 
     void WriteText(int x, int y, bool opened);
+
+    void DrawLowPart(int x, int y, bool pressed, bool shade);
 };
 
 
