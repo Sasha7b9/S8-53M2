@@ -711,15 +711,15 @@ int PText::DrawTextInBoundedRectWithTransfers(int x, int y, int width, pchar tex
 
 int PText::DrawFormatText(int x, int y, Color::E color, char *text, ...)
 {
-#undef SIZE_BUFFER
-#define SIZE_BUFFER 200
+    static int const SIZE_BUFFER = 200;
     char buffer[SIZE_BUFFER];
+
     va_list args;
     va_start(args, text);
     vsprintf(buffer, text, args);
     va_end(args);
+
     return DrawText(x, y, buffer, color);
-#undef SIZE_BUFFER
 }
 
 
@@ -731,6 +731,7 @@ int PText::DrawStringInCenterRect(int eX, int eY, int width, int eHeight, pchar 
     int height = Font::GetHeightSymbol(text[0]);
     int x = eX + (width - lenght) / 2;
     int y = eY + (eHeight - height) / 2;
+
     return DrawText(x, y, text);
 }
 
