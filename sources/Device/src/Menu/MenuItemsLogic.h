@@ -5,7 +5,6 @@
 
 
 
-void    IPaddress_NextPosition(const IPaddress *ip);                  // При открытом элементе переставляет курсор на следующую позицию
 void    IPaddress_ChangeValue(IPaddress *ip, int delta);        // Изменяет значение в текущей позиции при открытом элементе
 void    IPaddress_GetNumPosIPvalue(int *numIP, int *selPos);        // Возвращает номер текущего байта (4 - номер порта) и номер текущей позиции в байте.
 

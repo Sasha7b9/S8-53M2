@@ -203,9 +203,9 @@ int Governor::NumDigits() const
     return max;
 }
 
-void IPaddress_NextPosition(const IPaddress *ipEthernet_IP)
+void IPaddress::NextPosition() const
 {
-    CircleIncreaseInt8(&gCurDigit, 0, ipEthernet_IP->port == 0 ? 11 : 16);
+    CircleIncreaseInt8(&gCurDigit, 0, port == 0 ? 11 : 16);
 }
 
 void ItemTime_SetOpened(Time *item)

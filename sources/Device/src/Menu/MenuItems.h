@@ -255,6 +255,9 @@ public:
     IPaddress(const IPaddressStruct *str);
 
     void Draw(int x, int y, bool opened);
+
+    // При открытом элементе переставляет курсор на следующую позицию
+    void NextPosition() const;
 };
 
 
