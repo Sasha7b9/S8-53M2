@@ -1168,33 +1168,6 @@ void FPGA::WriteToAnalog(TypeWriteAnalog::E type, uint data)
 {
 #define pinSelect   GPIO_PIN_5
 
-    char buffer[19];
-    char *str = Bin2String16((uint16)data, buffer);
-    if (type == TypeWriteAnalog::Range0 && IS_SHOW_REG_RANGE_A)
-    {
-        LOG_WRITE("range 0 = %s", str);
-    }
-    else if (type == TypeWriteAnalog::Range1 && IS_SHOW_REG_RANGE_B)
-    {
-        LOG_WRITE("range 1 = %s", str);
-    }
-    else if (type == TypeWriteAnalog::TrigParam && IS_SHOW_REG_TRIGPARAM)
-    {
-        LOG_WRITE("парам. синхр. = %s", str);
-    }
-    else if (type == TypeWriteAnalog::ChanParam0 && IS_SHOW_REG_PARAM_A)
-    {
-        LOG_WRITE("парам. кан. 1 = %s", str);
-    }
-    else if (type == TypeWriteAnalog::ChanParam1 && IS_SHOW_REG_PARAM_B)
-    {
-        LOG_WRITE("парам. кан. 2 = %s", str);
-    }
-    else if (type == TypeWriteAnalog::All)
-    {
-        LOG_WRITE("полная запись в аналоговую часть = %s", str);
-    }
-
     CHIP_SELECT_IN_LOW
         for (int i = 23; i >= 0; i--)
         {
