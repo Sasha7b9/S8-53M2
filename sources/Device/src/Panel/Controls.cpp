@@ -6,9 +6,9 @@
 static pchar  namesButtons[] = 
 {
     "B_Empty",
-    "B_Channel0",
+    "B_ChannelA",
     "B_Service",
-    "B_Channel1",
+    "B_ChannelB",
     "B_Display",
     "B_Time",
     "B_Memory",

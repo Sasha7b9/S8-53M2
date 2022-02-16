@@ -27,12 +27,12 @@ void HelpLong()
 
 void Channel0Long()
 {
-    Menu::LongPressureButton(B_Channel0);
+    Menu::LongPressureButton(B_ChannelA);
 }
 
 void Channel1Long()
 {
-    Menu::LongPressureButton(B_Channel1);
+    Menu::LongPressureButton(B_ChannelB);
 }
 
 void TimeLong()

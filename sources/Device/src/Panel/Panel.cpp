@@ -40,9 +40,9 @@ static uint timePrevReleaseButton = 0;
 static void(*funcOnKeyDown[B_NumButtons])()    =
 {    
     0,
-    EmptyFuncVV,    // B_Channel0
+    EmptyFuncVV,    // B_ChannelA
     EmptyFuncVV,    // B_Service
-    EmptyFuncVV,    // B_Channel1
+    EmptyFuncVV,    // B_ChannelB
     EmptyFuncVV,    // B_Display
     EmptyFuncVV,    // B_Time
     EmptyFuncVV,    // B_Memory                                         
@@ -63,9 +63,9 @@ static void(*funcOnKeyDown[B_NumButtons])()    =
 static void (*funcOnKeyUp[B_NumButtons])()    =
 {
     0,
-    EmptyFuncVV,    // B_Channel0
+    EmptyFuncVV,    // B_ChannelA
     EmptyFuncVV,    // B_Service
-    EmptyFuncVV,    // B_Channel1
+    EmptyFuncVV,    // B_ChannelB
     EmptyFuncVV,    // B_Display
     EmptyFuncVV,    // B_Time
     EmptyFuncVV,    // B_Memory
@@ -86,9 +86,9 @@ static void (*funcOnKeyUp[B_NumButtons])()    =
 static void (*funcOnLongPressure[B_NumButtons])()    =
 {
     0,
-    Channel0Long,   // B_Channel0
+    Channel0Long,   // B_ChannelA
     EmptyFuncVV,    // B_Service
-    Channel1Long,   // B_Channel1
+    Channel1Long,   // B_ChannelB
     EmptyFuncVV,    // B_Display
     TimeLong,       // B_Time
     EmptyFuncVV,    // B_Memory
@@ -395,7 +395,51 @@ PanelButton Panel::WaitPressingButton()
 
 uint16 Panel::TranslateCommand(const uint8 *data, uint size)
 {
+    struct TStruct
+    {
+        uint8 data;
+        uint16 command;
+    };
+
+    static const TStruct structs[28] =
+    {
+        {0, B_Empty},
+        {0, B_ChannelA},
+        {0, B_Service},
+        {0, B_ChannelB},
+        {0, B_Display},
+        {0, B_Time},
+        {0, B_Memory},
+        {0, B_Trig},
+        {0, B_Start},
+        {0, B_Cursors},
+        {0, B_Measures},
+        {0, B_Power},
+        {0, B_Help},
+        {0, B_Menu},
+        {0, B_F1},
+        {0, B_F2},
+        {0, B_F3},
+        {0, B_F4},
+        {0, B_F5},
+        {0, 0},
+        {0, R_Range0},
+        {0, R_RShift0},
+        {0, R_Range1},
+        {0, R_RShift1},
+        {0, R_TBase},
+        {0, R_TShift},
+        {0, R_TrigLev},
+        {0, R_Set}
+    };
+
     uint16 command = 0;
+
+    if (data[1] < 28)
+    {
+
+    }
+
 
     if (data[1] == 17)  // Μενώ 
     {

@@ -75,6 +75,7 @@ void Sound::Stop()
 
 void Sound::Beep(TypeWave typeWave_, float frequency_, float amplitude_, int duration)
 {
+    return;
     if (SOUND_WARN_IS_BEEP)
     {
         return;
@@ -104,7 +105,6 @@ void Sound::Beep(TypeWave typeWave_, float frequency_, float amplitude_, int dur
 
 void Sound::ButtonPress()
 {
-    return;
     Beep(TypeWave_Sine, 2000.0f, 0.5f, 50);
     BUTTON_IS_PRESSED = 1;
 }
@@ -112,7 +112,6 @@ void Sound::ButtonPress()
 
 void Sound::ButtonRelease()
 {
-    return;
     if (BUTTON_IS_PRESSED)
     {
         Beep(TypeWave_Sine, 1000.0f, 0.25f, 50);

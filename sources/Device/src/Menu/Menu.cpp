@@ -226,7 +226,7 @@ void Menu::ProcessButtonForHint(PanelButton button)
             :
             "ПУСК/СTOП button starts and stops the process of gathering information.";
     }
-    else if (button == B_Channel0)
+    else if (button == B_ChannelA)
     {
         gStringForHint = set.common.lang == Russian ?
             "1. Кнопка КАНАЛ1 открывает меню настроек канала 1.\n"
@@ -235,7 +235,7 @@ void Menu::ProcessButtonForHint(PanelButton button)
             "1. КАНАЛ1 button opens the settings menu of the channel 1.\n"
             "2. Pressing and holding the button КАНАЛ1 for 0.5c for the offset of the vertical channel 1 0V.";
     }
-    else if (button == B_Channel1)
+    else if (button == B_ChannelB)
     {
         gStringForHint = set.common.lang == Russian ?
             "1. Кнопка КАНАЛ2 открывает меню настроек канала 2.\n"
@@ -447,13 +447,13 @@ void Menu::ProcessingShortPressureButton()
             else                                                        // Если меню не показано.
             {
                 NamePage name = GetNamePage((const Page *)OpenedItem());
-                if(button == B_Channel0 && name == Page_Channel0)
+                if(button == B_ChannelA && name == Page_Channel0)
                 {
                     SET_ENABLED_A = !sChannel_Enabled(Chan::A);
                     OnChanged_InputA(true);
                     break;
                 }
-                if(button == B_Channel1 && name == Page_Channel1)
+                if(button == B_ChannelB && name == Page_Channel1)
                 {
                     SET_ENABLED_B = !sChannel_Enabled(Chan::B);
                     OnChanged_InputB(true);
@@ -490,11 +490,11 @@ void Menu::ProcessingLongPressureButton()
         {
             TrigLev::Set(TRIG_SOURCE, TrigLev::ZERO);
         }
-        else if(longPressureButton == B_Channel0)
+        else if(longPressureButton == B_ChannelA)
         {
             RShift::Set(Chan::A, RShift::ZERO);
         }
-        else if(longPressureButton == B_Channel1)
+        else if(longPressureButton == B_ChannelB)
         {
             RShift::Set(Chan::B, RShift::ZERO);
         }

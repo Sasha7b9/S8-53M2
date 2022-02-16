@@ -6,9 +6,9 @@
 enum PanelButton
 {
     B_Empty     = 0,        // кнопка не нажата
-    B_Channel0  = 1,        // КАНАЛ 1
+    B_ChannelA  = 1,        // КАНАЛ 1
     B_Service   = 2,        // СЕРВИС
-    B_Channel1  = 3,        // КАНАЛ 2
+    B_ChannelB  = 3,        // КАНАЛ 2
     B_Display   = 4,        // ДИСПЛЕЙ
     B_Time      = 5,        // РАЗВ
     B_Memory    = 6,        // ПАМЯТЬ
