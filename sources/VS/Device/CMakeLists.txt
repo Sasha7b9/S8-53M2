@@ -28,6 +28,7 @@ if(WIN32)
     add_compile_options(/wd4201)    # nonstandard extension used : nameless struct/union
     add_compile_options(/wd4127)    # conditional expression is constant
     add_compile_options(/wd4211)    # nonstandard extension used : redefined extern to static
+    add_compile_options(/wd4244)
     add_compile_options(/wd4255)    # 'function' : no function prototype given: converting '()' to '(void)'
     add_compile_options(/wd4310)    # cast truncates constant value
     add_compile_options(/wd4355)    # 'this' : used in base member initializer list
@@ -63,6 +64,10 @@ file(GLOB SRC                             ../../Device/src/main.cpp
                                           ../../Device/src/Globals.*
                                           ../../Device/src/Tables.*)
 file(GLOB HAL                             ../../common/_VS_GUI/HAL/stm32f4xx_hal.cpp)
+file(GLOB DISPLAY                         ../../Device/src/Display/*.*)
+file(GLOB HARDWARE                        ../../Device/src/Hardware/*.*)
+file(GLOB HARDWARE_HAL                    ../../Device/src/Hardware/HAL/*.*)
+file(GLOB SETTINGS                        ../../Device/src/Settings/*.*)
 
 file(GLOB RESOURCES                       resources/*)
 
@@ -74,6 +79,10 @@ set_source_files_properties(resources/*
 
 source_group(src                        FILES ${SRC})
 source_group(HAL                        FILES ${HAL})
+source_group(Display                    FILES ${DISPLAY})
+
+source_group(Settings                   FILES ${SETTINGS})
+source_group(Resources                  FILES ${RESOURCES})
 
 #set_source_files_properties(
 #                            PROPERTIES SKIP_UNITY_BUILD_INCLUSION ON)
@@ -81,6 +90,9 @@ source_group(HAL                        FILES ${HAL})
 add_executable( ${PROJECT_NAME}
                 ${SRC}
                 ${HAL}
+                ${DISPLAY}
+                ${SETTINGS}
+                ${RESOURCES}
                 )
 
 target_link_libraries(${PROJECT_NAME} wxbase31ud wxmsw31ud_core)

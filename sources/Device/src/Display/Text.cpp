@@ -527,7 +527,7 @@ int8* PText::BreakWord(char *word)
 }
 
 
-char* PText::PartWordForTransfer(char *word, int8* lengthSyllables, int numSyllables, int numSyllable, char buffer[30])
+char* PText::PartWordForTransfer(char *word, int8* lengthSyllables, int, int numSyllable, char buffer[30])
 {
     int length = 0;
 
@@ -815,7 +815,7 @@ int PText::DrawSpaces(int x, int y, char *text, int *numSymbols)
 }
 
 
-void PText::DrawTextInRect(int x, int y, int width, int height, char *text)
+void PText::DrawTextInRect(int x, int y, int width, int, char *text)
 {
     int xStart = x;
     int xEnd = xStart + width;
