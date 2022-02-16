@@ -1688,6 +1688,7 @@ void Display::DrawGrid(int left, int top, int width, int height)
     int centerY = top + height / 2;
 
     Color::SetCurrent(ColorGrid());
+
     if (TYPE_GRID_IS_1)
     {
         DrawGridType1(left, top, right, bottom, centerX, centerY, deltaX, deltaY, stepX, stepY);

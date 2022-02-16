@@ -27,9 +27,13 @@ namespace Painter
 
     void DrawHPointLine(int y, int x0, int x1, float delta);
 
-    void DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color::E);
+    void DrawMultiVPointLine(int numLines, const int y, uint16 x[], int delta, int count, Color::E);
+
+    void DrawVPointLine(int x, int y, int count, int delta);
 
     void DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color::E);
+
+    void DrawHPointLine(int x, int y, int count, int delta);
 
     void DrawLine(int x0, int y0, int x1, int y1, Color::E = Color::Count);
 

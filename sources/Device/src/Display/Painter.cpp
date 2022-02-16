@@ -320,23 +320,15 @@ Color::E Painter::GetColor(int x, int y)
 }
 
 
-void Painter::DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, int count, Color::E color) 
+void Painter::DrawMultiVPointLine(int numLines, const int y, uint16 x[], int delta, int count, Color::E color) 
 {
-    if(numLines > 20) 
-    {
-        LOG_ERROR("Число линий слишком большое %d", numLines);
-        return;
-    }
+    numLines = LimitationInt(numLines, 0, 20);
 
     Color::SetCurrent(color);
 
     for (int i = 0; i < numLines; i++)
     {
-        for (int j = 0; j < count; j++)
-        {
-            SetPoint(x[j], y);
-            y += delta;
-        }
+        DrawVPointLine(x[i], y, count, delta);
     }
 
     if (InterCom::TransmitGUIinProcess())
@@ -362,22 +354,25 @@ void Painter::DrawMultiVPointLine(int numLines, int y, uint16 x[], int delta, in
 }
 
 
+void Painter::DrawVPointLine(int x, int y, int count, int delta)
+{
+    for (int i = 0; i < count; i++)
+    {
+        SetPoint(x, y);
+        y += delta;
+    }
+}
+
+
 void Painter::DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color::E color)
 {
-    if (numLines > 20)
-    {
-        LOG_ERROR("Число линий слишком большое %d", numLines);
-        return;
-    }
+    numLines = LimitationInt(numLines, 0, 20);
+
     Color::SetCurrent(color);
 
     for (int i = 0; i < numLines; i++)
     {
-        for (int j = 0; j < count; j++)
-        {
-            SetPoint(x, y[j]);
-            x += delta;
-        }
+        DrawHPointLine(x, y[i], count, delta);
     }
 
     if (InterCom::TransmitGUIinProcess())
@@ -403,6 +398,16 @@ void Painter::DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int
         }
 
         command.Transmit(1 + 1 + 2 + 1 + 1 + numLines);
+    }
+}
+
+
+void Painter::DrawHPointLine(int x, int y, int count, int delta)
+{
+    for (int i = 0; i < count; i++)
+    {
+        SetPoint(x, y);
+        x += delta;
     }
 }
 
