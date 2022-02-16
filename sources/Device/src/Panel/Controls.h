@@ -33,10 +33,10 @@ PanelButton& operator++(PanelButton &button);
 enum Regulator
 {
     R_Empty     = 0,    // регулятор не вращался
-    R_Range0    = 20,   // ВОЛЬТ/ДЕЛ кан. 1
-    R_RShift0   = 21,   
-    R_Range1    = 22,   // ВОЛЬТ/ДЕЛ кан. 2
-    R_RShift1   = 23,
+    R_RangeA    = 20,   // ВОЛЬТ/ДЕЛ кан. 1
+    R_RShiftA   = 21,   
+    R_RangeB    = 22,   // ВОЛЬТ/ДЕЛ кан. 2
+    R_RShiftB   = 23,
     R_TBase     = 24,   // ВРЕМЯ/ДЕЛ
     R_TShift    = 25,
     R_TrigLev   = 26,   // УРОВЕНЬ
@@ -52,7 +52,7 @@ enum RegulatorDirection
 };
 
 
-#define NUM_REGULATORS (R_Set - R_Range0 + 1)
+#define NUM_REGULATORS (R_Set - R_RangeA + 1)
 
 
 pchar NameButton(PanelButton button);

@@ -109,10 +109,10 @@ static void (*funcOnLongPressure[B_NumButtons])()    =
 static void (*funculatorLeft[R_Set + 1])()    =
 {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    Range0Left,     // R_Range0
-    RShift0Left,    // R_RShift0
-    Range1Left,     // R_Range1
-    RShift1Left,    // R_RShift1
+    Range0Left,     // R_RangeA
+    RShift0Left,    // R_RShiftA
+    Range1Left,     // R_RangeB
+    RShift1Left,    // R_RShiftB
     TBaseLeft,      // R_TBase
     TShiftLeft,     // R_TShift
     TrigLevLeft,    // R_TrigLev
@@ -121,10 +121,10 @@ static void (*funculatorLeft[R_Set + 1])()    =
 static void (*funculatorRight[R_Set + 1])() =
 {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    Range0Right,    // R_Range0
-    RShift0Right,   // R_RShift0
-    Range1Right,    // R_Range1
-    RShift1Right,   // R_RShift1
+    Range0Right,    // R_RangeA
+    RShift0Right,   // R_RShiftA
+    Range1Right,    // R_RangeB
+    RShift1Right,   // R_RShiftB
     TBaseRight,     // R_TBase
     TShiftRight,    // R_TShift
     TrigLevRight,   // R_TrigLev
@@ -423,10 +423,10 @@ uint16 Panel::TranslateCommand(const uint8 *data, uint size)
         {0, B_F4},
         {0, B_F5},
         {0, 0},
-        {0, R_Range0},
-        {0, R_RShift0},
-        {0, R_Range1},
-        {0, R_RShift1},
+        {0, R_RangeA},
+        {0, R_RShiftA},
+        {0, R_RangeB},
+        {0, R_RShiftB},
         {0, R_TBase},
         {0, R_TShift},
         {0, R_TrigLev},
