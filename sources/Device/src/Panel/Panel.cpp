@@ -421,25 +421,13 @@ uint16 Panel::TranslateCommand(const uint8 *data, uint size)
 
         if (command >= 20)
         {
-            if (data[2] == 3)
-            {
-                command |= 0x80;
-            }
-            else if (data[2] == 4)
-            {
-
-            }
-            else
-            {
-                command = 0;
-            }
+            if (data[2] == 3)       { }
+            else if (data[2] == 4)  { command |= 0x80; }
+            else                    { command = 0; }
         }
         else
         {
-            if (data[2] == 0)
-            {
-                command |= 0x80;
-            }
+            if (data[2] == 0)       { command |= 0x80; }
         }
     }
 
