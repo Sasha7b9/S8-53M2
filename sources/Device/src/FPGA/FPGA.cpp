@@ -1155,54 +1155,36 @@ void FPGA::FindAndSetTrigLevel()
 }
 
 
-#define pinCLC      GPIO_PIN_2
-#define pinData     GPIO_PIN_3
-#define CHIP_SELECT_IN_LOW  HAL_GPIO_WritePin(GPIOG, pinSelect, GPIO_PIN_RESET);
-#define CHIP_SELECT_IN_HI   HAL_GPIO_WritePin(GPIOG, pinSelect, GPIO_PIN_SET);
-#define CLC_HI              HAL_GPIO_WritePin(GPIOG, pinCLC, GPIO_PIN_SET);
-#define CLC_LOW             HAL_GPIO_WritePin(GPIOG, pinCLC, GPIO_PIN_RESET);
-#define DATA_SET(x)         HAL_GPIO_WritePin(GPIOG, pinData, x);
+#define CLC_HI      Pin::SPI4_CLK.Set();
+#define CLC_LOW     Pin::SPI4_CLK.Reset();
+#define DATA_SET(x) Pin::SPI4_DAT.Write(x);
 
 
 void FPGA::WriteToAnalog(TypeWriteAnalog::E type, uint data)
 {
-#define pinSelect   GPIO_PIN_5
+    Pin::SPI4_CS2.Reset();
 
-    CHIP_SELECT_IN_LOW
-        for (int i = 23; i >= 0; i--)
-        {
-            DATA_SET((data & (1 << i)) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-            CLC_HI
-                CLC_LOW
-        }
-    CHIP_SELECT_IN_HI;
+    for (int i = 23; i >= 0; i--)
+    {
+        DATA_SET((data & (1 << i)) ? 1 : 0);
+        CLC_HI
+            CLC_LOW
+    }
+
+    Pin::SPI4_CS2.Set();
 }
 
 
 void FPGA::WriteToDAC(TypeWriteDAC::E type, uint16 data)
 {
-#undef pinSelect
-#define pinSelect   GPIO_PIN_7
-    char buffer[19];
-    if (type == TypeWriteDAC::RShiftA && IS_SHOW_REG_RSHIFT_A)
+    Pin::SPI4_CS1.Reset();
+
+    for (int i = 15; i >= 0; i--)
     {
-        LOG_WRITE("rShift 0 = %s", Bin2String16(data, buffer));
-    }
-    else if (type == TypeWriteDAC::RShiftB && IS_SHOW_REG_RSHIFT_B)
-    {
-        LOG_WRITE("rShfit 1 = %s", Bin2String16(data, buffer));
-    }
-    else if (type == TypeWriteDAC::TrigLev && IS_SHOW_REG_TRIGLEV)
-    {
-        LOG_WRITE("trigLev = %s", Bin2String16(data, buffer));
+        DATA_SET((data & (1 << i)) ? 1 : 0);
+        CLC_HI
+            CLC_LOW
     }
 
-    CHIP_SELECT_IN_LOW
-        for (int i = 15; i >= 0; i--)
-        {
-            DATA_SET((data & (1 << i)) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-            CLC_HI
-                CLC_LOW
-        }
-    CHIP_SELECT_IN_HI;
+    Pin::SPI4_CS1.Set();
 }
