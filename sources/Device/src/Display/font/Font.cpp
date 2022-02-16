@@ -14,12 +14,10 @@
 #include "fontUGO2.inc"
 
 
-
 const Font *Font::fonts[TypeFont::Count] = {&font5, &font8, &fontUGO, &fontUGO2};
 const Font *Font::font = &font8;
 
 TypeFont::E Font::current = TypeFont::None;
-
 
 
 int Font::GetSize()
@@ -28,18 +26,16 @@ int Font::GetSize()
 }
 
 
-
 int Font::GetLengthText(pchar text)
 {
     int retValue = 0;
     while (*text)
     {
-        retValue += Font::GetLengthSymbol((uint8)*text);
+        retValue += Font::GetLengthSymbol((uint8)*text) + GetSpacing();
         text++;
     }
     return retValue;
 }
-
 
 
 int Font::GetHeightSymbol(char symbol)
@@ -48,8 +44,13 @@ int Font::GetHeightSymbol(char symbol)
 }
 
 
-
 int Font::GetLengthSymbol(uchar symbol)
 {
     return Font::font->symbol[symbol].width;
+}
+
+
+int Font::GetSpacing()
+{
+    return 1;
 }

@@ -36,11 +36,10 @@ struct Font
     static int GetLengthText(pchar text);
     static int GetHeightSymbol(char symbol);
     static int GetLengthSymbol(uchar symbol);
-
     static void Set(TypeFont::E);
-
     // Загрузить шрифта в дисплей.
     static void Load(TypeFont::E);
+    static int GetSpacing();
 
     static TypeFont::E current;
 };

@@ -2594,7 +2594,6 @@ void Display::OneStringDown()
 
 void Display::DrawConsole()
 {
-    int count = 0;
     Font::Set(sDebug_GetSizeFontForConsole() == 5 ? TypeFont::_5 : TypeFont::_8);
 
     int height = Font::GetSize();
@@ -2606,12 +2605,9 @@ void Display::DrawConsole()
         numStr = 22;
     }
 
-    int delta = 0;
-
     if(SHOW_STRING_NAVIGATION)
     {
         numStr -= ((height == 8) ? 1 : 2);
-        delta = 10;
     }
 
     int firstString = lastString - numStr + 1;
@@ -2621,21 +2617,17 @@ void Display::DrawConsole()
         firstString = 0;
     }
 
-    int dY = 0;
-    
+    int y = GRID_TOP + 1;
+
     for(int numString = firstString; numString <= lastString; numString++)
     {
         int width = Font::GetLengthText(strings[numString]);
-        Painter::FillRegion(Grid::Left() + 1, GRID_TOP + 1 + count * (height + 1) + delta, width, height + 1, COLOR_BACK);
-        int y = GRID_TOP + 5 + count * (height + 1) - 4;
 
-        if(Font::GetSize() == 5)
-        {
-            y -= 3;
-        }
+        Painter::FillRegion(Grid::Left() + 1, y, width, 5, COLOR_BACK);
 
-        PText::DrawText(Grid::Left() + 2, y + dY + delta, strings[numString], COLOR_FILL);
-        count++;
+        PText::DrawText(Grid::Left() + 2, y - 10, strings[numString], COLOR_FILL);
+
+        y += height + 1;
     }
 
     Font::Set(TypeFont::_8);
