@@ -170,6 +170,7 @@ Regulator RegulatorLeft(uint16 command)
     return R_Empty;
 }
 
+
 Regulator RegulatorRight(uint16 command)
 {
     if(((command & 0x7f) >= 20) && ((command & 0x7f) <= 27))
@@ -178,6 +179,7 @@ Regulator RegulatorRight(uint16 command)
     }
     return R_Empty;
 }
+
 
 void OnTimerPressedKey()
 {
@@ -193,6 +195,7 @@ void OnTimerPressedKey()
     }
     Timer::Disable(TypeTimer::PressKey);
 }
+
 
 bool Panel::ProcessingCommandFromPIC(uint16 command)
 {
@@ -267,15 +270,18 @@ bool Panel::ProcessingCommandFromPIC(uint16 command)
     return true;
 }
 
+
 void Panel::EnableLEDChannel0(bool enable)
 {
     Panel::TransmitData(enable ? LED_CHAN0_ENABLE : LED_CHAN0_DISABLE);
 }
 
+
 void Panel::EnableLEDChannel1(bool enable)
 {
     Panel::TransmitData(enable ? LED_CHAN1_ENABLE : LED_CHAN1_DISABLE);
 }
+
 
 void Panel::EnableLEDTrig(bool enable)
 {
@@ -312,6 +318,7 @@ void Panel::EnableLEDTrig(bool enable)
     }
 }
 
+
 void Panel::TransmitData(uint16 data)
 {
     if(numDataForTransmitted >= MAX_DATA)
@@ -325,6 +332,7 @@ void Panel::TransmitData(uint16 data)
     }
 }
 
+
 uint16 Panel::NextData()
 {
     if (numDataForTransmitted > 0)
@@ -335,78 +343,31 @@ uint16 Panel::NextData()
     return 0;
 }
 
+
 void Panel::Disable()
 {
     PANEL_IS_RUNNING = 0;
 }
+
 
 void Panel::Enable()
 {
     PANEL_IS_RUNNING = 1;
 }
 
-/*
-    SPI1
-    56  - PG0 - программный NSS 
-    41  - PA5 - SCK
-    42  - PA6 - MISO
-    135 - PB5 - MOSI
-*/
-
-
 
 void Panel::Init()
 {
-    __SPI1_CLK_ENABLE();
-
-    GPIO_InitTypeDef isGPIOA_B =
-    {
-        GPIO_PIN_5 | GPIO_PIN_6,    // GPIO_Pin
-        GPIO_MODE_AF_PP,            // GPIO_Mode
-        GPIO_PULLDOWN,
-        GPIO_SPEED_FAST,            // GPIO_Speed
-        GPIO_AF5_SPI1
-    };
-    HAL_GPIO_Init(GPIOA, &isGPIOA_B);
-    
-    isGPIOA_B.Pin = GPIO_PIN_5;
-    HAL_GPIO_Init(GPIOB, &isGPIOA_B);
-    
-    if (HAL_SPI_Init((SPI_HandleTypeDef *)HAL_SPI1::handle) != HAL_OK)
-    {
-        ERROR_HANDLER();
-    }
-
-    HAL_NVIC_SetPriority(SPI1_IRQn, 4, 0);
-    HAL_NVIC_EnableIRQ(SPI1_IRQn);
-    
-    // Теперь настроим программный NSS (PG0).
-
-    GPIO_InitTypeDef isGPIOG =
-    {
-        GPIO_PIN_0,                 // GPIO_Pin
-        GPIO_MODE_IT_RISING,        // GPIO_Mode
-        GPIO_NOPULL
-    };      
-    HAL_GPIO_Init(GPIOG, &isGPIOG);
-
-    HAL_NVIC_SetPriority(EXTI0_IRQn, 3, 0);
-    HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-
-    // Лампочка УСТАНОВКА
-    isGPIOG.Pin = GPIO_PIN_12;
-    isGPIOG.Mode = GPIO_MODE_OUTPUT_PP;
-    isGPIOG.Speed = GPIO_SPEED_HIGH;
-    isGPIOG.Alternate = GPIO_AF0_MCO;
-    HAL_GPIO_Init(GPIOG, &isGPIOG);
-
     Panel::EnableLEDRegSet(false);
+    Panel::EnableLEDTrig(false);
 }
+
 
 void Panel::EnableLEDRegSet(bool enable)
 {
     HAL_GPIO_WritePin(GPIOG, GPIO_PIN_12, enable ? GPIO_PIN_RESET : GPIO_PIN_SET);
 }
+
 
 PanelButton Panel::WaitPressingButton()
 {
@@ -415,12 +376,4 @@ PanelButton Panel::WaitPressingButton()
     return pressedButton;
 }
 
-static uint8 dataSPIfromPanel;
 
-void HAL_GPIO_EXTI_Callback(uint16_t pin)
-{
-    if (pin == GPIO_PIN_0)
-    {
-        HAL_SPI_Receive_IT((SPI_HandleTypeDef *)HAL_SPI1::handle, &dataSPIfromPanel, 1);
-    }
-}

@@ -1331,6 +1331,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_USBH.cpp</FilePath>
             </File>
+            <File>
+              <FileName>HAL_SPI5.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_SPI5.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3271,6 +3276,11 @@
               <FileName>HAL_USBH.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_USBH.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_SPI5.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_SPI5.cpp</FilePath>
             </File>
           </Files>
         </Group>

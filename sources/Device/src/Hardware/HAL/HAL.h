@@ -88,12 +88,6 @@ namespace HAL_LTDC
 };
 
 
-namespace HAL_SPI1
-{
-    extern void *handle;       // SPI_HandleTypeDef
-}
-
-
 // Для связи с панелью
 namespace HAL_SPI5
 {
