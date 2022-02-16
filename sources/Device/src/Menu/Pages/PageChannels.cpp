@@ -8,6 +8,7 @@
 #include "Display/Display.h"
 #include "Settings/Settings.h"
 #include "Utils/GlobalFunctions.h"
+#include "Menu/Pages/Definition.h"
 
 
 extern const Page pChanA;
@@ -15,7 +16,6 @@ extern const Page pChanB;
 
 
 extern const Choice mcInputA;                   // КАНАЛ 1 - Вход
-void OnChanged_InputA(bool active);
 extern const Choice mcCoupleA;                  // КАНАЛ 1 - Связь
 void OnChanged_CoupleA(bool active);
 extern const Choice mcFiltrA;                   // КАНАЛ 1 - Фильтр
@@ -25,7 +25,6 @@ static void OnChanged_InverseA(bool active);
 extern const Choice mcMultiplierA;              // КАНАЛ 1 - Множитель
 
 extern const Choice mcInputB;                   // КАНАЛ 2 - Вход
-void OnChanged_InputB(bool active);
 extern const Choice mcCoupleB;                  // КАНАЛ 2 - Связь
 void OnChanged_CoupleB(bool active);
 extern const Choice mcFiltrB;                   // КАНАЛ 2 - Фильтр
@@ -97,10 +96,10 @@ static const Choice mcInputA =
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
     },
-    (int8*)&SET_ENABLED_A, OnChanged_InputA
+    (int8*)&SET_ENABLED_A, PageChannelA::OnChanged_Input
 };
 
-void OnChanged_InputA(bool active)
+void PageChannelA::OnChanged_Input(bool active)
 {
     Panel::EnableLEDChannel0(sChannel_Enabled(Chan::A));
 }
@@ -224,10 +223,10 @@ static const Choice mcInputB =  // КАНАЛ 2
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
     },
-    (int8*)&SET_ENABLED_B, OnChanged_InputB
+    (int8*)&SET_ENABLED_B, PageChannelB::OnChanged_Input
 };
 
-void OnChanged_InputB(bool active)
+void PageChannelB::OnChanged_Input(bool active)
 {
     Panel::EnableLEDChannel1(sChannel_Enabled(Chan::B));
 }

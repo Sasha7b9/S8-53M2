@@ -24,32 +24,28 @@
 
 
 
-extern void OnChanged_InputA(bool active);
-extern void OnChanged_InputB(bool active);
-                                                
-// Если произошло короткое нажатие кнопки, то здесь хранится имя этой кнопки до обработки этого  нажатия.
-static PanelButton shortPressureButton = B_Empty;
-// Если произошло длинное нажатие кнопки, то здесь хранится имя этой кнопки до обработки этого нажатия.
-static PanelButton longPressureButton = B_Empty;
-// При нажатии кнопки её имя записывается в эту переменную и хранится там до обратоки события нажатия кнопки.
-static PanelButton pressButton = B_Empty;
-// При отпускании кнопки её имя записывается в эту переменную и хранится там до обработки  события отпускания кнопки.
-static PanelButton releaseButton = B_Empty;
-// Угол, на который нужно повернуть ручку УСТАНОВКА - величина означает количество щелчков, знак - направление - "-" - влево, "+" - вправо
-static int angleRegSet = 0;
-
-static const int stepAngleRegSet = 2;
-// Здесь хранится адрес элемента меню, соответствующего функциональной клавише [1..5], если она находится в нижнем положении, и 0, если ни одна 
-// кнопка не нажата.
-static void* itemUnderKey = 0;
-
-#define SIZE_BUFFER_FOR_BUTTONS 5
-static PanelButton bufferForButtons[SIZE_BUFFER_FOR_BUTTONS] = {B_Empty, B_Empty, B_Empty, B_Empty, B_Empty};
-static const PanelButton sampleBufferForButtons[SIZE_BUFFER_FOR_BUTTONS] = {B_F5, B_F4, B_F3, B_F2, B_F1};
-
-
 namespace Menu
 {
+    // Если произошло короткое нажатие кнопки, то здесь хранится имя этой кнопки до обработки этого  нажатия.
+    PanelButton shortPressureButton = B_Empty;
+    // Если произошло длинное нажатие кнопки, то здесь хранится имя этой кнопки до обработки этого нажатия.
+    PanelButton longPressureButton = B_Empty;
+    // При нажатии кнопки её имя записывается в эту переменную и хранится там до обратоки события нажатия кнопки.
+    PanelButton pressButton = B_Empty;
+    // При отпускании кнопки её имя записывается в эту переменную и хранится там до обработки  события отпускания кнопки.
+    PanelButton releaseButton = B_Empty;
+    // Угол, на который нужно повернуть ручку УСТАНОВКА - величина означает количество щелчков, знак - направление - "-" - влево, "+" - вправо
+    int angleRegSet = 0;
+
+    static const int stepAngleRegSet = 2;
+    // Здесь хранится адрес элемента меню, соответствующего функциональной клавише [1..5], если она находится в нижнем положении, и 0, если ни одна 
+    // кнопка не нажата.
+    static void *itemUnderKey = 0;
+
+    static const int  SIZE_BUFFER_FOR_BUTTONS = 5;
+    static PanelButton bufferForButtons[SIZE_BUFFER_FOR_BUTTONS] = {B_Empty, B_Empty, B_Empty, B_Empty, B_Empty};
+    static const PanelButton sampleBufferForButtons[SIZE_BUFFER_FOR_BUTTONS] = {B_F5, B_F4, B_F3, B_F2, B_F1};
+
     // Обработка короткого нажатия кнопки.
     void ProcessingShortPressureButton();
     // Обработка длинного нажатия кнопки.
@@ -452,13 +448,13 @@ void Menu::ProcessingShortPressureButton()
                 if(button == B_ChannelA && name == Page_Channel0)
                 {
                     SET_ENABLED_A = !sChannel_Enabled(Chan::A);
-                    OnChanged_InputA(true);
+                    PageChannelA::OnChanged_Input(true);
                     break;
                 }
                 if(button == B_ChannelB && name == Page_Channel1)
                 {
                     SET_ENABLED_B = !sChannel_Enabled(Chan::B);
-                    OnChanged_InputB(true);
+                    PageChannelB::OnChanged_Input(true);
                     break;
                 }
 

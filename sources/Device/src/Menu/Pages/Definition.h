@@ -5,6 +5,18 @@
 #include "Settings/SettingsCursors.h"
 
 
+struct PageChannelA
+{
+    static void OnChanged_Input(bool active);
+};
+
+
+struct PageChannelB
+{
+    static void OnChanged_Input(bool active);
+};
+
+
 #define COMMON_BEGIN_SB_EXIT  0, "Выход", "Exit", "Кнопка для выхода в предыдущее меню", "Button for return to the previous menu"
 
 
