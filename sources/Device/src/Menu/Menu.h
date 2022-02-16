@@ -7,7 +7,7 @@
 namespace Menu
 {
     // Возвращает адрес элемента меню, соответствующего данной button.
-    void* ItemUnderButton(PanelButton button);
+    void* ItemUnderButton(PanelButton);
 
     // Возвращает true, если элемент меню item затенён (находится не на самом верхнем слое. Как правило, это означает, что раскрыт раскрывающийся элемент меню вроде Choice или Governor.
     bool IsShade(void* item);
@@ -22,16 +22,16 @@ namespace Menu
     namespace Handlers
     {
         // Функция обработки короткого нажатия кнопки (менее 0.5 сек.).
-        void ShortPressureButton(PanelButton button);
+        void ShortPressureButton(PanelButton);
 
         // Функция обработки длинного нажатия кнопки (более 0.5 сек.).
-        void LongPressureButton(PanelButton button);
+        void LongPressureButton(PanelButton);
 
         // Функция вызывается, когда кнопка переходит из отжатого в нажатое положение.
-        void PressButton(PanelButton button);
+        void PressButton(PanelButton);
 
         // Функция вызывается, когда кнопка переходит из нажатого в отжатое положение.
-        void ReleaseButton(PanelButton button);
+        void ReleaseButton(PanelButton);
 
         // Функция обработки поворота ручки УСТАНОВКА вправо.
         void RotateRegSetRight();
@@ -91,7 +91,7 @@ namespace Menu
     // Возвращает позицию первого элемента страницы по адресу page на экране. Если текущая подстраница 0, это будет 0, если текущая подстраница 1, это будет 5 и т.д.
     int PosItemOnTop(Page *page);
     // Возвращает true, если button - функциональная клавиша [1..5].
-    bool IsFunctionalButton(PanelButton button);
+    bool IsFunctionalButton(PanelButton);
     // Закрыть открытый элемент меню.
     void CloseOpenedItem();
 

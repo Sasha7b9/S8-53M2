@@ -55,4 +55,4 @@ enum RegulatorDirection
 #define NUM_REGULATORS (R_Set - R_RangeA + 1)
 
 
-pchar NameButton(PanelButton button);
+pchar NameButton(PanelButton);
