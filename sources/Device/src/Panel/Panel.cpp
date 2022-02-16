@@ -379,5 +379,8 @@ PanelButton Panel::WaitPressingButton()
 
 void Panel::CallbackOnReceiveSPI5(const uint8 *data, uint size)
 {
-    LOG_WRITE("size = %d, first = %d", size, *data);
+    if (data[1] != 0)
+    {
+        LOG_WRITE("size = %d : %d %d %d", size, data[0], data[1], data[2]);
+    }
 }
