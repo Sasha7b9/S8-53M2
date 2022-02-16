@@ -395,63 +395,50 @@ PanelButton Panel::WaitPressingButton()
 
 uint16 Panel::TranslateCommand(const uint8 *data, uint size)
 {
-    struct TStruct
-    {
-        uint8 data;
-        uint16 command;
-    };
+    static const int NUM_BUTTONS = 27;
 
-    static const TStruct structs[28] =
+    static const uint16 commands[NUM_BUTTONS] =
     {
-        {0, B_Empty},
-        {0, B_ChannelA},
-        {0, B_Service},
-        {0, B_ChannelB},
-        {0, B_Display},
-        {0, B_Time},
-        {0, B_Memory},
-        {0, B_Trig},
-        {0, B_Start},
-        {0, B_Cursors},
-        {0, B_Measures},
-        {0, B_Power},
-        {0, B_Help},
-        {0, B_Menu},
-        {0, B_F1},
-        {0, B_F2},
-        {0, B_F3},
-        {0, B_F4},
-        {0, B_F5},
-        {0, 0},
-        {0, R_RangeA},
-        {0, R_RShiftA},
-        {0, R_RangeB},
-        {0, R_RShiftB},
-        {0, R_TBase},
-        {0, R_TShift},
-        {0, R_TrigLev},
-        {0, R_Set}
+        B_Empty,
+        B_F1,
+        B_F2,
+        B_F3,
+        B_F4,
+        B_F5,
+        B_ChannelA,
+        B_ChannelB,
+        B_Time,
+        B_Trig,
+        B_Cursors,
+        B_Measures,
+        B_Display,
+        B_Help,
+        B_Start,
+        B_Memory,
+        B_Service,
+        B_Menu,
+        B_Power,
+        R_RangeA,
+        R_RangeB,
+        R_RShiftA,
+        R_RShiftB,
+        R_TBase,
+        R_TShift,
+        R_TrigLev,
+        R_Set
     };
 
     uint16 command = 0;
 
-    if (data[1] < 28)
+    uint8 key = data[1];
+
+    if (key > 0 && key < NUM_BUTTONS)
     {
-
-    }
-
-
-    if (data[1] == 17)  // Μενώ 
-    {
-        command = B_Menu;
+        command = commands[key];
 
         if (data[2] == 1)
         {
             command |= 0x80;
-        }
-        else
-        {
-            command = command;
         }
     }
 
