@@ -32,7 +32,7 @@ void Device::Init()
 //    Timer::PauseOnTime(250);
 //    FPGA::OnPressStartStop();
     Display::Init();
-//    Panel::Init();
+    Panel::Init();
 //    FlashDrive::Init();
 //    HAL_RTC::Init();
 

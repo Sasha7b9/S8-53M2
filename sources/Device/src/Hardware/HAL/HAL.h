@@ -94,6 +94,15 @@ namespace HAL_SPI1
 }
 
 
+// Для связи с панелью
+namespace HAL_SPI5
+{
+    void Init();
+
+    extern void *handle;       // SPI_HandleTypeDef
+};
+
+
 // Таймер для тиков
 namespace HAL_TIM2
 {

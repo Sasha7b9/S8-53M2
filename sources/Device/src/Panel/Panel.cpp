@@ -424,15 +424,3 @@ void HAL_GPIO_EXTI_Callback(uint16_t pin)
         HAL_SPI_Receive_IT((SPI_HandleTypeDef *)HAL_SPI1::handle, &dataSPIfromPanel, 1);
     }
 }
-
-
-void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef* handle)
-{
-    if (!Panel::ProcessingCommandFromPIC(dataSPIfromPanel))
-    {
-        HAL_SPI_DeInit(handle);
-        HAL_SPI_Init(handle);
-    }
-    uint16 data = Panel::NextData();
-    SPI1->DR = data;
-}
