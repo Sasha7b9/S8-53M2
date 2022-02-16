@@ -29,8 +29,8 @@ void Device::Init()
 //    VCP::Init();
 //    Settings::Load(false);
     FPGA::Init();
-//    Timer::PauseOnTime(250);
-//    FPGA::OnPressStartStop();
+    Timer::PauseOnTime(250);
+    FPGA::OnPressStartStop();
     Display::Init();
     Panel::Init();
 //    FlashDrive::Init();

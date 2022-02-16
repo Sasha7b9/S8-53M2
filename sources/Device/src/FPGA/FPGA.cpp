@@ -594,7 +594,7 @@ void FPGA::WriteToHardware(uint8 *address, uint8 value, bool restart)
 
 void FPGA::WriteToHardware(uint16 *address, uint16 value, bool restart)
 {
-    LOG_ERROR("Не реализована функция %s %d", __FUNCTION__, __LINE__);
+
 }
 
 
