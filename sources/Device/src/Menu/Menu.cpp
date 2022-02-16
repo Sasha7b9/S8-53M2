@@ -123,6 +123,8 @@ void Menu::UpdateInput()
 
 void Menu::ShortPressureButton(PanelButton button)
 {
+    LOG_TRACE();
+
     if (!SHOW_HELP_HINTS)
     {
         if(button == B_Help)
@@ -139,6 +141,8 @@ void Menu::ShortPressureButton(PanelButton button)
 
 void Menu::LongPressureButton(PanelButton button)
 {
+    LOG_TRACE();
+
     if (SHOW_HELP_HINTS == 0)
     {
         longPressureButton = button;
@@ -280,6 +284,8 @@ void Menu::ProcessButtonForHint(PanelButton button)
 
 void Menu::PressButton(PanelButton button)
 {
+    LOG_TRACE();
+
     Sound::ButtonPress();
     if (SHOW_HELP_HINTS)
     {
@@ -311,6 +317,8 @@ void Menu::PressButton(PanelButton button)
 
 void Menu::ReleaseButton(PanelButton button)
 {
+    LOG_TRACE();
+
     Sound::ButtonRelease();
     if (SHOW_HELP_HINTS == 0)
     {

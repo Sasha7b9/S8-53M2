@@ -525,7 +525,7 @@ void Display::DrawDataChannel(uint8 *data, Chan::E ch, DataSettings *ds, int min
     {
         if(SET_SELFRECORDER)
         {
-            LOG_TRACE
+            LOG_TRACE();
         }
         else if(lastPoint > lastP2Pdata)
         {
@@ -791,7 +791,7 @@ void Display::DrawDataInModePoint2Point()
 
 void Display::DrawDataInModeSelfRecorder()
 {
-    LOG_TRACE
+    LOG_TRACE();
 }
 
 
