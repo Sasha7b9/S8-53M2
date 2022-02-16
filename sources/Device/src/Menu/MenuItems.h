@@ -140,6 +140,8 @@ public:
     void DrawOpened(int layer, int yTop);
 
     void Draw(int x, int y);
+
+    void DrawTitle(int layer, int yTop);
 };
 
 

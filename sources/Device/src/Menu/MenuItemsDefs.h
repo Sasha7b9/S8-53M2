@@ -119,7 +119,7 @@ const PageBase name = {Item_Page, 10, false, namePage, keeper, funcActive, {titl
 static const Control * const  items##name[] = {(Control *)&item1, (Control *)&item2, (Control *)&item3, (Control *)&item4, (Control *)&item5,   \
     (Control *)&item6, (Control *)&item7, (Control *)&item8, (Control *)&item9, (Control *)&item10, (Control *)&item11};                        \
 const PageBase name = {Item_Page, 11, false, namePage, keeper, funcActive, {titleRU, titleEN, hintRU, hintEN},                                  \
-    items##name, funcPress, FuncDrawPage, FuncRegSetPage};
+    items##name, funcPress, FuncDrawPage, FuncRegSetPage};cd
 
 #define DEF_PAGE_12(name, namePage, keeper, funcActive, funcPress, titleRU, titleEN, hintRU, hintEN,                                            \
     item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12)                                                      \

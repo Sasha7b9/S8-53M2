@@ -29,8 +29,6 @@ namespace Menu
 
     int CalculateX(int layer);
 
-    void DrawTitlePage(Page *, int layer, int yTop);
-
     void DrawPagesUGO(Page *, int right, int bottom);
 
     void DrawItemsPage(Page *, int layer, int yTop);
@@ -45,6 +43,7 @@ PanelButton GetFuncButtonFromY(int _y)
     int y = GRID_TOP + GRID_HEIGHT / 12;
     int step = GRID_HEIGHT / 6;
     PanelButton button = B_Menu;
+
     for(int i = 0; i < 6; i++)
     {
         if(_y < y)
@@ -54,6 +53,7 @@ PanelButton GetFuncButtonFromY(int _y)
         ++button;
         y += step;
     }
+
     return  B_F5;
 }
 
@@ -158,16 +158,18 @@ void Menu::Draw()
 }
 
 
-void Menu::DrawTitlePage(Page *page, int layer, int yTop)
+void Page::DrawTitle(int layer, int yTop)
 {
-    int x = CalculateX(layer);
-    if (PageIsSB(page))
+    int x = Menu::CalculateX(layer);
+
+    if (Menu::PageIsSB(this))
     {
-        SmallButonFromPage(page, 0)->Draw(LEFT_SB, yTop + 3);
+        Menu::SmallButonFromPage(this, 0)->Draw(LEFT_SB, yTop + 3);
         return;
     }
-    int height = HeightOpenedItem(page);
-    bool shade = CurrentItemIsOpened(GetNamePage(page));
+
+    int height = Menu::HeightOpenedItem(this);
+    bool shade = Menu::CurrentItemIsOpened(Menu::GetNamePage(this));
     Painter::FillRegion(x - 1, yTop, MP_TITLE_WIDTH + 2, height + 2, COLOR_BACK);
     Painter::DrawRectangle(x, yTop, MP_TITLE_WIDTH + 1, height + 1, ColorBorderMenu(shade));
 
@@ -178,25 +180,27 @@ void Menu::DrawTitlePage(Page *page, int layer, int yTop)
     }
     else
     {
-        Painter::DrawVolumeButton(x + 1, yTop + 1, MP_TITLE_WIDTH - 1, MP_TITLE_HEIGHT - 1, 3, ColorMenuTitle(false), ColorMenuTitleBrighter(), ColorMenuTitleLessBright(), shade, false);
+        Painter::DrawVolumeButton(x + 1, yTop + 1, MP_TITLE_WIDTH - 1, MP_TITLE_HEIGHT - 1, 3, ColorMenuTitle(false),
+            ColorMenuTitleBrighter(), ColorMenuTitleLessBright(), shade, false);
     }
-    
-    Painter::DrawVLine(x, yTop, yTop + HeightOpenedItem(page), ColorBorderMenu(false));
-    bool condDrawRSet = NumSubPages(page) > 1 && TypeMenuItem(CurrentItem()) != Item_ChoiceReg && TypeMenuItem(CurrentItem()) != Item_Governor && TypeOpenedItem() == Item_Page;
+
+    Painter::DrawVLine(x, yTop, yTop + Menu::HeightOpenedItem(this), ColorBorderMenu(false));
+    bool condDrawRSet = Menu::NumSubPages(this) > 1 && Menu::TypeMenuItem(Menu::CurrentItem()) != Item_ChoiceReg &&
+        Menu::TypeMenuItem(Menu::CurrentItem()) != Item_Governor && Menu::TypeOpenedItem() == Item_Page;
     int delta = condDrawRSet ? -10 : 0;
     Color::E colorText = shade ? LightShadingTextColor() : Color::BLACK;
-    x = PText::DrawStringInCenterRect(x, yTop, MP_TITLE_WIDTH + 2 + delta, MP_TITLE_HEIGHT, TitleItem(page), colorText);
+    x = PText::DrawStringInCenterRect(x, yTop, MP_TITLE_WIDTH + 2 + delta, MP_TITLE_HEIGHT, Menu::TitleItem(this), colorText);
     if(condDrawRSet)
     {
-        PText::Draw4SymbolsInRect(x + 4, yTop + 11, GetSymbolForGovernor(NumCurrentSubPage(page)), colorText);
+        PText::Draw4SymbolsInRect(x + 4, yTop + 11, GetSymbolForGovernor(Menu::NumCurrentSubPage(this)), colorText);
     }
 
-    itemUnderButton[GetFuncButtonFromY(yTop)] = page;
+    itemUnderButton[GetFuncButtonFromY(yTop)] = this;
 
     delta = 0;
-    
+
     Color::SetCurrent(colorText);
-    DrawPagesUGO(page, CalculateX(layer) + MP_TITLE_WIDTH - 3 + delta, yTop + MP_TITLE_HEIGHT - 2 + delta);
+    Menu::DrawPagesUGO(this, Menu::CalculateX(layer) + MP_TITLE_WIDTH - 3 + delta, yTop + MP_TITLE_HEIGHT - 2 + delta);
 }
 
 
@@ -323,7 +327,7 @@ void Menu::DrawItemsPage(Page *page, int layer, int yTop)
 
 void Page::DrawOpened(int layer, int yTop)
 {
-    Menu::DrawTitlePage(this, layer, yTop);
+    DrawTitle(layer, yTop);
     Menu::DrawItemsPage(this, layer, yTop + MP_TITLE_HEIGHT);
 
     if (Menu::CurrentItemIsOpened(Menu::GetNamePage(this)))
