@@ -246,32 +246,32 @@ int Math_MinInt(int val1, int val2)
     Количество отсчётов должно быть 2**N
 */
 
-#ifndef DEBUG
-#include "TablesWindow.h"
-#include "TablesLog.h"
-
-static float const *Koeff(int numPoints)
-{
-    float const *tables[3][4] = {
-        {koeffsNorm256, koeffsHamming256, koeffsBlack256, koeffsHann256},
-        {koeffsNorm512, koeffsHamming512, koeffsBlack512, koeffsHann512},
-        {koeffsNorm1024, koeffsHamming1024, koeffsBlack1024, koeffsHann1024},
-    };
-
-    int row = 0;
-    if (numPoints == 512)
-    {
-        row = 1;
-    }
-    else if (numPoints == 1024)
-    {
-        row = 2;
-    }
-
-    return tables[row][PageServiceMath_GetWindowFFT()];
-}
-
-#endif
+//#ifndef DEBUG
+//#include "TablesWindow.h"
+//#include "TablesLog.h"
+//
+//static float const *Koeff(int numPoints)
+//{
+//    float const *tables[3][4] = {
+//        {koeffsNorm256, koeffsHamming256, koeffsBlack256, koeffsHann256},
+//        {koeffsNorm512, koeffsHamming512, koeffsBlack512, koeffsHann512},
+//        {koeffsNorm1024, koeffsHamming1024, koeffsBlack1024, koeffsHann1024},
+//    };
+//
+//    int row = 0;
+//    if (numPoints == 512)
+//    {
+//        row = 1;
+//    }
+//    else if (numPoints == 1024)
+//    {
+//        row = 2;
+//    }
+//
+//    return tables[row][PageServiceMath_GetWindowFFT()];
+//}
+//
+//#endif
 
 static void Normalize(float *data, int numPoints)
 {
@@ -292,14 +292,14 @@ static void Normalize(float *data, int numPoints)
 
 static void MultiplyToWindow(float *data, int numPoints)
 {
-#ifndef DEBUG
-    float const *koeff = Koeff(numPoints);
-
-    for (int i = 0; i < numPoints; i++)
-    {
-        data[i] *= koeff[i];
-    }
-#else
+//#ifndef DEBUG
+//    float const *koeff = Koeff(numPoints);
+//
+//    for (int i = 0; i < numPoints; i++)
+//    {
+//        data[i] *= koeff[i];
+//    }
+//#else
     if (WINDOW_FFT_IS_HAMMING)
     {
         for (int i = 0; i < numPoints; i++)
@@ -325,7 +325,7 @@ static void MultiplyToWindow(float *data, int numPoints)
             data[i] *= 0.5f * (1.0f - cos(2.0 * M_PI * i / (numPoints - 1.0)));
         }
     }
-#endif
+//#endif
 }
 
 #define SET_MIN_MAX(x)		\
@@ -453,11 +453,11 @@ void Math_CalculateFFT(float *dataR, int numPoints, float *result, float *freq0,
 
         for (int i = 0; i < 256; i++)
         {
-#ifdef DEBUG
+//#ifdef DEBUG
             result[i] = 20 * log10(result[i]);
-#else
-            result[i] = Log10[(int)(result[i] * 10000)];
-#endif
+//#else
+//            result[i] = Log10[(int)(result[i] * 10000)];
+//#endif
             if (i == FFT_POS_CURSOR_0)
             {
                 *density0 = result[i];
