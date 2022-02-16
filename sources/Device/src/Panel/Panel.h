@@ -34,7 +34,7 @@ namespace Panel
     // Эта функция должна вызываться из приёмной фунции SPI5
     void CallbackOnReceiveSPI5(const uint8 *data, uint size);
 
-    bool ProcessingCommandFromPIC(uint16 command);
+    void ProcessingCommandFromPIC(uint16 command);
 
     uint16 NextData();
 };

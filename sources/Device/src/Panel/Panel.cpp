@@ -211,7 +211,7 @@ void OnTimerPressedKey()
 }
 
 
-bool Panel::ProcessingCommandFromPIC(uint16 command)
+void Panel::ProcessingCommandFromPIC(uint16 command)
 {
     static int allRecData = 0;
 
@@ -227,7 +227,7 @@ bool Panel::ProcessingCommandFromPIC(uint16 command)
 
     if(PANEL_IS_RUNNING == 0)
     {
-        return true;
+        return;
     }
 
     if(command != 0)
@@ -267,23 +267,6 @@ bool Panel::ProcessingCommandFromPIC(uint16 command)
     {
         funculatorRight[regRight]();
     }
-
-    if ((command > R_Set && command < (B_Empty + 1 + 128)) || (command > (R_Set + 128)))
-    {
-        if(Settings::DebugModeEnable())
-        {
-            static int errRecData = 0;
-            errRecData++;
-            float percent = (float)errRecData / allRecData * 100.0f;
-            char buffer[100];
-            buffer[0] = 0;
-            sprintf(buffer, "%5.3f", percent);
-            strcat(buffer, "%");
-            LOG_ERROR("Ошибок SPI - %s %d/%d, command = %d", buffer, errRecData, allRecData, (int)command);
-        }
-        return false;
-    }
-    return true;
 }
 
 
