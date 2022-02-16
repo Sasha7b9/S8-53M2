@@ -1836,6 +1836,31 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Utils/Containers</GroupName>
+          <Files>
+            <File>
+              <FileName>Buffer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Containers\Buffer.h</FilePath>
+            </File>
+            <File>
+              <FileName>Buffer.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Containers\Buffer.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Queue.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Containers\Queue.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Queue.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Containers\Queue.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>VCP</GroupName>
           <Files>
             <File>
@@ -3778,6 +3803,31 @@
               <FileName>Strings.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Utils\Strings.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Utils/Containers</GroupName>
+          <Files>
+            <File>
+              <FileName>Buffer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Containers\Buffer.h</FilePath>
+            </File>
+            <File>
+              <FileName>Buffer.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Containers\Buffer.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Queue.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Containers\Queue.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Queue.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Containers\Queue.h</FilePath>
             </File>
           </Files>
         </Group>

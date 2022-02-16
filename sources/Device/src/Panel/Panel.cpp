@@ -11,12 +11,12 @@
 #include "Log.h"
 #include "Hardware/Sound.h"
 #include "Hardware/HAL/HAL.h"
+#include "Utils/Containers/Queue.h"
 #include <stm32f4xx_hal.h>
 #include <stm32f4xx_hal_gpio.h>
 #include <stdio.h>
 #include <string.h>
-#include "PanelFunctions.cpp"
-
+#include "Panel/PanelFunctions.cpp"
 
 
 #define MAX_DATA            20
@@ -132,10 +132,20 @@ static void (*funculatorRight[R_Set + 1])() =
 };
 
 
+namespace Panel
+{
+    Queue<uint16> input_buffer;
+
+    // ѕреобразует данные из новой панели в данные, опознаваемые старой прошивкой
+    uint16 TranslateCommand(const uint8 *data, uint size);
+}
+
+
 
 PanelButton ButtonIsRelease(uint16 command)
 {
     PanelButton button = B_Empty;
+
     if(command < B_NumButtons && command > B_Empty)
     {
         if(gTimerMS - timePrevReleaseButton > 100)
@@ -144,12 +154,14 @@ PanelButton ButtonIsRelease(uint16 command)
             timePrevReleaseButton = gTimerMS;
         }
     }
+
     return button;
 }
 
 PanelButton ButtonIsPress(uint16 command)
 {
     PanelButton button = B_Empty;
+
     if (((command & 0x7f) < B_NumButtons) && ((command & 0x7f) > B_Empty))
     {
         if(gTimerMS - timePrevPressButton > 100)
@@ -158,6 +170,7 @@ PanelButton ButtonIsPress(uint16 command)
             timePrevPressButton = gTimerMS;
         }
     }
+
     return button;
 }
 
@@ -167,6 +180,7 @@ Regulator RegulatorLeft(uint16 command)
     {
         return (Regulator)command;
     }
+
     return R_Empty;
 }
 
@@ -229,7 +243,9 @@ bool Panel::ProcessingCommandFromPIC(uint16 command)
     if(releaseButton != B_Empty)
     {
         Menu::ReleaseButton(releaseButton);
+
         funcOnKeyUp[releaseButton]();
+
         if(pressedKey != B_Empty)
         {
             Menu::ShortPressureButton(releaseButton);
@@ -377,10 +393,49 @@ PanelButton Panel::WaitPressingButton()
 }
 
 
+uint16 Panel::TranslateCommand(const uint8 *data, uint size)
+{
+    uint16 command = 0;
+
+    if (data[1] == 17)  // ћеню 
+    {
+        command = B_Menu;
+
+        if (data[2] == 1)
+        {
+            command |= 0x80;
+        }
+        else
+        {
+            command = command;
+        }
+    }
+
+    return command;
+}
+
+
 void Panel::CallbackOnReceiveSPI5(const uint8 *data, uint size)
 {
     if (data[1] != 0)
     {
-        LOG_WRITE("size = %d : %d %d %d", size, data[0], data[1], data[2]);
+//        LOG_WRITE("size = %d : %d %d %d", size, data[0], data[1], data[2]);
+    }
+
+    uint16 command = TranslateCommand(data, size);
+
+    if (command != 0)
+    {
+        input_buffer.Push(command);
+    }
+}
+
+
+void Panel::Update()
+{
+    if (!input_buffer.IsEmpty())
+    {
+        uint16 command = input_buffer.Front();
+        ProcessingCommandFromPIC(command);
     }
 }

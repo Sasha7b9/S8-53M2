@@ -55,6 +55,7 @@ void Device::Update()
     FPGA::Update();                      // Обновляем аппаратную часть.
     ProcessingSignal();
     Display::Update();                   // Рисуем экран.
+    Panel::Update();
     Menu::UpdateInput();                 // Обновляем состояние меню
 
     // LAN::Update(0);
