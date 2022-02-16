@@ -27,24 +27,24 @@ void HelpLong()
 
 void Channel0Long()
 {
-    Menu::LongPressureButton(B_ChannelA);
+    Menu::Handlers::LongPressureButton(B_ChannelA);
 }
 
 void Channel1Long()
 {
-    Menu::LongPressureButton(B_ChannelB);
+    Menu::Handlers::LongPressureButton(B_ChannelB);
 }
 
 void TimeLong()
 {
-    Menu::LongPressureButton(B_Time);
+    Menu::Handlers::LongPressureButton(B_Time);
 }
 
 void TrigLong()
 {
     if (MODE_LONG_PRESS_TRIG_IS_LEVEL0)
     {
-        Menu::LongPressureButton(B_Trig);
+        Menu::Handlers::LongPressureButton(B_Trig);
     }
     else
     {
@@ -56,7 +56,7 @@ void StartDown()                        // B_Start
 {
     if (MODE_WORK_IS_DIRECT)
     {
-        Menu::PressButton(B_Start);
+        Menu::Handlers::PressButton(B_Start);
     }
 }
 
@@ -70,35 +70,35 @@ void PowerDown()                        // B_Power
 
 void MenuLong() 
 {
-    Menu::LongPressureButton(B_Menu);
+    Menu::Handlers::LongPressureButton(B_Menu);
 }
 
 void F1Long()
 {
-    Menu::LongPressureButton(B_F1);
+    Menu::Handlers::LongPressureButton(B_F1);
 }
 
 void F2Long()
 {
-    Menu::LongPressureButton(B_F2);
+    Menu::Handlers::LongPressureButton(B_F2);
 }
 
 void F3Long()
 {
-    Menu::LongPressureButton(B_F3);
+    Menu::Handlers::LongPressureButton(B_F3);
 }
 
 void F4Long()
 {
-    Menu::LongPressureButton(B_F4);
+    Menu::Handlers::LongPressureButton(B_F4);
 }
 
 void F5Long()
 {
-    Menu::LongPressureButton(B_F5);
+    Menu::Handlers::LongPressureButton(B_F5);
 }
 
-//****************************************************************************************************************
+
 int CalculateCount(int *prevTime)
 {
     uint time = gTimerMS;
@@ -366,10 +366,10 @@ void TBaseRight()
 
 void SetLeft()
 {
-    Menu::RotateRegSetLeft();
+    Menu::Handlers::RotateRegSetLeft();
 }
 
 void SetRight()
 {
-    Menu::RotateRegSetRight();
+    Menu::Handlers::RotateRegSetRight();
 }

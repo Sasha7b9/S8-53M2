@@ -200,7 +200,7 @@ void OnTimerPressedKey()
     if(pressedKey != B_Empty)
     {
         void (*func)() = funcOnLongPressure[pressedKey];
-        Menu::ReleaseButton(pressedKey);
+        Menu::Handlers::ReleaseButton(pressedKey);
         if(func != 0)
         {
             func();
@@ -242,20 +242,20 @@ void Panel::ProcessingCommandFromPIC(uint16 command)
 
     if(releaseButton != B_Empty)
     {
-        Menu::ReleaseButton(releaseButton);
+        Menu::Handlers::ReleaseButton(releaseButton);
 
         funcOnKeyUp[releaseButton]();
 
         if(pressedKey != B_Empty)
         {
-            Menu::ShortPressureButton(releaseButton);
+            Menu::Handlers::ShortPressureButton(releaseButton);
             pressedKey = B_Empty;
         }
     }
     else if(pressButton != B_Empty)
     {
         funcOnKeyDown[pressButton]();
-        Menu::PressButton(pressButton);
+        Menu::Handlers::PressButton(pressButton);
         pressedKey = pressButton;
         Timer::Enable(TypeTimer::PressKey, 500, OnTimerPressedKey);
     }
@@ -437,11 +437,6 @@ uint16 Panel::TranslateCommand(const uint8 *data, uint size)
 
 void Panel::CallbackOnReceiveSPI5(const uint8 *data, uint size)
 {
-    if (data[1] != 0)
-    {
-        LOG_WRITE("size = %d : %d %d %d", size, data[0], data[1], data[2]);
-    }
-
     uint16 command = TranslateCommand(data, size);
 
     if (command != 0)

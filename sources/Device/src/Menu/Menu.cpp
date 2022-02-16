@@ -121,10 +121,8 @@ void Menu::UpdateInput()
 };
 
 
-void Menu::ShortPressureButton(PanelButton button)
+void Menu::Handlers::ShortPressureButton(PanelButton button)
 {
-    LOG_TRACE();
-
     if (!SHOW_HELP_HINTS)
     {
         if(button == B_Help)
@@ -139,10 +137,8 @@ void Menu::ShortPressureButton(PanelButton button)
 
 
 
-void Menu::LongPressureButton(PanelButton button)
+void Menu::Handlers::LongPressureButton(PanelButton button)
 {
-    LOG_TRACE();
-
     if (SHOW_HELP_HINTS == 0)
     {
         longPressureButton = button;
@@ -282,11 +278,10 @@ void Menu::ProcessButtonForHint(PanelButton button)
 }
 
 
-void Menu::PressButton(PanelButton button)
+void Menu::Handlers::PressButton(PanelButton button)
 {
-    LOG_TRACE();
-
     Sound::ButtonPress();
+
     if (SHOW_HELP_HINTS)
     {
         ProcessButtonForHint(button);
@@ -315,11 +310,10 @@ void Menu::PressButton(PanelButton button)
 };
 
 
-void Menu::ReleaseButton(PanelButton button)
+void Menu::Handlers::ReleaseButton(PanelButton button)
 {
-    LOG_TRACE();
-
     Sound::ButtonRelease();
+
     if (SHOW_HELP_HINTS == 0)
     {
         releaseButton = button;
@@ -327,7 +321,7 @@ void Menu::ReleaseButton(PanelButton button)
 };
 
 
-void Menu::RotateRegSetRight()
+void Menu::Handlers::RotateRegSetRight()
 {   
     if (SHOW_HELP_HINTS == 0)
     {
@@ -337,7 +331,7 @@ void Menu::RotateRegSetRight()
 };
 
 
-void Menu::RotateRegSetLeft()
+void Menu::Handlers::RotateRegSetLeft()
 {
     if (SHOW_HELP_HINTS == 0)
     {
@@ -858,16 +852,18 @@ extern const Page pService;
 void Menu::OpenItemTime()
 {
     Display::ShowWarningGood(TimeNotSet);
-    Menu::ShortPressureButton(B_Service);
+    Menu::Handlers::ShortPressureButton(B_Service);
     Menu::UpdateInput();
     Display::Update();
+
     for (int i = 0; i < 2; i++)
     {
-        Menu::RotateRegSetRight();
+        Menu::Handlers::RotateRegSetRight();
         Menu::UpdateInput();
         Display::Update();
     }
-    Menu::ShortPressureButton(B_F4);
+
+    Menu::Handlers::ShortPressureButton(B_F4);
     Menu::UpdateInput();
     Display::Update();
 }
@@ -943,21 +939,21 @@ void Menu::OpenFileManager()
     angleRegSet = 0;
     for (int i = 0; i < 10; i++)
     {
-        ShortPressureButton(B_Menu);
+        Handlers::ShortPressureButton(B_Menu);
         UpdateInput();
         Display::Update(false);
     }
 
     if (!MenuIsShown())
     {
-        ShortPressureButton(B_Menu);
+        Handlers::ShortPressureButton(B_Menu);
         UpdateInput();
         Display::Update(false);
     }
 
     for (int i = 0; i < 5 * stepAngleRegSet + 1; i++)
     {
-        RotateRegSetLeft();
+        Handlers::RotateRegSetLeft();
         UpdateInput();
         Display::Update(false);
     }
@@ -966,31 +962,31 @@ void Menu::OpenFileManager()
 
     for (int i = 0; i < 2 * stepAngleRegSet + 1; i++)
     {
-        RotateRegSetRight();
+        Handlers::RotateRegSetRight();
         UpdateInput();
         Display::Update(false);
     }
 
     angleRegSet = 0;
 
-    ShortPressureButton(B_F2);
+    Handlers::ShortPressureButton(B_F2);
     UpdateInput();
     Display::Update(false);
 
-    ShortPressureButton(B_F4);
+    Handlers::ShortPressureButton(B_F4);
     UpdateInput();
     Display::Update(false);
 
     for (int i = 0; i < stepAngleRegSet + 1; i++)
     {
-        RotateRegSetLeft();
+        Handlers::RotateRegSetLeft();
         UpdateInput();
         Display::Update(false);
     }
 
     for (int i = 0; i < 2; i++)
     {
-        ShortPressureButton(B_F1);
+        Handlers::ShortPressureButton(B_F1);
         UpdateInput();
         Display::Update(false);
     }

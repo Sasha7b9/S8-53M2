@@ -8,27 +8,37 @@ namespace Menu
 {
     // Возвращает адрес элемента меню, соответствующего данной button.
     void* ItemUnderButton(PanelButton button);
+
     // Возвращает true, если элемент меню item затенён (находится не на самом верхнем слое. Как правило, это означает, что раскрыт раскрывающийся элемент меню вроде Choice или Governor.
     bool IsShade(void* item);
 
     bool IsPressed(void* item);
 
     void Draw();
+
     // Функция должна вызываться в главном цикле.
     void UpdateInput();
 
-    // Функция обработки короткого нажатия кнопки (менее 0.5 сек.).
-    void ShortPressureButton(PanelButton button);
-    // Функция обработки длинного нажатия кнопки (более 0.5 сек.).
-    void LongPressureButton(PanelButton button);
-    // Функция вызывается, когда кнопка переходит из отжатого в нажатое положение.
-    void PressButton(PanelButton button);
-    // Функция вызывается, когда кнопка переходит из нажатого в отжатое положение.
-    void ReleaseButton(PanelButton button);
-    // Функция обработки поворота ручки УСТАНОВКА вправо.
-    void RotateRegSetRight();
-    // Функция обработки поворота ручки УСТАНОВКА влево.
-    void RotateRegSetLeft();
+    namespace Handlers
+    {
+        // Функция обработки короткого нажатия кнопки (менее 0.5 сек.).
+        void ShortPressureButton(PanelButton button);
+
+        // Функция обработки длинного нажатия кнопки (более 0.5 сек.).
+        void LongPressureButton(PanelButton button);
+
+        // Функция вызывается, когда кнопка переходит из отжатого в нажатое положение.
+        void PressButton(PanelButton button);
+
+        // Функция вызывается, когда кнопка переходит из нажатого в отжатое положение.
+        void ReleaseButton(PanelButton button);
+
+        // Функция обработки поворота ручки УСТАНОВКА вправо.
+        void RotateRegSetRight();
+
+        // Функция обработки поворота ручки УСТАНОВКА влево.
+        void RotateRegSetLeft();
+    }
 
     // Установить время автоматического сокрытия меню в соответствии с установками.
     void SetAutoHide(bool active);
