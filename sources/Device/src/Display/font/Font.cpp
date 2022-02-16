@@ -51,5 +51,5 @@ int Font::GetHeightSymbol(char symbol)
 
 int Font::GetLengthSymbol(uchar symbol)
 {
-    return Font::font->symbol[symbol].width + 1;
+    return Font::font->symbol[symbol].width;
 }
