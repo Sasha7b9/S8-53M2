@@ -1708,11 +1708,6 @@
               <FileType>8</FileType>
               <FilePath>.\src\Settings\SettingsService.cpp</FilePath>
             </File>
-            <File>
-              <FileName>SettingsTime.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Settings\SettingsTime.cpp</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -3648,11 +3643,6 @@
               <FileName>SettingsService.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Settings\SettingsService.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SettingsTime.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Settings\SettingsTime.cpp</FilePath>
             </File>
           </Files>
         </Group>
