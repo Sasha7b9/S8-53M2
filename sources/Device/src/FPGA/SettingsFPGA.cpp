@@ -580,3 +580,9 @@ int16 TShift::Min()
     LOG_ERROR("");
     return 0;
 }
+
+
+int TShift::InPoints(PeackDetMode::E peakDet)
+{
+    return TSHIFT * (peakDet == PeackDetMode::Disable ? 2 : 1);
+}

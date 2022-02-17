@@ -2,6 +2,21 @@
 #include "Display/DisplayTypes.h"
 
 
+// Режим работы пикового детектора.
+struct PeackDetMode
+{
+    enum E
+    {
+        Disable,
+        Enable,
+        Average
+    };
+
+    // Включить/выключить режим пикового детектора.
+    static void Set(PeackDetMode::E);
+};
+
+
 struct TShift
 {
     static const int EMPTY = 1000000;
@@ -24,6 +39,10 @@ struct TShift
 
     // Минимальное смещение по времени, которое может быть записано в аппаратную часть.
     static int16 Min();
+
+    // Смещение по времени в точках экрана. Т.к. на канал у нас работают два АЦП поочерёдно, это значение отличается от
+    // засылаемого в аппаратную часть в два раза.
+    static int InPoints(PeackDetMode::E peakDet);
 };
 
 
@@ -124,21 +143,6 @@ struct ModeCouple
 
     // Установить режим канала по входу.
     static void Set(Chan::E, ModeCouple::E modeCoupe);
-};
-
-
-// Режим работы пикового детектора.
-struct PeackDetMode
-{
-    enum E
-    {
-        Disable,
-        Enable,
-        Average
-    };
-
-    // Включить/выключить режим пикового детектора.
-    static void Set(PeackDetMode::E);
 };
 
 

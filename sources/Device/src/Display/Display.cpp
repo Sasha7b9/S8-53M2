@@ -1131,7 +1131,8 @@ void Display::DrawMemoryWindow()
             }
             if (ChannelNeedForDraw(dataSecond, chanSecond, ds))
             {
-                DrawChannelInWindowMemory(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataSecond, rightX, chanSecond, shiftForPeakDet);
+                DrawChannelInWindowMemory(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataSecond, rightX,
+                    chanSecond, shiftForPeakDet);
             }
         }
     }
@@ -1153,8 +1154,11 @@ void Display::DrawMemoryWindow()
     PText::DrawChar(x0 - 3, 9, SYMBOL_TPOS_1, COLOR_FILL);
 
     // Маркер tShift
-    float scale = (float)(rightX - leftX + 1) / ((float)sMemory_GetNumPoints(false) - (sMemory_GetNumPoints(false) == 281 ? 1 : 0));
-    float xShift = 1 + (sTime_TPosInPoints((PeackDetMode::E)gDSet->peakDet, (int)gDSet->length1channel, SET_TPOS) - sTime_TShiftInPoints((PeackDetMode::E)gDSet->peakDet)) * scale;
+    float scale = (float)(rightX - leftX + 1) / ((float)sMemory_GetNumPoints(false) -
+        (sMemory_GetNumPoints(false) == 281 ? 1 : 0));
+
+    float xShift = 1 + (sTime_TPosInPoints((PeackDetMode::E)gDSet->peakDet,
+        (int)gDSet->length1channel, SET_TPOS) - TShift::InPoints((PeackDetMode::E)gDSet->peakDet)) * scale;
     
     if(xShift < leftX - 2)
     {
@@ -1892,7 +1896,8 @@ void Display::DrawCursorTShift()
     };
 
     // Рисуем tShift
-    int shiftTShift = sTime_TPosInPoints((PeackDetMode::E)gDSet->peakDet, (int)gDSet->length1channel, SET_TPOS) - sTime_TShiftInPoints((PeackDetMode::E)gDSet->peakDet);
+    int shiftTShift = sTime_TPosInPoints((PeackDetMode::E)gDSet->peakDet, (int)gDSet->length1channel, SET_TPOS) -
+        TShift::InPoints((PeackDetMode::E)gDSet->peakDet);
     if(IntInRange(shiftTShift, firstPoint, lastPoint))
     {
         x = gridLeft + shiftTShift - firstPoint - 3;

@@ -45,12 +45,6 @@ int sTime_TPosInPoints(PeackDetMode::E peakDet, int numPoints, TPos tPos)
 }
 
 
-int sTime_TShiftInPoints(PeackDetMode::E peakDet)
-{
-    return TSHIFT * (peakDet == PeackDetMode::Disable ? 2 : 1);
-}
-
-
 bool sTime_RandomizeModeEnabled()
 {
     return SET_TBASE < TBase::_100ns;
