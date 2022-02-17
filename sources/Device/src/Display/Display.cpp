@@ -1295,7 +1295,7 @@ void Display::DrawHiRightPart()
         Painter::DrawVLine(x, 1, GRID_TOP - 2, COLOR_FILL);
         x += 2;
         PText::DrawText(LANG_RU ? x : x + 3, -1, LANG_RU ? "режим" : "mode");
-        PText::DrawStringInCenterRect(x + 1, 9, 25, 8, strings_[MODE_WORK][set.common.lang]);
+        PText::DrawStringInCenterRect(x + 1, 9, 25, 8, strings_[MODE_WORK][LANG]);
     }
     else
     {

@@ -81,8 +81,9 @@ static void DrawHintItem(int x, int y, int width)
         {"",            ""},        // Item_ChoiceReg
         {"Кнопка",      "Button"}   // Item_SmallButton
     };
+
     TypeItem type = Menu::TypeMenuItem(gItemHint);
-    Language lang = set.common.lang;
+    Language lang = LANG;
     Page *item = (Page*)gItemHint;
 
     const int SIZE = 100;

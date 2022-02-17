@@ -60,7 +60,7 @@ bool Chan::Enabled(Chan::E ch)
 
 pchar Range::ToString(Range::E range, Divider::E multiplier)
 {
-    return ranges[range].name[set.common.lang][multiplier];
+    return ranges[range].name[LANG][multiplier];
 }
 
 

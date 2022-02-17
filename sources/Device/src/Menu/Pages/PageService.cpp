@@ -404,7 +404,7 @@ static void Draw_Math_Function_ModeDraw(int x, int y)
 
 static void Draw_Math_Function_ModeDraw_Disable(int x, int y)
 {
-    PText::DrawText(x + 2 + (set.common.lang == English ? 2 : 0), y + 5, LANG_RU ? "¬˚Í" : "Dis");
+    PText::DrawText(x + 2 + (LANG_EN ? 2 : 0), y + 5, LANG_RU ? "¬˚Í" : "Dis");
 }
 
 static void Draw_Math_Function_ModeDraw_Separate(int x, int y)
@@ -497,7 +497,7 @@ static void Draw_Math_Function_ModeRegSet_Range(int x, int y)
 
 static void Draw_Math_Function_ModeRegSet_RShift(int x, int y)
 {
-    PText::DrawText(x + 5 - (set.common.lang == English ? 3 : 0), y + 5, LANG_RU ? "—Ï" : "Shif");
+    PText::DrawText(x + 5 - (LANG_EN ? 3 : 0), y + 5, LANG_RU ? "—Ï" : "Shif");
 }
 
 // —≈–¬»— - Ã¿“≈Ã¿“» ¿ - ‘”Õ ÷»ﬂ - Ã‡Ò¯Ú‡· 1-„Ó Í‡Ì‡Î‡ -----------------------------------------------------------------------------------------------

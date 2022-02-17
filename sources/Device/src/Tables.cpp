@@ -94,13 +94,13 @@ pchar  Tables_GetWarning(Warning warning)
         {"ПРОШИВКА СОХРАНЕНА",              "FIRMWARE SAVED"},
         {"Память OTP полностью заполена",   "OPT memory fully completed"}
     };
-    return warnings[warning][set.common.lang];
+    return warnings[warning][LANG];
 }
 
 
 pchar TBase::ToString(TBase::E tBase)
 {
-    return tBases[tBase].name[set.common.lang];
+    return tBases[tBase].name[LANG];
 }
 
 

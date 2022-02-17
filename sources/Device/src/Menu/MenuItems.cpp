@@ -130,7 +130,7 @@ pchar Choice::NamePrevSubItem()
     {
         index = NumSubItems() - 1;
     }
-    return names[index][set.common.lang];
+    return names[index][LANG];
 }
 
 
@@ -139,7 +139,7 @@ int Choice::NumSubItems()
     int i = 0;
     for (; i < MAX_NUM_SUBITEMS_IN_CHOICE; i++)
     {
-        if (names[i][set.common.lang] == 0)
+        if (names[i][LANG] == 0)
         {
             return i;
         }
