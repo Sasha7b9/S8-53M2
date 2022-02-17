@@ -1,6 +1,7 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
-#include "Settings.h"
-#include "SettingsDisplay.h"
+#include "defines.h"
+#include "Settings/Settings.h"
+#include "Settings/SettingsDisplay.h"
 #include "Utils/Math.h"
 #include "Hardware/HAL/HAL.h"
 
@@ -13,7 +14,7 @@ int sDisplay_NumSignalsInS()
 
 void sDisplay_SetNumSignalsInS(int numSignalsInS)
 {
-    ENUM_SIGNALS_IN_SEC = Tables_NumSignalsInSecToENUM(numSignalsInS);
+    ENUM_SIGNALS_IN_SEC = ENumSignalsInSec::FromNum(numSignalsInS);
 }
 
 
@@ -75,4 +76,33 @@ int sDisplay_NumAverage()
         return NUM_AVE_FOR_RAND;
     }
     return NUM_AVE;
+}
+
+
+ENumSignalsInSec::E ENumSignalsInSec::FromNum(int num)
+{
+    if (num == 1)
+    {
+        return ENumSignalsInSec::_1;
+    }
+    else if (num == 2)
+    {
+        return ENumSignalsInSec::_2;
+    }
+    else if (num == 5)
+    {
+        return ENumSignalsInSec::_5;
+    }
+    else if (num == 10)
+    {
+        return ENumSignalsInSec::_10;
+    }
+    else if (num == 25)
+    {
+        return ENumSignalsInSec::_25;
+    }
+
+    LOG_ERROR("Число сигналов в секунду равно %d", num);
+
+    return ENumSignalsInSec::_1;
 }
