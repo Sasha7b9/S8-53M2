@@ -32,6 +32,8 @@ struct Font
     static const Font *font;
     static const Font *fonts[TypeFont::Count];
 
+    static TypeFont::E current;
+
     static int GetSize();
     static int GetLengthText(pchar text);
     static int GetHeightSymbol(char symbol);
@@ -41,7 +43,8 @@ struct Font
     static void Load(TypeFont::E);
     static int GetSpacing();
 
-    static TypeFont::E current;
+    // Возвращает размер шрифта, которым нужно выводить сообщения в консоли.
+    static int GetSizeFontForConsole();
 };
 
 extern const uchar font5display[3080];

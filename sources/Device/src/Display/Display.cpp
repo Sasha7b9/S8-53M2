@@ -2609,7 +2609,7 @@ void Display::OneStringDown()
 
 void Display::DrawConsole()
 {
-    Font::Set(sDebug_GetSizeFontForConsole() == 5 ? TypeFont::_5 : TypeFont::_8);
+    Font::Set(Font::GetSizeFontForConsole() == 5 ? TypeFont::_5 : TypeFont::_8);
 
     int height = Font::GetSize();
     int lastString = FirstEmptyString() - 1;

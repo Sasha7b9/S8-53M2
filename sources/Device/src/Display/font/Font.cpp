@@ -13,6 +13,8 @@
 #include "fontUGO.inc"
 #include "fontUGO2.inc"
 
+#include "Settings/Settings.h"
+
 
 const Font *Font::fonts[TypeFont::Count] = {&font5, &font8, &fontUGO, &fontUGO2};
 const Font *Font::font = &font8;
@@ -53,4 +55,10 @@ int Font::GetLengthSymbol(uchar symbol)
 int Font::GetSpacing()
 {
     return 1;
+}
+
+
+int Font::GetSizeFontForConsole()
+{
+    return SIZE_FONT_CONSOLE ? 8 : 5;
 }

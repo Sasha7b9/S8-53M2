@@ -1679,11 +1679,6 @@
               <FilePath>.\src\Settings\SettingsCursors.cpp</FilePath>
             </File>
             <File>
-              <FileName>SettingsDebug.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Settings\SettingsDebug.cpp</FilePath>
-            </File>
-            <File>
               <FileName>SettingsDisplay.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Settings\SettingsDisplay.cpp</FilePath>
@@ -3598,11 +3593,6 @@
               <FileName>SettingsCursors.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Settings\SettingsCursors.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SettingsDebug.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Settings\SettingsDebug.cpp</FilePath>
             </File>
             <File>
               <FileName>SettingsDisplay.cpp</FileName>

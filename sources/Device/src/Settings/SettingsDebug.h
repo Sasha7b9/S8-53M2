@@ -13,7 +13,3 @@
 #define IS_SHOW_REG_PARAM_B     (IS_SHOW_REGISTERS_ALL || set.debug.showRegisters.chanParam[Chan::B])
 #define IS_SHOW_REG_TSHIFT      (IS_SHOW_REGISTERS_ALL || set.debug.showRegisters.tShift)
 #define IS_SHOW_REG_TBASE       (IS_SHOW_REGISTERS_ALL || set.debug.showRegisters.tBase)
-
-
-int  sDebug_GetSizeFontForConsole();        // Возвращает размер шрифта, которым нужно выводить сообщения в консоли.
-
