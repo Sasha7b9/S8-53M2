@@ -15,24 +15,6 @@
 StateWorkFPGA::E StateWorkFPGA::current = StateWorkFPGA::Stop;
 
 
-static const uint8 masksRange[Range::Count] =
-{
-    BINARY_U8(0000000),
-    BINARY_U8(1000000),
-    BINARY_U8(1100000),
-    BINARY_U8(1010000),
-    BINARY_U8(1000100),
-    BINARY_U8(1100100),
-    BINARY_U8(1010100),
-    BINARY_U8(1000010),
-    BINARY_U8(1100010),
-    BINARY_U8(1010010),
-    BINARY_U8(1000110),
-    BINARY_U8(1100110),
-    BINARY_U8(1010110)
-};
-
-
 // Добавочные смещения по времени для разверёток режима рандомизатора.
 static int16 deltaTShift[TBase::Count] = {505, 489, 464, 412, 258};
 
@@ -117,14 +99,31 @@ void FPGA::LoadSettings()
 
 void FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog::E type) 
 {
-    uint data = 0;
-
     /*
     b0...b7 - Channel1
     b8...b15 - Channel2
     b16...b23 - Trig
     Передаваться биты должны начиная с b0
     */
+
+    static const uint8 masksRange[Range::Count] =
+    {
+        BINARY_U8(0000000),
+        BINARY_U8(1000000),
+        BINARY_U8(1100000),
+        BINARY_U8(1010000),
+        BINARY_U8(1000100),
+        BINARY_U8(1100100),
+        BINARY_U8(1010100),
+        BINARY_U8(1000010),
+        BINARY_U8(1100010),
+        BINARY_U8(1010010),
+        BINARY_U8(1000110),
+        BINARY_U8(1100110),
+        BINARY_U8(1010110)
+    };
+
+    uint data = 0;
 
     // Range0, Range1
     data |= masksRange[SET_RANGE_A];
