@@ -6,12 +6,6 @@
 #include "Hardware/HAL/HAL.h"
 
 
-void sDisplay_SetNumSignalsInS(int numSignalsInS)
-{
-    ENUM_SIGNALS_IN_SEC = ENumSignalsInSec::FromNum(numSignalsInS);
-}
-
-
 int sDisplay_NumPointSmoothing()
 {
     if (SMOOTHING_IS_DISABLE)
