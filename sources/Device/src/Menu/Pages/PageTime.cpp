@@ -121,13 +121,13 @@ void OnChanged_PeakDet(bool active)
             int centerX = SHIFT_IN_MEMORY + Grid::Width() / 2;
             SHIFT_IN_MEMORY = centerX * 2 - Grid::Width() / 2;
             ENUM_POINTS = set.time.oldNumPoints;
-            PageMemory::ChangeC_Memory_NumPoints(true);
+            PageMemory::OnChanged_NumPoints(true);
         }
         else if (PEAKDET_IS_ENABLE)
         {
             int centerX = SHIFT_IN_MEMORY + Grid::Width() / 2;
             LIMITATION(SHIFT_IN_MEMORY, centerX / 2 - Grid::Width() / 2, 0, sMemory_GetNumPoints(false) - Grid::Width());
-            PageMemory::ChangeC_Memory_NumPoints(true);
+            PageMemory::OnChanged_NumPoints(true);
         }
     }
     else
@@ -155,7 +155,7 @@ static const Choice mcTPos =
 
 void OnChanged_TPos(bool active)
 {
-    PageMemory::ChangeC_Memory_NumPoints(active);
+    PageMemory::OnChanged_NumPoints(active);
     TShift::Set(TSHIFT);
 }
 

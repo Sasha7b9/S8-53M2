@@ -33,7 +33,7 @@ static void DrawSetMask();  // Эта функция рисует, когда выбран режим задания ма
 static void DrawSetName();  // Эта функция рисует, когда нужно задать имя файла для сохранения
 
 
-void PageMemory::ChangeC_Memory_NumPoints(bool active)
+void PageMemory::OnChanged_NumPoints(bool active)
 {
     if(sMemory_GetNumPoints(false) == 281)
     {
@@ -870,7 +870,7 @@ const Choice mcMemoryNumPoints =
         {"512",     "512"},
         {"1024",    "1024"}
     },
-    (int8*)&ENUM_POINTS, PageMemory::ChangeC_Memory_NumPoints
+    (int8*)&ENUM_POINTS, PageMemory::OnChanged_NumPoints
 };
 
 // ПАМЯТЬ - ВНЕШН ЗУ /////
