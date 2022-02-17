@@ -1212,8 +1212,8 @@ void Display::WriteCursors()
             PText::DrawText(x, y1, "1:", colorText);
             PText::DrawText(x, y2, "2:");
             x += 7;
-            PText::DrawText(x, y1, sCursors_GetCursVoltage(source, 0, buffer));
-            PText::DrawText(x, y2, sCursors_GetCursVoltage(source, 1, buffer));
+            PText::DrawText(x, y1, PageCursors::GetCursVoltage(source, 0, buffer));
+            PText::DrawText(x, y2, PageCursors::GetCursVoltage(source, 1, buffer));
             x = startX + 49;
             float pos0 = Math_VoltageCursor(PageCursors::GetCursPosU(source, 0), SET_RANGE(source), SET_RSHIFT(source));
             float pos1 = Math_VoltageCursor(PageCursors::GetCursPosU(source, 1), SET_RANGE(source), SET_RSHIFT(source));

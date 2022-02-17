@@ -65,8 +65,6 @@ struct SettingsCursors
 
 
 
-// Получить строку курсора напряжения.
-pchar  sCursors_GetCursVoltage(Chan::E source, int numCur, char buffer[20]);
 // Получить строку курсора времени.
 pchar  sCursors_GetCursorTime(Chan::E source, int numCur, char buffer[20]);
 // Получить строку процентов курсоров напряжения.
