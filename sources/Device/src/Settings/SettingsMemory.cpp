@@ -23,15 +23,15 @@ int sMemory_GetNumPoints(bool forCalculate)
 }
 
 
-ENUM_POINTS_FPGA sMemory_IntNumPoints2FPGA_NUM_POINTS(int numPoints)
+ENUM_POINTS_FPGA::E sMemory_IntNumPoints2FPGA_NUM_POINTS(int numPoints)
 {
     if (numPoints == 1024)
     {
-        return FNP_1024;
+        return ENUM_POINTS_FPGA::_1024;
     }
     else if (numPoints == 512)
     {
-        return FNP_512;
+        return ENUM_POINTS_FPGA::_512;
     }
-    return FNP_281;
+    return ENUM_POINTS_FPGA::_281;
 }

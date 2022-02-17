@@ -47,11 +47,14 @@ enum SampleType
 
 
 // Число точек сигнала, с которым идёт работа.
-enum ENUM_POINTS_FPGA
+struct ENUM_POINTS_FPGA
 {
-    FNP_281,
-    FNP_512,
-    FNP_1024
+    enum E
+    {
+        _281,
+        _512,
+        _1024
+    };
 };
 
 
@@ -65,7 +68,7 @@ struct SettingsTime
     SampleType          sampleType;     // Тип выборки для режима рандомизатора.
     PeackDetMode::E     peakDet;        // Режим работы пикового детектора
     bool                selfRecorder;   // Включен ли режим самописца.
-    ENUM_POINTS_FPGA    oldNumPoints;   // Когда переключаемся в режим пикового детектора, устанавливаем
+    ENUM_POINTS_FPGA::E oldNumPoints;   // Когда переключаемся в режим пикового детектора, устанавливаем
                                         // количество точек в 1024, а сюда 
                                         // записываем то, что было, чтобы потом восстановить.
 };

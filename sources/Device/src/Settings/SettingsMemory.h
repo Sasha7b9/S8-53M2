@@ -4,8 +4,8 @@
 
 
 #define ENUM_POINTS                 (set.memory.fpgaNumPoints)                      // SettingsMemory.fpgaNumPoints
-#define ENUM_POINTS_IS_281          (ENUM_POINTS == FNP_281)
-#define ENUM_POINTS_IS_1024         (ENUM_POINTS == FNP_1024)
+#define ENUM_POINTS_IS_281          (ENUM_POINTS == ENUM_POINTS_FPGA::_281)
+#define ENUM_POINTS_IS_1024         (ENUM_POINTS == ENUM_POINTS_FPGA::_1024)
 
 #define MODE_WORK                   (set.memory.modeWork)                           // SettingsMemory.modeWork
 #define MODE_WORK_IS_DIRECT         (MODE_WORK == ModeWork_Direct)
@@ -87,7 +87,7 @@ typedef  struct
 struct SettingsMemory
 {
 #define MAX_SYMBOLS_IN_FILE_NAME 35
-    ENUM_POINTS_FPGA    fpgaNumPoints;                          // Число точек.
+    ENUM_POINTS_FPGA::E fpgaNumPoints;                          // Число точек.
     ModeWork            modeWork;                               // Режим работы.
     FileNamingMode      fileNamingMode;                         // Режим именования файлов.
     char                fileNameMask[MAX_SYMBOLS_IN_FILE_NAME]; // Здесь маска для автоматического именования файлов\n
@@ -110,4 +110,4 @@ struct SettingsMemory
 
 int sMemory_GetNumPoints(bool forCalculate);
 
-ENUM_POINTS_FPGA sMemory_IntNumPoints2FPGA_NUM_POINTS(int numPoints);
+ENUM_POINTS_FPGA::E sMemory_IntNumPoints2FPGA_NUM_POINTS(int numPoints);
