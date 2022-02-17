@@ -1215,8 +1215,8 @@ void Display::WriteCursors()
             PText::DrawText(x, y1, sCursors_GetCursVoltage(source, 0, buffer));
             PText::DrawText(x, y2, sCursors_GetCursVoltage(source, 1, buffer));
             x = startX + 49;
-            float pos0 = Math_VoltageCursor(sCursors_GetCursPosU(source, 0), SET_RANGE(source), SET_RSHIFT(source));
-            float pos1 = Math_VoltageCursor(sCursors_GetCursPosU(source, 1), SET_RANGE(source), SET_RSHIFT(source));
+            float pos0 = Math_VoltageCursor(PageCursors::GetCursPosU(source, 0), SET_RANGE(source), SET_RSHIFT(source));
+            float pos1 = Math_VoltageCursor(PageCursors::GetCursPosU(source, 1), SET_RANGE(source), SET_RSHIFT(source));
             float delta = fabsf(pos1 - pos0);
             PText::DrawText(x, y1, ":dU=");
             PText::DrawText(x + 17, y1, Voltage2String(delta, false, buffer));
@@ -1971,8 +1971,8 @@ void Display::DrawCursors()
         {
             x0 = (int)(Grid::Left() + CURS_POS_T0(source));
             x1 = (int)(Grid::Left() + CURS_POS_T1(source));
-            y0 = (int)(GRID_TOP + sCursors_GetCursPosU(source, 0));
-            y1 = (int)(GRID_TOP + sCursors_GetCursPosU(source, 1));
+            y0 = (int)(GRID_TOP + PageCursors::GetCursPosU(source, 0));
+            y1 = (int)(GRID_TOP + PageCursors::GetCursPosU(source, 1));
 
             Painter::DrawRectangle(x0 - 2, y0 - 2, 4, 4);
             Painter::DrawRectangle(x1 - 2, y1 - 2, 4, 4);
@@ -1987,8 +1987,8 @@ void Display::DrawCursors()
         cntrl = CURsU_CNTRL;
         if (cntrl != CursCntrl_Disable)
         {
-            DrawHorizontalCursor((int)sCursors_GetCursPosU(source, 0), x0);
-            DrawHorizontalCursor((int)sCursors_GetCursPosU(source, 1), x1);
+            DrawHorizontalCursor((int)PageCursors::GetCursPosU(source, 0), x0);
+            DrawHorizontalCursor((int)PageCursors::GetCursPosU(source, 1), x1);
         }
     }
 }

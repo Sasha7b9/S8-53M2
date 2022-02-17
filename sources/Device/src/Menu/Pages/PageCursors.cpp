@@ -497,7 +497,7 @@ static void DrawSB_Cursors_U(int x, int y)
         {
             Chan::E source = CURS_SOURCE;
             bool condTop = false, condDown = false;
-            CalculateConditions(sCursors_GetCursPosU(source, 0), sCursors_GetCursPosU(source, 1), cursCntrl, &condTop, &condDown);
+            CalculateConditions(PageCursors::GetCursPosU(source, 0), PageCursors::GetCursPosU(source, 1), cursCntrl, &condTop, &condDown);
             if (condTop && condDown)
             {
                 DrawSB_Cursors_U_Both_Enable(x, y);
