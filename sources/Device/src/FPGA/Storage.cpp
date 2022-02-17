@@ -364,7 +364,7 @@ uint8* Storage::GetData(Chan::E ch, int fromEnd)
 }
 
 
-static bool Storage::CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[Chan::Count][FPGA::MAX_POINTS])
+bool Storage::CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[Chan::Count][FPGA::MAX_POINTS])
 {
     if((ch == Chan::A && ds->enableCh0 == 0) || (ch == Chan::B && ds->enableCh1 == 0))
     {
