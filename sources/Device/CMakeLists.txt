@@ -26,9 +26,6 @@ if(WIN32)
 
     add_compile_options(/wd4100)
     add_compile_options(/wd4103)    # alignment changed after including header, may be due to missing #pragma pack(pop)
-    add_compile_options(/wd4201)    # nonstandard extension used : nameless struct/union
-    add_compile_options(/wd4211)    # nonstandard extension used : redefined extern to static
-    add_compile_options(/wd4244)
     add_compile_options(/wd4255)
     add_compile_options(/wd4310)    # cast truncates constant value
     add_compile_options(/wd4505)    # 'function': unreferenced function with internal linkage has been removed

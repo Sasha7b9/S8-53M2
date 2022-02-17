@@ -111,7 +111,7 @@ void FPGA::Init()
 
 void FPGA::SetNumSignalsInSec(int numSigInSec) 
 {
-    Timer::Enable(TypeTimer::NumSignalsInSec, 1000.f / numSigInSec, OnTimerCanReadData);
+    Timer::Enable(TypeTimer::NumSignalsInSec, 1000 / numSigInSec, OnTimerCanReadData);
 }
 
 
@@ -517,8 +517,9 @@ bool FPGA::CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
         min = 0xffff;
         max = 0;
     }
-    *eMin = minGate; //-V519
-    *eMax = maxGate; //-V519
+
+    *eMin = (uint16)minGate; //-V519
+    *eMax = (uint16)maxGate; //-V519
 
     return true;
 }
@@ -544,8 +545,8 @@ int FPGA::CalculateShift()            // \todo Не забыть восстановить функцию
     
     if (sTime_RandomizeModeEnabled())
     {
-        float tin = (float)(rand - min) / (max - min) * 10e-9f;
-        int retValue = tin / 10e-9f * Kr[SET_TBASE];
+        float tin = (float)(rand - min) / (float)(max - min) * 10e-9f;
+        int retValue = (int)(tin / 10e-9f * (float)Kr[SET_TBASE]);
         return retValue;
     }
 
@@ -671,7 +672,7 @@ static BitSet32 ReadRegPeriod()
 
 static float FreqCounterToValue(BitSet32 *fr)
 {
-    return fr->word * 10.0f;
+    return (float)fr->word * 10.0f;
 }
 
 
@@ -726,7 +727,7 @@ void FPGA::FreqMeter::ReadPeriod()
 }
 
 
-static uint8 FPGA::ReadFlag()
+uint8 FPGA::ReadFlag()
 {
     uint8 flag = HAL_FMC::Read(RD_FL);
 
