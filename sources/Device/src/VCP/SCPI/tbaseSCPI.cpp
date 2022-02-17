@@ -153,7 +153,7 @@ void SCPI::TBASE::TPOS(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value < 3)      { SET_TPOS = (TPos)value; OnChanged_TPos(true); }
+        if (value < 3)      { SET_TPOS = (TPos::E)value; OnChanged_TPos(true); }
         else if (4 == value)
         {
             SCPI_SEND(":TBASE:TPOS %s", map[SET_TPOS].key);

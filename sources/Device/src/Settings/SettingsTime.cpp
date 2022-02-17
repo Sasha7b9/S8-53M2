@@ -20,7 +20,7 @@ void sTime_SetTShift(int16 shift)
 }
 
 
-int sTime_TPosInPoints(PeackDetMode::E peakDet, int numPoints, TPos tPos)
+int sTime_TPosInPoints(PeackDetMode::E peakDet, int numPoints, TPos::E tPos)
 {
     if (peakDet == PeackDetMode::Disable)
     {

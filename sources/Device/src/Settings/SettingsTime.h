@@ -13,9 +13,9 @@
 #define TIME_DIV_XPOS_IS_SHIFT_IN_MEMORY    (TIME_DIV_XPOS == FunctionTime_ShiftInMemory)
 
 #define SET_TPOS                            (set.time.tPos)         // SettingsTime.tPos
-#define SET_TPOS_IS_LEFT                    (SET_TPOS == TPos_Left)
-#define SET_TPOS_IS_CENTER                  (SET_TPOS == TPos_Center)
-#define SET_TPOS_IS_RIGHT                   (SET_TPOS == TPos_Right)
+#define SET_TPOS_IS_LEFT                    (SET_TPOS == TPos::Left)
+#define SET_TPOS_IS_CENTER                  (SET_TPOS == TPos::Center)
+#define SET_TPOS_IS_RIGHT                   (SET_TPOS == TPos::Right)
 
 #define SAMPLE_TYPE                         (set.time.sampleType)   // SettingsTime.sampleType
 #define SAMPLE_TYPE_IS_EQUAL                (SAMPLE_TYPE == SampleType_Equal)
@@ -37,13 +37,6 @@ enum FunctionTime
     FunctionTime_ShiftInMemory      // Ручка управляет отображаемым на экране участком памяти.
 };
 
-// Привязка синхронизации к памяти.
-enum TPos
-{
-    TPos_Left,      // Синхронизация привязана к началу памяти.
-    TPos_Center,    // Синхронизация привязана к центру памяти.
-    TPos_Right      // Синхронизация привязана к концу памяти.
-};
 
 // Тип выборки для режима рандомизатора.
 enum SampleType
@@ -68,11 +61,12 @@ struct SettingsTime
     TBase::E            tBase;          // Масштаб по времени.
     int16               tShiftRel;      // Смещение по времени.
     FunctionTime        timeDivXPos;
-    TPos                tPos;           // Привязка синхронизации к памяти.
+    TPos::E             tPos;           // Привязка синхронизации к памяти.
     SampleType          sampleType;     // Тип выборки для режима рандомизатора.
     PeackDetMode::E     peakDet;        // Режим работы пикового детектора
     bool                selfRecorder;   // Включен ли режим самописца.
-    ENUM_POINTS_FPGA    oldNumPoints;   // \brief Когда переключаемся в режим пикового детектора, устанавливаем количество точек в 1024, а сюда 
+    ENUM_POINTS_FPGA    oldNumPoints;   // Когда переключаемся в режим пикового детектора, устанавливаем
+                                        // количество точек в 1024, а сюда 
                                         // записываем то, что было, чтобы потом восстановить.
 };
 
@@ -85,4 +79,4 @@ void sTime_SetTBase(TBase::E);
 void sTime_SetTShift(int16 shift);                   
 
 // Узнать привязку отсительно уровня синхронизации в точках.
-int sTime_TPosInPoints(PeackDetMode::E peakDet, int numPoints, TPos tPos);
+int sTime_TPosInPoints(PeackDetMode::E peakDet, int numPoints, TPos::E tPos);
