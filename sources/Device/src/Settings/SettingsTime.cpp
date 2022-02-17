@@ -6,13 +6,6 @@
 #include "FPGA/FPGA.h"
 
 
-void sTime_SetTBase(TBase::E tBase)
-{
-    SET_TBASE = tBase;
-    FPGA::ClearData();
-}
-
-
 void sTime_SetTShift(int16 shift)
 {
     TSHIFT = shift;

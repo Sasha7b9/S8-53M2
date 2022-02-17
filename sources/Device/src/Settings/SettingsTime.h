@@ -72,9 +72,6 @@ struct SettingsTime
 
 
 
-// Сохранить масштаб по времени.
-void sTime_SetTBase(TBase::E);
-
 // Сохранить смещение по времени в относительных единицах.
 void sTime_SetTShift(int16 shift);                   
 
