@@ -57,6 +57,31 @@ struct PageMeasures
 };
 
 
+struct PageService
+{
+    struct Math
+    {
+        struct Function
+        {
+            static void *GetPointer();
+        };
+
+        struct FFT
+        {
+            struct Cursors
+            {
+                static void *GetPointer();
+            };
+        };
+    };
+
+    struct Information
+    {
+        static void *GetPointer();
+    };
+};
+
+
 #define COMMON_BEGIN_SB_EXIT  0, "Выход", "Exit", "Кнопка для выхода в предыдущее меню", "Button for return to the previous menu"
 
 
