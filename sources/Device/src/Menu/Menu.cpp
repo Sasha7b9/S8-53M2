@@ -7,8 +7,6 @@
 #include "Pages/PageMemory.h"
 #include "Display/DisplayTypes.h"
 #include "MenuItems.h"
-#include "Menu/Pages/PageMeasures.h"
-#include "defines.h"
 #include "Tables.h"
 #include "Display/Display.h"
 #include "Utils/GlobalFunctions.h"

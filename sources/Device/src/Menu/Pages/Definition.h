@@ -30,6 +30,18 @@ struct PageCursors
 };
 
 
+struct PageMeasures
+{
+    struct Tune
+    {
+        static void *pointer;
+    };
+
+    // Если true, то активен выбор типа измерений для выбора на странице ИЗМЕРЕНИЯ-НАСТРОИТЬ
+    static bool choiceMeasuresIsActive;
+};
+
+
 #define COMMON_BEGIN_SB_EXIT  0, "Выход", "Exit", "Кнопка для выхода в предыдущее меню", "Button for return to the previous menu"
 
 

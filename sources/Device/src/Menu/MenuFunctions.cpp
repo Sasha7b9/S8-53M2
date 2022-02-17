@@ -4,7 +4,6 @@
 #include "MenuItems.h"
 #include "Panel/Controls.h"
 #include "Menu/Menu.h"
-#include "Menu/Pages/PageMeasures.h"
 #include "Menu/Pages/PageMemory.h"
 #include "Menu/Pages/PageHelp.h"
 #include "Menu/Pages/PageService.h"

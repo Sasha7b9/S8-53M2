@@ -11,20 +11,15 @@
 #include "Display/Colors.h"
 #include "defines.h"
 #include "Display/Painter.h"
-#include "PageMeasures.h"
 
-
-/** @addtogroup Menu
- *  @{
- *  @addtogroup PageMeasures
- *  @{
- */
 
 extern const Page pMeasures;
 extern const Page mainPage;
 
+
 static CursCntrl    GetMeasuresCursCntrlActive();       // Каким курсором из активной пары сейчас происходит управление.
 bool PageMeasures::choiceMeasuresIsActive = false;
+
 
 void DrawSB_MeasTune_Settings(int x, int y)
 {
@@ -310,6 +305,3 @@ const Page pMeasures            // ИЗМЕРЕНИЯ
 );
 
 void *PageMeasures::Tune::pointer = (void *)&mspMeasTune;
-
-/** @}  @}
- */
