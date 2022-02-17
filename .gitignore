@@ -9,4 +9,6 @@ sources/Loader/Objects/*
 sources/Device/DebugConfig/*
 sources/Device/Listings/*
 sources/Device/Objects/*
+sources/Device/Listings-Debug/*
+sources/Device/Objects-Debug/*
 sources/generated/*
