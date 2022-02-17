@@ -870,7 +870,6 @@ bool Display::DrawData()
 {
     if (Storage::AllDatas())
     {
-
         if (MODE_WORK_IS_MEMINT)
         {
             if (!MODE_SHOW_MEMINT_IS_DIRECT)

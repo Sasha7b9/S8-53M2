@@ -57,7 +57,7 @@ namespace Painter
     void DrawVLineArray(int x, int numLines, uint8 *y0y1, Color::E);
 
     // modeLines - true - точками, false - точками
-    void DrawSignal(int x, uint8 data[281], bool modeLines);
+    void DrawSignal(const int x, uint8 data[281], bool modeLines);
 
     bool SaveScreenToFlashDrive();
 

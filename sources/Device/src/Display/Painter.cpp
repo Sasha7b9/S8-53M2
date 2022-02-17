@@ -521,18 +521,53 @@ void Painter::DrawVLineArray(int x, int num_lines, uint8 *y0y1, Color::E color)
 }
 
 
-void Painter::DrawSignal(int x, uint8 data[281], bool modeLines)
+void Painter::DrawSignal(const int _x, uint8 data[281], bool modeLines)
 {
-//    SendToDisplay(command, 284);
+    int x = _x;
+
+    if (modeLines)
+    {
+        int y_prev = data[0];
+
+        for (int i = 1; i < 280; i++)
+        {
+            int y = data[i];
+
+            if (y == y_prev)
+            {
+                SetPoint(x, y);
+            }
+            else if (y > y_prev)
+            {
+                DrawVLine(x, y - 1, y_prev);
+            }
+            else
+            {
+                DrawVLine(x, y_prev, y + 1);
+            }
+
+            y_prev = y;
+            x++;
+        }
+    }
+    else
+    {
+        for (int i = 0; i < 281; i++)
+        {
+            SetPoint(x++, data[i]);
+        }
+    }
 
     if (InterCom::TransmitGUIinProcess())
     {
         CommandBuffer command(284, modeLines ? DRAW_SIGNAL_LINES : DRAW_SIGNAL_POINTS);
-        command.PushHalfWord(x);
+        command.PushHalfWord(_x);
+
         for (int i = 0; i < 281; i++)
         {
             command.PushByte(data[i]);
         }
+
         command.Transmit(284);
     }
 }
