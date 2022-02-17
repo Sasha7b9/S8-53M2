@@ -33,15 +33,17 @@ static const RangeStruct ranges[Range::Count] =
 
 
 
-int sChannel_MultiplierRel2Abs(Divider multiplier)
+int sChannel_MultiplierRel2Abs(Divider::E multiplier)
 {
     switch (multiplier)
     {
-        case Divider_10:
-            return 10;
-        case Divider_1:
-            return 1;
+    case Divider::_10:
+        return 10;
+
+    case Divider::_1:
+        return 1;
     }
+
     return 1;
 }
 
@@ -56,13 +58,13 @@ bool sChannel_Enabled(Chan::E ch)
 }
 
 
-pchar  sChannel_Range2String(Range::E range, Divider multiplier)
+pchar  sChannel_Range2String(Range::E range, Divider::E multiplier)
 {
     return ranges[range].name[set.common.lang][multiplier];
 }
 
 
-pchar  sChannel_RShift2String(int16 rShiftRel, Range::E range, Divider multiplier, char buffer[20])
+pchar  sChannel_RShift2String(int16 rShiftRel, Range::E range, Divider::E multiplier, char buffer[20])
 {
     float rShiftVal = RSHIFT_2_ABS(rShiftRel, range) * sChannel_MultiplierRel2Abs(multiplier);
     return Voltage2String(rShiftVal, true, buffer);

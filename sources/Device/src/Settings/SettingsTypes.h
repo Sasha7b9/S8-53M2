@@ -30,10 +30,13 @@ struct Chan { enum E {
 
 
 // Делитель.
-enum Divider
+struct Divider
 {
-    Divider_1,
-    Divider_10
+    enum E
+    {
+        _1,
+        _10
+    };
 };
 
 // Measures

@@ -47,10 +47,10 @@
 
 
 
-int sChannel_MultiplierRel2Abs(Divider multiplier);
+int sChannel_MultiplierRel2Abs(Divider::E);
 // Возвращает true, если канал chan включён.
 bool sChannel_Enabled(Chan::E);
 
-pchar sChannel_Range2String(Range::E, Divider multiplier);
+pchar sChannel_Range2String(Range::E, Divider::E);
 
-pchar sChannel_RShift2String(int16 rShiftRel, Range::E, Divider multiplier, char buffer[20]);
+pchar sChannel_RShift2String(int16 rShiftRel, Range::E, Divider::E, char buffer[20]);

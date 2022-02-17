@@ -308,8 +308,8 @@ struct DataSettings
 
     uint          inverseCh0      : 1;
     uint          inverseCh1      : 1;
-    Divider       multiplier0     : 1;
-    Divider       multiplier1     : 1;
+    Divider::E    multiplier0     : 1;
+    Divider::E    multiplier1     : 1;
     PackedTime    time;
 
     void PrintElement();

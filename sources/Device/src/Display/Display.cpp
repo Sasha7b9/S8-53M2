@@ -579,7 +579,7 @@ void Display::DrawMath()
     int delta = (SHOW_STRING_NAVIGATION && MODE_DRAW_MATH_IS_TOGETHER) ? 10 : 0;
     Painter::DrawRectangle(Grid::Left(), Grid::MathTop() + delta, width, height, COLOR_FILL);
     Painter::FillRegion(Grid::Left() + 1, Grid::MathTop() + 1 + delta, width - 2, height - 2, COLOR_BACK);
-    Divider multiplier = MATH_MULTIPLIER;
+    Divider::E multiplier = MATH_MULTIPLIER;
     PText::DrawText(Grid::Left() + 2, Grid::MathTop() + 1 + delta, sChannel_Range2String(SET_RANGE_MATH, multiplier), COLOR_FILL);
     PText::DrawText(Grid::Left() + 25, Grid::MathTop() + 1 + delta, ":");
     char buffer[20];
@@ -2088,7 +2088,7 @@ void Display::WriteTextVoltage(Chan::E ch, int x, int y)
 
     bool inverse = SET_INVERSE(ch);
     ModeCouple::E modeCouple = SET_COUPLE(ch);
-    Divider multiplier = SET_DIVIDER(ch);
+    Divider::E multiplier = SET_DIVIDER(ch);
     Range::E range = SET_RANGE(ch);
     uint rShift = (uint)SET_RSHIFT(ch);
     bool enable = SET_ENABLED(ch);

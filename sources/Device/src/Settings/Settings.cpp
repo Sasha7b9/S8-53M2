@@ -49,7 +49,7 @@ static const Settings defaultSettings =
         Averaging_Accurately,       // modeAveraging
         NumMinMax_1,                // enumMinMax
         Smoothing_Disable,          // smoothing
-        ENumSignalsInSec::_25,         // num signals in one second
+        ENumSignalsInSec::_25,      // num signals in one second
         Chan::A,                    // lastAffectedChannel
         ModeAccumulation_NoReset,   // modeAccumulation
         AM_Show,                    // altMarkers
@@ -64,9 +64,9 @@ static const Settings defaultSettings =
             1.0f,                   // коэффициент калибровки
             RShift::ZERO,
             {{0}, {0}},             // rShiftAdd
-            ModeCouple::AC,          // ModCouple
-            Divider_1,           // Divider
-            Range::_500mV,            // range
+            ModeCouple::AC,         // ModCouple
+            Divider::_1,            // Divider
+            Range::_500mV,          // range
             true,                   // enable
             false,                  // inverse
             false,                  // filtr
@@ -76,9 +76,9 @@ static const Settings defaultSettings =
             1.0f,                   // коэффициент калибровки
             RShift::ZERO,
             {{0}, {0}},             // rShiftAdd
-            ModeCouple::AC,          // ModCouple
-            Divider_1,           // Divider
-            Range::_500mV,            // range
+            ModeCouple::AC,         // ModCouple
+            Divider::_1,            // Divider
+            Range::_500mV,          // range
             true,                   // enable
             false,                  // inverse
             false,                  // filtr
@@ -176,7 +176,7 @@ static const Settings defaultSettings =
         ModeDrawMath_Disable,       // modeDrawMath
         ModeRegSet_Range,           // modeRegSet
         Range::_50mV,
-        Divider_1,
+        Divider::_1,
         RShift::ZERO                  // rShift
     },
     // service
