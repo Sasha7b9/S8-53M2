@@ -58,7 +58,7 @@ bool Chan::Enabled(Chan::E ch)
 }
 
 
-pchar  sChannel_Range2String(Range::E range, Divider::E multiplier)
+pchar Range::ToString(Range::E range, Divider::E multiplier)
 {
     return ranges[range].name[set.common.lang][multiplier];
 }

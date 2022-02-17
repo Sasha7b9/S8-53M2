@@ -580,7 +580,7 @@ void Display::DrawMath()
     Painter::DrawRectangle(Grid::Left(), Grid::MathTop() + delta, width, height, COLOR_FILL);
     Painter::FillRegion(Grid::Left() + 1, Grid::MathTop() + 1 + delta, width - 2, height - 2, COLOR_BACK);
     Divider::E multiplier = MATH_MULTIPLIER;
-    PText::DrawText(Grid::Left() + 2, Grid::MathTop() + 1 + delta, sChannel_Range2String(SET_RANGE_MATH, multiplier), COLOR_FILL);
+    PText::DrawText(Grid::Left() + 2, Grid::MathTop() + 1 + delta, Range::ToString(SET_RANGE_MATH, multiplier), COLOR_FILL);
     PText::DrawText(Grid::Left() + 25, Grid::MathTop() + 1 + delta, ":");
     char buffer[20];
     PText::DrawText(Grid::Left() + 27, Grid::MathTop() + 1 + delta, sChannel_RShift2String(SET_RSHIFT_MATH, SET_RANGE_MATH, multiplier, buffer));
@@ -2121,7 +2121,7 @@ void Display::WriteTextVoltage(Chan::E ch, int x, int y)
         char buffer[100] = {0};
 
         sprintf(buffer, "%s\xa5%s\xa5%s", (ch == Chan::A) ? (set.common.lang == Russian ? "1ê" : "1c") : (set.common.lang == Russian ? "2ê" : "2c"), couple[modeCouple], 
-            sChannel_Range2String(range, multiplier));
+            Range::ToString(range, multiplier));
 
         PText::DrawText(x + 1, y, buffer, colorDraw);
 

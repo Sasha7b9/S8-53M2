@@ -269,7 +269,9 @@ struct Range
     // Загрузка масштаба по напряжению в аппаратную часть.
     static void Load(Chan::E);
 
-    pchar ToName(Range::E);
+    static pchar ToName(Range::E);
+
+    static pchar ToString(Range::E, Divider::E);
 };
 
 Range::E &operator++(Range::E &range);
