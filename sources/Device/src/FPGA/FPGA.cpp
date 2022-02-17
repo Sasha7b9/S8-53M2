@@ -110,7 +110,7 @@ void FPGA::Init()
     Storage::Clear();
     LoadSettings();
     FreqMeter::Init();
-    SetNumSignalsInSec(sDisplay_NumSignalsInS());
+    SetNumSignalsInSec(ENumSignalsInSec::ToNum(ENUM_SIGNALS_IN_SEC));
     SetNumberMeasuresForGates(NUM_MEAS_FOR_GATES);
     SetNumberMeasuresForGates(NUM_MEAS_FOR_GATES);
 } 

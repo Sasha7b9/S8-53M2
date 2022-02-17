@@ -366,7 +366,7 @@ static const Choice mcRefreshFPS =
 
 void OnChanged_RefreshFPS(bool active)
 {
-    FPGA::SetNumSignalsInSec(sDisplay_NumSignalsInS());
+    FPGA::SetNumSignalsInSec(ENumSignalsInSec::ToNum(ENUM_SIGNALS_IN_SEC));
 }
 
 

@@ -223,8 +223,6 @@ struct SettingsDisplay
 
 
 
-// Возвращает ограничение частоты кадров.
-int sDisplay_NumSignalsInS();
 // Устанавливает ограничение частоты кадров.
 void sDisplay_SetNumSignalsInS(int maxFPS);
 // Возвращает число точек сглаживающего фильтра (режим ДИСПЛЕЙ - Сглаживание).
