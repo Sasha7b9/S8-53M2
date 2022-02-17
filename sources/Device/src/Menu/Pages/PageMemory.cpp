@@ -1,7 +1,6 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Settings/SettingsTypes.h"
-#include "Menu/Pages/PageMemory.h"
 #include "Menu/Pages/Definition.h"
 #include "Menu/FileManager.h"
 #include "FPGA/FPGA.h"
@@ -25,24 +24,16 @@
 #include <stdio.h>
 
 
-/** @addtogroup Menu
- *  @{
- *  @addtogroup PageMemory
- *  @{
- */
-
-
 extern const Page pMemory;
 
 extern Page mainPage;
 
-//extern USBH_USR_AppStateDataStruct_TypeDef USBH_USR_AppState;
 
 static void DrawSetMask();  // Эта функция рисует, когда выбран режим задания маски.
 static void DrawSetName();  // Эта функция рисует, когда нужно задать имя файла для сохранения
 
 
-void ChangeC_Memory_NumPoints(bool active)
+void PageMemory::ChangeC_Memory_NumPoints(bool active)
 {
     if(sMemory_GetNumPoints(false) == 281)
     {
@@ -170,7 +161,7 @@ static void DrawSB_MemExtSetNameSave(int x, int y)
 static void PressSB_MemLast_SaveToFlash()
 {
     EXIT_FROM_SET_NAME_TO = RETURN_TO_LAST_MEM;
-    Memory_SaveSignalToFlashDrive();
+    PageMemory::SaveSignalToFlashDrive();
 }
 
 
@@ -620,7 +611,7 @@ static void FuncAdditionDrawingSPageMemoryInt()
 void PressSB_MemInt_SaveToFlashDrive()
 {
     EXIT_FROM_SET_NAME_TO = RETURN_TO_INT_MEM;
-    Memory_SaveSignalToFlashDrive();
+    PageMemory::SaveSignalToFlashDrive();
 }
 
 static void FuncOnRegSetMemInt(int delta)
@@ -879,7 +870,7 @@ const Choice mcMemoryNumPoints =
         {"512",     "512"},
         {"1024",    "1024"}
     },
-    (int8*)&ENUM_POINTS, ChangeC_Memory_NumPoints
+    (int8*)&ENUM_POINTS, PageMemory::ChangeC_Memory_NumPoints
 };
 
 // ПАМЯТЬ - ВНЕШН ЗУ /////
@@ -1104,7 +1095,7 @@ void DrawSetMask()
     }
 }
 
-void Memory_SaveSignalToFlashDrive()
+void PageMemory::SaveSignalToFlashDrive()
 {
     if (FLASH_DRIVE_IS_CONNECTED)
     {
@@ -1385,6 +1376,3 @@ void *PageMemory::FileManager::GetPointer()
 {
     return (void *)&mspFileManager;
 }
-
-/** @}  @}
- */

@@ -2,7 +2,6 @@
 #include "defines.h"
 #include "Settings/Settings.h"
 #include "Settings/SettingsTypes.h"
-#include "PageMemory.h"
 #include "FPGA/FPGA.h"
 #include "Log.h"
 #include "Display/Display.h"
@@ -10,6 +9,7 @@
 #include "Utils/Math.h"
 #include "Display/Grid.h"
 #include "Hardware/HAL/HAL.h"
+#include "Menu/Pages/Definition.h"
 
 
 extern const Page pTime;
@@ -121,13 +121,13 @@ void OnChanged_PeakDet(bool active)
             int centerX = SHIFT_IN_MEMORY + Grid::Width() / 2;
             SHIFT_IN_MEMORY = centerX * 2 - Grid::Width() / 2;
             ENUM_POINTS = set.time.oldNumPoints;
-            ChangeC_Memory_NumPoints(true);
+            PageMemory::ChangeC_Memory_NumPoints(true);
         }
         else if (PEAKDET_IS_ENABLE)
         {
             int centerX = SHIFT_IN_MEMORY + Grid::Width() / 2;
             LIMITATION(SHIFT_IN_MEMORY, centerX / 2 - Grid::Width() / 2, 0, sMemory_GetNumPoints(false) - Grid::Width());
-            ChangeC_Memory_NumPoints(true);
+            PageMemory::ChangeC_Memory_NumPoints(true);
         }
     }
     else
@@ -155,7 +155,7 @@ static const Choice mcTPos =
 
 void OnChanged_TPos(bool active)
 {
-    ChangeC_Memory_NumPoints(active);
+    PageMemory::ChangeC_Memory_NumPoints(active);
     TShift::Set(TSHIFT);
 }
 

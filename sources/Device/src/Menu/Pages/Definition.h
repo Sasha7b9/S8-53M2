@@ -57,6 +57,42 @@ struct PageMeasures
 };
 
 
+struct PageMemory
+{
+    static void ChangeC_Memory_NumPoints(bool active);
+    static void OnPressMemoryExtFileManager();
+    static void SaveSignalToFlashDrive();
+    static const void *pMspFileManager;
+
+    struct Latest
+    {
+        static void *GetPointer();
+    };
+
+    struct Internal
+    {
+        static void *GetPointer();
+    };
+
+    struct SetMask
+    {
+        static void *GetPointer();
+    };
+
+    struct SetName
+    {
+        static void *GetPointer();
+    };
+
+    struct FileManager
+    {
+        static void *GetPointer();
+    };
+
+    static void *GetPointer();
+};
+
+
 struct PageService
 {
     struct Math

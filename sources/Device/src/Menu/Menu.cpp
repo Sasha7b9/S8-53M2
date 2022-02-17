@@ -4,7 +4,6 @@
 #include "Menu/Menu.h" 
 #include "Settings/Settings.h"
 #include "Pages/Definition.h"
-#include "Pages/PageMemory.h"
 #include "Display/DisplayTypes.h"
 #include "MenuItems.h"
 #include "Tables.h"
@@ -406,7 +405,7 @@ void Menu::ProcessingShortPressureButton()
         if (shortPressureButton == B_Memory && MODE_BTN_MEMORY_IS_SAVE && FLASH_DRIVE_IS_CONNECTED == 1)
         {
             EXIT_FROM_SET_NAME_TO = MenuIsShown() ? RETURN_TO_MAIN_MENU : RETURN_TO_DISABLE_MENU;
-            Memory_SaveSignalToFlashDrive();
+            PageMemory::SaveSignalToFlashDrive();
             shortPressureButton = B_Empty;
             return;
         }
