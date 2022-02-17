@@ -6,13 +6,6 @@
 #include "HelpContent.h"
 
 
-/** @addtogroup Menu
- *  @{
- *  @addtogroup PageHelp
- *  @{
- */
-
-
 void DrawSB_Help_ParagraphEnter(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
@@ -50,21 +43,21 @@ extern const Page mpHelp;
 
 const SmallButton sbHelpParagraphEnter
 (
-    &mpHelp, HelpContent_EnterParagraphIsActive,
+    &mpHelp, HelpContent::EnterParagraphIsActive,
     "Открыть", "Open",
     "Открывает раздел справки",
     "Opens the section of the reference",
-    HelpContent_EnterParagraph,
+    HelpContent::EnterParagraph,
     DrawSB_Help_ParagraphEnter
 );
 
 const SmallButton sbHelpParagraphLeave
 (
-    &mpHelp, HelpContent_LeaveParagraphIsActive,
+    &mpHelp, HelpContent::LeaveParagraphIsActive,
     "Закрыть", "Close",
     "Закрывает раздел справки",
     "Closes the section of the reference",
-    HelpContent_LeaveParagraph,
+    HelpContent::LeaveParagraph,
     DrawSB_Help_ParagraphLeave
 );
 
@@ -74,7 +67,7 @@ const SmallButton sbHelpParagraphPrev
     "Предыдущий раздел", "Previous section",
     "Выбрать предыдущий раздел справки",
     "To choose the previous section of the reference",
-    HelpContent_PrevParagraph,
+    HelpContent::PrevParagraph,
     DrawSB_Help_ParagraphPrev
 );
 
@@ -84,7 +77,7 @@ const SmallButton sbHelpParagraphNext
     "", "",
     "",
     "",
-    HelpContent_NextParagraph,
+    HelpContent::NextParagraph,
     DrawSB_Help_ParagraphNext
 );
 
@@ -117,7 +110,7 @@ static const Page mpHelp            // ПОМОЩЬ
     "ПОМОЩЬ", "HELP",
     "Открыть разделы помощи",
     "To open sections of the help",
-    Page_SB_Help, &itemsHelp, EmptyFuncVV, HelpContent_Draw, OnHelpRegSet
+    Page_SB_Help, &itemsHelp, EmptyFuncVV, HelpContent::Draw, OnHelpRegSet
 );
 
 
@@ -126,7 +119,3 @@ void *PageHelp::GetPointer()
 {
     return (void *)&mpHelp;
 }
-
-
-/** @}  @}
- */

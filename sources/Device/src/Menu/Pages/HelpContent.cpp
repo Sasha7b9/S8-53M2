@@ -52,7 +52,7 @@ static void DrawPageDescription()
 }
 
 
-void HelpContent_Draw()
+void HelpContent::Draw()
 {
     uint startTime = gTimerMS;
     Painter::FillRegion(Grid::Right(), 0, 319 - Grid::Right(), 20, COLOR_BACK);
@@ -94,7 +94,7 @@ static int NumParagraphs(const PageHelp *page)
     return retValue;
 }
 
-void HelpContent_NextParagraph()
+void HelpContent::NextParagraph()
 {
     if(currentPage->type == TypePage_Content)
     {
@@ -102,7 +102,7 @@ void HelpContent_NextParagraph()
     }
 }
 
-void HelpContent_PrevParagraph()
+void HelpContent::PrevParagraph()
 {
     if(currentPage->type == TypePage_Content)
     {
@@ -110,7 +110,7 @@ void HelpContent_PrevParagraph()
     }
 }
 
-void HelpContent_EnterParagraph()
+void HelpContent::EnterParagraph()
 {
     if(currentPage->type == TypePage_Content)
     {
@@ -119,7 +119,7 @@ void HelpContent_EnterParagraph()
     currentParagraph = 0;
 }
 
-void HelpContent_LeaveParagraph()
+void HelpContent::LeaveParagraph()
 {
     currentParagraph = 0;
     if(currentPage->parent)
@@ -128,12 +128,12 @@ void HelpContent_LeaveParagraph()
     }
 }
 
-bool HelpContent_LeaveParagraphIsActive()
+bool HelpContent::LeaveParagraphIsActive()
 {
     return currentPage->parent != 0;
 }
 
-bool HelpContent_EnterParagraphIsActive()
+bool HelpContent::EnterParagraphIsActive()
 {
     return currentPage->type == TypePage_Content;
 }
