@@ -110,23 +110,23 @@ pchar TBase::ToStringEN(TBase::E tBase)
 }
 
 
-pchar  Tables_RangeNameFromValue(Range::E range)
+pchar Range::ToName(Range::E range)
 {
     static pchar  names[Range::Count] =
     {
         "Range::_2mV",
         "Range::_5mV",
         "Range::_10mV",
-        "Range_20mV",
-        "Range_50mV",
-        "Range_100mV",
-        "Range_200mV",
+        "Range::_20mV",
+        "Range::_50mV",
+        "Range::_100mV",
+        "Range::_200mV",
         "Range::_500mV",
-        "Range_1V",
-        "Range_2V",
-        "Range_5V",
-        "Range_10V",
-        "Range_20V"
+        "Range::_1V",
+        "Range::_2V",
+        "Range::_5V",
+        "Range::_10V",
+        "Range::_20V"
     };
     return names[range];
 }
