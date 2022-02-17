@@ -333,18 +333,17 @@ void Display::DrawMarkersForMeasure(float scale, Chan::E ch)
         int pos = Processing::GetMarkerHorizontal(ch, numMarker);
         if(pos != ERROR_VALUE_INT && pos > 0 && pos < 200)
         {
-            Painter::DrawDashedHLine(Grid::FullBottom() - pos * scale, Grid::Left(), Grid::Right(), 3, 2, 0);
+            Painter::DrawDashedHLine((int)(Grid::FullBottom() - pos * scale), Grid::Left(), Grid::Right(), 3, 2, 0);
         }
 
         pos = Processing::GetMarkerVertical(ch, numMarker);
         if (pos != ERROR_VALUE_INT && pos > 0 && pos < Grid::Right())
         {
-            Painter::DrawDashedVLine(Grid::Left() + pos * scale, GRID_TOP, Grid::FullBottom(), 3, 2, 0);
+            Painter::DrawDashedVLine((int)(Grid::Left() + pos * scale), GRID_TOP, Grid::FullBottom(), 3, 2, 0);
         }
        
     }
 }
-
 
 
 #define CONVERT_DATA_TO_DISPLAY(out, in)                \
@@ -353,9 +352,8 @@ void Display::DrawMarkersForMeasure(float scale, Chan::E ch)
     else if (out > maxY)    { out = (uint8)maxY; };
 
 
-
-void Display::DrawSignalLined(const uint8 *data, const DataSettings *ds, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX, 
-    bool calculateFiltr)
+void Display::DrawSignalLined(const uint8 *data, const DataSettings *ds, int startPoint, int endPoint, int minY,
+    int maxY, float scaleY, float scaleX, bool calculateFiltr)
 {
     if (endPoint < startPoint)
     {
@@ -478,7 +476,7 @@ void Display::DrawSignalPointed(const uint8 *data, const DataSettings *ds, int s
             int index = i - startPoint;
             int dat = 0;
             CONVERT_DATA_TO_DISPLAY(dat, Math_CalculateFiltr(data, i, numPoints, numSmoothing));
-            Painter::SetPoint(Grid::Left() + index * scaleX, dat);
+            Painter::SetPoint((int)(Grid::Left() + index * scaleX), dat);
         }
     }
 }
@@ -599,7 +597,7 @@ void Display::DrawSpectrumChannel(const float *spectrum, Color::E color)
 	int gridHeight = Grid::MathHeight();
     for (int i = 0; i < 256; i++) 
     {
-        Painter::DrawVLine(gridLeft + i, gridBottom, gridBottom - gridHeight * spectrum[i]);
+        Painter::DrawVLine(gridLeft + i, gridBottom, (int)(gridBottom - gridHeight * spectrum[i]));
     }
 }
 
@@ -970,7 +968,6 @@ void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, 
     uint8 min[300];
     uint8 max[300];
 
-
     if (SET_TBASE >= TBase::_20ms && PEAKDET)
     {
         for (int col = 0; col < width; col++)
@@ -979,7 +976,8 @@ void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, 
             float lastElem = firstElem + elemsInColumn - 1;
             min[col] = data[(int)firstElem];
             max[col] = data[(int)firstElem + 1];
-            for (int elem = firstElem + 2; elem <= lastElem; elem += 2)
+
+            for (int elem = (int)(firstElem + 2); elem <= lastElem; elem += 2)
             {
                 SET_MIN_IF_LESS(data[elem], min[col]);
                 SET_MAX_IF_LARGER(data[elem + 1], max[col]);
@@ -993,8 +991,8 @@ void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, 
 
         for (int col = 0; col < width; col++, iMin++, iMax++)
         {
-            int firstElem = col * elemsInColumn;
-            int lastElem = firstElem + elemsInColumn - 1;
+            int firstElem = (int)(col * elemsInColumn);
+            int lastElem = (int)(firstElem + elemsInColumn - 1);
             *iMin = data[firstElem];
             *iMax = data[firstElem];
             for (int elem = firstElem + 1; elem <= lastElem; elem++)
@@ -1012,7 +1010,8 @@ void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, 
             float lastElem = firstElem + elemsInColumn - 1;
             min[col] = data[(int)firstElem];
             max[col] = data[(int)firstElem + shiftForPeakDet];
-            for (int elem = firstElem + 1; elem <= lastElem; elem++)
+
+            for (int elem = (int)(firstElem + 1); elem <= lastElem; elem++)
             {
                 SET_MIN_IF_LESS(data[elem], min[col]);
                 SET_MAX_IF_LARGER(data[elem + shiftForPeakDet], max[col]);
@@ -1024,9 +1023,9 @@ void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, 
     int height = 14;
     float scale = (float)height / (float)(ValueFPGA::MAX - ValueFPGA::MIN);
 
-#define ORDINATE(x) bottom - scale * LimitationInt((x) - ValueFPGA::MIN, 0, 200)
+#define ORDINATE(x) (uint8)(bottom - scale * LimitationInt((x) - ValueFPGA::MIN, 0, 200))
 
-#define NUM_POINTS (300 * 2)
+    static const int NUM_POINTS = (300 * 2);
     uint8 points[NUM_POINTS];
 
     points[0] = ORDINATE(max[0]);
@@ -1096,7 +1095,7 @@ void Display::DrawMemoryWindow()
         rightX = 68;
     }
 
-    int timeWindowRectWidth = (rightX - leftX) * (282.0f / sMemory_GetNumPoints(false));
+    int timeWindowRectWidth = (int)((rightX - leftX) * (282.0f / sMemory_GetNumPoints(false)));
     float scaleX = (float)(rightX - leftX + 1) / sMemory_GetNumPoints(false);
 
     int16 shiftInMemory = SHIFT_IN_MEMORY;
@@ -1104,8 +1103,8 @@ void Display::DrawMemoryWindow()
     int startI = shiftInMemory;
     int endI = startI + 281;
 
-    const int xVert0 = leftX + shiftInMemory * scaleX;
-    const int xVert1 = leftX + shiftInMemory * scaleX + timeWindowRectWidth;
+    const int xVert0 = (int)(leftX + shiftInMemory * scaleX);
+    const int xVert1 = (int)(leftX + shiftInMemory * scaleX + timeWindowRectWidth);
     bool showFull = set.display.showFullMemoryWindow;
     Painter::DrawRectangle(xVert0, top + (showFull ? 0 : 1), xVert1 - xVert0, bottom - top - (showFull ? 0 : 2), COLOR_FILL);
 
@@ -1159,29 +1158,29 @@ void Display::DrawMemoryWindow()
     
     if(xShift < leftX - 2)
     {
-        xShift = leftX - 2;
+        xShift = (float)(leftX - 2);
     }
 
-    Painter::FillRegion(xShift - 1, 3, 6, 6, COLOR_BACK);
-    Painter::FillRegion(xShift, 4, 4, 4, COLOR_FILL);
+    Painter::FillRegion((int)(xShift - 1), 3, 6, 6, COLOR_BACK);
+    Painter::FillRegion((int)(xShift), 4, 4, 4, COLOR_FILL);
     Color::SetCurrent(COLOR_BACK);
 
     if(xShift == leftX - 2)
     {
-        xShift = leftX - 2;
-        Painter::DrawLine(xShift + 3, 5, xShift + 3, 7);
-        Painter::DrawLine(xShift + 1, 6, xShift + 2, 6);
+        xShift = (float)(leftX - 2);
+        Painter::DrawLine((int)(xShift + 3), 5, (int)(xShift + 3), 7);
+        Painter::DrawLine((int)(xShift + 1), 6, (int)(xShift + 2), 6);
     }
     else if(xShift > rightX - 1)
     {
-        xShift = rightX - 2;
-        Painter::DrawLine(xShift + 1, 5, xShift + 1, 7);
-        Painter::DrawLine(xShift + 2, 6, xShift + 3, 6);
+        xShift = (float)(rightX - 2);
+        Painter::DrawLine((int)(xShift + 1), 5, (int)(xShift + 1), 7);
+        Painter::DrawLine((int)(xShift + 2), 6, (int)(xShift + 3), 6);
     }
     else
     {
-        Painter::DrawLine(xShift + 1, 5, xShift + 3, 5);
-        Painter::DrawLine(xShift + 2, 6, xShift + 2, 7);
+        Painter::DrawLine((int)(xShift + 1), 5, (int)(xShift + 3), 5);
+        Painter::DrawLine((int)(xShift + 2), 6, (int)(xShift + 2), 7);
     }
 }
 
@@ -1213,7 +1212,7 @@ void Display::WriteCursors()
             x = startX + 49;
             float pos0 = Math_VoltageCursor(sCursors_GetCursPosU(source, 0), SET_RANGE(source), SET_RSHIFT(source));
             float pos1 = Math_VoltageCursor(sCursors_GetCursPosU(source, 1), SET_RANGE(source), SET_RSHIFT(source));
-            float delta = fabs(pos1 - pos0);
+            float delta = fabsf(pos1 - pos0);
             PText::DrawText(x, y1, ":dU=");
             PText::DrawText(x + 17, y1, Voltage2String(delta, false, buffer));
             PText::DrawText(x, y2, ":");
@@ -1234,7 +1233,7 @@ void Display::WriteCursors()
             x = startX + 153;
             float pos0 = Math_TimeCursor(CURS_POS_T0(source), SET_TBASE);
             float pos1 = Math_TimeCursor(CURS_POS_T1(source), SET_TBASE);
-            float delta = fabs(pos1 - pos0);
+            float delta = fabsf(pos1 - pos0);
             PText::DrawText(x, y1, ":dT=");
             char buf[20];
             PText::DrawText(x + 17, y1, Time2String(delta, false, buf));
@@ -1482,7 +1481,7 @@ void Display::DrawGridSpectrum()
         float scale = (float)Grid::MathHeight() / numParts;
         for (int i = 1; i < numParts; i++)
         {
-            int y = Grid::MathTop() + i * scale;
+            int y = (int)(Grid::MathTop() + i * scale);
             Painter::DrawHLine(y, Grid::Left(), Grid::Left() + 256, ColorGrid());
             if (!MenuIsMinimize())
             {
@@ -1502,7 +1501,7 @@ void Display::DrawGridSpectrum()
         float scale = (float)Grid::MathHeight() / 5;
         for (int i = 1; i < 5; i++)
         {
-            int y = Grid::MathTop() + i * scale;
+            int y = (int)(Grid::MathTop() + i * scale);
             Painter::DrawHLine(y, Grid::Left(), Grid::Left() + 256, ColorGrid());
             if (!MenuIsMinimize())
             {
@@ -1579,43 +1578,48 @@ int Display::CalculateCountH()
 
 
 
-void Display::DrawGridType1(int left, int top, int right, int bottom, float centerX, float centerY, float deltaX, float deltaY, float stepX, float stepY)
+void Display::DrawGridType1(int left, int top, int right, int bottom, float centerX, float centerY, float deltaX,
+    float deltaY, float stepX, float stepY)
 {
     uint16 masX[17];
     masX[0] = (uint16)(left + 1);
+
     for (int i = 1; i < 7; i++)
     {
-        masX[i] = left + deltaX * i;
+        masX[i] = (uint16)(left + deltaX * i);
     }
     for (int i = 7; i < 10; i++)
     {
-        masX[i] = centerX - 8 + i;
+        masX[i] = (uint16)(centerX - 8 + i);
     }
     for (int i = 10; i < 16; i++)
     {
-        masX[i] = centerX + deltaX * (i - 9);
+        masX[i] = (uint16)(centerX + deltaX * (i - 9));
     }
+
     masX[16] = (uint16)(right - 1);
 
-    Painter::DrawMultiVPointLine(17, top + stepY, masX, stepY, CalculateCountV(), ColorGrid());
+    Painter::DrawMultiVPointLine(17, (int)(top + stepY), masX, (int)stepY, CalculateCountV(), ColorGrid());
 
     uint8 mas[13];
     mas[0] = (uint8)(top + 1);
+
     for (int i = 1; i < 5; i++)
     {
-        mas[i] = top + deltaY * i;
+        mas[i] = (uint8)(top + deltaY * i);
     }
     for (int i = 5; i < 8; i++)
     {
-        mas[i] = centerY - 6 + i;
+        mas[i] = (uint8)(centerY - 6 + i);
     }
     for (int i = 8; i < 12; i++)
     {
-        mas[i] = centerY + deltaY * (i - 7);
+        mas[i] = (uint8)(centerY + deltaY * (i - 7));
     }
+
     mas[12] = (uint8)(bottom - 1);
 
-    Painter::DrawMultiHPointLine(13, left + stepX, mas, stepX, CalculateCountH(), ColorGrid());
+    Painter::DrawMultiHPointLine(13, (int)(left + stepX), mas, (int)stepX, CalculateCountH(), ColorGrid());
 }
 
 
@@ -1643,15 +1647,17 @@ void Display::DrawGridType2(int left, int top, int right, int bottom, int deltaX
 
 
 
-void Display::DrawGridType3(int left, int top, int right, int bottom, int centerX, int centerY, int deltaX, int deltaY, int stepX, int stepY)
+void Display::DrawGridType3(int left, int top, int right, int bottom, int centerX, int centerY, int deltaX, int deltaY,
+    int stepX, int stepY)
 {
     Painter::DrawHPointLine(centerY, left + stepX, right, stepX);
-    uint8 masY[6] = {(uint8)(top + 1), (uint8)(top + 2), (uint8)(centerY - 1), (uint8)(centerY + 1), (uint8)(bottom - 2), (uint8)(bottom - 1)};
+    uint8 masY[6] = {(uint8)(top + 1), (uint8)(top + 2), (uint8)(centerY - 1), (uint8)(centerY + 1),
+        (uint8)(bottom - 2), (uint8)(bottom - 1)};
     Painter::DrawMultiHPointLine(6, left + deltaX, masY, deltaX, (right - top) / deltaX, ColorGrid());
-    Painter::DrawVPointLine(centerX, top + stepY, bottom, stepY, ColorGrid());
-    uint16 masX[6] = {(uint16)(left + 1), (uint16)(left + 2), (uint16)(centerX - 1), (uint16)(centerX + 1), (uint16)(right - 2), (uint16)(right - 1)};
+    Painter::DrawVPointLine(centerX, top + stepY, bottom, (float)stepY, ColorGrid());
+    uint16 masX[6] = {(uint16)(left + 1), (uint16)(left + 2), (uint16)(centerX - 1), (uint16)(centerX + 1),
+        (uint16)(right - 2), (uint16)(right - 1)};
     Painter::DrawMultiVPointLine(6, top + deltaY, masX, deltaY, (bottom - top) / deltaY, ColorGrid());
-
 }
 
 
@@ -1687,15 +1693,15 @@ void Display::DrawGrid(int left, int top, int width, int height)
 
     if (TYPE_GRID_IS_1)
     {
-        DrawGridType1(left, top, right, bottom, centerX, centerY, deltaX, deltaY, stepX, stepY);
+        DrawGridType1(left, top, right, bottom, (float)centerX, (float)centerY, deltaX, deltaY, stepX, stepY);
     }
     else if (TYPE_GRID_IS_2)
     {
-        DrawGridType2(left, top, right, bottom, deltaX, deltaY, stepX, stepY);
+        DrawGridType2(left, top, right, bottom, (int)deltaX, (int)deltaY, (int)stepX, (int)stepY);
     }
     else if (TYPE_GRID_IS_3)
     {
-        DrawGridType3(left, top, right, bottom, centerX, centerY, deltaX, deltaY, stepX, stepY);
+        DrawGridType3(left, top, right, bottom, centerX, centerY, (int)deltaX, (int)deltaY, (int)stepX, (int)stepY);
     }
 }
 
@@ -1751,8 +1757,8 @@ void Display::DrawCursorTrigLevel()
     int trigLev = TRIG_LEVEL(ch) + (SET_RSHIFT(ch) - RShift::ZERO);
 
     float scale = 1.0f / ((TrigLev::MAX - TrigLev::MIN) / 2.0f / Grid::ChannelHeight());
-    int y0 = (GRID_TOP + Grid::ChannelBottom()) / 2 + scale * (TrigLev::ZERO - TrigLev::MIN);
-    int y = y0 - scale * (trigLev - TrigLev::MIN);
+    int y0 = (int)((GRID_TOP + Grid::ChannelBottom()) / 2 + scale * (TrigLev::ZERO - TrigLev::MIN));
+    int y = (int)(y0 - scale * (trigLev - TrigLev::MIN));
 
     y = (y - Grid::ChannelCenterHeight()) + Grid::ChannelCenterHeight();
 
@@ -1793,7 +1799,7 @@ void Display::DrawCursorTrigLevel()
         int shiftFullMax = RShift::MAX + TrigLev::MAX;
         scale = (float)height / (shiftFullMax - shiftFullMin);
         int shiftFull = TRIG_LEVEL_SOURCE + (TRIG_SOURCE_IS_EXT ? 0 : SET_RSHIFT(ch));
-        int yFull = GRID_TOP + DELTA + height - scale * (shiftFull - RShift::MIN - TrigLev::MIN) - 4;
+        int yFull =(int)(GRID_TOP + DELTA + height - scale * (shiftFull - RShift::MIN - TrigLev::MIN) - 4);
         Painter::FillRegion(left + 2, yFull + 1, 4, 6, ColorTrig());
         Font::Set(TypeFont::_5);
         PText::DrawChar(left + 3, yFull - 5 + dY, simbols[TRIG_SOURCE], COLOR_BACK);
@@ -1804,15 +1810,15 @@ void Display::DrawCursorTrigLevel()
 
 void Display::DrawCursorRShift(Chan::E ch)
 {
-    float x = Grid::Right() - Grid::Width() - Measure_GetDeltaGridLeft();
+    float x = (float)(Grid::Right() - Grid::Width() - Measure_GetDeltaGridLeft());
 
     if (ch == Chan::Math)
     {
         int rShift = SET_RSHIFT_MATH;
         float scale = (float)Grid::MathHeight() / 960;
         float y = (Grid::MathTop() + Grid::MathBottom()) / 2.0f - scale * (rShift - RShift::ZERO);
-        PText::DrawChar(x - 9, y - 4, SYMBOL_RSHIFT_NORMAL, COLOR_FILL);
-        PText::DrawChar(x - 8, y - 5, 'm', COLOR_BACK);
+        PText::DrawChar((int)(x - 9), (int)(y - 4), SYMBOL_RSHIFT_NORMAL, COLOR_FILL);
+        PText::DrawChar((int)(x - 8), (int)(y - 5), 'm', COLOR_BACK);
         return;
     }
     if(!sChannel_Enabled(ch))
@@ -1830,24 +1836,24 @@ void Display::DrawCursorRShift(Chan::E ch)
 
     if(y > Grid::ChannelBottom())
     {
-        PText::DrawChar(x - 7, Grid::ChannelBottom() - 11, SYMBOL_RSHIFT_LOWER, ColorChannel(ch));
-        Painter::SetPoint(x - 5, Grid::ChannelBottom() - 2);
-        y = Grid::ChannelBottom() - 7;
+        PText::DrawChar((int)(x - 7), Grid::ChannelBottom() - 11, SYMBOL_RSHIFT_LOWER, ColorChannel(ch));
+        Painter::SetPoint((int)(x - 5), Grid::ChannelBottom() - 2);
+        y = (float)(Grid::ChannelBottom() - 7);
         x++;
     }
     else if(y < GRID_TOP)
     {
-        PText::DrawChar(x - 7, GRID_TOP + 2, SYMBOL_RSHIFT_ABOVE, ColorChannel(ch));
-        Painter::SetPoint(x - 5, GRID_TOP + 2);
+        PText::DrawChar((int)(x - 7), GRID_TOP + 2, SYMBOL_RSHIFT_ABOVE, ColorChannel(ch));
+        Painter::SetPoint((int)(x - 5), GRID_TOP + 2);
         y = GRID_TOP + 7;
         x++;
     }
     else
     {
-        PText::DrawChar(x - 8, y - 4, SYMBOL_RSHIFT_NORMAL, ColorChannel(ch));
+        PText::DrawChar((int)(x - 8), (int)(y - 4), SYMBOL_RSHIFT_NORMAL, ColorChannel(ch));
         if(((ch == Chan::A) ? (SHOW_LEVEL_RSHIFT_0 == 1) : (SHOW_LEVEL_RSHIFT_1 == 1)) && MODE_WORK_IS_DIRECT)
         {
-            Painter::DrawDashedHLine(y, Grid::Left(), Grid::Right(), 7, 3, 0);
+            Painter::DrawDashedHLine((int)y, Grid::Left(), Grid::Right(), 7, 3, 0);
         }
     }
 
@@ -1856,10 +1862,10 @@ void Display::DrawCursorRShift(Chan::E ch)
 
     if((!MenuIsMinimize() || !MenuIsShown()) && DRAW_RSHIFT_MARKERS)
     {
-        Painter::FillRegion(4, yFull - 3, 4, 6, ColorChannel(ch));
-        PText::DrawChar(5, yFull - 9 + dY, ch == Chan::A ? '1' : '2', COLOR_BACK);
+        Painter::FillRegion(4, (int)(yFull - 3), 4, 6, ColorChannel(ch));
+        PText::DrawChar(5, (int)(yFull - 9 + dY), ch == Chan::A ? '1' : '2', COLOR_BACK);
     }
-    PText::DrawChar(x - 7, y - 9 + dY, ch == Chan::A ? '1' : '2', COLOR_BACK);
+    PText::DrawChar((int)(x - 7), (int)(y - 9 + dY), ch == Chan::A ? '1' : '2', COLOR_BACK);
     Font::Set(TypeFont::_8);
 }
 
@@ -1874,7 +1880,8 @@ void Display::DrawCursorTShift()
     int shiftTPos = sTime_TPosInPoints((PeackDetMode::E)gDSet->peakDet, (int)gDSet->length1channel, SET_TPOS) - SHIFT_IN_MEMORY;
     float scale = (float)(lastPoint - firstPoint) / Grid::Width();
     int gridLeft = Grid::Left();
-    int x = gridLeft + shiftTPos * scale - 3;
+    int x = (int)(gridLeft + shiftTPos * scale - 3);
+
     if (IntInRange(x + 3, gridLeft, Grid::Right() + 1))
     {
         PText::Draw2Symbols(x, GRID_TOP - 1, SYMBOL_TPOS_2, SYMBOL_TPOS_3, COLOR_BACK, COLOR_FILL);
@@ -1950,10 +1957,10 @@ void Display::DrawCursors()
 
         if (bothCursors)
         {
-            x0 = Grid::Left() + CURS_POS_T0(source);
-            x1 = Grid::Left() + CURS_POS_T1(source);
-            y0 = GRID_TOP + sCursors_GetCursPosU(source, 0);
-            y1 = GRID_TOP + sCursors_GetCursPosU(source, 1);
+            x0 = (int)(Grid::Left() + CURS_POS_T0(source));
+            x1 = (int)(Grid::Left() + CURS_POS_T1(source));
+            y0 = (int)(GRID_TOP + sCursors_GetCursPosU(source, 0));
+            y1 = (int)(GRID_TOP + sCursors_GetCursPosU(source, 1));
 
             Painter::DrawRectangle(x0 - 2, y0 - 2, 4, 4);
             Painter::DrawRectangle(x1 - 2, y1 - 2, 4, 4);
@@ -1962,14 +1969,14 @@ void Display::DrawCursors()
         CursCntrl cntrl = CURS_CNTRL_T(source);
         if (cntrl != CursCntrl_Disable)
         {
-            DrawVerticalCursor(CURS_POS_T0(source), y0);
-            DrawVerticalCursor(CURS_POS_T1(source), y1);
+            DrawVerticalCursor((int)CURS_POS_T0(source), y0);
+            DrawVerticalCursor((int)CURS_POS_T1(source), y1);
         }
         cntrl = CURsU_CNTRL;
         if (cntrl != CursCntrl_Disable)
         {
-            DrawHorizontalCursor(sCursors_GetCursPosU(source, 0), x0);
-            DrawHorizontalCursor(sCursors_GetCursPosU(source, 1), x1);
+            DrawHorizontalCursor((int)sCursors_GetCursPosU(source, 0), x0);
+            DrawHorizontalCursor((int)sCursors_GetCursPosU(source, 1), x1);
         }
     }
 }
@@ -2431,7 +2438,7 @@ void Display::Clear()
 
 void Display::ShiftScreen(int delta)
 {
-    LIMITATION(SHIFT_IN_MEMORY, SHIFT_IN_MEMORY + delta, 0, sMemory_GetNumPoints(false) - 282);
+    LIMITATION(SHIFT_IN_MEMORY, (int16)(SHIFT_IN_MEMORY + delta), 0, (int16)(sMemory_GetNumPoints(false) - 282));
 }
 
 

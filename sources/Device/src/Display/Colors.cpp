@@ -23,7 +23,7 @@ void Color::ResetFlash()
 
 void ColorType::SetColor()
 {
-    set.display.colors[color] = Color::Make(red, green, blue);
+    set.display.colors[color] = Color::Make((uint8)red, (uint8)green, (uint8)blue);
     Painter::SetPalette(color);
 }
 

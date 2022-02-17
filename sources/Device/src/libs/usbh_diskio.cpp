@@ -70,7 +70,7 @@ DSTATUS USBH_status(BYTE lun)
         res = RES_OK;
     }
 
-    return res;
+    return (DSTATUS)res;
 }
 
 /**

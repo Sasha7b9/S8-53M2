@@ -860,8 +860,8 @@ void PText::Draw4SymbolsInRect(int x, int y, char eChar, Color::E color)
 
     for (int i = 0; i < 2; i++)
     {
-        DrawChar(x + 8 * i, y, eChar + i);
-        DrawChar(x + 8 * i, y + 8, eChar + i + 16);
+        DrawChar(x + 8 * i, y, (char)(eChar + i));
+        DrawChar(x + 8 * i, y + 8, (char)(eChar + i + 16));
     }
 }
 
@@ -870,8 +870,8 @@ void PText::Draw10SymbolsInRect(int x, int y, char eChar)
 {
     for (int i = 0; i < 5; i++)
     {
-        DrawChar(x + 8 * i, y, eChar + i);
-        DrawChar(x + 8 * i, y + 8, eChar + i + 16);
+        DrawChar(x + 8 * i, y, (char)(eChar + i));
+        DrawChar(x + 8 * i, y + 8, (char)(eChar + i + 16));
     }
 }
 
