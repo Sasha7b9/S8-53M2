@@ -7,11 +7,11 @@
 #include "Utils/ProcessingSignal.h"
 #include "VCP/VCP.h"
 #include "Hardware/Timer.h"
-#include "FlashDrive/FlashDrive.h"
+#include "FDrive/FDrive.h"
 #include "Menu/Menu.h"
 #include "Hardware/Sound.h"
 #include "Panel/Panel.h"
-#include "FlashDrive/FlashDrive.h"
+#include "FDrive/FDrive.h"
 #include "Menu/Pages/Definition.h"
 
 
@@ -33,7 +33,7 @@ void Device::Init()
     FPGA::OnPressStartStop();
     Display::Init();
     Panel::Init();
-//    FlashDrive::Init();
+//    FDrive::Init();
 //    HAL_RTC::Init();
 
     // LAN::Init();
@@ -51,7 +51,7 @@ void Device::Update()
     }
 
     Timer::StartMultiMeasurement();      // Сброс таймера для замера длительности временных интервалов в течение одной итерации цикла.
-    FlashDrive::Update();
+    FDrive::Update();
     FPGA::Update();                      // Обновляем аппаратную часть.
     ProcessingSignal();
     Panel::Update();

@@ -68,7 +68,7 @@ file(GLOB LIBS                src/libs/*.*)
 file(GLOB DISPLAY             src/Display/*.*)
 file(GLOB DISPLAY_FONT        src/Display/font/*.*)
 file(GLOB ETHERNET            src/Ethernet/*.*)
-file(GLOB FLASHDRIVE          src/FlashDrive/*.*)
+file(GLOB FDRIVE              src/FDrive/*.*)
 file(GLOB FPGA                src/FPGA/*.*)
 file(GLOB HARDWARE            src/Hardware/*.*)
 file(GLOB HARDWARE_HAL        src/Hardware/HAL/*.*)
@@ -86,7 +86,7 @@ source_group(libs             FILES ${LIBS})
 source_group(Display          FILES ${DISPLAY})
 source_group(Display/font     FILES ${DISPLAY_FONT})
 source_group(Ethernet         FILES ${ETHERNET})
-source_group(FlashDrive       FILES ${FLASHDRIVE})
+source_group(FDrive           FILES ${FDRIVE})
 source_group(FPGA             FILES ${FPGA})
 source_group(Hardware         FILES ${HARDWARE})
 source_group(Hardware/HAL     FILES ${HARDWARE_HAL})
@@ -109,7 +109,7 @@ set_source_files_properties(src/libs/ethernetif.cpp
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
 add_library(${PROJECT_NAME} ${SRC} ${LIBS} ${DISPLAY} ${DISPLAY_FONT} ${ETHERNET}
-                            ${FLASHDRIVE} ${FPGA} ${HARDWARE} ${HARDWARE_HAL} ${MENU} ${MENU_PAGES}
+                            ${FDRIVE} ${FPGA} ${HARDWARE} ${HARDWARE_HAL} ${MENU} ${MENU_PAGES}
                             ${PANEL} ${SETTINGS}
                             ${UTILS} ${UTILS_CONTAINERS}
                             ${VCP} ${VCP_SCPI})

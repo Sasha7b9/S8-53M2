@@ -1,7 +1,7 @@
 // 2022/2/11 19:47:53 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Definition.h"
-#include "FlashDrive/FlashDrive.h"
+#include "FDrive/FDrive.h"
 #include "Settings/SettingsTypes.h"
 #include "Settings/Settings.h"
 #include "Display/Display.h"
@@ -840,7 +840,7 @@ static void OnPress_SaveFirmware()
 {
     StructForWrite structForWrite;
 
-    FlashDrive::OpenNewFileForWrite("S8-53.bin", &structForWrite);
+    FDrive::OpenNewFileForWrite("S8-53.bin", &structForWrite);
 
     const uint ADDR_START_FIRMWARE = 0x08020000;
 
@@ -851,11 +851,11 @@ static void OnPress_SaveFirmware()
 
     while (address < endAddress)
     {
-        FlashDrive::WriteToFile(address, sizeBlock, &structForWrite);
+        FDrive::WriteToFile(address, sizeBlock, &structForWrite);
         address += sizeBlock;
     }
 
-    FlashDrive::CloseFile(&structForWrite);
+    FDrive::CloseFile(&structForWrite);
 
     Display::ShowWarningGood(FirmwareSaved);
 }

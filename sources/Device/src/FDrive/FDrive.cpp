@@ -9,7 +9,7 @@
 #include <usbh_core.h>
 #include <usbh_msc.h>
 #include "ffconf.h"
-#include "FlashDrive.h"
+#include "FDrive.h"
 #include "Hardware/HAL/HAL.h"
 
 
@@ -22,7 +22,7 @@ static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8 id);
 
 
 
-void FlashDrive::Init()
+void FDrive::Init()
 {
     if(FATFS_LinkDriver(&USBH_Driver, USBDISKPath) == FR_OK) 
     {
@@ -37,7 +37,7 @@ void FlashDrive::Init()
 }
 
 
-void FlashDrive::Update()
+void FDrive::Update()
 {
     USBH_Process((USBH_HandleTypeDef *)HAL_USBH::handle);
 }
@@ -73,7 +73,7 @@ void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8 id)
 }
 
 
-bool FlashDrive::AppendStringToFile(pchar  string)
+bool FDrive::AppendStringToFile(pchar  string)
 {
     return false;
 }
@@ -89,7 +89,7 @@ void WriteToFile(FIL *file, char *string)
 }
 
 
-void FlashDrive::GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles)
+void FDrive::GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles)
 {
     FILINFO fno;
     DIR dir;
@@ -143,7 +143,7 @@ void FlashDrive::GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles
 }
 
 
-bool FlashDrive::GetNameDir(pchar fullPath, int numDir, char *nameDirOut, StructForReadDir *s)
+bool FDrive::GetNameDir(pchar fullPath, int numDir, char *nameDirOut, StructForReadDir *s)
 {
     memcpy(s->nameDir, fullPath, strlen(fullPath));
     s->nameDir[strlen(fullPath)] = '\0';
@@ -191,7 +191,7 @@ bool FlashDrive::GetNameDir(pchar fullPath, int numDir, char *nameDirOut, Struct
 }
 
 
-bool FlashDrive::GetNextNameDir(char *nameDirOut, StructForReadDir *s)
+bool FDrive::GetNextNameDir(char *nameDirOut, StructForReadDir *s)
 {
     DIR *pDir = &s->dir;
     FILINFO *pFNO = &s->fno;
@@ -227,13 +227,13 @@ bool FlashDrive::GetNextNameDir(char *nameDirOut, StructForReadDir *s)
 }
 
 
-void FlashDrive::CloseCurrentDir(StructForReadDir *s)
+void FDrive::CloseCurrentDir(StructForReadDir *s)
 {
     f_closedir(&s->dir);
 }
 
 
-bool FlashDrive::GetNameFile(pchar fullPath, int numFile, char *nameFileOut, StructForReadDir *s)
+bool FDrive::GetNameFile(pchar fullPath, int numFile, char *nameFileOut, StructForReadDir *s)
 {
     memcpy(s->nameDir, fullPath, strlen(fullPath));
     s->nameDir[strlen(fullPath)] = '\0';
@@ -281,7 +281,7 @@ bool FlashDrive::GetNameFile(pchar fullPath, int numFile, char *nameFileOut, Str
 }
 
 
-bool FlashDrive::GetNextNameFile(char *nameFileOut, StructForReadDir *s)
+bool FDrive::GetNextNameFile(char *nameFileOut, StructForReadDir *s)
 {
     FILINFO *pFNO = &s->fno;
     bool alreadyNull = false;
@@ -315,7 +315,7 @@ bool FlashDrive::GetNextNameFile(char *nameFileOut, StructForReadDir *s)
 }
 
 
-bool FlashDrive::OpenNewFileForWrite(pchar  fullPathToFile, StructForWrite *structForWrite)
+bool FDrive::OpenNewFileForWrite(pchar  fullPathToFile, StructForWrite *structForWrite)
 {
     if (f_open(&structForWrite->fileObj, fullPathToFile, FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
     {
@@ -327,7 +327,7 @@ bool FlashDrive::OpenNewFileForWrite(pchar  fullPathToFile, StructForWrite *stru
 }
 
 
-bool FlashDrive::WriteToFile(uint8* data, int sizeData, StructForWrite *structForWrite)
+bool FDrive::WriteToFile(uint8* data, int sizeData, StructForWrite *structForWrite)
 {
     while (sizeData > 0)
     {
@@ -355,7 +355,7 @@ bool FlashDrive::WriteToFile(uint8* data, int sizeData, StructForWrite *structFo
 }
 
 
-bool FlashDrive::CloseFile(StructForWrite *structForWrite)
+bool FDrive::CloseFile(StructForWrite *structForWrite)
 {
     if (structForWrite->sizeData != 0)
     {

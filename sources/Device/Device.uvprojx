@@ -1149,17 +1149,17 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>FlashDrive</GroupName>
+          <GroupName>FDrive</GroupName>
           <Files>
             <File>
-              <FileName>FlashDrive.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\FlashDrive\FlashDrive.cpp</FilePath>
+              <FileName>FDrive.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\FDrive\FDrive.h</FilePath>
             </File>
             <File>
-              <FileName>FlashDrive.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FlashDrive\FlashDrive.h</FilePath>
+              <FileName>FDrive.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FDrive\FDrive.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -3065,17 +3065,17 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>FlashDrive</GroupName>
+          <GroupName>FDrive</GroupName>
           <Files>
             <File>
-              <FileName>FlashDrive.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\FlashDrive\FlashDrive.cpp</FilePath>
+              <FileName>FDrive.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\FDrive\FDrive.h</FilePath>
             </File>
             <File>
-              <FileName>FlashDrive.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FlashDrive\FlashDrive.h</FilePath>
+              <FileName>FDrive.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FDrive\FDrive.cpp</FilePath>
             </File>
           </Files>
         </Group>

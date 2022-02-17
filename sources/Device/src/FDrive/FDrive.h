@@ -29,7 +29,7 @@ struct StructForReadDir
     DIR dir;
 };
 
-namespace FlashDrive
+namespace FDrive
 {
     void Init();
 
