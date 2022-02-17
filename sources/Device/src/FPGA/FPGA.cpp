@@ -37,6 +37,8 @@ namespace FPGA
         void ReadPeriod();
 
         void Update(uint16 flag);
+
+        float CalculateFreqFromCounterFreq();
     }
 
     volatile int numberMeasuresForGates = 1000;
@@ -778,7 +780,7 @@ void FPGA::FreqMeter::Update(uint16 flag)
 }
 
 
-static float CalculateFreqFromCounterFreq()
+float FPGA::FreqMeter::CalculateFreqFromCounterFreq()
 {
     while (_GET_BIT(HAL_FMC::Read(RD_FL), BIT_FREQ_READY) == 0) {};
     ReadRegFreq();
@@ -1092,11 +1094,11 @@ TBase::E FPGA::FindTBase(Chan::E ch)
     TrigInput::Set(TrigInput::Full);
     Timer::PauseOnTime(10);
     FPGA::Stop(false);
-    float fr = CalculateFreqFromCounterFreq();
+    float fr = FreqMeter::CalculateFreqFromCounterFreq();
 
     TrigInput::Set(fr < 1e6f ? TrigInput::LPF : TrigInput::Full);
 
-    fr = CalculateFreqFromCounterFreq();
+    fr = FreqMeter::CalculateFreqFromCounterFreq();
 
     TBase::E tBase = TBase::Count;
 
