@@ -375,7 +375,7 @@ void TShift::Set(int tShift)
         Display::ShowWarningBad(LimitSweep_TShift);
     }
 
-    sTime_SetTShift((int16)tShift);
+    TSHIFT = (int16)tShift;
     Load();
     Display::Redraw();
 };

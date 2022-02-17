@@ -4,16 +4,3 @@
 #include "Log.h"
 #include "Utils/Math.h"
 #include "FPGA/FPGA.h"
-
-
-void sTime_SetTShift(int16 shift)
-{
-    TSHIFT = shift;
-    FPGA::ClearData();
-}
-
-
-bool sTime_RandomizeModeEnabled()
-{
-    return SET_TBASE < TBase::_100ns;
-}
