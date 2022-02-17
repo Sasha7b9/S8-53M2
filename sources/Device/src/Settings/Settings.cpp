@@ -366,3 +366,10 @@ Range::E &operator--(Range::E &range)
     range = (Range::E)((int)range - 1);
     return range;
 }
+
+
+float FFTmaxDB::Abs()
+{
+    static const float db[] = {-40.0f, -60.0f, -80.0f};
+    return db[FFT_MAX_DB];
+}

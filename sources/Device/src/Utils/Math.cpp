@@ -449,7 +449,7 @@ void Math_CalculateFFT(float *dataR, int numPoints, float *result, float *freq0,
 
     if (SCALE_FFT_IS_LOG)
     {
-        float minDB = sService_MathGetFFTmaxDBabs();
+        float minDB = FFTmaxDB::Abs();
 
         for (int i = 0; i < 256; i++)
         {

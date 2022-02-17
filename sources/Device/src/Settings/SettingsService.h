@@ -31,6 +31,3 @@ struct SettingsService
     int8              IPaddress;              // IP-адрес (временно).
     ColorScheme       colorScheme;            // ÷ветова€ схеама.
 };
-
-
-float sService_MathGetFFTmaxDBabs();
