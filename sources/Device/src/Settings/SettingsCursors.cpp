@@ -32,7 +32,7 @@ pchar  PageCursors::GetCursVoltage(Chan::E source, int numCur, char buffer[20])
 }
 
 
-pchar  sCursors_GetCursorTime(Chan::E source, int numCur, char buffer[20])
+pchar PageCursors::GetCursorTime(Chan::E source, int numCur, char buffer[20])
 {
     float time = Math_TimeCursor(CURS_POS_T(source, numCur), SET_TBASE);
         

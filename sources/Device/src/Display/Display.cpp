@@ -1233,8 +1233,8 @@ void Display::WriteCursors()
             PText::DrawText(x, y1, "1:");
             PText::DrawText(x, y2, "2:");
             x+=7;
-            PText::DrawText(x, y1, sCursors_GetCursorTime(source, 0, buffer));
-            PText::DrawText(x, y2, sCursors_GetCursorTime(source, 1, buffer));
+            PText::DrawText(x, y1, PageCursors::GetCursorTime(source, 0, buffer));
+            PText::DrawText(x, y2, PageCursors::GetCursorTime(source, 1, buffer));
             x = startX + 153;
             float pos0 = Math_TimeCursor(CURS_POS_T0(source), SET_TBASE);
             float pos1 = Math_TimeCursor(CURS_POS_T1(source), SET_TBASE);
