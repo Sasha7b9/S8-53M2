@@ -241,8 +241,8 @@ void SCPI::DISPLAY::FILTR(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value <= 9)         { SMOOTHING = (Smoothing)value; }
-        else if (10 == value)   { SMOOTHING = Smoothing_Disable; }
+        if (value <= 9)         { SMOOTHING = (Smoothing::E)value; }
+        else if (10 == value)   { SMOOTHING = Smoothing::Disable; }
         else if (11 == value)
         {
             SCPI_SEND(":DISPLAY:FILTR %s", map[SMOOTHING].key);
