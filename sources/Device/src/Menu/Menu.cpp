@@ -444,13 +444,13 @@ void Menu::ProcessingShortPressureButton()
                 NamePage name = GetNamePage((const Page *)OpenedItem());
                 if(button == B_ChannelA && name == Page_Channel0)
                 {
-                    SET_ENABLED_A = !sChannel_Enabled(Chan::A);
+                    SET_ENABLED_A = !Chan::Enabled(Chan::A);
                     PageChannelA::OnChanged_Input(true);
                     break;
                 }
                 if(button == B_ChannelB && name == Page_Channel1)
                 {
-                    SET_ENABLED_B = !sChannel_Enabled(Chan::B);
+                    SET_ENABLED_B = !Chan::Enabled(Chan::B);
                     PageChannelB::OnChanged_Input(true);
                     break;
                 }

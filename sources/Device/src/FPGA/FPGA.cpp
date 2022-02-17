@@ -1143,8 +1143,8 @@ void FPGA::TemporaryPause()
 
 void DataSettings::FillDataPointer()
 {
-    enableCh0 = sChannel_Enabled(Chan::A) ? 1U : 0U;
-    enableCh1 = sChannel_Enabled(Chan::B) ? 1U : 0U;
+    enableCh0 = Chan::Enabled(Chan::A) ? 1U : 0U;
+    enableCh1 = Chan::Enabled(Chan::B) ? 1U : 0U;
     inverseCh0 = SET_INVERSE_A ? 1U : 0U;
     inverseCh1 = SET_INVERSE_B ? 1U : 0U;
     range[0] = SET_RANGE_A;

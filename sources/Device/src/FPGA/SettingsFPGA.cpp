@@ -163,7 +163,7 @@ void FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog::E type)
 
 void Range::Set(Chan::E ch, Range::E range)
 {
-    if (!sChannel_Enabled(ch))
+    if (!Chan::Enabled(ch))
     {
         return;
     }
@@ -203,7 +203,7 @@ void Range::Load(Chan::E ch)
 
 void TBase::Set(TBase::E tBase)
 {
-    if (!sChannel_Enabled(Chan::A) && !sChannel_Enabled(Chan::B))
+    if (!Chan::Enabled(Chan::A) && !Chan::Enabled(Chan::B))
     {
         return;
     }
@@ -275,7 +275,7 @@ void TBase::Increase()
 
 void RShift::Set(Chan::E ch, int16 rShift)
 {
-    if (!sChannel_Enabled(ch))
+    if (!Chan::Enabled(ch))
     {
         return;
     }
@@ -365,7 +365,7 @@ void TrigLev::Load()
 
 void TShift::Set(int tShift)
 {
-    if (!sChannel_Enabled(Chan::A) && !sChannel_Enabled(Chan::B))
+    if (!Chan::Enabled(Chan::A) && !Chan::Enabled(Chan::B))
     {
         return;
     }

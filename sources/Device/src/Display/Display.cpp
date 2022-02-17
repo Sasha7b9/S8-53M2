@@ -301,7 +301,7 @@ bool Display::ChannelNeedForDraw(const uint8 *data, Chan::E ch, const DataSettin
 
     if (MODE_WORK_IS_DIRECT)
     {
-        if (!sChannel_Enabled(ch))
+        if (!Chan::Enabled(ch))
         {
             return false;
         }
@@ -633,7 +633,7 @@ void Display::WriteParametersFFT(Chan::E ch, float freq0, float density0, float 
 
 void Display::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan::E ch)
 {
-    if (!sChannel_Enabled(ch))
+    if (!Chan::Enabled(ch))
     {
         return;
     }
@@ -1830,7 +1830,7 @@ void Display::DrawCursorRShift(Chan::E ch)
         PText::DrawChar((int)(x - 8), (int)(y - 5), 'm', COLOR_BACK);
         return;
     }
-    if(!sChannel_Enabled(ch))
+    if(!Chan::Enabled(ch))
     {
         return;
     }

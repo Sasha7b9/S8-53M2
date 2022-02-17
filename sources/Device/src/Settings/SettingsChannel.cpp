@@ -48,7 +48,7 @@ int Divider::ToAbs(Divider::E multiplier)
 }
 
 
-bool sChannel_Enabled(Chan::E ch)
+bool Chan::Enabled(Chan::E ch)
 {
     if (ch == Chan::Math && !DISABLED_DRAW_MATH)
     {

@@ -101,7 +101,7 @@ static const Choice mcInputA =
 
 void PageChannelA::OnChanged_Input(bool active)
 {
-    Panel::EnableLEDChannel0(sChannel_Enabled(Chan::A));
+    Panel::EnableLEDChannel0(Chan::Enabled(Chan::A));
 }
 
 
@@ -228,7 +228,7 @@ static const Choice mcInputB =  //  ¿Õ¿À 2
 
 void PageChannelB::OnChanged_Input(bool active)
 {
-    Panel::EnableLEDChannel1(sChannel_Enabled(Chan::B));
+    Panel::EnableLEDChannel1(Chan::Enabled(Chan::B));
 }
 
 

@@ -16,13 +16,19 @@ enum MissedSignals
 
 
 // ChannelX
-struct Chan { enum E {
-    A,
-    B,
-    A_B,
-    Math,
-    Count = 2
-}; };
+struct Chan 
+{ 
+    enum E
+    {
+        A,
+        B,
+        A_B,
+        Math,
+        Count = 2
+    };
+
+    static bool Enabled(E);
+};
 
 
 #define ChA Chan::A
