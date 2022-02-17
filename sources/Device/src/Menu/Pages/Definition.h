@@ -30,6 +30,15 @@ struct PageCursors
 };
 
 
+struct PageDebug
+{
+    struct SerialNumber
+    {
+        static void *GetPointer();
+    };
+};
+
+
 struct PageHelp
 {
     static void *GetPointer();

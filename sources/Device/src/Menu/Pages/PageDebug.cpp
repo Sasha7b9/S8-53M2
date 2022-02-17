@@ -12,7 +12,6 @@
 #include "FPGA/TypesFPGA_old.h"
 #include "Hardware/Sound.h"
 #include "Menu/Menu.h"
-#include "Menu/Pages/PageDebug.h"
 #include "Log.h"
 #include "Hardware/HAL/HAL.h"
 #include <stdio.h>
