@@ -15,8 +15,11 @@
 StateWorkFPGA::E StateWorkFPGA::current = StateWorkFPGA::Stop;
 
 
-// Добавочные смещения по времени для разверёток режима рандомизатора.
-static int16 deltaTShift[TBase::Count] = {505, 489, 464, 412, 258};
+namespace SettingsFPGA
+{
+    // Добавочные смещения по времени для разверёток режима рандомизатора.
+    int16 deltaTShift[TBase::Count] = {505, 489, 464, 412, 258};
+}
 
 struct TBaseMaskStruct
 {
@@ -226,7 +229,7 @@ void TBase::Load()
     TBase::E tBase = SET_TBASE;
     uint8 mask = PEAKDET ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
     FPGA::WriteToHardware(WR_RAZV, mask, true);
-    ADD_SHIFT_T0 = deltaTShift[tBase];
+    ADD_SHIFT_T0 = SettingsFPGA::deltaTShift[tBase];
 }
 
 
@@ -383,7 +386,7 @@ void TShift::Set(int tShift)
 
 void TShift::SetDelta(int16 shift)
 {
-    deltaTShift[SET_TBASE] = shift;
+    SettingsFPGA::deltaTShift[SET_TBASE] = shift;
     Load();
 }
 
@@ -445,7 +448,7 @@ void TShift::Load()
 
     if (tBase < TBase::_100ns)
     {
-        tShift = tShift / k[tBase] + deltaTShift[tBase];
+        tShift = tShift / k[tBase] + SettingsFPGA::deltaTShift[tBase];
     }
 
     int additionShift = (tShiftOld % k[tBase]) * 2;
