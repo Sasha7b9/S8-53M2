@@ -18,7 +18,7 @@ extern const Button       bResetSettings;               // СЕРВИС - Сброс настро
 static void        OnPress_ResetSettings();
 static void FuncDraw();
 static void OnTimerDraw();
-extern const Button       bAutoSearch;                  // СЕРВИС - Поиск сигнала
+extern const Button bAutoSearch;                  // СЕРВИС - Поиск сигнала
 static void        OnPress_AutoSearch();
 extern const Page        ppCalibrator;                  // СЕРВИС - КАЛИБРАТОР
 extern const Choice       cCalibrator_Mode;             // СЕРВИС - КАЛИБРАТОР - Калибратор
@@ -114,7 +114,7 @@ const Page pService                     // СЕРВИС
 );
 
 // СЕРВИС - Сброс настроек --
-static const Button bResetSettings
+const Button bResetSettings
 (
     &pService, 0,
     "Сброс настроек", "Reset settings",

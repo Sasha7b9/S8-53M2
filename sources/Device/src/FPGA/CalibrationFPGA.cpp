@@ -383,7 +383,7 @@ float FPGA::CalculateDeltaADC(Chan::E ch, float *avgADC1, float *avgADC2, float 
             }
         }
         
-        bar->passedTime = gTimerMS - *startTime;
+        bar->passedTime = (float)(gTimerMS - *startTime);
         bar->fullTime = bar->passedTime * (float)numCicles / (cicle + 1);
     }
 
@@ -398,9 +398,9 @@ float FPGA::CalculateDeltaADC(Chan::E ch, float *avgADC1, float *avgADC2, float 
 
 void FPGA::AlignmentADC()
 {
-    shiftADC0 = (deltaADCold[0] > 0) ? (deltaADCold[0] + 0.5f) : (deltaADCold[0] - 0.5f);
+    shiftADC0 = (int8)((deltaADCold[0] > 0) ? (deltaADCold[0] + 0.5f) : (deltaADCold[0] - 0.5f));
     SET_BALANCE_ADC_A = shiftADC0;
-    shiftADC1 = (deltaADCold[1] > 0) ? (deltaADCold[1] + 0.5f) : (deltaADCold[1] - 0.5f);
+    shiftADC1 = (int8)((deltaADCold[1] > 0) ? (deltaADCold[1] + 0.5f) : (deltaADCold[1] - 0.5f));
     SET_BALANCE_ADC_B = shiftADC1;
 }
 
@@ -460,7 +460,7 @@ int16 FPGA::CalculateAdditionRShift(Chan::E ch, Range::E range)
     }
 
     float aveValue = (float)sum / numPoints;
-    int16 retValue = -(aveValue - ValueFPGA::AVE) * 2;
+    int16 retValue = (int16)(-(aveValue - ValueFPGA::AVE) * 2);
 
     if(retValue < - 100 || retValue > 100)
     {

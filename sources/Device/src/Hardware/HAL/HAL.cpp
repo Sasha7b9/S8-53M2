@@ -59,7 +59,7 @@ void HAL_MspInit()
 }
 
 
-static void HAL::SystemClock_Config()
+void HAL::SystemClock_Config()
 {
     RCC_OscInitTypeDef RCC_OscInitStruct = { 0 };
     RCC_ClkInitTypeDef RCC_ClkInitStruct = { 0 };

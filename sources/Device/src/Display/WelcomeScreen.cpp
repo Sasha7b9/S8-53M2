@@ -118,7 +118,7 @@ bool WelcomeScreen::Run()
         }
     }
 
-    PText::DrawBigText(45, y0, 8, "МНИПИ");
+    PText::DrawBigText(45, (int)y0, 8, "МНИПИ");
 
     PText::DrawStringInCenterRect(0, 190, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");
     PText::DrawStringInCenterRect(0, 205, 320, 20, "Отдел маркетинга: тел./факс. 8-017-262-57-50");
@@ -172,7 +172,7 @@ void WelcomeScreen::Update() {
         PresentPointToScreen(&p0out3, &x0, &y0);
         PresentPointToScreen(&p1out3, &x1, &y1);
 
-        Painter::DrawLine(x0, y0, x1, y1, Color::WHITE);
+        Painter::DrawLine((int)x0, (int)y0, (int)x1, (int)y1, Color::WHITE);
     }
     Painter::EndScene();
 }

@@ -238,7 +238,7 @@ void Painter::DrawVLine(int x, int y0, int y1, Color::E color)
 
     int counter = y1 - y0 + 1;
 
-    uint8 value = Color::GetCurrent();
+    uint8 value = (uint8)Color::GetCurrent();
 
     do
     {
@@ -271,7 +271,7 @@ void Painter::DrawVPointLine(int x, int y0, int y1, float delta, Color::E color)
 
 void Painter::DrawHPointLine(int y, int x0, int x1, float delta)
 {
-    for (int x = x0; x <= x1; x += delta)
+    for (int x = x0; x <= x1; x += (int)delta)
     {
         SetPoint(x, y);
     }
@@ -289,7 +289,7 @@ void Painter::SetPoint(int x, int y)
 
     if (address < Display::back_buffer_end)
     {
-        *address = Color::GetCurrent();
+        *address = (uint8)Color::GetCurrent();
     }
 
     if (InterCom::TransmitGUIinProcess())
@@ -560,7 +560,7 @@ void Painter::DrawSignal(const int _x, uint8 data[281], bool modeLines)
 
     if (InterCom::TransmitGUIinProcess())
     {
-        CommandBuffer command(284, modeLines ? DRAW_SIGNAL_LINES : DRAW_SIGNAL_POINTS);
+        CommandBuffer command(284, (uint8)(modeLines ? DRAW_SIGNAL_LINES : DRAW_SIGNAL_POINTS));
         command.PushHalfWord(_x);
 
         for (int i = 0; i < 281; i++)
@@ -631,13 +631,13 @@ void Painter::EndScene(bool endScene)
 
 uint Painter::ReduceBrightness(uint colorValue, float newBrightness)
 {
-    int red = R_FROM_COLOR(colorValue) * newBrightness;
+    int red = (int)(R_FROM_COLOR(colorValue) * newBrightness);
     LIMITATION(red, red, 0, 255);
 
-    int green = G_FROM_COLOR(colorValue) * newBrightness;
+    int green = (int)(G_FROM_COLOR(colorValue) * newBrightness);
     LIMITATION(green, green, 0, 255);
 
-    int blue = B_FROM_COLOR(colorValue) * newBrightness;
+    int blue = (int)(B_FROM_COLOR(colorValue) * newBrightness);
     LIMITATION(blue, blue, 0, 255);
 
     return Color::Make((uint8)red, (uint8)green, (uint8)blue);
@@ -730,9 +730,9 @@ bool Painter::SaveScreenToFlashDrive() {
     for(int i = 0; i < 16; i++)
     {
         uint color = set.display.colors[i];
-        colorStruct.blue = (float)B_FROM_COLOR(color) / 31.0f * 255.0f;
-        colorStruct.green = (float)G_FROM_COLOR(color) / 63.0f * 255.0f;
-        colorStruct.red = (float)R_FROM_COLOR(color) / 31.0f * 255.0f;
+        colorStruct.blue = (uint8)((float)B_FROM_COLOR(color) / 31.0f * 255.0f);
+        colorStruct.green = (uint8)((float)G_FROM_COLOR(color) / 63.0f * 255.0f);
+        colorStruct.red = (uint8)((float)R_FROM_COLOR(color) / 31.0f * 255.0f);
         colorStruct.rgbReserved = 0;
         ((RGBQUAD*)(buffer))[i] = colorStruct;
     }
@@ -748,7 +748,7 @@ bool Painter::SaveScreenToFlashDrive() {
     {
         for(int x = 1; x < 320; x += 2)
         {
-            uint8 color = GetColor(x, y);
+            uint8 color = (uint8)GetColor(x, y);
 
             buffer[x / 2] = (uint8)(((color & 0x0f) << 4) + (color >> 4));
         }
