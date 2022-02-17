@@ -8,7 +8,7 @@
 
 int sDisplay_NumSignalsInS()
 {
-    return Tables_ENUMtoNumSignalsInSec(ENUM_SIGNALS_IN_SEC);
+    return ENumSignalsInSec::ToNum(ENUM_SIGNALS_IN_SEC);
 }
 
 
@@ -105,4 +105,19 @@ ENumSignalsInSec::E ENumSignalsInSec::FromNum(int num)
     LOG_ERROR("Число сигналов в секунду равно %d", num);
 
     return ENumSignalsInSec::_1;
+}
+
+
+int ENumSignalsInSec::ToNum(ENumSignalsInSec::E enumSignalsInSec)
+{
+    static const int fps[] = {25, 10, 5, 2, 1};
+
+    if (enumSignalsInSec <= ENumSignalsInSec::_1)
+    {
+        return fps[enumSignalsInSec];
+    }
+
+    LOG_ERROR("Неправильный параметр %d", (int)enumSignalsInSec);
+
+    return 1;
 }

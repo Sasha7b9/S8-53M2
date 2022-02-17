@@ -62,18 +62,6 @@ pchar  symbolsAlphaBet[0x48] =
 };
 
 
-int Tables_ENUMtoNumSignalsInSec(ENumSignalsInSec::E enumSignalsInSec)
-{
-    static const int fps[] = {25, 10, 5, 2, 1};
-    if(enumSignalsInSec <= ENumSignalsInSec::_1)
-    {
-        return fps[enumSignalsInSec];
-    }
-    LOG_ERROR("Неправильный параметр %d", (int)enumSignalsInSec);
-    return 1;
-}
-
-
 pchar  Tables_GetWarning(Warning warning)
 {
     static pchar warnings[Warning_NumWarnings][2] =

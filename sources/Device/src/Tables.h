@@ -41,8 +41,6 @@ enum WarningWithNumber
 };
 
 
-int Tables_ENUMtoNumSignalsInSec(ENumSignalsInSec::E enumSignalsInSec);
-
 pchar  Tables_GetWarning(Warning warning);
 
 pchar  Tables_GetTBaseString(TBase::E);

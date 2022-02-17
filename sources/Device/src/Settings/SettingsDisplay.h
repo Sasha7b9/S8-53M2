@@ -157,6 +157,7 @@ struct ENumSignalsInSec
     };
 
     static ENumSignalsInSec::E FromNum(int num);
+    static int ToNum(ENumSignalsInSec::E);
 };
 
 // Режим накопления.
