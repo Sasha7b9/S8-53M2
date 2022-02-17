@@ -140,12 +140,12 @@ void Menu::Draw()
         int y = 0;
         int width = MenuIsMinimize() ? 289 : 220;
         PText::DrawTextInBoundedRectWithTransfers(x + 1, y, width - 1,
-            set.common.lang == Russian ?    "Включён режим подсказок. В этом режиме при нажатии на кнопку на экран выводится информация о её назначении. "
+            LANG_RU ?    "Включён режим подсказок. В этом режиме при нажатии на кнопку на экран выводится информация о её назначении. "
                                                 "Чтобы выключить этот режим, нажмите кнопку ПОМОЩЬ и удерживайте её в течение 0.5с." : 
                                                 "Mode is activated hints. In this mode, pressing the button displays the information on its purpose. "
                                                 "To disable this mode, press the button HELP and hold it for 0.5s.",
                                                 COLOR_BACK, COLOR_FILL);
-        y += set.common.lang == Russian ? 49 : 40;
+        y += LANG_RU ? 49 : 40;
         if (gStringForHint)
         {
             PText::DrawTextInBoundedRectWithTransfers(x + 1, y, width - 1, gStringForHint, COLOR_BACK, COLOR_FILL);

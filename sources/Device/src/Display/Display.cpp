@@ -1277,7 +1277,7 @@ void Display::DrawHiRightPart()
         if (TRIG_ENABLE)
         {
             Painter::FillRegion(x, 1 + y, GRID_TOP - 3, GRID_TOP - 7);
-            PText::DrawText(x + 3, 3 + y, set.common.lang == Russian ? "СИ" : "Tr", COLOR_BACK);
+            PText::DrawText(x + 3, 3 + y, LANG_RU ? "СИ" : "Tr", COLOR_BACK);
         }
     }
 
@@ -1294,7 +1294,7 @@ void Display::DrawHiRightPart()
         x += 18;
         Painter::DrawVLine(x, 1, GRID_TOP - 2, COLOR_FILL);
         x += 2;
-        PText::DrawText(set.common.lang == Russian ? x : x + 3, -1, set.common.lang == Russian ? "режим" : "mode");
+        PText::DrawText(LANG_RU ? x : x + 3, -1, LANG_RU ? "режим" : "mode");
         PText::DrawStringInCenterRect(x + 1, 9, 25, 8, strings_[MODE_WORK][set.common.lang]);
     }
     else
@@ -2120,7 +2120,7 @@ void Display::WriteTextVoltage(Chan::E ch, int x, int y)
 
         char buffer[100] = {0};
 
-        sprintf(buffer, "%s\xa5%s\xa5%s", (ch == Chan::A) ? (set.common.lang == Russian ? "1к" : "1c") : (set.common.lang == Russian ? "2к" : "2c"), couple[modeCouple], 
+        sprintf(buffer, "%s\xa5%s\xa5%s", (ch == Chan::A) ? (LANG_RU ? "1к" : "1c") : (LANG_RU ? "2к" : "2c"), couple[modeCouple], 
             Range::ToString(range, multiplier));
 
         PText::DrawText(x + 1, y, buffer, colorDraw);

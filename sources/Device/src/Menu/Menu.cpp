@@ -144,7 +144,7 @@ void Menu::ProcessButtonForHint(PanelButton button)
 {
     if (button == B_Menu)
     {
-        gStringForHint = set.common.lang == Russian ?
+        gStringForHint = LANG_RU ?
             "Кнопка МЕНЮ выполняет следующие функции:\n"
             "1. При закрытом меню нажатие либо нажатие с удержанием в течение 0.5с открывает меню.\n"
             "2. При открытом меню удержание кнопки в течение 0.5с закрывает меню.\n"
@@ -168,21 +168,21 @@ void Menu::ProcessButtonForHint(PanelButton button)
 
     } else if (button == B_Cursors)
     {
-        gStringForHint = set.common.lang == Russian ? 
+        gStringForHint = LANG_RU ? 
             "Кнопка КУРСОРЫ открывает меню курсорных измерений."
             :
             "КУРСОРЫ button to open the menu cursor measurements.";
     }
     else if (button == B_Display)
     {
-        gStringForHint = set.common.lang == Russian ?
+        gStringForHint = LANG_RU ?
             "Кнопка ДИСПЛЕЙ открывает меню настроек дисплея."
             :
             "DISPLAY button opens the display settings menu.";
     }
     else if (button == B_Memory)
     {
-        gStringForHint = set.common.lang == Russian ?
+        gStringForHint = LANG_RU ?
             "1. При настройке \"ПАМЯТЬ\x99ВНЕШН ЗУ\x99Реж кн ПАМЯТЬ\x99Меню\" открывает меню работы с памятью.\n"
             "2. При настройке \"ПАМЯТь\x99ВНЕШН ЗУ\x99Реж кн ПАМЯТЬ\x99Сохранение\" сохраняет сигнал на флеш-диск."
             :
@@ -191,14 +191,14 @@ void Menu::ProcessButtonForHint(PanelButton button)
     }
     else if (button == B_Measures)
     {
-        gStringForHint = set.common.lang == Russian ?
+        gStringForHint = LANG_RU ?
             "Кнопка ИЗМЕР открывает меню автоматических измерений."
             :
             "ИЗМЕР button opens a menu of automatic measurements.";
     }
     else if (button == B_Help)
     {
-        gStringForHint = set.common.lang == Russian ?
+        gStringForHint = LANG_RU ?
             "1. Кнопка ПОМОЩЬ открывает меню помощи.\n"
             "2. Нажатие и удержание кнопки ПОМОЩЬ в течение 0.5с включает и отключает режим вывода подсказок."
             :
@@ -207,21 +207,21 @@ void Menu::ProcessButtonForHint(PanelButton button)
     }
     else if (button == B_Service)
     {
-        gStringForHint = set.common.lang == Russian ?
+        gStringForHint = LANG_RU ?
             "Кнопка СЕРВИС открывает меню сервисных возможностей."
             :
             "СЕРВИС button opens a menu of service options.";
     }
     else if (button == B_Start)
     {
-        gStringForHint = set.common.lang == Russian ?
+        gStringForHint = LANG_RU ?
             "Кнопка ПУСК/СTOП запускает и останавливает процесс сбора информации."
             :
             "ПУСК/СTOП button starts and stops the process of gathering information.";
     }
     else if (button == B_ChannelA)
     {
-        gStringForHint = set.common.lang == Russian ?
+        gStringForHint = LANG_RU ?
             "1. Кнопка КАНАЛ1 открывает меню настроек канала 1.\n"
             "2. Нажатие и удержание кнопки КАНАЛ1 в течение 0.5с устанавливает смещение канала 1 по вертикали 0В."
             :
@@ -230,7 +230,7 @@ void Menu::ProcessButtonForHint(PanelButton button)
     }
     else if (button == B_ChannelB)
     {
-        gStringForHint = set.common.lang == Russian ?
+        gStringForHint = LANG_RU ?
             "1. Кнопка КАНАЛ2 открывает меню настроек канала 2.\n"
             "2. Нажатие и удержание кнопки КАНАЛ2 в течение 0.5с устанавливает смещение канала 2 по вертикали 0В."
             :
@@ -239,7 +239,7 @@ void Menu::ProcessButtonForHint(PanelButton button)
     }
     else if (button == B_Time)
     {
-        gStringForHint = set.common.lang == Russian ?
+        gStringForHint = LANG_RU ?
             "1. Кнопка РАЗВ открывает меню настроек развертки.\n"
             "2. Нажатие и удержание кнопки РАЗВ в течение 0.5с устанавливает смещение по горизонтали 0с."
             :
@@ -248,7 +248,7 @@ void Menu::ProcessButtonForHint(PanelButton button)
     }
     else if (button == B_Trig)
     {
-        gStringForHint = set.common.lang == Russian ?
+        gStringForHint = LANG_RU ?
             "1. Кнопка СИНХР открывает меню настроек синхронизации.\n"
             "2. Нажатие и удержание в течение 0.5с кнопки СИНХР при настройке \"СЕРВИС\x99Реж длит СИНХР\x99Автоуровень\" производит автоматическую настройку уровня синхронизации.\n"
             "3. Нажатие и удержание в течение 0.5с кнопки СИНХР при настройке \"СЕРВИС\x99Реж длит СИНХР\x99Сброс уровня\" устанавливает уровень синхронизации 0В."
