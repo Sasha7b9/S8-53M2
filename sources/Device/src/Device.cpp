@@ -76,7 +76,7 @@ void Device::ProcessingSignal()
     if (MODE_WORK_IS_DIRECT)
     {
         Storage::GetDataFromEnd(0, &gDSet, &gData0, &gData1);
-        if (sDisplay_NumAverage() != 1 || sTime_RandomizeModeEnabled())
+        if (sDisplay_NumAverage() != 1 || TBase::InRandomizeMode())
         {
             gData0 = Storage::GetAverageData(Chan::A);
             gData1 = Storage::GetAverageData(Chan::B);

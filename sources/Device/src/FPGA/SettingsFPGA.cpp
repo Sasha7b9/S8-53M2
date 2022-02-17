@@ -405,7 +405,7 @@ void CalibratorMode::Set(CalibratorMode::E calibratorMode)
 void FPGA::LoadRegUPR()
 {
     uint8 data = 0;
-    if (sTime_RandomizeModeEnabled())
+    if (TBase::InRandomizeMode())
     {
         _SET_BIT(data, 0);
     }
@@ -545,4 +545,10 @@ void Filtr::Enable(Chan::E ch, bool enable)
 {
     SET_FILTR(ch) = enable;
     FPGA::SetAttribChannelsAndTrig(ch == Chan::A ? TypeWriteAnalog::ChanParam0 : TypeWriteAnalog::ChanParam1);
+}
+
+
+bool TBase::InRandomizeMode()
+{
+    return SET_TBASE <= TBase::MAX_RAND;
 }

@@ -803,7 +803,7 @@ bool Display::DrawDataInModeNormal()
 
     int16 numSignals = (int16)Storage::NumElementsWithSameSettings();
     LIMITATION(numSignals, numSignals, 1, NUM_ACCUM);
-    if (numSignals == 1 || ENUM_ACCUM_IS_INFINITY || MODE_ACCUM_IS_RESET || sTime_RandomizeModeEnabled())
+    if (numSignals == 1 || ENUM_ACCUM_IS_INFINITY || MODE_ACCUM_IS_RESET || TBase::InRandomizeMode())
     {
         DrawBothChannels(0, 0);
         if (prevAddr == 0 || prevAddr != ds->addrPrev)
@@ -1350,20 +1350,24 @@ void Display::DrawCursorsRShift()
 bool Display::NeedForClearScreen()
 {
     int numAccum = NUM_ACCUM;
-    if (sTime_RandomizeModeEnabled() || numAccum == 1 || MODE_ACCUM_IS_NORESET || SET_SELFRECORDER)
+
+    if (TBase::InRandomizeMode() || numAccum == 1 || MODE_ACCUM_IS_NORESET || SET_SELFRECORDER)
     {
         return true;
     }
+
     if (NEED_FINISH_REDRAW)
     {
         NEED_FINISH_REDRAW = 0;
         return true;
     }
+
     if (MODE_ACCUM_IS_RESET && NUM_DRAWING_SIGNALS >= (uint)numAccum)
     {
         NUM_DRAWING_SIGNALS = 0;
         return true;
     }
+
     return false;
 }
 

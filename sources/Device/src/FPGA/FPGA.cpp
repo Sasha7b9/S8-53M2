@@ -27,9 +27,16 @@ namespace FPGA
         float prevFreq = 0.0f;
         bool readPeriod = false;     // Установленный в true флаг означает, что частоту нужно считать по счётчику периода
 
+        static BitSet32 freqActual;
+        static BitSet32 periodActual;
+
+        void Init();
+
         void ReadFreq();
 
         void ReadPeriod();
+
+        void Update(uint16 flag);
     }
 
     volatile int numberMeasuresForGates = 1000;
@@ -152,11 +159,12 @@ bool FPGA::ProcessingData()
 {
     bool retValue = false;
 
-    int num = (sTime_RandomizeModeEnabled() && (!START_MODE_IS_SINGLE) && SAMPLE_TYPE_IS_EQUAL) ? Kr[SET_TBASE] : 1;
+    int num = (TBase::InRandomizeMode() && (!START_MODE_IS_SINGLE) && SAMPLE_TYPE_IS_EQUAL) ? Kr[SET_TBASE] : 1;
     
    for (int i = 0; i < num; i++)
    {
         uint8 flag = ReadFlag();
+
         if (FPGA_CRITICAL_SITUATION)
         {
             if (gTimerMS - timeStart > 500)
@@ -165,22 +173,24 @@ bool FPGA::ProcessingData()
                 TRIG_AUTO_FIND = 1;
                 FPGA_CRITICAL_SITUATION = 0;
             }
-            else if (_GET_BIT(flag, BIT_TRIG))
+            else if (_GET_BIT(flag, FL_TRIG))
             {
                 FPGA_CRITICAL_SITUATION = 0;
             }
         }
-        else if (_GET_BIT(flag, BIT_DATA_READY))
+        else if (_GET_BIT(flag, FL_DATA))
         {
             if (set.debug.showRegisters.flag)
             {
                 char buffer[9];
                 LOG_WRITE("флаг готовности %s", Bin2String(flag, buffer));
             }
+
             Panel::EnableLEDTrig(true);
             FPGA::Stop(true);
             DataRead(_GET_BIT(flag, BIT_SIGN_SHIFT_POINT), (num == 1) || (i == num - 1));
             retValue = true;
+
             if (!START_MODE_IS_SINGLE)
             {
                 Start();
@@ -202,7 +212,8 @@ bool FPGA::ProcessingData()
                 timeStart = gTimerMS;
             }
         }
-        Panel::EnableLEDTrig(_GET_BIT(flag, BIT_TRIG) ? true : false);
+
+        Panel::EnableLEDTrig(_GET_BIT(flag, FL_TRIG) ? true : false);
     }
 
     return retValue;
@@ -223,11 +234,11 @@ void FPGA::Update()
         return;
     }
 
-	if(AUTO_FIND_IN_PROGRESS)
+    if (AUTO_FIND_IN_PROGRESS)
     {
-		AutoFind();
-		return;
-	}
+        AutoFind();
+        return;
+    }
 
     if((FPGA_CAN_READ_DATA == 0) || (StateWorkFPGA::GetCurrent() == StateWorkFPGA::Stop))
     {
@@ -424,6 +435,7 @@ void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
 {
     Panel::EnableLEDTrig(false);
     FPGA_IN_PROCESS_READ = 1;
+
     if((TBase::E)ds.tBase < TBase::_100ns)
     {
         ReadRandomizeMode();
@@ -438,7 +450,7 @@ void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
     if (saveToStorage || (gTimerMS - prevTime > 500))
     {
         prevTime = gTimerMS;
-        if (!sTime_RandomizeModeEnabled())
+        if (!TBase::InRandomizeMode())
         {
             InverseDataIsNecessary(Chan::A, dataRel0);
             InverseDataIsNecessary(Chan::B, dataRel1);
@@ -543,7 +555,7 @@ int FPGA::CalculateShift()            // \todo Не забыть восстановить функцию
         return TShift::EMPTY;
     }
     
-    if (sTime_RandomizeModeEnabled())
+    if (TBase::InRandomizeMode())
     {
         float tin = (float)(rand - min) / (float)(max - min) * 10e-9f;
         int retValue = (int)(tin / 10e-9f * (float)Kr[SET_TBASE]);
@@ -729,22 +741,40 @@ void FPGA::FreqMeter::ReadPeriod()
 
 uint8 FPGA::ReadFlag()
 {
-    uint8 flag = HAL_FMC::Read(RD_FL);
+    uint16 flag = HAL_FMC::Read(RD_FL);
 
-    if(!FreqMeter::readPeriod) 
+    FreqMeter::Update(flag);
+
+    return flag;
+}
+
+
+void FPGA::FreqMeter::Update(uint16 flag)
+{
+    bool freqReady = _GET_BIT(flag, FL_FREQ) == 1;
+    bool periodReady = _GET_BIT(flag, FL_PERIOD) == 1;
+
+    if (freqReady)
     {
-        if(_GET_BIT(flag, BIT_FREQ_READY)) 
+        freqActual.half_word[0] = *RD_FREQ_LOW;
+        freqActual.half_word[1] = *RD_FREQ_HI;
+
+        if (!readPeriod)
         {
-            FreqMeter::ReadFreq();
+            ReadFreq();
         }
     }
 
-    if(FreqMeter::readPeriod && _GET_BIT(flag, BIT_PERIOD_READY)) 
+    if (periodReady)
     {
-        FreqMeter::ReadPeriod();
-    }
+        periodActual.half_word[0] = *RD_PERIOD_LOW;
+        periodActual.half_word[1] = *RD_PERIOD_HI;
 
-    return flag;
+        if (readPeriod)
+        {
+            ReadPeriod();
+        }
+    }
 }
 
 

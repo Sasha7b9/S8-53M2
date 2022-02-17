@@ -230,7 +230,7 @@ void Storage::CalculateSums()
 
     int numAveragings = 0;
 
-    if (sTime_RandomizeModeEnabled())
+    if (TBase::InRandomizeMode())
     {
         numAveragings = NUM_AVE_FOR_RAND;
     }

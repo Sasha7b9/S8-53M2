@@ -47,8 +47,15 @@
 #define RD_PERIOD_LOW           (HAL_FMC::_ADDR_FPGA + 0x20)
 #define RD_PERIOD_HI            (HAL_FMC::_ADDR_FPGA + 0x28)
 #define RD_FL                   (HAL_FMC::_ADDR_FPGA + 0x30)
-    #define BIT_DATA_READY          0
-    #define BIT_TRIG                1
+    #define FL_DATA             0   // 0 - данные готовы
+    #define FL_TRIG             1   // 1 - наличие синхроимпульса
+    #define FL_PRED             2   // 2 - окончание счета предзапуска
+    #define FL_POINT            3   // 3 - признак того, что точка готова (в поточечном выводе)
+    #define FL_FREQ             4   // 4 - можно считывать частоту
+    #define FL_PERIOD           5   // 5 - можно считывать период
+    #define FL_LAST_RECOR       6   // 6 - признак последней записи - определяет, какой бит ставить первым
+    #define FL_OVERFLOW_FREQ    8   // 8 - признак переполнения счётчика частоты
+    #define FL_OVERFLOW_PERIOD  9   // 9 - признак переполнения счётчика периода
 
 struct TypeWriteAnalog
 {

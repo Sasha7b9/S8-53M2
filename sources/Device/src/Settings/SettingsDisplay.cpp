@@ -60,7 +60,7 @@ void sDisplay_SetBrightness(int16 brightness)
 
 ModeAveraging sDisplay_ModeAveraging()
 {
-    if (sTime_RandomizeModeEnabled())
+    if (TBase::InRandomizeMode())
     {
         return Averaging_Around;
     }
@@ -70,7 +70,7 @@ ModeAveraging sDisplay_ModeAveraging()
 
 int sDisplay_NumAverage()
 {
-    if (sTime_RandomizeModeEnabled() && (NUM_AVE_FOR_RAND >= NUM_AVE))
+    if (TBase::InRandomizeMode() && (NUM_AVE_FOR_RAND >= NUM_AVE))
     {
         return NUM_AVE_FOR_RAND;
     }

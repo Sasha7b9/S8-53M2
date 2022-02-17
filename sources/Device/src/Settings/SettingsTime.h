@@ -90,5 +90,3 @@ int sTime_TShiftInPoints(PeackDetMode::E peakDet);
 int16 sTime_TShiftMin();
 // —мещение по времени, соответствующее позиции TPos.
 int16 sTime_TShiftZero();
-// ≈сли true, значит, работает рандомизатор.
-bool sTime_RandomizeModeEnabled();

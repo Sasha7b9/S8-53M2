@@ -71,7 +71,7 @@ static const Choice mcSample =
 
 static bool IsActive_Sample()
 {
-    return sTime_RandomizeModeEnabled();
+    return TBase::InRandomizeMode();
 }
 
 // ĞÀÇÂÅĞÒÊÀ - Ïèê äåò ------
