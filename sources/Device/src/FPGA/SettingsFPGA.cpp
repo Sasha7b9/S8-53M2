@@ -21,46 +21,6 @@ namespace SettingsFPGA
     int16 deltaTShift[TBase::Count] = {505, 489, 464, 412, 258};
 }
 
-struct TBaseMaskStruct
-{
-    uint8 maskNorm;         // Маска. Требуется для записи в аппаратную часть при выключенном режиме пикового детектора.
-    uint8 maskPeackDet;     // Маска. Требуется для записи в аппаратную часть при включенном режиме пикового детектора.
-};
-
-static const TBaseMaskStruct masksTBase[TBase::Count] =
-{
-    {BINARY_U8(00000000), BINARY_U8(00000000)},
-    {BINARY_U8(00000000), BINARY_U8(00000000)},
-    {BINARY_U8(00000000), BINARY_U8(00000000)},
-    {BINARY_U8(00000000), BINARY_U8(00000000)},
-    {BINARY_U8(00000000), BINARY_U8(00000000)},
-    {BINARY_U8(00000000), BINARY_U8(00000000)},
-    {BINARY_U8(00100010), BINARY_U8(00000000)},
-    {BINARY_U8(00100001), BINARY_U8(00100011)},
-    {BINARY_U8(01000000), BINARY_U8(00100001)},
-    {BINARY_U8(01000010), BINARY_U8(01000000)},
-    {BINARY_U8(01000001), BINARY_U8(01000011)},
-    {BINARY_U8(01000100), BINARY_U8(01000001)},
-    {BINARY_U8(01000110), BINARY_U8(01000100)},
-    {BINARY_U8(01000101), BINARY_U8(01000111)},
-    {BINARY_U8(01001000), BINARY_U8(01000101)},
-    {BINARY_U8(01001010), BINARY_U8(01001000)},
-    {BINARY_U8(01001001), BINARY_U8(01001011)},
-    {BINARY_U8(01001100), BINARY_U8(01001001)},
-    {BINARY_U8(01001110), BINARY_U8(01001100)},
-    {BINARY_U8(01001101), BINARY_U8(01001111)},
-    {BINARY_U8(01010000), BINARY_U8(01001101)},
-    {BINARY_U8(01010010), BINARY_U8(01010000)},
-    {BINARY_U8(01010001), BINARY_U8(01010011)},
-    {BINARY_U8(01010100), BINARY_U8(01010001)},
-    {BINARY_U8(01010110), BINARY_U8(01010100)},
-    {BINARY_U8(01010101), BINARY_U8(01010111)},
-    {BINARY_U8(01011000), BINARY_U8(01010101)},
-    {BINARY_U8(01011010), BINARY_U8(01011000)},
-    {BINARY_U8(01011001), BINARY_U8(01011011)},
-    {BINARY_U8(01011100), BINARY_U8(01011001)}
-};
-
 
 namespace FPGA
 {
@@ -226,6 +186,46 @@ void TBase::Set(TBase::E tBase)
 
 void TBase::Load()
 {
+    struct TBaseMaskStruct
+    {
+        uint8 maskNorm;         // Маска. Требуется для записи в аппаратную часть при выключенном режиме пикового детектора.
+        uint8 maskPeackDet;     // Маска. Требуется для записи в аппаратную часть при включенном режиме пикового детектора.
+    };
+    
+    static const TBaseMaskStruct masksTBase[TBase::Count] =
+    {
+        {BINARY_U8(00000000), BINARY_U8(00000000)},
+        {BINARY_U8(00000000), BINARY_U8(00000000)},
+        {BINARY_U8(00000000), BINARY_U8(00000000)},
+        {BINARY_U8(00000000), BINARY_U8(00000000)},
+        {BINARY_U8(00000000), BINARY_U8(00000000)},
+        {BINARY_U8(00000000), BINARY_U8(00000000)},
+        {BINARY_U8(00100010), BINARY_U8(00000000)},
+        {BINARY_U8(00100001), BINARY_U8(00100011)},
+        {BINARY_U8(01000000), BINARY_U8(00100001)},
+        {BINARY_U8(01000010), BINARY_U8(01000000)},
+        {BINARY_U8(01000001), BINARY_U8(01000011)},
+        {BINARY_U8(01000100), BINARY_U8(01000001)},
+        {BINARY_U8(01000110), BINARY_U8(01000100)},
+        {BINARY_U8(01000101), BINARY_U8(01000111)},
+        {BINARY_U8(01001000), BINARY_U8(01000101)},
+        {BINARY_U8(01001010), BINARY_U8(01001000)},
+        {BINARY_U8(01001001), BINARY_U8(01001011)},
+        {BINARY_U8(01001100), BINARY_U8(01001001)},
+        {BINARY_U8(01001110), BINARY_U8(01001100)},
+        {BINARY_U8(01001101), BINARY_U8(01001111)},
+        {BINARY_U8(01010000), BINARY_U8(01001101)},
+        {BINARY_U8(01010010), BINARY_U8(01010000)},
+        {BINARY_U8(01010001), BINARY_U8(01010011)},
+        {BINARY_U8(01010100), BINARY_U8(01010001)},
+        {BINARY_U8(01010110), BINARY_U8(01010100)},
+        {BINARY_U8(01010101), BINARY_U8(01010111)},
+        {BINARY_U8(01011000), BINARY_U8(01010101)},
+        {BINARY_U8(01011010), BINARY_U8(01011000)},
+        {BINARY_U8(01011001), BINARY_U8(01011011)},
+        {BINARY_U8(01011100), BINARY_U8(01011001)}
+    };
+
     TBase::E tBase = SET_TBASE;
     uint8 mask = PEAKDET ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
     FPGA::WriteToHardware(WR_RAZV, mask, true);
