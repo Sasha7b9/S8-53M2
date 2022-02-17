@@ -27,7 +27,7 @@
 #define SET_DIVIDER_B           SET_DIVIDER(Chan::B)
 #define SET_DIVIDER_1(ch)       (SET_DIVIDER(ch) == Divider_1)
 #define SET_DIVIDER_10(ch)      (SET_DIVIDER(ch) == Divider_10)
-#define VALUE_MULTIPLIER(ch)    (sChannel_MultiplierRel2Abs(SET_DIVIDER(ch)))
+#define VALUE_MULTIPLIER(ch)    (Divider::ToAbs(SET_DIVIDER(ch)))
 
 #define SET_ENABLED(ch)         (set.chan[ch].enable)           // SettingsChannel.enable
 #define SET_ENABLED_A           SET_ENABLED(Chan::A)            // set.chan[Chan::A].enable
@@ -47,7 +47,6 @@
 
 
 
-int sChannel_MultiplierRel2Abs(Divider::E);
 // Возвращает true, если канал chan включён.
 bool sChannel_Enabled(Chan::E);
 

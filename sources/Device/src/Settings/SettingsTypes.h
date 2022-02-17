@@ -37,6 +37,8 @@ struct Divider
         _1,
         _10
     };
+
+    static int ToAbs(Divider::E);
 };
 
 // Measures

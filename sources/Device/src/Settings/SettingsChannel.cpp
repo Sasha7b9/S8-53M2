@@ -33,7 +33,7 @@ static const RangeStruct ranges[Range::Count] =
 
 
 
-int sChannel_MultiplierRel2Abs(Divider::E multiplier)
+int Divider::ToAbs(Divider::E multiplier)
 {
     switch (multiplier)
     {
@@ -66,6 +66,6 @@ pchar  sChannel_Range2String(Range::E range, Divider::E multiplier)
 
 pchar  sChannel_RShift2String(int16 rShiftRel, Range::E range, Divider::E multiplier, char buffer[20])
 {
-    float rShiftVal = RSHIFT_2_ABS(rShiftRel, range) * sChannel_MultiplierRel2Abs(multiplier);
+    float rShiftVal = RSHIFT_2_ABS(rShiftRel, range) * Divider::ToAbs(multiplier);
     return Voltage2String(rShiftVal, true, buffer);
 };
