@@ -78,5 +78,3 @@ void sTime_SetTBase(TBase::E);
 // Сохранить смещение по времени в относительных единицах.
 void sTime_SetTShift(int16 shift);                   
 
-// Узнать привязку отсительно уровня синхронизации в точках.
-int sTime_TPosInPoints(PeackDetMode::E peakDet, int numPoints, TPos::E tPos);

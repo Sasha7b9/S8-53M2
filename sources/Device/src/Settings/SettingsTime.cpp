@@ -20,31 +20,6 @@ void sTime_SetTShift(int16 shift)
 }
 
 
-int sTime_TPosInPoints(PeackDetMode::E peakDet, int numPoints, TPos::E tPos)
-{
-    if (peakDet == PeackDetMode::Disable)
-    {
-        static const int m[3][3] =
-        {
-            {0, 140, 280},
-            {0, 255, 511},
-            {0, 512, 1022}
-        };
-        return m[sMemory_IntNumPoints2FPGA_NUM_POINTS(numPoints)][tPos];
-    }
-    else
-    {
-        static const int m[3][3] =
-        {
-            {0, 140, 280},
-            {0, 256, 510},
-            {0, 256, 510}
-        };
-        return m[sMemory_IntNumPoints2FPGA_NUM_POINTS(numPoints)][tPos];
-    }
-}
-
-
 bool sTime_RandomizeModeEnabled()
 {
     return SET_TBASE < TBase::_100ns;

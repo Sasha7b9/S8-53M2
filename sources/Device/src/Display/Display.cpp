@@ -1157,7 +1157,7 @@ void Display::DrawMemoryWindow()
     float scale = (float)(rightX - leftX + 1) / ((float)sMemory_GetNumPoints(false) -
         (sMemory_GetNumPoints(false) == 281 ? 1 : 0));
 
-    float xShift = 1 + (sTime_TPosInPoints((PeackDetMode::E)gDSet->peakDet,
+    float xShift = 1 + (TPos::InPoints((PeackDetMode::E)gDSet->peakDet,
         (int)gDSet->length1channel, SET_TPOS) - TShift::InPoints((PeackDetMode::E)gDSet->peakDet)) * scale;
     
     if(xShift < leftX - 2)
@@ -1885,7 +1885,7 @@ void Display::DrawCursorTShift()
     sDisplay_PointsOnDisplay(&firstPoint, &lastPoint);
 
     // Рисуем TPos
-    int shiftTPos = sTime_TPosInPoints((PeackDetMode::E)gDSet->peakDet, (int)gDSet->length1channel, SET_TPOS) - SHIFT_IN_MEMORY;
+    int shiftTPos = TPos::InPoints((PeackDetMode::E)gDSet->peakDet, (int)gDSet->length1channel, SET_TPOS) - SHIFT_IN_MEMORY;
     float scale = (float)(lastPoint - firstPoint) / Grid::Width();
     int gridLeft = Grid::Left();
     int x = (int)(gridLeft + shiftTPos * scale - 3);
@@ -1896,7 +1896,7 @@ void Display::DrawCursorTShift()
     };
 
     // Рисуем tShift
-    int shiftTShift = sTime_TPosInPoints((PeackDetMode::E)gDSet->peakDet, (int)gDSet->length1channel, SET_TPOS) -
+    int shiftTShift = TPos::InPoints((PeackDetMode::E)gDSet->peakDet, (int)gDSet->length1channel, SET_TPOS) -
         TShift::InPoints((PeackDetMode::E)gDSet->peakDet);
     if(IntInRange(shiftTShift, firstPoint, lastPoint))
     {
