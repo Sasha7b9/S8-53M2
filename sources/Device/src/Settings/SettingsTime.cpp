@@ -67,12 +67,6 @@ int16 sTime_TShiftMin()
 }
 
 
-int16 sTime_TShiftZero()
-{
-    return -sTime_TShiftMin();
-}
-
-
 bool sTime_RandomizeModeEnabled()
 {
     return SET_TBASE < TBase::_100ns;

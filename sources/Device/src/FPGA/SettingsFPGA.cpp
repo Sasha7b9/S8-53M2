@@ -405,18 +405,22 @@ void CalibratorMode::Set(CalibratorMode::E calibratorMode)
 void FPGA::LoadRegUPR()
 {
     uint8 data = 0;
+
     if (TBase::InRandomizeMode())
     {
         _SET_BIT(data, 0);
     }
+
     if (!PEAKDET_IS_DISABLE)
     {
         _SET_BIT(data, 1);
     }
+
     if (CALIBRATOR_IS_FREQ)
     {
         _SET_BIT(data, 2);
     }
+
     else if (CALIBRATOR_IS_DC)
     {
         _SET_BIT(data, 3);
@@ -551,4 +555,10 @@ void Filtr::Enable(Chan::E ch, bool enable)
 bool TBase::InRandomizeMode()
 {
     return SET_TBASE <= TBase::MAX_RAND;
+}
+
+
+int16 TShift::Zero()
+{
+    return -sTime_TShiftMin();
 }

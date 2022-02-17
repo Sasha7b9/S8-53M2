@@ -18,6 +18,9 @@ struct TShift
 
     // ¬озвращает установленное смещение по времени в текстовом виде, пригодном дл€ вывода на экран.
     static pchar ToString(int16 tShiftRel, char buffer[20]);
+
+    // —мещение по времени, соответствующее позиции TPos.
+    static int16 Zero();
 };
 
 

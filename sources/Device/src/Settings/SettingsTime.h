@@ -88,5 +88,3 @@ int sTime_TPosInPoints(PeackDetMode::E peakDet, int numPoints, TPos tPos);
 int sTime_TShiftInPoints(PeackDetMode::E peakDet);
 // ћинимальное смещение по времени, которое может быть записано в аппаратную часть.
 int16 sTime_TShiftMin();
-// —мещение по времени, соответствующее позиции TPos.
-int16 sTime_TShiftZero();

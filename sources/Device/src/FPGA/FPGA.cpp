@@ -27,8 +27,8 @@ namespace FPGA
         float prevFreq = 0.0f;
         bool readPeriod = false;     // Установленный в true флаг означает, что частоту нужно считать по счётчику периода
 
-        static BitSet32 freqActual;
-        static BitSet32 periodActual;
+        volatile static BitSet32 freqActual;
+        volatile static BitSet32 periodActual;
 
         void Init();
 
