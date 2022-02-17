@@ -15,15 +15,11 @@
 StateWorkFPGA::E StateWorkFPGA::current = StateWorkFPGA::Stop;
 
 
-namespace SettingsFPGA
+namespace FPGA
 {
     // Добавочные смещения по времени для разверёток режима рандомизатора.
     int16 deltaTShift[TBase::Count] = {505, 489, 464, 412, 258};
-}
 
-
-namespace FPGA
-{
     // Загрузить настройки в аппаратную часть из глобальной структуры SSettings.
     void LoadSettings();
 
@@ -229,7 +225,7 @@ void TBase::Load()
     TBase::E tBase = SET_TBASE;
     uint8 mask = PEAKDET ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
     FPGA::WriteToHardware(WR_RAZV, mask, true);
-    ADD_SHIFT_T0 = SettingsFPGA::deltaTShift[tBase];
+    ADD_SHIFT_T0 = FPGA::deltaTShift[tBase];
 }
 
 
@@ -386,7 +382,7 @@ void TShift::Set(int tShift)
 
 void TShift::SetDelta(int16 shift)
 {
-    SettingsFPGA::deltaTShift[SET_TBASE] = shift;
+    FPGA::deltaTShift[SET_TBASE] = shift;
     Load();
 }
 
@@ -448,7 +444,7 @@ void TShift::Load()
 
     if (tBase < TBase::_100ns)
     {
-        tShift = tShift / k[tBase] + SettingsFPGA::deltaTShift[tBase];
+        tShift = tShift / k[tBase] + FPGA::deltaTShift[tBase];
     }
 
     int additionShift = (tShiftOld % k[tBase]) * 2;
