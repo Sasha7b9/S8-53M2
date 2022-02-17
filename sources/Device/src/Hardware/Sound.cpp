@@ -75,7 +75,8 @@ void Sound::Stop()
 
 void Sound::Beep(TypeWave typeWave_, float frequency_, float amplitude_, int duration)
 {
-    return;
+    SOUND_WARN_IS_BEEP = 1;
+
     if (SOUND_WARN_IS_BEEP)
     {
         return;

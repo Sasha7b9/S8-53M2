@@ -568,7 +568,7 @@ void FPGA::WriteToHardware(uint8 *address, uint8 value, bool restart)
         {
             FPGA::Stop(true);
             FPGA_IN_PROCESS_READ = 0;
-            HAL_FMC::Write(address, value);
+            o_HAL_FMC_::Write(address, value);
             FPGA::Start();
         }
         else
@@ -576,18 +576,18 @@ void FPGA::WriteToHardware(uint8 *address, uint8 value, bool restart)
             if(StateWorkFPGA::GetCurrent() != StateWorkFPGA::Stop)
             {
                 FPGA::Stop(true);
-                HAL_FMC::Write(address, value);
+                o_HAL_FMC_::Write(address, value);
                 FPGA::Start();
             }
             else
             {
-                HAL_FMC::Write(address, value);
+                o_HAL_FMC_::Write(address, value);
             }
         }
     }
     else
     {
-        HAL_FMC::Write(address, value);
+        o_HAL_FMC_::Write(address, value);
     }
 }
 
@@ -729,6 +729,7 @@ void FPGA::FreqMeter::ReadPeriod()
 static uint8 FPGA::ReadFlag()
 {
     uint8 flag = HAL_FMC::Read(RD_FL);
+
     if(!FreqMeter::readPeriod) 
     {
         if(_GET_BIT(flag, BIT_FREQ_READY)) 
@@ -736,6 +737,7 @@ static uint8 FPGA::ReadFlag()
             FreqMeter::ReadFreq();
         }
     }
+
     if(FreqMeter::readPeriod && _GET_BIT(flag, BIT_PERIOD_READY)) 
     {
         FreqMeter::ReadPeriod();
@@ -751,10 +753,12 @@ static float CalculateFreqFromCounterFreq()
     ReadRegFreq();
     while (_GET_BIT(HAL_FMC::Read(RD_FL), BIT_FREQ_READY) == 0) {};
     BitSet32 fr = ReadRegFreq();
+
     if (fr.word >= 5)
     {
         return FreqCounterToValue(&fr);
     }
+
     return 0.0f;
 }
 
@@ -976,10 +980,10 @@ Range::E FPGA::AccurateFindRange(Chan::E ch)
         for (int i = 0; i < 50; i++)
         {
             while (_GET_BIT(HAL_FMC::Read(RD_FL), BIT_POINT_READY) == 0) {};
-            HAL_FMC::Read(RD_ADC_B2);
-            HAL_FMC::Read(RD_ADC_B1);
-            HAL_FMC::Read(RD_ADC_A2);
-            HAL_FMC::Read(RD_ADC_A1);
+            o_HAL_FMC_::Read(RD_ADC_B2);
+            o_HAL_FMC_::Read(RD_ADC_B1);
+            o_HAL_FMC_::Read(RD_ADC_A2);
+            o_HAL_FMC_::Read(RD_ADC_A1);
         }
 
         if (ch == Chan::A)
@@ -987,10 +991,10 @@ Range::E FPGA::AccurateFindRange(Chan::E ch)
             for (int i = 0; i < 100; i += 2)
             {
                 while (_GET_BIT(HAL_FMC::Read(RD_FL), BIT_POINT_READY) == 0) {};
-                HAL_FMC::Read(RD_ADC_B2);
-                HAL_FMC::Read(RD_ADC_B1);
-                buffer[i] = HAL_FMC::Read(RD_ADC_A2);
-                buffer[i + 1] = HAL_FMC::Read(RD_ADC_A1);
+                o_HAL_FMC_::Read(RD_ADC_B2);
+                o_HAL_FMC_::Read(RD_ADC_B1);
+                buffer[i] = o_HAL_FMC_::Read(RD_ADC_A2);
+                buffer[i + 1] = o_HAL_FMC_::Read(RD_ADC_A1);
             }
         }
         else
@@ -998,10 +1002,10 @@ Range::E FPGA::AccurateFindRange(Chan::E ch)
             for (int i = 0; i < 100; i += 2)
             {
                 while (_GET_BIT(HAL_FMC::Read(RD_FL), BIT_POINT_READY) == 0) {};
-                buffer[i] = HAL_FMC::Read(RD_ADC_B2);
-                buffer[i + 1] = HAL_FMC::Read(RD_ADC_B1);
-                HAL_FMC::Read(RD_ADC_A2);
-                HAL_FMC::Read(RD_ADC_A1);
+                buffer[i] = o_HAL_FMC_::Read(RD_ADC_B2);
+                buffer[i + 1] = o_HAL_FMC_::Read(RD_ADC_B1);
+                o_HAL_FMC_::Read(RD_ADC_A2);
+                o_HAL_FMC_::Read(RD_ADC_A1);
             }
         }
 

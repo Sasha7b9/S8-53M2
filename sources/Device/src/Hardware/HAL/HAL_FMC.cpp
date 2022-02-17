@@ -160,18 +160,6 @@ void HAL_FMC::InitRAM()
 }
 
 
-uint8 HAL_FMC::Read(uint8*)
-{
-    return 0;
-}
-
-
-void HAL_FMC::Write(uint8 *, uint8)
-{
-
-}
-
-
 void HAL_FMC::Write(uint16 * const address, uint16 value)
 {
     *address = value;
