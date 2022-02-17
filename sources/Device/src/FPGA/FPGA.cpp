@@ -39,6 +39,8 @@ namespace FPGA
         void Update(uint16 flag);
 
         float CalculateFreqFromCounterFreq();
+
+        BitSet32 ReadRegFreq();
     }
 
     volatile int numberMeasuresForGates = 1000;
@@ -106,6 +108,8 @@ namespace FPGA
     bool FindWave(Chan::E);
 
     void StopTemporaryPause();
+
+    TBase::E CalculateTBase(float freq_);
 }
 
 
@@ -668,7 +672,7 @@ void FPGA::RestoreState()
 }
 
 
-static BitSet32 ReadRegFreq()
+BitSet32 FPGA::FreqMeter::ReadRegFreq()
 {
     BitSet32 fr;
     fr.half_word[0] = HAL_FMC::Read(RD_FREQ_LOW);
@@ -906,7 +910,7 @@ uint8 FPGA::CalculateMaxWithout255(uint8 buffer[100])
 }
 
 
-TBase::E CalculateTBase(float freq_)
+TBase::E FPGA::CalculateTBase(float freq_)
 {
     if     (freq_ >= 100e6f)  { return TBase::_2ns;   }
     else if(freq_ >= 40e6f)   { return TBase::_5ns;   }
