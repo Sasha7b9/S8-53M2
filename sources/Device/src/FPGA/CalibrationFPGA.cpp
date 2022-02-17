@@ -20,44 +20,45 @@
 
 namespace FPGA
 {
-    static int16 CalculateAdditionRShift(Chan::E ch, Range::E range);   // Измерить добавочное смещение канала по напряжению.
-    static float CalculateKoeffCalibration(Chan::E ch);              // Измерить коэффициент калибровки канала по напряжению.
-    static void  AlignmentADC();
-    static void  FuncAttScreen();                                    // Функция обновления экрана в режиме калибровки.
-    static float CalculateDeltaADC(Chan::E ch, float *avgADC1, float *avgADC2, float *delta);
-    static void  DrawParametersChannel(Chan::E ch, int x, int y, bool inProgress);
-    static void  FuncAttScreen();
-    static void  DrawParametersChannel(Chan::E ch, int eX, int eY, bool inProgress);
-    static float CalculateDeltaADC(Chan::E ch, float *avgADC1, float *avgADC2, float *delta);
-    static void  AlignmentADC();
+    int16 CalculateAdditionRShift(Chan::E ch, Range::E range);   // Измерить добавочное смещение канала по напряжению.
+    float CalculateKoeffCalibration(Chan::E ch);              // Измерить коэффициент калибровки канала по напряжению.
+    void  AlignmentADC();
+    void  FuncAttScreen();                                    // Функция обновления экрана в режиме калибровки.
+    float CalculateDeltaADC(Chan::E ch, float *avgADC1, float *avgADC2, float *delta);
+    void  DrawParametersChannel(Chan::E ch, int x, int y, bool inProgress);
+    void  FuncAttScreen();
+    void  DrawParametersChannel(Chan::E ch, int eX, int eY, bool inProgress);
+    float CalculateDeltaADC(Chan::E ch, float *avgADC1, float *avgADC2, float *delta);
+    void  AlignmentADC();
+    void  OnTimerDraw();
 
-    static float deltaADC[2] = {0.0f, 0.0f};
-    static float deltaADCPercents[2] = {0.0f, 0.0f};
-    static float avrADC1[2] = {0.0f, 0.0f};
-    static float avrADC2[2] = {0.0f, 0.0f};
+    float deltaADC[2] = {0.0f, 0.0f};
+    float deltaADCPercents[2] = {0.0f, 0.0f};
+    float avrADC1[2] = {0.0f, 0.0f};
+    float avrADC2[2] = {0.0f, 0.0f};
 
-    static float deltaADCold[2] = {0.0f, 0.0f};
-    static float deltaADCPercentsOld[2] = {0.0f, 0.0f};
-    static float avrADC1old[2] = {0.0f, 0.0f};
-    static float avrADC2old[2] = {0.0f, 0.0f};
+    float deltaADCold[2] = {0.0f, 0.0f};
+    float deltaADCPercentsOld[2] = {0.0f, 0.0f};
+    float avrADC1old[2] = {0.0f, 0.0f};
+    float avrADC2old[2] = {0.0f, 0.0f};
 
-    static int8 shiftADC0 = 0;
-    static int8 shiftADC1 = 0;
+    int8 shiftADC0 = 0;
+    int8 shiftADC1 = 0;
 
-    static float koeffCal0 = -1.0f;
-    static float koeffCal1 = -1.0f;
+    float koeffCal0 = -1.0f;
+    float koeffCal1 = -1.0f;
 
-    static ProgressBar bar0;                            // Прогресс-бар для калибровки первого канала.
-    static ProgressBar bar1;                            // Прогресс-бар для калибровки второго канала.
+    ProgressBar bar0;                            // Прогресс-бар для калибровки первого канала.
+    ProgressBar bar1;                            // Прогресс-бар для калибровки второго канала.
 
-    static uint startTimeChan0 = 0;                     // Время начала калибровки первого канала.
-    static uint startTimeChan1 = 0;                     // Время начала калибровки второго канала.
+    uint startTimeChan0 = 0;                     // Время начала калибровки первого канала.
+    uint startTimeChan1 = 0;                     // Время начала калибровки второго канала.
 
-    static float koeffCalibrationOld[2];
+    float koeffCalibrationOld[2];
 }
 
 
-static void OnTimerDraw()
+void FPGA::OnTimerDraw()
 {
     Display::Update();
 }
