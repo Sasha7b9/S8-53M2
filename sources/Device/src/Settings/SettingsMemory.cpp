@@ -5,22 +5,6 @@
 #include "FPGA/FPGA.h"
 
 
-int sMemory_GetNumPoints(bool forCalculate)
-{
-    static const int numPoints[3][3] =
-    {
-        {281, 512, 1024},
-        {281, 512, 512},
-        {281, 512, 512}
-    };
-
-    if (ENUM_POINTS_IS_1024 && forCalculate)
-    {
-        return FPGA::MAX_POINTS_FOR_CALCULATE;
-    }
-
-    return numPoints[PEAKDET][ENUM_POINTS];
-}
 
 
 ENUM_POINTS_FPGA::E sMemory_IntNumPoints2FPGA_NUM_POINTS(int numPoints)

@@ -55,7 +55,7 @@ void RotateRegMeasureSetField(int angle)
     {
         if (cursActive == CursActive_T)
         {
-            LIMITATION(MEAS_POS_CUR_T0, MEAS_POS_CUR_T0 - sign, 0, sMemory_GetNumPoints(false) - 1);
+            LIMITATION(MEAS_POS_CUR_T0, MEAS_POS_CUR_T0 - sign, 0, ENUM_POINTS_FPGA::ToNumPoints(false) - 1);
         }
         else
         {
@@ -66,7 +66,7 @@ void RotateRegMeasureSetField(int angle)
     {
         if (cursActive == CursActive_T)
         {
-            LIMITATION(MEAS_POS_CUR_T1, MEAS_POS_CUR_T1 - sign, 0, sMemory_GetNumPoints(false) - 1);
+            LIMITATION(MEAS_POS_CUR_T1, MEAS_POS_CUR_T1 - sign, 0, ENUM_POINTS_FPGA::ToNumPoints(false) - 1);
         }
         else
         {

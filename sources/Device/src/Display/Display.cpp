@@ -365,7 +365,7 @@ void Display::DrawSignalLined(const uint8 *data, const DataSettings *ds, int sta
 	int gridLeft = Grid::Left();
 	int gridRight = Grid::Right();
     
-    int numPoints = sMemory_GetNumPoints(false);
+    int numPoints = ENUM_POINTS_FPGA::ToNumPoints(false);
     int numSmoothing = sDisplay_NumPointSmoothing();
 
     if (ds->peakDet == PeackDetMode::Disable)
@@ -442,7 +442,7 @@ void Display::DrawSignalLined(const uint8 *data, const DataSettings *ds, int sta
 
 void Display::DrawSignalPointed(const uint8 *data, const DataSettings *ds, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX)
 {
-    int numPoints = sMemory_GetNumPoints(false);
+    int numPoints = ENUM_POINTS_FPGA::ToNumPoints(false);
     int numSmoothing = sDisplay_NumPointSmoothing();
     
     uint8 dataCD[281];
@@ -675,7 +675,7 @@ void Display::DrawSpectrum()
 
     if (MODE_WORK_IS_DIRECT)
     {
-        int numPoints = sMemory_GetNumPoints(false);
+        int numPoints = ENUM_POINTS_FPGA::ToNumPoints(false);
         if (numPoints < 512)
         {
             numPoints = 256;
@@ -1065,7 +1065,7 @@ void Display::DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int
     {
         DrawDataInRect(1,          xVert0 - 1,              &(data[0]),        startI,                             ch, shiftForPeakDet);
         DrawDataInRect(xVert0 + 2, timeWindowRectWidth - 2, &(data[startI]),   281,                                ch, shiftForPeakDet);
-        DrawDataInRect(xVert1 + 2, rightX - xVert1 + 2,     &(data[endI + 1]), sMemory_GetNumPoints(false) - endI, ch, shiftForPeakDet);
+        DrawDataInRect(xVert1 + 2, rightX - xVert1 + 2,     &(data[endI + 1]), ENUM_POINTS_FPGA::ToNumPoints(false) - endI, ch, shiftForPeakDet);
     }
 }
 
@@ -1096,8 +1096,8 @@ void Display::DrawMemoryWindow()
         rightX = 68;
     }
 
-    int timeWindowRectWidth = (int)((rightX - leftX) * (282.0f / sMemory_GetNumPoints(false)));
-    float scaleX = (float)(rightX - leftX + 1) / sMemory_GetNumPoints(false);
+    int timeWindowRectWidth = (int)((rightX - leftX) * (282.0f / ENUM_POINTS_FPGA::ToNumPoints(false)));
+    float scaleX = (float)(rightX - leftX + 1) / ENUM_POINTS_FPGA::ToNumPoints(false);
 
     int16 shiftInMemory = SHIFT_IN_MEMORY;
     
@@ -1155,8 +1155,8 @@ void Display::DrawMemoryWindow()
     PText::DrawChar(x0 - 3, 9, SYMBOL_TPOS_1, COLOR_FILL);
 
     // Маркер tShift
-    float scale = (float)(rightX - leftX + 1) / ((float)sMemory_GetNumPoints(false) -
-        (sMemory_GetNumPoints(false) == 281 ? 1 : 0));
+    float scale = (float)(rightX - leftX + 1) / ((float)ENUM_POINTS_FPGA::ToNumPoints(false) -
+        (ENUM_POINTS_FPGA::ToNumPoints(false) == 281 ? 1 : 0));
 
     float xShift = 1 + (TPos::InPoints((PeackDetMode::E)gDSet->peakDet,
         (int)gDSet->length1channel, SET_TPOS) - TShift::InPoints((PeackDetMode::E)gDSet->peakDet)) * scale;
@@ -2450,7 +2450,7 @@ void Display::Clear()
 
 void Display::ShiftScreen(int delta)
 {
-    LIMITATION(SHIFT_IN_MEMORY, (int16)(SHIFT_IN_MEMORY + delta), 0, (int16)(sMemory_GetNumPoints(false) - 282));
+    LIMITATION(SHIFT_IN_MEMORY, (int16)(SHIFT_IN_MEMORY + delta), 0, (int16)(ENUM_POINTS_FPGA::ToNumPoints(false) - 282));
 }
 
 

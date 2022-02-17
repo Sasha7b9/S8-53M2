@@ -108,6 +108,6 @@ struct SettingsMemory
 
 
 
-int sMemory_GetNumPoints(bool forCalculate);
+
 
 ENUM_POINTS_FPGA::E sMemory_IntNumPoints2FPGA_NUM_POINTS(int numPoints);

@@ -1155,7 +1155,7 @@ void DataSettings::FillDataPointer()
     tShift = TSHIFT;
     modeCouple0 = SET_COUPLE_A;
     modeCouple1 = SET_COUPLE_B;
-    length1channel = (uint)sMemory_GetNumPoints(false);
+    length1channel = (uint)ENUM_POINTS_FPGA::ToNumPoints(false);
     trigLevCh0 = (uint)TRIG_LEVEL_A;
     trigLevCh1 = (uint)TRIG_LEVEL_B;
     peakDet = (uint)PEAKDET;

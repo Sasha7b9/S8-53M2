@@ -373,3 +373,21 @@ float FFTmaxDB::Abs()
     static const float db[] = {-40.0f, -60.0f, -80.0f};
     return db[FFT_MAX_DB];
 }
+
+
+int ENUM_POINTS_FPGA::ToNumPoints(bool forCalculate)
+{
+    static const int numPoints[3][3] =
+    {
+        {281, 512, 1024},
+        {281, 512, 512},
+        {281, 512, 512}
+    };
+
+    if (ENUM_POINTS_IS_1024 && forCalculate)
+    {
+        return FPGA::MAX_POINTS_FOR_CALCULATE;
+    }
+
+    return numPoints[PEAKDET][ENUM_POINTS];
+}
