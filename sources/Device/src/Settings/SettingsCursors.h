@@ -65,8 +65,6 @@ struct SettingsCursors
 
 
 
-// ¬озвращает true,если нужно рисовать курсоры.
-bool sCursors_NecessaryDrawCursors();
 // ѕолучить строку курсора напр€жени€.
 pchar  sCursors_GetCursVoltage(Chan::E source, int numCur, char buffer[20]);
 // ѕолучить строку курсора времени.

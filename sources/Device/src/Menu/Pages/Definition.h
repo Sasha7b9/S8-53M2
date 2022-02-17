@@ -22,6 +22,9 @@ struct PageCursors
     // Получить позицию курсора напряжения.
     static float GetCursPosU(Chan::E, int numCur);
 
+    // Возвращает true,если нужно рисовать курсоры.
+    static bool NecessaryDrawCursors();
+
     static void Cursors_Update();    // Вызываем эту функцию для каждого измерения, чтобы обновить положие курсоров, если они должны обновляться автоматически.
 
     struct PageSet

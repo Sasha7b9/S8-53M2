@@ -1091,7 +1091,7 @@ void Display::DrawMemoryWindow()
 
     static const int rightXses[3] = {276, 285, 247};
     int rightX = rightXses[MODE_WORK];
-    if (sCursors_NecessaryDrawCursors())
+    if (PageCursors::NecessaryDrawCursors())
     {
         rightX = 68;
     }
@@ -1201,7 +1201,7 @@ void Display::WriteCursors()
     int x = startX;
     int y1 = 0;
     int y2 = 9;
-    if(sCursors_NecessaryDrawCursors())
+    if(PageCursors::NecessaryDrawCursors())
     {
         Painter::DrawVLine(x, 1, GRID_TOP - 2, COLOR_FILL);
         x += 3;
@@ -1958,7 +1958,7 @@ void Display::DrawCursors()
     Chan::E source = CURS_SOURCE;
     Color::SetCurrent(ColorCursors(source));
 
-    if (sCursors_NecessaryDrawCursors())
+    if (PageCursors::NecessaryDrawCursors())
     {
         bool bothCursors = !CURS_CNTRL_T_IS_DISABLE(source) && !CURS_CNTRL_U_IS_DISABLE(source);  // Признак того, что включены и вертикальные и 
                                                                             // горизонтальные курсоры - надо нарисовать квадраты в местах пересечения

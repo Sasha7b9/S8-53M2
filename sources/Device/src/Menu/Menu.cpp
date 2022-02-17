@@ -881,7 +881,7 @@ bool Menu::NeedForFireSetLED()
         name == Page_SB_MemLatest                                  || 
         name == Page_SB_MemInt                                     ||
         ((name == Page_SB_MathFunction) && !DISABLED_DRAW_MATH)    ||
-        ((name == Page_SB_Curs) && sCursors_NecessaryDrawCursors())
+        ((name == Page_SB_Curs) && PageCursors::NecessaryDrawCursors())
         )
     {
         return true;
