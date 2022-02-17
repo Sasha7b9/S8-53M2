@@ -171,7 +171,8 @@ void Range::Set(Chan::E ch, Range::E range)
     {
         float rShiftAbs = RSHIFT_2_ABS(SET_RSHIFT(ch), SET_RANGE(ch));
         float trigLevAbs = RSHIFT_2_ABS(TRIG_LEVEL(ch), SET_RANGE(ch));
-        sChannel_SetRange(ch, range);
+
+        SET_RANGE(ch) = range;
 
         if (LINKING_RSHIFT_IS_VOLTAGE)
         {

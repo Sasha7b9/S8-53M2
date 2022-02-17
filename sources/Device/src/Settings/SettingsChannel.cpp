@@ -33,12 +33,6 @@ static const RangeStruct ranges[Range::Count] =
 
 
 
-void sChannel_SetRange(Chan::E ch, Range::E range)
-{
-    SET_RANGE(ch) = range;
-}
-
-
 int sChannel_MultiplierRel2Abs(Divider multiplier)
 {
     switch (multiplier)
