@@ -43,6 +43,8 @@ namespace FPGA
         float CalculateFreqFromCounterPeriod();
 
         BitSet32 ReadRegFreq();
+
+        BitSet32 ReadRegPeriod();
     }
 
     volatile int numberMeasuresForGates = 1000;
@@ -683,7 +685,7 @@ BitSet32 FPGA::FreqMeter::ReadRegFreq()
 }
 
 
-static BitSet32 ReadRegPeriod()
+BitSet32 FPGA::FreqMeter::ReadRegPeriod()
 {
     BitSet32 period;
     period.half_word[0] = HAL_FMC::Read(RD_PERIOD_LOW);
