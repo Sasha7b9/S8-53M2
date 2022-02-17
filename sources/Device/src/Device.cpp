@@ -5,7 +5,6 @@
 #include "Settings/Settings.h"
 #include "FPGA/Storage.h"
 #include "Utils/ProcessingSignal.h"
-#include "Menu/Pages/PageCursors.h"
 #include "VCP/VCP.h"
 #include "Hardware/Timer.h"
 #include "FlashDrive/FlashDrive.h"
@@ -13,6 +12,7 @@
 #include "Hardware/Sound.h"
 #include "Panel/Panel.h"
 #include "FlashDrive/FlashDrive.h"
+#include "Menu/Pages/Definition.h"
 
 
 namespace Device
@@ -109,6 +109,5 @@ void Device::ProcessingSignal()
         Processing::SetSignal(*data0, *data1, *ds, first, last);
     }
 
-    Cursors_Update();    // В случае, если находимся в режиме курсорных измерений, обновляем их положение, если нужно.
-
+    PageCursors::Cursors_Update();    // В случае, если находимся в режиме курсорных измерений, обновляем их положение, если нужно.
 }

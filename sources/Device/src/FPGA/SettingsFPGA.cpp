@@ -96,36 +96,22 @@ namespace FPGA
 
 void FPGA::LoadSettings()
 {
-    LoadKoeffCalibration(Chan::A);
-    LoadKoeffCalibration(Chan::B);
-    SetAttribChannelsAndTrig(TypeWriteAnalog::All);
     TBase::Load();
     TShift::Load();
-    Range::Load(Chan::A);
-    RShift::Load(Chan::A);
-    Range::Load(Chan::B);
-    RShift::Load(Chan::B);
+    Range::Load(ChA);
+    RShift::Load(ChA);
+    Range::Load(ChB);
+    RShift::Load(ChB);
     TrigLev::Load();
     TrigPolarity::Load();
     LoadRegUPR();
+    TrigLev::Load();
+    TrigSource::Set(TRIG_SOURCE);
 
-    switch(BALANCE_ADC_TYPE) 
-    {
-        case BalanceADC_Settings:
-            break;
-        case BalanceADC_Hand:
-            PeackDetMode::Set(PEAKDET);
-            TBase::Set(SET_TBASE);
-            if (PEAKDET)
-            {
-            }
-            else
-            {
-            }
-            break;
-        case BalanceADC_Disable:
-            break;
-    }
+//    PrepareAndWriteDataToAnalogSPI(CS1);
+//    PrepareAndWriteDataToAnalogSPI(CS2);
+//    PrepareAndWriteDataToAnalogSPI(CS3);
+//    PrepareAndWriteDataToAnalogSPI(CS4);
 }
 
 

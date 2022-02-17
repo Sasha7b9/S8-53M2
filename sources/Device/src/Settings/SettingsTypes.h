@@ -25,6 +25,10 @@ struct Chan { enum E {
 }; };
 
 
+#define ChA Chan::A
+#define ChB Chan::B
+
+
 // Делитель.
 enum Divider
 {

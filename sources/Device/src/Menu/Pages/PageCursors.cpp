@@ -1,6 +1,5 @@
 // 2022/2/11 19:47:34 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "PageCursors.h"
 #include "Definition.h"
 #include "Settings/SettingsTypes.h"
 #include "Settings/Settings.h"
@@ -17,14 +16,7 @@
 #include <string.h>
 
 
-/** @addtogroup Menu
- *  @{
- *  @addtogroup PageCursors
- *  @{
- */
-
 extern const Page pCursors;
-
 
 
 extern const Choice mcShow;                             // ÊÓÐÑÎÐÛ - Ïîêàçûâàòü
@@ -110,7 +102,7 @@ void IncCursCntrlT(Chan::E ch)
 
 
 
-void Cursors_Update()
+void PageCursors::Cursors_Update()
 {
     Chan::E source = CURS_SOURCE;
     CursLookMode lookMode0 = CURS_LOOKMODE_0;
@@ -346,7 +338,8 @@ static void MoveCursUonPercentsOrPoints(int delta)
     {
         SetShiftCursPosU(source, 1, value);
     }
-    Cursors_Update();
+
+    PageCursors::Cursors_Update();
 }
 
 static void SetShiftCursPosU(Chan::E ch, int numCur, float delta)
@@ -381,7 +374,8 @@ static void MoveCursTonPercentsOrPoints(int delta)
     {
         SetShiftCursPosT(source, 1, value);
     }
-    Cursors_Update();
+
+    PageCursors::Cursors_Update();
 }
 
 static void SetShiftCursPosT(Chan::E ch, int numCur, float delta)
@@ -728,7 +722,3 @@ static void DrawSB_Cursors_PointsPercents_Points(int x, int y)
     PText::DrawText(x + 4, y + 3, "ò÷ê");
     Font::Set(TypeFont::_8);
 }
-
-
-/** @}  @}
- */

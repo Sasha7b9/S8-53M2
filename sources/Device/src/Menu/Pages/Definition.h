@@ -17,6 +17,19 @@ struct PageChannelB
 };
 
 
+struct PageCursors
+{
+    static void Cursors_Update();    // Вызываем эту функцию для каждого измерения, чтобы обновить положие курсоров, если они должны обновляться автоматически.
+
+    struct PageSet
+    {
+        static void *pointer;
+    };
+
+    static void *GetPointer();
+};
+
+
 #define COMMON_BEGIN_SB_EXIT  0, "Выход", "Exit", "Кнопка для выхода в предыдущее меню", "Button for return to the previous menu"
 
 
