@@ -44,6 +44,3 @@
 #define SET_FILTR(ch)           (set.chan[ch].filtr)            // SettingsChannel.filtr
 #define SET_FILTR_A             (SET_FILTR(Chan::A))            // set.chan[Chan::A].filtr
 #define SET_FILTR_B             (SET_FILTR(Chan::B))            // set.chan[Chan::B].filtr
-
-
-pchar sChannel_RShift2String(int16 rShiftRel, Range::E, Divider::E, char buffer[20]);

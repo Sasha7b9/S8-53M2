@@ -583,7 +583,7 @@ void Display::DrawMath()
     PText::DrawText(Grid::Left() + 2, Grid::MathTop() + 1 + delta, Range::ToString(SET_RANGE_MATH, multiplier), COLOR_FILL);
     PText::DrawText(Grid::Left() + 25, Grid::MathTop() + 1 + delta, ":");
     char buffer[20];
-    PText::DrawText(Grid::Left() + 27, Grid::MathTop() + 1 + delta, sChannel_RShift2String(SET_RSHIFT_MATH, SET_RANGE_MATH, multiplier, buffer));
+    PText::DrawText(Grid::Left() + 27, Grid::MathTop() + 1 + delta, RShift::ToString(SET_RSHIFT_MATH, SET_RANGE_MATH, multiplier, buffer));
 
 
 }
@@ -2126,7 +2126,7 @@ void Display::WriteTextVoltage(Chan::E ch, int x, int y)
         PText::DrawText(x + 1, y, buffer, colorDraw);
 
         char bufferTemp[20];
-        sprintf(buffer, "\xa5%s", sChannel_RShift2String((int16)rShift, range, multiplier, bufferTemp));
+        sprintf(buffer, "\xa5%s", RShift::ToString((int16)rShift, range, multiplier, bufferTemp));
         PText::DrawText(x + 46, y, buffer);
     }
 }
