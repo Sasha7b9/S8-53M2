@@ -366,7 +366,7 @@ void Display::DrawSignalLined(const uint8 *data, const DataSettings *ds, int sta
 	int gridRight = Grid::Right();
     
     int numPoints = ENUM_POINTS_FPGA::ToNumPoints(false);
-    int numSmoothing = sDisplay_NumPointSmoothing();
+    int numSmoothing = Smoothing::ToPoints();
 
     if (ds->peakDet == PeackDetMode::Disable)
     {
@@ -443,7 +443,7 @@ void Display::DrawSignalLined(const uint8 *data, const DataSettings *ds, int sta
 void Display::DrawSignalPointed(const uint8 *data, const DataSettings *ds, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX)
 {
     int numPoints = ENUM_POINTS_FPGA::ToNumPoints(false);
-    int numSmoothing = sDisplay_NumPointSmoothing();
+    int numSmoothing = Smoothing::ToPoints();
     
     uint8 dataCD[281];
 
@@ -2315,7 +2315,7 @@ void Display::DrawLowPart()
     if (MODE_WORK_IS_DIRECT)
     {
         Font::Set(TypeFont::_5);
-        WriteStringAndNumber("—√À¿∆.:", x + 57, GRID_BOTTOM + 10, sDisplay_NumPointSmoothing());
+        WriteStringAndNumber("—√À¿∆.:", x + 57, GRID_BOTTOM + 10, Smoothing::ToPoints());
         Font::Set(TypeFont::_8);
     }
 }

@@ -530,22 +530,22 @@ static void DrawSB_Cursors_U_Disable(int x, int y)
 
 static void DrawSB_Cursors_U_Upper(int x, int y)
 {
-    DrawMenuCursVoltage(x + 7, y + 5, true, false);
+    PageCursors::DrawMenuCursVoltage(x + 7, y + 5, true, false);
 }
 
 static void DrawSB_Cursors_U_Lower(int x, int y)
 {
-    DrawMenuCursVoltage(x + 7, y + 5, false, true);
+    PageCursors::DrawMenuCursVoltage(x + 7, y + 5, false, true);
 }
 
 static void DrawSB_Cursors_U_Both_Enable(int x, int y)
 {
-    DrawMenuCursVoltage(x + 7, y + 5, true, true);
+    PageCursors::DrawMenuCursVoltage(x + 7, y + 5, true, true);
 }
 
 static void DrawSB_Cursors_U_Both_Disable(int x, int y)
 {
-    DrawMenuCursVoltage(x + 7, y + 5, false, false);
+    PageCursors::DrawMenuCursVoltage(x + 7, y + 5, false, false);
 }
 
 

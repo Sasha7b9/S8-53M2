@@ -6,7 +6,7 @@
 #include "Hardware/HAL/HAL.h"
 
 
-int sDisplay_NumPointSmoothing()
+int Smoothing::ToPoints()
 {
     if (SMOOTHING_IS_DISABLE)
     {

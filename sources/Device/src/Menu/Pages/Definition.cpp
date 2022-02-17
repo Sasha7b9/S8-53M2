@@ -7,10 +7,7 @@
 #include "Settings/Settings.h"
 #include "Settings/SettingsTypes.h"
 #include "Panel/Panel.h"
-
-extern Choice mcCursorsSource;
-extern Choice mcCursorsU;
-extern Choice mcCursorsT;
+#include "Menu/Pages/Definition.h"
 
 
 void CalculateConditions(int16 pos0, int16 pos1, CursCntrl cursCntrl, bool *cond0, bool *cond1)
@@ -59,7 +56,7 @@ void DrawMenuCursTime(int x, int y, bool left, bool right)
 }
 
 
-void DrawMenuCursVoltage(int x, int y, bool top, bool bottom)
+void PageCursors::DrawMenuCursVoltage(int x, int y, bool top, bool bottom)
 {
     x -= 65;
     y -= 21;
