@@ -45,6 +45,10 @@ namespace FPGA
         BitSet32 ReadRegFreq();
 
         BitSet32 ReadRegPeriod();
+
+        float FreqCounterToValue(BitSet32 *fr);
+
+        float PeriodCounterToValue(BitSet32 *period);
     }
 
     volatile int numberMeasuresForGates = 1000;
@@ -694,13 +698,13 @@ BitSet32 FPGA::FreqMeter::ReadRegPeriod()
 }
 
 
-static float FreqCounterToValue(BitSet32 *fr)
+float FPGA::FreqMeter::FreqCounterToValue(BitSet32 *fr)
 {
     return (float)fr->word * 10.0f;
 }
 
 
-static float PeriodCounterToValue(BitSet32 *period)
+float FPGA::FreqMeter::PeriodCounterToValue(BitSet32 *period)
 {
     if (period->word == 0)
     {
