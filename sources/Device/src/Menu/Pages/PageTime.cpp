@@ -115,8 +115,6 @@ void OnChanged_PeakDet(bool active)
         }
         else
         {
-            FPGA::WriteToHardware(WR_ADD_RSHIFT_DAC1, 3, false);     // Почему-то при пиковом детекторе смещение появляется. Вот его и компенсируем.
-            FPGA::WriteToHardware(WR_ADD_RSHIFT_DAC2, 3, false);
         }
         if (PEAKDET_IS_DISABLE)
         {

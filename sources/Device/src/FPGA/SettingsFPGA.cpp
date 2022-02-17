@@ -112,21 +112,15 @@ void FPGA::LoadSettings()
     switch(BALANCE_ADC_TYPE) 
     {
         case BalanceADC_Settings:
-            WriteToHardware(WR_ADD_RSHIFT_DAC1, (uint8)SET_BALANCE_ADC_A, false);
-            WriteToHardware(WR_ADD_RSHIFT_DAC2, (uint8)SET_BALANCE_ADC_B, false);
             break;
         case BalanceADC_Hand:
             PeackDetMode::Set(PEAKDET);
             TBase::Set(SET_TBASE);
             if (PEAKDET)
             {
-                WriteToHardware(WR_ADD_RSHIFT_DAC1, 3, false);     // Почему-то при пиковом детекторе смещение появляется. Вот его и компенсируем.
-                WriteToHardware(WR_ADD_RSHIFT_DAC2, 3, false);
             }
             else
             {
-                WriteToHardware(WR_ADD_RSHIFT_DAC1, (uint8)BALANCE_ADC_A, false);
-                WriteToHardware(WR_ADD_RSHIFT_DAC2, (uint8)BALANCE_ADC_B, false);
             }
             break;
         case BalanceADC_Disable:

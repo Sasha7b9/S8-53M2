@@ -75,6 +75,8 @@ namespace FPGA
 
     namespace FreqMeter
     {
+        void Init();
+
         // Получить значение частоты.
         float GetFreq();
     }

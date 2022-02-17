@@ -480,8 +480,6 @@ static void OnChanged_ADC_Balance_Mode(bool active)
 {
     Draw_ADC_Balance_Mode(0, 0);
 
-    FPGA::WriteToHardware(WR_ADD_RSHIFT_DAC1, (uint8)shiftADCA, false);
-    FPGA::WriteToHardware(WR_ADD_RSHIFT_DAC2, (uint8)shiftADCB, false);
 }
 
 static void Draw_ADC_Balance_Mode(int x, int y)
@@ -509,7 +507,6 @@ static const Governor mgADC_Balance_ShiftA
 static void OnChanged_ADC_Balance_ShiftA()
 {
     BALANCE_ADC_A = shiftADCA;
-    FPGA::WriteToHardware(WR_ADD_RSHIFT_DAC1, (uint8)BALANCE_ADC_A, false);
 }
 
 static bool IsActive_ADC_Balance_Shift()
@@ -530,7 +527,6 @@ static const Governor mgADC_Balance_ShiftB
 static void OnChanged_ADC_Balance_ShiftB()
 {
     BALANCE_ADC_B = shiftADCB;
-    FPGA::WriteToHardware(WR_ADD_RSHIFT_DAC2, (uint8)BALANCE_ADC_B, false);
 }
 
 

@@ -102,10 +102,11 @@ namespace FPGA
 void FPGA::Init() 
 {
     Storage::Clear();
-    FPGA::LoadSettings();
-    FPGA::SetNumSignalsInSec(sDisplay_NumSignalsInS());
-    FPGA::SetNumberMeasuresForGates(NUM_MEAS_FOR_GATES);
-    FPGA::SetNumberMeasuresForGates(NUM_MEAS_FOR_GATES);
+    LoadSettings();
+    FreqMeter::Init();
+    SetNumSignalsInSec(sDisplay_NumSignalsInS());
+    SetNumberMeasuresForGates(NUM_MEAS_FOR_GATES);
+    SetNumberMeasuresForGates(NUM_MEAS_FOR_GATES);
 } 
 
 
@@ -776,6 +777,12 @@ static float CalculateFreqFromCounterPeriod()
         return PeriodCounterToValue(&period);
     }
     return 0.0f;
+}
+
+
+void FPGA::FreqMeter::Init()
+{
+
 }
 
 

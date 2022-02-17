@@ -99,8 +99,6 @@ void FPGA::ProcedureCalibration()
         RShift::Set(Chan::B, RShift::ZERO);
         ModeCouple::Set(Chan::A, ModeCouple::GND);
         ModeCouple::Set(Chan::B, ModeCouple::GND);
-        o_HAL_FMC_::Write(WR_ADD_RSHIFT_DAC1, 0);
-        o_HAL_FMC_::Write(WR_ADD_RSHIFT_DAC2, 0);
 
         deltaADCPercentsOld[0] = CalculateDeltaADC(Chan::A, &avrADC1old[Chan::A], &avrADC2old[Chan::A], &deltaADCold[Chan::A]);
         deltaADCPercentsOld[1] = CalculateDeltaADC(Chan::B, &avrADC1old[Chan::B], &avrADC2old[Chan::B], &deltaADCold[Chan::B]);
@@ -189,8 +187,6 @@ void FPGA::ProcedureCalibration()
 
     SET_BALANCE_ADC_A = shiftADC0;
     SET_BALANCE_ADC_B = shiftADC1;
-    o_HAL_FMC_::Write(WR_ADD_RSHIFT_DAC1, (uint8)SET_BALANCE_ADC_A);
-    o_HAL_FMC_::Write(WR_ADD_RSHIFT_DAC2, (uint8)SET_BALANCE_ADC_B);
 
     RShift::Set(Chan::A, SET_RSHIFT_A);
     RShift::Set(Chan::B, SET_RSHIFT_B);
@@ -406,8 +402,6 @@ void FPGA::AlignmentADC()
     SET_BALANCE_ADC_A = shiftADC0;
     shiftADC1 = (deltaADCold[1] > 0) ? (deltaADCold[1] + 0.5f) : (deltaADCold[1] - 0.5f);
     SET_BALANCE_ADC_B = shiftADC1;
-    o_HAL_FMC_::Write(WR_ADD_RSHIFT_DAC1, (uint8)SET_BALANCE_ADC_A);
-    o_HAL_FMC_::Write(WR_ADD_RSHIFT_DAC2, (uint8)SET_BALANCE_ADC_B);
 }
 
 
