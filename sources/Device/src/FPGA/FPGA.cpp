@@ -40,6 +40,8 @@ namespace FPGA
 
         float CalculateFreqFromCounterFreq();
 
+        float CalculateFreqFromCounterPeriod();
+
         BitSet32 ReadRegFreq();
     }
 
@@ -802,7 +804,7 @@ float FPGA::FreqMeter::CalculateFreqFromCounterFreq()
 }
 
 
-static float CalculateFreqFromCounterPeriod()
+float FPGA::FreqMeter::CalculateFreqFromCounterPeriod()
 {
     uint time = gTimerMS;
     while (gTimerMS - time < 1000 && _GET_BIT(HAL_FMC::Read(RD_FL), BIT_PERIOD_READY) == 0) {};
@@ -1119,7 +1121,7 @@ TBase::E FPGA::FindTBase(Chan::E ch)
     else
     {
         TrigInput::Set(TrigInput::LPF);
-        FreqMeter::freq = CalculateFreqFromCounterPeriod();
+        FreqMeter::freq = FreqMeter::CalculateFreqFromCounterPeriod();
 
         if (fr > 0.0f)
         {
