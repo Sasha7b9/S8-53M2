@@ -52,6 +52,8 @@ struct PageCursors
 
 struct PageDebug
 {
+    static void LoadStretchADC(Chan::E);
+
     struct SerialNumber
     {
         static void *GetPointer();

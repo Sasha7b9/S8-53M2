@@ -51,7 +51,6 @@ static void     OnChanged_ADC_Balance_ShiftB();
 extern const Page       mpADC_Stretch;                      // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿
 extern const Choice     mcADC_Stretch_Mode;                 // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ - –ÂÊËÏ
 static void     OnChanged_ADC_Stretch_Mode(bool active);
-void LoadStretchADC(Chan::E ch);
 extern const Governor   mgADC_Stretch_ADC_A;                // Œ“À¿ƒ ¿ - ¿÷œ - –¿—“ﬂ∆ ¿ -  Ó˝ÙÙ. 1Í
 static bool      IsActive_ADC_Stretch_ADC();
 static void     OnChanged_ADC_Stretch_ADC_A();
@@ -567,12 +566,12 @@ static void OnChanged_ADC_Stretch_Mode(bool active)
 {
     if(active)
     {
-        LoadStretchADC(Chan::A);
-        LoadStretchADC(Chan::B);
+        PageDebug::LoadStretchADC(Chan::A);
+        PageDebug::LoadStretchADC(Chan::B);
     }
 }
 
-void LoadStretchADC(Chan::E ch)
+void PageDebug::LoadStretchADC(Chan::E ch)
 {
     if(DEBUG_STRETCH_ADC_TYPE_IS_DISABLED)
     {

@@ -12,12 +12,10 @@
 #include "Hardware/Timer.h"
 #include "Log.h"
 #include "Hardware/HAL/HAL.h"
+#include "Menu/Pages/Definition.h"
 #include <stm32f4xx_hal.h>
 #include <stdio.h>
 #include <limits.h>
-
-
-extern void LoadStretchADC(Chan::E ch);
 
 
 namespace FPGA
@@ -122,7 +120,7 @@ void FPGA::ProcedureCalibration()
                 gStateFPGA.stateCalibration = StateCalibration_ErrorCalibration0;
                 Panel::WaitPressingButton();
                 DEBUG_STRETCH_ADC_TYPE = StretchADC_Hand;
-                LoadStretchADC(Chan::A);
+                PageDebug::LoadStretchADC(Chan::A);
             }
             else
             {
@@ -158,7 +156,7 @@ void FPGA::ProcedureCalibration()
                 gStateFPGA.stateCalibration = StateCalibration_ErrorCalibration1;
                 Panel::WaitPressingButton();
                 DEBUG_STRETCH_ADC_TYPE = StretchADC_Hand;
-                LoadStretchADC(Chan::B);
+                PageDebug::LoadStretchADC(Chan::B);
             }
             else
             {
