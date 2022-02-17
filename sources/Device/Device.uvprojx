@@ -1664,11 +1664,6 @@
               <FilePath>.\src\Settings\SettingsMath.h</FilePath>
             </File>
             <File>
-              <FileName>SettingsTypes.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Settings\SettingsTypes.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Settings.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Settings\Settings.cpp</FilePath>
@@ -3588,11 +3583,6 @@
               <FileName>SettingsMath.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Settings\SettingsMath.h</FilePath>
-            </File>
-            <File>
-              <FileName>SettingsTypes.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Settings\SettingsTypes.cpp</FilePath>
             </File>
             <File>
               <FileName>Settings.cpp</FileName>
