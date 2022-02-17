@@ -51,22 +51,6 @@ int sTime_TShiftInPoints(PeackDetMode::E peakDet)
 }
 
 
-int16 sTime_TShiftMin()
-{
-    static const int16 m[3][3] = {{-511, -441, -371},
-    {-511, -383, -255},
-    {-511, -255, 0}};
-
-    ENUM_POINTS_FPGA numPoints = ENUM_POINTS;
-    if ((int)numPoints < 3 && (int)numPoints >= 0)
-    {
-        return m[numPoints][SET_TPOS];
-    }
-    LOG_ERROR("");
-    return 0;
-}
-
-
 bool sTime_RandomizeModeEnabled()
 {
     return SET_TBASE < TBase::_100ns;

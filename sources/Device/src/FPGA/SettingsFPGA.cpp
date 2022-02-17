@@ -369,9 +369,9 @@ void TShift::Set(int tShift)
         return;
     }
 
-    if (tShift < sTime_TShiftMin() || tShift > TShift::MAX)
+    if (tShift < TShift::Min() || tShift > TShift::MAX)
     {
-        LIMITATION(tShift, tShift, sTime_TShiftMin(), TShift::MAX);
+        LIMITATION(tShift, tShift, TShift::Min(), TShift::MAX);
         Display::ShowWarningBad(LimitSweep_TShift);
     }
 
@@ -439,13 +439,15 @@ void FPGA::LoadKoeffCalibration(Chan::E ch)
 void TShift::Load()
 {
     static const int16 k[TBase::Count] = {50, 20, 10, 5, 2};
-    int16 tShift = TSHIFT - sTime_TShiftMin() + 1;
+    int16 tShift = TSHIFT - TShift::Min() + 1;
     int16 tShiftOld = tShift;
     TBase::E tBase = SET_TBASE;
+
     if (tBase < TBase::_100ns)
     {
         tShift = tShift / k[tBase] + deltaTShift[tBase];
     }
+
     int additionShift = (tShiftOld % k[tBase]) * 2;
     FPGA::SetAdditionShift(additionShift);
     uint16 post = (uint16)tShift;
@@ -560,5 +562,21 @@ bool TBase::InRandomizeMode()
 
 int16 TShift::Zero()
 {
-    return -sTime_TShiftMin();
+    return -TShift::Min();
+}
+
+
+int16 TShift::Min()
+{
+    static const int16 m[3][3] = {{-511, -441, -371},
+    {-511, -383, -255},
+    {-511, -255, 0}};
+
+    ENUM_POINTS_FPGA numPoints = ENUM_POINTS;
+    if ((int)numPoints < 3 && (int)numPoints >= 0)
+    {
+        return m[numPoints][SET_TPOS];
+    }
+    LOG_ERROR("");
+    return 0;
 }
