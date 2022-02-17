@@ -1243,7 +1243,7 @@ void Display::WriteCursors()
             char buf[20];
             PText::DrawText(x + 17, y1, Time2String(delta, false, buf));
             PText::DrawText(x, y2, ":");
-            PText::DrawText(x + 8, y2, sCursors_GetCursorPercentsT(source, buf));
+            PText::DrawText(x + 8, y2, PageCursors::GetCursorPercentsT(source, buf));
 
             if(CURSORS_SHOW_FREQ)
             {

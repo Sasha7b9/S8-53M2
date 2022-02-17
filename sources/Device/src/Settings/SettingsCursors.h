@@ -13,10 +13,6 @@
 #define CURsU_CNTRL                 (CURsU_CNTRL_CH(CURS_SOURCE))
 #define CURS_CNTRL_U_IS_DISABLE(ch) (CURsU_CNTRL_CH(ch) == CursCntrl_Disable)
 
-
-
-
-
 #define CURS_CNTRL_T(ch)            (set.cursors.cntrlT[ch])                    // SettingsCursors.cntrlT
 #define CURS_CNTRL_T_IS_DISABLE(ch) (CURS_CNTRL_T(ch) == CursCntrl_Disable)
 
@@ -43,8 +39,6 @@
 #define CURS_SHOW                   (set.cursors.showCursors)                   // SettingsCursors.showCursors
 
 
-
-
 // Настройки курсорных измерений.
 struct SettingsCursors
 {
@@ -61,7 +55,3 @@ struct SettingsCursors
     bool            showFreq;                   // Установленное в true значение, что нужно показывать на экране значение 1/dT между курсорами.
     bool            showCursors;                // Показывать ли курсоры.
 };
-
-
-// Получить строку процентов курсоров времени.
-pchar  sCursors_GetCursorPercentsT(Chan::E source, char buffer[20]);
