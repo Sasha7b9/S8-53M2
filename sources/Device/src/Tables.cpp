@@ -104,7 +104,7 @@ pchar TBase::ToString(TBase::E tBase)
 }
 
 
-pchar  Tables_GetTBaseStringEN(TBase::E tBase)
+pchar TBase::ToStringEN(TBase::E tBase)
 {
     return tBases[tBase].name[English];
 }

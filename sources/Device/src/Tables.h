@@ -43,8 +43,6 @@ enum WarningWithNumber
 
 pchar  Tables_GetWarning(Warning warning);
 
-pchar  Tables_GetTBaseStringEN(TBase::E);
-
 pchar  Tables_RangeNameFromValue(Range::E);
 // Возвращает номер канала от 1 до 2
 int Tables_GetNumChannel(Chan::E);

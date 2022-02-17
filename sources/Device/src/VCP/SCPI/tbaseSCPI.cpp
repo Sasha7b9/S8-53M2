@@ -64,7 +64,7 @@ void SCPI::TBASE::RANGE(uint8 *buffer)
         if (TBase::Count > value) { TBase::Set((TBase::E)value); }
         else if (255 == value)
         {
-            SCPI_SEND(":TBASE:SET_RANGE %s", Tables_GetTBaseStringEN(SET_TBASE));
+            SCPI_SEND(":TBASE:SET_RANGE %s", TBase::ToStringEN(SET_TBASE));
         }
     LEAVE_ANALYSIS
 }
