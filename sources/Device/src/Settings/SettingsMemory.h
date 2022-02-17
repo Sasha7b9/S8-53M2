@@ -105,9 +105,3 @@ struct SettingsMemory
     ModeBtnMemory       modeBtnMemory;
     ModeSaveSignal      modeSaveSignal;                         // В каком виде сохранять сигнал.
 };
-
-
-
-
-
-ENUM_POINTS_FPGA::E sMemory_IntNumPoints2FPGA_NUM_POINTS(int numPoints);
