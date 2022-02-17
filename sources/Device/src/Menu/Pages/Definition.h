@@ -60,7 +60,7 @@ struct PageMeasures
 struct PageMemory
 {
     static void ChangeC_Memory_NumPoints(bool active);
-    static void OnPressMemoryExtFileManager();
+    static void OnPressExtFileManager();
     static void SaveSignalToFlashDrive();
     static const void *pMspFileManager;
 

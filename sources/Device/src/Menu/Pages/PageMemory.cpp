@@ -1197,7 +1197,7 @@ static const Page mspSetMask
 );
 
 // ПАМЯТЬ - ВНЕШН ЗУ - Каталог ///////////////////////////////////////////////////////////////////////////////
-void OnPressMemoryExtFileManager()
+void PageMemory::OnPressExtFileManager()
 {
     if(FLASH_DRIVE_IS_CONNECTED)
     {
@@ -1246,7 +1246,7 @@ static const Page mspFileManager
     "КАТАЛОГ", "DIRECTORY",
     "Открывает доступ к файловой системе подключенного накопителя",
     "Provides access to the file system of the connected drive",
-    Page_SB_FileManager, &itemsFileManager, OnPressMemoryExtFileManager, EmptyFuncVV, FM::RotateRegSet
+    Page_SB_FileManager, &itemsFileManager, PageMemory::OnPressExtFileManager, EmptyFuncVV, FM::RotateRegSet
 );
 
 // ПАМЯТЬ - ВНЕШН ЗУ /////////////////////////////////////////////////////////////////
