@@ -40,7 +40,7 @@ pchar PageCursors::GetCursorTime(Chan::E source, int numCur, char buffer[20])
 }
 
 
-pchar  sCursors_GetCursorPercentsU(Chan::E source, char buffer[20])
+pchar PageCursors::GetCursorPercentsU(Chan::E source, char buffer[20])
 {
     buffer[0] = 0;
     float dPerc = DELTA_U100(source);

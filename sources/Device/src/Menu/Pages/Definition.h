@@ -31,6 +31,9 @@ struct PageCursors
     // Получить строку курсора времени.
     static pchar GetCursorTime(Chan::E source, int numCur, char buffer[20]);
 
+    // Получить строку процентов курсоров напряжения.
+    static pchar GetCursorPercentsU(Chan::E source, char buffer[20]);
+
     static void Cursors_Update();    // Вызываем эту функцию для каждого измерения, чтобы обновить положие курсоров, если они должны обновляться автоматически.
 
     struct PageSet

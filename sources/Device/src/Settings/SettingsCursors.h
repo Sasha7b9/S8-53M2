@@ -63,9 +63,5 @@ struct SettingsCursors
 };
 
 
-
-
-// Получить строку процентов курсоров напряжения.
-pchar  sCursors_GetCursorPercentsU(Chan::E source, char buffer[20]);
 // Получить строку процентов курсоров времени.
 pchar  sCursors_GetCursorPercentsT(Chan::E source, char buffer[20]);

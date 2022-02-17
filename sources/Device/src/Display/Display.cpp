@@ -1221,7 +1221,7 @@ void Display::WriteCursors()
             PText::DrawText(x, y1, ":dU=");
             PText::DrawText(x + 17, y1, Voltage2String(delta, false, buffer));
             PText::DrawText(x, y2, ":");
-            PText::DrawText(x + 10, y2, sCursors_GetCursorPercentsU(source, buffer));
+            PText::DrawText(x + 10, y2, PageCursors::GetCursorPercentsU(source, buffer));
         }
 
         x = startX + 101;
