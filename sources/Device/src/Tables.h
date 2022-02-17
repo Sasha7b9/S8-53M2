@@ -41,9 +41,9 @@ enum WarningWithNumber
 };
 
 
-ENumSignalsInSec Tables_NumSignalsInSecToENUM(int enumSignalsInSec);
+ENumSignalsInSec::E Tables_NumSignalsInSecToENUM(int enumSignalsInSec);
 
-int Tables_ENUMtoNumSignalsInSec(ENumSignalsInSec enumSignalsInSec);
+int Tables_ENUMtoNumSignalsInSec(ENumSignalsInSec::E enumSignalsInSec);
 
 pchar  Tables_GetWarning(Warning warning);
 

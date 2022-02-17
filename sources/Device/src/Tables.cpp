@@ -62,37 +62,37 @@ pchar  symbolsAlphaBet[0x48] =
 };
 
 
-ENumSignalsInSec Tables_NumSignalsInSecToENUM(int enumSignalsInSec)
+ENumSignalsInSec::E Tables_NumSignalsInSecToENUM(int enumSignalsInSec)
 {
     if(enumSignalsInSec == 1)
     {
-        return NumSignalsInSec_1;
+        return ENumSignalsInSec::_1;
     }
     else if(enumSignalsInSec == 2)
     {
-        return NumSignalsInSec_2;
+        return ENumSignalsInSec::_2;
     }
     else if(enumSignalsInSec == 5)
     {
-        return NumSignalsInSec_5;
+        return ENumSignalsInSec::_5;
     }
     else if(enumSignalsInSec == 10)
     {
-        return NumSignalsInSec_10;
+        return ENumSignalsInSec::_10;
     }
     else if(enumSignalsInSec == 25)
     {
-        return NumSignalsInSec_25;
+        return ENumSignalsInSec::_25;
     }
     LOG_ERROR("Число сигналов в секунду равно %d", enumSignalsInSec);
-    return NumSignalsInSec_1;
+    return ENumSignalsInSec::_1;
 }
 
 
-int Tables_ENUMtoNumSignalsInSec(ENumSignalsInSec enumSignalsInSec)
+int Tables_ENUMtoNumSignalsInSec(ENumSignalsInSec::E enumSignalsInSec)
 {
     static const int fps[] = {25, 10, 5, 2, 1};
-    if(enumSignalsInSec <= NumSignalsInSec_1)
+    if(enumSignalsInSec <= ENumSignalsInSec::_1)
     {
         return fps[enumSignalsInSec];
     }

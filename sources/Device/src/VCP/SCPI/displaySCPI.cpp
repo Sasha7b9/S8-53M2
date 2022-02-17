@@ -269,7 +269,7 @@ void SCPI::DISPLAY::FPS(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value < 5) { ENUM_SIGNALS_IN_SEC = (ENumSignalsInSec)value; OnChanged_RefreshFPS(true); }
+        if (value < 5) { ENUM_SIGNALS_IN_SEC = (ENumSignalsInSec::E)value; OnChanged_RefreshFPS(true); }
         else if (5 == value)
         {
             SCPI_SEND(":DISPLAY:FPS %s", map[ENUM_SIGNALS_IN_SEC].key);

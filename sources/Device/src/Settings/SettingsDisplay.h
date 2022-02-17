@@ -145,13 +145,16 @@ enum Smoothing
 };
 
 // Ограничение FPS.
-enum ENumSignalsInSec
+struct ENumSignalsInSec
 {
-    NumSignalsInSec_25,
-    NumSignalsInSec_10,
-    NumSignalsInSec_5,
-    NumSignalsInSec_2,
-    NumSignalsInSec_1
+    enum E
+    {
+        _25,
+        _10,
+        _5,
+        _2,
+        _1
+    };
 };
 
 // Режим накопления.
@@ -205,7 +208,7 @@ struct SettingsDisplay
     ModeAveraging       modeAve;                    // Тип усреднений по измерениям.
     ENumMinMax          enumMinMax;                 // Число измерений для определения минимумов и максимумов.
     Smoothing           smoothing;                  // Число точек для скользящего фильтра.
-    ENumSignalsInSec    enumSignalsInSec;           // Перечисление считываний сигнала в секунду.
+    ENumSignalsInSec::E enumSignalsInSec;           // Перечисление считываний сигнала в секунду.
     Chan::E             lastAffectedChannel;        // Здесь хранится номер последнего канала, которым управляли ручками. Нужно для того, чтобы знать, какой сигнал рисовать наверху.
     ModeAccumulation    modeAccumulation;           // Задаёт режим накопления сигналов.
     AltMarkers          altMarkers;                 // Режим отображения дополнительных боковых маркеров смещений.
