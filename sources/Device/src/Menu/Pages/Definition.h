@@ -97,6 +97,8 @@ struct PageService
 {
     struct Math
     {
+        static bool Enabled();
+
         struct Function
         {
             static void *GetPointer();

@@ -23,6 +23,7 @@
 #include "Hardware/Timer.h"
 #include "Log.h"
 #include "Hardware/HAL/HAL.h"
+#include "Menu/Pages/Definition.h"
 #include <stm32f4xx_hal.h>
 #include <math.h>
 #include <limits.h>
@@ -1839,7 +1840,9 @@ void Display::DrawCursorRShift(Chan::E ch)
     float scale = (float)Grid::ChannelHeight() / (RShift::STEP * 200);
     float y = Grid::ChannelCenterHeight() - scale * (rShift - RShift::ZERO);
 
-    float scaleFull = (float)Grid::ChannelHeight() / (RShift::MAX - RShift::MIN) * (sService_MathEnabled() ? 0.9f : 0.91f);
+    float scaleFull = (float)Grid::ChannelHeight() / (RShift::MAX - RShift::MIN) *
+        (PageService::Math::Enabled() ? 0.9f : 0.91f);
+
     float yFull = Grid::ChannelCenterHeight() - scaleFull *(rShift - RShift::ZERO);
 
     if(y > Grid::ChannelBottom())

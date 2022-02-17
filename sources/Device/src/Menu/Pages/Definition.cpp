@@ -155,3 +155,9 @@ bool IsMainPage(void *item)
 {
     return item == &mainPage;
 }
+
+
+bool PageService::Math::Enabled()
+{
+    return !DISABLED_DRAW_MATH || ENABLED_FFT;
+}

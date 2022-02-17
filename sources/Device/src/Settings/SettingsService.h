@@ -33,6 +33,4 @@ struct SettingsService
 };
 
 
-bool sService_MathEnabled();
-
 float sService_MathGetFFTmaxDBabs();
