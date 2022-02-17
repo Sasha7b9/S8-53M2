@@ -1,7 +1,6 @@
 // 2022/2/11 19:33:55 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "PageMemory.h"
-#include "PageHelp.h"
 #include "FPGA/FPGA.h"
 #include "Display/Colors.h"
 #include "Display/Display.h"

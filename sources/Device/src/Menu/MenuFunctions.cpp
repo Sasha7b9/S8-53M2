@@ -5,7 +5,6 @@
 #include "Panel/Controls.h"
 #include "Menu/Menu.h"
 #include "Menu/Pages/PageMemory.h"
-#include "Menu/Pages/PageHelp.h"
 #include "Menu/Pages/PageService.h"
 #include "Menu/Pages/PageDebug.h"
 #include "Settings/SettingsTypes.h"

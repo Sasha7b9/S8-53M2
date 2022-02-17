@@ -17,7 +17,6 @@
 #include "VCP/VCP.h"
 #include "Menu/Menu.h"
 #include "Menu/Pages/PageMemory.h"
-#include "Menu/Pages/PageHelp.h"
 #include "Utils/Measures.h"
 #include "Utils/Math.h"
 #include "Utils/GlobalFunctions.h"

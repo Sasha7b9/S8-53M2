@@ -30,6 +30,12 @@ struct PageCursors
 };
 
 
+struct PageHelp
+{
+    static void *GetPointer();
+};
+
+
 struct PageMeasures
 {
     struct Tune
