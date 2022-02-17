@@ -104,6 +104,8 @@ namespace FPGA
     TBase::E AccurateFindTBase(Chan::E);
 
     bool FindWave(Chan::E);
+
+    void StopTemporaryPause();
 }
 
 
@@ -1129,7 +1131,7 @@ TBase::E FPGA::FindTBase(Chan::E ch)
 }
 
 
-void StopTemporaryPause()
+void FPGA::StopTemporaryPause()
 {
     FPGA_TEMPORARY_PAUSE = 0;
     Timer::Disable(TypeTimer::TemporaryPauseFPGA);
