@@ -98,7 +98,7 @@ pchar  Tables_GetWarning(Warning warning)
 }
 
 
-pchar  Tables_GetTBaseString(TBase::E tBase)
+pchar TBase::ToString(TBase::E tBase)
 {
     return tBases[tBase].name[set.common.lang];
 }

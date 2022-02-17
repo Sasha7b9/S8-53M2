@@ -2183,7 +2183,7 @@ void Display::DrawLowPart()
         }
     }
 
-    sprintf(buffer, "ð\xa5%s", Tables_GetTBaseString(tBase));
+    sprintf(buffer, "ð\xa5%s", TBase::ToString(tBase));
     PText::DrawText(x, y0, buffer);
 
     buffer[0] = 0;

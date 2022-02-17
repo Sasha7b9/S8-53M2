@@ -227,6 +227,8 @@ struct TBase
 
     static bool InRandomizeMode();
 
+    static pchar ToString(TBase::E);
+
     static const E MIN_PEC_DEAT = _500ns;   // Минимальный масштаб по времени, при котором возможно включение режима пикового детектора.
     static const E MIN_P2P      = _20ms;    // С этого значения tBase должен включаться режим поточечного вывода.
     static const E MAX_RAND     = _50ns;    // Максимальная развёртка, при которой ещё действует режим рандомизатора

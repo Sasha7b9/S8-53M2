@@ -43,8 +43,6 @@ enum WarningWithNumber
 
 pchar  Tables_GetWarning(Warning warning);
 
-pchar  Tables_GetTBaseString(TBase::E);
-
 pchar  Tables_GetTBaseStringEN(TBase::E);
 
 pchar  Tables_RangeNameFromValue(Range::E);
