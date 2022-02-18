@@ -9,6 +9,7 @@
 #include "Hardware/Timer.h"
 #include "Log.h"
 #include "Hardware/Sound.h"
+#include <stm32f4xx_hal.h>
 
 
 static const uint MIN_TIME = 500;
