@@ -629,3 +629,26 @@ int RShift::ToRel(float rShiftAbs, Range::E range)
     }
     return retValue;
 };
+
+
+void DataSettings::FillDataPointer()
+{
+    enableCh0 = Chan::Enabled(Chan::A) ? 1U : 0U;
+    enableCh1 = Chan::Enabled(Chan::B) ? 1U : 0U;
+    inverseCh0 = SET_INVERSE_A ? 1U : 0U;
+    inverseCh1 = SET_INVERSE_B ? 1U : 0U;
+    range[0] = SET_RANGE_A;
+    range[1] = SET_RANGE_B;
+    rShiftCh0 = (uint)SET_RSHIFT_A;
+    rShiftCh1 = (uint)SET_RSHIFT_B;
+    tBase = SET_TBASE;
+    tShift = TSHIFT;
+    modeCouple0 = SET_COUPLE_A;
+    modeCouple1 = SET_COUPLE_B;
+    length1channel = (uint)ENUM_POINTS_FPGA::ToNumPoints(false);
+    trigLevCh0 = (uint)TRIG_LEVEL_A;
+    trigLevCh1 = (uint)TRIG_LEVEL_B;
+    peakDet = (uint)PEAKDET;
+    multiplier0 = SET_DIVIDER_A;
+    multiplier1 = SET_DIVIDER_B;
+}
