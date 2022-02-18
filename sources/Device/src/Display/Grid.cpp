@@ -3,6 +3,12 @@
 #include "Settings/Settings.h"
 
 
+namespace Grid
+{
+    int SignalWidth();
+}
+
+
 int Grid::Left()
 {
     return (MenuIsMinimize() && MenuIsShown() ? 9 : 20) + Measure_GetDeltaGridLeft();

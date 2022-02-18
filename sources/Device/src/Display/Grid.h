@@ -2,31 +2,27 @@
 #pragma once
 
 
-class Grid
+namespace Grid
 {
-public:
-    static int Left();
-    static int Right();
-    static int Width();
-    static float DeltaY();
-    static float DeltaX();
+    int Left();
+    int Right();
+    int Width();
+    float DeltaY();
+    float DeltaX();
 
-    static int WidthInCells();
+    int WidthInCells();
 
-    static int FullBottom();
-    static int FullHeight();
-    static int FullCenterHeight();
+    int FullBottom();
+    int FullHeight();
+    int FullCenterHeight();
 
-    static int ChannelBottom();
-    static int ChannelHeight();
-    static int ChannelCenterHeight();
+    int ChannelBottom();
+    int ChannelHeight();
+    int ChannelCenterHeight();
 
-    static int MathHeight();
-    static int MathBottom();
-    static int MathTop();
+    int MathHeight();
+    int MathBottom();
+    int MathTop();
 
-    static int BottomMessages();
-
-private:
-    static int SignalWidth();
+    int BottomMessages();
 };
