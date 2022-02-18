@@ -37,107 +37,109 @@ static uint timePrevPressButton = 0;
 static uint timePrevReleaseButton = 0;
 
 
-static void(*funcOnKeyDown[B_NumButtons])()    =
-{    
-    0,
-    EmptyFuncVV,    // B_ChannelA
-    EmptyFuncVV,    // B_Service
-    EmptyFuncVV,    // B_ChannelB
-    EmptyFuncVV,    // B_Display
-    EmptyFuncVV,    // B_Time
-    EmptyFuncVV,    // B_Memory                                         
-    EmptyFuncVV,    // B_Sinchro
-    StartDown,      // B_Start
-    EmptyFuncVV,    // B_Cursors
-    EmptyFuncVV,    // B_Measures
-    PowerDown,      // B_Power
-    EmptyFuncVV,    // B_Help
-    EmptyFuncVV,    // B_Menu
-    EmptyFuncVV,    // B_F1
-    EmptyFuncVV,    // B_F2
-    EmptyFuncVV,    // B_F3
-    EmptyFuncVV,    // B_F4
-    EmptyFuncVV     // B_F5
-};
-
-static void (*funcOnKeyUp[B_NumButtons])()    =
-{
-    0,
-    EmptyFuncVV,    // B_ChannelA
-    EmptyFuncVV,    // B_Service
-    EmptyFuncVV,    // B_ChannelB
-    EmptyFuncVV,    // B_Display
-    EmptyFuncVV,    // B_Time
-    EmptyFuncVV,    // B_Memory
-    EmptyFuncVV,    // B_Sinchro
-    EmptyFuncVV,    // B_Start
-    EmptyFuncVV,    // B_Cursors
-    EmptyFuncVV,    // B_Measures
-    EmptyFuncVV,    // B_Power
-    EmptyFuncVV,    // B_Help
-    EmptyFuncVV,    // B_Menu
-    EmptyFuncVV,    // B_F1
-    EmptyFuncVV,    // B_F2
-    EmptyFuncVV,    // B_F3
-    EmptyFuncVV,    // B_F4
-    EmptyFuncVV     // B_F5
-};
-
-static void (*funcOnLongPressure[B_NumButtons])()    =
-{
-    0,
-    Channel0Long,   // B_ChannelA
-    EmptyFuncVV,    // B_Service
-    Channel1Long,   // B_ChannelB
-    EmptyFuncVV,    // B_Display
-    TimeLong,       // B_Time
-    EmptyFuncVV,    // B_Memory
-    TrigLong,       // B_Sinchro
-    EmptyFuncVV,    // B_Start
-    EmptyFuncVV,    // B_Cursors
-    EmptyFuncVV,    // B_Measures
-    EmptyFuncVV,    // B_Power
-    HelpLong,       // B_Help
-    MenuLong,       // B_Menu
-    F1Long,         // B_F1
-    F2Long,         // B_F2
-    F3Long,         // B_F3
-    F4Long,         // B_F4
-    F5Long          // B_F5
-};
-
-static void (*funculatorLeft[R_Set + 1])()    =
-{
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    Range0Left,     // R_RangeA
-    RShift0Left,    // R_RShiftA
-    Range1Left,     // R_RangeB
-    RShift1Left,    // R_RShiftB
-    TBaseLeft,      // R_TBase
-    TShiftLeft,     // R_TShift
-    TrigLevLeft,    // R_TrigLev
-    SetLeft         // R_Set
-};
-static void (*funculatorRight[R_Set + 1])() =
-{
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    Range0Right,    // R_RangeA
-    RShift0Right,   // R_RShiftA
-    Range1Right,    // R_RangeB
-    RShift1Right,   // R_RShiftB
-    TBaseRight,     // R_TBase
-    TShiftRight,    // R_TShift
-    TrigLevRight,   // R_TrigLev
-    SetRight        // R_Set
-};
-
-
 namespace Panel
 {
     Queue<uint16> input_buffer;
 
     // Преобразует данные из новой панели в данные, опознаваемые старой прошивкой
     uint16 TranslateCommand(const uint8 *data, uint size);
+
+    void OnTimerPressedKey();
+
+    static void(*funcOnKeyDown[B_NumButtons])() =
+    {
+        0,
+        EmptyFuncVV,    // B_ChannelA
+        EmptyFuncVV,    // B_Service
+        EmptyFuncVV,    // B_ChannelB
+        EmptyFuncVV,    // B_Display
+        EmptyFuncVV,    // B_Time
+        EmptyFuncVV,    // B_Memory                                         
+        EmptyFuncVV,    // B_Sinchro
+        StartDown,      // B_Start
+        EmptyFuncVV,    // B_Cursors
+        EmptyFuncVV,    // B_Measures
+        PowerDown,      // B_Power
+        EmptyFuncVV,    // B_Help
+        EmptyFuncVV,    // B_Menu
+        EmptyFuncVV,    // B_F1
+        EmptyFuncVV,    // B_F2
+        EmptyFuncVV,    // B_F3
+        EmptyFuncVV,    // B_F4
+        EmptyFuncVV     // B_F5
+    };
+
+    static void (*funcOnKeyUp[B_NumButtons])() =
+    {
+        0,
+        EmptyFuncVV,    // B_ChannelA
+        EmptyFuncVV,    // B_Service
+        EmptyFuncVV,    // B_ChannelB
+        EmptyFuncVV,    // B_Display
+        EmptyFuncVV,    // B_Time
+        EmptyFuncVV,    // B_Memory
+        EmptyFuncVV,    // B_Sinchro
+        EmptyFuncVV,    // B_Start
+        EmptyFuncVV,    // B_Cursors
+        EmptyFuncVV,    // B_Measures
+        EmptyFuncVV,    // B_Power
+        EmptyFuncVV,    // B_Help
+        EmptyFuncVV,    // B_Menu
+        EmptyFuncVV,    // B_F1
+        EmptyFuncVV,    // B_F2
+        EmptyFuncVV,    // B_F3
+        EmptyFuncVV,    // B_F4
+        EmptyFuncVV     // B_F5
+    };
+
+    static void (*funcOnLongPressure[B_NumButtons])() =
+    {
+        0,
+        Channel0Long,   // B_ChannelA
+        EmptyFuncVV,    // B_Service
+        Channel1Long,   // B_ChannelB
+        EmptyFuncVV,    // B_Display
+        TimeLong,       // B_Time
+        EmptyFuncVV,    // B_Memory
+        TrigLong,       // B_Sinchro
+        EmptyFuncVV,    // B_Start
+        EmptyFuncVV,    // B_Cursors
+        EmptyFuncVV,    // B_Measures
+        EmptyFuncVV,    // B_Power
+        HelpLong,       // B_Help
+        MenuLong,       // B_Menu
+        F1Long,         // B_F1
+        F2Long,         // B_F2
+        F3Long,         // B_F3
+        F4Long,         // B_F4
+        F5Long          // B_F5
+    };
+
+    static void (*funculatorLeft[R_Set + 1])() =
+    {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        Range0Left,     // R_RangeA
+        RShift0Left,    // R_RShiftA
+        Range1Left,     // R_RangeB
+        RShift1Left,    // R_RShiftB
+        TBaseLeft,      // R_TBase
+        TShiftLeft,     // R_TShift
+        TrigLevLeft,    // R_TrigLev
+        SetLeft         // R_Set
+    };
+
+    static void (*funculatorRight[R_Set + 1])() =
+    {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        Range0Right,    // R_RangeA
+        RShift0Right,   // R_RShiftA
+        Range1Right,    // R_RangeB
+        RShift1Right,   // R_RShiftB
+        TBaseRight,     // R_TBase
+        TShiftRight,    // R_TShift
+        TrigLevRight,   // R_TrigLev
+        SetRight        // R_Set
+    };
 }
 
 
@@ -195,7 +197,7 @@ Regulator RegulatorRight(uint16 command)
 }
 
 
-void OnTimerPressedKey()
+void Panel::OnTimerPressedKey()
 {
     if(pressedKey != B_Empty)
     {
