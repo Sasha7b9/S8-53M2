@@ -132,12 +132,6 @@ pchar Range::ToName(Range::E range)
 }
 
 
-int Tables_GetNumChannel(Chan::E ch)
-{
-    return (ch == Chan::A) ? 1 : 2;
-}
-
-
 void DrawStr(int index, int x, int y)
 {
     pchar str = symbolsAlphaBet[index];

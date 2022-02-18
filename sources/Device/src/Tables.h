@@ -43,8 +43,6 @@ enum WarningWithNumber
 
 pchar  Tables_GetWarning(Warning warning);
 
-// Возвращает номер канала от 1 до 2
-int Tables_GetNumChannel(Chan::E);
 
 extern pchar  symbolsAlphaBet[0x48];
 // Выводит строку из таблицы symbolsAlphaBet

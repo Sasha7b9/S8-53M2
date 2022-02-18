@@ -28,6 +28,9 @@ struct Chan
     };
 
     static bool Enabled(E);
+
+    // Возвращает номер канала от 1 до 2
+    static int GetNumber(E ch) { return (ch == Chan::A) ? 1 : 2; }
 };
 
 
