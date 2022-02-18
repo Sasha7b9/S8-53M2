@@ -1218,8 +1218,8 @@ void Display::WriteCursors()
             PText::DrawText(x, y1, PageCursors::GetCursVoltage(source, 0, buffer));
             PText::DrawText(x, y2, PageCursors::GetCursVoltage(source, 1, buffer));
             x = startX + 49;
-            float pos0 = Math_VoltageCursor(PageCursors::GetCursPosU(source, 0), SET_RANGE(source), SET_RSHIFT(source));
-            float pos1 = Math_VoltageCursor(PageCursors::GetCursPosU(source, 1), SET_RANGE(source), SET_RSHIFT(source));
+            float pos0 = VoltageCursor(PageCursors::GetCursPosU(source, 0), SET_RANGE(source), SET_RSHIFT(source));
+            float pos1 = VoltageCursor(PageCursors::GetCursPosU(source, 1), SET_RANGE(source), SET_RSHIFT(source));
             float delta = fabsf(pos1 - pos0);
             PText::DrawText(x, y1, ":dU=");
             PText::DrawText(x + 17, y1, Voltage2String(delta, false, buffer));
@@ -1239,8 +1239,8 @@ void Display::WriteCursors()
             PText::DrawText(x, y1, PageCursors::GetCursorTime(source, 0, buffer));
             PText::DrawText(x, y2, PageCursors::GetCursorTime(source, 1, buffer));
             x = startX + 153;
-            float pos0 = Math_TimeCursor(CURS_POS_T0(source), SET_TBASE);
-            float pos1 = Math_TimeCursor(CURS_POS_T1(source), SET_TBASE);
+            float pos0 = Math::TimeCursor(CURS_POS_T0(source), SET_TBASE);
+            float pos1 = Math::TimeCursor(CURS_POS_T1(source), SET_TBASE);
             float delta = fabsf(pos1 - pos0);
             PText::DrawText(x, y1, ":dT=");
             char buf[20];
@@ -2039,7 +2039,7 @@ void Display::DrawMeasures()
             {
                 Painter::FillRegion(x, y, dX, dY, COLOR_BACK);
                 Painter::DrawRectangle(x, y, dX, dY, COLOR_FILL);
-                TOP_MEASURES = Math_MinFrom2Int(TOP_MEASURES, y);
+                TOP_MEASURES = Math::MinFrom2Int(TOP_MEASURES, y);
             }
             if(active)
             {

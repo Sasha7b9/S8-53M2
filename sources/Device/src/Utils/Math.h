@@ -38,6 +38,11 @@ extern const float absStepTShift[];
 
 namespace Math
 {
+    int   MinFrom2Int(int val0, int val1);
+    int   RShift2Rel(float rShiftAbs, Range::E);
+    float VoltageCursor(float shiftCurU, Range::E, int16 rShift);
+    float TimeCursor(float shiftCurT, TBase::E);
+
     template<class T>
     T Limitation(T value, T min, T max)
     {
@@ -66,10 +71,6 @@ namespace Math
 
 }
 
-int     Math_MinFrom2Int(int val0, int val1);
-int     Math_RShift2Rel(float rShiftAbs, Range::E);
-float   Math_VoltageCursor(float shiftCurU, Range::E, int16 rShift);
-float   Math_TimeCursor(float shiftCurT, TBase::E tBase);
 void    Math_DataExtrapolation(uint8 *data, uint8 *there, int size);
 void    Math_PointsRelToVoltage(const uint8 *points, int numPoints, Range::E, int16 rShift, float *voltage);
 uint8   Math_VoltageToPoint(float voltage, Range::E, int16 rShift);

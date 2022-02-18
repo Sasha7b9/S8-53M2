@@ -78,7 +78,7 @@ const float absStepTShift[] =
     1.0f / 20, 2.0f / 20, 5.0f / 20, 10.0f / 20
 };
 
-int Math_MinFrom2Int(int val0, int val1)
+int Math::MinFrom2Int(int val0, int val1)
 {
     if (val0 < val1)
     {
@@ -87,7 +87,7 @@ int Math_MinFrom2Int(int val0, int val1)
     return val1;
 }
 
-int Math_RShift2Rel(float rShiftAbs, Range::E range)
+int Math::RShift2Rel(float rShiftAbs, Range::E range)
 {
     int retValue = RShift::ZERO + rShiftAbs / absStepRShift[range];
     if(retValue < RShift::MIN)
@@ -101,12 +101,12 @@ int Math_RShift2Rel(float rShiftAbs, Range::E range)
     return retValue;
 };
 
-float Math_VoltageCursor(float shiftCurU, Range::E range, int16 rShift)
+float Math::VoltageCursor(float shiftCurU, Range::E range, int16 rShift)
 {
     return MAX_VOLTAGE_ON_SCREEN(range) - shiftCurU * voltsInPixel[range] - RSHIFT_2_ABS(rShift, range);
 }
 
-float Math_TimeCursor(float shiftCurT, TBase::E tBase)
+float Math::TimeCursor(float shiftCurT, TBase::E tBase)
 {
     return shiftCurT * absStepTShift[tBase];
 }

@@ -11,7 +11,6 @@
 #include "Hardware/HAL/HAL.h"
 
 
-
 StateWorkFPGA::E StateWorkFPGA::current = StateWorkFPGA::Stop;
 
 
@@ -134,8 +133,8 @@ void Range::Set(Chan::E ch, Range::E range)
 
         if (LINKING_RSHIFT_IS_VOLTAGE)
         {
-            SET_RSHIFT(ch) = (int16)Math_RShift2Rel(rShiftAbs, range);
-            TRIG_LEVEL(ch) = (int16)Math_RShift2Rel(trigLevAbs, range);
+            SET_RSHIFT(ch) = (int16)Math::RShift2Rel(rShiftAbs, range);
+            TRIG_LEVEL(ch) = (int16)Math::RShift2Rel(trigLevAbs, range);
         }
 
         Load(ch);

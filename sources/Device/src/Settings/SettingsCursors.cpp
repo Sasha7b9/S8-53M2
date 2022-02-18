@@ -27,14 +27,14 @@ bool PageCursors::NecessaryDrawCursors()
 
 pchar  PageCursors::GetCursVoltage(Chan::E source, int numCur, char buffer[20])
 {
-    float voltage = Math_VoltageCursor(PageCursors::GetCursPosU(source, numCur), SET_RANGE(source), SET_RSHIFT(source));
+    float voltage = Math::VoltageCursor(PageCursors::GetCursPosU(source, numCur), SET_RANGE(source), SET_RSHIFT(source));
     return Voltage2String(voltage, true, buffer);
 }
 
 
 pchar PageCursors::GetCursorTime(Chan::E source, int numCur, char buffer[20])
 {
-    float time = Math_TimeCursor(CURS_POS_T(source, numCur), SET_TBASE);
+    float time = Math::TimeCursor(CURS_POS_T(source, numCur), SET_TBASE);
         
     return Time2String(time, true, buffer);
 }
