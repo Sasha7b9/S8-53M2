@@ -19,6 +19,9 @@
 #include <cstring>
 
 
+using namespace Math;
+
+
 bool     Color::inverse = false;
 Color::E Color::current = Color::Count;
 
@@ -322,7 +325,7 @@ Color::E Painter::GetColor(int x, int y)
 
 void Painter::DrawMultiVPointLine(int numLines, const int y, uint16 x[], int delta, int count, Color::E color) 
 {
-    numLines = LimitationInt(numLines, 0, 20);
+    numLines = Limitation<int>(numLines, 0, 20);
 
     Color::SetCurrent(color);
 
@@ -366,7 +369,7 @@ void Painter::DrawVPointLine(int x, int y, int count, int delta)
 
 void Painter::DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color::E color)
 {
-    numLines = LimitationInt(numLines, 0, 20);
+    numLines = Limitation<int>(numLines, 0, 20);
 
     Color::SetCurrent(color);
 

@@ -19,6 +19,9 @@
 #include <string.h>
 
 
+using namespace Math;
+
+
 namespace FPGA
 {
     namespace FreqMeter
@@ -302,7 +305,7 @@ bool FPGA::IsRunning()
 #define WRITE_AND_OR_INVERSE(addr, data, ch)                                                      \
     if(SET_INVERSE(ch))                                                                   \
     {                                                                                               \
-        data = (uint8)((int)(2 * ValueFPGA::AVE) - LimitationUInt8(data, ValueFPGA::MIN, ValueFPGA::MAX));    \
+        data = (uint8)((int)(2 * ValueFPGA::AVE) - Limitation<uint8>(data, ValueFPGA::MIN, ValueFPGA::MAX));    \
     }                                                                                               \
     *addr = data;
 
@@ -867,7 +870,7 @@ void FPGA::InverseDataIsNecessary(Chan::E ch, uint8 *data)
     {
         for (int i = 0; i < FPGA::MAX_POINTS; i++)
         {
-            data[i] = (uint8)((int)(2 * ValueFPGA::AVE) - LimitationUInt8(data[i], ValueFPGA::MIN, ValueFPGA::MAX));
+            data[i] = (uint8)((int)(2 * ValueFPGA::AVE) - Limitation<uint8>(data[i], ValueFPGA::MIN, ValueFPGA::MAX));
         }
     }
 }

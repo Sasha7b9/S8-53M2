@@ -31,6 +31,9 @@
 #include <stdio.h>
 
 
+using namespace Math;
+
+
 namespace Display
 {
     #define NUM_P2P_POINTS (FPGA::MAX_POINTS)
@@ -1024,7 +1027,7 @@ void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, 
     int height = 14;
     float scale = (float)height / (float)(ValueFPGA::MAX - ValueFPGA::MIN);
 
-#define ORDINATE(x) (uint8)(bottom - scale * LimitationInt((x) - ValueFPGA::MIN, 0, 200))
+#define ORDINATE(x) (uint8)(bottom - scale * Limitation<int>((x) - ValueFPGA::MIN, 0, 200))
 
     static const int NUM_POINTS = (300 * 2);
     uint8 points[NUM_POINTS];

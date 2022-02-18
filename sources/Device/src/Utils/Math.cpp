@@ -635,25 +635,6 @@ uint8 Math_GetMaxFromArray(const uint8 *data, int firstPoint, int lastPoint)
     return max;
 }
 
-#define LIMIT                           \
-    if (value <= min) { return min; }   \
-    if (value >= max) { return max; }   \
-    return value;
-
-int LimitationInt(int value, int min, int max)
-{
-    LIMIT
-}
-
-uint8 LimitationUInt8(uint8 value, uint8 min, uint8 max)
-{
-    LIMIT
-}
-
-float LimitationFloat(float value, float min, float max)
-{
-    LIMIT
-}
 
 uint8 Math_CalculateFiltr(const uint8 *data, int x, int numPoints, int numSmoothing)
 {

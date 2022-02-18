@@ -36,6 +36,18 @@ extern const float absStepRShift[];
 extern const float voltsInPixel[];
 extern const float absStepTShift[];
 
+namespace Math
+{
+    template<class T>
+    T Limitation(T value, T min, T max)
+    {
+        if (value < min)      { return min; }
+        else if (value > max) { return max; }
+
+        return value;
+    }
+}
+
 int     Math_MinFrom2Int(int val0, int val1);
 int     Math_RShift2Rel(float rShiftAbs, Range::E);
 float   Math_VoltageCursor(float shiftCurU, Range::E, int16 rShift);
@@ -67,10 +79,6 @@ int     Math_Pow10(int pow);
 int     Math_NumDigitsInNumber(int value);
 // Возвращает модуль value.
 int     Math_FabsInt(int value);
-
-int     LimitationInt(int value, int min, int max);
-uint8   LimitationUInt8(uint8 value, uint8 min, uint8 max);
-float   LimitationFloat(float value, float min, float max);
 
 uint8   Math_CalculateFiltr(const uint8 *data, int x, int numPoints, int numSmoothing);
 void    Math_CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoints, int numSmoothing);
