@@ -46,6 +46,24 @@ namespace Math
 
         return value;
     }
+
+    template<class T>
+    void Swap(T *value0, T *value1)
+    {
+        T temp = *value0; *value0 = *value1; *value1 = temp;
+    }
+
+    template<class T>
+    void Sort(T *value1, T *value2)
+    {
+        if (*value1 > *value2)
+        {
+            T temp = *value1;
+            *value1 = *value2;
+            *value2 = temp;
+        }
+    }
+
 }
 
 int     Math_MinFrom2Int(int val0, int val1);
@@ -82,20 +100,3 @@ int     Math_FabsInt(int value);
 
 uint8   Math_CalculateFiltr(const uint8 *data, int x, int numPoints, int numSmoothing);
 void    Math_CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoints, int numSmoothing);
-
-template<class T>
-void Math_Swap(T *value0, T *value1)
-{
-    T temp = *value0; *value0 = *value1; *value1 = temp;
-}
-
-template<class T>
-void Math_Sort(T *value1, T *value2)
-{
-    if (*value1 > *value2)
-    {
-        T temp = *value1;
-        *value1 = *value2;
-        *value2 = temp;
-    }
-}

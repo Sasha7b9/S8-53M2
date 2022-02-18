@@ -205,7 +205,7 @@ void Painter::DrawHLine(int y, int x0, int x1, Color::E color)
 
     if (x0 > x1)
     {
-        Math_Swap(&x0, &x1);
+        Swap(&x0, &x1);
     }
 
     uint8 *start = Display::back_buffer + y * Display::WIDTH + x0;
@@ -235,7 +235,7 @@ void Painter::DrawVLine(int x, int y0, int y1, Color::E color)
     BoundingY(y0);
     BoundingY(y1);
 
-    Math_Sort(&y0, &y1);
+    Sort(&y0, &y1);
 
     uint8 *address = Display::back_buffer + Display::WIDTH * y0 + x;
 
