@@ -2723,7 +2723,7 @@ void Display::ClearFromWarnings()
 void Display::ShowWarningBad(Warning warning)
 {
     Color::ResetFlash();
-    ShowWarn(Tables_GetWarning(warning));
+    ShowWarn(Tables::GetWarning(warning));
     Sound::WarnBeepBad();
 }
 
@@ -2732,7 +2732,7 @@ void Display::ShowWarningBad(Warning warning)
 void Display::ShowWarningGood(Warning warning)
 {
     Color::ResetFlash();
-    ShowWarn(Tables_GetWarning(warning));
+    ShowWarn(Tables::GetWarning(warning));
     Sound::WarnBeepGood();
 }
 

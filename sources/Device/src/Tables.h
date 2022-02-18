@@ -41,7 +41,10 @@ enum WarningWithNumber
 };
 
 
-pchar  Tables_GetWarning(Warning warning);
+namespace Tables
+{
+    pchar GetWarning(Warning warning);
+}
 
 
 extern pchar  symbolsAlphaBet[0x48];

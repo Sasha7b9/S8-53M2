@@ -62,7 +62,7 @@ pchar  symbolsAlphaBet[0x48] =
 };
 
 
-pchar  Tables_GetWarning(Warning warning)
+pchar Tables::GetWarning(Warning warning)
 {
     static pchar warnings[Warning_NumWarnings][2] =
     {
