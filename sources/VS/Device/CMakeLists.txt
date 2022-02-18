@@ -67,6 +67,8 @@ file(GLOB HAL                             ../../common/_VS_GUI/HAL/stm32f4xx_hal
 file(GLOB DISPLAY                         ../../Device/src/Display/*.*)
 file(GLOB HARDWARE                        ../../Device/src/Hardware/*.*)
 file(GLOB HARDWARE_HAL                    ../../Device/src/Hardware/HAL/*.*)
+file(GLOB MENU                            ../../Device/src/Menu/*.*)
+file(GLOB PANEL                           ../../Device/src/Panel/*.*)
 file(GLOB SETTINGS                        ../../Device/src/Settings/*.*)
 
 file(GLOB RESOURCES                       resources/*)
@@ -80,7 +82,10 @@ set_source_files_properties(resources/*
 source_group(src                        FILES ${SRC})
 source_group(HAL                        FILES ${HAL})
 source_group(Display                    FILES ${DISPLAY})
-
+source_group(Hardware                   FILES ${HARDWARE})
+source_group(Hardware/HAL               FILES ${HARDWARE_HAL})
+source_group(Menu                       FILES ${MENU})
+source_group(Panel                      FILES ${PANEL})
 source_group(Settings                   FILES ${SETTINGS})
 source_group(Resources                  FILES ${RESOURCES})
 
@@ -91,6 +96,9 @@ add_executable( ${PROJECT_NAME}
                 ${SRC}
                 ${HAL}
                 ${DISPLAY}
+                ${HARDWARE} ${HARDWARE_HAL}
+                ${MENU}
+                ${PANEL}
                 ${SETTINGS}
                 ${RESOURCES}
                 )
