@@ -106,7 +106,7 @@ static void RotateSB_MemLast(int angle)
     {
         Sound::RegulatorSwitchRotate();
     }
-    if (Math_Sign(angle) > 0)
+    if (Math::Sign(angle) > 0)
     {
         PressSB_MemLast_Next();
     }
@@ -394,7 +394,7 @@ void OnMemExtSetMaskNameRegSet(int angle, int maxIndex)
     {
         INDEX_SYMBOL = maxIndex - 1;
     }
-    func[Math_Sign(angle) + 1](&INDEX_SYMBOL, 0, maxIndex - 1);
+    func[Math::Sign(angle) + 1](&INDEX_SYMBOL, 0, maxIndex - 1);
     Sound::RegulatorSwitchRotate();
 
 }

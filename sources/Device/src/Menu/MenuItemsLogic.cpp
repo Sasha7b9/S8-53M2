@@ -36,7 +36,7 @@ void Governor::StartChange(int delta)
 void Governor::ChangeValue(int delta)
 {
     int16 oldValue = *cell;
-    LIMITATION(*cell, (int16)(oldValue + Math_Sign(delta) * Math_Pow10(Governor::cur_digit)), (int16)minValue, (int16)maxValue);
+    LIMITATION(*cell, (int16)(oldValue + Math::Sign(delta) * Math::Pow10(Governor::cur_digit)), (int16)minValue, (int16)maxValue);
 
     if (*cell != oldValue)
     {
@@ -68,7 +68,7 @@ void IPaddress::ChangeValue(int delta)
         oldValue = *port;
     }
 
-    int newValue = oldValue + Math_Sign(delta) * Math_Pow10(numPos);
+    int newValue = oldValue + Math::Sign(delta) * Math::Pow10(numPos);
     LIMITATION(newValue, newValue, 0, numByte == 4 ? 65535 : 255);
 
     if (oldValue != newValue)

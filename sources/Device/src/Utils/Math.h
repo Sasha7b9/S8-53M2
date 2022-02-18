@@ -39,6 +39,9 @@ extern const float absStepTShift[];
 namespace Math
 {
     int   MinFrom2Int(int val0, int val1);
+    int   Sign(int vlaue);
+    // Вычисляет 10**pow.
+    int   Pow10(int pow);
 
     float VoltageCursor(float shiftCurU, Range::E, int16 rShift);
     float TimeCursor(float shiftCurT, TBase::E);
@@ -91,9 +94,6 @@ void    Math_CalculateFFT(float *data, int numPoints, float *result, float *freq
 void    Math_CalculateMathFunction(float *data0andResult, float *data1, int numPoints);
 float   Math_RandFloat(float min, float max);
 int8    Math_AddInt8WithLimitation(int8 value, int8 delta, int8 min, int8 max);
-int     Math_Sign(int vlaue);
-// Вычисляет 10**pow.
-int     Math_Pow10(int pow);
 // Вычисляет число разрядов в целом типа int.
 int     Math_NumDigitsInNumber(int value);
 // Возвращает модуль value.

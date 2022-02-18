@@ -515,7 +515,7 @@ int8 Math_AddInt8WithLimitation(int8 value, int8 delta, int8, int8 max)
     return retValue;
 }
 
-int Math_Sign(int value)
+int Math::Sign(int value)
 {
     if (value > 0)
     {
@@ -528,7 +528,7 @@ int Math_Sign(int value)
     return 0;
 }
 
-int Math_Pow10(int pow)
+int Math::Pow10(int pow)
 {
     int retValue = 1;
 
