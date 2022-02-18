@@ -55,12 +55,6 @@ namespace HAL_DAC1
 #define ADDR_BANK  0x60000000
 #define ADDR_FPGA  ((uint8*)(ADDR_BANK + 0x00c80000))  // Адрес записи в аппаратные регистры.
 
-namespace o_HAL_FMC_
-{
-    // Это старые функция чтения/записи
-    inline uint8 Read(uint8 *address) { return 0; };
-    inline void  Write(uint8 *address, uint8 value) {};
-}
 
 // Используется для связи с FPGA и RAM
 namespace HAL_FMC
