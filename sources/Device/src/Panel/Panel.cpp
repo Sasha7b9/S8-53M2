@@ -48,6 +48,10 @@ namespace Panel
 
     PanelButton ButtonIsPress(uint16 command);
 
+    Regulator RegulatorLeft(uint16 command);
+
+    Regulator RegulatorRight(uint16 command);
+
     static void(*funcOnKeyDown[B_NumButtons])() =
     {
         0,
@@ -162,6 +166,7 @@ PanelButton Panel::ButtonIsRelease(uint16 command)
     return button;
 }
 
+
 PanelButton Panel::ButtonIsPress(uint16 command)
 {
     PanelButton button = B_Empty;
@@ -178,7 +183,8 @@ PanelButton Panel::ButtonIsPress(uint16 command)
     return button;
 }
 
-Regulator RegulatorLeft(uint16 command)
+
+Regulator Panel::RegulatorLeft(uint16 command)
 {
     if(command >= 20 && command <= 27)
     {
@@ -189,7 +195,7 @@ Regulator RegulatorLeft(uint16 command)
 }
 
 
-Regulator RegulatorRight(uint16 command)
+Regulator Panel::RegulatorRight(uint16 command)
 {
     if(((command & 0x7f) >= 20) && ((command & 0x7f) <= 27))
     {
