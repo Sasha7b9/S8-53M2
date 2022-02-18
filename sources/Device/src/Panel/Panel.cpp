@@ -31,12 +31,12 @@ namespace Panel
 #define LED_TRIG_DISABLE    3
 #define POWER_OFF           4
 
-    static PanelButton pressedKey = B_Empty;
-    static volatile PanelButton pressedButton = B_Empty;         // Это используется для отслеживания нажатой кнопки при отключенной панели
-    static uint16 dataTransmitted[MAX_DATA] = {0x00};
-    static uint16 numDataForTransmitted = 0;
-    static uint timePrevPressButton = 0;
-    static uint timePrevReleaseButton = 0;
+    PanelButton pressedKey = B_Empty;
+    volatile PanelButton pressedButton = B_Empty;         // Это используется для отслеживания нажатой кнопки при отключенной панели
+    uint16 dataTransmitted[MAX_DATA] = {0x00};
+    uint16 numDataForTransmitted = 0;
+    uint timePrevPressButton = 0;
+    uint timePrevReleaseButton = 0;
 
     Queue<uint16> input_buffer;
 
