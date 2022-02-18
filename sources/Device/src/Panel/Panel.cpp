@@ -21,15 +21,14 @@
 
 namespace Panel
 {
-#define MAX_DATA            20
+    const int MAX_DATA = 20;
 
-#define LED_CHAN0_ENABLE    129U
-#define LED_CHAN0_DISABLE   1U
-#define LED_CHAN1_ENABLE    130U
-#define LED_CHAN1_DISABLE   2U
-#define LED_TRIG_ENABLE     131
-#define LED_TRIG_DISABLE    3
-#define POWER_OFF           4
+    const uint8 LED_CHAN0_ENABLE  = 129U;
+    const uint8 LED_CHAN0_DISABLE = 1U;
+    const uint8 LED_CHAN1_ENABLE  = 130U;
+    const uint8 LED_CHAN1_DISABLE = 2U;
+    const uint8 LED_TRIG_ENABLE   = 131;
+    const uint8 LED_TRIG_DISABLE  = 3;
 
     PanelButton pressedKey = B_Empty;
     volatile PanelButton pressedButton = B_Empty;         // Это используется для отслеживания нажатой кнопки при отключенной панели
