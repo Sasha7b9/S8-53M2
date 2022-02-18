@@ -19,9 +19,6 @@
 #include <cstring>
 
 
-using namespace Math;
-
-
 bool     Color::inverse = false;
 Color::E Color::current = Color::Count;
 
@@ -205,7 +202,7 @@ void Painter::DrawHLine(int y, int x0, int x1, Color::E color)
 
     if (x0 > x1)
     {
-        Swap(&x0, &x1);
+        Math::Swap(&x0, &x1);
     }
 
     uint8 *start = Display::back_buffer + y * Display::WIDTH + x0;
@@ -235,7 +232,7 @@ void Painter::DrawVLine(int x, int y0, int y1, Color::E color)
     BoundingY(y0);
     BoundingY(y1);
 
-    Sort(&y0, &y1);
+    Math::Sort(&y0, &y1);
 
     uint8 *address = Display::back_buffer + Display::WIDTH * y0 + x;
 
@@ -325,7 +322,7 @@ Color::E Painter::GetColor(int x, int y)
 
 void Painter::DrawMultiVPointLine(int numLines, const int y, uint16 x[], int delta, int count, Color::E color) 
 {
-    numLines = Limitation<int>(numLines, 0, 20);
+    numLines = Math::Limitation<int>(numLines, 0, 20);
 
     Color::SetCurrent(color);
 
@@ -369,7 +366,7 @@ void Painter::DrawVPointLine(int x, int y, int count, int delta)
 
 void Painter::DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color::E color)
 {
-    numLines = Limitation<int>(numLines, 0, 20);
+    numLines = Math::Limitation<int>(numLines, 0, 20);
 
     Color::SetCurrent(color);
 

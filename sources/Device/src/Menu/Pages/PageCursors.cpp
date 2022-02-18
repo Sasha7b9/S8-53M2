@@ -17,9 +17,6 @@
 #include <string.h>
 
 
-using namespace Math;
-
-
 extern const Page pCursors;
 
 extern const Choice mcShow;                             //  ”–—Œ–€ - œÓÍ‡Á˚‚‡Ú¸
@@ -142,11 +139,11 @@ void SetCursPosU(Chan::E ch, int numCur, float pos)
 {
     if (CURS_MOVEMENT_IS_PERCENTS)
     {
-        CURS_POS_U(ch, numCur) = Limitation<float>(pos, 0, MAX_POS_U);
+        CURS_POS_U(ch, numCur) = Math::Limitation<float>(pos, 0, MAX_POS_U);
     }
     else
     { //-V523
-        CURS_POS_U(ch, numCur) = Limitation<float>(pos, 0, MAX_POS_U);
+        CURS_POS_U(ch, numCur) = Math::Limitation<float>(pos, 0, MAX_POS_U);
     }
 }
 
@@ -156,11 +153,11 @@ void SetCursPosT(Chan::E ch, int numCur, float pos)
 {
     if (CURS_MOVEMENT_IS_PERCENTS)
     {
-        CURS_POS_T(ch, numCur) = Limitation<float>(pos, 0, MAX_POS_T);
+        CURS_POS_T(ch, numCur) = Math::Limitation<float>(pos, 0, MAX_POS_T);
     }
     else
     { //-V523
-        CURS_POS_T(ch, numCur) = Limitation<float>(pos, 0, MAX_POS_T);
+        CURS_POS_T(ch, numCur) = Math::Limitation<float>(pos, 0, MAX_POS_T);
     }
 }
 
@@ -349,11 +346,11 @@ static void SetShiftCursPosU(Chan::E ch, int numCur, float delta)
 {
     if (CURS_MOVEMENT_IS_PERCENTS)
     {
-        CURS_POS_U(ch, numCur) = Limitation<float>(CURS_POS_U(ch, numCur) - delta, 0, MAX_POS_U);
+        CURS_POS_U(ch, numCur) = Math::Limitation<float>(CURS_POS_U(ch, numCur) - delta, 0, MAX_POS_U);
     }
     else
     { //-V523
-        CURS_POS_U(ch, numCur) = Limitation<float>(CURS_POS_U(ch, numCur) - delta, 0, MAX_POS_U);
+        CURS_POS_U(ch, numCur) = Math::Limitation<float>(CURS_POS_U(ch, numCur) - delta, 0, MAX_POS_U);
     }
 }
 
@@ -385,11 +382,11 @@ static void SetShiftCursPosT(Chan::E ch, int numCur, float delta)
 {
     if (CURS_MOVEMENT_IS_PERCENTS)
     {
-        CURS_POS_T(ch, numCur) = Limitation<float>(CURS_POS_T(ch, numCur) + delta, 0, MAX_POS_T);
+        CURS_POS_T(ch, numCur) = Math::Limitation<float>(CURS_POS_T(ch, numCur) + delta, 0, MAX_POS_T);
     }
     else
     { //-V523
-        CURS_POS_T(ch, numCur) = Limitation<float>(CURS_POS_T(ch, numCur) + delta, 0, MAX_POS_T);
+        CURS_POS_T(ch, numCur) = Math::Limitation<float>(CURS_POS_T(ch, numCur) + delta, 0, MAX_POS_T);
     }
 }
 
