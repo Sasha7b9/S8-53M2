@@ -44,9 +44,10 @@ enum WarningWithNumber
 namespace Tables
 {
     pchar GetWarning(Warning warning);
+
+    // Выводит строку из таблицы symbolsAlphaBet
+    void DrawStr(int index, int x, int y);
+
+    extern pchar symbolsAlphaBet[0x48];
 }
 
-
-extern pchar  symbolsAlphaBet[0x48];
-// Выводит строку из таблицы symbolsAlphaBet
-void DrawStr(int index, int x, int y);

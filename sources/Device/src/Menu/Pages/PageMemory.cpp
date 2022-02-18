@@ -337,7 +337,7 @@ void PressSB_SetMask_Insert()
     }
     if (index < 0x41)
     {
-        FILE_NAME_MASK[size] = symbolsAlphaBet[index][0];
+        FILE_NAME_MASK[size] = Tables::symbolsAlphaBet[index][0];
         FILE_NAME_MASK[size + 1] = '\0';
     }
     else
@@ -375,7 +375,7 @@ void PressSB_SetName_Insert()
     int size = (int)strlen(FILE_NAME);
     if (size < MAX_SYMBOLS_IN_FILE_NAME - 1)
     {
-        FILE_NAME[size] = symbolsAlphaBet[INDEX_SYMBOL][0];
+        FILE_NAME[size] = Tables::symbolsAlphaBet[INDEX_SYMBOL][0];
         FILE_NAME[size + 1] = '\0';
     }
 }
@@ -401,7 +401,7 @@ void OnMemExtSetMaskNameRegSet(int angle, int maxIndex)
 
 static void OnMemExtSetMaskRegSet(int angle)
 {
-    OnMemExtSetMaskNameRegSet(angle, sizeof(symbolsAlphaBet) / 4);
+    OnMemExtSetMaskNameRegSet(angle, sizeof(Tables::symbolsAlphaBet) / 4);
 }
 
 extern const Page mspSetMask;
@@ -967,27 +967,27 @@ void DrawSetName()
     int deltaY = 12;
 
     // Рисуем большие буквы английского алфавита
-    while (symbolsAlphaBet[index][0] != ' ')
+    while (Tables::symbolsAlphaBet[index][0] != ' ')
     {
-        DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0);
+        Tables::DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0);
         index++;
         position++;
     }
 
     // Теперь рисуем цифры и пробел
     position = 0;
-    while (symbolsAlphaBet[index][0] != 'a')
+    while (Tables::symbolsAlphaBet[index][0] != 'a')
     {
-        DrawStr(index, x0 + deltaX + 50 + position * 7, y0 + deltaY0 + deltaY);
+        Tables::DrawStr(index, x0 + deltaX + 50 + position * 7, y0 + deltaY0 + deltaY);
         index++;
         position++;
     }
 
     // Теперь рисуем малые буквы алфавита
     position = 0;
-    while (symbolsAlphaBet[index][0] != '%')
+    while (Tables::symbolsAlphaBet[index][0] != '%')
     {
-        DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0 + deltaY * 2);
+        Tables::DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0 + deltaY * 2);
         index++;
         position++;
     }
@@ -1018,7 +1018,7 @@ static void DrawFileMask(int x, int y)
             }
             else
             {
-                x = PText::DrawText(x, y, symbolsAlphaBet[*ch + 0x40]);
+                x = PText::DrawText(x, y, Tables::symbolsAlphaBet[*ch + 0x40]);
             }
         }
         ch++;
@@ -1043,43 +1043,43 @@ void DrawSetMask()
     int deltaY = 12;
 
     // Рисуем большие буквы английского алфавита
-    while(symbolsAlphaBet[index][0] != ' ')
+    while(Tables::symbolsAlphaBet[index][0] != ' ')
     {
-        DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0);
+        Tables::DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0);
         index++;
         position++;
     }
     
     // Теперь рисуем цифры и пробел
     position = 0;
-    while(symbolsAlphaBet[index][0] != 'a')
+    while(Tables::symbolsAlphaBet[index][0] != 'a')
     {
-        DrawStr(index, x0 + deltaX + 50 + position * 7, y0 + deltaY0 + deltaY);
+        Tables::DrawStr(index, x0 + deltaX + 50 + position * 7, y0 + deltaY0 + deltaY);
         index++;
         position++;
     }
 
     // Теперь рисуем малые буквы алфавита
     position = 0;
-    while(symbolsAlphaBet[index][0] != '%')
+    while(Tables::symbolsAlphaBet[index][0] != '%')
     {
-        DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0 + deltaY * 2);
+        Tables::DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0 + deltaY * 2);
         index++;
         position++;
     }
 
     // Теперь рисуем спецсимволы
     position = 0;
-    while (index < (sizeof(symbolsAlphaBet) / 4))
+    while (index < (sizeof(Tables::symbolsAlphaBet) / 4))
     {
-        DrawStr(index, x0 + deltaX + 26 + position * 20, y0 + deltaY0 + deltaY * 3);
+        Tables::DrawStr(index, x0 + deltaX + 26 + position * 20, y0 + deltaY0 + deltaY * 3);
         index++;
         position++;
     }
 
     DrawFileMask(x0 + deltaX, y0 + 65);
 
-    static pchar  strings[] =
+    static pchar strings[] =
     {
         "%y - год, %m - месяц, %d - день",
         "%H - часы, %M - минуты, %S - секунды",
@@ -1301,7 +1301,7 @@ static const Page mspMemInt
 // Страница вызывается при выбранном ручном режиме задания имени файла перед сохранением на флешку ///////////////
 static void OnMemExtSetNameRegSet(int angle)
 {
-    OnMemExtSetMaskNameRegSet(angle, sizeof(symbolsAlphaBet) / 4 - 7);
+    OnMemExtSetMaskNameRegSet(angle, sizeof(Tables::symbolsAlphaBet) / 4 - 7);
 }
 
 static const arrayItems itemsSetName =
