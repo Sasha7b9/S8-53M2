@@ -65,28 +65,35 @@ file(GLOB SRC                             ../../Device/src/main.cpp
                                           ../../Device/src/Tables.*)
 file(GLOB HAL                             ../../common/_VS_GUI/HAL/stm32f4xx_hal.cpp)
 file(GLOB DISPLAY                         ../../Device/src/Display/*.*)
+file(GLOB FPGA                            ../../Device/src/FPGA/*.*)
 file(GLOB HARDWARE                        ../../Device/src/Hardware/*.*)
 file(GLOB HARDWARE_HAL                    ../../Device/src/Hardware/HAL/*.*)
 file(GLOB MENU                            ../../Device/src/Menu/*.*)
 file(GLOB PANEL                           ../../Device/src/Panel/*.*)
 file(GLOB SETTINGS                        ../../Device/src/Settings/*.*)
+file(GLOB UTILS                           ../../Device/src/Utils/*.*)
+file(GLOB UTILS_CONTAINERS                ../../Device/src/Utils/Containers/*.*)
 
 file(GLOB RESOURCES                       resources/*)
 
 set_source_files_properties(resources/*
                             PROPERTIES LANGUAGE RC)
 
-#set_source_files_properties(
-#                            PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties(../../Device/src/FPGA/FPGA_old.cpp
+                            ../../Device/src/FPGA/CalibrationFPGA_old.cpp
+                            PROPERTIES HEADER_FILE_ONLY TRUE)
 
 source_group(src                        FILES ${SRC})
 source_group(HAL                        FILES ${HAL})
 source_group(Display                    FILES ${DISPLAY})
+source_group(FPGA                       FILES ${FPGA})
 source_group(Hardware                   FILES ${HARDWARE})
 source_group(Hardware/HAL               FILES ${HARDWARE_HAL})
 source_group(Menu                       FILES ${MENU})
 source_group(Panel                      FILES ${PANEL})
 source_group(Settings                   FILES ${SETTINGS})
+source_group(Utils                      FILES ${UTILS})
+source_group(Utils/Containers           FILES ${UTILS_CONTAINERS})
 source_group(Resources                  FILES ${RESOURCES})
 
 #set_source_files_properties(
@@ -96,10 +103,12 @@ add_executable( ${PROJECT_NAME}
                 ${SRC}
                 ${HAL}
                 ${DISPLAY}
+                ${FPGA}
                 ${HARDWARE} ${HARDWARE_HAL}
                 ${MENU}
                 ${PANEL}
                 ${SETTINGS}
+                ${UTILS} ${UTILS_CONTAINERS}
                 ${RESOURCES}
                 )
 
