@@ -19,6 +19,8 @@
 #include "Panel/PanelFunctions.cpp"
 
 
+namespace Panel
+{
 #define MAX_DATA            20
 
 #define LED_CHAN0_ENABLE    129U
@@ -29,22 +31,23 @@
 #define LED_TRIG_DISABLE    3
 #define POWER_OFF           4
 
-static PanelButton pressedKey = B_Empty;
-static volatile PanelButton pressedButton = B_Empty;         // Ёто используетс€ дл€ отслеживани€ нажатой кнопки при отключенной панели
-static uint16 dataTransmitted[MAX_DATA] = {0x00};
-static uint16 numDataForTransmitted = 0;
-static uint timePrevPressButton = 0;
-static uint timePrevReleaseButton = 0;
+    static PanelButton pressedKey = B_Empty;
+    static volatile PanelButton pressedButton = B_Empty;         // Ёто используетс€ дл€ отслеживани€ нажатой кнопки при отключенной панели
+    static uint16 dataTransmitted[MAX_DATA] = {0x00};
+    static uint16 numDataForTransmitted = 0;
+    static uint timePrevPressButton = 0;
+    static uint timePrevReleaseButton = 0;
 
-
-namespace Panel
-{
     Queue<uint16> input_buffer;
 
     // ѕреобразует данные из новой панели в данные, опознаваемые старой прошивкой
     uint16 TranslateCommand(const uint8 *data, uint size);
 
     void OnTimerPressedKey();
+
+    PanelButton ButtonIsRelease(uint16 command);
+
+    PanelButton ButtonIsPress(uint16 command);
 
     static void(*funcOnKeyDown[B_NumButtons])() =
     {
@@ -144,7 +147,7 @@ namespace Panel
 
 
 
-PanelButton ButtonIsRelease(uint16 command)
+PanelButton Panel::ButtonIsRelease(uint16 command)
 {
     PanelButton button = B_Empty;
 
@@ -160,7 +163,7 @@ PanelButton ButtonIsRelease(uint16 command)
     return button;
 }
 
-PanelButton ButtonIsPress(uint16 command)
+PanelButton Panel::ButtonIsPress(uint16 command)
 {
     PanelButton button = B_Empty;
 
