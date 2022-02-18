@@ -87,29 +87,18 @@ int Math::MinFrom2Int(int val0, int val1)
     return val1;
 }
 
-int Math::RShift2Rel(float rShiftAbs, Range::E range)
-{
-    int retValue = RShift::ZERO + rShiftAbs / absStepRShift[range];
-    if(retValue < RShift::MIN)
-    {
-        retValue = RShift::MIN;
-    }
-    else if(retValue > RShift::MAX)
-    {
-        retValue = RShift::MAX;
-    }
-    return retValue;
-};
 
 float Math::VoltageCursor(float shiftCurU, Range::E range, int16 rShift)
 {
     return MAX_VOLTAGE_ON_SCREEN(range) - shiftCurU * voltsInPixel[range] - RSHIFT_2_ABS(rShift, range);
 }
 
+
 float Math::TimeCursor(float shiftCurT, TBase::E tBase)
 {
     return shiftCurT * absStepTShift[tBase];
 }
+
 
 void Math_DataExtrapolation(uint8 *data, uint8 *there, int size)
 {

@@ -263,6 +263,8 @@ struct RShift
     static void Load(Chan::E);
 
     static pchar ToString(int16 rShiftRel, Range::E, Divider::E, char buffer[20]);
+
+    static int ToRel(float rShiftAbs, Range::E);
 };
 
 

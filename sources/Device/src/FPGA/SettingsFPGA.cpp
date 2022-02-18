@@ -133,8 +133,8 @@ void Range::Set(Chan::E ch, Range::E range)
 
         if (LINKING_RSHIFT_IS_VOLTAGE)
         {
-            SET_RSHIFT(ch) = (int16)Math::RShift2Rel(rShiftAbs, range);
-            TRIG_LEVEL(ch) = (int16)Math::RShift2Rel(trigLevAbs, range);
+            SET_RSHIFT(ch) = (int16)RShift::ToRel(rShiftAbs, range);
+            TRIG_LEVEL(ch) = (int16)RShift::ToRel(trigLevAbs, range);
         }
 
         Load(ch);
@@ -614,3 +614,18 @@ int TPos::InPoints(PeackDetMode::E peakDet, int numPoints, TPos::E tPos)
         return m[ENUM_POINTS_FPGA::FromNumPoints(numPoints)][tPos];
     }
 }
+
+
+int RShift::ToRel(float rShiftAbs, Range::E range)
+{
+    int retValue = RShift::ZERO + rShiftAbs / absStepRShift[range];
+    if (retValue < RShift::MIN)
+    {
+        retValue = RShift::MIN;
+    }
+    else if (retValue > RShift::MAX)
+    {
+        retValue = RShift::MAX;
+    }
+    return retValue;
+};

@@ -39,7 +39,7 @@ extern const float absStepTShift[];
 namespace Math
 {
     int   MinFrom2Int(int val0, int val1);
-    int   RShift2Rel(float rShiftAbs, Range::E);
+
     float VoltageCursor(float shiftCurU, Range::E, int16 rShift);
     float TimeCursor(float shiftCurT, TBase::E);
 
