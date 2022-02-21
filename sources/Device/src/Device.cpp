@@ -24,7 +24,7 @@ namespace Device
 void Device::Init()
 {
     HAL::Init();
-    Settings::Load(true);
+    Settings::Load(false);
     Sound::Init();
 //    VCP::Init();
 //    Settings::Load(false);
@@ -107,6 +107,13 @@ void Device::ProcessingSignal()
     else
     {
         Processing::SetSignal(*data0, *data1, *ds, first, last);
+    }
+
+    if (gDSet == nullptr)
+    {
+        static DataSettings ds_null;
+        ds_null.FillDataPointer();
+        gDSet = &ds_null;
     }
 
     PageCursors::Cursors_Update();    // В случае, если находимся в режиме курсорных измерений, обновляем их положение, если нужно.

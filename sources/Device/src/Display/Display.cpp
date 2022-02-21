@@ -1901,6 +1901,7 @@ void Display::DrawCursorTShift()
     // Рисуем tShift
     int shiftTShift = TPos::InPoints((PeackDetMode::E)gDSet->peakDet, (int)gDSet->length1channel, SET_TPOS) -
         TShift::InPoints((PeackDetMode::E)gDSet->peakDet);
+
     if(IntInRange(shiftTShift, firstPoint, lastPoint))
     {
         x = gridLeft + shiftTShift - firstPoint - 3;
