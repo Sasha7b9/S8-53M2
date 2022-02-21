@@ -41,6 +41,8 @@
 #define WR_UPR                  (HAL_FMC::_ADDR_FPGA + 0x05)
 #define WR_STOP                 (HAL_FMC::_ADDR_FPGA + 0x1f)
 
+#define RD_ADC_A                (HAL_FMC::_ADDR_FPGA + 0x00)
+#define RD_ADC_B                (HAL_FMC::_ADDR_FPGA + 0x02)
 //#define RD_ADDR_LAST_RECORD     (HAL_FMC::_ADDR_FPGA + 0x08) // Чтение адреса последней записи
 #define RD_FREQ_LOW             (HAL_FMC::_ADDR_FPGA + 0x10)
 #define RD_FREQ_HI              (HAL_FMC::_ADDR_FPGA + 0x18)

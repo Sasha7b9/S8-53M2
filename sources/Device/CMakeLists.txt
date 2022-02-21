@@ -26,6 +26,7 @@ if(WIN32)
 
     add_compile_options(/wd4100)
     add_compile_options(/wd4103)    # alignment changed after including header, may be due to missing #pragma pack(pop)
+    add_compile_options(/wd4201)
     add_compile_options(/wd4211)
     add_compile_options(/wd4244)
     add_compile_options(/wd4255)

@@ -6,6 +6,7 @@
     #define __packed__
 #else
     #define nullptr 0 //-V1059
+    #pragma anon_unions
 #endif
 
 
@@ -40,6 +41,18 @@ typedef void    (*pFuncVpVIIB)(void*, int, int, bool);
 #define _GET_BIT(value, bit) (((value) >> (bit)) & 0x01)
 #define _SET_BIT(value, bit) ((value) |= (1 << (bit)))
 #define _CLEAR_BIT(value, bit) ((value) &= (~(1 << (bit))))
+
+
+union BitSet16
+{
+    uint16 half_word;
+    uint8  byte[2];
+    struct
+    {
+        uint8  byte0;
+        uint8  byte1;
+    };
+};
 
 // Объединение размером 32 бита
 union BitSet32

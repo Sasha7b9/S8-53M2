@@ -757,7 +757,7 @@ void FPGA::FreqMeter::ReadPeriod()
 
 uint8 FPGA::ReadFlag()
 {
-    uint16 flag = HAL_FMC::Read(RD_FL);
+    uint16 flag = *RD_FL;
 
     FreqMeter::Update(flag);
 

@@ -1202,14 +1202,14 @@
               <FilePath>.\src\FPGA\CalibrationFPGA.cpp</FilePath>
             </File>
             <File>
-              <FileName>TypesFPGA_old.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FPGA\TypesFPGA_old.h</FilePath>
-            </File>
-            <File>
               <FileName>TypesFPGA.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\FPGA\TypesFPGA.h</FilePath>
+            </File>
+            <File>
+              <FileName>FreqMeter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FPGA\FreqMeter.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -3128,14 +3128,14 @@
               <FilePath>.\src\FPGA\CalibrationFPGA.cpp</FilePath>
             </File>
             <File>
-              <FileName>TypesFPGA_old.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FPGA\TypesFPGA_old.h</FilePath>
-            </File>
-            <File>
               <FileName>TypesFPGA.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\FPGA\TypesFPGA.h</FilePath>
+            </File>
+            <File>
+              <FileName>FreqMeter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FPGA\FreqMeter.cpp</FilePath>
             </File>
           </Files>
         </Group>
