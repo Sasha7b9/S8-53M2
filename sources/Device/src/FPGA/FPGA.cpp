@@ -217,25 +217,48 @@ void FPGA::SwitchingTrig()
 
 void FPGA::Start()
 {
-
+    if (SET_TBASE >= TBase::MIN_P2P)
+    {
+        Display::ResetP2Ppoints(false);
+        Timer::Enable(TypeTimer::P2P, 1, ReadPoint);
+    }
+    else
+    {
+        Timer::Disable(TypeTimer::P2P);
+        Display::ResetP2Ppoints(true);
+    }
+    HAL_FMC::Write(WR_START, 1);
+    ds.FillDataPointer();
+    timeStart = gTimerMS;
+    StateWorkFPGA::SetCurrent(StateWorkFPGA::Wait);
+    FPGA_CRITICAL_SITUATION = 0;
 }
 
 
 bool FPGA::IsRunning()
 {
-    return false;
+    return (StateWorkFPGA::GetCurrent() != StateWorkFPGA::Stop);
 }
 
 
-void FPGA::Stop(bool)
+void FPGA::Stop(bool pause)
 {
-
+    Timer::Disable(TypeTimer::P2P);
+    HAL_FMC::Write(WR_STOP, 1);
+    StateWorkFPGA::SetCurrent(pause ? StateWorkFPGA::Pause : StateWorkFPGA::Stop);
 }
 
 
 void FPGA::OnPressStartStop()
 {
-
+    if (StateWorkFPGA::GetCurrent() == StateWorkFPGA::Stop)
+    {
+        FPGA::Start();
+    }
+    else
+    {
+        FPGA::Stop(false);
+    }
 }
 
 
