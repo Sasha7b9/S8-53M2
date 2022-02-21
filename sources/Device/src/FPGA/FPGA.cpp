@@ -40,8 +40,6 @@ namespace FPGA
 
     uint8 ReadFlag();
 
-    void WriteToDAC(TypeWriteDAC::E, uint16);
-
     void ReadPoint();
 
     bool ProcessingData();
@@ -275,9 +273,18 @@ void FPGA::SetNumberMeasuresForGates(int)
 }
 
 
-void FPGA::WriteToDAC(TypeWriteDAC::E, uint16)
+void BUS_FPGA::WriteToDAC(TypeWriteDAC::E type, uint16 data)
 {
+    Pin::SPI4_CS1.Reset();
 
+    for (int i = 15; i >= 0; i--)
+    {
+        DATA_SET((data & (1 << i)) ? 1 : 0);
+        CLC_HI
+            CLC_LOW
+    }
+
+    Pin::SPI4_CS1.Set();
 }
 
 
@@ -636,7 +643,19 @@ void BUS_FPGA::WriteToHardware(uint8 *, uint8, bool)
 }
 
 
-void BUS_FPGA::WriteToHardware(uint16 *, uint16, bool)
+void BUS_FPGA::WriteToHardware(uint16 *address, uint16 data, bool restart)
 {
+    bool is_running = FPGA::IsRunning();
 
+    if (restart)
+    {
+        FPGA::Stop(false);
+    }
+
+    HAL_FMC::Write(address, data);
+
+    if (is_running && restart)
+    {
+        FPGA::Start();
+    }
 }

@@ -1194,7 +1194,7 @@ void FPGA::FindAndSetTrigLevel()
 #define DATA_SET(x) Pin::SPI4_DAT.Write(x);
 
 
-void FPGA::WriteToAnalog(TypeWriteAnalog::E type, uint data)
+void BUS_FPGA::WriteToAnalog(TypeWriteAnalog::E type, uint data)
 {
     Pin::SPI4_CS2.Reset();
 
