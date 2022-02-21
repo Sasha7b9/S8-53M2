@@ -281,7 +281,7 @@ void BUS_FPGA::WriteToDAC(TypeWriteDAC::E type, uint16 data)
     {
         DATA_SET((data & (1 << i)) ? 1 : 0);
         CLC_HI
-            CLC_LOW
+        CLC_LOW
     }
 
     Pin::SPI4_CS1.Set();
@@ -296,7 +296,7 @@ void BUS_FPGA::WriteToAnalog(TypeWriteAnalog::E type, uint data)
     {
         DATA_SET((data & (1 << i)) ? 1 : 0);
         CLC_HI
-            CLC_LOW
+        CLC_LOW
     }
 
     Pin::SPI4_CS2.Set();
