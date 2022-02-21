@@ -63,20 +63,14 @@ namespace FPGA
     // Загрузить настройки в аппаратную часть из глобальной структуры SSettings.
     void LoadSettings();
 
-    namespace FreqMeter
-    {
-        extern float freq;           // Частота, намеренная альтерой.
-
-        float CalculateFreqFromCounterFreq();
-
-        float CalculateFreqFromCounterPeriod();
-
-        void Update(uint16 flag);
-    }
-
     namespace AutoFinder
     {
         void AutoFind();
+    }
+
+    namespace FreqMeter
+    {
+        void Update(uint16 flag);
     }
 }
 

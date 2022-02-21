@@ -5,6 +5,7 @@
 #include "Settings/Settings.h"
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
+#include <stm32f4xx_hal.h>
 
 
 namespace FPGA
@@ -28,15 +29,23 @@ namespace FPGA
         uint8 CalculateMaxWithout255(uint8 buffer[100]);
 
         TBase::E CalculateTBase(float freq_);
+
+        float CalculateFreqFromCounterFreq();
+
+        float CalculateFreqFromCounterPeriod();
     }
 
     namespace FreqMeter
     {
         extern float freq;           // Частота, намеренная альтерой.
 
-        float CalculateFreqFromCounterFreq();
+        BitSet32 ReadRegFreq();
 
-        float CalculateFreqFromCounterPeriod();
+        BitSet32 ReadRegPeriod();
+
+        float FreqCounterToValue(BitSet32 *fr);
+
+        float PeriodCounterToValue(BitSet32 *period);
     }
 }
 
@@ -202,11 +211,11 @@ TBase::E FPGA::AutoFinder::FindTBase(Chan::E ch)
     TrigInput::Set(TrigInput::Full);
     Timer::PauseOnTime(10);
     FPGA::Stop(false);
-    float fr = FreqMeter::CalculateFreqFromCounterFreq();
+    float fr = CalculateFreqFromCounterFreq();
 
     TrigInput::Set(fr < 1e6f ? TrigInput::LPF : TrigInput::Full);
 
-    fr = FreqMeter::CalculateFreqFromCounterFreq();
+    fr = CalculateFreqFromCounterFreq();
 
     TBase::E tBase = TBase::Count;
 
@@ -221,7 +230,7 @@ TBase::E FPGA::AutoFinder::FindTBase(Chan::E ch)
     else
     {
         TrigInput::Set(TrigInput::LPF);
-        FreqMeter::freq = FreqMeter::CalculateFreqFromCounterPeriod();
+        FreqMeter::freq = CalculateFreqFromCounterPeriod();
 
         if (fr > 0.0f)
         {
@@ -303,4 +312,42 @@ uint8 FPGA::AutoFinder::CalculateMaxWithout255(uint8 buffer[100])
 void FPGA::AutoFinder::StartAutoFind()
 {
 
+}
+
+
+float FPGA::AutoFinder::CalculateFreqFromCounterFreq()
+{
+    while (_GET_BIT(HAL_FMC::Read(RD_FL), BIT_FREQ_READY) == 0) {};
+    FreqMeter::ReadRegFreq();
+
+    while (_GET_BIT(HAL_FMC::Read(RD_FL), BIT_FREQ_READY) == 0) {};
+    BitSet32 fr = FreqMeter::ReadRegFreq();
+
+    if (fr.word >= 5)
+    {
+        return FreqMeter::FreqCounterToValue(&fr);
+    }
+
+    return 0.0f;
+}
+
+
+float FPGA::AutoFinder::CalculateFreqFromCounterPeriod()
+{
+    uint time = gTimerMS;
+
+    while (gTimerMS - time < 1000 && _GET_BIT(HAL_FMC::Read(RD_FL), BIT_PERIOD_READY) == 0) {};
+    FreqMeter::ReadRegPeriod();
+
+    time = gTimerMS;
+
+    while (gTimerMS - time < 1000 && _GET_BIT(HAL_FMC::Read(RD_FL), BIT_PERIOD_READY) == 0) {};
+    BitSet32 period = FreqMeter::ReadRegPeriod();
+
+    if (period.word > 0 && (gTimerMS - time < 1000))
+    {
+        return FreqMeter::PeriodCounterToValue(&period);
+    }
+
+    return 0.0f;
 }

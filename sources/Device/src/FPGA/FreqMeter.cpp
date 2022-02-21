@@ -18,13 +18,9 @@ namespace FPGA
 
         bool readPeriod = false;     // Установленный в true флаг означает, что частоту нужно считать по счётчику периода
 
-        float CalculateFreqFromCounterFreq();
-
         BitSet32 ReadRegFreq();
 
         float FreqCounterToValue(BitSet32 *fr);
-
-        float CalculateFreqFromCounterPeriod();
 
         BitSet32 ReadRegPeriod();
 
@@ -45,22 +41,6 @@ float FPGA::FreqMeter::GetFreq()
 }
 
 
-float FPGA::FreqMeter::CalculateFreqFromCounterFreq()
-{
-    while (_GET_BIT(HAL_FMC::Read(RD_FL), BIT_FREQ_READY) == 0) {};
-    ReadRegFreq();
-    while (_GET_BIT(HAL_FMC::Read(RD_FL), BIT_FREQ_READY) == 0) {};
-    BitSet32 fr = ReadRegFreq();
-
-    if (fr.word >= 5)
-    {
-        return FreqCounterToValue(&fr);
-    }
-
-    return 0.0f;
-}
-
-
 BitSet32 FPGA::FreqMeter::ReadRegFreq()
 {
     BitSet32 fr;
@@ -73,22 +53,6 @@ BitSet32 FPGA::FreqMeter::ReadRegFreq()
 float FPGA::FreqMeter::FreqCounterToValue(BitSet32 *fr)
 {
     return (float)fr->word * 10.0f;
-}
-
-
-float FPGA::FreqMeter::CalculateFreqFromCounterPeriod()
-{
-    uint time = gTimerMS;
-    while (gTimerMS - time < 1000 && _GET_BIT(HAL_FMC::Read(RD_FL), BIT_PERIOD_READY) == 0) {};
-    ReadRegPeriod();
-    time = gTimerMS;
-    while (gTimerMS - time < 1000 && _GET_BIT(HAL_FMC::Read(RD_FL), BIT_PERIOD_READY) == 0) {};
-    BitSet32 period = ReadRegPeriod();
-    if (period.word > 0 && (gTimerMS - time < 1000))
-    {
-        return PeriodCounterToValue(&period);
-    }
-    return 0.0f;
 }
 
 
