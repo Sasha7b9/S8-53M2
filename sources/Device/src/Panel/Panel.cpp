@@ -280,13 +280,13 @@ void Panel::ProcessingCommandFromPIC(uint16 command)
 }
 
 
-void Panel::EnableLEDChannel0(bool enable)
+void Panel::EnableLEDChannelA(bool enable)
 {
     Panel::TransmitData(enable ? LED_CHAN0_ENABLE : LED_CHAN0_DISABLE);
 }
 
 
-void Panel::EnableLEDChannel1(bool enable)
+void Panel::EnableLEDChannelB(bool enable)
 {
     Panel::TransmitData(enable ? LED_CHAN1_ENABLE : LED_CHAN1_DISABLE);
 }

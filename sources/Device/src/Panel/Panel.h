@@ -12,10 +12,10 @@ namespace Panel
     void EnableLEDRegSet(bool enable);
 
     // Включить/выключить светодиод КАНАЛ 1.
-    void EnableLEDChannel0(bool enable);
+    void EnableLEDChannelA(bool enable);
 
     // Включить/выключить светодиод КАНАЛ 2.
-    void EnableLEDChannel1(bool enable);
+    void EnableLEDChannelB(bool enable);
 
     // Включить/выключить светодиод СИНХР.
     void EnableLEDTrig(bool enable);
