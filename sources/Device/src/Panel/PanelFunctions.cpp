@@ -25,12 +25,12 @@ void HelpLong()
     gItemHint = 0;
 }
 
-void Channel0Long()
+void ChannelALong()
 {
     Menu::Handlers::LongPressureButton(B_ChannelA);
 }
 
-void Channel1Long()
+void ChannelBLong()
 {
     Menu::Handlers::LongPressureButton(B_ChannelB);
 }

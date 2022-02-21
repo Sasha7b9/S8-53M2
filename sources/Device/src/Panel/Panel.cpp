@@ -50,6 +50,8 @@ namespace Panel
 
     Regulator RegulatorRight(uint16 command);
 
+    Regulator RegulatorPress(uint16 command);
+
     static void(*funcOnKeyDown[B_NumButtons])() =
     {
         0,
@@ -99,9 +101,9 @@ namespace Panel
     static void (*funcOnLongPressure[B_NumButtons])() =
     {
         0,
-        Channel0Long,   // B_ChannelA
+        ChannelALong,   // B_ChannelA
         EmptyFuncVV,    // B_Service
-        Channel1Long,   // B_ChannelB
+        ChannelBLong,   // B_ChannelB
         EmptyFuncVV,    // B_Display
         TimeLong,       // B_Time
         EmptyFuncVV,    // B_Memory
@@ -117,6 +119,18 @@ namespace Panel
         F3Long,         // B_F3
         F4Long,         // B_F4
         F5Long          // B_F5
+    };
+
+    static void (*funcOnRegulatorPress[8])() =
+    {
+        ChannelALong,   // 20 - R_RangeA
+        ChannelALong,   // 21 - R_RShiftA
+        ChannelBLong,   // 22 - R_RangeB
+        ChannelBLong,   // 23 - R_RShiftB
+        TimeLong,       // 24 - R_TBase
+        TimeLong,       // 25 - R_TShift
+        TrigLong,       // 26 - R_TrigLev
+        MenuLong        // 27 - R_Set
     };
 
     static void (*funculatorLeft[R_Set + 1])() =
@@ -225,6 +239,7 @@ void Panel::ProcessingCommandFromPIC(uint16 command)
     PanelButton pressButton = ButtonIsPress(command);
     Regulator regLeft = RegulatorLeft(command);
     Regulator regRight = RegulatorRight(command);
+    Regulator regPress = RegulatorPress(command);
 
     if (pressButton != B_Empty)
     {
@@ -262,6 +277,11 @@ void Panel::ProcessingCommandFromPIC(uint16 command)
     else if(regRight != R_Empty)
     {
         funculatorRight[regRight]();
+    }
+
+    if (regPress != R_Empty)
+    {
+
     }
 }
 
