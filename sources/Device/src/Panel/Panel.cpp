@@ -197,14 +197,12 @@ PanelButton Panel::ButtonIsPress(uint16 command)
 
 Regulator Panel::RegulatorIsPress(uint16 command)
 {
-    Regulator regulator = R_Empty;
-
-    if ((command & 0x7f) > R_Empty && (command & 0x7f) <= R_Set)
+    if ((command & 0xC0) != 0xC0)
     {
-        regulator = (Regulator)(command & 0x7f);
+        return R_Empty;
     }
 
-    return regulator;
+    return (Regulator)(command & 0x3F);
 }
 
 
@@ -463,8 +461,9 @@ uint16 Panel::TranslateCommand(const uint8 *data, uint size)
 
         if (command >= 20)
         {
-            if (data[2] == 3)       { }
-            else if (data[2] == 4)  { command |= 0x80; }
+            if (data[2] == 1)       { command |= 0xC0; }        // Нажатие ручки
+            else if (data[2] == 3)  { }                         // Поворот влево
+            else if (data[2] == 4)  { command |= 0x80; }        // Поворот вправо
             else                    { command = 0; }
         }
         else
