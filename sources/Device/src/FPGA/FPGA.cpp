@@ -20,6 +20,10 @@
     *addr = data;
 
 
+#define CLC_HI      Pin::SPI4_CLK.Set();
+#define CLC_LOW     Pin::SPI4_CLK.Reset();
+#define DATA_SET(x) Pin::SPI4_DAT.Write(x);
+
 namespace FPGA
 {
     static const int num_Kr = 200;
@@ -37,8 +41,6 @@ namespace FPGA
     uint8 ReadFlag();
 
     void WriteToDAC(TypeWriteDAC::E, uint16);
-
-    void WriteToAnalog(TypeWriteAnalog::E type, uint data);
 
     void ReadPoint();
 
@@ -279,9 +281,18 @@ void FPGA::WriteToDAC(TypeWriteDAC::E, uint16)
 }
 
 
-void FPGA::WriteToAnalog(TypeWriteAnalog::E, uint)
+void BUS_FPGA::WriteToAnalog(TypeWriteAnalog::E type, uint data)
 {
+    Pin::SPI4_CS2.Reset();
 
+    for (int i = 23; i >= 0; i--)
+    {
+        DATA_SET((data & (1 << i)) ? 1 : 0);
+        CLC_HI
+            CLC_LOW
+    }
+
+    Pin::SPI4_CS2.Set();
 }
 
 
