@@ -20,9 +20,6 @@ namespace Panel
     // Включить/выключить светодиод СИНХР.
     void EnableLEDTrig(bool enable);
 
-    // Передать даннные в мк панели управления.
-    void TransmitData(uint16 data);
-
     // В отлюченном режиме панель лишь обновляет состояние переменной pressedButton, не выполняя больше никаких действий.
     void Disable();
 
@@ -37,4 +34,7 @@ namespace Panel
     void ProcessingCommandFromPIC(uint16 command);
 
     uint16 NextData();
+
+    // Передать даннные в мк панели управления.
+    void TransmitData(uint8 data);
 };

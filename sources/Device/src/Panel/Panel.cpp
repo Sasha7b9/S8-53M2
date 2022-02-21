@@ -21,19 +21,17 @@
 
 namespace Panel
 {
-    const int MAX_DATA = 20;
-
-    const uint8 LED_CHAN0_ENABLE  = 129U;
-    const uint8 LED_CHAN0_DISABLE = 1U;
-    const uint8 LED_CHAN1_ENABLE  = 130U;
-    const uint8 LED_CHAN1_DISABLE = 2U;
-    const uint8 LED_TRIG_ENABLE   = 131;
-    const uint8 LED_TRIG_DISABLE  = 3;
+    const uint8 LED_TRIG     = 1;
+    const uint8 LED_REG_SET  = 2;
+    const uint8 LED_CHAN_A   = 3;
+    const uint8 LED_CHAN_B   = 4;
+    const uint8 BUTTON_POWER = 5;
 
     PanelButton pressedKey = B_Empty;
     volatile PanelButton pressedButton = B_Empty;         // Ёто используетс€ дл€ отслеживани€ нажатой кнопки при отключенной панели
-    uint16 dataTransmitted[MAX_DATA] = {0x00};
-    uint16 numDataForTransmitted = 0;
+
+    Queue<uint8> data_for_send;                         // «десь данные дл€ пересылки в панель
+
     uint timePrevPressButton = 0;
     uint timePrevReleaseButton = 0;
 
@@ -282,13 +280,27 @@ void Panel::ProcessingCommandFromPIC(uint16 command)
 
 void Panel::EnableLEDChannelA(bool enable)
 {
-    Panel::TransmitData(enable ? LED_CHAN0_ENABLE : LED_CHAN0_DISABLE);
+    uint8 data = LED_CHAN_A;
+
+    if (enable)
+    {
+        data |= 0x80;
+    }
+
+    TransmitData(data);
 }
 
 
 void Panel::EnableLEDChannelB(bool enable)
 {
-    Panel::TransmitData(enable ? LED_CHAN1_ENABLE : LED_CHAN1_DISABLE);
+    uint8 data = LED_CHAN_B;
+
+    if (enable)
+    {
+        data |= 0x80;
+    }
+
+    TransmitData(data);
 }
 
 
@@ -297,9 +309,10 @@ void Panel::EnableLEDTrig(bool enable)
     static uint timeEnable = 0;
     static bool first = true;
     static bool fired = false;
+
     if(first)
     {
-        Panel::TransmitData(LED_TRIG_DISABLE);
+        Panel::TransmitData(LED_TRIG);
         Display::EnableTrigLabel(false);
         timeEnable = gTimerMS;
         first = false;
@@ -314,13 +327,13 @@ void Panel::EnableLEDTrig(bool enable)
     {
         if(enable)
         {
-            Panel::TransmitData(LED_TRIG_ENABLE);
+            Panel::TransmitData(LED_TRIG | 0x80);
             Display::EnableTrigLabel(true);
             fired = true;
         }
         else if(gTimerMS - timeEnable > 100)
         {
-            Panel::TransmitData(LED_TRIG_DISABLE);
+            Panel::TransmitData(LED_TRIG);
             Display::EnableTrigLabel(false);
             fired = false;
         }
@@ -328,28 +341,18 @@ void Panel::EnableLEDTrig(bool enable)
 }
 
 
-void Panel::TransmitData(uint16 data)
+void Panel::TransmitData(uint8 data)
 {
-    if(numDataForTransmitted >= MAX_DATA)
+    if (data_for_send.Size() < 20)
     {
-        LOG_WRITE("Ќе могу послать в панель - мало места");
-    }
-    else
-    {
-        dataTransmitted[numDataForTransmitted] = data;
-        numDataForTransmitted++;
+        data_for_send.Push(data);
     }
 }
 
 
 uint16 Panel::NextData()
 {
-    if (numDataForTransmitted > 0)
-    {
-        numDataForTransmitted--;
-        return dataTransmitted[numDataForTransmitted];
-    }
-    return 0;
+    return data_for_send.Front();
 }
 
 
@@ -367,14 +370,21 @@ void Panel::Enable()
 
 void Panel::Init()
 {
-    Panel::EnableLEDRegSet(false);
-    Panel::EnableLEDTrig(false);
+    EnableLEDRegSet(false);
+    EnableLEDTrig(false);
 }
 
 
 void Panel::EnableLEDRegSet(bool enable)
 {
-    HAL_GPIO_WritePin(GPIOG, GPIO_PIN_12, enable ? GPIO_PIN_RESET : GPIO_PIN_SET);
+    uint8 data = LED_REG_SET;
+
+    if (enable)
+    {
+        data |= 0x80;
+    }
+
+    TransmitData(data);
 }
 
 

@@ -4,8 +4,11 @@
 
 
 template Queue<uint16>::Queue();
+template Queue<uint8>::Queue();
 template Queue<uint16>::~Queue();
+template Queue<uint8>::~Queue();
 template uint16 Queue<uint16>::Front();
+template uint8 Queue<uint8>::Front();
 template bool Queue<uint16>::IsEmpty() const;
 
 
