@@ -221,8 +221,6 @@ void Panel::OnTimerPressedKey()
 
 void Panel::ProcessingCommandFromPIC(uint16 command)
 {
-    static int allRecData = 0;
-
     PanelButton releaseButton = ButtonIsRelease(command);
     PanelButton pressButton = ButtonIsPress(command);
     Regulator regLeft = RegulatorLeft(command);
@@ -236,16 +234,6 @@ void Panel::ProcessingCommandFromPIC(uint16 command)
     if(PANEL_IS_RUNNING == 0)
     {
         return;
-    }
-
-    if(command != 0)
-    {
-        allRecData++;
-    }
-    else
-    {
-        allRecData++;
-        allRecData--;
     }
 
     if(releaseButton != B_Empty)
