@@ -33,26 +33,6 @@ void HAL_RTC_MspInit(RTC_HandleTypeDef *hrtc)
 }
 
 
-void HAL_RTC_MspDeInit(RTC_HandleTypeDef *hrtc)
-{
-    __HAL_RCC_RTC_DISABLE();
-    HAL_PWR_DisableBkUpAccess();
-    __PWR_CLK_DISABLE();
-}
-
-
-void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
-{
-
-}
-
-
-void HAL_SPI_MspDeInit(SPI_HandleTypeDef *hspi)
-{
-
-}
-
-
 void HAL_SRAM_MspInit(SRAM_HandleTypeDef *hsram)
 {
     __FMC_CLK_ENABLE();
