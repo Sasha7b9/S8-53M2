@@ -25,7 +25,6 @@ namespace Panel
     const uint8 LED_REG_SET  = 2;
     const uint8 LED_CHAN_A   = 3;
     const uint8 LED_CHAN_B   = 4;
-    const uint8 BUTTON_POWER = 5;
 
     PanelButton pressedKey = B_Empty;
     volatile PanelButton pressedButton = B_Empty;         // Это используется для отслеживания нажатой кнопки при отключенной панели
@@ -50,7 +49,7 @@ namespace Panel
 
     Regulator RegulatorRight(uint16 command);
 
-    Regulator RegulatorPress(uint16 command);
+    Regulator RegulatorIsPress(uint16 command);
 
     static void(*funcOnKeyDown[B_NumButtons])() =
     {
@@ -196,6 +195,19 @@ PanelButton Panel::ButtonIsPress(uint16 command)
 }
 
 
+Regulator Panel::RegulatorIsPress(uint16 command)
+{
+    Regulator regulator = R_Empty;
+
+    if ((command & 0x7f) > R_Empty && (command & 0x7f) <= R_Set)
+    {
+        regulator = (Regulator)(command & 0x7f);
+    }
+
+    return regulator;
+}
+
+
 Regulator Panel::RegulatorLeft(uint16 command)
 {
     if(command >= 20 && command <= 27)
@@ -239,7 +251,7 @@ void Panel::ProcessingCommandFromPIC(uint16 command)
     PanelButton pressButton = ButtonIsPress(command);
     Regulator regLeft = RegulatorLeft(command);
     Regulator regRight = RegulatorRight(command);
-    Regulator regPress = RegulatorPress(command);
+    Regulator regPress = RegulatorIsPress(command);
 
     if (pressButton != B_Empty)
     {
@@ -281,7 +293,9 @@ void Panel::ProcessingCommandFromPIC(uint16 command)
 
     if (regPress != R_Empty)
     {
+        int index = regPress - R_RangeA;
 
+        funcOnRegulatorPress[index]();
     }
 }
 
