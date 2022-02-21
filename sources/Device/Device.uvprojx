@@ -1211,6 +1211,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\FPGA\FreqMeter.cpp</FilePath>
             </File>
+            <File>
+              <FileName>AutoFinder.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FPGA\AutoFinder.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3136,6 +3141,11 @@
               <FileName>FreqMeter.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\FPGA\FreqMeter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>AutoFinder.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FPGA\AutoFinder.cpp</FilePath>
             </File>
           </Files>
         </Group>

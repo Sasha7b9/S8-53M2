@@ -58,9 +58,6 @@ namespace FPGA
     // Принудительно запустить синхронизацию.
     void SwitchingTrig();
 
-    // Запустить процесс поиска сигнала.
-    void StartAutoFind();
-
     // Установить временную паузу после изменения ручек - чтобы смещённый сигнал зафиксировать на некоторое время
     void TemporaryPause();
 
@@ -77,5 +74,11 @@ namespace FPGA
     {
         // Получить значение частоты.
         float GetFreq();
+    }
+
+    namespace AutoFinder
+    {
+        // Запустить процесс поиска сигнала.
+        void StartAutoFind();
     }
 };

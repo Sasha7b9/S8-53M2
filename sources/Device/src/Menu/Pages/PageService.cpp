@@ -170,7 +170,7 @@ static const Button bAutoSearch
 
 static void OnPress_AutoSearch()
 {
-    FPGA::StartAutoFind();
+    FPGA::AutoFinder::StartAutoFind();
 };
 
 // —≈–¬»— -  ¿À»¡–¿“Œ– /////////////
