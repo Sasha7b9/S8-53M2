@@ -1379,7 +1379,7 @@ bool Display::NeedForClearScreen()
 
 void Display::Update(bool endScene)
 {
-	uint timeStart = gTimerTics;
+	uint timeStart = TIME_TICKS;
     if (funcOnHand != 0)
     {
         funcOnHand();
@@ -1431,7 +1431,7 @@ void Display::Update(bool endScene)
         WriteValueTrigLevel();
     }
 
-    DrawTimeForFrame(gTimerTics - timeStart);
+    DrawTimeForFrame(TIME_TICKS - timeStart);
 
     Color::SetCurrent(COLOR_FILL);
 
