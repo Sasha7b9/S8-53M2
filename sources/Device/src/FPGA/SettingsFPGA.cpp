@@ -223,7 +223,7 @@ void TBase::Load()
 
     TBase::E tBase = SET_TBASE;
     uint8 mask = PEAKDET ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
-    FPGA::WriteToHardware(WR_RAZV, mask, true);
+    BUS_FPGA::WriteToHardware(WR_RAZV, mask, true);
     ADD_SHIFT_T0 = FPGA::deltaTShift[tBase];
 }
 
@@ -424,13 +424,13 @@ void FPGA::LoadRegUPR()
         _SET_BIT(data, 3);
     }
 
-    FPGA::WriteToHardware(WR_UPR, data, true);
+    BUS_FPGA::WriteToHardware(WR_UPR, data, true);
 }
 
 
 void FPGA::LoadKoeffCalibration(Chan::E ch)
 {
-    FPGA::WriteToHardware(ch == Chan::A ? WR_CAL_A : WR_CAL_B, STRETCH_ADC(ch) * 0x80, false);
+    BUS_FPGA::WriteToHardware(ch == Chan::A ? WR_CAL_A : WR_CAL_B, STRETCH_ADC(ch) * 0x80, false);
 }
 
 
@@ -453,7 +453,7 @@ void TShift::Load()
 //    FPGA::WriteToHardware(WR_POST_LOW, (uint8)post, true);
 //    FPGA::WriteToHardware(WR_POST_HI, (uint8)(post >> 8), true);
 
-    FPGA::WriteToHardware(WR_POST, post, true);
+    BUS_FPGA::WriteToHardware(WR_POST, post, true);
 
     uint16 pred = (uint16)((tShift > 511) ? 1023 : (511 - post));
     pred = (uint16)((~(pred - 1)) & 0x1ff);
@@ -461,7 +461,7 @@ void TShift::Load()
 //    FPGA::WriteToHardware(WR_PRED_LOW, (uint8)pred, true);
 //    FPGA::WriteToHardware(WR_PRED_HI, (uint8)(pred >> 8), true);
 
-    FPGA::WriteToHardware(WR_PRED, pred, true);
+    BUS_FPGA::WriteToHardware(WR_PRED, pred, true);
 }
 
 
@@ -526,7 +526,7 @@ void TrigPolarity::Set(TrigPolarity::E polarity)
 
 void TrigPolarity::Load()
 {
-    FPGA::WriteToHardware(WR_TRIG_F, TRIG_POLARITY_IS_FRONT ? 0x01U : 0x00U, true);
+    BUS_FPGA::WriteToHardware(WR_TRIG_F, TRIG_POLARITY_IS_FRONT ? 0x01U : 0x00U, true);
 }
 
 

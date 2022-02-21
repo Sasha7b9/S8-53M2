@@ -575,11 +575,11 @@ void PageDebug::LoadStretchADC(Chan::E ch)
 {
     if(DEBUG_STRETCH_ADC_TYPE_IS_DISABLED)
     {
-        FPGA::WriteToHardware(ch == Chan::A ? WR_CAL_A : WR_CAL_B, 0x80, true);
+        BUS_FPGA::WriteToHardware(ch == Chan::A ? WR_CAL_A : WR_CAL_B, 0x80, true);
     }
     else if(DEBUG_STRETCH_ADC_TYPE_IS_HAND)
     {
-        FPGA::WriteToHardware(ch == Chan::A ? WR_CAL_A : WR_CAL_B, (uint8)DEBUG_STRETCH_ADC(ch), true);
+        BUS_FPGA::WriteToHardware(ch == Chan::A ? WR_CAL_A : WR_CAL_B, (uint8)DEBUG_STRETCH_ADC(ch), true);
     }
     else if(DEBUG_STRETCH_ADC_TYPE_IS_SETTINGS)
     {
@@ -604,7 +604,7 @@ static bool IsActive_ADC_Stretch_ADC()
 
 static void OnChanged_ADC_Stretch_ADC_A()
 {
-    FPGA::WriteToHardware(WR_CAL_A, (uint8)DEBUG_STRETCH_ADC_A, true);
+    BUS_FPGA::WriteToHardware(WR_CAL_A, (uint8)DEBUG_STRETCH_ADC_A, true);
 }
 
 
@@ -620,7 +620,7 @@ static const Governor mgADC_Stretch_ADC_B
 
 static void OnChanged_ADC_Stretch_ADC_B()
 {
-    FPGA::WriteToHardware(WR_CAL_B, (uint8)DEBUG_STRETCH_ADC_B, true);
+    BUS_FPGA::WriteToHardware(WR_CAL_B, (uint8)DEBUG_STRETCH_ADC_B, true);
 }
 
 // Œ“À¿ƒ ¿ - ¿÷œ - ƒŒœ —Ã≈Ÿ ////////

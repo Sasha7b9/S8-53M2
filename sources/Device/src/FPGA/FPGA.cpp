@@ -285,18 +285,6 @@ void FPGA::WriteToAnalog(TypeWriteAnalog::E, uint)
 }
 
 
-void FPGA::WriteToHardware(uint8 *, uint8, bool)
-{
-
-}
-
-
-void FPGA::WriteToHardware(uint16 *, uint16, bool)
-{
-
-}
-
-
 void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
 {
     Panel::EnableLEDTrig(false);
@@ -628,4 +616,16 @@ void FPGA::ReadPoint()
 
         Display::AddPoints(dataA.byte0, dataA.byte1, dataB.byte0, dataB.byte1);
     }
+}
+
+
+void BUS_FPGA::WriteToHardware(uint8 *, uint8, bool)
+{
+
+}
+
+
+void BUS_FPGA::WriteToHardware(uint16 *, uint16, bool)
+{
+
 }
