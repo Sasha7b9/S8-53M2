@@ -80,10 +80,10 @@ void ADC_IRQHandler()
 
 
 // This interrupt call soft NSS for spi (see Hardware::SPIforPanel.c::PanelInit() and HAL_GPIO_EXTI_Callback().
-void EXTI0_IRQHandler()
-{
-    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
-}
+//void EXTI0_IRQHandler()
+//{
+//    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
+//}
 
 
 // Панель
@@ -93,16 +93,16 @@ void SPI5_IRQHandler()
 }
 
 
-void OTG_HS_IRQHandler()
-{
-    HAL_HCD_IRQHandler((HCD_HandleTypeDef *)HAL_HCD::handle);
-}
+//void OTG_HS_IRQHandler()
+//{
+//    HAL_HCD_IRQHandler((HCD_HandleTypeDef *)HAL_HCD::handle);
+//}
 
 
-void OTG_FS_IRQHandler()
-{
-    HAL_PCD_IRQHandler((PCD_HandleTypeDef *)VCP::handlePCD);
-}
+//void OTG_FS_IRQHandler()
+//{
+//    HAL_PCD_IRQHandler((PCD_HandleTypeDef *)VCP::handlePCD);
+//}
 
 
 void TIM6_DAC_IRQHandler()
