@@ -64,8 +64,8 @@ struct TypeWriteAnalog
     enum E
     {
         All,
-        Range0,
-        Range1,
+        RangeA,
+        RangeB,
         TrigParam,
         ChanParam0,
         ChanParam1

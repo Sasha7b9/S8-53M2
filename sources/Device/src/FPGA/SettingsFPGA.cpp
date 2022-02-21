@@ -144,7 +144,7 @@ void Range::Set(Chan::E ch, Range::E range)
 
 void Range::Load(Chan::E ch)
 {
-    FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog::Range0);
+    FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog::RangeA);
     RShift::Load(ch);
 
     if (ch == (Chan::E)TRIG_SOURCE)

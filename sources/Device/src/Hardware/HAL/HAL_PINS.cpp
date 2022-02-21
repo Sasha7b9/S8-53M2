@@ -181,7 +181,7 @@ void HAL_PINS::SPI4_::Init()
     Pin::SPI4_CS1.Set();
 
     Pin::SPI4_CS2.Init();
-    Pin::SPI4_CS1.Set();
+    Pin::SPI4_CS2.Set();
 
     Pin::SPI4_CLK.Init();
 
