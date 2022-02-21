@@ -1,4 +1,5 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+#include "defines.h"
 #include "Definition.h"
 #include "Display/Symbols.h"
 #include "FPGA/FPGA.h"
@@ -8,6 +9,7 @@
 #include "Hardware/Timer.h"
 #include "Utils/Math.h"
 #include "Hardware/HAL/HAL.h"
+#include "Settings/Settings.h"
 #include <stdio.h>
 
 

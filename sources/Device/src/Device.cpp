@@ -25,7 +25,7 @@ void Device::Init()
 {
     HAL::Init();
     Settings::Load(true);
-//    Sound::Init();
+    Sound::Init();
 //    VCP::Init();
 //    Settings::Load(false);
     FPGA::Init();

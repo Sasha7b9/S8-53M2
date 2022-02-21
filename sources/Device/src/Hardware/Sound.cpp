@@ -1,95 +1,82 @@
-// 2022/02/11 17:51:11 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+// (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Sound.h"
+#include "Hardware/Sound.h"
+#include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
-#include "Utils/Math.h"
-#include "Log.h"
 #include "Settings/Settings.h"
-#include <stm32f429xx.h>
-#include <stm32f4xx_hal.h>
-#include <stm32f4xx_hal_tim.h>
-#include <stm32f4xx_hal_dac.h>
-#include <stm32f4xx_hal_gpio.h>
-#include <stm32f4xx_hal_dma.h>
-#include <stm32f4xx_hal_dma_ex.h>
-#include <math.h>
-
+#include <cmath>
 
 
 namespace Sound
 {
-    static DAC_HandleTypeDef handleDAC =
-    {
-        DAC
-    };
+    struct TypeWave { enum E {
+        Sine,
+        Meandr,
+        Triangle
+    }; };
 
-    void *handle = &handleDAC;
+    static void Beep(TypeWave::E typeWave, float frequency, float amplitude, int duration, float mainVolume = 0.1f);
 
-    void TIM7_Config(uint16 prescaler, uint16 period);
-    uint16 CalculatePeriodForTIM();
-    void SetWave();
-    void CalculateSine();
-    void CalculateMeandr();
-    void CalculateTriangle();
+    static void Stop();
 
-    void Stop();
-    void Beep(TypeWave typeWave_, float frequency_, float amplitude_, int duration);
-    void SetWave();
-    uint16 CalculatePeriodForTIM();
-    void CalculateSine();
-    void CalculateMeandr();
-    void CalculateTriangle();
-    void TIM7_Config(uint16 prescaler, uint16 period);
+    static void SetWave();
 
-    const int POINTS_IN_PERIOD = 10;
-    uint8 points[POINTS_IN_PERIOD] = {0};
-    float frequency = 0.0f;
-    float amplitude = 0.0f;
-    TypeWave typeWave = TypeWave_Sine;
+    static uint16 CalculatePeriodForTIM();
+
+    static void CalculateSine();
+
+    static void CalculateMeandr();
+
+    static void CalculateTriangle();
+
+    volatile static bool isBeep = false;
+    static bool warnIsBeep = false;
+    static bool buttonIsPressed = false;
+    static float mainVolume = 0.1f;
+
+    static const int POINTS_IN_PERIOD = 10;
+    static uint8 points[POINTS_IN_PERIOD] = {0};
+    static float frequency = 0.0F;
+    static float amplitude = 0.0F;
+    static TypeWave::E typeWave = TypeWave::Sine;
 }
 
 
 void Sound::Init()
 {
-    DAC_ChannelConfTypeDef config =
-    {
-        DAC_TRIGGER_T7_TRGO,
-        DAC_OUTPUTBUFFER_ENABLE
-    };
-
-    HAL_DAC_DeInit(&handleDAC);
-
-    HAL_DAC_Init(&handleDAC);
-
-    HAL_DAC_ConfigChannel(&handleDAC, &config, DAC_CHANNEL_1);
+    HAL_DAC2::Init();
 }
 
 
 void Sound::Stop()
 {
-    HAL_DAC_Stop_DMA(&handleDAC, DAC_CHANNEL_1);
-    SOUND_IS_BEEP = 0;
-    SOUND_WARN_IS_BEEP = 0;
+    HAL_DAC2::StopDMA();
+    Sound::isBeep = false;
+    Sound::warnIsBeep = false;
 }
 
 
-void Sound::Beep(TypeWave typeWave_, float frequency_, float amplitude_, int duration)
+void Sound::Beep(TypeWave::E _typeWave, float _frequency, float _amplitude, int duration, float _mainVolume)
 {
-    SOUND_WARN_IS_BEEP = 1;
+    mainVolume = _mainVolume;
 
-    if (SOUND_WARN_IS_BEEP)
+    if (Sound::warnIsBeep)
     {
         return;
     }
+
     if (!SOUND_ENABLED)
     {
         return;
     }
-    if (frequency != frequency_ || amplitude != amplitude_ || typeWave != typeWave_)
+
+    _amplitude *= mainVolume;
+
+    if (frequency != _frequency || amplitude != _amplitude || typeWave != _typeWave) //-V550
     {
-        frequency = frequency_;
-        amplitude = amplitude_;
-        typeWave = typeWave_;
+        frequency = _frequency;
+        amplitude = _amplitude;
+        typeWave = _typeWave;
         
         Stop();
         SetWave();
@@ -97,8 +84,9 @@ void Sound::Beep(TypeWave typeWave_, float frequency_, float amplitude_, int dur
 
     Stop();
     
-    SOUND_IS_BEEP = 1;
-    HAL_DAC_Start_DMA(&handleDAC, DAC_CHANNEL_1, (uint32_t*)points, POINTS_IN_PERIOD, DAC_ALIGN_8B_R); //-V641 //-V1032
+    Sound::isBeep = true;
+
+    HAL_DAC2::StartDMA(points, POINTS_IN_PERIOD);
 
     Timer::Enable(TypeTimer::StopSound, duration, Stop);
 }
@@ -106,109 +94,87 @@ void Sound::Beep(TypeWave typeWave_, float frequency_, float amplitude_, int dur
 
 void Sound::ButtonPress()
 {
-    Beep(TypeWave_Sine, 2000.0f, 0.5f, 50);
-    BUTTON_IS_PRESSED = 1;
+    Beep(TypeWave::Sine, 2000.0F, 0.5F, 50);
+    Sound::buttonIsPressed = true;
 }
 
 
 void Sound::ButtonRelease()
 {
-    if (BUTTON_IS_PRESSED)
+    if (buttonIsPressed)
     {
-        Beep(TypeWave_Sine, 1000.0f, 0.25f, 50);
-        BUTTON_IS_PRESSED = 0;
+        Beep(TypeWave::Sine, 1000.0F, 0.25F, 50);
+        buttonIsPressed = false;
     }
 }
 
 
 void Sound::GovernorChangedValue()
 {
-    Beep(TypeWave_Sine, 1000.0f, 0.5f, 50);
-    BUTTON_IS_PRESSED = 0;
+    Beep(TypeWave::Sine, 1000.0F, 0.5F, 50);
+    buttonIsPressed = false;
 }
 
 
 void Sound::RegulatorShiftRotate()
 {
-    Beep(TypeWave_Sine, 1.0f, 0.35f, 3);
-    BUTTON_IS_PRESSED = 0;
+    Beep(TypeWave::Sine, 1.0F, 0.35F, 3);
+    buttonIsPressed = false;
 }
 
 
 void Sound::RegulatorSwitchRotate()
 {
-    Beep(TypeWave_Triangle, 2500.0f, 0.5f, 25);
-    BUTTON_IS_PRESSED = 0;
+    Beep(TypeWave::Triangle, 2500.0F, 0.5F, 25);
+    buttonIsPressed = false;
 }
 
 
 void Sound::WarnBeepBad()
 {
-    Beep(TypeWave_Meandr, 250.0f, 1.0f, 500);
-    SOUND_WARN_IS_BEEP = 1;
-    BUTTON_IS_PRESSED = 0;
+    Beep(TypeWave::Meandr, 250.0F, 1.0F, 500);
+    warnIsBeep = true;
+    buttonIsPressed = false;
 }
 
 
 void Sound::WarnBeepGood()
 {
-    Beep(TypeWave_Triangle, 1000.0f, 0.5f, 250);
-    BUTTON_IS_PRESSED = 0;
+    Beep(TypeWave::Triangle, 1000.0F, 0.5F, 250);
+    buttonIsPressed = false;
+}
+
+
+void Sound::DeviceEnabled()
+{
+    Beep(TypeWave::Meandr, 250.0F, 1.0F, 500, 1.0F);
+    warnIsBeep = true;
+    buttonIsPressed = false;
 }
 
 
 void Sound::SetWave()
 {
-    TIM7_Config(0, CalculatePeriodForTIM());
+    HAL_TIM7::Config(0, CalculatePeriodForTIM());
 
-    if(typeWave == TypeWave_Sine)
+    if(typeWave == TypeWave::Sine)
     {
         CalculateSine();
     }
-    else if(typeWave == TypeWave_Meandr)
+    else if(typeWave == TypeWave::Meandr)
     {
         CalculateMeandr();
     }
-    else if(typeWave == TypeWave_Triangle)
+    else if(typeWave == TypeWave::Triangle)
     {
         CalculateTriangle();
     }
 }
 
 
-void Sound::TIM7_Config(uint16 prescaler, uint16 period)
-{
-    static TIM_HandleTypeDef htim =
-    {
-        TIM7,
-        {
-            0,
-            TIM_COUNTERMODE_UP,
-        }
-    };
-
-    htim.Init.Prescaler = prescaler;
-    htim.Init.Period = period;
-    htim.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-
-    HAL_TIM_Base_Init(&htim);
-
-    TIM_MasterConfigTypeDef masterConfig =
-    {
-        TIM_TRGO_UPDATE,
-        TIM_MASTERSLAVEMODE_DISABLE
-    };
-
-    HAL_TIMEx_MasterConfigSynchronization(&htim, &masterConfig);
-
-    HAL_TIM_Base_Stop(&htim);
-    HAL_TIM_Base_Start(&htim);
-}
-
-
 uint16 Sound::CalculatePeriodForTIM()
 {
-    return 120e6f / frequency / POINTS_IN_PERIOD;
+    return (uint16)(120e6F / frequency / POINTS_IN_PERIOD);
 }
 
 
@@ -216,9 +182,9 @@ void Sound::CalculateSine()
 {
     for (int i = 0; i < POINTS_IN_PERIOD; i++)
     {
-        float step = 2.0f * 3.1415926f / (POINTS_IN_PERIOD - 1);
-        float value = (sin(i * step) + 1.0f) / 2.0f;
-        points[i] = value * amplitude * 255;
+        float step = 2.0F * 3.1415926F / (POINTS_IN_PERIOD - 1);
+        float value = (std::sin((float)(i) * step) + 1.0F) / 2.0F;
+        points[i] = (uint8)(value * amplitude * 255);
     }
 }
 
@@ -227,7 +193,7 @@ void Sound::CalculateMeandr()
 {
     for (int i = 0; i < POINTS_IN_PERIOD / 2; i++)
     {
-        points[i] = 255 * amplitude;
+        points[i] = (uint8)(255 * amplitude);
     }
     for (int i = POINTS_IN_PERIOD / 2; i < POINTS_IN_PERIOD; i++)
     {
@@ -241,6 +207,14 @@ void Sound::CalculateTriangle()
     float k = 255.0 / POINTS_IN_PERIOD;
     for (int i = 0; i < POINTS_IN_PERIOD; i++)
     {
-        points[i] = k * i * amplitude;
+        points[i] = (uint8)(k * i * amplitude);
+    }
+}
+
+
+void Sound::WaitForCompletion()
+{
+    while (isBeep)
+    {
     }
 }

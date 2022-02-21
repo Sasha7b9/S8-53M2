@@ -52,6 +52,15 @@ namespace HAL_DAC1
 };
 
 
+// Динамик
+namespace HAL_DAC2
+{
+    void Init();
+    void StartDMA(uint8 *points, int numPoints);
+    void StopDMA();
+};
+
+
 #define ADDR_BANK  0x60000000
 #define ADDR_FPGA  ((uint8*)(ADDR_BANK + 0x00c80000))  // Адрес записи в аппаратные регистры.
 
@@ -108,6 +117,15 @@ namespace HAL_TIM6
 
     bool CallbackOnIRQ();
 }
+
+
+// Вспомогательный таймер для DAC2
+namespace HAL_TIM7
+{
+    void Init();
+
+    void Config(uint16 prescaler, uint16 period);
+};
 
 
 namespace HAL_RTC

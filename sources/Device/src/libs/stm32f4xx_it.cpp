@@ -99,12 +99,6 @@ void OTG_HS_IRQHandler()
 }
 
 
-void DMA1_Stream5_IRQHandler()
-{
-    HAL_DMA_IRQHandler(((DAC_HandleTypeDef *)Sound::handle)->DMA_Handle1);
-}
-
-
 void OTG_FS_IRQHandler()
 {
     HAL_PCD_IRQHandler((PCD_HandleTypeDef *)VCP::handlePCD);
