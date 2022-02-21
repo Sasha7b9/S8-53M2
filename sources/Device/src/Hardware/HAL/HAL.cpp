@@ -23,15 +23,15 @@ void HAL::Init()
 
     HAL_PINS::Init();
 
-//    HAL_HCD::Init();            // Для флешки
+    HAL_HCD::Init();            // Для флешки
 
     HAL_TIM6::Init();           // Миллисекунды
 
-//    HAL_TIM2::Init();           // Микросекунды
+    HAL_TIM2::Init();           // Микросекунды
 
     HAL_FMC::Init();            // Альтера и ОЗУ
 
-//    HAL_ADC3::Init();           // АЦП рандомизатора
+    HAL_ADC3::Init();           // АЦП рандомизатора
 
     HAL_SPI5::Init();           // Панель
 }
