@@ -419,6 +419,19 @@ int ENUM_POINTS_FPGA::ToNumPoints(bool forCalculate)
 }
 
 
+int ENUM_POINTS_FPGA::ToNumBytes()
+{
+    int result = ToNumPoints(false);
+
+    if (PEAKDET_IS_ENABLE)
+    {
+        result *= 2;
+    }
+
+    return result;
+}
+
+
 ENUM_POINTS_FPGA::E ENUM_POINTS_FPGA::FromNumPoints(int numPoints)
 {
     if (numPoints == 1024)

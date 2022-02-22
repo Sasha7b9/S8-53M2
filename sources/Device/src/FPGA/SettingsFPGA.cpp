@@ -639,3 +639,17 @@ void DataSettings::FillDataPointer()
     multiplier0 = SET_DIVIDER_A;
     multiplier1 = SET_DIVIDER_B;
 }
+
+
+int TBase::StepRand()
+{
+    static const int num_Kr = 200;
+    static const int Kr[] = {num_Kr / 2, num_Kr / 5, num_Kr / 10, num_Kr / 20, num_Kr / 50};
+
+    return TBase::InRandomizeMode() ? Kr[SET_TBASE] : 1;
+}
+
+int TShift::ForLaunchFPGA()
+{
+    return TSHIFT - TShift::Min();
+}

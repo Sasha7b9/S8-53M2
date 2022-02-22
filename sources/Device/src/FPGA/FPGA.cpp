@@ -26,9 +26,6 @@
 
 namespace FPGA
 {
-    static const int num_Kr = 200;
-    const int Kr[] = {num_Kr / 2, num_Kr / 5, num_Kr / 10, num_Kr / 20, num_Kr / 50};
-
     uint timeStart = 0;
 
     DataSettings ds;
@@ -80,7 +77,8 @@ namespace FPGA
 
     namespace Reader
     {
-
+        // Возвращает адрес, с которого нужно читать первую точку
+        extern uint16 CalculateAddressRead();
     }
 }
 
@@ -141,7 +139,7 @@ bool FPGA::ProcessingData()
 {
     bool retValue = false;
 
-    int num = (TBase::InRandomizeMode() && (!START_MODE_IS_SINGLE) && SAMPLE_TYPE_IS_EQUAL) ? Kr[SET_TBASE] : 1;
+    int num = (TBase::InRandomizeMode() && (!START_MODE_IS_SINGLE) && SAMPLE_TYPE_IS_EQUAL) ? TBase::StepRand() : 1;
 
     for (int i = 0; i < num; i++)
     {
@@ -368,7 +366,7 @@ void FPGA::ReadRandomizeMode()
         return;
     };
 
-    int step = Kr[SET_TBASE];
+    int step = TBase::StepRand();
     int index = Tsm - step - addition_shift;
 
     if (index < 0)
@@ -443,7 +441,8 @@ void FPGA::ReadRandomizeMode()
 
 void FPGA::ReadRealMode(bool necessaryShift)
 {
-//    BUS_FPGA::WriteToHardware()
+    BUS_FPGA::Write(WR_PRED, Reader::CalculateAddressRead(), false);
+    BUS_FPGA::Write(WR_ADDR_READ, 0xffff, false);
 
     uint8 *p0 = &dataRel0[0];
     uint8 *p1 = &dataRel1[0];
@@ -550,7 +549,7 @@ int FPGA::CalculateShift()            // \todo Не забыть восстановить функцию
     if (TBase::InRandomizeMode())
     {
         float tin = (float)(rand - min) / (float)(max - min) * 10e-9f;
-        int retValue = (int)(tin / 10e-9f * (float)Kr[SET_TBASE]);
+        int retValue = (int)(tin / 10e-9f * (float)TBase::StepRand());
         return retValue;
     }
 
