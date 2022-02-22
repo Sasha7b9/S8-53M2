@@ -58,6 +58,9 @@ struct ENUM_POINTS_FPGA
 
     static int ToNumPoints(bool forCalculate);
 
+    // Возвращает число байт на канал
+    static int ToNumBytes(PeackDetMode::E);
+
     static ENUM_POINTS_FPGA::E FromNumPoints(int numPoints);
 };
 
