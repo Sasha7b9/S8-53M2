@@ -568,11 +568,9 @@ int16 TShift::Min()
         {-511, -255, 0}
     };
 
-    ENUM_POINTS_FPGA::E numPoints = ENUM_POINTS;
-
-    if ((int)numPoints < 3 && (int)numPoints >= 0)
+    if ((int)ENUM_POINTS < 3 && (int)ENUM_POINTS >= 0)
     {
-        return m[numPoints][SET_TPOS];
+        return m[ENUM_POINTS][SET_TPOS];
     }
 
     LOG_ERROR("");

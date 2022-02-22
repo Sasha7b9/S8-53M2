@@ -3,7 +3,7 @@
 #include "defines.h"
 
 
-#define ENUM_POINTS                 (set.memory.fpgaNumPoints)                      // SettingsMemory.fpgaNumPoints
+#define ENUM_POINTS                 (set.memory.fpgaENumPoints)                     // SettingsMemory.fpgaNumPoints
 #define ENUM_POINTS_IS_281          (ENUM_POINTS == ENUM_POINTS_FPGA::_281)
 #define ENUM_POINTS_IS_1024         (ENUM_POINTS == ENUM_POINTS_FPGA::_1024)
 
@@ -87,7 +87,7 @@ typedef  struct
 struct SettingsMemory
 {
 #define MAX_SYMBOLS_IN_FILE_NAME 35
-    ENUM_POINTS_FPGA::E fpgaNumPoints;                          // Число точек.
+    ENUM_POINTS_FPGA::E fpgaENumPoints;                         // Число точек.
     ModeWork            modeWork;                               // Режим работы.
     FileNamingMode      fileNamingMode;                         // Режим именования файлов.
     char                fileNameMask[MAX_SYMBOLS_IN_FILE_NAME]; // Здесь маска для автоматического именования файлов\n
