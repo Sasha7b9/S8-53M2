@@ -257,9 +257,9 @@ void FPGA::OnPressStartStop()
 }
 
 
-void FPGA::SetAdditionShift(int)
+void FPGA::SetAdditionShift(int shift)
 {
-
+    additionShift = shift;
 }
 
 
