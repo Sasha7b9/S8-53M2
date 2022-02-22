@@ -2255,9 +2255,10 @@ void Display::DrawLowPart()
     
     if (MODE_WORK_IS_DIRECT)
     {
-        WriteStringAndNumber("накопл", x, y0, NUM_ACCUM);
-        WriteStringAndNumber("усредн", x, y1, NUM_AVE);
-        WriteStringAndNumber("мн\x93мкс", x, y2, NUM_MIN_MAX);
+        int dy = -6;
+        WriteStringAndNumber("накопл", x, y0 + dy, NUM_ACCUM);
+        WriteStringAndNumber("усредн", x, y1 + dy, NUM_AVE);
+        WriteStringAndNumber("мн\x93мкс", x, y2 + dy, NUM_MIN_MAX);
     }
 
     x += 42;
@@ -2315,7 +2316,7 @@ void Display::DrawLowPart()
     if (MODE_WORK_IS_DIRECT)
     {
         Font::Set(TypeFont::_5);
-        WriteStringAndNumber("СГЛАЖ.:", x + 57, GRID_BOTTOM + 10, Smoothing::ToPoints());
+        WriteStringAndNumber("СГЛАЖ.:", x + 57, GRID_BOTTOM + 5, Smoothing::ToPoints());
         Font::Set(TypeFont::_8);
     }
 }
