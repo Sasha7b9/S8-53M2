@@ -87,5 +87,5 @@ namespace BUS_FPGA
 
     void WriteAnalog(TypeWriteAnalog::E type, uint data);
 
-    void WriteToDAC(TypeWriteDAC::E type, uint16 data);
+    void WriteDAC(TypeWriteDAC::E type, uint16 data);
 }

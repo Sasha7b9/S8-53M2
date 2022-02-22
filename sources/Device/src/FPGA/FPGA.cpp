@@ -292,7 +292,7 @@ void FPGA::SetNumberMeasuresForGates(int number)
 }
 
 
-void BUS_FPGA::WriteToDAC(TypeWriteDAC::E type, uint16 data)
+void BUS_FPGA::WriteDAC(TypeWriteDAC::E type, uint16 data)
 {
     Pin::SPI4_CS1.Reset();
 
