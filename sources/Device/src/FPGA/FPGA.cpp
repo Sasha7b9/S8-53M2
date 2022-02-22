@@ -65,6 +65,9 @@ namespace FPGA
     // Загрузить настройки в аппаратную часть из глобальной структуры SSettings.
     void LoadSettings();
 
+    // Эта функция вызывается по таймеру, когда можно считывать новыый сигнал
+    void OnTimerCanReadData();
+
     namespace AutoFinder
     {
         void AutoFind();
@@ -107,8 +110,13 @@ void FPGA::Update()
         AutoFinder::AutoFind();
         return;
     }
+    
+    if(FPGA_CAN_READ_DATA == 0)
+    {
+        return;
+    }
 
-    if ((FPGA_CAN_READ_DATA == 0) || (StateWorkFPGA::GetCurrent() == StateWorkFPGA::Stop))
+    if (StateWorkFPGA::GetCurrent() == StateWorkFPGA::Stop)
     {
         return;
     }
@@ -255,9 +263,15 @@ void FPGA::SetAdditionShift(int)
 }
 
 
-void FPGA::SetNumSignalsInSec(int)
+void FPGA::SetNumSignalsInSec(int numSigInSec)
 {
+    Timer::Enable(TypeTimer::NumSignalsInSec, 1000.f / numSigInSec, OnTimerCanReadData);
+}
 
+
+void FPGA::OnTimerCanReadData()
+{
+    FPGA_CAN_READ_DATA = 1;
 }
 
 
