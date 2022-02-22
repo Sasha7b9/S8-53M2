@@ -166,7 +166,7 @@ void Choice::StartChange(int delta)
     else
     {
         tsChoice.choice = this;
-        tsChoice.timeStartMS = gTimerMS;
+        tsChoice.timeStartMS = TIME_MS;
         if (delta > 0)
         {
             tsChoice.inMoveIncrease = 1;
@@ -203,7 +203,7 @@ float Choice::Step()
     static const int numLines = 12;
     if (tsChoice.choice == this)
     {
-        float delta = speed * (gTimerMS - tsChoice.timeStartMS);
+        float delta = speed * (TIME_MS - tsChoice.timeStartMS);
         if (delta == 0.0f)
         {
             delta = 0.001f; // Таймер в несколько первых кадров может показать, что прошло 0 мс, но мы возвращаем большее число, потому что ноль будет говорить о том, что движения нет

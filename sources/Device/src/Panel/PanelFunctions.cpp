@@ -66,7 +66,7 @@ void PowerDown()                        // B_Power
     Settings::Save();
     Log_DisconnectLoggerUSB();
 
-    if (gTimerMS > 1000)
+    if (TIME_MS > 1000)
     {
         Panel::TransmitData(0x05);
     }
@@ -105,7 +105,7 @@ void F5Long()
 
 int CalculateCount(int *prevTime)
 {
-    uint time = gTimerMS;
+    uint time = TIME_MS;
     uint delta = time - *prevTime;
     *prevTime = (int)time;
 
@@ -129,14 +129,14 @@ bool CanChangeTShift(int16 tShift)
     static uint time = 0;
     if (tShift == 0)
     {
-        time = gTimerMS;
+        time = TIME_MS;
         return true;
     }
     else if (time == 0)
     {
         return true;
     }
-    else if (gTimerMS - time > MIN_TIME)
+    else if (TIME_MS - time > MIN_TIME)
     {
         time = 0;
         return true;
@@ -149,14 +149,14 @@ bool CanChangeRShiftOrTrigLev(TrigSource::E ch, int16 rShift)
     static uint time[3] = {0, 0, 0};
     if (rShift == RShift::ZERO)
     {
-        time[ch] = gTimerMS;
+        time[ch] = TIME_MS;
         return true;
     }
     else if (time[ch] == 0)
     {
         return true;
     }
-    else if (gTimerMS - time[ch] > MIN_TIME)
+    else if (TIME_MS - time[ch] > MIN_TIME)
     {
         time[ch] = 0;
         return true;

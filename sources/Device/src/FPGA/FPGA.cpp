@@ -40,7 +40,7 @@ namespace FPGA
 
     volatile static int numberMeasuresForGates = 1000;
 
-    uint8 ReadFlag();
+    uint16 ReadFlag();
 
     void ReadPoint();
 
@@ -132,11 +132,11 @@ bool FPGA::ProcessingData()
 
     for (int i = 0; i < num; i++)
     {
-        uint8 flag = ReadFlag();
+        uint16 flag = ReadFlag();
 
         if (FPGA_CRITICAL_SITUATION)
         {
-            if (gTimerMS - timeStart > 500)
+            if (TIME_MS - timeStart > 500)
             {
                 SwitchingTrig();
                 TRIG_AUTO_FIND = 1;
@@ -178,7 +178,7 @@ bool FPGA::ProcessingData()
                 {
                     FPGA_CRITICAL_SITUATION = 1;
                 }
-                timeStart = gTimerMS;
+                timeStart = TIME_MS;
             }
         }
 
@@ -216,7 +216,7 @@ void FPGA::Start()
     }
     HAL_FMC::Write(WR_START, 1);
     ds.FillDataPointer();
-    timeStart = gTimerMS;
+    timeStart = TIME_MS;
     StateWorkFPGA::SetCurrent(StateWorkFPGA::Wait);
     FPGA_CRITICAL_SITUATION = 0;
 }
@@ -325,9 +325,9 @@ void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
 
     static uint prevTime = 0;
 
-    if (saveToStorage || (gTimerMS - prevTime > 500))
+    if (saveToStorage || (TIME_MS - prevTime > 500))
     {
-        prevTime = gTimerMS;
+        prevTime = TIME_MS;
         if (!TBase::InRandomizeMode())
         {
             InverseDataIsNecessary(Chan::A, dataRel0);
@@ -611,11 +611,9 @@ bool FPGA::CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
 }
 
 
-uint8 FPGA::ReadFlag()
+uint16 FPGA::ReadFlag()
 {
     uint16 flag = HAL_FMC::Read(RD_FL);
-
-    LOG_WRITE("flag = %x", flag);
 
     FreqMeter::Update(flag);
 

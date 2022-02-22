@@ -72,7 +72,7 @@ void WelcomeScreen::Init() {
         points[i].z *= k;
     }
 
-    startTime = gTimerMS;
+    startTime = TIME_MS;
     isRun = true;
 }
 
@@ -95,7 +95,7 @@ bool WelcomeScreen::Run()
 
     if (isDown)
     {
-        if (gTimerMS - startTime > 1000)
+        if (TIME_MS - startTime > 1000)
         {
             isRun = false;
         }
@@ -105,7 +105,7 @@ bool WelcomeScreen::Run()
         float g = 98.0f * 4.0f;
         float time0 = 0.0f;
         y0 = g * time0 * time0 / 2.0f;
-        float time = (gTimerMS - startTime) / 1000.0f + time0;
+        float time = (TIME_MS - startTime) / 1000.0f + time0;
         y0 = -y0 + g * time * time / 2.0f + 10.0f;
 
         static const float MAX_Y = 130.0f;
@@ -114,7 +114,7 @@ bool WelcomeScreen::Run()
         {
             y0 = MAX_Y;
             isDown = true;
-            startTime = gTimerMS;
+            startTime = TIME_MS;
         }
     }
 

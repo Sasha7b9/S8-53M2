@@ -2295,7 +2295,7 @@ void Display::DrawLowPart()
     }
 
     // Ethernet
-    if ((CLIENT_LAN_IS_CONNECTED || CABLE_LAN_IS_CONNECTED) && gTimerMS > 2000)
+    if ((CLIENT_LAN_IS_CONNECTED || CABLE_LAN_IS_CONNECTED) && TIME_MS > 2000)
     {
         PText::Draw4SymbolsInRect(x + 87, GRID_BOTTOM + 2, SYMBOL_ETHERNET, CLIENT_LAN_IS_CONNECTED ? COLOR_FILL : Color::FLASH_01);
     }
@@ -2335,16 +2335,16 @@ void Display::DrawTimeForFrame(uint timeTicks)
     static float numMS = 0.0f;
     if(first)
     {
-        timeMSstartCalculation = gTimerMS;
+        timeMSstartCalculation = TIME_MS;
         first = false;
     }
     numMS += timeTicks / 120000.0f;
     numFrames++;
     
-    if((gTimerMS - timeMSstartCalculation) >= 500)
+    if((TIME_MS - timeMSstartCalculation) >= 500)
     {
         sprintf(buffer, "%.1fms/%d", numMS / numFrames, numFrames * 2);
-        timeMSstartCalculation = gTimerMS;
+        timeMSstartCalculation = TIME_MS;
         numMS = 0.0f;
         numFrames = 0;
     }
@@ -2662,12 +2662,12 @@ void Display::ShowWarn(pchar message)
         if (warnings[i] == 0 && !alreadyStored)
         {
             warnings[i] = message;
-            timeWarnings[i] = gTimerMS;
+            timeWarnings[i] = TIME_MS;
             alreadyStored = true;
         }
         else if (warnings[i] == message)
         {
-            timeWarnings[i] = gTimerMS;
+            timeWarnings[i] = TIME_MS;
             return;
         }
     }
@@ -2676,7 +2676,7 @@ void Display::ShowWarn(pchar message)
 
 void Display::OnTimerShowWarning()
 {
-    uint time = gTimerMS;
+    uint time = TIME_MS;
     for (int i = 0; i < NUM_WARNINGS; i++)
     {
         if (time - timeWarnings[i] > (uint)TIME_MESSAGES * 1000)

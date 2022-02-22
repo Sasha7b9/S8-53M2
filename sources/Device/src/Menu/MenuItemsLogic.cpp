@@ -26,7 +26,7 @@ void Governor::StartChange(int delta)
     }
     else
     {
-        TIME_START_MS = gTimerMS;   
+        TIME_START_MS = TIME_MS;
     }
 
     IN_MOVE_INCREASE = (delta > 0) ? 1U : 0U;
@@ -119,7 +119,7 @@ float Governor::Step()
 
     if (ADDRESS_GOVERNOR == (uint)this && IN_MOVE_DECREASE)
     {
-        float delta = -speed * (gTimerMS - TIME_START_MS);
+        float delta = -speed * (TIME_MS - TIME_START_MS);
 
         if (delta == 0.0f)
         {
@@ -144,7 +144,7 @@ float Governor::Step()
 
     if (ADDRESS_GOVERNOR == (uint)this && IN_MOVE_INCREASE)
     {
-        float delta = speed * (gTimerMS - TIME_START_MS);
+        float delta = speed * (TIME_MS - TIME_START_MS);
 
         if (delta == 0.0f)
         {

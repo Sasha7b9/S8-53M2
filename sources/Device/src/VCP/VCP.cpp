@@ -49,7 +49,7 @@ static bool VCP::PrevSendingComplete()
 
 void VCP::SendDataAsinch(uint8 *buffer, int size)
 {
-    lastTimeSend = gTimerMS;
+    lastTimeSend = TIME_MS;
 
     const int SIZE_BUFFER = 64;
     static uint8 trBuf[SIZE_BUFFER];
@@ -84,7 +84,7 @@ void VCP::SendDataSynch(const uint8 *buffer, int size)
         return;
     }
 
-    lastTimeSend = gTimerMS;
+    lastTimeSend = TIME_MS;
 
     USBD_CDC_HandleTypeDef *pCDC = (USBD_CDC_HandleTypeDef *)_handleUSBD.pClassData;
 
@@ -151,7 +151,7 @@ void VCP::SendFormatStringSynch(char *format, ...) {
 
 void VCP::Update()
 {
-    if(gTimerMS - lastTimeSend > 1000)
+    if(TIME_MS - lastTimeSend > 1000)
     {
         LOG_WRITE("Долго нет засылок");
     }

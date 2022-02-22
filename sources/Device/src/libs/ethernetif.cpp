@@ -246,7 +246,7 @@ static struct pbuf * low_level_input(struct netif *netif)
   
   if (p != NULL)
   {
-      gEthTimeLastEthifInput = gTimerMS;
+      gEthTimeLastEthifInput = TIME_MS;
       
     dmarxdesc = EthHandle.RxFrameInfos.FSRxDesc;
     bufferoffset = 0;

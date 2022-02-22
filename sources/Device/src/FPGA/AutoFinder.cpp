@@ -334,17 +334,17 @@ float FPGA::AutoFinder::CalculateFreqFromCounterFreq()
 
 float FPGA::AutoFinder::CalculateFreqFromCounterPeriod()
 {
-    uint time = gTimerMS;
+    uint time = TIME_MS;
 
-    while (gTimerMS - time < 1000 && _GET_BIT(HAL_FMC::Read(RD_FL), BIT_PERIOD_READY) == 0) {};
+    while (TIME_MS - time < 1000 && _GET_BIT(HAL_FMC::Read(RD_FL), BIT_PERIOD_READY) == 0) {};
     FreqMeter::ReadRegPeriod();
 
-    time = gTimerMS;
+    time = TIME_MS;
 
-    while (gTimerMS - time < 1000 && _GET_BIT(HAL_FMC::Read(RD_FL), BIT_PERIOD_READY) == 0) {};
+    while (TIME_MS - time < 1000 && _GET_BIT(HAL_FMC::Read(RD_FL), BIT_PERIOD_READY) == 0) {};
     BitSet32 period = FreqMeter::ReadRegPeriod();
 
-    if (period.word > 0 && (gTimerMS - time < 1000))
+    if (period.word > 0 && (TIME_MS - time < 1000))
     {
         return FreqMeter::PeriodCounterToValue(&period);
     }

@@ -51,15 +51,15 @@ void LAN::Init()
 
 void LAN::Update(uint timeMS)
 {
-    uint time = gTimerMS;
+    uint time = TIME_MS;
 
     do 
     {
-        CABLE_LAN_IS_CONNECTED = (gTimerMS - gEthTimeLastEthifInput <= 1500) ? 1U : 0U;
+        CABLE_LAN_IS_CONNECTED = (TIME_MS - gEthTimeLastEthifInput <= 1500) ? 1U : 0U;
 
         ethernetif_input(&gnetif);
         sys_check_timeouts();
-    } while (gTimerMS - time < timeMS);
+    } while (TIME_MS - time < timeMS);
 }
 
 

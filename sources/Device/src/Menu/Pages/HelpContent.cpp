@@ -54,7 +54,7 @@ static void DrawPageDescription()
 
 void HelpContent::Draw()
 {
-    uint startTime = gTimerMS;
+    uint startTime = TIME_MS;
     Painter::FillRegion(Grid::Right(), 0, 319 - Grid::Right(), 20, COLOR_BACK);
     Painter::FillRegion(Grid::Right(), 219, 319 - Grid::Right(), 21);
     Painter::FillRegion(1, 1, WIDTH, 237);
@@ -81,7 +81,7 @@ void HelpContent::Draw()
     {
         DrawPageDescription();
     }
-    PText::DrawFormatText(2, 230, COLOR_FILL, "%d", gTimerMS - startTime);
+    PText::DrawFormatText(2, 230, COLOR_FILL, "%d", TIME_MS - startTime);
 }
 
 static int NumParagraphs(const PageHelp *page)
