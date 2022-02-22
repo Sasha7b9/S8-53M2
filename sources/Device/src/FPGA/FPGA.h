@@ -79,11 +79,13 @@ namespace FPGA
 
 namespace BUS_FPGA
 {
-    // Запись в регистр ПЛИС нового значения. restart - true означает, что после записи нужно запусить режим измерений, если до этого прибор не находился в режиме паузы.
     void WriteToHardware(uint8 *address, uint8 value, bool restart);
+
+    // Запись в регистр ПЛИС нового значения. restart - true означает, что после записи нужно запусить режим измерений,
+    // если до этого прибор не находился в режиме паузы.
     void Write(uint16 *address, uint16 value, bool restart);
 
-    void WriteToAnalog(TypeWriteAnalog::E type, uint data);
+    void WriteAnalog(TypeWriteAnalog::E type, uint data);
 
     void WriteToDAC(TypeWriteDAC::E type, uint16 data);
 }

@@ -307,7 +307,7 @@ void BUS_FPGA::WriteToDAC(TypeWriteDAC::E type, uint16 data)
 }
 
 
-void BUS_FPGA::WriteToAnalog(TypeWriteAnalog::E type, uint data)
+void BUS_FPGA::WriteAnalog(TypeWriteAnalog::E type, uint data)
 {
     Pin::SPI4_CS2.Reset();
 
