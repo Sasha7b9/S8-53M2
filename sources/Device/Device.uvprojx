@@ -824,11 +824,6 @@
               <FilePath>.\src\libs\stm32f4xx_hal_conf.h</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_msp.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\libs\stm32f4xx_hal_msp.cpp</FilePath>
-            </File>
-            <File>
               <FileName>stm32f4xx_it.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\libs\stm32f4xx_it.cpp</FilePath>
@@ -2753,11 +2748,6 @@
               <FileName>stm32f4xx_hal_conf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\libs\stm32f4xx_hal_conf.h</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx_hal_msp.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\libs\stm32f4xx_hal_msp.cpp</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_it.cpp</FileName>
