@@ -605,14 +605,14 @@ int TPos::InPoints(PeackDetMode::E peakDet, int numPoints, TPos::E tPos)
 
 int RShift::ToRel(float rShiftAbs, Range::E range)
 {
-    int retValue = RShift::ZERO + rShiftAbs / absStepRShift[range];
-    if (retValue < RShift::MIN)
+    int retValue = ZERO + rShiftAbs / absStepRShift[range];
+    if (retValue < MIN)
     {
-        retValue = RShift::MIN;
+        retValue = MIN;
     }
-    else if (retValue > RShift::MAX)
+    else if (retValue > MAX)
     {
-        retValue = RShift::MAX;
+        retValue = MAX;
     }
     return retValue;
 };
@@ -646,10 +646,10 @@ int TBase::StepRand()
     static const int num_Kr = 200;
     static const int Kr[] = {num_Kr / 2, num_Kr / 5, num_Kr / 10, num_Kr / 20, num_Kr / 50};
 
-    return TBase::InRandomizeMode() ? Kr[SET_TBASE] : 1;
+    return InRandomizeMode() ? Kr[SET_TBASE] : 1;
 }
 
 int TShift::ForLaunchFPGA()
 {
-    return TSHIFT - TShift::Min();
+    return TSHIFT - Min();
 }
