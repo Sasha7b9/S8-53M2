@@ -43,28 +43,28 @@
 */
 
 
-#define WR_START                (HAL_FMC::_ADDR_FPGA + 0x00)    // Запуск цикла измерения. Для запуска нужно записать 1.
-#define WR_RAZV                 (HAL_FMC::_ADDR_FPGA + 0x01)    // Установка частоты дискретизации. Используется в TBase::Load().
-#define WR_PRED                 (HAL_FMC::_ADDR_FPGA + 0x02)
-#define WR_POST                 (HAL_FMC::_ADDR_FPGA + 0x03)
-#define WR_TRIG                 (HAL_FMC::_ADDR_FPGA + 0x04)
-#define WR_UPR                  (HAL_FMC::_ADDR_FPGA + 0x05)
+#define WR_START                (HAL_FMC::ADDR_FPGA + 0x00)    // Запуск цикла измерения. Для запуска нужно записать 1.
+#define WR_RAZV                 (HAL_FMC::ADDR_FPGA + 0x01)    // Установка частоты дискретизации. Используется в TBase::Load().
+#define WR_PRED                 (HAL_FMC::ADDR_FPGA + 0x02)
+#define WR_POST                 (HAL_FMC::ADDR_FPGA + 0x03)
+#define WR_TRIG                 (HAL_FMC::ADDR_FPGA + 0x04)
+#define WR_UPR                  (HAL_FMC::ADDR_FPGA + 0x05)
     #define UPR_BIT_PEAKDET                 1   // пиковый детектор - 0/1 выкл/вкл
     #define UPR_BIT_CALIBRATOR_AC_DC        2   // постоянное/переменное
     #define UPR_BIT_CALIBRATOR_VOLTAGE      3   // 0/4В
     #define UPR_BIT_RECORDER                4   // 0 - обычный режим, 1 - регистратор
-#define WR_ADDR_READ            (HAL_FMC::_ADDR_FPGA + 0x06) // Эта команда записывает адрес чтения в регистр предзапуска
-#define WR_FREQ_METER_PARAMS    (HAL_FMC::_ADDR_FPGA + 0x0a)
-#define WR_STOP                 (HAL_FMC::_ADDR_FPGA + 0x1f)
+#define WR_ADDR_READ            (HAL_FMC::ADDR_FPGA + 0x06) // Эта команда записывает адрес чтения в регистр предзапуска
+#define WR_FREQ_METER_PARAMS    (HAL_FMC::ADDR_FPGA + 0x0a)
+#define WR_STOP                 (HAL_FMC::ADDR_FPGA + 0x1f)
 
-#define RD_ADC_A                (HAL_FMC::_ADDR_FPGA + 0x00)
-#define RD_ADC_B                (HAL_FMC::_ADDR_FPGA + 0x02)
-#define RD_ADDR_LAST_RECORD     (HAL_FMC::_ADDR_FPGA + 0x08) // Чтение адреса последней записи
-#define RD_FREQ_LOW             (HAL_FMC::_ADDR_FPGA + 0x10)
-#define RD_FREQ_HI              (HAL_FMC::_ADDR_FPGA + 0x18)
-#define RD_PERIOD_LOW           (HAL_FMC::_ADDR_FPGA + 0x20)
-#define RD_PERIOD_HI            (HAL_FMC::_ADDR_FPGA + 0x28)
-#define RD_FL                   (HAL_FMC::_ADDR_FPGA + 0x30)
+#define RD_ADC_A                (HAL_FMC::ADDR_FPGA + 0x00)
+#define RD_ADC_B                (HAL_FMC::ADDR_FPGA + 0x02)
+#define RD_ADDR_LAST_RECORD     (HAL_FMC::ADDR_FPGA + 0x08) // Чтение адреса последней записи
+#define RD_FREQ_LOW             (HAL_FMC::ADDR_FPGA + 0x10)
+#define RD_FREQ_HI              (HAL_FMC::ADDR_FPGA + 0x18)
+#define RD_PERIOD_LOW           (HAL_FMC::ADDR_FPGA + 0x20)
+#define RD_PERIOD_HI            (HAL_FMC::ADDR_FPGA + 0x28)
+#define RD_FL                   (HAL_FMC::ADDR_FPGA + 0x30)
     #define FL_DATA             0   // 0 - данные готовы
     #define FL_TRIG             1   // 1 - наличие синхроимпульса
     #define FL_PRED             2   // 2 - окончание счета предзапуска

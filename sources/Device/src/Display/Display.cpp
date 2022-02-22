@@ -207,7 +207,7 @@ void Display::Init()
 
     Color::ResetFlash();
 
-    HAL_LTDC::Init(HAL_FMC::_ADDR_RAM_DISPLAY_FRONT, Display::back_buffer);
+    HAL_LTDC::Init(HAL_FMC::ADDR_RAM_DISPLAY_FRONT, Display::back_buffer);
 
     Painter::BeginScene(Color::BLACK);
 

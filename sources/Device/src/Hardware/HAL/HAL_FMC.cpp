@@ -46,14 +46,14 @@ volatile static pchar addrNamesForWrite[32] =
 
 namespace HAL_FMC
 {
-    static const uint _ADDR_BANK = 0x60000000;
-    static const uint _ADDR_RAM = _ADDR_BANK + 0x04000000;
+    static const uint ADDR_BANK = 0x60000000;
+    static const uint ADDR_RAM = ADDR_BANK + 0x04000000;
 
     // Адрес записи в аппаратные регистры. 0x100000 - это смещение нужно для установки A19 на FPGA в 1. Хотя по расчёту
     // должно быть 0x80000 (потому что a18 работает на 0x40000)
-    uint16 * const _ADDR_FPGA = (uint16 *)(_ADDR_BANK + 0x00000000 + 0x100000); //-V566
+    uint16 * const ADDR_FPGA = (uint16 *)(ADDR_BANK + 0x00000000 + 0x100000); //-V566
 
-    uint8 * const _ADDR_RAM_DISPLAY_FRONT = (uint8 *)(_ADDR_RAM + 1024 * 1024 - 320 * 240); //-V566
+    uint8 * const ADDR_RAM_DISPLAY_FRONT = (uint8 *)(ADDR_RAM + 1024 * 1024 - 320 * 240); //-V566
 
     static void InitRAM();
 
