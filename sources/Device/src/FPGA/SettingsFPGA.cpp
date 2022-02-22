@@ -543,13 +543,13 @@ void Filtr::Enable(Chan::E ch, bool enable)
 
 bool TBase::InRandomizeMode()
 {
-    return SET_TBASE <= TBase::MAX_RAND;
+    return SET_TBASE <= MAX_RAND;
 }
 
 
 int16 TShift::Zero()
 {
-    return -TShift::Min();
+    return -Min();
 }
 
 
