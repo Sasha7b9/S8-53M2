@@ -433,22 +433,21 @@ void TShift::Load()
 {
     static const int16 k[TBase::Count] = {50, 20, 10, 5, 2};
     int16 tShift = TSHIFT - TShift::Min() + 1;
-    int16 tShiftOld = tShift;
     TBase::E tBase = SET_TBASE;
 
-    if (tBase <= TBase::MAX_RAND)
+    FPGA::addition_shift = (tShift % k[tBase]) * 2;
+
+    if ((tBase <= TBase::MAX_RAND) && 
+        ((int)tBase >= 0))
     {
         tShift = tShift / k[tBase] + FPGA::deltaTShift[tBase];
     }
-
-    FPGA::addition_shift = (tShiftOld % k[tBase]) * 2;
 
     uint16 post = (uint16)tShift;
     post = (uint16)(~post);
 
     uint16 pred = (uint16)((tShift > 511) ? 1023 : (511 - post));
     pred = (uint16)((~(pred - 1)) & 0x1ff);
-
 
     BUS_FPGA::WriteToHardware(WR_POST, post, true);
     BUS_FPGA::WriteToHardware(WR_PRED, pred, true);
