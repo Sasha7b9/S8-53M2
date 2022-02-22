@@ -521,7 +521,7 @@ void TrigPolarity::Set(TrigPolarity::E polarity)
 
 void TrigPolarity::Load()
 {
-    BUS_FPGA::WriteToHardware(WR_TRIG_F, TRIG_POLARITY_IS_FRONT ? 0x01U : 0x00U, true);
+    BUS_FPGA::WriteToHardware(WR_TRIG, TRIG_POLARITY_IS_FRONT ? 0x01U : 0x00U, true);
 }
 
 

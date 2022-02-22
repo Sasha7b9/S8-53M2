@@ -205,8 +205,8 @@ void FPGA::SwitchingTrig()
         {0, 1}
     };
 
-    HAL_FMC::Write(WR_TRIG_F, value[TRIG_POLARITY][0]);
-    HAL_FMC::Write(WR_TRIG_F, value[TRIG_POLARITY][1]);
+    HAL_FMC::Write(WR_TRIG, value[TRIG_POLARITY][0]);
+    HAL_FMC::Write(WR_TRIG, value[TRIG_POLARITY][1]);
 }
 
 

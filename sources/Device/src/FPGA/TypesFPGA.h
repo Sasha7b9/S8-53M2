@@ -36,19 +36,25 @@
 /*
 * Эти использовались только в С8-53/1. В С8-53М использоваться не должны *******************************
 */
-#define WR_CAL_A        (ADDR_FPGA + 12)            //    Калибровочный коэффициент канала 1.
-#define WR_CAL_B        (ADDR_FPGA + 13)            //    Калибровочный коэффициент канала 2.
+#define WR_CAL_A        ((uint8 *)12)            //    Калибровочный коэффициент канала 1.
+#define WR_CAL_B        ((uint8 *)13)            //    Калибровочный коэффициент канала 2.
 /*
 * ******************************************************************************************************
 */
 
 
 #define WR_START                (HAL_FMC::_ADDR_FPGA + 0x00)    // Запуск цикла измерения. Для запуска нужно записать 1.
-#define WR_RAZV                 (HAL_FMC::_ADDR_FPGA + 0x01)     // Установка частоты синхронизации. Используется в TBase::Load().
+#define WR_RAZV                 (HAL_FMC::_ADDR_FPGA + 0x01)    // Установка частоты дискретизации. Используется в TBase::Load().
 #define WR_PRED                 (HAL_FMC::_ADDR_FPGA + 0x02)
 #define WR_POST                 (HAL_FMC::_ADDR_FPGA + 0x03)
-#define WR_TRIG_F               (HAL_FMC::_ADDR_FPGA + 0x04)
+#define WR_TRIG                 (HAL_FMC::_ADDR_FPGA + 0x04)
 #define WR_UPR                  (HAL_FMC::_ADDR_FPGA + 0x05)
+    #define UPR_BIT_PEAKDET                 1   // пиковый детектор - 0/1 выкл/вкл
+    #define UPR_BIT_CALIBRATOR_AC_DC        2   // постоянное/переменное
+    #define UPR_BIT_CALIBRATOR_VOLTAGE      3   // 0/4В
+    #define UPR_BIT_RECORDER                4   // 0 - обычный режим, 1 - регистратор
+#define WR_ADDR_READ            (HAL_FMC::_ADDR_FPGA + 0x06) // Эта команда записывает адрес чтения в регистр предзапуска
+#define WR_FREQ_METER_PARAMS    (HAL_FMC::_ADDR_FPGA + 0x0a)
 #define WR_STOP                 (HAL_FMC::_ADDR_FPGA + 0x1f)
 
 #define RD_ADC_A                (HAL_FMC::_ADDR_FPGA + 0x00)
