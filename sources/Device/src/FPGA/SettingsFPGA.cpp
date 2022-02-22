@@ -16,13 +16,7 @@ StateWorkFPGA::E StateWorkFPGA::current = StateWorkFPGA::Stop;
 namespace FPGA
 {
     // Добавочные смещения по времени для разверёток режима рандомизатора.
-    int16 timeCompensation[TBase::Count] = {550, 275, 120, 55, 25, 9, 4, 1};
-
-    #define N_KR 100
-    const int Kr[] = {N_KR / 1, N_KR / 2, N_KR / 5, N_KR / 10, N_KR / 20};
-    #undef N_KR
-
-    int addr_nstop = 0;
+    int16 deltaTShift[TBase::Count] = {505, 489, 464, 412, 258};
 
     // Загрузить настройки в аппаратную часть из глобальной структуры SSettings.
     void LoadSettings();
@@ -32,11 +26,6 @@ namespace FPGA
 
     // Загрузить регистр WR_UPR (пиковый детектор и калибратор).
     void LoadRegUPR();
-
-    namespace Randomizer
-    {
-        int add_shift = 0;
-    }
 }
 
 
@@ -230,7 +219,7 @@ void TBase::Load()
     TBase::E tBase = SET_TBASE;
     uint8 mask = PEAKDET ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
     BUS_FPGA::WriteToHardware(WR_RAZV, mask, true);
-    ADD_SHIFT_T0 = FPGA::timeCompensation[tBase];
+    ADD_SHIFT_T0 = FPGA::deltaTShift[tBase];
 }
 
 
@@ -385,7 +374,7 @@ void TShift::Set(int tShift)
 
 void TShift::SetDelta(int16 shift)
 {
-    FPGA::timeCompensation[SET_TBASE] = shift;
+    FPGA::deltaTShift[SET_TBASE] = shift;
     Load();
 }
 
@@ -440,66 +429,27 @@ void FPGA::LoadKoeffCalibration(Chan::E ch)
 
 void TShift::Load()
 {
+    static const int16 k[TBase::Count] = {50, 20, 10, 5, 2};
+    int16 tShift = TSHIFT - TShift::Min() + 1;
+    int16 tShiftOld = tShift;
     TBase::E tBase = SET_TBASE;
-    int tShift = TSHIFT - TShift::Min() + FPGA::timeCompensation[tBase];
 
-    int post = tShift;
-    int pred = 0;
-
-    if (TBase::InRandomizeMode())
+    if (tBase <= TBase::MAX_RAND)
     {
-        int k = 0;
-
-        if (SET_TPOS_IS_LEFT)
-        {
-            k = ENUM_POINTS_FPGA::ToNumPoints(false) % FPGA::Kr[tBase];
-        }
-        else if (SET_TPOS_IS_CENTER)
-        {
-            k = (ENUM_POINTS_FPGA::ToNumPoints(false) / 2) % FPGA::Kr[tBase];
-        }
-
-        post = (2 * post - k) / FPGA::Kr[tBase];
-
-        FPGA::Randomizer::add_shift = (TSHIFT * 2) % FPGA::Kr[tBase];
-
-        if (FPGA::Randomizer::add_shift < 0)
-        {
-            FPGA::Randomizer::add_shift += FPGA::Kr[tBase];
-        }
-    }
-    else
-    {
-        pred = ENUM_POINTS_FPGA::ToNumBytes(PEAKDET) / 2 - post;
-
-        if (pred < 0)
-        {
-            pred = 0;
-        }
-
-        pred = ~(pred + 3);
+        tShift = tShift / k[tBase] + FPGA::deltaTShift[tBase];
     }
 
-    if (tShift < 0)
-    {
-        post = 0;
-        FPGA::addr_nstop = -tShift;
-    }
-    else
-    {
-        FPGA::addr_nstop = 0;
-    }
+    int additionShift = (tShiftOld % k[tBase]) * 2;
+    FPGA::SetAdditionShift(additionShift);
+    uint16 post = (uint16)tShift;
+    post = (uint16)(~post);
 
-    post = (uint16)(~(post + 1));                   // Здесь просто для записи в железо дополняем
+    uint16 pred = (uint16)((tShift > 511) ? 1023 : (511 - post));
+    pred = (uint16)((~(pred - 1)) & 0x1ff);
 
-    if (SET_TBASE > 8)
-    {
-        post++;
-        pred--;
-    }
 
-    BUS_FPGA::WriteToHardware(WR_POST, (uint16)post, true);
-    BUS_FPGA::WriteToHardware(WR_PRED, (uint16)pred, true);
+    BUS_FPGA::WriteToHardware(WR_POST, post, true);
+    BUS_FPGA::WriteToHardware(WR_PRED, pred, true);
 }
 
 

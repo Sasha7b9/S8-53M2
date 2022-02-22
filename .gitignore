@@ -2,6 +2,7 @@
 *.out
 *.uvoptx*
 *.uvgui*
+archive.zip
 
 sources/Loader/DebugConfig/*
 sources/Loader/Listings/*

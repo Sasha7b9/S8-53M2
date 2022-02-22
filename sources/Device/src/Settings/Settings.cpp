@@ -392,19 +392,6 @@ int ENUM_POINTS_FPGA::ToNumPoints(bool forCalculate)
 }
 
 
-int ENUM_POINTS_FPGA::ToNumBytes(PeackDetMode::E mode)
-{
-    int result = ToNumPoints(false);
-
-    if (mode != PeackDetMode::Disable)
-    {
-        result *= 2;
-    }
-
-    return result;
-}
-
-
 ENUM_POINTS_FPGA::E ENUM_POINTS_FPGA::FromNumPoints(int numPoints)
 {
     if (numPoints == 1024)
