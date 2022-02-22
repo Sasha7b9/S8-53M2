@@ -349,8 +349,6 @@ void TrigLev::Load()
     uint16 trigLev = (uint16)TRIG_LEVEL_SOURCE;
     trigLev = (uint16)(TrigLev::MAX + TrigLev::MIN - trigLev);
     data |= trigLev << 2;
-//    FPGA::WriteToHardware(WR_DAC_LOW, data.byte[0], true);
-//    FPGA::WriteToHardware(WR_DAC_HI, data.byte[1], true);
     BUS_FPGA::WriteToDAC(TypeWriteDAC::TrigLev, data);
 }
 
@@ -436,7 +434,7 @@ void TShift::Load()
     int16 tShiftOld = tShift;
     TBase::E tBase = SET_TBASE;
 
-    if (tBase < TBase::_100ns)
+    if (tBase <= TBase::MAX_RAND)
     {
         tShift = tShift / k[tBase] + FPGA::deltaTShift[tBase];
     }
@@ -445,16 +443,11 @@ void TShift::Load()
     FPGA::SetAdditionShift(additionShift);
     uint16 post = (uint16)tShift;
     post = (uint16)(~post);
-//    FPGA::WriteToHardware(WR_POST_LOW, (uint8)post, true);
-//    FPGA::WriteToHardware(WR_POST_HI, (uint8)(post >> 8), true);
 
     BUS_FPGA::WriteToHardware(WR_POST, post, true);
 
     uint16 pred = (uint16)((tShift > 511) ? 1023 : (511 - post));
     pred = (uint16)((~(pred - 1)) & 0x1ff);
-
-//    FPGA::WriteToHardware(WR_PRED_LOW, (uint8)pred, true);
-//    FPGA::WriteToHardware(WR_PRED_HI, (uint8)(pred >> 8), true);
 
     BUS_FPGA::WriteToHardware(WR_PRED, pred, true);
 }
