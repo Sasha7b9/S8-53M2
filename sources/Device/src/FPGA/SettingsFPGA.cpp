@@ -444,9 +444,9 @@ void TShift::Load()
     }
 
     uint16 post = (uint16)tShift;
-    post = (uint16)(~post);
-
     uint16 pred = (uint16)((tShift > 511) ? 1023 : (511 - post));
+
+    post = (uint16)(~post);
     pred = (uint16)((~(pred - 1)) & 0x1ff);
 
     BUS_FPGA::WriteToHardware(WR_POST, post, true);

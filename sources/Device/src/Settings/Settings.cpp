@@ -10,7 +10,13 @@
 #include "Menu/Menu.h"
 #include "Log.h"
 #include "Hardware/HAL/HAL.h"
+#include "Hardware/Timer.h"
+#include <stm32f4xx_hal.h>
 #include <string.h>
+
+
+bool Settings::need_save = false;
+uint Settings::time_save = 0;
 
 
 static const Settings defaultSettings =
@@ -275,10 +281,31 @@ void Settings::Load(bool _default)
     SETTINGS_IS_LOADED = 1;
 }
 
-void Settings::Save()
+void Settings::SaveBeforePowerDown()
 {
-    HAL_ROM::SaveSettings();
+    if (need_save)
+    {
+        HAL_ROM::SaveSettings();
+    }
 }
+
+
+void Settings::NeedSave()
+{
+    need_save = true;
+    time_save = TIME_MS + 5000;
+}
+
+
+void Settings::SaveIfNeed()
+{
+    if (need_save && (TIME_MS >= time_save))
+    {
+        SaveBeforePowerDown();
+        need_save = false;
+    }
+}
+
 
 bool Settings::DebugModeEnable()
 {

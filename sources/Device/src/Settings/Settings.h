@@ -221,8 +221,15 @@ struct Settings
     //int temp[5];
     static void Load(bool _default_);   // Загрузить настройки. Если _default == true, загружаются настройки по умолчанию, иначе пытается 
                                         // загрузить настройки из ПЗУ, а в случае неудачи - тоже настройки по умолчанию.
-    static void Save();                 // Сохранить настройки во флеш-память.
+    static void SaveBeforePowerDown();  // Сохранить настройки во флеш-память перед выключением
+    static void NeedSave();             // Установить признак того, что настройки нуждаются в сохранении
+    static void SaveIfNeed();           // Сохранить настройки, если нужно
     static bool DebugModeEnable();      // Возвращает true, если включён режим отладки.
+
+private:
+
+    static bool need_save;              // Признак того, что настройки нужно сохранить в главном цикле
+    static uint time_save;              // В это время нужно сохранять
 };
 
 extern Settings set;

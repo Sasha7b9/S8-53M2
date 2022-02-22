@@ -56,7 +56,7 @@ void Device::Update()
     Panel::Update();
     Menu::UpdateInput();                 // Обновляем состояние меню
     Display::Update();                   // Рисуем экран.
-
+    Settings::SaveIfNeed();
     // LAN::Update(0);
     // VCP::Update();
 }

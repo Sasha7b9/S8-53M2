@@ -483,6 +483,7 @@ void Panel::CallbackOnReceiveSPI5(const uint8 *data, uint size)
     if (command != 0)
     {
         input_buffer.Push(command);
+        Settings::NeedSave();
     }
 }
 
