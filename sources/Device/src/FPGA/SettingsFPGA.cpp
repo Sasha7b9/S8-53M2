@@ -18,6 +18,8 @@ namespace FPGA
     // Добавочные смещения по времени для разверёток режима рандомизатора.
     int16 deltaTShift[TBase::Count] = {505, 489, 464, 412, 258};
 
+    extern int addition_shift;
+
     // Загрузить настройки в аппаратную часть из глобальной структуры SSettings.
     void LoadSettings();
 
@@ -439,8 +441,8 @@ void TShift::Load()
         tShift = tShift / k[tBase] + FPGA::deltaTShift[tBase];
     }
 
-    int additionShift = (tShiftOld % k[tBase]) * 2;
-    FPGA::SetAdditionShift(additionShift);
+    FPGA::addition_shift = (tShiftOld % k[tBase]) * 2;
+
     uint16 post = (uint16)tShift;
     post = (uint16)(~post);
 

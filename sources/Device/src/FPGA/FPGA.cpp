@@ -36,7 +36,7 @@ namespace FPGA
     uint8 dataRel0[FPGA::MAX_POINTS] = {0};   // Буфер используется для чтения данных первого канала.
     uint8 dataRel1[FPGA::MAX_POINTS] = {0};   // Буфер используется для чтения данных второго канала.
 
-    int additionShift = 0;
+    int addition_shift = 0;
 
     volatile static int numberMeasuresForGates = 1000;
 
@@ -257,12 +257,6 @@ void FPGA::OnPressStartStop()
 }
 
 
-void FPGA::SetAdditionShift(int shift)
-{
-    additionShift = shift;
-}
-
-
 void FPGA::SetNumSignalsInSec(int numSigInSec)
 {
     Timer::Enable(TypeTimer::NumSignalsInSec, 1000.f / numSigInSec, OnTimerCanReadData);
@@ -369,7 +363,7 @@ void FPGA::ReadRandomizeMode()
     };
 
     int step = Kr[SET_TBASE];
-    int index = Tsm - step - additionShift;
+    int index = Tsm - step - addition_shift;
 
     if (index < 0)
     {
