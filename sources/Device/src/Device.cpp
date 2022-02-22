@@ -24,10 +24,10 @@ namespace Device
 void Device::Init()
 {
     HAL::Init();
-    Settings::Load(false);
+//    Settings::Load(false);
     Sound::Init();
 //    VCP::Init();
-//    Settings::Load(false);
+    Settings::Load(true);
     FPGA::Init();
     Timer::PauseOnTime(250);
     FPGA::OnPressStartStop();

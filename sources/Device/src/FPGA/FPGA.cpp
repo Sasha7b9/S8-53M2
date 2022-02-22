@@ -38,6 +38,8 @@ namespace FPGA
 
     int additionShift = 0;
 
+    volatile static int numberMeasuresForGates = 1000;
+
     uint8 ReadFlag();
 
     void ReadPoint();
@@ -78,7 +80,11 @@ namespace FPGA
 
 void FPGA::Init()
 {
-
+    Storage::Clear();
+    FPGA::LoadSettings();
+    FPGA::SetNumSignalsInSec(ENumSignalsInSec::ToNum(ENUM_SIGNALS_IN_SEC));
+    FPGA::SetNumberMeasuresForGates(NUM_MEAS_FOR_GATES);
+    FPGA::SetNumberMeasuresForGates(NUM_MEAS_FOR_GATES);
 }
 
 
@@ -267,9 +273,9 @@ void FPGA::TemporaryPause()
 }
 
 
-void FPGA::SetNumberMeasuresForGates(int)
+void FPGA::SetNumberMeasuresForGates(int number)
 {
-
+    numberMeasuresForGates = number;
 }
 
 
@@ -608,6 +614,8 @@ bool FPGA::CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
 uint8 FPGA::ReadFlag()
 {
     uint16 flag = HAL_FMC::Read(RD_FL);
+
+    LOG_WRITE("flag = %x", flag);
 
     FreqMeter::Update(flag);
 
