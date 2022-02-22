@@ -77,6 +77,11 @@ namespace FPGA
     {
         void Update(uint16 flag);
     }
+
+    namespace Reader
+    {
+
+    }
 }
 
 
@@ -320,6 +325,7 @@ void BUS_FPGA::WriteToAnalog(TypeWriteAnalog::E type, uint data)
 void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
 {
     Panel::EnableLEDTrig(false);
+
     FPGA_IN_PROCESS_READ = 1;
 
     if ((TBase::E)ds.tBase < TBase::_100ns)
@@ -437,6 +443,8 @@ void FPGA::ReadRandomizeMode()
 
 void FPGA::ReadRealMode(bool necessaryShift)
 {
+//    BUS_FPGA::WriteToHardware()
+
     uint8 *p0 = &dataRel0[0];
     uint8 *p1 = &dataRel1[0];
     uint8 *endP = &dataRel0[FPGA::MAX_POINTS];
@@ -657,7 +665,7 @@ void BUS_FPGA::WriteToHardware(uint8 *, uint8, bool)
 }
 
 
-void BUS_FPGA::WriteToHardware(uint16 *address, uint16 data, bool restart)
+void BUS_FPGA::Write(uint16 *address, uint16 data, bool restart)
 {
     bool is_running = FPGA::IsRunning();
 
