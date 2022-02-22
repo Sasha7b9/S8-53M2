@@ -165,7 +165,7 @@ bool FPGA::ProcessingData()
 
             Panel::EnableLEDTrig(true);
             FPGA::Stop(true);
-            DataRead(_GET_BIT(flag, BIT_SIGN_SHIFT_POINT), (num == 1) || (i == num - 1));
+            DataRead(_GET_BIT(flag, FL_LAST_RECOR), (num == 1) || (i == num - 1));
             retValue = true;
 
             if (!START_MODE_IS_SINGLE)
@@ -644,7 +644,7 @@ void FPGA::ClearData()
 
 void FPGA::ReadPoint()
 {
-    if (_GET_BIT(ReadFlag(), BIT_POINT_READY))
+    if (_GET_BIT(ReadFlag(), FL_POINT))
     {
         BitSet16 dataA;
         BitSet16 dataB;

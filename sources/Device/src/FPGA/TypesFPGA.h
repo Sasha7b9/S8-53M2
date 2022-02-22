@@ -33,6 +33,16 @@
 */
 
 
+/*
+* Эти использовались только в С8-53/1. В С8-53М использоваться не должны *******************************
+*/
+#define WR_CAL_A        (ADDR_FPGA + 12)            //    Калибровочный коэффициент канала 1.
+#define WR_CAL_B        (ADDR_FPGA + 13)            //    Калибровочный коэффициент канала 2.
+/*
+* ******************************************************************************************************
+*/
+
+
 #define WR_START                (HAL_FMC::_ADDR_FPGA + 0x00)    // Запуск цикла измерения. Для запуска нужно записать 1.
 #define WR_RAZV                 (HAL_FMC::_ADDR_FPGA + 0x01)     // Установка частоты синхронизации. Используется в TBase::Load().
 #define WR_PRED                 (HAL_FMC::_ADDR_FPGA + 0x02)
@@ -43,7 +53,7 @@
 
 #define RD_ADC_A                (HAL_FMC::_ADDR_FPGA + 0x00)
 #define RD_ADC_B                (HAL_FMC::_ADDR_FPGA + 0x02)
-//#define RD_ADDR_LAST_RECORD     (HAL_FMC::_ADDR_FPGA + 0x08) // Чтение адреса последней записи
+#define RD_ADDR_LAST_RECORD     (HAL_FMC::_ADDR_FPGA + 0x08) // Чтение адреса последней записи
 #define RD_FREQ_LOW             (HAL_FMC::_ADDR_FPGA + 0x10)
 #define RD_FREQ_HI              (HAL_FMC::_ADDR_FPGA + 0x18)
 #define RD_PERIOD_LOW           (HAL_FMC::_ADDR_FPGA + 0x20)

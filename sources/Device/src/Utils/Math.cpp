@@ -1,10 +1,11 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
-#include "Math.h"
+#include "defines.h"
+#include "Utils/Math.h"
 #include "Settings/Settings.h"
 #include "Log.h"
-#include "FPGA/TypesFPGA_old.h"
 #include "Display/Grid.h"
 #include "Hardware/Timer.h"
+#include "FPGA/TypesFPGA.h"
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>

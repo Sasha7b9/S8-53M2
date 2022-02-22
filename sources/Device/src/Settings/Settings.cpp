@@ -4,7 +4,6 @@
 #include "Display/Painter.h"
 #include "Panel/Panel.h"
 #include "FPGA/FPGA.h"
-#include "FPGA/TypesFPGA_old.h"
 #include "Utils/Math.h"
 #include "Utils/GlobalFunctions.h"
 #include "Display/Display.h"

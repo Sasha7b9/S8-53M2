@@ -6,7 +6,6 @@
 #include "Settings/SettingsCursors.h"
 #include "Utils/Math.h"
 #include "Utils/GlobalFunctions.h"
-#include "FPGA/TypesFPGA_old.h"
 #include "Menu/Pages/Definition.h"
 #include <math.h>
 #include <string.h>

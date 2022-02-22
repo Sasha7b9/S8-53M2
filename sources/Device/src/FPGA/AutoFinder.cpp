@@ -129,7 +129,7 @@ Range::E FPGA::AutoFinder::AccurateFindRange(Chan::E ch)
 
         for (int i = 0; i < 50; i++)
         {
-            while (_GET_BIT(HAL_FMC::Read(RD_FL), BIT_POINT_READY) == 0) {};
+            while (_GET_BIT(HAL_FMC::Read(RD_FL), FL_POINT) == 0) {};
 
             HAL_FMC::Read(RD_ADC_A);
             HAL_FMC::Read(RD_ADC_B);
@@ -141,7 +141,7 @@ Range::E FPGA::AutoFinder::AccurateFindRange(Chan::E ch)
         {
             for (int i = 0; i < 100; i += 2)
             {
-                while (_GET_BIT(HAL_FMC::Read(RD_FL), BIT_POINT_READY) == 0) {};
+                while (_GET_BIT(HAL_FMC::Read(RD_FL), FL_POINT) == 0) {};
 
                 HAL_FMC::Read(RD_ADC_B);
 
@@ -154,7 +154,7 @@ Range::E FPGA::AutoFinder::AccurateFindRange(Chan::E ch)
         {
             for (int i = 0; i < 100; i += 2)
             {
-                while (_GET_BIT(HAL_FMC::Read(RD_FL), BIT_POINT_READY) == 0) {};
+                while (_GET_BIT(HAL_FMC::Read(RD_FL), FL_POINT) == 0) {};
 
                 data.half_word = *RD_ADC_B;
 
@@ -317,10 +317,10 @@ void FPGA::AutoFinder::StartAutoFind()
 
 float FPGA::AutoFinder::CalculateFreqFromCounterFreq()
 {
-    while (_GET_BIT(HAL_FMC::Read(RD_FL), BIT_FREQ_READY) == 0) {};
+    while (_GET_BIT(HAL_FMC::Read(RD_FL), FL_FREQ) == 0) {};
     FreqMeter::ReadRegFreq();
 
-    while (_GET_BIT(HAL_FMC::Read(RD_FL), BIT_FREQ_READY) == 0) {};
+    while (_GET_BIT(HAL_FMC::Read(RD_FL), FL_FREQ) == 0) {};
     BitSet32 fr = FreqMeter::ReadRegFreq();
 
     if (fr.word >= 5)
@@ -336,12 +336,12 @@ float FPGA::AutoFinder::CalculateFreqFromCounterPeriod()
 {
     uint time = TIME_MS;
 
-    while (TIME_MS - time < 1000 && _GET_BIT(HAL_FMC::Read(RD_FL), BIT_PERIOD_READY) == 0) {};
+    while (TIME_MS - time < 1000 && _GET_BIT(HAL_FMC::Read(RD_FL), FL_PERIOD) == 0) {};
     FreqMeter::ReadRegPeriod();
 
     time = TIME_MS;
 
-    while (TIME_MS - time < 1000 && _GET_BIT(HAL_FMC::Read(RD_FL), BIT_PERIOD_READY) == 0) {};
+    while (TIME_MS - time < 1000 && _GET_BIT(HAL_FMC::Read(RD_FL), FL_PERIOD) == 0) {};
     BitSet32 period = FreqMeter::ReadRegPeriod();
 
     if (period.word > 0 && (TIME_MS - time < 1000))
