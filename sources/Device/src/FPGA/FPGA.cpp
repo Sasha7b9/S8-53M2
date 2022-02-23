@@ -30,8 +30,8 @@ namespace FPGA
 
     DataSettings ds;
 
-    uint8 dataRel0[FPGA::MAX_POINTS] = {0};   // Буфер используется для чтения данных первого канала.
-    uint8 dataRel1[FPGA::MAX_POINTS] = {0};   // Буфер используется для чтения данных второго канала.
+    uint8 dataRelA[FPGA::MAX_POINTS * 2] = {0};   // Буфер используется для чтения данных первого канала.
+    uint8 dataRelB[FPGA::MAX_POINTS * 2] = {0};   // Буфер используется для чтения данных второго канала.
 
     int addition_shift = 0;
 
@@ -350,11 +350,11 @@ void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
 
         if (!TBase::InRandomizeMode())
         {
-            InverseDataIsNecessary(Chan::A, dataRel0);
-            InverseDataIsNecessary(Chan::B, dataRel1);
+            InverseDataIsNecessary(Chan::A, dataRelA);
+            InverseDataIsNecessary(Chan::B, dataRelB);
         }
 
-        Storage::AddData(dataRel0, dataRel1, ds);
+        Storage::AddData(dataRelA, dataRelB, ds);
 
         if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)
         {
@@ -384,14 +384,14 @@ void FPGA::ReadRandomizeMode()
         index += step;        // WARN
     }
 
-    uint8 *pData0 = &dataRel0[index];
-    const uint8 *const pData0Last = &dataRel0[FPGA::MAX_POINTS - 1];
-    uint8 *pData1 = &dataRel1[index];
-    const uint8 *const pData1Last = &dataRel1[FPGA::MAX_POINTS - 1];
+    uint8 *pData0 = &dataRelA[index];
+    const uint8 *const pData0Last = &dataRelA[FPGA::MAX_POINTS - 1];
+    uint8 *pData1 = &dataRelB[index];
+    const uint8 *const pData1Last = &dataRelB[FPGA::MAX_POINTS - 1];
 
-    const uint8 *const first0 = &dataRel0[0];
+    const uint8 *const first0 = &dataRelA[0];
     const uint8 *const last0 = pData0Last;
-    const uint8 *const first1 = &dataRel1[0];
+    const uint8 *const first1 = &dataRelB[0];
     const uint8 *const last1 = pData1Last;
 
     int numAve = NUM_AVE_FOR_RAND;
@@ -409,7 +409,7 @@ void FPGA::ReadRandomizeMode()
     BitSet16 dataA;
     BitSet16 dataB;
 
-    while (pData0 < &dataRel0[FPGA::MAX_POINTS])
+    while (pData0 < &dataRelA[FPGA::MAX_POINTS])
     {
         dataA.half_word = *RD_ADC_A;
         dataB.half_word = *RD_ADC_B;
@@ -443,8 +443,8 @@ void FPGA::ReadRandomizeMode()
 
     if (START_MODE_IS_SINGLE || SAMPLE_TYPE_IS_REAL)
     {
-        Processing::InterpolationSinX_X(dataRel0, SET_TBASE);
-        Processing::InterpolationSinX_X(dataRel1, SET_TBASE);
+        Processing::InterpolationSinX_X(dataRelA, SET_TBASE);
+        Processing::InterpolationSinX_X(dataRelB, SET_TBASE);
     }
 }
 
@@ -454,9 +454,9 @@ void FPGA::ReadRealMode(bool necessaryShift)
     HAL_FMC::Write(WR_PRED, Reader::CalculateAddressRead());
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
-    uint8 *p0 = &dataRel0[0];
-    uint8 *p1 = &dataRel1[0];
-    uint8 *endP = &dataRel0[FPGA::MAX_POINTS];
+    uint8 *p0 = &dataRelA[0];
+    uint8 *p1 = &dataRelB[0];
+    uint8 *endP = &dataRelA[FPGA::MAX_POINTS];
 
     if (ds.peakDet == PeackDetMode::Enable)
     {
@@ -509,16 +509,16 @@ void FPGA::ReadRealMode(bool necessaryShift)
                 shift = -shift;
                 for (int i = FPGA::MAX_POINTS - shift - 1; i >= 0; i--)
                 {
-                    dataRel0[i + shift] = dataRel0[i];
-                    dataRel1[i + shift] = dataRel1[i];
+                    dataRelA[i + shift] = dataRelA[i];
+                    dataRelB[i + shift] = dataRelB[i];
                 }
             }
             else
             {
                 for (int i = shift; i < FPGA::MAX_POINTS; i++)
                 {
-                    dataRel0[i - shift] = dataRel0[i];
-                    dataRel1[i - shift] = dataRel1[i];
+                    dataRelA[i - shift] = dataRelA[i];
+                    dataRelB[i - shift] = dataRelB[i];
                 }
             }
         }
@@ -648,8 +648,8 @@ uint16 FPGA::ReadFlag()
 
 void FPGA::ClearData()
 {
-    memset(dataRel0, 0, FPGA::MAX_POINTS);
-    memset(dataRel1, 0, FPGA::MAX_POINTS);
+    memset(dataRelA, 0, FPGA::MAX_POINTS);
+    memset(dataRelB, 0, FPGA::MAX_POINTS);
 }
 
 
