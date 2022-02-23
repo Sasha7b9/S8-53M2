@@ -385,32 +385,40 @@ void Display::DrawSignalLined(const uint8 *data, const DataSettings *ds, int sta
     {
         int shift = (int)ds->PointsInChannel();
 
+        LOG_WRITE("shift = %d", shift);
+
         int yMinNext = -1;
         int yMaxNext = -1;
        
         for (int i = startPoint; i < endPoint; i++)
         {
             float x = gridLeft + (i - startPoint) * scaleX;
+
             if (x >= gridLeft && x <= gridRight)
             {
                 int yMin = yMinNext;
+
                 if (yMin == -1)
                 {
                     CONVERT_DATA_TO_DISPLAY(yMin, data[i + shift]);
                 }
+
                 int yMax = yMaxNext;
+
                 if (yMax == -1)
                 {
                     CONVERT_DATA_TO_DISPLAY(yMax, data[i]);
                 }
 
                 CONVERT_DATA_TO_DISPLAY(yMaxNext, data[i + 1]);
+
                 if (yMaxNext < yMin)
                 {
                     yMin = yMaxNext + 1;
                 }
 
                 CONVERT_DATA_TO_DISPLAY(yMinNext, data[i + shift + 1]);
+
                 if (yMinNext > yMax)
                 {
                     yMax = yMinNext - 1;
