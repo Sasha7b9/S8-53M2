@@ -8,8 +8,7 @@ struct PeackDetMode
     enum E
     {
         Disable,
-        Enable,
-        Average
+        Enable
     };
 
     // ¬ключить/выключить режим пикового детектора.

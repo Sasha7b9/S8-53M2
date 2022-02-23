@@ -968,7 +968,7 @@ void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, 
     uint8 min[300];
     uint8 max[300];
 
-    if (SET_TBASE >= TBase::_20ms && PEAKDET)
+    if (SET_TBASE >= TBase::_20ms && PEAKDET_IS_ENABLE)
     {
         for (int col = 0; col < width; col++)
         {

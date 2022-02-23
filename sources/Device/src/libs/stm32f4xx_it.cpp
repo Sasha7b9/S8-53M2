@@ -6,6 +6,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
 #include "Hardware/Sound.h"
+#include "Utils/Debug.h"
 #include <usbd_cdc_interface.h>
 
 
@@ -22,8 +23,13 @@ void NMI_Handler()
 
 void HardFault_Handler()
 {
+    volatile int line = Debug::line[0];
+    volatile pchar file = Debug::file[0];
+
     while (1)
     {
+        line++;
+        file++;
     }
 }
 

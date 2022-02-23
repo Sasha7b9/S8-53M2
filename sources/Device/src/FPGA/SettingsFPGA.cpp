@@ -219,7 +219,7 @@ void TBase::Load()
     };
 
     TBase::E tBase = SET_TBASE;
-    uint8 mask = PEAKDET ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
+    uint8 mask = PEAKDET_IS_ENABLE ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
     BUS_FPGA::Write(WR_RAZV, mask, true);
     ADD_SHIFT_T0 = FPGA::deltaTShift[tBase];
 }
@@ -227,7 +227,7 @@ void TBase::Load()
 
 void TBase::Decrease()
 {
-    if (PEAKDET && SET_TBASE <= TBase::MIN_PEC_DEAT)
+    if (PEAKDET_IS_ENABLE && (SET_TBASE <= TBase::MIN_PEC_DEAT))
     {
         Display::ShowWarningBad(LimitSweep_Time);
         Display::ShowWarningBad(EnabledPeakDet);

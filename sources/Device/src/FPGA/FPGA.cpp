@@ -96,8 +96,9 @@ void FPGA::Init()
 
 void FPGA::Update()
 {
+    DEBUG_POINT_0;
     ReadFlag();
-
+    DEBUG_POINT_0;
     if (gStateFPGA.needCalibration)              // Если вошли в режим калибровки -
     {
         FPGA::ProcedureCalibration();            // выполняем её.
@@ -128,8 +129,9 @@ void FPGA::Update()
     {
         ReadPoint();
     }
-
+    DEBUG_POINT_0;
     ProcessingData();
+    DEBUG_POINT_0;
 
     FPGA_CAN_READ_DATA = 0;
 }
@@ -141,8 +143,12 @@ bool FPGA::ProcessingData()
 
     int num = (TBase::InRandomizeMode() && (!START_MODE_IS_SINGLE) && SAMPLE_TYPE_IS_EQUAL) ? TBase::StretchRand() : 1;
 
+    DEBUG_POINT_0;
+
     for (int i = 0; i < num; i++)
     {
+        DEBUG_POINT_0;
+
         uint16 flag = ReadFlag();
 
         if (FPGA_CRITICAL_SITUATION)
