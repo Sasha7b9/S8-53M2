@@ -461,13 +461,13 @@ void FPGA::ReadRealMode(bool necessaryShift)
     HAL_FMC::Write(WR_PRED, Reader::CalculateAddressRead());
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
-    uint8 *p0 = dataReadA.Data();
+    uint8 *pA = dataReadA.Data();
     uint8 *p1 = dataReadB.Data();
     uint8 *endP = dataReadA.Last();
 
     if (ds.peakDet == PeackDetMode::Enable)
     {
-        uint8 *p0min = p0;
+        uint8 *p0min = pA;
         uint8 *p0max = p0min + ENUM_POINTS_FPGA::ToNumPoints();
         uint8 *p1min = p1;
         uint8 *p1max = p1min + ENUM_POINTS_FPGA::ToNumPoints();
@@ -489,15 +489,15 @@ void FPGA::ReadRealMode(bool necessaryShift)
     {
         BitSet16 data;
 
-        while (p0 < endP && FPGA_IN_PROCESS_READ)
+        while (pA < endP && FPGA_IN_PROCESS_READ)
         {
             data.half_word = *RD_ADC_B;
             *p1++ = data.byte0;
             *p1++ = data.byte1;
 
             data.half_word = *RD_ADC_A;
-            *p0++ = data.byte0;
-            *p0++ = data.byte1;
+            *pA++ = data.byte0;
+            *pA++ = data.byte1;
         }
 
         int shift = 0;
