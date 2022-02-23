@@ -12,6 +12,8 @@
 
 namespace Storage
 {
+    uint8 *dataA = nullptr;
+
     static void CalculateSums();
 
     // ¬озвращает количество свободной пам€ти в байтах
@@ -208,13 +210,13 @@ void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
 
         for(int numData = 0; numData < allDatas; numData++)
         {
-            const uint8 *dataA = GetData(Chan::A, numData);
+            const uint8 *dA = GetData(Chan::A, numData);
             const uint8 *dataB = GetData(Chan::B, numData);
 
             for(uint i = 0; i < numElements; i++)
             {
-                if(dataA[i] < limitDown[0][i])  limitDown[0][i] = dataA[i];
-                if(dataA[i] > limitUp[0][i])    limitUp[0][i] = dataA[i];
+                if(dA[i] < limitDown[0][i])  limitDown[0][i] = dA[i];
+                if(dA[i] > limitUp[0][i])    limitUp[0][i] = dA[i];
                 if(dataB[i] < limitDown[1][i])  limitDown[1][i] = dataB[i];
                 if(dataB[i] > limitUp[1][i])    limitUp[1][i] = dataB[i];
             }

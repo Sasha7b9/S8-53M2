@@ -37,4 +37,6 @@ namespace Storage
     uint8* GetLimitation(Chan::E, int direction);                                      
 
     int NumberAvailableEntries();
+
+    extern uint8 *dataA;    // ”казатель на данные первого канала, который надо рисовать на экране
 };

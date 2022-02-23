@@ -103,7 +103,7 @@ void Device::ProcessingSignal()
         return;
     }
 
-    uint8** data0 = &gData0;
+    uint8** data0 = &Storage::dataA;
     uint8** data1 = &gData1;
     DataSettings** ds = &gDSet;
 
@@ -113,10 +113,10 @@ void Device::ProcessingSignal()
 
     if (MODE_WORK_IS_DIRECT)
     {
-        Storage::GetDataFromEnd(0, &gDSet, &gData0, &gData1);
+        Storage::GetDataFromEnd(0, &gDSet, &Storage::dataA, &gData1);
         if (SettingsDisplay::NumAverages() != 1 || TBase::InRandomizeMode())
         {
-            gData0 = Storage::GetAverageData(Chan::A);
+            Storage::dataA = Storage::GetAverageData(Chan::A);
             gData1 = Storage::GetAverageData(Chan::B);
         }
     }
@@ -139,7 +139,7 @@ void Device::ProcessingSignal()
     {
         if (!MODE_SHOW_MEMINT_IS_SAVED)
         {
-            Processing::SetSignal(gData0, gData1, gDSet, first, last);
+            Processing::SetSignal(Storage::dataA, gData1, gDSet, first, last);
         }
     }
     else
