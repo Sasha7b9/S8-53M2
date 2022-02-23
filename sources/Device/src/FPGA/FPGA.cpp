@@ -139,7 +139,7 @@ bool FPGA::ProcessingData()
 {
     bool retValue = false;
 
-    int num = (TBase::InRandomizeMode() && (!START_MODE_IS_SINGLE) && SAMPLE_TYPE_IS_EQUAL) ? TBase::StepRand() : 1;
+    int num = (TBase::InRandomizeMode() && (!START_MODE_IS_SINGLE) && SAMPLE_TYPE_IS_EQUAL) ? TBase::StretchRand() : 1;
 
     for (int i = 0; i < num; i++)
     {
@@ -369,7 +369,7 @@ void FPGA::ReadRandomizeMode()
         return;
     };
 
-    int step = TBase::StepRand();
+    int step = TBase::StretchRand();
     int index = Tsm - step - addition_shift;
 
     if (index < 0)
@@ -552,7 +552,7 @@ int FPGA::CalculateShift()            // \todo Не забыть восстановить функцию
     if (TBase::InRandomizeMode())
     {
         float tin = (float)(rand - min) / (float)(max - min) * 10e-9f;
-        int retValue = (int)(tin / 10e-9f * (float)TBase::StepRand());
+        int retValue = (int)(tin / 10e-9f * (float)TBase::StretchRand());
         return retValue;
     }
 

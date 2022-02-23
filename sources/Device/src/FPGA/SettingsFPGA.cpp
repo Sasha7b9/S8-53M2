@@ -620,15 +620,10 @@ void DataSettings::FillDataPointer()
 }
 
 
-int TBase::StepRand()
+int TBase::StretchRand()
 {
     static const int num_Kr = 200;
     static const int Kr[] = {num_Kr / 2, num_Kr / 5, num_Kr / 10, num_Kr / 20, num_Kr / 50};
 
     return InRandomizeMode() ? Kr[SET_TBASE] : 1;
-}
-
-int TShift::ForLaunchFPGA()
-{
-    return TSHIFT - Min();
 }

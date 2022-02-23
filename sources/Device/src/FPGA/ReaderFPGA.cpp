@@ -16,11 +16,5 @@ namespace FPGA
 
 uint16 FPGA::Reader::CalculateAddressRead()
 {
-    int shift = TBase::InRandomizeMode() ?
-        ENUM_POINTS_FPGA::ToNumBytes() / TBase::StepRand() :
-        ENUM_POINTS_FPGA::ToNumBytes();
-
-    int result = HAL_FMC::Read(RD_ADDR_LAST_RECORD) - shift;
-
-    return (uint16)(result + FPGA::Launch::DeltaReadAddress() - 1);
+    return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) - ENUM_POINTS_FPGA::ToNumBytes());
 }

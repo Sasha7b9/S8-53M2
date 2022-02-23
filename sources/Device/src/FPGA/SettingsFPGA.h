@@ -55,9 +55,6 @@ struct TShift
     // Смещение по времени в точках экрана. Т.к. на канал у нас работают два АЦП поочерёдно, это значение отличается от
     // засылаемого в аппаратную часть в два раза.
     static int InPoints(PeackDetMode::E peakDet);
-
-    // Смещение по времени, используемое для засылки в пред/после- запуски
-    static int ForLaunchFPGA();
 };
 
 
@@ -197,8 +194,8 @@ struct TBase
 
     static bool InRandomizeMode();
 
-    // Возвращает шаг между точками для рандомизатора при установленной развёртке
-    static int StepRand();
+    // Коэффициент растяжки в рандомизаторе (шаг между точками при установленной развёртке)
+    static int StretchRand();
 
     static pchar ToString(TBase::E);
     static pchar ToStringEN(TBase::E);
