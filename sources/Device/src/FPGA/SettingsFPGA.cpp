@@ -611,7 +611,7 @@ void DataSettings::FillDataPointer()
     tShift = TSHIFT;
     modeCouple0 = SET_COUPLE_A;
     modeCouple1 = SET_COUPLE_B;
-    length1channel = (uint)ENUM_POINTS_FPGA::ToNumPoints();
+    points_in_channel = (uint)ENUM_POINTS_FPGA::ToNumPoints();
     trigLevCh0 = (uint)TRIG_LEVEL_A;
     trigLevCh1 = (uint)TRIG_LEVEL_B;
     peakDet = (uint)PEAKDET;
@@ -626,4 +626,17 @@ int TBase::StretchRand()
     static const int Kr[] = {num_Kr / 2, num_Kr / 5, num_Kr / 10, num_Kr / 20, num_Kr / 50};
 
     return InRandomizeMode() ? Kr[SET_TBASE] : 1;
+}
+
+
+int DataSettings::BytesInChannel() const
+{
+    int result = points_in_channel;
+
+    if (peakDet != 0)
+    {
+        result *= 2;
+    }
+
+    return result;
 }

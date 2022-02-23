@@ -286,14 +286,17 @@ void HAL_ROM::EraseData()
 int HAL_ROM::CalculateSizeData(DataSettings *ds)
 {
     int size = sizeof(DataSettings);
+
     if (ds->enableCh0 == 1)
     {
-        size += ds->length1channel;
+        size += ds->BytesInChannel();
     }
+
     if (ds->enableCh1 == 1)
     {
-        size += ds->length1channel;
+        size += ds->BytesInChannel();
     }
+
     return size;
 }
 
@@ -330,7 +333,7 @@ void HAL_ROM::CompactMemory()
             if (ds->enableCh0 == 1)
             {
                 data0 = (uint8*)addrDataNew;
-                addrDataNew += ds->length1channel;
+                addrDataNew += ds->BytesInChannel();
             }
             if (ds->enableCh1 == 1)
             {
@@ -395,14 +398,14 @@ void HAL_ROM::SaveData(int num, DataSettings *ds, uint8 *data0, uint8 *data1)
     
     if (ds->enableCh0 == 1)
     {
-        WriteBufferBytes(address, (uint8*)data0, (int)ds->length1channel);       // Сохраняем первый канал
-        address += ds->length1channel;
+        WriteBufferBytes(address, (uint8*)data0, ds->BytesInChannel());     // Сохраняем первый канал
+        address += ds->BytesInChannel();
     }
 
     if (ds->enableCh1 == 1)
     {
-        WriteBufferBytes(address, (uint8*)data1, (int)ds->length1channel);       // Сохраняем второй канал
-        address += ds->length1channel;
+        WriteBufferBytes(address, (uint8*)data1, ds->BytesInChannel());     // Сохраняем второй канал
+        address += ds->BytesInChannel();
     }
 
 // 6
@@ -448,7 +451,7 @@ bool HAL_ROM::GetData(int num, DataSettings **ds, uint8 **data0, uint8 **data1)
     {
         if (addrData0 != 0)
         {
-            addrData1 = addrData0 + (*ds)->length1channel;
+            addrData1 = addrData0 + (*ds)->BytesInChannel();
         }
         else
         {

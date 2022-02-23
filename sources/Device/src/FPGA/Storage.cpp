@@ -113,8 +113,15 @@ void Storage::ClearLimitsAndSums()
 
 void Storage::CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *dss)
 {
+    DEBUG_POINT_0;
+
     int numAveData = NumElementsWithCurrentSettings();
-    int size = (int)(dss->length1channel * (dss->peakDet == PeackDetMode::Disable ? 1 : 2));
+    DEBUG_POINT_0;
+
+    int size = dss->BytesInChannel();
+
+    DEBUG_POINT_0;
+
     if (numAveData == 1)
     {
         for (int i = 0; i < size; i++)
@@ -146,6 +153,8 @@ void Storage::CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *d
             aData1++;
         } while (aData0 != endData);
     }
+
+    DEBUG_POINT_0;
 }
 
 
@@ -194,7 +203,7 @@ int Storage::AllDatas()
 
 void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
 {
-    uint numElements = dss->length1channel * (dss->peakDet == PeackDetMode::Disable ? 1 : 2);
+    uint numElements = (uint)dss->BytesInChannel();
 
     if(NumElementsInStorage() == 0 || NUM_MIN_MAX == 1 || (!SettingsIsEquals(dss, GetSettingsDataFromEnd(0))))
     {
@@ -243,7 +252,7 @@ void Storage::CalculateSums()
 
     GetDataFromEnd(0, &ds, &data0, &data1);
     
-    uint numPoints = ds->length1channel * (ds->peakDet == PeackDetMode::Disable ? 1 : 2);
+    uint numPoints = (uint)ds->BytesInChannel();
 
     int numAveragings = 0;
 
@@ -391,7 +400,7 @@ bool Storage::CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[Chan::
 
     uint8* address = ((uint8*)ds + sizeof(DataSettings));
 
-    uint length = ds->length1channel * (ds->peakDet == PeackDetMode::Disable ? 1 : 2);
+    uint length = (uint)ds->BytesInChannel();
 
     if(ch == Chan::B && ds->enableCh0 == 1)
     {
@@ -406,6 +415,8 @@ bool Storage::CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[Chan::
 
 uint8* Storage::GetAverageData(Chan::E ch)
 {
+    DEBUG_POINT_0;
+
     static uint8 data[Chan::Count][FPGA::MAX_POINTS];
     
     if (newSumCalculated[ch] == false)
@@ -424,7 +435,7 @@ uint8* Storage::GetAverageData(Chan::E ch)
         return 0;
     }
 
-    uint numPoints = ds->length1channel * (ds->peakDet == PeackDetMode::Disable ? 1 : 2);
+    uint numPoints = (uint)ds->BytesInChannel();
 
     if (sDisplay_ModeAveraging() == Averaging_Around)
     {
@@ -445,6 +456,8 @@ uint8* Storage::GetAverageData(Chan::E ch)
     {
         data[ch][i] = sum[ch][i] / numAveraging;
     }
+
+    DEBUG_POINT_0;
 
     return &data[ch][0];
 }
@@ -514,7 +527,7 @@ void Storage::PushData(DataSettings *dp, uint8 *data0, uint8 *data1)
 
     COPY_AND_INCREASE(addrRecord, dp, sizeof(DataSettings));
 
-    uint length = dp->length1channel;
+    uint length = dp->points_in_channel;
 
     if(dp->enableCh0 == 1)
     {
@@ -567,22 +580,17 @@ int Storage::MemoryFree()
 int DataSettings::SizeElem()
 {
     int retValue = sizeof(DataSettings);
+
     if(enableCh0 == 1)
     {
-        retValue += length1channel;
-        if (peakDet != PeackDetMode::Disable)
-        {
-            retValue += length1channel;
-        }
+        retValue += BytesInChannel();
     }
+
     if(enableCh1 == 1)
     {
-        retValue += length1channel;
-        if (peakDet != PeackDetMode::Disable)
-        {
-            retValue += length1channel;
-        }
+        retValue += BytesInChannel();
     }
+
     return retValue;
 }
 

@@ -382,7 +382,7 @@ void Display::DrawSignalLined(const uint8 *data, const DataSettings *ds, int sta
     }
     else
     {
-        int shift = (int)ds->length1channel;
+        int shift = (int)ds->points_in_channel;
 
         int yMinNext = -1;
         int yMaxNext = -1;
@@ -563,13 +563,13 @@ void Display::DrawMath()
     float dataAbs0[FPGA::MAX_POINTS];
     float dataAbs1[FPGA::MAX_POINTS];
 
-    Math_PointsRelToVoltage(dataRel0, (int)ds->length1channel, ds->range[Chan::A], (int16)ds->rShiftCh0, dataAbs0);
-    Math_PointsRelToVoltage(dataRel1, (int)ds->length1channel, ds->range[Chan::B], (int16)ds->rShiftCh1, dataAbs1);
+    Math_PointsRelToVoltage(dataRel0, ds->BytesInChannel(), ds->range[Chan::A], (int16)ds->rShiftCh0, dataAbs0);
+    Math_PointsRelToVoltage(dataRel1, ds->BytesInChannel(), ds->range[Chan::B], (int16)ds->rShiftCh1, dataAbs1);
 
-    Math_CalculateMathFunction(dataAbs0, dataAbs1, (int)ds->length1channel);
+    Math_CalculateMathFunction(dataAbs0, dataAbs1, ds->BytesInChannel());
     
     uint8 points[FPGA::MAX_POINTS];
-    Math_PointsVoltageToRel(dataAbs0, (int)ds->length1channel, SET_RANGE_MATH, SET_RSHIFT_MATH, points);
+    Math_PointsVoltageToRel(dataAbs0, ds->BytesInChannel(), SET_RANGE_MATH, SET_RSHIFT_MATH, points);
 
     DrawDataChannel(points, Chan::Math, ds, Grid::MathTop(), Grid::MathBottom());
 
@@ -1123,7 +1123,7 @@ void Display::DrawMemoryWindow()
             const uint8 *dataFirst = LAST_AFFECTED_CHANNEL_IS_A ? dat1 : dat0;
             const uint8 *dataSecond = LAST_AFFECTED_CHANNEL_IS_A ? dat0 : dat1;
 
-            int shiftForPeakDet = ds->peakDet == PeackDetMode::Disable ? 0 : (int)ds->length1channel;
+            int shiftForPeakDet = (ds->peakDet == PeackDetMode::Disable) ? 0 : (int)ds->points_in_channel;
 
             if (ChannelNeedForDraw(dataFirst, chanFirst, ds))
             {
@@ -1158,7 +1158,7 @@ void Display::DrawMemoryWindow()
         (ENUM_POINTS_FPGA::ToNumPoints() == 281 ? 1 : 0));
 
     float xShift = 1 + (TPos::InPoints((PeackDetMode::E)gDSet->peakDet,
-        (int)gDSet->length1channel, SET_TPOS) - TShift::InPoints((PeackDetMode::E)gDSet->peakDet)) * scale;
+        (int)gDSet->points_in_channel, SET_TPOS) - TShift::InPoints((PeackDetMode::E)gDSet->peakDet)) * scale;
     
     if(xShift < leftX - 2)
     {
@@ -1887,7 +1887,7 @@ void Display::DrawCursorTShift()
     sDisplay_PointsOnDisplay(&firstPoint, &lastPoint);
 
     // Рисуем TPos
-    int shiftTPos = TPos::InPoints((PeackDetMode::E)gDSet->peakDet, (int)gDSet->length1channel, SET_TPOS) - SHIFT_IN_MEMORY;
+    int shiftTPos = TPos::InPoints((PeackDetMode::E)gDSet->peakDet, (int)gDSet->points_in_channel, SET_TPOS) - SHIFT_IN_MEMORY;
     float scale = (float)(lastPoint - firstPoint) / Grid::Width();
     int gridLeft = Grid::Left();
     int x = (int)(gridLeft + shiftTPos * scale - 3);
@@ -1898,7 +1898,7 @@ void Display::DrawCursorTShift()
     };
 
     // Рисуем tShift
-    int shiftTShift = TPos::InPoints((PeackDetMode::E)gDSet->peakDet, (int)gDSet->length1channel, SET_TPOS) -
+    int shiftTShift = TPos::InPoints((PeackDetMode::E)gDSet->peakDet, (int)gDSet->points_in_channel, SET_TPOS) -
         TShift::InPoints((PeackDetMode::E)gDSet->peakDet);
 
     if(IntInRange(shiftTShift, firstPoint, lastPoint))
