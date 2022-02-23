@@ -470,14 +470,14 @@ void FPGA::ReadRealMode(bool necessaryShift)
         uint8 *p_minA = pA;
         uint8 *p_maxA = p_minA + ENUM_POINTS_FPGA::ToNumPoints();
         uint8 *p_minB = pB;
-        uint8 *p1max = p_minB + ENUM_POINTS_FPGA::ToNumPoints();
+        uint8 *p_maxB = p_minB + ENUM_POINTS_FPGA::ToNumPoints();
 
         BitSet16 data;
 
         while (p_maxA < endA && FPGA_IN_PROCESS_READ)
         {
             data.half_word = *RD_ADC_B;
-            *p1max++ = data.byte0;
+            *p_maxB++ = data.byte0;
             *p_minB++ = data.byte1;
 
             data.half_word = *RD_ADC_A;
