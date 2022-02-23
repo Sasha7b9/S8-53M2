@@ -467,22 +467,22 @@ void FPGA::ReadRealMode(bool necessaryShift)
 
     if (ds.peakDet == PeackDetMode::Enable)
     {
-        uint8 *p0min = pA;
-        uint8 *p0max = p0min + ENUM_POINTS_FPGA::ToNumPoints();
+        uint8 *p_minA = pA;
+        uint8 *p_maxA = p_minA + ENUM_POINTS_FPGA::ToNumPoints();
         uint8 *p1min = pB;
         uint8 *p1max = p1min + ENUM_POINTS_FPGA::ToNumPoints();
 
         BitSet16 data;
 
-        while (p0max < endA && FPGA_IN_PROCESS_READ)
+        while (p_maxA < endA && FPGA_IN_PROCESS_READ)
         {
             data.half_word = *RD_ADC_B;
             *p1max++ = data.byte0;
             *p1min++ = data.byte1;
 
             data.half_word = *RD_ADC_A;
-            *p0max++ = data.byte0;
-            *p0min++ = data.byte1;
+            *p_maxA++ = data.byte0;
+            *p_minA++ = data.byte1;
         }
     }
     else
