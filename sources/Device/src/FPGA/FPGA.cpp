@@ -87,6 +87,7 @@ namespace FPGA
 
 void FPGA::Init()
 {
+    ClearData();
     Storage::Clear();
     FPGA::LoadSettings();
     FPGA::SetNumSignalsInSec(ENumSignalsInSec::ToNum(ENUM_SIGNALS_IN_SEC));
@@ -220,6 +221,11 @@ void FPGA::SwitchingTrig()
 
 void FPGA::Start()
 {
+    if (!TBase::InRandomizeMode())
+    {
+        ClearData();
+    }
+
     if (SET_TBASE >= TBase::MIN_P2P)
     {
         Display::ResetP2Ppoints(false);
