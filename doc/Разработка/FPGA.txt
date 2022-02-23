@@ -32,7 +32,7 @@ WR_STOP  - остновка цикла измерения
     | To=center, tshift = 0 | N_FPGA/2 ; N_FPGA/2
     | To=center, tshift < 0 | N_FPGA/2-abs(tshift) ; N_FPGA/2+abs(tshift)
     | To=center, tshift > 0 | N_FPGA/2+abs(tshift) ; N_FPGA/2+abs(tshift)
-    |                       |
+    | То=right,  tshift = 0 | 0, N_FPGA
     
     Для определения адреса чтения нужно к с считанному адресу последней записи прибавить N_FPGA
 
