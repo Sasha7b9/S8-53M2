@@ -14,3 +14,9 @@ bool GetWord(const uint8 *string, Word *word, const int numWord);   // Эта коман
 bool WordEqualZeroString(Word *word, char* string);
 bool EqualsStrings(char *str1, char *str2, int size);
 bool EqualsZeroStrings(char *str1, char *str2);
+
+
+namespace SU
+{
+    template<class T> void LogBuffer(const T *buffer, int num);
+};

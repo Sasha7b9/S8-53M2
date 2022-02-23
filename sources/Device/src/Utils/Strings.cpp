@@ -1,7 +1,8 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Strings.h"
-#include <ctype.h>
+#include <cctype>
+#include <cstring>
 
 
 static bool ChooseSymbols(const uint8 **string);    // Возвращает false, если выбор невозможен - строка кончилась.
@@ -47,7 +48,7 @@ bool GetWord(const uint8 *string, Word *word, const int numWord)
             int numSymbols = word->numSymbols;
             for (int i = 0; i < numSymbols; i++)
             {
-                *pointer = (uint8)toupper((int8)*pointer);
+                *pointer = (uint8)std::toupper((int8)*pointer);
                 pointer++;
             }
             return true;
@@ -138,4 +139,22 @@ bool EqualsZeroStrings(char *str1, char *str2)
         str2++;
     }
     return false;
+}
+
+
+template<class T>
+void SU::LogBuffer(const T *data, int num)
+{
+    char buffer[1024];
+    char buffer_number[20];
+
+    buffer[0] = '\0';
+
+    for (int i = 0; i < num; i++)
+    {
+        std::strcat(buffer, Int2String(data[i], false, 1, buffer_number));
+        std::strcat(buffer, " ");
+    }
+
+    LOG_WRITE(buffer);
 }
