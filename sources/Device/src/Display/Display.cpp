@@ -1899,7 +1899,7 @@ void TShift::Draw()
     };
 
     // Рисуем tShift
-    int shiftTShift = TPos::InPoints((PeackDetMode::E)gDSet->peakDet, gDSet->e_points_in_channel, SET_TPOS) - gDSet->tShift;
+    int shiftTShift = TPos::InPoints((PeackDetMode::E)gDSet->peakDet, gDSet->e_points_in_channel, SET_TPOS) - gDSet->tShift * 2;
 
     if(IntInRange(shiftTShift, firstPoint, lastPoint))
     {
