@@ -95,7 +95,6 @@ void SetItemForHint(void *item)
 }
 
 
-uint8           *gData1 = 0;
 DataSettings    *gDSet = 0;
 
 uint8           *gData0memInt = 0;

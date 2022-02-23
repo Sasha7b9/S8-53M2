@@ -689,19 +689,19 @@ void Display::DrawSpectrum()
         }
         else if (SOURCE_FFT_IS_B)
         {
-            DRAW_SPECTRUM(gData1, numPoints, Chan::B);
+            DRAW_SPECTRUM(Storage::dataB, numPoints, Chan::B);
         }
         else
         {
             if (LAST_AFFECTED_CHANNEL_IS_A)
             {
-                DRAW_SPECTRUM(gData1, numPoints, Chan::B);
+                DRAW_SPECTRUM(Storage::dataB, numPoints, Chan::B);
                 DRAW_SPECTRUM(Storage::dataA, numPoints, Chan::A);
             }
             else
             {
                 DRAW_SPECTRUM(Storage::dataA, numPoints, Chan::A);
-                DRAW_SPECTRUM(gData1, numPoints, Chan::B);
+                DRAW_SPECTRUM(Storage::dataB, numPoints, Chan::B);
             }
         }
     }
@@ -1082,7 +1082,7 @@ void Display::DrawMemoryWindow()
     if(MODE_WORK_IS_DIRECT || MODE_WORK_IS_LATEST)
     {
         dat0 = Storage::dataA;
-        dat1 = gData1;
+        dat1 = Storage::dataB;
         ds = gDSet;
     }
     
@@ -1119,7 +1119,7 @@ void Display::DrawMemoryWindow()
 
     if (showFull)
     {
-        if (Storage::dataA || gData1 || (!dataP2PIsEmpty))
+        if (Storage::dataA || Storage::dataB || (!dataP2PIsEmpty))
         {
             Chan::E chanFirst = LAST_AFFECTED_CHANNEL_IS_A ? Chan::B : Chan::A;
             Chan::E chanSecond = LAST_AFFECTED_CHANNEL_IS_A ? Chan::A : Chan::B;
