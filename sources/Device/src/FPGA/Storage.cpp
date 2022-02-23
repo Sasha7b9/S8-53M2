@@ -203,20 +203,32 @@ int Storage::AllDatas()
 
 void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
 {
+    DEBUG_POINT_0;
+
     uint numElements = (uint)dss->BytesInChannel();
+
+    DEBUG_POINT_0;
 
     if(NumElementsInStorage() == 0 || NUM_MIN_MAX == 1 || (!SettingsIsEquals(dss, GetSettingsDataFromEnd(0))))
     {
+        DEBUG_POINT_0;
+
         for(uint i = 0; i < numElements; i++)
         {
             limitDown[0][i] = limitUp[0][i] = data0[i];
             limitDown[1][i] = limitUp[1][i] = data1[i];
         }
+
+        DEBUG_POINT_0;
     }
     else
     {
+        DEBUG_POINT_0;
+
         int allDatas = NumElementsWithSameSettings();
         LIMITATION(allDatas, allDatas, 1, NUM_MIN_MAX);
+
+        DEBUG_POINT_0;
         
         if(NumElementsWithSameSettings() >= NUM_MIN_MAX)
         {
@@ -227,6 +239,8 @@ void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
             }
             allDatas--;
         }
+
+        DEBUG_POINT_0;
      
         for(int numData = 0; numData < allDatas; numData++)
         {
@@ -240,7 +254,11 @@ void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
                 if(dataB[i] > limitUp[1][i])    limitUp[1][i] = dataB[i];
             }
         }
+
+        DEBUG_POINT_0;
     }
+
+    DEBUG_POINT_0;
 }
 
 
