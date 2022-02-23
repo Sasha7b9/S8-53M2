@@ -463,7 +463,7 @@ void FPGA::ReadRealMode(bool necessaryShift)
 
     uint8 *pA = dataReadA.Data();
     uint8 *pB = dataReadB.Data();
-    uint8 *endP = dataReadA.Last();
+    uint8 *endA = dataReadA.Last();
 
     if (ds.peakDet == PeackDetMode::Enable)
     {
@@ -474,7 +474,7 @@ void FPGA::ReadRealMode(bool necessaryShift)
 
         BitSet16 data;
 
-        while (p0max < endP && FPGA_IN_PROCESS_READ)
+        while (p0max < endA && FPGA_IN_PROCESS_READ)
         {
             data.half_word = *RD_ADC_B;
             *p1max++ = data.byte0;
@@ -489,7 +489,7 @@ void FPGA::ReadRealMode(bool necessaryShift)
     {
         BitSet16 data;
 
-        while (pA < endP && FPGA_IN_PROCESS_READ)
+        while (pA < endA && FPGA_IN_PROCESS_READ)
         {
             data.half_word = *RD_ADC_B;
             *pB++ = data.byte0;
