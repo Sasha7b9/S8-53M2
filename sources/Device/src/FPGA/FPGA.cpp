@@ -8,6 +8,7 @@
 #include "FPGA/Storage.h"
 #include "Utils/Math.h"
 #include "Utils/ProcessingSignal.h"
+#include "Utils/Containers/Buffer.h"
 #include <stm32f4xx_hal.h>
 #include <string.h>
 
@@ -30,8 +31,8 @@ namespace FPGA
 
     DataSettings ds;
 
-    uint8 dataRelA[FPGA::MAX_POINTS * 2] = {0};   // Буфер используется для чтения данных первого канала.
-    uint8 dataRelB[FPGA::MAX_POINTS * 2] = {0};   // Буфер используется для чтения данных второго канала.
+    Buffer<uint8> dataReadA;            // Буфер используется для чтения данных первого канала.
+    Buffer<uint8> dataReadB;            // Буфер используется для чтения данных второго канала.
 
     int addition_shift = 0;
 
@@ -53,7 +54,7 @@ namespace FPGA
     void ReadRealMode(bool necessaryShift);
 
     // Инвертирует данные.
-    void InverseDataIsNecessary(Chan::E, uint8 *data);
+    void InverseDataIsNecessary(Chan::E, Buffer<uint8> &data);
 
     int CalculateShift();
 
@@ -350,11 +351,11 @@ void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
 
         if (!TBase::InRandomizeMode())
         {
-            InverseDataIsNecessary(Chan::A, dataRelA);
-            InverseDataIsNecessary(Chan::B, dataRelB);
+            InverseDataIsNecessary(Chan::A, dataReadA);
+            InverseDataIsNecessary(Chan::B, dataReadB);
         }
 
-        Storage::AddData(dataRelA, dataRelB, ds);
+        Storage::AddData(dataReadA.Data(), dataReadB.Data(), ds);
 
         if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)
         {
@@ -384,14 +385,14 @@ void FPGA::ReadRandomizeMode()
         index += step;        // WARN
     }
 
-    uint8 *pData0 = &dataRelA[index];
-    const uint8 *const pData0Last = &dataRelA[FPGA::MAX_POINTS - 1];
-    uint8 *pData1 = &dataRelB[index];
-    const uint8 *const pData1Last = &dataRelB[FPGA::MAX_POINTS - 1];
+    uint8 *pData0 = dataReadA.Pointer(index);
+    const uint8 *const pData0Last = dataReadA.Last() - 1;
+    uint8 *pData1 = dataReadB.Pointer(index);
+    const uint8 *const pData1Last = dataReadB.Last() - 1;
 
-    const uint8 *const first0 = &dataRelA[0];
+    const uint8 *const first0 = dataReadA.Data();
     const uint8 *const last0 = pData0Last;
-    const uint8 *const first1 = &dataRelB[0];
+    const uint8 *const first1 = dataReadB.Data();
     const uint8 *const last1 = pData1Last;
 
     int numAve = NUM_AVE_FOR_RAND;
@@ -409,7 +410,7 @@ void FPGA::ReadRandomizeMode()
     BitSet16 dataA;
     BitSet16 dataB;
 
-    while (pData0 < &dataRelA[FPGA::MAX_POINTS])
+    while (pData0 < dataReadA.Last())
     {
         dataA.half_word = *RD_ADC_A;
         dataB.half_word = *RD_ADC_B;
@@ -443,8 +444,8 @@ void FPGA::ReadRandomizeMode()
 
     if (START_MODE_IS_SINGLE || SAMPLE_TYPE_IS_REAL)
     {
-        Processing::InterpolationSinX_X(dataRelA, SET_TBASE);
-        Processing::InterpolationSinX_X(dataRelB, SET_TBASE);
+        Processing::InterpolationSinX_X(dataReadA.Data(), SET_TBASE);
+        Processing::InterpolationSinX_X(dataReadB.Data(), SET_TBASE);
     }
 }
 
@@ -454,9 +455,9 @@ void FPGA::ReadRealMode(bool necessaryShift)
     HAL_FMC::Write(WR_PRED, Reader::CalculateAddressRead());
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
-    uint8 *p0 = &dataRelA[0];
-    uint8 *p1 = &dataRelB[0];
-    uint8 *endP = &dataRelA[FPGA::MAX_POINTS];
+    uint8 *p0 = dataReadA.Data();
+    uint8 *p1 = dataReadB.Data();
+    uint8 *endP = dataReadA.Last();
 
     if (ds.peakDet == PeackDetMode::Enable)
     {
@@ -509,16 +510,16 @@ void FPGA::ReadRealMode(bool necessaryShift)
                 shift = -shift;
                 for (int i = FPGA::MAX_POINTS - shift - 1; i >= 0; i--)
                 {
-                    dataRelA[i + shift] = dataRelA[i];
-                    dataRelB[i + shift] = dataRelB[i];
+                    dataReadA[i + shift] = dataReadA[i];
+                    dataReadB[i + shift] = dataReadB[i];
                 }
             }
             else
             {
                 for (int i = shift; i < FPGA::MAX_POINTS; i++)
                 {
-                    dataRelA[i - shift] = dataRelA[i];
-                    dataRelB[i - shift] = dataRelB[i];
+                    dataReadA[i - shift] = dataReadA[i];
+                    dataReadB[i - shift] = dataReadB[i];
                 }
             }
         }
@@ -526,11 +527,13 @@ void FPGA::ReadRealMode(bool necessaryShift)
 }
 
 
-void FPGA::InverseDataIsNecessary(Chan::E ch, uint8 *data)
+void FPGA::InverseDataIsNecessary(Chan::E ch, Buffer<uint8> &data)
 {
     if (SET_INVERSE(ch))
     {
-        for (int i = 0; i < FPGA::MAX_POINTS; i++)
+        int size = data.Size();
+
+        for (int i = 0; i < size; i++)
         {
             data[i] = (uint8)((int)(2 * ValueFPGA::AVE) - Math::Limitation<uint8>(data[i], ValueFPGA::MIN, ValueFPGA::MAX));
         }
@@ -648,8 +651,13 @@ uint16 FPGA::ReadFlag()
 
 void FPGA::ClearData()
 {
-    memset(dataRelA, 0, FPGA::MAX_POINTS);
-    memset(dataRelB, 0, FPGA::MAX_POINTS);
+    int num_bytes = ENUM_POINTS_FPGA::ToNumBytes();
+
+    dataReadA.Realloc(num_bytes);
+    dataReadB.Realloc(num_bytes);
+
+    dataReadA.Fill(0);
+    dataReadB.Fill(0);
 }
 
 

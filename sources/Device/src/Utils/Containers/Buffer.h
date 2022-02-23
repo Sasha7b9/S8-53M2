@@ -29,6 +29,10 @@ public:
 
     inline T *Data() { return data; }
 
+    inline T *Last() { return data + Size(); }
+
+    inline T *Pointer(int index) { return data + index; }
+
     static float Sum(T *data, uint number);
 
     Buffer<T> &operator=(const Buffer<T> &);

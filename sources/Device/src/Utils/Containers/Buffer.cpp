@@ -6,6 +6,13 @@
 #include <cstring>
 
 
+template        Buffer<uint8>::Buffer(int);
+template        Buffer<uint8>::~Buffer();
+template void   Buffer<uint8>::Fill(uint8);
+template void   Buffer<uint8>::Realloc(int);
+template uint8 &Buffer<uint8>::operator[](int) const;
+
+
 template<class T>
 Buffer<T>::Buffer(int s) : data(nullptr)
 {
