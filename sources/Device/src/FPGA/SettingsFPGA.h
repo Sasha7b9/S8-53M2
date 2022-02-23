@@ -44,7 +44,7 @@ struct TPos
     };
 
     // Узнать привязку отсительно уровня синхронизации в точках.
-    static int InPoints(PeackDetMode::E, ENUM_POINTS_FPGA::E, TPos::E);
+    static int InPoints(ENUM_POINTS_FPGA::E, TPos::E);
 };
 
 

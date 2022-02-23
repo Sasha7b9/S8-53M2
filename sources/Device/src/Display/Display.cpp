@@ -1158,7 +1158,7 @@ void Display::DrawMemoryWindow()
     float scale = (float)(rightX - leftX + 1) / ((float)ENUM_POINTS_FPGA::ToNumPoints() -
         (ENUM_POINTS_FPGA::ToNumPoints() == 281 ? 1 : 0));
 
-    float xShift = 1 + (TPos::InPoints((PeackDetMode::E)gDSet->peakDet, gDSet->e_points_in_channel, SET_TPOS) -
+    float xShift = 1 + (TPos::InPoints(gDSet->e_points_in_channel, SET_TPOS) -
         gDSet->tShift) * scale;
     
     if(xShift < leftX - 2)
@@ -1888,7 +1888,7 @@ void TShift::Draw()
     sDisplay_PointsOnDisplay(&firstPoint, &lastPoint);
 
     // Рисуем TPos
-    int shiftTPos = TPos::InPoints((PeackDetMode::E)gDSet->peakDet, gDSet->e_points_in_channel, SET_TPOS) - SHIFT_IN_MEMORY;
+    int shiftTPos = TPos::InPoints(gDSet->e_points_in_channel, SET_TPOS) - SHIFT_IN_MEMORY;
     float scale = (float)(lastPoint - firstPoint) / Grid::Width();
     int gridLeft = Grid::Left();
     int x = (int)(gridLeft + shiftTPos * scale - 3);
@@ -1899,7 +1899,7 @@ void TShift::Draw()
     };
 
     // Рисуем tShift
-    int shiftTShift = TPos::InPoints((PeackDetMode::E)gDSet->peakDet, gDSet->e_points_in_channel, SET_TPOS) - gDSet->tShift * 2;
+    int shiftTShift = TPos::InPoints(gDSet->e_points_in_channel, SET_TPOS) - gDSet->tShift * 2;
 
     if(IntInRange(shiftTShift, firstPoint, lastPoint))
     {

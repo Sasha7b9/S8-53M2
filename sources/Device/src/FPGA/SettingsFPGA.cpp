@@ -551,28 +551,16 @@ int TShift::Min()
 }
 
 
-int TPos::InPoints(PeackDetMode::E peakDet, ENUM_POINTS_FPGA::E enum_points, TPos::E tPos)
+int TPos::InPoints(ENUM_POINTS_FPGA::E enum_points, TPos::E tPos)
 {
-    if (peakDet == PeackDetMode::Disable)
+    static const int m[3][3] =
     {
-        static const int m[3][3] =
-        {
-            {0, 140, 280},
-            {0, 255, 511},
-            {0, 512, 1022}
-        };
-        return m[enum_points][tPos];
-    }
-    else
-    {
-        static const int m[3][3] =
-        {
-            {0, 140, 280},
-            {0, 256, 510},
-            {0, 256, 510}
-        };
-        return m[enum_points][tPos];
-    }
+        {0, 140, 280},
+        {0, 255, 511},
+        {0, 512, 1022}
+    };
+
+    return m[enum_points][tPos];
 }
 
 
