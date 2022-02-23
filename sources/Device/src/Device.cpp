@@ -49,33 +49,30 @@ void Device::Update()
         NEED_RESET_SETTINGS = 0;
     }
 
-    DEBUG_POINT_0;
-
     Timer::StartMultiMeasurement();      // Сброс таймера для замера длительности временных интервалов в течение одной итерации цикла.
-    DEBUG_POINT_0;
+
     FDrive::Update();
-    DEBUG_POINT_0;
+
     FPGA::Update();                      // Обновляем аппаратную часть.
-    DEBUG_POINT_0;
+
     ProcessingSignal();
-    DEBUG_POINT_0;
+
     Panel::Update();
-    DEBUG_POINT_0;
+
     Menu::UpdateInput();                 // Обновляем состояние меню
-    DEBUG_POINT_0;
+
     Display::Update();                   // Рисуем экран.
-    DEBUG_POINT_0;
+
     Settings::SaveIfNeed();
-    DEBUG_POINT_0;
+
     // LAN::Update(0);
+
     // VCP::Update();
 }
 
 
 void Device::ProcessingSignal()
 {
-    DEBUG_POINT_0;
-
     uint8** data0 = &gData0;
     uint8** data1 = &gData1;
     DataSettings** ds = &gDSet;
@@ -83,8 +80,6 @@ void Device::ProcessingSignal()
     int first = 0;
     int last = 0;
     sDisplay_PointsOnDisplay(&first, &last);
-
-    DEBUG_POINT_0;
 
     if (MODE_WORK_IS_DIRECT)
     {
@@ -110,8 +105,6 @@ void Device::ProcessingSignal()
         HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &gDSmemInt, &gData0memInt, &gData1memInt);
     }
 
-    DEBUG_POINT_0;
-
     if (MODE_WORK_IS_MEMINT)
     {
         if (!MODE_SHOW_MEMINT_IS_SAVED)
@@ -124,8 +117,6 @@ void Device::ProcessingSignal()
         Processing::SetSignal(*data0, *data1, *ds, first, last);
     }
 
-    DEBUG_POINT_0;
-
     if (gDSet == nullptr)
     {
         static DataSettings ds_null;
@@ -133,9 +124,5 @@ void Device::ProcessingSignal()
         gDSet = &ds_null;
     }
 
-    DEBUG_POINT_0;
-
     PageCursors::Cursors_Update();    // В случае, если находимся в режиме курсорных измерений, обновляем их положение, если нужно.
-
-    DEBUG_POINT_0;
 }

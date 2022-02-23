@@ -96,14 +96,14 @@ void FPGA::Init()
 
 void FPGA::Update()
 {
-    DEBUG_POINT_0;
     ReadFlag();
-    DEBUG_POINT_0;
+
     if (gStateFPGA.needCalibration)              // Если вошли в режим калибровки -
     {
         FPGA::ProcedureCalibration();            // выполняем её.
         gStateFPGA.needCalibration = false;
     }
+
     if (FPGA_TEMPORARY_PAUSE)
     {
         return;
@@ -129,9 +129,8 @@ void FPGA::Update()
     {
         ReadPoint();
     }
-    DEBUG_POINT_0;
+
     ProcessingData();
-    DEBUG_POINT_0;
 
     FPGA_CAN_READ_DATA = 0;
 }
@@ -143,12 +142,8 @@ bool FPGA::ProcessingData()
 
     int num = (TBase::InRandomizeMode() && (!START_MODE_IS_SINGLE) && SAMPLE_TYPE_IS_EQUAL) ? TBase::StretchRand() : 1;
 
-    DEBUG_POINT_0;
-
     for (int i = 0; i < num; i++)
     {
-        DEBUG_POINT_0;
-
         uint16 flag = ReadFlag();
 
         if (FPGA_CRITICAL_SITUATION)
@@ -173,10 +168,11 @@ bool FPGA::ProcessingData()
             }
 
             Panel::EnableLEDTrig(true);
+
             FPGA::Stop(true);
-            DEBUG_POINT_0;
+
             DataRead(_GET_BIT(flag, FL_LAST_RECOR), (num == 1) || (i == num - 1));
-            DEBUG_POINT_0;
+
             retValue = true;
 
             if (!START_MODE_IS_SINGLE)
@@ -343,48 +339,30 @@ void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
     }
     else
     {
-        DEBUG_POINT_0;
         ReadRealMode(necessaryShift);
-        DEBUG_POINT_0;
     }
-
-    DEBUG_POINT_0;
 
     static uint prevTime = 0;
 
     if (saveToStorage || (TIME_MS - prevTime > 500))
     {
         prevTime = TIME_MS;
+
         if (!TBase::InRandomizeMode())
         {
-            DEBUG_POINT_0;
             InverseDataIsNecessary(Chan::A, dataRel0);
-            DEBUG_POINT_0;
             InverseDataIsNecessary(Chan::B, dataRel1);
-            DEBUG_POINT_0;
         }
-
-        DEBUG_POINT_0;
 
         Storage::AddData(dataRel0, dataRel1, ds);
 
-        DEBUG_POINT_0;
-
         if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)
         {
-            DEBUG_POINT_0;
-
             FPGA::FindAndSetTrigLevel();
 
-            DEBUG_POINT_0;
-
             TRIG_AUTO_FIND = 0;
-
-            DEBUG_POINT_0;
         }
     }
-
-    DEBUG_POINT_0;
 
     FPGA_IN_PROCESS_READ = 0;
 }

@@ -23,8 +23,8 @@ typedef unsigned    char        uchar;
 typedef const char             *pchar;
 
 
-typedef void    (*pFuncVV)();               // ”казатель на функцию, ничего не принимающую и ничего не возвращающую.
-typedef void    (*pFuncVpV)(void*);             // ”казатель на функцию, принимающую указатель на void и ничего не возвращающую.
+typedef void    (*pFuncVV)();       // ”казатель на функцию, ничего не принимающую и ничего не возвращающую.
+typedef void    (*pFuncVpV)(void*); // ”казатель на функцию, принимающую указатель на void и ничего не возвращающую.
 typedef bool    (*pFuncBV)();
 typedef void    (*pFuncVB)(bool);
 typedef void    (*pFuncVI)(int);
@@ -105,4 +105,3 @@ void HardwareErrorHandler(pchar file, pchar function, int line);
 
 #include "Globals.h"
 #include "Log.h"
-#include "Utils/Debug.h"

@@ -113,36 +113,24 @@ void Storage::ClearLimitsAndSums()
 
 void Storage::CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *dss)
 {
-    DEBUG_POINT_0;
-
     int numAveData = NumElementsWithCurrentSettings();
-    DEBUG_POINT_0;
 
     int size = dss->BytesInChannel();
 
-    DEBUG_POINT_0;
-
     if (numAveData == 1)
     {
-        DEBUG_POINT_0;
-
         for (int i = 0; i < size; i++)
         {
             aveData0[i] = data0[i];
             aveData1[i] = data1[i];
         }
-
-        DEBUG_POINT_0;
     }
     else
     {
-        DEBUG_POINT_0;
         if (numAveData > SettingsDisplay::NumAverages())
         {
             numAveData = SettingsDisplay::NumAverages();
         }
-
-        DEBUG_POINT_0;
 
         float numAveDataF = numAveData;
         float numAveDataFless = numAveDataF - 1.0f;
@@ -153,8 +141,6 @@ void Storage::CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *d
         uint8* d1 = &data1[0];
         float* endData = &aveData0[size];
 
-        DEBUG_POINT_0;
-
         do 
         {
             *aData0 = ((*aData0) * numAveDataFless + (float)(*d0++)) * numAveDataInv;
@@ -162,48 +148,28 @@ void Storage::CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *d
             *aData1 = ((*aData1) * numAveDataFless + (float)(*d1++)) * numAveDataInv;
             aData1++;
         } while (aData0 != endData);
-
-        DEBUG_POINT_0;
     }
-
-    DEBUG_POINT_0;
 }
 
 
 void Storage::AddData(uint8 *data0, uint8 *data1, DataSettings dss)
 {
-    DEBUG_POINT_0;
-
     dss.time = HAL_RTC::GetPackedTime();
-
-    DEBUG_POINT_0;
 
     if(dss.enableCh0 == 0 && dss.enableCh1 == 0)
     {
         return;
     }
 
-    DEBUG_POINT_0;
-
     CalculateLimits(data0, data1, &dss);
-
-    DEBUG_POINT_0;
 
     PushData(&dss, data0, data1);
 
-    DEBUG_POINT_0;
-
     CalculateSums();
-
-    DEBUG_POINT_0;
 
     CalculateAroundAverage(data0, data1, &dss);
 
-    DEBUG_POINT_0;
-
     allData++;
-
-    DEBUG_POINT_0;
 }
 
 
@@ -215,32 +181,20 @@ int Storage::AllDatas()
 
 void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
 {
-    DEBUG_POINT_0;
-
     uint numElements = (uint)dss->points_in_channel;
-
-    DEBUG_POINT_0;
 
     if(NumElementsInStorage() == 0 || NUM_MIN_MAX == 1 || (!SettingsIsEquals(dss, GetSettingsDataFromEnd(0))))
     {
-        DEBUG_POINT_0;
-
         for(uint i = 0; i < numElements; i++)
         {
             limitDown[0][i] = limitUp[0][i] = data0[i];
             limitDown[1][i] = limitUp[1][i] = data1[i];
         }
-
-        DEBUG_POINT_0;
     }
     else
     {
-        DEBUG_POINT_0;
-
         int allDatas = NumElementsWithSameSettings();
         LIMITATION(allDatas, allDatas, 1, NUM_MIN_MAX);
-
-        DEBUG_POINT_0;
         
         if(NumElementsWithSameSettings() >= NUM_MIN_MAX)
         {
@@ -252,8 +206,6 @@ void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
             allDatas--;
         }
 
-        DEBUG_POINT_0;
-     
         for(int numData = 0; numData < allDatas; numData++)
         {
             const uint8 *dataA = GetData(Chan::A, numData);
@@ -267,11 +219,7 @@ void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
                 if(dataB[i] > limitUp[1][i])    limitUp[1][i] = dataB[i];
             }
         }
-
-        DEBUG_POINT_0;
     }
-
-    DEBUG_POINT_0;
 }
 
 
@@ -446,8 +394,6 @@ bool Storage::CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[Chan::
 
 uint8* Storage::GetAverageData(Chan::E ch)
 {
-    DEBUG_POINT_0;
-
     static uint8 data[Chan::Count][FPGA::MAX_POINTS];
     
     if (newSumCalculated[ch] == false)
@@ -487,8 +433,6 @@ uint8* Storage::GetAverageData(Chan::E ch)
     {
         data[ch][i] = sum[ch][i] / numAveraging;
     }
-
-    DEBUG_POINT_0;
 
     return &data[ch][0];
 }
