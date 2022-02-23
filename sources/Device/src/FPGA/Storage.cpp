@@ -14,6 +14,8 @@ namespace Storage
 {
     uint8 *dataA = nullptr;
     uint8 *dataB = nullptr;
+    DataSettings *gDSet = 0;
+
     static void CalculateSums();
 
     // ¬озвращает количество свободной пам€ти в байтах

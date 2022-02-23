@@ -549,10 +549,10 @@ static void SaveSignalToIntMemory()
     }
     else                                // Иначе сохраняем текущий сигнал
     {
-        if (gDSet != 0)
+        if (Storage::gDSet != 0)
         {
-            HAL_ROM::SaveData(CURRENT_NUM_INT_SIGNAL, gDSet, Storage::dataA, Storage::dataB);
-            HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &gDSet, &gData0memInt, &gData1memInt);
+            HAL_ROM::SaveData(CURRENT_NUM_INT_SIGNAL, Storage::gDSet, Storage::dataA, Storage::dataB);
+            HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::gDSet, &gData0memInt, &gData1memInt);
             Display::ShowWarningGood(SignalIsSaved);
         }
     }

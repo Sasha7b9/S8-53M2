@@ -468,9 +468,9 @@ void FPGA::ReadRealMode(bool necessaryShift)
     if (ds.peakDet == PeackDetMode::Enable)
     {
         uint8 *p0min = p0;
-        uint8 *p0max = p0min + 512;
+        uint8 *p0max = p0min + ENUM_POINTS_FPGA::ToNumPoints();
         uint8 *p1min = p1;
-        uint8 *p1max = p1min + 512;
+        uint8 *p1max = p1min + ENUM_POINTS_FPGA::ToNumPoints();
 
         BitSet16 data;
 

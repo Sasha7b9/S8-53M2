@@ -204,8 +204,6 @@ void SetItemForHint(void *item);
 
 extern StateFPGA gStateFPGA;
 
-extern DataSettings *gDSet;     // Указатель на параметры рисуемых сигналов
-
 extern DataSettings *gDSmemInt;       //--
 extern uint8        *gData0memInt;    // | Здесь данные из ППЗУ, которые должны выводиться на экран
 extern uint8        *gData1memInt;    //-/
