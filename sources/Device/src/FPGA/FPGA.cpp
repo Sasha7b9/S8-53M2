@@ -469,8 +469,8 @@ void FPGA::ReadRealMode(bool necessaryShift)
     {
         uint8 *p_minA = pA;
         uint8 *p_maxA = p_minA + ENUM_POINTS_FPGA::ToNumPoints();
-        uint8 *p1min = pB;
-        uint8 *p1max = p1min + ENUM_POINTS_FPGA::ToNumPoints();
+        uint8 *p_minB = pB;
+        uint8 *p1max = p_minB + ENUM_POINTS_FPGA::ToNumPoints();
 
         BitSet16 data;
 
@@ -478,7 +478,7 @@ void FPGA::ReadRealMode(bool necessaryShift)
         {
             data.half_word = *RD_ADC_B;
             *p1max++ = data.byte0;
-            *p1min++ = data.byte1;
+            *p_minB++ = data.byte1;
 
             data.half_word = *RD_ADC_A;
             *p_maxA++ = data.byte0;
