@@ -96,16 +96,19 @@ void FPGA::Launch::CalculateReal()
 {
     int num_points = ENUM_POINTS_FPGA::ToNumBytes();
 
-    if (TSHIFT <= 0)
-    {
-        pred = num_points / 2 + TSHIFT;
-        post = num_points / 2 - TSHIFT;
-    }
-    else
-    {
-        pred = num_points / 2;
-        post = num_points / 2;
-    }
+    pred = num_points / 2 - TSHIFT;
+    post = num_points / 2 + TSHIFT;
+
+//    if (TSHIFT <= 0)
+//    {
+//        pred = num_points / 2 - TSHIFT;
+//        post = num_points / 2 + TSHIFT;
+//    }
+//    else
+//    {
+//        pred = num_points / 2 + TSHIFT;
+//        post = num_points / 2 - TSHIFT;
+//    }
 }
 
 
