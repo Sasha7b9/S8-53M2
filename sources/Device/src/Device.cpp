@@ -26,7 +26,7 @@ void Device::Init()
     HAL::Init();
     Sound::Init();
 //    VCP::Init();
-    Settings::Load(false);
+    Settings::Load(true);
     FPGA::Init();
     Timer::PauseOnTime(250);
     FPGA::OnPressStartStop();
