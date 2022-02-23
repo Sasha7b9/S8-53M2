@@ -108,4 +108,8 @@ void FPGA::Launch::CalculateReal()
 
 void FPGA::Launch::CalculateRandomize()
 {
+    CalculateReal();
+
+    pred++;
+    post++;
 }
