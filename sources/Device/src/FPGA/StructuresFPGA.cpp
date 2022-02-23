@@ -11,8 +11,8 @@ namespace FPGA
 {
     namespace Launch
     {
-        static int pred = 0;
-        static int post = 0;
+        static int pred = 0;    // ѕред- и после- запуски хран€тс€ в точках.
+        static int post = 0;    // ѕеред засылкой их нужно уменьшать в два раза, потому что две точки считываютс€ за раз
 
         static const int8 d_pred[TBase::Count] =   // ƒополнительное смещение дл€ предзапуска
         {//  2    5   10   20   50  100  200
@@ -55,7 +55,7 @@ void FPGA::Launch::Load()
 
 uint16 FPGA::Launch::PostForWrite()
 {
-    int result = post + d_post[SET_TBASE];
+    int result = post / 2 + d_post[SET_TBASE];
 
     if (PEAKDET_IS_ENABLE)
     {
@@ -68,7 +68,7 @@ uint16 FPGA::Launch::PostForWrite()
 
 uint16 FPGA::Launch::PredForWrite()
 {
-    int result = pred + d_pred[SET_TBASE];
+    int result = pred / 2 + d_pred[SET_TBASE];
 
     if (PEAKDET_IS_ENABLE)
     {
@@ -94,6 +94,18 @@ void FPGA::Launch::Calculate()
 
 void FPGA::Launch::CalculateReal()
 {
+    int num_points = ENUM_POINTS_FPGA::ToNumPoints();
+
+    if (TSHIFT <= 0)
+    {
+        pred = num_points / 2 + TSHIFT;
+        post = num_points / 2 - TSHIFT;
+    }
+    else
+    {
+        pred = num_points / 2;
+        post = num_points / 2;
+    }
 }
 
 
