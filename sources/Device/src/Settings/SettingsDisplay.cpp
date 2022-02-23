@@ -57,7 +57,7 @@ ModeAveraging sDisplay_ModeAveraging()
 }
 
 
-int sDisplay_NumAverage()
+int SettingsDisplay::NumAverages()
 {
     if (TBase::InRandomizeMode() && (NUM_AVE_FOR_RAND >= NUM_AVE))
     {

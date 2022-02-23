@@ -125,9 +125,9 @@ void Storage::CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *d
     }
     else
     {
-        if (numAveData > sDisplay_NumAverage())
+        if (numAveData > SettingsDisplay::NumAverages())
         {
-            numAveData = sDisplay_NumAverage();
+            numAveData = SettingsDisplay::NumAverages();
         }
         float numAveDataF = numAveData;
         float numAveDataFless = numAveDataF - 1.0f;
@@ -151,20 +151,38 @@ void Storage::CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *d
 
 void Storage::AddData(uint8 *data0, uint8 *data1, DataSettings dss)
 {
+    DEBUG_POINT_0;
+
     dss.time = HAL_RTC::GetPackedTime();
+
+    DEBUG_POINT_0;
 
     if(dss.enableCh0 == 0 && dss.enableCh1 == 0)
     {
         return;
     }
+
+    DEBUG_POINT_0;
+
     CalculateLimits(data0, data1, &dss);
+
+    DEBUG_POINT_0;
 
     PushData(&dss, data0, data1);
 
+    DEBUG_POINT_0;
+
     CalculateSums();
 
+    DEBUG_POINT_0;
+
     CalculateAroundAverage(data0, data1, &dss);
+
+    DEBUG_POINT_0;
+
     allData++;
+
+    DEBUG_POINT_0;
 }
 
 
@@ -234,9 +252,9 @@ void Storage::CalculateSums()
         numAveragings = NUM_AVE_FOR_RAND;
     }
 
-    if (sDisplay_NumAverage() > numAveragings)
+    if (SettingsDisplay::NumAverages() > numAveragings)
     {
-        numAveragings = sDisplay_NumAverage();
+        numAveragings = SettingsDisplay::NumAverages();
     }
 
     for(uint i = 0; i < numPoints; i++)
@@ -419,7 +437,7 @@ uint8* Storage::GetAverageData(Chan::E ch)
         return &data[ch][0];
     }
 
-    int numAveraging = sDisplay_NumAverage();
+    int numAveraging = SettingsDisplay::NumAverages();
 
     LIMIT_ABOVE(numAveraging, NumElementsWithSameSettings());
 

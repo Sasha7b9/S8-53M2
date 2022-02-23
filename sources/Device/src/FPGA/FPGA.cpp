@@ -174,7 +174,9 @@ bool FPGA::ProcessingData()
 
             Panel::EnableLEDTrig(true);
             FPGA::Stop(true);
+            DEBUG_POINT_0;
             DataRead(_GET_BIT(flag, FL_LAST_RECOR), (num == 1) || (i == num - 1));
+            DEBUG_POINT_0;
             retValue = true;
 
             if (!START_MODE_IS_SINGLE)
@@ -341,8 +343,12 @@ void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
     }
     else
     {
+        DEBUG_POINT_0;
         ReadRealMode(necessaryShift);
+        DEBUG_POINT_0;
     }
+
+    DEBUG_POINT_0;
 
     static uint prevTime = 0;
 
@@ -351,18 +357,35 @@ void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
         prevTime = TIME_MS;
         if (!TBase::InRandomizeMode())
         {
+            DEBUG_POINT_0;
             InverseDataIsNecessary(Chan::A, dataRel0);
+            DEBUG_POINT_0;
             InverseDataIsNecessary(Chan::B, dataRel1);
+            DEBUG_POINT_0;
         }
+
+        DEBUG_POINT_0;
 
         Storage::AddData(dataRel0, dataRel1, ds);
 
+        DEBUG_POINT_0;
+
         if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)
         {
+            DEBUG_POINT_0;
+
             FPGA::FindAndSetTrigLevel();
+
+            DEBUG_POINT_0;
+
             TRIG_AUTO_FIND = 0;
+
+            DEBUG_POINT_0;
         }
     }
+
+    DEBUG_POINT_0;
+
     FPGA_IN_PROCESS_READ = 0;
 }
 
@@ -395,9 +418,9 @@ void FPGA::ReadRandomizeMode()
 
     int numAve = NUM_AVE_FOR_RAND;
 
-    if (sDisplay_NumAverage() > numAve)
+    if (SettingsDisplay::NumAverages() > numAve)
     {
-        numAve = sDisplay_NumAverage();
+        numAve = SettingsDisplay::NumAverages();
     }
 
     if (START_MODE_IS_SINGLE || SAMPLE_TYPE_IS_REAL)

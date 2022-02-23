@@ -225,6 +225,8 @@ struct SettingsDisplay
     bool                showFullMemoryWindow;       // Показывать ли окно памяти вверху экрана. \todo Не используется.
     bool                showStringNavigation;       // Показывать ли строку текущего состояния меню..
     LinkingRShift       linkingRShift;              // Тип привязки смещения по вертикали.
+
+    static int NumAverages();
 };
 
 
@@ -238,5 +240,3 @@ bool sDisplay_IsSeparate();
 void sDisplay_SetBrightness(int16 brightness);
 // Возвращает режим усреднения
 ModeAveraging sDisplay_ModeAveraging();
-
-int sDisplay_NumAverage();
