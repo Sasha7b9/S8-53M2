@@ -57,10 +57,10 @@ uint16 FPGA::Launch::PostForWrite()
 {
     int result = post + d_post[SET_TBASE];
 
-    if (PEAKDET_IS_ENABLE)
-    {
-        result *= 2;
-    }
+//    if (PEAKDET_IS_ENABLE)
+//    {
+//        result *= 2;
+//    }
 
     return (uint16)(~result);
 }
@@ -70,10 +70,10 @@ uint16 FPGA::Launch::PredForWrite()
 {
     int result = pred + d_pred[SET_TBASE];
 
-    if (PEAKDET_IS_ENABLE)
-    {
-        result *= 2;
-    }
+//    if (PEAKDET_IS_ENABLE)
+//    {
+//        result *= 2;
+//    }
 
     return (uint16)(~result);
 }
@@ -100,9 +100,11 @@ void FPGA::Launch::CalculateReal()
 
     pred = post = values[SET_TPOS];
 
-    pred = Math::Limitation(pred - TSHIFT * 2, 0, 65535);
+    int tShift = TSHIFT * (PEAKDET_IS_ENABLE ? 2 : 1);
 
-    post = Math::Limitation(post + TSHIFT * 2, 0, 65535);
+    pred = Math::Limitation(pred - tShift * 2, 0, 65535);
+
+    post = Math::Limitation(post + tShift * 2, 0, 65535);
 }
 
 
