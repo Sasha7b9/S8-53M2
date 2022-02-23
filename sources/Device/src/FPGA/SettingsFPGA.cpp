@@ -33,8 +33,8 @@ namespace FPGA
 
 void FPGA::LoadSettings()
 {
+    TShift::Set(TSHIFT);
     TBase::Load();
-    TShift::Load();
     Range::Load(ChA);
     RShift::Load(ChA);
     Range::Load(ChB);
@@ -364,12 +364,15 @@ void TShift::Set(int tShift)
 
     if (tShift < TShift::Min() || tShift > TShift::MAX)
     {
-        LIMITATION(tShift, tShift, TShift::Min(), TShift::MAX);
+        Math::Limitation<int>(&tShift, TShift::Min(), TShift::MAX);
+
         Display::ShowWarningBad(LimitSweep_TShift);
     }
 
     TSHIFT = (int16)tShift;
-    Load();
+
+    FPGA::Launch::Load();
+
     Display::Redraw();
 };
 
@@ -377,7 +380,8 @@ void TShift::Set(int tShift)
 void TShift::SetDelta(int16 shift)
 {
     FPGA::deltaTShift[SET_TBASE] = shift;
-    Load();
+
+    FPGA::Launch::Load();
 }
 
 
@@ -426,31 +430,6 @@ void FPGA::LoadRegUPR()
 void FPGA::LoadKoeffCalibration(Chan::E ch)
 {
     BUS_FPGA::WriteToHardware(ch == Chan::A ? WR_CAL_A : WR_CAL_B, STRETCH_ADC(ch) * 0x80, false);
-}
-
-
-void TShift::Load()
-{
-    static const int16 k[TBase::Count] = {50, 20, 10, 5, 2};
-    int16 tShift = TSHIFT - TShift::Min() + 1;
-    TBase::E tBase = SET_TBASE;
-
-    FPGA::addition_shift = (tShift % k[tBase]) * 2;
-
-    if ((tBase <= TBase::MAX_RAND) && 
-        ((int)tBase >= 0))
-    {
-        tShift = tShift / k[tBase] + FPGA::deltaTShift[tBase];
-    }
-
-    uint16 post = (uint16)tShift;
-    uint16 pred = (uint16)((tShift > 511) ? 1023 : (511 - post));
-
-    post = (uint16)(~post);
-    pred = (uint16)((~(pred - 1)) & 0x1ff);
-
-    BUS_FPGA::Write(WR_POST, post, true);
-    BUS_FPGA::Write(WR_PRED, pred, true);
 }
 
 

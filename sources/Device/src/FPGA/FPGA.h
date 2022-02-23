@@ -6,6 +6,7 @@
 #include "Settings/SettingsService.h"
 #include "FPGA/SettingsFPGA.h"
 #include "FPGA/TypesFPGA.h"
+#include "FPGA/StructuresFPGA.h"
 
 
 namespace FPGA

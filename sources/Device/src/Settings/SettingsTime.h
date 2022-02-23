@@ -56,7 +56,7 @@ struct ENUM_POINTS_FPGA
         _1024
     };
 
-    static int ToNumPoints(bool forCalculate);
+    static int ToNumPoints(bool forCalculate = false);
     static int ToNumBytes();
 
     static ENUM_POINTS_FPGA::E FromNumPoints(int numPoints);

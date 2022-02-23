@@ -72,6 +72,11 @@ namespace Math
         }
     }
 
+    template<class T> void Limitation(T *value, T min, T max)
+    {
+        if (*value < min) { *value = min; }
+        else if (*value > max) { *value = max; }
+    }
 }
 
 void    Math_DataExtrapolation(uint8 *data, uint8 *there, int size);
