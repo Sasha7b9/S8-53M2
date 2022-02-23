@@ -35,7 +35,7 @@ static void DrawSetName();  // Эта функция рисует, когда нужно задать имя файла 
 
 void PageMemory::OnChanged_NumPoints(bool active)
 {
-    if(ENUM_POINTS_FPGA::ToNumPoints(false) == 281)
+    if(ENUM_POINTS_FPGA::ToNumPoints() == 281)
     {
         SHIFT_IN_MEMORY = 0;
     }
@@ -47,11 +47,11 @@ void PageMemory::OnChanged_NumPoints(bool active)
         }
         else if(SET_TPOS_IS_CENTER)
         {
-            SHIFT_IN_MEMORY = ENUM_POINTS_FPGA::ToNumPoints(false) / 2 - Grid::Width() / 2;
+            SHIFT_IN_MEMORY = ENUM_POINTS_FPGA::ToNumPoints() / 2 - Grid::Width() / 2;
         }
         else if(SET_TPOS_IS_RIGHT)
         {
-            SHIFT_IN_MEMORY = ENUM_POINTS_FPGA::ToNumPoints(false) - Grid::Width() - 2;
+            SHIFT_IN_MEMORY = ENUM_POINTS_FPGA::ToNumPoints() - Grid::Width() - 2;
         }
     }
     TShift::Set(TSHIFT);

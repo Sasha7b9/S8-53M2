@@ -55,7 +55,7 @@ void FPGA::Launch::Load()
 
 uint16 FPGA::Launch::PostForWrite()
 {
-    int result = post / 2 + d_post[SET_TBASE];
+    int result = post + d_post[SET_TBASE];
 
     if (PEAKDET_IS_ENABLE)
     {
@@ -68,7 +68,7 @@ uint16 FPGA::Launch::PostForWrite()
 
 uint16 FPGA::Launch::PredForWrite()
 {
-    int result = pred / 2 + d_pred[SET_TBASE];
+    int result = pred + d_pred[SET_TBASE];
 
     if (PEAKDET_IS_ENABLE)
     {
@@ -94,7 +94,7 @@ void FPGA::Launch::Calculate()
 
 void FPGA::Launch::CalculateReal()
 {
-    int num_points = ENUM_POINTS_FPGA::ToNumPoints();
+    int num_points = ENUM_POINTS_FPGA::ToNumBytes();
 
     if (TSHIFT <= 0)
     {

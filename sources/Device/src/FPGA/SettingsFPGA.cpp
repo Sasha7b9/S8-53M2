@@ -494,7 +494,7 @@ void TrigPolarity::Set(TrigPolarity::E polarity)
 
 void TrigPolarity::Load()
 {
-    BUS_FPGA::Write(WR_TRIG, TRIG_POLARITY_IS_FRONT ? 0x01U : 0x00U, true);
+    BUS_FPGA::Write(WR_TRIG, TRIG_POLARITY_IS_FRONT ? 0x00U : 0x01U, true);
 }
 
 
@@ -611,7 +611,7 @@ void DataSettings::FillDataPointer()
     tShift = TSHIFT;
     modeCouple0 = SET_COUPLE_A;
     modeCouple1 = SET_COUPLE_B;
-    length1channel = (uint)ENUM_POINTS_FPGA::ToNumPoints(false);
+    length1channel = (uint)ENUM_POINTS_FPGA::ToNumPoints();
     trigLevCh0 = (uint)TRIG_LEVEL_A;
     trigLevCh1 = (uint)TRIG_LEVEL_B;
     peakDet = (uint)PEAKDET;

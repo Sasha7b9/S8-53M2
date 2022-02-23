@@ -401,34 +401,22 @@ float FFTmaxDB::Abs()
 }
 
 
-int ENUM_POINTS_FPGA::ToNumPoints(bool forCalculate)
+int ENUM_POINTS_FPGA::ToNumPoints()
 {
-    static const int numPoints[3][3] =
+    static const int num_points[Count] =
     {
-        {281, 512, 1024},
-        {281, 512, 512},
-        {281, 512, 512}
+        281, 512, 1024
     };
 
-    if (ENUM_POINTS_IS_1024 && forCalculate)
-    {
-        return FPGA::MAX_POINTS_FOR_CALCULATE;
-    }
-
-    return numPoints[PEAKDET][ENUM_POINTS];
+    return num_points[ENUM_POINTS];
 }
 
 
 int ENUM_POINTS_FPGA::ToNumBytes()
 {
-    int result = ToNumPoints(false);
+    int mul = PEAKDET_IS_ENABLE ? 2 : 1;
 
-    if (PEAKDET_IS_ENABLE)
-    {
-        result *= 2;
-    }
-
-    return result;
+    return ToNumPoints() * mul;
 }
 
 
