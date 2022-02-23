@@ -100,9 +100,9 @@ void FPGA::Launch::CalculateReal()
 
     pred = post = values[SET_TPOS];
 
-    pred = Math::Limitation(pred - TSHIFT, 0, 65535);
+    pred = Math::Limitation(pred - TSHIFT * 2, 0, 65535);
 
-    post = Math::Limitation(post + TSHIFT, 0, 65535);
+    post = Math::Limitation(post + TSHIFT * 2, 0, 65535);
 }
 
 

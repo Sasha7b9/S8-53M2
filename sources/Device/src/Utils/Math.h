@@ -46,8 +46,7 @@ namespace Math
     float VoltageCursor(float shiftCurU, Range::E, int16 rShift);
     float TimeCursor(float shiftCurT, TBase::E);
 
-    template<class T>
-    T Limitation(T value, T min, T max)
+    template<class T> T Limitation(T value, T min, T max)
     {
         if (value < min)      { return min; }
         else if (value > max) { return max; }
@@ -55,14 +54,12 @@ namespace Math
         return value;
     }
 
-    template<class T>
-    void Swap(T *value0, T *value1)
+    template<class T> void Swap(T *value0, T *value1)
     {
         T temp = *value0; *value0 = *value1; *value1 = temp;
     }
 
-    template<class T>
-    void Sort(T *value1, T *value2)
+    template<class T> void Sort(T *value1, T *value2)
     {
         if (*value1 > *value2)
         {
