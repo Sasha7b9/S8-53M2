@@ -877,6 +877,8 @@ float Processing::CalculatePhazaMinus(Chan::E ch)
 
 void Processing::SetSignal(uint8 *data0, uint8 *data1, DataSettings *ds, int _firstPoint, int _lastPoint)
 {
+    DEBUG_POINT_0;
+
     firstP = _firstPoint;
     lastP = _lastPoint;
     numP = lastP - firstP;
@@ -891,6 +893,8 @@ void Processing::SetSignal(uint8 *data0, uint8 *data1, DataSettings *ds, int _fi
     dataSet = ds;
 
     CountedToCurrentSettings();
+
+    DEBUG_POINT_0;
 }
 
 void Processing::GetData(uint8 **data0, uint8 **data1, DataSettings **ds)
@@ -910,7 +914,7 @@ float Processing::GetCursU(Chan::E ch, float posCurT)
 {
     int first = 0;
     int last = 0;
-    sDisplay_PointsOnDisplay(&first, &last);
+    SettingsDisplay::PointsOnDisplay(&first, &last);
 
     float retValue = 0.0f;
     LIMITATION(retValue, 200 - (dataIn[ch])[first + (int)posCurT] + ValueFPGA::MIN, 0, 200);
@@ -921,7 +925,7 @@ float Processing::GetCursT(Chan::E ch, float posCurU, int numCur)
 {
     int firstPoint = 0;
     int lastPoint = 0;
-    sDisplay_PointsOnDisplay(&firstPoint, &lastPoint);
+    SettingsDisplay::PointsOnDisplay(&firstPoint, &lastPoint);
 
     int prevData = 200 - (dataIn[ch])[firstPoint] + ValueFPGA::MIN;
 

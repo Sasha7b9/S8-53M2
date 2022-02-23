@@ -16,7 +16,7 @@ int Smoothing::ToPoints()
 }
 
 
-void sDisplay_PointsOnDisplay(int *firstPoint, int *lastPoint)
+void SettingsDisplay::PointsOnDisplay(int *firstPoint, int *lastPoint)
 {
     int numPointsOnScreen = 281;
     *firstPoint = SHIFT_IN_MEMORY;

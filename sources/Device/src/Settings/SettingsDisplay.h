@@ -227,11 +227,12 @@ struct SettingsDisplay
     LinkingRShift       linkingRShift;              // Тип привязки смещения по вертикали.
 
     static int NumAverages();
+
+    // Возвращает адрес первой и последней точки на экране.
+    static void PointsOnDisplay(int *firstPoint, int *lastPoint);
 };
 
 
-// Возвращает адрес первой и последней точки на экране.
-void sDisplay_PointsOnDisplay(int *firstPoint, int *lastPoint);
 // Возвращает время, через которое меню автоматически скрывается, если не было больше нажатий.
 int sDisplay_TimeMenuAutoHide();
 // Если экран разделён на две части и основной сигнал выводится сверху - например, в режиме вывода спектра

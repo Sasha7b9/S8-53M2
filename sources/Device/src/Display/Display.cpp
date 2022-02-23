@@ -516,7 +516,8 @@ void Display::DrawDataChannel(uint8 *data, Chan::E ch, DataSettings *ds, int min
 
     int firstPoint = 0;
     int lastPoint = 0;
-    sDisplay_PointsOnDisplay(&firstPoint, &lastPoint);
+    SettingsDisplay::PointsOnDisplay(&firstPoint, &lastPoint);
+
     if(data == dataP2P_0 || data == dataP2P_1)
     {
         if(SET_SELFRECORDER)
@@ -530,6 +531,7 @@ void Display::DrawDataChannel(uint8 *data, Chan::E ch, DataSettings *ds, int min
     }
 
     Color::SetCurrent(ColorChannel(ch));
+
     if(MODE_DRAW_IS_SIGNAL_LINES)
     {
         /*
@@ -1884,7 +1886,7 @@ void TShift::Draw()
 {
     int firstPoint = 0;
     int lastPoint = 0;
-    sDisplay_PointsOnDisplay(&firstPoint, &lastPoint);
+    SettingsDisplay::PointsOnDisplay(&firstPoint, &lastPoint);
 
     // Рисуем TPos
     int shiftTPos = TPos::InPoints(gDSet->e_points_in_channel, SET_TPOS) - SHIFT_IN_MEMORY;

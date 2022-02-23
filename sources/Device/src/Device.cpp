@@ -23,15 +23,24 @@ namespace Device
 
 void Device::Init()
 {
+    DEBUG_POINT_0;
     HAL::Init();
+    DEBUG_POINT_0;
     Sound::Init();
+    DEBUG_POINT_0;
 //    VCP::Init();
     Settings::Load(false);
+    DEBUG_POINT_0;
     FPGA::Init();
+    DEBUG_POINT_0;
     Timer::PauseOnTime(250);
+    DEBUG_POINT_0;
     FPGA::OnPressStartStop();
+    DEBUG_POINT_0;
     Display::Init();
+    DEBUG_POINT_0;
     Panel::Init();
+    DEBUG_POINT_0;
 //    FDrive::Init();
 //    HAL_RTC::Init();
 
@@ -51,19 +60,35 @@ void Device::Update()
 
     Timer::StartMultiMeasurement();      // Сброс таймера для замера длительности временных интервалов в течение одной итерации цикла.
 
+    DEBUG_POINT_0;
+
     FDrive::Update();
+
+    DEBUG_POINT_0;
 
     FPGA::Update();                      // Обновляем аппаратную часть.
 
+    DEBUG_POINT_0;
+
     ProcessingSignal();
+
+    DEBUG_POINT_0;
 
     Panel::Update();
 
+    DEBUG_POINT_0;
+
     Menu::UpdateInput();                 // Обновляем состояние меню
+
+    DEBUG_POINT_0;
 
     Display::Update();                   // Рисуем экран.
 
+    DEBUG_POINT_0;
+
     Settings::SaveIfNeed();
+
+    DEBUG_POINT_0;
 
     // LAN::Update(0);
 
@@ -73,13 +98,18 @@ void Device::Update()
 
 void Device::ProcessingSignal()
 {
+    if (Storage::NumElementsInStorage() == 0)
+    {
+        return;
+    }
+
     uint8** data0 = &gData0;
     uint8** data1 = &gData1;
     DataSettings** ds = &gDSet;
 
     int first = 0;
     int last = 0;
-    sDisplay_PointsOnDisplay(&first, &last);
+    SettingsDisplay::PointsOnDisplay(&first, &last);
 
     if (MODE_WORK_IS_DIRECT)
     {

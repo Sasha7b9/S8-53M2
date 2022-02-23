@@ -105,3 +105,4 @@ void HardwareErrorHandler(pchar file, pchar function, int line);
 
 #include "Globals.h"
 #include "Log.h"
+#include "Utils/Debug.h"
