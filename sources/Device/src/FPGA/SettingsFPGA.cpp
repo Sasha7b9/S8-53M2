@@ -551,7 +551,7 @@ int TShift::Min()
 }
 
 
-int TPos::InPoints(PeackDetMode::E peakDet, int numPoints, TPos::E tPos)
+int TPos::InPoints(PeackDetMode::E peakDet, ENUM_POINTS_FPGA::E enum_points, TPos::E tPos)
 {
     if (peakDet == PeackDetMode::Disable)
     {
@@ -561,7 +561,7 @@ int TPos::InPoints(PeackDetMode::E peakDet, int numPoints, TPos::E tPos)
             {0, 255, 511},
             {0, 512, 1022}
         };
-        return m[ENUM_POINTS_FPGA::FromNumPoints(numPoints)][tPos];
+        return m[enum_points][tPos];
     }
     else
     {
@@ -571,7 +571,7 @@ int TPos::InPoints(PeackDetMode::E peakDet, int numPoints, TPos::E tPos)
             {0, 256, 510},
             {0, 256, 510}
         };
-        return m[ENUM_POINTS_FPGA::FromNumPoints(numPoints)][tPos];
+        return m[enum_points][tPos];
     }
 }
 
@@ -605,7 +605,7 @@ void DataSettings::FillDataPointer()
     tShift = TSHIFT;
     modeCouple0 = SET_COUPLE_A;
     modeCouple1 = SET_COUPLE_B;
-    points_in_channel = (uint)ENUM_POINTS_FPGA::ToNumPoints();
+    e_points_in_channel = ENUM_POINTS;
     trigLevCh0 = (uint)TRIG_LEVEL_A;
     trigLevCh1 = (uint)TRIG_LEVEL_B;
     peakDet = (uint)PEAKDET;
@@ -625,7 +625,7 @@ int TBase::StretchRand()
 
 int DataSettings::BytesInChannel() const
 {
-    int result = (int)points_in_channel;
+    int result = PointsInChannel();
 
     if (peakDet != 0)
     {
@@ -633,4 +633,15 @@ int DataSettings::BytesInChannel() const
     }
 
     return result;
+}
+
+
+int DataSettings::PointsInChannel() const
+{
+    static const int num_points[ENUM_POINTS_FPGA::Count] =
+    {
+        281, 512, 1024
+    };
+
+    return (int)num_points[e_points_in_channel];
 }

@@ -2,6 +2,22 @@
 #include "Display/DisplayTypes.h"
 
 
+// Число точек сигнала, с которым идёт работа.
+struct ENUM_POINTS_FPGA
+{
+    enum E
+    {
+        _281,
+        _512,
+        _1024,
+        Count
+    };
+
+    static int ToNumPoints();
+    static int ToNumBytes();
+};
+
+
 // Режим работы пикового детектора.
 struct PeackDetMode
 {
@@ -28,7 +44,7 @@ struct TPos
     };
 
     // Узнать привязку отсительно уровня синхронизации в точках.
-    static int InPoints(PeackDetMode::E peakDet, int numPoints, TPos::E tPos);
+    static int InPoints(PeackDetMode::E, ENUM_POINTS_FPGA::E, TPos::E);
 };
 
 
@@ -293,28 +309,28 @@ struct PackedTime
 
 struct DataSettings
 {
-    void*         addrNext;                 // Адрес следующей записи.
-    void*         addrPrev;                 // Адрес предыдущей записи.
-    uint          rShiftCh0         : 10;    // Смещение по напряжению
-    uint          rShiftCh1         : 10;
-    uint          trigLevCh0        : 10;    // Уровень синхронизации
-    int           tShift;                   // Смещение по времени
-    ModeCouple::E modeCouple1       : 2;
-    Range::E      range[2];                 // Масштаб по напряжению обоих каналов.
+    void*               addrNext;                     // Адрес следующей записи.
+    void*               addrPrev;                     // Адрес предыдущей записи.
+    uint                rShiftCh0           : 10;     // Смещение по напряжению
+    uint                rShiftCh1           : 10;
+    uint                trigLevCh0          : 10;     // Уровень синхронизации
+    int                 tShift;                       // Смещение по времени
+    ModeCouple::E       modeCouple1         : 2;
+    Range::E            range[2];                     // Масштаб по напряжению обоих каналов.
 
-    uint          trigLevCh1        : 10;
-    uint          points_in_channel : 11;    // Точек в канале
-    TBase::E      tBase             : 5;     // Масштаб по времени
-    ModeCouple::E modeCouple0       : 2;     // Режим канала по входу
-    uint          peakDet           : 2;     // Включен ли пиковый детектор
-    uint          enableCh0         : 1;     // Включён ли канал 0
-    uint          enableCh1         : 1;     // Включен ли канал 1
+    uint                trigLevCh1          : 10;
+    ENUM_POINTS_FPGA::E e_points_in_channel : 2;      // Точек в канале
+    TBase::E            tBase               : 5;      // Масштаб по времени
+    ModeCouple::E       modeCouple0         : 2;      // Режим канала по входу
+    uint                peakDet             : 2;      // Включен ли пиковый детектор
+    uint                enableCh0           : 1;      // Включён ли канал 0
+    uint                enableCh1           : 1;      // Включен ли канал 1
 
-    uint          inverseCh0        : 1;
-    uint          inverseCh1        : 1;
-    Divider::E    multiplier0       : 1;
-    Divider::E    multiplier1       : 1;
-    PackedTime    time;
+    uint                inverseCh0          : 1;
+    uint                inverseCh1          : 1;
+    Divider::E          multiplier0         : 1;
+    Divider::E          multiplier1         : 1;
+    PackedTime          time;
 
     void PrintElement();
 
@@ -324,4 +340,6 @@ struct DataSettings
     void FillDataPointer();
 
     int BytesInChannel() const;
+
+    int PointsInChannel() const;
 };

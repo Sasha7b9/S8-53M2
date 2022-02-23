@@ -46,24 +46,6 @@ enum SampleType
 };
 
 
-// Число точек сигнала, с которым идёт работа.
-struct ENUM_POINTS_FPGA
-{
-    enum E
-    {
-        _281,
-        _512,
-        _1024,
-        Count
-    };
-
-    static int ToNumPoints();
-    static int ToNumBytes();
-
-    static ENUM_POINTS_FPGA::E FromNumPoints(int numPoints);
-};
-
-
 // Настройки оси X.
 struct SettingsTime
 { //-V802

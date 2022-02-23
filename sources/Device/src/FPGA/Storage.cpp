@@ -181,7 +181,7 @@ int Storage::AllDatas()
 
 void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
 {
-    uint numElements = (uint)dss->points_in_channel;
+    uint numElements = (uint)dss->PointsInChannel();
 
     if(NumElementsInStorage() == 0 || NUM_MIN_MAX == 1 || (!SettingsIsEquals(dss, GetSettingsDataFromEnd(0))))
     {
@@ -502,7 +502,7 @@ void Storage::PushData(DataSettings *dp, uint8 *data0, uint8 *data1)
 
     COPY_AND_INCREASE(addrRecord, dp, sizeof(DataSettings));
 
-    uint length = dp->points_in_channel;
+    uint length = (uint)dp->PointsInChannel();
 
     if(dp->enableCh0 == 1)
     {

@@ -418,17 +418,3 @@ int ENUM_POINTS_FPGA::ToNumBytes()
 
     return ToNumPoints() * mul;
 }
-
-
-ENUM_POINTS_FPGA::E ENUM_POINTS_FPGA::FromNumPoints(int numPoints)
-{
-    if (numPoints == 1024)
-    {
-        return ENUM_POINTS_FPGA::_1024;
-    }
-    else if (numPoints == 512)
-    {
-        return ENUM_POINTS_FPGA::_512;
-    }
-    return ENUM_POINTS_FPGA::_281;
-}

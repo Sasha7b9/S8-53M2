@@ -383,7 +383,7 @@ void Display::DrawSignalLined(const uint8 *data, const DataSettings *ds, int sta
     }
     else
     {
-        int shift = (int)ds->points_in_channel;
+        int shift = (int)ds->PointsInChannel();
 
         int yMinNext = -1;
         int yMaxNext = -1;
@@ -1124,7 +1124,7 @@ void Display::DrawMemoryWindow()
             const uint8 *dataFirst = LAST_AFFECTED_CHANNEL_IS_A ? dat1 : dat0;
             const uint8 *dataSecond = LAST_AFFECTED_CHANNEL_IS_A ? dat0 : dat1;
 
-            int shiftForPeakDet = (ds->peakDet == PeackDetMode::Disable) ? 0 : (int)ds->points_in_channel;
+            int shiftForPeakDet = (ds->peakDet == PeackDetMode::Disable) ? 0 : ds->PointsInChannel();
 
             if (ChannelNeedForDraw(dataFirst, chanFirst, ds))
             {
@@ -1158,8 +1158,8 @@ void Display::DrawMemoryWindow()
     float scale = (float)(rightX - leftX + 1) / ((float)ENUM_POINTS_FPGA::ToNumPoints() -
         (ENUM_POINTS_FPGA::ToNumPoints() == 281 ? 1 : 0));
 
-    float xShift = 1 + (TPos::InPoints((PeackDetMode::E)gDSet->peakDet,
-        (int)gDSet->points_in_channel, SET_TPOS) - gDSet->tShift) * scale;
+    float xShift = 1 + (TPos::InPoints((PeackDetMode::E)gDSet->peakDet, gDSet->e_points_in_channel, SET_TPOS) -
+        gDSet->tShift) * scale;
     
     if(xShift < leftX - 2)
     {
@@ -1888,7 +1888,7 @@ void TShift::Draw()
     sDisplay_PointsOnDisplay(&firstPoint, &lastPoint);
 
     // Рисуем TPos
-    int shiftTPos = TPos::InPoints((PeackDetMode::E)gDSet->peakDet, (int)gDSet->points_in_channel, SET_TPOS) - SHIFT_IN_MEMORY;
+    int shiftTPos = TPos::InPoints((PeackDetMode::E)gDSet->peakDet, gDSet->e_points_in_channel, SET_TPOS) - SHIFT_IN_MEMORY;
     float scale = (float)(lastPoint - firstPoint) / Grid::Width();
     int gridLeft = Grid::Left();
     int x = (int)(gridLeft + shiftTPos * scale - 3);
@@ -1899,7 +1899,7 @@ void TShift::Draw()
     };
 
     // Рисуем tShift
-    int shiftTShift = TPos::InPoints((PeackDetMode::E)gDSet->peakDet, (int)gDSet->points_in_channel, SET_TPOS) - gDSet->tShift;
+    int shiftTShift = TPos::InPoints((PeackDetMode::E)gDSet->peakDet, gDSet->e_points_in_channel, SET_TPOS) - gDSet->tShift;
 
     if(IntInRange(shiftTShift, firstPoint, lastPoint))
     {
