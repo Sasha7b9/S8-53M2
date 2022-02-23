@@ -779,7 +779,7 @@ static const Governor mgRandomizer_AltTShift0
     "tShift доп.", "tShift alt.",
     "",
     "",
-    &ADD_SHIFT_T0, 0, 510, OnChanged_Randomizer_AltTShift0
+    (int16 *)&ADD_SHIFT_T0, 0, 510, OnChanged_Randomizer_AltTShift0
 );
 
 static void OnChanged_Randomizer_AltTShift0()

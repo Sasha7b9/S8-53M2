@@ -67,7 +67,7 @@ struct ENUM_POINTS_FPGA
 struct SettingsTime
 { //-V802
     TBase::E            tBase;          // Масштаб по времени.
-    int16               tShiftRel;      // Смещение по времени.
+    int                 tShiftRel;      // Смещение по времени.
     FunctionTime        timeDivXPos;
     TPos::E             tPos;           // Привязка синхронизации к памяти.
     SampleType          sampleType;     // Тип выборки для режима рандомизатора.

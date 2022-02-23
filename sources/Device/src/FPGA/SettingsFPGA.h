@@ -41,16 +41,16 @@ struct TShift
     static void Set(int);
 
     // Установить добавочное смещение по времени для режима рандомизатора. В каждой развёртке это смещение должно быть разное.
-    static void SetDelta(int16);
+    static void SetDelta(int);
 
     // Возвращает установленное смещение по времени в текстовом виде, пригодном для вывода на экран.
-    static pchar ToString(int16 tShiftRel, char buffer[20]);
+    static pchar ToString(int tShiftRel, char buffer[20]);
 
     // Смещение по времени, соответствующее позиции TPos.
-    static int16 Zero();
+    static int Zero();
 
     // Минимальное смещение по времени, которое может быть записано в аппаратную часть.
-    static int16 Min();
+    static int Min();
 
     // Смещение по времени в точках экрана. Т.к. на канал у нас работают два АЦП поочерёдно, это значение отличается от
     // засылаемого в аппаратную часть в два раза.
@@ -303,7 +303,7 @@ struct DataSettings
     uint          rShiftCh0       : 10;   // Смещение по напряжению
     uint          rShiftCh1       : 10;
     uint          trigLevCh0      : 10;   // Уровень синхронизации
-    int16         tShift;                 // Смещение по времени
+    int           tShift;                 // Смещение по времени
     ModeCouple::E modeCouple1     : 2;
     Range::E      range[2];               // Масштаб по напряжению обоих каналов.
 

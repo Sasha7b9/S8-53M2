@@ -16,7 +16,7 @@ StateWorkFPGA::E StateWorkFPGA::current = StateWorkFPGA::Stop;
 namespace FPGA
 {
     // Добавочные смещения по времени для разверёток режима рандомизатора.
-    int16 deltaTShift[TBase::Count] = {505, 489, 464, 412, 258};
+    int deltaTShift[TBase::Count] = {505, 489, 464, 412, 258};
 
     extern int addition_shift;
 
@@ -377,7 +377,7 @@ void TShift::Set(int tShift)
 };
 
 
-void TShift::SetDelta(int16 shift)
+void TShift::SetDelta(int shift)
 {
     FPGA::deltaTShift[SET_TBASE] = shift;
 
@@ -433,7 +433,7 @@ void FPGA::LoadKoeffCalibration(Chan::E ch)
 }
 
 
-pchar TShift::ToString(int16 tShiftRel, char buffer[20])
+pchar TShift::ToString(int tShiftRel, char buffer[20])
 {
     float tShiftVal = TSHIFT_2_ABS(tShiftRel, SET_TBASE);
     return Time2String(tShiftVal, true, buffer);
@@ -526,13 +526,13 @@ bool TBase::InRandomizeMode()
 }
 
 
-int16 TShift::Zero()
+int TShift::Zero()
 {
     return -Min();
 }
 
 
-int16 TShift::Min()
+int TShift::Min()
 {
     static const int16 m[3][3] =
     {

@@ -18,7 +18,7 @@ uint16 FPGA::Reader::CalculateAddressRead()
 {
     int shift = TBase::InRandomizeMode() ?
         ENUM_POINTS_FPGA::ToNumBytes() / TBase::StepRand() :
-        ENUM_POINTS_FPGA::ToNumBytes() / 2;
+        ENUM_POINTS_FPGA::ToNumBytes();
 
     int result = HAL_FMC::Read(RD_ADDR_LAST_RECORD) - shift;
 
