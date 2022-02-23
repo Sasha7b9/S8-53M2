@@ -98,17 +98,6 @@ void FPGA::Launch::CalculateReal()
 
     pred = num_points / 2 - TSHIFT;
     post = num_points / 2 + TSHIFT;
-
-//    if (TSHIFT <= 0)
-//    {
-//        pred = num_points / 2 - TSHIFT;
-//        post = num_points / 2 + TSHIFT;
-//    }
-//    else
-//    {
-//        pred = num_points / 2 + TSHIFT;
-//        post = num_points / 2 - TSHIFT;
-//    }
 }
 
 
