@@ -54,6 +54,7 @@ void PageMemory::OnChanged_NumPoints(bool active)
             SHIFT_IN_MEMORY = ENUM_POINTS_FPGA::ToNumPoints() - Grid::Width() - 2;
         }
     }
+
     TShift::Set(TSHIFT);
 }
 

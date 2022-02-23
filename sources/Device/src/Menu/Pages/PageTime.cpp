@@ -111,8 +111,7 @@ void OnChanged_PeakDet(bool active)
         else if (PEAKDET_IS_ENABLE)
         {
             int centerX = SHIFT_IN_MEMORY + Grid::Width() / 2;
-            LIMITATION(SHIFT_IN_MEMORY, centerX / 2 - Grid::Width() / 2, 0,
-                ENUM_POINTS_FPGA::ToNumPoints() - Grid::Width());
+            LIMITATION(SHIFT_IN_MEMORY, centerX / 2 - Grid::Width() / 2, 0, ENUM_POINTS_FPGA::ToNumPoints() - Grid::Width());
             PageMemory::OnChanged_NumPoints(true);
         }
     }

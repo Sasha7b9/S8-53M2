@@ -385,8 +385,6 @@ void Display::DrawSignalLined(const uint8 *data, const DataSettings *ds, int sta
     {
         int shift = (int)ds->PointsInChannel();
 
-        LOG_WRITE("shift = %d", shift);
-
         int yMinNext = -1;
         int yMaxNext = -1;
        
