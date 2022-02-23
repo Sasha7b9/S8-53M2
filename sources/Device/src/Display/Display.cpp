@@ -63,12 +63,13 @@ namespace Display
     void DrawCursorsWindow();
 
     void DrawCursorsRShift();
+
     // Нарисовать маркеры смещения по напряжению
     void DrawCursorRShift(Chan::E ch);
+
     // Нарисовать маркер уровня синхронизации.
     void DrawCursorTrigLevel();
-    // Нарисовать маркер смещения по времени.
-    void DrawCursorTShift();
+
     // Написать информацию под сеткой - в нижней части дисплея.
     void DrawLowPart();
 
@@ -1158,7 +1159,7 @@ void Display::DrawMemoryWindow()
         (ENUM_POINTS_FPGA::ToNumPoints() == 281 ? 1 : 0));
 
     float xShift = 1 + (TPos::InPoints((PeackDetMode::E)gDSet->peakDet,
-        (int)gDSet->points_in_channel, SET_TPOS) - TShift::InPoints((PeackDetMode::E)gDSet->peakDet)) * scale;
+        (int)gDSet->points_in_channel, SET_TPOS) - gDSet->tShift) * scale;
     
     if(xShift < leftX - 2)
     {
@@ -1408,7 +1409,7 @@ void Display::Update(bool endScene)
         DrawCursorsRShift();
         DrawMeasures();
         DrawStringNavigation();
-        DrawCursorTShift();
+        TShift::Draw();
     }
     
     Menu::Draw();
@@ -1880,7 +1881,7 @@ void Display::DrawCursorRShift(Chan::E ch)
 }
 
 
-void Display::DrawCursorTShift()
+void TShift::Draw()
 {
     int firstPoint = 0;
     int lastPoint = 0;
@@ -1898,8 +1899,7 @@ void Display::DrawCursorTShift()
     };
 
     // Рисуем tShift
-    int shiftTShift = TPos::InPoints((PeackDetMode::E)gDSet->peakDet, (int)gDSet->points_in_channel, SET_TPOS) -
-        TShift::InPoints((PeackDetMode::E)gDSet->peakDet);
+    int shiftTShift = TPos::InPoints((PeackDetMode::E)gDSet->peakDet, (int)gDSet->points_in_channel, SET_TPOS) - gDSet->tShift;
 
     if(IntInRange(shiftTShift, firstPoint, lastPoint))
     {

@@ -551,12 +551,6 @@ int TShift::Min()
 }
 
 
-int TShift::InPoints(PeackDetMode::E peakDet)
-{
-    return TSHIFT * (peakDet == PeackDetMode::Disable ? 2 : 1);
-}
-
-
 int TPos::InPoints(PeackDetMode::E peakDet, int numPoints, TPos::E tPos)
 {
     if (peakDet == PeackDetMode::Disable)
@@ -631,7 +625,7 @@ int TBase::StretchRand()
 
 int DataSettings::BytesInChannel() const
 {
-    int result = points_in_channel;
+    int result = (int)points_in_channel;
 
     if (peakDet != 0)
     {

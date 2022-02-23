@@ -458,7 +458,7 @@ void FPGA::ReadRealMode(bool necessaryShift)
     uint8 *p1 = &dataRel1[0];
     uint8 *endP = &dataRel0[FPGA::MAX_POINTS];
 
-    if (ds.peakDet != PeackDetMode::Disable)
+    if (ds.peakDet == PeackDetMode::Enable)
     {
         uint8 *p0min = p0;
         uint8 *p0max = p0min + 512;
