@@ -2,6 +2,7 @@
 #include "defines.h"
 #include "Log.h"
 #include "Utils/Containers/Buffer.h"
+#include "Utils/GlobalFunctions.h"
 #include <cstdlib>
 #include <cstring>
 
@@ -11,6 +12,7 @@ template        Buffer<uint8>::~Buffer();
 template void   Buffer<uint8>::Fill(uint8);
 template void   Buffer<uint8>::Realloc(int);
 template uint8 &Buffer<uint8>::operator[](int) const;
+template void   Buffer<uint8>::Log() const;
 
 
 template<class T>
@@ -142,4 +144,22 @@ Buffer<T> &Buffer<T>::operator=(const Buffer<T> &rhs)
     std::memcpy(data, rhs.data, (uint)Size());
 
     return *this;
+}
+
+
+template<class T>
+void Buffer<T>::Log() const
+{
+    char buffer[1024];
+    char buffer_number[20];
+
+    buffer[0] = '\0';
+
+    for (int i = 0; i < Size(); i++)
+    {
+        std::strcat(buffer, Int2String(data[i], false, 1, buffer_number));
+        std::strcat(buffer, " ");
+    }
+
+    LOG_WRITE(buffer);
 }

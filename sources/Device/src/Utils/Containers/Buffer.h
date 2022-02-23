@@ -40,6 +40,8 @@ public:
     T &operator[](uint i) const;
     T &operator[](int i) const;
 
+    void Log() const;
+
 private:
 
     int size;
