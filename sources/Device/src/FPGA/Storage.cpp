@@ -124,18 +124,26 @@ void Storage::CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *d
 
     if (numAveData == 1)
     {
+        DEBUG_POINT_0;
+
         for (int i = 0; i < size; i++)
         {
             aveData0[i] = data0[i];
             aveData1[i] = data1[i];
         }
+
+        DEBUG_POINT_0;
     }
     else
     {
+        DEBUG_POINT_0;
         if (numAveData > SettingsDisplay::NumAverages())
         {
             numAveData = SettingsDisplay::NumAverages();
         }
+
+        DEBUG_POINT_0;
+
         float numAveDataF = numAveData;
         float numAveDataFless = numAveDataF - 1.0f;
         float numAveDataInv = 1.0f / numAveDataF;
@@ -145,6 +153,8 @@ void Storage::CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *d
         uint8* d1 = &data1[0];
         float* endData = &aveData0[size];
 
+        DEBUG_POINT_0;
+
         do 
         {
             *aData0 = ((*aData0) * numAveDataFless + (float)(*d0++)) * numAveDataInv;
@@ -152,6 +162,8 @@ void Storage::CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *d
             *aData1 = ((*aData1) * numAveDataFless + (float)(*d1++)) * numAveDataInv;
             aData1++;
         } while (aData0 != endData);
+
+        DEBUG_POINT_0;
     }
 
     DEBUG_POINT_0;
@@ -205,7 +217,7 @@ void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
 {
     DEBUG_POINT_0;
 
-    uint numElements = (uint)dss->BytesInChannel();
+    uint numElements = (uint)dss->points_in_channel;
 
     DEBUG_POINT_0;
 
@@ -246,6 +258,7 @@ void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
         {
             const uint8 *dataA = GetData(Chan::A, numData);
             const uint8 *dataB = GetData(Chan::B, numData);
+
             for(uint i = 0; i < numElements; i++)
             {
                 if(dataA[i] < limitDown[0][i])  limitDown[0][i] = dataA[i];
