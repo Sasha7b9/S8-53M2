@@ -109,8 +109,7 @@ static const Settings defaultSettings =
         TPos::Center,
         SampleType_Equal,
         PeackDetMode::Disable,
-        false,
-        ENUM_POINTS_FPGA::_1024
+        false
     },
     // cursors
     {

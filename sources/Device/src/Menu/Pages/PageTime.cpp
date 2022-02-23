@@ -106,7 +106,6 @@ void OnChanged_PeakDet(bool active)
         {
             int centerX = SHIFT_IN_MEMORY + Grid::Width() / 2;
             SHIFT_IN_MEMORY = centerX * 2 - Grid::Width() / 2;
-            ENUM_POINTS = set.time.oldNumPoints;
             PageMemory::OnChanged_NumPoints(true);
         }
         else if (PEAKDET_IS_ENABLE)
