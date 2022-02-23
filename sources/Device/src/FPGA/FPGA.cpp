@@ -225,10 +225,13 @@ void FPGA::Start()
         Timer::Disable(TypeTimer::P2P);
         Display::ResetP2Ppoints(true);
     }
+
+    HAL_FMC::Write(WR_PRED, FPGA::Launch::PredForWrite());
     HAL_FMC::Write(WR_START, 1);
     ds.FillDataPointer();
     timeStart = TIME_MS;
     StateWorkFPGA::SetCurrent(StateWorkFPGA::Wait);
+
     FPGA_CRITICAL_SITUATION = 0;
 }
 
@@ -441,8 +444,8 @@ void FPGA::ReadRandomizeMode()
 
 void FPGA::ReadRealMode(bool necessaryShift)
 {
-    BUS_FPGA::Write(WR_PRED, Reader::CalculateAddressRead(), false);
-    BUS_FPGA::Write(WR_ADDR_READ, 0xffff, false);
+    HAL_FMC::Write(WR_PRED, Reader::CalculateAddressRead());
+    HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
     uint8 *p0 = &dataRel0[0];
     uint8 *p1 = &dataRel1[0];

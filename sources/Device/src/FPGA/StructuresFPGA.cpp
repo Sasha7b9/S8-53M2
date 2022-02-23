@@ -35,8 +35,7 @@ namespace FPGA
 
         void CalculateRandomize();
 
-        // Возвращают значения, готовые для записи в ПЛИС
-        uint16 PredForWrite();
+        // Возвращают значение, готовое для записи в ПЛИС
         uint16 PostForWrite();
     }
 }
@@ -48,8 +47,8 @@ void FPGA::Launch::Load()
     {
         Calculate();
 
-        BUS_FPGA::Write(WR_POST, PostForWrite(), false);
-        BUS_FPGA::Write(WR_PRED, PredForWrite(), false);
+        HAL_FMC::Write(WR_POST, PostForWrite());
+        HAL_FMC::Write(WR_PRED, PredForWrite());
     }
 }
 
