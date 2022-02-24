@@ -469,20 +469,17 @@ int Storage::NumberAvailableEntries()
 }
 
 
-#define COPY_AND_INCREASE(address, data, length)    \
-    memcpy((address), (data), (length));       \
-    address += (length);
-
-
 void Storage::PushData(DataSettings *dp, uint8 *data0, uint8 *data1)
 {
     int required = dp->SizeElem();
+
     while(MemoryFree() < required)
     {
         RemoveFirstElement();
     }
 
     uint8* addrRecord = 0;
+
     if(firstElem == 0)
     {
         firstElem = (DataSettings*)beginPool;
@@ -493,10 +490,12 @@ void Storage::PushData(DataSettings *dp, uint8 *data0, uint8 *data1)
     else
     {
         addrRecord = (uint8*)lastElem + lastElem->SizeElem();
+
         if(addrRecord + dp->SizeElem() > endPool)
         {
             addrRecord = beginPool;
         }
+
         dp->addrPrev = lastElem;
         lastElem->addrNext = addrRecord;
         dp->addrNext = 0;
@@ -504,25 +503,19 @@ void Storage::PushData(DataSettings *dp, uint8 *data0, uint8 *data1)
 
     lastElem = (DataSettings*)addrRecord;
 
+#define COPY_AND_INCREASE(address, data, length) memcpy((address), (data), (length)); address += (length);
+
     COPY_AND_INCREASE(addrRecord, dp, sizeof(DataSettings));
 
-    uint length = (uint)dp->PointsInChannel();
+    uint bytes_in_channel = (uint)dp->BytesInChannel();
 
     if(dp->enableCh0 == 1)
     {
-        COPY_AND_INCREASE(addrRecord, data0, length);
-        if (dp->peakDet != PeackDetMode::Disable)
-        {
-            COPY_AND_INCREASE(addrRecord, data0 + 512, length);
-        }
+        COPY_AND_INCREASE(addrRecord, data0, bytes_in_channel);
     }
     if(dp->enableCh1 == 1)
     {
-        COPY_AND_INCREASE(addrRecord, data1, length);
-        if (dp->peakDet != PeackDetMode::Disable)
-        {
-            COPY_AND_INCREASE(addrRecord, data1 + 512, length);
-        }
+        COPY_AND_INCREASE(addrRecord, data1, bytes_in_channel);
     }
 }
 

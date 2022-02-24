@@ -1,8 +1,12 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Strings.h"
+#include "Utils/GlobalFunctions.h"
 #include <cctype>
 #include <cstring>
+
+
+template void SU::LogBuffer<uint8>(const uint8 *buffer, int num);
 
 
 static bool ChooseSymbols(const uint8 **string);    // Возвращает false, если выбор невозможен - строка кончилась.

@@ -4,6 +4,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Settings/Settings.h"
 #include "FPGA/Storage.h"
+#include "FPGA/SettingsFPGA.h"
 #include "Utils/ProcessingSignal.h"
 #include "VCP/VCP.h"
 #include "Hardware/Timer.h"
@@ -13,6 +14,7 @@
 #include "Panel/Panel.h"
 #include "FDrive/FDrive.h"
 #include "Menu/Pages/Definition.h"
+#include "Utils/Strings.h"
 
 
 namespace Device
@@ -114,6 +116,7 @@ void Device::ProcessingSignal()
     if (MODE_WORK_IS_DIRECT)
     {
         Storage::GetDataFromEnd(0, &Storage::gDSet, &Storage::dataA, &Storage::dataB);
+
         if (SettingsDisplay::NumAverages() != 1 || TBase::InRandomizeMode())
         {
             Storage::dataA = Storage::GetAverageData(Chan::A);
