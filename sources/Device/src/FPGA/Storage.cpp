@@ -23,7 +23,7 @@ namespace Storage
     DataSettings *dsLast = nullptr;
 
     uint8        *dataIntA = nullptr;
-    uint8        *gData1memInt = nullptr;
+    uint8        *dataIntB = nullptr;
     DataSettings *gDSmemInt = nullptr;
 
 

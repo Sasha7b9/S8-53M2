@@ -133,9 +133,9 @@ void Device::ProcessingSignal()
     else if (MODE_WORK_IS_MEMINT)
     {
         data0 = &Storage::dataIntA;
-        data1 = &Storage::gData1memInt;
+        data1 = &Storage::dataIntB;
         ds = &Storage::gDSmemInt;
-        HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::gDSmemInt, &Storage::dataIntA, &Storage::gData1memInt);
+        HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::gDSmemInt, &Storage::dataIntA, &Storage::dataIntB);
     }
 
     if (MODE_WORK_IS_MEMINT)
