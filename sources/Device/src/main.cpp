@@ -5,11 +5,7 @@
 
 int main()
 {
-    DEBUG_POINT_0;
-
     Device::Init();
-
-    DEBUG_POINT_0;
 
     while(1)
     {

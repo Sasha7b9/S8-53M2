@@ -877,8 +877,6 @@ float Processing::CalculatePhazaMinus(Chan::E ch)
 
 void Processing::SetSignal(uint8 *data0, uint8 *data1, DataSettings *ds, int _firstPoint, int _lastPoint)
 {
-    DEBUG_POINT_0;
-
     firstP = _firstPoint;
     lastP = _lastPoint;
     numP = lastP - firstP;
@@ -893,8 +891,6 @@ void Processing::SetSignal(uint8 *data0, uint8 *data1, DataSettings *ds, int _fi
     dataSet = ds;
 
     CountedToCurrentSettings();
-
-    DEBUG_POINT_0;
 }
 
 void Processing::GetData(uint8 **data0, uint8 **data1, DataSettings **ds)
