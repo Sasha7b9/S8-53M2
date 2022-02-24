@@ -50,7 +50,7 @@ namespace Storage
 
     //  опирует данные канала chan из, определ€емые ds, в одну из двух строк массива dataImportRel. ¬озвращаемое
     // значение false означает, что данный канал выключен.
-    static bool CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[FPGA::MAX_POINTS * 2]);
+    static bool CopyData(DataSettings *ds, Chan::E ch, Buffer<uint8> &datatImportRel);
 
     static void CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *dss);
 
@@ -375,14 +375,14 @@ bool Storage::GetDataFromEnd(int fromEnd, DataSettings **ds, uint8 **data0, uint
 
     if(data0 != 0)
     {
-        *data0 = CopyData(dp, Chan::A, dataImportRel[ChA].Data()) ?  dataImportRel[ChA].Data() : nullptr;
+        *data0 = CopyData(dp, Chan::A, dataImportRel[ChA]) ?  dataImportRel[ChA].Data() : nullptr;
     }
     
     size = dataImportRel[ChA].Size();
 
     if(data1 != 0)
     {
-        *data1 = CopyData(dp, Chan::B, dataImportRel[ChB].Data()) ? dataImportRel[ChB].Data() : nullptr;
+        *data1 = CopyData(dp, Chan::B, dataImportRel[ChB]) ? dataImportRel[ChB].Data() : nullptr;
     }
     
     size = dataImportRel[ChA].Size();
@@ -397,7 +397,7 @@ bool Storage::GetDataFromEnd(int fromEnd, DataSettings **ds, uint8 **data0, uint
 
 uint8* Storage::GetData(Chan::E ch, int fromEnd)
 {
-    static uint8 dataImport[2][FPGA::MAX_POINTS * 2];
+    static Buffer<uint8> dataImport[Chan::Count];
 
     DataSettings* dp = FromEnd(fromEnd);
 
@@ -406,11 +406,17 @@ uint8* Storage::GetData(Chan::E ch, int fromEnd)
         return 0;
     }
 
-    return CopyData(dp, ch, &dataImport[ch][0]) ? &dataImport[ch][0] : nullptr;
+    if (dataImport[ChA].Size() != dp->BytesInChannel())
+    {
+        dataImport[ChA].Realloc(dp->BytesInChannel());
+        dataImport[ChB].Realloc(dp->BytesInChannel());
+    }
+
+    return CopyData(dp, ch, dataImport[ch]) ? dataImport[ch].Data() : nullptr;
 }
 
 
-bool Storage::CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[FPGA::MAX_POINTS * 2])
+bool Storage::CopyData(DataSettings *ds, Chan::E ch, Buffer<uint8> &datatImportRel)
 {
     if((ch == Chan::A && ds->enableCh0 == 0) || (ch == Chan::B && ds->enableCh1 == 0))
     {
@@ -426,7 +432,7 @@ bool Storage::CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[FPGA::
         address += length;
     }
 
-    memcpy(datatImportRel, address, length);
+    memcpy(datatImportRel.Data(), address, length);
 
     return true;
 }
