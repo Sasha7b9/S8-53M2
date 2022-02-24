@@ -7,6 +7,7 @@
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"
 #include "Hardware/HAL/HAL.h"
+#include "Utils/Strings.h"
 #include <string.h>
 
 
@@ -46,8 +47,9 @@ namespace Storage
 
     static DataSettings* GetSettingsDataFromEnd(int fromEnd);
 
-    //  опирует данные канала chan из, определ€емые ds, в одну из двух строк массива dataImportRel. ¬озвращаемое значение false означает, что данный канал выключен.
-    static bool CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[Chan::Count][FPGA::MAX_POINTS]);
+    //  опирует данные канала chan из, определ€емые ds, в одну из двух строк массива dataImportRel. ¬озвращаемое
+    // значение false означает, что данный канал выключен.
+    static bool CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[FPGA::MAX_POINTS]);
 
     static void CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *dss);
 
@@ -168,6 +170,15 @@ void Storage::AddData(uint8 *data0, uint8 *data1, DataSettings dss)
     CalculateLimits(data0, data1, &dss);
 
     PushData(&dss, data0, data1);
+
+    DataSettings *d_s = nullptr;
+    uint8 *dA = nullptr;
+    uint8 *dB = nullptr;
+
+    GetDataFromEnd(0, &d_s, &dA, &dB);
+
+    SU::LogBuffer(dA, 10);
+    SU::LogBuffer(dA + ENUM_POINTS_FPGA::ToNumPoints(), 10);
 
     CalculateSums();
 
@@ -341,6 +352,7 @@ bool Storage::GetDataFromEnd(int fromEnd, DataSettings **ds, uint8 **data0, uint
     static uint8 dataImportRel[2][FPGA::MAX_POINTS];
 
     DataSettings* dp = FromEnd(fromEnd);
+
     if(dp == 0)
     {
         return false;
@@ -348,12 +360,14 @@ bool Storage::GetDataFromEnd(int fromEnd, DataSettings **ds, uint8 **data0, uint
 
     if(data0 != 0)
     {
-        *data0 = CopyData(dp, Chan::A, dataImportRel) ?  &dataImportRel[0][0] : 0;
+        *data0 = CopyData(dp, Chan::A, &dataImportRel[ChA][0]) ?  &dataImportRel[ChA][0] : nullptr;
     }
+
     if(data1 != 0)
     {
-        *data1 = CopyData(dp, Chan::B, dataImportRel) ? &dataImportRel[1][0] : 0;
+        *data1 = CopyData(dp, Chan::B, &dataImportRel[ChB][0]) ? &dataImportRel[ChB][0] : nullptr;
     }
+
     *ds = dp;
     
     return true;
@@ -363,23 +377,25 @@ bool Storage::GetDataFromEnd(int fromEnd, DataSettings **ds, uint8 **data0, uint
 uint8* Storage::GetData(Chan::E ch, int fromEnd)
 {
     static uint8 dataImportRel[2][FPGA::MAX_POINTS];
+
     DataSettings* dp = FromEnd(fromEnd);
+
     if(dp == 0)
     {
         return 0;
     }
 
-    return CopyData(dp, ch, dataImportRel) ? &dataImportRel[ch][0] : 0;
+    return CopyData(dp, ch, &dataImportRel[ch][0]) ? &dataImportRel[ch][0] : nullptr;
 }
 
 
-bool Storage::CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[Chan::Count][FPGA::MAX_POINTS])
+bool Storage::CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[FPGA::MAX_POINTS])
 {
     if((ch == Chan::A && ds->enableCh0 == 0) || (ch == Chan::B && ds->enableCh1 == 0))
     {
         return false;
     }
-    uint8* pointer = (ch == Chan::A) ? (&datatImportRel[0][0]) : (&datatImportRel[1][0]);
+    uint8 *pointer = datatImportRel;
 
     uint8* address = ((uint8*)ds + sizeof(DataSettings));
 
