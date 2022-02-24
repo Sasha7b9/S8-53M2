@@ -14,12 +14,14 @@
 
 namespace Storage
 {
-    uint8 *dataA = nullptr;
-    uint8 *dataB = nullptr;
+    uint8        *dataA = nullptr;
+    uint8        *dataB = nullptr;
     DataSettings *DS = nullptr;
 
-    uint8 *gData0memLast = nullptr;
-    uint8 *gData1memLast = nullptr;
+    uint8        *gData0memLast = nullptr;
+    uint8        *gData1memLast = nullptr;
+    DataSettings *gDSmemLast = nullptr;
+
 
     static void CalculateSums();
 

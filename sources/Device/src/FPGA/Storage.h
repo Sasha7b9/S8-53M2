@@ -45,4 +45,5 @@ namespace Storage
 
     extern uint8        *gData0memLast;
     extern uint8        *gData1memLast;
+    extern DataSettings *gDSmemLast;
 };
