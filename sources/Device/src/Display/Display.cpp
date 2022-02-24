@@ -740,10 +740,10 @@ void Display::DrawBothChannels(uint8 *data0, uint8 *data1)
 
 void Display::DrawDataMemInt()
 {
-    if(gDSmemInt != 0)
+    if(Storage::gDSmemInt != 0)
      {
-        DrawDataChannel(gData0memInt, Chan::A, gDSmemInt, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(gData1memInt, Chan::B, gDSmemInt, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::gData0memInt, Chan::A, Storage::gDSmemInt, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::gData1memInt, Chan::B, Storage::gDSmemInt, GRID_TOP, Grid::ChannelBottom());
     }
 }
 
@@ -928,7 +928,7 @@ void Display::DrawTime(int x, int y)
     
     if (MODE_WORK_IS_MEMINT || MODE_WORK_IS_LATEST)
     {
-        DataSettings *ds = MODE_WORK_IS_MEMINT ? gDSmemInt : Storage::gDSmemLast;
+        DataSettings *ds = MODE_WORK_IS_MEMINT ? Storage::gDSmemInt : Storage::gDSmemLast;
 
         if (ds != 0)
         {
@@ -1085,9 +1085,9 @@ void Display::DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int
 
 void Display::DrawMemoryWindow()
 {
-    uint8 *dat0 = gData0memInt;
-    uint8 *dat1 = gData1memInt;
-    DataSettings *ds = gDSmemInt;
+    uint8 *dat0 = Storage::gData0memInt;
+    uint8 *dat1 = Storage::gData1memInt;
+    DataSettings *ds = Storage::gDSmemInt;
     
     if(MODE_WORK_IS_DIRECT || MODE_WORK_IS_LATEST)
     {
@@ -2106,7 +2106,7 @@ void Display::WriteTextVoltage(Chan::E ch, int x, int y)
 
     if (!MODE_WORK_IS_DIRECT)
     {
-        DataSettings *ds = MODE_WORK_IS_DIRECT ? Storage::DS : gDSmemInt;
+        DataSettings *ds = MODE_WORK_IS_DIRECT ? Storage::DS : Storage::gDSmemInt;
         if (ds != 0)
         {
             inverse = (ch == Chan::A) ? ds->inverseCh0 : ds->inverseCh1;
@@ -2186,7 +2186,7 @@ void Display::DrawLowPart()
 
     if (!MODE_WORK_IS_DIRECT)
     {
-        DataSettings *ds = MODE_WORK_IS_LATEST ? Storage::gDSmemLast : gDSmemInt;
+        DataSettings *ds = MODE_WORK_IS_LATEST ? Storage::gDSmemLast : Storage::gDSmemInt;
         if (ds != 0)
         {
             tBase = ds->tBase;
