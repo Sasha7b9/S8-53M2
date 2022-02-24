@@ -107,7 +107,7 @@ void Device::ProcessingSignal()
 
     uint8** data0 = &Storage::dataA;
     uint8** data1 = &Storage::dataB;
-    DataSettings** ds = &Storage::gDSet;
+    DataSettings** ds = &Storage::DS;
 
     int first = 0;
     int last = 0;
@@ -115,7 +115,7 @@ void Device::ProcessingSignal()
 
     if (MODE_WORK_IS_DIRECT)
     {
-        Storage::GetDataFromEnd(0, &Storage::gDSet, &Storage::dataA, &Storage::dataB);
+        Storage::GetDataFromEnd(0, &Storage::DS, &Storage::dataA, &Storage::dataB);
 
         if (SettingsDisplay::NumAverages() != 1 || TBase::InRandomizeMode())
         {
@@ -142,7 +142,7 @@ void Device::ProcessingSignal()
     {
         if (!MODE_SHOW_MEMINT_IS_SAVED)
         {
-            Processing::SetSignal(Storage::dataA, Storage::dataB, Storage::gDSet, first, last);
+            Processing::SetSignal(Storage::dataA, Storage::dataB, Storage::DS, first, last);
         }
     }
     else
@@ -150,11 +150,11 @@ void Device::ProcessingSignal()
         Processing::SetSignal(*data0, *data1, *ds, first, last);
     }
 
-    if (Storage::gDSet == nullptr)
+    if (Storage::DS == nullptr)
     {
         static DataSettings ds_null;
         ds_null.FillDataPointer();
-        Storage::gDSet = &ds_null;
+        Storage::DS = &ds_null;
     }
 
     PageCursors::Cursors_Update();    // В случае, если находимся в режиме курсорных измерений, обновляем их положение, если нужно.
