@@ -209,7 +209,6 @@ extern uint8        *gData0memInt;    // | Здесь данные из ППЗУ, которые должны 
 extern uint8        *gData1memInt;    //-/
 
 extern DataSettings *gDSmemLast;
-extern uint8        *gData0memLast;
 extern uint8        *gData1memLast;
 
 extern void *extraMEM;      // Это специальный указатель. Используется для выделения памяти переменным, которые не нужны всё время выполения программы,

@@ -543,7 +543,7 @@ static void SaveSignalToIntMemory()
     {
         if  (gDSmemLast != 0)
         {                               // то сохраняем сигнал из последних
-            HAL_ROM::SaveData(CURRENT_NUM_INT_SIGNAL, gDSmemLast, gData0memLast, gData1memLast);
+            HAL_ROM::SaveData(CURRENT_NUM_INT_SIGNAL, gDSmemLast, Storage::gData0memLast, gData1memLast);
             HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &gDSmemInt, &gData0memInt, &gData1memInt);
             Display::ShowWarningGood(SignalIsSaved);
         }
