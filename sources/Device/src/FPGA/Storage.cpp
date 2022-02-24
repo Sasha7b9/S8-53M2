@@ -24,7 +24,7 @@ namespace Storage
 
     uint8        *dataIntA = nullptr;
     uint8        *dataIntB = nullptr;
-    DataSettings *gDSmemInt = nullptr;
+    DataSettings *dsInt = nullptr;
 
 
     static void CalculateSums();

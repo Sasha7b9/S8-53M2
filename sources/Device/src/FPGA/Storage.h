@@ -49,5 +49,5 @@ namespace Storage
 
     extern uint8        *dataIntA;    // | Здесь данные из ППЗУ, которые должны выводиться на экран
     extern uint8        *dataIntB;    //-/
-    extern DataSettings *gDSmemInt;       //--
+    extern DataSettings *dsInt;       //--
 };
