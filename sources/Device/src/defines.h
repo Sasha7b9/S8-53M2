@@ -58,15 +58,19 @@ union BitSet16
 union BitSet32
 {
     uint   word;
-    uint16 half_word[2];
+    union
+    {
+        uint16 half_word[2];
+        int16  half_iword[2];
+    };
     uint8  byte[4]; //-V112
 };
 
 // Объединение размером 64 бита
 union BitSet64
 {
-    long long unsigned int  dword;
-    unsigned int            word[2];
+    long long unsigned int dword;
+    unsigned int           word[2];
 };
 
 struct StructRelAbs

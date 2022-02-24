@@ -88,13 +88,11 @@ void Device::ProcessingSignal()
         return;
     }
 
-    uint8 *data0 = Storage::dataA;
-    uint8 *data1 = Storage::dataB;
+    uint8 *dataA = Storage::dataA;
+    uint8 *dataB = Storage::dataB;
     DataSettings **ds = &Storage::DS;
 
-    int first = 0;
-    int last = 0;
-    SettingsDisplay::PointsOnDisplay(&first, &last);
+    BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
     if (MODE_WORK_IS_DIRECT)
     {
@@ -108,15 +106,15 @@ void Device::ProcessingSignal()
     }
     else if (MODE_WORK_IS_LATEST)
     {
-        data0 = Storage::dataLastA;
-        data1 = Storage::dataLastB;
+        dataA = Storage::dataLastA;
+        dataB = Storage::dataLastB;
         ds = &Storage::dsLast;
         Storage::GetDataFromEnd(CURRENT_NUM_LATEST_SIGNAL, &Storage::dsLast, &Storage::dataLastA, &Storage::dataLastB);
     }
     else if (MODE_WORK_IS_MEMINT)
     {
-        data0 = Storage::dataIntA;
-        data1 = Storage::dataIntB;
+        dataA = Storage::dataIntA;
+        dataB = Storage::dataIntB;
         ds = &Storage::dsInt;
         HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
     }
@@ -125,12 +123,12 @@ void Device::ProcessingSignal()
     {
         if (!MODE_SHOW_MEMINT_IS_SAVED)
         {
-            Processing::SetSignal(Storage::dataA, Storage::dataB, Storage::DS, first, last);
+            Processing::SetSignal(Storage::dataA, Storage::dataB, Storage::DS, points);
         }
     }
     else
     {
-        Processing::SetSignal(data0, data1, *ds, first, last);
+        Processing::SetSignal(dataA, dataB, *ds, points);
     }
 
     if (Storage::DS == nullptr)

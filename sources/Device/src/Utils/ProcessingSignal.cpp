@@ -875,10 +875,10 @@ float Processing::CalculatePhazaMinus(Chan::E ch)
     return delay / period * 360.0f; 
 }
 
-void Processing::SetSignal(uint8 *data0, uint8 *data1, DataSettings *ds, int _firstPoint, int _lastPoint)
+void Processing::SetSignal(uint8 *data0, uint8 *data1, DataSettings *ds, const BitSet32 &points)
 {
-    firstP = _firstPoint;
-    lastP = _lastPoint;
+    firstP = points.half_iword[0];
+    lastP = points.half_iword[1];
     numP = lastP - firstP;
     
     int numSmoothing = Smoothing::ToPoints();
@@ -908,26 +908,24 @@ void Processing::GetData(uint8 **data0, uint8 **data1, DataSettings **ds)
 
 float Processing::GetCursU(Chan::E ch, float posCurT)
 {
-    int first = 0;
-    int last = 0;
-    SettingsDisplay::PointsOnDisplay(&first, &last);
+    BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
     float retValue = 0.0f;
-    LIMITATION(retValue, 200 - (dataIn[ch])[first + (int)posCurT] + ValueFPGA::MIN, 0, 200);
+
+    LIMITATION(retValue, 200 - (dataIn[ch])[points.half_iword[0] + (int)posCurT] + ValueFPGA::MIN, 0, 200);
+
     return retValue;
 }
 
 float Processing::GetCursT(Chan::E ch, float posCurU, int numCur)
 {
-    int firstPoint = 0;
-    int lastPoint = 0;
-    SettingsDisplay::PointsOnDisplay(&firstPoint, &lastPoint);
+    BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
-    int prevData = 200 - (dataIn[ch])[firstPoint] + ValueFPGA::MIN;
+    int prevData = 200 - (dataIn[ch])[points.half_iword[0]] + ValueFPGA::MIN;
 
     int numIntersections = 0;
 
-    for(int i = firstPoint + 1; i < lastPoint; i++)
+    for(int i = points.half_iword[0] + 1; i < points.half_iword[1]; i++)
     {
         int curData = 200 - (dataIn[ch])[i] + ValueFPGA::MIN;
 
@@ -935,7 +933,7 @@ float Processing::GetCursT(Chan::E ch, float posCurU, int numCur)
         {
             if(numCur == 0)
             {
-                return i - firstPoint;
+                return i - points.half_iword[0];
             }
             else
             {
@@ -945,7 +943,7 @@ float Processing::GetCursT(Chan::E ch, float posCurU, int numCur)
                 }
                 else
                 {
-                    return i - firstPoint;
+                    return i - points.half_iword[0];
                 }
             }
         }
@@ -954,7 +952,7 @@ float Processing::GetCursT(Chan::E ch, float posCurU, int numCur)
         {
             if(numCur == 0)
             {
-                return i - firstPoint;
+                return i - points.half_iword[0];
             }
             else
             {
@@ -964,7 +962,7 @@ float Processing::GetCursT(Chan::E ch, float posCurU, int numCur)
                 }
                 else
                 {
-                    return i - firstPoint;
+                    return i - points.half_iword[1];
                 }
             }
         }

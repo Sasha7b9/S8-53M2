@@ -16,11 +16,15 @@ int Smoothing::ToPoints()
 }
 
 
-void SettingsDisplay::PointsOnDisplay(int *firstPoint, int *lastPoint)
+BitSet32 SettingsDisplay::PointsOnDisplay()
 {
+    BitSet32 result;
+
     int numPointsOnScreen = 281;
-    *firstPoint = SHIFT_IN_MEMORY;
-    *lastPoint = SHIFT_IN_MEMORY + numPointsOnScreen - 1;
+    result.half_iword[0] = SHIFT_IN_MEMORY;
+    result.half_iword[1] = SHIFT_IN_MEMORY + numPointsOnScreen - 1;
+
+    return result;
 }
 
 

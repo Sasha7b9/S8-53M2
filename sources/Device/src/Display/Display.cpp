@@ -520,9 +520,7 @@ void Display::DrawDataChannel(uint8 *data, Chan::E ch, DataSettings *ds, int min
         DrawMarkersForMeasure(scaleY, ch);
     }
 
-    int firstPoint = 0;
-    int lastPoint = 0;
-    SettingsDisplay::PointsOnDisplay(&firstPoint, &lastPoint);
+    BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
     if(data == dataP2P_0 || data == dataP2P_1)
     {

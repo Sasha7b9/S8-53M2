@@ -8,24 +8,34 @@
 class Processing
 {
 public:
+
     // Установить сигнал для обработки.
-    static void SetSignal(uint8 *data0, uint8 *data1, DataSettings *ds, int firstPoint, int lastPoint);
+    static void SetSignal(uint8 *data0, uint8 *data1, DataSettings *ds, const BitSet32 &points);
+
     // Получить данные ранее установленного сигнала.
     static void GetData(uint8 **data0, uint8 **data1, DataSettings **ds);
+
     // Получить позицию курсора напряжения, соответствующю заданной позиции курсора posCurT.
     static float GetCursU(Chan::E, float posCurT);
+
     // Получить позицию курсора времени, соответствующую заданной позиции курсора напряжения posCurU.
     static float GetCursT(Chan::E, float posCurU, int numCur);
+
     // Аппроксимировать единичное измерение режима рандомизатора функцией sinX/X.
     static void InterpolationSinX_X(uint8 data[FPGA::MAX_POINTS * 2], TBase::E tBase);
+
     // Возвращает строку автоматического измерения.
     static char* GetStringMeasure(Measure measure, Chan::E, char buffer[20]);
+
     // Расчитать все измерения.
     static void CalculateMeasures();
+
     // Возвращает значение горизонтального маркера. Если ERROR_VALUE_INT - маркер рисовать не нужно.
     static int GetMarkerHorizontal(Chan::E, int numMarker);
+
     // Возвращает значение вертикального маркера. Если ERROR_VALUE_INT - маркер рисовать не нужно.
     static int GetMarkerVertical(Chan::E, int numMarker);
+
 private:
     static float CalculateVoltageMax(Chan::E);
     static float CalculateVoltageMin(Chan::E);

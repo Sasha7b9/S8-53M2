@@ -228,8 +228,8 @@ struct SettingsDisplay
 
     static int NumAverages();
 
-    // Возвращает адрес первой и последней точки на экране.
-    static void PointsOnDisplay(int *firstPoint, int *lastPoint);
+    // Возвращает index первой и последней точки на экране.
+    static BitSet32 PointsOnDisplay();
 };
 
 
