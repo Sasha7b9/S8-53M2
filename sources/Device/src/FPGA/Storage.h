@@ -43,8 +43,8 @@ namespace Storage
     extern uint8        *dataB;     // ”казатель на данные второго канала, который надо рисовать на экране
     extern DataSettings *DS;        // ”казатель на параметры рисуемых сигналов
 
-    extern uint8        *gData0memLast;
-    extern uint8        *gData1memLast;
+    extern uint8        *dataLastA;
+    extern uint8        *dataLastB;
     extern DataSettings *gDSmemLast;
 
     extern DataSettings *gDSmemInt;       //--

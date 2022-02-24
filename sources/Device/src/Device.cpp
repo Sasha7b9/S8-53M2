@@ -125,10 +125,10 @@ void Device::ProcessingSignal()
     }
     else if (MODE_WORK_IS_LATEST)
     {
-        data0 = &Storage::gData0memLast;
-        data1 = &Storage::gData1memLast;
+        data0 = &Storage::dataLastA;
+        data1 = &Storage::dataLastB;
         ds = &Storage::gDSmemLast;
-        Storage::GetDataFromEnd(CURRENT_NUM_LATEST_SIGNAL, &Storage::gDSmemLast, &Storage::gData0memLast, &Storage::gData1memLast);
+        Storage::GetDataFromEnd(CURRENT_NUM_LATEST_SIGNAL, &Storage::gDSmemLast, &Storage::dataLastA, &Storage::dataLastB);
     }
     else if (MODE_WORK_IS_MEMINT)
     {

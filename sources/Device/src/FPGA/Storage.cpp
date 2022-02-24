@@ -18,8 +18,8 @@ namespace Storage
     uint8        *dataB = nullptr;
     DataSettings *DS = nullptr;
 
-    uint8        *gData0memLast = nullptr;
-    uint8        *gData1memLast = nullptr;
+    uint8        *dataLastA = nullptr;
+    uint8        *dataLastB = nullptr;
     DataSettings *gDSmemLast = nullptr;
 
     uint8        *gData0memInt = nullptr;
