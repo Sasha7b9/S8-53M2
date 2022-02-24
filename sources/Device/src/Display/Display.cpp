@@ -751,10 +751,10 @@ void Display::DrawDataMemInt()
 
 void Display::DrawDataInModeWorkLatest()
 {
-    if (Storage::gDSmemLast != 0)
+    if (Storage::dsLast != 0)
     {
-        DrawDataChannel(Storage::dataLastA, Chan::A, Storage::gDSmemLast, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::dataLastB, Chan::B, Storage::gDSmemLast, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::dataLastA, Chan::A, Storage::dsLast, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::dataLastB, Chan::B, Storage::dsLast, GRID_TOP, Grid::ChannelBottom());
     }
 }
 
@@ -928,7 +928,7 @@ void Display::DrawTime(int x, int y)
     
     if (MODE_WORK_IS_MEMINT || MODE_WORK_IS_LATEST)
     {
-        DataSettings *ds = MODE_WORK_IS_MEMINT ? Storage::gDSmemInt : Storage::gDSmemLast;
+        DataSettings *ds = MODE_WORK_IS_MEMINT ? Storage::gDSmemInt : Storage::dsLast;
 
         if (ds != 0)
         {
@@ -2186,7 +2186,7 @@ void Display::DrawLowPart()
 
     if (!MODE_WORK_IS_DIRECT)
     {
-        DataSettings *ds = MODE_WORK_IS_LATEST ? Storage::gDSmemLast : Storage::gDSmemInt;
+        DataSettings *ds = MODE_WORK_IS_LATEST ? Storage::dsLast : Storage::gDSmemInt;
         if (ds != 0)
         {
             tBase = ds->tBase;
