@@ -220,7 +220,7 @@ void PressSB_MemLast_IntEnter()
 {
     Menu::OpenPageAndSetItCurrent(PageMemory::Internal::GetPointer());
     MODE_WORK = ModeWork_MemInt;
-    HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::gDSmemInt, &Storage::gData0memInt, &Storage::gData1memInt);
+    HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::gDSmemInt, &Storage::dataIntA, &Storage::gData1memInt);
     EXIT_FROM_INT_TO_LAST = 1;
 }
 
@@ -544,7 +544,7 @@ static void SaveSignalToIntMemory()
         if  (Storage::dsLast != 0)
         {                               // то сохраняем сигнал из последних
             HAL_ROM::SaveData(CURRENT_NUM_INT_SIGNAL, Storage::dsLast, Storage::dataLastA, Storage::dataLastB);
-            HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::gDSmemInt, &Storage::gData0memInt, &Storage::gData1memInt);
+            HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::gDSmemInt, &Storage::dataIntA, &Storage::gData1memInt);
             Display::ShowWarningGood(SignalIsSaved);
         }
     }
@@ -553,7 +553,7 @@ static void SaveSignalToIntMemory()
         if (Storage::DS != 0)
         {
             HAL_ROM::SaveData(CURRENT_NUM_INT_SIGNAL, Storage::DS, Storage::dataA, Storage::dataB);
-            HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::DS, &Storage::gData0memInt, &Storage::gData1memInt);
+            HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::DS, &Storage::dataIntA, &Storage::gData1memInt);
             Display::ShowWarningGood(SignalIsSaved);
         }
     }
@@ -626,7 +626,7 @@ static void FuncOnRegSetMemInt(int delta)
     {
         CircleIncreaseInt8(&CURRENT_NUM_INT_SIGNAL, 0, MAX_NUM_SAVED_WAVES - 1);
     }
-    HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::gDSmemInt, &Storage::gData0memInt, &Storage::gData1memInt);
+    HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::gDSmemInt, &Storage::dataIntA, &Storage::gData1memInt);
     Color::ResetFlash();
 }
 
@@ -800,7 +800,7 @@ const SmallButton sbMemIntSaveToFlash
 
 void PressSB_MemInt_Exit()
 {
-    HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::gDSmemInt, &Storage::gData0memInt, &Storage::gData1memInt);
+    HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::gDSmemInt, &Storage::dataIntA, &Storage::gData1memInt);
 
     if (EXIT_FROM_INT_TO_LAST)
     {
@@ -1279,7 +1279,7 @@ void OnPressMemoryInt()
     Menu::OpenPageAndSetItCurrent(PageMemory::Internal::GetPointer());
     MODE_WORK = ModeWork_MemInt;
 
-    HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::gDSmemInt, &Storage::gData0memInt, &Storage::gData1memInt);
+    HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::gDSmemInt, &Storage::dataIntA, &Storage::gData1memInt);
 }
 
 static const arrayItems itemsMemInt =
