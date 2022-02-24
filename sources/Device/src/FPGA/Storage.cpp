@@ -8,6 +8,7 @@
 #include "Settings/Settings.h"
 #include "Hardware/HAL/HAL.h"
 #include "Utils/Strings.h"
+#include "Utils/Containers/Buffer.h"
 #include <string.h>
 
 
@@ -349,7 +350,7 @@ DataSettings* Storage::GetSettingsDataFromEnd(int fromEnd)
 
 bool Storage::GetDataFromEnd(int fromEnd, DataSettings **ds, uint8 **data0, uint8 **data1)
 {
-    static uint8 dataImportRel[2][FPGA::MAX_POINTS];
+    static Buffer<uint8> dataImportRel[Chan::Count];
 
     DataSettings* dp = FromEnd(fromEnd);
 
@@ -357,18 +358,38 @@ bool Storage::GetDataFromEnd(int fromEnd, DataSettings **ds, uint8 **data0, uint
     {
         return false;
     }
+    
+    volatile int size = dataImportRel[ChA].Size();
+    size = size;
+    
+    volatile int bytes = dp->BytesInChannel();
+    bytes = bytes;
+
+    if (dataImportRel[ChA].Size() != dp->BytesInChannel())
+    {
+        dataImportRel[ChA].Realloc(dp->BytesInChannel());
+        dataImportRel[ChB].Realloc(dp->BytesInChannel());
+    }
+    
+    size = dataImportRel[ChA].Size();
 
     if(data0 != 0)
     {
-        *data0 = CopyData(dp, Chan::A, &dataImportRel[ChA][0]) ?  &dataImportRel[ChA][0] : nullptr;
+        *data0 = CopyData(dp, Chan::A, dataImportRel[ChA].Data()) ?  dataImportRel[ChA].Data() : nullptr;
     }
+    
+    size = dataImportRel[ChA].Size();
 
     if(data1 != 0)
     {
-        *data1 = CopyData(dp, Chan::B, &dataImportRel[ChB][0]) ? &dataImportRel[ChB][0] : nullptr;
+        *data1 = CopyData(dp, Chan::B, dataImportRel[ChB].Data()) ? dataImportRel[ChB].Data() : nullptr;
     }
+    
+    size = dataImportRel[ChA].Size();
 
     *ds = dp;
+    
+    size = dataImportRel[ChA].Size();
     
     return true;
 }
@@ -376,7 +397,7 @@ bool Storage::GetDataFromEnd(int fromEnd, DataSettings **ds, uint8 **data0, uint
 
 uint8* Storage::GetData(Chan::E ch, int fromEnd)
 {
-    static uint8 dataImportRel[2][FPGA::MAX_POINTS];
+    static uint8 dataImport[2][FPGA::MAX_POINTS];
 
     DataSettings* dp = FromEnd(fromEnd);
 
@@ -385,7 +406,7 @@ uint8* Storage::GetData(Chan::E ch, int fromEnd)
         return 0;
     }
 
-    return CopyData(dp, ch, &dataImportRel[ch][0]) ? &dataImportRel[ch][0] : nullptr;
+    return CopyData(dp, ch, &dataImport[ch][0]) ? &dataImport[ch][0] : nullptr;
 }
 
 

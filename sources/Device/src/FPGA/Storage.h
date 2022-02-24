@@ -3,6 +3,7 @@
 #include "defines.h"
 #include "FPGA/FPGA.h"
 #include "Settings/SettingsTypes.h"
+#include "Utils/Containers/Buffer.h"
 
 
 namespace Storage

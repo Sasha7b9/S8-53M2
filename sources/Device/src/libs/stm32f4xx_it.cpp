@@ -28,8 +28,8 @@ void HardFault_Handler()
 
     while (1)
     {
-        line++;
-        file++;
+        line = line;
+        file = file;
     }
 }
 
