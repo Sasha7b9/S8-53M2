@@ -370,8 +370,8 @@ void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
 
         Storage::GetDataFromEnd(0, &d_s, &dA, &dB);
 
-//        SU::LogBuffer(dA, 10);
-//        SU::LogBuffer(dA + ENUM_POINTS_FPGA::ToNumPoints(), 10);
+        SU::LogBuffer(dA, 10);
+        SU::LogBuffer(dA + ENUM_POINTS_FPGA::ToNumPoints(), 10);
 
         if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)
         {
