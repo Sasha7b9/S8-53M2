@@ -16,10 +16,10 @@ struct MeasureValue
     float value[2];
 };
 
-static uint8 dataOut0[FPGA::MAX_POINTS];
-static uint8 dataOut1[FPGA::MAX_POINTS];
+static uint8 dataOut0[FPGA::MAX_POINTS * 2];
+static uint8 dataOut1[FPGA::MAX_POINTS * 2];
 static DataSettings *dataSet = 0;
-static uint8 dataIn[2][FPGA::MAX_POINTS];
+static uint8 dataIn[2][FPGA::MAX_POINTS * 2];
 
 static int firstP = 0;
 static int lastP = 0;
@@ -315,7 +315,7 @@ int Processing::CalculatePeriodAccurately(Chan::E ch)
 {
     static int period[2];
 
-    int sums[FPGA::MAX_POINTS];
+    int sums[FPGA::MAX_POINTS * 2];
 
     if(!periodAccurateIsCalculating[ch])
     {
@@ -977,7 +977,7 @@ float Processing::GetCursT(Chan::E ch, float posCurU, int numCur)
     return 0;
 }
 
-void Processing::InterpolationSinX_X(uint8 data[FPGA::MAX_POINTS], TBase::E tBase)
+void Processing::InterpolationSinX_X(uint8 data[FPGA::MAX_POINTS * 2], TBase::E tBase)
 {
 /*
      Последовательности x в sin(x)

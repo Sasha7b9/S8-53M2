@@ -32,7 +32,7 @@
 
 namespace Display
 {
-    #define NUM_P2P_POINTS (FPGA::MAX_POINTS)
+    #define NUM_P2P_POINTS (FPGA::MAX_POINTS * 2)
     static uint8 dataP2P_0[NUM_P2P_POINTS];
     static uint8 dataP2P_1[NUM_P2P_POINTS];
     static int   lastP2Pdata = 0;
@@ -569,15 +569,15 @@ void Display::DrawMath()
     DataSettings *ds = 0;
     Processing::GetData(&dataRel0, &dataRel1, &ds);
 
-    float dataAbs0[FPGA::MAX_POINTS];
-    float dataAbs1[FPGA::MAX_POINTS];
+    float dataAbs0[FPGA::MAX_POINTS * 2];
+    float dataAbs1[FPGA::MAX_POINTS * 2];
 
     Math_PointsRelToVoltage(dataRel0, ds->BytesInChannel(), ds->range[Chan::A], (int16)ds->rShiftCh0, dataAbs0);
     Math_PointsRelToVoltage(dataRel1, ds->BytesInChannel(), ds->range[Chan::B], (int16)ds->rShiftCh1, dataAbs1);
 
     Math_CalculateMathFunction(dataAbs0, dataAbs1, ds->BytesInChannel());
     
-    uint8 points[FPGA::MAX_POINTS];
+    uint8 points[FPGA::MAX_POINTS * 2];
     Math_PointsVoltageToRel(dataAbs0, ds->BytesInChannel(), SET_RANGE_MATH, SET_RSHIFT_MATH, points);
 
     DrawDataChannel(points, Chan::Math, ds, Grid::MathTop(), Grid::MathBottom());
@@ -645,8 +645,8 @@ void Display::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan::E ch)
     {
         return;
     }
-    float dataR[FPGA::MAX_POINTS];
-    float spectrum[FPGA::MAX_POINTS];
+    float dataR[FPGA::MAX_POINTS * 2];
+    float spectrum[FPGA::MAX_POINTS * 2];
 
     float freq0 = 0.0f;
     float freq1 = 0.0f;

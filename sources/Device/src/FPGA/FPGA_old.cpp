@@ -61,8 +61,8 @@ namespace FPGA
 
     DataSettings ds;
 
-    uint8 dataRel0[FPGA::MAX_POINTS] = {0};   // Буфер используется для чтения данных первого канала.
-    uint8 dataRel1[FPGA::MAX_POINTS] = {0};   // Буфер используется для чтения данных второго канала.
+    uint8 dataRel0[FPGA::MAX_POINTS * 2] = {0};   // Буфер используется для чтения данных первого канала.
+    uint8 dataRel1[FPGA::MAX_POINTS * 2] = {0};   // Буфер используется для чтения данных второго канала.
 
     Settings storingSettings;                // Здесь нужно уменьшить необходимый размер памяти - сохранять настройки только альтеры
     uint timeStart = 0;
@@ -347,7 +347,7 @@ void FPGA::ReadRandomizeMode()
         FPGA::ClearData();
     }
 
-    while (pData0 < &dataRel0[FPGA::MAX_POINTS])
+    while (pData0 < &dataRel0[FPGA::MAX_POINTS * 2])
     {
         uint8 data10 = *RD_ADC_B2; //-V566
         uint8 data00 = *RD_ADC_A2; //-V566
@@ -381,7 +381,7 @@ void FPGA::ReadRealMode(bool necessaryShift)
 {
     uint8 *p0 = &dataRel0[0];
     uint8 *p1 = &dataRel1[0];
-    uint8 *endP = &dataRel0[FPGA::MAX_POINTS];
+    uint8 *endP = &dataRel0[FPGA::MAX_POINTS * 2];
 
     if (ds.peakDet != PeackDetMode::Disable)
     {
