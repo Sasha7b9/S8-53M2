@@ -44,4 +44,5 @@ namespace Storage
     extern DataSettings *DS;        // ”казатель на параметры рисуемых сигналов
 
     extern uint8        *gData0memLast;
+    extern uint8        *gData1memLast;
 };

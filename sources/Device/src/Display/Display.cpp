@@ -754,7 +754,7 @@ void Display::DrawDataInModeWorkLatest()
     if (gDSmemLast != 0)
     {
         DrawDataChannel(Storage::gData0memLast, Chan::A, gDSmemLast, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(gData1memLast, Chan::B, gDSmemLast, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::gData1memLast, Chan::B, gDSmemLast, GRID_TOP, Grid::ChannelBottom());
     }
 }
 

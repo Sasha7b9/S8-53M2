@@ -19,6 +19,7 @@ namespace Storage
     DataSettings *DS = nullptr;
 
     uint8 *gData0memLast = nullptr;
+    uint8 *gData1memLast = nullptr;
 
     static void CalculateSums();
 
