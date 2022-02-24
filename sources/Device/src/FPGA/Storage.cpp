@@ -395,7 +395,6 @@ bool Storage::CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[FPGA::
     {
         return false;
     }
-    uint8 *pointer = datatImportRel;
 
     uint8* address = ((uint8*)ds + sizeof(DataSettings));
 
@@ -406,7 +405,7 @@ bool Storage::CopyData(DataSettings *ds, Chan::E ch, uint8 datatImportRel[FPGA::
         address += length;
     }
 
-    memcpy(pointer, address, length);
+    memcpy(datatImportRel, address, length);
 
     return true;
 }
