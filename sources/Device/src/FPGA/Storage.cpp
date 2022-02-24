@@ -181,15 +181,6 @@ void Storage::AddData(uint8 *data0, uint8 *data1, DataSettings dss)
 
     PushData(&dss, data0, data1);
 
-    DataSettings *d_s = nullptr;
-    uint8 *dA = nullptr;
-    uint8 *dB = nullptr;
-
-    GetDataFromEnd(0, &d_s, &dA, &dB);
-
-    SU::LogBuffer(dA, 10);
-    SU::LogBuffer(dA + ENUM_POINTS_FPGA::ToNumPoints(), 10);
-
     CalculateSums();
 
     CalculateAroundAverage(data0, data1, &dss);

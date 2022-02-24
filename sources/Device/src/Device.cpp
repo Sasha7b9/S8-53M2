@@ -90,7 +90,7 @@ void Device::ProcessingSignal()
 
     uint8* data0 = Storage::dataA;
     uint8* data1 = Storage::dataB;
-    DataSettings** ds = &Storage::DS;
+    DataSettings* ds = Storage::DS;
 
     int first = 0;
     int last = 0;
@@ -110,14 +110,14 @@ void Device::ProcessingSignal()
     {
         data0 = Storage::dataLastA;
         data1 = Storage::dataLastB;
-        ds = &Storage::dsLast;
+        ds = Storage::dsLast;
         Storage::GetDataFromEnd(CURRENT_NUM_LATEST_SIGNAL, &Storage::dsLast, &Storage::dataLastA, &Storage::dataLastB);
     }
     else if (MODE_WORK_IS_MEMINT)
     {
         data0 = Storage::dataIntA;
         data1 = Storage::dataIntB;
-        ds = &Storage::dsInt;
+        ds = Storage::dsInt;
         HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
     }
 
@@ -130,7 +130,7 @@ void Device::ProcessingSignal()
     }
     else
     {
-        Processing::SetSignal(data0, data1, *ds, first, last);
+        Processing::SetSignal(data0, data1, ds, first, last);
     }
 
     if (Storage::DS == nullptr)
