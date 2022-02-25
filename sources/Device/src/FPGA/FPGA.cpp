@@ -143,65 +143,60 @@ bool FPGA::ProcessingData()
 {
     bool retValue = false;
 
-    int num = (TBase::InRandomizeMode() && (!START_MODE_IS_SINGLE) && SAMPLE_TYPE_IS_EQUAL) ? TBase::StretchRand() : 1;
+    uint16 flag = ReadFlag();
 
-    for (int i = 0; i < num; i++)
+    if (FPGA_CRITICAL_SITUATION)
     {
-        uint16 flag = ReadFlag();
-
-        if (FPGA_CRITICAL_SITUATION)
+        if (TIME_MS - timeStart > 500)
         {
-            if (TIME_MS - timeStart > 500)
-            {
-                SwitchingTrig();
-                TRIG_AUTO_FIND = 1;
-                FPGA_CRITICAL_SITUATION = 0;
-            }
-            else if (_GET_BIT(flag, FL_TRIG))
-            {
-                FPGA_CRITICAL_SITUATION = 0;
-            }
+            SwitchingTrig();
+            TRIG_AUTO_FIND = 1;
+            FPGA_CRITICAL_SITUATION = 0;
         }
-        else if (_GET_BIT(flag, FL_DATA))
+        else if (_GET_BIT(flag, FL_TRIG))
         {
-            if (set.debug.showRegisters.flag)
-            {
-                char buffer[9];
-                LOG_WRITE("флаг готовности %s", Bin2String(flag, buffer));
-            }
+            FPGA_CRITICAL_SITUATION = 0;
+        }
+    }
+    else if (_GET_BIT(flag, FL_DATA))
+    {
+        if (set.debug.showRegisters.flag)
+        {
+            char buffer[9];
+            LOG_WRITE("флаг готовности %s", Bin2String(flag, buffer));
+        }
 
-            Panel::EnableLEDTrig(true);
+        Panel::EnableLEDTrig(true);
 
-            FPGA::Stop(true);
+        FPGA::Stop(true);
 
-            DataRead(_GET_BIT(flag, FL_LAST_RECOR), (num == 1) || (i == num - 1));
+        DataRead(_GET_BIT(flag, FL_LAST_RECOR), true);
 
-            retValue = true;
+        retValue = true;
 
-            if (!START_MODE_IS_SINGLE)
-            {
-                Start();
-                StateWorkFPGA::SetCurrent(StateWorkFPGA::Work);
-            }
-            else
-            {
-                FPGA::Stop(false);
-            }
+        if (!START_MODE_IS_SINGLE)
+        {
+            Start();
+            StateWorkFPGA::SetCurrent(StateWorkFPGA::Work);
         }
         else
         {
-            if (flag & (1 << 2))
-            {
-                if (START_MODE_IS_AUTO)
-                {
-                    FPGA_CRITICAL_SITUATION = 1;
-                }
-                timeStart = TIME_MS;
-            }
+            FPGA::Stop(false);
         }
-
-        Panel::EnableLEDTrig(_GET_BIT(flag, FL_TRIG) ? true : false);
     }
+    else
+    {
+        if (flag & (1 << 2))
+        {
+            if (START_MODE_IS_AUTO)
+            {
+                FPGA_CRITICAL_SITUATION = 1;
+            }
+            timeStart = TIME_MS;
+        }
+    }
+
+    Panel::EnableLEDTrig(_GET_BIT(flag, FL_TRIG) ? true : false);
 
     return retValue;
 }
