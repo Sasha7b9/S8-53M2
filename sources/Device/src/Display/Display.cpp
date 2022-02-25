@@ -308,7 +308,7 @@ bool Display::ChannelNeedForDraw(const uint8 *data, Chan::E ch, const DataSettin
     }
     else if (ds != 0)
     {
-        if ((ch == Chan::A && ds->enableA == 0) || (ch == Chan::B && ds->enableCh1 == 0))
+        if ((ch == Chan::A && ds->enableA == 0) || (ch == Chan::B && ds->enableB == 0))
         {
             return false;
         }
@@ -2120,7 +2120,7 @@ void Display::WriteTextVoltage(Chan::E ch, int x, int y)
             multiplier = (ch == Chan::A) ? ds->multiplier0 : ds->multiplier1;
             range = ds->range[ch];
             rShift = (ch == Chan::A) ? ds->rShiftA : ds->rShiftB;
-            enable = (ch == Chan::A) ? ds->enableA : ds->enableCh1;
+            enable = (ch == Chan::A) ? ds->enableA : ds->enableB;
         }
     }
 

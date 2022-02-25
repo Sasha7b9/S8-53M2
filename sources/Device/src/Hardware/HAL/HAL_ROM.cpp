@@ -287,12 +287,12 @@ int HAL_ROM::CalculateSizeData(DataSettings *ds)
 {
     int size = sizeof(DataSettings);
 
-    if (ds->enableA == 1)
+    if (ds->enableA)
     {
         size += ds->BytesInChannel();
     }
 
-    if (ds->enableCh1 == 1)
+    if (ds->enableB)
     {
         size += ds->BytesInChannel();
     }
@@ -323,6 +323,7 @@ void HAL_ROM::CompactMemory()
     for (int i = 0; i < MAX_NUM_SAVED_WAVES; i++)
     {
         uint addrDataOld = READ_WORD(addressDataInfo + i * 4);
+
         if (addrDataOld != 0)
         {
             uint addrDataNew = addrDataOld + 1024 * 128;
@@ -330,15 +331,18 @@ void HAL_ROM::CompactMemory()
             addrDataNew += sizeof(DataSettings);
             uint8 *data0 = 0;
             uint8 *data1 = 0;
-            if (ds->enableA == 1)
+
+            if (ds->enableA)
             {
                 data0 = (uint8*)addrDataNew;
                 addrDataNew += ds->BytesInChannel();
             }
-            if (ds->enableCh1 == 1)
+
+            if (ds->enableB)
             {
                 data1 = (uint8*)addrDataNew;
             }
+
             HAL_ROM::SaveData(i, ds, data0, data1);
         }
     }
@@ -396,13 +400,13 @@ void HAL_ROM::SaveData(int num, DataSettings *ds, uint8 *data0, uint8 *data1)
     WriteBufferBytes(address, (uint8*)ds, sizeof(DataSettings));            // Сохраняем настройки сигнала
     address += sizeof(DataSettings);
     
-    if (ds->enableA == 1)
+    if (ds->enableA)
     {
         WriteBufferBytes(address, (uint8*)data0, ds->BytesInChannel());     // Сохраняем первый канал
         address += ds->BytesInChannel();
     }
 
-    if (ds->enableCh1 == 1)
+    if (ds->enableB)
     {
         WriteBufferBytes(address, (uint8*)data1, ds->BytesInChannel());     // Сохраняем второй канал
         address += ds->BytesInChannel();
@@ -442,12 +446,12 @@ bool HAL_ROM::GetData(int num, DataSettings **ds, uint8 **data0, uint8 **data1)
 
     *ds = (DataSettings*)addrDS;
     
-    if ((*ds)->enableA == 1)
+    if ((*ds)->enableA)
     {
         addrData0 = addrDS + sizeof(DataSettings);
     }
 
-    if ((*ds)->enableCh1 == 1)
+    if ((*ds)->enableB)
     {
         if (addrData0 != 0)
         {

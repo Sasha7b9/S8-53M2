@@ -582,7 +582,7 @@ int RShift::ToRel(float rShiftAbs, Range::E range)
 void DataSettings::FillDataPointer()
 {
     enableA = Chan::Enabled(Chan::A) ? 1U : 0U;
-    enableCh1 = Chan::Enabled(Chan::B) ? 1U : 0U;
+    enableB = Chan::Enabled(Chan::B) ? 1U : 0U;
     inverseCh0 = SET_INVERSE_A ? 1U : 0U;
     inverseCh1 = SET_INVERSE_B ? 1U : 0U;
     range[0] = SET_RANGE_A;

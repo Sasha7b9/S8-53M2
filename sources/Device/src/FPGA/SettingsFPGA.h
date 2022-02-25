@@ -324,7 +324,7 @@ struct DataSettings
     ModeCouple::E       coupleA             : 2;      // Режим канала по входу
     uint                peakDet             : 2;      // Включен ли пиковый детектор
     uint                enableA             : 1;      // Включён ли канал 0
-    uint                enableCh1           : 1;      // Включен ли канал 1
+    uint                enableB             : 1;      // Включен ли канал 1
 
     uint                inverseCh0          : 1;
     uint                inverseCh1          : 1;
