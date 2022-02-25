@@ -528,9 +528,9 @@ void Display::DrawDataChannel(uint8 *data, Chan::E ch, DataSettings *ds, int min
         {
             LOG_TRACE();
         }
-        else if(lastPoint > lastP2Pdata)
+        else if(points.half_iword[0] > lastP2Pdata)
         {
-            lastPoint = lastP2Pdata;
+            points.half_iword[0] = (int16)lastP2Pdata;
         }
     }
 
@@ -546,11 +546,11 @@ void Display::DrawDataChannel(uint8 *data, Chan::E ch, DataSettings *ds, int min
         }
         Color::SetCurrent(ColorChannel(ch));
         */
-        DrawSignalLined(data, ds, firstPoint, lastPoint, minY, maxY, scaleY, scaleX, calculateFiltr);
+        DrawSignalLined(data, ds, points.half_iword[0], points.half_iword[1], minY, maxY, scaleY, scaleX, calculateFiltr);
     }
     else
     {
-        DrawSignalPointed(data, ds, firstPoint, lastPoint, minY, maxY, scaleY, scaleX);
+        DrawSignalPointed(data, ds, points.half_iword[0], points.half_iword[1], minY, maxY, scaleY, scaleX);
     }
 }
 
@@ -1892,9 +1892,9 @@ void Display::DrawCursorRShift(Chan::E ch)
 
 void TShift::Draw()
 {
-    int firstPoint = 0;
-    int lastPoint = 0;
-    SettingsDisplay::PointsOnDisplay(&firstPoint, &lastPoint);
+    BitSet32 points = SettingsDisplay::PointsOnDisplay();
+    int firstPoint = points.half_iword[0];
+    int lastPoint = points.half_iword[1];
 
     // Рисуем TPos
     int shiftTPos = TPos::InPoints(Storage::DS->e_points_in_channel, SET_TPOS) - SHIFT_IN_MEMORY;
