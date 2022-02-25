@@ -594,8 +594,8 @@ void DataSettings::FillDataPointer()
     modeCouple0 = SET_COUPLE_A;
     modeCoupleB = SET_COUPLE_B;
     e_points_in_channel = ENUM_POINTS;
-    trigLevCh0 = (uint)TRIG_LEVEL_A;
-    trigLevCh1 = (uint)TRIG_LEVEL_B;
+    trigLevA = (uint)TRIG_LEVEL_A;
+    trigLevB = (uint)TRIG_LEVEL_B;
     peakDet = (uint)PEAKDET;
     multiplier0 = SET_DIVIDER_A;
     multiplier1 = SET_DIVIDER_B;

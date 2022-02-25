@@ -313,12 +313,12 @@ struct DataSettings
     void*               addrPrev;                     // Адрес предыдущей записи.
     uint                rShiftA             : 10;     // Смещение по напряжению
     uint                rShiftB             : 10;
-    uint                trigLevCh0          : 10;     // Уровень синхронизации
+    uint                trigLevA            : 10;     // Уровень синхронизации
     int                 tShift;                       // Смещение по времени
     ModeCouple::E       modeCoupleB         : 2;
     Range::E            range[2];                     // Масштаб по напряжению обоих каналов.
 
-    uint                trigLevCh1          : 10;
+    uint                trigLevB            : 10;
     ENUM_POINTS_FPGA::E e_points_in_channel : 2;      // Точек в канале
     TBase::E            tBase               : 5;      // Масштаб по времени
     ModeCouple::E       modeCouple0         : 2;      // Режим канала по входу
