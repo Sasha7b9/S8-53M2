@@ -19,8 +19,8 @@ namespace Processing
         float value[2];
     };
 
-    static uint8 dataOut0[FPGA::MAX_POINTS * 2];
-    static uint8 dataOut1[FPGA::MAX_POINTS * 2];
+    static uint8 dataOutA[FPGA::MAX_POINTS * 2];
+    static uint8 dataOutB[FPGA::MAX_POINTS * 2];
     static DataSettings *dataSet = 0;
     static uint8 dataIn[2][FPGA::MAX_POINTS * 2];
 
@@ -963,11 +963,11 @@ void Processing::GetData(uint8 **data0, uint8 **data1, DataSettings **ds)
 {
     if (data0)
     {
-        *data0 = dataOut0;
+        *data0 = dataOutA;
     }
     if (data1)
     {
-        *data1 = dataOut1;
+        *data1 = dataOutB;
     }
     *ds = dataSet;
 }
@@ -1177,8 +1177,8 @@ int Processing::GetMarkerVertical(Chan::E ch, int numMarker)
 
 void Processing::CountedToCurrentSettings()
 {
-    memset(dataOut0, 0, FPGA::MAX_POINTS);
-    memset(dataOut1, 0, FPGA::MAX_POINTS);
+    memset(dataOutA, 0, FPGA::MAX_POINTS);
+    memset(dataOutB, 0, FPGA::MAX_POINTS);
     
     int numPoints = dataSet->BytesInChannel();
 
@@ -1191,8 +1191,8 @@ void Processing::CountedToCurrentSettings()
         int index = i - dTShift;
         if (index >= 0 && index < numPoints)
         {
-            dataOut0[index] = dataIn[0][i];
-            dataOut1[index] = dataIn[1][i];
+            dataOutA[index] = dataIn[0][i];
+            dataOutB[index] = dataIn[1][i];
         }
     }
  
@@ -1203,12 +1203,12 @@ void Processing::CountedToCurrentSettings()
 
         for (int i = 0; i < numPoints; i++)
         {
-            float absValue = ValueFPGA::ToVoltage(dataOut0[i], dataSet->range[0], (int16)dataSet->rShiftA);
+            float absValue = ValueFPGA::ToVoltage(dataOutA[i], dataSet->range[0], (int16)dataSet->rShiftA);
             int relValue = (absValue + MAX_VOLTAGE_ON_SCREEN(range) + rShift.ToAbs(range)) / voltsInPixel[range] + ValueFPGA::MIN;
 
-            if (relValue < ValueFPGA::MIN)       { dataOut0[i] = ValueFPGA::MIN; }
-            else if (relValue > ValueFPGA::MAX)  { dataOut0[i] = ValueFPGA::MAX; }
-            else                            { dataOut0[i] = (uint8)relValue; }
+            if (relValue < ValueFPGA::MIN)       { dataOutA[i] = ValueFPGA::MIN; }
+            else if (relValue > ValueFPGA::MAX)  { dataOutA[i] = ValueFPGA::MAX; }
+            else                            { dataOutA[i] = (uint8)relValue; }
         }
     }
     if (dataSet->enableB == 1 && (dataSet->range[1] != SET_RANGE_B || dataSet->rShiftB != (uint)SET_RSHIFT_B))
@@ -1218,12 +1218,12 @@ void Processing::CountedToCurrentSettings()
 
         for (int i = 0; i < numPoints; i++)
         {
-            float absValue = ValueFPGA::ToVoltage(dataOut1[i], dataSet->range[1], (int16)dataSet->rShiftB);
+            float absValue = ValueFPGA::ToVoltage(dataOutB[i], dataSet->range[1], (int16)dataSet->rShiftB);
             int relValue = (absValue + MAX_VOLTAGE_ON_SCREEN(range) + rShift.ToAbs(range)) / voltsInPixel[range] + ValueFPGA::MIN;
 
-            if (relValue < ValueFPGA::MIN)       { dataOut1[i] = ValueFPGA::MIN; }
-            else if (relValue > ValueFPGA::MAX)  { dataOut1[i] = ValueFPGA::MAX; }
-            else                            { dataOut1[i] = (uint8)relValue; }
+            if (relValue < ValueFPGA::MIN)       { dataOutB[i] = ValueFPGA::MIN; }
+            else if (relValue > ValueFPGA::MAX)  { dataOutB[i] = ValueFPGA::MAX; }
+            else                            { dataOutB[i] = (uint8)relValue; }
         }
     }
 }
