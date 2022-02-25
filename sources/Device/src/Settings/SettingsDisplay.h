@@ -30,7 +30,7 @@
 #define ENUM_ACCUM_IS_INFINITY      (ENUM_ACCUM == NumAccumulation_Infinity)    // \c true, если установлено бесконечное число накоплений.
 #define NUM_ACCUM                   (1 << (int)set.display.enumAccumulation)    // Количество накоплений.
 
-#define ENUM_AVE                    (set.display.enumAve)                       // SettingsDisplay.enumAve
+#define ENUM_AVE                    (set.display.enumAve)
 #define NUM_AVE                     (1 << ENUM_AVE)                             // Количество усреднений.
 
 #define MODE_AVE                    (set.display.modeAve)
@@ -95,18 +95,21 @@ enum ENumAccumulation
 };
 
 // Количество усреднений по измерениям.
-enum ENumAveraging
+struct ENumAveraging
 {
-    NumAveraging_1,
-    NumAveraging_2,
-    NumAveraging_4,
-    NumAveraging_8,
-    NumAveraging_16,
-    NumAveraging_32,
-    NumAveraging_64,
-    NumAveraging_128,
-    NumAveraging_256,
-    NumAveraging_512
+    enum E
+    {
+        _1,
+        _2,
+        _4,
+        _8,
+        _16,
+        _32,
+        _64,
+        _128,
+        _256,
+        _512
+    };
 };
 
 // Тип усреднений по измерениям.
@@ -216,7 +219,7 @@ struct SettingsDisplay
     ModeDrawSignal      modeDrawSignal;             // Режим отрисовки сигнала.
     TypeGrid            typeGrid;                   // Тип сетки.
     ENumAccumulation    enumAccumulation;           // Перечисление накоплений сигнала на экране.
-    ENumAveraging       enumAve;                    // Перечисление усреднений сигнала.
+    ENumAveraging::E    enumAve;                    // Перечисление усреднений сигнала.
     ModeAveraging::E    modeAve;                    // Тип усреднений по измерениям.
     ENumMinMax          enumMinMax;                 // Число измерений для определения минимумов и максимумов.
     Smoothing::E        smoothing;                  // Число точек для скользящего фильтра.
