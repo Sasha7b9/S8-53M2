@@ -19,28 +19,28 @@ namespace Processing
         float value[2];
     };
 
-    static uint8 dataOutA[FPGA::MAX_POINTS * 2];
-    static uint8 dataOutB[FPGA::MAX_POINTS * 2];
-    static DataSettings *dset = 0;
-    static uint8 dataIn[2][FPGA::MAX_POINTS * 2];
+    uint8 dataOutA[FPGA::MAX_POINTS * 2];
+    uint8 dataOutB[FPGA::MAX_POINTS * 2];
+    DataSettings *dset = 0;
+    uint8 dataIn[2][FPGA::MAX_POINTS * 2];
 
-    static int firstP = 0;
-    static int lastP = 0;
-    static int numP = 0;
+    int firstP = 0;
+    int lastP = 0;
+    int numP = 0;
 
-    static MeasureValue values[Measure::Count] = {{0.0f, 0.0f}};
+    MeasureValue values[Measure::Count] = {{0.0f, 0.0f}};
 
-    static int markerHor[Chan::Count][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
-    static int markerVert[Chan::Count][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
+    int markerHor[Chan::Count][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
+    int markerVert[Chan::Count][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
 
-    static bool maxIsCalculating[2] = {false, false};
-    static bool minIsCalculating[2] = {false, false};
-    static bool maxSteadyIsCalculating[2] = {false, false};
-    static bool minSteadyIsCalculating[2] = {false, false};
-    static bool aveIsCalculating[2] = {false, false};
-    static bool periodIsCaclulating[2] = {false, false};
-    static bool periodAccurateIsCalculating[2];
-    static bool picIsCalculating[2] = {false, false};
+    bool max_ready[2] = {false, false};
+    bool min_ready[2] = {false, false};
+    bool maxSteady_ready[2] = {false, false};
+    bool minSteady_ready[2] = {false, false};
+    bool ave_ready[2] = {false, false};
+    bool period_ready[2] = {false, false};
+    bool periodAccurate_ready[2];
+    bool pic_ready[2] = {false, false};
 
 #define EXIT_IF_ERROR_FLOAT(x)      if((x) == ERROR_VALUE_FLOAT)                                return ERROR_VALUE_FLOAT;
 #define EXIT_IF_ERRORS_FLOAT(x, y)  if((x) == ERROR_VALUE_FLOAT || (y) == ERROR_VALUE_FLOAT)    return ERROR_VALUE_FLOAT;
@@ -135,12 +135,12 @@ void Processing::CalculateMeasures()
         return;
     }
 
-    maxIsCalculating[0] = maxIsCalculating[1] = maxSteadyIsCalculating[0] = maxSteadyIsCalculating[1] = false;
-    minIsCalculating[0] = minIsCalculating[1] = minSteadyIsCalculating[0] = minSteadyIsCalculating[1] = false;
-    aveIsCalculating[0] = aveIsCalculating[1] = false;
-    periodIsCaclulating[0] = periodIsCaclulating[1] = false;
-    periodAccurateIsCalculating[0] = periodAccurateIsCalculating[1] = false;
-    picIsCalculating[0] = picIsCalculating[1] = false;
+    max_ready[0] = max_ready[1] = maxSteady_ready[0] = maxSteady_ready[1] = false;
+    min_ready[0] = min_ready[1] = minSteady_ready[0] = minSteady_ready[1] = false;
+    ave_ready[0] = ave_ready[1] = false;
+    period_ready[0] = period_ready[1] = false;
+    periodAccurate_ready[0] = periodAccurate_ready[1] = false;
+    pic_ready[0] = pic_ready[1] = false;
 
     for(int str = 0; str < Measures::NumRows(); str++)
     {
@@ -343,7 +343,7 @@ float Processing::CalculatePeriod(Chan::E ch)
 {
     static float period[2] = {0.0f, 0.0f};
 
-    if(!periodIsCaclulating[ch])
+    if(!period_ready[ch])
     {
         float aveValue = CalculateAverageRel(ch);
         if(aveValue == ERROR_VALUE_UINT8)
@@ -365,7 +365,7 @@ float Processing::CalculatePeriod(Chan::E ch)
             float per = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, dset->tBase);
 
             period[ch] = per;
-            periodIsCaclulating[ch] = true;
+            period_ready[ch] = true;
         }
     }
 
@@ -374,7 +374,7 @@ float Processing::CalculatePeriod(Chan::E ch)
 
 #define EXIT_FROM_PERIOD_ACCURACY               \
     period[ch] = ERROR_VALUE_INT;             \
-    periodAccurateIsCalculating[ch] = true;   \
+    periodAccurate_ready[ch] = true;   \
     return period[ch];
 
 int Processing::CalculatePeriodAccurately(Chan::E ch)
@@ -383,7 +383,7 @@ int Processing::CalculatePeriodAccurately(Chan::E ch)
 
     int sums[FPGA::MAX_POINTS * 2];
 
-    if(!periodAccurateIsCalculating[ch])
+    if(!periodAccurate_ready[ch])
     {
         period[ch] = 0;
         float pic = CalculatePicRel(ch);
@@ -455,7 +455,7 @@ int Processing::CalculatePeriodAccurately(Chan::E ch)
         {
             period[ch] = ERROR_VALUE_INT;
         }
-        periodAccurateIsCalculating[ch] = true;
+        periodAccurate_ready[ch] = true;
     }
 
     return period[ch];
@@ -642,7 +642,7 @@ float Processing::CalculateMinSteadyRel(Chan::E ch)
 {
     static float min[2] = {255.0f, 255.0f};
 
-    if(!minSteadyIsCalculating[ch])
+    if(!minSteady_ready[ch])
     {
         float aveValue = CalculateAverageRel(ch);
         if(aveValue == ERROR_VALUE_FLOAT)
@@ -705,7 +705,7 @@ float Processing::CalculateMinSteadyRel(Chan::E ch)
                 min[ch] = (numDeleted > numMin / 2.0f) ? CalculateMinRel(ch) : (float)sum / numSums;
             }
         }
-        minSteadyIsCalculating[ch] = true;
+        minSteady_ready[ch] = true;
     }
 
     return min[ch];
@@ -715,7 +715,7 @@ float Processing::CalculateMaxSteadyRel(Chan::E ch)
 {
     static float max[2] = {255.0f, 255.0f};
 
-    if(!maxSteadyIsCalculating[ch])
+    if(!maxSteady_ready[ch])
     {
         float aveValue = CalculateAverageRel(ch);
         
@@ -780,7 +780,7 @@ float Processing::CalculateMaxSteadyRel(Chan::E ch)
                 max[ch] = (numDeleted > numMax / 2) ? CalculateMaxRel(ch) : (float)sum / numSums;
             }
         }
-        maxSteadyIsCalculating[ch] = true;
+        maxSteady_ready[ch] = true;
     }
 
     return max[ch];
@@ -790,11 +790,11 @@ float Processing::CalculateMaxRel(Chan::E ch)
 {
     static float max[2] = {0.0f, 0.0f};
 
-    if(!maxIsCalculating[ch])
+    if(!max_ready[ch])
     {
         uint8 val = Math::GetMaxFromArrayWithErrorCode(dataIn[ch], firstP, lastP);
         max[ch] = val == ERROR_VALUE_UINT8 ? ERROR_VALUE_FLOAT : val;
-        maxIsCalculating[ch] = true;
+        max_ready[ch] = true;
     }
 
     return max[ch];
@@ -804,11 +804,11 @@ float Processing::CalculateMinRel(Chan::E ch)
 {
     static float min[2] = {255.0f, 255.0f};
 
-    if (!minIsCalculating[ch])
+    if (!min_ready[ch])
     {
         uint8 val = Math_GetMinFromArrayWithErrorCode(dataIn[ch], firstP, lastP);
         min[ch] = val == ERROR_VALUE_UINT8 ? ERROR_VALUE_FLOAT : val;
-        minIsCalculating[ch] = true;
+        min_ready[ch] = true;
     }
 
     return min[ch];
@@ -818,12 +818,12 @@ float Processing::CalculateAverageRel(Chan::E ch)
 {
     static float ave[2] = {0.0f, 0.0f};
 
-    if(!aveIsCalculating[ch])
+    if(!ave_ready[ch])
     {
         float min = CalculateMinRel(ch);
         float max = CalculateMaxRel(ch);
         ave[ch] = (min == ERROR_VALUE_FLOAT || max == ERROR_VALUE_FLOAT) ? ERROR_VALUE_FLOAT : (min + max) / 2.0f;
-        aveIsCalculating[ch] = true;
+        ave_ready[ch] = true;
     }
     return ave[ch];
 }
@@ -832,12 +832,12 @@ float Processing::CalculatePicRel(Chan::E ch)
 {
     static float pic[2] = {0.0f, 0.0f};
 
-    if(!picIsCalculating[ch])
+    if(!pic_ready[ch])
     {
         float min = CalculateMinRel(ch);
         float max = CalculateMaxRel(ch);
         pic[ch] = (min == ERROR_VALUE_FLOAT || max == ERROR_VALUE_FLOAT) ? ERROR_VALUE_FLOAT : max - min;
-        picIsCalculating[ch] = true;
+        pic_ready[ch] = true;
     }
     return pic[ch];
 }
