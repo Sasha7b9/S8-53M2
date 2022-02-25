@@ -63,7 +63,7 @@ void FPGA::AutoFinder::AutoFind()
     Init();
     Start();
 
-    AUTO_FIND_IN_PROGRESS = 0;
+    AUTO_FIND_IN_PROGRESS = false;
 }
 
 
@@ -311,7 +311,7 @@ uint8 FPGA::AutoFinder::CalculateMaxWithout255(uint8 buffer[100])
 
 void FPGA::AutoFinder::StartAutoFind()
 {
-    AUTO_FIND_IN_PROGRESS = 1;
+    AUTO_FIND_IN_PROGRESS = true;
 }
 
 

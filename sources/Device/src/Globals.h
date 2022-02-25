@@ -20,7 +20,6 @@ struct DataSettings;
 #define NEED_OPEN_FILE_MANAGER   (gBF.needOpenFileMananger)
 #define FLASH_DRIVE_IS_CONNECTED (gBF.flashDriveIsConnected)
 #define NEED_CLOSE_PAGE_SB       (gBF.needClosePageSB)
-#define AUTO_FIND_IN_PROGRESS    (gBF.FPGAautoFindInProgress)
 #define NEED_RESET_SETTINGS      (gBF.needResetSettings)
 #define NEED_FINISH_REDRAW       (gBF.needFinishDraw)
 #define SHOW_LEVEL_RSHIFT_0      (gBF.showLevelRShift0)
@@ -68,7 +67,6 @@ struct BitField
     uint numDrawingSignals          : 8;    // „исло нарисованных сигналов дл€ режима накоплени€
 
     // FPGA
-    uint FPGAautoFindInProgress     : 1;
     uint FPGAtemporaryPause         : 1;
     uint FPGAcanReadData            : 1;
     uint FPGAcritiacalSituation     : 1;

@@ -22,9 +22,7 @@ BitField gBF =
     0,  // framesElapsed
     0,  // numDrawingSignals
 
-  
     // FPGA
-    0,  // FPGAautoFindInProgress
     0,  // FPGAtemporaryPause
     1,  // FPGAcanReadData
     0,  // FPGAcritiacalSituation

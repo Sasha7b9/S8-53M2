@@ -42,6 +42,7 @@ namespace FPGA
     bool IN_PROCESS_READ = false;
     bool TRIG_AUTO_FIND = false;    // ”становленное в 1 значение означает, что нужно производить автоматический поиск
                                     // синхронизации, если  выбрана соответствующа€ настройка.
+    bool AUTO_FIND_IN_PROGRESS = false;
 
     uint16 ReadFlag();
 
@@ -150,7 +151,7 @@ void FPGA::ProcessingData()
         if (TIME_MS - timeStart > 500)
         {
             SwitchingTrig();
-            TRIG_AUTO_FIND = 1;
+            TRIG_AUTO_FIND = true;
             FPGA_CRITICAL_SITUATION = 0;
         }
         else if (_GET_BIT(flag, FL_TRIG))
@@ -352,7 +353,7 @@ void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
         {
             FPGA::FindAndSetTrigLevel();
 
-            TRIG_AUTO_FIND = 0;
+            TRIG_AUTO_FIND = false;
         }
     }
 
