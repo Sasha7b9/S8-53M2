@@ -180,21 +180,20 @@ float Processing::CalculateVoltageMax(Chan::E ch)
         markerHor[ch][0] = max;                           // Здесь не округляем, потому что max может быть только целым
     }
 
-    return ValueFPGA::ToVoltage(max, dataSet->range[ch], ch == Chan::A ? dataSet->rShiftCh0 : dataSet->rShiftCh1) *
-        VALUE_MULTIPLIER(ch);
+    return ValueFPGA::ToVoltage(max, dataSet->range[ch], dataSet->GetRShift(ch)) * VALUE_MULTIPLIER(ch);
 }
 
 float Processing::CalculateVoltageMin(Chan::E ch)
 {
     float min = CalculateMinRel(ch);
     EXIT_IF_ERROR_FLOAT(min);
+
     if(MEAS_MARKED == Measure::VoltageMin)
     {
         markerHor[ch][0] = min;                           // Здесь не округляем, потому что min может быть только целым
     }
 
-    return ValueFPGA::ToVoltage(min, dataSet->range[ch], ch == Chan::A ? dataSet->rShiftCh0 : dataSet->rShiftCh1) *
-        VALUE_MULTIPLIER(ch);
+    return ValueFPGA::ToVoltage(min, dataSet->range[ch], dataSet->GetRShift(ch)) * VALUE_MULTIPLIER(ch);
 }
 
 float Processing::CalculateVoltagePic(Chan::E ch)
@@ -216,13 +215,13 @@ float Processing::CalculateVoltageMinSteady(Chan::E ch)
 {
     float min = CalculateMinSteadyRel(ch);
     EXIT_IF_ERROR_FLOAT(min);
+
     if(MEAS_MARKED == Measure::VoltageMinSteady)
     {
         markerHor[ch][0] = ROUND(min);
     }
 
-    return ValueFPGA::ToVoltage(min, dataSet->range[ch], ch == Chan::A ? dataSet->rShiftCh0 : dataSet->rShiftCh1) *
-        VALUE_MULTIPLIER(ch);
+    return ValueFPGA::ToVoltage(min, dataSet->range[ch], dataSet->GetRShift(ch)) * VALUE_MULTIPLIER(ch);
 }
 
 float Processing::CalculateVoltageMaxSteady(Chan::E ch)
@@ -237,9 +236,8 @@ float Processing::CalculateVoltageMaxSteady(Chan::E ch)
     }
 
     Range::E range = dataSet->range[ch];
-    uint rShift = ch == Chan::A ? dataSet->rShiftCh0 : dataSet->rShiftCh1;
 
-    return ValueFPGA::ToVoltage(max, range, rShift) * VALUE_MULTIPLIER(ch);
+    return ValueFPGA::ToVoltage(max, range, dataSet->GetRShift(ch)) * VALUE_MULTIPLIER(ch);
 }
 
 float Processing::CalculateVoltageVybrosPlus(Chan::E ch)
@@ -255,10 +253,10 @@ float Processing::CalculateVoltageVybrosPlus(Chan::E ch)
         markerHor[ch][1] = maxSteady;
     }
 
-    int16 rShift = ch == Chan::A ? (int16)dataSet->rShiftCh0 : (int16)dataSet->rShiftCh1;
+    int16 rShift = dataSet->GetRShift(ch);
 
-    return fabsf(ValueFPGA::ToVoltage(maxSteady, dataSet->range[ch], (uint)rShift) -
-        ValueFPGA::ToVoltage(max, dataSet->range[ch], (uint)rShift)) * VALUE_MULTIPLIER(ch);
+    return fabsf(ValueFPGA::ToVoltage(maxSteady, dataSet->range[ch], rShift) -
+        ValueFPGA::ToVoltage(max, dataSet->range[ch], rShift)) * VALUE_MULTIPLIER(ch);
 }
 
 float Processing::CalculateVoltageVybrosMinus(Chan::E ch)
@@ -273,9 +271,10 @@ float Processing::CalculateVoltageVybrosMinus(Chan::E ch)
         markerHor[ch][1] = minSteady;
     }
 
-    int16 rShift = ch == Chan::A ? (int16)dataSet->rShiftCh0 : (int16)dataSet->rShiftCh1;
-    return fabsf(ValueFPGA::ToVoltage(minSteady, dataSet->range[ch], (uint)rShift) -
-        ValueFPGA::ToVoltage(min, dataSet->range[ch], (uint)rShift)) * VALUE_MULTIPLIER(ch);
+    int16 rShift = dataSet->GetRShift(ch);
+
+    return fabsf(ValueFPGA::ToVoltage(minSteady, dataSet->range[ch], rShift) -
+        ValueFPGA::ToVoltage(min, dataSet->range[ch], rShift)) * VALUE_MULTIPLIER(ch);
 }
 
 float Processing::CalculateVoltageAmpl(Chan::E ch)
@@ -313,7 +312,7 @@ float Processing::CalculateVoltageAverage(Chan::E ch)
         markerHor[ch][0] = aveRel;
     }
 
-    return ValueFPGA::ToVoltage(aveRel, dataSet->range[ch], ch == Chan::A ? dataSet->rShiftCh0 : dataSet->rShiftCh1) * VALUE_MULTIPLIER(ch);
+    return ValueFPGA::ToVoltage(aveRel, dataSet->range[ch], dataSet->GetRShift(ch)) * VALUE_MULTIPLIER(ch);
 }
 
 float Processing::CalculateVoltageRMS(Chan::E ch)
@@ -323,10 +322,11 @@ float Processing::CalculateVoltageRMS(Chan::E ch)
     EXIT_IF_ERROR_INT(period);
 
     float rms = 0.0f;
-    int16 rShift = ch == Chan::A ? (int16)dataSet->rShiftCh0 : (int16)dataSet->rShiftCh1;
+    int16 rShift = dataSet->GetRShift(ch);
+
     for(int i = firstP; i < firstP + period; i++)
     {
-        float volts = ValueFPGA::ToVoltage(dataIn[ch][i], dataSet->range[ch], (uint)rShift);
+        float volts = ValueFPGA::ToVoltage(dataIn[ch][i], dataSet->range[ch], rShift);
         rms +=  volts * volts;
     }
 
@@ -1195,14 +1195,14 @@ void Processing::CountedToCurrentSettings()
         }
     }
  
-    if (dataSet->enableCh0 == 1U && (dataSet->range[0] != SET_RANGE_A || dataSet->rShiftCh0 != (uint)SET_RSHIFT_A))
+    if (dataSet->enableCh0 == 1U && (dataSet->range[0] != SET_RANGE_A || dataSet->rShiftA != (uint)SET_RSHIFT_A))
     {
         Range::E range = SET_RANGE_A;
         int16 rShift = SET_RSHIFT_A;
 
         for (int i = 0; i < numPoints; i++)
         {
-            float absValue = ValueFPGA::ToVoltage(dataOut0[i], dataSet->range[0], dataSet->rShiftCh0);
+            float absValue = ValueFPGA::ToVoltage(dataOut0[i], dataSet->range[0], (int16)dataSet->rShiftA);
             int relValue = (absValue + MAX_VOLTAGE_ON_SCREEN(range) + RSHIFT_2_ABS(rShift, range)) / voltsInPixel[range] + ValueFPGA::MIN;
 
             if (relValue < ValueFPGA::MIN)       { dataOut0[i] = ValueFPGA::MIN; }
@@ -1210,14 +1210,14 @@ void Processing::CountedToCurrentSettings()
             else                            { dataOut0[i] = (uint8)relValue; }
         }
     }
-    if (dataSet->enableCh1 == 1 && (dataSet->range[1] != SET_RANGE_B || dataSet->rShiftCh1 != (uint)SET_RSHIFT_B))
+    if (dataSet->enableCh1 == 1 && (dataSet->range[1] != SET_RANGE_B || dataSet->rShiftB != (uint)SET_RSHIFT_B))
     {
         Range::E range = SET_RANGE_B;
         int16 rShift = SET_RSHIFT_B;
 
         for (int i = 0; i < numPoints; i++)
         {
-            float absValue = ValueFPGA::ToVoltage(dataOut1[i], dataSet->range[1], dataSet->rShiftCh1);
+            float absValue = ValueFPGA::ToVoltage(dataOut1[i], dataSet->range[1], (int16)dataSet->rShiftB);
             int relValue = (absValue + MAX_VOLTAGE_ON_SCREEN(range) + RSHIFT_2_ABS(rShift, range)) / voltsInPixel[range] + ValueFPGA::MIN;
 
             if (relValue < ValueFPGA::MIN)       { dataOut1[i] = ValueFPGA::MIN; }

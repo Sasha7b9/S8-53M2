@@ -587,8 +587,8 @@ void DataSettings::FillDataPointer()
     inverseCh1 = SET_INVERSE_B ? 1U : 0U;
     range[0] = SET_RANGE_A;
     range[1] = SET_RANGE_B;
-    rShiftCh0 = (uint)SET_RSHIFT_A;
-    rShiftCh1 = (uint)SET_RSHIFT_B;
+    rShiftA = (uint)SET_RSHIFT_A;
+    rShiftB = (uint)SET_RSHIFT_B;
     tBase = SET_TBASE;
     tShift = TSHIFT;
     modeCouple0 = SET_COUPLE_A;
@@ -637,5 +637,5 @@ int DataSettings::PointsInChannel() const
 
 int16 DataSettings::GetRShift(Chan::E ch) const
 {
-    return (ch == ChA) ? rShiftCh0 : rShiftCh1;
+    return (int16)((ch == ChA) ? rShiftA : rShiftB);
 }

@@ -707,7 +707,7 @@ void Math_CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoints
 }
 
 
-float ValueFPGA::ToVoltage(uint8 value, Range::E range, uint rShift)
+float ValueFPGA::ToVoltage(uint8 value, Range::E range, int16 rShift)
 {
     return (((float)value - (float)ValueFPGA::MIN) * voltsInPixel[range] - MAX_VOLTAGE_ON_SCREEN(range) -
         RSHIFT_2_ABS(rShift, range));

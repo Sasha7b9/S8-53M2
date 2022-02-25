@@ -570,8 +570,8 @@ void Display::DrawMath()
     float dataAbs0[FPGA::MAX_POINTS * 2];
     float dataAbs1[FPGA::MAX_POINTS * 2];
 
-    Math_PointsRelToVoltage(dataRel0, ds->BytesInChannel(), ds->range[Chan::A], (int16)ds->rShiftCh0, dataAbs0);
-    Math_PointsRelToVoltage(dataRel1, ds->BytesInChannel(), ds->range[Chan::B], (int16)ds->rShiftCh1, dataAbs1);
+    Math_PointsRelToVoltage(dataRel0, ds->BytesInChannel(), ds->range[Chan::A], (int16)ds->rShiftA, dataAbs0);
+    Math_PointsRelToVoltage(dataRel1, ds->BytesInChannel(), ds->range[Chan::B], (int16)ds->rShiftB, dataAbs1);
 
     Math_CalculateMathFunction(dataAbs0, dataAbs1, ds->BytesInChannel());
     
@@ -655,8 +655,8 @@ void Display::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan::E ch)
     int s = 2;
 
     Math_PointsRelToVoltage(data, numPoints, Storage::DS->range[ch], (ch == Chan::A) ?
-        (int16)Storage::DS->rShiftCh0 :
-        (int16)Storage::DS->rShiftCh1, dataR);
+        (int16)Storage::DS->rShiftA :
+        (int16)Storage::DS->rShiftB, dataR);
 
     Math_CalculateFFT(dataR, numPoints, spectrum, &freq0, &density0, &freq1, &density1, &y0, &y1);
     DrawSpectrumChannel(spectrum, ColorChannel(ch));
@@ -2119,7 +2119,7 @@ void Display::WriteTextVoltage(Chan::E ch, int x, int y)
             modeCouple = (ch == Chan::A) ? ds->modeCouple0 : ds->modeCouple1;
             multiplier = (ch == Chan::A) ? ds->multiplier0 : ds->multiplier1;
             range = ds->range[ch];
-            rShift = (ch == Chan::A) ? ds->rShiftCh0 : ds->rShiftCh1;
+            rShift = (ch == Chan::A) ? ds->rShiftA : ds->rShiftB;
             enable = (ch == Chan::A) ? ds->enableCh0 : ds->enableCh1;
         }
     }

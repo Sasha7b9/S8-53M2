@@ -311,8 +311,8 @@ struct DataSettings
 {
     void*               addrNext;                     // Адрес следующей записи.
     void*               addrPrev;                     // Адрес предыдущей записи.
-    uint                rShiftCh0           : 10;     // Смещение по напряжению
-    uint                rShiftCh1           : 10;
+    uint                rShiftA             : 10;     // Смещение по напряжению
+    uint                rShiftB             : 10;
     uint                trigLevCh0          : 10;     // Уровень синхронизации
     int                 tShift;                       // Смещение по времени
     ModeCouple::E       modeCouple1         : 2;
