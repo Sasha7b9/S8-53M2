@@ -2115,7 +2115,7 @@ void Display::WriteTextVoltage(Chan::E ch, int x, int y)
         DataSettings *ds = MODE_WORK_IS_DIRECT ? Storage::DS : Storage::dsInt;
         if (ds != 0)
         {
-            inverse = (ch == Chan::A) ? ds->inverseCh0 : ds->inverseCh1;
+            inverse = (ch == Chan::A) ? ds->inverseA : ds->inverseB;
             modeCouple = (ch == Chan::A) ? ds->coupleA : ds->coupleB;
             multiplier = (ch == Chan::A) ? ds->multiplier0 : ds->multiplier1;
             range = ds->range[ch];

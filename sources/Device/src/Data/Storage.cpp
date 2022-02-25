@@ -656,8 +656,8 @@ bool Storage::SettingsIsEquals(DataSettings *dp0, DataSettings *dp1)
 {
     bool retValue = (dp0->enableA == dp1->enableA) &&
         (dp0->enableB       == dp1->enableB) &&
-        (dp0->inverseCh0    == dp1->inverseCh0) &&
-        (dp0->inverseCh1    == dp1->inverseCh1) &&
+        (dp0->inverseA      == dp1->inverseA) &&
+        (dp0->inverseB      == dp1->inverseB) &&
         (dp0->range[0]      == dp1->range[0]) &&
         (dp0->range[1]      == dp1->range[1]) &&
         (dp0->rShiftA       == dp1->rShiftA) &&
