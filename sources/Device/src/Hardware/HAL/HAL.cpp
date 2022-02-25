@@ -31,7 +31,7 @@ void HAL::Init()
 
     HAL_FMC::Init();            // Альтера и ОЗУ
 
-    HAL_ADC3::Init();           // АЦП рандомизатора
+    HAL_ADC1::Init();           // АЦП рандомизатора
 
     HAL_SPI5::Init();           // Панель
 }

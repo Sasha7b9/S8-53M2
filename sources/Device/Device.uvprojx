@@ -1292,9 +1292,19 @@
           <GroupName>Hardware/HAL</GroupName>
           <Files>
             <File>
+              <FileName>HAL.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL.h</FilePath>
+            </File>
+            <File>
               <FileName>HAL_PINS.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_PINS.h</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_ROM.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_ROM.h</FilePath>
             </File>
             <File>
               <FileName>HAL_PINS.cpp</FileName>
@@ -1302,14 +1312,24 @@
               <FilePath>.\src\Hardware\HAL\HAL_PINS.cpp</FilePath>
             </File>
             <File>
-              <FileName>HAL.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL.h</FilePath>
+              <FileName>HAL.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_ADC1.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_ADC1.cpp</FilePath>
             </File>
             <File>
               <FileName>HAL_DAC1.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_DAC1.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_DAC2.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_DAC2.cpp</FilePath>
             </File>
             <File>
               <FileName>HAL_FMC.cpp</FileName>
@@ -1322,29 +1342,9 @@
               <FilePath>.\src\Hardware\HAL\HAL_LTDC.cpp</FilePath>
             </File>
             <File>
-              <FileName>HAL.cpp</FileName>
+              <FileName>HAL_HCD.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_TIM6.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_TIM6.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_TIM2.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_TIM2.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_ADC3.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_ADC3.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_RTC.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_RTC.cpp</FilePath>
+              <FilePath>.\src\Hardware\HAL\HAL_HCD.cpp</FilePath>
             </File>
             <File>
               <FileName>HAL_ROM.cpp</FileName>
@@ -1352,24 +1352,9 @@
               <FilePath>.\src\Hardware\HAL\HAL_ROM.cpp</FilePath>
             </File>
             <File>
-              <FileName>HAL_ROM.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_ROM.h</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_HCD.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_HCD.cpp</FilePath>
-            </File>
-            <File>
               <FileName>HAL_SPI1.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_SPI1.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_USBH.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_USBH.cpp</FilePath>
             </File>
             <File>
               <FileName>HAL_SPI5.cpp</FileName>
@@ -1377,14 +1362,29 @@
               <FilePath>.\src\Hardware\HAL\HAL_SPI5.cpp</FilePath>
             </File>
             <File>
-              <FileName>HAL_DAC2.cpp</FileName>
+              <FileName>HAL_RTC.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_DAC2.cpp</FilePath>
+              <FilePath>.\src\Hardware\HAL\HAL_RTC.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_TIM2.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_TIM2.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_TIM6.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_TIM6.cpp</FilePath>
             </File>
             <File>
               <FileName>HAL_TIM7.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_TIM7.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_USBH.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_USBH.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -3299,9 +3299,19 @@
           <GroupName>Hardware/HAL</GroupName>
           <Files>
             <File>
+              <FileName>HAL.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL.h</FilePath>
+            </File>
+            <File>
               <FileName>HAL_PINS.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_PINS.h</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_ROM.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_ROM.h</FilePath>
             </File>
             <File>
               <FileName>HAL_PINS.cpp</FileName>
@@ -3309,14 +3319,24 @@
               <FilePath>.\src\Hardware\HAL\HAL_PINS.cpp</FilePath>
             </File>
             <File>
-              <FileName>HAL.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL.h</FilePath>
+              <FileName>HAL.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_ADC1.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_ADC1.cpp</FilePath>
             </File>
             <File>
               <FileName>HAL_DAC1.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_DAC1.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_DAC2.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_DAC2.cpp</FilePath>
             </File>
             <File>
               <FileName>HAL_FMC.cpp</FileName>
@@ -3329,29 +3349,9 @@
               <FilePath>.\src\Hardware\HAL\HAL_LTDC.cpp</FilePath>
             </File>
             <File>
-              <FileName>HAL.cpp</FileName>
+              <FileName>HAL_HCD.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_TIM6.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_TIM6.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_TIM2.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_TIM2.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_ADC3.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_ADC3.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_RTC.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_RTC.cpp</FilePath>
+              <FilePath>.\src\Hardware\HAL\HAL_HCD.cpp</FilePath>
             </File>
             <File>
               <FileName>HAL_ROM.cpp</FileName>
@@ -3359,24 +3359,9 @@
               <FilePath>.\src\Hardware\HAL\HAL_ROM.cpp</FilePath>
             </File>
             <File>
-              <FileName>HAL_ROM.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_ROM.h</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_HCD.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_HCD.cpp</FilePath>
-            </File>
-            <File>
               <FileName>HAL_SPI1.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_SPI1.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_USBH.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_USBH.cpp</FilePath>
             </File>
             <File>
               <FileName>HAL_SPI5.cpp</FileName>
@@ -3384,14 +3369,29 @@
               <FilePath>.\src\Hardware\HAL\HAL_SPI5.cpp</FilePath>
             </File>
             <File>
-              <FileName>HAL_DAC2.cpp</FileName>
+              <FileName>HAL_RTC.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_DAC2.cpp</FilePath>
+              <FilePath>.\src\Hardware\HAL\HAL_RTC.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_TIM2.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_TIM2.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_TIM6.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_TIM6.cpp</FilePath>
             </File>
             <File>
               <FileName>HAL_TIM7.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_TIM7.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_USBH.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_USBH.cpp</FilePath>
             </File>
           </Files>
         </Group>

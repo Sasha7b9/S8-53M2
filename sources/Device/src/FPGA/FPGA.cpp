@@ -553,9 +553,9 @@ void FPGA::InverseDataIsNecessary(Chan::E ch, Buffer<uint8> &data)
 }
 
 
-int FPGA::CalculateShift()            // \todo Не забыть восстановить функцию
+int FPGA::CalculateShift()
 {
-    uint16 rand = HAL_ADC3::GetValue();
+    uint16 rand = HAL_ADC1::GetValue();
 
     uint16 min = 0;
     uint16 max = 0;

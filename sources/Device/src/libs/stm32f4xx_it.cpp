@@ -79,12 +79,6 @@ void SysTick_Handler()
 }
 
 
-void ADC_IRQHandler()
-{
-    HAL_ADC_IRQHandler((ADC_HandleTypeDef *)HAL_ADC3::handle);
-}
-
-
 // Панель
 void SPI5_IRQHandler()
 {
@@ -95,6 +89,13 @@ void SPI5_IRQHandler()
 void TIM6_DAC_IRQHandler()
 {
     HAL_TIM6::CallbackOnIRQ();
+}
+
+
+// Прерывание на АЦП рандомизатора
+void EXTI4_IRQHandler()
+{
+    HAL_ADC1::CallbackOnIRQ();
 }
 
 

@@ -34,12 +34,21 @@ namespace HAL
 }
 
 
-namespace HAL_ADC3
+// АЦП рандомизатора
+namespace HAL_ADC1
 {
+    static const uint16 INVALID_VALUE = 0xFFFF;
+
     void Init();
+
+    // Если 0xFFFF - значение неправильное
     uint16 GetValue();
-    extern void *handle;        // ADC_HandleTypeDef
-}
+
+    // Вызывается после каждого запуска
+    void ResetValue();
+
+    bool CallbackOnIRQ();
+};
 
 
 // Используется для управления яркостью дисплея
