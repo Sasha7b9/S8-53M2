@@ -618,8 +618,10 @@ void DataSettings::FillDataPointer()
 
 int TBase::StretchRand()
 {
-    static const int num_Kr = 200;
-    static const int Kr[] = {num_Kr / 2, num_Kr / 5, num_Kr / 10, num_Kr / 20, num_Kr / 50};
+    static const int N = 100;
+
+    //                        2ns  5ns   10 ns 20 ns
+    static const int Kr[] = { N/2, N/10, N/20, N/50 };
 
     return InRandomizeMode() ? Kr[SET_TBASE] : 1;
 }
