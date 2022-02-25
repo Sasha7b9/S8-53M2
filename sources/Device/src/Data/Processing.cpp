@@ -1,5 +1,6 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
-#include "ProcessingSignal.h"
+#include "defines.h"
+#include "Data/Processing.h"
 #include "Utils/Math.h"
 #include "Utils/GlobalFunctions.h"
 #include "Log.h"
@@ -783,7 +784,7 @@ float Processing::CalculateMaxRel(Chan::E ch)
 
     if(!maxIsCalculating[ch])
     {
-        uint8 val = Math_GetMaxFromArrayWithErrorCode(dataIn[ch], firstP, lastP);
+        uint8 val = Math::GetMaxFromArrayWithErrorCode(dataIn[ch], firstP, lastP);
         max[ch] = val == ERROR_VALUE_UINT8 ? ERROR_VALUE_FLOAT : val;
         maxIsCalculating[ch] = true;
     }

@@ -7,7 +7,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Data/Storage.h"
 #include "Utils/Math.h"
-#include "Data/ProcessingSignal.h"
+#include "Data/Processing.h"
 #include "Utils/Containers/Buffer.h"
 #include "Utils/Strings.h"
 #include <stm32f4xx_hal.h>

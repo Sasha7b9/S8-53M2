@@ -46,6 +46,8 @@ namespace Math
     float VoltageCursor(float shiftCurU, Range::E, int16 rShift);
     float TimeCursor(float shiftCurT, TBase::E);
 
+    uint8 GetMaxFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint);
+
     template<class T> T Limitation(T value, T min, T max)
     {
         if (value < min)      { return min; }
@@ -80,7 +82,6 @@ void    Math_DataExtrapolation(uint8 *data, uint8 *there, int size);
 void    Math_PointsRelToVoltage(const uint8 *points, int numPoints, Range::E, int16 rShift, float *voltage);
 uint8   Math_VoltageToPoint(float voltage, Range::E, int16 rShift);
 void	Math_PointsVoltageToRel(const float *voltage, int numPoints, Range::E, int16 rShift, uint8 *points);
-uint8   Math_GetMaxFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint);
 uint8   Math_GetMinFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint);
 uint8   Math_GetMaxFromArray(const uint8 *data, int firstPoint, int lastPoint);
 uint8   Math_GetMinFromArray(const uint8 *data, int firstPoint, int lastPoint);

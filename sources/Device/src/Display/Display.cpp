@@ -18,7 +18,7 @@
 #include "Data/Measures.h"
 #include "Utils/Math.h"
 #include "Utils/GlobalFunctions.h"
-#include "Data/ProcessingSignal.h"
+#include "Data/Processing.h"
 #include "Hardware/Timer.h"
 #include "Log.h"
 #include "Hardware/HAL/HAL.h"

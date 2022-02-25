@@ -557,7 +557,7 @@ int Math_FabsInt(int value)
     return value >= 0 ? value : -value;
 }
 
-uint8 Math_GetMaxFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint)
+uint8 Math::GetMaxFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint)
 {
     uint8 max = Math_GetMaxFromArray(data, firstPoint, lastPoint);
     if (max >= ValueFPGA::MAX)

@@ -8,7 +8,7 @@
 #include "Settings/Settings.h"
 #include "Settings/SettingsChannel.h"
 #include "Utils/Math.h"
-#include "Data/ProcessingSignal.h"
+#include "Data/Processing.h"
 #include "Utils/Generator.h"
 #include "Hardware/Timer.h"
 #include "Log.h"

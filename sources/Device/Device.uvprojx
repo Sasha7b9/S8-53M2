@@ -982,16 +982,6 @@
               <FilePath>.\src\Data\Measures.h</FilePath>
             </File>
             <File>
-              <FileName>ProcessingSignal.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Data\ProcessingSignal.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>ProcessingSignal.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Data\ProcessingSignal.h</FilePath>
-            </File>
-            <File>
               <FileName>Storage.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Data\Storage.cpp</FilePath>
@@ -1000,6 +990,16 @@
               <FileName>Storage.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Data\Storage.h</FilePath>
+            </File>
+            <File>
+              <FileName>Processing.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Data\Processing.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Processing.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Data\Processing.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2989,16 +2989,6 @@
               <FilePath>.\src\Data\Measures.h</FilePath>
             </File>
             <File>
-              <FileName>ProcessingSignal.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Data\ProcessingSignal.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>ProcessingSignal.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Data\ProcessingSignal.h</FilePath>
-            </File>
-            <File>
               <FileName>Storage.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Data\Storage.cpp</FilePath>
@@ -3007,6 +2997,16 @@
               <FileName>Storage.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Data\Storage.h</FilePath>
+            </File>
+            <File>
+              <FileName>Processing.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Data\Processing.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Processing.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Data\Processing.h</FilePath>
             </File>
           </Files>
         </Group>
