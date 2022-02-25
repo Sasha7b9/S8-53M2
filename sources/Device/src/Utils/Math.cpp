@@ -560,10 +560,12 @@ int Math_FabsInt(int value)
 uint8 Math::GetMaxFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint)
 {
     uint8 max = Math_GetMaxFromArray(data, firstPoint, lastPoint);
+
     if (max >= ValueFPGA::MAX)
     {
         max = ERROR_VALUE_UINT8;
     }
+
     return max;
 }
 
@@ -702,4 +704,11 @@ void Math_CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoints
             dataOut[i] = (uint8)(sum / count);
         }
     }
+}
+
+
+float ValueFPGA::ToVoltage(uint8 value, Range::E range, uint rShift)
+{
+    return (((float)value - (float)ValueFPGA::MIN) * voltsInPixel[range] - MAX_VOLTAGE_ON_SCREEN(range) -
+        RSHIFT_2_ABS(rShift, range));
 }
