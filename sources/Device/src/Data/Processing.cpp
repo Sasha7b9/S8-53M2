@@ -300,6 +300,7 @@ float Processing::CalculateVoltageAverage(Chan::E ch)
 
     int sum = 0;
     uint8 *data = &dataIn[ch][firstP];
+
     for(int i = 0; i < period; i++)
     {
         sum += *data++;
