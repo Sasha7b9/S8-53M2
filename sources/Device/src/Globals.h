@@ -32,7 +32,6 @@ struct DataSettings;
 #define FRAMES_ELAPSED           (gBF.framesElapsed)
 #define FPGA_CAN_READ_DATA       (gBF.FPGAcanReadData)
 #define FPGA_CRITICAL_SITUATION  (gBF.FPGAcritiacalSituation)
-#define FPGA_TEMPORARY_PAUSE     (gBF.FPGAtemporaryPause)
 #define FPGA_FIRST_AFTER_WRITE   (gBF.FPGAfirstAfterWrite)
 #define SOUND_IS_BEEP            (gBF.soundIsBeep)
 #define SOUND_WARN_IS_BEEP       (gBF.soundWarnIsBeep)
@@ -67,7 +66,6 @@ struct BitField
     uint numDrawingSignals          : 8;    // Число нарисованных сигналов для режима накопления
 
     // FPGA
-    uint FPGAtemporaryPause         : 1;
     uint FPGAcanReadData            : 1;
     uint FPGAcritiacalSituation     : 1;
     uint FPGAfirstAfterWrite        : 1;    // Используется в режиме рандомизатора. После записи любого параметра в альтеру

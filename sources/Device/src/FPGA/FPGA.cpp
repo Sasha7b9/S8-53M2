@@ -43,6 +43,7 @@ namespace FPGA
     bool TRIG_AUTO_FIND = false;    // ”становленное в 1 значение означает, что нужно производить автоматический поиск
                                     // синхронизации, если  выбрана соответствующа€ настройка.
     bool AUTO_FIND_IN_PROGRESS = false;
+    bool TEMPORARY_PAUSE = false;
 
     uint16 ReadFlag();
 
@@ -110,7 +111,7 @@ void FPGA::Update()
         gStateFPGA.needCalibration = false;
     }
 
-    if (FPGA_TEMPORARY_PAUSE)
+    if (TEMPORARY_PAUSE)
     {
         return;
     }
