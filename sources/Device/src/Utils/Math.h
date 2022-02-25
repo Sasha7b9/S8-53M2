@@ -38,7 +38,7 @@ namespace Math
     // Вычисляет 10**pow.
     int   Pow10(int pow);
 
-    float VoltageCursor(float shiftCurU, Range::E, int16 rShift);
+    float VoltageCursor(float shiftCurU, Range::E, RShift);
     float TimeCursor(float shiftCurT, TBase::E);
 
     uint8 GetMaxFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint);
@@ -74,9 +74,9 @@ namespace Math
 }
 
 void    Math_DataExtrapolation(uint8 *data, uint8 *there, int size);
-void    Math_PointsRelToVoltage(const uint8 *points, int numPoints, Range::E, int16 rShift, float *voltage);
-uint8   Math_VoltageToPoint(float voltage, Range::E, int16 rShift);
-void	Math_PointsVoltageToRel(const float *voltage, int numPoints, Range::E, int16 rShift, uint8 *points);
+void    Math_PointsRelToVoltage(const uint8 *points, int numPoints, Range::E, RShift, float *voltage);
+uint8   Math_VoltageToPoint(float voltage, Range::E, RShift rShift);
+void	Math_PointsVoltageToRel(const float *voltage, int numPoints, Range::E, RShift, uint8 *points);
 uint8   Math_GetMinFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint);
 uint8   Math_GetMaxFromArray(const uint8 *data, int firstPoint, int lastPoint);
 uint8   Math_GetMinFromArray(const uint8 *data, int firstPoint, int lastPoint);

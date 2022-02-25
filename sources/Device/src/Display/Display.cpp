@@ -589,7 +589,7 @@ void Display::DrawMath()
     PText::DrawText(Grid::Left() + 2, Grid::MathTop() + 1 + delta, Range::ToString(SET_RANGE_MATH, multiplier), COLOR_FILL);
     PText::DrawText(Grid::Left() + 25, Grid::MathTop() + 1 + delta, ":");
     char buffer[20];
-    PText::DrawText(Grid::Left() + 27, Grid::MathTop() + 1 + delta, RShift::ToString(SET_RSHIFT_MATH, SET_RANGE_MATH, multiplier, buffer));
+    PText::DrawText(Grid::Left() + 27, Grid::MathTop() + 1 + delta, SET_RSHIFT_MATH.ToString(SET_RANGE_MATH, multiplier, buffer));
 
 
 }
@@ -1467,14 +1467,17 @@ void Display::WriteValueTrigLevel()
 {
     if (SHOW_LEVEL_TRIGLEV && MODE_WORK_IS_DIRECT)
     {
-        float trigLev = RShift::ToAbs(TRIG_LEVEL_SOURCE, SET_RANGE(TRIG_SOURCE));     // WARN Здесь для внешней синхронизации неправильно рассчитывается уровень.
+        float trigLev = TRIG_LEVEL_SOURCE.ToAbs(SET_RANGE(TRIG_SOURCE));     // WARN Здесь для внешней синхронизации неправильно рассчитывается уровень.
+
         TrigSource::E trigSource = TRIG_SOURCE;
+
         if (TRIG_INPUT_IS_AC && trigSource <= TrigSource::ChannelB)
         {
-            int16 rShift = SET_RSHIFT(trigSource);
-            float rShiftAbs = RShift::ToAbs(rShift, SET_RANGE(trigSource));
+            RShift rShift = SET_RSHIFT((Chan::E)trigSource);
+            float rShiftAbs = rShift.ToAbs(SET_RANGE(trigSource));
             trigLev += rShiftAbs;
         }
+
         char buffer[20];
         strcpy(buffer, LANG_RU ? "Ур синхр = " : "Trig lvl = ");
         char bufForVolt[20];
@@ -1819,7 +1822,7 @@ void Display::DrawCursorTrigLevel()
         int shiftFullMin = RShift::MIN + TrigLev::MIN;
         int shiftFullMax = RShift::MAX + TrigLev::MAX;
         scale = (float)height / (shiftFullMax - shiftFullMin);
-        int shiftFull = TRIG_LEVEL_SOURCE + (TRIG_SOURCE_IS_EXT ? 0 : SET_RSHIFT(ch));
+        int shiftFull = TRIG_LEVEL_SOURCE.value + (TRIG_SOURCE_IS_EXT ? 0 : (int16)SET_RSHIFT(ch));
         int yFull =(int)(GRID_TOP + DELTA + height - scale * (shiftFull - RShift::MIN - TrigLev::MIN) - 4);
         Painter::FillRegion(left + 2, yFull + 1, 4, 6, ColorTrig());
         Font::Set(TypeFont::_5);
@@ -2107,7 +2110,7 @@ void Display::WriteTextVoltage(Chan::E ch, int x, int y)
     ModeCouple::E modeCouple = SET_COUPLE(ch);
     Divider::E multiplier = SET_DIVIDER(ch);
     Range::E range = SET_RANGE(ch);
-    uint rShift = (uint)SET_RSHIFT(ch);
+    RShift rShift = SET_RSHIFT(ch);
     bool enable = SET_ENABLED(ch);
 
     if (!MODE_WORK_IS_DIRECT)
@@ -2119,7 +2122,7 @@ void Display::WriteTextVoltage(Chan::E ch, int x, int y)
             modeCouple = (ch == Chan::A) ? ds->coupleA : ds->coupleB;
             multiplier = (ch == Chan::A) ? ds->dividerA : ds->dividerB;
             range = ds->range[ch];
-            rShift = (ch == Chan::A) ? ds->rShiftA : ds->rShiftB;
+            rShift.value = (int16)((ch == Chan::A) ? ds->rShiftA : ds->rShiftB);
             enable = (ch == Chan::A) ? ds->enableA : ds->enableB;
         }
     }
@@ -2143,7 +2146,7 @@ void Display::WriteTextVoltage(Chan::E ch, int x, int y)
         PText::DrawText(x + 1, y, buffer, colorDraw);
 
         char bufferTemp[20];
-        sprintf(buffer, "\xa5%s", RShift::ToString((int16)rShift, range, multiplier, bufferTemp));
+        sprintf(buffer, "\xa5%s", rShift.ToString(range, multiplier, bufferTemp));
         PText::DrawText(x + 46, y, buffer);
     }
 }

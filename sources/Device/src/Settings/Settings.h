@@ -22,7 +22,7 @@
 struct SettingsChannel
 {
     float         stretchADC;                 // Поправочный коэффициент.
-    int16         rShiftRel;
+    RShift        rShiftRel;
     int16         rShiftAdd[Range::Count][2]; // Добавочное смещение для открытого (0) и закрытого (1) входов.
     ModeCouple::E modeCouple;                 // Режим по входу.
     Divider::E    divider;                    // Множитель.

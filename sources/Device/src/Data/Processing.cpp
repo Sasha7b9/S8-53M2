@@ -1199,12 +1199,12 @@ void Processing::CountedToCurrentSettings()
     if (dataSet->enableA == 1U && (dataSet->range[0] != SET_RANGE_A || dataSet->rShiftA != (uint)SET_RSHIFT_A))
     {
         Range::E range = SET_RANGE_A;
-        int16 rShift = SET_RSHIFT_A;
+        RShift rShift = SET_RSHIFT_A;
 
         for (int i = 0; i < numPoints; i++)
         {
             float absValue = ValueFPGA::ToVoltage(dataOut0[i], dataSet->range[0], (int16)dataSet->rShiftA);
-            int relValue = (absValue + MAX_VOLTAGE_ON_SCREEN(range) + RShift::ToAbs(rShift, range)) / voltsInPixel[range] + ValueFPGA::MIN;
+            int relValue = (absValue + MAX_VOLTAGE_ON_SCREEN(range) + rShift.ToAbs(range)) / voltsInPixel[range] + ValueFPGA::MIN;
 
             if (relValue < ValueFPGA::MIN)       { dataOut0[i] = ValueFPGA::MIN; }
             else if (relValue > ValueFPGA::MAX)  { dataOut0[i] = ValueFPGA::MAX; }
@@ -1214,12 +1214,12 @@ void Processing::CountedToCurrentSettings()
     if (dataSet->enableB == 1 && (dataSet->range[1] != SET_RANGE_B || dataSet->rShiftB != (uint)SET_RSHIFT_B))
     {
         Range::E range = SET_RANGE_B;
-        int16 rShift = SET_RSHIFT_B;
+        RShift rShift = SET_RSHIFT_B;
 
         for (int i = 0; i < numPoints; i++)
         {
             float absValue = ValueFPGA::ToVoltage(dataOut1[i], dataSet->range[1], (int16)dataSet->rShiftB);
-            int relValue = (absValue + MAX_VOLTAGE_ON_SCREEN(range) + RShift::ToAbs(rShift, range)) / voltsInPixel[range] + ValueFPGA::MIN;
+            int relValue = (absValue + MAX_VOLTAGE_ON_SCREEN(range) + rShift.ToAbs(range)) / voltsInPixel[range] + ValueFPGA::MIN;
 
             if (relValue < ValueFPGA::MIN)       { dataOut1[i] = ValueFPGA::MIN; }
             else if (relValue > ValueFPGA::MAX)  { dataOut1[i] = ValueFPGA::MAX; }

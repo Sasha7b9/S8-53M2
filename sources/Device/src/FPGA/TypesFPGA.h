@@ -114,5 +114,5 @@ struct ValueFPGA
                                     // режимов рандомизатора и поточечного вывода p2p, а также для tShift ранее
                                     // считанного сигнала.
 
-    static float ToVoltage(uint8 value, Range::E, int16 rShift);
+    static float ToVoltage(uint8 value, Range::E, RShift);
 };

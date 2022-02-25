@@ -264,6 +264,8 @@ Range::E &operator--(Range::E &range);
 
 struct RShift
 {
+    RShift(int16 v = ZERO) : value(v) {}
+
     static const int16 MIN = 20;    // ћинимальное значение смещени€ канала по напр€жению, засылаемое в аналоговую часть. —оответствует смещению 10 клеток вниз от центральной линии.
     static const int16 ZERO = 500;  // —реднее значение смещени€ канала по напр€жению, засылаемое в аналоговую часть. —оответствует расположению марера по центру экрана.
     static const int16 MAX = 980;   // ћаксимальное значение смещени€ канала по напр€жению, засылаемое в аналоговую часть. —оответствует смещению 10 клеток вверх от центральной лиини.
@@ -276,11 +278,15 @@ struct RShift
     // «агрузка смещени€ по напр€жению в аппаратную часть.
     static void Load(Chan::E);
 
-    static pchar ToString(int16 rShiftRel, Range::E, Divider::E, char buffer[20]);
+    pchar ToString(Range::E, Divider::E, char buffer[20]);
 
     static int ToRel(float rShiftAbs, Range::E);
 
-    static float ToAbs(int16 rshift, Range::E);
+    float ToAbs(Range::E);
+
+    operator int16() const { return value; }
+
+    RShift &operator=(int16 rshift) { value = rshift; return *this; }
 
     int16 value;
 };
@@ -288,15 +294,25 @@ struct RShift
 
 struct TrigLev
 {
-    static const int MIN = RShift::MIN;     // ћинимальное значение уровн€ синхронизации, засылаемое в прибор.
-    static const int ZERO = RShift::ZERO;   // Ќулевое значение уровн€ синхронизации, засылаемое в прибор. ћаркер синхронизации при этом находитис€ на одном уровне с маркером смещени€ по напр€жению.
-    static const int MAX = RShift::MAX;     // ћаксимальное значечение уровн€ синхронизации, засылаемое в аналоговую часть.
+    TrigLev(int16 v = ZERO) : value(v) {}
+
+    static const int16 MIN = RShift::MIN;     // ћинимальное значение уровн€ синхронизации, засылаемое в прибор.
+    static const int16 ZERO = RShift::ZERO;   // Ќулевое значение уровн€ синхронизации, засылаемое в прибор. ћаркер синхронизации при этом находитис€ на одном уровне с маркером смещени€ по напр€жению.
+    static const int16 MAX = RShift::MAX;     // ћаксимальное значечение уровн€ синхронизации, засылаемое в аналоговую часть.
 
     // ”становить относительный уровень синхронизации.
     static void Set(TrigSource::E, int16);
 
     // «агрузка уровн€ синхронизации в аппаратную часть.
     static void Load();
+
+    float ToAbs(Range::E);
+
+    operator int16() const { return value; }
+
+    TrigLev &operator=(int16 trigLev) { value = trigLev; return *this; }
+
+    int16 value;
 };
 
 
