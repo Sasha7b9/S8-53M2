@@ -42,9 +42,9 @@ namespace Processing
     bool periodAccurate_ready[2];
     bool pic_ready[2] = {false, false};
 
-#define EXIT_IF_ERROR_FLOAT(x)      if((x) == ERROR_VALUE_FLOAT)                                return ERROR_VALUE_FLOAT;
-#define EXIT_IF_ERRORS_FLOAT(x, y)  if((x) == ERROR_VALUE_FLOAT || (y) == ERROR_VALUE_FLOAT)    return ERROR_VALUE_FLOAT;
-#define EXIT_IF_ERROR_INT(x)        if((x) == ERROR_VALUE_INT)                                  return ERROR_VALUE_FLOAT;
+#define EXIT_IF_ERROR_FLOAT(x)     if((x) == ERROR_VALUE_FLOAT)                             return ERROR_VALUE_FLOAT;
+#define EXIT_IF_ERRORS_FLOAT(x, y) if((x) == ERROR_VALUE_FLOAT || (y) == ERROR_VALUE_FLOAT) return ERROR_VALUE_FLOAT;
+#define EXIT_IF_ERROR_INT(x)       if((x) == ERROR_VALUE_INT)                               return ERROR_VALUE_FLOAT;
 
     float CalculateVoltageMax(Chan::E);
     float CalculateVoltageMin(Chan::E);
