@@ -101,7 +101,7 @@ namespace FPGA
 
     uint8 CalculateMaxWithout255(uint8 buffer[100]);
 
-    bool ProcessingData();
+    void ProcessingData();
 
     void ReadRandomizeMode();
 

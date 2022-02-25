@@ -43,7 +43,7 @@ namespace FPGA
 
     void ReadPoint();
 
-    bool ProcessingData();
+    void ProcessingData();
 
     // Прочитать данные.
     // necessaryShift - Признак того, что сигнал нужно смещать.
@@ -139,10 +139,8 @@ void FPGA::Update()
 }
 
 
-bool FPGA::ProcessingData()
+void FPGA::ProcessingData()
 {
-    bool retValue = false;
-
     uint16 flag = ReadFlag();
 
     if (FPGA_CRITICAL_SITUATION)
@@ -172,8 +170,6 @@ bool FPGA::ProcessingData()
 
         DataRead(_GET_BIT(flag, FL_LAST_RECOR), true);
 
-        retValue = true;
-
         if (!START_MODE_IS_SINGLE)
         {
             Start();
@@ -197,8 +193,6 @@ bool FPGA::ProcessingData()
     }
 
     Panel::EnableLEDTrig(_GET_BIT(flag, FL_TRIG) ? true : false);
-
-    return retValue;
 }
 
 
