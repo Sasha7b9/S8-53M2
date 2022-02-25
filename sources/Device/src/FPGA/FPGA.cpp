@@ -44,8 +44,9 @@ namespace FPGA
                                     // синхронизации, если  выбрана соответствующая настройка.
     bool AUTO_FIND_IN_PROGRESS = false;
     bool TEMPORARY_PAUSE = false;
-    bool CAN_READ_DATA = true;
-    bool CRITICAL_SITUATION = false;
+    bool CAN_READ_DATA = false;
+    bool NEED_AUTO_TRIG = false;    // Если true, нужно делать автозапуск (автоматический режим запуска и отсутсвует
+                                    // синхроимпульс
     bool FIRST_AFTER_WRITE = false; // Используется в режиме рандомизатора. После записи любого параметра в альтеру
                     // нужно не использовать первое считанное данное с АЦП, потому что оно завышено и портит ворота
 
@@ -152,27 +153,21 @@ void FPGA::ProcessingData()
 {
     uint16 flag = ReadFlag();
 
-    if (CRITICAL_SITUATION)
+    if (NEED_AUTO_TRIG)
     {
         if (TIME_MS - timeStart > 500)
         {
             SwitchingTrig();
             TRIG_AUTO_FIND = true;
-            CRITICAL_SITUATION = false;
+            NEED_AUTO_TRIG = false;
         }
         else if (_GET_BIT(flag, FL_TRIG))
         {
-            CRITICAL_SITUATION = false;
+            NEED_AUTO_TRIG = false;
         }
     }
     else if (_GET_BIT(flag, FL_DATA))
     {
-        if (set.debug.showRegisters.flag)
-        {
-            char buffer[9];
-            LOG_WRITE("флаг готовности %s", Bin2String(flag, buffer));
-        }
-
         Panel::EnableLEDTrig(true);
 
         Stop(true);
@@ -195,7 +190,7 @@ void FPGA::ProcessingData()
         {
             if (START_MODE_IS_AUTO)
             {
-                CRITICAL_SITUATION = false;
+                NEED_AUTO_TRIG = true;
             }
             timeStart = TIME_MS;
         }
@@ -242,7 +237,7 @@ void FPGA::Start()
     timeStart = TIME_MS;
     StateWorkFPGA::SetCurrent(StateWorkFPGA::Wait);
 
-    CRITICAL_SITUATION = false;
+    NEED_AUTO_TRIG = false;
 }
 
 

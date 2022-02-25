@@ -1843,6 +1843,16 @@
               <FileType>5</FileType>
               <FilePath>.\src\Utils\Containers\Queue.h</FilePath>
             </File>
+            <File>
+              <FileName>String.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Containers\String.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>String.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Containers\String.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3849,6 +3859,16 @@
               <FileName>Queue.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\Containers\Queue.h</FilePath>
+            </File>
+            <File>
+              <FileName>String.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Containers\String.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>String.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Containers\String.h</FilePath>
             </File>
           </Files>
         </Group>
