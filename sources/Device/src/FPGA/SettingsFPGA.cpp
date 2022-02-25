@@ -273,6 +273,7 @@ void RShift::Set(Chan::E ch, int16 rShift)
     {
         return;
     }
+
     Display::ChangedRShiftMarkers();
 
     if (rShift > RShift::MAX || rShift < RShift::MIN)
@@ -281,6 +282,7 @@ void RShift::Set(Chan::E ch, int16 rShift)
     }
 
     LIMITATION(rShift, rShift, RShift::MIN, RShift::MAX);
+
     if (rShift > RShift::ZERO)
     {
         rShift &= 0xfffe;                                            // ƒелаем кратным двум, т.к. у нас 800 значений на 400 точек
@@ -289,6 +291,7 @@ void RShift::Set(Chan::E ch, int16 rShift)
     {
         rShift = (rShift + 1) & 0xfffe;
     }
+
     SET_RSHIFT(ch) = rShift;
     Load(ch);
     Display::RotateRShift(ch);
@@ -307,10 +310,12 @@ void RShift::Load(Chan::E ch)
     uint16 rShift = (uint16)(SET_RSHIFT(ch) + (SET_INVERSE(ch) ? -1 : 1) * rShiftAdd);
 
     int16 delta = -(rShift - RShift::ZERO);
+
     if (SET_INVERSE(ch))
     {
         delta = -delta;
     }
+
     rShift = (uint16)(delta + RShift::ZERO);
 
     rShift = (uint16)(RShift::MAX + RShift::MIN - rShift);
@@ -321,10 +326,12 @@ void RShift::Load(Chan::E ch)
 void TrigLev::Set(TrigSource::E ch, int16 trigLev)
 {
     Display::ChangedRShiftMarkers();
+
     if (trigLev < TrigLev::MIN || trigLev > TrigLev::MAX)
     {
         Display::ShowWarningBad(LimitSweep_Level);
     }
+
     LIMITATION(trigLev, trigLev, TrigLev::MIN, TrigLev::MAX);
 
     if (trigLev > TrigLev::ZERO)
@@ -443,6 +450,7 @@ pchar TShift::ToString(int tShiftRel, char buffer[20])
 bool Range::Increase(Chan::E ch)
 {
     bool retValue = false;
+
     if (SET_RANGE(ch) < Range::Count - 1)
     {
         Range::Set(ch, (Range::E)(SET_RANGE(ch) + 1));
@@ -452,6 +460,7 @@ bool Range::Increase(Chan::E ch)
     {
        Display::ShowWarningBad(ch == Chan::A ? LimitChan1_Volts : LimitChan2_Volts);
     }
+
     Display::Redraw();
     return retValue;
 };
@@ -460,6 +469,7 @@ bool Range::Increase(Chan::E ch)
 bool Range::Decrease(Chan::E ch)
 {
     bool retValue = false;
+
     if (SET_RANGE(ch) > 0)
     {
         Range::Set(ch, (Range::E)(SET_RANGE(ch) - 1));
@@ -469,6 +479,7 @@ bool Range::Decrease(Chan::E ch)
     {
         Display::ShowWarningBad(ch == Chan::A ? LimitChan1_Volts : LimitChan2_Volts);
     }
+
     Display::Redraw();
     return retValue;
 };
@@ -478,6 +489,7 @@ void TrigSource::Set(TrigSource::E trigSource)
 {
     TRIG_SOURCE = trigSource;
     FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog::TrigParam);
+
     if (!TRIG_SOURCE_IS_EXT)
     {
         TrigLev::Set(TRIG_SOURCE, TRIG_LEVEL_SOURCE);
@@ -567,6 +579,7 @@ int TPos::InPoints(ENUM_POINTS_FPGA::E enum_points, TPos::E tPos)
 int RShift::ToRel(float rShiftAbs, Range::E range)
 {
     int retValue = ZERO + rShiftAbs / absStepRShift[range];
+
     if (retValue < MIN)
     {
         retValue = MIN;
@@ -575,6 +588,7 @@ int RShift::ToRel(float rShiftAbs, Range::E range)
     {
         retValue = MAX;
     }
+
     return retValue;
 };
 
