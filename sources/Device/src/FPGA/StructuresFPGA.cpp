@@ -107,6 +107,9 @@ void FPGA::Launch::CalculateRandomize()
 {
     CalculateReal();
 
+    pred /= TBase::StretchRand();
+    post /= TBase::StretchRand();
+
     pred++;
     post++;
 }
