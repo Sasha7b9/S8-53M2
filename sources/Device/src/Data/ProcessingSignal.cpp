@@ -11,41 +11,40 @@
 #include <limits.h>
 
 
-struct MeasureValue
+namespace Processing
 {
-    float value[2];
-};
+    struct MeasureValue
+    {
+        float value[2];
+    };
 
-static uint8 dataOut0[FPGA::MAX_POINTS * 2];
-static uint8 dataOut1[FPGA::MAX_POINTS * 2];
-static DataSettings *dataSet = 0;
-static uint8 dataIn[2][FPGA::MAX_POINTS * 2];
+    static uint8 dataOut0[FPGA::MAX_POINTS * 2];
+    static uint8 dataOut1[FPGA::MAX_POINTS * 2];
+    static DataSettings *dataSet = 0;
+    static uint8 dataIn[2][FPGA::MAX_POINTS * 2];
 
-static int firstP = 0;
-static int lastP = 0;
-static int numP = 0;
+    static int firstP = 0;
+    static int lastP = 0;
+    static int numP = 0;
 
-static MeasureValue values[Measure::Count] = {{0.0f, 0.0f}};
+    static MeasureValue values[Measure::Count] = {{0.0f, 0.0f}};
 
-static int markerHor[Chan::Count][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
-static int markerVert[Chan::Count][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
+    static int markerHor[Chan::Count][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
+    static int markerVert[Chan::Count][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
 
-static bool maxIsCalculating[2] = {false, false};
-static bool minIsCalculating[2] = {false, false};
-static bool maxSteadyIsCalculating[2] = {false, false};
-static bool minSteadyIsCalculating[2] = {false, false};
-static bool aveIsCalculating[2] = {false, false};
-static bool periodIsCaclulating[2] = {false, false};
-static bool periodAccurateIsCalculating[2];
-static bool picIsCalculating[2] = {false, false};
+    static bool maxIsCalculating[2] = {false, false};
+    static bool minIsCalculating[2] = {false, false};
+    static bool maxSteadyIsCalculating[2] = {false, false};
+    static bool minSteadyIsCalculating[2] = {false, false};
+    static bool aveIsCalculating[2] = {false, false};
+    static bool periodIsCaclulating[2] = {false, false};
+    static bool periodAccurateIsCalculating[2];
+    static bool picIsCalculating[2] = {false, false};
 
 #define EXIT_IF_ERROR_FLOAT(x)      if((x) == ERROR_VALUE_FLOAT)                                return ERROR_VALUE_FLOAT;
 #define EXIT_IF_ERRORS_FLOAT(x, y)  if((x) == ERROR_VALUE_FLOAT || (y) == ERROR_VALUE_FLOAT)    return ERROR_VALUE_FLOAT;
 #define EXIT_IF_ERROR_INT(x)        if((x) == ERROR_VALUE_INT)                                  return ERROR_VALUE_FLOAT;
 
-
-namespace Processing
-{
     float CalculateVoltageMax(Chan::E);
     float CalculateVoltageMin(Chan::E);
     float CalculateVoltagePic(Chan::E);
