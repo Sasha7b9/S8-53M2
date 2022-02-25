@@ -45,6 +45,7 @@ namespace FPGA
     bool AUTO_FIND_IN_PROGRESS = false;
     bool TEMPORARY_PAUSE = false;
     bool CAN_READ_DATA = true;
+    bool CRITICAL_SITUATION = false;
 
     uint16 ReadFlag();
 
@@ -148,17 +149,17 @@ void FPGA::ProcessingData()
 {
     uint16 flag = ReadFlag();
 
-    if (FPGA_CRITICAL_SITUATION)
+    if (CRITICAL_SITUATION)
     {
         if (TIME_MS - timeStart > 500)
         {
             SwitchingTrig();
             TRIG_AUTO_FIND = true;
-            FPGA_CRITICAL_SITUATION = 0;
+            CRITICAL_SITUATION = false;
         }
         else if (_GET_BIT(flag, FL_TRIG))
         {
-            FPGA_CRITICAL_SITUATION = 0;
+            CRITICAL_SITUATION = false;
         }
     }
     else if (_GET_BIT(flag, FL_DATA))
@@ -191,7 +192,7 @@ void FPGA::ProcessingData()
         {
             if (START_MODE_IS_AUTO)
             {
-                FPGA_CRITICAL_SITUATION = 1;
+                CRITICAL_SITUATION = false;
             }
             timeStart = TIME_MS;
         }
@@ -238,7 +239,7 @@ void FPGA::Start()
     timeStart = TIME_MS;
     StateWorkFPGA::SetCurrent(StateWorkFPGA::Wait);
 
-    FPGA_CRITICAL_SITUATION = 0;
+    CRITICAL_SITUATION = false;
 }
 
 

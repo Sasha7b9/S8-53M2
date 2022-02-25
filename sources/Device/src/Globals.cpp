@@ -23,7 +23,6 @@ BitField gBF =
     0,  // numDrawingSignals
 
     // FPGA
-    0,  // FPGAcritiacalSituation
     0,  // FPGAfirstAfterWrite
 
     0,  // soundIsBeep
