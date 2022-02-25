@@ -45,13 +45,6 @@ bool SettingsDisplay::IsSeparate()
 }
 
 
-void sDisplay_SetBrightness(int16 brightness)
-{
-    BRIGHTNESS = brightness;
-    HAL_DAC1::SetBrightness(BRIGHTNESS);
-}
-
-
 ModeAveraging sDisplay_ModeAveraging()
 {
     if (TBase::InRandomizeMode())

@@ -238,8 +238,5 @@ struct SettingsDisplay
     static bool IsSeparate();
 };
 
-
-// brightness = 1..100
-void sDisplay_SetBrightness(int16 brightness);
 // Возвращает режим усреднения
 ModeAveraging sDisplay_ModeAveraging();
