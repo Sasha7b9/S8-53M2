@@ -50,8 +50,6 @@ namespace FPGA
     // saveToStorage - Нужно в режиме рандомизатора для указания, что пора сохранять измерение
     void DataRead(bool necessaryShift, bool saveToStorage);
 
-    void ReadRandomizeMode();
-
     void ReadRealMode(bool necessaryShift);
 
     // Инвертирует данные.
@@ -166,7 +164,7 @@ void FPGA::ProcessingData()
 
         Panel::EnableLEDTrig(true);
 
-        FPGA::Stop(true);
+        Stop(true);
 
         DataRead(_GET_BIT(flag, FL_LAST_RECOR), true);
 
@@ -177,7 +175,7 @@ void FPGA::ProcessingData()
         }
         else
         {
-            FPGA::Stop(false);
+            Stop(false);
         }
     }
     else
@@ -330,14 +328,7 @@ void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
 
     FPGA_IN_PROCESS_READ = 1;
 
-    if (TBase::InRandomizeMode())
-    {
-        ReadRandomizeMode();
-    }
-    else
-    {
-        ReadRealMode(necessaryShift);
-    }
+    ReadRealMode(necessaryShift);
 
     static uint prevTime = 0;
 
@@ -362,87 +353,6 @@ void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
     }
 
     FPGA_IN_PROCESS_READ = 0;
-}
-
-
-void FPGA::ReadRandomizeMode()
-{
-    int Tsm = CalculateShift();
-    if (Tsm == TShift::EMPTY)
-    {
-        return;
-    };
-
-    int step = TBase::StretchRand();
-    int index = Tsm - step - addition_shift;
-
-    if (index < 0)
-    {
-        index += step;        // WARN
-    }
-
-    uint8 *pData0 = dataReadA.Pointer(index);
-    const uint8 *const pData0Last = dataReadA.Last() - 1;
-    uint8 *pData1 = dataReadB.Pointer(index);
-    const uint8 *const pData1Last = dataReadB.Last() - 1;
-
-    const uint8 *const first0 = dataReadA.Data();
-    const uint8 *const last0 = pData0Last;
-    const uint8 *const first1 = dataReadB.Data();
-    const uint8 *const last1 = pData1Last;
-
-    int numAve = NUM_AVE_FOR_RAND;
-
-    if (SettingsDisplay::NumAverages() > numAve)
-    {
-        numAve = SettingsDisplay::NumAverages();
-    }
-
-    if (START_MODE_IS_SINGLE || SAMPLE_TYPE_IS_REAL)
-    {
-        FPGA::ClearData();
-    }
-
-    BitSet16 dataA;
-    BitSet16 dataB;
-
-    while (pData0 < dataReadA.Last())
-    {
-        dataA.half_word = *RD_ADC_A;
-        dataB.half_word = *RD_ADC_B;
-
-        if (pData0 >= first0 && pData0 <= last0)
-        {
-            WRITE_AND_OR_INVERSE(pData0, dataA.byte[0], Chan::A);
-        }
-
-        if (pData1 >= first1 && pData1 <= last1)
-        {
-            WRITE_AND_OR_INVERSE(pData1, dataB.byte[0], Chan::B);
-        }
-
-        pData0 += step;
-        pData1 += step;
-
-        if (pData0 >= first0 && pData0 <= last0)
-        {
-            WRITE_AND_OR_INVERSE(pData0, dataA.byte[1], Chan::A);
-        }
-
-        if (pData1 >= first1 && pData1 <= last1)
-        {
-            WRITE_AND_OR_INVERSE(pData1, dataB.byte[1], Chan::B);
-        }
-
-        pData0 += step;
-        pData1 += step;
-    }
-
-    if (START_MODE_IS_SINGLE || SAMPLE_TYPE_IS_REAL)
-    {
-        Processing::InterpolationSinX_X(dataReadA.Data(), SET_TBASE);
-        Processing::InterpolationSinX_X(dataReadB.Data(), SET_TBASE);
-    }
 }
 
 
