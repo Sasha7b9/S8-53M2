@@ -620,10 +620,11 @@ int TBase::StretchRand()
 {
     static const int N = 100;
 
-    //                        2ns  5ns   10 ns 20 ns
-    static const int Kr[] = { N/2, N/10, N/20, N/50 };
+    //                                    2ns  5ns   10 ns 20 ns
+    static const int Kr[TBase::Count] = { N/2, N/10, N/20, N/50,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
-    return InRandomizeMode() ? Kr[SET_TBASE] : 1;
+    return Kr[SET_TBASE];
 }
 
 
