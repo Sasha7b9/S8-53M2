@@ -512,20 +512,14 @@ void FPGA::ReadRealMode(bool necessaryShift)
             *pA++ = data.byte1;
         }
 
-        int shift = 0;
-        if (SET_TBASE == TBase::_100ns || SET_TBASE == TBase::_200ns)
-        {
-            shift = CalculateShift();
-        }
-        else if (necessaryShift)
-        {
-            shift = -1;
-        }
+        int shift = necessaryShift ? -1 : 0;
+
         if (shift != 0)
         {
             if (shift < 0)
             {
                 shift = -shift;
+
                 for (int i = FPGA::MAX_POINTS - shift - 1; i >= 0; i--)
                 {
                     dataReadA[i + shift] = dataReadA[i];
