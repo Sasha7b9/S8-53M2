@@ -1204,7 +1204,7 @@ void Processing::CountedToCurrentSettings()
         for (int i = 0; i < numPoints; i++)
         {
             float absValue = ValueFPGA::ToVoltage(dataOut0[i], dataSet->range[0], (int16)dataSet->rShiftA);
-            int relValue = (absValue + MAX_VOLTAGE_ON_SCREEN(range) + RSHIFT_2_ABS(rShift, range)) / voltsInPixel[range] + ValueFPGA::MIN;
+            int relValue = (absValue + MAX_VOLTAGE_ON_SCREEN(range) + RShift::ToAbs(rShift, range)) / voltsInPixel[range] + ValueFPGA::MIN;
 
             if (relValue < ValueFPGA::MIN)       { dataOut0[i] = ValueFPGA::MIN; }
             else if (relValue > ValueFPGA::MAX)  { dataOut0[i] = ValueFPGA::MAX; }
@@ -1219,7 +1219,7 @@ void Processing::CountedToCurrentSettings()
         for (int i = 0; i < numPoints; i++)
         {
             float absValue = ValueFPGA::ToVoltage(dataOut1[i], dataSet->range[1], (int16)dataSet->rShiftB);
-            int relValue = (absValue + MAX_VOLTAGE_ON_SCREEN(range) + RSHIFT_2_ABS(rShift, range)) / voltsInPixel[range] + ValueFPGA::MIN;
+            int relValue = (absValue + MAX_VOLTAGE_ON_SCREEN(range) + RShift::ToAbs(rShift, range)) / voltsInPixel[range] + ValueFPGA::MIN;
 
             if (relValue < ValueFPGA::MIN)       { dataOut1[i] = ValueFPGA::MIN; }
             else if (relValue > ValueFPGA::MAX)  { dataOut1[i] = ValueFPGA::MAX; }

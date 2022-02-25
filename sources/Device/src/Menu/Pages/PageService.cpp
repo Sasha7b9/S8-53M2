@@ -325,7 +325,7 @@ static void OnRegSet_Math_Function(int delta)
         static int sum = 0;
         sum -= delta;
 
-        float rShiftAbs = RSHIFT_2_ABS(SET_RSHIFT_MATH, SET_RANGE_MATH);
+        float rShiftAbs = RShift::ToAbs(SET_RSHIFT_MATH, SET_RANGE_MATH);
 
         if (sum > 2)
         {

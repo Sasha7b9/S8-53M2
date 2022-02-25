@@ -279,6 +279,10 @@ struct RShift
     static pchar ToString(int16 rShiftRel, Range::E, Divider::E, char buffer[20]);
 
     static int ToRel(float rShiftAbs, Range::E);
+
+    static float ToAbs(int16 rshift, Range::E);
+
+    int16 value;
 };
 
 

@@ -18,8 +18,6 @@
 
 #define MAX_VOLTAGE_ON_SCREEN(range) (tableScalesRange[(range)] * 5.0f)
 
-#define RSHIFT_2_ABS(rShift, range) (-((float)RShift::ZERO - (float)(rShift)) * absStepRShift[(uint)(range)])
-
 #define TSHIFT_2_ABS(tShift, tBase)  (absStepTShift[(tBase)] * (tShift) * 2.0f)
 
 #define TSHIFT_2_REL(tShiftAbs, tBase) ((tShiftAbs) / absStepTShift[(tBase)] / 2.0f)
