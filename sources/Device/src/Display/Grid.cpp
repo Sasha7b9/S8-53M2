@@ -11,7 +11,7 @@ namespace Grid
 
 int Grid::Left()
 {
-    return (MenuIsMinimize() && MenuIsShown() ? 9 : 20) + Measure_GetDeltaGridLeft();
+    return (MenuIsMinimize() && MenuIsShown() ? 9 : 20) + Measures::GetDeltaGridLeft();
 }
 
 
@@ -47,7 +47,7 @@ int Grid::ChannelCenterHeight()
 
 int Grid::FullBottom()
 {
-    return GRID_BOTTOM - Measure_GetDeltaGridBottom();
+    return GRID_BOTTOM - Measures::GetDeltaGridBottom();
 }
 
 

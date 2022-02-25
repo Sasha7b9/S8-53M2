@@ -46,35 +46,47 @@ static const StructMeasure measures[Measure::Count] =
     {"Фаза\xa6",    '\xe5'}
 };
 
+
 static int8 posActive = 0;                  // Позиция активного измерения (на котором курсор)
 static int8 posOnPageChoice = 0;            // Позиция курсора на странице выбора измерения
 
-bool Measure_IsActive(int row, int col)
+
+namespace Measures
 {
-    if(posActive >= Measure_NumCols() * Measure_NumRows())
+
+}
+
+
+bool Measures::IsActive(int row, int col)
+{
+    if(posActive >= Measures::NumCols() * Measures::NumRows())
     {
         posActive = 0;
     }
-    return (row * Measure_NumCols() + col) == posActive;
+
+    return (row * Measures::NumCols() + col) == posActive;
 }
+
 
 void Measure_GetActive(int *row, int *col)
 {
-    *row = posActive / Measure_NumCols();
-    *col = posActive - (*row) * Measure_NumCols();
+    *row = posActive / Measures::NumCols();
+    *col = posActive - (*row) * Measures::NumCols();
 }
+
 
 void Measure_SetActive(int row, int col)
 {
-    posActive = row * Measure_NumCols() + col;
+    posActive = row * Measures::NumCols() + col;
 }
+
 
 char  Measure_GetChar(Measure::E measure)
 {
     return measures[measure].UGO;
 }
 
-int Measure_GetDY()
+int Measures::GetDY()
 {
     if(MEAS_SOURCE_IS_A_B)
     {
@@ -83,81 +95,81 @@ int Measure_GetDY()
     return 21;
 }
 
-int Measure_GetDX()
+int Measures::GetDX()
 {
     return GRID_WIDTH / 5; 
 }
 
-pchar  Measure_Name(int row, int col)
+pchar  Measures::Name(int row, int col)
 {
-    int numMeasure = row * Measure_NumCols() + col;
+    int numMeasure = row * Measures::NumCols() + col;
     return measures[MEASURE(numMeasure)].name;
 }
 
-Measure::E Measure_Type(int row, int col)
+Measure::E Measures::Type(int row, int col)
 {
-    int numMeasure = row * Measure_NumCols() + col;
+    int numMeasure = row * Measures::NumCols() + col;
     return MEASURE(numMeasure);
 }
 
-int Measure_GetTopTable()
+int Measures::GetTopTable()
 {
     if(MEAS_NUM_IS_6_2 || MEAS_NUM_IS_6_2)
     {
-        return GRID_BOTTOM - Measure_GetDY() * 6;
+        return GRID_BOTTOM - Measures::GetDY() * 6;
     }
-    return GRID_BOTTOM - Measure_NumRows() * Measure_GetDY();
+    return GRID_BOTTOM - Measures::NumRows() * Measures::GetDY();
 }
 
-int Measure_NumCols()
+int Measures::NumCols()
 {
     static const int cols[] = {1, 2, 5, 5, 5, 1, 2};
     return cols[MEAS_NUM];
 }
 
-int Measure_NumRows()
+int Measures::NumRows()
 {
     static const int rows[] = {1, 1, 1, 2, 3, 6, 6};
     return rows[MEAS_NUM];
 }
 
-int Measure_GetDeltaGridLeft()
+int Measures::GetDeltaGridLeft()
 {
     if(SHOW_MEASURES && MODE_VIEW_SIGNALS_IS_COMPRESS)
     {
         if(MEAS_NUM_IS_6_1)
         {
-            return Measure_GetDX();
+            return Measures::GetDX();
         }
         else if(MEAS_NUM_IS_6_2)
         {
-            return Measure_GetDX() * 2;
+            return Measures::GetDX() * 2;
         }
     }
     return 0;
 }
 
-int Measure_GetDeltaGridBottom()
+int Measures::GetDeltaGridBottom()
 {
     if(SHOW_MEASURES && MODE_VIEW_SIGNALS_IS_COMPRESS)
     {
         if(MEAS_NUM_IS_1_5)
         {
-            return Measure_GetDY();
+            return Measures::GetDY();
         }
         else if(MEAS_NUM_IS_2_5)
         {
-            return Measure_GetDY() * 2;
+            return Measures::GetDY() * 2;
         }
         else if(MEAS_NUM_IS_3_5)
         {
-            return Measure_GetDY() * 3;
+            return Measures::GetDY() * 3;
         }
     }
     return 0;
 }
 
-void Measure_RotateRegSet(int angle)
+void Measures::RotateRegSet(int angle)
 {
     static const int8 step = 3;
     static int8 currentAngle = 0;
@@ -192,18 +204,18 @@ void Measure_RotateRegSet(int angle)
 
         if (col < 0)
         {
-            col = Measure_NumCols() - 1;
+            col = Measures::NumCols() - 1;
             row--;
             if (row < 0)
             {
-                row = Measure_NumRows() - 1;
+                row = Measures::NumRows() - 1;
             }
         }
-        else if (col == Measure_NumCols())
+        else if (col == Measures::NumCols())
         {
             col = 0;
             row++;
-            if (row >= Measure_NumRows())
+            if (row >= Measures::NumRows())
             {
                 row = 0;
             }
@@ -214,7 +226,8 @@ void Measure_RotateRegSet(int angle)
     currentAngle = 0;
 }
 
-void Measure_ShorPressOnSmallButtonSettings()
+
+void Measures::ShorPressOnSmallButtonSettings()
 {
     PageMeasures::choiceMeasuresIsActive = !PageMeasures::choiceMeasuresIsActive;
     if(PageMeasures::choiceMeasuresIsActive)
@@ -223,7 +236,8 @@ void Measure_ShorPressOnSmallButtonSettings()
     }
 }
 
-void Measure_ShortPressOnSmallButonMarker()
+
+void Measures::ShortPressOnSmallButonMarker()
 {
     if(MEASURE_IS_MARKED(posActive))
     {
@@ -235,7 +249,9 @@ void Measure_ShortPressOnSmallButonMarker()
     }
 }
 
-void Measure_DrawPageChoice()
+
+// Нарисовать страницу выбора измерений.
+void Measures::DrawPageChoice()
 {
     if(!PageMeasures::choiceMeasuresIsActive)
     {

@@ -1831,7 +1831,7 @@ void Display::DrawCursorTrigLevel()
 
 void Display::DrawCursorRShift(Chan::E ch)
 {
-    float x = (float)(Grid::Right() - Grid::Width() - Measure_GetDeltaGridLeft());
+    float x = (float)(Grid::Right() - Grid::Width() - Measures::GetDeltaGridLeft());
 
     if (ch == Chan::Math)
     {
@@ -2027,13 +2027,13 @@ void Display::DrawMeasures()
         Painter::DrawRectangle(x0, y0, x1 - x0, y1 - y0, COLOR_FILL);
     }
 
-    int x0 = Grid::Left() - Measure_GetDeltaGridLeft();
-    int dX = Measure_GetDX();
-    int dY = Measure_GetDY();
-    int y0 = Measure_GetTopTable();
+    int x0 = Grid::Left() - Measures::GetDeltaGridLeft();
+    int dX = Measures::GetDX();
+    int dY = Measures::GetDY();
+    int y0 = Measures::GetTopTable();
 
-    int numRows = Measure_NumRows();
-    int numCols = Measure_NumCols();
+    int numRows = Measures::NumRows();
+    int numCols = Measures::NumCols();
 
     for(int str = 0; str < numRows; str++)
     {
@@ -2041,9 +2041,9 @@ void Display::DrawMeasures()
         {
             int x = x0 + dX * elem;
             int y = y0 + str * dY;
-            bool active = Measure_IsActive(str, elem) && Menu::GetNameOpenedPage() == Page_SB_MeasTuneMeas;
+            bool active = Measures::IsActive(str, elem) && Menu::GetNameOpenedPage() == Page_SB_MeasTuneMeas;
             Color::E color = active ? COLOR_BACK : COLOR_FILL;
-            Measure::E meas = Measure_Type(str, elem);
+            Measure::E meas = Measures::Type(str, elem);
 
             if(meas != Measure::None)
             {
@@ -2060,12 +2060,14 @@ void Display::DrawMeasures()
             if(meas != Measure::None)
             {
                 char buffer[20];
-                PText::DrawText(x + 4, y + 2, Measure_Name(str, elem), color);
+                PText::DrawText(x + 4, y + 2, Measures::Name(str, elem), color);
+
                 if(meas == MEAS_MARKED)
                 {
                     Painter::FillRegion(x + 1, y + 1, dX - 2, 9, active ? COLOR_BACK : COLOR_FILL);
-                    PText::DrawText(x + 4, y + 2, Measure_Name(str, elem), active ? COLOR_FILL : COLOR_BACK);
+                    PText::DrawText(x + 4, y + 2, Measures::Name(str, elem), active ? COLOR_FILL : COLOR_BACK);
                 }
+
                 if(MEAS_SOURCE_IS_A)
                 {
                     PText::DrawText(x + 2, y + 11, Processing::GetStringMeasure(meas, Chan::A, buffer), ColorChannel(Chan::A));
@@ -2085,7 +2087,7 @@ void Display::DrawMeasures()
 
     if(Menu::GetNameOpenedPage() == Page_SB_MeasTuneMeas)
     {
-        Measure_DrawPageChoice();
+        Measures::DrawPageChoice();
     }
 }
 
@@ -2173,8 +2175,8 @@ void Display::DrawLowPart()
     int y1 = SCREEN_HEIGHT - 10;
     int x = -1;
 
-    Painter::DrawHLine(Grid::ChannelBottom(), 1, Grid::Left() - Measure_GetDeltaGridLeft() - 2, COLOR_FILL);
-    Painter::DrawHLine(Grid::FullBottom(), 1, Grid::Left() - Measure_GetDeltaGridLeft() - 2);
+    Painter::DrawHLine(Grid::ChannelBottom(), 1, Grid::Left() - Measures::GetDeltaGridLeft() - 2, COLOR_FILL);
+    Painter::DrawHLine(Grid::FullBottom(), 1, Grid::Left() - Measures::GetDeltaGridLeft() - 2);
 
     WriteTextVoltage(Chan::A, x + 2, y0);
 

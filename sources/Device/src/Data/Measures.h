@@ -35,38 +35,39 @@ struct Measure
     };
 };
 
+
 Measure::E& operator++(Measure::E &measure);
 
-char Measure_GetChar(Measure::E measure);
 
-bool Measure_IsActive(int row, int col); 
+namespace Measures
+{
+    // Нарисовать страницу выбора измерений.
+    void DrawPageChoice();
 
-void Measure_GetActive(int *row, int *col);
+    bool IsActive(int row, int col);
 
-void Measure_SetActive(int row, int col);
+    int GetDY();
 
-int Measure_GetDY();
+    int GetDX();
 
-int Measure_GetDX();
+    pchar Name(int row, int col);
 
-pchar  Measure_Name(int row, int col);
+    Measure::E Type(int row, int col);
 
-Measure::E Measure_Type(int row, int col);
+    int NumRows();
 
-int Measure_NumRows();
+    int NumCols();
 
-int Measure_NumCols();
+    int GetTopTable();
 
-int Measure_GetTopTable();
+    int GetDeltaGridLeft();
 
-int Measure_GetDeltaGridLeft();
+    int GetDeltaGridBottom();
 
-int Measure_GetDeltaGridBottom();
+    void RotateRegSet(int angle);
 
-void Measure_RotateRegSet(int angle);
-// Вызывается при коротком нажатии на кнопку выбора измерения.
-void Measure_ShorPressOnSmallButtonSettings();
+    // Вызывается при коротком нажатии на кнопку выбора измерения.
+    void ShorPressOnSmallButtonSettings();
 
-void Measure_ShortPressOnSmallButonMarker();
-// Нарисовать страницу выбора измерений.
-void Measure_DrawPageChoice();
+    void ShortPressOnSmallButonMarker();
+}
