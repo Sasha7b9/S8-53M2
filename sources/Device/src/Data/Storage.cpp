@@ -172,7 +172,7 @@ void Storage::AddData(uint8 *data0, uint8 *data1, DataSettings dss)
 {
     dss.time = HAL_RTC::GetPackedTime();
 
-    if(dss.enableCh0 == 0 && dss.enableCh1 == 0)
+    if(dss.enableA == 0 && dss.enableCh1 == 0)
     {
         return;
     }
@@ -418,7 +418,7 @@ uint8* Storage::GetData(Chan::E ch, int fromEnd)
 
 bool Storage::CopyData(DataSettings *ds, Chan::E ch, Buffer<uint8> &datatImportRel)
 {
-    if((ch == Chan::A && ds->enableCh0 == 0) || (ch == Chan::B && ds->enableCh1 == 0))
+    if((ch == Chan::A && ds->enableA == 0) || (ch == Chan::B && ds->enableCh1 == 0))
     {
         return false;
     }
@@ -427,7 +427,7 @@ bool Storage::CopyData(DataSettings *ds, Chan::E ch, Buffer<uint8> &datatImportR
 
     uint length = (uint)ds->BytesInChannel();
 
-    if(ch == Chan::B && ds->enableCh0 == 1)
+    if(ch == Chan::B && ds->enableA == 1)
     {
         address += length;
     }
@@ -551,7 +551,7 @@ void Storage::PushData(DataSettings *dp, uint8 *data0, uint8 *data1)
 
     uint bytes_in_channel = (uint)dp->BytesInChannel();
 
-    if(dp->enableCh0 == 1)
+    if(dp->enableA == 1)
     {
         COPY_AND_INCREASE(addrRecord, data0, bytes_in_channel);
     }
@@ -595,7 +595,7 @@ int DataSettings::SizeElem()
 {
     int retValue = sizeof(DataSettings);
 
-    if(enableCh0 == 1)
+    if(enableA == 1)
     {
         retValue += BytesInChannel();
     }
@@ -654,7 +654,7 @@ bool Storage::SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1)
 
 bool Storage::SettingsIsEquals(DataSettings *dp0, DataSettings *dp1)
 {
-    bool retValue = (dp0->enableCh0  == dp1->enableCh0) &&
+    bool retValue = (dp0->enableA == dp1->enableA) &&
         (dp0->enableCh1     == dp1->enableCh1) &&
         (dp0->inverseCh0    == dp1->inverseCh0) &&
         (dp0->inverseCh1    == dp1->inverseCh1) &&
@@ -664,7 +664,7 @@ bool Storage::SettingsIsEquals(DataSettings *dp0, DataSettings *dp1)
         (dp0->rShiftB       == dp1->rShiftB) &&
         (dp0->tBase         == dp1->tBase) &&
         (dp0->tShift        == dp1->tShift) &&
-        (dp0->modeCouple0   == dp1->modeCouple0) &&
+        (dp0->modeCoupleA   == dp1->modeCoupleA) &&
         (dp0->modeCoupleB   == dp1->modeCoupleB) &&
         (dp0->trigLevA      == dp1->trigLevA) &&
         (dp0->trigLevB      == dp1->trigLevB) &&

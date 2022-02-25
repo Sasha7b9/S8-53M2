@@ -581,7 +581,7 @@ int RShift::ToRel(float rShiftAbs, Range::E range)
 
 void DataSettings::FillDataPointer()
 {
-    enableCh0 = Chan::Enabled(Chan::A) ? 1U : 0U;
+    enableA = Chan::Enabled(Chan::A) ? 1U : 0U;
     enableCh1 = Chan::Enabled(Chan::B) ? 1U : 0U;
     inverseCh0 = SET_INVERSE_A ? 1U : 0U;
     inverseCh1 = SET_INVERSE_B ? 1U : 0U;
@@ -591,7 +591,7 @@ void DataSettings::FillDataPointer()
     rShiftB = (uint)SET_RSHIFT_B;
     tBase = SET_TBASE;
     tShift = TSHIFT;
-    modeCouple0 = SET_COUPLE_A;
+    modeCoupleA = SET_COUPLE_A;
     modeCoupleB = SET_COUPLE_B;
     e_points_in_channel = ENUM_POINTS;
     trigLevA = (uint)TRIG_LEVEL_A;

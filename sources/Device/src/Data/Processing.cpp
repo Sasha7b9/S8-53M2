@@ -1146,7 +1146,7 @@ char* Processing::GetStringMeasure(Measure::E measure, Chan::E ch, char buffer[2
     {
         strcat(buffer, "-.-");
     }
-    else if((ch == Chan::A && dataSet->enableCh0 == 0) || (ch == Chan::B && dataSet->enableCh1 == 0))
+    else if((ch == Chan::A && dataSet->enableA == 0) || (ch == Chan::B && dataSet->enableCh1 == 0))
     {
     }
     else if(measures[measure].FuncCalculate)
@@ -1195,7 +1195,7 @@ void Processing::CountedToCurrentSettings()
         }
     }
  
-    if (dataSet->enableCh0 == 1U && (dataSet->range[0] != SET_RANGE_A || dataSet->rShiftA != (uint)SET_RSHIFT_A))
+    if (dataSet->enableA == 1U && (dataSet->range[0] != SET_RANGE_A || dataSet->rShiftA != (uint)SET_RSHIFT_A))
     {
         Range::E range = SET_RANGE_A;
         int16 rShift = SET_RSHIFT_A;
