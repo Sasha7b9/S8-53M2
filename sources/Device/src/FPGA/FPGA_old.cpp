@@ -847,7 +847,7 @@ void FPGA::ClearData()
 
 bool FPGA::AllPointsRandomizer()
 {
-    if(SET_TBASE < TBase::_100ns) 
+    if(TBase::InRandomizeMode()) 
     {
         for(int i = 0; i < 281; i++) 
         {

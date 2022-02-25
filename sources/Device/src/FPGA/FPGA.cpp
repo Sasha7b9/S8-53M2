@@ -341,7 +341,7 @@ void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
 
     FPGA_IN_PROCESS_READ = 1;
 
-    if ((TBase::E)ds.tBase < TBase::_100ns)
+    if (TBase::InRandomizeMode())
     {
         ReadRandomizeMode();
     }
