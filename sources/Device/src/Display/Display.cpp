@@ -2117,7 +2117,7 @@ void Display::WriteTextVoltage(Chan::E ch, int x, int y)
         {
             inverse = (ch == Chan::A) ? ds->inverseA : ds->inverseB;
             modeCouple = (ch == Chan::A) ? ds->coupleA : ds->coupleB;
-            multiplier = (ch == Chan::A) ? ds->multiplierA : ds->multiplierB;
+            multiplier = (ch == Chan::A) ? ds->dividerA : ds->dividerB;
             range = ds->range[ch];
             rShift = (ch == Chan::A) ? ds->rShiftA : ds->rShiftB;
             enable = (ch == Chan::A) ? ds->enableA : ds->enableB;

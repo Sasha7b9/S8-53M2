@@ -655,21 +655,21 @@ bool Storage::SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1)
 bool Storage::SettingsIsEquals(DataSettings *dp0, DataSettings *dp1)
 {
     bool retValue = (dp0->enableA == dp1->enableA) &&
-        (dp0->enableB       == dp1->enableB) &&
-        (dp0->inverseA      == dp1->inverseA) &&
-        (dp0->inverseB      == dp1->inverseB) &&
-        (dp0->range[0]      == dp1->range[0]) &&
-        (dp0->range[1]      == dp1->range[1]) &&
-        (dp0->rShiftA       == dp1->rShiftA) &&
-        (dp0->rShiftB       == dp1->rShiftB) &&
-        (dp0->tBase         == dp1->tBase) &&
-        (dp0->tShift        == dp1->tShift) &&
-        (dp0->coupleA       == dp1->coupleA) &&
-        (dp0->coupleB       == dp1->coupleB) &&
-        (dp0->trigLevA      == dp1->trigLevA) &&
-        (dp0->trigLevB      == dp1->trigLevB) &&
-        (dp0->multiplierA   == dp1->multiplierA) &&
-        (dp0->multiplierB   == dp1->multiplierB) &&
-        (dp0->peakDet       == dp1->peakDet); 
+        (dp0->enableB  == dp1->enableB) &&
+        (dp0->inverseA == dp1->inverseA) &&
+        (dp0->inverseB == dp1->inverseB) &&
+        (dp0->range[0] == dp1->range[0]) &&
+        (dp0->range[1] == dp1->range[1]) &&
+        (dp0->rShiftA  == dp1->rShiftA) &&
+        (dp0->rShiftB  == dp1->rShiftB) &&
+        (dp0->tBase    == dp1->tBase) &&
+        (dp0->tShift   == dp1->tShift) &&
+        (dp0->coupleA  == dp1->coupleA) &&
+        (dp0->coupleB  == dp1->coupleB) &&
+        (dp0->trigLevA == dp1->trigLevA) &&
+        (dp0->trigLevB == dp1->trigLevB) &&
+        (dp0->dividerA == dp1->dividerA) &&
+        (dp0->dividerB == dp1->dividerB) &&
+        (dp0->peakDet  == dp1->peakDet); 
     return retValue;
 }
