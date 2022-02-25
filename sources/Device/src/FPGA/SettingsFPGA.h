@@ -321,7 +321,7 @@ struct DataSettings
     uint                trigLevB            : 10;
     ENUM_POINTS_FPGA::E e_points_in_channel : 2;      // Точек в канале
     TBase::E            tBase               : 5;      // Масштаб по времени
-    ModeCouple::E       modeCoupleA         : 2;      // Режим канала по входу
+    ModeCouple::E       coupleA             : 2;      // Режим канала по входу
     uint                peakDet             : 2;      // Включен ли пиковый детектор
     uint                enableA             : 1;      // Включён ли канал 0
     uint                enableCh1           : 1;      // Включен ли канал 1

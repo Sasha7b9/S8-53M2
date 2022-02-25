@@ -591,7 +591,7 @@ void DataSettings::FillDataPointer()
     rShiftB = (uint)SET_RSHIFT_B;
     tBase = SET_TBASE;
     tShift = TSHIFT;
-    modeCoupleA = SET_COUPLE_A;
+    coupleA = SET_COUPLE_A;
     coupleB = SET_COUPLE_B;
     e_points_in_channel = ENUM_POINTS;
     trigLevA = (uint)TRIG_LEVEL_A;
