@@ -25,7 +25,7 @@
 #define SET_DIVIDER(ch)         (set.chan[ch].divider)          // SettingsChannel.divider
 #define SET_DIVIDER_A           SET_DIVIDER(Chan::A)
 #define SET_DIVIDER_B           SET_DIVIDER(Chan::B)
-#define VALUE_MULTIPLIER(ch)    (Divider::ToAbs(SET_DIVIDER(ch)))
+#define SET_DIVIDER_ABS(ch)     (Divider::ToAbs(SET_DIVIDER(ch)))
 
 #define SET_ENABLED(ch)         (set.chan[ch].enable)           // SettingsChannel.enable
 #define SET_ENABLED_A           SET_ENABLED(Chan::A)            // set.chan[Chan::A].enable

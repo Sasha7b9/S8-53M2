@@ -180,7 +180,7 @@ float Processing::CalculateVoltageMax(Chan::E ch)
         markerHor[ch][0] = max;                           // Здесь не округляем, потому что max может быть только целым
     }
 
-    return ValueFPGA::ToVoltage(max, dataSet->range[ch], dataSet->GetRShift(ch)) * VALUE_MULTIPLIER(ch);
+    return ValueFPGA::ToVoltage(max, dataSet->range[ch], dataSet->GetRShift(ch)) * SET_DIVIDER_ABS(ch);
 }
 
 float Processing::CalculateVoltageMin(Chan::E ch)
@@ -193,7 +193,7 @@ float Processing::CalculateVoltageMin(Chan::E ch)
         markerHor[ch][0] = min;                           // Здесь не округляем, потому что min может быть только целым
     }
 
-    return ValueFPGA::ToVoltage(min, dataSet->range[ch], dataSet->GetRShift(ch)) * VALUE_MULTIPLIER(ch);
+    return ValueFPGA::ToVoltage(min, dataSet->range[ch], dataSet->GetRShift(ch)) * SET_DIVIDER_ABS(ch);
 }
 
 float Processing::CalculateVoltagePic(Chan::E ch)
@@ -221,7 +221,7 @@ float Processing::CalculateVoltageMinSteady(Chan::E ch)
         markerHor[ch][0] = ROUND(min);
     }
 
-    return ValueFPGA::ToVoltage(min, dataSet->range[ch], dataSet->GetRShift(ch)) * VALUE_MULTIPLIER(ch);
+    return ValueFPGA::ToVoltage(min, dataSet->range[ch], dataSet->GetRShift(ch)) * SET_DIVIDER_ABS(ch);
 }
 
 float Processing::CalculateVoltageMaxSteady(Chan::E ch)
@@ -237,7 +237,7 @@ float Processing::CalculateVoltageMaxSteady(Chan::E ch)
 
     Range::E range = dataSet->range[ch];
 
-    return ValueFPGA::ToVoltage(max, range, dataSet->GetRShift(ch)) * VALUE_MULTIPLIER(ch);
+    return ValueFPGA::ToVoltage(max, range, dataSet->GetRShift(ch)) * SET_DIVIDER_ABS(ch);
 }
 
 float Processing::CalculateVoltageVybrosPlus(Chan::E ch)
@@ -256,7 +256,7 @@ float Processing::CalculateVoltageVybrosPlus(Chan::E ch)
     int16 rShift = dataSet->GetRShift(ch);
 
     return fabsf(ValueFPGA::ToVoltage(maxSteady, dataSet->range[ch], rShift) -
-        ValueFPGA::ToVoltage(max, dataSet->range[ch], rShift)) * VALUE_MULTIPLIER(ch);
+        ValueFPGA::ToVoltage(max, dataSet->range[ch], rShift)) * SET_DIVIDER_ABS(ch);
 }
 
 float Processing::CalculateVoltageVybrosMinus(Chan::E ch)
@@ -274,7 +274,7 @@ float Processing::CalculateVoltageVybrosMinus(Chan::E ch)
     int16 rShift = dataSet->GetRShift(ch);
 
     return fabsf(ValueFPGA::ToVoltage(minSteady, dataSet->range[ch], rShift) -
-        ValueFPGA::ToVoltage(min, dataSet->range[ch], rShift)) * VALUE_MULTIPLIER(ch);
+        ValueFPGA::ToVoltage(min, dataSet->range[ch], rShift)) * SET_DIVIDER_ABS(ch);
 }
 
 float Processing::CalculateVoltageAmpl(Chan::E ch)
@@ -312,7 +312,7 @@ float Processing::CalculateVoltageAverage(Chan::E ch)
         markerHor[ch][0] = aveRel;
     }
 
-    return ValueFPGA::ToVoltage(aveRel, dataSet->range[ch], dataSet->GetRShift(ch)) * VALUE_MULTIPLIER(ch);
+    return ValueFPGA::ToVoltage(aveRel, dataSet->range[ch], dataSet->GetRShift(ch)) * SET_DIVIDER_ABS(ch);
 }
 
 float Processing::CalculateVoltageRMS(Chan::E ch)
@@ -335,7 +335,7 @@ float Processing::CalculateVoltageRMS(Chan::E ch)
         markerHor[ch][0] = Math_VoltageToPoint(sqrt(rms / period), dataSet->range[ch], rShift);
     }
 
-    return sqrt(rms / period) * VALUE_MULTIPLIER(ch);
+    return sqrt(rms / period) * SET_DIVIDER_ABS(ch);
 }
 
 float Processing::CalculatePeriod(Chan::E ch)
