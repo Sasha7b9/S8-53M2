@@ -39,6 +39,8 @@ namespace FPGA
 
     volatile static int numberMeasuresForGates = 1000;
 
+    bool IN_PROCESS_READ = false;
+
     uint16 ReadFlag();
 
     void ReadPoint();
@@ -326,7 +328,7 @@ void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
 {
     Panel::EnableLEDTrig(false);
 
-    FPGA_IN_PROCESS_READ = 1;
+    IN_PROCESS_READ = true;
 
     ReadRealMode(necessaryShift);
 
@@ -352,7 +354,7 @@ void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
         }
     }
 
-    FPGA_IN_PROCESS_READ = 0;
+    IN_PROCESS_READ = false;
 }
 
 
@@ -379,7 +381,7 @@ void FPGA::ReadRealMode(bool necessaryShift)
 
         int index = 0;
 
-        while (p_maxA < endA && FPGA_IN_PROCESS_READ)
+        while (p_maxA < endA && IN_PROCESS_READ)
         {
             data.half_word = *RD_ADC_A;
             *p_maxA++ = data.byte0;
@@ -400,7 +402,7 @@ void FPGA::ReadRealMode(bool necessaryShift)
     {
         BitSet16 data;
 
-        while (pA < endA && FPGA_IN_PROCESS_READ)
+        while (pA < endA && IN_PROCESS_READ)
         {
             data.half_word = *RD_ADC_B;
             *pB++ = data.byte0;

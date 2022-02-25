@@ -35,7 +35,6 @@ struct DataSettings;
 #define FPGA_CRITICAL_SITUATION  (gBF.FPGAcritiacalSituation)
 #define TRIG_AUTO_FIND           (gBF.FPGAtrigAutoFind)
 #define FPGA_TEMPORARY_PAUSE     (gBF.FPGAtemporaryPause)
-#define FPGA_IN_PROCESS_READ     (gBF.FPGAinProcessingOfRead)
 #define FPGA_FIRST_AFTER_WRITE   (gBF.FPGAfirstAfterWrite)
 #define SOUND_IS_BEEP            (gBF.soundIsBeep)
 #define SOUND_WARN_IS_BEEP       (gBF.soundWarnIsBeep)
@@ -74,7 +73,6 @@ struct BitField
                                             // выбрана соответствующая настройка.
     uint FPGAautoFindInProgress     : 1;
     uint FPGAtemporaryPause         : 1;
-    uint FPGAinProcessingOfRead     : 1;
     uint FPGAcanReadData            : 1;
     uint FPGAcritiacalSituation     : 1;
     uint FPGAfirstAfterWrite        : 1;    // Используется в режиме рандомизатора. После записи любого параметра в альтеру
