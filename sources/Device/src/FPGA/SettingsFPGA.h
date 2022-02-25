@@ -315,7 +315,7 @@ struct DataSettings
     uint                rShiftB             : 10;
     uint                trigLevCh0          : 10;     // Уровень синхронизации
     int                 tShift;                       // Смещение по времени
-    ModeCouple::E       modeCouple1         : 2;
+    ModeCouple::E       modeCoupleB         : 2;
     Range::E            range[2];                     // Масштаб по напряжению обоих каналов.
 
     uint                trigLevCh1          : 10;

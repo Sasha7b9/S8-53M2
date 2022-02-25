@@ -665,7 +665,7 @@ bool Storage::SettingsIsEquals(DataSettings *dp0, DataSettings *dp1)
         (dp0->tBase         == dp1->tBase) &&
         (dp0->tShift        == dp1->tShift) &&
         (dp0->modeCouple0   == dp1->modeCouple0) &&
-        (dp0->modeCouple1   == dp1->modeCouple1) &&
+        (dp0->modeCoupleB   == dp1->modeCoupleB) &&
         (dp0->trigLevCh0    == dp1->trigLevCh0) &&
         (dp0->trigLevCh1    == dp1->trigLevCh1) &&
         (dp0->multiplier0   == dp1->multiplier0) &&
