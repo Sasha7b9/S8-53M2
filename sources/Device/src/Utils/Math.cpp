@@ -15,36 +15,55 @@ const float tableScalesRange[Range::Count] = {2e-3f, 5e-3f, 10e-3f, 20e-3f, 50e-
 
 const float absStepRShift[] =
 {
-    2e-3f / 20   / RShift::STEP,
-    5e-3f / 20   / RShift::STEP,
-    10e-3f / 20  / RShift::STEP,
-    20e-3f / 20  / RShift::STEP,
-    50e-3f / 20  / RShift::STEP,
+    2e-3f   / 20 / RShift::STEP,
+    5e-3f   / 20 / RShift::STEP,
+    10e-3f  / 20 / RShift::STEP,
+    20e-3f  / 20 / RShift::STEP,
+    50e-3f  / 20 / RShift::STEP,
     100e-3f / 20 / RShift::STEP,
     200e-3f / 20 / RShift::STEP,
     500e-3f / 20 / RShift::STEP,
-    1.0f / 20    / RShift::STEP,
-    2.0f / 20    / RShift::STEP,
-    5.0f / 20    / RShift::STEP,
-    10.0f / 20   / RShift::STEP,
-    20.0f / 20   / RShift::STEP
+    1.0f    / 20 / RShift::STEP,
+    2.0f    / 20 / RShift::STEP,
+    5.0f    / 20 / RShift::STEP,
+    10.0f   / 20 / RShift::STEP,
+    20.0f   / 20 / RShift::STEP
 };
 
-const float voltsInPixel[] =
+// Столько вольт в одной точке экрана
+const float voltsInPixel[Range::Count] =
 {
-    2e-3f   / 20,      // 2mV
-    5e-3f   / 20,      // 5mV
-    10e-3f  / 20,     // 10mV
-    20e-3f  / 20,     // 20mV
-    50e-3f  / 20,     // 50mV
-    100e-3f / 20,    // 100mV
-    200e-3f / 20,    // 200mV
-    500e-3f / 20,    // 500mV
-    1.0f    / 20,       // 1V
-    2.0f    / 20,       // 2V
-    5.0f    / 20,       // 5V
-    10.0f   / 20,      // 10V
-    20.0f   / 20       // 20V
+    2e-3f   / 20,  // 2mV
+    5e-3f   / 20,  // 5mV
+    10e-3f  / 20,  // 10mV
+    20e-3f  / 20,  // 20mV
+    50e-3f  / 20,  // 50mV
+    100e-3f / 20,  // 100mV
+    200e-3f / 20,  // 200mV
+    500e-3f / 20,  // 500mV
+    1.0f    / 20,  // 1V
+    2.0f    / 20,  // 2V
+    5.0f    / 20,  // 5V
+    10.0f   / 20,  // 10V
+    20.0f   / 20   // 20V
+};
+
+// Столько вольт в 1/250 амлитуды сигнала, растянутого на полный экран
+const float voltsInPoint[Range::Count] =
+{
+    2e-3f   * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 2mV
+    5e-3f   * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 5mV
+    10e-3f  * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 10mV
+    20e-3f  * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 20mV
+    50e-3f  * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 50mV
+    100e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 100mV
+    200e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 200mV
+    500e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 500mV
+    1.0f    * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 1V
+    2.0f    * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 2V
+    5.0f    * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 5V
+    10.0f   * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 10V
+    20.0f   * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN)   // 20V
 };
 
 const int voltsInPixelInt[] =   // Коэффициент 20000
@@ -703,7 +722,7 @@ void Math_CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoints
 
 float ValueFPGA::ToVoltage(uint8 value, Range::E range, RShift rShift)
 {
-    return (((float)value - (float)ValueFPGA::MIN) * voltsInPixel[range] - MAX_VOLTAGE_ON_SCREEN(range) - rShift.ToAbs(range));
+    return (((float)value - (float)ValueFPGA::MIN) * voltsInPoint[range] - MAX_VOLTAGE_ON_SCREEN(range) - rShift.ToAbs(range));
 }
 
 

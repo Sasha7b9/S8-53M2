@@ -180,14 +180,7 @@ float Processing::CalculateVoltageMax(Chan::E ch)
         markerHor[ch][0] = max;                           // Здесь не округляем, потому что max может быть только целым
     }
 
-    float result = ValueFPGA::ToVoltage(max, dset->range[ch], dset->GetRShift(ch)) * SET_DIVIDER_ABS(ch);
-
-    if (ch == ChA)
-    {
-        LOG_WRITE("value = %f, max = %f", max, result);
-    }
-
-    return result;
+    return ValueFPGA::ToVoltage(max, dset->range[ch], dset->GetRShift(ch)) * SET_DIVIDER_ABS(ch);
 }
 
 float Processing::CalculateVoltageMin(Chan::E ch)
