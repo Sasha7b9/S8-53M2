@@ -13,47 +13,48 @@
 #include <stdio.h>
 
 
-struct StructMeasure
-{
-    pchar name;
-    const char UGO;
-};
-
-static const StructMeasure measures[Measure::Count] =
-{
-    {"",            '\x00'},
-    {"U макс",      '\x20'},
-    {"U мин",       '\x25'},
-    {"U пик",       '\x2a'},
-    {"U макс уст",  '\x40'},
-    {"U мин уст",   '\x45'},
-    {"U ампл",      '\x4a'},
-    {"U ср",        '\x60'},
-    {"U скз",       '\x65'},
-    {"Выброс+",     '\x6a'},
-    {"Выброс-",     '\x80'},
-    {"Период",      '\x85'},
-    {"Частота",     '\x8a'},
-    {"Вр нараст",   '\xa0'},
-    {"Вр спада",    '\xa5'},
-    {"Длит+",       '\xaa'},
-    {"Длит-",       '\xc0'},
-    {"Скважн+",     '\xc5'},
-    {"Скважн-",     '\xca'},
-    {"Задержка\xa7",'\xe0'},
-    {"Задержка\xa6",'\xe5'},
-    {"Фаза\xa7",    '\xe0'},
-    {"Фаза\xa6",    '\xe5'}
-};
-
-
-static int8 posActive = 0;                  // Позиция активного измерения (на котором курсор)
-static int8 posOnPageChoice = 0;            // Позиция курсора на странице выбора измерения
-
-
 namespace Measures
 {
+    struct StructMeasure
+    {
+        pchar name;
+        const char UGO;
+    };
 
+    const StructMeasure measures[Measure::Count] =
+    {
+        {"",            '\x00'},
+        {"U макс",      '\x20'},
+        {"U мин",       '\x25'},
+        {"U пик",       '\x2a'},
+        {"U макс уст",  '\x40'},
+        {"U мин уст",   '\x45'},
+        {"U ампл",      '\x4a'},
+        {"U ср",        '\x60'},
+        {"U скз",       '\x65'},
+        {"Выброс+",     '\x6a'},
+        {"Выброс-",     '\x80'},
+        {"Период",      '\x85'},
+        {"Частота",     '\x8a'},
+        {"Вр нараст",   '\xa0'},
+        {"Вр спада",    '\xa5'},
+        {"Длит+",       '\xaa'},
+        {"Длит-",       '\xc0'},
+        {"Скважн+",     '\xc5'},
+        {"Скважн-",     '\xca'},
+        {"Задержка\xa7",'\xe0'},
+        {"Задержка\xa6",'\xe5'},
+        {"Фаза\xa7",    '\xe0'},
+        {"Фаза\xa6",    '\xe5'}
+    };
+
+
+    int8 posActive = 0;                  // Позиция активного измерения (на котором курсор)
+    int8 posOnPageChoice = 0;            // Позиция курсора на странице выбора измерения
+
+    void GetActive(int *row, int *col);
+    void SetActive(int row, int col);
+    char GetChar(Measure::E);
 }
 
 
@@ -68,20 +69,20 @@ bool Measures::IsActive(int row, int col)
 }
 
 
-void Measure_GetActive(int *row, int *col)
+void Measures::GetActive(int *row, int *col)
 {
     *row = posActive / Measures::NumCols();
     *col = posActive - (*row) * Measures::NumCols();
 }
 
 
-void Measure_SetActive(int row, int col)
+void Measures::SetActive(int row, int col)
 {
     posActive = row * Measures::NumCols() + col;
 }
 
 
-char  Measure_GetChar(Measure::E measure)
+char Measures::GetChar(Measure::E measure)
 {
     return measures[measure].UGO;
 }
@@ -199,7 +200,7 @@ void Measures::RotateRegSet(int angle)
     {
         int row = 0;
         int col = 0;
-        Measure_GetActive(&row, &col);
+        GetActive(&row, &col);
         col += Math::Sign(currentAngle);
 
         if (col < 0)
@@ -220,7 +221,8 @@ void Measures::RotateRegSet(int angle)
                 row = 0;
             }
         }
-        Measure_SetActive(row, col);
+
+        SetActive(row, col);
         Sound::RegulatorSwitchRotate();
     }
     currentAngle = 0;
@@ -284,7 +286,7 @@ void Measures::DrawPageChoice()
             Painter::DrawRectangle(x0, y0, dX, dY, COLOR_FILL);
             Painter::FillRegion(x0 + 1, y0 + 1, dX - 2, dY - 2, active ? Color::FLASH_10 : COLOR_BACK);
             Color::SetCurrent(active ? Color::FLASH_01 : COLOR_FILL);
-            PText::Draw10SymbolsInRect(x0 + 2, y0 + 1, Measure_GetChar(meas));
+            PText::Draw10SymbolsInRect(x0 + 2, y0 + 1, GetChar(meas));
             Font::Set(TypeFont::_5);
             PText::DrawTextRelativelyRight(x0 + dX, y0 + 6, measures[meas].name, active ? Color::FLASH_01 : COLOR_FILL);
             Font::Set(TypeFont::UGO);
