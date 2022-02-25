@@ -45,12 +45,13 @@ bool SettingsDisplay::IsSeparate()
 }
 
 
-ModeAveraging SettingsDisplay::GetModeAveraging()
+ModeAveraging::E SettingsDisplay::GetModeAveraging()
 {
     if (TBase::InRandomizeMode())
     {
-        return Averaging_Around;
+        return ModeAveraging::Around;
     }
+
     return MODE_AVE;
 }
 

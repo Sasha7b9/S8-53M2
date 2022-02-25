@@ -51,7 +51,7 @@ static const Settings defaultSettings =
         TypeGrid_1,                 // typeGrid
         NumAccumulation_1,          // numAccumulation
         NumAveraging_1,             // numAveraging
-        Averaging_Accurately,       // modeAveraging
+        ModeAveraging::Accurately,  // modeAveraging
         NumMinMax_1,                // enumMinMax
         Smoothing::Disable,         // smoothing
         ENumSignalsInSec::_25,      // num signals in one second

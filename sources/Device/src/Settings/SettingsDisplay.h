@@ -33,7 +33,7 @@
 #define ENUM_AVE                    (set.display.enumAve)                       // SettingsDisplay.enumAve
 #define NUM_AVE                     (1 << ENUM_AVE)                             // Количество усреднений.
 
-#define MODE_AVE                    (set.display.modeAve)                       // SettingsDisplay.modeAve
+#define MODE_AVE                    (set.display.modeAve)
 
 #define ENUM_MIN_MAX                (set.display.enumMinMax)                    // SettingsDisplay.enumMinMax
 #define NUM_MIN_MAX                 (1 << ENUM_MIN_MAX)                         // Количество измерений сигналов для расчёта минимумов и максимумов.
@@ -110,10 +110,13 @@ enum ENumAveraging
 };
 
 // Тип усреднений по измерениям.
-enum ModeAveraging
+struct ModeAveraging
 {
-    Averaging_Accurately,   // Усреднять точно.
-    Averaging_Around        // Усреднять приблизительно.
+    enum E
+    {
+        Accurately,   // Усреднять точно.
+        Around        // Усреднять приблизительно.
+    };
 };
 
 // Количество измерений для расчёта минимального и максимального значений.
@@ -214,7 +217,7 @@ struct SettingsDisplay
     TypeGrid            typeGrid;                   // Тип сетки.
     ENumAccumulation    enumAccumulation;           // Перечисление накоплений сигнала на экране.
     ENumAveraging       enumAve;                    // Перечисление усреднений сигнала.
-    ModeAveraging       modeAve;                    // Тип усреднений по измерениям.
+    ModeAveraging::E    modeAve;                    // Тип усреднений по измерениям.
     ENumMinMax          enumMinMax;                 // Число измерений для определения минимумов и максимумов.
     Smoothing::E        smoothing;                  // Число точек для скользящего фильтра.
     ENumSignalsInSec::E enumSignalsInSec;           // Перечисление считываний сигнала в секунду.
@@ -238,5 +241,5 @@ struct SettingsDisplay
     static bool IsSeparate();
 
     // Возвращает режим усреднения
-    static ModeAveraging GetModeAveraging();
+    static ModeAveraging::E GetModeAveraging();
 };
