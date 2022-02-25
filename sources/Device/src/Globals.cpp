@@ -22,9 +22,6 @@ BitField gBF =
     0,  // framesElapsed
     0,  // numDrawingSignals
 
-    // FPGA
-    0,  // FPGAfirstAfterWrite
-
     0,  // soundIsBeep
     0,  // soundWarnIsBeep
     0,  // buttonIsPressed

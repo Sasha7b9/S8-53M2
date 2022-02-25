@@ -46,6 +46,9 @@ namespace FPGA
     bool TEMPORARY_PAUSE = false;
     bool CAN_READ_DATA = true;
     bool CRITICAL_SITUATION = false;
+    bool FIRST_AFTER_WRITE = false; // Используется в режиме рандомизатора. После записи любого параметра в альтеру
+                    // нужно не использовать первое считанное данное с АЦП, потому что оно завышено и портит ворота
+
 
     uint16 ReadFlag();
 
@@ -497,9 +500,9 @@ int FPGA::CalculateShift()
 
 bool FPGA::CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
 {
-    if (FPGA_FIRST_AFTER_WRITE)
+    if (FIRST_AFTER_WRITE)
     {
-        FPGA_FIRST_AFTER_WRITE = 0;
+        FIRST_AFTER_WRITE = false;
         return false;
     }
 

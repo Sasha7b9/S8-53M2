@@ -30,7 +30,6 @@ struct DataSettings;
 #define DRAW_RSHIFT_MARKERS      (gBF.drawRShiftMarkers)
 #define TOP_MEASURES             (gBF.topMeasures)
 #define FRAMES_ELAPSED           (gBF.framesElapsed)
-#define FPGA_FIRST_AFTER_WRITE   (gBF.FPGAfirstAfterWrite)
 #define SOUND_IS_BEEP            (gBF.soundIsBeep)
 #define SOUND_WARN_IS_BEEP       (gBF.soundWarnIsBeep)
 #define BUTTON_IS_PRESSED        (gBF.buttonIsPressed)
@@ -62,10 +61,6 @@ struct BitField
     uint needFinishDraw             : 1;    // Если 1, то дисплей нуждается в перерисовке
     uint framesElapsed              : 1;
     uint numDrawingSignals          : 8;    // Число нарисованных сигналов для режима накопления
-
-    // FPGA
-    uint FPGAfirstAfterWrite        : 1;    // Используется в режиме рандомизатора. После записи любого параметра в альтеру
-                                            // нужно не использовать первое считанное данное с АЦП, потому что оно завышено и портит ворота
 
     // Звук
     uint soundIsBeep                : 1;
