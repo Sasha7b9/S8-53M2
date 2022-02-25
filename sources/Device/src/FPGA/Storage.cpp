@@ -460,7 +460,7 @@ uint8* Storage::GetAverageData(Chan::E ch)
 
     uint numPoints = (uint)ds->BytesInChannel();
 
-    if (sDisplay_ModeAveraging() == Averaging_Around)
+    if (SettingsDisplay::GetModeAveraging() == Averaging_Around)
     {
         float *floatAveData = (ch == Chan::A) ? aveData0 : aveData1;
         

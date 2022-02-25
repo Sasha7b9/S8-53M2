@@ -236,7 +236,7 @@ struct SettingsDisplay
 
     // Если экран разделён на две части и основной сигнал выводится сверху - например, в режиме вывода спектра
     static bool IsSeparate();
-};
 
-// Возвращает режим усреднения
-ModeAveraging sDisplay_ModeAveraging();
+    // Возвращает режим усреднения
+    static ModeAveraging GetModeAveraging();
+};
