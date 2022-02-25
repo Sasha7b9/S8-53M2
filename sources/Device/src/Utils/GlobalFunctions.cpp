@@ -1,9 +1,10 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
-#include "GlobalFunctions.h"
+#include "defines.h"
+#include "Utils/GlobalFunctions.h"
 #include "Settings/Settings.h"
 #include "Log.h"
 #include "Display/Symbols.h"
-#include "Math.h"
+#include "Utils/Math.h"
 #include <math.h>
 #include <stdio.h>
 #include <string.h>

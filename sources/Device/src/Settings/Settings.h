@@ -1,7 +1,7 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "SettingsTypes.h"
-#include "Utils/Measures.h"
+#include "Data/Measures.h"
 #include "Menu/MenuItems.h"
 #include "Panel/Controls.h"
 #include "SettingsChannel.h"

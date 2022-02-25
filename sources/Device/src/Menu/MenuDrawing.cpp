@@ -2,7 +2,7 @@
 #include "defines.h"
 #include "Panel/Controls.h"
 #include "Settings/SettingsTypes.h"
-#include "Utils/Measures.h"
+#include "Data/Measures.h"
 #include "Tables.h"
 #include "Panel/Panel.h"
 #include "Menu/Menu.h"
@@ -13,7 +13,7 @@
 #include "Display/Grid.h"
 #include "Settings/Settings.h"
 #include "Utils/Math.h"
-#include "Utils/Measures.h"
+#include "Data/Measures.h"
 #include "Hardware/Timer.h"
 #include "Log.h"
 #include <stdio.h>

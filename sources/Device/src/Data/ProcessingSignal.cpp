@@ -1,7 +1,7 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "ProcessingSignal.h"
-#include "Math.h"
-#include "GlobalFunctions.h"
+#include "Utils/Math.h"
+#include "Utils/GlobalFunctions.h"
 #include "Log.h"
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"

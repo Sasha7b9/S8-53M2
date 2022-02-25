@@ -1,6 +1,6 @@
 // 2022/02/11 17:48:36 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "FPGA/FPGA.h"
-#include "FPGA/Storage.h"
+#include "Data/Storage.h"
 #include "FPGA/TypesFPGA_old.h"
 #include "Display/Display.h"
 #include "Panel/Panel.h"
@@ -8,7 +8,7 @@
 #include "Settings/Settings.h"
 #include "Settings/SettingsChannel.h"
 #include "Utils/Math.h"
-#include "Utils/ProcessingSignal.h"
+#include "Data/ProcessingSignal.h"
 #include "Utils/Generator.h"
 #include "Hardware/Timer.h"
 #include "Log.h"

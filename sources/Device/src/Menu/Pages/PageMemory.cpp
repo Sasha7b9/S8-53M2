@@ -4,7 +4,7 @@
 #include "Menu/Pages/Definition.h"
 #include "Menu/FileManager.h"
 #include "FPGA/FPGA.h"
-#include "FPGA/Storage.h"
+#include "Data/Storage.h"
 #include "Display/Colors.h"
 #include "Display/Display.h"
 #include "Display/font/Font.h"

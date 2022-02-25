@@ -5,9 +5,9 @@
 #include "Hardware/Timer.h"
 #include "Panel/Panel.h"
 #include "Hardware/HAL/HAL.h"
-#include "FPGA/Storage.h"
+#include "Data/Storage.h"
 #include "Utils/Math.h"
-#include "Utils/ProcessingSignal.h"
+#include "Data/ProcessingSignal.h"
 #include "Utils/Containers/Buffer.h"
 #include "Utils/Strings.h"
 #include <stm32f4xx_hal.h>
