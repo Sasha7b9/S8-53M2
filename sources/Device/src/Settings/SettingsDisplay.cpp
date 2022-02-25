@@ -28,12 +28,13 @@ BitSet32 SettingsDisplay::PointsOnDisplay()
 }
 
 
-int sDisplay_TimeMenuAutoHide()
+int SettingsDisplay::TimeMenuAutoHide()
 {
     static const int times[] =
     {
         0, 5, 10, 15, 30, 60
     };
+
     return times[MENU_AUTO_HIDE] * 1000;
 }
 

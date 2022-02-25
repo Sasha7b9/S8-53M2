@@ -346,13 +346,13 @@ void Menu::SetAutoHide(bool active)
     {
         return;
     }
-    if(sDisplay_TimeMenuAutoHide() == 0)
+    if(SettingsDisplay::TimeMenuAutoHide() == 0)
     {
         Timer::Disable(TypeTimer::MenuAutoHide);
     }
     else
     {
-        Timer::Enable(TypeTimer::MenuAutoHide, sDisplay_TimeMenuAutoHide(), OnTimerAutoHide);
+        Timer::Enable(TypeTimer::MenuAutoHide, SettingsDisplay::TimeMenuAutoHide(), OnTimerAutoHide);
     }
 }
 
