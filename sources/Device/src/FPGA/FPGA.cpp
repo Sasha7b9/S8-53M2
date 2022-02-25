@@ -44,6 +44,7 @@ namespace FPGA
                                     // синхронизации, если  выбрана соответствующая настройка.
     bool AUTO_FIND_IN_PROGRESS = false;
     bool TEMPORARY_PAUSE = false;
+    bool CAN_READ_DATA = true;
 
     uint16 ReadFlag();
 
@@ -122,7 +123,7 @@ void FPGA::Update()
         return;
     }
     
-    if(FPGA_CAN_READ_DATA == 0)
+    if(!CAN_READ_DATA)
     {
         return;
     }
@@ -139,7 +140,7 @@ void FPGA::Update()
 
     ProcessingData();
 
-    FPGA_CAN_READ_DATA = 0;
+    CAN_READ_DATA = false;
 }
 
 
@@ -276,7 +277,7 @@ void FPGA::SetNumSignalsInSec(int numSigInSec)
 
 void FPGA::OnTimerCanReadData()
 {
-    FPGA_CAN_READ_DATA = 1;
+    CAN_READ_DATA = true;
 }
 
 
