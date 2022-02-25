@@ -1534,17 +1534,20 @@ void Display::DrawGridSpectrum()
 
 void Display::DrawFullGrid()
 {
-    if (sDisplay_IsSeparate())
+    if (SettingsDisplay::IsSeparate())
     {
         DrawGrid(Grid::Left(), GRID_TOP, Grid::Width(), Grid::FullHeight() / 2);
+
         if (ENABLED_FFT)
         {
             DrawGridSpectrum();
         }
+
         if (!DISABLED_DRAW_MATH)
         {
             DrawGrid(Grid::Left(), GRID_TOP + Grid::FullHeight() / 2, Grid::Width(), Grid::FullHeight() / 2);
         }
+
         Painter::DrawHLine(GRID_TOP + Grid::FullHeight() / 2, Grid::Left(), Grid::Left() + Grid::Width(), COLOR_FILL);
     }
     else
