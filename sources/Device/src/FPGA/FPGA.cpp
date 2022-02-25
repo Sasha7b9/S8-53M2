@@ -40,6 +40,8 @@ namespace FPGA
     volatile static int numberMeasuresForGates = 1000;
 
     bool IN_PROCESS_READ = false;
+    bool TRIG_AUTO_FIND = false;    // ”становленное в 1 значение означает, что нужно производить автоматический поиск
+                                    // синхронизации, если  выбрана соответствующа€ настройка.
 
     uint16 ReadFlag();
 

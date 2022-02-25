@@ -33,7 +33,6 @@ struct DataSettings;
 #define FRAMES_ELAPSED           (gBF.framesElapsed)
 #define FPGA_CAN_READ_DATA       (gBF.FPGAcanReadData)
 #define FPGA_CRITICAL_SITUATION  (gBF.FPGAcritiacalSituation)
-#define TRIG_AUTO_FIND           (gBF.FPGAtrigAutoFind)
 #define FPGA_TEMPORARY_PAUSE     (gBF.FPGAtemporaryPause)
 #define FPGA_FIRST_AFTER_WRITE   (gBF.FPGAfirstAfterWrite)
 #define SOUND_IS_BEEP            (gBF.soundIsBeep)
@@ -69,8 +68,6 @@ struct BitField
     uint numDrawingSignals          : 8;    // „исло нарисованных сигналов дл€ режима накоплени€
 
     // FPGA
-    uint FPGAtrigAutoFind           : 1;    // ”становленное в 1 значение означает, что нужно производить автоматический поиск синхронизации, если 
-                                            // выбрана соответствующа€ настройка.
     uint FPGAautoFindInProgress     : 1;
     uint FPGAtemporaryPause         : 1;
     uint FPGAcanReadData            : 1;

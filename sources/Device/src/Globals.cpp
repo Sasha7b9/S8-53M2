@@ -24,7 +24,6 @@ BitField gBF =
 
   
     // FPGA
-    0,  // FPGAtrigAutoFind
     0,  // FPGAautoFindInProgress
     0,  // FPGAtemporaryPause
     1,  // FPGAcanReadData
