@@ -597,8 +597,8 @@ void DataSettings::FillDataPointer()
     trigLevA = (uint)TRIG_LEVEL_A;
     trigLevB = (uint)TRIG_LEVEL_B;
     peakDet = (uint)PEAKDET;
-    multiplier0 = SET_DIVIDER_A;
-    multiplier1 = SET_DIVIDER_B;
+    multiplierA = SET_DIVIDER_A;
+    multiplierB = SET_DIVIDER_B;
 }
 
 
