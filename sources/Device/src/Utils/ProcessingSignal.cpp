@@ -25,33 +25,6 @@ static int firstP = 0;
 static int lastP = 0;
 static int numP = 0;
 
-const Processing::MeasureCalculate Processing::measures[Measure_NumMeasures] =
-{
-    {0, 0},
-    {"CalculateVoltageMax",         CalculateVoltageMax,           Voltage2String, true},
-    {"CalculateVoltageMin",         CalculateVoltageMin,           Voltage2String, true},
-    {"CalculateVoltagePic",         CalculateVoltagePic,           Voltage2String, false},
-    {"CalculateVoltageMaxSteady",   CalculateVoltageMaxSteady,     Voltage2String, true},
-    {"CalculateVoltageMinSteady",   CalculateVoltageMinSteady,     Voltage2String, true},
-    {"CalculateVoltageAmpl",        CalculateVoltageAmpl,          Voltage2String, false},
-    {"CalculateVoltageAverage",     CalculateVoltageAverage,       Voltage2String, true},
-    {"CalculateVoltageRMS",         CalculateVoltageRMS,           Voltage2String, false},
-    {"CalculateVoltageVybrosPlus",  CalculateVoltageVybrosPlus,    Voltage2String, false},
-    {"CalculateVoltageVybrosMinus", CalculateVoltageVybrosMinus,   Voltage2String, false},
-    {"CalculatePeriod",             CalculatePeriod,               Time2String, false},
-    {"CalculateFreq",               CalculateFreq,                 Freq2String, false},
-    {"CalculateTimeNarastaniya",    CalculateTimeNarastaniya,      Time2String, false},
-    {"CalculateTimeSpada",          CalculateTimeSpada,            Time2String, false},
-    {"CalculateDurationPlus",       CalculateDurationPlus,         Time2String, false},
-    {"CalculateDurationPlus",       CalculateDurationMinus,        Time2String, false},
-    {"CalculateSkvaznostPlus",      CalculateSkvaznostPlus,        FloatFract2String, false},
-    {"CalculateSkvaznostMinus",     CalculateSkvaznostMinus,       FloatFract2String, false},
-    {"CalculateDelayPlus",          CalculateDelayPlus,            Time2String, false},
-    {"CalculateDelayMinus",         CalculateDelayMinus,           Time2String, false},
-    {"CalculatePhazaPlus",          CalculatePhazaPlus,            Phase2String, false},
-    {"CalculatePhazaMinus",         CalculatePhazaMinus,           Phase2String, false}
-};
-
 static MeasureValue values[Measure_NumMeasures] = {{0.0f, 0.0f}};
 
 static int markerHor[Chan::Count][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
@@ -69,6 +42,91 @@ static bool picIsCalculating[2] = {false, false};
 #define EXIT_IF_ERROR_FLOAT(x)      if((x) == ERROR_VALUE_FLOAT)                                return ERROR_VALUE_FLOAT;
 #define EXIT_IF_ERRORS_FLOAT(x, y)  if((x) == ERROR_VALUE_FLOAT || (y) == ERROR_VALUE_FLOAT)    return ERROR_VALUE_FLOAT;
 #define EXIT_IF_ERROR_INT(x)        if((x) == ERROR_VALUE_INT)                                  return ERROR_VALUE_FLOAT;
+
+
+namespace Processing
+{
+    float CalculateVoltageMax(Chan::E);
+    float CalculateVoltageMin(Chan::E);
+    float CalculateVoltagePic(Chan::E);
+    float CalculateVoltageMaxSteady(Chan::E);
+    float CalculateVoltageMinSteady(Chan::E);
+    float CalculateVoltageAmpl(Chan::E);
+    float CalculateVoltageAverage(Chan::E);
+    float CalculateVoltageRMS(Chan::E);
+    float CalculateVoltageVybrosPlus(Chan::E);
+    float CalculateVoltageVybrosMinus(Chan::E);
+    float CalculatePeriod(Chan::E);
+    // Точно вычисляет период или целое число периодов в точках сигнала.
+    int   CalculatePeriodAccurately(Chan::E);
+    float CalculateFreq(Chan::E);
+    float CalculateTimeNarastaniya(Chan::E);
+    float CalculateTimeSpada(Chan::E);
+    float CalculateDurationPlus(Chan::E);
+    float CalculateDurationMinus(Chan::E);
+    float CalculateSkvaznostPlus(Chan::E);
+    float CalculateSkvaznostMinus(Chan::E);
+    // Возвращает минимальное значение относительного сигнала    
+    float CalculateMinRel(Chan::E);
+    // Возвращает минимальное установившееся значение относительного сигнала
+    float CalculateMinSteadyRel(Chan::E);
+    // Возвращает максимальное значение относительного сигнала
+    float CalculateMaxRel(Chan::E);
+    // Возвращает максимальное установившееся значение относительного сигнала
+    float CalculateMaxSteadyRel(Chan::E);
+    // Возвращает среденее значение относительного сигнала
+    float CalculateAverageRel(Chan::E);
+    float CalculatePicRel(Chan::E);
+    float CalculateDelayPlus(Chan::E);
+    float CalculateDelayMinus(Chan::E);
+    float CalculatePhazaPlus(Chan::E);
+    float CalculatePhazaMinus(Chan::E);
+    // Найти точку пересечения сигнала с горизонтальной линией, проведённой на уровне yLine. numItersection - порядковый
+    // номер пересечения, начинается с 1. downToTop - если true, ищем пересечение сигнала со средней линией при
+    // прохождении из "-" в "+".
+    float FindIntersectionWithHorLine(Chan::E, int numIntersection, bool downToUp, uint8 yLine);
+
+    void CountedToCurrentSettings();
+
+    typedef float (*pFuncFCh)(Chan::E);
+
+    struct MeasureCalculate
+    {
+        char *name;
+        pFuncFCh    FuncCalculate;
+        pFuncCFBC   FucnConvertate;
+        // Если true, нужно показывать знак.
+        bool        showSign;
+    };
+
+    const MeasureCalculate measures[Measure_NumMeasures] =
+    {
+        {0, 0},
+        {"CalculateVoltageMax",         CalculateVoltageMax,           Voltage2String, true},
+        {"CalculateVoltageMin",         CalculateVoltageMin,           Voltage2String, true},
+        {"CalculateVoltagePic",         CalculateVoltagePic,           Voltage2String, false},
+        {"CalculateVoltageMaxSteady",   CalculateVoltageMaxSteady,     Voltage2String, true},
+        {"CalculateVoltageMinSteady",   CalculateVoltageMinSteady,     Voltage2String, true},
+        {"CalculateVoltageAmpl",        CalculateVoltageAmpl,          Voltage2String, false},
+        {"CalculateVoltageAverage",     CalculateVoltageAverage,       Voltage2String, true},
+        {"CalculateVoltageRMS",         CalculateVoltageRMS,           Voltage2String, false},
+        {"CalculateVoltageVybrosPlus",  CalculateVoltageVybrosPlus,    Voltage2String, false},
+        {"CalculateVoltageVybrosMinus", CalculateVoltageVybrosMinus,   Voltage2String, false},
+        {"CalculatePeriod",             CalculatePeriod,               Time2String, false},
+        {"CalculateFreq",               CalculateFreq,                 Freq2String, false},
+        {"CalculateTimeNarastaniya",    CalculateTimeNarastaniya,      Time2String, false},
+        {"CalculateTimeSpada",          CalculateTimeSpada,            Time2String, false},
+        {"CalculateDurationPlus",       CalculateDurationPlus,         Time2String, false},
+        {"CalculateDurationPlus",       CalculateDurationMinus,        Time2String, false},
+        {"CalculateSkvaznostPlus",      CalculateSkvaznostPlus,        FloatFract2String, false},
+        {"CalculateSkvaznostMinus",     CalculateSkvaznostMinus,       FloatFract2String, false},
+        {"CalculateDelayPlus",          CalculateDelayPlus,            Time2String, false},
+        {"CalculateDelayMinus",         CalculateDelayMinus,           Time2String, false},
+        {"CalculatePhazaPlus",          CalculatePhazaPlus,            Phase2String, false},
+        {"CalculatePhazaMinus",         CalculatePhazaMinus,           Phase2String, false}
+    };
+}
+
 
 void Processing::CalculateMeasures()
 {
