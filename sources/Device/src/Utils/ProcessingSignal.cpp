@@ -25,7 +25,7 @@ static int firstP = 0;
 static int lastP = 0;
 static int numP = 0;
 
-static MeasureValue values[Measure_NumMeasures] = {{0.0f, 0.0f}};
+static MeasureValue values[Measure::Count] = {{0.0f, 0.0f}};
 
 static int markerHor[Chan::Count][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
 static int markerVert[Chan::Count][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
@@ -99,7 +99,7 @@ namespace Processing
         bool        showSign;
     };
 
-    const MeasureCalculate measures[Measure_NumMeasures] =
+    const MeasureCalculate measures[Measure::Count] =
     {
         {0, 0},
         {"CalculateVoltageMax",         CalculateVoltageMax,           Voltage2String, true},
@@ -146,7 +146,7 @@ void Processing::CalculateMeasures()
     {
         for(int elem = 0; elem < Measure_NumCols(); elem++)
         {
-            Measure meas = Measure_Type(str, elem);
+            Measure::E meas = Measure_Type(str, elem);
             pFuncFCh func = measures[meas].FuncCalculate;
 
             if(func)
@@ -174,7 +174,7 @@ float Processing::CalculateVoltageMax(Chan::E ch)
     float max = CalculateMaxRel(ch);
     
     EXIT_IF_ERROR_FLOAT(max);
-    if(MEAS_MARKED == Measure_VoltageMax)
+    if(MEAS_MARKED == Measure::VoltageMax)
     {
         markerHor[ch][0] = max;                           // Здесь не округляем, потому что max может быть только целым
     }
@@ -186,7 +186,7 @@ float Processing::CalculateVoltageMin(Chan::E ch)
 {
     float min = CalculateMinRel(ch);
     EXIT_IF_ERROR_FLOAT(min);
-    if(MEAS_MARKED == Measure_VoltageMin)
+    if(MEAS_MARKED == Measure::VoltageMin)
     {
         markerHor[ch][0] = min;                           // Здесь не округляем, потому что min может быть только целым
     }
@@ -201,7 +201,7 @@ float Processing::CalculateVoltagePic(Chan::E ch)
 
     EXIT_IF_ERRORS_FLOAT(min, max);
 
-    if(MEAS_MARKED == Measure_VoltagePic)
+    if(MEAS_MARKED == Measure::VoltagePic)
     {
         markerHor[ch][0] = CalculateMaxRel(ch);
         markerHor[ch][1] = CalculateMinRel(ch);
@@ -213,7 +213,7 @@ float Processing::CalculateVoltageMinSteady(Chan::E ch)
 {
     float min = CalculateMinSteadyRel(ch);
     EXIT_IF_ERROR_FLOAT(min);
-    if(MEAS_MARKED == Measure_VoltageMinSteady)
+    if(MEAS_MARKED == Measure::VoltageMinSteady)
     {
         markerHor[ch][0] = ROUND(min);
     }
@@ -227,7 +227,7 @@ float Processing::CalculateVoltageMaxSteady(Chan::E ch)
 
     EXIT_IF_ERROR_FLOAT(max);
 
-    if(MEAS_MARKED == Measure_VoltageMaxSteady)
+    if(MEAS_MARKED == Measure::VoltageMaxSteady)
     {
         markerHor[ch][0] = max;
     }
@@ -245,7 +245,7 @@ float Processing::CalculateVoltageVybrosPlus(Chan::E ch)
 
     EXIT_IF_ERRORS_FLOAT(max, maxSteady);
 
-    if (MEAS_MARKED == Measure_VoltageVybrosPlus)
+    if (MEAS_MARKED == Measure::VoltageVybrosPlus)
     {
         markerHor[ch][0] = max;
         markerHor[ch][1] = maxSteady;
@@ -261,7 +261,7 @@ float Processing::CalculateVoltageVybrosMinus(Chan::E ch)
     float minSteady = CalculateMinSteadyRel(ch);
     EXIT_IF_ERRORS_FLOAT(min, minSteady);
 
-    if (MEAS_MARKED == Measure_VoltageVybrosMinus)
+    if (MEAS_MARKED == Measure::VoltageVybrosMinus)
     {
         markerHor[ch][0] = min;
         markerHor[ch][1] = minSteady;
@@ -278,7 +278,7 @@ float Processing::CalculateVoltageAmpl(Chan::E ch)
 
     EXIT_IF_ERRORS_FLOAT(min, max);
 
-    if(MEAS_MARKED == Measure_VoltageAmpl)
+    if(MEAS_MARKED == Measure::VoltageAmpl)
     {
         markerHor[ch][0] = CalculateMaxSteadyRel(ch);
         markerHor[ch][1] = CalculateMinSteadyRel(ch);
@@ -301,7 +301,7 @@ float Processing::CalculateVoltageAverage(Chan::E ch)
 
     uint8 aveRel = (float)sum / period;
 
-    if(MEAS_MARKED == Measure_VoltageAverage)
+    if(MEAS_MARKED == Measure::VoltageAverage)
     {
         markerHor[ch][0] = aveRel;
     }
@@ -323,7 +323,7 @@ float Processing::CalculateVoltageRMS(Chan::E ch)
         rms +=  volts * volts;
     }
 
-    if(MEAS_MARKED == Measure_VoltageRMS)
+    if(MEAS_MARKED == Measure::VoltageRMS)
     {
         markerHor[ch][0] = Math_VoltageToPoint(sqrt(rms / period), dataSet->range[ch], rShift);
     }
@@ -563,7 +563,7 @@ float Processing::CalculateTimeNarastaniya(Chan::E ch)                    // WAR
 
     float retValue = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, dataSet->tBase);
 
-    if (MEAS_MARKED == Measure_TimeNarastaniya)
+    if (MEAS_MARKED == Measure::TimeNarastaniya)
     {
         markerHor[ch][0] = max09;
         markerHor[ch][1] = min01;
@@ -599,7 +599,7 @@ float Processing::CalculateTimeSpada(Chan::E ch)                          // WAR
 
     float retValue = TSHIFT_2_ABS((secondIntersection - firstIntersection) / 2.0f, dataSet->tBase);
 
-    if (MEAS_MARKED == Measure_TimeSpada)
+    if (MEAS_MARKED == Measure::TimeSpada)
     {
         markerHor[ch][0] = max09;
         markerHor[ch][1] = min01;
@@ -1127,7 +1127,7 @@ void Processing::InterpolationSinX_X(uint8 data[FPGA::MAX_POINTS * 2], TBase::E 
     }
 }
 
-char* Processing::GetStringMeasure(Measure measure, Chan::E ch, char buffer[20])
+char* Processing::GetStringMeasure(Measure::E measure, Chan::E ch, char buffer[20])
 {
     if (!SET_ENABLED(ch))
     {

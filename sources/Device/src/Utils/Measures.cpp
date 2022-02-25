@@ -19,7 +19,7 @@ struct StructMeasure
     const char UGO;
 };
 
-static const StructMeasure measures[Measure_NumMeasures] =
+static const StructMeasure measures[Measure::Count] =
 {
     {"",            '\x00'},
     {"U макс",      '\x20'},
@@ -69,7 +69,7 @@ void Measure_SetActive(int row, int col)
     posActive = row * Measure_NumCols() + col;
 }
 
-char  Measure_GetChar(Measure measure)
+char  Measure_GetChar(Measure::E measure)
 {
     return measures[measure].UGO;
 }
@@ -94,7 +94,7 @@ pchar  Measure_Name(int row, int col)
     return measures[MEASURE(numMeasure)].name;
 }
 
-Measure Measure_Type(int row, int col)
+Measure::E Measure_Type(int row, int col)
 {
     int numMeasure = row * Measure_NumCols() + col;
     return MEASURE(numMeasure);
@@ -170,15 +170,17 @@ void Measure_RotateRegSet(int angle)
     {
         posOnPageChoice += (int8)Math::Sign(currentAngle);
         Sound::RegulatorSwitchRotate();
+
         if (posOnPageChoice < 0)
         {
-            posOnPageChoice = Measure_NumMeasures - 1;
+            posOnPageChoice = Measure::Count - 1;
         }
-        else if (posOnPageChoice == Measure_NumMeasures)
+        else if (posOnPageChoice == Measure::Count)
         {
             posOnPageChoice = 0;
         }
-        MEASURE(posActive) = (Measure)posOnPageChoice;
+
+        MEASURE(posActive) = (Measure::E)posOnPageChoice;
         Color::ResetFlash();
     }
     else
@@ -187,6 +189,7 @@ void Measure_RotateRegSet(int angle)
         int col = 0;
         Measure_GetActive(&row, &col);
         col += Math::Sign(currentAngle);
+
         if (col < 0)
         {
             col = Measure_NumCols() - 1;
@@ -224,7 +227,7 @@ void Measure_ShortPressOnSmallButonMarker()
 {
     if(MEASURE_IS_MARKED(posActive))
     {
-        MEAS_MARKED = Measure_None;
+        MEAS_MARKED = Measure::None;
     }
     else
     {
@@ -247,16 +250,18 @@ void Measure_DrawPageChoice()
     int dY = 22;
     int maxRow = num61or62 ? 8 : 5;
     int maxCol = num61or62 ? 3 : 5;
-    Measure meas = Measure_None;
+    Measure::E meas = Measure::None;
     Font::Set(TypeFont::UGO);
+
     for(int row = 0; row < maxRow; row++)
     {
         for(int col = 0; col < maxCol; col++)
         {
-            if(meas >= Measure_NumMeasures)
+            if(meas >= Measure::Count)
             {
                 break;
             }
+
             int x0 = x + col * dX;
             int y0 = y + row * dY;
             bool active = meas == posOnPageChoice;
@@ -274,8 +279,8 @@ void Measure_DrawPageChoice()
 }
 
 
-Measure& operator++(Measure &measure)
+Measure::E& operator++(Measure::E &measure)
 {
-    measure = (Measure)((int)measure + 1);
+    measure = (Measure::E)((int)measure + 1);
     return measure;
 }

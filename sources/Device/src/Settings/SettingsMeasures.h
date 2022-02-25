@@ -19,10 +19,10 @@
 #define MODE_VIEW_SIGNALS               (set.measures.modeViewSignals)                 // SettingsMeasures.modeViewSignals
 #define MODE_VIEW_SIGNALS_IS_COMPRESS   (MODE_VIEW_SIGNALS == ModeViewSignals_Compress)
 
-#define MEAS_MARKED                     (set.measures.markedMeasure)                    // SettingsMeasures.markedMeasure
-#define MEAS_MARKED_IS_NONE             (MEAS_MARKED == Measure_None)
+#define MEAS_MARKED                     (set.measures.markedMeasure)
+#define MEAS_MARKED_IS_NONE             (MEAS_MARKED == Measure::None)
 
-#define MEASURE(num)                    (set.measures.measures[num])                    // SettingsMeasures.measure
+#define MEASURE(num)                    (set.measures.measures[num])
 #define MEASURE_IS_MARKED(num)          (MEASURE(num) == MEAS_MARKED)
 
 #define SHOW_MEASURES                   (set.measures.show)                             // SettingsMeasures.show
@@ -76,7 +76,7 @@ struct SettingsMeasures
     MeasuresNumber  number;             // Сколько измерений выводить.
     Chan::E         source;             // Для каких каналов выводить измерения.
     ModeViewSignals modeViewSignals;    // Сжимать ли сигналы при выводе измерений.
-    Measure         measures[15];       // Выбранные для индикации измерения.
+    Measure::E      measures[15];       // Выбранные для индикации измерения.
     bool            show;               // Показывать ли измерения.
     MeasuresField   field;              // Задаёт область, из которой берутся значения для расчёта измерений.
     int16           posCurU[2];         // Позиции курсоров, которые задают область, из которой берутся значения для расчёта измерений при field == MeasuresField_Hand.
@@ -84,5 +84,5 @@ struct SettingsMeasures
     CursCntrl       cntrlU;             // Активные курсоры напряжения.
     CursCntrl       cntrlT;             // Активные курсоры времени.
     CursActive      cursActive;         // Какие курсоры активны - по времени или напряжению.
-    Measure         markedMeasure;      // Измерение, на которое нужно выводить маркеры.
+    Measure::E      markedMeasure;      // Измерение, на которое нужно выводить маркеры.
 };

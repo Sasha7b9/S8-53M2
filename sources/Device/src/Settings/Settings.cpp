@@ -148,9 +148,9 @@ static const Settings defaultSettings =
         Chan::A_B,                  // source
         ModeViewSignals_AsIs,       // mode view signal
         {
-            Measure_VoltageMax,     Measure_VoltageMin,     Measure_VoltagePic,         Measure_VoltageMaxSteady,   Measure_VoltageMinSteady,
-            Measure_VoltageAverage, Measure_VoltageAmpl,    Measure_VoltageRMS,         Measure_VoltageVybrosPlus,  Measure_VoltageVybrosMinus,
-            Measure_Period,         Measure_Freq,           Measure_TimeNarastaniya,    Measure_TimeSpada,          Measure_DurationPlus
+            Measure::VoltageMax,     Measure::VoltageMin,  Measure::VoltagePic,      Measure::VoltageMaxSteady,  Measure::VoltageMinSteady,
+            Measure::VoltageAverage, Measure::VoltageAmpl, Measure::VoltageRMS,      Measure::VoltageVybrosPlus, Measure::VoltageVybrosMinus,
+            Measure::Period,         Measure::Freq,        Measure::TimeNarastaniya, Measure::TimeSpada,         Measure::DurationPlus
         },
         false,                      // show
         MeasuresField_Screen,       // брать для измерений значения, видимые на экране
@@ -161,7 +161,7 @@ static const Settings defaultSettings =
         CursCntrl_1,                // Управляем первым курсором напряжения
         CursCntrl_1,                // Управляем первым курсором времени
         CursActive_T,               // Активны курсоры времени.
-        Measure_None                // marked Measure
+        Measure::None                // marked Measure
     },
     // math
     {

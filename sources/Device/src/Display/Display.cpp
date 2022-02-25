@@ -2043,18 +2043,21 @@ void Display::DrawMeasures()
             int y = y0 + str * dY;
             bool active = Measure_IsActive(str, elem) && Menu::GetNameOpenedPage() == Page_SB_MeasTuneMeas;
             Color::E color = active ? COLOR_BACK : COLOR_FILL;
-            Measure meas = Measure_Type(str, elem);
-            if(meas != Measure_None)
+            Measure::E meas = Measure_Type(str, elem);
+
+            if(meas != Measure::None)
             {
                 Painter::FillRegion(x, y, dX, dY, COLOR_BACK);
                 Painter::DrawRectangle(x, y, dX, dY, COLOR_FILL);
                 TOP_MEASURES = Math::MinFrom2Int(TOP_MEASURES, y);
             }
+
             if(active)
             {
                 Painter::FillRegion(x + 2, y + 2, dX - 4, dY - 4, COLOR_FILL);
             }
-            if(meas != Measure_None)
+
+            if(meas != Measure::None)
             {
                 char buffer[20];
                 PText::DrawText(x + 4, y + 2, Measure_Name(str, elem), color);

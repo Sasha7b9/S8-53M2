@@ -4,37 +4,40 @@
 
 
 // Виды измерений.
-enum Measure
+struct Measure
 {
-    Measure_None,
-    Measure_VoltageMax,
-    Measure_VoltageMin,
-    Measure_VoltagePic,
-    Measure_VoltageMaxSteady,
-    Measure_VoltageMinSteady,
-    Measure_VoltageAmpl,
-    Measure_VoltageAverage,
-    Measure_VoltageRMS,
-    Measure_VoltageVybrosPlus,
-    Measure_VoltageVybrosMinus,
-    Measure_Period,
-    Measure_Freq,
-    Measure_TimeNarastaniya,
-    Measure_TimeSpada,
-    Measure_DurationPlus,
-    Measure_DurationMinus,
-    Measure_SkvaznostPlus,
-    Measure_SkvaznostMinus,
-    Measure_DelayPlus,
-    Measure_DelayMinus,
-    Measure_PhazaPlus,
-    Measure_PhazaMinus,
-    Measure_NumMeasures
+    enum E
+    {
+        None,
+        VoltageMax,
+        VoltageMin,
+        VoltagePic,
+        VoltageMaxSteady,
+        VoltageMinSteady,
+        VoltageAmpl,
+        VoltageAverage,
+        VoltageRMS,
+        VoltageVybrosPlus,
+        VoltageVybrosMinus,
+        Period,
+        Freq,
+        TimeNarastaniya,
+        TimeSpada,
+        DurationPlus,
+        DurationMinus,
+        SkvaznostPlus,
+        SkvaznostMinus,
+        DelayPlus,
+        DelayMinus,
+        PhazaPlus,
+        PhazaMinus,
+        Count
+    };
 };
 
-Measure& operator++(Measure &measure);
+Measure::E& operator++(Measure::E &measure);
 
-char Measure_GetChar(Measure measure);
+char Measure_GetChar(Measure::E measure);
 
 bool Measure_IsActive(int row, int col); 
 
@@ -48,7 +51,7 @@ int Measure_GetDX();
 
 pchar  Measure_Name(int row, int col);
 
-Measure Measure_Type(int row, int col);
+Measure::E Measure_Type(int row, int col);
 
 int Measure_NumRows();
 
