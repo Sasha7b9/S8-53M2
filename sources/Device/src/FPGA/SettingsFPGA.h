@@ -342,4 +342,6 @@ struct DataSettings
     int BytesInChannel() const;
 
     int PointsInChannel() const;
+
+    int16 GetRShift(Chan::E) const;
 };

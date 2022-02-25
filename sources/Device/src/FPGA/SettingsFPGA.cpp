@@ -633,3 +633,9 @@ int DataSettings::PointsInChannel() const
 
     return (int)num_points[e_points_in_channel];
 }
+
+
+int16 DataSettings::GetRShift(Chan::E ch) const
+{
+    return (ch == ChA) ? rShiftCh0 : rShiftCh1;
+}
