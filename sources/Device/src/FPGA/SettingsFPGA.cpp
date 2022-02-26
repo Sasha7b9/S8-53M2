@@ -13,6 +13,15 @@
 StateWorkFPGA::E StateWorkFPGA::current = StateWorkFPGA::Stop;
 
 
+const float TShift::absStep[TBase::Count] =
+{
+    2e-9f / 20, 5e-9f / 20, 10e-9f / 20, 20e-9f / 20, 50e-9f / 20, 100e-9f / 20, 200e-9f / 20, 500e-9f / 20,
+    1e-6f / 20, 2e-6f / 20, 5e-6f / 20, 10e-6f / 20, 20e-6f / 20, 50e-6f / 20, 100e-6f / 20, 200e-6f / 20, 500e-6f / 20,
+    1e-3f / 20, 2e-3f / 20, 5e-3f / 20, 10e-3f / 20, 20e-3f / 20, 50e-3f / 20, 100e-3f / 20, 200e-3f / 20, 500e-3f / 20,
+    1.0f / 20, 2.0f / 20, 5.0f / 20, 10.0f / 20
+};
+
+
 namespace FPGA
 {
     // Добавочные смещения по времени для разверёток режима рандомизатора.

@@ -83,13 +83,6 @@ const int voltsInPixelInt[Range::Count] =   // Коэффициент 20000
     20000   // 20
 };
 
-const float absStepTShift[TBase::Count] =
-{
-    2e-9f / 20, 5e-9f / 20, 10e-9f / 20, 20e-9f / 20, 50e-9f / 20, 100e-9f / 20, 200e-9f / 20, 500e-9f / 20,
-    1e-6f / 20, 2e-6f / 20, 5e-6f / 20, 10e-6f / 20, 20e-6f / 20, 50e-6f / 20, 100e-6f / 20, 200e-6f / 20, 500e-6f / 20,
-    1e-3f / 20, 2e-3f / 20, 5e-3f / 20, 10e-3f / 20, 20e-3f / 20, 50e-3f / 20, 100e-3f / 20, 200e-3f / 20, 500e-3f / 20,
-    1.0f / 20, 2.0f / 20, 5.0f / 20, 10.0f / 20
-};
 
 int Math::MinFrom2Int(int val0, int val1)
 {
@@ -109,7 +102,7 @@ float Math::VoltageCursor(float shiftCurU, Range::E range, RShift rShift)
 
 float Math::TimeCursor(float shiftCurT, TBase::E tBase)
 {
-    return shiftCurT * absStepTShift[tBase];
+    return shiftCurT * TShift::absStep[tBase];
 }
 
 
@@ -337,7 +330,7 @@ static void MultiplyToWindow(float *data, int numPoints)
 
 void Math_CalculateFFT(float *dataR, int numPoints, float *result, float *freq0, float *density0, float *freq1, float *density1, int *y0, int *y1)
 {
-    float scale = 1.0f / absStepTShift[SET_TBASE] / 1024.0f;
+    float scale = 1.0f / TShift::absStep[SET_TBASE] / 1024.0f;
 
     float K = 1024.0 / numPoints;
 
