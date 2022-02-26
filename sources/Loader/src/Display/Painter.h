@@ -50,7 +50,6 @@ void Painter_FillRegion(int x, int y, int width, int height);
 void Painter_DrawVolumeButton(int x, int y, int width, int height, int thickness, Color::E normal, Color::E bright, Color::E dark, bool isPressed, bool inShade);
 
 void Painter_SetBrightnessDisplay(int16 brightness);  // ”становить €ркость диспле€.
-uint16 Painter_ReduceBrightness(uint16 colorValue, float newBrightness);
 // Ќарисовать массив вертикальных линий. Ћинии рисуютс€ одна за другой. y0y1 - массив вертикальных координат
 void Painter_DrawVLineArray(int x, int numLines, uint8 *y0y1, Color::E);
 // modeLines - true - точками, false - точками

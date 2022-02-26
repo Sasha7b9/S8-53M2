@@ -7,6 +7,8 @@ archive.zip
 sources/Loader/DebugConfig/*
 sources/Loader/Listings/*
 sources/Loader/Objects/*
+sources/Loader/Listings-Debug/*
+sources/Loader/Objects-Debug/*
 sources/Device/DebugConfig/*
 sources/Device/Listings/*
 sources/Device/Objects/*

@@ -16,13 +16,6 @@ Color::E gColorChan[4];
 
 
 
-static void SetColor(ColorType *colorType)
-{
-    set.display.colors[colorType->color] = (uint16)MAKE_COLOR((int)colorType->red, (int)colorType->green, (int)colorType->blue);
-    Painter_SetPalette(colorType->color);
-}
-
-
 Color::E ColorMenuTitle(bool inShade)
 {
     return inShade ? Color::MENU_ITEM : Color::MENU_TITLE;
@@ -112,29 +105,29 @@ void Color_SetBrightness(ColorType *colorType, float brightness)
 }
 
 
-void Color_BrightnessChange(ColorType *colorType, int delta)
+void Color_BrightnessChange(ColorType *, int )
 {
-    if ((delta > 0 && colorType->brightness == 1.0f) || (delta < 0 && colorType->brightness == 0.0f))
-    {
-        return;
-    }
-
-    int sign = Math_Sign(delta);
-
-    LIMITATION(colorType->brightness, colorType->brightness + sign * 0.01f, 0.0f, 1.0f);
-
-    colorType->red += sign * colorType->stepRed;
-    colorType->green += sign * colorType->stepGreen;
-    colorType->blue += sign * colorType->stepBlue;
-
-    SetColor(colorType);
-
-    if (colorType->stepRed < 0.01f && colorType->stepGreen < 0.01f && colorType->stepBlue < 0.01f)
-    {
-        colorType->stepRed = 0.31f;
-        colorType->stepGreen = 0.63f;
-        colorType->stepBlue = 0.31f;
-    }
+//    if ((delta > 0 && colorType->brightness == 1.0f) || (delta < 0 && colorType->brightness == 0.0f))
+//    {
+//        return;
+//    }
+//
+//    int sign = Math_Sign(delta);
+//
+//    LIMITATION(colorType->brightness, colorType->brightness + sign * 0.01f, 0.0f, 1.0f);
+//
+//    colorType->red += sign * colorType->stepRed;
+//    colorType->green += sign * colorType->stepGreen;
+//    colorType->blue += sign * colorType->stepBlue;
+//
+//    SetColor(colorType);
+//
+//    if (colorType->stepRed < 0.01f && colorType->stepGreen < 0.01f && colorType->stepBlue < 0.01f)
+//    {
+//        colorType->stepRed = 0.31f;
+//        colorType->stepGreen = 0.63f;
+//        colorType->stepBlue = 0.31f;
+//    }
 }
 
 
@@ -167,20 +160,20 @@ void Color_Init(ColorType *colorType, bool forced)
 }
 
 
-void Color_ComponentChange(ColorType * const colorType, int delta)
+void Color_ComponentChange(ColorType * const , int )
 {
-    static const float maxs[4] = {0.0f, 31.0f, 63.0f, 31.0f};
-    float * const pointers[4] = {0, &colorType->blue, &colorType->green, &colorType->red};
-    int8 index = colorType->currentField;
-
-    if (index >= 1 && index <= 3)
-    {
-        AddLimitationFloat(pointers[index], (float)Math_Sign(delta), 0.0f, maxs[index]);
-    }
-
-    SetColor(colorType);
-
-    ColorType_SetBrightness(colorType);
+//    static const float maxs[4] = {0.0f, 31.0f, 63.0f, 31.0f};
+//    float * const pointers[4] = {0, &colorType->blue, &colorType->green, &colorType->red};
+//    int8 index = colorType->currentField;
+//
+//    if (index >= 1 && index <= 3)
+//    {
+//        AddLimitationFloat(pointers[index], (float)Math_Sign(delta), 0.0f, maxs[index]);
+//    }
+//
+//    SetColor(colorType);
+//
+//    ColorType_SetBrightness(colorType);
 }
 
 

@@ -106,18 +106,6 @@ int Math_Pow10(int pow)
 }
 
 
-int Math_NumDigitsInNumber(int value)
-{
-    value = Math_FabsInt(value);
-    int num = 1;
-    while ((value /= 10) > 0)
-    {
-        num++;
-    }
-    return num;
-}
-
-
 int Math_FabsInt(int value)
 {
     return value >= 0 ? value : -value;
