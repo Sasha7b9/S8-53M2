@@ -210,7 +210,7 @@ void TBase::Set(TBase::E tBase)
     }
     if (tBase < TBase::Count && (int)tBase >= 0)
     {
-        float tShiftAbsOld = TSHIFT_2_ABS(TSHIFT, SET_TBASE);
+        float tShiftAbsOld = TShift::ToAbs(TSHIFT, SET_TBASE);
         SET_TBASE = tBase;
         Load();
         TShift::Set(TSHIFT_2_REL(tShiftAbsOld, SET_TBASE));
@@ -489,7 +489,7 @@ void FPGA::LoadKoeffCalibration(Chan::E ch)
 
 pchar TShift::ToString(int tShiftRel, char buffer[20])
 {
-    float tShiftVal = TSHIFT_2_ABS(tShiftRel, SET_TBASE);
+    float tShiftVal = TShift::ToAbs(tShiftRel, SET_TBASE);
     return Time2String(tShiftVal, true, buffer);
 }
 
@@ -702,4 +702,10 @@ int DataSettings::PointsInChannel() const
 int16 DataSettings::GetRShift(Chan::E ch) const
 {
     return (int16)((ch == ChA) ? rShiftA : rShiftB);
+}
+
+
+float TShift::ToAbs(int shift, TBase::E base)
+{
+    return absStep[base] * shift * 2.0f;
 }

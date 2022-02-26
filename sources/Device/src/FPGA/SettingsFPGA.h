@@ -218,6 +218,8 @@ struct TShift
 
     static void Draw();
 
+    static float ToAbs(int shift, TBase::E);
+
     static const float absStep[TBase::Count];
 };
 

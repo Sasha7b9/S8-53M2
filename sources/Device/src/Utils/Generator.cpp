@@ -57,7 +57,7 @@ uint8 GetSampleWave(Chan::E ch)
 
 uint8 GetSampleSinusWave(Chan::E ch, int numSample_)
 {
-    float dT = numSample_ * TSHIFT_2_ABS(1, SET_TBASE);
+    float dT = numSample_ * TShift::ToAbs(1, SET_TBASE);
     float voltage = ampl[ch] * sin(2 * M_PI * freq[ch] * dT + angle[ch]) + NewNoiseValue(ch);
     return Math_VoltageToPoint(voltage, SET_RANGE(ch), SET_RSHIFT(ch));
 }
