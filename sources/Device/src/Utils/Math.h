@@ -28,7 +28,7 @@
 
 extern const float tableScalesRange[Range::Count];
 extern const float absStepRShift[Range::Count];
-extern const float voltsInPoint[Range::Count];
+
 
 namespace Math
 {

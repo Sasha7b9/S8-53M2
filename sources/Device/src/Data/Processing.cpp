@@ -1204,7 +1204,7 @@ void Processing::CountedToCurrentSettings()
         for (int i = 0; i < numPoints; i++)
         {
             float absValue = ValueFPGA::ToVoltage(dataOutA[i], dset->range[0], (int16)dset->rShiftA);
-            int relValue = (absValue + MAX_VOLTAGE_ON_SCREEN(range) + rShift.ToAbs(range)) / voltsInPoint[range] + ValueFPGA::MIN;
+            int relValue = (absValue + MAX_VOLTAGE_ON_SCREEN(range) + rShift.ToAbs(range)) / Range::voltsInPoint[range] + ValueFPGA::MIN;
 
             if (relValue < ValueFPGA::MIN)       { dataOutA[i] = ValueFPGA::MIN; }
             else if (relValue > ValueFPGA::MAX)  { dataOutA[i] = ValueFPGA::MAX; }
@@ -1219,7 +1219,7 @@ void Processing::CountedToCurrentSettings()
         for (int i = 0; i < numPoints; i++)
         {
             float absValue = ValueFPGA::ToVoltage(dataOutB[i], dset->range[1], (int16)dset->rShiftB);
-            int relValue = (absValue + MAX_VOLTAGE_ON_SCREEN(range) + rShift.ToAbs(range)) / voltsInPoint[range] + ValueFPGA::MIN;
+            int relValue = (absValue + MAX_VOLTAGE_ON_SCREEN(range) + rShift.ToAbs(range)) / Range::voltsInPoint[range] + ValueFPGA::MIN;
 
             if (relValue < ValueFPGA::MIN)       { dataOutB[i] = ValueFPGA::MIN; }
             else if (relValue > ValueFPGA::MAX)  { dataOutB[i] = ValueFPGA::MAX; }

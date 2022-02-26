@@ -48,23 +48,6 @@ const float voltsInPixel[Range::Count] =
     20.0f   / 20   // 20V
 };
 
-// Столько вольт в 1/250 амлитуды сигнала, растянутого на полный экран
-const float voltsInPoint[Range::Count] =
-{
-    2e-3f   * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 2mV
-    5e-3f   * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 5mV
-    10e-3f  * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 10mV
-    20e-3f  * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 20mV
-    50e-3f  * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 50mV
-    100e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 100mV
-    200e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 200mV
-    500e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 500mV
-    1.0f    * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 1V
-    2.0f    * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 2V
-    5.0f    * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 5V
-    10.0f   * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 10V
-    20.0f   * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN)   // 20V
-};
 
 const int voltsInPixelInt[Range::Count] =   // Коэффициент 20000
 {
@@ -715,7 +698,7 @@ void Math_CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoints
 
 float ValueFPGA::ToVoltage(uint8 value, Range::E range, RShift rShift)
 {
-    return (((float)value - (float)ValueFPGA::MIN) * voltsInPoint[range] - MAX_VOLTAGE_ON_SCREEN(range) - rShift.ToAbs(range));
+    return (((float)value - (float)ValueFPGA::MIN) * Range::voltsInPoint[range] - MAX_VOLTAGE_ON_SCREEN(range) - rShift.ToAbs(range));
 }
 
 

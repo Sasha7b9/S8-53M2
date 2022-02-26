@@ -258,6 +258,11 @@ struct Range
     static pchar ToName(Range::E);
 
     static pchar ToString(Range::E, Divider::E);
+
+    // Столько вольт в 1/250 амлитуды сигнала, растянутого на полный экран
+    static const float voltsInPoint[Range::Count];
+
+
 };
 
 Range::E &operator++(Range::E &range);
