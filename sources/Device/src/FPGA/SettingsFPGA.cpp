@@ -40,6 +40,24 @@ const float Range::voltsInPoint[Range::Count] =
 };
 
 
+const float RShift::absStep[Range::Count] =
+{
+    2e-3f / 20 / RShift::STEP,
+    5e-3f / 20 / RShift::STEP,
+    10e-3f / 20 / RShift::STEP,
+    20e-3f / 20 / RShift::STEP,
+    50e-3f / 20 / RShift::STEP,
+    100e-3f / 20 / RShift::STEP,
+    200e-3f / 20 / RShift::STEP,
+    500e-3f / 20 / RShift::STEP,
+    1.0f / 20 / RShift::STEP,
+    2.0f / 20 / RShift::STEP,
+    5.0f / 20 / RShift::STEP,
+    10.0f / 20 / RShift::STEP,
+    20.0f / 20 / RShift::STEP
+};
+
+
 namespace FPGA
 {
     // Добавочные смещения по времени для разверёток режима рандомизатора.
@@ -605,7 +623,7 @@ int TPos::InPoints(ENUM_POINTS_FPGA::E enum_points, TPos::E tPos)
 
 int RShift::ToRel(float rShiftAbs, Range::E range)
 {
-    int retValue = ZERO + rShiftAbs / absStepRShift[range];
+    int retValue = ZERO + rShiftAbs / RShift::absStep[range];
 
     if (retValue < MIN)
     {

@@ -261,8 +261,6 @@ struct Range
 
     // Столько вольт в 1/250 амлитуды сигнала, растянутого на полный экран
     static const float voltsInPoint[Range::Count];
-
-
 };
 
 Range::E &operator++(Range::E &range);
@@ -296,6 +294,8 @@ struct RShift
     RShift &operator=(int16 rshift) { value = rshift; return *this; }
 
     int16 value;
+
+    static const float absStep[Range::Count];
 };
 
 

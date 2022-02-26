@@ -27,8 +27,6 @@
 #define PI 3.141592653589793f
 
 extern const float tableScalesRange[Range::Count];
-extern const float absStepRShift[Range::Count];
-
 
 namespace Math
 {

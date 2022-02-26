@@ -13,22 +13,6 @@
 
 const float tableScalesRange[Range::Count] = {2e-3f, 5e-3f, 10e-3f, 20e-3f, 50e-3f, 100e-3f, 200e-3f, 500e-3f, 1.0f, 2.0f, 5.0f, 10.0f, 20.0f};
 
-const float absStepRShift[Range::Count] =
-{
-    2e-3f   / 20 / RShift::STEP,
-    5e-3f   / 20 / RShift::STEP,
-    10e-3f  / 20 / RShift::STEP,
-    20e-3f  / 20 / RShift::STEP,
-    50e-3f  / 20 / RShift::STEP,
-    100e-3f / 20 / RShift::STEP,
-    200e-3f / 20 / RShift::STEP,
-    500e-3f / 20 / RShift::STEP,
-    1.0f    / 20 / RShift::STEP,
-    2.0f    / 20 / RShift::STEP,
-    5.0f    / 20 / RShift::STEP,
-    10.0f   / 20 / RShift::STEP,
-    20.0f   / 20 / RShift::STEP
-};
 
 // Столько вольт в одной точке экрана
 const float voltsInPixel[Range::Count] =
@@ -704,7 +688,7 @@ float ValueFPGA::ToVoltage(uint8 value, Range::E range, RShift rShift)
 
 float RShift::ToAbs(Range::E range)
 {
-    return (-((float)RShift::ZERO - (float)(value)) * absStepRShift[(uint)(range)]);
+    return (-((float)RShift::ZERO - (float)(value)) * RShift::absStep[range]);
 }
 
 
