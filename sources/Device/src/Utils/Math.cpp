@@ -11,8 +11,6 @@
 #include <string.h>
 
 
-const float tableScalesRange[Range::Count] = {2e-3f, 5e-3f, 10e-3f, 20e-3f, 50e-3f, 100e-3f, 200e-3f, 500e-3f, 1.0f, 2.0f, 5.0f, 10.0f, 20.0f};
-
 
 // Столько вольт в одной точке экрана
 const float voltsInPixel[Range::Count] =

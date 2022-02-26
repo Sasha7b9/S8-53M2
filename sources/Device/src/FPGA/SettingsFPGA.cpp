@@ -13,6 +13,8 @@
 StateWorkFPGA::E StateWorkFPGA::current = StateWorkFPGA::Stop;
 
 
+const float Range::scale[Range::Count] = {2e-3f, 5e-3f, 10e-3f, 20e-3f, 50e-3f, 100e-3f, 200e-3f, 500e-3f, 1.0f, 2.0f, 5.0f, 10.0f, 20.0f};
+
 const float TShift::absStep[TBase::Count] =
 {
     2e-9f / 20, 5e-9f / 20, 10e-9f / 20, 20e-9f / 20, 50e-9f / 20, 100e-9f / 20, 200e-9f / 20, 500e-9f / 20,

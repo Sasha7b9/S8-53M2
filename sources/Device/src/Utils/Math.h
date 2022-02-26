@@ -16,7 +16,7 @@
 
 #define LIMITATION_BOUND(var, min, max)     if((var) < (min)) { (min) = (var); }; if((var) > (max)) { (max) = (var); };
 
-#define MAX_VOLTAGE_ON_SCREEN(range) (tableScalesRange[(range)] * 5.0f)
+#define MAX_VOLTAGE_ON_SCREEN(range) (Range::scale[(range)] * 5.0f)
 
 #define TSHIFT_2_ABS(tShift, tBase)  (TShift::absStep[(tBase)] * (tShift) * 2.0f)
 
@@ -26,7 +26,6 @@
 
 #define PI 3.141592653589793f
 
-extern const float tableScalesRange[Range::Count];
 
 namespace Math
 {

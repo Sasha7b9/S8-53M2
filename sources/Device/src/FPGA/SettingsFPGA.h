@@ -261,6 +261,8 @@ struct Range
 
     // Столько вольт в 1/250 амлитуды сигнала, растянутого на полный экран
     static const float voltsInPoint[Range::Count];
+
+    static const float scale[Range::Count];
 };
 
 Range::E &operator++(Range::E &range);
