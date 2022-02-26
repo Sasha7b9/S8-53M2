@@ -117,34 +117,6 @@ void Math_DataExtrapolation(uint8 *data, uint8 *there, int size)
 }
 
 
-void Math_PointsVoltageToRel(const float *voltage, int numPoints, Range::E range, RShift rShift, uint8 *points)
-{
-    float maxVoltOnScreen = Range::MaxOnScreen(range);
-    float rShiftAbs = rShift.ToAbs(range);
-    float voltInPixel = 1.0f / voltsInPixel[range];
-
-    float add = maxVoltOnScreen + rShiftAbs;
-
-    float delta = add * voltInPixel + ValueFPGA::MIN;
-
-    for (int i = 0; i < numPoints; i++)
-    {
-        int value = voltage[i] * voltInPixel + delta;
-        if (value < 0)
-        {
-            points[i] = 0;
-            continue;
-        }
-        else if (value > 255)
-        {
-            points[i] = 255;
-            continue;
-        }
-        points[i] = (uint8)value;
-    }
-}
-
-
 float Math_GetIntersectionWithHorizontalLine(int x0, int y0, int x1, int y1, int yHorLine)
 {
     if(y0 == y1)
@@ -690,6 +662,34 @@ uint8 ValueFPGA::FromVoltage(float voltage, Range::E range, RShift rshift)
     LIMITATION(result, result, 0, 255);
 
     return (uint8)result;
+}
+
+
+void ValueFPGA::FromVoltage(const float *voltage, int numPoints, Range::E range, RShift rShift, uint8 *points)
+{
+    float maxVoltOnScreen = Range::MaxOnScreen(range);
+    float rShiftAbs = rShift.ToAbs(range);
+    float voltInPixel = 1.0f / voltsInPixel[range];
+
+    float add = maxVoltOnScreen + rShiftAbs;
+
+    float delta = add * voltInPixel + ValueFPGA::MIN;
+
+    for (int i = 0; i < numPoints; i++)
+    {
+        int value = voltage[i] * voltInPixel + delta;
+        if (value < 0)
+        {
+            points[i] = 0;
+            continue;
+        }
+        else if (value > 255)
+        {
+            points[i] = 255;
+            continue;
+        }
+        points[i] = (uint8)value;
+    }
 }
 
 

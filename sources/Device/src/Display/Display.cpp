@@ -576,7 +576,7 @@ void Display::DrawMath()
     Math_CalculateMathFunction(dataAbs0, dataAbs1, ds->BytesInChannel());
     
     uint8 points[FPGA::MAX_POINTS * 2];
-    Math_PointsVoltageToRel(dataAbs0, ds->BytesInChannel(), SET_RANGE_MATH, SET_RSHIFT_MATH, points);
+    ValueFPGA::FromVoltage(dataAbs0, ds->BytesInChannel(), SET_RANGE_MATH, SET_RSHIFT_MATH, points);
 
     DrawDataChannel(points, Chan::Math, ds, Grid::MathTop(), Grid::MathBottom());
 
