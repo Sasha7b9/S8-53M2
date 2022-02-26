@@ -27,9 +27,9 @@
 #define PI 3.141592653589793f
 
 extern const float tableScalesRange[Range::Count];
-extern const float absStepRShift[];
-extern const float voltsInPixel[];
-extern const float absStepTShift[];
+extern const float absStepRShift[Range::Count];
+extern const float voltsInPoint[Range::Count];
+extern const float absStepTShift[TBase::Count];
 
 namespace Math
 {

@@ -13,7 +13,7 @@
 
 const float tableScalesRange[Range::Count] = {2e-3f, 5e-3f, 10e-3f, 20e-3f, 50e-3f, 100e-3f, 200e-3f, 500e-3f, 1.0f, 2.0f, 5.0f, 10.0f, 20.0f};
 
-const float absStepRShift[] =
+const float absStepRShift[Range::Count] =
 {
     2e-3f   / 20 / RShift::STEP,
     5e-3f   / 20 / RShift::STEP,
@@ -66,7 +66,7 @@ const float voltsInPoint[Range::Count] =
     20.0f   * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN)   // 20V
 };
 
-const int voltsInPixelInt[] =   // Коэффициент 20000
+const int voltsInPixelInt[Range::Count] =   // Коэффициент 20000
 {
     2,      // 2
     5,      // 5
@@ -83,7 +83,7 @@ const int voltsInPixelInt[] =   // Коэффициент 20000
     20000   // 20
 };
 
-const float absStepTShift[] =
+const float absStepTShift[TBase::Count] =
 {
     2e-9f / 20, 5e-9f / 20, 10e-9f / 20, 20e-9f / 20, 50e-9f / 20, 100e-9f / 20, 200e-9f / 20, 500e-9f / 20,
     1e-6f / 20, 2e-6f / 20, 5e-6f / 20, 10e-6f / 20, 20e-6f / 20, 50e-6f / 20, 100e-6f / 20, 200e-6f / 20, 500e-6f / 20,
