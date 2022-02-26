@@ -116,20 +116,6 @@ void Math_DataExtrapolation(uint8 *data, uint8 *there, int size)
     }
 }
 
-void Math_PointsRelToVoltage(const uint8 *points, int numPoints, Range::E range, RShift rShift, float *voltage)
-{
-    int voltInPixel = voltsInPixelInt[range];
-    float maxVoltsOnScreen = Range::MaxOnScreen(range);
-    float rShiftAbs = rShift.ToAbs(range);
-    int diff = (ValueFPGA::MIN * voltInPixel) + (maxVoltsOnScreen + rShiftAbs) * 20e3f;
-    float koeff = 1.0f / 20e3f;
-
-    for (int i = 0; i < numPoints; i++)
-    {
-        voltage[i] = (float)(points[i] * voltInPixel - diff) * koeff;
-    }
-}
-
 
 void Math_PointsVoltageToRel(const float *voltage, int numPoints, Range::E range, RShift rShift, uint8 *points)
 {
@@ -679,6 +665,21 @@ void Math_CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoints
 float ValueFPGA::ToVoltage(uint8 value, Range::E range, RShift rShift)
 {
     return (((float)value - (float)ValueFPGA::MIN) * Range::voltsInPoint[range] - Range::MaxOnScreen(range) - rShift.ToAbs(range));
+}
+
+
+void ValueFPGA::ToVoltage(const uint8 *points, int numPoints, Range::E range, RShift rShift, float *voltage)
+{
+    int voltInPixel = voltsInPixelInt[range];
+    float maxVoltsOnScreen = Range::MaxOnScreen(range);
+    float rShiftAbs = rShift.ToAbs(range);
+    int diff = (ValueFPGA::MIN * voltInPixel) + (maxVoltsOnScreen + rShiftAbs) * 20e3f;
+    float koeff = 1.0f / 20e3f;
+
+    for (int i = 0; i < numPoints; i++)
+    {
+        voltage[i] = (float)(points[i] * voltInPixel - diff) * koeff;
+    }
 }
 
 

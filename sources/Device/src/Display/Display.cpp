@@ -570,8 +570,8 @@ void Display::DrawMath()
     float dataAbs0[FPGA::MAX_POINTS * 2];
     float dataAbs1[FPGA::MAX_POINTS * 2];
 
-    Math_PointsRelToVoltage(dataRel0, ds->BytesInChannel(), ds->range[Chan::A], (int16)ds->rShiftA, dataAbs0);
-    Math_PointsRelToVoltage(dataRel1, ds->BytesInChannel(), ds->range[Chan::B], (int16)ds->rShiftB, dataAbs1);
+    ValueFPGA::ToVoltage(dataRel0, ds->BytesInChannel(), ds->range[Chan::A], (int16)ds->rShiftA, dataAbs0);
+    ValueFPGA::ToVoltage(dataRel1, ds->BytesInChannel(), ds->range[Chan::B], (int16)ds->rShiftB, dataAbs1);
 
     Math_CalculateMathFunction(dataAbs0, dataAbs1, ds->BytesInChannel());
     
@@ -654,7 +654,7 @@ void Display::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan::E ch)
     int y1 = 0;
     int s = 2;
 
-    Math_PointsRelToVoltage(data, numPoints, Storage::DS->range[ch], (ch == Chan::A) ?
+    ValueFPGA::ToVoltage(data, numPoints, Storage::DS->range[ch], (ch == Chan::A) ?
         (int16)Storage::DS->rShiftA :
         (int16)Storage::DS->rShiftB, dataR);
 

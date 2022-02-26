@@ -64,7 +64,6 @@ namespace Math
 }
 
 void    Math_DataExtrapolation(uint8 *data, uint8 *there, int size);
-void    Math_PointsRelToVoltage(const uint8 *points, int numPoints, Range::E, RShift, float *voltage);
 void	Math_PointsVoltageToRel(const float *voltage, int numPoints, Range::E, RShift, uint8 *points);
 uint8   Math_GetMinFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint);
 uint8   Math_GetMaxFromArray(const uint8 *data, int firstPoint, int lastPoint);
