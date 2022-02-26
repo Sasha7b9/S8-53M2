@@ -715,3 +715,9 @@ int TShift::ToRel(float shift, TBase::E base)
 {
     return shift / absStep[base] / 2.0f;
 }
+
+
+float Range::MaxOnScreen(Range::E range)
+{
+    return scale[range] * 5.0f;
+}

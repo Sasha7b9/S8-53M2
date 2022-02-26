@@ -115,4 +115,5 @@ struct ValueFPGA
                                     // считанного сигнала.
 
     static float ToVoltage(uint8 value, Range::E, RShift);
+    static uint8 FromVoltage(float voltage, Range::E, RShift);
 };

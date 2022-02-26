@@ -263,6 +263,9 @@ struct Range
 
     static pchar ToString(Range::E, Divider::E);
 
+    // Напряжение соответствует верхней границе сетки
+    static float MaxOnScreen(Range::E);
+
     // Столько вольт в 1/250 амлитуды сигнала, растянутого на полный экран
     static const float voltsInPoint[Range::Count];
 

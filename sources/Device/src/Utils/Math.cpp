@@ -61,7 +61,7 @@ int Math::MinFrom2Int(int val0, int val1)
 
 float Math::VoltageCursor(float shiftCurU, Range::E range, RShift rShift)
 {
-    return MAX_VOLTAGE_ON_SCREEN(range) - shiftCurU * voltsInPixel[range] - rShift.ToAbs(range);
+    return Range::MaxOnScreen(range) - shiftCurU * voltsInPixel[range] - rShift.ToAbs(range);
 }
 
 
@@ -119,7 +119,7 @@ void Math_DataExtrapolation(uint8 *data, uint8 *there, int size)
 void Math_PointsRelToVoltage(const uint8 *points, int numPoints, Range::E range, RShift rShift, float *voltage)
 {
     int voltInPixel = voltsInPixelInt[range];
-    float maxVoltsOnScreen = MAX_VOLTAGE_ON_SCREEN(range);
+    float maxVoltsOnScreen = Range::MaxOnScreen(range);
     float rShiftAbs = rShift.ToAbs(range);
     int diff = (ValueFPGA::MIN * voltInPixel) + (maxVoltsOnScreen + rShiftAbs) * 20e3f;
     float koeff = 1.0f / 20e3f;
@@ -130,9 +130,10 @@ void Math_PointsRelToVoltage(const uint8 *points, int numPoints, Range::E range,
     }
 }
 
+
 void Math_PointsVoltageToRel(const float *voltage, int numPoints, Range::E range, RShift rShift, uint8 *points)
 {
-    float maxVoltOnScreen = MAX_VOLTAGE_ON_SCREEN(range);
+    float maxVoltOnScreen = Range::MaxOnScreen(range);
     float rShiftAbs = rShift.ToAbs(range);
     float voltInPixel = 1.0f / voltsInPixel[range];
 
@@ -157,12 +158,6 @@ void Math_PointsVoltageToRel(const float *voltage, int numPoints, Range::E range
     }
 }
 
-uint8 Math_VoltageToPoint(float voltage, Range::E range, RShift rShift)
-{
-    int relValue = (voltage + MAX_VOLTAGE_ON_SCREEN(range) + rShift.ToAbs(range)) / voltsInPixel[range] + ValueFPGA::MIN;
-    LIMITATION(relValue, relValue, 0, 255);
-    return (uint8)relValue;
-}
 
 float Math_GetIntersectionWithHorizontalLine(int x0, int y0, int x1, int y1, int yHorLine)
 {
@@ -174,6 +169,7 @@ float Math_GetIntersectionWithHorizontalLine(int x0, int y0, int x1, int y1, int
     return (yHorLine - y0) / ((float)(y1 - y0) / (float)(x1 - x0)) + x0;
 }
 
+
 bool Math_FloatsIsEquals(float value0, float value1, float epsilonPart)
 {
     float max = fabs(value0) > fabs(value1) ? fabs(value0) : fabs(value1);
@@ -182,6 +178,7 @@ bool Math_FloatsIsEquals(float value0, float value1, float epsilonPart)
 
     return fabs(value0 - value1) < epsilonAbs;
 }
+
 
 float Math_MinFrom3float(float value1, float value2, float value3)
 {
@@ -196,6 +193,7 @@ float Math_MinFrom3float(float value1, float value2, float value3)
     }
     return retValue;
 }
+
 
 int Math_MinInt(int val1, int val2)
 {
@@ -680,7 +678,17 @@ void Math_CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoints
 
 float ValueFPGA::ToVoltage(uint8 value, Range::E range, RShift rShift)
 {
-    return (((float)value - (float)ValueFPGA::MIN) * Range::voltsInPoint[range] - MAX_VOLTAGE_ON_SCREEN(range) - rShift.ToAbs(range));
+    return (((float)value - (float)ValueFPGA::MIN) * Range::voltsInPoint[range] - Range::MaxOnScreen(range) - rShift.ToAbs(range));
+}
+
+
+uint8 ValueFPGA::FromVoltage(float voltage, Range::E range, RShift rshift)
+{
+    int result = (voltage + Range::MaxOnScreen(range) + rshift.ToAbs(range)) / voltsInPixel[range] + ValueFPGA::MIN;
+
+    LIMITATION(result, result, 0, 255);
+
+    return (uint8)result;
 }
 
 

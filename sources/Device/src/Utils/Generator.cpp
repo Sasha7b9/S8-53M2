@@ -1,12 +1,9 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-
-
 #include "Generator.h"
 #include "Utils/Math.h"
 #include "Settings/Settings.h"
-
-
+#include "FPGA/TypesFPGA.h"
 #include <stdlib.h>
 #include <math.h>
 
@@ -59,7 +56,7 @@ uint8 GetSampleSinusWave(Chan::E ch, int numSample_)
 {
     float dT = numSample_ * TShift::ToAbs(1, SET_TBASE);
     float voltage = ampl[ch] * sin(2 * M_PI * freq[ch] * dT + angle[ch]) + NewNoiseValue(ch);
-    return Math_VoltageToPoint(voltage, SET_RANGE(ch), SET_RSHIFT(ch));
+    return ValueFPGA::FromVoltage(voltage, SET_RANGE(ch), SET_RSHIFT(ch));
 }
 
 uint8 GetSampleMeanderWave(Chan::E ch, int numSample_)
