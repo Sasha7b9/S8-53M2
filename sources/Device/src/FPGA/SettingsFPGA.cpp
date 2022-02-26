@@ -213,7 +213,7 @@ void TBase::Set(TBase::E tBase)
         float tShiftAbsOld = TShift::ToAbs(TSHIFT, SET_TBASE);
         SET_TBASE = tBase;
         Load();
-        TShift::Set(TSHIFT_2_REL(tShiftAbsOld, SET_TBASE));
+        TShift::Set(TShift::ToRel(tShiftAbsOld, SET_TBASE));
         Display::Redraw();
     }
     else
@@ -708,4 +708,10 @@ int16 DataSettings::GetRShift(Chan::E ch) const
 float TShift::ToAbs(int shift, TBase::E base)
 {
     return absStep[base] * shift * 2.0f;
+}
+
+
+int TShift::ToRel(float shift, TBase::E base)
+{
+    return shift / absStep[base] / 2.0f;
 }

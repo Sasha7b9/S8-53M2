@@ -18,8 +18,6 @@
 
 #define MAX_VOLTAGE_ON_SCREEN(range) (Range::scale[(range)] * 5.0f)
 
-#define TSHIFT_2_REL(tShiftAbs, tBase) ((tShiftAbs) / TShift::absStep[(tBase)] / 2.0f)
-
 #define ROUND(x) (x += 0.5f, x)
 
 #define PI 3.141592653589793f
