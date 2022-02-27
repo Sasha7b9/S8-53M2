@@ -62,7 +62,7 @@ namespace FPGA
     // saveToStorage - Нужно в режиме рандомизатора для указания, что пора сохранять измерение
     void DataRead(bool necessaryShift, bool saveToStorage);
 
-    void ReadRealMode(bool necessaryShift);
+    void ReadPoints(bool necessaryShift);
 
     // Инвертирует данные.
     void InverseDataIsNecessary(Chan::E, Buffer<uint8> &data);
@@ -334,7 +334,7 @@ void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
 
     IN_PROCESS_READ = true;
 
-    ReadRealMode(necessaryShift);
+    ReadPoints(necessaryShift);
 
     static uint prevTime = 0;
 
@@ -362,7 +362,7 @@ void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
 }
 
 
-void FPGA::ReadRealMode(bool necessaryShift)
+void FPGA::ReadPoints(bool necessaryShift)
 {
     HAL_FMC::Write(WR_PRED, Reader::CalculateAddressRead());
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
