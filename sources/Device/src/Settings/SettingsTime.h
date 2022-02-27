@@ -17,9 +17,9 @@
 #define SET_TPOS_IS_CENTER                   (SET_TPOS == TPos::Center)
 #define SET_TPOS_IS_RIGHT                    (SET_TPOS == TPos::Right)
 
-#define SAMPLE_TYPE                          (set.time.sampleType)
-#define SAMPLE_TYPE_IS_EQUAL                 (SAMPLE_TYPE == SampleType_Equal)
-#define SAMPLE_TYPE_IS_REAL                  (SAMPLE_TYPE == SampleType_Real)
+#define SET_SAMPLE_TYPE                      (set.time.sampleType)
+#define SET_SAMPLE_TYPE_IS_EQUAL             (SET_SAMPLE_TYPE == SampleType_Equal)
+#define SET_SAMPLE_TYPE_IS_REAL              (SET_SAMPLE_TYPE == SampleType_Real)
 
 #define PEAKDET                              (set.time.peakDet)
 #define PEAKDET_IS_DISABLE                   (PEAKDET == PeackDetMode::Disable)

@@ -108,10 +108,10 @@ void SCPI::TBASE::SAMPLING(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value < 2) { SAMPLE_TYPE = (SampleType)value; }
+        if (value < 2) { SET_SAMPLE_TYPE = (SampleType)value; }
         else if (2 == value)
         {
-            SCPI_SEND(":TBASE:SAMPLING %s", map[SAMPLE_TYPE].key);
+            SCPI_SEND(":TBASE:SAMPLING %s", map[SET_SAMPLE_TYPE].key);
         }
     LEAVE_ANALYSIS
 }

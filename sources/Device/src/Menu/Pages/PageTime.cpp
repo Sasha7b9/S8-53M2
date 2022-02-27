@@ -66,7 +66,7 @@ static const Choice mcSample =
         {"–еальное врем€",  "Real"},
         {"Ёквивалентна€",   "Equals"}
     },
-    (int8*)&SAMPLE_TYPE
+    (int8*)&SET_SAMPLE_TYPE
 };
 
 static bool IsActive_Sample()

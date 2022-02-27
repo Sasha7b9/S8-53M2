@@ -175,7 +175,7 @@ bool FPGA::ProcessingData()
 {
     bool retValue = false;
 
-    int num = (TBase::InRandomizeMode() && (!START_MODE_IS_SINGLE) && SAMPLE_TYPE_IS_EQUAL) ? Kr[SET_TBASE] : 1;
+    int num = (TBase::InRandomizeMode() && (!START_MODE_IS_SINGLE) && SET_SAMPLE_TYPE_IS_EQUAL) ? Kr[SET_TBASE] : 1;
     
    for (int i = 0; i < num; i++)
    {
@@ -342,7 +342,7 @@ void FPGA::ReadRandomizeMode()
 
 //    int addShiftMem = step / 2;
 
-    if (START_MODE_IS_SINGLE || SAMPLE_TYPE_IS_REAL)
+    if (START_MODE_IS_SINGLE || SET_SAMPLE_TYPE_IS_REAL)
     {
         FPGA::ClearData();
     }
@@ -369,7 +369,7 @@ void FPGA::ReadRandomizeMode()
         pData1 += step;
     }
 
-    if (START_MODE_IS_SINGLE || SAMPLE_TYPE_IS_REAL)
+    if (START_MODE_IS_SINGLE || SET_SAMPLE_TYPE_IS_REAL)
     {
         Processing::InterpolationSinX_X(dataRel0, SET_TBASE);
         Processing::InterpolationSinX_X(dataRel1, SET_TBASE);
