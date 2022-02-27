@@ -407,11 +407,11 @@ void FPGA::ReadPoints()
     {
         BitSet16 data;
 
-        int delta = TBase::StretchRand();
+        const int delta = TBase::StretchRand();
 
-        int shift = CalculateShiftRandomizer();
-        pA += shift;
-        pB += shift;
+        const int shift_rand = CalculateShiftRandomizer();
+        pA += shift_rand;
+        pB += shift_rand;
 
         while (pA < endA && IN_PROCESS_READ)
         {
