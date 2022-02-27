@@ -14,16 +14,6 @@ namespace FPGA
         static int pred = 0;    // Пред- и после- запуски хранятся в точках.
         static int post = 0;    // Перед засылкой их нужно уменьшать в два раза, потому что две точки считываются за раз
 
-        static const int8 d_pred[TBase::Count] =   // Дополнительное смещение для предзапуска
-        {//  2    5   10   20   50  100  200
-            10,  10,  10,  10,  10,   5,   3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-        };
-
-        static const int8 d_post[TBase::Count] =   // Дополнительное смещение для послезапуска
-        {//  2    5   10   20   50  100  200
-            10,  20,  10,  10,  10,   5,   3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-        };
-
         void Calculate();
 
         // Возвращают значение, готовое для записи в ПЛИС
@@ -46,22 +36,28 @@ void FPGA::Launch::Load()
 
 uint16 FPGA::Launch::PostForWrite()
 {
-    int result = post + d_post[SET_TBASE];
-
-    return (uint16)(~result);
+    return (uint16)(~post);
 }
 
 
 uint16 FPGA::Launch::PredForWrite()
 {
-    int result = pred + d_pred[SET_TBASE];
-
-    return (uint16)(~result);
+    return (uint16)(~pred);
 }
 
 
 void FPGA::Launch::Calculate()
 {
+    static const int8 d_pred[TBase::Count] =   // Дополнительное смещение для предзапуска
+    {//  2    5   10   20   50  100  200
+        10,  10,  10,  10,  10,   5,   3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+    };
+
+    static const int8 d_post[TBase::Count] =   // Дополнительное смещение для послезапуска
+    {//  2    5   10   20   50  100  200
+        10,  20,  10,  10,  10,   5,   3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+    };
+
     int num_bytes = ENUM_POINTS_FPGA::ToNumBytes();
 
     int values[TPos::Count] = {num_bytes, num_bytes / 2, 0};
@@ -83,8 +79,8 @@ void FPGA::Launch::Calculate()
     {
         int stretch = TBase::StretchRand();
 
-        pred = pred / stretch;
-        post = post / stretch;
+        pred = pred / stretch + d_pred[SET_TBASE];
+        post = post / stretch + d_post[SET_TBASE];
     }
 }
 
