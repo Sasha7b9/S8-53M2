@@ -33,17 +33,20 @@ struct Key
 Key::E& operator++(Key::E &);
 
 // Идентификаторы регуляторов.
-enum Regulator
+struct Regulator
 {
-    R_Empty     = 0,    // регулятор не вращался
-    R_RangeA    = 20,   // ВОЛЬТ/ДЕЛ кан. 1
-    R_RShiftA   = 21,   
-    R_RangeB    = 22,   // ВОЛЬТ/ДЕЛ кан. 2
-    R_RShiftB   = 23,
-    R_TBase     = 24,   // ВРЕМЯ/ДЕЛ
-    R_TShift    = 25,
-    R_TrigLev   = 26,   // УРОВЕНЬ
-    R_Set       = 27    // УСТАНОВКА
+    enum E
+    {
+        Empty   = 0,    // регулятор не вращался
+        RangeA  = 20,   // ВОЛЬТ/ДЕЛ кан. 1
+        RShiftA = 21,
+        RangeB  = 22,   // ВОЛЬТ/ДЕЛ кан. 2
+        RShiftB = 23,
+        TBase   = 24,   // ВРЕМЯ/ДЕЛ
+        TShift  = 25,
+        TrigLev = 26,   // УРОВЕНЬ
+        Set     = 27    // УСТАНОВКА
+    };
 };
 
 // Направления вращения регуляторов.
@@ -55,7 +58,7 @@ enum RegulatorDirection
 };
 
 
-#define NUM_REGULATORS (R_Set - R_RangeA + 1)
+#define NUM_REGULATORS (Regulator::Set - Regulator::RangeA + 1)
 
 
 pchar NameButton(Key::E);

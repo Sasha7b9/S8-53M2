@@ -45,11 +45,11 @@ namespace Panel
 
     Key::E ButtonIsPress(uint16 command);
 
-    Regulator RegulatorLeft(uint16 command);
+    Regulator::E RegulatorLeft(uint16 command);
 
-    Regulator RegulatorRight(uint16 command);
+    Regulator::E RegulatorRight(uint16 command);
 
-    Regulator RegulatorIsPress(uint16 command);
+    Regulator::E RegulatorIsPress(uint16 command);
 
     static void(*funcOnKeyDown[Key::Count])() =
     {
@@ -122,40 +122,40 @@ namespace Panel
 
     static void (*funcOnRegulatorPress[8])() =
     {
-        ChannelALong,   // 20 - R_RangeA
-        ChannelALong,   // 21 - R_RShiftA
-        ChannelBLong,   // 22 - R_RangeB
-        ChannelBLong,   // 23 - R_RShiftB
-        TimeLong,       // 24 - R_TBase
-        TimeLong,       // 25 - R_TShift
-        TrigLong,       // 26 - R_TrigLev
-        MenuLong        // 27 - R_Set
+        ChannelALong,   // 20 - Regulator::RangeA
+        ChannelALong,   // 21 - Regulator::RShiftA
+        ChannelBLong,   // 22 - Regulator::RangeB
+        ChannelBLong,   // 23 - Regulator::RShiftB
+        TimeLong,       // 24 - Regulator::TBase
+        TimeLong,       // 25 - Regulator::TShift
+        TrigLong,       // 26 - Regulator::TrigLev
+        MenuLong        // 27 - Regulator::Set
     };
 
-    static void (*funculatorLeft[R_Set + 1])() =
+    static void (*funculatorLeft[Regulator::Set + 1])() =
     {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        RangeLeftA,     // R_RangeA
-        RShift0Left,    // R_RShiftA
-        RangeLeftB,     // R_RangeB
-        RShift1Left,    // R_RShiftB
-        TBaseLeft,      // R_TBase
-        TShiftLeft,     // R_TShift
-        TrigLevLeft,    // R_TrigLev
-        SetLeft         // R_Set
+        RangeLeftA,     // Regulator::RangeA
+        RShift0Left,    // Regulator::RShiftA
+        RangeLeftB,     // Regulator::RangeB
+        RShift1Left,    // Regulator::RShiftB
+        TBaseLeft,      // Regulator::TBase
+        TShiftLeft,     // Regulator::TShift
+        TrigLevLeft,    // Regulator::TrigLev
+        SetLeft         // Regulator::Set
     };
 
-    static void (*funculatorRight[R_Set + 1])() =
+    static void (*funculatorRight[Regulator::Set + 1])() =
     {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        RangeRightA,    // R_RangeA
-        RShift0Right,   // R_RShiftA
-        RangeRightB,    // R_RangeB
-        RShift1Right,   // R_RShiftB
-        TBaseRight,     // R_TBase
-        TShiftRight,    // R_TShift
-        TrigLevRight,   // R_TrigLev
-        SetRight        // R_Set
+        RangeRightA,    // Regulator::RangeA
+        RShift0Right,   // Regulator::RShiftA
+        RangeRightB,    // Regulator::RangeB
+        RShift1Right,   // Regulator::RShiftB
+        TBaseRight,     // Regulator::TBase
+        TShiftRight,    // Regulator::TShift
+        TrigLevRight,   // Regulator::TrigLev
+        SetRight        // Regulator::Set
     };
 }
 
@@ -195,35 +195,35 @@ Key::E Panel::ButtonIsPress(uint16 command)
 }
 
 
-Regulator Panel::RegulatorIsPress(uint16 command)
+Regulator::E Panel::RegulatorIsPress(uint16 command)
 {
     if ((command & 0xC0) != 0xC0)
     {
-        return R_Empty;
+        return Regulator::Empty;
     }
 
-    return (Regulator)(command & 0x3F);
+    return (Regulator::E)(command & 0x3F);
 }
 
 
-Regulator Panel::RegulatorLeft(uint16 command)
+Regulator::E Panel::RegulatorLeft(uint16 command)
 {
     if(command >= 20 && command <= 27)
     {
-        return (Regulator)command;
+        return (Regulator::E)command;
     }
 
-    return R_Empty;
+    return Regulator::Empty;
 }
 
 
-Regulator Panel::RegulatorRight(uint16 command)
+Regulator::E Panel::RegulatorRight(uint16 command)
 {
     if(((command & 0x7f) >= 20) && ((command & 0x7f) <= 27))
     {
-        return (Regulator)(command & 0x7f);
+        return (Regulator::E)(command & 0x7f);
     }
-    return R_Empty;
+    return Regulator::Empty;
 }
 
 
@@ -247,9 +247,9 @@ void Panel::ProcessingCommandFromPIC(uint16 command)
 {
     Key::E releaseButton = ButtonIsRelease(command);
     Key::E pressButton = ButtonIsPress(command);
-    Regulator regLeft = RegulatorLeft(command);
-    Regulator regRight = RegulatorRight(command);
-    Regulator regPress = RegulatorIsPress(command);
+    Regulator::E regLeft = RegulatorLeft(command);
+    Regulator::E regRight = RegulatorRight(command);
+    Regulator::E regPress = RegulatorIsPress(command);
 
     if (pressButton != Key::Empty)
     {
@@ -280,18 +280,18 @@ void Panel::ProcessingCommandFromPIC(uint16 command)
         pressedKey = pressButton;
         Timer::Enable(TypeTimer::PressKey, 500, OnTimerPressedKey);
     }
-    else if(regLeft != R_Empty)
+    else if(regLeft != Regulator::Empty)
     {
          funculatorLeft[regLeft]();
     }
-    else if(regRight != R_Empty)
+    else if(regRight != Regulator::Empty)
     {
         funculatorRight[regRight]();
     }
 
-    if (regPress != R_Empty)
+    if (regPress != Regulator::Empty)
     {
-        int index = regPress - R_RangeA;
+        int index = regPress - Regulator::RangeA;
 
         funcOnRegulatorPress[index]();
     }
@@ -441,14 +441,14 @@ uint16 Panel::TranslateCommand(const uint8 *data, uint size)
         Key::Service,
         Key::Menu,
         Key::Power,
-        R_RangeA,
-        R_RangeB,
-        R_RShiftA,
-        R_RShiftB,
-        R_TBase,
-        R_TShift,
-        R_TrigLev,
-        R_Set
+        Regulator::RangeA,
+        Regulator::RangeB,
+        Regulator::RShiftA,
+        Regulator::RShiftB,
+        Regulator::TBase,
+        Regulator::TShift,
+        Regulator::TrigLev,
+        Regulator::Set
     };
 
     uint16 command = 0;
