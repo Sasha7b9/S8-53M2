@@ -46,16 +46,23 @@ uint16 FPGA::Launch::PredForWrite()
 }
 
 
+uint16 FPGA::Reader::CalculateAddressRead()
+{
+    return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) - ENUM_POINTS_FPGA::ToNumBytes() / TBase::StretchRand());
+}
+
+
+
 void FPGA::Launch::Calculate()
 {
     static const int8 d_pred[TBase::Count] =   // Дополнительное смещение для предзапуска
     {//  2    5   10   20   50  100  200
-        10,  10,  10,  15,  10,   5,   3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+        10,  10,  10,  0,  10,   5,   3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
     };
 
     static const int8 d_post[TBase::Count] =   // Дополнительное смещение для послезапуска
     {//  2    5   10   20   50  100  200
-        10,  20,  10,  5,  10,   5,   3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+        10,  20,  10,  0,  10,   5,   3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
     };
 
     int num_bytes = ENUM_POINTS_FPGA::ToNumBytes();
@@ -79,9 +86,12 @@ void FPGA::Launch::Calculate()
     {
         int stretch = TBase::StretchRand();
 
-        pred = pred / stretch + d_pred[SET_TBASE];
-        post = post / stretch + d_post[SET_TBASE];
+        pred = pred / stretch;
+        post = post / stretch;
     }
+
+    pred += d_pred[SET_TBASE];
+    post += d_post[SET_TBASE];
 }
 
 
