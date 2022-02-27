@@ -58,8 +58,7 @@ namespace FPGA
     void ProcessingData();
 
     // ѕрочитать данные.
-    // saveToStorage - Ќужно в режиме рандомизатора дл€ указани€, что пора сохран€ть измерение
-    void DataRead(bool saveToStorage);
+    void DataRead();
 
     void ReadPoints();
 
@@ -172,7 +171,7 @@ void FPGA::ProcessingData()
 
         Stop(true);
 
-        DataRead(true);
+        DataRead();
 
         if (!START_MODE_IS_SINGLE)
         {
@@ -328,7 +327,7 @@ void BUS_FPGA::WriteAnalog(TypeWriteAnalog::E type, uint data)
 }
 
 
-void FPGA::DataRead(bool saveToStorage)
+void FPGA::DataRead()
 {
     Panel::EnableLEDTrig(false);
 
@@ -336,26 +335,25 @@ void FPGA::DataRead(bool saveToStorage)
 
     ReadPoints();
 
-    static uint prevTime = 0;
-
-    if (saveToStorage || (TIME_MS - prevTime > 500))
+    if (!TBase::InRandomizeMode())
     {
-        prevTime = TIME_MS;
+        InverseDataIsNecessary(Chan::A, dataReadA);
+        InverseDataIsNecessary(Chan::B, dataReadB);
+    }
 
-        if (!TBase::InRandomizeMode())
-        {
-            InverseDataIsNecessary(Chan::A, dataReadA);
-            InverseDataIsNecessary(Chan::B, dataReadB);
-        }
+    Storage::AddData(dataReadA.Data(), dataReadB.Data(), ds);
 
-        Storage::AddData(dataReadA.Data(), dataReadB.Data(), ds);
+    DataSettings *_ds = nullptr;
+    uint8 *dataA = nullptr;
+    uint8 *dataB = nullptr;
+    Storage::GetData(0, &_ds, &dataA, &dataB);
+    LOG_WRITE("%d, %d", dataA[450], dataA[451]);
 
-        if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)
-        {
-            FPGA::FindAndSetTrigLevel();
+    if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)
+    {
+        FPGA::FindAndSetTrigLevel();
 
-            TRIG_AUTO_FIND = false;
-        }
+        TRIG_AUTO_FIND = false;
     }
 
     IN_PROCESS_READ = false;
