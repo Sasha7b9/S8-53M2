@@ -51,7 +51,7 @@ uint16 FPGA::Reader::CalculateAddressRead()
     if (TBase::InRandomizeMode())
     {
         //                            2ns 5ns 10ns 20ns
-        static const int shift[4] = { 1,  1,  42,   40 };
+        static const int shift[4] = { 1,  44,  42,   40 };
 
         return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) - ENUM_POINTS_FPGA::ToNumBytes() / TBase::StretchRand() - shift[SET_TBASE]);
     }
@@ -67,12 +67,12 @@ void FPGA::Launch::Calculate()
 {
     static const int8 d_pred[TBase::Count] =   // Дополнительное смещение для предзапуска
     {//  2    5   10   20   50  100  200
-        10,  10,  50,  50,  10,   5,   3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+        10,  50,  50,  50,  10,   5,   3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
     };
 
     static const int8 d_post[TBase::Count] =   // Дополнительное смещение для послезапуска
     {//  2    5   10   20   50  100  200
-        10,  20,  50,  50,  10,   5,   3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+        10,  50,  50,  50,  10,   5,   3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
     };
 
     int num_bytes = ENUM_POINTS_FPGA::ToNumBytes();
