@@ -102,6 +102,4 @@ void FPGA::Launch::Calculate()
 
     pred += d_pred[SET_TBASE];
     post += d_post[SET_TBASE];
-
-    LOG_WRITE("pred = %d, post = %d", pred, post);
 }
