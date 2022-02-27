@@ -29,7 +29,6 @@ void Device::Init()
 
     Sound::Init();
 
-//    VCP::Init();
     Settings::Load(false);
 
     FPGA::Init();
@@ -43,9 +42,8 @@ void Device::Init()
     Panel::Init();
 
     // FDrive::Init();
-    // HAL_RTC::Init();
-
     // LAN::Init();
+    // VCP::Init();
 
     set.menu.isShown = true;
 }
