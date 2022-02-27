@@ -83,11 +83,9 @@ void FPGA::Launch::Calculate()
     {
         int stretch = TBase::StretchRand();
 
-        pred = pred / stretch + 5;
-        post = post / stretch - 5;
+        pred = pred / stretch;
+        post = post / stretch;
     }
-
-    LOG_WRITE("pred = %d, post = %d", pred, post);
 }
 
 
@@ -95,7 +93,7 @@ int FPGA::Reader::ShiftRead()
 {
     static const int shift[TBase::Count] =
     {// 2  5  10 20
-        0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
 
     return shift[SET_TBASE];
