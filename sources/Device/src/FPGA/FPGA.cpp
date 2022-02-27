@@ -413,6 +413,8 @@ void FPGA::ReadPoints()
         pA += shift_rand;
         pB += shift_rand;
 
+        const int shift_read = Reader::ShiftRead();
+
         while (pA < endA && IN_PROCESS_READ)
         {
             data.half_word = *RD_ADC_B;

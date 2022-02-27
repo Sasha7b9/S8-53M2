@@ -87,12 +87,12 @@ void FPGA::Launch::Calculate()
 }
 
 
-int FPGA::Reader::DeltaRead()
+int FPGA::Reader::ShiftRead()
 {
-    static const int delta[TBase::Count] =
+    static const int shift[TBase::Count] =
     {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
 
-    return delta[SET_TBASE];
+    return shift[SET_TBASE];
 }

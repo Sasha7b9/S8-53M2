@@ -13,7 +13,7 @@ namespace FPGA
         uint16 CalculateAddressRead();
 
         // Смещение первой точки при чтении
-        int DeltaRead();
+        int ShiftRead();
     }
 
     namespace Launch
