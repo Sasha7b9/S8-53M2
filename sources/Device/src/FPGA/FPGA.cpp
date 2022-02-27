@@ -368,7 +368,6 @@ void FPGA::ReadPoints()
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
     uint8 *a = dataReadA.Data();
-    const uint8 *const start_a = a;
     uint8 *b = dataReadB.Data();
     const uint8 *const endA = dataReadA.Last();
 
@@ -409,47 +408,23 @@ void FPGA::ReadPoints()
         a += shift_rand;
         b += shift_rand;
 
-        const int shift_read = Reader::ShiftRead();
-        a -= shift_read;
-        b -= shift_read;
-
-        BitSet16 dataA;
-        BitSet16 dataB;
+        BitSet16 data;
 
         const int stretch = TBase::StretchRand();
 
         while (a < endA && IN_PROCESS_READ)
         {
-            dataB.half_word = *RD_ADC_B;
-            dataA.half_word = *RD_ADC_A;
+            data.half_word = *RD_ADC_A;
+            *a = data.byte0;
+            a += stretch;
+            *a = data.byte1;
+            a += stretch;
 
-            if (a < start_a)
-            {
-                a += stretch;
-                b += stretch;
-            }
-            else
-            {
-                *a = dataA.byte0;
-                a += stretch;
-
-                *b = dataB.byte0;
-                b += stretch;
-            }
-
-            if (a < start_a)
-            {
-                a += stretch;
-                b += stretch;
-            }
-            else
-            {
-                *a = dataA.byte1;
-                a += stretch;
-
-                *b = dataB.byte1;
-                b += stretch;
-            }
+            data.half_word = *RD_ADC_B;
+            *b = data.byte0;
+            b += stretch;
+            *b = data.byte1;
+            b += stretch;
         }
     }
 }
