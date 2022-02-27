@@ -81,8 +81,10 @@ void FPGA::Launch::Calculate()
 
     if (TBase::InRandomizeMode())
     {
-        pred = (pred / TBase::StretchRand());
-        post = (post / TBase::StretchRand());
+        int stretch = TBase::StretchRand();
+
+        pred = pred / stretch + 5;
+        post = post / stretch - 5;
     }
 
     LOG_WRITE("pred = %d, post = %d", pred, post);
@@ -93,7 +95,7 @@ int FPGA::Reader::ShiftRead()
 {
     static const int shift[TBase::Count] =
     {// 2  5  10 20
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
 
     return shift[SET_TBASE];
