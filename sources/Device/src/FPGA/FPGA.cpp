@@ -214,7 +214,7 @@ void FPGA::SwitchingTrig()
 
 void FPGA::Start()
 {
-    if (!TBase::InRandomizeMode())
+    if (!TBase::InModeRandomizer())
     {
         ClearData();
     }
@@ -335,7 +335,7 @@ void FPGA::DataRead()
 
     ReadPoints();
 
-    if (!TBase::InRandomizeMode())
+    if (!TBase::InModeRandomizer())
     {
         InverseDataIsNecessary(Chan::A, dataReadA);
         InverseDataIsNecessary(Chan::B, dataReadB);
@@ -438,7 +438,7 @@ void FPGA::InverseDataIsNecessary(Chan::E ch, Buffer<uint8> &data)
 
 int FPGA::ShiftRandomizerADC()
 {
-    if (TBase::InRandomizeMode())
+    if (TBase::InModeRandomizer())
     {
         uint16 rand = HAL_ADC1::GetValue();
 
@@ -456,7 +456,7 @@ int FPGA::ShiftRandomizerADC()
             return TShift::EMPTY;
         }
 
-        if (TBase::InRandomizeMode())
+        if (TBase::InModeRandomizer())
         {
             float tin = (float)(rand - min) / (float)(max - min) * 10e-9f;
             int retValue = (int)(tin / 10e-9f * (float)TBase::StretchRand());

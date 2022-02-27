@@ -47,7 +47,7 @@ bool SettingsDisplay::IsSeparate()
 
 ModeAveraging::E SettingsDisplay::GetModeAveraging()
 {
-    if (TBase::InRandomizeMode())
+    if (TBase::InModeRandomizer())
     {
         return ModeAveraging::Around;
     }
@@ -58,7 +58,7 @@ ModeAveraging::E SettingsDisplay::GetModeAveraging()
 
 int SettingsDisplay::NumAverages()
 {
-    if (TBase::InRandomizeMode() && (NUM_AVE_FOR_RAND >= NUM_AVE))
+    if (TBase::InModeRandomizer() && (NUM_AVE_FOR_RAND >= NUM_AVE))
     {
         return NUM_AVE_FOR_RAND;
     }

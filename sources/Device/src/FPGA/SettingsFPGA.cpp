@@ -457,7 +457,7 @@ void FPGA::LoadRegUPR()
 {
     uint8 data = 0;
 
-    if (TBase::InRandomizeMode())
+    if (TBase::InModeRandomizer())
     {
         _SET_BIT(data, 0);
     }
@@ -579,7 +579,7 @@ void Filtr::Enable(Chan::E ch, bool enable)
 }
 
 
-bool TBase::InRandomizeMode()
+bool TBase::InModeRandomizer()
 {
     return SET_TBASE <= MAX_RAND;
 }

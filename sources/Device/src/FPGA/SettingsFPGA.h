@@ -182,7 +182,7 @@ struct TBase
     // Загрузка коэффицента развёртки в аппаратную часть.
     static void Load();
 
-    static bool InRandomizeMode();
+    static bool InModeRandomizer();
 
     static bool InModeP2P();
 

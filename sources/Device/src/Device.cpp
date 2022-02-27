@@ -101,7 +101,7 @@ void Device::ProcessingSignal()
         dataA = Storage::dataA;
         dataB = Storage::dataB;
 
-        if (SettingsDisplay::NumAverages() != 1 || TBase::InRandomizeMode())
+        if (SettingsDisplay::NumAverages() != 1 || TBase::InModeRandomizer())
         {
             Storage::dataA = Storage::GetAverageData(Chan::A);
             Storage::dataB = Storage::GetAverageData(Chan::B);

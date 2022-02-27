@@ -112,7 +112,7 @@ bool HAL_ADC1::CallbackOnIRQ()
     {
         __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_4);
 
-        if (TBase::InRandomizeMode())
+        if (TBase::InModeRandomizer())
         {
             StartConversion();
         }

@@ -48,7 +48,7 @@ uint16 FPGA::Launch::PredForWrite()
 
 uint16 FPGA::Reader::CalculateAddressRead()
 {
-    if (TBase::InRandomizeMode())
+    if (TBase::InModeRandomizer())
     {
         //                            2ns 5ns 10ns 20ns
         static const int shift[4] = { 44, 44, 42,  40 };
@@ -91,7 +91,7 @@ void FPGA::Launch::Calculate()
 
     post = Math::Limitation(post + tShift * 2, 0, 65535);
 
-    if (TBase::InRandomizeMode())
+    if (TBase::InModeRandomizer())
     {
         if (pred + post < num_bytes)
         {
