@@ -366,7 +366,7 @@ struct DataSettings
 
     uint                inv_a               : 1;
     uint                inv_b               : 1;
-    Divider::E          dividerA            : 1;
+    Divider::E          div_a               : 1;
     Divider::E          dividerB            : 1;
     PackedTime          time;
     // Поточечный режим
