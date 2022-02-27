@@ -64,7 +64,7 @@ void PowerDown()                        // B_Power
 {
     Menu::ShortPressOnPageItem((Page *)Menu::OpenedItem(), 0);
     Settings::SaveBeforePowerDown();
-    Log_DisconnectLoggerUSB();
+    Log::DisconnectLoggerUSB();
 
     if (TIME_MS > 1000)
     {
