@@ -32,7 +32,7 @@
 
 namespace Display
 {
-    #define NUM_P2P_POINTS (FPGA::MAX_POINTS * 2)
+    #define NUM_P2P_POINTS (FPGA::MAX_POINTS * 2) 
     static uint8 dataP2P_0[NUM_P2P_POINTS];
     static uint8 dataP2P_1[NUM_P2P_POINTS];
     static int   lastP2Pdata = 0;
