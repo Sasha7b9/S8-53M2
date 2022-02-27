@@ -526,7 +526,6 @@ void Display::DrawDataChannel(uint8 *data, Chan::E ch, DataSettings *ds, int min
     {
         if(SET_SELFRECORDER)
         {
-            LOG_TRACE();
         }
         else if(points.half_iword[0] > lastP2Pdata)
         {
@@ -538,14 +537,6 @@ void Display::DrawDataChannel(uint8 *data, Chan::E ch, DataSettings *ds, int min
 
     if(MODE_DRAW_IS_SIGNAL_LINES)
     {
-        /*
-        if (set.display.numAveraging > NumAveraging_1)
-        {
-            Color::SetCurrent(ColorGrid());
-            DrawSignalLined(DS_GetData(ch, 0), ds, firstPoint, lastPoint, minY, maxY, scaleY, scaleX, calculateFiltr);    // WARN
-        }
-        Color::SetCurrent(ColorChannel(ch));
-        */
         DrawSignalLined(data, ds, points.half_iword[0], points.half_iword[1], minY, maxY, scaleY, scaleX, calculateFiltr);
     }
     else
