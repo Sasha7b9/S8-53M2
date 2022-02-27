@@ -84,6 +84,8 @@ void FPGA::Launch::Calculate()
         pred = (pred / TBase::StretchRand());
         post = (post / TBase::StretchRand());
     }
+
+    LOG_WRITE("pred = %d, post = %d", pred, post);
 }
 
 
