@@ -33,24 +33,24 @@
 namespace Display
 {
     #define NUM_P2P_POINTS (FPGA::MAX_POINTS * 2) 
-    static uint8 dataP2P_0[NUM_P2P_POINTS];
-    static uint8 dataP2P_1[NUM_P2P_POINTS];
-    static int   lastP2Pdata = 0;
-    static bool  dataP2PIsEmpty = true;
+    uint8 dataP2P_0[NUM_P2P_POINTS];
+    uint8 dataP2P_1[NUM_P2P_POINTS];
+    int   lastP2Pdata = 0;
+    bool  dataP2PIsEmpty = true;
 
     #define MAX_NUM_STRINGS         35
     #define SIZE_BUFFER_FOR_STRINGS 2000
-    static char                     *strings[MAX_NUM_STRINGS] = {0};
-    static char                     bufferForStrings[SIZE_BUFFER_FOR_STRINGS] = {0};
-    static int                      lastStringForPause = -1;
+    char                     *strings[MAX_NUM_STRINGS] = {0};
+    char                     bufferForStrings[SIZE_BUFFER_FOR_STRINGS] = {0};
+    int                      lastStringForPause = -1;
 
     #define NUM_WARNINGS            10
-    static const char               *warnings[NUM_WARNINGS] = {0};      // Здесь предупреждающие сообщения.
-    static uint                     timeWarnings[NUM_WARNINGS] = {0};   // Здесь время, когда предупреждающее сообщение поступило на экран.
+    const char               *warnings[NUM_WARNINGS] = {0};      // Здесь предупреждающие сообщения.
+    uint                     timeWarnings[NUM_WARNINGS] = {0};   // Здесь время, когда предупреждающее сообщение поступило на экран.
 
-    static pFuncVV funcOnHand       = 0;
-    static pFuncVV funcAdditionDraw = 0;
-    static pFuncVV funcAfterDraw    = 0;
+    pFuncVV funcOnHand       = 0;
+    pFuncVV funcAdditionDraw = 0;
+    pFuncVV funcAfterDraw    = 0;
 
     void ShowWarn(pchar  message);
 
