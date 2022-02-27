@@ -364,8 +364,8 @@ struct DataSettings
     uint                en_a                : 1;    // Включён ли канал 0
     uint                en_b                : 1;    // Включен ли канал 1
 
-    uint                inverseA            : 1;
-    uint                inverseB            : 1;
+    uint                inv_a               : 1;
+    uint                inv_b               : 1;
     Divider::E          dividerA            : 1;
     Divider::E          dividerB            : 1;
     PackedTime          time;

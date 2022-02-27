@@ -652,8 +652,8 @@ void DataSettings::Init()
 
     en_a = Chan::Enabled(Chan::A) ? 1U : 0U;
     en_b = Chan::Enabled(Chan::B) ? 1U : 0U;
-    inverseA = SET_INVERSE_A ? 1U : 0U;
-    inverseB = SET_INVERSE_B ? 1U : 0U;
+    inv_a = SET_INVERSE_A ? 1U : 0U;
+    inv_b = SET_INVERSE_B ? 1U : 0U;
     range[0] = SET_RANGE_A;
     range[1] = SET_RANGE_B;
     rShiftA = (uint)SET_RSHIFT_A;
