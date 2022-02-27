@@ -367,14 +367,14 @@ void FPGA::ReadPoints()
     HAL_FMC::Write(WR_PRED, Reader::CalculateAddressRead());
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
-    uint8 *pA = dataReadA.Data();
-    const uint8 *const startA = pA;
+    uint8 *a = dataReadA.Data();
+    const uint8 *const startA = a;
     uint8 *pB = dataReadB.Data();
     const uint8 *const endA = dataReadA.Last();
 
     if (SET_PEAKDET_IS_ENABLE)
     {
-        uint8 *p_minA = pA;
+        uint8 *p_minA = a;
         uint8 *p_maxA = p_minA + ENUM_POINTS_FPGA::ToNumPoints();
         uint8 *p_minB = pB;
         uint8 *p_maxB = p_minB + ENUM_POINTS_FPGA::ToNumPoints();
@@ -406,11 +406,11 @@ void FPGA::ReadPoints()
     else
     {
         const int shift_rand = ShiftRandomizerADC();
-        pA += shift_rand;
+        a += shift_rand;
         pB += shift_rand;
 
         const int shift_read = Reader::ShiftRead();
-        pA -= shift_read;
+        a -= shift_read;
         pB -= shift_read;
 
         BitSet16 dataA;
@@ -418,34 +418,34 @@ void FPGA::ReadPoints()
 
         const int stretch = TBase::StretchRand();
 
-        while (pA < endA && IN_PROCESS_READ)
+        while (a < endA && IN_PROCESS_READ)
         {
             dataB.half_word = *RD_ADC_B;
             dataA.half_word = *RD_ADC_A;
 
-            if (pA < startA)
+            if (a < startA)
             {
-                pA += stretch;
+                a += stretch;
                 pB += stretch;
             }
             else
             {
-                *pA = dataA.byte0;
-                pA += stretch;
+                *a = dataA.byte0;
+                a += stretch;
 
                 *pB = dataB.byte0;
                 pB += stretch;
             }
 
-            if (pA < startA)
+            if (a < startA)
             {
-                pA += stretch;
+                a += stretch;
                 pB += stretch;
             }
             else
             {
-                *pA = dataA.byte1;
-                pA += stretch;
+                *a = dataA.byte1;
+                a += stretch;
 
                 *pB = dataB.byte1;
                 pB += stretch;
