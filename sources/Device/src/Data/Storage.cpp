@@ -669,6 +669,9 @@ void Storage::P2P::CreateFrame(DataSettings ds)
     DataBuffer bufferA(num_bytes);
     DataBuffer bufferB(num_bytes);
 
+    bufferA.Fill(ValueFPGA::AVE);
+    bufferB.Fill(ValueFPGA::AVE);
+
     AddData(bufferA.Data(), bufferB.Data(), ds);
 }
 
