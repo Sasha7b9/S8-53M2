@@ -405,29 +405,35 @@ void FPGA::ReadPoints()
     }
     else
     {
-        BitSet16 data;
-
-        const int delta = TBase::StretchRand();
-
         const int shift_rand = ShiftRandomizerADC();
         pA += shift_rand;
         pB += shift_rand;
 
         const int shift_read = Reader::ShiftRead();
+        pA -= shift_read;
+        pB -= shift_read;
+
+        BitSet16 dataA;
+        BitSet16 dataB;
+
+        const int stretch = TBase::StretchRand();
 
         while (pA < endA && IN_PROCESS_READ)
         {
-            data.half_word = *RD_ADC_B;
-            *pB = data.byte0;
-            pB += delta;
-            *pB = data.byte1;
-            pB += delta;
+            dataB.half_word = *RD_ADC_B;
+            dataA.half_word = *RD_ADC_A;
 
-            data.half_word = *RD_ADC_A;
-            *pA = data.byte0;
-            pA += delta;
-            *pA = data.byte1;
-            pA += delta;
+            if (pA >= startA)
+            {
+                *pB = dataB.byte0;
+                *pB = dataB.byte1;
+
+                *pA = dataA.byte0;
+                *pA = dataA.byte1;
+            }
+
+            pB += stretch;
+            pA += stretch;
         }
     }
 }

@@ -90,7 +90,7 @@ void FPGA::Launch::Calculate()
 int FPGA::Reader::ShiftRead()
 {
     static const int shift[TBase::Count] =
-    {
+    {// 2  5  10 20
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
 
