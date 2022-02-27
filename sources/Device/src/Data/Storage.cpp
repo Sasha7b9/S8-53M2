@@ -78,7 +78,7 @@ namespace Storage
     DataSettings* NextElem(DataSettings *elem);
 
     // Возвращает указатель на данные, отстоящие на indexFromEnd oт последнего сохранённого
-    DataSettings* FromEnd(int indexFromEnd);
+    DataSettings* GetDataSettings(int indexFromEnd);
 
     // Возвращает true, если настройки измерений с индексами elemFromEnd0 и elemFromEnd1 совпадают, и false в ином случае.
     bool SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1);
@@ -313,7 +313,7 @@ int Storage::NumElementsWithCurrentSettings()
 
     for(retValue = 0; retValue < numElements; retValue++)
     {
-        if(!SettingsIsEquals(&dp, FromEnd(retValue)))
+        if(!SettingsIsEquals(&dp, GetDataSettings(retValue)))
         {
             break;
         }
@@ -347,7 +347,7 @@ int Storage::NumElementsInStorage()
 
 DataSettings* Storage::GetSettingsDataFromEnd(int fromEnd)
 {
-    return FromEnd(fromEnd);
+    return GetDataSettings(fromEnd);
 }
 
 
@@ -355,7 +355,7 @@ bool Storage::GetData(int fromEnd, DataSettings **ds, uint8 **data0, uint8 **dat
 {
     static Buffer<uint8> dataImportRel[Chan::Count];
 
-    DataSettings* dp = FromEnd(fromEnd);
+    DataSettings* dp = GetDataSettings(fromEnd);
 
     if(dp == 0)
     {
@@ -402,7 +402,7 @@ uint8* Storage::GetData(Chan::E ch, int fromEnd)
 {
     static Buffer<uint8> dataImport[Chan::Count];
 
-    DataSettings* dp = FromEnd(fromEnd);
+    DataSettings* dp = GetDataSettings(fromEnd);
 
     if(dp == 0)
     {
@@ -626,7 +626,7 @@ DataSettings* Storage::NextElem(DataSettings *elem)
 }
 
 
-DataSettings* Storage::FromEnd(int indexFromEnd)
+DataSettings* Storage::GetDataSettings(int indexFromEnd)
 {
     if(firstElem == 0)
     {
@@ -649,8 +649,8 @@ DataSettings* Storage::FromEnd(int indexFromEnd)
 
 bool Storage::SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1)
 {
-    DataSettings* dp0 = FromEnd(elemFromEnd0);
-    DataSettings* dp1 = FromEnd(elemFromEnd1);
+    DataSettings* dp0 = GetDataSettings(elemFromEnd0);
+    DataSettings* dp1 = GetDataSettings(elemFromEnd1);
     return SettingsIsEquals(dp0, dp1);
 }
 
@@ -681,6 +681,16 @@ bool Storage::SettingsIsEquals(DataSettings *dp0, DataSettings *dp1)
 void Storage::P2P::CreateFrame(DataSettings ds)
 {
 
+
+
+    ds.last_point = 0;
+
+    int num_bytes = ds.BytesInChannel();
+
+    DataBuffer bufferA(num_bytes);
+    DataBuffer bufferB(num_bytes);
+
+    AddData(bufferA.Data(), bufferB.Data(), ds);
 }
 
 
