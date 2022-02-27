@@ -801,7 +801,7 @@ void Display::DrawDataNormal()
 
 void Display::DrawData()
 {
-    if (Storage::CountDatas())
+    if (Storage::NumElements())
     {
         if (MODE_WORK_IS_MEMINT)
         {

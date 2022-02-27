@@ -98,6 +98,11 @@ namespace Storage
     bool CopyData(DataSettings *ds, Chan::E ch, Buffer<uint8> &datatImportRel);
 
     void CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *dss);
+
+    namespace P2P
+    {
+        void AppendFrame(DataSettings);
+    }
 }
 
 
@@ -188,7 +193,7 @@ void Storage::AddData(uint8 *a, uint8 *b, DataSettings dss)
 }
 
 
-int Storage::CountDatas()
+int Storage::NumElements()
 {
     return count_data;
 }
@@ -198,7 +203,7 @@ void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
 {
     uint numElements = (uint)dss->PointsInChannel();
 
-    if(NumElementsInStorage() == 0 || NUM_MIN_MAX == 1 || (!SettingsIsEquals(dss, GetSettingsDataFromEnd(0))))
+    if(NumElements() == 0 || NUM_MIN_MAX == 1 || (!SettingsIsEquals(dss, GetSettingsDataFromEnd(0))))
     {
         for(uint i = 0; i < numElements; i++)
         {
@@ -292,7 +297,7 @@ void Storage::CalculateSums()
 int Storage::NumElementsWithSameSettings()
 {
     int retValue = 0;
-    int numElements = NumElementsInStorage();
+    int numElements = NumElements();
     for(retValue = 1; retValue < numElements; retValue++)
     {
         if(!SettingsIsIdentical(retValue, retValue - 1))
@@ -309,36 +314,13 @@ int Storage::NumElementsWithCurrentSettings()
     DataSettings dp;
     dp.Init();
     int retValue = 0;
-    int numElements = NumElementsInStorage();
+    int numElements = NumElements();
 
     for(retValue = 0; retValue < numElements; retValue++)
     {
         if(!SettingsIsEquals(&dp, GetDataSettings(retValue)))
         {
             break;
-        }
-    }
-    return retValue;
-}
-
-
-int Storage::NumElementsInStorage()
-{
-    int retValue = 0;
-    DataSettings *elem = firstElem;
-    if(firstElem != 0)
-    {
-        if(firstElem == lastElem)
-        {
-            retValue = 1;
-        }
-        else
-        {
-            retValue++;
-            while((elem = NextElem(elem)) != 0)
-            {
-                retValue++;
-            }
         }
     }
     return retValue;
@@ -640,7 +622,7 @@ DataSettings* Storage::GetDataSettings(int indexFromEnd)
     }
     if(index != 0)
     {
-        LOG_ERROR("Неправильный индекс %d, всего данных %d", indexFromEnd, CountDatas());
+        LOG_ERROR("Неправильный индекс %d, всего данных %d", indexFromEnd, NumElements());
         return 0;
     }
     return retValue;
@@ -680,9 +662,6 @@ bool Storage::SettingsIsEquals(DataSettings *dp0, DataSettings *dp1)
 
 void Storage::P2P::CreateFrame(DataSettings ds)
 {
-
-
-
     ds.last_point = 0;
 
     int num_bytes = ds.BytesInChannel();

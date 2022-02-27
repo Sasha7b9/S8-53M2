@@ -81,7 +81,7 @@ void Device::Update()
 
 void Device::ProcessingSignal()
 {
-    if (Storage::NumElementsInStorage() == 0)
+    if (Storage::NumElements() == 0)
     {
         static DataSettings ds_null;
         ds_null.Init();
