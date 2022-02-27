@@ -16,87 +16,87 @@ extern "C" {
 
 
 
-void NMI_Handler()
-{
-}
-
-
-void HardFault_Handler()
-{
-    volatile int line = Debug::line[0];
-    volatile pchar file = Debug::file[0];
-
-    while (1)
+    void NMI_Handler()
     {
-        line = line;
-        file = file;
     }
-}
 
 
-void MemManage_Handler()
-{
-  while (1)
-  {
-  }
-}
+    void HardFault_Handler()
+    {
+        volatile int line = Debug::line[0];
+        volatile pchar file = Debug::file[0];
+
+        while (1)
+        {
+            line = line;
+            file = file;
+        }
+    }
 
 
-void BusFault_Handler()
-{
-  while (1)
-  {
-  }
-}
+    void MemManage_Handler()
+    {
+        while (1)
+        {
+        }
+    }
 
 
-void UsageFault_Handler()
-{
-  while (1)
-  {
-  }
-}
+    void BusFault_Handler()
+    {
+        while (1)
+        {
+        }
+    }
 
 
-void SVC_Handler()
-{
-}
+    void UsageFault_Handler()
+    {
+        while (1)
+        {
+        }
+    }
 
 
-void DebugMon_Handler()
-{
-}
+    void SVC_Handler()
+    {
+    }
 
 
-void PendSV_Handler()
-{
-}
+    void DebugMon_Handler()
+    {
+    }
 
 
-void SysTick_Handler()
-{
-    HAL_IncTick();
-}
+    void PendSV_Handler()
+    {
+    }
 
 
-// Панель
-void SPI5_IRQHandler()
-{
-    HAL_SPI_IRQHandler((SPI_HandleTypeDef *)HAL_SPI5::handle);
-}
+    void SysTick_Handler()
+    {
+        HAL_IncTick();
+    }
 
 
-void TIM6_DAC_IRQHandler()
-{
-    HAL_TIM6::CallbackOnIRQ();
-}
+    // Панель
+    void SPI5_IRQHandler()
+    {
+        HAL_SPI_IRQHandler((SPI_HandleTypeDef *)HAL_SPI5::handle);
+    }
 
 
-// Прерывание на АЦП рандомизатора
-void EXTI4_IRQHandler()
-{
-    HAL_ADC1::CallbackOnIRQ();
-}
+    void TIM6_DAC_IRQHandler()
+    {
+        HAL_TIM6::CallbackOnIRQ();
+    }
+
+
+    // Прерывание на АЦП рандомизатора
+    void EXTI4_IRQHandler()
+    {
+        HAL_ADC1::CallbackOnIRQ();
+    }
 
 
 #ifdef __cplusplus
