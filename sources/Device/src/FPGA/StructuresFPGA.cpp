@@ -57,7 +57,7 @@ uint16 FPGA::Reader::CalculateAddressRead()
     }
     else
     {
-        return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) - ENUM_POINTS_FPGA::ToNumBytes());
+        return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) - ENUM_POINTS_FPGA::ToNumBytes() - 1);
     }
 }
 
