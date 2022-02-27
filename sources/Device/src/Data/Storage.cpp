@@ -98,12 +98,6 @@ namespace Storage
     bool CopyData(DataSettings *ds, Chan::E ch, Buffer<uint8> &datatImportRel);
 
     void CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *dss);
-
-    namespace P2P
-    {
-        // Создать новый поточечный фрейм
-        void NewFrame();
-    }
 }
 
 
@@ -173,7 +167,7 @@ void Storage::CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *d
 }
 
 
-void Storage::AddData(uint8 *data0, uint8 *data1, DataSettings dss)
+void Storage::AddData(uint8 *a, uint8 *b, DataSettings dss)
 {
     dss.time = HAL_RTC::GetPackedTime();
 
@@ -182,13 +176,13 @@ void Storage::AddData(uint8 *data0, uint8 *data1, DataSettings dss)
         return;
     }
 
-    CalculateLimits(data0, data1, &dss);
+    CalculateLimits(a, b, &dss);
 
-    PushData(&dss, data0, data1);
+    PushData(&dss, a, b);
 
     CalculateSums();
 
-    CalculateAroundAverage(data0, data1, &dss);
+    CalculateAroundAverage(a, b, &dss);
 
     count_data++;
 }
@@ -681,6 +675,12 @@ bool Storage::SettingsIsEquals(DataSettings *dp0, DataSettings *dp1)
         (dp0->dividerB == dp1->dividerB) &&
         (dp0->peakDet  == dp1->peakDet); 
     return retValue;
+}
+
+
+void Storage::P2P::CreateFrame(DataSettings ds)
+{
+
 }
 
 

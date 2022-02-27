@@ -219,20 +219,21 @@ void FPGA::Start()
         ClearData();
     }
 
+    ds.Init();
+
     if (TBase::InModeP2P())
     {
-        Storage::P2P::Reset();
+        Storage::P2P::CreateFrame(ds);
         Timer::Enable(TypeTimer::P2P, 1, ReadPoint);
     }
     else
     {
         Timer::Disable(TypeTimer::P2P);
-        Storage::P2P::Reset();
     }
 
     HAL_FMC::Write(WR_PRED, FPGA::Launch::PredForWrite());
     HAL_FMC::Write(WR_START, 1);
-    ds.Init();
+
     timeStart = TIME_MS;
     StateWorkFPGA::SetCurrent(StateWorkFPGA::Wait);
 

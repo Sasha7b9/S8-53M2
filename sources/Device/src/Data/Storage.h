@@ -12,7 +12,7 @@ namespace Storage
     void Clear();
 
     // Добавить считанные данные. При этом настройками считаются текущие настройки прибора.
-    void AddData(uint8 *data0, uint8 *data1, DataSettings dss);
+    void AddData(uint8 *dataA, uint8 *dataB, DataSettings);
 
     // Возвращает число непрерывных измерений, начиная с последнего, с такими же настройками, как у последнего.
     int NumElementsWithSameSettings();
@@ -53,6 +53,9 @@ namespace Storage
 
     namespace P2P
     {
+        // Создать новый фрейм поточечного вывода.
+        void CreateFrame(DataSettings);
+
         // Сбросить точки текущего фрейма
         void Reset();
 
