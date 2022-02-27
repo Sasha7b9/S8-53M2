@@ -91,23 +91,26 @@ void FPGA::Launch::Calculate()
 
     post = Math::Limitation(post + tShift * 2, 0, 65535);
 
-    if (pred + post < num_bytes)
-    {
-        post = num_bytes - pred;
-    }
-
     if (TBase::InRandomizeMode())
     {
+        if (pred + post < num_bytes)
+        {
+            post = num_bytes - pred;
+        }
+
         int stretch = TBase::StretchRand();
 
-        pred = pred / stretch;
-        post = post / stretch;
+        pred = pred / stretch + d_pred[SET_TBASE];
+        post = post / stretch + d_post[SET_TBASE];
     }
     else
     {
+        pred += d_pred[SET_TBASE];
+        post += d_post[SET_TBASE];
 
+        if (pred + post < num_bytes)
+        {
+            post = num_bytes - pred;
+        }
     }
-
-    pred += d_pred[SET_TBASE];
-    post += d_post[SET_TBASE];
 }
