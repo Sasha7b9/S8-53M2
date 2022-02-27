@@ -100,6 +100,8 @@ void Device::ProcessingSignal()
     if (MODE_WORK_IS_DIRECT)
     {
         Storage::GetData(0, &Storage::DS, &Storage::dataA, &Storage::dataB);
+        dataA = Storage::dataA;
+        dataB = Storage::dataB;
 
         if (SettingsDisplay::NumAverages() != 1 || TBase::InRandomizeMode())
         {

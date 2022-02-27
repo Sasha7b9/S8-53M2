@@ -343,12 +343,6 @@ void FPGA::DataRead()
 
     Storage::AddData(dataReadA.Data(), dataReadB.Data(), ds);
 
-    DataSettings *_ds = nullptr;
-    uint8 *dataA = nullptr;
-    uint8 *dataB = nullptr;
-    Storage::GetData(0, &_ds, &dataA, &dataB);
-    LOG_WRITE("%d, %d", dataA[450], dataA[451]);
-
     if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)
     {
         FPGA::FindAndSetTrigLevel();
