@@ -32,17 +32,17 @@
 
 namespace Display
 {
-    #define NUM_P2P_POINTS (FPGA::MAX_POINTS * 2) 
+    const int NUM_P2P_POINTS = FPGA::MAX_POINTS * 2;
     uint8 dataP2P_0[NUM_P2P_POINTS];
     uint8 dataP2P_1[NUM_P2P_POINTS];
     int   lastP2Pdata = 0;
     bool  dataP2PIsEmpty = true;
 
-    #define MAX_NUM_STRINGS         35
-    #define SIZE_BUFFER_FOR_STRINGS 2000
-    char                     *strings[MAX_NUM_STRINGS] = {0};
-    char                     bufferForStrings[SIZE_BUFFER_FOR_STRINGS] = {0};
-    int                      lastStringForPause = -1;
+    const int MAX_NUM_STRINGS         = 35;
+    const int SIZE_BUFFER_FOR_STRINGS = 2000;
+    char  *strings[MAX_NUM_STRINGS] = {0};
+    char  bufferForStrings[SIZE_BUFFER_FOR_STRINGS] = {0};
+    int   lastStringForPause = -1;
 
     #define NUM_WARNINGS            10
     const char               *warnings[NUM_WARNINGS] = {0};      // Здесь предупреждающие сообщения.
