@@ -667,7 +667,7 @@ void DataSettings::Init()
     trigLevB = (uint)TRIG_LEVEL_B;
     peakDet = (uint)SET_PEAKDET;
     div_a = SET_DIVIDER_A;
-    dividerB = SET_DIVIDER_B;
+    div_b = SET_DIVIDER_B;
 }
 
 

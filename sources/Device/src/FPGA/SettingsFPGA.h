@@ -367,7 +367,7 @@ struct DataSettings
     uint                inv_a               : 1;
     uint                inv_b               : 1;
     Divider::E          div_a               : 1;
-    Divider::E          dividerB            : 1;
+    Divider::E          div_b               : 1;
     PackedTime          time;
     // Поточечный режим
     int16               last_point;                 // Считываемая в данный момент точка. Если -1 - то фрейм не поточечный. Он считан полностью

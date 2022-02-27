@@ -672,7 +672,7 @@ bool Storage::SettingsIsEquals(DataSettings *dp0, DataSettings *dp1)
         (dp0->trigLevA == dp1->trigLevA) &&
         (dp0->trigLevB == dp1->trigLevB) &&
         (dp0->div_a    == dp1->div_a) &&
-        (dp0->dividerB == dp1->dividerB) &&
+        (dp0->div_b    == dp1->div_b) &&
         (dp0->peakDet  == dp1->peakDet); 
     return retValue;
 }
