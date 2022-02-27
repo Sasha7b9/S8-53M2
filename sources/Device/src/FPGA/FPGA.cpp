@@ -67,7 +67,7 @@ namespace FPGA
     void InverseDataIsNecessary(Chan::E, Buffer<uint8> &data);
 
     // Смещение с АЦП рандомизатора
-    int CalculateShiftRandomizer();
+    int ShiftRandomizerADC();
 
     bool CalculateGate(uint16 rand, uint16 *min, uint16 *max);
 
@@ -409,7 +409,7 @@ void FPGA::ReadPoints()
 
         const int delta = TBase::StretchRand();
 
-        const int shift_rand = CalculateShiftRandomizer();
+        const int shift_rand = ShiftRandomizerADC();
         pA += shift_rand;
         pB += shift_rand;
 
@@ -447,7 +447,7 @@ void FPGA::InverseDataIsNecessary(Chan::E ch, Buffer<uint8> &data)
 }
 
 
-int FPGA::CalculateShiftRandomizer()
+int FPGA::ShiftRandomizerADC()
 {
     if (TBase::InRandomizeMode())
     {
