@@ -292,7 +292,7 @@ int HAL_ROM::CalculateSizeData(DataSettings *ds)
         size += ds->BytesInChannel();
     }
 
-    if (ds->enableB)
+    if (ds->en_b)
     {
         size += ds->BytesInChannel();
     }
@@ -338,7 +338,7 @@ void HAL_ROM::CompactMemory()
                 addrDataNew += ds->BytesInChannel();
             }
 
-            if (ds->enableB)
+            if (ds->en_b)
             {
                 data1 = (uint8*)addrDataNew;
             }
@@ -406,7 +406,7 @@ void HAL_ROM::SaveData(int num, DataSettings *ds, uint8 *data0, uint8 *data1)
         address += ds->BytesInChannel();
     }
 
-    if (ds->enableB)
+    if (ds->en_b)
     {
         WriteBufferBytes(address, (uint8*)data1, ds->BytesInChannel());     // Сохраняем второй канал
         address += ds->BytesInChannel();
@@ -451,7 +451,7 @@ bool HAL_ROM::GetData(int num, DataSettings **ds, uint8 **data0, uint8 **data1)
         addrData0 = addrDS + sizeof(DataSettings);
     }
 
-    if ((*ds)->enableB)
+    if ((*ds)->en_b)
     {
         if (addrData0 != 0)
         {
