@@ -406,15 +406,21 @@ void FPGA::ReadRealMode(bool necessaryShift)
     {
         BitSet16 data;
 
+        int delta = TBase::StretchRand();
+
         while (pA < endA && IN_PROCESS_READ)
         {
             data.half_word = *RD_ADC_B;
-            *pB++ = data.byte0;
-            *pB++ = data.byte1;
+            *pB = data.byte0;
+            pB += delta;
+            *pB = data.byte1;
+            pB += delta;
 
             data.half_word = *RD_ADC_A;
-            *pA++ = data.byte0;
-            *pA++ = data.byte1;
+            *pA = data.byte0;
+            pA += delta;
+            *pA = data.byte1;
+            pA += delta;
         }
 
         int shift = necessaryShift ? -1 : 0;

@@ -24,11 +24,6 @@ namespace FPGA
             10,  20,  10,  10,  10,   5,   3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
         };
 
-//        static const int8 d_read[TBase::Count] =   // Дополнительное смещение для чтения адреса
-//        {// 2    5   10   20   50  100  200
-//            0,   0,   0,   0,   0,   0,   0,   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-//        };
-
         void Calculate();
 
         // Возвращают значение, готовое для записи в ПЛИС
@@ -89,4 +84,15 @@ void FPGA::Launch::Calculate()
         pred /= TBase::StretchRand() + 1;
         post /= TBase::StretchRand() + 1;
     }
+}
+
+
+int FPGA::Reader::DeltaRead()
+{
+    static const int delta[TBase::Count] =
+    {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    };
+
+    return delta[SET_TBASE];
 }

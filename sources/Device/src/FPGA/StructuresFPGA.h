@@ -11,6 +11,9 @@ namespace FPGA
 
         // ¬озвращает адрес, с которого нужно читать первую точку
         uint16 CalculateAddressRead();
+
+        // —мещение первой точки при чтении
+        int DeltaRead();
     }
 
     namespace Launch
