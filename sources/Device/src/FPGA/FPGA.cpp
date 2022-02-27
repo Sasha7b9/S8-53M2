@@ -232,7 +232,7 @@ void FPGA::Start()
 
     HAL_FMC::Write(WR_PRED, FPGA::Launch::PredForWrite());
     HAL_FMC::Write(WR_START, 1);
-    ds.FillDataPointer();
+    ds.Init();
     timeStart = TIME_MS;
     StateWorkFPGA::SetCurrent(StateWorkFPGA::Wait);
 

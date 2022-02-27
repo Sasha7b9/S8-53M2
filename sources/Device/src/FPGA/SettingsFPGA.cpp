@@ -585,6 +585,12 @@ bool TBase::InRandomizeMode()
 }
 
 
+bool TBase::InModeP2P()
+{
+    return SET_TBASE >= MIN_P2P;
+}
+
+
 int TShift::Zero()
 {
     return -Min();
@@ -640,8 +646,10 @@ int RShift::ToRel(float rShiftAbs, Range::E range)
 };
 
 
-void DataSettings::FillDataPointer()
+void DataSettings::Init()
 {
+    last_point = TBase::InModeP2P() ? 0 : -1;
+
     enableA = Chan::Enabled(Chan::A) ? 1U : 0U;
     enableB = Chan::Enabled(Chan::B) ? 1U : 0U;
     inverseA = SET_INVERSE_A ? 1U : 0U;

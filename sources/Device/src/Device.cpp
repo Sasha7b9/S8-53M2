@@ -84,7 +84,7 @@ void Device::ProcessingSignal()
     if (Storage::NumElementsInStorage() == 0)
     {
         static DataSettings ds_null;
-        ds_null.FillDataPointer();
+        ds_null.Init();
         Storage::DS = &ds_null;
         return;
     }
@@ -137,7 +137,7 @@ void Device::ProcessingSignal()
     if (Storage::DS == nullptr)
     {
         static DataSettings ds_null;
-        ds_null.FillDataPointer();
+        ds_null.Init();
         Storage::DS = &ds_null;
     }
 

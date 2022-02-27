@@ -308,9 +308,10 @@ int Storage::NumElementsWithSameSettings()
 int Storage::NumElementsWithCurrentSettings()
 {
     DataSettings dp;
-    dp.FillDataPointer();
+    dp.Init();
     int retValue = 0;
     int numElements = NumElementsInStorage();
+
     for(retValue = 0; retValue < numElements; retValue++)
     {
         if(!SettingsIsEquals(&dp, FromEnd(retValue)))

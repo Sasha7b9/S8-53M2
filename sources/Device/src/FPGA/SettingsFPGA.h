@@ -184,6 +184,8 @@ struct TBase
 
     static bool InRandomizeMode();
 
+    static bool InModeP2P();
+
     // Коэффициент растяжки в рандомизаторе (шаг между точками при установленной развёртке)
     static int StretchRand();
 
@@ -345,22 +347,22 @@ struct PackedTime
 
 struct DataSettings
 {
-    void*               addrNext;                     // Адрес следующей записи.
-    void*               addrPrev;                     // Адрес предыдущей записи.
-    uint                rShiftA             : 10;     // Смещение по напряжению
+    void*               addrNext;                   // Адрес следующей записи.
+    void*               addrPrev;                   // Адрес предыдущей записи.
+    uint                rShiftA             : 10;   // Смещение по напряжению
     uint                rShiftB             : 10;
-    uint                trigLevA            : 10;     // Уровень синхронизации
-    int                 tShift;                       // Смещение по времени
+    uint                trigLevA            : 10;   // Уровень синхронизации
+    int                 tShift;                     // Смещение по времени
     ModeCouple::E       coupleB             : 2;
-    Range::E            range[2];                     // Масштаб по напряжению обоих каналов.
+    Range::E            range[2];                   // Масштаб по напряжению обоих каналов.
 
     uint                trigLevB            : 10;
-    ENUM_POINTS_FPGA::E e_points_in_channel : 2;      // Точек в канале
-    TBase::E            tBase               : 5;      // Масштаб по времени
-    ModeCouple::E       coupleA             : 2;      // Режим канала по входу
-    uint                peakDet             : 2;      // Включен ли пиковый детектор
-    uint                enableA             : 1;      // Включён ли канал 0
-    uint                enableB             : 1;      // Включен ли канал 1
+    ENUM_POINTS_FPGA::E e_points_in_channel : 2;    // Точек в канале
+    TBase::E            tBase               : 5;    // Масштаб по времени
+    ModeCouple::E       coupleA             : 2;    // Режим канала по входу
+    uint                peakDet             : 2;    // Включен ли пиковый детектор
+    uint                enableA             : 1;    // Включён ли канал 0
+    uint                enableB             : 1;    // Включен ли канал 1
 
     uint                inverseA            : 1;
     uint                inverseB            : 1;
@@ -368,13 +370,15 @@ struct DataSettings
     Divider::E          dividerB            : 1;
     PackedTime          time;
     // Поточечный режим
+    int16               last_point;                 // Считываемая в данный момент точка. Если -1 - то фрейм не поточечный. Он считан полностью
 
     void PrintElement();
 
     // Вычисляет, сколько памяти трубуется, чтобы сохранить измерения с настройками dp
     int SizeElem();
 
-    void FillDataPointer();
+    // Заполнение полей текущими настройками
+    void Init();
 
     int BytesInChannel() const;
 
