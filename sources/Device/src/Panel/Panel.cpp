@@ -210,6 +210,8 @@ Regulator::E Panel::RegulatorLeft(uint16 command)
 {
     if(command >= 20 && command <= 27)
     {
+        LOG_WRITE("command = %d", command);
+
         return (Regulator::E)command;
     }
 
