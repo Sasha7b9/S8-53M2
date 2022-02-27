@@ -705,6 +705,12 @@ int16 DataSettings::GetRShift(Chan::E ch) const
 }
 
 
+bool DataSettings::InModeP2P() const
+{
+    return tBase >= TBase::MIN_P2P;
+}
+
+
 float TShift::ToAbs(int shift, TBase::E base)
 {
     return absStep[base] * shift * 2.0f;

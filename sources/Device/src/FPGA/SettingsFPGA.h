@@ -334,12 +334,12 @@ struct TrigLev
 
 struct PackedTime
 {
-    uint hours : 5;
+    uint hours   : 5;
     uint minutes : 6;
     uint seconds : 6;
-    uint year : 7;
-    uint month : 4;
-    uint day : 5;
+    uint year    : 7;
+    uint month   : 4;
+    uint day     : 5;
 };
 
 
@@ -367,6 +367,7 @@ struct DataSettings
     Divider::E          dividerA            : 1;
     Divider::E          dividerB            : 1;
     PackedTime          time;
+    // Поточечный режим
 
     void PrintElement();
 
@@ -380,4 +381,6 @@ struct DataSettings
     int PointsInChannel() const;
 
     int16 GetRShift(Chan::E) const;
+
+    bool InModeP2P() const;
 };
