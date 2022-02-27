@@ -58,11 +58,10 @@ namespace FPGA
     void ProcessingData();
 
     // Прочитать данные.
-    // necessaryShift - Признак того, что сигнал нужно смещать.
     // saveToStorage - Нужно в режиме рандомизатора для указания, что пора сохранять измерение
-    void DataRead(bool necessaryShift, bool saveToStorage);
+    void DataRead(bool saveToStorage);
 
-    void ReadPoints(bool necessaryShift);
+    void ReadPoints();
 
     // Инвертирует данные.
     void InverseDataIsNecessary(Chan::E, Buffer<uint8> &data);
@@ -172,7 +171,7 @@ void FPGA::ProcessingData()
 
         Stop(true);
 
-        DataRead(_GET_BIT(flag, FL_LAST_RECOR), true);
+        DataRead(true);
 
         if (!START_MODE_IS_SINGLE)
         {
@@ -328,13 +327,13 @@ void BUS_FPGA::WriteAnalog(TypeWriteAnalog::E type, uint data)
 }
 
 
-void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
+void FPGA::DataRead(bool saveToStorage)
 {
     Panel::EnableLEDTrig(false);
 
     IN_PROCESS_READ = true;
 
-    ReadPoints(necessaryShift);
+    ReadPoints();
 
     static uint prevTime = 0;
 
@@ -362,7 +361,7 @@ void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
 }
 
 
-void FPGA::ReadPoints(bool necessaryShift)
+void FPGA::ReadPoints()
 {
     HAL_FMC::Write(WR_PRED, Reader::CalculateAddressRead());
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
@@ -421,30 +420,6 @@ void FPGA::ReadPoints(bool necessaryShift)
             pA += delta;
             *pA = data.byte1;
             pA += delta;
-        }
-
-        int shift = necessaryShift ? -1 : 0;
-
-        if (shift != 0)
-        {
-            if (shift < 0)
-            {
-                shift = -shift;
-
-                for (int i = FPGA::MAX_POINTS - shift - 1; i >= 0; i--)
-                {
-                    dataReadA[i + shift] = dataReadA[i];
-                    dataReadB[i + shift] = dataReadB[i];
-                }
-            }
-            else
-            {
-                for (int i = shift; i < FPGA::MAX_POINTS; i++)
-                {
-                    dataReadA[i - shift] = dataReadA[i];
-                    dataReadB[i - shift] = dataReadB[i];
-                }
-            }
         }
     }
 }
