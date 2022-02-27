@@ -66,7 +66,8 @@ namespace FPGA
     // Инвертирует данные.
     void InverseDataIsNecessary(Chan::E, Buffer<uint8> &data);
 
-    int CalculateShift();
+    // Смещение с АЦП рандомизатора
+    int CalculateShiftRandomizer();
 
     bool CalculateGate(uint16 rand, uint16 *min, uint16 *max);
 
@@ -367,8 +368,9 @@ void FPGA::ReadPoints()
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
     uint8 *pA = dataReadA.Data();
+    const uint8 *const startA = pA;
     uint8 *pB = dataReadB.Data();
-    const uint8 * const endA = dataReadA.Last();
+    const uint8 *const endA = dataReadA.Last();
 
     if (SET_PEAKDET_IS_ENABLE)
     {
@@ -407,8 +409,7 @@ void FPGA::ReadPoints()
 
         int delta = TBase::StretchRand();
 
-        int shift = CalculateShift();
-
+        int shift = CalculateShiftRandomizer();
         pA += shift;
         pB += shift;
 
@@ -444,7 +445,7 @@ void FPGA::InverseDataIsNecessary(Chan::E ch, Buffer<uint8> &data)
 }
 
 
-int FPGA::CalculateShift()
+int FPGA::CalculateShiftRandomizer()
 {
     if (TBase::InRandomizeMode())
     {
