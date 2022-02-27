@@ -27,78 +27,78 @@ namespace Storage
     DataSettings *dsInt = nullptr;
 
 
-    static void CalculateSums();
+    void CalculateSums();
 
     // Возвращает количество свободной памяти в байтах
-    static int MemoryFree();
+    int MemoryFree();
 
     // Удалить первое (самое старое) измерение
-    static void RemoveFirstElement();
+    void RemoveFirstElement();
 
     // Сохранить данные
-    static void PushData(DataSettings *dp, uint8 *data0, uint8 *data1);
+    void PushData(DataSettings *dp, uint8 *data0, uint8 *data1);
 
     // Возвращает указатель на измерение, следующее за elem
-    static DataSettings* NextElem(DataSettings *elem);
+    DataSettings* NextElem(DataSettings *elem);
 
     // Возвращает указатель на данные, отстоящие на indexFromEnd oт последнего сохранённого
-    static DataSettings* FromEnd(int indexFromEnd);
+    DataSettings* FromEnd(int indexFromEnd);
 
     // Возвращает true, если настройки измерений с индексами elemFromEnd0 и elemFromEnd1 совпадают, и false в ином случае.
-    static bool SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1);
+    bool SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1);
 
     // Возващает true, если настройки в обоих структурах одинаковы
-    static bool SettingsIsEquals(DataSettings *dp0, DataSettings *dp1);
+    bool SettingsIsEquals(DataSettings *dp0, DataSettings *dp1);
 
     // Очистка значений мин, макс и сумм
-    static void ClearLimitsAndSums();
+    void ClearLimitsAndSums();
 
-    static void CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss);
+    void CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss);
 
-    static DataSettings* GetSettingsDataFromEnd(int fromEnd);
+    DataSettings* GetSettingsDataFromEnd(int fromEnd);
 
     // Копирует данные канала chan из, определяемые ds, в одну из двух строк массива dataImportRel. Возвращаемое
     // значение false означает, что данный канал выключен.
-    static bool CopyData(DataSettings *ds, Chan::E ch, Buffer<uint8> &datatImportRel);
+    bool CopyData(DataSettings *ds, Chan::E ch, Buffer<uint8> &datatImportRel);
 
-    static void CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *dss);
+    void CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *dss);
 
     // Количество отведённой для измерений памяти.
-    static const int SIZE_POOL = (30 * 1024);
+    const int SIZE_POOL = (30 * 1024);
 
     // Здесь хранятся данные.
-    static uint8 pool[SIZE_POOL] = {0};
+    uint8 pool[SIZE_POOL] = {0};
 
     // Адрес начала памяти для хранения
-    static uint8* beginPool = &(pool[0]);
+    uint8* beginPool = &(pool[0]);
 
     // Адрес последнего байта памяти для хранения
-    static uint8* endPool = &(pool[SIZE_POOL - 1]);
+    uint8* endPool = &(pool[SIZE_POOL - 1]);
 
     // Здесь хранятся суммы измерений обоих каналов
-    static uint sum[Chan::Count][FPGA::MAX_POINTS * 2];
+    uint sum[Chan::Count][FPGA::MAX_POINTS * 2];
 
     // Максимальные значения каналов
-    static uint8 limitUp[Chan::Count][FPGA::MAX_POINTS * 2];
+    uint8 limitUp[Chan::Count][FPGA::MAX_POINTS * 2];
 
     // Минимальные значения каналов
-    static uint8 limitDown[Chan::Count][FPGA::MAX_POINTS * 2];
+    uint8 limitDown[Chan::Count][FPGA::MAX_POINTS * 2];
 
     // Указатель на первые сохранённые данные
-    static DataSettings *firstElem = nullptr;
+    DataSettings *firstElem = nullptr;
 
     // Указатель на последние сохранённые данные
-    static DataSettings *lastElem = nullptr;
+    DataSettings *lastElem = nullptr;
 
     // Всего данных сохранено
-    static int allData = 0;
+    int count_data = 0;
 
     // В этих массивах хранятся усреднённые значения, подсчитанные по приблизительному алгоритму.
-    static float aveData0[FPGA::MAX_POINTS * 2] = {0.0f};
+    float aveData0[FPGA::MAX_POINTS * 2] = {0.0f};
 
-    static float aveData1[FPGA::MAX_POINTS * 2] = {0.0f};
+    float aveData1[FPGA::MAX_POINTS * 2] = {0.0f};
     // Если true, то новые суммы рассчитаны, и нужно повторить расчёт среднего
-    static bool newSumCalculated[Chan::Count] = {true, true};
+    bool newSumCalculated[Chan::Count] = {true, true};
 }
 
 
@@ -185,13 +185,13 @@ void Storage::AddData(uint8 *data0, uint8 *data1, DataSettings dss)
 
     CalculateAroundAverage(data0, data1, &dss);
 
-    allData++;
+    count_data++;
 }
 
 
-int Storage::AllDatas()
+int Storage::CountDatas()
 {
-    return allData;
+    return count_data;
 }
 
 
@@ -617,7 +617,7 @@ void Storage::RemoveFirstElement()
 {
     firstElem = NextElem(firstElem);
     firstElem->addrPrev = 0;
-    allData--;
+    count_data--;
 }
 
 
@@ -641,7 +641,7 @@ DataSettings* Storage::FromEnd(int indexFromEnd)
     }
     if(index != 0)
     {
-        LOG_ERROR("Неправильный индекс %d, всего данных %d", indexFromEnd, AllDatas());
+        LOG_ERROR("Неправильный индекс %d, всего данных %d", indexFromEnd, CountDatas());
         return 0;
     }
     return retValue;

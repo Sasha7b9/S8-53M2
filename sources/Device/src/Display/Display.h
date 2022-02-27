@@ -24,8 +24,10 @@ namespace Display
     void Redraw();
 
     void EnableTrigLabel(bool enable);
+
     // Функция должна вызываться для очистки поточечной памяти. Вызывается при изменении масштаба по напряжению.
     void ResetP2Ppoints(bool empty);
+
     // Добавляет точки в режиме поточечного вывода и самописца data00, data01 - для первого канала; data10, data11 - для второго канала
     void AddPoints(uint8 data00, uint8 data01, uint8 data10, uint8 data11);
 
@@ -54,10 +56,13 @@ namespace Display
     void OneStringDown();
 
     void SetPauseForConsole(bool pause);
+
     // После отрисовки очередного экрана эта функция будет вызвана один раз.
     void RunAfterDraw(pFuncVV func);
+
     // Отключить вспомогательную линию маркера смещения по напряжению первого канала.
     void DisableShowLevelRShiftA();
+
     // Отключить вспомогательную линию маркера смещения по напряжению второго канала.
     void DisableShowLevelRShiftB();
     

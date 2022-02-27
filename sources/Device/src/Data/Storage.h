@@ -32,7 +32,7 @@ namespace Storage
     uint8* GetAverageData(Chan::E);
 
     // Сколько всего измерений сохранено в памяти.
-    int AllDatas();
+    int CountDatas();
 
     // Получить ограничивающую линию сигнала 0 - снизу, 1 - сверху.
     uint8* GetLimitation(Chan::E, int direction);                                      

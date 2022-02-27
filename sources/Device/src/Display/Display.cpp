@@ -874,7 +874,7 @@ bool Display::DrawDataNormal()
 
 bool Display::DrawData()
 {
-    if (Storage::AllDatas())
+    if (Storage::CountDatas())
     {
         if (MODE_WORK_IS_MEMINT)
         {
