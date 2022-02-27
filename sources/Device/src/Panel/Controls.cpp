@@ -3,9 +3,9 @@
 #include "Panel/Controls.h"
 
 
-pchar NameButton(Key::E button)
+pchar Key::Name(Key::E button)
 {
-    static const pchar namesButtons[] =
+    static const pchar names[] =
     {
         "Key::Empty",
         "Key::ChannelA",
@@ -14,12 +14,12 @@ pchar NameButton(Key::E button)
         "Key::Display",
         "Key::Time",
         "Key::Memory",
-        "B_Sinchro",
+        "Key::Trig",
         "Key::Start",
         "Key::Cursors",
         "Key::Measures",
         "Key::Power",
-        "B_Info",
+        "Key::Help",
         "Key::Menu",
         "Key::F1",
         "Key::F2",
@@ -28,7 +28,7 @@ pchar NameButton(Key::E button)
         "Key::F5"
     };
 
-    return namesButtons[button];
+    return names[button];
 }
 
 

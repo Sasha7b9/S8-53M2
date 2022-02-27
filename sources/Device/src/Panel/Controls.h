@@ -28,6 +28,8 @@ struct Key
         F5       = 18,   // 5
         Count            // общее количество кнопок
     };
+
+    static pchar Name(Key::E);
 };
 
 Key::E& operator++(Key::E &);
@@ -48,17 +50,3 @@ struct Regulator
         Set     = 27    // УСТАНОВКА
     };
 };
-
-// Направления вращения регуляторов.
-enum RegulatorDirection
-{
-    Direction_Left,     // вращение регулятора влево
-    Direction_Right,    // вращение регулятора вправо
-    Direction_None      // вращение отсутствует
-};
-
-
-#define NUM_REGULATORS (Regulator::Set - Regulator::RangeA + 1)
-
-
-pchar NameButton(Key::E);
