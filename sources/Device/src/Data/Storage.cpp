@@ -26,6 +26,42 @@ namespace Storage
     uint8        *dataIntB = nullptr;
     DataSettings *dsInt = nullptr;
 
+    // Количество отведённой для измерений памяти.
+    const int SIZE_POOL = (30 * 1024);
+
+    // Здесь хранятся данные.
+    uint8 pool[SIZE_POOL] = {0};
+
+    // Адрес начала памяти для хранения
+    uint8 *beginPool = &(pool[0]);
+
+    // Адрес последнего байта памяти для хранения
+    uint8 *endPool = &(pool[SIZE_POOL - 1]);
+
+    // Здесь хранятся суммы измерений обоих каналов
+    uint sum[Chan::Count][FPGA::MAX_POINTS * 2];
+
+    // Максимальные значения каналов
+    uint8 limitUp[Chan::Count][FPGA::MAX_POINTS * 2];
+
+    // Минимальные значения каналов
+    uint8 limitDown[Chan::Count][FPGA::MAX_POINTS * 2];
+
+    // Указатель на первые сохранённые данные
+    DataSettings *firstElem = nullptr;
+
+    // Указатель на последние сохранённые данные
+    DataSettings *lastElem = nullptr;
+
+    // Всего данных сохранено
+    int count_data = 0;
+
+    // В этих массивах хранятся усреднённые значения, подсчитанные по приблизительному алгоритму.
+    float aveData0[FPGA::MAX_POINTS * 2] = {0.0f};
+
+    float aveData1[FPGA::MAX_POINTS * 2] = {0.0f};
+    // Если true, то новые суммы рассчитаны, и нужно повторить расчёт среднего
+    bool newSumCalculated[Chan::Count] = {true, true};
 
     void CalculateSums();
 
@@ -63,42 +99,11 @@ namespace Storage
 
     void CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *dss);
 
-    // Количество отведённой для измерений памяти.
-    const int SIZE_POOL = (30 * 1024);
-
-    // Здесь хранятся данные.
-    uint8 pool[SIZE_POOL] = {0};
-
-    // Адрес начала памяти для хранения
-    uint8* beginPool = &(pool[0]);
-
-    // Адрес последнего байта памяти для хранения
-    uint8* endPool = &(pool[SIZE_POOL - 1]);
-
-    // Здесь хранятся суммы измерений обоих каналов
-    uint sum[Chan::Count][FPGA::MAX_POINTS * 2];
-
-    // Максимальные значения каналов
-    uint8 limitUp[Chan::Count][FPGA::MAX_POINTS * 2];
-
-    // Минимальные значения каналов
-    uint8 limitDown[Chan::Count][FPGA::MAX_POINTS * 2];
-
-    // Указатель на первые сохранённые данные
-    DataSettings *firstElem = nullptr;
-
-    // Указатель на последние сохранённые данные
-    DataSettings *lastElem = nullptr;
-
-    // Всего данных сохранено
-    int count_data = 0;
-
-    // В этих массивах хранятся усреднённые значения, подсчитанные по приблизительному алгоритму.
-    float aveData0[FPGA::MAX_POINTS * 2] = {0.0f};
-
-    float aveData1[FPGA::MAX_POINTS * 2] = {0.0f};
-    // Если true, то новые суммы рассчитаны, и нужно повторить расчёт среднего
-    bool newSumCalculated[Chan::Count] = {true, true};
+    namespace P2P
+    {
+        // Создать новый поточечный фрейм
+        void NewFrame();
+    }
 }
 
 

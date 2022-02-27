@@ -53,8 +53,10 @@ namespace Storage
 
     namespace P2P
     {
+        // Сбросить точки текущего фрейма
         void Reset();
 
+        // Добавить точки в текущий фрейм
         void AddPoints(BitSet16 dataA, BitSet16 dataB);
     }
 };
