@@ -61,7 +61,7 @@ static const Settings defaultSettings =
         MenuAutoHide_None,          // menuAutoHide
         true,                       // showFullMemoryWindow
         false,                      // showStringNavigation
-        LinkingRShift_Voltage       // linkingRShift
+        LinkingRShift_Position      // linkingRShift
     },
     // channels
     {
