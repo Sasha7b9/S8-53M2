@@ -208,7 +208,7 @@ Regulator::E Panel::RegulatorIsPress(uint16 command)
 
 Regulator::E Panel::RegulatorLeft(uint16 command)
 {
-    if(command >= Regulator::RangeA && command <= Regulator::Set)
+    if(Regulator::IsLeft(command))
     {
         return (Regulator::E)command;
     }
@@ -219,7 +219,7 @@ Regulator::E Panel::RegulatorLeft(uint16 command)
 
 Regulator::E Panel::RegulatorRight(uint16 command)
 {
-    if(((command & 0x7f) >= 20) && ((command & 0x7f) <= 27))
+    if(Regulator::IsRight(command))
     {
         return (Regulator::E)(command & 0x7f);
     }
@@ -292,6 +292,8 @@ void Panel::ProcessingCommandFromPIC(uint16 command)
     if (regPress != Regulator::Empty)
     {
         int index = regPress - Regulator::RangeA;
+
+        Sound::ButtonPress();
 
         funcOnRegulatorPress[index]();
     }

@@ -49,4 +49,10 @@ struct Regulator
         TrigLev = 26,   // ÓĞÎÂÅÍÜ
         Set     = 27    // ÓÑÒÀÍÎÂÊÀ
     };
+
+    // Âîçâğàùàåò true, åñëè ğåãóëÿòîğ ïîâîğà÷èâàåòñÿ âëåîâ
+    static bool IsLeft(uint16 data) { return (data >= RangeA && data <= Set); }
+
+    // Âîçâğàùàåò false, åñëè ğåãóëÿòîğ ïîâîğà÷èâàåòñÿ âïğàâî
+    static bool IsRight(uint16 data) { return ((data & 0x7f) >= 20) && ((data & 0x7f) <= 27); }
 };
