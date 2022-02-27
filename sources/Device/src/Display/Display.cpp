@@ -222,6 +222,7 @@ void Display::DrawStringNavigation()
 {
     char buffer[100];
     char *string = Menu::StringNavigation(buffer);
+
     if(string) 
     {
         int length = Font::GetLengthText(string);
@@ -235,6 +236,8 @@ void Display::DrawStringNavigation()
 
 void Display::RotateRShift(Chan::E ch)
 {
+    Storage::P2P::Reset();
+
     LAST_AFFECTED_CHANNEL = ch;
 
     if(TIME_SHOW_LEVELS)
