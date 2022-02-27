@@ -31,10 +31,6 @@ namespace FPGA
 
         void Calculate();
 
-        void CalculateReal();
-
-        void CalculateRandomize();
-
         // Возвращают значение, готовое для записи в ПЛИС
         uint16 PostForWrite();
     }
@@ -71,22 +67,9 @@ uint16 FPGA::Launch::PredForWrite()
 
 void FPGA::Launch::Calculate()
 {
-    if (TBase::InRandomizeMode())
-    {
-        CalculateRandomize();
-    }
-    else
-    {
-        CalculateReal();
-    }
-}
-
-
-void FPGA::Launch::CalculateReal()
-{
     int num_bytes = ENUM_POINTS_FPGA::ToNumBytes();
 
-    int values[TPos::Count] = { num_bytes, num_bytes / 2, 0 };
+    int values[TPos::Count] = {num_bytes, num_bytes / 2, 0};
 
     pred = post = values[SET_TPOS];
 
@@ -100,13 +83,10 @@ void FPGA::Launch::CalculateReal()
     {
         post = num_bytes - pred;
     }
-}
 
-
-void FPGA::Launch::CalculateRandomize()
-{
-    CalculateReal();
-
-    pred++;
-    post++;
+    if (TBase::InRandomizeMode())
+    {
+        pred /= TBase::StretchRand() + 1;
+        post /= TBase::StretchRand() + 1;
+    }
 }
