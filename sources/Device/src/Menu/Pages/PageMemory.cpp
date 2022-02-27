@@ -55,7 +55,7 @@ void PageMemory::OnChanged_NumPoints(bool active)
         }
     }
 
-    TShift::Set(TSHIFT);
+    TShift::Set(SET_TSHIFT);
 }
 
 // Активна ли ПАМЯТЬ - ВНЕШН ЗУ - Маска

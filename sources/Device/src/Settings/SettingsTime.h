@@ -7,7 +7,7 @@
 
 #define SET_TBASE                           (set.time.tBase)            // SettingTime.tBase
 
-#define TSHIFT                              (set.time.tshift_points)    // SettingsTime.tShiftRel
+#define SET_TSHIFT                              (set.time.tshift_points)    // SettingsTime.tShiftRel
 
 #define TIME_DIV_XPOS                       (set.time.timeDivXPos)      // SettingsTime.timeDivXPos
 #define TIME_DIV_XPOS_IS_SHIFT_IN_MEMORY    (TIME_DIV_XPOS == FunctionTime_ShiftInMemory)

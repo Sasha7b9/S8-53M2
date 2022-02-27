@@ -2191,7 +2191,7 @@ void Display::DrawLowPart()
     char buffer[100] = {0};
 
     TBase::E tBase = SET_TBASE;
-    int tShift = TSHIFT;
+    int tShift = SET_TSHIFT;
 
     if (!MODE_WORK_IS_DIRECT)
     {

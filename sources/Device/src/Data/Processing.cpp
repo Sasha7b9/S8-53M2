@@ -1183,7 +1183,7 @@ void Processing::CountedToCurrentSettings()
     int numPoints = dset->BytesInChannel();
 
     int dataTShift = dset->tShift;
-    int curTShift = TSHIFT;
+    int curTShift = SET_TSHIFT;
 
     int16 dTShift = curTShift - dataTShift;
     for (int i = 0; i < numPoints; i++)

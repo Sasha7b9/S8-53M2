@@ -90,7 +90,7 @@ void SCPI::TBASE::OFFSET(uint8 *buffer)
     ENTER_ANALYSIS
         if (0 == value)
         {
-            int retValue = TSHIFT - 1024;
+            int retValue = SET_TSHIFT - 1024;
             SCPI_SEND(":TBASE:OFFSET %d", retValue);
         }
     LEAVE_ANALYSIS

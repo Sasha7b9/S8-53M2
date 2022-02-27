@@ -80,7 +80,7 @@ namespace FPGA
 
 void FPGA::LoadSettings()
 {
-    TShift::Set(TSHIFT);
+    TShift::Set(SET_TSHIFT);
     TBase::Load();
     Range::Load(ChA);
     RShift::Load(ChA);
@@ -210,7 +210,7 @@ void TBase::Set(TBase::E tBase)
     }
     if (tBase < TBase::Count && (int)tBase >= 0)
     {
-        float tShiftAbsOld = TShift::ToAbs(TSHIFT, SET_TBASE);
+        float tShiftAbsOld = TShift::ToAbs(SET_TSHIFT, SET_TBASE);
         SET_TBASE = tBase;
         Load();
         TShift::Set(TShift::ToRel(tShiftAbsOld, SET_TBASE));
@@ -423,7 +423,7 @@ void TShift::Set(int tShift)
         Display::ShowWarningBad(LimitSweep_TShift);
     }
 
-    TSHIFT = (int16)tShift;
+    SET_TSHIFT = (int16)tShift;
 
     FPGA::Launch::Load();
 
@@ -651,7 +651,7 @@ void DataSettings::FillDataPointer()
     rShiftA = (uint)SET_RSHIFT_A;
     rShiftB = (uint)SET_RSHIFT_B;
     tBase = SET_TBASE;
-    tShift = TSHIFT;
+    tShift = SET_TSHIFT;
     coupleA = SET_COUPLE_A;
     coupleB = SET_COUPLE_B;
     e_points_in_channel = ENUM_POINTS;
