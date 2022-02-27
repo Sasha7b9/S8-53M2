@@ -171,7 +171,7 @@ void Storage::AddData(uint8 *a, uint8 *b, DataSettings dss)
 {
     dss.time = HAL_RTC::GetPackedTime();
 
-    if(dss.enableA == 0 && dss.enableB == 0)
+    if(!dss.en_a && !dss.enableB)
     {
         return;
     }
@@ -421,7 +421,7 @@ uint8* Storage::GetData(Chan::E ch, int fromEnd)
 
 bool Storage::CopyData(DataSettings *ds, Chan::E ch, Buffer<uint8> &datatImportRel)
 {
-    if((ch == Chan::A && ds->enableA == 0) || (ch == Chan::B && ds->enableB == 0))
+    if((ch == Chan::A && !ds->en_a) || (ch == Chan::B && ds->enableB == 0))
     {
         return false;
     }
@@ -430,7 +430,7 @@ bool Storage::CopyData(DataSettings *ds, Chan::E ch, Buffer<uint8> &datatImportR
 
     uint length = (uint)ds->BytesInChannel();
 
-    if(ch == Chan::B && ds->enableA == 1)
+    if(ch == Chan::B && ds->en_a)
     {
         address += length;
     }
@@ -554,7 +554,7 @@ void Storage::PushData(DataSettings *dp, uint8 *data0, uint8 *data1)
 
     uint bytes_in_channel = (uint)dp->BytesInChannel();
 
-    if(dp->enableA)
+    if(dp->en_a)
     {
         COPY_AND_INCREASE(addrRecord, data0, bytes_in_channel);
     }
@@ -598,7 +598,7 @@ int DataSettings::SizeElem()
 {
     int retValue = sizeof(DataSettings);
 
-    if(enableA)
+    if(en_a)
     {
         retValue += BytesInChannel();
     }
@@ -657,7 +657,7 @@ bool Storage::SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1)
 
 bool Storage::SettingsIsEquals(DataSettings *dp0, DataSettings *dp1)
 {
-    bool retValue = (dp0->enableA == dp1->enableA) &&
+    bool retValue = (dp0->en_a == dp1->en_a) &&
         (dp0->enableB  == dp1->enableB) &&
         (dp0->inverseA == dp1->inverseA) &&
         (dp0->inverseB == dp1->inverseB) &&

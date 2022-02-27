@@ -650,7 +650,7 @@ void DataSettings::Init()
 {
     last_point = TBase::InModeP2P() ? 0 : -1;
 
-    enableA = Chan::Enabled(Chan::A) ? 1U : 0U;
+    en_a = Chan::Enabled(Chan::A) ? 1U : 0U;
     enableB = Chan::Enabled(Chan::B) ? 1U : 0U;
     inverseA = SET_INVERSE_A ? 1U : 0U;
     inverseB = SET_INVERSE_B ? 1U : 0U;
