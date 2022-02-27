@@ -26,7 +26,7 @@ namespace Panel
     void Enable();
 
     // Ожидать нажатие клавиши.
-    PanelButton WaitPressingButton();
+    Key::E WaitPressingButton();
 
     // Эта функция должна вызываться из приёмной фунции SPI5
     void CallbackOnReceiveSPI5(const uint8 *data, uint size);

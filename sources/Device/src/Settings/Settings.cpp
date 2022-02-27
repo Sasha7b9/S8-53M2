@@ -366,12 +366,12 @@ void CurrentPageSBregSet(int angle)
     }
 }
 
-const SmallButton* GetSmallButton(PanelButton button)
+const SmallButton* GetSmallButton(Key::E button)
 {
-    if(MenuIsMinimize() && button >= B_Menu && button <= B_F5)
+    if(MenuIsMinimize() && button >= Key::Menu && button <= Key::F5)
     {
         Page *page = (Page *)Menu::OpenedItem();
-        SmallButton *sb = (SmallButton *)(*page->items)[button - B_Menu];
+        SmallButton *sb = (SmallButton *)(*page->items)[button - Key::Menu];
         return sb;
     }
     return nullptr;

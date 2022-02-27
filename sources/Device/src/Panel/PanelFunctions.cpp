@@ -27,24 +27,24 @@ void HelpLong()
 
 void ChannelALong()
 {
-    Menu::Handlers::LongPressureButton(B_ChannelA);
+    Menu::Handlers::LongPressureButton(Key::ChannelA);
 }
 
 void ChannelBLong()
 {
-    Menu::Handlers::LongPressureButton(B_ChannelB);
+    Menu::Handlers::LongPressureButton(Key::ChannelB);
 }
 
 void TimeLong()
 {
-    Menu::Handlers::LongPressureButton(B_Time);
+    Menu::Handlers::LongPressureButton(Key::Time);
 }
 
 void TrigLong()
 {
     if (MODE_LONG_PRESS_TRIG_IS_LEVEL0)
     {
-        Menu::Handlers::LongPressureButton(B_Trig);
+        Menu::Handlers::LongPressureButton(Key::Trig);
     }
     else
     {
@@ -52,15 +52,15 @@ void TrigLong()
     }
 }
 
-void StartDown()                        // B_Start
+void StartDown()                        // Key::Start
 {
     if (MODE_WORK_IS_DIRECT)
     {
-        Menu::Handlers::PressButton(B_Start);
+        Menu::Handlers::PressButton(Key::Start);
     }
 }
 
-void PowerDown()                        // B_Power
+void PowerDown()                        // Key::Power
 {
     Menu::ShortPressOnPageItem((Page *)Menu::OpenedItem(), 0);
     Settings::SaveBeforePowerDown();
@@ -74,32 +74,32 @@ void PowerDown()                        // B_Power
 
 void MenuLong() 
 {
-    Menu::Handlers::LongPressureButton(B_Menu);
+    Menu::Handlers::LongPressureButton(Key::Menu);
 }
 
 void F1Long()
 {
-    Menu::Handlers::LongPressureButton(B_F1);
+    Menu::Handlers::LongPressureButton(Key::F1);
 }
 
 void F2Long()
 {
-    Menu::Handlers::LongPressureButton(B_F2);
+    Menu::Handlers::LongPressureButton(Key::F2);
 }
 
 void F3Long()
 {
-    Menu::Handlers::LongPressureButton(B_F3);
+    Menu::Handlers::LongPressureButton(Key::F3);
 }
 
 void F4Long()
 {
-    Menu::Handlers::LongPressureButton(B_F4);
+    Menu::Handlers::LongPressureButton(Key::F4);
 }
 
 void F5Long()
 {
-    Menu::Handlers::LongPressureButton(B_F5);
+    Menu::Handlers::LongPressureButton(Key::F5);
 }
 
 
@@ -332,25 +332,25 @@ void TShiftRight()
     XShift(1);
 }
 
-void Range0Left()
+void RangeLeftA()
 {
     Sound::RegulatorSwitchRotate();
     Range::Increase(Chan::A);
 }
 
-void Range0Right()
+void RangeRightA()
 {
     Sound::RegulatorSwitchRotate();
     Range::Decrease(Chan::A);
 }
 
-void Range1Left()
+void RangeLeftB()
 {
     Sound::RegulatorSwitchRotate();
     Range::Increase(Chan::B);
 }
 
-void Range1Right()
+void RangeRightB()
 {
     Sound::RegulatorSwitchRotate();
     Range::Decrease(Chan::B);

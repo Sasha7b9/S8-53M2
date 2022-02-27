@@ -3,31 +3,34 @@
 
 
 // Идентификаторы кнопок.
-enum PanelButton
+struct Key
 {
-    B_Empty     = 0,        // кнопка не нажата
-    B_ChannelA  = 1,        // КАНАЛ 1
-    B_Service   = 2,        // СЕРВИС
-    B_ChannelB  = 3,        // КАНАЛ 2
-    B_Display   = 4,        // ДИСПЛЕЙ
-    B_Time      = 5,        // РАЗВ
-    B_Memory    = 6,        // ПАМЯТЬ
-    B_Trig      = 7,        // СИНХР
-    B_Start     = 8,        // ПУСК/СТАРТ
-    B_Cursors   = 9,        // КУРСОРЫ
-    B_Measures  = 10,       // ИЗМЕР
-    B_Power     = 11,       // ПИТАНИЕ
-    B_Help      = 12,       // ПОМОЩЬ
-    B_Menu      = 13,       // МЕНЮ
-    B_F1        = 14,       // 1
-    B_F2        = 15,       // 2
-    B_F3        = 16,       // 3
-    B_F4        = 17,       // 4
-    B_F5        = 18,       // 5
-    B_NumButtons            // общее количество кнопок
+    enum E
+    {
+        Empty = 0,        // кнопка не нажата
+        ChannelA = 1,        // КАНАЛ 1
+        Service = 2,        // СЕРВИС
+        ChannelB = 3,        // КАНАЛ 2
+        Display = 4,        // ДИСПЛЕЙ
+        Time = 5,        // РАЗВ
+        Memory = 6,        // ПАМЯТЬ
+        Trig = 7,        // СИНХР
+        Start = 8,        // ПУСК/СТАРТ
+        Cursors = 9,        // КУРСОРЫ
+        Measures = 10,       // ИЗМЕР
+        Power = 11,       // ПИТАНИЕ
+        Help = 12,       // ПОМОЩЬ
+        Menu = 13,       // МЕНЮ
+        F1 = 14,       // 1
+        F2 = 15,       // 2
+        F3 = 16,       // 3
+        F4 = 17,       // 4
+        F5 = 18,       // 5
+        Count            // общее количество кнопок
+    };
 };
 
-PanelButton& operator++(PanelButton &button);
+Key::E& operator++(Key::E &);
 
 // Идентификаторы регуляторов.
 enum Regulator
@@ -55,4 +58,4 @@ enum RegulatorDirection
 #define NUM_REGULATORS (R_Set - R_RangeA + 1)
 
 
-pchar NameButton(PanelButton);
+pchar NameButton(Key::E);

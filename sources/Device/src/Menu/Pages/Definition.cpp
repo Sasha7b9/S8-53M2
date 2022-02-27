@@ -120,28 +120,28 @@ const Page mainPage
 );
 
 
-const void *PageForButton(PanelButton button)
+const void *PageForButton(Key::E button)
 {
     static const void *pages[] = {  
-        0,                          // B_Empty
-        (void*)&pChanA,             // B_ChannelA
-        (void*)&pService,           // B_Service
-        (void*)&pChanB,             // B_ChannelB
-        (void*)&pDisplay,           // B_Display
-        (void*)&pTime,              // B_Time
-        PageMemory::GetPointer(),   // B_Memory
-        (void*)&pTrig,              // B_Trig
-        0,                          // B_Start
-        PageCursors::GetPointer(),  // B_Cursors
-        (void*)&pMeasures,          // B_Measures
-        0,                          // B_Power
-        0,                          // B_Help
-        0,                          // B_Menu
-        0,                          // B_F1
-        0,                          // B_F2
-        0,                          // B_F3
-        0,                          // B_F4
-        0,                          // B_F5
+        0,                          // Key::Empty
+        (void*)&pChanA,             // Key::ChannelA
+        (void*)&pService,           // Key::Service
+        (void*)&pChanB,             // Key::ChannelB
+        (void*)&pDisplay,           // Key::Display
+        (void*)&pTime,              // Key::Time
+        PageMemory::GetPointer(),   // Key::Memory
+        (void*)&pTrig,              // Key::Trig
+        0,                          // Key::Start
+        PageCursors::GetPointer(),  // Key::Cursors
+        (void*)&pMeasures,          // Key::Measures
+        0,                          // Key::Power
+        0,                          // Key::Help
+        0,                          // Key::Menu
+        0,                          // Key::F1
+        0,                          // Key::F2
+        0,                          // Key::F3
+        0,                          // Key::F4
+        0,                          // Key::F5
     };
 
     return pages[button];

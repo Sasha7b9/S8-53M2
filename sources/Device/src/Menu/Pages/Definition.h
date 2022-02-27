@@ -145,7 +145,7 @@ struct PageService
 #define COMMON_BEGIN_SB_EXIT  0, "Выход", "Exit", "Кнопка для выхода в предыдущее меню", "Button for return to the previous menu"
 
 
-const void* PageForButton(PanelButton);          // Возвращает страницу меню, которая должна открываться по нажатию кнопки button.
+const void* PageForButton(Key::E);          // Возвращает страницу меню, которая должна открываться по нажатию кнопки button.
 bool IsMainPage(void *item);                            // Возвращает true, если item - адрес главной страницы меню.
 
 
