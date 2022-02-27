@@ -371,7 +371,7 @@ void FPGA::ReadRealMode(bool necessaryShift)
     uint8 *pB = dataReadB.Data();
     uint8 *endA = dataReadA.Last();
 
-    if (PEAKDET_IS_ENABLE)
+    if (SET_PEAKDET_IS_ENABLE)
     {
         uint8 *p_minA = pA;
         uint8 *p_maxA = p_minA + ENUM_POINTS_FPGA::ToNumPoints();

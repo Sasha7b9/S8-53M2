@@ -1019,7 +1019,7 @@ Range::E FPGA::AccurateFindRange(Chan::E ch)
 
     TBase::Set(TBase::_50ms);
     ModeCouple::Set(ch, ModeCouple::AC);
-    PeackDetMode::E peackDetMode = PEAKDET;
+    PeackDetMode::E peackDetMode = SET_PEAKDET;
     PeackDetMode::Set(PeackDetMode::Enable);
 
     for (int range = Range::Count - 1; range >= 0; range--)

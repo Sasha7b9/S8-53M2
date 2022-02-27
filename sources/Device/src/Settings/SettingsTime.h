@@ -21,9 +21,9 @@
 #define SET_SAMPLE_TYPE_IS_EQUAL             (SET_SAMPLE_TYPE == SampleType_Equal)
 #define SET_SAMPLE_TYPE_IS_REAL              (SET_SAMPLE_TYPE == SampleType_Real)
 
-#define PEAKDET                              (set.time.peakDet)
-#define PEAKDET_IS_DISABLE                   (PEAKDET == PeackDetMode::Disable)
-#define PEAKDET_IS_ENABLE                    (PEAKDET == PeackDetMode::Enable)
+#define SET_PEAKDET                          (set.time.peakDet)
+#define SET_PEAKDET_IS_DISABLE               (SET_PEAKDET == PeackDetMode::Disable)
+#define SET_PEAKDET_IS_ENABLE                (SET_PEAKDET == PeackDetMode::Enable)
 
 #define SET_SELFRECORDER                     (set.time.selfRecorder)
 

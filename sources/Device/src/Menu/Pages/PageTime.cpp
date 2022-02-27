@@ -87,7 +87,7 @@ static const Choice mcPeakDet =
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
     },
-    (int8*)&PEAKDET, OnChanged_PeakDet
+    (int8*)&SET_PEAKDET, OnChanged_PeakDet
 };
 
 static bool IsActive_PeakDet()
@@ -99,16 +99,16 @@ void OnChanged_PeakDet(bool active)
 {
     if (active)
     {
-        PeackDetMode::Set(PEAKDET);
+        PeackDetMode::Set(SET_PEAKDET);
         TBase::Set(SET_TBASE);
 
-        if (PEAKDET_IS_DISABLE)
+        if (SET_PEAKDET_IS_DISABLE)
         {
             int centerX = SHIFT_IN_MEMORY + Grid::Width() / 2;
             SHIFT_IN_MEMORY = centerX * 2 - Grid::Width() / 2;
             PageMemory::OnChanged_NumPoints(true);
         }
-        else if (PEAKDET_IS_ENABLE)
+        else if (SET_PEAKDET_IS_ENABLE)
         {
             int centerX = SHIFT_IN_MEMORY + Grid::Width() / 2;
             LIMITATION(SHIFT_IN_MEMORY, centerX / 2 - Grid::Width() / 2, 0, ENUM_POINTS_FPGA::ToNumPoints() - Grid::Width());

@@ -266,7 +266,7 @@ void TBase::Load()
     };
 
     TBase::E tBase = SET_TBASE;
-    uint8 mask = PEAKDET_IS_ENABLE ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
+    uint8 mask = SET_PEAKDET_IS_ENABLE ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
     BUS_FPGA::Write(WR_RAZV, mask, true);
     ADD_SHIFT_T0 = FPGA::deltaTShift[tBase];
 }
@@ -274,7 +274,7 @@ void TBase::Load()
 
 void TBase::Decrease()
 {
-    if (PEAKDET_IS_ENABLE && (SET_TBASE <= TBase::MIN_PEC_DEAT))
+    if (SET_PEAKDET_IS_ENABLE && (SET_TBASE <= TBase::MIN_PEC_DEAT))
     {
         Display::ShowWarningBad(LimitSweep_Time);
         Display::ShowWarningBad(EnabledPeakDet);
@@ -441,7 +441,7 @@ void TShift::SetDelta(int shift)
 
 void PeackDetMode::Set(PeackDetMode::E peackDetMode)
 {
-    PEAKDET = peackDetMode;
+    SET_PEAKDET = peackDetMode;
     FPGA::LoadRegUPR();
 }
 
@@ -462,7 +462,7 @@ void FPGA::LoadRegUPR()
         _SET_BIT(data, 0);
     }
 
-    if (!PEAKDET_IS_DISABLE)
+    if (!SET_PEAKDET_IS_DISABLE)
     {
         _SET_BIT(data, 1);
     }
@@ -657,7 +657,7 @@ void DataSettings::FillDataPointer()
     e_points_in_channel = ENUM_POINTS;
     trigLevA = (uint)TRIG_LEVEL_A;
     trigLevB = (uint)TRIG_LEVEL_B;
-    peakDet = (uint)PEAKDET;
+    peakDet = (uint)SET_PEAKDET;
     dividerA = SET_DIVIDER_A;
     dividerB = SET_DIVIDER_B;
 }

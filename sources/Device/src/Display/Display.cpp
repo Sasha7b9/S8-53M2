@@ -979,7 +979,7 @@ void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, 
     uint8 min[300];
     uint8 max[300];
 
-    if (SET_TBASE >= TBase::_20ms && PEAKDET_IS_ENABLE)
+    if (SET_TBASE >= TBase::_20ms && SET_PEAKDET_IS_ENABLE)
     {
         for (int col = 0; col < width; col++)
         {
@@ -2327,7 +2327,7 @@ void Display::DrawLowPart()
     
     Color::SetCurrent(COLOR_FILL);
 
-    if(!PEAKDET_IS_DISABLE)
+    if(!SET_PEAKDET_IS_DISABLE)
     {
        PText::DrawChar(x + 38, GRID_BOTTOM + 11, '\x12');
        PText::DrawChar(x + 46, GRID_BOTTOM + 11, '\x13');
