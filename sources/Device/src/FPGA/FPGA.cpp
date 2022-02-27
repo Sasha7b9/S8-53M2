@@ -556,8 +556,8 @@ void FPGA::ClearData()
     dataReadA.Realloc(num_bytes);
     dataReadB.Realloc(num_bytes);
 
-    dataReadA.Fill(0);
-    dataReadB.Fill(0);
+    dataReadA.Fill(ValueFPGA::NONE);
+    dataReadB.Fill(ValueFPGA::NONE);
 }
 
 

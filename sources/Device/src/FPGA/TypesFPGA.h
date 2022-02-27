@@ -105,6 +105,8 @@ struct TypeWriteDAC
 // ранее считанного сигнала.
 struct ValueFPGA
 {
+    static const uint8 NONE = 0;
+
     static const uint8 MIN = 2;
     static const uint8 AVE = 127;   // Это значение входного сигнала, считанное с АЦП, соответствует центру сетки.
                                     // Если значение == 0, значит, его нет. Это нужно для режимов рандомизатора и
