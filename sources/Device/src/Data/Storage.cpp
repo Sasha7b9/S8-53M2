@@ -245,7 +245,7 @@ void Storage::CalculateSums()
     uint8 *data0 = 0;
     uint8 *data1 = 0;
 
-    GetDataFromEnd(0, &ds, &data0, &data1);
+    GetData(0, &ds, &data0, &data1);
     
     uint numPoints = (uint)ds->BytesInChannel();
 
@@ -269,13 +269,16 @@ void Storage::CalculateSums()
     if(numAveragings > 1)
     {
         int numSameSettins = NumElementsWithSameSettings();
+
         if(numSameSettins < numAveragings)
         {
             numAveragings = numSameSettins;
         }
+
         for(int i = 1; i < numAveragings; i++)
         {
-            GetDataFromEnd(i, &ds, &data0, &data1);
+            GetData(i, &ds, &data0, &data1);
+
             for(uint point = 0; point < numPoints; point++)
             {
                 sum[0][point] += data0[point];
@@ -348,7 +351,7 @@ DataSettings* Storage::GetSettingsDataFromEnd(int fromEnd)
 }
 
 
-bool Storage::GetDataFromEnd(int fromEnd, DataSettings **ds, uint8 **data0, uint8 **data1)
+bool Storage::GetData(int fromEnd, DataSettings **ds, uint8 **data0, uint8 **data1)
 {
     static Buffer<uint8> dataImportRel[Chan::Count];
 
@@ -451,7 +454,7 @@ uint8* Storage::GetAverageData(Chan::E ch)
 
     DataSettings *ds = 0;
     uint8 *d0, *d1;
-    GetDataFromEnd(0, &ds, &d0, &d1);
+    GetData(0, &ds, &d0, &d1);
 
     if (ds == 0)
     {

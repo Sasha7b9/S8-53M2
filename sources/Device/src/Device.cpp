@@ -85,6 +85,9 @@ void Device::ProcessingSignal()
 {
     if (Storage::NumElementsInStorage() == 0)
     {
+        static DataSettings ds_null;
+        ds_null.FillDataPointer();
+        Storage::DS = &ds_null;
         return;
     }
 
@@ -96,7 +99,7 @@ void Device::ProcessingSignal()
 
     if (MODE_WORK_IS_DIRECT)
     {
-        Storage::GetDataFromEnd(0, &Storage::DS, &Storage::dataA, &Storage::dataB);
+        Storage::GetData(0, &Storage::DS, &Storage::dataA, &Storage::dataB);
 
         if (SettingsDisplay::NumAverages() != 1 || TBase::InRandomizeMode())
         {
@@ -109,7 +112,7 @@ void Device::ProcessingSignal()
         dataA = Storage::dataLastA;
         dataB = Storage::dataLastB;
         ds = &Storage::dsLast;
-        Storage::GetDataFromEnd(CURRENT_NUM_LATEST_SIGNAL, &Storage::dsLast, &Storage::dataLastA, &Storage::dataLastB);
+        Storage::GetData(CURRENT_NUM_LATEST_SIGNAL, &Storage::dsLast, &Storage::dataLastA, &Storage::dataLastB);
     }
     else if (MODE_WORK_IS_MEMINT)
     {
