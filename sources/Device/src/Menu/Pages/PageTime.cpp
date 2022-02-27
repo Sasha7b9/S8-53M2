@@ -184,5 +184,5 @@ static const Choice mcDivRole =
         {"Время",   "Time"},
         {"Память",  "Memory"}
     },
-    (int8*)&TIME_DIV_XPOS
+    (int8*)&SET_TIME_DIV_XPOS
 };
