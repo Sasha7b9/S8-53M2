@@ -68,8 +68,6 @@ uint16 HAL_ADC1::GetValue()
         adc_value = (uint16)handle.Instance->DR;
     }
 
-    LOG_WRITE("%d", adc_value);
-
     return adc_value;
 }
 

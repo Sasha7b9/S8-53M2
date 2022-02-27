@@ -407,6 +407,11 @@ void FPGA::ReadPoints()
 
         int delta = TBase::StretchRand();
 
+        int shift = CalculateShift();
+
+        pA += shift;
+        pB += shift;
+
         while (pA < endA && IN_PROCESS_READ)
         {
             data.half_word = *RD_ADC_B;
@@ -441,36 +446,41 @@ void FPGA::InverseDataIsNecessary(Chan::E ch, Buffer<uint8> &data)
 
 int FPGA::CalculateShift()
 {
-    uint16 rand = HAL_ADC1::GetValue();
-
-    uint16 min = 0;
-    uint16 max = 0;
-
-    if (SET_TBASE == TBase::_200ns)
-    {
-        return rand < 3000 ? 0 : -1;    // set.debug.altShift; \todo Остановились на жёстком задании дополнительного смещения. На PageDebug выбор 
-                                        // закомментирован, можно раскомментировать при необходимости
-    }
-
-    if (!CalculateGate(rand, &min, &max))
-    {
-        return TShift::EMPTY;
-    }
-
     if (TBase::InRandomizeMode())
     {
-        float tin = (float)(rand - min) / (float)(max - min) * 10e-9f;
-        int retValue = (int)(tin / 10e-9f * (float)TBase::StretchRand());
-        return retValue;
+        uint16 rand = HAL_ADC1::GetValue();
+
+        uint16 min = 0;
+        uint16 max = 0;
+
+        if (SET_TBASE == TBase::_200ns)
+        {
+            return rand < 3000 ? 0 : -1;    // set.debug.altShift; \todo Остановились на жёстком задании дополнительного смещения. На PageDebug выбор 
+                                            // закомментирован, можно раскомментировать при необходимости
+        }
+
+        if (!CalculateGate(rand, &min, &max))
+        {
+            return TShift::EMPTY;
+        }
+
+        if (TBase::InRandomizeMode())
+        {
+            float tin = (float)(rand - min) / (float)(max - min) * 10e-9f;
+            int retValue = (int)(tin / 10e-9f * (float)TBase::StretchRand());
+            return retValue;
+        }
+
+        if (SET_TBASE == TBase::_100ns && rand < (min + max) / 2)
+        {
+            return 0;
+        }
+
+        return -1;  // set.debug.altShift;      \todo Остановились на жёстком задании дополнительного смещения. На PageDebug выбор закомментирован, 
+                                                //можно раскомментировать при необходимости
     }
 
-    if (SET_TBASE == TBase::_100ns && rand < (min + max) / 2)
-    {
-        return 0;
-    }
-
-    return -1;  // set.debug.altShift;      \todo Остановились на жёстком задании дополнительного смещения. На PageDebug выбор закомментирован, 
-                                            //можно раскомментировать при необходимости
+    return 0;
 }
 
 
