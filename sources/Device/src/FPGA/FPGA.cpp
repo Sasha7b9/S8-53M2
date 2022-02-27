@@ -368,7 +368,7 @@ void FPGA::ReadPoints()
 
     uint8 *pA = dataReadA.Data();
     uint8 *pB = dataReadB.Data();
-    uint8 *endA = dataReadA.Last();
+    const uint8 * const endA = dataReadA.Last();
 
     if (SET_PEAKDET_IS_ENABLE)
     {
