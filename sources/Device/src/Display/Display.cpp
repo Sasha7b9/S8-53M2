@@ -32,21 +32,16 @@
 
 namespace Display
 {
-    const int NUM_P2P_POINTS = FPGA::MAX_POINTS * 2;
-    uint8 dataP2P_0[NUM_P2P_POINTS];
-    uint8 dataP2P_1[NUM_P2P_POINTS];
-    int   lastP2Pdata = 0;
-    bool  dataP2PIsEmpty = true;
-
     const int MAX_NUM_STRINGS         = 35;
     const int SIZE_BUFFER_FOR_STRINGS = 2000;
+
     char  *strings[MAX_NUM_STRINGS] = {0};
     char  bufferForStrings[SIZE_BUFFER_FOR_STRINGS] = {0};
     int   lastStringForPause = -1;
 
-    #define NUM_WARNINGS            10
-    const char               *warnings[NUM_WARNINGS] = {0};      // Здесь предупреждающие сообщения.
-    uint                     timeWarnings[NUM_WARNINGS] = {0};   // Здесь время, когда предупреждающее сообщение поступило на экран.
+    const int NUM_WARNINGS = 10;
+    const char *warnings[NUM_WARNINGS] = {0};       // Здесь предупреждающие сообщения.
+    uint        timeWarnings[NUM_WARNINGS] = {0};   // Здесь время, когда предупреждающее сообщение поступило на экран.
 
     pFuncVV funcOnHand       = 0;
     pFuncVV funcAdditionDraw = 0;
@@ -113,15 +108,11 @@ namespace Display
 
     void DrawDataInModeWorkLatest();
 
-    void DrawDataInModePoint2Point();
-
-    bool DrawDataInModeNormal();
-
     void DrawDataMinMax();
 
-    bool DrawDataNormal();
+    void DrawDataNormal();
 
-    bool DrawData();
+    void DrawData();
 
     // Нарисовать окно памяти
     void DrawMemoryWindow();
@@ -168,10 +159,9 @@ namespace Display
 
     void DrawGridType3(int left, int top, int right, int bottom, int centerX, int centerY, int deltaX, int deltaY, int stepX, int stepY);
 
+    // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена иниформация о максимумах.
     void DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI, const uint8* data, int rightX,
         Chan::E ch, int shiftForPeakDet);
-
-    void DrawDataInModeSelfRecorder();
 
     void DrawDataInRect(int x, int width, const uint8* data, int numElems, Chan::E ch, int shiftForPeakDet);
 
@@ -245,14 +235,15 @@ void Display::DrawStringNavigation()
 
 void Display::RotateRShift(Chan::E ch)
 {
-    ResetP2Ppoints(true);
     LAST_AFFECTED_CHANNEL = ch;
+
     if(TIME_SHOW_LEVELS)
     {
         (ch == Chan::A) ? (SHOW_LEVEL_RSHIFT_0 = 1) : (SHOW_LEVEL_RSHIFT_1 = 1);
         Timer::Enable((ch == Chan::A) ? TypeTimer::ShowLevelRShift0 : TypeTimer::ShowLevelRShift1, TIME_SHOW_LEVELS  * 1000, (ch == Chan::A) ? FuncOnTimerDisableShowLevelRShiftA :
                      FuncOnTimerDisableShowLevelRShiftB);
     };
+
     Display::Redraw();
 };
 
@@ -360,10 +351,11 @@ void Display::DrawSignalLined(const uint8 *data, const DataSettings *ds, int sta
     {
         return;
     }
+
     uint8 dataCD[281];
 
-	int gridLeft = Grid::Left();
-	int gridRight = Grid::Right();
+    int gridLeft = Grid::Left();
+    int gridRight = Grid::Right();
     
     int numPoints = ENUM_POINTS_FPGA::ToNumPoints();
     int numSmoothing = Smoothing::ToPoints();
@@ -521,15 +513,20 @@ void Display::DrawDataChannel(uint8 *data, Chan::E ch, DataSettings *ds, int min
     }
 
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
+    int first = points.half_iword[0];
+    int last = points.half_iword[1];
 
-    if(data == dataP2P_0 || data == dataP2P_1)
+    if (ds->InModeP2P())
     {
-        if(SET_SELFRECORDER)
+        if (ds->last_point < Grid::Width())
         {
+            first = 0;
+            last = ds->last_point + 1;
         }
-        else if(points.half_iword[0] > lastP2Pdata)
+        else
         {
-            points.half_iword[0] = (int16)lastP2Pdata;
+            last = ds->last_point + 1;
+            first = last - Grid::Width();
         }
     }
 
@@ -537,11 +534,11 @@ void Display::DrawDataChannel(uint8 *data, Chan::E ch, DataSettings *ds, int min
 
     if(MODE_DRAW_IS_SIGNAL_LINES)
     {
-        DrawSignalLined(data, ds, points.half_iword[0], points.half_iword[1], minY, maxY, scaleY, scaleX, calculateFiltr);
+        DrawSignalLined(data, ds, first, last, minY, maxY, scaleY, scaleX, calculateFiltr);
     }
     else
     {
-        DrawSignalPointed(data, ds, points.half_iword[0], points.half_iword[1], minY, maxY, scaleY, scaleX);
+        DrawSignalPointed(data, ds, first, last, minY, maxY, scaleY, scaleX);
     }
 }
 
@@ -586,19 +583,17 @@ void Display::DrawMath()
 }
 
 
-
 void Display::DrawSpectrumChannel(const float *spectrum, Color::E color)
 {
     Color::SetCurrent(color);
-	int gridLeft = Grid::Left();
-	int gridBottom = Grid::MathBottom();
-	int gridHeight = Grid::MathHeight();
-    for (int i = 0; i < 256; i++) 
+    int gridLeft = Grid::Left();
+    int gridBottom = Grid::MathBottom();
+    int gridHeight = Grid::MathHeight();
+    for (int i = 0; i < 256; i++)
     {
         Painter::DrawVLine(gridLeft + i, gridBottom, (int)(gridBottom - gridHeight * spectrum[i]));
     }
 }
-
 
 
 void Display::WriteParametersFFT(Chan::E ch, float freq0, float density0, float freq1, float density1)
@@ -726,7 +721,6 @@ void Display::DrawBothChannels(uint8 *data0, uint8 *data1)
 }
 
 
-
 void Display::DrawDataMemInt()
 {
     if(Storage::dsInt != 0)
@@ -737,7 +731,6 @@ void Display::DrawDataMemInt()
 }
 
 
-
 void Display::DrawDataInModeWorkLatest()
 {
     if (Storage::dsLast != 0)
@@ -746,85 +739,6 @@ void Display::DrawDataInModeWorkLatest()
         DrawDataChannel(Storage::dataLastB, Chan::B, Storage::dsLast, GRID_TOP, Grid::ChannelBottom());
     }
 }
-
-
-
-void Display::DrawDataInModePoint2Point()
-{
-    uint8 *data0 = 0;
-    uint8 *data1 = 0;
-    DataSettings *ds = 0;
-    Processing::GetData(&data0, &data1, &ds);
-
-    if (LAST_AFFECTED_CHANNEL_IS_B)
-    {
-        if (SET_SELFRECORDER || !Storage::NumElementsWithCurrentSettings())
-        {
-            DrawDataChannel(dataP2P_0, Chan::A, ds, GRID_TOP, Grid::ChannelBottom());
-            DrawDataChannel(dataP2P_1, Chan::B, ds, GRID_TOP, Grid::ChannelBottom());
-        }
-        else
-        {
-            DrawDataChannel(data0, Chan::A, ds, GRID_TOP, Grid::ChannelBottom());
-            DrawDataChannel(data1, Chan::B, ds, GRID_TOP, Grid::ChannelBottom());
-        }
-    }
-    else
-    {
-        if (SET_SELFRECORDER || !Storage::NumElementsWithCurrentSettings())
-        {
-            DrawDataChannel(dataP2P_1, Chan::B, ds, GRID_TOP, Grid::ChannelBottom());
-            DrawDataChannel(dataP2P_0, Chan::A, ds, GRID_TOP, Grid::ChannelBottom());
-        }
-        else
-        {
-            DrawDataChannel(data1, Chan::B, ds, GRID_TOP, Grid::ChannelBottom());
-            DrawDataChannel(data0, Chan::A, ds, GRID_TOP, Grid::ChannelBottom());
-        }
-    }
-}
-
-
-
-void Display::DrawDataInModeSelfRecorder()
-{
-    LOG_TRACE();
-}
-
-
-
-bool Display::DrawDataInModeNormal()
-{
-    static void* prevAddr = 0;
-    bool retValue = true;
-
-    uint8 *data0 = 0;
-    uint8 *data1 = 0;
-    DataSettings *ds = 0;
-    Processing::GetData(&data0, &data1, &ds);
-
-    int16 numSignals = (int16)Storage::NumElementsWithSameSettings();
-    LIMITATION(numSignals, numSignals, 1, NUM_ACCUM);
-    if (numSignals == 1 || ENUM_ACCUM_IS_INFINITY || MODE_ACCUM_IS_RESET || TBase::InModeRandomizer())
-    {
-        DrawBothChannels(0, 0);
-        if (prevAddr == 0 || prevAddr != ds->addrPrev)
-        {
-            NUM_DRAWING_SIGNALS++;
-            prevAddr = ds->addrPrev;
-        }
-    }
-    else
-    {
-        for (int i = 0; i < numSignals; i++)
-        {
-            DrawBothChannels(Storage::GetData(Chan::A, i), Storage::GetData(Chan::B, i));
-        }
-    }
-
-    return retValue;
-}
-
 
 
 void Display::DrawDataMinMax()
@@ -849,21 +763,40 @@ void Display::DrawDataMinMax()
 }
 
 
-
-bool Display::DrawDataNormal()
+void Display::DrawDataNormal()
 {
-    if (!dataP2PIsEmpty)
-    {
-        static const pFuncVV funcs[2] = {DrawDataInModePoint2Point, DrawDataInModeSelfRecorder};
-        funcs[(int)SET_SELFRECORDER]();
-    }
+    static void *prevAddr = 0;
 
-    return DrawDataInModeNormal();
+    uint8 *data0 = 0;
+    uint8 *data1 = 0;
+    DataSettings *ds = 0;
+    Processing::GetData(&data0, &data1, &ds);
+
+    int16 numSignals = (int16)Storage::NumElementsWithSameSettings();
+    LIMITATION(numSignals, numSignals, 1, NUM_ACCUM);
+
+    if (numSignals == 1 || ENUM_ACCUM_IS_INFINITY || MODE_ACCUM_IS_RESET || TBase::InModeRandomizer())
+    {
+        DrawBothChannels(0, 0);
+
+        if (prevAddr == 0 || prevAddr != ds->addrPrev)
+        {
+            NUM_DRAWING_SIGNALS++;
+            prevAddr = ds->addrPrev;
+        }
+    }
+    else
+    {
+        for (int i = 0; i < numSignals; i++)
+        {
+            DrawBothChannels(Storage::GetData(Chan::A, i), Storage::GetData(Chan::B, i));
+        }
+    }
 }
 
 
 
-bool Display::DrawData()
+void Display::DrawData()
 {
     if (Storage::CountDatas())
     {
@@ -899,8 +832,6 @@ bool Display::DrawData()
     }
 
     Painter::DrawRectangle(Grid::Left(), GRID_TOP, Grid::Width(), Grid::FullHeight(), COLOR_FILL);
-
-    return true;
 }
 
 
@@ -1033,43 +964,31 @@ void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, 
     points[0] = ORDINATE(max[0]);
     points[1] = ORDINATE(min[0]);
 
-
-
-    for(int i = 1; i < width; i++)
+    for (int i = 1; i < width; i++)
     {
         int value0 = min[i] > max[i - 1] ? max[i - 1] : min[i];
         int value1 = max[i] < min[i - 1] ? min[i - 1] : max[i];
         points[i * 2] = ORDINATE(value1);
         points[i * 2 + 1] = ORDINATE(value0);
     }
-	if(width < 256)
+    if (width < 256)
     {
-		Painter::DrawVLineArray(x, width, points, ColorChannel(ch));
-	}
+        Painter::DrawVLineArray(x, width, points, ColorChannel(ch));
+    }
     else
     {
-		Painter::DrawVLineArray(x, 255, points, ColorChannel(ch));
-		Painter::DrawVLineArray(x + 255, width - 255, points + 255 * 2, ColorChannel(ch));
-	}
+        Painter::DrawVLineArray(x, 255, points, ColorChannel(ch));
+        Painter::DrawVLineArray(x + 255, width - 255, points + 255 * 2, ColorChannel(ch));
+    }
 }
 
 
-
-// shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена иниформация о максимумах.
 void Display::DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI, const uint8 *data, int rightX, Chan::E ch, int shiftForPeakDet)
 {
-    if(data == dataP2P_0 && data == dataP2P_1)
-    {
-
-    }
-    else
-    {
-        DrawDataInRect(1,          xVert0 - 1,              &(data[0]),        startI,                             ch, shiftForPeakDet);
-        DrawDataInRect(xVert0 + 2, timeWindowRectWidth - 2, &(data[startI]),   281,                                ch, shiftForPeakDet);
-        DrawDataInRect(xVert1 + 2, rightX - xVert1 + 2,     &(data[endI + 1]), ENUM_POINTS_FPGA::ToNumPoints() - endI, ch, shiftForPeakDet);
-    }
+    DrawDataInRect(1,          xVert0 - 1,              &(data[0]),        startI,                             ch, shiftForPeakDet);
+    DrawDataInRect(xVert0 + 2, timeWindowRectWidth - 2, &(data[startI]),   281,                                ch, shiftForPeakDet);
+    DrawDataInRect(xVert1 + 2, rightX - xVert1 + 2,     &(data[endI + 1]), ENUM_POINTS_FPGA::ToNumPoints() - endI, ch, shiftForPeakDet);
 }
-
 
 
 void Display::DrawMemoryWindow()
@@ -1110,15 +1029,9 @@ void Display::DrawMemoryWindow()
     bool showFull = set.display.showFullMemoryWindow;
     Painter::DrawRectangle(xVert0, top + (showFull ? 0 : 1), xVert1 - xVert0, bottom - top - (showFull ? 0 : 2), COLOR_FILL);
 
-    if(!dataP2PIsEmpty)
-    {
-        dat0 = dataP2P_0;
-        dat1 = dataP2P_1;
-    }
-
     if (showFull)
     {
-        if (Storage::dataA || Storage::dataB || (!dataP2PIsEmpty))
+        if (Storage::dataA || Storage::dataB)
         {
             Chan::E chanFirst = LAST_AFFECTED_CHANNEL_IS_A ? Chan::B : Chan::A;
             Chan::E chanSecond = LAST_AFFECTED_CHANNEL_IS_A ? Chan::A : Chan::B;
@@ -1131,6 +1044,7 @@ void Display::DrawMemoryWindow()
             {
                 DrawChannelInWindowMemory(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataFirst, rightX, chanFirst, shiftForPeakDet);
             }
+
             if (ChannelNeedForDraw(dataSecond, chanSecond, ds))
             {
                 DrawChannelInWindowMemory(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataSecond, rightX,
@@ -2401,45 +2315,10 @@ void Display::EnableTrigLabel(bool enable)
 }
 
 
-void Display::ResetP2Ppoints(bool empty)
-{
-    dataP2PIsEmpty = empty;
-    lastP2Pdata = 0;
-    memset(dataP2P_0, ValueFPGA::AVE, NUM_P2P_POINTS);
-    memset(dataP2P_1, ValueFPGA::AVE, NUM_P2P_POINTS);
-}
-
-
-void Display::AddPoints(uint8 data00, uint8 data01, uint8 data10, uint8 data11)
-{
-    dataP2PIsEmpty = false;
-    if (SET_SELFRECORDER)
-    {
-        if (lastP2Pdata == NUM_P2P_POINTS)
-        {
-            memmove(dataP2P_0, dataP2P_0 + 2, NUM_P2P_POINTS - 2);
-            memmove(dataP2P_1, dataP2P_1 + 2, NUM_P2P_POINTS - 2);
-        }
-    }
-
-    dataP2P_0[lastP2Pdata] = data00;
-    dataP2P_1[lastP2Pdata++] = data10;
-    
-    dataP2P_0[lastP2Pdata] = data01;
-    dataP2P_1[lastP2Pdata++] = data11;
-    if (!SET_SELFRECORDER && lastP2Pdata >= NUM_P2P_POINTS)
-    {
-        lastP2Pdata = 0;
-    }
-}
-
-
-
 void Display::SetDrawMode(DrawMode mode, pFuncVV func)
 {
     funcOnHand = mode == DrawMode_Auto ? 0 : func;
 }
-
 
 
 void Display::SetAddDrawFunction(pFuncVV func)

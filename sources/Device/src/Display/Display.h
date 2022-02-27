@@ -25,12 +25,6 @@ namespace Display
 
     void EnableTrigLabel(bool enable);
 
-    // Функция должна вызываться для очистки поточечной памяти. Вызывается при изменении масштаба по напряжению.
-    void ResetP2Ppoints(bool empty);
-
-    // Добавляет точки в режиме поточечного вывода и самописца data00, data01 - для первого канала; data10, data11 - для второго канала
-    void AddPoints(uint8 data00, uint8 data01, uint8 data10, uint8 data11);
-
     void ShowWarningBad(Warning warning);
 
     void ShowWarningGood(Warning warning);

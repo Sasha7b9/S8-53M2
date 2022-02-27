@@ -677,3 +677,15 @@ bool Storage::SettingsIsEquals(DataSettings *dp0, DataSettings *dp1)
         (dp0->peakDet  == dp1->peakDet); 
     return retValue;
 }
+
+
+void Storage::P2P::Reset()
+{
+
+}
+
+
+void Storage::P2P::AddPoints(BitSet16 bytesA, BitSet16 bytesB)
+{
+
+}

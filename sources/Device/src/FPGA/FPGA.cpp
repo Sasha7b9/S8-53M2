@@ -221,13 +221,13 @@ void FPGA::Start()
 
     if (TBase::InModeP2P())
     {
-        Display::ResetP2Ppoints(false);
+        Storage::P2P::Reset();
         Timer::Enable(TypeTimer::P2P, 1, ReadPoint);
     }
     else
     {
         Timer::Disable(TypeTimer::P2P);
-        Display::ResetP2Ppoints(true);
+        Storage::P2P::Reset();
     }
 
     HAL_FMC::Write(WR_PRED, FPGA::Launch::PredForWrite());
@@ -565,13 +565,10 @@ void FPGA::ReadPoint()
 {
     if (_GET_BIT(ReadFlag(), FL_POINT))
     {
-        BitSet16 dataA;
-        BitSet16 dataB;
+        BitSet16 dataA(*RD_ADC_A);
+        BitSet16 dataB(*RD_ADC_B);
 
-        dataB.half_word = *RD_ADC_B;
-        dataA.half_word = *RD_ADC_A;
-
-        Display::AddPoints(dataA.byte0, dataA.byte1, dataB.byte0, dataB.byte1);
+        Storage::P2P::AddPoints(dataA, dataB);
     }
 }
 
