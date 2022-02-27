@@ -715,7 +715,7 @@ int16 DataSettings::GetRShift(Chan::E ch) const
 
 bool DataSettings::InModeP2P() const
 {
-    return tBase >= TBase::MIN_P2P;
+    return (tBase >= TBase::MIN_P2P) && (last_point != -1);
 }
 
 

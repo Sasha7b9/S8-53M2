@@ -219,7 +219,7 @@ void FPGA::Start()
         ClearData();
     }
 
-    if (SET_TBASE >= TBase::MIN_P2P)
+    if (TBase::InModeP2P())
     {
         Display::ResetP2Ppoints(false);
         Timer::Enable(TypeTimer::P2P, 1, ReadPoint);

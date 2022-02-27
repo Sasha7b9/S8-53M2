@@ -162,7 +162,7 @@ static const Choice mcSelfRecorder =
 
 static bool IsActive_SelfRecorder()
 {
-    return SET_TBASE >= TBase::MIN_P2P;
+    return TBase::InModeP2P();
 }
 
 // пюгбепрйю - т-ЖХЪ бп/дек -
