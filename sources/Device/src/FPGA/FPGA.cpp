@@ -423,17 +423,33 @@ void FPGA::ReadPoints()
             dataB.half_word = *RD_ADC_B;
             dataA.half_word = *RD_ADC_A;
 
-            if (pA >= startA)
+            if (pA < startA)
             {
-                *pB = dataB.byte0;
-                *pB = dataB.byte1;
-
+                pA += stretch;
+                pB += stretch;
+            }
+            else
+            {
                 *pA = dataA.byte0;
-                *pA = dataA.byte1;
+                pA += stretch;
+
+                *pB = dataB.byte0;
+                pB += stretch;
             }
 
-            pB += stretch;
-            pA += stretch;
+            if (pA < startA)
+            {
+                pA += stretch;
+                pB += stretch;
+            }
+            else
+            {
+                *pA = dataA.byte1;
+                pA += stretch;
+
+                *pB = dataB.byte1;
+                pB += stretch;
+            }
         }
     }
 }

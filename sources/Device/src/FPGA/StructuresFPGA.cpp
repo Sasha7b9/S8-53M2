@@ -81,8 +81,8 @@ void FPGA::Launch::Calculate()
 
     if (TBase::InRandomizeMode())
     {
-        pred /= TBase::StretchRand() + 1;
-        post /= TBase::StretchRand() + 1;
+        pred = (pred / TBase::StretchRand());
+        post = (post / TBase::StretchRand());
     }
 }
 
