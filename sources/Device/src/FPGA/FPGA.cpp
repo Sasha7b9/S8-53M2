@@ -368,15 +368,15 @@ void FPGA::ReadPoints()
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
     uint8 *a = dataReadA.Data();
-    const uint8 *const startA = a;
-    uint8 *pB = dataReadB.Data();
+    const uint8 *const start_a = a;
+    uint8 *b = dataReadB.Data();
     const uint8 *const endA = dataReadA.Last();
 
     if (SET_PEAKDET_IS_ENABLE)
     {
         uint8 *p_minA = a;
         uint8 *p_maxA = p_minA + ENUM_POINTS_FPGA::ToNumPoints();
-        uint8 *p_minB = pB;
+        uint8 *p_minB = b;
         uint8 *p_maxB = p_minB + ENUM_POINTS_FPGA::ToNumPoints();
 
         BitSet16 data;
@@ -407,11 +407,11 @@ void FPGA::ReadPoints()
     {
         const int shift_rand = ShiftRandomizerADC();
         a += shift_rand;
-        pB += shift_rand;
+        b += shift_rand;
 
         const int shift_read = Reader::ShiftRead();
         a -= shift_read;
-        pB -= shift_read;
+        b -= shift_read;
 
         BitSet16 dataA;
         BitSet16 dataB;
@@ -423,32 +423,32 @@ void FPGA::ReadPoints()
             dataB.half_word = *RD_ADC_B;
             dataA.half_word = *RD_ADC_A;
 
-            if (a < startA)
+            if (a < start_a)
             {
                 a += stretch;
-                pB += stretch;
+                b += stretch;
             }
             else
             {
                 *a = dataA.byte0;
                 a += stretch;
 
-                *pB = dataB.byte0;
-                pB += stretch;
+                *b = dataB.byte0;
+                b += stretch;
             }
 
-            if (a < startA)
+            if (a < start_a)
             {
                 a += stretch;
-                pB += stretch;
+                b += stretch;
             }
             else
             {
                 *a = dataA.byte1;
                 a += stretch;
 
-                *pB = dataB.byte1;
-                pB += stretch;
+                *b = dataB.byte1;
+                b += stretch;
             }
         }
     }
