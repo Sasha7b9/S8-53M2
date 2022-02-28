@@ -143,10 +143,7 @@ void Storage::CalculateAroundAverage(DataSettings *dss, uint8 *a, uint8 *b)
     }
     else
     {
-        if (numAveData > SettingsDisplay::NumAverages())
-        {
-            numAveData = SettingsDisplay::NumAverages();
-        }
+        Math::Limitation<int>(numAveData, 0, SettingsDisplay::NumAverages());
 
         float numAveDataF = numAveData;
         float numAveDataFless = numAveDataF - 1.0f;
