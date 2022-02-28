@@ -999,14 +999,14 @@ void Display::DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int
 
 void Display::DrawMemoryWindow()
 {
-    uint8 *dat0 = Storage::dataIntA;
-    uint8 *dat1 = Storage::dataIntB;
+    uint8 *datA = Storage::dataIntA;
+    uint8 *datB = Storage::dataIntB;
     DataSettings *ds = Storage::dsInt;
     
     if(MODE_WORK_IS_DIRECT || MODE_WORK_IS_LATEST)
     {
-        dat0 = Storage::dataA;
-        dat1 = Storage::dataB;
+        datA = Storage::dataA;
+        datB = Storage::dataB;
         ds = Storage::DS;
     }
     
@@ -1042,8 +1042,8 @@ void Display::DrawMemoryWindow()
         {
             Chan::E chanFirst = LAST_AFFECTED_CHANNEL_IS_A ? Chan::B : Chan::A;
             Chan::E chanSecond = LAST_AFFECTED_CHANNEL_IS_A ? Chan::A : Chan::B;
-            const uint8 *dataFirst = LAST_AFFECTED_CHANNEL_IS_A ? dat1 : dat0;
-            const uint8 *dataSecond = LAST_AFFECTED_CHANNEL_IS_A ? dat0 : dat1;
+            const uint8 *dataFirst = LAST_AFFECTED_CHANNEL_IS_A ? datB : datA;
+            const uint8 *dataSecond = LAST_AFFECTED_CHANNEL_IS_A ? datA : datB;
 
             int shiftForPeakDet = (ds->peakDet == PeackDetMode::Disable) ? 0 : ds->PointsInChannel();
 

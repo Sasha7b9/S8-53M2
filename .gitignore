@@ -1,7 +1,5 @@
 *.bin
 *.out
-*.uvoptx*
-*.uvgui*
 archive.zip
 
 sources/Loader/DebugConfig/*
