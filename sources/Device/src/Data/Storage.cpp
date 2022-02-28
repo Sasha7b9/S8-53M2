@@ -487,7 +487,7 @@ int Storage::NumberAvailableEntries()
 }
 
 
-void Storage::PushData(DataSettings *dp, uint8 *data0, uint8 *data1)
+void Storage::PushData(DataSettings *dp, uint8 *a, uint8 *b)
 {
     int required = dp->SizeElem();
 
@@ -529,11 +529,11 @@ void Storage::PushData(DataSettings *dp, uint8 *data0, uint8 *data1)
 
     if (dp->en_a)
     {
-        COPY_AND_INCREASE(addrRecord, data0, bytes_in_channel);
+        COPY_AND_INCREASE(addrRecord, a, bytes_in_channel);
     }
     if (dp->en_b)
     {
-        COPY_AND_INCREASE(addrRecord, data1, bytes_in_channel);
+        COPY_AND_INCREASE(addrRecord, b, bytes_in_channel);
     }
 }
 
