@@ -72,7 +72,7 @@ namespace Storage
     void RemoveFirstElement();
 
     // Сохранить данные
-    void PushData(DataSettings *, uint8 *data0, uint8 *data1);
+    void PushData(DataSettings *, uint8 *dataA, uint8 *dataB);
 
     // Возвращает указатель на измерение, следующее за elem
     DataSettings *NextElem(DataSettings *);
@@ -86,13 +86,13 @@ namespace Storage
     // Очистка значений мин, макс и сумм
     void ClearLimitsAndSums();
 
-    void CalculateLimits(DataSettings *, uint8 *data0, uint8 *data1);
+    void CalculateLimits(DataSettings *, uint8 *dataA, uint8 *dataB);
 
     // Копирует данные канала chan из, определяемые ds, в одну из двух строк массива dataImportRel. Возвращаемое
     // значение false означает, что данный канал выключен.
     bool CopyData(DataSettings *, Chan::E ch, Buffer<uint8> &datatImportRel);
 
-    void CalculateAroundAverage(DataSettings *, uint8 *data0, uint8 *data1);
+    void CalculateAroundAverage(DataSettings *, uint8 *dataA, uint8 *dataB);
 
     namespace P2P
     {
@@ -127,7 +127,7 @@ void Storage::ClearLimitsAndSums()
 }
 
 
-void Storage::CalculateAroundAverage(DataSettings *dss, uint8 *data0, uint8 *data1)
+void Storage::CalculateAroundAverage(DataSettings *dss, uint8 *a, uint8 *data1)
 {
     int numAveData = NumElementsWithCurrentSettings();
 
@@ -137,7 +137,7 @@ void Storage::CalculateAroundAverage(DataSettings *dss, uint8 *data0, uint8 *dat
     {
         for (int i = 0; i < size; i++)
         {
-            aveData0[i] = data0[i];
+            aveData0[i] = a[i];
             aveData1[i] = data1[i];
         }
     }
@@ -153,7 +153,7 @@ void Storage::CalculateAroundAverage(DataSettings *dss, uint8 *data0, uint8 *dat
         float numAveDataInv = 1.0f / numAveDataF;
         float *aData0 = &aveData0[0];
         float *aData1 = &aveData1[0];
-        uint8 *d0 = &data0[0];
+        uint8 *d0 = &a[0];
         uint8 *d1 = &data1[0];
         float *endData = &aveData0[size];
 
