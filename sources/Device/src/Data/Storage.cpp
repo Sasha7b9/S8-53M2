@@ -201,7 +201,7 @@ void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
 {
     uint numElements = (uint)dss->PointsInChannel();
 
-    if(NumElements() == 0 || NUM_MIN_MAX == 1 || (!GetSettingsDataFromEnd(0)->Equal(dss)))
+    if(NumElements() == 0 || NUM_MIN_MAX == 1 || (!GetSettingsDataFromEnd(0)->Equal(*dss)))
     {
         for(uint i = 0; i < numElements; i++)
         {
@@ -316,7 +316,7 @@ int Storage::NumElementsWithCurrentSettings()
 
     for(retValue = 0; retValue < numElements; retValue++)
     {
-        if(!GetDataSettings(retValue)->Equal(&dp))
+        if(!GetDataSettings(retValue)->Equal(dp))
         {
             break;
         }
@@ -631,7 +631,8 @@ bool Storage::SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1)
 {
     DataSettings* dp0 = GetDataSettings(elemFromEnd0);
     DataSettings* dp1 = GetDataSettings(elemFromEnd1);
-    return dp0->Equal(dp1);
+
+    return dp0->Equal(*dp1);
 }
 
 
@@ -647,7 +648,7 @@ void Storage::P2P::CreateFrame(DataSettings _ds)
 
         if (ds->InModeP2P())
         {
-            if (ds->Equal(&_ds))
+            if (ds->Equal(_ds))
             {
 
             }

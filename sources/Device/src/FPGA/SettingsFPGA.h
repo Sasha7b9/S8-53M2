@@ -372,7 +372,7 @@ struct DataSettings
     // Поточечный режим
     int16               last_point;                 // Сейчас будет считана эта точка. Если -1 - то фрейм не поточечный. Он считан полностью
 
-    bool Equal(const DataSettings *ds);
+    bool Equal(const DataSettings &);
 
     void PrintElement();
 

@@ -737,23 +737,23 @@ float Range::MaxOnScreen(Range::E range)
 }
 
 
-bool DataSettings::Equal(const DataSettings *ds)
+bool DataSettings::Equal(const DataSettings &ds)
 {
-    return (en_a == ds->en_a) &&
-           (en_b == ds->en_b) &&
-           (inv_a == ds->inv_a) &&
-           (inv_b == ds->inv_b) &&
-           (range[0] == ds->range[0]) &&
-           (range[1] == ds->range[1]) &&
-           (rShiftA == ds->rShiftA) &&
-           (rShiftB == ds->rShiftB) &&
-           (tBase == ds->tBase) &&
-           (tShift == ds->tShift) &&
-           (coupleA == ds->coupleA) &&
-           (coupleB == ds->coupleB) &&
-           (trigLevA == ds->trigLevA) &&
-           (trigLevB == ds->trigLevB) &&
-           (div_a == ds->div_a) &&
-           (div_b == ds->div_b) &&
-           (peakDet == ds->peakDet);
+    return (en_a     == ds.en_a) &&
+           (en_b     == ds.en_b) &&
+           (inv_a    == ds.inv_a) &&
+           (inv_b    == ds.inv_b) &&
+           (range[0] == ds.range[0]) &&
+           (range[1] == ds.range[1]) &&
+           (rShiftA  == ds.rShiftA) &&
+           (rShiftB  == ds.rShiftB) &&
+           (tBase    == ds.tBase) &&
+           (tShift   == ds.tShift) &&
+           (coupleA  == ds.coupleA) &&
+           (coupleB  == ds.coupleB) &&
+           (trigLevA == ds.trigLevA) &&
+           (trigLevB == ds.trigLevB) &&
+           (div_a    == ds.div_a) &&
+           (div_b    == ds.div_b) &&
+           (peakDet  == ds.peakDet);
 }
