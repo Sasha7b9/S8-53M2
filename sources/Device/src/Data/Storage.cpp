@@ -127,7 +127,7 @@ void Storage::ClearLimitsAndSums()
 }
 
 
-void Storage::CalculateAroundAverage(DataSettings *dss, uint8 *a, uint8 *data1)
+void Storage::CalculateAroundAverage(DataSettings *dss, uint8 *a, uint8 *b)
 {
     int numAveData = NumElementsWithCurrentSettings();
 
@@ -138,7 +138,7 @@ void Storage::CalculateAroundAverage(DataSettings *dss, uint8 *a, uint8 *data1)
         for (int i = 0; i < size; i++)
         {
             aveData0[i] = a[i];
-            aveData1[i] = data1[i];
+            aveData1[i] = b[i];
         }
     }
     else
@@ -154,7 +154,7 @@ void Storage::CalculateAroundAverage(DataSettings *dss, uint8 *a, uint8 *data1)
         float *aData0 = &aveData0[0];
         float *aData1 = &aveData1[0];
         uint8 *d0 = &a[0];
-        uint8 *d1 = &data1[0];
+        uint8 *d1 = &b[0];
         float *endData = &aveData0[size];
 
         do
