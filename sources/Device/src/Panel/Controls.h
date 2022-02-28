@@ -3,56 +3,56 @@
 
 
 // Èäåíòèôèêàòîğû êíîïîê.
-enum PanelButton
+struct Key
 {
-    B_Empty     = 0,        // êíîïêà íå íàæàòà
-    B_ChannelA  = 1,        // ÊÀÍÀË 1
-    B_Service   = 2,        // ÑÅĞÂÈÑ
-    B_ChannelB  = 3,        // ÊÀÍÀË 2
-    B_Display   = 4,        // ÄÈÑÏËÅÉ
-    B_Time      = 5,        // ĞÀÇÂ
-    B_Memory    = 6,        // ÏÀÌßÒÜ
-    B_Trig      = 7,        // ÑÈÍÕĞ
-    B_Start     = 8,        // ÏÓÑÊ/ÑÒÀĞÒ
-    B_Cursors   = 9,        // ÊÓĞÑÎĞÛ
-    B_Measures  = 10,       // ÈÇÌÅĞ
-    B_Power     = 11,       // ÏÈÒÀÍÈÅ
-    B_Help      = 12,       // ÏÎÌÎÙÜ
-    B_Menu      = 13,       // ÌÅÍŞ
-    B_F1        = 14,       // 1
-    B_F2        = 15,       // 2
-    B_F3        = 16,       // 3
-    B_F4        = 17,       // 4
-    B_F5        = 18,       // 5
-    B_NumButtons            // îáùåå êîëè÷åñòâî êíîïîê
+    enum E
+    {
+        Empty    = 0,    // êíîïêà íå íàæàòà
+        ChannelA = 1,    // ÊÀÍÀË 1
+        Service  = 2,    // ÑÅĞÂÈÑ
+        ChannelB = 3,    // ÊÀÍÀË 2
+        Display  = 4,    // ÄÈÑÏËÅÉ
+        Time     = 5,    // ĞÀÇÂ
+        Memory   = 6,    // ÏÀÌßÒÜ
+        Trig     = 7,    // ÑÈÍÕĞ
+        Start    = 8,    // ÏÓÑÊ/ÑÒÀĞÒ
+        Cursors  = 9,    // ÊÓĞÑÎĞÛ
+        Measures = 10,   // ÈÇÌÅĞ
+        Power    = 11,   // ÏÈÒÀÍÈÅ
+        Help     = 12,   // ÏÎÌÎÙÜ
+        Menu     = 13,   // ÌÅÍŞ
+        F1       = 14,   // 1
+        F2       = 15,   // 2
+        F3       = 16,   // 3
+        F4       = 17,   // 4
+        F5       = 18,   // 5
+        Count            // îáùåå êîëè÷åñòâî êíîïîê
+    };
+
+    static pchar Name(Key::E);
 };
 
-PanelButton& operator++(PanelButton &button);
+Key::E& operator++(Key::E &);
 
 // Èäåíòèôèêàòîğû ğåãóëÿòîğîâ.
-enum Regulator
+struct Regulator
 {
-    R_Empty     = 0,    // ğåãóëÿòîğ íå âğàùàëñÿ
-    R_RangeA    = 20,   // ÂÎËÜÒ/ÄÅË êàí. 1
-    R_RShiftA   = 21,   
-    R_RangeB    = 22,   // ÂÎËÜÒ/ÄÅË êàí. 2
-    R_RShiftB   = 23,
-    R_TBase     = 24,   // ÂĞÅÌß/ÄÅË
-    R_TShift    = 25,
-    R_TrigLev   = 26,   // ÓĞÎÂÅÍÜ
-    R_Set       = 27    // ÓÑÒÀÍÎÂÊÀ
+    enum E
+    {
+        Empty   = 0,    // ğåãóëÿòîğ íå âğàùàëñÿ
+        RangeA  = 20,   // ÂÎËÜÒ/ÄÅË êàí. 1
+        RShiftA = 21,
+        RangeB  = 22,   // ÂÎËÜÒ/ÄÅË êàí. 2
+        RShiftB = 23,
+        TBase   = 24,   // ÂĞÅÌß/ÄÅË
+        TShift  = 25,
+        TrigLev = 26,   // ÓĞÎÂÅÍÜ
+        Set     = 27    // ÓÑÒÀÍÎÂÊÀ
+    };
+
+    // Âîçâğàùàåò true, åñëè ğåãóëÿòîğ ïîâîğà÷èâàåòñÿ âëåîâ
+    static bool IsLeft(uint16 data) { return (data >= RangeA && data <= Set); }
+
+    // Âîçâğàùàåò false, åñëè ğåãóëÿòîğ ïîâîğà÷èâàåòñÿ âïğàâî
+    static bool IsRight(uint16 data) { return ((data & 0x7f) >= 20) && ((data & 0x7f) <= 27); }
 };
-
-// Íàïğàâëåíèÿ âğàùåíèÿ ğåãóëÿòîğîâ.
-enum RegulatorDirection
-{
-    Direction_Left,     // âğàùåíèå ğåãóëÿòîğà âëåâî
-    Direction_Right,    // âğàùåíèå ğåãóëÿòîğà âïğàâî
-    Direction_None      // âğàùåíèå îòñóòñòâóåò
-};
-
-
-#define NUM_REGULATORS (R_Set - R_RangeA + 1)
-
-
-pchar NameButton(PanelButton);

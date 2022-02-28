@@ -66,12 +66,12 @@ static const Choice mcSample =
         {"Реальное время",  "Real"},
         {"Эквивалентная",   "Equals"}
     },
-    (int8*)&SAMPLE_TYPE
+    (int8*)&SET_SAMPLE_TYPE
 };
 
 static bool IsActive_Sample()
 {
-    return TBase::InRandomizeMode();
+    return TBase::InModeRandomizer();
 }
 
 // РАЗВЕРТКА - Пик дет ------
@@ -87,7 +87,7 @@ static const Choice mcPeakDet =
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
     },
-    (int8*)&PEAKDET, OnChanged_PeakDet
+    (int8*)&SET_PEAKDET, OnChanged_PeakDet
 };
 
 static bool IsActive_PeakDet()
@@ -99,16 +99,16 @@ void OnChanged_PeakDet(bool active)
 {
     if (active)
     {
-        PeackDetMode::Set(PEAKDET);
+        PeackDetMode::Set(SET_PEAKDET);
         TBase::Set(SET_TBASE);
 
-        if (PEAKDET_IS_DISABLE)
+        if (SET_PEAKDET_IS_DISABLE)
         {
             int centerX = SHIFT_IN_MEMORY + Grid::Width() / 2;
             SHIFT_IN_MEMORY = centerX * 2 - Grid::Width() / 2;
             PageMemory::OnChanged_NumPoints(true);
         }
-        else if (PEAKDET_IS_ENABLE)
+        else if (SET_PEAKDET_IS_ENABLE)
         {
             int centerX = SHIFT_IN_MEMORY + Grid::Width() / 2;
             LIMITATION(SHIFT_IN_MEMORY, centerX / 2 - Grid::Width() / 2, 0, ENUM_POINTS_FPGA::ToNumPoints() - Grid::Width());
@@ -141,7 +141,7 @@ static const Choice mcTPos =
 void OnChanged_TPos(bool active)
 {
     PageMemory::OnChanged_NumPoints(active);
-    TShift::Set(TSHIFT);
+    TShift::Set(SET_TSHIFT);
 }
 
 // РАЗВЕРТКА - Самописец ----
@@ -162,7 +162,7 @@ static const Choice mcSelfRecorder =
 
 static bool IsActive_SelfRecorder()
 {
-    return SET_TBASE >= TBase::MIN_P2P;
+    return TBase::InModeP2P();
 }
 
 // РАЗВЕРТКА - Ф-ция ВР/ДЕЛ -
@@ -184,5 +184,5 @@ static const Choice mcDivRole =
         {"Время",   "Time"},
         {"Память",  "Memory"}
     },
-    (int8*)&TIME_DIV_XPOS
+    (int8*)&SET_TIME_DIV_XPOS
 };

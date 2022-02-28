@@ -55,7 +55,6 @@ void SCPI::CONTROL::KEY(uint8 *buffer)
                 {
                     code += 128;
                 }
-                //LOG_WRITE("to panel %d", code);
                 Panel::ProcessingCommandFromPIC(code);
                 return;
             }
@@ -75,7 +74,7 @@ void SCPI::CONTROL::GOVERNOR(uint8 *buffer)
         {"RANGE1",  20},
         {"RANGE2",  22},
         {"SET",     27},
-        {"TSHIFT",  25},
+        {"SET_TSHIFT",  25},
         {"TBASE",   24},
         {"TRIGLEV", 26},
         {0}

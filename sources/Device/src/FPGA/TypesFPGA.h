@@ -105,6 +105,8 @@ struct TypeWriteDAC
 // ранее считанного сигнала.
 struct ValueFPGA
 {
+    static const uint8 NONE = 0;
+
     static const uint8 MIN = 2;
     static const uint8 AVE = 127;   // Ёто значение входного сигнала, считанное с ј÷ѕ, соответствует центру сетки.
                                     // ≈сли значение == 0, значит, его нет. Ёто нужно дл€ режимов рандомизатора и
@@ -115,4 +117,7 @@ struct ValueFPGA
                                     // считанного сигнала.
 
     static float ToVoltage(uint8 value, Range::E, RShift);
+    static uint8 FromVoltage(float voltage, Range::E, RShift);
+    static void ToVoltage(const uint8 *points, int numPoints, Range::E, RShift, float *voltage);
+    static void FromVoltage(const float *voltage, int numPoints, Range::E, RShift, uint8 *points);
 };

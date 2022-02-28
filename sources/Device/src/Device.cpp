@@ -29,7 +29,6 @@ void Device::Init()
 
     Sound::Init();
 
-//    VCP::Init();
     Settings::Load(false);
 
     FPGA::Init();
@@ -43,9 +42,8 @@ void Device::Init()
     Panel::Init();
 
     // FDrive::Init();
-    // HAL_RTC::Init();
-
     // LAN::Init();
+    // VCP::Init();
 
     set.menu.isShown = true;
 }
@@ -83,8 +81,11 @@ void Device::Update()
 
 void Device::ProcessingSignal()
 {
-    if (Storage::NumElementsInStorage() == 0)
+    if (Storage::NumElements() == 0)
     {
+        static DataSettings ds_null;
+        ds_null.Init();
+        Storage::DS = &ds_null;
         return;
     }
 
@@ -96,9 +97,11 @@ void Device::ProcessingSignal()
 
     if (MODE_WORK_IS_DIRECT)
     {
-        Storage::GetDataFromEnd(0, &Storage::DS, &Storage::dataA, &Storage::dataB);
+        Storage::GetData(0, &Storage::DS, &Storage::dataA, &Storage::dataB);
+        dataA = Storage::dataA;
+        dataB = Storage::dataB;
 
-        if (SettingsDisplay::NumAverages() != 1 || TBase::InRandomizeMode())
+        if (SettingsDisplay::NumAverages() != 1 || TBase::InModeRandomizer())
         {
             Storage::dataA = Storage::GetAverageData(Chan::A);
             Storage::dataB = Storage::GetAverageData(Chan::B);
@@ -109,7 +112,7 @@ void Device::ProcessingSignal()
         dataA = Storage::dataLastA;
         dataB = Storage::dataLastB;
         ds = &Storage::dsLast;
-        Storage::GetDataFromEnd(CURRENT_NUM_LATEST_SIGNAL, &Storage::dsLast, &Storage::dataLastA, &Storage::dataLastB);
+        Storage::GetData(CURRENT_NUM_LATEST_SIGNAL, &Storage::dsLast, &Storage::dataLastA, &Storage::dataLastB);
     }
     else if (MODE_WORK_IS_MEMINT)
     {
@@ -134,7 +137,7 @@ void Device::ProcessingSignal()
     if (Storage::DS == nullptr)
     {
         static DataSettings ds_null;
-        ds_null.FillDataPointer();
+        ds_null.Init();
         Storage::DS = &ds_null;
     }
 

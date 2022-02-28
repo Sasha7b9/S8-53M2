@@ -109,8 +109,6 @@ set_source_files_properties(src/libs/ethernetif.cpp
                             src/libs/usbd_conf.c
                             src/Menu/Pages/PageHelp.cpp
                             src/Panel/PanelFunctions.cpp
-                            src/FPGA/FPGA_old.cpp
-                            src/FPGA/CalibrationFPGA_old.cpp
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
 add_library(${PROJECT_NAME} ${SRC} ${LIBS} ${DISPLAY} ${DISPLAY_FONT} ${ETHERNET}

@@ -19,7 +19,7 @@
 #include <stdio.h>
 
 
-static void *itemUnderButton[B_NumButtons] = {0};
+static void *itemUnderButton[Key::Count] = {0};
 
 
 
@@ -38,11 +38,11 @@ namespace Menu
 
 
 
-PanelButton GetFuncButtonFromY(int _y)
+Key::E GetFuncButtonFromY(int _y)
 {
     int y = GRID_TOP + GRID_HEIGHT / 12;
     int step = GRID_HEIGHT / 6;
-    PanelButton button = B_Menu;
+    Key::E button = Key::Menu;
 
     for(int i = 0; i < 6; i++)
     {
@@ -54,7 +54,7 @@ PanelButton GetFuncButtonFromY(int _y)
         y += step;
     }
 
-    return  B_F5;
+    return  Key::F5;
 }
 
 
@@ -338,9 +338,9 @@ void Page::DrawOpened(int layer, int yTop)
 
         for (int i = 0; i < 5; i++)
         {
-            if (itemUnderButton[i + B_F1] != item)
+            if (itemUnderButton[i + Key::F1] != item)
             {
-                itemUnderButton[i + B_F1] = 0;
+                itemUnderButton[i + Key::F1] = 0;
             }
         }
 
@@ -395,7 +395,7 @@ bool Menu::IsPressed(void* item)
 }
 
 
-void* Menu::ItemUnderButton(PanelButton button)
+void* Menu::ItemUnderButton(Key::E button)
 {
     return itemUnderButton[button];
 }
@@ -403,7 +403,7 @@ void* Menu::ItemUnderButton(PanelButton button)
 
 void Menu::ResetItemsUnderButton()
 {
-    for(int i = 0; i < B_NumButtons; i++)
+    for(int i = 0; i < Key::Count; i++)
     {
         itemUnderButton[i] = 0;
     }

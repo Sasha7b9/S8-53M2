@@ -3,37 +3,37 @@
 #include "Panel/Controls.h"
 
 
-pchar  NameButton(PanelButton button) 
+pchar Key::Name(Key::E button)
 {
-    static const pchar namesButtons[] =
+    static const pchar names[] =
     {
-        "B_Empty",
-        "B_ChannelA",
-        "B_Service",
-        "B_ChannelB",
-        "B_Display",
-        "B_Time",
-        "B_Memory",
-        "B_Sinchro",
-        "B_Start",
-        "B_Cursors",
-        "B_Measures",
-        "B_Power",
-        "B_Info",
-        "B_Menu",
-        "B_F1",
-        "B_F2",
-        "B_F3",
-        "B_F4",
-        "B_F5"
+        "Key::Empty",
+        "Key::ChannelA",
+        "Key::Service",
+        "Key::ChannelB",
+        "Key::Display",
+        "Key::Time",
+        "Key::Memory",
+        "Key::Trig",
+        "Key::Start",
+        "Key::Cursors",
+        "Key::Measures",
+        "Key::Power",
+        "Key::Help",
+        "Key::Menu",
+        "Key::F1",
+        "Key::F2",
+        "Key::F3",
+        "Key::F4",
+        "Key::F5"
     };
 
-    return namesButtons[button];
+    return names[button];
 }
 
 
-PanelButton& operator++(PanelButton &button)
+Key::E& operator++(Key::E &button)
 {
-    button = (PanelButton)((int)button + 1);
+    button = (Key::E)((int)button + 1);
     return button;
 }

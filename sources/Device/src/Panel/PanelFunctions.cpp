@@ -27,24 +27,24 @@ void HelpLong()
 
 void ChannelALong()
 {
-    Menu::Handlers::LongPressureButton(B_ChannelA);
+    Menu::Handlers::LongPressureButton(Key::ChannelA);
 }
 
 void ChannelBLong()
 {
-    Menu::Handlers::LongPressureButton(B_ChannelB);
+    Menu::Handlers::LongPressureButton(Key::ChannelB);
 }
 
 void TimeLong()
 {
-    Menu::Handlers::LongPressureButton(B_Time);
+    Menu::Handlers::LongPressureButton(Key::Time);
 }
 
 void TrigLong()
 {
     if (MODE_LONG_PRESS_TRIG_IS_LEVEL0)
     {
-        Menu::Handlers::LongPressureButton(B_Trig);
+        Menu::Handlers::LongPressureButton(Key::Trig);
     }
     else
     {
@@ -52,19 +52,19 @@ void TrigLong()
     }
 }
 
-void StartDown()                        // B_Start
+void StartDown()                        // Key::Start
 {
     if (MODE_WORK_IS_DIRECT)
     {
-        Menu::Handlers::PressButton(B_Start);
+        Menu::Handlers::PressButton(Key::Start);
     }
 }
 
-void PowerDown()                        // B_Power
+void PowerDown()                        // Key::Power
 {
     Menu::ShortPressOnPageItem((Page *)Menu::OpenedItem(), 0);
     Settings::SaveBeforePowerDown();
-    Log_DisconnectLoggerUSB();
+    Log::DisconnectLoggerUSB();
 
     if (TIME_MS > 1000)
     {
@@ -74,32 +74,32 @@ void PowerDown()                        // B_Power
 
 void MenuLong() 
 {
-    Menu::Handlers::LongPressureButton(B_Menu);
+    Menu::Handlers::LongPressureButton(Key::Menu);
 }
 
 void F1Long()
 {
-    Menu::Handlers::LongPressureButton(B_F1);
+    Menu::Handlers::LongPressureButton(Key::F1);
 }
 
 void F2Long()
 {
-    Menu::Handlers::LongPressureButton(B_F2);
+    Menu::Handlers::LongPressureButton(Key::F2);
 }
 
 void F3Long()
 {
-    Menu::Handlers::LongPressureButton(B_F3);
+    Menu::Handlers::LongPressureButton(Key::F3);
 }
 
 void F4Long()
 {
-    Menu::Handlers::LongPressureButton(B_F4);
+    Menu::Handlers::LongPressureButton(Key::F4);
 }
 
 void F5Long()
 {
-    Menu::Handlers::LongPressureButton(B_F5);
+    Menu::Handlers::LongPressureButton(Key::F5);
 }
 
 
@@ -203,7 +203,7 @@ void ChangeTrigLev(int *prevTime, void(*f)(TrigSource::E, int16), TrigSource::E 
 void ChangeTShift(int *prevTime, void(*f)(int), int16 relStep)
 {
     int count = CalculateCount(prevTime);
-    int tShiftOld = TSHIFT;
+    int tShiftOld = SET_TSHIFT;
     float step = relStep * count;
     if (step < 0)
     {
@@ -220,7 +220,7 @@ void ChangeTShift(int *prevTime, void(*f)(int), int16 relStep)
         }
     }
 
-    int16 tShift = TSHIFT + step;
+    int16 tShift = SET_TSHIFT + step;
     if (((tShiftOld > 0) && (tShift < 0)) || (tShiftOld < 0 && tShift > 0))
     {
         tShift = 0;
@@ -309,7 +309,7 @@ static void SetTShift(int tShift)
 void XShift(int delta)
 {
     static int prevTime = 0;
-    if (!FPGA::IsRunning() || TIME_DIV_XPOS_IS_SHIFT_IN_MEMORY)
+    if (!FPGA::IsRunning() || SET_TIME_DIV_XPOS_IS_SHIFT_IN_MEMORY)
     {
         if (!ENUM_POINTS_IS_281)
         {
@@ -332,25 +332,25 @@ void TShiftRight()
     XShift(1);
 }
 
-void Range0Left()
+void RangeLeftA()
 {
     Sound::RegulatorSwitchRotate();
     Range::Increase(Chan::A);
 }
 
-void Range0Right()
+void RangeRightA()
 {
     Sound::RegulatorSwitchRotate();
     Range::Decrease(Chan::A);
 }
 
-void Range1Left()
+void RangeLeftB()
 {
     Sound::RegulatorSwitchRotate();
     Range::Increase(Chan::B);
 }
 
-void Range1Right()
+void RangeRightB()
 {
     Sound::RegulatorSwitchRotate();
     Range::Decrease(Chan::B);

@@ -128,7 +128,7 @@ class Page : public     Control
 public:
     NamePage            name;                               // Имя из перечисления NamePage
     const arrayItems   *items;                              // Здесь указатели на пункты этой страницы (в обычной странице)
-                                                            // для страницы малых кнопок  здесь хранятся 6 указателей на SmallButton : 0 - B_Menu, 1...5 - B_F1...B_F5
+                                                            // для страницы малых кнопок  здесь хранятся 6 указателей на SmallButton : 0 - Key::Menu, 1...5 - Key::F1...Key::F5
     pFuncVV             funcOnPress;                        // Будет вызываться при нажатии на свёрнутую страницу
     pFuncVV             funcOnDraw;                         // Будет вызываться после отрисовки кнопок
     pFuncVI             funcRegSetSB;                       // В странице малых кнопок вызывается при повороте ручки установка

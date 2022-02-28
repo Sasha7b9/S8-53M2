@@ -11,24 +11,6 @@
 #include <string.h>
 
 
-const float tableScalesRange[Range::Count] = {2e-3f, 5e-3f, 10e-3f, 20e-3f, 50e-3f, 100e-3f, 200e-3f, 500e-3f, 1.0f, 2.0f, 5.0f, 10.0f, 20.0f};
-
-const float absStepRShift[] =
-{
-    2e-3f   / 20 / RShift::STEP,
-    5e-3f   / 20 / RShift::STEP,
-    10e-3f  / 20 / RShift::STEP,
-    20e-3f  / 20 / RShift::STEP,
-    50e-3f  / 20 / RShift::STEP,
-    100e-3f / 20 / RShift::STEP,
-    200e-3f / 20 / RShift::STEP,
-    500e-3f / 20 / RShift::STEP,
-    1.0f    / 20 / RShift::STEP,
-    2.0f    / 20 / RShift::STEP,
-    5.0f    / 20 / RShift::STEP,
-    10.0f   / 20 / RShift::STEP,
-    20.0f   / 20 / RShift::STEP
-};
 
 // Столько вольт в одной точке экрана
 const float voltsInPixel[Range::Count] =
@@ -48,25 +30,8 @@ const float voltsInPixel[Range::Count] =
     20.0f   / 20   // 20V
 };
 
-// Столько вольт в 1/250 амлитуды сигнала, растянутого на полный экран
-const float voltsInPoint[Range::Count] =
-{
-    2e-3f   * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 2mV
-    5e-3f   * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 5mV
-    10e-3f  * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 10mV
-    20e-3f  * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 20mV
-    50e-3f  * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 50mV
-    100e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 100mV
-    200e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 200mV
-    500e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 500mV
-    1.0f    * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 1V
-    2.0f    * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 2V
-    5.0f    * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 5V
-    10.0f   * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 10V
-    20.0f   * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN)   // 20V
-};
 
-const int voltsInPixelInt[] =   // Коэффициент 20000
+const int voltsInPixelInt[Range::Count] =   // Коэффициент 20000
 {
     2,      // 2
     5,      // 5
@@ -83,13 +48,6 @@ const int voltsInPixelInt[] =   // Коэффициент 20000
     20000   // 20
 };
 
-const float absStepTShift[] =
-{
-    2e-9f / 20, 5e-9f / 20, 10e-9f / 20, 20e-9f / 20, 50e-9f / 20, 100e-9f / 20, 200e-9f / 20, 500e-9f / 20,
-    1e-6f / 20, 2e-6f / 20, 5e-6f / 20, 10e-6f / 20, 20e-6f / 20, 50e-6f / 20, 100e-6f / 20, 200e-6f / 20, 500e-6f / 20,
-    1e-3f / 20, 2e-3f / 20, 5e-3f / 20, 10e-3f / 20, 20e-3f / 20, 50e-3f / 20, 100e-3f / 20, 200e-3f / 20, 500e-3f / 20,
-    1.0f / 20, 2.0f / 20, 5.0f / 20, 10.0f / 20
-};
 
 int Math::MinFrom2Int(int val0, int val1)
 {
@@ -103,13 +61,13 @@ int Math::MinFrom2Int(int val0, int val1)
 
 float Math::VoltageCursor(float shiftCurU, Range::E range, RShift rShift)
 {
-    return MAX_VOLTAGE_ON_SCREEN(range) - shiftCurU * voltsInPixel[range] - rShift.ToAbs(range);
+    return Range::MaxOnScreen(range) - shiftCurU * voltsInPixel[range] - rShift.ToAbs(range);
 }
 
 
 float Math::TimeCursor(float shiftCurT, TBase::E tBase)
 {
-    return shiftCurT * absStepTShift[tBase];
+    return shiftCurT * TShift::absStep[tBase];
 }
 
 
@@ -158,53 +116,6 @@ void Math_DataExtrapolation(uint8 *data, uint8 *there, int size)
     }
 }
 
-void Math_PointsRelToVoltage(const uint8 *points, int numPoints, Range::E range, RShift rShift, float *voltage)
-{
-    int voltInPixel = voltsInPixelInt[range];
-    float maxVoltsOnScreen = MAX_VOLTAGE_ON_SCREEN(range);
-    float rShiftAbs = rShift.ToAbs(range);
-    int diff = (ValueFPGA::MIN * voltInPixel) + (maxVoltsOnScreen + rShiftAbs) * 20e3f;
-    float koeff = 1.0f / 20e3f;
-
-    for (int i = 0; i < numPoints; i++)
-    {
-        voltage[i] = (float)(points[i] * voltInPixel - diff) * koeff;
-    }
-}
-
-void Math_PointsVoltageToRel(const float *voltage, int numPoints, Range::E range, RShift rShift, uint8 *points)
-{
-    float maxVoltOnScreen = MAX_VOLTAGE_ON_SCREEN(range);
-    float rShiftAbs = rShift.ToAbs(range);
-    float voltInPixel = 1.0f / voltsInPixel[range];
-
-    float add = maxVoltOnScreen + rShiftAbs;
-
-    float delta = add * voltInPixel + ValueFPGA::MIN;
-
-    for (int i = 0; i < numPoints; i++)
-    {
-        int value = voltage[i] * voltInPixel + delta;
-        if (value < 0)
-        {
-            points[i] = 0;
-            continue;
-        }
-        else if (value > 255)
-        {
-            points[i] = 255;
-            continue;
-        }
-        points[i] = (uint8)value;
-    }
-}
-
-uint8 Math_VoltageToPoint(float voltage, Range::E range, RShift rShift)
-{
-    int relValue = (voltage + MAX_VOLTAGE_ON_SCREEN(range) + rShift.ToAbs(range)) / voltsInPixel[range] + ValueFPGA::MIN;
-    LIMITATION(relValue, relValue, 0, 255);
-    return (uint8)relValue;
-}
 
 float Math_GetIntersectionWithHorizontalLine(int x0, int y0, int x1, int y1, int yHorLine)
 {
@@ -216,6 +127,7 @@ float Math_GetIntersectionWithHorizontalLine(int x0, int y0, int x1, int y1, int
     return (yHorLine - y0) / ((float)(y1 - y0) / (float)(x1 - x0)) + x0;
 }
 
+
 bool Math_FloatsIsEquals(float value0, float value1, float epsilonPart)
 {
     float max = fabs(value0) > fabs(value1) ? fabs(value0) : fabs(value1);
@@ -224,6 +136,7 @@ bool Math_FloatsIsEquals(float value0, float value1, float epsilonPart)
 
     return fabs(value0 - value1) < epsilonAbs;
 }
+
 
 float Math_MinFrom3float(float value1, float value2, float value3)
 {
@@ -238,6 +151,7 @@ float Math_MinFrom3float(float value1, float value2, float value3)
     }
     return retValue;
 }
+
 
 int Math_MinInt(int val1, int val2)
 {
@@ -337,13 +251,13 @@ static void MultiplyToWindow(float *data, int numPoints)
 
 void Math_CalculateFFT(float *dataR, int numPoints, float *result, float *freq0, float *density0, float *freq1, float *density1, int *y0, int *y1)
 {
-    float scale = 1.0f / absStepTShift[SET_TBASE] / 1024.0f;
+    float scale = 1.0f / TShift::absStep[SET_TBASE] / 1024.0f;
 
     float K = 1024.0 / numPoints;
 
     *freq0 = scale * FFT_POS_CURSOR_0 * K;
     *freq1 = scale * FFT_POS_CURSOR_1 * K;
-    if (PEAKDET_IS_ENABLE)
+    if (SET_PEAKDET_IS_ENABLE)
     {
         *freq0 *= 2;
         *freq1 *= 2;
@@ -722,13 +636,66 @@ void Math_CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoints
 
 float ValueFPGA::ToVoltage(uint8 value, Range::E range, RShift rShift)
 {
-    return (((float)value - (float)ValueFPGA::MIN) * voltsInPoint[range] - MAX_VOLTAGE_ON_SCREEN(range) - rShift.ToAbs(range));
+    return (((float)value - (float)ValueFPGA::MIN) * Range::voltsInPoint[range] - Range::MaxOnScreen(range) - rShift.ToAbs(range));
+}
+
+
+void ValueFPGA::ToVoltage(const uint8 *points, int numPoints, Range::E range, RShift rShift, float *voltage)
+{
+    int voltInPixel = voltsInPixelInt[range];
+    float maxVoltsOnScreen = Range::MaxOnScreen(range);
+    float rShiftAbs = rShift.ToAbs(range);
+    int diff = (ValueFPGA::MIN * voltInPixel) + (maxVoltsOnScreen + rShiftAbs) * 20e3f;
+    float koeff = 1.0f / 20e3f;
+
+    for (int i = 0; i < numPoints; i++)
+    {
+        voltage[i] = (float)(points[i] * voltInPixel - diff) * koeff;
+    }
+}
+
+
+uint8 ValueFPGA::FromVoltage(float voltage, Range::E range, RShift rshift)
+{
+    int result = (voltage + Range::MaxOnScreen(range) + rshift.ToAbs(range)) / voltsInPixel[range] + ValueFPGA::MIN;
+
+    LIMITATION(result, result, 0, 255);
+
+    return (uint8)result;
+}
+
+
+void ValueFPGA::FromVoltage(const float *voltage, int numPoints, Range::E range, RShift rShift, uint8 *points)
+{
+    float maxVoltOnScreen = Range::MaxOnScreen(range);
+    float rShiftAbs = rShift.ToAbs(range);
+    float voltInPixel = 1.0f / voltsInPixel[range];
+
+    float add = maxVoltOnScreen + rShiftAbs;
+
+    float delta = add * voltInPixel + ValueFPGA::MIN;
+
+    for (int i = 0; i < numPoints; i++)
+    {
+        int value = voltage[i] * voltInPixel + delta;
+        if (value < 0)
+        {
+            points[i] = 0;
+            continue;
+        }
+        else if (value > 255)
+        {
+            points[i] = 255;
+            continue;
+        }
+        points[i] = (uint8)value;
+    }
 }
 
 
 float RShift::ToAbs(Range::E range)
 {
-    return (-((float)RShift::ZERO - (float)(value)) * absStepRShift[(uint)(range)]);
+    return (-((float)RShift::ZERO - (float)(value)) * RShift::absStep[range]);
 }
 
 

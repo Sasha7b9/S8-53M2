@@ -137,9 +137,9 @@ int Menu::PosItemOnTop(Page *page)
 }
 
 
-bool Menu::IsFunctionalButton(PanelButton button)
+bool Menu::IsFunctionalButton(Key::E button)
 {
-    return button >= B_F1 && button <= B_F5;
+    return button >= Key::F1 && button <= Key::F5;
 }
 
 
@@ -195,7 +195,7 @@ void Menu::CloseOpenedItem()
     {
         if (PageIsSB((const Page *)item))                               // Для страницы малых кнопок
         {
-            SmallButton *sb = SmallButonFromPage((Page *)item, 0);      // Выполняем функцию нажатия кнопки B_Menu
+            SmallButton *sb = SmallButonFromPage((Page *)item, 0);      // Выполняем функцию нажатия кнопки Key::Menu
             if (sb->funcOnPress)                                        // Если она есть
             {
                 sb->funcOnPress();

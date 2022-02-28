@@ -12,7 +12,10 @@ namespace Storage
     void Clear();
 
     // Добавить считанные данные. При этом настройками считаются текущие настройки прибора.
-    void AddData(uint8 *data0, uint8 *data1, DataSettings dss);
+    void AddData(uint8 *dataA, uint8 *dataB, DataSettings);
+
+    // Сколько всего измерений сохранено в памяти.
+    int NumElements();
 
     // Возвращает число непрерывных измерений, начиная с последнего, с такими же настройками, как у последнего.
     int NumElementsWithSameSettings();
@@ -20,19 +23,13 @@ namespace Storage
     // Возвращает число непрерывных измерений, начиная с последнего, с текущими настройками прибора
     int NumElementsWithCurrentSettings();
 
-    // Возвращает количество сохранённых измерений
-    int NumElementsInStorage();
-
     // Получить указатель на данные
-    bool GetDataFromEnd(int fromEnd, DataSettings **ds, uint8 **data0, uint8 **data1);
+    bool GetData(int fromEnd, DataSettings **ds, uint8 **data0, uint8 **data1);
 
     uint8* GetData(Chan::E, int fromEnd);
 
     // Получить усреднённые данные по нескольким измерениям.
     uint8* GetAverageData(Chan::E);
-
-    // Сколько всего измерений сохранено в памяти.
-    int AllDatas();
 
     // Получить ограничивающую линию сигнала 0 - снизу, 1 - сверху.
     uint8* GetLimitation(Chan::E, int direction);                                      
@@ -50,4 +47,16 @@ namespace Storage
     extern uint8        *dataIntA;    // | Здесь данные из ППЗУ, которые должны выводиться на экран
     extern uint8        *dataIntB;    //-/
     extern DataSettings *dsInt;       //--
+
+    namespace P2P
+    {
+        // Создать новый фрейм поточечного вывода.
+        void CreateFrame(DataSettings);
+
+        // Сбросить точки текущего фрейма
+        void Reset();
+
+        // Добавить точки в текущий фрейм
+        void AddPoints(BitSet16 dataA, BitSet16 dataB);
+    }
 };

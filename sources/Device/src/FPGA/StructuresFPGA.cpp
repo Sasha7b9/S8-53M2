@@ -14,26 +14,7 @@ namespace FPGA
         static int pred = 0;    // Пред- и после- запуски хранятся в точках.
         static int post = 0;    // Перед засылкой их нужно уменьшать в два раза, потому что две точки считываются за раз
 
-        static const int8 d_pred[TBase::Count] =   // Дополнительное смещение для предзапуска
-        {//  2    5   10   20   50  100  200
-            10,  10,  10,  10,  10,   5,   3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-        };
-
-        static const int8 d_post[TBase::Count] =   // Дополнительное смещение для послезапуска
-        {//  2    5   10   20   50  100  200
-            10,  20,  10,  10,  10,   5,   3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-        };
-
-//        static const int8 d_read[TBase::Count] =   // Дополнительное смещение для чтения адреса
-//        {// 2    5   10   20   50  100  200
-//            0,   0,   0,   0,   0,   0,   0,   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-//        };
-
         void Calculate();
-
-        void CalculateReal();
-
-        void CalculateRandomize();
 
         // Возвращают значение, готовое для записи в ПЛИС
         uint16 PostForWrite();
@@ -55,61 +36,89 @@ void FPGA::Launch::Load()
 
 uint16 FPGA::Launch::PostForWrite()
 {
-    int result = post + d_post[SET_TBASE];
-
-    return (uint16)(~result);
+    return (uint16)(~post);
 }
 
 
 uint16 FPGA::Launch::PredForWrite()
 {
-    int result = pred + d_pred[SET_TBASE];
-
-    return (uint16)(~result);
+    return (uint16)(~pred);
 }
+
+
+uint16 FPGA::Reader::CalculateAddressRead()
+{
+    if (TBase::InModeRandomizer())
+    {
+        //                            2ns 5ns 10ns 20ns
+        static const int shift[4] = { 44, 44, 42,  40 };
+
+        return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) - ENUM_POINTS_FPGA::ToNumBytes() / TBase::StretchRand() - shift[SET_TBASE]);
+    }
+    else
+    {
+        return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) - ENUM_POINTS_FPGA::ToNumBytes());
+    }
+}
+
 
 
 void FPGA::Launch::Calculate()
 {
-    if (TBase::InRandomizeMode())
-    {
-        CalculateRandomize();
-    }
-    else
-    {
-        CalculateReal();
-    }
-}
+    static const int8 d_pred[TBase::Count] =   // Дополнительное смещение для предзапуска
+    {//  2    5   10   20   50  100  200 500                ns
+        50,  50,  50,  50,  10,   5,   3,  0, 
+     // 1                                                   us
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    };
 
+    static const int8 d_post[TBase::Count] =   // Дополнительное смещение для послезапуска
+    {//  2    5   10   20   50  100  200 500                ns
+        50,  50,  50,  50,  10,   5,   3,  0,
+     // 1                                                   us
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    };
 
-void FPGA::Launch::CalculateReal()
-{
     int num_bytes = ENUM_POINTS_FPGA::ToNumBytes();
 
-    int values[TPos::Count] = { num_bytes, num_bytes / 2, 0 };
+    int values[TPos::Count] = {num_bytes, num_bytes / 2, 0};
 
     pred = post = values[SET_TPOS];
 
-    int tShift = TSHIFT * (PEAKDET_IS_ENABLE ? 2 : 1);
+    int tShift = SET_TSHIFT * (SET_PEAKDET_IS_ENABLE ? 2 : 1);
 
     pred = Math::Limitation(pred - tShift * 2, 0, 65535);
 
     post = Math::Limitation(post + tShift * 2, 0, 65535);
 
-    if (pred + post < num_bytes)
+    if (TBase::InModeRandomizer())
     {
-        post = num_bytes - pred;
+        if (pred + post < num_bytes)
+        {
+            post = num_bytes - pred;
+        }
+
+        int stretch = TBase::StretchRand();
+
+        pred = pred / stretch + d_pred[SET_TBASE];
+        post = post / stretch + d_post[SET_TBASE];
     }
-}
+    else
+    {
+        pred += d_pred[SET_TBASE];
+        post += d_post[SET_TBASE];
 
-
-void FPGA::Launch::CalculateRandomize()
-{
-    CalculateReal();
-
+<<<<<<< HEAD
     pred /= TBase::StretchRand();
     post /= TBase::StretchRand();
 
     pred++;
     post++;
+=======
+        if (pred + post < num_bytes)
+        {
+            post = num_bytes - pred;
+        }
+    }
+>>>>>>> 71fa8ffc5385440867c42a9e25b920ed9f403fd6
 }

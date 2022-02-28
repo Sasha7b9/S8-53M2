@@ -58,16 +58,15 @@ namespace FPGA
     void ProcessingData();
 
     // Прочитать данные.
-    // necessaryShift - Признак того, что сигнал нужно смещать.
-    // saveToStorage - Нужно в режиме рандомизатора для указания, что пора сохранять измерение
-    void DataRead(bool necessaryShift, bool saveToStorage);
+    void DataRead();
 
-    void ReadRealMode(bool necessaryShift);
+    void ReadPoints();
 
     // Инвертирует данные.
     void InverseDataIsNecessary(Chan::E, Buffer<uint8> &data);
 
-    int CalculateShift();
+    // Смещение с АЦП рандомизатора
+    int ShiftRandomizerADC();
 
     bool CalculateGate(uint16 rand, uint16 *min, uint16 *max);
 
@@ -172,7 +171,7 @@ void FPGA::ProcessingData()
 
         Stop(true);
 
-        DataRead(_GET_BIT(flag, FL_LAST_RECOR), true);
+        DataRead();
 
         if (!START_MODE_IS_SINGLE)
         {
@@ -215,25 +214,26 @@ void FPGA::SwitchingTrig()
 
 void FPGA::Start()
 {
-    if (!TBase::InRandomizeMode())
+    if (!TBase::InModeRandomizer())
     {
         ClearData();
     }
 
-    if (SET_TBASE >= TBase::MIN_P2P)
+    ds.Init();
+
+    if (TBase::InModeP2P())
     {
-        Display::ResetP2Ppoints(false);
+        Storage::P2P::CreateFrame(ds);
         Timer::Enable(TypeTimer::P2P, 1, ReadPoint);
     }
     else
     {
         Timer::Disable(TypeTimer::P2P);
-        Display::ResetP2Ppoints(true);
     }
 
     HAL_FMC::Write(WR_PRED, FPGA::Launch::PredForWrite());
     HAL_FMC::Write(WR_START, 1);
-    ds.FillDataPointer();
+
     timeStart = TIME_MS;
     StateWorkFPGA::SetCurrent(StateWorkFPGA::Wait);
 
@@ -328,54 +328,47 @@ void BUS_FPGA::WriteAnalog(TypeWriteAnalog::E type, uint data)
 }
 
 
-void FPGA::DataRead(bool necessaryShift, bool saveToStorage)
+void FPGA::DataRead()
 {
     Panel::EnableLEDTrig(false);
 
     IN_PROCESS_READ = true;
 
-    ReadRealMode(necessaryShift);
+    ReadPoints();
 
-    static uint prevTime = 0;
-
-    if (saveToStorage || (TIME_MS - prevTime > 500))
+    if (!TBase::InModeRandomizer())
     {
-        prevTime = TIME_MS;
+        InverseDataIsNecessary(Chan::A, dataReadA);
+        InverseDataIsNecessary(Chan::B, dataReadB);
+    }
 
-        if (!TBase::InRandomizeMode())
-        {
-            InverseDataIsNecessary(Chan::A, dataReadA);
-            InverseDataIsNecessary(Chan::B, dataReadB);
-        }
+    Storage::AddData(dataReadA.Data(), dataReadB.Data(), ds);
 
-        Storage::AddData(dataReadA.Data(), dataReadB.Data(), ds);
+    if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)
+    {
+        FPGA::FindAndSetTrigLevel();
 
-        if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)
-        {
-            FPGA::FindAndSetTrigLevel();
-
-            TRIG_AUTO_FIND = false;
-        }
+        TRIG_AUTO_FIND = false;
     }
 
     IN_PROCESS_READ = false;
 }
 
 
-void FPGA::ReadRealMode(bool necessaryShift)
+void FPGA::ReadPoints()
 {
     HAL_FMC::Write(WR_PRED, Reader::CalculateAddressRead());
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
-    uint8 *pA = dataReadA.Data();
-    uint8 *pB = dataReadB.Data();
-    uint8 *endA = dataReadA.Last();
+    uint8 *a = dataReadA.Data();
+    uint8 *b = dataReadB.Data();
+    const uint8 *const endA = dataReadA.Last();
 
-    if (PEAKDET_IS_ENABLE)
+    if (SET_PEAKDET_IS_ENABLE)
     {
-        uint8 *p_minA = pA;
+        uint8 *p_minA = a;
         uint8 *p_maxA = p_minA + ENUM_POINTS_FPGA::ToNumPoints();
-        uint8 *p_minB = pB;
+        uint8 *p_minB = b;
         uint8 *p_maxB = p_minB + ENUM_POINTS_FPGA::ToNumPoints();
 
         BitSet16 data;
@@ -404,41 +397,27 @@ void FPGA::ReadRealMode(bool necessaryShift)
     }
     else
     {
+        const int shift_rand = ShiftRandomizerADC();
+        a += shift_rand;
+        b += shift_rand;
+
         BitSet16 data;
 
-        while (pA < endA && IN_PROCESS_READ)
-        {
-            data.half_word = *RD_ADC_B;
-            *pB++ = data.byte0;
-            *pB++ = data.byte1;
+        const int stretch = TBase::StretchRand();
 
+        while (a < endA && IN_PROCESS_READ)
+        {
             data.half_word = *RD_ADC_A;
-            *pA++ = data.byte0;
-            *pA++ = data.byte1;
-        }
+            *a = data.byte0;
+            a += stretch;
+            *a = data.byte1;
+            a += stretch;
 
-        int shift = necessaryShift ? -1 : 0;
-
-        if (shift != 0)
-        {
-            if (shift < 0)
-            {
-                shift = -shift;
-
-                for (int i = FPGA::MAX_POINTS - shift - 1; i >= 0; i--)
-                {
-                    dataReadA[i + shift] = dataReadA[i];
-                    dataReadB[i + shift] = dataReadB[i];
-                }
-            }
-            else
-            {
-                for (int i = shift; i < FPGA::MAX_POINTS; i++)
-                {
-                    dataReadA[i - shift] = dataReadA[i];
-                    dataReadB[i - shift] = dataReadB[i];
-                }
-            }
+            data.half_word = *RD_ADC_B;
+            *b = data.byte0;
+            b += stretch;
+            *b = data.byte1;
+            b += stretch;
         }
     }
 }
@@ -458,38 +437,43 @@ void FPGA::InverseDataIsNecessary(Chan::E ch, Buffer<uint8> &data)
 }
 
 
-int FPGA::CalculateShift()
+int FPGA::ShiftRandomizerADC()
 {
-    uint16 rand = HAL_ADC1::GetValue();
-
-    uint16 min = 0;
-    uint16 max = 0;
-
-    if (SET_TBASE == TBase::_200ns)
+    if (TBase::InModeRandomizer())
     {
-        return rand < 3000 ? 0 : -1;    // set.debug.altShift; \todo Остановились на жёстком задании дополнительного смещения. На PageDebug выбор 
-                                        // закомментирован, можно раскомментировать при необходимости
+        uint16 rand = HAL_ADC1::GetValue();
+
+        uint16 min = 0;
+        uint16 max = 0;
+
+        if (SET_TBASE == TBase::_200ns)
+        {
+            return rand < 3000 ? 0 : -1;    // set.debug.altShift; \todo Остановились на жёстком задании дополнительного смещения. На PageDebug выбор 
+                                            // закомментирован, можно раскомментировать при необходимости
+        }
+
+        if (!CalculateGate(rand, &min, &max))
+        {
+            return TShift::EMPTY;
+        }
+
+        if (TBase::InModeRandomizer())
+        {
+            float tin = (float)(rand - min) / (float)(max - min) * 10e-9f;
+            int retValue = (int)(tin / 10e-9f * (float)TBase::StretchRand());
+            return retValue;
+        }
+
+        if (SET_TBASE == TBase::_100ns && rand < (min + max) / 2)
+        {
+            return 0;
+        }
+
+        return -1;  // set.debug.altShift;      \todo Остановились на жёстком задании дополнительного смещения. На PageDebug выбор закомментирован, 
+                                                //можно раскомментировать при необходимости
     }
 
-    if (!CalculateGate(rand, &min, &max))
-    {
-        return TShift::EMPTY;
-    }
-
-    if (TBase::InRandomizeMode())
-    {
-        float tin = (float)(rand - min) / (float)(max - min) * 10e-9f;
-        int retValue = (int)(tin / 10e-9f * (float)TBase::StretchRand());
-        return retValue;
-    }
-
-    if (SET_TBASE == TBase::_100ns && rand < (min + max) / 2)
-    {
-        return 0;
-    }
-
-    return -1;  // set.debug.altShift;      \todo Остановились на жёстком задании дополнительного смещения. На PageDebug выбор закомментирован, 
-                                            //можно раскомментировать при необходимости
+    return 0;
 }
 
 
@@ -573,8 +557,8 @@ void FPGA::ClearData()
     dataReadA.Realloc(num_bytes);
     dataReadB.Realloc(num_bytes);
 
-    dataReadA.Fill(0);
-    dataReadB.Fill(0);
+    dataReadA.Fill(ValueFPGA::NONE);
+    dataReadB.Fill(ValueFPGA::NONE);
 }
 
 
@@ -582,13 +566,10 @@ void FPGA::ReadPoint()
 {
     if (_GET_BIT(ReadFlag(), FL_POINT))
     {
-        BitSet16 dataA;
-        BitSet16 dataB;
+        BitSet16 dataA(*RD_ADC_A);
+        BitSet16 dataB(*RD_ADC_B);
 
-        dataB.half_word = *RD_ADC_B;
-        dataA.half_word = *RD_ADC_A;
-
-        Display::AddPoints(dataA.byte0, dataA.byte1, dataB.byte0, dataB.byte1);
+        Storage::P2P::AddPoints(dataA, dataB);
     }
 }
 

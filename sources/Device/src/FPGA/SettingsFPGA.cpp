@@ -13,6 +13,53 @@
 StateWorkFPGA::E StateWorkFPGA::current = StateWorkFPGA::Stop;
 
 
+const float Range::scale[Range::Count] = {2e-3f, 5e-3f, 10e-3f, 20e-3f, 50e-3f, 100e-3f, 200e-3f, 500e-3f, 1.0f, 2.0f, 5.0f, 10.0f, 20.0f};
+
+const float TShift::absStep[TBase::Count] =
+{
+    2e-9f / 20, 5e-9f / 20, 10e-9f / 20, 20e-9f / 20, 50e-9f / 20, 100e-9f / 20, 200e-9f / 20, 500e-9f / 20,
+    1e-6f / 20, 2e-6f / 20, 5e-6f / 20, 10e-6f / 20, 20e-6f / 20, 50e-6f / 20, 100e-6f / 20, 200e-6f / 20, 500e-6f / 20,
+    1e-3f / 20, 2e-3f / 20, 5e-3f / 20, 10e-3f / 20, 20e-3f / 20, 50e-3f / 20, 100e-3f / 20, 200e-3f / 20, 500e-3f / 20,
+    1.0f / 20, 2.0f / 20, 5.0f / 20, 10.0f / 20
+};
+
+
+const float Range::voltsInPoint[Range::Count] =
+{
+    2e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 2mV
+    5e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 5mV
+    10e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 10mV
+    20e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 20mV
+    50e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 50mV
+    100e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 100mV
+    200e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 200mV
+    500e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 500mV
+    1.0f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 1V
+    2.0f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 2V
+    5.0f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 5V
+    10.0f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 10V
+    20.0f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN)   // 20V
+};
+
+
+const float RShift::absStep[Range::Count] =
+{
+    2e-3f / 20 / RShift::STEP,
+    5e-3f / 20 / RShift::STEP,
+    10e-3f / 20 / RShift::STEP,
+    20e-3f / 20 / RShift::STEP,
+    50e-3f / 20 / RShift::STEP,
+    100e-3f / 20 / RShift::STEP,
+    200e-3f / 20 / RShift::STEP,
+    500e-3f / 20 / RShift::STEP,
+    1.0f / 20 / RShift::STEP,
+    2.0f / 20 / RShift::STEP,
+    5.0f / 20 / RShift::STEP,
+    10.0f / 20 / RShift::STEP,
+    20.0f / 20 / RShift::STEP
+};
+
+
 namespace FPGA
 {
     // Добавочные смещения по времени для разверёток режима рандомизатора.
@@ -33,7 +80,7 @@ namespace FPGA
 
 void FPGA::LoadSettings()
 {
-    TShift::Set(TSHIFT);
+    TShift::Set(SET_TSHIFT);
     TBase::Load();
     Range::Load(ChA);
     RShift::Load(ChA);
@@ -163,10 +210,10 @@ void TBase::Set(TBase::E tBase)
     }
     if (tBase < TBase::Count && (int)tBase >= 0)
     {
-        float tShiftAbsOld = TSHIFT_2_ABS(TSHIFT, SET_TBASE);
+        float tShiftAbsOld = TShift::ToAbs(SET_TSHIFT, SET_TBASE);
         SET_TBASE = tBase;
         Load();
-        TShift::Set(TSHIFT_2_REL(tShiftAbsOld, SET_TBASE));
+        TShift::Set(TShift::ToRel(tShiftAbsOld, SET_TBASE));
         Display::Redraw();
     }
     else
@@ -219,7 +266,7 @@ void TBase::Load()
     };
 
     TBase::E tBase = SET_TBASE;
-    uint8 mask = PEAKDET_IS_ENABLE ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
+    uint8 mask = SET_PEAKDET_IS_ENABLE ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
     BUS_FPGA::Write(WR_RAZV, mask, true);
     ADD_SHIFT_T0 = FPGA::deltaTShift[tBase];
 }
@@ -227,7 +274,7 @@ void TBase::Load()
 
 void TBase::Decrease()
 {
-    if (PEAKDET_IS_ENABLE && (SET_TBASE <= TBase::MIN_PEC_DEAT))
+    if (SET_PEAKDET_IS_ENABLE && (SET_TBASE <= TBase::MIN_PEC_DEAT))
     {
         Display::ShowWarningBad(LimitSweep_Time);
         Display::ShowWarningBad(EnabledPeakDet);
@@ -376,7 +423,7 @@ void TShift::Set(int tShift)
         Display::ShowWarningBad(LimitSweep_TShift);
     }
 
-    TSHIFT = (int16)tShift;
+    SET_TSHIFT = (int16)tShift;
 
     FPGA::Launch::Load();
 
@@ -394,7 +441,7 @@ void TShift::SetDelta(int shift)
 
 void PeackDetMode::Set(PeackDetMode::E peackDetMode)
 {
-    PEAKDET = peackDetMode;
+    SET_PEAKDET = peackDetMode;
     FPGA::LoadRegUPR();
 }
 
@@ -410,12 +457,12 @@ void FPGA::LoadRegUPR()
 {
     uint8 data = 0;
 
-    if (TBase::InRandomizeMode())
+    if (TBase::InModeRandomizer())
     {
         _SET_BIT(data, 0);
     }
 
-    if (!PEAKDET_IS_DISABLE)
+    if (!SET_PEAKDET_IS_DISABLE)
     {
         _SET_BIT(data, 1);
     }
@@ -442,7 +489,7 @@ void FPGA::LoadKoeffCalibration(Chan::E ch)
 
 pchar TShift::ToString(int tShiftRel, char buffer[20])
 {
-    float tShiftVal = TSHIFT_2_ABS(tShiftRel, SET_TBASE);
+    float tShiftVal = TShift::ToAbs(tShiftRel, SET_TBASE);
     return Time2String(tShiftVal, true, buffer);
 }
 
@@ -532,9 +579,15 @@ void Filtr::Enable(Chan::E ch, bool enable)
 }
 
 
-bool TBase::InRandomizeMode()
+bool TBase::InModeRandomizer()
 {
     return SET_TBASE <= MAX_RAND;
+}
+
+
+bool TBase::InModeP2P()
+{
+    return SET_TBASE >= MIN_P2P;
 }
 
 
@@ -578,7 +631,7 @@ int TPos::InPoints(ENUM_POINTS_FPGA::E enum_points, TPos::E tPos)
 
 int RShift::ToRel(float rShiftAbs, Range::E range)
 {
-    int retValue = ZERO + rShiftAbs / absStepRShift[range];
+    int retValue = ZERO + rShiftAbs / RShift::absStep[range];
 
     if (retValue < MIN)
     {
@@ -593,26 +646,28 @@ int RShift::ToRel(float rShiftAbs, Range::E range)
 };
 
 
-void DataSettings::FillDataPointer()
+void DataSettings::Init()
 {
-    enableA = Chan::Enabled(Chan::A) ? 1U : 0U;
-    enableB = Chan::Enabled(Chan::B) ? 1U : 0U;
-    inverseA = SET_INVERSE_A ? 1U : 0U;
-    inverseB = SET_INVERSE_B ? 1U : 0U;
+    last_point = TBase::InModeP2P() ? 0 : -1;
+
+    en_a = Chan::Enabled(Chan::A) ? 1U : 0U;
+    en_b = Chan::Enabled(Chan::B) ? 1U : 0U;
+    inv_a = SET_INVERSE_A ? 1U : 0U;
+    inv_b = SET_INVERSE_B ? 1U : 0U;
     range[0] = SET_RANGE_A;
     range[1] = SET_RANGE_B;
     rShiftA = (uint)SET_RSHIFT_A;
     rShiftB = (uint)SET_RSHIFT_B;
     tBase = SET_TBASE;
-    tShift = TSHIFT;
+    tShift = SET_TSHIFT;
     coupleA = SET_COUPLE_A;
     coupleB = SET_COUPLE_B;
     e_points_in_channel = ENUM_POINTS;
     trigLevA = (uint)TRIG_LEVEL_A;
     trigLevB = (uint)TRIG_LEVEL_B;
-    peakDet = (uint)PEAKDET;
-    dividerA = SET_DIVIDER_A;
-    dividerB = SET_DIVIDER_B;
+    peakDet = (uint)SET_PEAKDET;
+    div_a = SET_DIVIDER_A;
+    div_b = SET_DIVIDER_B;
 }
 
 
@@ -655,4 +710,28 @@ int DataSettings::PointsInChannel() const
 int16 DataSettings::GetRShift(Chan::E ch) const
 {
     return (int16)((ch == ChA) ? rShiftA : rShiftB);
+}
+
+
+bool DataSettings::InModeP2P() const
+{
+    return (tBase >= TBase::MIN_P2P) && (last_point != -1);
+}
+
+
+float TShift::ToAbs(int shift, TBase::E base)
+{
+    return absStep[base] * shift * 2.0f;
+}
+
+
+int TShift::ToRel(float shift, TBase::E base)
+{
+    return shift / absStep[base] / 2.0f;
+}
+
+
+float Range::MaxOnScreen(Range::E range)
+{
+    return scale[range] * 5.0f;
 }

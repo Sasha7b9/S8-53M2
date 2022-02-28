@@ -48,30 +48,6 @@ struct TPos
 };
 
 
-struct TShift
-{
-    static const int EMPTY = 1000000;
-    static const int MAX = 16383;       //  Максимально значение задержки по времени относительно точки синхронизации, засылаемое в альтеру.
-
-    // Установить относительное смещение по времени.
-    static void Set(int);
-
-    // Установить добавочное смещение по времени для режима рандомизатора. В каждой развёртке это смещение должно быть разное.
-    static void SetDelta(int);
-
-    // Возвращает установленное смещение по времени в текстовом виде, пригодном для вывода на экран.
-    static pchar ToString(int tShiftRel, char buffer[20]);
-
-    // Смещение по времени, соответствующее позиции TPos.
-    static int Zero();
-
-    // Минимальное смещение по времени, которое может быть записано в аппаратную часть.
-    static int Min();
-
-    static void Draw();
-};
-
-
 struct Filtr
 {
     // Включить/выключить фильтр на входе канала.
@@ -206,7 +182,9 @@ struct TBase
     // Загрузка коэффицента развёртки в аппаратную часть.
     static void Load();
 
-    static bool InRandomizeMode();
+    static bool InModeRandomizer();
+
+    static bool InModeP2P();
 
     // Коэффициент растяжки в рандомизаторе (шаг между точками при установленной развёртке)
     static int StretchRand();
@@ -217,6 +195,36 @@ struct TBase
     static const E MIN_PEC_DEAT = _500ns;   // Минимальный масштаб по времени, при котором возможно включение режима пикового детектора.
     static const E MIN_P2P      = _20ms;    // С этого значения tBase должен включаться режим поточечного вывода.
     static const E MAX_RAND     = _20ns;    // Максимальная развёртка, при которой ещё действует режим рандомизатора
+};
+
+
+struct TShift
+{
+    static const int EMPTY = 1000000;
+    static const int MAX = 16383;       //  Максимально значение задержки по времени относительно точки синхронизации, засылаемое в альтеру.
+
+    // Установить относительное смещение по времени.
+    static void Set(int);
+
+    // Установить добавочное смещение по времени для режима рандомизатора. В каждой развёртке это смещение должно быть разное.
+    static void SetDelta(int);
+
+    // Возвращает установленное смещение по времени в текстовом виде, пригодном для вывода на экран.
+    static pchar ToString(int tShiftRel, char buffer[20]);
+
+    // Смещение по времени, соответствующее позиции TPos.
+    static int Zero();
+
+    // Минимальное смещение по времени, которое может быть записано в аппаратную часть.
+    static int Min();
+
+    static void Draw();
+
+    static float ToAbs(int shift, TBase::E);
+
+    static int ToRel(float shfit, TBase::E);
+
+    static const float absStep[TBase::Count];
 };
 
 
@@ -256,6 +264,14 @@ struct Range
     static pchar ToName(Range::E);
 
     static pchar ToString(Range::E, Divider::E);
+
+    // Напряжение соответствует верхней границе сетки
+    static float MaxOnScreen(Range::E);
+
+    // Столько вольт в 1/250 амлитуды сигнала, растянутого на полный экран
+    static const float voltsInPoint[Range::Count];
+
+    static const float scale[Range::Count];
 };
 
 Range::E &operator++(Range::E &range);
@@ -289,6 +305,8 @@ struct RShift
     RShift &operator=(int16 rshift) { value = rshift; return *this; }
 
     int16 value;
+
+    static const float absStep[Range::Count];
 };
 
 
@@ -318,50 +336,55 @@ struct TrigLev
 
 struct PackedTime
 {
-    uint hours : 5;
+    uint hours   : 5;
     uint minutes : 6;
     uint seconds : 6;
-    uint year : 7;
-    uint month : 4;
-    uint day : 5;
+    uint year    : 7;
+    uint month   : 4;
+    uint day     : 5;
 };
 
 
 struct DataSettings
 {
-    void*               addrNext;                     // Адрес следующей записи.
-    void*               addrPrev;                     // Адрес предыдущей записи.
-    uint                rShiftA             : 10;     // Смещение по напряжению
+    void*               addrNext;                   // Адрес следующей записи.
+    void*               addrPrev;                   // Адрес предыдущей записи.
+    uint                rShiftA             : 10;   // Смещение по напряжению
     uint                rShiftB             : 10;
-    uint                trigLevA            : 10;     // Уровень синхронизации
-    int                 tShift;                       // Смещение по времени
+    uint                trigLevA            : 10;   // Уровень синхронизации
+    int                 tShift;                     // Смещение по времени
     ModeCouple::E       coupleB             : 2;
-    Range::E            range[2];                     // Масштаб по напряжению обоих каналов.
+    Range::E            range[2];                   // Масштаб по напряжению обоих каналов.
 
     uint                trigLevB            : 10;
-    ENUM_POINTS_FPGA::E e_points_in_channel : 2;      // Точек в канале
-    TBase::E            tBase               : 5;      // Масштаб по времени
-    ModeCouple::E       coupleA             : 2;      // Режим канала по входу
-    uint                peakDet             : 2;      // Включен ли пиковый детектор
-    uint                enableA             : 1;      // Включён ли канал 0
-    uint                enableB             : 1;      // Включен ли канал 1
+    ENUM_POINTS_FPGA::E e_points_in_channel : 2;    // Точек в канале
+    TBase::E            tBase               : 5;    // Масштаб по времени
+    ModeCouple::E       coupleA             : 2;    // Режим канала по входу
+    uint                peakDet             : 2;    // Включен ли пиковый детектор
+    uint                en_a                : 1;    // Включён ли канал 0
+    uint                en_b                : 1;    // Включен ли канал 1
 
-    uint                inverseA            : 1;
-    uint                inverseB            : 1;
-    Divider::E          dividerA            : 1;
-    Divider::E          dividerB            : 1;
+    uint                inv_a               : 1;
+    uint                inv_b               : 1;
+    Divider::E          div_a               : 1;
+    Divider::E          div_b               : 1;
     PackedTime          time;
+    // Поточечный режим
+    int16               last_point;                 // Сейчас будет считана эта точка. Если -1 - то фрейм не поточечный. Он считан полностью
 
     void PrintElement();
 
     // Вычисляет, сколько памяти трубуется, чтобы сохранить измерения с настройками dp
     int SizeElem();
 
-    void FillDataPointer();
+    // Заполнение полей текущими настройками
+    void Init();
 
     int BytesInChannel() const;
 
     int PointsInChannel() const;
 
     int16 GetRShift(Chan::E) const;
+
+    bool InModeP2P() const;
 };

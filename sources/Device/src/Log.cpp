@@ -8,13 +8,15 @@
 #include <string.h>
 
 
-static bool loggerUSB = false;
+namespace Log
+{
+    bool loggerUSB = false;
+
+    const int SIZE_BUFFER_LOG = 200;
+}
 
 
-#define SIZE_BUFFER_LOG 200
-
-
-void Log_Write(char *format, ...)
+void Log::Write(char *format, ...)
 {
     char buffer[SIZE_BUFFER_LOG];
     va_list args;
@@ -29,7 +31,7 @@ void Log_Write(char *format, ...)
 }
 
 
-void Log_Error(pchar module, pchar func, int numLine, char *format, ...)
+void Log::Error(pchar module, pchar func, int numLine, char *format, ...)
 {
     char buffer[SIZE_BUFFER_LOG];
     va_list args;
@@ -55,7 +57,7 @@ void Log_Error(pchar module, pchar func, int numLine, char *format, ...)
 }
 
 
-void Log_DisconnectLoggerUSB()
+void Log::DisconnectLoggerUSB()
 {
     //static uint8 data = 20;
     //Log_Write("посылаю %d", data);
@@ -63,7 +65,7 @@ void Log_DisconnectLoggerUSB()
 }
 
 
-void Log_EnableLoggerUSB(bool enable)
+void Log::EnableLoggerUSB(bool enable)
 {
     loggerUSB = enable;
 }

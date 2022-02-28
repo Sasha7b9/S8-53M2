@@ -90,7 +90,7 @@ void SCPI::TBASE::OFFSET(uint8 *buffer)
     ENTER_ANALYSIS
         if (0 == value)
         {
-            int retValue = TSHIFT - 1024;
+            int retValue = SET_TSHIFT - 1024;
             SCPI_SEND(":TBASE:OFFSET %d", retValue);
         }
     LEAVE_ANALYSIS
@@ -108,10 +108,10 @@ void SCPI::TBASE::SAMPLING(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value < 2) { SAMPLE_TYPE = (SampleType)value; }
+        if (value < 2) { SET_SAMPLE_TYPE = (SampleType)value; }
         else if (2 == value)
         {
-            SCPI_SEND(":TBASE:SAMPLING %s", map[SAMPLE_TYPE].key);
+            SCPI_SEND(":TBASE:SAMPLING %s", map[SET_SAMPLE_TYPE].key);
         }
     LEAVE_ANALYSIS
 }
@@ -130,10 +130,10 @@ void SCPI::TBASE::PEACKDET(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value < 2) { PEAKDET = (value == 1) ? PeackDetMode::Disable : PeackDetMode::Enable; OnChanged_PeakDet(true); } // WARN SCPI для пикового детектора переделать
+        if (value < 2) { SET_PEAKDET = (value == 1) ? PeackDetMode::Disable : PeackDetMode::Enable; OnChanged_PeakDet(true); } // WARN SCPI для пикового детектора переделать
         else if (2 == value)
         {
-            SCPI_SEND(":TBASE:PEACKDET %s", PEAKDET_IS_ENABLE ? "ON" : "OFF");
+            SCPI_SEND(":TBASE:PEACKDET %s", SET_PEAKDET_IS_ENABLE ? "ON" : "OFF");
         }
     LEAVE_ANALYSIS
 }
@@ -193,10 +193,10 @@ void SCPI::TBASE::FUNCTIMEDIV(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value < 2) { TIME_DIV_XPOS = (FunctionTime)value; }
+        if (value < 2) { SET_TIME_DIV_XPOS = (FunctionTime)value; }
         else if (2 == value)
         {
-            SCPI_SEND(":TBASE:FUNCTIMEDIV %s", map[TIME_DIV_XPOS].key);
+            SCPI_SEND(":TBASE:FUNCTIMEDIV %s", map[SET_TIME_DIV_XPOS].key);
         }
     LEAVE_ANALYSIS
 }

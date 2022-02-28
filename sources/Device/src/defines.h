@@ -45,6 +45,7 @@ typedef void    (*pFuncVpVIIB)(void*, int, int, bool);
 
 union BitSet16
 {
+    BitSet16(uint16 data = 0) { half_word = data; }
     uint16 half_word;
     uint8  byte[2];
     struct

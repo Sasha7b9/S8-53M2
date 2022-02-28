@@ -26,79 +26,83 @@ namespace Storage
     uint8        *dataIntB = nullptr;
     DataSettings *dsInt = nullptr;
 
+    // Количество отведённой для измерений памяти.
+    const int SIZE_POOL = (30 * 1024);
 
-    static void CalculateSums();
+    // Здесь хранятся данные.
+    uint8 pool[SIZE_POOL] = {0};
+
+    // Адрес начала памяти для хранения
+    uint8 *beginPool = &(pool[0]);
+
+    // Адрес последнего байта памяти для хранения
+    uint8 *endPool = &(pool[SIZE_POOL - 1]);
+
+    // Здесь хранятся суммы измерений обоих каналов
+    uint sum[Chan::Count][FPGA::MAX_POINTS * 2];
+
+    // Максимальные значения каналов
+    uint8 limitUp[Chan::Count][FPGA::MAX_POINTS * 2];
+
+    // Минимальные значения каналов
+    uint8 limitDown[Chan::Count][FPGA::MAX_POINTS * 2];
+
+    // Указатель на первые сохранённые данные
+    DataSettings *firstElem = nullptr;
+
+    // Указатель на последние сохранённые данные
+    DataSettings *lastElem = nullptr;
+
+    // Всего данных сохранено
+    int count_data = 0;
+
+    // В этих массивах хранятся усреднённые значения, подсчитанные по приблизительному алгоритму.
+    float aveData0[FPGA::MAX_POINTS * 2] = {0.0f};
+
+    float aveData1[FPGA::MAX_POINTS * 2] = {0.0f};
+    // Если true, то новые суммы рассчитаны, и нужно повторить расчёт среднего
+    bool newSumCalculated[Chan::Count] = {true, true};
+
+    void CalculateSums();
 
     // Возвращает количество свободной памяти в байтах
-    static int MemoryFree();
+    int MemoryFree();
 
     // Удалить первое (самое старое) измерение
-    static void RemoveFirstElement();
+    void RemoveFirstElement();
 
     // Сохранить данные
-    static void PushData(DataSettings *dp, uint8 *data0, uint8 *data1);
+    void PushData(DataSettings *dp, uint8 *data0, uint8 *data1);
 
     // Возвращает указатель на измерение, следующее за elem
-    static DataSettings* NextElem(DataSettings *elem);
+    DataSettings* NextElem(DataSettings *elem);
 
     // Возвращает указатель на данные, отстоящие на indexFromEnd oт последнего сохранённого
-    static DataSettings* FromEnd(int indexFromEnd);
+    DataSettings* GetDataSettings(int indexFromEnd);
 
     // Возвращает true, если настройки измерений с индексами elemFromEnd0 и elemFromEnd1 совпадают, и false в ином случае.
-    static bool SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1);
+    bool SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1);
 
     // Возващает true, если настройки в обоих структурах одинаковы
-    static bool SettingsIsEquals(DataSettings *dp0, DataSettings *dp1);
+    bool SettingsIsEquals(DataSettings *dp0, DataSettings *dp1);
 
     // Очистка значений мин, макс и сумм
-    static void ClearLimitsAndSums();
+    void ClearLimitsAndSums();
 
-    static void CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss);
+    void CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss);
 
-    static DataSettings* GetSettingsDataFromEnd(int fromEnd);
+    DataSettings* GetSettingsDataFromEnd(int fromEnd);
 
     // Копирует данные канала chan из, определяемые ds, в одну из двух строк массива dataImportRel. Возвращаемое
     // значение false означает, что данный канал выключен.
-    static bool CopyData(DataSettings *ds, Chan::E ch, Buffer<uint8> &datatImportRel);
+    bool CopyData(DataSettings *ds, Chan::E ch, Buffer<uint8> &datatImportRel);
 
-    static void CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *dss);
+    void CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *dss);
 
-    // Количество отведённой для измерений памяти.
-    static const int SIZE_POOL = (30 * 1024);
-
-    // Здесь хранятся данные.
-    static uint8 pool[SIZE_POOL] = {0};
-
-    // Адрес начала памяти для хранения
-    static uint8* beginPool = &(pool[0]);
-
-    // Адрес последнего байта памяти для хранения
-    static uint8* endPool = &(pool[SIZE_POOL - 1]);
-
-    // Здесь хранятся суммы измерений обоих каналов
-    static uint sum[Chan::Count][FPGA::MAX_POINTS * 2];
-
-    // Максимальные значения каналов
-    static uint8 limitUp[Chan::Count][FPGA::MAX_POINTS * 2];
-
-    // Минимальные значения каналов
-    static uint8 limitDown[Chan::Count][FPGA::MAX_POINTS * 2];
-
-    // Указатель на первые сохранённые данные
-    static DataSettings *firstElem = nullptr;
-
-    // Указатель на последние сохранённые данные
-    static DataSettings *lastElem = nullptr;
-
-    // Всего данных сохранено
-    static int allData = 0;
-
-    // В этих массивах хранятся усреднённые значения, подсчитанные по приблизительному алгоритму.
-    static float aveData0[FPGA::MAX_POINTS * 2] = {0.0f};
-
-    static float aveData1[FPGA::MAX_POINTS * 2] = {0.0f};
-    // Если true, то новые суммы рассчитаны, и нужно повторить расчёт среднего
-    static bool newSumCalculated[Chan::Count] = {true, true};
+    namespace P2P
+    {
+        void AppendFrame(DataSettings);
+    }
 }
 
 
@@ -168,30 +172,30 @@ void Storage::CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *d
 }
 
 
-void Storage::AddData(uint8 *data0, uint8 *data1, DataSettings dss)
+void Storage::AddData(uint8 *a, uint8 *b, DataSettings dss)
 {
     dss.time = HAL_RTC::GetPackedTime();
 
-    if(dss.enableA == 0 && dss.enableB == 0)
+    if(!dss.en_a && !dss.en_b)
     {
         return;
     }
 
-    CalculateLimits(data0, data1, &dss);
+    CalculateLimits(a, b, &dss);
 
-    PushData(&dss, data0, data1);
+    PushData(&dss, a, b);
 
     CalculateSums();
 
-    CalculateAroundAverage(data0, data1, &dss);
+    CalculateAroundAverage(a, b, &dss);
 
-    allData++;
+    count_data++;
 }
 
 
-int Storage::AllDatas()
+int Storage::NumElements()
 {
-    return allData;
+    return count_data;
 }
 
 
@@ -199,7 +203,7 @@ void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
 {
     uint numElements = (uint)dss->PointsInChannel();
 
-    if(NumElementsInStorage() == 0 || NUM_MIN_MAX == 1 || (!SettingsIsEquals(dss, GetSettingsDataFromEnd(0))))
+    if(NumElements() == 0 || NUM_MIN_MAX == 1 || (!SettingsIsEquals(dss, GetSettingsDataFromEnd(0))))
     {
         for(uint i = 0; i < numElements; i++)
         {
@@ -245,13 +249,13 @@ void Storage::CalculateSums()
     uint8 *data0 = 0;
     uint8 *data1 = 0;
 
-    GetDataFromEnd(0, &ds, &data0, &data1);
+    GetData(0, &ds, &data0, &data1);
     
     uint numPoints = (uint)ds->BytesInChannel();
 
     int numAveragings = 0;
 
-    if (TBase::InRandomizeMode())
+    if (TBase::InModeRandomizer())
     {
         numAveragings = NUM_AVE_FOR_RAND;
     }
@@ -269,13 +273,16 @@ void Storage::CalculateSums()
     if(numAveragings > 1)
     {
         int numSameSettins = NumElementsWithSameSettings();
+
         if(numSameSettins < numAveragings)
         {
             numAveragings = numSameSettins;
         }
+
         for(int i = 1; i < numAveragings; i++)
         {
-            GetDataFromEnd(i, &ds, &data0, &data1);
+            GetData(i, &ds, &data0, &data1);
+
             for(uint point = 0; point < numPoints; point++)
             {
                 sum[0][point] += data0[point];
@@ -290,7 +297,7 @@ void Storage::CalculateSums()
 int Storage::NumElementsWithSameSettings()
 {
     int retValue = 0;
-    int numElements = NumElementsInStorage();
+    int numElements = NumElements();
     for(retValue = 1; retValue < numElements; retValue++)
     {
         if(!SettingsIsIdentical(retValue, retValue - 1))
@@ -305,12 +312,13 @@ int Storage::NumElementsWithSameSettings()
 int Storage::NumElementsWithCurrentSettings()
 {
     DataSettings dp;
-    dp.FillDataPointer();
+    dp.Init();
     int retValue = 0;
-    int numElements = NumElementsInStorage();
+    int numElements = NumElements();
+
     for(retValue = 0; retValue < numElements; retValue++)
     {
-        if(!SettingsIsEquals(&dp, FromEnd(retValue)))
+        if(!SettingsIsEquals(&dp, GetDataSettings(retValue)))
         {
             break;
         }
@@ -319,40 +327,17 @@ int Storage::NumElementsWithCurrentSettings()
 }
 
 
-int Storage::NumElementsInStorage()
-{
-    int retValue = 0;
-    DataSettings *elem = firstElem;
-    if(firstElem != 0)
-    {
-        if(firstElem == lastElem)
-        {
-            retValue = 1;
-        }
-        else
-        {
-            retValue++;
-            while((elem = NextElem(elem)) != 0)
-            {
-                retValue++;
-            }
-        }
-    }
-    return retValue;
-}
-
-
 DataSettings* Storage::GetSettingsDataFromEnd(int fromEnd)
 {
-    return FromEnd(fromEnd);
+    return GetDataSettings(fromEnd);
 }
 
 
-bool Storage::GetDataFromEnd(int fromEnd, DataSettings **ds, uint8 **data0, uint8 **data1)
+bool Storage::GetData(int fromEnd, DataSettings **ds, uint8 **data0, uint8 **data1)
 {
     static Buffer<uint8> dataImportRel[Chan::Count];
 
-    DataSettings* dp = FromEnd(fromEnd);
+    DataSettings* dp = GetDataSettings(fromEnd);
 
     if(dp == 0)
     {
@@ -399,7 +384,7 @@ uint8* Storage::GetData(Chan::E ch, int fromEnd)
 {
     static Buffer<uint8> dataImport[Chan::Count];
 
-    DataSettings* dp = FromEnd(fromEnd);
+    DataSettings* dp = GetDataSettings(fromEnd);
 
     if(dp == 0)
     {
@@ -418,7 +403,7 @@ uint8* Storage::GetData(Chan::E ch, int fromEnd)
 
 bool Storage::CopyData(DataSettings *ds, Chan::E ch, Buffer<uint8> &datatImportRel)
 {
-    if((ch == Chan::A && ds->enableA == 0) || (ch == Chan::B && ds->enableB == 0))
+    if((ch == Chan::A && !ds->en_a) || (ch == Chan::B && !ds->en_b))
     {
         return false;
     }
@@ -427,7 +412,7 @@ bool Storage::CopyData(DataSettings *ds, Chan::E ch, Buffer<uint8> &datatImportR
 
     uint length = (uint)ds->BytesInChannel();
 
-    if(ch == Chan::B && ds->enableA == 1)
+    if(ch == Chan::B && ds->en_a)
     {
         address += length;
     }
@@ -451,7 +436,7 @@ uint8* Storage::GetAverageData(Chan::E ch)
 
     DataSettings *ds = 0;
     uint8 *d0, *d1;
-    GetDataFromEnd(0, &ds, &d0, &d1);
+    GetData(0, &ds, &d0, &d1);
 
     if (ds == 0)
     {
@@ -551,11 +536,11 @@ void Storage::PushData(DataSettings *dp, uint8 *data0, uint8 *data1)
 
     uint bytes_in_channel = (uint)dp->BytesInChannel();
 
-    if(dp->enableA)
+    if(dp->en_a)
     {
         COPY_AND_INCREASE(addrRecord, data0, bytes_in_channel);
     }
-    if(dp->enableB)
+    if(dp->en_b)
     {
         COPY_AND_INCREASE(addrRecord, data1, bytes_in_channel);
     }
@@ -595,12 +580,12 @@ int DataSettings::SizeElem()
 {
     int retValue = sizeof(DataSettings);
 
-    if(enableA)
+    if(en_a)
     {
         retValue += BytesInChannel();
     }
 
-    if(enableB)
+    if(en_b)
     {
         retValue += BytesInChannel();
     }
@@ -613,7 +598,7 @@ void Storage::RemoveFirstElement()
 {
     firstElem = NextElem(firstElem);
     firstElem->addrPrev = 0;
-    allData--;
+    count_data--;
 }
 
 
@@ -623,7 +608,7 @@ DataSettings* Storage::NextElem(DataSettings *elem)
 }
 
 
-DataSettings* Storage::FromEnd(int indexFromEnd)
+DataSettings* Storage::GetDataSettings(int indexFromEnd)
 {
     if(firstElem == 0)
     {
@@ -637,7 +622,7 @@ DataSettings* Storage::FromEnd(int indexFromEnd)
     }
     if(index != 0)
     {
-        LOG_ERROR("Неправильный индекс %d, всего данных %d", indexFromEnd, AllDatas());
+        LOG_ERROR("Неправильный индекс %d, всего данных %d", indexFromEnd, NumElements());
         return 0;
     }
     return retValue;
@@ -646,18 +631,18 @@ DataSettings* Storage::FromEnd(int indexFromEnd)
 
 bool Storage::SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1)
 {
-    DataSettings* dp0 = FromEnd(elemFromEnd0);
-    DataSettings* dp1 = FromEnd(elemFromEnd1);
+    DataSettings* dp0 = GetDataSettings(elemFromEnd0);
+    DataSettings* dp1 = GetDataSettings(elemFromEnd1);
     return SettingsIsEquals(dp0, dp1);
 }
 
 
 bool Storage::SettingsIsEquals(DataSettings *dp0, DataSettings *dp1)
 {
-    bool retValue = (dp0->enableA == dp1->enableA) &&
-        (dp0->enableB  == dp1->enableB) &&
-        (dp0->inverseA == dp1->inverseA) &&
-        (dp0->inverseB == dp1->inverseB) &&
+    bool retValue = (dp0->en_a == dp1->en_a) &&
+        (dp0->en_b     == dp1->en_b) &&
+        (dp0->inv_a    == dp1->inv_a) &&
+        (dp0->inv_b    == dp1->inv_b) &&
         (dp0->range[0] == dp1->range[0]) &&
         (dp0->range[1] == dp1->range[1]) &&
         (dp0->rShiftA  == dp1->rShiftA) &&
@@ -668,8 +653,36 @@ bool Storage::SettingsIsEquals(DataSettings *dp0, DataSettings *dp1)
         (dp0->coupleB  == dp1->coupleB) &&
         (dp0->trigLevA == dp1->trigLevA) &&
         (dp0->trigLevB == dp1->trigLevB) &&
-        (dp0->dividerA == dp1->dividerA) &&
-        (dp0->dividerB == dp1->dividerB) &&
+        (dp0->div_a    == dp1->div_a) &&
+        (dp0->div_b    == dp1->div_b) &&
         (dp0->peakDet  == dp1->peakDet); 
     return retValue;
+}
+
+
+void Storage::P2P::CreateFrame(DataSettings ds)
+{
+    ds.last_point = 0;
+
+    int num_bytes = ds.BytesInChannel();
+
+    DataBuffer bufferA(num_bytes);
+    DataBuffer bufferB(num_bytes);
+
+    bufferA.Fill(ValueFPGA::AVE);
+    bufferB.Fill(ValueFPGA::AVE);
+
+    AddData(bufferA.Data(), bufferB.Data(), ds);
+}
+
+
+void Storage::P2P::Reset()
+{
+
+}
+
+
+void Storage::P2P::AddPoints(BitSet16 bytesA, BitSet16 bytesB)
+{
+
 }
