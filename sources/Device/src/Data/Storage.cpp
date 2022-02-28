@@ -57,9 +57,9 @@ namespace Storage
     int count_data = 0;
 
     // В этих массивах хранятся усреднённые значения, подсчитанные по приблизительному алгоритму.
-    float aveData0[FPGA::MAX_POINTS * 2] = {0.0f};
+    float ave_a[FPGA::MAX_POINTS * 2] = {0.0f};
 
-    float aveData1[FPGA::MAX_POINTS * 2] = {0.0f};
+    float ave_b[FPGA::MAX_POINTS * 2] = {0.0f};
     // Если true, то новые суммы рассчитаны, и нужно повторить расчёт среднего
     bool newSumCalculated[Chan::Count] = {true, true};
 
@@ -137,8 +137,8 @@ void Storage::CalculateAroundAverage(DataSettings *dss, uint8 *a, uint8 *b)
     {
         for (int i = 0; i < size; i++)
         {
-            aveData0[i] = a[i];
-            aveData1[i] = b[i];
+            ave_a[i] = a[i];
+            ave_b[i] = b[i];
         }
     }
     else
@@ -151,11 +151,11 @@ void Storage::CalculateAroundAverage(DataSettings *dss, uint8 *a, uint8 *b)
         float numAveDataF = numAveData;
         float numAveDataFless = numAveDataF - 1.0f;
         float numAveDataInv = 1.0f / numAveDataF;
-        float *aData0 = &aveData0[0];
-        float *aData1 = &aveData1[0];
+        float *aData0 = &ave_a[0];
+        float *aData1 = &ave_b[0];
         uint8 *d0 = &a[0];
         uint8 *d1 = &b[0];
-        float *endData = &aveData0[size];
+        float *endData = &ave_a[size];
 
         do
         {
@@ -437,7 +437,7 @@ uint8 *Storage::GetAverageData(Chan::E ch)
 
     if (SettingsDisplay::GetModeAveraging() == ModeAveraging::Around)
     {
-        float *floatAveData = (ch == Chan::A) ? aveData0 : aveData1;
+        float *floatAveData = (ch == Chan::A) ? ave_a : ave_b;
 
         for (uint i = 0; i < numPoints; i++)
         {
