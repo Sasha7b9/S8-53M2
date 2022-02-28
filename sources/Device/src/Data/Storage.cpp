@@ -323,7 +323,7 @@ int Storage::NumElementsWithCurrentSettings()
 }
 
 
-bool Storage::GetData(int fromEnd, DataSettings **ds, uint8 **data0, uint8 **data1)
+bool Storage::GetData(int fromEnd, DataSettings **ds, uint8 **a, uint8 **b)
 {
     static Buffer<uint8> dataImportRel[Chan::Count];
 
@@ -348,16 +348,16 @@ bool Storage::GetData(int fromEnd, DataSettings **ds, uint8 **data0, uint8 **dat
 
     size = dataImportRel[ChA].Size();
 
-    if (data0 != 0)
+    if (a)
     {
-        *data0 = CopyData(dp, Chan::A, dataImportRel[ChA]) ? dataImportRel[ChA].Data() : nullptr;
+        *a = CopyData(dp, Chan::A, dataImportRel[ChA]) ? dataImportRel[ChA].Data() : nullptr;
     }
 
     size = dataImportRel[ChA].Size();
 
-    if (data1 != 0)
+    if (b)
     {
-        *data1 = CopyData(dp, Chan::B, dataImportRel[ChB]) ? dataImportRel[ChB].Data() : nullptr;
+        *b = CopyData(dp, Chan::B, dataImportRel[ChB]) ? dataImportRel[ChB].Data() : nullptr;
     }
 
     size = dataImportRel[ChA].Size();
