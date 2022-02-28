@@ -612,18 +612,22 @@ DataSettings* Storage::GetDataSettings(int indexFromEnd)
     {
         return 0;
     }
+
     int index = indexFromEnd;
-    DataSettings *retValue = lastElem;
-    while(index != 0 && ((retValue = (DataSettings *)retValue->addrPrev) != 0))
+    DataSettings *ds = lastElem;
+
+    while(index != 0 && ((ds = (DataSettings *)ds->addrPrev) != 0))
     {
         index--;
     }
+
     if(index != 0)
     {
         LOG_ERROR("Неправильный индекс %d, всего данных %d", indexFromEnd, NumElements());
         return 0;
     }
-    return retValue;
+
+    return ds;
 }
 
 
@@ -650,7 +654,7 @@ void Storage::P2P::CreateFrame(DataSettings _ds)
         {
             if (ds->Equal(_ds))
             {
-
+                ds->last_point = 0;
             }
         }
     }
