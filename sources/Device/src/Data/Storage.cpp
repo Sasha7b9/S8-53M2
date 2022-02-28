@@ -42,7 +42,7 @@ namespace Storage
     uint sum[Chan::Count][FPGA::MAX_POINTS * 2];
 
     // Максимальные значения каналов
-    uint8 limitUp[Chan::Count][FPGA::MAX_POINTS * 2];
+    uint8 lim_up[Chan::Count][FPGA::MAX_POINTS * 2];
 
     // Минимальные значения каналов
     uint8 limitDown[Chan::Count][FPGA::MAX_POINTS * 2];
@@ -119,8 +119,8 @@ void Storage::Clear()
 
 void Storage::ClearLimitsAndSums()
 {
-    memset(limitUp[0], 0, FPGA::MAX_POINTS);
-    memset(limitUp[1], 0, FPGA::MAX_POINTS);
+    memset(lim_up[0], 0, FPGA::MAX_POINTS);
+    memset(lim_up[1], 0, FPGA::MAX_POINTS);
     memset(limitDown[0], 0xff, FPGA::MAX_POINTS);
     memset(limitDown[1], 0xff, FPGA::MAX_POINTS);
     memset(&(sum[0][0]), 0, Chan::Count * FPGA::MAX_POINTS * sizeof(uint));
@@ -203,8 +203,8 @@ void Storage::CalculateLimits(DataSettings *dss, uint8 *a, uint8 *b)
     {
         for (uint i = 0; i < numElements; i++)
         {
-            limitDown[0][i] = limitUp[0][i] = a[i];
-            limitDown[1][i] = limitUp[1][i] = b[i];
+            limitDown[0][i] = lim_up[0][i] = a[i];
+            limitDown[1][i] = lim_up[1][i] = b[i];
         }
     }
     else
@@ -216,8 +216,8 @@ void Storage::CalculateLimits(DataSettings *dss, uint8 *a, uint8 *b)
         {
             for (uint i = 0; i < numElements; i++)
             {
-                limitDown[0][i] = limitUp[0][i] = a[i];
-                limitDown[1][i] = limitUp[1][i] = b[i];
+                limitDown[0][i] = lim_up[0][i] = a[i];
+                limitDown[1][i] = lim_up[1][i] = b[i];
             }
             allDatas--;
         }
@@ -229,10 +229,10 @@ void Storage::CalculateLimits(DataSettings *dss, uint8 *a, uint8 *b)
 
             for (uint i = 0; i < numElements; i++)
             {
-                if (dA[i] < limitDown[0][i])  limitDown[0][i] = dA[i];
-                if (dA[i] > limitUp[0][i])    limitUp[0][i] = dA[i];
-                if (dB[i] < limitDown[1][i])  limitDown[1][i] = dB[i];
-                if (dB[i] > limitUp[1][i])    limitUp[1][i] = dB[i];
+                if (dA[i] < limitDown[0][i]) limitDown[0][i] = dA[i];
+                if (dA[i] > lim_up[0][i])    lim_up[0][i] = dA[i];
+                if (dB[i] < limitDown[1][i]) limitDown[1][i] = dB[i];
+                if (dB[i] > lim_up[1][i])    lim_up[1][i] = dB[i];
             }
         }
     }
@@ -469,7 +469,7 @@ uint8 *Storage::GetLimitation(Chan::E ch, int direction)
     }
     else if (direction == 1)
     {
-        retValue = &(limitUp[ch][0]);
+        retValue = &(lim_up[ch][0]);
     }
 
     return retValue;
