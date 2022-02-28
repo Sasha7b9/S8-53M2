@@ -83,9 +83,6 @@ namespace Storage
     // Возвращает true, если настройки измерений с индексами elemFromEnd0 и elemFromEnd1 совпадают, и false в ином случае.
     bool SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1);
 
-    // Возващает true, если настройки в обоих структурах одинаковы
-    bool SettingsIsEquals(DataSettings *dp0, DataSettings *dp1);
-
     // Очистка значений мин, макс и сумм
     void ClearLimitsAndSums();
 
@@ -101,6 +98,7 @@ namespace Storage
 
     namespace P2P
     {
+        // тупо добавляет новый фрейм
         void AppendFrame(DataSettings);
     }
 }
@@ -203,7 +201,7 @@ void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
 {
     uint numElements = (uint)dss->PointsInChannel();
 
-    if(NumElements() == 0 || NUM_MIN_MAX == 1 || (!SettingsIsEquals(dss, GetSettingsDataFromEnd(0))))
+    if(NumElements() == 0 || NUM_MIN_MAX == 1 || (!GetSettingsDataFromEnd(0)->Equal(dss)))
     {
         for(uint i = 0; i < numElements; i++)
         {
@@ -318,7 +316,7 @@ int Storage::NumElementsWithCurrentSettings()
 
     for(retValue = 0; retValue < numElements; retValue++)
     {
-        if(!SettingsIsEquals(&dp, GetDataSettings(retValue)))
+        if(!GetDataSettings(retValue)->Equal(&dp))
         {
             break;
         }
@@ -633,38 +631,33 @@ bool Storage::SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1)
 {
     DataSettings* dp0 = GetDataSettings(elemFromEnd0);
     DataSettings* dp1 = GetDataSettings(elemFromEnd1);
-    return SettingsIsEquals(dp0, dp1);
+    return dp0->Equal(dp1);
 }
 
 
-bool Storage::SettingsIsEquals(DataSettings *dp0, DataSettings *dp1)
+void Storage::P2P::CreateFrame(DataSettings _ds)
 {
-    bool retValue = (dp0->en_a == dp1->en_a) &&
-        (dp0->en_b     == dp1->en_b) &&
-        (dp0->inv_a    == dp1->inv_a) &&
-        (dp0->inv_b    == dp1->inv_b) &&
-        (dp0->range[0] == dp1->range[0]) &&
-        (dp0->range[1] == dp1->range[1]) &&
-        (dp0->rShiftA  == dp1->rShiftA) &&
-        (dp0->rShiftB  == dp1->rShiftB) &&
-        (dp0->tBase    == dp1->tBase) &&
-        (dp0->tShift   == dp1->tShift) &&
-        (dp0->coupleA  == dp1->coupleA) &&
-        (dp0->coupleB  == dp1->coupleB) &&
-        (dp0->trigLevA == dp1->trigLevA) &&
-        (dp0->trigLevB == dp1->trigLevB) &&
-        (dp0->div_a    == dp1->div_a) &&
-        (dp0->div_b    == dp1->div_b) &&
-        (dp0->peakDet  == dp1->peakDet); 
-    return retValue;
-}
+    if (Storage::NumElements() == 0)
+    {
+        AppendFrame(_ds);
+    }
+    else
+    {
+        DataSettings *ds = GetDataSettings(0);
+
+        if (ds->InModeP2P())
+        {
+            if (ds->Equal(&_ds))
+            {
+
+            }
+        }
+    }
 
 
-void Storage::P2P::CreateFrame(DataSettings ds)
-{
-    ds.last_point = 0;
+    _ds.last_point = 0;
 
-    int num_bytes = ds.BytesInChannel();
+    int num_bytes = _ds.BytesInChannel();
 
     DataBuffer bufferA(num_bytes);
     DataBuffer bufferB(num_bytes);
@@ -672,7 +665,13 @@ void Storage::P2P::CreateFrame(DataSettings ds)
     bufferA.Fill(ValueFPGA::NONE);
     bufferB.Fill(ValueFPGA::NONE);
 
-    AddData(bufferA.Data(), bufferB.Data(), ds);
+    AddData(bufferA.Data(), bufferB.Data(), _ds);
+}
+
+
+void Storage::P2P::AppendFrame(DataSettings)
+{
+
 }
 
 
