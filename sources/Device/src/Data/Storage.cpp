@@ -195,7 +195,7 @@ int Storage::NumElements()
 }
 
 
-void Storage::CalculateLimits(DataSettings *dss, uint8 *data0, uint8 *data1)
+void Storage::CalculateLimits(DataSettings *dss, uint8 *a, uint8 *b)
 {
     uint numElements = (uint)dss->PointsInChannel();
 
@@ -203,8 +203,8 @@ void Storage::CalculateLimits(DataSettings *dss, uint8 *data0, uint8 *data1)
     {
         for (uint i = 0; i < numElements; i++)
         {
-            limitDown[0][i] = limitUp[0][i] = data0[i];
-            limitDown[1][i] = limitUp[1][i] = data1[i];
+            limitDown[0][i] = limitUp[0][i] = a[i];
+            limitDown[1][i] = limitUp[1][i] = b[i];
         }
     }
     else
@@ -216,8 +216,8 @@ void Storage::CalculateLimits(DataSettings *dss, uint8 *data0, uint8 *data1)
         {
             for (uint i = 0; i < numElements; i++)
             {
-                limitDown[0][i] = limitUp[0][i] = data0[i];
-                limitDown[1][i] = limitUp[1][i] = data1[i];
+                limitDown[0][i] = limitUp[0][i] = a[i];
+                limitDown[1][i] = limitUp[1][i] = b[i];
             }
             allDatas--;
         }
