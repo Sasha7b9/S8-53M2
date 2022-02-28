@@ -8,6 +8,7 @@
 #include "Log.h"
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
+#include "Utils/Strings.h"
 #include <cstring>
 
 
@@ -745,10 +746,15 @@ void DataSettings::AppendPoints(uint8 *a, uint8 *b, BitSet16 pointsA, BitSet16 p
         if (en_b)
         {
             b[rec_point] = pointsB.byte0;
-            b[rec_point + 1] = pointsB.byte0;
+            b[rec_point + 1] = pointsB.byte1;
         }
 
         rec_point += 2;
+
+        if (rec_point == 10)
+        {
+            SU::LogBuffer(a, 10);
+        }
     }
 }
 

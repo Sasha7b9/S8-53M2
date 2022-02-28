@@ -492,17 +492,22 @@ void Painter::DrawVLineArray(int x, int num_lines, uint8 *y0y1, Color::E color, 
     {
         CommandBuffer command(255 * 2 + 4 + 4, DRAW_VLINES_ARRAY);
         command.PushHalfWord(x);
+
         if (num_lines > 255)
         {
             num_lines = 255;
         }
+
         command.PushHalfWord(num_lines);
+
         for (int i = 0; i < num_lines; i++)
         {
             command.PushByte(*(y0y1 + i * 2));
             command.PushByte(*(y0y1 + i * 2 + 1));
         }
+
         int numBytes = num_lines * 2 + 4;
+
         while (numBytes % 4)
         {
             numBytes++;
@@ -516,10 +521,7 @@ void Painter::DrawVLineArray(int x, int num_lines, uint8 *y0y1, Color::E color, 
         int y0 = *y0y1++;
         int y1 = *y0y1++;
 
-        if (y0 != transparency && y1 != transparency)
-        {
-            DrawVLine(x++, y0, y1);
-        }
+        DrawVLine(x++, y0, y1);
     }
 }
 

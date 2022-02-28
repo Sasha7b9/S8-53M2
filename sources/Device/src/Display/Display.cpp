@@ -139,11 +139,11 @@ namespace Display
 
     void OnTimerShowWarning();
 
-    void DrawSignalLined(const uint8* data, const DataSettings* ds, int startPoint, int endPoint, int minY, int maxY, float scaleY,
-        float scaleX, bool calculateFiltr);
+    void DrawSignalLined(const uint8* data, const DataSettings* ds, int startPoint, int endPoint, int minY, int maxY,
+        float scaleY, float scaleX, bool calculateFiltr);
 
-    void DrawSignalPointed(const uint8* data, const DataSettings* ds, int startPoint, int endPoint, int minY, int maxY, float scaleY,
-        float scaleX);
+    void DrawSignalPointed(const uint8* data, const DataSettings* ds, int startPoint, int endPoint, int minY, int maxY,
+        float scaleY, float scaleX);
 
     void DrawSpectrumChannel(const float* spectrum, Color::E);
 
@@ -157,13 +157,16 @@ namespace Display
 
     void WriteStringAndNumber(char* text, int x, int y, int number);
 
-    void DrawGridType3(int left, int top, int right, int bottom, int centerX, int centerY, int deltaX, int deltaY, int stepX, int stepY);
+    void DrawGridType3(int left, int top, int right, int bottom, int centerX, int centerY, int deltaX, int deltaY,
+        int stepX, int stepY);
 
-    // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена иниформация о максимумах.
-    void DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI, const uint8* data, int rightX,
-        Chan::E ch, int shiftForPeakDet);
+    // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена
+    // иниформация о максимумах.
+    void DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI,
+        const uint8* data, int rightX, Chan::E ch, int shiftForPeakDet);
 
-    // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена иниформация о максимумах.
+    // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена
+    // иниформация о максимумах.
     void DrawDataInRect(int x, int width, const uint8* data, int numElems, Chan::E ch, int shiftForPeakDet);
 
     void DrawTimeForFrame(uint timeMS);
@@ -187,7 +190,8 @@ namespace Display
 
     int CalculateCountH();
 
-    void DrawGridType1(int left, int top, int right, int bottom, float centerX, float centerY, float deltaX, float deltaY, float stepX, float stepY);
+    void DrawGridType1(int left, int top, int right, int bottom, float centerX, float centerY, float deltaX,
+        float deltaY, float stepX, float stepY);
 
     void DrawGridType2(int left, int top, int right, int bottom, int deltaX, int deltaY, int stepX, int stepY);
 }
@@ -244,8 +248,12 @@ void Display::RotateRShift(Chan::E ch)
     if(TIME_SHOW_LEVELS)
     {
         (ch == Chan::A) ? (SHOW_LEVEL_RSHIFT_0 = 1) : (SHOW_LEVEL_RSHIFT_1 = 1);
-        Timer::Enable((ch == Chan::A) ? TypeTimer::ShowLevelRShift0 : TypeTimer::ShowLevelRShift1, TIME_SHOW_LEVELS  * 1000, (ch == Chan::A) ? FuncOnTimerDisableShowLevelRShiftA :
-                     FuncOnTimerDisableShowLevelRShiftB);
+        Timer::Enable((ch == Chan::A) ?
+            TypeTimer::ShowLevelRShift0 :
+            TypeTimer::ShowLevelRShift1, TIME_SHOW_LEVELS  * 1000,
+            (ch == Chan::A) ?
+            FuncOnTimerDisableShowLevelRShiftA :
+            FuncOnTimerDisableShowLevelRShiftB);
     };
 
     Display::Redraw();
@@ -442,7 +450,8 @@ void Display::DrawSignalLined(const uint8 *data, const DataSettings *ds, int sta
 
 
 
-void Display::DrawSignalPointed(const uint8 *data, const DataSettings *ds, int startPoint, int endPoint, int minY, int maxY, float scaleY, float scaleX)
+void Display::DrawSignalPointed(const uint8 *data, const DataSettings *ds, int startPoint, int endPoint, int minY,
+    int maxY, float scaleY, float scaleX)
 {
     int numPoints = ENUM_POINTS_FPGA::ToNumPoints();
     int numSmoothing = Smoothing::ToPoints();
@@ -578,12 +587,12 @@ void Display::DrawMath()
     Painter::DrawRectangle(Grid::Left(), Grid::MathTop() + delta, width, height, COLOR_FILL);
     Painter::FillRegion(Grid::Left() + 1, Grid::MathTop() + 1 + delta, width - 2, height - 2, COLOR_BACK);
     Divider::E multiplier = MATH_MULTIPLIER;
-    PText::DrawText(Grid::Left() + 2, Grid::MathTop() + 1 + delta, Range::ToString(SET_RANGE_MATH, multiplier), COLOR_FILL);
+    PText::DrawText(Grid::Left() + 2, Grid::MathTop() + 1 + delta, Range::ToString(SET_RANGE_MATH, multiplier),
+        COLOR_FILL);
     PText::DrawText(Grid::Left() + 25, Grid::MathTop() + 1 + delta, ":");
     char buffer[20];
-    PText::DrawText(Grid::Left() + 27, Grid::MathTop() + 1 + delta, SET_RSHIFT_MATH.ToString(SET_RANGE_MATH, multiplier, buffer));
-
-
+    PText::DrawText(Grid::Left() + 27, Grid::MathTop() + 1 + delta, SET_RSHIFT_MATH.ToString(SET_RANGE_MATH, multiplier,
+        buffer));
 }
 
 
@@ -989,11 +998,14 @@ void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, 
 }
 
 
-void Display::DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI, const uint8 *data, int rightX, Chan::E ch, int shiftForPeakDet)
+void Display::DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI,
+    const uint8 *data, int rightX, Chan::E ch, int shiftForPeakDet)
 {
-    DrawDataInRect(1,          xVert0 - 1,              &(data[0]),        startI,                             ch, shiftForPeakDet);
-    DrawDataInRect(xVert0 + 2, timeWindowRectWidth - 2, &(data[startI]),   281,                                ch, shiftForPeakDet);
-    DrawDataInRect(xVert1 + 2, rightX - xVert1 + 2,     &(data[endI + 1]), ENUM_POINTS_FPGA::ToNumPoints() - endI, ch, shiftForPeakDet);
+    DrawDataInRect(1, xVert0 - 1, &(data[0]), startI, ch, shiftForPeakDet);
+
+    DrawDataInRect(xVert0 + 2, timeWindowRectWidth - 2, &(data[startI]),281, ch, shiftForPeakDet);
+    DrawDataInRect(xVert1 + 2, rightX - xVert1 + 2,     &(data[endI + 1]), ENUM_POINTS_FPGA::ToNumPoints() - endI, ch,
+        shiftForPeakDet);
 }
 
 
@@ -1032,7 +1044,8 @@ void Display::DrawMemoryWindow()
     const int xVert0 = (int)(leftX + SHIFT_IN_MEMORY * scaleX);
     const int xVert1 = (int)(leftX + SHIFT_IN_MEMORY * scaleX + timeWindowRectWidth);
     bool showFull = set.display.showFullMemoryWindow;
-    Painter::DrawRectangle(xVert0, top + (showFull ? 0 : 1), xVert1 - xVert0, bottom - top - (showFull ? 0 : 2), COLOR_FILL);
+    Painter::DrawRectangle(xVert0, top + (showFull ? 0 : 1), xVert1 - xVert0, bottom - top - (showFull ? 0 : 2),
+        COLOR_FILL);
 
     if (showFull)
     {
@@ -1047,7 +1060,8 @@ void Display::DrawMemoryWindow()
 
             if (ChannelNeedForDraw(dataFirst, chanFirst, ds))
             {
-                DrawChannelInWindowMemory(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataFirst, rightX, chanFirst, shiftForPeakDet);
+                DrawChannelInWindowMemory(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataFirst, rightX,
+                    chanFirst, shiftForPeakDet);
             }
 
             if (ChannelNeedForDraw(dataSecond, chanSecond, ds))
