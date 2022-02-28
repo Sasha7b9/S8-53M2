@@ -72,10 +72,10 @@ namespace Storage
     void RemoveFirstElement();
 
     // Сохранить данные
-    void PushData(DataSettings *dp, uint8 *data0, uint8 *data1);
+    void PushData(DataSettings *, uint8 *data0, uint8 *data1);
 
     // Возвращает указатель на измерение, следующее за elem
-    DataSettings *NextElem(DataSettings *elem);
+    DataSettings *NextElem(DataSettings *);
 
     // Возвращает указатель на данные, отстоящие на indexFromEnd oт последнего сохранённого
     DataSettings *GetDataSettings(int fromEnd = 0);
@@ -86,13 +86,13 @@ namespace Storage
     // Очистка значений мин, макс и сумм
     void ClearLimitsAndSums();
 
-    void CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss);
+    void CalculateLimits(DataSettings *, uint8 *data0, uint8 *data1);
 
     // Копирует данные канала chan из, определяемые ds, в одну из двух строк массива dataImportRel. Возвращаемое
     // значение false означает, что данный канал выключен.
-    bool CopyData(DataSettings *ds, Chan::E ch, Buffer<uint8> &datatImportRel);
+    bool CopyData(DataSettings *, Chan::E ch, Buffer<uint8> &datatImportRel);
 
-    void CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *dss);
+    void CalculateAroundAverage(DataSettings *, uint8 *data0, uint8 *data1);
 
     namespace P2P
     {
@@ -127,7 +127,7 @@ void Storage::ClearLimitsAndSums()
 }
 
 
-void Storage::CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *dss)
+void Storage::CalculateAroundAverage(DataSettings *dss, uint8 *data0, uint8 *data1)
 {
     int numAveData = NumElementsWithCurrentSettings();
 
@@ -177,13 +177,13 @@ void Storage::AddData(DataSettings dss, uint8 *a, uint8 *b)
         return;
     }
 
-    CalculateLimits(a, b, &dss);
+    CalculateLimits(&dss, a, b);
 
     PushData(&dss, a, b);
 
     CalculateSums();
 
-    CalculateAroundAverage(a, b, &dss);
+    CalculateAroundAverage(&dss, a, b);
 
     count_data++;
 }
@@ -195,7 +195,7 @@ int Storage::NumElements()
 }
 
 
-void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
+void Storage::CalculateLimits(DataSettings *dss, uint8 *data0, uint8 *data1)
 {
     uint numElements = (uint)dss->PointsInChannel();
 
