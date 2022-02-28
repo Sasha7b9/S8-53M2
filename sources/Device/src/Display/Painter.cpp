@@ -520,10 +520,6 @@ void Painter::DrawVLineArray(int x, int num_lines, uint8 *y0y1, Color::E color, 
         {
             DrawVLine(x++, y0, y1);
         }
-        else
-        {
-            break;
-        }
     }
 }
 

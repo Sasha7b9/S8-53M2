@@ -1026,13 +1026,11 @@ void Display::DrawMemoryWindow()
     int timeWindowRectWidth = (int)((rightX - leftX) * (282.0f / ENUM_POINTS_FPGA::ToNumPoints()));
     float scaleX = (float)(rightX - leftX + 1) / ENUM_POINTS_FPGA::ToNumPoints();
 
-    int16 shiftInMemory = SHIFT_IN_MEMORY;
-    
-    int startI = shiftInMemory;
+    int startI = SHIFT_IN_MEMORY;
     int endI = startI + 281;
 
-    const int xVert0 = (int)(leftX + shiftInMemory * scaleX);
-    const int xVert1 = (int)(leftX + shiftInMemory * scaleX + timeWindowRectWidth);
+    const int xVert0 = (int)(leftX + SHIFT_IN_MEMORY * scaleX);
+    const int xVert1 = (int)(leftX + SHIFT_IN_MEMORY * scaleX + timeWindowRectWidth);
     bool showFull = set.display.showFullMemoryWindow;
     Painter::DrawRectangle(xVert0, top + (showFull ? 0 : 1), xVert1 - xVert0, bottom - top - (showFull ? 0 : 2), COLOR_FILL);
 
@@ -1115,19 +1113,23 @@ void Display::WriteCursors()
 {
     char buffer[20];
     int startX = 43;
+
     if(MODE_WORK_IS_DIRECT)
     {
         startX += 29;
     }
+
     int x = startX;
     int y1 = 0;
     int y2 = 9;
+
     if(PageCursors::NecessaryDrawCursors())
     {
         Painter::DrawVLine(x, 1, GRID_TOP - 2, COLOR_FILL);
         x += 3;
         Chan::E source = CURS_SOURCE;
         Color::E colorText = ColorChannel(source);
+
         if(!CURS_CNTRL_U_IS_DISABLE(source))
         {
             PText::DrawText(x, y1, "1:", colorText);
@@ -1148,6 +1150,7 @@ void Display::WriteCursors()
         x = startX + 101;
         Painter::DrawVLine(x, 1, GRID_TOP - 2, COLOR_FILL);
         x += 3;
+
         if(!CURS_CNTRL_T_IS_DISABLE(source))
         {
             Color::SetCurrent(colorText);
