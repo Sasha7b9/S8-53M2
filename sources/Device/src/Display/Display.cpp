@@ -163,6 +163,7 @@ namespace Display
     void DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI, const uint8* data, int rightX,
         Chan::E ch, int shiftForPeakDet);
 
+    // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена иниформация о максимумах.
     void DrawDataInRect(int x, int width, const uint8* data, int numElems, Chan::E ch, int shiftForPeakDet);
 
     void DrawTimeForFrame(uint timeMS);
@@ -891,7 +892,6 @@ void Display::DrawHiPart()
 }
 
 
-// shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена иниформация о максимумах.
 void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, Chan::E ch, int shiftForPeakDet)
 {
     if(numElems == 0)
@@ -901,8 +901,8 @@ void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, 
 
     width--;
     float elemsInColumn = (float)numElems / (float)width;
-    uint8 min[300];
-    uint8 max[300];
+    uint8 min[300] = {255};
+    uint8 max[300] = {0};
 
     if (SET_TBASE >= TBase::_20ms && SET_PEAKDET_IS_ENABLE)
     {
@@ -974,14 +974,17 @@ void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, 
         points[i * 2] = ORDINATE(value1);
         points[i * 2 + 1] = ORDINATE(value0);
     }
+
+    uint8 transparency = ORDINATE(ValueFPGA::NONE);
+
     if (width < 256)
     {
-        Painter::DrawVLineArray(x, width, points, ColorChannel(ch));
+        Painter::DrawVLineArray(x, width, points, ColorChannel(ch), transparency);
     }
     else
     {
-        Painter::DrawVLineArray(x, 255, points, ColorChannel(ch));
-        Painter::DrawVLineArray(x + 255, width - 255, points + 255 * 2, ColorChannel(ch));
+        Painter::DrawVLineArray(x, 255, points, ColorChannel(ch), transparency);
+        Painter::DrawVLineArray(x + 255, width - 255, points + 255 * 2, ColorChannel(ch), transparency);
     }
 }
 
@@ -1014,6 +1017,7 @@ void Display::DrawMemoryWindow()
 
     static const int rightXses[3] = {276, 285, 247};
     int rightX = rightXses[MODE_WORK];
+
     if (PageCursors::NecessaryDrawCursors())
     {
         rightX = 68;

@@ -54,7 +54,8 @@ namespace Painter
     uint ReduceBrightness(uint colorValue, float newBrightness);
 
     // Ќарисовать массив вертикальных линий. Ћинии рисуютс€ одна за другой. y0y1 - массив вертикальных координат.
-    void DrawVLineArray(int x, int numLines, uint8 *y0y1, Color::E);
+    // «начени€ transparency не должны выводитьс€
+    void DrawVLineArray(int x, int numLines, uint8 *y0y1, Color::E, uint8 transparency);
 
     // modeLines - true - точками, false - точками
     void DrawSignal(const int x, uint8 data[281], bool modeLines);

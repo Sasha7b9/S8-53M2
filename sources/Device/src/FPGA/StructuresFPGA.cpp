@@ -108,17 +108,9 @@ void FPGA::Launch::Calculate()
         pred += d_pred[SET_TBASE];
         post += d_post[SET_TBASE];
 
-<<<<<<< HEAD
-    pred /= TBase::StretchRand();
-    post /= TBase::StretchRand();
-
-    pred++;
-    post++;
-=======
         if (pred + post < num_bytes)
         {
             post = num_bytes - pred;
         }
     }
->>>>>>> 71fa8ffc5385440867c42a9e25b920ed9f403fd6
 }
