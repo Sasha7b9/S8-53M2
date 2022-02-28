@@ -78,7 +78,7 @@ namespace Storage
     DataSettings *NextElem(DataSettings *elem);
 
     // Возвращает указатель на данные, отстоящие на indexFromEnd oт последнего сохранённого
-    DataSettings *GetDataSettings(int indexFromEnd);
+    DataSettings *GetDataSettings(int fromEnd = 0);
 
     // Возвращает true, если настройки измерений с индексами elemFromEnd0 и elemFromEnd1 совпадают, и false в ином случае.
     bool SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1);
@@ -87,8 +87,6 @@ namespace Storage
     void ClearLimitsAndSums();
 
     void CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss);
-
-    DataSettings *GetSettingsDataFromEnd(int fromEnd);
 
     // Копирует данные канала chan из, определяемые ds, в одну из двух строк массива dataImportRel. Возвращаемое
     // значение false означает, что данный канал выключен.
@@ -201,7 +199,7 @@ void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
 {
     uint numElements = (uint)dss->PointsInChannel();
 
-    if (NumElements() == 0 || NUM_MIN_MAX == 1 || (!GetSettingsDataFromEnd(0)->Equal(*dss)))
+    if (NumElements() == 0 || NUM_MIN_MAX == 1 || (!GetDataSettings()->Equal(*dss)))
     {
         for (uint i = 0; i < numElements; i++)
         {
@@ -325,19 +323,13 @@ int Storage::NumElementsWithCurrentSettings()
 }
 
 
-DataSettings *Storage::GetSettingsDataFromEnd(int fromEnd)
-{
-    return GetDataSettings(fromEnd);
-}
-
-
 bool Storage::GetData(int fromEnd, DataSettings **ds, uint8 **data0, uint8 **data1)
 {
     static Buffer<uint8> dataImportRel[Chan::Count];
 
     DataSettings *dp = GetDataSettings(fromEnd);
 
-    if (dp == 0)
+    if (dp == nullptr)
     {
         return false;
     }
@@ -657,13 +649,24 @@ void Storage::P2P::CreateFrame(DataSettings _ds)
             {
                 ds->last_point = 0;
             }
+            else
+            {
+                AppendFrame(_ds);
+            }
+        }
+        else
+        {
+            AppendFrame(_ds);
         }
     }
+}
 
 
-    _ds.last_point = 0;
+void Storage::P2P::AppendFrame(DataSettings ds)
+{
+    ds.last_point = 0;
 
-    int num_bytes = _ds.BytesInChannel();
+    int num_bytes = ds.BytesInChannel();
 
     DataBuffer bufferA(num_bytes);
     DataBuffer bufferB(num_bytes);
@@ -671,19 +674,18 @@ void Storage::P2P::CreateFrame(DataSettings _ds)
     bufferA.Fill(ValueFPGA::NONE);
     bufferB.Fill(ValueFPGA::NONE);
 
-    AddData(bufferA.Data(), bufferB.Data(), _ds);
-}
-
-
-void Storage::P2P::AppendFrame(DataSettings)
-{
-
+    AddData(bufferA.Data(), bufferB.Data(), ds);
 }
 
 
 void Storage::P2P::Reset()
 {
+    DataSettings *ds = GetDataSettings();
 
+    if (ds)
+    {
+        ds->last_point = 0;
+    }
 }
 
 
