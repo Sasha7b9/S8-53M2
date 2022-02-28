@@ -14,16 +14,16 @@
 
 namespace Storage
 {
-    uint8        *dataA = nullptr;
-    uint8        *dataB = nullptr;
+    uint8 *dataA = nullptr;
+    uint8 *dataB = nullptr;
     DataSettings *DS = nullptr;
 
-    uint8        *dataLastA = nullptr;
-    uint8        *dataLastB = nullptr;
+    uint8 *dataLastA = nullptr;
+    uint8 *dataLastB = nullptr;
     DataSettings *dsLast = nullptr;
 
-    uint8        *dataIntA = nullptr;
-    uint8        *dataIntB = nullptr;
+    uint8 *dataIntA = nullptr;
+    uint8 *dataIntB = nullptr;
     DataSettings *dsInt = nullptr;
 
     // Количество отведённой для измерений памяти.
@@ -48,10 +48,10 @@ namespace Storage
     uint8 limitDown[Chan::Count][FPGA::MAX_POINTS * 2];
 
     // Указатель на первые сохранённые данные
-    DataSettings *firstElem = nullptr;
+    DataSettings *first_ds = nullptr;
 
     // Указатель на последние сохранённые данные
-    DataSettings *lastElem = nullptr;
+    DataSettings *last_ds = nullptr;
 
     // Всего данных сохранено
     int count_data = 0;
@@ -75,10 +75,10 @@ namespace Storage
     void PushData(DataSettings *dp, uint8 *data0, uint8 *data1);
 
     // Возвращает указатель на измерение, следующее за elem
-    DataSettings* NextElem(DataSettings *elem);
+    DataSettings *NextElem(DataSettings *elem);
 
     // Возвращает указатель на данные, отстоящие на indexFromEnd oт последнего сохранённого
-    DataSettings* GetDataSettings(int indexFromEnd);
+    DataSettings *GetDataSettings(int indexFromEnd);
 
     // Возвращает true, если настройки измерений с индексами elemFromEnd0 и elemFromEnd1 совпадают, и false в ином случае.
     bool SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1);
@@ -88,7 +88,7 @@ namespace Storage
 
     void CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss);
 
-    DataSettings* GetSettingsDataFromEnd(int fromEnd);
+    DataSettings *GetSettingsDataFromEnd(int fromEnd);
 
     // Копирует данные канала chan из, определяемые ds, в одну из двух строк массива dataImportRel. Возвращаемое
     // значение false означает, что данный канал выключен.
@@ -112,9 +112,9 @@ void DataSettings::PrintElement()
 
 void Storage::Clear()
 {
-    firstElem = 0;
-    lastElem = (DataSettings*)beginPool;
-    lastElem->addrNext = lastElem->addrPrev = 0;
+    first_ds = 0;
+    last_ds = (DataSettings *)beginPool;
+    last_ds->addrNext = last_ds->addrPrev = 0;
     ClearLimitsAndSums();
 }
 
@@ -153,13 +153,13 @@ void Storage::CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *d
         float numAveDataF = numAveData;
         float numAveDataFless = numAveDataF - 1.0f;
         float numAveDataInv = 1.0f / numAveDataF;
-        float* aData0 = &aveData0[0];
-        float* aData1 = &aveData1[0];
-        uint8* d0 = &data0[0];
-        uint8* d1 = &data1[0];
-        float* endData = &aveData0[size];
+        float *aData0 = &aveData0[0];
+        float *aData1 = &aveData1[0];
+        uint8 *d0 = &data0[0];
+        uint8 *d1 = &data1[0];
+        float *endData = &aveData0[size];
 
-        do 
+        do
         {
             *aData0 = ((*aData0) * numAveDataFless + (float)(*d0++)) * numAveDataInv;
             aData0++;
@@ -174,7 +174,7 @@ void Storage::AddData(uint8 *a, uint8 *b, DataSettings dss)
 {
     dss.time = HAL_RTC::GetPackedTime();
 
-    if(!dss.en_a && !dss.en_b)
+    if (!dss.en_a && !dss.en_b)
     {
         return;
     }
@@ -201,9 +201,9 @@ void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
 {
     uint numElements = (uint)dss->PointsInChannel();
 
-    if(NumElements() == 0 || NUM_MIN_MAX == 1 || (!GetSettingsDataFromEnd(0)->Equal(*dss)))
+    if (NumElements() == 0 || NUM_MIN_MAX == 1 || (!GetSettingsDataFromEnd(0)->Equal(*dss)))
     {
-        for(uint i = 0; i < numElements; i++)
+        for (uint i = 0; i < numElements; i++)
         {
             limitDown[0][i] = limitUp[0][i] = data0[i];
             limitDown[1][i] = limitUp[1][i] = data1[i];
@@ -213,10 +213,10 @@ void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
     {
         int allDatas = NumElementsWithSameSettings();
         LIMITATION(allDatas, allDatas, 1, NUM_MIN_MAX);
-        
-        if(NumElementsWithSameSettings() >= NUM_MIN_MAX)
+
+        if (NumElementsWithSameSettings() >= NUM_MIN_MAX)
         {
-            for(uint i = 0; i < numElements; i++)
+            for (uint i = 0; i < numElements; i++)
             {
                 limitDown[0][i] = limitUp[0][i] = data0[i];
                 limitDown[1][i] = limitUp[1][i] = data1[i];
@@ -224,17 +224,17 @@ void Storage::CalculateLimits(uint8 *data0, uint8 *data1, DataSettings *dss)
             allDatas--;
         }
 
-        for(int numData = 0; numData < allDatas; numData++)
+        for (int numData = 0; numData < allDatas; numData++)
         {
             const uint8 *dA = GetData(Chan::A, numData);
             const uint8 *dB = GetData(Chan::B, numData);
 
-            for(uint i = 0; i < numElements; i++)
+            for (uint i = 0; i < numElements; i++)
             {
-                if(dA[i] < limitDown[0][i])  limitDown[0][i] = dA[i];
-                if(dA[i] > limitUp[0][i])    limitUp[0][i] = dA[i];
-                if(dB[i] < limitDown[1][i])  limitDown[1][i] = dB[i];
-                if(dB[i] > limitUp[1][i])    limitUp[1][i] = dB[i];
+                if (dA[i] < limitDown[0][i])  limitDown[0][i] = dA[i];
+                if (dA[i] > limitUp[0][i])    limitUp[0][i] = dA[i];
+                if (dB[i] < limitDown[1][i])  limitDown[1][i] = dB[i];
+                if (dB[i] > limitUp[1][i])    limitUp[1][i] = dB[i];
             }
         }
     }
@@ -248,7 +248,7 @@ void Storage::CalculateSums()
     uint8 *data1 = 0;
 
     GetData(0, &ds, &data0, &data1);
-    
+
     uint numPoints = (uint)ds->BytesInChannel();
 
     int numAveragings = 0;
@@ -263,25 +263,25 @@ void Storage::CalculateSums()
         numAveragings = SettingsDisplay::NumAverages();
     }
 
-    for(uint i = 0; i < numPoints; i++)
+    for (uint i = 0; i < numPoints; i++)
     {
         sum[0][i] = data0[i];
         sum[1][i] = data1[i];
     }
-    if(numAveragings > 1)
+    if (numAveragings > 1)
     {
         int numSameSettins = NumElementsWithSameSettings();
 
-        if(numSameSettins < numAveragings)
+        if (numSameSettins < numAveragings)
         {
             numAveragings = numSameSettins;
         }
 
-        for(int i = 1; i < numAveragings; i++)
+        for (int i = 1; i < numAveragings; i++)
         {
             GetData(i, &ds, &data0, &data1);
 
-            for(uint point = 0; point < numPoints; point++)
+            for (uint point = 0; point < numPoints; point++)
             {
                 sum[0][point] += data0[point];
                 sum[1][point] += data1[point];
@@ -296,9 +296,9 @@ int Storage::NumElementsWithSameSettings()
 {
     int retValue = 0;
     int numElements = NumElements();
-    for(retValue = 1; retValue < numElements; retValue++)
+    for (retValue = 1; retValue < numElements; retValue++)
     {
-        if(!SettingsIsIdentical(retValue, retValue - 1))
+        if (!SettingsIsIdentical(retValue, retValue - 1))
         {
             break;
         }
@@ -314,9 +314,9 @@ int Storage::NumElementsWithCurrentSettings()
     int retValue = 0;
     int numElements = NumElements();
 
-    for(retValue = 0; retValue < numElements; retValue++)
+    for (retValue = 0; retValue < numElements; retValue++)
     {
-        if(!GetDataSettings(retValue)->Equal(dp))
+        if (!GetDataSettings(retValue)->Equal(dp))
         {
             break;
         }
@@ -325,7 +325,7 @@ int Storage::NumElementsWithCurrentSettings()
 }
 
 
-DataSettings* Storage::GetSettingsDataFromEnd(int fromEnd)
+DataSettings *Storage::GetSettingsDataFromEnd(int fromEnd)
 {
     return GetDataSettings(fromEnd);
 }
@@ -335,16 +335,16 @@ bool Storage::GetData(int fromEnd, DataSettings **ds, uint8 **data0, uint8 **dat
 {
     static Buffer<uint8> dataImportRel[Chan::Count];
 
-    DataSettings* dp = GetDataSettings(fromEnd);
+    DataSettings *dp = GetDataSettings(fromEnd);
 
-    if(dp == 0)
+    if (dp == 0)
     {
         return false;
     }
-    
+
     volatile int size = dataImportRel[ChA].Size();
     size = size;
-    
+
     volatile int bytes = dp->BytesInChannel();
     bytes = bytes;
 
@@ -353,38 +353,38 @@ bool Storage::GetData(int fromEnd, DataSettings **ds, uint8 **data0, uint8 **dat
         dataImportRel[ChA].Realloc(dp->BytesInChannel());
         dataImportRel[ChB].Realloc(dp->BytesInChannel());
     }
-    
+
     size = dataImportRel[ChA].Size();
 
-    if(data0 != 0)
+    if (data0 != 0)
     {
-        *data0 = CopyData(dp, Chan::A, dataImportRel[ChA]) ?  dataImportRel[ChA].Data() : nullptr;
+        *data0 = CopyData(dp, Chan::A, dataImportRel[ChA]) ? dataImportRel[ChA].Data() : nullptr;
     }
-    
+
     size = dataImportRel[ChA].Size();
 
-    if(data1 != 0)
+    if (data1 != 0)
     {
         *data1 = CopyData(dp, Chan::B, dataImportRel[ChB]) ? dataImportRel[ChB].Data() : nullptr;
     }
-    
+
     size = dataImportRel[ChA].Size();
 
     *ds = dp;
-    
+
     size = dataImportRel[ChA].Size();
-    
+
     return true;
 }
 
 
-uint8* Storage::GetData(Chan::E ch, int fromEnd)
+uint8 *Storage::GetData(Chan::E ch, int fromEnd)
 {
     static Buffer<uint8> dataImport[Chan::Count];
 
-    DataSettings* dp = GetDataSettings(fromEnd);
+    DataSettings *dp = GetDataSettings(fromEnd);
 
-    if(dp == 0)
+    if (dp == 0)
     {
         return 0;
     }
@@ -401,16 +401,16 @@ uint8* Storage::GetData(Chan::E ch, int fromEnd)
 
 bool Storage::CopyData(DataSettings *ds, Chan::E ch, Buffer<uint8> &datatImportRel)
 {
-    if((ch == Chan::A && !ds->en_a) || (ch == Chan::B && !ds->en_b))
+    if ((ch == Chan::A && !ds->en_a) || (ch == Chan::B && !ds->en_b))
     {
         return false;
     }
 
-    uint8* address = ((uint8*)ds + sizeof(DataSettings));
+    uint8 *address = ((uint8 *)ds + sizeof(DataSettings));
 
     uint length = (uint)ds->BytesInChannel();
 
-    if(ch == Chan::B && ds->en_a)
+    if (ch == Chan::B && ds->en_a)
     {
         address += length;
     }
@@ -421,10 +421,10 @@ bool Storage::CopyData(DataSettings *ds, Chan::E ch, Buffer<uint8> &datatImportR
 }
 
 
-uint8* Storage::GetAverageData(Chan::E ch)
+uint8 *Storage::GetAverageData(Chan::E ch)
 {
     static uint8 data[Chan::Count][FPGA::MAX_POINTS * 2];
-    
+
     if (newSumCalculated[ch] == false)
     {
         return &data[ch][0];
@@ -446,7 +446,7 @@ uint8* Storage::GetAverageData(Chan::E ch)
     if (SettingsDisplay::GetModeAveraging() == ModeAveraging::Around)
     {
         float *floatAveData = (ch == Chan::A) ? aveData0 : aveData1;
-        
+
         for (uint i = 0; i < numPoints; i++)
         {
             data[ch][i] = (uint8)(floatAveData[i]);
@@ -458,7 +458,7 @@ uint8* Storage::GetAverageData(Chan::E ch)
 
     LIMIT_ABOVE(numAveraging, NumElementsWithSameSettings());
 
-    for(uint i = 0; i < numPoints; i++)
+    for (uint i = 0; i < numPoints; i++)
     {
         data[ch][i] = sum[ch][i] / numAveraging;
     }
@@ -467,15 +467,15 @@ uint8* Storage::GetAverageData(Chan::E ch)
 }
 
 
-uint8* Storage::GetLimitation(Chan::E ch, int direction)
+uint8 *Storage::GetLimitation(Chan::E ch, int direction)
 {
     uint8 *retValue = 0;
 
-    if(direction == 0)
+    if (direction == 0)
     {
         retValue = &(limitDown[ch][0]);
     }
-    else if(direction == 1)
+    else if (direction == 1)
     {
         retValue = &(limitUp[ch][0]);
     }
@@ -486,11 +486,12 @@ uint8* Storage::GetLimitation(Chan::E ch, int direction)
 
 int Storage::NumberAvailableEntries()
 {
-    if(firstElem == 0)
+    if (first_ds == nullptr)
     {
         return 0;
     }
-    return SIZE_POOL / lastElem->SizeElem();
+
+    return SIZE_POOL / last_ds->SizeElem();
 }
 
 
@@ -498,35 +499,35 @@ void Storage::PushData(DataSettings *dp, uint8 *data0, uint8 *data1)
 {
     int required = dp->SizeElem();
 
-    while(MemoryFree() < required)
+    while (MemoryFree() < required)
     {
         RemoveFirstElement();
     }
 
-    uint8* addrRecord = 0;
+    uint8 *addrRecord = 0;
 
-    if(firstElem == 0)
+    if (first_ds == 0)
     {
-        firstElem = (DataSettings*)beginPool;
+        first_ds = (DataSettings *)beginPool;
         addrRecord = beginPool;
         dp->addrPrev = 0;
         dp->addrNext = 0;
     }
     else
     {
-        addrRecord = (uint8*)lastElem + lastElem->SizeElem();
+        addrRecord = (uint8 *)last_ds + last_ds->SizeElem();
 
-        if(addrRecord + dp->SizeElem() > endPool)
+        if (addrRecord + dp->SizeElem() > endPool)
         {
             addrRecord = beginPool;
         }
 
-        dp->addrPrev = lastElem;
-        lastElem->addrNext = addrRecord;
+        dp->addrPrev = last_ds;
+        last_ds->addrNext = addrRecord;
         dp->addrNext = 0;
     }
 
-    lastElem = (DataSettings*)addrRecord;
+    last_ds = (DataSettings *)addrRecord;
 
 #define COPY_AND_INCREASE(address, data, length) memcpy((address), (data), (length)); address += (length);
 
@@ -534,11 +535,11 @@ void Storage::PushData(DataSettings *dp, uint8 *data0, uint8 *data1)
 
     uint bytes_in_channel = (uint)dp->BytesInChannel();
 
-    if(dp->en_a)
+    if (dp->en_a)
     {
         COPY_AND_INCREASE(addrRecord, data0, bytes_in_channel);
     }
-    if(dp->en_b)
+    if (dp->en_b)
     {
         COPY_AND_INCREASE(addrRecord, data1, bytes_in_channel);
     }
@@ -547,28 +548,28 @@ void Storage::PushData(DataSettings *dp, uint8 *data0, uint8 *data1)
 
 int Storage::MemoryFree()
 {
-    if (firstElem == 0)
+    if (first_ds == nullptr)
     {
         return SIZE_POOL;
     }
-    else if (firstElem == lastElem)
+    else if (first_ds == last_ds)
     {
-        return (endPool - (uint8*)firstElem - (int)firstElem->SizeElem());
+        return (endPool - (uint8 *)first_ds - (int)first_ds->SizeElem());
     }
-    else if (firstElem < lastElem)
+    else if (first_ds < last_ds)
     {
-        if ((uint8*)firstElem == beginPool)
+        if ((uint8 *)first_ds == beginPool)
         {
-            return (endPool - (uint8*)lastElem - lastElem->SizeElem());
+            return (endPool - (uint8 *)last_ds - last_ds->SizeElem());
         }
         else
         {
-            return (uint8*)firstElem - beginPool;
+            return (uint8 *)first_ds - beginPool;
         }
     }
-    else if (lastElem < firstElem)
+    else if (last_ds < first_ds)
     {
-        return (uint8*)firstElem - (uint8*)lastElem - lastElem->SizeElem();
+        return (uint8 *)first_ds - (uint8 *)last_ds - last_ds->SizeElem();
     }
     return 0;
 }
@@ -578,12 +579,12 @@ int DataSettings::SizeElem()
 {
     int retValue = sizeof(DataSettings);
 
-    if(en_a)
+    if (en_a)
     {
         retValue += BytesInChannel();
     }
 
-    if(en_b)
+    if (en_b)
     {
         retValue += BytesInChannel();
     }
@@ -594,34 +595,34 @@ int DataSettings::SizeElem()
 
 void Storage::RemoveFirstElement()
 {
-    firstElem = NextElem(firstElem);
-    firstElem->addrPrev = 0;
+    first_ds = NextElem(first_ds);
+    first_ds->addrPrev = 0;
     count_data--;
 }
 
 
-DataSettings* Storage::NextElem(DataSettings *elem)
+DataSettings *Storage::NextElem(DataSettings *elem)
 {
-    return (DataSettings*)elem->addrNext;
+    return (DataSettings *)elem->addrNext;
 }
 
 
-DataSettings* Storage::GetDataSettings(int indexFromEnd)
+DataSettings *Storage::GetDataSettings(int indexFromEnd)
 {
-    if(firstElem == 0)
+    if (first_ds == nullptr)
     {
-        return 0;
+        return nullptr;
     }
 
     int index = indexFromEnd;
-    DataSettings *ds = lastElem;
+    DataSettings *ds = last_ds;
 
-    while(index != 0 && ((ds = (DataSettings *)ds->addrPrev) != 0))
+    while (index != 0 && ((ds = (DataSettings *)ds->addrPrev) != 0))
     {
         index--;
     }
 
-    if(index != 0)
+    if (index != 0)
     {
         LOG_ERROR("Неправильный индекс %d, всего данных %d", indexFromEnd, NumElements());
         return 0;
@@ -633,8 +634,8 @@ DataSettings* Storage::GetDataSettings(int indexFromEnd)
 
 bool Storage::SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1)
 {
-    DataSettings* dp0 = GetDataSettings(elemFromEnd0);
-    DataSettings* dp1 = GetDataSettings(elemFromEnd1);
+    DataSettings *dp0 = GetDataSettings(elemFromEnd0);
+    DataSettings *dp1 = GetDataSettings(elemFromEnd1);
 
     return dp0->Equal(*dp1);
 }
