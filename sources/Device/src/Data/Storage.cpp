@@ -168,7 +168,7 @@ void Storage::CalculateAroundAverage(uint8 *data0, uint8 *data1, DataSettings *d
 }
 
 
-void Storage::AddData(uint8 *a, uint8 *b, DataSettings dss)
+void Storage::AddData(DataSettings dss, uint8 *a, uint8 *b)
 {
     dss.time = HAL_RTC::GetPackedTime();
 
@@ -674,7 +674,7 @@ void Storage::P2P::AppendFrame(DataSettings ds)
     bufferA.Fill(ValueFPGA::NONE);
     bufferB.Fill(ValueFPGA::NONE);
 
-    AddData(bufferA.Data(), bufferB.Data(), ds);
+    AddData(ds, bufferA.Data(), bufferB.Data());
 }
 
 
@@ -691,5 +691,10 @@ void Storage::P2P::Reset()
 
 void Storage::P2P::AddPoints(BitSet16 bytesA, BitSet16 bytesB)
 {
+    DataSettings *ds = GetDataSettings();
 
+    if (ds)
+    {
+
+    }
 }

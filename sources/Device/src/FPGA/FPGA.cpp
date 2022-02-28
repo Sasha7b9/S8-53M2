@@ -342,7 +342,7 @@ void FPGA::DataRead()
         InverseDataIsNecessary(Chan::B, dataReadB);
     }
 
-    Storage::AddData(dataReadA.Data(), dataReadB.Data(), ds);
+    Storage::AddData(ds, dataReadA.Data(), dataReadB.Data());
 
     if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)
     {
