@@ -428,14 +428,14 @@ void HAL_ROM::SaveData(int num, DataSettings *ds, uint8 *data0, uint8 *data1)
 }
 
 
-bool HAL_ROM::GetData(int num, DataSettings **ds, uint8 **data0, uint8 **data1)
+bool HAL_ROM::GetData(int num, DataSettings **ds, uint8 **dataA, uint8 **dataB)
 {
     uint addrDataInfo = FindActualDataInfo();
     if (READ_WORD(addrDataInfo + 4 * num) == 0)
     {
         *ds = 0;
-        *data0 = 0;
-        *data1 = 0;
+        *dataA = 0;
+        *dataB = 0;
         return false;
     }
 
@@ -463,8 +463,8 @@ bool HAL_ROM::GetData(int num, DataSettings **ds, uint8 **data0, uint8 **data1)
         }
     }
 
-    *data0 = (uint8*)addrData0;
-    *data1 = (uint8*)addrData1;
+    *dataA = (uint8*)addrData0;
+    *dataB = (uint8*)addrData1;
     
     return true;
 }

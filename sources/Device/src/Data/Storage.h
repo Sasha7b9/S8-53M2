@@ -24,7 +24,7 @@ namespace Storage
     int NumElementsWithCurrentSettings();
 
     // Получить указатель на данные
-    bool GetData(int fromEnd, DataSettings **ds, uint8 **data0, uint8 **data1);
+    bool GetData(int fromEnd, DataSettings **ds, uint8 **dataA, uint8 **dataB);
 
     uint8* GetData(Chan::E, int fromEnd);
 
