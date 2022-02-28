@@ -522,14 +522,14 @@ void Display::DrawDataChannel(uint8 *data, Chan::E ch, DataSettings *ds, int min
 
     if (ds->InModeP2P())
     {
-        if (ds->last_point < Grid::Width())
+        if (ds->rec_point < Grid::Width())
         {
             first = 0;
-            last = ds->last_point + 1;
+            last = ds->rec_point + 1;
         }
         else
         {
-            last = ds->last_point + 1;
+            last = ds->rec_point + 1;
             first = last - Grid::Width();
         }
     }

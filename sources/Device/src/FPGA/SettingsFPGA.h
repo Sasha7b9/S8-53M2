@@ -370,7 +370,7 @@ struct DataSettings
     Divider::E          div_b               : 1;
     PackedTime          time;
     // Поточечный режим
-    int16               last_point;                 // Сейчас будет считана эта точка. Если -1 - то фрейм не поточечный. Он считан полностью
+    int16               rec_point;                  // Сейчас будет записана эта точка. Если -1 - то фрейм не поточечный. Он считан полностью
 
     bool Equal(const DataSettings &);
 
@@ -389,4 +389,7 @@ struct DataSettings
     int16 GetRShift(Chan::E) const;
 
     bool InModeP2P() const;
+
+    // Добавить точки в поточечном режиме
+    void AppendPoints(uint8 *a, uint8 *b, BitSet16 pointsA, BitSet16 pointsB);
 };

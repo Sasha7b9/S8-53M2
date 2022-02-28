@@ -648,7 +648,7 @@ int RShift::ToRel(float rShiftAbs, Range::E range)
 
 void DataSettings::Init()
 {
-    last_point = TBase::InModeP2P() ? 0 : -1;
+    rec_point = TBase::InModeP2P() ? 0 : -1;
 
     en_a = Chan::Enabled(Chan::A) ? 1U : 0U;
     en_b = Chan::Enabled(Chan::B) ? 1U : 0U;
@@ -715,7 +715,31 @@ int16 DataSettings::GetRShift(Chan::E ch) const
 
 bool DataSettings::InModeP2P() const
 {
-    return (tBase >= TBase::MIN_P2P) && (last_point != -1);
+    return (tBase >= TBase::MIN_P2P) && (rec_point != -1);
+}
+
+
+void DataSettings::AppendPoints(uint8 *a, uint8 *b, BitSet16 pointsA, BitSet16 pointsB)
+{
+    if (InModeP2P())
+    {
+//        int max_bytes = BytesInChannel();
+//
+//        if(last_point)
+
+        if (en_a)
+        {
+            a[rec_point] = pointsA.byte0;
+            a[rec_point + 1] = pointsA.byte1;
+        }
+        if (en_b)
+        {
+            b[rec_point] = pointsB.byte0;
+            b[rec_point + 1] = pointsB.byte0;
+        }
+
+        rec_point += 2;
+    }
 }
 
 
