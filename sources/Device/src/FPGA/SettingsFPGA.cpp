@@ -8,6 +8,7 @@
 #include "Log.h"
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
+#include <cstring>
 
 
 StateWorkFPGA::E StateWorkFPGA::current = StateWorkFPGA::Stop;
@@ -723,9 +724,18 @@ void DataSettings::AppendPoints(uint8 *a, uint8 *b, BitSet16 pointsA, BitSet16 p
 {
     if (InModeP2P())
     {
-//        int max_bytes = BytesInChannel();
-//
-//        if(last_point)
+        int max_bytes = BytesInChannel();
+
+        if (rec_point == max_bytes - 1)
+        {
+            std::memmove(a, a + 1, (uint)(max_bytes - 1));
+            rec_point = max_bytes - 2;
+        }
+        else if (rec_point == max_bytes)
+        {
+            std::memmove(a, a + 2, (uint)(max_bytes - 2));
+            rec_point = max_bytes - 2;
+        }
 
         if (en_a)
         {
