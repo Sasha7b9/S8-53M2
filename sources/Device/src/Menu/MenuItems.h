@@ -44,6 +44,7 @@ enum NamePage
     Page_DebugADC,              // нркюдйю - южо
     Page_DebugADCbalance,       // нркюдйю - южо - аюкюмя
     Page_DebugADCstretch,       // нркюдйю - южо - пюяръфйю
+    Page_DebugADCshift,
     Page_DebugADCrShift,        // нркюдйю - южо - дно. ялеыемхе
     Page_DebugADCaltShift,      // нркюдйю - южо - дно. ялеы. оюл.
     Page_DebugShowRegisters,    // нркюдйю - пецхярпш

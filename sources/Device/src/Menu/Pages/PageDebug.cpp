@@ -405,13 +405,45 @@ static const Choice mcConsole_Registers_tShift =
 };
 
 
+static void OnPress_ResetShift()
+{
+    SET_SHIFT_ADC_A = 0;
+    SET_SHIFT_ADC_B = 0;
+}
+
+
+static const Button bResetShift
+(
+    &mpADC_Stretch, nullptr,
+    "Сброс", "Reset",
+    "Сброс коэффициента растяжки в 1", "Сброс коэффициента растяжки в 1",
+    OnPress_ResetShift
+);
+
+
+static const arrayItems itemsADC_Shift =
+{
+    (void *)&bResetShift
+};
+
+
+static const Page mpADC_Shift
+(
+    &mpADC, 0,
+    "СМЕЩЕНИЕ", "SHIFT",
+    "",
+    "",
+    Page_DebugADCshift, &itemsADC_Shift
+);
+
+
 // ОТЛАДКА - АЦП ///////////////////
 static const arrayItems itemsADC =
 {
     (void*)&mpADC_Balance,      // ОТЛАДКА - АЦП - БАЛАНС
     (void*)&mpADC_Stretch,      // ОТЛАДКА - АЦП - РАСТЯЖКА
+    (void*)&mpADC_Shift,
     (void*)&mpADC_AltRShift     // ОТЛАДКА - АЦП - ДОП СМЕЩ
-    //, (void*)&mspDebugADCaltShift
 };
 
 static const Page mpADC
@@ -472,8 +504,8 @@ static void OnPress_ResetStretch()
 static const Button bResetStretch
 (
     &mpADC_Stretch, nullptr,
-    "Сброс коэффициента растяжки", "Сброс коэффициента растяжки",
-    "Сброс в 1", "Сброс в 1",
+    "Сброс", "Reset",
+    "Сброс коэффициента растяжки в 1", "Сброс коэффициента растяжки в 1",
     OnPress_ResetStretch
 );
 

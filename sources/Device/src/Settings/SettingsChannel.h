@@ -12,7 +12,7 @@
 #define SET_STRETCH_ADC_A       (SET_STRETCH_ADC(ChA))
 #define SET_STRETCH_ADC_B       (SET_STRETCH_ADC(ChB))
 
-#define SET_SHIFT_ADC(ch)       (set.chan[ch].shiftADC[ch])
+#define SET_SHIFT_ADC(ch)       (set.chan[ch].shiftADC)
 #define SET_SHIFT_ADC_A         (SET_SHIFT_ADC(ChA))
 #define SET_SHIFT_ADC_B         (SET_SHIFT_ADC(ChB))
 
