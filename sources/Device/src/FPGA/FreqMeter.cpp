@@ -30,26 +30,9 @@ namespace FPGA
 
         float CalculateFrequencyFromCounterPeriod();
 
-        namespace Frequency
-        {
-            float FromFrequencyCounter(const BitSet32 &fr) { return fr.word * 10.0F; }
+        float FromFrequencyCounter(const BitSet32 &fr) { return fr.word * 10.0F; }
 
-            float FromPeriodCounter(const BitSet32 &period)
-            {
-                if (period.word == 0) { return 0.0F; }
-
-                return 10e6F / period.word;
-            }
-
-            float FromFrequencySet(const BitSet32 &fr) { return (fr.word * 10.0f); }
-
-            float FromPeriodSet(const BitSet32 &period)
-            {
-                if (period.word == 0) { return 0.0f; }
-
-                return (10e5f / (float)period.word);
-            }
-        }
+        float FromPeriodCounter(const BitSet32 &period) { return (period.word == 0) ? 0.0f : 10e5f / period.word; }
     }
 }
 
@@ -123,7 +106,7 @@ void FPGA::FreqMeter::ReadFrequency()            // Чтение счётчика частоты прои
     }
     else
     {
-        float fr = Frequency::FromFrequencyCounter(freqSet);
+        float fr = FromFrequencyCounter(freqSet);
 
         if (fr < prevFreq * 0.9f || fr > prevFreq * 1.1f)
         {
@@ -142,7 +125,7 @@ void FPGA::FreqMeter::ReadFrequency()            // Чтение счётчика частоты прои
 void FPGA::FreqMeter::ReadPeriod()
 {
     BitSet32 periodSet = ReadRegPeriod();
-    float fr = Frequency::FromPeriodSet(periodSet);
+    float fr = FromPeriodCounter(periodSet);
 
     if (fr < prevFreq * 0.9f || fr > prevFreq * 1.1f)
     {
@@ -176,8 +159,37 @@ float FPGA::FreqMeter::CalculateFrequencyFromCounterFrequency()
 
     if (fr.word >= 5)
     {
-        frequency = Frequency::FromFrequencyCounter(fr);
+        frequency = FromFrequencyCounter(fr);
     }
 
     return 0.0F;
+}
+
+
+float FPGA::FreqMeter::CalculateFrequencyFromCounterPeriod()
+{
+    frequency = 0.0f;
+
+    uint time = TIME_MS;
+
+    while (TIME_MS - time < 1000 && _GET_BIT(HAL_FMC::Read(RD_FL), FL_PERIOD) == 0)
+    {
+    };
+
+    ReadRegPeriod();
+
+    time = TIME_MS;
+
+    while (TIME_MS - time < 1000 && _GET_BIT(HAL_FMC::Read(RD_FL), FL_PERIOD) == 0)
+    {
+    };
+
+    BitSet32 period = ReadRegPeriod();
+
+    if (period.word > 0 && (TIME_MS - time < 1000))
+    {
+        frequency = FromPeriodCounter(period);
+    }
+
+    return frequency;
 }

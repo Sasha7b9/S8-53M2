@@ -43,9 +43,9 @@ namespace FPGA
 
         BitSet32 ReadRegPeriod();
 
-        float FreqCounterToValue(BitSet32 *fr);
+        float FromFrequencyCounter(const BitSet32 &);
 
-        float PeriodCounterToValue(const BitSet32 &period);
+        float FromPeriodCounter(const BitSet32 &);
     }
 }
 
@@ -326,7 +326,7 @@ float FPGA::AutoFinder::CalculateFreqFromCounterFreq()
 
     if (fr.word >= 5)
     {
-        return FreqMeter::FreqCounterToValue(&fr);
+        return FreqMeter::FromFrequencyCounter(fr);
     }
 
     return 0.0f;
@@ -347,7 +347,7 @@ float FPGA::AutoFinder::CalculateFreqFromCounterPeriod()
 
     if (period.word > 0 && (TIME_MS - time < 1000))
     {
-        return FreqMeter::PeriodCounterToValue(period);
+        return FreqMeter::FromPeriodCounter(period);
     }
 
     return 0.0f;
