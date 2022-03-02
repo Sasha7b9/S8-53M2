@@ -463,24 +463,24 @@ void FPGA::LoadRegUPR()
 {
     uint8 data = 0;
 
-    if (TBase::InModeRandomizer())
+    if (SET_TBASE < TBase::MAX_RAND)
     {
-        _SET_BIT(data, 0);
+        _SET_BIT(data, UPR_BIT_RAND);
     }
 
     if (!SET_PEAKDET_IS_DISABLE)
     {
-        _SET_BIT(data, 1);
+        _SET_BIT(data, UPR_BIT_PEAKDET);
     }
 
     if (CALIBRATOR_IS_FREQ)
     {
-        _SET_BIT(data, 2);
+        _SET_BIT(data, UPR_BIT_CALIBRATOR_AC_DC);
     }
 
     else if (CALIBRATOR_IS_DC)
     {
-        _SET_BIT(data, 3);
+        _SET_BIT(data, UPR_BIT_CALIBRATOR_VOLTAGE);
     }
 
     BUS_FPGA::Write(WR_UPR, data, true);

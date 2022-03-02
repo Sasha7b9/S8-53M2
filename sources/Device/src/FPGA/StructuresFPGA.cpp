@@ -50,8 +50,8 @@ uint16 FPGA::Reader::CalculateAddressRead()
 {
     if (TBase::InModeRandomizer())
     {
-        //                            2ns 5ns 10ns 20ns
-        static const int shift[4] = { 44, 44, 42,  40 };
+        //                            2ns 5ns 10ns 20ns 50ns
+        static const int shift[5] = { 44, 44, 42,  40,  38};
 
         return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) - ENUM_POINTS_FPGA::ToNumBytes() / TBase::StretchRand() - shift[SET_TBASE]);
     }

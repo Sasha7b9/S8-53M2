@@ -49,6 +49,7 @@
 #define WR_POST                 (HAL_FMC::ADDR_FPGA + 0x03)
 #define WR_TRIG                 (HAL_FMC::ADDR_FPGA + 0x04)
 #define WR_UPR                  (HAL_FMC::ADDR_FPGA + 0x05)
+    #define UPR_BIT_RAND                    0   // Включается на рандомизаторе
     #define UPR_BIT_PEAKDET                 1   // пиковый детектор - 0/1 выкл/вкл
     #define UPR_BIT_CALIBRATOR_AC_DC        2   // постоянное/переменное
     #define UPR_BIT_CALIBRATOR_VOLTAGE      3   // 0/4В
