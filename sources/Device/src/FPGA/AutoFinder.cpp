@@ -37,7 +37,7 @@ namespace FPGA
 
     namespace FreqMeter
     {
-        extern float freq;           // Частота, намеренная альтерой.
+        extern float frequency;           // Частота, намеренная альтерой.
 
         BitSet32 ReadRegFreq();
 
@@ -230,7 +230,7 @@ TBase::E FPGA::AutoFinder::FindTBase(Chan::E ch)
     else
     {
         TrigInput::Set(TrigInput::LPF);
-        FreqMeter::freq = CalculateFreqFromCounterPeriod();
+        FreqMeter::frequency = CalculateFreqFromCounterPeriod();
 
         if (fr > 0.0f)
         {

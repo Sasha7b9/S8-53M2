@@ -10,7 +10,7 @@ namespace FPGA
 {
     namespace FreqMeter
     {
-        float freq = 0.0f;           // Частота, намеренная альтерой.
+        float frequency = 0.0f;           // Частота, намеренная альтерой.
         float prevFreq = 0.0f;
 
         volatile static BitSet32 freqActual;
@@ -24,20 +24,47 @@ namespace FPGA
 
         BitSet32 ReadRegPeriod();
 
+        BitSet32 ReadRegFrequency();
+
         float PeriodCounterToValue(BitSet32 *period);
 
         void Update(uint16 flag);
 
-        void ReadFreq();
+        void ReadFrequency();
 
         void ReadPeriod();
+
+        float CalculateFrequencyFromCounterFrequency();
+
+        float CalculateFrequencyFromCounterPeriod();
+
+        namespace Frequency
+        {
+            float FromFrequencyCounter(const BitSet32 *fr) { return fr->word * 10.0F; }
+
+            float FromPeriodCounter(const BitSet32 *period)
+            {
+                if (period->word == 0) { return 0.0F; }
+
+                return 10e6F / period->word;
+            }
+
+            float FromFrequencySet(const BitSet32 *fr) { return (fr->word * 10.0f); }
+
+            float FromPeriodSet(const BitSet32 *period)
+            {
+                if (period->word == 0) { return 0.0f; }
+
+                return (10e5f / (float)period->word);
+            }
+        }
     }
 }
 
 
 float FPGA::FreqMeter::GetFreq()
 {
-    return 0.0f;
+    return frequency;
 }
 
 
@@ -65,6 +92,17 @@ BitSet32 FPGA::FreqMeter::ReadRegPeriod()
 }
 
 
+BitSet32 FPGA::FreqMeter::ReadRegFrequency()
+{
+    BitSet32 fr;
+
+    fr.half_word[0] = (uint8)HAL_FMC::Read(RD_FREQ_LOW);
+    fr.half_word[1] = (uint8)HAL_FMC::Read(RD_FREQ_HI);
+
+    return fr;
+}
+
+
 float FPGA::FreqMeter::PeriodCounterToValue(BitSet32 *period)
 {
     if (period->word == 0)
@@ -87,7 +125,7 @@ void FPGA::FreqMeter::Update(uint16 flag)
 
         if (!readPeriod)
         {
-            ReadFreq();
+            ReadFrequency();
         }
     }
 
@@ -104,7 +142,7 @@ void FPGA::FreqMeter::Update(uint16 flag)
 }
 
 
-void FPGA::FreqMeter::ReadFreq()            // Чтение счётчика частоты производится после того, как бит 4 флага RD_FL установится в едицину
+void FPGA::FreqMeter::ReadFrequency()            // Чтение счётчика частоты производится после того, как бит 4 флага RD_FL установится в едицину
 {                                           // После чтения автоматически запускается новый цикл счёта
     BitSet32 freqFPGA = ReadRegFreq();
 
@@ -117,11 +155,11 @@ void FPGA::FreqMeter::ReadFreq()            // Чтение счётчика частоты производи
         float fr = FreqCounterToValue(&freqFPGA);
         if (fr < prevFreq * 0.9f || fr > prevFreq * 1.1f)
         {
-            freq = ERROR_VALUE_FLOAT;
+            frequency = ERROR_VALUE_FLOAT;
         }
         else
         {
-            freq = fr;
+            frequency = fr;
         }
         prevFreq = fr;
     }
@@ -132,14 +170,41 @@ void FPGA::FreqMeter::ReadPeriod()
 {
     BitSet32 periodFPGA = ReadRegPeriod();
     float fr = PeriodCounterToValue(&periodFPGA);
+
     if (fr < prevFreq * 0.9f || fr > prevFreq * 1.1f)
     {
-        freq = ERROR_VALUE_FLOAT;
+        frequency = ERROR_VALUE_FLOAT;
     }
     else
     {
-        freq = fr;
+        frequency = fr;
     }
+
     prevFreq = fr;
     readPeriod = false;
+}
+
+
+float FPGA::FreqMeter::CalculateFrequencyFromCounterFrequency()
+{
+    frequency = 0.0f;
+
+    while (_GET_BIT(HAL_FMC::Read(RD_FL), FL_FREQ) == 0)
+    {
+    };
+
+    ReadRegFrequency();
+
+    while (_GET_BIT(HAL_FMC::Read(RD_FL), FL_FREQ) == 0)
+    {
+    };
+
+    BitSet32 fr = ReadRegFrequency();
+
+    if (fr.word >= 5)
+    {
+        frequency = Frequency::FromFrequencyCounter(&fr);
+    }
+
+    return 0.0F;
 }
