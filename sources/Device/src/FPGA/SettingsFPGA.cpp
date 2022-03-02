@@ -681,9 +681,9 @@ int TBase::StretchRand()
 {
     static const int N = 100;
 
-    //                                    2ns  5ns   10 ns 20 ns
-    static const int Kr[TBase::Count] = { N/2, N/10, N/20, N/50,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+    //                                    2ns  5ns  10ns  20ns  50ns
+    static const int Kr[TBase::Count] = { N/1, N/2, N/10, N/20, N/50,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
     return Kr[SET_TBASE];
 }
