@@ -25,9 +25,9 @@ namespace Display
 
     void EnableTrigLabel(bool enable);
 
-    void ShowWarningBad(Warning warning);
+    void ShowWarningBad(Warning::E warning);
 
-    void ShowWarningGood(Warning warning);
+    void ShowWarningGood(Warning::E warning);
 
     void ClearFromWarnings();
 

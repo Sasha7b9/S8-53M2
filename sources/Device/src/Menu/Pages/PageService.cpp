@@ -276,7 +276,7 @@ static void OnPress_Math_Function()
 {
     if (ENABLED_FFT)
     {
-        Display::ShowWarningBad(ImpossibleEnableMathFunction);
+        Display::ShowWarningBad(Warning::ImpossibleEnableMathFunction);
     }
 }
 
@@ -385,7 +385,7 @@ static void OnPress_Math_Function_ModeDraw()
 {
     if (ENABLED_FFT)
     {
-        Display::ShowWarningBad(ImpossibleEnableMathFunction);
+        Display::ShowWarningBad(Warning::ImpossibleEnableMathFunction);
     }
     else
     {
@@ -575,7 +575,7 @@ static void OnPress_Math_FFT()
 {
     if (!IsActive_Math_FFT())
     {
-        Display::ShowWarningBad(ImpossibleEnableFFT);
+        Display::ShowWarningBad(Warning::ImpossibleEnableFFT);
     }
 }
 
@@ -780,8 +780,8 @@ static const Choice cEthernet_Enable =
 
 static void OnChanged_Ethernet_Enable(bool active)
 {
-    Display::ShowWarningGood(NeedRebootDevice2);
-    Display::ShowWarningGood(NeedRebootDevice1);
+    Display::ShowWarningGood(Warning::NeedRebootDevice2);
+    Display::ShowWarningGood(Warning::NeedRebootDevice1);
 }
 
 // ÑÅÐÂÈÑ - ETHERNET - IP àäðåñ ----------------------------------------------------------------------------------------------------------------------

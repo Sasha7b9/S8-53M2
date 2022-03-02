@@ -82,8 +82,8 @@ void IPaddress::ChangeValue(int delta)
             ip0[numByte] = (uint8)newValue;
         }
         Sound::GovernorChangedValue();
-        Display::ShowWarningGood(NeedRebootDevice2);
-        Display::ShowWarningGood(NeedRebootDevice1);
+        Display::ShowWarningGood(Warning::NeedRebootDevice2);
+        Display::ShowWarningGood(Warning::NeedRebootDevice1);
     }
 }
 
@@ -92,8 +92,8 @@ void MACaddress::ChangeValue(int delta)
     uint8 *value = mac0 + MACaddress::cur_digit;
     *value += delta > 0 ? 1 : -1;
     Sound::GovernorChangedValue();
-    Display::ShowWarningGood(NeedRebootDevice2);
-    Display::ShowWarningGood(NeedRebootDevice1);
+    Display::ShowWarningGood(Warning::NeedRebootDevice2);
+    Display::ShowWarningGood(Warning::NeedRebootDevice1);
 }
 
 void IPaddress::GetNumPosIPvalue(int *numIP, int *selPos)

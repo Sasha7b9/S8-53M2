@@ -65,9 +65,9 @@ namespace Tables
 }
 
 
-pchar Tables::GetWarning(Warning warning)
+pchar Tables::GetWarning(Warning::E warning)
 {
-    static pchar warnings[Warning_NumWarnings][2] =
+    static pchar warnings[Warning::Count][2] =
     {
         {"опедек йюмюк 1 - бнкэр/дек",      "LIMIT CHANNEL 1 - VOLTS/DIV"},
         {"опедек йюмюк 2 - бнкэр/дек",      "LIMIT CHANNEL 2 - VOLTS/DIV"},

@@ -56,7 +56,7 @@ void FPGA::AutoFinder::AutoFind()
     {
         if (!FindWave(Chan::B))
         {
-            Display::ShowWarningBad(SignalNotFound);
+            Display::ShowWarningBad(Warning::SignalNotFound);
         }
     }
 

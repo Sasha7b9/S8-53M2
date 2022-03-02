@@ -295,7 +295,7 @@ void Menu::Handlers::PressButton(Key::E button)
         if (memcmp(bufferForButtons, sampleBufferForButtons, SIZE_BUFFER_FOR_BUTTONS * sizeof(Key::E)) == 0)
         {
             SHOW_DEBUG_MENU = 1;
-            Display::ShowWarningGood(MenuDebugEnabled);
+            Display::ShowWarningGood(Warning::MenuDebugEnabled);
         }
     }
 
@@ -844,7 +844,7 @@ extern const Page pService;
 
 void Menu::OpenItemTime()
 {
-    Display::ShowWarningGood(TimeNotSet);
+    Display::ShowWarningGood(Warning::TimeNotSet);
     Menu::Handlers::ShortPressureButton(Key::Service);
     Menu::UpdateInput();
     Display::Update();

@@ -1379,7 +1379,7 @@ void Display::Update(bool endScene)
     {
         if (Painter::SaveScreenToFlashDrive())
         {
-            Display::ShowWarningGood(FileIsSaved);
+            Display::ShowWarningGood(Warning::FileIsSaved);
         }
         NEED_SAVE_TO_DRIVE = 0;
     }
@@ -2635,7 +2635,7 @@ void Display::ClearFromWarnings()
 
 
 
-void Display::ShowWarningBad(Warning warning)
+void Display::ShowWarningBad(Warning::E warning)
 {
     Color::ResetFlash();
     ShowWarn(Tables::GetWarning(warning));
@@ -2644,7 +2644,7 @@ void Display::ShowWarningBad(Warning warning)
 
 
 
-void Display::ShowWarningGood(Warning warning)
+void Display::ShowWarningGood(Warning::E warning)
 {
     Color::ResetFlash();
     ShowWarn(Tables::GetWarning(warning));

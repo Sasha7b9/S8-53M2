@@ -545,7 +545,7 @@ static void SaveSignalToIntMemory()
         {                               // то сохраняем сигнал из последних
             HAL_ROM::SaveData(CURRENT_NUM_INT_SIGNAL, Storage::dsLast, Storage::dataLastA, Storage::dataLastB);
             HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
-            Display::ShowWarningGood(SignalIsSaved);
+            Display::ShowWarningGood(Warning::SignalIsSaved);
         }
     }
     else                                // Иначе сохраняем текущий сигнал
@@ -554,7 +554,7 @@ static void SaveSignalToIntMemory()
         {
             HAL_ROM::SaveData(CURRENT_NUM_INT_SIGNAL, Storage::DS, Storage::dataA, Storage::dataB);
             HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::DS, &Storage::dataIntA, &Storage::dataIntB);
-            Display::ShowWarningGood(SignalIsSaved);
+            Display::ShowWarningGood(Warning::SignalIsSaved);
         }
     }
 }
