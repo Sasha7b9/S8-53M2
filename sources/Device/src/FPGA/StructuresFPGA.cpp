@@ -81,15 +81,15 @@ void FPGA::Launch::Calculate()
 
     int num_bytes = ENUM_POINTS_FPGA::ToNumBytes();
 
-    int values[TPos::Count] = {num_bytes, num_bytes / 2, 0};
+    int values[TPos::Count] = { 0, num_bytes / 4, num_bytes / 2 };
 
     pred = post = values[SET_TPOS];
 
     int tShift = SET_TSHIFT * (SET_PEAKDET_IS_ENABLE ? 2 : 1);
 
-    pred = Math::Limitation(pred - tShift * 2, 0, 65535);
+    pred = Math::Limitation(pred - tShift, 0, 65535);
 
-    post = Math::Limitation(post + tShift * 2, 0, 65535);
+    post = Math::Limitation(post + tShift, 0, 65535);
 
     if (TBase::InModeRandomizer())
     {
