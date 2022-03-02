@@ -214,7 +214,6 @@ static const Settings defaultSettings =
         15,                      // numStrings
         0,                      // размер шрифта - 5
         0,                      // consoleInPause
-        BalanceADC_Settings,    // balanceADC
         {0, 5},                 // shiftADC
         StretchADC_Settings,    // stretch
         {128, 128},             // stretchADC
@@ -257,7 +256,6 @@ void Settings::Load(bool _default)
         int16  balanceADC0 = BALANCE_ADC_A;
         int16  balanceADC1 = BALANCE_ADC_B;
         int16  numAverageForRand = NUM_AVE_FOR_RAND;
-        BalanceADCtype balanceType = BALANCE_ADC_TYPE;
 
         memcpy((void*)&set, (void*)(&defaultSettings), sizeof(set));                // Потом заполняем значениями по умолчанию
 
@@ -267,7 +265,6 @@ void Settings::Load(bool _default)
         BALANCE_ADC_A = balanceADC0;
         BALANCE_ADC_B = balanceADC1;
         NUM_AVE_FOR_RAND = numAverageForRand;
-        BALANCE_ADC_TYPE = balanceType;
     }
 
     HAL_LTDC::LoadPalette();

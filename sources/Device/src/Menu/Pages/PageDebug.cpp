@@ -39,14 +39,8 @@ extern const Choice     mcConsole_Registers_TBase;          // ОТЛАДКА - КОНСОЛЬ
 extern const Choice     mcConsole_Registers_tShift;         // ОТЛАДКА - КОНСОЛЬ - РЕГИСТРЫ - Т см.
 extern const Page       mpADC;                              // ОТЛАДКА - АЦП
 extern const Page       mpADC_Balance;                      // ОТЛАДКА - АЦП - БАЛАНС
-extern const Choice     mcADC_Balance_Mode;                 // ОТЛАДКА - АЦП - БАЛАНС - Режим
-static void     OnChanged_ADC_Balance_Mode(bool active);
-static void          Draw_ADC_Balance_Mode(int x, int y);
 extern const Governor   mgADC_Balance_ShiftA;               // ОТЛАДКА - АЦП - БАЛАНС - Смещение 1
-static bool      IsActive_ADC_Balance_Shift();
-static void     OnChanged_ADC_Balance_ShiftA();
 extern const Governor   mgADC_Balance_ShiftB;               // ОТЛАДКА - АЦП - БАЛАНС - Смещение 2
-static void     OnChanged_ADC_Balance_ShiftB();
 extern const Page       mpADC_Stretch;                      // ОТЛАДКА - АЦП - РАСТЯЖКА
 extern const Choice     mcADC_Stretch_Mode;                 // ОТЛАДКА - АЦП - РАСТЯЖКА - Режим
 static void     OnChanged_ADC_Stretch_Mode(bool active);
@@ -439,7 +433,6 @@ static const Page mpADC
 // ОТЛАДКА - АЦП - БАЛАНС //////////
 static const arrayItems itemsADC_Balance =
 {
-    (void*)&mcADC_Balance_Mode,     // ОТЛАДКА - АЦП - БАЛАНС - Режим
     (void*)&mgADC_Balance_ShiftA,   // ОТЛАДКА - АЦП - БАЛАНС - Смещение 1
     (void*)&mgADC_Balance_ShiftB    // ОТЛАДКА - АЦП - БАЛАНС - Смещение 2
 };
@@ -453,78 +446,27 @@ static const Page mpADC_Balance
     Page_DebugADCbalance, &itemsADC_Balance
 );
 
-// ОТЛАДКА - АЦП - БАЛАНС - Режим --------------------------------------------------------------------------------------------------------------------
-static const Choice mcADC_Balance_Mode =
-{
-    Item_Choice, &mpADC_Balance, 0,
-    {
-        "Режим", "Mode",
-        "",
-        ""
-    },
-    {
-        {DISABLE_RU,    DISABLE_EN},
-        {"Реальный",    "Real"},
-        {"Ручной",      "Manual"}
-    },
-    (int8*)&BALANCE_ADC_TYPE, OnChanged_ADC_Balance_Mode, Draw_ADC_Balance_Mode
-};
-
-static int16 shiftADCA;
-static int16 shiftADCB;
-
-static void OnChanged_ADC_Balance_Mode(bool active)
-{
-    Draw_ADC_Balance_Mode(0, 0);
-
-}
-
-static void Draw_ADC_Balance_Mode(int x, int y)
-{
-    int8 shift[2][3] =
-    {
-        {0, SET_BALANCE_ADC_A, (int8)BALANCE_ADC_A},
-        {0, SET_BALANCE_ADC_B, (int8)BALANCE_ADC_B}
-    };
-
-    shiftADCA = shift[0][BALANCE_ADC_TYPE];
-    shiftADCB = shift[1][BALANCE_ADC_TYPE];
-}
 
 // ОТЛАДКА - АЦП - БАЛАНС - Смещение 1 ---------------------------------------------------------------------------------------------------------------
 static const Governor mgADC_Balance_ShiftA
 (
-    &mpADC_Balance, IsActive_ADC_Balance_Shift,
+    &mpADC_Balance, nullptr,
     "Смещение 1", "Offset 1",
     "",
     "",
-    &shiftADCA, -125, 125, OnChanged_ADC_Balance_ShiftA
+    &BALANCE_ADC_A, -125, 125, nullptr
 );
 
-static void OnChanged_ADC_Balance_ShiftA()
-{
-    BALANCE_ADC_A = shiftADCA;
-}
-
-static bool IsActive_ADC_Balance_Shift()
-{
-    return BALANCE_ADC_TYPE_IS_HAND;
-}
 
 // ОТЛАДКА - АЦП - БАЛАНС - Смещение 2----------------------------------------------------------------------------------------------------------------
 static const Governor mgADC_Balance_ShiftB
 (
-    &mpADC_Balance, IsActive_ADC_Balance_Shift,
+    &mpADC_Balance, nullptr,
     "Смещение 2", "Offset 2",
     "",
     "",
-    &shiftADCB, -125, 125, OnChanged_ADC_Balance_ShiftB
+    &BALANCE_ADC_B, -125, 125, nullptr
 );
-
-static void OnChanged_ADC_Balance_ShiftB()
-{
-    BALANCE_ADC_B = shiftADCB;
-}
 
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА ////////

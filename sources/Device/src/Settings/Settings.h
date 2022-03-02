@@ -158,20 +158,17 @@ struct SettingsDebug
 {
     int16           numStrings;                     // Число строк в консоли.
     int8            sizeFont;                       // Размер шрифта консоли - 0 - 5, 1 - 8,
-    bool            consoleInPause;                 // \brief Признак того, что консоль находится в режиме паузы. Режим паузы означает, что новые 
+    bool            consoleInPause;                 // Признак того, что консоль находится в режиме паузы. Режим паузы означает, что новые 
                                                     // сообщения она не записывает и не сохраняет.
-    BalanceADCtype  balanceADCtype;                 // Тип балансировки.
     int16           balanceADC[2];                  // Значение дополнительного смещения АЦП для ручной балансировки.
     StretchADCtype  stretchADCtype;                 // Тип растяжки канала.
     int16           stretchADC[2];                  // Значение растяжки канала для ручного режима.
-    //RShiftADCtype   rShiftADCtype;
-    //int16           rShiftADC[Range::Count][2];   // Дополнительное смещение для каналов в режиме ручного управления. 0 - range == Range::_2mV, 1 - все остальные
     int16           numMeasuresForGates;            // Число измерений для ворот.
     int             shiftT0;                        // Дополнительное смещение по времени для данной развёртки режима рандомизатора.
     bool            showStats;                      // Показывать статистику на экране (fps, например).
     int16           numAveForRand;                  // По скольким измерениям усреднять сигнал в режиме рандомизатора.
     bool            viewAlteraWrittingData;         // Показывать ли данные, идущие в альтеру.
-    bool            viewAllAlteraWrittingData;      // \brief Показывать ли все данные, идущие в альтеру (если false, то постоянно идущие команды вроде 
+    bool            viewAllAlteraWrittingData;      // Показывать ли все данные, идущие в альтеру (если false, то постоянно идущие команды вроде 
                                                     // START, STOP не показываются).
     int16           altShift;                       // Добавочное смещение для устранения эффекта горизонтальной помехи синхронизации.
     OutputRegisters showRegisters;
