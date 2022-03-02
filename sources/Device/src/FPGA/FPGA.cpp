@@ -90,6 +90,12 @@ namespace FPGA
     {
         // Возвращает адрес, с которого нужно читать первую точку
         extern uint16 CalculateAddressRead();
+
+        // Чтение двух байт канала 1 (с калибровочными коэффициентами, само собой)
+        uint16 ReadA();
+
+        // Чтение двух байт канала 2 (с калибровочными коэффициентами, само собой)
+        uint16 ReadB();
     }
 }
 
@@ -366,8 +372,8 @@ void FPGA::ReadPoints(Chan::E ch)
     uint8 *dat = buffer.Data();
     const uint8 *const end = buffer.Last();
 
-    uint16* address = (ch == Chan::A) ? RD_ADC_A : RD_ADC_B;
-    
+    pFuncU16V funcRead = (ch == ChA) ? Reader::ReadA : Reader::ReadB;
+
     if (SET_PEAKDET_IS_ENABLE)
     {
         uint8 *p_min = dat;
@@ -377,7 +383,7 @@ void FPGA::ReadPoints(Chan::E ch)
 
         while (p_max < end && IN_PROCESS_READ)
         {
-            data.half_word = *address;
+            data.half_word = funcRead();
             *p_max++ = data.byte0;
             *p_min++ = data.byte1;
         }
@@ -393,13 +399,25 @@ void FPGA::ReadPoints(Chan::E ch)
 
         while (dat < end && IN_PROCESS_READ)
         {
-            data.half_word = *address;
+            data.half_word = funcRead();
             *dat = data.byte0;
             dat += stretch;
             *dat = data.byte1;
             dat += stretch;
         }
     }
+}
+
+
+uint16 FPGA::Reader::ReadA()
+{
+    return *RD_ADC_A;
+}
+
+
+uint16 FPGA::Reader::ReadB()
+{
+    return *RD_ADC_B;
 }
 
 
