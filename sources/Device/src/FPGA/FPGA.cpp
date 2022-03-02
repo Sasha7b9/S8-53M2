@@ -483,20 +483,9 @@ int FPGA::ShiftRandomizerADC()
             return TShift::EMPTY;
         }
 
-        if (TBase::InModeRandomizer())
-        {
-            float tin = (float)(rand - min) / (float)(max - min) * 10e-9f;
-            int retValue = (int)(tin / 10e-9f * (float)TBase::StretchRand());
-            return retValue;
-        }
-
-        if (SET_TBASE == TBase::_100ns && rand < (min + max) / 2)
-        {
-            return 0;
-        }
-
-        return -1;  // set.debug.altShift;      \todo Остановились на жёстком задании дополнительного смещения. На PageDebug выбор закомментирован, 
-                                                //можно раскомментировать при необходимости
+        float tin = (float)(rand - min) / (float)(max - min) * 10e-9f;
+        int shift = (int)(tin / 10e-9f * (float)TBase::StretchRand());
+        return shift;                                               //можно раскомментировать при необходимости
     }
 
     return 0;
