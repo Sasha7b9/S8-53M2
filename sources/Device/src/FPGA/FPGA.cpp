@@ -70,9 +70,6 @@ namespace FPGA
 
     bool CalculateGate(uint16 rand, uint16 *min, uint16 *max);
 
-    // Возвращает true, если нужно отбросить значение рандомизатора
-    bool NeedToDiscardValueRandomizer(uint16 rand, uint16 min, uint16 max);
-
     // Загрузить настройки в аппаратную часть из глобальной структуры SSettings.
     void LoadSettings();
 
@@ -468,27 +465,6 @@ void FPGA::InverseDataIsNecessary(Chan::E ch, Buffer<uint8> &data)
 
 int FPGA::ShiftRandomizerADC()
 {
-    uint16 rand = HAL_ADC1::GetValue();
-
-    if (rand != 0xFFFF)
-    {
-        uint16 min = 0;
-        uint16 max = 0;
-
-        if (CalculateGate(rand, &min, &max))
-        {
-            if (!NeedToDiscardValueRandomizer(rand, min, max))
-            {
-                float tin = (float)(rand - min) / (max - min) * 10e-9F;
-
-                return (int)(tin / 10e-9F * TBase::StretchRand());
-            }
-        }
-    }
-
-    return TShift::EMPTY;
-
-    /*
     if (TBase::InModeRandomizer())
     {
         uint16 rand = HAL_ADC1::GetValue();
@@ -513,52 +489,49 @@ int FPGA::ShiftRandomizerADC()
     }
 
     return 0;
-    */
 }
 
 
 bool FPGA::CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
 {
-    if (rand < 500 || rand > 3500)
+    if (FIRST_AFTER_WRITE)
     {
+        FIRST_AFTER_WRITE = false;
         return false;
     }
 
-    if (Panel::TimePassedAfterLastEvent() < 20)
+    if (rand < 500 || rand > 3500)
     {
+        LOG_WRITE("ОШИБКА!!! считано %d", rand);
         return false;
     }
 
     static const int numValues = 1000;
 
-    static float minGate = 0.0F;
-    static float maxGate = 0.0F;
+    static float minGate = 0.0f;
+    static float maxGate = 0.0f;
     static int numElements = 0;
     static uint16 min = 0xffff;
     static uint16 max = 0;
 
     numElements++;
-
     if (rand < min)
     {
         min = rand;
     }
-
     if (rand > max)
     {
         max = rand;
     }
 
-    if (minGate == 0.0F) //-V550
+    if (minGate == 0)
     {
         *eMin = min;
         *eMax = max;
-
         if (numElements < numValues)
         {
             return true;
         }
-
         minGate = min;
         maxGate = max;
         numElements = 0;
@@ -568,33 +541,17 @@ bool FPGA::CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
 
     if (numElements == numValues)
     {
-        minGate = 0.9F * minGate + 0.1F * min;
-        maxGate = 0.9F * maxGate + 0.1F * max;
+        minGate = 0.9f * minGate + 0.1f * min;
+        maxGate = 0.9f * maxGate + 0.1f * max;
         numElements = 0;
         min = 0xffff;
         max = 0;
     }
 
-    *eMin = (uint16)(minGate); //-V519
-    *eMax = (uint16)(maxGate); //-V519
+    *eMin = (uint16)minGate; //-V519
+    *eMax = (uint16)maxGate; //-V519
 
     return true;
-}
-
-
-bool FPGA::NeedToDiscardValueRandomizer(uint16 rand, uint16 min, uint16 max)
-{
-    if (rand > max - set.debug.gate_min * 10)
-    {
-        return true;
-    }
-
-    if (rand < min + set.debug.gate_max * 10)
-    {
-        return true;
-    }
-
-    return false;
 }
 
 
