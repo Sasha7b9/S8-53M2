@@ -21,16 +21,19 @@
  // Настройки каналов
 struct SettingsChannel
 {
-    float         stretchADC;                 // Поправочный коэффициент.
+    int8          balanceADC;                   // Баланс АЦП (смещение первой точки относительно второй)
+    float         stretchADC;                   // Коэффицент растяжки (на него умножается сигнал)
+    int8          shiftADC;                     // Добавочное смещение для балансировки АЦП.
+
     RShift        rShiftRel;
-    int16         rShiftAdd[Range::Count][2]; // Добавочное смещение для открытого (0) и закрытого (1) входов.
-    ModeCouple::E modeCouple;                 // Режим по входу.
-    Divider::E    divider;                    // Множитель.
-    Range::E      range;                      // Масштаб по напряжению.
-    bool          enable;                     // Включён ли канал.
-    bool          inverse;                    // Инвертирован ли канал.
-    bool          filtr;                      // Фильтр
-    int8          balanceShiftADC;            // Добавочное смещение для балансировки АЦП.
+    int16         rShiftAdd[Range::Count][2];   // Добавочное смещение для открытого (0) и закрытого (1) входов.
+
+    ModeCouple::E modeCouple;                   // Режим по входу.
+    Divider::E    divider;                      // Множитель.
+    Range::E      range;                        // Масштаб по напряжению.
+    bool          enable;                       // Включён ли канал.
+    bool          inverse;                      // Инвертирован ли канал.
+    bool          filtr;                        // Фильтр
 };
 
 
@@ -128,22 +131,6 @@ struct OutputRegisters
 
 #define CONSOLE_IN_PAUSE                    (set.debug.consoleInPause)
 
-#define BALANCE_ADC_TYPE                    (set.debug.balanceADCtype)
-#define BALANCE_ADC_TYPE_IS_HAND            (BALANCE_ADC_TYPE == BalanceADC_Hand)
-
-#define BALANCE_ADC(ch)                     (set.debug.balanceADC[ch])
-#define BALANCE_ADC_A                       (BALANCE_ADC(Chan::A))
-#define BALANCE_ADC_B                       (BALANCE_ADC(Chan::B))
-
-#define DEBUG_STRETCH_ADC_TYPE              (set.debug.stretchADCtype)
-#define DEBUG_STRETCH_ADC_TYPE_IS_DISABLED  (DEBUG_STRETCH_ADC_TYPE == StretchADC_Disable)
-#define DEBUG_STRETCH_ADC_TYPE_IS_HAND      (DEBUG_STRETCH_ADC_TYPE == StretchADC_Hand)
-#define DEBUG_STRETCH_ADC_TYPE_IS_SETTINGS  (DEBUG_STRETCH_ADC_TYPE == StretchADC_Settings)
-
-#define DEBUG_STRETCH_ADC(ch)               (set.debug.stretchADC[ch])
-#define DEBUG_STRETCH_ADC_A                 (DEBUG_STRETCH_ADC(Chan::A))
-#define DEBUG_STRETCH_ADC_B                 (DEBUG_STRETCH_ADC(Chan::B))
-
 #define NUM_MEAS_FOR_GATES                  (set.debug.numMeasuresForGates)
 
 #define ADD_SHIFT_T0                        (set.debug.shiftT0)
@@ -160,9 +147,6 @@ struct SettingsDebug
     int8            sizeFont;                       // Размер шрифта консоли - 0 - 5, 1 - 8,
     bool            consoleInPause;                 // Признак того, что консоль находится в режиме паузы. Режим паузы означает, что новые 
                                                     // сообщения она не записывает и не сохраняет.
-    int16           balanceADC[2];                  // Значение дополнительного смещения АЦП для ручной балансировки.
-    StretchADCtype  stretchADCtype;                 // Тип растяжки канала.
-    int16           stretchADC[2];                  // Значение растяжки канала для ручного режима.
     int16           numMeasuresForGates;            // Число измерений для ворот.
     int             shiftT0;                        // Дополнительное смещение по времени для данной развёртки режима рандомизатора.
     bool            showStats;                      // Показывать статистику на экране (fps, например).
@@ -170,7 +154,6 @@ struct SettingsDebug
     bool            viewAlteraWrittingData;         // Показывать ли данные, идущие в альтеру.
     bool            viewAllAlteraWrittingData;      // Показывать ли все данные, идущие в альтеру (если false, то постоянно идущие команды вроде 
                                                     // START, STOP не показываются).
-    int16           altShift;                       // Добавочное смещение для устранения эффекта горизонтальной помехи синхронизации.
     OutputRegisters showRegisters;
 };
 

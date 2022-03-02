@@ -270,9 +270,6 @@ void TBase::Load()
     TBase::E tBase = SET_TBASE;
     uint8 mask = SET_PEAKDET_IS_ENABLE ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
 
-    char buffer[10];
-    LOG_WRITE("%d = %s", tBase, Bin2String(mask, buffer));
-
     BUS_FPGA::Write(WR_RAZV, mask, true);
     ADD_SHIFT_T0 = FPGA::deltaTShift[tBase];
 }
@@ -484,12 +481,6 @@ void FPGA::LoadRegUPR()
     }
 
     BUS_FPGA::Write(WR_UPR, data, true);
-}
-
-
-void FPGA::LoadKoeffCalibration(Chan::E ch)
-{
-    BUS_FPGA::WriteToHardware(ch == Chan::A ? WR_CAL_A : WR_CAL_B, STRETCH_ADC(ch) * 0x80, false);
 }
 
 

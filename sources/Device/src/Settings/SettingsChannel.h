@@ -4,6 +4,19 @@
 #include "FPGA/SettingsFPGA.h"
 
 
+#define SET_BALANCE_ADC(ch)     (set.chan[ch].balanceADC)
+#define SET_BALANCE_ADC_A       (SET_BALANCE_ADC(ChA))
+#define SET_BALANCE_ADC_B       (SET_BALANCE_ADC(ChB))
+
+#define SET_STRETCH_ADC(ch)     (set.chan[ch].stretchADC)
+#define SET_STRETCH_ADC_A       (SET_STRETCH_ADC(ChA))
+#define SET_STRETCH_ADC_B       (SET_STRETCH_ADC(ChB))
+
+#define SET_SHIFT_ADC(ch)       (set.chan[ch].shiftADC[ch])
+#define SET_SHIFT_ADC_A         (SET_SHIFT_ADC(ChA))
+#define SET_SHIFT_ADC_B         (SET_SHIFT_ADC(ChB))
+
+
 #define SET_INVERSE(ch)         (set.chan[ch].inverse)          // SettingsChannel.inverse
 #define SET_INVERSE_A           (SET_INVERSE(Chan::A))          // set.chan[Chan::A].inverse
 #define SET_INVERSE_B           (SET_INVERSE(Chan::B))          // set.chan[Chan::B].inverse
@@ -30,14 +43,6 @@
 #define SET_ENABLED(ch)         (set.chan[ch].enable)           // SettingsChannel.enable
 #define SET_ENABLED_A           SET_ENABLED(Chan::A)            // set.chan[Chan::A].enable
 #define SET_ENABLED_B           SET_ENABLED(Chan::B)            // set.chan[Chan::B].enable
-
-#define SET_BALANCE_ADC(ch)     (set.chan[ch].balanceShiftADC)  // SettingsChannel.balanceShiftADC
-#define SET_BALANCE_ADC_A       (SET_BALANCE_ADC(Chan::A))      // set.chan[Chan::A].balanceShiftADC
-#define SET_BALANCE_ADC_B       (SET_BALANCE_ADC(Chan::B))      // set.chan[Chan::B].balanceShiftADC
-
-#define STRETCH_ADC(ch)         (set.chan[ch].stretchADC)       // SettingsChannel.stretchADC
-#define STRETCH_ADC_A           (STRETCH_ADC(Chan::A))          // set.chan[Chan::A].stretchADC
-#define STRETCH_ADC_B           (STRETCH_ADC(Chan::B))          // set.chan[Chan::B].stretchADC
 
 #define SET_FILTR(ch)           (set.chan[ch].filtr)            // SettingsChannel.filtr
 #define SET_FILTR_A             (SET_FILTR(Chan::A))            // set.chan[Chan::A].filtr

@@ -411,7 +411,7 @@ BitSet16 FPGA::Reader::ReadA()
 {
     BitSet16 data(*RD_ADC_A);
 
-    int byte1 = (int)data.byte1 + BALANCE_ADC_A;
+    int byte1 = (int)data.byte1 + SET_BALANCE_ADC_A;
 
     if (byte1 < 0)
     {
@@ -432,7 +432,7 @@ BitSet16 FPGA::Reader::ReadB()
 {
     BitSet16 data(*RD_ADC_B);
 
-    int byte1 = (int)data.byte1 + BALANCE_ADC_B;
+    int byte1 = (int)data.byte1 + SET_BALANCE_ADC_B;
 
     if (byte1 < 0)
     {
@@ -474,8 +474,7 @@ int FPGA::ShiftRandomizerADC()
 
         if (SET_TBASE == TBase::_200ns)
         {
-            return rand < 3000 ? 0 : -1;    // set.debug.altShift; \todo Остановились на жёстком задании дополнительного смещения. На PageDebug выбор 
-                                            // закомментирован, можно раскомментировать при необходимости
+            return rand < 3000 ? 0 : -1;
         }
 
         if (!CalculateGate(rand, &min, &max))

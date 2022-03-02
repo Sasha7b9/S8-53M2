@@ -42,13 +42,6 @@ extern const Page       mpADC_Balance;                      // ОТЛАДКА - АЦП - Б
 extern const Governor   mgADC_Balance_ShiftA;               // ОТЛАДКА - АЦП - БАЛАНС - Смещение 1
 extern const Governor   mgADC_Balance_ShiftB;               // ОТЛАДКА - АЦП - БАЛАНС - Смещение 2
 extern const Page       mpADC_Stretch;                      // ОТЛАДКА - АЦП - РАСТЯЖКА
-extern const Choice     mcADC_Stretch_Mode;                 // ОТЛАДКА - АЦП - РАСТЯЖКА - Режим
-static void     OnChanged_ADC_Stretch_Mode(bool active);
-extern const Governor   mgADC_Stretch_ADC_A;                // ОТЛАДКА - АЦП - РАСТЯЖКА - Коэфф. 1к
-static bool      IsActive_ADC_Stretch_ADC();
-static void     OnChanged_ADC_Stretch_ADC_A();
-extern const Governor   mgADC_Stretch_ADC_B;                // ОТЛАДКА - АЦП - РАСТЯЖКА - Коэфф. 2к
-static void     OnChanged_ADC_Stretch_ADC_B();
 extern const Page       mpADC_AltRShift;                    // ОТЛАДКА - АЦП - ДОП СМЕЩ
 extern const Button     mbADC_AltRShift_Reset;              // ОТЛАДКА - АЦП - ДОП СМЕЩ - Сброс
 static void       OnPress_ADC_AltRShift_Reset();
@@ -454,7 +447,7 @@ static const Governor mgADC_Balance_ShiftA
     "Смещение 1", "Offset 1",
     "",
     "",
-    &BALANCE_ADC_A, -125, 125, nullptr
+    (int16 *)&SET_BALANCE_ADC_A, -125, 125, nullptr
 );
 
 
@@ -465,16 +458,30 @@ static const Governor mgADC_Balance_ShiftB
     "Смещение 2", "Offset 2",
     "",
     "",
-    &BALANCE_ADC_B, -125, 125, nullptr
+    (int16 *)&SET_BALANCE_ADC_B, -125, 125, nullptr
+);
+
+
+static void OnPress_ResetStretch()
+{
+    SET_STRETCH_ADC_A = 1.0f;
+    SET_STRETCH_ADC_B = 1.0f;
+}
+
+
+static const Button bResetStretch
+(
+    &mpADC_Stretch, nullptr,
+    "Сброс коэффициента растяжки", "Сброс коэффициента растяжки",
+    "Сброс в 1", "Сброс в 1",
+    OnPress_ResetStretch
 );
 
 
 // ОТЛАДКА - АЦП - РАСТЯЖКА ////////
 static const arrayItems itemsADC_Stretch =
 {
-    (void*)&mcADC_Stretch_Mode,     // ОТЛАДКА - АЦП - РАСТЯЖКА - Режим
-    (void*)&mgADC_Stretch_ADC_A,    // ОТЛАДКА - АЦП - РАСТЯЖКА - Коэфф. 1к
-    (void*)&mgADC_Stretch_ADC_B     // ОТЛАДКА - АЦП - РАСТЯЖКА - Коэфф. 2к    
+    (void *)&bResetStretch
 };
 
 static const Page mpADC_Stretch
@@ -486,83 +493,6 @@ static const Page mpADC_Stretch
     Page_DebugADCstretch, &itemsADC_Stretch
 );
 
-// ОТЛАДКА - АЦП - РАСТЯЖКА - Режим ------------------------------------------------------------------------------------------------------------------
-static const Choice mcADC_Stretch_Mode =
-{
-    Item_Choice, &mpADC_Stretch, 0,
-    {
-        "Режим", "Mode",
-        "",
-        ""
-    },
-    {
-        {DISABLE_RU,    DISABLE_EN},
-        {"Реальный",    "Real"},
-        {"Ручной",      "Manual"}
-    },
-    (int8*)&DEBUG_STRETCH_ADC_TYPE, OnChanged_ADC_Stretch_Mode
-};
-
-static void OnChanged_ADC_Stretch_Mode(bool active)
-{
-    if(active)
-    {
-        PageDebug::LoadStretchADC(Chan::A);
-        PageDebug::LoadStretchADC(Chan::B);
-    }
-}
-
-void PageDebug::LoadStretchADC(Chan::E ch)
-{
-    if(DEBUG_STRETCH_ADC_TYPE_IS_DISABLED)
-    {
-        BUS_FPGA::WriteToHardware(ch == Chan::A ? WR_CAL_A : WR_CAL_B, 0x80, true);
-    }
-    else if(DEBUG_STRETCH_ADC_TYPE_IS_HAND)
-    {
-        BUS_FPGA::WriteToHardware(ch == Chan::A ? WR_CAL_A : WR_CAL_B, (uint8)DEBUG_STRETCH_ADC(ch), true);
-    }
-    else if(DEBUG_STRETCH_ADC_TYPE_IS_SETTINGS)
-    {
-        FPGA::LoadKoeffCalibration(ch);
-    }
-}
-
-// ОТЛАДКА - АЦП - РАСТЯЖКА - Коэфф. 1к --------------------------------------------------------------------------------------------------------------
-static const Governor mgADC_Stretch_ADC_A
-(
-    &mpADC_Stretch, IsActive_ADC_Stretch_ADC, 
-    "Коэфф. 1к", "Koeff. 1ch",
-    "",
-    "",
-    &DEBUG_STRETCH_ADC_A, 0, 255, OnChanged_ADC_Stretch_ADC_A
-);
-
-static bool IsActive_ADC_Stretch_ADC()
-{
-    return DEBUG_STRETCH_ADC_TYPE_IS_HAND;
-}
-
-static void OnChanged_ADC_Stretch_ADC_A()
-{
-    BUS_FPGA::WriteToHardware(WR_CAL_A, (uint8)DEBUG_STRETCH_ADC_A, true);
-}
-
-
-// ОТЛАДКА - АЦП - РАСТЯЖКА - Коэфф. 2к --------------------------------------------------------------------------------------------------------------
-static const Governor mgADC_Stretch_ADC_B
-(
-    &mpADC_Stretch, IsActive_ADC_Stretch_ADC,
-    "Коэфф. 2к", "Koeff. 2ch",
-    "",
-    "",
-    &DEBUG_STRETCH_ADC_B, 0, 255, OnChanged_ADC_Stretch_ADC_B
-);
-
-static void OnChanged_ADC_Stretch_ADC_B()
-{
-    BUS_FPGA::WriteToHardware(WR_CAL_B, (uint8)DEBUG_STRETCH_ADC_B, true);
-}
 
 // ОТЛАДКА - АЦП - ДОП СМЕЩ ////////
 static const arrayItems itemsADC_AltRShift =

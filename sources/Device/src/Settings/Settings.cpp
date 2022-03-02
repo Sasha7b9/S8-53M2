@@ -66,7 +66,9 @@ static const Settings defaultSettings =
     // channels
     {
         {
+            0,                      // balanceADC
             1.0f,                   // коэффициент калибровки
+            0,                      // shiftADC
             RShift::ZERO,
             {{0}, {0}},             // rShiftAdd
             ModeCouple::AC,         // ModCouple
@@ -74,11 +76,12 @@ static const Settings defaultSettings =
             Range::_500mV,          // range
             true,                   // enable
             false,                  // inverse
-            false,                  // filtr
-			0                       // addShiftADC
+            false                   // filtr
         },
         {
+            0,
             1.0f,                   // коэффициент калибровки
+            0,
             RShift::ZERO,
             {{0}, {0}},             // rShiftAdd
             ModeCouple::AC,         // ModCouple
@@ -86,8 +89,7 @@ static const Settings defaultSettings =
             Range::_500mV,          // range
             true,                   // enable
             false,                  // inverse
-            false,                  // filtr
-			5                       // addShiftADC
+            false                   // filtr
         }
         
     },
@@ -211,20 +213,15 @@ static const Settings defaultSettings =
     },
     // debug
     {
-        15,                      // numStrings
+        15,                     // numStrings
         0,                      // размер шрифта - 5
         0,                      // consoleInPause
-        {0, 5},                 // shiftADC
-        StretchADC_Settings,    // stretch
-        {128, 128},             // stretchADC
-//      RShiftADC_Settings,
         1000,                   // numMeasuresForGates
         0,                      // shiftT0
         false,                  // showStats
         6,                      // numAveForRand
         false,                  // view altera writting data
         false,                  // view all altera writting data
-        0,                      // alt shift
         {
             false,              // показывать ли флаг готовности
             false,              // rShift0
@@ -253,8 +250,8 @@ void Settings::Load(bool _default)
         memcpy((void *)rShiftAddA, (void *)&RSHIFT_ADD(Chan::A, 0, 0), 2 * Range::Count * 2); // Сначала сохраняем несбрасываемые настройки
         memcpy((void *)rshiftAddB, (void *)&RSHIFT_ADD(Chan::B, 0, 0), 2 * Range::Count * 2);
 
-        int16  balanceADC0 = BALANCE_ADC_A;
-        int16  balanceADC1 = BALANCE_ADC_B;
+        int16  balanceADC0 = SET_BALANCE_ADC_A;
+        int16  balanceADC1 = SET_BALANCE_ADC_B;
         int16  numAverageForRand = NUM_AVE_FOR_RAND;
 
         memcpy((void*)&set, (void*)(&defaultSettings), sizeof(set));                // Потом заполняем значениями по умолчанию
@@ -262,8 +259,8 @@ void Settings::Load(bool _default)
         memcpy((void *)&RSHIFT_ADD(Chan::A, 0, 0), (void *)rShiftAddA, 2 * Range::Count * 2);  // И восстанавливаем несбрасываемые настройки
         memcpy((void *)&RSHIFT_ADD(Chan::B, 0, 0), (void *)rshiftAddB, 2 * Range::Count * 2);
 
-        BALANCE_ADC_A = balanceADC0;
-        BALANCE_ADC_B = balanceADC1;
+        SET_BALANCE_ADC_A = balanceADC0;
+        SET_BALANCE_ADC_B = balanceADC1;
         NUM_AVE_FOR_RAND = numAverageForRand;
     }
 

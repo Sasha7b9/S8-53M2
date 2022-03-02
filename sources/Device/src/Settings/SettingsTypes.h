@@ -120,14 +120,6 @@ enum Language
 };
 
 
-// Тип растяжки АЦП
-enum StretchADCtype
-{
-    StretchADC_Disable,
-    StretchADC_Settings,
-    StretchADC_Hand
-};
-
 // Тип дополнительного смещения
 enum RShiftADCtype
 {

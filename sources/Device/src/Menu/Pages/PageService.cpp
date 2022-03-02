@@ -118,7 +118,7 @@ const Page pService                     // СЕРВИС
 // СЕРВИС - Сброс настроек --
 const Button bResetSettings
 (
-    &pService, 0,
+    &pService, nullptr,
     "Сброс настроек", "Reset settings",
     "Сброс настроек на настройки по умолчанию",
     "Reset to default settings",

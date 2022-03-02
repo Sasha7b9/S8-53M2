@@ -49,9 +49,6 @@ namespace FPGA
     // Найти и установить уровень синхронизации по последнему считанному сигналу
     void FindAndSetTrigLevel();
 
-    // Загрузить в аппарат коэффициенты калибровки каналов.
-    void LoadKoeffCalibration(Chan::E);
-
     // Запуск функции калибровки.
     void ProcedureCalibration();
 
