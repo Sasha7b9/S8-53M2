@@ -92,10 +92,10 @@ namespace FPGA
         extern uint16 CalculateAddressRead();
 
         // Чтение двух байт канала 1 (с калибровочными коэффициентами, само собой)
-        uint16 ReadA();
+        BitSet16 ReadA();
 
         // Чтение двух байт канала 2 (с калибровочными коэффициентами, само собой)
-        uint16 ReadB();
+        BitSet16 ReadB();
     }
 }
 
@@ -372,18 +372,18 @@ void FPGA::ReadPoints(Chan::E ch)
     uint8 *dat = buffer.Data();
     const uint8 *const end = buffer.Last();
 
-    pFuncU16V funcRead = (ch == ChA) ? Reader::ReadA : Reader::ReadB;
+    typedef BitSet16(*pFuncRead)();
+
+    pFuncRead funcRead = (ch == ChA) ? Reader::ReadA : Reader::ReadB;
 
     if (SET_PEAKDET_IS_ENABLE)
     {
         uint8 *p_min = dat;
         uint8 *p_max = p_min + ENUM_POINTS_FPGA::ToNumPoints();
 
-        BitSet16 data;
-
         while (p_max < end && IN_PROCESS_READ)
         {
-            data.half_word = funcRead();
+            BitSet16 data = funcRead();
             *p_max++ = data.byte0;
             *p_min++ = data.byte1;
         }
@@ -393,13 +393,11 @@ void FPGA::ReadPoints(Chan::E ch)
         const int shift_rand = ShiftRandomizerADC();
         dat += shift_rand;
 
-        BitSet16 data;
-
         const int stretch = TBase::StretchRand();
 
         while (dat < end && IN_PROCESS_READ)
         {
-            data.half_word = funcRead();
+            BitSet16 data = funcRead();
             *dat = data.byte0;
             dat += stretch;
             *dat = data.byte1;
@@ -409,15 +407,45 @@ void FPGA::ReadPoints(Chan::E ch)
 }
 
 
-uint16 FPGA::Reader::ReadA()
+BitSet16 FPGA::Reader::ReadA()
 {
-    return *RD_ADC_A;
+    BitSet16 data(*RD_ADC_A);
+
+    int byte1 = (int)data.byte1 + BALANCE_ADC_A;
+
+    if (byte1 < 0)
+    {
+        byte1 = 0;
+    }
+    else if (byte1 > 255)
+    {
+        byte1 = 255;
+    }
+
+    data.byte1 = (uint8)byte1;
+
+    return data;
 }
 
 
-uint16 FPGA::Reader::ReadB()
+BitSet16 FPGA::Reader::ReadB()
 {
-    return *RD_ADC_B;
+    BitSet16 data(*RD_ADC_B);
+
+    int byte1 = (int)data.byte1 + BALANCE_ADC_B;
+
+    if (byte1 < 0)
+    {
+        byte1 = 0;
+    }
+    else if (byte1 > 255)
+    {
+        byte1 = 255;
+    }
+
+    data.byte1 = (uint8)byte1;
+
+    return data;
 }
 
 
