@@ -171,6 +171,8 @@ struct SettingsDebug
     bool            viewAllAlteraWrittingData;      // Показывать ли все данные, идущие в альтеру (если false, то постоянно идущие команды вроде 
                                                     // START, STOP не показываются).
     int16           altShift;                       // Добавочное смещение для устранения эффекта горизонтальной помехи синхронизации.
+    int16           gate_min;                       // \ Ограничители ворот рандомизатора. То, что не попадает в этот диапазон - выкидываем
+    int16           gate_max;                       // |
     OutputRegisters showRegisters;
 };
 

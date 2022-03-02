@@ -37,4 +37,7 @@ namespace Panel
 
     // Передать даннные в мк панели управления.
     void TransmitData(uint8 data);
+
+    // Прошло времени в миллисекундах после последнего события
+    uint TimePassedAfterLastEvent();
 };

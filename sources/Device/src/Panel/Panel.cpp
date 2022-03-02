@@ -21,6 +21,8 @@
 
 namespace Panel
 {
+    uint timeLastEvent = 0;
+
     const uint8 LED_TRIG     = 1;
     const uint8 LED_REG_SET  = 2;
     const uint8 LED_CHAN_A   = 3;
@@ -504,7 +506,15 @@ void Panel::CallbackOnReceiveSPI5(const uint8 *data, uint size)
     {
         input_buffer.Push(command);
         Settings::NeedSave();
+
+        timeLastEvent = TIME_MS;
     }
+}
+
+
+uint Panel::TimePassedAfterLastEvent()
+{
+    return TIME_MS - timeLastEvent;
 }
 
 

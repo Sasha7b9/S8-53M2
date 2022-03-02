@@ -225,6 +225,8 @@ static const Settings defaultSettings =
         false,                  // view altera writting data
         false,                  // view all altera writting data
         0,                      // alt shift
+        0,
+        0,
         {
             false,              // показывать ли флаг готовности
             false,              // rShift0
