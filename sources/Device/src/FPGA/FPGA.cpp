@@ -373,22 +373,11 @@ void FPGA::ReadPoints()
 
         BitSet16 data;
 
-        Buffer<uint8> log_min(10);
-        Buffer<uint8> log_max(10);
-
-        int index = 0;
-
         while (p_maxA < endA && IN_PROCESS_READ)
         {
             data.half_word = *RD_ADC_A;
             *p_maxA++ = data.byte0;
             *p_minA++ = data.byte1;
-
-            if (index++ < 10)
-            {
-                log_min[index] = data.byte1;
-                log_max[index] = data.byte0;
-            }
 
             data.half_word = *RD_ADC_B;
             *p_maxB++ = data.byte0;
