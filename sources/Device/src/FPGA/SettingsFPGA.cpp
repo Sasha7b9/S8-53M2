@@ -751,10 +751,10 @@ void DataSettings::AppendPoints(uint8 *a, uint8 *b, BitSet16 pointsA, BitSet16 p
 
         rec_point += 2;
 
-        if (rec_point == 10)
-        {
-            SU::LogBuffer(a, 10);
-        }
+//        if (rec_point == 10)
+//        {
+//            SU::LogBuffer(a, 10);
+//        }
     }
 }
 
