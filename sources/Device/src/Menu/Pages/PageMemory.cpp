@@ -872,7 +872,7 @@ const Choice mcMemoryNumPoints =
         {"512",     "512"},
         {"1024",    "1024"}
     },
-    (int8*)&ENUM_POINTS, PageMemory::OnChanged_NumPoints
+    (int8*)&SET_ENUM_POINTS, PageMemory::OnChanged_NumPoints
 };
 
 // œ¿Ãﬂ“‹ - ¬Õ≈ÿÕ «” /////

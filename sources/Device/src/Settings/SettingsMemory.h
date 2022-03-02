@@ -3,9 +3,9 @@
 #include "defines.h"
 
 
-#define ENUM_POINTS                 (set.memory.fpgaENumPoints)                     // SettingsMemory.fpgaNumPoints
-#define ENUM_POINTS_IS_281          (ENUM_POINTS == ENUM_POINTS_FPGA::_281)
-#define ENUM_POINTS_IS_1024         (ENUM_POINTS == ENUM_POINTS_FPGA::_1024)
+#define SET_ENUM_POINTS             (set.memory.fpgaENumPoints)                     // SettingsMemory.fpgaNumPoints
+#define SET_ENUM_POINTS_IS_281      (SET_ENUM_POINTS == ENUM_POINTS_FPGA::_281)
+#define SET_ENUM_POINTS_IS_1024     (SET_ENUM_POINTS == ENUM_POINTS_FPGA::_1024)
 
 #define MODE_WORK                   (set.memory.modeWork)                           // SettingsMemory.modeWork
 #define MODE_WORK_IS_DIRECT         (MODE_WORK == ModeWork_Direct)

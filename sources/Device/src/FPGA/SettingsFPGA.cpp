@@ -612,9 +612,9 @@ int TShift::Min()
         {-511, -255, 0}
     };
 
-    if ((int)ENUM_POINTS < 3 && (int)ENUM_POINTS >= 0)
+    if ((int)SET_ENUM_POINTS < 3 && (int)SET_ENUM_POINTS >= 0)
     {
-        return m[ENUM_POINTS][SET_TPOS];
+        return m[SET_ENUM_POINTS][SET_TPOS];
     }
 
     LOG_ERROR("");
@@ -668,7 +668,7 @@ void DataSettings::Init()
     tShift = SET_TSHIFT;
     coupleA = SET_COUPLE_A;
     coupleB = SET_COUPLE_B;
-    e_points_in_channel = ENUM_POINTS;
+    e_points_in_channel = SET_ENUM_POINTS;
     trigLevA = (uint)TRIG_LEVEL_A;
     trigLevB = (uint)TRIG_LEVEL_B;
     peakDet = (uint)SET_PEAKDET;

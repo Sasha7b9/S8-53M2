@@ -404,7 +404,7 @@ int ENUM_POINTS_FPGA::ToNumPoints()
         281, 512, 1024
     };
 
-    return num_points[ENUM_POINTS];
+    return num_points[SET_ENUM_POINTS];
 }
 
 

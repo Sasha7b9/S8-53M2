@@ -311,7 +311,7 @@ void XShift(int delta)
     static int prevTime = 0;
     if (!FPGA::IsRunning() || SET_TIME_DIV_XPOS_IS_SHIFT_IN_MEMORY)
     {
-        if (!ENUM_POINTS_IS_281)
+        if (!SET_ENUM_POINTS_IS_281)
         {
             ChangeShiftScreen(&prevTime, ShiftScreen, 2 * delta);
         }
