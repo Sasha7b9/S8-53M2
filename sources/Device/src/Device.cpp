@@ -29,7 +29,7 @@ void Device::Init()
 
     Sound::Init();
 
-    Settings::Load(false);
+    Settings::Load(true);
 
     FPGA::Init();
 
