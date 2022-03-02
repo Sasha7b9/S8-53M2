@@ -1,6 +1,7 @@
 *.bin
 *.out
 archive.zip
+*.uvgui*.*
 
 sources/Loader/DebugConfig/*
 sources/Loader/Listings/*
