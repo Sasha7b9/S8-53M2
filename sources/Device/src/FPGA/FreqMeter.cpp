@@ -10,23 +10,19 @@ namespace FPGA
 {
     namespace FreqMeter
     {
-        float frequency = 0.0f;           // Частота, намеренная альтерой.
-        float prevFreq = 0.0f;
-
-        volatile static BitSet32 freqActual;
-        volatile static BitSet32 periodActual;
-
+        float frequency = 0.0f;
         bool readPeriod = false;     // Установленный в true флаг означает, что частоту нужно считать по счётчику периода
+        float prevFreq = 0.0f;
 
         BitSet32 ReadRegFreq();
 
-        float FreqCounterToValue(BitSet32 *fr);
+        float FreqCounterToValue(const BitSet32 &fr);
 
         BitSet32 ReadRegPeriod();
 
         BitSet32 ReadRegFrequency();
 
-        float PeriodCounterToValue(BitSet32 *period);
+        float PeriodCounterToValue(const BitSet32 &period);
 
         void Update(uint16 flag);
 
@@ -40,22 +36,22 @@ namespace FPGA
 
         namespace Frequency
         {
-            float FromFrequencyCounter(const BitSet32 *fr) { return fr->word * 10.0F; }
+            float FromFrequencyCounter(const BitSet32 &fr) { return fr.word * 10.0F; }
 
-            float FromPeriodCounter(const BitSet32 *period)
+            float FromPeriodCounter(const BitSet32 &period)
             {
-                if (period->word == 0) { return 0.0F; }
+                if (period.word == 0) { return 0.0F; }
 
-                return 10e6F / period->word;
+                return 10e6F / period.word;
             }
 
-            float FromFrequencySet(const BitSet32 *fr) { return (fr->word * 10.0f); }
+            float FromFrequencySet(const BitSet32 &fr) { return (fr.word * 10.0f); }
 
-            float FromPeriodSet(const BitSet32 *period)
+            float FromPeriodSet(const BitSet32 &period)
             {
-                if (period->word == 0) { return 0.0f; }
+                if (period.word == 0) { return 0.0f; }
 
-                return (10e5f / (float)period->word);
+                return (10e5f / (float)period.word);
             }
         }
     }
@@ -77,9 +73,9 @@ BitSet32 FPGA::FreqMeter::ReadRegFreq()
 }
 
 
-float FPGA::FreqMeter::FreqCounterToValue(BitSet32 *fr)
+float FPGA::FreqMeter::FreqCounterToValue(const BitSet32 &fr)
 {
-    return (float)fr->word * 10.0f;
+    return (float)fr.word * 10.0f;
 }
 
 
@@ -88,6 +84,7 @@ BitSet32 FPGA::FreqMeter::ReadRegPeriod()
     BitSet32 period;
     period.half_word[0] = HAL_FMC::Read(RD_PERIOD_LOW);
     period.half_word[1] = HAL_FMC::Read(RD_PERIOD_HI);
+
     return period;
 }
 
@@ -103,13 +100,14 @@ BitSet32 FPGA::FreqMeter::ReadRegFrequency()
 }
 
 
-float FPGA::FreqMeter::PeriodCounterToValue(BitSet32 *period)
+float FPGA::FreqMeter::PeriodCounterToValue(const BitSet32 &period)
 {
-    if (period->word == 0)
+    if (period.word == 0)
     {
         return 0.0f;
     }
-    return 10e6f / (float)period->word;
+
+    return 10e5f / (float)period.word;
 }
 
 
@@ -120,9 +118,6 @@ void FPGA::FreqMeter::Update(uint16 flag)
 
     if (freqReady)
     {
-        freqActual.half_word[0] = *RD_FREQ_LOW;
-        freqActual.half_word[1] = *RD_FREQ_HI;
-
         if (!readPeriod)
         {
             ReadFrequency();
@@ -131,9 +126,6 @@ void FPGA::FreqMeter::Update(uint16 flag)
 
     if (periodReady)
     {
-        periodActual.half_word[0] = *RD_PERIOD_LOW;
-        periodActual.half_word[1] = *RD_PERIOD_HI;
-
         if (readPeriod)
         {
             ReadPeriod();
@@ -144,15 +136,16 @@ void FPGA::FreqMeter::Update(uint16 flag)
 
 void FPGA::FreqMeter::ReadFrequency()            // Чтение счётчика частоты производится после того, как бит 4 флага RD_FL установится в едицину
 {                                           // После чтения автоматически запускается новый цикл счёта
-    BitSet32 freqFPGA = ReadRegFreq();
+    BitSet32 freqSet = ReadRegFreq();
 
-    if (freqFPGA.word < 1000)
+    if (freqSet.word < 1000)
     {
         readPeriod = true;
     }
     else
     {
-        float fr = FreqCounterToValue(&freqFPGA);
+        float fr = FreqCounterToValue(freqSet);
+
         if (fr < prevFreq * 0.9f || fr > prevFreq * 1.1f)
         {
             frequency = ERROR_VALUE_FLOAT;
@@ -161,6 +154,7 @@ void FPGA::FreqMeter::ReadFrequency()            // Чтение счётчика частоты прои
         {
             frequency = fr;
         }
+
         prevFreq = fr;
     }
 }
@@ -168,8 +162,8 @@ void FPGA::FreqMeter::ReadFrequency()            // Чтение счётчика частоты прои
 
 void FPGA::FreqMeter::ReadPeriod()
 {
-    BitSet32 periodFPGA = ReadRegPeriod();
-    float fr = PeriodCounterToValue(&periodFPGA);
+    BitSet32 periodSet = ReadRegPeriod();
+    float fr = PeriodCounterToValue(periodSet);
 
     if (fr < prevFreq * 0.9f || fr > prevFreq * 1.1f)
     {
@@ -203,7 +197,7 @@ float FPGA::FreqMeter::CalculateFrequencyFromCounterFrequency()
 
     if (fr.word >= 5)
     {
-        frequency = Frequency::FromFrequencyCounter(&fr);
+        frequency = Frequency::FromFrequencyCounter(fr);
     }
 
     return 0.0F;

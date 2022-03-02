@@ -45,7 +45,7 @@ namespace FPGA
 
         float FreqCounterToValue(BitSet32 *fr);
 
-        float PeriodCounterToValue(BitSet32 *period);
+        float PeriodCounterToValue(const BitSet32 &period);
     }
 }
 
@@ -230,6 +230,7 @@ TBase::E FPGA::AutoFinder::FindTBase(Chan::E ch)
     else
     {
         TrigInput::Set(TrigInput::LPF);
+
         FreqMeter::frequency = CalculateFreqFromCounterPeriod();
 
         if (fr > 0.0f)
@@ -346,7 +347,7 @@ float FPGA::AutoFinder::CalculateFreqFromCounterPeriod()
 
     if (period.word > 0 && (TIME_MS - time < 1000))
     {
-        return FreqMeter::PeriodCounterToValue(&period);
+        return FreqMeter::PeriodCounterToValue(period);
     }
 
     return 0.0f;
