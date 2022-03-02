@@ -60,7 +60,7 @@ namespace FPGA
     // Прочитать данные.
     void DataRead();
 
-    void ReadPoints();
+    void ReadPoints(Chan::E);
 
     // Инвертирует данные.
     void InverseDataIsNecessary(Chan::E, Buffer<uint8> &data);
@@ -334,7 +334,8 @@ void FPGA::DataRead()
 
     IN_PROCESS_READ = true;
 
-    ReadPoints();
+    ReadPoints(ChA);
+    ReadPoints(ChB);
 
     if (!TBase::InModeRandomizer())
     {
@@ -355,58 +356,48 @@ void FPGA::DataRead()
 }
 
 
-void FPGA::ReadPoints()
+void FPGA::ReadPoints(Chan::E ch)
 {
     HAL_FMC::Write(WR_PRED, Reader::CalculateAddressRead());
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
-    uint8 *a = dataReadA.Data();
-    uint8 *b = dataReadB.Data();
-    const uint8 *const endA = dataReadA.Last();
+    DataBuffer &buffer = (ch == ChA) ? dataReadA : dataReadB;
 
+    uint8 *dat = buffer.Data();
+    const uint8 *const end = buffer.Last();
+
+    uint16* address = (ch == Chan::A) ? RD_ADC_A : RD_ADC_B;
+    
     if (SET_PEAKDET_IS_ENABLE)
     {
-        uint8 *p_minA = a;
-        uint8 *p_maxA = p_minA + ENUM_POINTS_FPGA::ToNumPoints();
-        uint8 *p_minB = b;
-        uint8 *p_maxB = p_minB + ENUM_POINTS_FPGA::ToNumPoints();
+        uint8 *p_min = dat;
+        uint8 *p_max = p_min + ENUM_POINTS_FPGA::ToNumPoints();
 
         BitSet16 data;
 
-        while (p_maxA < endA && IN_PROCESS_READ)
+        while (p_max < end && IN_PROCESS_READ)
         {
-            data.half_word = *RD_ADC_A;
-            *p_maxA++ = data.byte0;
-            *p_minA++ = data.byte1;
-
-            data.half_word = *RD_ADC_B;
-            *p_maxB++ = data.byte0;
-            *p_minB++ = data.byte1;
+            data.half_word = *address;
+            *p_max++ = data.byte0;
+            *p_min++ = data.byte1;
         }
     }
     else
     {
         const int shift_rand = ShiftRandomizerADC();
-        a += shift_rand;
-        b += shift_rand;
+        dat += shift_rand;
 
         BitSet16 data;
 
         const int stretch = TBase::StretchRand();
 
-        while (a < endA && IN_PROCESS_READ)
+        while (dat < end && IN_PROCESS_READ)
         {
-            data.half_word = *RD_ADC_A;
-            *a = data.byte0;
-            a += stretch;
-            *a = data.byte1;
-            a += stretch;
-
-            data.half_word = *RD_ADC_B;
-            *b = data.byte0;
-            b += stretch;
-            *b = data.byte1;
-            b += stretch;
+            data.half_word = *address;
+            *dat = data.byte0;
+            dat += stretch;
+            *dat = data.byte1;
+            dat += stretch;
         }
     }
 }
