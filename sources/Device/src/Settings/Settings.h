@@ -16,26 +16,6 @@
 #include "SettingsMeasures.h"
 #include "SettingsMath.h"
 
-#define RSHIFT_ADD(ch, range, closed) set.chan[ch].rShiftAdd[range][closed]
-
- // Настройки каналов
-struct SettingsChannel
-{
-    int8          balanceADC;                   // Баланс АЦП (смещение первой точки относительно второй)
-    float         stretchADC;                   // Коэффицент растяжки (на него умножается сигнал)
-    int8          shiftADC;                     // Добавочное смещение для балансировки АЦП.
-
-    RShift        rShiftRel;
-    int16         rShiftAdd[Range::Count][2];   // Добавочное смещение для открытого (0) и закрытого (1) входов.
-
-    ModeCouple::E modeCouple;                   // Режим по входу.
-    Divider::E    divider;                      // Множитель.
-    Range::E      range;                        // Масштаб по напряжению.
-    bool          enable;                       // Включён ли канал.
-    bool          inverse;                      // Инвертирован ли канал.
-    bool          filtr;                        // Фильтр
-};
-
 
 #define MAC_ADDR0       (set.eth.mac0)
 #define MAC_ADDR1       (set.eth.mac1)

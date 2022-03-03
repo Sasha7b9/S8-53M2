@@ -66,7 +66,6 @@ static const Settings defaultSettings =
     // channels
     {
         {
-            0,                      // balanceADC
             1.0f,                   // коэффициент калибровки
             0,                      // shiftADC
             RShift::ZERO,
@@ -79,7 +78,6 @@ static const Settings defaultSettings =
             false                   // filtr
         },
         {
-            0,
             1.0f,                   // коэффициент калибровки
             0,
             RShift::ZERO,
@@ -217,7 +215,8 @@ static const Settings defaultSettings =
         0,          // размер шрифта - 5
         1000,       // numMeasuresForGates
         false,      // showStats
-        6           // numAveForRand
+        6,          // numAveForRand
+        {0, 0}      // balanceADC
     }
 };
 

@@ -4,10 +4,6 @@
 #include "FPGA/SettingsFPGA.h"
 
 
-#define SET_BALANCE_ADC(ch)     (set.chan[ch].balanceADC)
-#define SET_BALANCE_ADC_A       (SET_BALANCE_ADC(ChA))
-#define SET_BALANCE_ADC_B       (SET_BALANCE_ADC(ChB))
-
 #define SET_STRETCH_ADC(ch)     (set.chan[ch].stretchADC)
 #define SET_STRETCH_ADC_A       (SET_STRETCH_ADC(ChA))
 #define SET_STRETCH_ADC_B       (SET_STRETCH_ADC(ChB))
@@ -47,3 +43,22 @@
 #define SET_FILTR(ch)           (set.chan[ch].filtr)            // SettingsChannel.filtr
 #define SET_FILTR_A             (SET_FILTR(Chan::A))            // set.chan[Chan::A].filtr
 #define SET_FILTR_B             (SET_FILTR(Chan::B))            // set.chan[Chan::B].filtr
+
+#define RSHIFT_ADD(ch, range, closed) set.chan[ch].rShiftAdd[range][closed]
+
+ // Настройки каналов
+struct SettingsChannel
+{
+    float         stretchADC;                   // Коэффицент растяжки (на него умножается сигнал)
+    int8          shiftADC;                     // Добавочное смещение для балансировки АЦП.
+
+    RShift        rShiftRel;
+    int16         rShiftAdd[Range::Count][2];   // Добавочное смещение для открытого (0) и закрытого (1) входов.
+
+    ModeCouple::E modeCouple;                   // Режим по входу.
+    Divider::E    divider;                      // Множитель.
+    Range::E      range;                        // Масштаб по напряжению.
+    bool          enable;                       // Включён ли канал.
+    bool          inverse;                      // Инвертирован ли канал.
+    bool          filtr;                        // Фильтр
+};
