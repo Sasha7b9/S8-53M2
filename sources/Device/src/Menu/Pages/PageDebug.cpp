@@ -22,8 +22,6 @@ extern const Page       mpADC;                              // нркюдйю - южо
 extern const Page       mpADC_Balance;                      // нркюдйю - южо - аюкюмя
 extern const Page       mpADC_Stretch;                      // нркюдйю - южо - пюяръфйю
 extern const Page       mpADC_AltRShift;                    // нркюдйю - южо - дно ялеы
-extern const Button     mbADC_AltRShift_Reset;              // нркюдйю - южо - дно ялеы - яАПНЯ
-static void       OnPress_ADC_AltRShift_Reset();
 extern const Governor   mbADC_AltRShift_2mV_DC_A;           // нркюдйю - южо - дно ялеы - яЛ 1Й 2Лб ОНЯР
 static void     OnChanged_ADC_AltRShift_A();
 extern const Governor   mbADC_AltRShift_2mV_DC_B;           // нркюдйю - южо - дно ялеы - яЛ 2Й 2Лб ОНЯР
@@ -271,7 +269,6 @@ static const Button bResetStretch
 );
 
 
-// нркюдйю - южо - пюяръфйю ////////
 static const arrayItems itemsADC_Stretch =
 {
     (void *)&bResetStretch
@@ -287,7 +284,33 @@ static const Page mpADC_Stretch
 );
 
 
-// нркюдйю - южо - дно ялеы ////////
+static void OnPress_ADC_AltRShift_Reset()
+{
+    for (int ch = 0; ch < 2; ch++)
+    {
+        for (int mode = 0; mode < 2; mode++)
+        {
+            for (int range = 0; range < Range::Count; range++)
+            {
+                RSHIFT_ADD(ch, range, mode) = 0;
+            }
+        }
+    }
+
+    RShift::Set(Chan::A, SET_RSHIFT_A);
+    RShift::Set(Chan::B, SET_RSHIFT_B);
+}
+
+
+static const Button mbADC_AltRShift_Reset
+(
+    &mpADC_AltRShift, 0,
+    "яАПНЯ", "Reset",
+    "", "",
+    OnPress_ADC_AltRShift_Reset
+);
+
+
 static const arrayItems itemsADC_AltRShift =
 {
     (void*)&mbADC_AltRShift_Reset,          // нркюдйю - южо - дно ялеы - яАПНЯ
@@ -308,31 +331,7 @@ static const Page mpADC_AltRShift
     Page_DebugADCrShift, &itemsADC_AltRShift
 );
 
-// нркюдйю - южо - дно ялеы - яАПНЯ ------------------------------------------------------------------------------------------------------------------
-static const Button mbADC_AltRShift_Reset
-(
-    &mpADC_AltRShift, 0,
-    "яАПНЯ", "Reset",
-    "", "",
-    OnPress_ADC_AltRShift_Reset
-);
 
-static void OnPress_ADC_AltRShift_Reset()
-{
-    for(int ch = 0; ch < 2; ch++)
-    {
-        for(int mode = 0; mode < 2; mode++)
-        {
-            for(int range = 0; range < Range::Count; range++)
-            {
-                RSHIFT_ADD(ch, range, mode) = 0;
-            }
-        }
-    }
-
-    RShift::Set(Chan::A, SET_RSHIFT_A);
-    RShift::Set(Chan::B, SET_RSHIFT_B);
-}
 
 // нркюдйю - южо - дно ялеы - яЛ 1Й 2Лб ОНЯР ---------------------------------------------------------------------------------------------------------
 static const Governor mbADC_AltRShift_2mV_DC_A
