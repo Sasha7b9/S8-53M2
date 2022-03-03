@@ -44,8 +44,6 @@ void Device::Init()
     // FDrive::Init();
     // LAN::Init();
     // VCP::Init();
-
-    set.menu.isShown = true;
 }
 
 
