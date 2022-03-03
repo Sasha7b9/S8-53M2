@@ -101,6 +101,7 @@ void* Menu::CurrentItem()
 int Menu::HeightOpenedItem(void *item) 
 {
     TypeItem type = TypeMenuItem(item);
+
     if(type == Item_Page)
     {
         int numItems = NumItemsInPage((const Page *)item) - NumCurrentSubPage((Page *)item) * MENU_ITEMS_ON_DISPLAY;
@@ -111,6 +112,7 @@ int Menu::HeightOpenedItem(void *item)
     {
         return MOI_HEIGHT_TITLE + ((Choice *)item)->NumSubItems() * MOSI_HEIGHT - 1;
     }
+
     return MI_HEIGHT;
 }
 
@@ -189,6 +191,7 @@ void* Menu::RetLastOpened(Page *page, TypeItem *type)
 void Menu::CloseOpenedItem()
 {
     void *item = OpenedItem();
+
     if(TypeOpenedItem() == Item_Page)
     {
         if (((const Page *)item)->IsSB())                               // ƒл€ страницы малых кнопок
@@ -199,12 +202,15 @@ void Menu::CloseOpenedItem()
                 sb->funcOnPress();
             }
         }
+
         if(NEED_CLOSE_PAGE_SB == 1)
         {
             NamePage namePage = Keeper(item)->name;
             SetMenuPosActItem(namePage, PosActItem(namePage) & 0x7f);   // —брасываем бит 7 - "закрываем" активный пункт страницы namePage
         }
+
         NEED_CLOSE_PAGE_SB = 1;
+
         if(item == &mainPage)
         {
             ShowMenu(false);
@@ -231,10 +237,12 @@ bool Menu::ItemIsOpened(void *item)
 {
     TypeItem type = TypeMenuItem(item);
     Page *page = Keeper(item);
+
     if(type == Item_Page)
     {
         return CurrentItemIsOpened(GetNamePage(Keeper(item)));
     }
+
     return (PosActItem(page->name) & 0x80) != 0;
 }
 
