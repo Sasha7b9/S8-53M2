@@ -267,7 +267,13 @@ void TBase::Load()
         {BINARY_U8(01111111), BINARY_U8(01011111)}      // 10s
     };
 
-    TBase::E tBase = SET_TBASE;
+    int tBase = SET_TBASE;
+
+    if (FPGA::COMPACT)
+    {
+        tBase = Math::Limitation<int>(tBase - 2, 0, tBase);
+    }
+
     uint8 mask = SET_PEAKDET_IS_ENABLE ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
 
     BUS_FPGA::Write(WR_RAZV, mask, true);
@@ -677,6 +683,49 @@ int TBase::StretchRand()
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
     return Kr[SET_TBASE];
+}
+
+
+int TBase::SkipPointsForCompact()
+{
+    if (!FPGA::COMPACT)
+    {
+        return 0;
+    }
+
+    static const int skip[TBase::Count] =
+    {
+                // 2ns
+                // 5ns
+                // 10ns
+                // 20ns
+                // 50ns
+                // 100ns
+                // 200ns
+                // 500ns
+                // 1us
+                // 2us
+                // 5us
+                // 10us
+                // 20us
+                // 50us
+                // 100us
+                // 200us
+                // 500us
+                // 1ms
+                // 2ms
+                // 5ms
+                // 10ms
+                // 20ms
+                // 50ms
+                // 100ms
+                // 200ms
+                // 500ms
+                // 1s
+                // 2s
+                // 5s
+                // 10s
+    };
 }
 
 

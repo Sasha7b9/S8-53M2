@@ -53,11 +53,12 @@ uint16 FPGA::Reader::CalculateAddressRead()
         //                            2ns 5ns 10ns 20ns 50ns
         static const int shift[5] = { 44, 44, 42,  40,  38};
 
-        return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) - ENUM_POINTS_FPGA::ToNumBytes() / TBase::StretchRand() - shift[SET_TBASE]);
+        return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) -
+            ENUM_POINTS_FPGA::ToNumBytes() * FPGA::COUNT_COMPACT / TBase::StretchRand() - shift[SET_TBASE]);
     }
     else
     {
-        return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) - ENUM_POINTS_FPGA::ToNumBytes());
+        return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) - ENUM_POINTS_FPGA::ToNumBytes() * FPGA::COUNT_COMPACT);
     }
 }
 
@@ -79,7 +80,7 @@ void FPGA::Launch::Calculate()
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
 
-    int num_bytes = ENUM_POINTS_FPGA::ToNumBytes();
+    int num_bytes = ENUM_POINTS_FPGA::ToNumBytes() * FPGA::COUNT_COMPACT;
 
     int values[TPos::Count] = { 0, num_bytes / 4, num_bytes / 2 };
 

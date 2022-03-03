@@ -13,6 +13,10 @@ namespace FPGA
 {
     static const int MAX_POINTS = 1024;
 
+    // Если COMPACT == true - будем уплотнять сигнал посредством установки предыдущей на 2 растяжки и
+    // выкидыванием точки
+    static bool COMPACT = true;
+
     extern bool AUTO_FIND_IN_PROGRESS;
 
     void Init();

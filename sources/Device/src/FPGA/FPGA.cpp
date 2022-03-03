@@ -364,7 +364,14 @@ void FPGA::DataRead()
 
 void FPGA::ReadPoints(Chan::E ch)
 {
-    HAL_FMC::Write(WR_PRED, Reader::CalculateAddressRead());
+    static uint16 address = 0;
+
+    if (ch == ChA)
+    {
+        address = Reader::CalculateAddressRead();
+    }
+
+    HAL_FMC::Write(WR_PRED, address);
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
     DataBuffer &buffer = (ch == ChA) ? dataReadA : dataReadB;
@@ -395,13 +402,38 @@ void FPGA::ReadPoints(Chan::E ch)
 
         const int stretch = TBase::StretchRand();
 
-        while (dat < end && IN_PROCESS_READ)
+        if(FPGA::COUNT_COMPACT == 1)
         {
-            BitSet16 data = funcRead();
-            *dat = data.byte0;
-            dat += stretch;
-            *dat = data.byte1;
-            dat += stretch;
+            while (dat < end && IN_PROCESS_READ)
+            {
+                BitSet16 data = funcRead();
+
+                *dat = data.byte0;
+                dat += stretch;
+                *dat = data.byte1;
+                dat += stretch;
+            }
+        }
+        else if (FPGA::COUNT_COMPACT == 2)
+        {
+            while (dat < end && IN_PROCESS_READ)
+            {
+                BitSet16 data1 = funcRead();
+
+                *dat = data1.byte0;
+                dat += stretch;
+            }
+        }
+        else if (FPGA::COUNT_COMPACT == 4)
+        {
+            while (dat < end && IN_PROCESS_READ)
+            {
+                BitSet16 data1 = funcRead();
+                BitSet16 data2 = funcRead();
+
+                *dat = data1.byte0;
+                dat += stretch;
+            }
         }
     }
 }
