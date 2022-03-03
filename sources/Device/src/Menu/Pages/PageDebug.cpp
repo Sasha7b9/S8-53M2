@@ -90,9 +90,8 @@ static const arrayItems itemsDebug =
     (void *)&mpRandomizer,       // ОТЛАДКА - РАНД-ТОР
     (void *)&mcSizeSettings,     // ОТЛАДКА - Размер настроек
     (void *)&mbSaveFirmware,     // ОТЛАДКА - Сохр. прошивку
-    (void *)&bEraseData          // ОТЛАДКА - Стереть данные
-    //(void*)&ppSerialNumber     // ОТЛАДКА - С/Н
-    //(void*)&mspDebugInformation
+    (void *)&bEraseData,         // ОТЛАДКА - Стереть данные
+    (void *)&ppSerialNumber      // ОТЛАДКА - С/Н
 };
 
 const Page pDebug
