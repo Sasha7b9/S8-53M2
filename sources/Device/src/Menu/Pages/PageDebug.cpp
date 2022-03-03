@@ -22,10 +22,6 @@ extern const Page       mpADC;                              // ÎÒËÀÄÊÀ - ÀÖÏ
 extern const Page       mpADC_Balance;                      // ÎÒËÀÄÊÀ - ÀÖÏ - ÁÀËÀÍÑ
 extern const Page       mpADC_Stretch;                      // ÎÒËÀÄÊÀ - ÀÖÏ - ĞÀÑÒßÆÊÀ
 extern const Page       mpADC_AltRShift;                    // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ
-extern const Governor   mbADC_AltRShift_5mV_DC_A;           // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 5ìÂ ïîñò
-extern const Governor   mbADC_AltRShift_5mV_DC_B;           // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 5ìÂ ïîñò
-extern const Governor   mbADC_AltRShift_10mV_DC_A;          // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 10ìÂ ïîñò
-extern const Governor   mbADC_AltRShift_10mV_DC_B;          // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 10ìÂ ïîñò
 extern const Page       mpRandomizer;                       // ÎÒËÀÄÊÀ - ĞÀÍÄ-ÒÎĞ
 extern const Governor   mgRandomizer_SamplesForGates;       // ÎÒËÀÄÊÀ - ĞÀÍÄ-ÒÎĞ - Âûá-ê/âîğîòà
 static void     OnChanged_Randomizer_SamplesForGates();
@@ -339,6 +335,46 @@ static const Governor mbADC_AltRShift_2mV_DC_B
 );
 
 
+static const Governor mbADC_AltRShift_5mV_DC_A
+(
+    &mpADC_AltRShift, 0,
+    "Ñì 1ê 5ìÂ ïîñò", "Shift 1ch 5mV DC",
+    "",
+    "",
+    &RSHIFT_ADD(Chan::A, Range::_5mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_A
+);
+
+
+static const Governor mbADC_AltRShift_5mV_DC_B
+(
+    &mpADC_AltRShift, 0,
+    "Ñì 2ê 5ìÂ ïîñò", "Shift 2ch 5mV DC",
+    "",
+    "",
+    &RSHIFT_ADD(Chan::B, Range::_5mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_B
+);
+
+
+static const Governor mbADC_AltRShift_10mV_DC_A
+(
+    &mpADC_AltRShift, 0,
+    "Ñì 1ê 10ìÂ ïîñò", "Shift 1ch 10mV DC",
+    "",
+    "",
+    &RSHIFT_ADD(Chan::A, Range::_10mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_A
+);
+
+
+static const Governor mbADC_AltRShift_10mV_DC_B
+(
+    &mpADC_AltRShift, 0,
+    "Ñì 2ê 10ìÂ ïîñò", "Shift 2ch 10mV DC",
+    "",
+    "",
+    &RSHIFT_ADD(Chan::B, Range::_10mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_B
+);
+
+
 static const arrayItems itemsADC_AltRShift =
 {
     (void*)&mbADC_AltRShift_Reset,          // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñáğîñ
@@ -369,48 +405,17 @@ static const Page mpADC_AltRShift
 
 
 
-// ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 5ìÂ ïîñò ---------------------------------------------------------------------------------------------------------
-static const Governor mbADC_AltRShift_5mV_DC_A
-(
-    &mpADC_AltRShift, 0,
-    "Ñì 1ê 5ìÂ ïîñò", "Shift 1ch 5mV DC",
-    "",
-    "",
-    &RSHIFT_ADD(Chan::A, Range::_5mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_A
-);
-
-// ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 5ìÂ ïîñò ---------------------------------------------------------------------------------------------------------
-static const Governor mbADC_AltRShift_5mV_DC_B
-(
-    &mpADC_AltRShift, 0,
-    "Ñì 2ê 5ìÂ ïîñò", "Shift 2ch 5mV DC",
-    "",
-    "",
-    &RSHIFT_ADD(Chan::B, Range::_5mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_B
-);
-
-// ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 10ìÂ ïîñò --------------------------------------------------------------------------------------------------------
-static const Governor mbADC_AltRShift_10mV_DC_A
-(
-    &mpADC_AltRShift, 0,
-    "Ñì 1ê 10ìÂ ïîñò", "Shift 1ch 10mV DC",
-    "",
-    "",
-    &RSHIFT_ADD(Chan::A, Range::_10mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_A
-);
-
-// ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 10ìÂ ïîñò --------------------------------------------------------------------------------------------------------
-static const Governor mbADC_AltRShift_10mV_DC_B
-(
-    &mpADC_AltRShift, 0,
-    "Ñì 2ê 10ìÂ ïîñò", "Shift 2ch 10mV DC",
-    "",
-    "",
-    &RSHIFT_ADD(Chan::B, Range::_10mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_B
-);
 
 
-// ÎÒËÀÄÊÀ - ĞÀÍÄ-ÒÎĞ //////////////
+
+
+
+
+
+
+
+
+
 static const arrayItems itemsRandomizer =
 {
     (void*)&mgRandomizer_SamplesForGates,   // ÎÒËÀÄÊÀ - ĞÀÍÄ-ÒÎĞ - Âûá-ê/âîğîòà
@@ -426,7 +431,7 @@ static const Page mpRandomizer
     Page_DebugRandomizer, &itemsRandomizer
 );
 
-// ÎÒËÀÄÊÀ - ĞÀÍÄ-ÒÎĞ - Âûá-ê/âîğîòà -----------------------------------------------------------------------------------------------------------------
+
 static const Governor mgRandomizer_SamplesForGates
 (
     &mpRandomizer, 0,
