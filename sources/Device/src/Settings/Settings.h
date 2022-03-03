@@ -148,7 +148,7 @@ struct Settings
     SettingsEthernet    eth;                // настройки для соединения по локальной сети.
     SettingsCommon      common;             // системные настройки.
     SettingsMenu        menu;               // состояние меню.
-    SettingsDebug       debug;              // настройки режима отладки       (меню ОТЛАДКА).
+    SettingsNRST        debug;              // настройки режима отладки       (меню ОТЛАДКА).
     uint                crc32;              // контрольная сумма. Используется для проверки корректности сохранённых настроек
     //int temp[5];
     static void Load(bool _default_);   // Загрузить настройки. Если _default == true, загружаются настройки по умолчанию, иначе пытается 

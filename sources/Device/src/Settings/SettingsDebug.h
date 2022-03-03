@@ -9,12 +9,12 @@
 #define NUM_AVE_FOR_RAND                    (set.debug.numAveForRand)
 
 
-// Отладочные настройки.
-struct SettingsDebug
+// Несбрасываемые настройки настройки.
+struct SettingsNRST
 {
-    int16           numStrings;                     // Число строк в консоли.
-    int8            sizeFont;                       // Размер шрифта консоли - 0 - 5, 1 - 8,
-    int16           numMeasuresForGates;            // Число измерений для ворот.
-    bool            showStats;                      // Показывать статистику на экране (fps, например).
-    int16           numAveForRand;                  // По скольким измерениям усреднять сигнал в режиме рандомизатора.
+    int16   numStrings;             // Число строк в консоли.
+    int8    sizeFont;               // Размер шрифта консоли - 0 - 5, 1 - 8,
+    int16   numMeasuresForGates;    // Число измерений для ворот.
+    bool    showStats;              // Показывать статистику на экране (fps, например).
+    int16   numAveForRand;          // По скольким измерениям усреднять сигнал в режиме рандомизатора.
 };
