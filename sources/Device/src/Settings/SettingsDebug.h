@@ -17,5 +17,4 @@ struct SettingsDebug
     int16           numMeasuresForGates;            // Число измерений для ворот.
     bool            showStats;                      // Показывать статистику на экране (fps, например).
     int16           numAveForRand;                  // По скольким измерениям усреднять сигнал в режиме рандомизатора.
-    bool            viewAlteraWrittingData;         // Показывать ли данные, идущие в альтеру.
 };

@@ -217,8 +217,7 @@ static const Settings defaultSettings =
         0,          // נאחלונ רנטפעא - 5
         1000,       // numMeasuresForGates
         false,      // showStats
-        6,          // numAveForRand
-        false       // view altera writting data
+        6           // numAveForRand
     }
 };
 
