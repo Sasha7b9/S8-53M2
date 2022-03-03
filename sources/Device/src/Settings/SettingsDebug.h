@@ -18,6 +18,4 @@ struct SettingsDebug
     bool            showStats;                      // Показывать статистику на экране (fps, например).
     int16           numAveForRand;                  // По скольким измерениям усреднять сигнал в режиме рандомизатора.
     bool            viewAlteraWrittingData;         // Показывать ли данные, идущие в альтеру.
-    bool            viewAllAlteraWrittingData;      // Показывать ли все данные, идущие в альтеру (если false, то постоянно идущие команды вроде 
-                                                    // START, STOP не показываются).
 };

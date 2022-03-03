@@ -218,8 +218,7 @@ static const Settings defaultSettings =
         1000,       // numMeasuresForGates
         false,      // showStats
         6,          // numAveForRand
-        false,      // view altera writting data
-        false       // view all altera writting data
+        false       // view altera writting data
     }
 };
 
