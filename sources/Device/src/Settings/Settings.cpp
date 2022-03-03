@@ -216,7 +216,6 @@ static const Settings defaultSettings =
         15,         // numStrings
         0,          // נאחלונ רנטפעא - 5
         1000,       // numMeasuresForGates
-        0,          // shiftT0
         false,      // showStats
         6,          // numAveForRand
         false,      // view altera writting data

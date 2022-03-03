@@ -277,7 +277,6 @@ void TBase::Load()
     uint8 mask = SET_PEAKDET_IS_ENABLE ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
 
     BUS_FPGA::Write(WR_RAZV, mask, true);
-    ADD_SHIFT_T0 = FPGA::deltaTShift[tBase];
 }
 
 

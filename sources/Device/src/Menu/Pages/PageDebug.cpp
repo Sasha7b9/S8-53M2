@@ -42,8 +42,6 @@ extern const Governor   mbADC_AltRShift_10mV_DC_B;          // ÎÒËÀÄÊÀ - ÀÖÏ - Ä
 extern const Page       mpRandomizer;                       // ÎÒËÀÄÊÀ - ĞÀÍÄ-ÒÎĞ
 extern const Governor   mgRandomizer_SamplesForGates;       // ÎÒËÀÄÊÀ - ĞÀÍÄ-ÒÎĞ - Âûá-ê/âîğîòà
 static void     OnChanged_Randomizer_SamplesForGates();
-extern const Governor   mgRandomizer_AltTShift0;            // ÎÒËÀÄÊÀ - ĞÀÍÄ-ÒÎĞ - tShift äîï.
-static void     OnChanged_Randomizer_AltTShift0();
 extern const Governor   mgRandomizer_Average;               // ÎÒËÀÄÊÀ - ĞÀÍÄ-ÒÎĞ - Óñğåäí.
 extern const Choice     mcSizeSettings;                     // ÎÒËÀÄÊÀ - Ğàçìåğ íàñòğîåê
 static void        OnDraw_SizeSettings(int x, int y);
@@ -409,7 +407,6 @@ static const Governor mbADC_AltRShift_10mV_DC_B
 static const arrayItems itemsRandomizer =
 {
     (void*)&mgRandomizer_SamplesForGates,   // ÎÒËÀÄÊÀ - ĞÀÍÄ-ÒÎĞ - Âûá-ê/âîğîòà
-    (void*)&mgRandomizer_AltTShift0,        // ÎÒËÀÄÊÀ - ĞÀÍÄ-ÒÎĞ - tShift äîï.
     (void*)&mgRandomizer_Average            // ÎÒËÀÄÊÀ - ĞÀÍÄ-ÒÎĞ - Óñğåäí.
 };
 
@@ -435,21 +432,6 @@ static const Governor mgRandomizer_SamplesForGates
 static void OnChanged_Randomizer_SamplesForGates()
 {
     FPGA::SetNumberMeasuresForGates(NUM_MEAS_FOR_GATES);
-}
-
-// ÎÒËÀÄÊÀ - ĞÀÍÄ-ÒÎĞ - tShift äîï. ------------------------------------------------------------------------------------------------------------------
-static const Governor mgRandomizer_AltTShift0
-(
-    &mpRandomizer, 0,
-    "tShift äîï.", "tShift alt.",
-    "",
-    "",
-    (int16 *)&ADD_SHIFT_T0, 0, 510, OnChanged_Randomizer_AltTShift0
-);
-
-static void OnChanged_Randomizer_AltTShift0()
-{
-    TShift::SetDelta(ADD_SHIFT_T0);
 }
 
 // ÎÒËÀÄÊÀ - ĞÀÍÄ-ÒÎĞ - Óñğåäí. ----------------------------------------------------------------------------------------------------------------------
