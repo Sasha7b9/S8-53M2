@@ -8,9 +8,17 @@ sources/Loader/Listings/*
 sources/Loader/Objects/*
 sources/Loader/Listings-Debug/*
 sources/Loader/Objects-Debug/*
+
 sources/Device/DebugConfig/*
 sources/Device/Listings/*
 sources/Device/Objects/*
 sources/Device/Listings-Debug/*
 sources/Device/Objects-Debug/*
+
+sources/Panel/DebugConfig/*
+sources/Panel/Listings/*
+sources/Panel/Objects/*
+sources/Panel/Listings-Debug/*
+sources/Panel/Objects-Debug/*
+
 sources/generated/*
