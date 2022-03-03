@@ -19,8 +19,6 @@
 extern const Page pDebug;
 
 
-extern const Choice     mcStats;                            // ОТЛАДКА - Статистика
-extern const Page       mpConsole;                          // ОТЛАДКА - КОНСОЛЬ
 extern const Governor   mgConsole_NumStrings;               // ОТЛАДКА - КОНСОЛЬ - Число строк
 extern const Choice     mcConsole_SizeFont;                 // ОТЛАДКА - КОНСОЛЬ - Размер шрифта
 extern const Page       mpADC;                              // ОТЛАДКА - АЦП
@@ -81,7 +79,39 @@ void *PageDebug::SerialNumber::GetPointer()
 }
 
 
-// ОТЛАДКА /////////////////////////
+static const Choice mcStats =
+{
+    Item_Choice, &pDebug, 0,
+    {
+        "Статистика", "Statistics",
+        "Показывать/не показывать время/кадр, кадров в секунду, количество сигналов с последними настройками в памяти/количество сохраняемых в памяти сигналов",
+        "To show/not to show a time/shot, frames per second, quantity of signals with the last settings in memory/quantity of the signals kept in memory"
+    },
+    {
+        "Не показывать",    "Hide",
+        "Показывать",       "Show"
+    },
+    (int8 *)&SHOW_STATS
+};
+
+
+static const arrayItems itemsConsole =
+{
+    (void *)&mgConsole_NumStrings,   // ОТЛАДКА - КОНСОЛЬ - Число строк
+    (void *)&mcConsole_SizeFont      // ОТЛАДКА - КОНСОЛЬ - Размер шрифта
+};
+
+
+static const Page mpConsole
+(
+    &pDebug, 0,
+    "КОНСОЛЬ", "CONSOLE",
+    "",
+    "",
+    Page_DebugConsole, &itemsConsole
+);
+
+
 static const arrayItems itemsDebug =
 {
     (void *)&mcStats,            // ОТЛАДКА - Статистика
@@ -103,38 +133,10 @@ const Page pDebug
     Page_Debug, &itemsDebug
 );
 
-// ОТЛАДКА - Статистика -----
-static const Choice mcStats =
-{
-    Item_Choice, &pDebug, 0,
-    {
-        "Статистика", "Statistics",
-        "Показывать/не показывать время/кадр, кадров в секунду, количество сигналов с последними настройками в памяти/количество сохраняемых в памяти сигналов",
-        "To show/not to show a time/shot, frames per second, quantity of signals with the last settings in memory/quantity of the signals kept in memory"
-    },
-    {
-        "Не показывать",    "Hide",
-        "Показывать",       "Show"
-    },
-    (int8*)&SHOW_STATS
-};
 
 
-// ОТЛАДКА - КОНСОЛЬ ///////////////
-static const arrayItems itemsConsole =
-{
-    (void*)&mgConsole_NumStrings,   // ОТЛАДКА - КОНСОЛЬ - Число строк
-    (void*)&mcConsole_SizeFont      // ОТЛАДКА - КОНСОЛЬ - Размер шрифта
-};
 
-static const Page mpConsole
-(
-    &pDebug, 0,
-    "КОНСОЛЬ", "CONSOLE",
-    "",
-    "",
-    Page_DebugConsole, &itemsConsole
-);
+
 
 // ОТЛАДКА - КОНСОЛЬ - Число строк -------------------------------------------------------------------------------------------------------------------
 static const Governor mgConsole_NumStrings
