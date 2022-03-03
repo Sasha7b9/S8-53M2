@@ -17,9 +17,9 @@
 
 
 extern const Page pDebug;
+extern const Page mpConsole;
 
 
-extern const Governor   mgConsole_NumStrings;               // ОТЛАДКА - КОНСОЛЬ - Число строк
 extern const Choice     mcConsole_SizeFont;                 // ОТЛАДКА - КОНСОЛЬ - Размер шрифта
 extern const Page       mpADC;                              // ОТЛАДКА - АЦП
 extern const Page       mpADC_Balance;                      // ОТЛАДКА - АЦП - БАЛАНС
@@ -95,6 +95,16 @@ static const Choice mcStats =
 };
 
 
+static const Governor mgConsole_NumStrings
+(
+    &mpConsole, 0,
+    "Число строк", "Number strings",
+    "",
+    "",
+    &NUM_STRINGS, 0, 33
+);
+
+
 static const arrayItems itemsConsole =
 {
     (void *)&mgConsole_NumStrings,   // ОТЛАДКА - КОНСОЛЬ - Число строк
@@ -110,6 +120,29 @@ static const Page mpConsole
     "",
     Page_DebugConsole, &itemsConsole
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 static const arrayItems itemsDebug =
@@ -138,15 +171,6 @@ const Page pDebug
 
 
 
-// ОТЛАДКА - КОНСОЛЬ - Число строк -------------------------------------------------------------------------------------------------------------------
-static const Governor mgConsole_NumStrings
-(
-    &mpConsole, 0,
-    "Число строк", "Number strings",
-    "",
-    "",
-    &NUM_STRINGS,  0, 33
-);
 
 // ОТЛАДКА - КОНСОЛЬ - Размер шрифта -----------------------------------------------------------------------------------------------------------------
 static const Choice mcConsole_SizeFont =
