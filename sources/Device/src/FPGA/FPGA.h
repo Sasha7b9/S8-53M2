@@ -31,7 +31,7 @@ namespace FPGA
     {
         // Если  true - будем уплотнять сигнал посредством установки предыдущей на 2 растяжки и
         // выкидыванием точки
-        inline bool Enabled() { return false; };
+        inline bool Enabled() { return true; };
 
         // Коэффициент уплотнения - можеть быть 1, 4, или 5.
         // Возвращается дле текущей SET_TBASE

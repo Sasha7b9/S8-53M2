@@ -30,9 +30,15 @@ namespace FPGA
 
         float CalculateFrequencyFromCounterPeriod();
 
-        float FromFrequencyCounter(const BitSet32 &fr) { return fr.word * 10.0F; }
+        float FromFrequencyCounter(const BitSet32 &fr)
+        {
+            return fr.word * 10.0F;
+        }
 
-        float FromPeriodCounter(const BitSet32 &period) { return (period.word == 0) ? 0.0f : 10e5f / period.word; }
+        float FromPeriodCounter(const BitSet32 &period)
+        {
+            return (period.word == 0) ? 0.0f : 1e5f / period.word;
+        }
     }
 }
 
