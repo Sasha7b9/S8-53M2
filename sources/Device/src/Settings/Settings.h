@@ -37,8 +37,6 @@ struct SettingsChannel
 };
 
 
-
-
 #define MAC_ADDR0       (set.eth.mac0)
 #define MAC_ADDR1       (set.eth.mac1)
 #define MAC_ADDR2       (set.eth.mac2)

@@ -43,7 +43,7 @@ void FDrive::Update()
 }
 
 
-void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8 id)
+void USBH_UserProcess(USBH_HandleTypeDef *, uint8 id)
 {
     switch (id)
     {
@@ -73,7 +73,7 @@ void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8 id)
 }
 
 
-bool FDrive::AppendStringToFile(pchar  string)
+bool FDrive::AppendStringToFile(pchar)
 {
     return false;
 }

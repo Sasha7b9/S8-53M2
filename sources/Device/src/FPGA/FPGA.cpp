@@ -304,7 +304,7 @@ void FPGA::SetNumberMeasuresForGates(int number)
 }
 
 
-void BUS_FPGA::WriteDAC(TypeWriteDAC::E type, uint16 data)
+void BUS_FPGA::WriteDAC(TypeWriteDAC::E, uint16 data)
 {
     Pin::SPI4_CS1.Reset();
 
@@ -319,7 +319,7 @@ void BUS_FPGA::WriteDAC(TypeWriteDAC::E type, uint16 data)
 }
 
 
-void BUS_FPGA::WriteAnalog(TypeWriteAnalog::E type, uint data)
+void BUS_FPGA::WriteAnalog(TypeWriteAnalog::E, uint data)
 {
     Pin::SPI4_CS2.Reset();
 

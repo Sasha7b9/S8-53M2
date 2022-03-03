@@ -24,14 +24,10 @@ add_definitions(-DSTM32F429xx -DUSE_HAL_DRIVER -DDEVICE)
 if(WIN32)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
 
-    add_compile_options(/wd4100)
-    add_compile_options(/wd4103)    # alignment changed after including header, may be due to missing #pragma pack(pop)
     add_compile_options(/wd4201)
     add_compile_options(/wd4211)
     add_compile_options(/wd4244)
-    add_compile_options(/wd4255)
     add_compile_options(/wd4310)    # cast truncates constant value
-    add_compile_options(/wd4505)    # 'function': unreferenced function with internal linkage has been removed
     add_compile_options(/wd4514)    # 'function' : unreferenced inline function has been removed
     add_compile_options(/wd4623)    # 'derived class' : default constructor was implicitly defined as deleted because a base
                                     # class default constructor is inaccessible or deleted
@@ -45,13 +41,10 @@ if(WIN32)
                                     # 'extern "C"' function under -EHc. Undefined behavior may occur if this function throws
                                     # an exception
     add_compile_options(/wd5045)    # Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
-    add_compile_options(/wd5204)    # 'xxx': class has virtual functions, but its trivial destructor is not virtual;
-                                    # instances of objects derived from this class may not be destructed correctly
     add_compile_options(/wd5219)    # implicit conversion from 'type1' to 'type2', possible loss of data
     add_compile_options(/wd5220)    # '<unnamed-tag>::SR': a non-static data member with a volatile qualified type no longer
                                     # implies that compiler generated copy/move constructors and copy/move assignment
                                     # operators are not trivia
-    add_compile_options(/wd26812)   # Prefer 'enum class' over 'enum' (Enum.3)
 
 else()
 

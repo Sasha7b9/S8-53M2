@@ -42,7 +42,7 @@ void SetParametersWave(Chan::E ch, TypeWave typeWave, float frequency, float sta
     amplNoise[ch] = amplNoise_;
 }
 
-void StartNewWave(Chan::E ch)
+void StartNewWave(Chan::E)
 {
     numSample[0] = numSample[1] = 0;
 }
@@ -59,7 +59,7 @@ uint8 GetSampleSinusWave(Chan::E ch, int numSample_)
     return ValueFPGA::FromVoltage(voltage, SET_RANGE(ch), SET_RSHIFT(ch));
 }
 
-uint8 GetSampleMeanderWave(Chan::E ch, int numSample_)
+uint8 GetSampleMeanderWave(Chan::E, int)
 {
     return 0;
 }

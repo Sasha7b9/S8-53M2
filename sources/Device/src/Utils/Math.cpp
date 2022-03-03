@@ -190,7 +190,7 @@ int Math_MinInt(int val1, int val2)
 //
 //#endif
 
-static void Normalize(float *data, int numPoints)
+static void Normalize(float *data, int)
 {
     float max = 0.0;
     for (int i = 0; i < 256; i++)

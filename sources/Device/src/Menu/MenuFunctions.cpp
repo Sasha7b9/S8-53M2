@@ -391,7 +391,7 @@ void Menu::ShortPressOnPageItem(Page *page, int numItem)
 }
 
 
-Page* Menu::PagePointerFromName(NamePage namePage)
+Page* Menu::PagePointerFromName(NamePage)
 {
     return 0;
 }

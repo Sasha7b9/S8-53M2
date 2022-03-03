@@ -261,7 +261,7 @@ static void DrawChoice(void *item, int x, int y)
 }
 
 
-static void DrawSmallButton(void *item, int x, int y)
+static void DrawSmallButton(void *item, int, int y)
 {
     ((SmallButton *)item)->Draw(LEFT_SB, y + 7);
 }

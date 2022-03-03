@@ -99,7 +99,7 @@ static const Choice mcInputA =
     (int8*)&SET_ENABLED_A, PageChannelA::OnChanged_Input
 };
 
-void PageChannelA::OnChanged_Input(bool active)
+void PageChannelA::OnChanged_Input(bool)
 {
     Panel::EnableLEDChannelA(Chan::Enabled(Chan::A));
 }
@@ -122,7 +122,7 @@ static const Choice mcCoupleA =
     (int8*)&SET_COUPLE_A, OnChanged_CoupleA
 };
 
-void OnChanged_CoupleA(bool active)
+void OnChanged_CoupleA(bool)
 {
     ModeCouple::Set(Chan::A, SET_COUPLE_A);
 }
@@ -144,7 +144,7 @@ static const Choice mcFiltrA =
     (int8*)&SET_FILTR_A, OnChanged_FiltrA
 };
 
-void OnChanged_FiltrA(bool active)
+void OnChanged_FiltrA(bool)
 {
     Filtr::Enable(Chan::A, SET_FILTR_A);
 }
@@ -166,7 +166,7 @@ static const Choice mcInverseA =
     (int8*)&SET_INVERSE_A, OnChanged_InverseA
 };
 
-static void OnChanged_InverseA(bool active)
+static void OnChanged_InverseA(bool)
 {
     RShift::Set(Chan::A, SET_RSHIFT_A);
 }
@@ -226,7 +226,7 @@ static const Choice mcInputB =  //  ¿Õ¿À 2
     (int8*)&SET_ENABLED_B, PageChannelB::OnChanged_Input
 };
 
-void PageChannelB::OnChanged_Input(bool active)
+void PageChannelB::OnChanged_Input(bool)
 {
     Panel::EnableLEDChannelB(Chan::Enabled(Chan::B));
 }
@@ -249,7 +249,7 @@ static const Choice mcCoupleB =
     (int8*)&SET_COUPLE_B, OnChanged_CoupleB
 };
 
-void OnChanged_CoupleB(bool active)
+void OnChanged_CoupleB(bool)
 {
     ModeCouple::Set(Chan::B, SET_COUPLE_B);
 }
@@ -270,7 +270,7 @@ static const Choice mcFiltrB =
     (int8*)&SET_FILTR_B, OnChanged_FiltrB
 };
 
-void OnChanged_FiltrB(bool active)
+void OnChanged_FiltrB(bool)
 {
     Filtr::Enable(Chan::B, SET_FILTR_B);
 }
@@ -292,7 +292,7 @@ static const Choice mcInverseB =
     (int8*)&SET_INVERSE_B, OnChanged_InverseB
 };
 
-static void OnChanged_InverseB(bool active)
+static void OnChanged_InverseB(bool)
 {
     RShift::Set(Chan::B, SET_RSHIFT_B);
 }

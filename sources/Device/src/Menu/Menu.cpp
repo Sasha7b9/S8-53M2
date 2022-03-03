@@ -340,7 +340,7 @@ void* Menu::ItemUnderKey()
 };
 
 
-void Menu::SetAutoHide(bool active)
+void Menu::SetAutoHide(bool)
 {
     if(!MenuIsShown())
     {

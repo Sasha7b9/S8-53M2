@@ -163,11 +163,11 @@ void ColorType::BrightnessChange(int delta)
 
     int sign = Math::Sign(delta);
 
-    LIMITATION(brightness, brightness + sign * 0.01f, 0.0f, 1.0f);
+    LIMITATION(brightness, brightness + (float)sign * 0.01f, 0.0f, 1.0f);
 
-    red += sign * stepRed;
-    green += sign * stepGreen;
-    blue += sign * stepBlue;
+    red += (float)sign * stepRed;
+    green += (float)sign * stepGreen;
+    blue += (float)sign * stepBlue;
 
     SetColor();
 

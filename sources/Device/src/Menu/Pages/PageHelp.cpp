@@ -34,7 +34,7 @@ void DrawSB_Help_ParagraphNext(int x, int y)
     Font::Set(TypeFont::_8);
 }
 
-void OnHelpRegSet(int angle) 
+void OnHelpRegSet(int) 
 {
 
 }

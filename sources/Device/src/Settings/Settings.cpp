@@ -213,21 +213,15 @@ static const Settings defaultSettings =
     },
     // debug
     {
-        15,                     // numStrings
-        0,                      // размер шрифта - 5
-        0,                      // consoleInPause
-        1000,                   // numMeasuresForGates
-        0,                      // shiftT0
-        false,                  // showStats
-        6,                      // numAveForRand
-        false,                  // view altera writting data
-        false,                  // view all altera writting data
-        {
-            false,              // показывать ли флаг готовности
-            false,              // rShift0
-            false,              // rShift1
-            false               // trigLev
-        }
+        15,         // numStrings
+        0,          // размер шрифта - 5
+        0,          // consoleInPause
+        1000,       // numMeasuresForGates
+        0,          // shiftT0
+        false,      // showStats
+        6,          // numAveForRand
+        false,      // view altera writting data
+        false       // view all altera writting data
     }
 };
 

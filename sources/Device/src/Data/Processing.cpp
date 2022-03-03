@@ -1141,8 +1141,10 @@ char* Processing::GetStringMeasure(Measure::E measure, Chan::E ch, char buffer[2
     {
         return "";
     }
+
     buffer[0] = '\0';
-    sprintf(buffer, ch == Chan::A ? "1: " : "2: ");
+    sprintf(buffer, (ch == Chan::A) ? "1: " : "2: ");
+
     if(dset == 0)
     {
         strcat(buffer, "-.-");
@@ -1162,6 +1164,7 @@ char* Processing::GetStringMeasure(Measure::E measure, Chan::E ch, char buffer[2
     {
         return buffer;
     }
+
     return buffer;
 }
 

@@ -249,14 +249,14 @@ char* Time2String(float time, bool alwaysSign, char buffer[20])
     return buffer;
 }
 
-char* Phase2String(float phase, bool empty, char bufferOut[20])
+char* Phase2String(float phase, bool, char bufferOut[20])
 {
     char buffer[20];
     sprintf(bufferOut, "%s\xa8", Float2String(phase, false, 4, buffer));
     return bufferOut;
 }
 
-char *  Freq2String(float freq, bool alwaysSign, char bufferOut[20])
+char *  Freq2String(float freq, bool, char bufferOut[20])
 {
     bufferOut[0] = 0;
     char *suffix = 0;
@@ -443,15 +443,15 @@ char GetSymbolForGovernor(int value)
 
 void EmptyFuncVV() { }
 
-void EmptyFuncVI(int i) { }
+void EmptyFuncVI(int) { }
 
-void EmptyFuncVpV(void *empty) { }
+void EmptyFuncVpV(void *) { }
 
-void EmptyFuncpVII(void *v, int i, int ii) { }
+void EmptyFuncpVII(void *, int, int) { }
 
-void EmptyFuncVI16(int16 i) {}
+void EmptyFuncVI16(int16) {}
 
-void EmptyFuncVB(bool b) {}
+void EmptyFuncVB(bool) {}
 
 bool EmptyFuncBV()
 {

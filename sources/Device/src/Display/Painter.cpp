@@ -484,7 +484,7 @@ void Painter::DrawVolumeButton(int x, int y, int width, int height, int thicknes
 }
 
 
-void Painter::DrawVLineArray(int x, int num_lines, uint8 *y0y1, Color::E color, uint8 transparency)
+void Painter::DrawVLineArray(int x, int num_lines, uint8 *y0y1, Color::E color, uint8)
 {
     Color::SetCurrent(color);
 

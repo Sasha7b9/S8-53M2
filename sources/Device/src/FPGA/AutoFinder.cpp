@@ -206,7 +206,7 @@ TBase::E FPGA::AutoFinder::AccurateFindTBase(Chan::E ch)
 }
 
 
-TBase::E FPGA::AutoFinder::FindTBase(Chan::E ch)
+TBase::E FPGA::AutoFinder::FindTBase(Chan::E)
 {
     TrigInput::Set(TrigInput::Full);
     Timer::PauseOnTime(10);

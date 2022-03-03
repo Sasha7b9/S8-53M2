@@ -12,6 +12,7 @@
 //extern USBH_HandleTypeDef  HOST_HANDLE;
 
 
+#define _USE_BUFF_WO_ALIGNMENT 0
 
 #if _USE_BUFF_WO_ALIGNMENT == 0
 /* Local buffer use to handle buffer not aligned 32bits*/
@@ -51,7 +52,7 @@ Diskio_drvTypeDef  USBH_Driver =
   * @param  lun : lun id
   * @retval DSTATUS: Operation status
   */
-DSTATUS USBH_initialize(BYTE lun)
+DSTATUS USBH_initialize(BYTE)
 {
   return RES_OK;
 }

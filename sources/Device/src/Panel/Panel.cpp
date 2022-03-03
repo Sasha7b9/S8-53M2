@@ -418,7 +418,7 @@ Key::E Panel::WaitPressingButton()
 }
 
 
-uint16 Panel::TranslateCommand(const uint8 *data, uint size)
+uint16 Panel::TranslateCommand(const uint8 *data, uint)
 {
     static const int NUM_BUTTONS = 27;
 

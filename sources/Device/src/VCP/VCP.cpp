@@ -112,7 +112,7 @@ void VCP::SendDataSynch(const uint8 *buffer, int size)
 }
 
 
-void SendData(const uint8 *buffer, int size)
+void SendData(const uint8 *, int)
 {
 
 }

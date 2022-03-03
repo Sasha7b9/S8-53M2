@@ -79,7 +79,7 @@ static const Choice mcMode =
     (int8*)&START_MODE, OnPress_Mode
 };
 
-void OnPress_Mode(bool active)
+void OnPress_Mode(bool)
 {
     FPGA::Stop(false);
     if (!START_MODE_IS_SINGLE)
@@ -106,7 +106,7 @@ static const Choice mcSource =
     (int8*)&TRIG_SOURCE, OnChanged_Source
 };
 
-static void OnChanged_Source(bool active)
+static void OnChanged_Source(bool)
 {
     TrigSource::Set(TRIG_SOURCE);
 }
@@ -132,7 +132,7 @@ static const Choice mcPolarity =
     (int8*)&TRIG_POLARITY, OnChanged_Polarity
 };
 
-static void OnChanged_Polarity(bool active)
+static void OnChanged_Polarity(bool)
 {
     TrigPolarity::Set(TRIG_POLARITY);
 }
@@ -166,7 +166,7 @@ static const Choice mcInput =
     (int8*)&TRIG_INPUT, OnChanged_Input
 };
 
-static void OnChanged_Input(bool active)
+static void OnChanged_Input(bool)
 {
     TrigInput::Set(TRIG_INPUT);
 }

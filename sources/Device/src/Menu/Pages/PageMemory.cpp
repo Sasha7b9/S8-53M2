@@ -33,7 +33,7 @@ static void DrawSetMask();  // Эта функция рисует, когда выбран режим задания ма
 static void DrawSetName();  // Эта функция рисует, когда нужно задать имя файла для сохранения
 
 
-void PageMemory::OnChanged_NumPoints(bool active)
+void PageMemory::OnChanged_NumPoints(bool)
 {
     if(ENUM_POINTS_FPGA::ToNumPoints() == 281)
     {

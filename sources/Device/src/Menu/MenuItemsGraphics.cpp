@@ -76,7 +76,7 @@ static void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool 
     }
 }
 
-void Governor::DrawLowPart(int x, int y, bool pressed, bool shade)
+void Governor::DrawLowPart(int x, int y, bool, bool shade)
 {
     char buffer[20];
     
@@ -133,7 +133,7 @@ void Governor::DrawLowPart(int x, int y, bool pressed, bool shade)
     PText::DrawText(x + 1, y + 21, "\x81", colorTextDown);
 }
 
-void IPaddress::DrawLowPart(int x, int y, bool pressed, bool shade)
+void IPaddress::DrawLowPart(int x, int y, bool, bool shade)
 {
     char buffer[20];
 
@@ -159,7 +159,7 @@ void IPaddress::DrawLowPart(int x, int y, bool pressed, bool shade)
     }
 }
 
-static void DrawMACaddressLowPart(MACaddress *mac, int x, int y, bool pressed, bool shade)
+static void DrawMACaddressLowPart(MACaddress *mac, int x, int y, bool, bool shade)
 {
     char buffer[20];
 
@@ -186,7 +186,7 @@ static void DrawMACaddressLowPart(MACaddress *mac, int x, int y, bool pressed, b
 }
 
 
-void Formula::WriteText(int x, int y, bool opened)
+void Formula::WriteText(int x, int y, bool)
 {
     if (*function != Function_Mul && *function != Function_Sum)
     {
@@ -218,7 +218,7 @@ void Formula::WriteText(int x, int y, bool opened)
 }
 
 
-void Formula::DrawLowPart(int x, int y, bool pressed, bool shade)
+void Formula::DrawLowPart(int x, int y, bool, bool shade)
 {
     Color::E colorTextDown = COLOR_BACK;
 

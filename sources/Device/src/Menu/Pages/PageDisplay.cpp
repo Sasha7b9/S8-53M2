@@ -305,7 +305,7 @@ static bool IsActive_MinMax() //-V524
     return !TBase::InModeRandomizer();
 }
 
-static void OnChanged_MinMax(bool active)
+static void OnChanged_MinMax(bool)
 {
     /*
     int maxMeasures = DS_NumberAvailableEntries();  
@@ -364,7 +364,7 @@ static const Choice mcRefreshFPS =
     (int8*)&ENUM_SIGNALS_IN_SEC, OnChanged_RefreshFPS
 };
 
-void OnChanged_RefreshFPS(bool active)
+void OnChanged_RefreshFPS(bool)
 {
     FPGA::SetNumSignalsInSec(ENumSignalsInSec::ToNum(ENUM_SIGNALS_IN_SEC));
 }
