@@ -89,7 +89,7 @@ static const Settings defaultSettings =
             false,                  // inverse
             false                   // filtr
         }
-        
+
     },
     // trig
     {
@@ -224,14 +224,13 @@ Settings set;
 
 
 void Settings::Load(bool _default)
-{   
+{
     if (!_default)
     {
         _default = !HAL_ROM::LoadSettings();
-        
     }
-    
-    if(_default)
+
+    if (_default)
     {
         uint16 rShiftAddA[Range::Count][2];
         uint16 rshiftAddB[Range::Count][2];
@@ -243,7 +242,7 @@ void Settings::Load(bool _default)
         int16  balanceADC1 = SET_BALANCE_ADC_B;
         int16  numAverageForRand = NUM_AVE_FOR_RAND;
 
-        memcpy((void*)&set, (void*)(&defaultSettings), sizeof(set));                // Потом заполняем значениями по умолчанию
+        memcpy((void *)&set, (void *)(&defaultSettings), sizeof(set));                // Потом заполняем значениями по умолчанию
 
         memcpy((void *)&RSHIFT_ADD(Chan::A, 0, 0), (void *)rShiftAddA, 2 * Range::Count * 2);  // И восстанавливаем несбрасываемые настройки
         memcpy((void *)&RSHIFT_ADD(Chan::B, 0, 0), (void *)rshiftAddB, 2 * Range::Count * 2);
@@ -349,9 +348,9 @@ void CurrentPageSBregSet(int angle)
     }
 }
 
-const SmallButton* GetSmallButton(Key::E button)
+const SmallButton *GetSmallButton(Key::E button)
 {
-    if(MenuIsMinimize() && button >= Key::Menu && button <= Key::F5)
+    if (MenuIsMinimize() && button >= Key::Menu && button <= Key::F5)
     {
         Page *page = (Page *)Menu::OpenedItem();
         SmallButton *sb = (SmallButton *)(*page->items)[button - Key::Menu];
