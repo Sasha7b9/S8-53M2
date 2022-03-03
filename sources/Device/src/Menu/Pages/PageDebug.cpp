@@ -21,6 +21,7 @@ extern const Page  mpConsole;
 extern const Page  mpADC;                              // ОТЛАДКА - АЦП
 extern const Page  mpADC_Balance;                      // ОТЛАДКА - АЦП - БАЛАНС
 extern const Page  mpADC_Stretch;                      // ОТЛАДКА - АЦП - РАСТЯЖКА
+extern const Page  mpADC_Shift;
 extern const Page  mpADC_AltRShift;                    // ОТЛАДКА - АЦП - ДОП СМЕЩ
 extern const Page  mpRandomizer;                       // ОТЛАДКА - РАНД-ТОР
 extern const Page  ppSerialNumber;                     // ОТЛАДКА - С/Н
@@ -219,9 +220,55 @@ static const Button bResetShift
 );
 
 
+static void OnDraw_ShiftADCA(int x, int y)
+{
+    PText::DrawFormatText(x + 5, y + 21, Color::BLACK, "%d", SET_SHIFT_ADC_A);
+}
+
+
+static const Choice mcShiftADCA =
+{
+    Item_Choice, &pDebug, nullptr,
+    {
+        "Смещение к1", "Shift ch1",
+        "Смещение первого канала",
+        "Смещение первого канала"
+    },
+    {
+        {"Размер", "Size"},
+        {"Размер", "Size"}
+    },
+    0, 0, OnDraw_ShiftADCA
+};
+
+
+static void OnDraw_ShiftADCB(int x, int y)
+{
+    PText::DrawFormatText(x + 5, y + 21, Color::BLACK, "%d", SET_SHIFT_ADC_B);
+}
+
+
+static const Choice mcShiftADCB =
+{
+    Item_Choice, &pDebug, nullptr,
+    {
+        "Смещение к1", "Shift ch1",
+        "Смещение первого канала",
+        "Смещение первого канала"
+    },
+    {
+        {"Размер", "Size"},
+        {"Размер", "Size"}
+    },
+    0, 0, OnDraw_ShiftADCB
+};
+
+
 static const arrayItems itemsADC_Shift =
 {
-    (void *)&bResetShift
+    (void *)&bResetShift,
+    (void *)&mcShiftADCA,
+    (void *)&mcShiftADCB
 };
 
 
