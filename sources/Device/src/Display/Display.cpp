@@ -37,7 +37,6 @@ namespace Display
 
     char  *strings[MAX_NUM_STRINGS] = {0};
     char  bufferForStrings[SIZE_BUFFER_FOR_STRINGS] = {0};
-    int   lastStringForPause = -1;
 
     const int NUM_WARNINGS = 10;
     const char *warnings[NUM_WARNINGS] = {0};       // Здесь предупреждающие сообщения.
@@ -2438,11 +2437,6 @@ void Display::DeleteFirstString()
 
 void Display::AddString(pchar string)
 {
-    if(CONSOLE_IN_PAUSE)
-    {
-        return;
-    }
-
     static int num = 0;
     char buffer[100];
     sprintf(buffer, "%d\x11", num++);
@@ -2478,46 +2472,6 @@ void Display::AddStringToIndicating(pchar string)
     }
 
     AddString(string);
-}
-
-
-
-void Display::SetPauseForConsole(bool pause)
-{
-    if(pause)
-    {
-        lastStringForPause = FirstEmptyString() - 1;
-    }
-    else
-    {
-        lastStringForPause = -1;
-    }
-}
-
-
-
-void Display::OneStringUp()
-{
-    if(!CONSOLE_IN_PAUSE)
-    {
-    }
-    else if(lastStringForPause > NUM_STRINGS - 1)
-    {
-        lastStringForPause--;
-    }
-}
-
-
-
-void Display::OneStringDown()
-{
-    if(!CONSOLE_IN_PAUSE)
-    {
-    }
-    else if(lastStringForPause < FirstEmptyString() - 1)
-    {
-        lastStringForPause++;
-    }
 }
 
 

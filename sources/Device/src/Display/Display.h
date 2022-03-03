@@ -45,12 +45,6 @@ namespace Display
 
     void AddStringToIndicating(pchar string);
 
-    void OneStringUp();
-
-    void OneStringDown();
-
-    void SetPauseForConsole(bool pause);
-
     // После отрисовки очередного экрана эта функция будет вызвана один раз.
     void RunAfterDraw(pFuncVV func);
 
