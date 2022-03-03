@@ -16,35 +16,14 @@
 #include <stdio.h>
 
 
-extern const Page       pDebug;
-extern const Page       mpConsole;
-extern const Page       mpADC;                              // ОТЛАДКА - АЦП
-extern const Page       mpADC_Balance;                      // ОТЛАДКА - АЦП - БАЛАНС
-extern const Page       mpADC_Stretch;                      // ОТЛАДКА - АЦП - РАСТЯЖКА
-extern const Page       mpADC_AltRShift;                    // ОТЛАДКА - АЦП - ДОП СМЕЩ
-extern const Page       mpRandomizer;                       // ОТЛАДКА - РАНД-ТОР
-extern const Governor   mgRandomizer_SamplesForGates;       // ОТЛАДКА - РАНД-ТОР - Выб-к/ворота
-static void     OnChanged_Randomizer_SamplesForGates();
-extern const Governor   mgRandomizer_Average;               // ОТЛАДКА - РАНД-ТОР - Усредн.
-extern const Choice     mcSizeSettings;                     // ОТЛАДКА - Размер настроек
-static void        OnDraw_SizeSettings(int x, int y);
-extern const Button     mbSaveFirmware;                     // ОТЛАДКА - Сохр. прошивку
-static bool      IsActive_SaveFirmware();
-static void       OnPress_SaveFirmware();
-extern const       Page ppSerialNumber;                     // ОТЛАДКА - С/Н
-static void       OnPress_SerialNumber();
-static void Draw_EnterSerialNumber();
-static void      OnRegSet_SerialNumber(int);
-extern const SmallButton bSerialNumber_Exit;                // ОТЛАДКА - С/Н - Выход
-static void       OnPress_SerialNumber_Exit();
-extern const SmallButton bSerialNumber_Change;              // ОТЛАДКА - С/Н - Перейти
-static void       OnPress_SerialNumber_Change();
-static void          Draw_SerialNumber_Change(int, int);
-extern const  SmallButton bSerialNumber_Save;               // ОТЛАДКА - С/Н - Сохранить
-static void        OnPress_SerialNumber_Save();
-static void           Draw_SerialNumber_Save(int, int);
-extern const       Button bEraseData;                       // ОТЛАДКА - Стереть данные
-static void       OnPress_EraseData();
+extern const Page  pDebug;
+extern const Page  mpConsole;
+extern const Page  mpADC;                              // ОТЛАДКА - АЦП
+extern const Page  mpADC_Balance;                      // ОТЛАДКА - АЦП - БАЛАНС
+extern const Page  mpADC_Stretch;                      // ОТЛАДКА - АЦП - РАСТЯЖКА
+extern const Page  mpADC_AltRShift;                    // ОТЛАДКА - АЦП - ДОП СМЕЩ
+extern const Page  mpRandomizer;                       // ОТЛАДКА - РАНД-ТОР
+extern const Page  ppSerialNumber;                     // ОТЛАДКА - С/Н
 
 
 // В этой структуре будут храниться данные серийного номера при открытой странице ppSerialNumer
@@ -123,6 +102,84 @@ static const Page mpConsole
 );
 
 
+static void OnDraw_SizeSettings(int x, int y)
+{
+    PText::DrawFormatText(x + 5, y + 21, Color::BLACK, "Размер %d", sizeof(Settings));
+}
+
+
+static const Choice mcSizeSettings =
+{
+    Item_Choice, &pDebug, 0,
+    {
+        "Размер настроек", "Size settings",
+        "Вывод размера структуры Settings",
+        "Show size of struct Settings"
+    },
+    {
+        {"Размер", "Size"},
+        {"Размер", "Size"}
+    },
+    0, 0, OnDraw_SizeSettings
+};
+
+
+static bool IsActive_SaveFirmware()
+{
+    return FLASH_DRIVE_IS_CONNECTED == 1;
+}
+
+
+static void OnPress_SaveFirmware()
+{
+    StructForWrite structForWrite;
+
+    FDrive::OpenNewFileForWrite("S8-53.bin", &structForWrite);
+
+    const uint ADDR_START_FIRMWARE = 0x08020000;
+
+    uint8 *address = (uint8 *)ADDR_START_FIRMWARE; //-V566
+    uint8 *endAddress = address + 128 * 1024 * 3;
+
+    int sizeBlock = 512;
+
+    while (address < endAddress)
+    {
+        FDrive::WriteToFile(address, sizeBlock, &structForWrite);
+        address += sizeBlock;
+    }
+
+    FDrive::CloseFile(&structForWrite);
+
+    Display::ShowWarningGood(Warning::FirmwareSaved);
+}
+
+
+static const Button mbSaveFirmware
+(
+    &pDebug, IsActive_SaveFirmware,
+    "Сохр. прошивку", "Save firmware",
+    "Сохранение прошивки - секторов 5, 6, 7 общим объёмом 3 х 128 кБ, где хранится программа",
+    "Saving firmware - sectors 5, 6, 7 with a total size of 3 x 128 kB, where the program is stored",
+    OnPress_SaveFirmware
+);
+
+
+static void OnPress_EraseData()
+{
+    HAL_ROM::EraseData();
+}
+
+
+static const Button bEraseData
+(
+    &pDebug, EmptyFuncBV,
+    "Стереть данные", "Erase data",
+    "Стирает сектора с данными",
+    "Erases data sectors",
+    OnPress_EraseData
+);
+
 
 static const arrayItems itemsDebug =
 {
@@ -144,14 +201,6 @@ const Page pDebug
     "",
     Page_Debug, &itemsDebug
 );
-
-
-
-
-
-
-
-
 
 
 static void OnPress_ResetShift()
@@ -239,10 +288,6 @@ static const Page mpADC_Balance
     "",
     Page_DebugADCbalance, &itemsADC_Balance
 );
-
-
-
-
 
 
 static void OnPress_ResetStretch()
@@ -386,6 +431,7 @@ static const arrayItems itemsADC_AltRShift =
     (void*)&mbADC_AltRShift_10mV_DC_B       // ОТЛАДКА - АЦП - ДОП СМЕЩ - См 2к 10мВ пост    
 };
 
+
 static const Page mpADC_AltRShift
 (
     &mpADC, 0,
@@ -396,40 +442,10 @@ static const Page mpADC_AltRShift
 );
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-static const arrayItems itemsRandomizer =
+static void OnChanged_Randomizer_SamplesForGates()
 {
-    (void*)&mgRandomizer_SamplesForGates,   // ОТЛАДКА - РАНД-ТОР - Выб-к/ворота
-    (void*)&mgRandomizer_Average            // ОТЛАДКА - РАНД-ТОР - Усредн.
-};
-
-static const Page mpRandomizer
-(
-    &pDebug, 0,
-    "РАНД-ТОР", "RANDOMIZER",
-    "",
-    "",
-    Page_DebugRandomizer, &itemsRandomizer
-);
+    FPGA::SetNumberMeasuresForGates(NUM_MEAS_FOR_GATES);
+}
 
 
 static const Governor mgRandomizer_SamplesForGates
@@ -441,12 +457,7 @@ static const Governor mgRandomizer_SamplesForGates
     &NUM_MEAS_FOR_GATES, 1, 2500, OnChanged_Randomizer_SamplesForGates
 );
 
-static void OnChanged_Randomizer_SamplesForGates()
-{
-    FPGA::SetNumberMeasuresForGates(NUM_MEAS_FOR_GATES);
-}
 
-// ОТЛАДКА - РАНД-ТОР - Усредн. ----------------------------------------------------------------------------------------------------------------------
 static const Governor mgRandomizer_Average
 (
     &mpRandomizer, 0,
@@ -457,85 +468,101 @@ static const Governor mgRandomizer_Average
 );
 
 
-// ОТЛАДКА - Размер настроек  
-static const Choice mcSizeSettings =
+static const arrayItems itemsRandomizer =
 {
-    Item_Choice, &pDebug, 0,
-    {
-        "Размер настроек", "Size settings",
-        "Вывод размера структуры Settings",
-        "Show size of struct Settings"
-    },
-    {
-        {"Размер", "Size"},
-        {"Размер", "Size"}
-    },
-    0, 0, OnDraw_SizeSettings
+    (void*)&mgRandomizer_SamplesForGates,   // ОТЛАДКА - РАНД-ТОР - Выб-к/ворота
+    (void*)&mgRandomizer_Average            // ОТЛАДКА - РАНД-ТОР - Усредн.
 };
 
-static void OnDraw_SizeSettings(int x, int y)
-{
-    PText::DrawFormatText(x + 5, y + 21, Color::BLACK, "Размер %d", sizeof(Settings));
-}
 
-
-// ОТЛАДКА - Сохр. прошивку -
-static const Button mbSaveFirmware
+static const Page mpRandomizer
 (
-    &pDebug, IsActive_SaveFirmware,
-    "Сохр. прошивку", "Save firmware",
-    "Сохранение прошивки - секторов 5, 6, 7 общим объёмом 3 х 128 кБ, где хранится программа",
-    "Saving firmware - sectors 5, 6, 7 with a total size of 3 x 128 kB, where the program is stored",
-    OnPress_SaveFirmware
+    &pDebug, 0,
+    "РАНД-ТОР", "RANDOMIZER",
+    "",
+    "",
+    Page_DebugRandomizer, &itemsRandomizer
 );
 
-static bool IsActive_SaveFirmware()
+
+static void OnPress_SerialNumber_Exit()
 {
-    return FLASH_DRIVE_IS_CONNECTED == 1;
+    Display::RemoveAddDrawFunction();
+    FREE_EXTRAMEM();
 }
 
-static void OnPress_SaveFirmware()
+
+static const SmallButton bSerialNumber_Exit
+(
+    &ppSerialNumber,
+    COMMON_BEGIN_SB_EXIT,
+    OnPress_SerialNumber_Exit,
+    DrawSB_Exit
+);
+
+
+static void OnPress_SerialNumber_Change()
 {
-    StructForWrite structForWrite;
+    ACCESS_EXTRAMEM(StructForSN, s);
+    ++s->curDigt;
+    s->curDigt %= 2;
+    Color::ResetFlash();
+}
 
-    FDrive::OpenNewFileForWrite("S8-53.bin", &structForWrite);
 
-    const uint ADDR_START_FIRMWARE = 0x08020000;
+static void Draw_SerialNumber_Change(int x, int y)
+{
+    Font::Set(TypeFont::UGO2);
+    PText::Draw4SymbolsInRect(x + 2, y + 2, SYMBOL_TAB);
+    Font::Set(TypeFont::_8);
+}
 
-    uint8 *address = (uint8*)ADDR_START_FIRMWARE; //-V566
-    uint8 *endAddress = address + 128 * 1024 * 3;
 
-    int sizeBlock = 512;
+static const SmallButton bSerialNumber_Change
+(
+    &ppSerialNumber, 0,
+    "Вставить", "Insert",
+    "Вставляет выбраный символ",
+    "Inserts the chosen symbol",
+    OnPress_SerialNumber_Change,
+    Draw_SerialNumber_Change
+);
 
-    while (address < endAddress)
+
+static void OnPress_SerialNumber_Save()
+{
+    ACCESS_EXTRAMEM(StructForSN, s);
+
+    char stringSN[20];
+
+    snprintf(stringSN, 19, "%02d %04d", s->number, s->year);
+
+    if (!OTP::SaveSerialNumber(stringSN))
     {
-        FDrive::WriteToFile(address, sizeBlock, &structForWrite);
-        address += sizeBlock;
+        Display::ShowWarningBad(Warning::FullyCompletedOTP);
     }
-
-    FDrive::CloseFile(&structForWrite);
-
-    Display::ShowWarningGood(Warning::FirmwareSaved);
 }
 
 
+static void Draw_SerialNumber_Save(int x, int y)
+{
+    Font::Set(TypeFont::UGO2);
+    PText::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_SAVE_TO_MEM);
+    Font::Set(TypeFont::_8);
+}
 
-static const Button bEraseData
+
+static const SmallButton bSerialNumber_Save
 (
-    &pDebug, EmptyFuncBV,
-    "Стереть данные", "Erase data",
-    "Стирает сектора с данными",
-    "Erases data sectors",
-    OnPress_EraseData
+    &ppSerialNumber, 0,
+    "Сохранить", "Save",
+    "Записывает серийный номер в OTP",
+    "Records the serial number in OTP",
+    OnPress_SerialNumber_Save,
+    Draw_SerialNumber_Save
 );
 
-static void OnPress_EraseData()
-{
-    HAL_ROM::EraseData();
-}
 
-
-// ОТЛАДКА - С/Н ///////////////////
 static const arrayItems itemsSerialNumber =
 {
     (void*)&bSerialNumber_Exit,     // ОТЛАДКА - С/Н - Выход
@@ -546,24 +573,6 @@ static const arrayItems itemsSerialNumber =
     (void*)&bSerialNumber_Save      // ОТЛАДКА - С/Н - Сохранить    
 };
 
-static const Page ppSerialNumber
-(
-    &pDebug, 0,
-    "С/Н", "S/N",
-    "Запись серийного номера в OTP-память. ВНИМАНИЕ!!! ОТP-память - память с однократной записью.",
-    "Serial number recording in OTP-memory. ATTENTION!!! OTP memory is a one-time programming memory.",
-    Page_SB_SerialNumber, &itemsSerialNumber, OnPress_SerialNumber, 0, OnRegSet_SerialNumber
-);
-
-static void OnPress_SerialNumber()
-{
-    Menu::OpenPageAndSetItCurrent(PageDebug::SerialNumber::GetPointer());
-    Display::SetAddDrawFunction(Draw_EnterSerialNumber);
-    MALLOC_EXTRAMEM(StructForSN, s);
-    s->number = 01;
-    s->year = 2017;
-    s->curDigt = 0;
-}
 
 static void Draw_EnterSerialNumber()
 {
@@ -621,9 +630,21 @@ static void Draw_EnterSerialNumber()
     PText::DrawFormatText(x0 + deltaX, y0 + 100, COLOR_FILL, "Осталось места для %d попыток", allShots);
 }
 
+
+static void OnPress_SerialNumber()
+{
+    Menu::OpenPageAndSetItCurrent(PageDebug::SerialNumber::GetPointer());
+    Display::SetAddDrawFunction(Draw_EnterSerialNumber);
+    MALLOC_EXTRAMEM(StructForSN, s);
+    s->number = 01;
+    s->year = 2017;
+    s->curDigt = 0;
+}
+
+
 static void OnRegSet_SerialNumber(int angle)
 {
-    typedef int(*pFunc)(int*, int, int);
+    typedef int(*pFunc)(int *, int, int);
 
     pFunc p = angle > 0 ? CircleIncreaseInt : CircleDecreaseInt;
 
@@ -640,75 +661,12 @@ static void OnRegSet_SerialNumber(int angle)
     Sound::GovernorChangedValue();
 }
 
-// ОТЛАДКА - С/Н - Выход ----
-static const SmallButton bSerialNumber_Exit
+
+static const Page ppSerialNumber
 (
-    &ppSerialNumber,
-    COMMON_BEGIN_SB_EXIT,
-    OnPress_SerialNumber_Exit,
-    DrawSB_Exit
+    &pDebug, 0,
+    "С/Н", "S/N",
+    "Запись серийного номера в OTP-память. ВНИМАНИЕ!!! ОТP-память - память с однократной записью.",
+    "Serial number recording in OTP-memory. ATTENTION!!! OTP memory is a one-time programming memory.",
+    Page_SB_SerialNumber, &itemsSerialNumber, OnPress_SerialNumber, 0, OnRegSet_SerialNumber
 );
-
-static void OnPress_SerialNumber_Exit()
-{
-    Display::RemoveAddDrawFunction();
-    FREE_EXTRAMEM();
-}
-
-// ОТЛАДКА - С/Н - Вставить -
-static const SmallButton bSerialNumber_Change
-(
-    &ppSerialNumber, 0,
-    "Вставить", "Insert",
-    "Вставляет выбраный символ",
-    "Inserts the chosen symbol",
-    OnPress_SerialNumber_Change,
-    Draw_SerialNumber_Change
-);
-
-static void OnPress_SerialNumber_Change()
-{
-    ACCESS_EXTRAMEM(StructForSN, s);
-    ++s->curDigt;
-    s->curDigt %= 2;
-    Color::ResetFlash();
-}
-
-static void Draw_SerialNumber_Change(int x, int y)
-{
-    Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 2, y + 2, SYMBOL_TAB);
-    Font::Set(TypeFont::_8);
-}
-
-// ОТЛАДКА - С/Н - Сохранить 
-static const SmallButton bSerialNumber_Save
-(
-    &ppSerialNumber, 0,
-    "Сохранить", "Save",
-    "Записывает серийный номер в OTP",
-    "Records the serial number in OTP",
-    OnPress_SerialNumber_Save,
-    Draw_SerialNumber_Save
-);
-
-static void OnPress_SerialNumber_Save()
-{
-    ACCESS_EXTRAMEM(StructForSN, s);
-
-    char stringSN[20];
-
-    snprintf(stringSN, 19, "%02d %04d", s->number, s->year);
-
-    if (!OTP::SaveSerialNumber(stringSN))
-    {
-        Display::ShowWarningBad(Warning::FullyCompletedOTP);
-    }
-}
-
-static void Draw_SerialNumber_Save(int x, int y)
-{
-    Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_SAVE_TO_MEM);
-    Font::Set(TypeFont::_8);
-}
