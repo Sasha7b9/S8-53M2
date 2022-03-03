@@ -22,10 +22,6 @@ extern const Page       mpADC;                              // нркюдйю - южо
 extern const Page       mpADC_Balance;                      // нркюдйю - южо - аюкюмя
 extern const Page       mpADC_Stretch;                      // нркюдйю - южо - пюяръфйю
 extern const Page       mpADC_AltRShift;                    // нркюдйю - южо - дно ялеы
-extern const Governor   mbADC_AltRShift_2mV_DC_A;           // нркюдйю - южо - дно ялеы - яЛ 1Й 2Лб ОНЯР
-static void     OnChanged_ADC_AltRShift_A();
-extern const Governor   mbADC_AltRShift_2mV_DC_B;           // нркюдйю - южо - дно ялеы - яЛ 2Й 2Лб ОНЯР
-static void     OnChanged_ADC_AltRShift_B();
 extern const Governor   mbADC_AltRShift_5mV_DC_A;           // нркюдйю - южо - дно ялеы - яЛ 1Й 5Лб ОНЯР
 extern const Governor   mbADC_AltRShift_5mV_DC_B;           // нркюдйю - южо - дно ялеы - яЛ 2Й 5Лб ОНЯР
 extern const Governor   mbADC_AltRShift_10mV_DC_A;          // нркюдйю - южо - дно ялеы - яЛ 1Й 10Лб ОНЯР
@@ -311,6 +307,38 @@ static const Button mbADC_AltRShift_Reset
 );
 
 
+static void OnChanged_ADC_AltRShift_A()
+{
+    RShift::Set(Chan::A, SET_RSHIFT_A);
+}
+
+
+static const Governor mbADC_AltRShift_2mV_DC_A
+(
+    &mpADC_AltRShift, 0,
+    "яЛ 1Й 2Лб ОНЯР", "Shift 1ch 2mV DC",
+    "",
+    "",
+    &RSHIFT_ADD(Chan::A, Range::_2mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_A
+);
+
+
+static void OnChanged_ADC_AltRShift_B()
+{
+    RShift::Set(Chan::B, SET_RSHIFT_B);
+}
+
+
+static const Governor mbADC_AltRShift_2mV_DC_B
+(
+    &mpADC_AltRShift, 0,
+    "яЛ 2Й 2Лб ОНЯР", "Shift 2ch 2mV DC",
+    "",
+    "",
+    &RSHIFT_ADD(Chan::B, Range::_2mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_B
+);
+
+
 static const arrayItems itemsADC_AltRShift =
 {
     (void*)&mbADC_AltRShift_Reset,          // нркюдйю - южо - дно ялеы - яАПНЯ
@@ -333,35 +361,13 @@ static const Page mpADC_AltRShift
 
 
 
-// нркюдйю - южо - дно ялеы - яЛ 1Й 2Лб ОНЯР ---------------------------------------------------------------------------------------------------------
-static const Governor mbADC_AltRShift_2mV_DC_A
-(
-    &mpADC_AltRShift, 0,
-    "яЛ 1Й 2Лб ОНЯР", "Shift 1ch 2mV DC",
-    "",
-    "",
-    &RSHIFT_ADD(Chan::A, Range::_2mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_A
-);
 
-static void OnChanged_ADC_AltRShift_A()
-{
-    RShift::Set(Chan::A, SET_RSHIFT_A);
-}
 
-// нркюдйю - южо - дно ялеы - яЛ 2Й 2Лб ОНЯР ---------------------------------------------------------------------------------------------------------
-static const Governor mbADC_AltRShift_2mV_DC_B
-(
-    &mpADC_AltRShift, 0,
-    "яЛ 2Й 2Лб ОНЯР", "Shift 2ch 2mV DC",
-    "",
-    "",
-    &RSHIFT_ADD(Chan::B, Range::_2mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_B
-);
 
-static void OnChanged_ADC_AltRShift_B()
-{
-    RShift::Set(Chan::B, SET_RSHIFT_B);
-}
+
+
+
+
 
 // нркюдйю - южо - дно ялеы - яЛ 1Й 5Лб ОНЯР ---------------------------------------------------------------------------------------------------------
 static const Governor mbADC_AltRShift_5mV_DC_A
