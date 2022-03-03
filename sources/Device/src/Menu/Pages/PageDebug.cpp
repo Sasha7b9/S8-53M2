@@ -306,9 +306,55 @@ static const Button bResetStretch
 );
 
 
+static void OnDraw_StretchADCA(int x, int y)
+{
+    PText::DrawFormatText(x + 5, y + 21, Color::BLACK, "%f", SET_STRETCH_ADC_A);
+}
+
+
+static const Choice mcStretchADCA =
+{
+    Item_Choice, &pDebug, nullptr,
+    {
+        "Растяжка к1", "Stretch ch1",
+        "Растяжка первого канала",
+        "Растяжка первого канала"
+    },
+    {
+        {"Размер", "Size"},
+        {"Размер", "Size"}
+    },
+    0, 0, OnDraw_StretchADCA
+};
+
+
+static void OnDraw_StretchADCB(int x, int y)
+{
+    PText::DrawFormatText(x + 5, y + 21, Color::BLACK, "%f", SET_STRETCH_ADC_B);
+}
+
+
+static const Choice mcStretchADCB =
+{
+    Item_Choice, &pDebug, nullptr,
+    {
+        "Растяжка к2", "Stretch ch2",
+        "Растяжка первого канала",
+        "Растяжка первого канала"
+    },
+    {
+        {"Размер", "Size"},
+        {"Размер", "Size"}
+    },
+    0, 0, OnDraw_StretchADCB
+};
+
+
 static const arrayItems itemsADC_Stretch =
 {
-    (void *)&bResetStretch
+    (void *)&bResetStretch,
+    (void *)&mcStretchADCA,
+    (void *)&mcStretchADCB
 };
 
 static const Page mpADC_Stretch
