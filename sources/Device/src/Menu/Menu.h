@@ -108,4 +108,6 @@ namespace Menu
     SmallButton *SmallButonFromPage(Page *page, int numButton);
 
     void ChangeStateFlashDrive();
+
+    int8 PosActItem(NamePage namePage);                         // ¬озвращает позицию активного пункта на странице namePage.
 };

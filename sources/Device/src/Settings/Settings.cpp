@@ -293,7 +293,7 @@ bool Settings::DebugModeEnable()
     return true;
 }
 
-int8 MenuPosActItem(NamePage namePage)
+int8 Menu::PosActItem(NamePage namePage)
 {
     return set.menu.posActItem[namePage];
 }
