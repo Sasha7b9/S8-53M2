@@ -79,7 +79,7 @@ void* Menu::OpenedItem()
 void* Menu::Item(const Page *page, int numElement)
 {
     const arrayItems &array = (*page->items);
-    return array[numElement + (PageIsSB(page) ? 1 : 0)];
+    return array[numElement + (page->IsSB() ? 1 : 0)];
 }
 
 
@@ -191,7 +191,7 @@ void Menu::CloseOpenedItem()
     void *item = OpenedItem();
     if(TypeOpenedItem() == Item_Page)
     {
-        if (PageIsSB((const Page *)item))                               // Для страницы малых кнопок
+        if (((const Page *)item)->IsSB())                               // Для страницы малых кнопок
         {
             SmallButton *sb = SmallButonFromPage((Page *)item, 0);      // Выполняем функцию нажатия кнопки Key::Menu
             if (sb->funcOnPress)                                        // Если она есть
@@ -292,7 +292,7 @@ int Menu::NumItemsInPage(const Page * const page)
     {
         return (SHOW_DEBUG_MENU == 0) ? 10 : 11;
     }
-    else if (PageIsSB(page))
+    else if (page->IsSB())
     {
         return 5;
     }
@@ -395,9 +395,9 @@ Page* Menu::PagePointerFromName(NamePage)
 }
 
 
-bool Menu::PageIsSB(const Page *page)
+bool Page::IsSB() const
 {
-    return page->name >= Page_SB_Curs;
+    return (name >= Page_SB_Curs);
 }
 
 

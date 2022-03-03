@@ -103,8 +103,6 @@ namespace Menu
 
     Page *PagePointerFromName(NamePage namePage);
 
-    bool PageIsSB(const Page *page);
-
     SmallButton *SmallButonFromPage(Page *page, int numButton);
 
     void ChangeStateFlashDrive();

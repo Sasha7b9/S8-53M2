@@ -146,6 +146,8 @@ public:
 
     // Возвращает позицию текущего элемента странцы page.
     int8 PosCurrentItem() const;
+
+    bool IsSB() const;
 };
 
 
