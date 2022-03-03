@@ -68,8 +68,6 @@ namespace Menu
     void *Item(const Page *page, int numElement);
     // Возвращает true, если текущий элемент страницы с именем namePage открыт.
     bool CurrentItemIsOpened(NamePage namePage);
-    // Возвращает позицию текущего элемента странцы page.
-    int8 PosCurrentItem(const Page *page);
     // Сделать/разделать текущим пункт страницы.
     void SetCurrentItem(const void *item, bool active);
     // Возвращает адрес элемента, которому принадлежит элемент по адресу item.

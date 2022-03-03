@@ -143,6 +143,9 @@ public:
     void Draw(int x, int y);
 
     void DrawTitle(int layer, int yTop);
+
+    // Возвращает позицию текущего элемента странцы page.
+    int8 PosCurrentItem() const;
 };
 
 
