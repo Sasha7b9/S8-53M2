@@ -189,9 +189,6 @@ struct TBase
     // Коэффициент растяжки в рандомизаторе (шаг между точками при установленной развёртке)
     static int StretchRand();
 
-    // Сколько точек нужно пропускать, если включено уплотнение
-    static int SkipPointsForCompact();
-
     static pchar ToString(TBase::E);
     static pchar ToStringEN(TBase::E);
 

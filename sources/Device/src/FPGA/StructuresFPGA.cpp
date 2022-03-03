@@ -54,11 +54,11 @@ uint16 FPGA::Reader::CalculateAddressRead()
         static const int shift[5] = { 44, 44, 42,  40,  38};
 
         return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) -
-            ENUM_POINTS_FPGA::ToNumBytes() * FPGA::COUNT_COMPACT / TBase::StretchRand() - shift[SET_TBASE]);
+            ENUM_POINTS_FPGA::ToNumBytes() * Compactor::Koeff() / TBase::StretchRand() - shift[SET_TBASE]);
     }
     else
     {
-        return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) - ENUM_POINTS_FPGA::ToNumBytes() * FPGA::COUNT_COMPACT);
+        return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) - ENUM_POINTS_FPGA::ToNumBytes() * FPGA::Compactor::Koeff());
     }
 }
 
@@ -80,7 +80,7 @@ void FPGA::Launch::Calculate()
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
 
-    int num_bytes = ENUM_POINTS_FPGA::ToNumBytes() * FPGA::COUNT_COMPACT;
+    int num_bytes = ENUM_POINTS_FPGA::ToNumBytes() * Compactor::Koeff();
 
     int values[TPos::Count] = { 0, num_bytes / 4, num_bytes / 2 };
 
@@ -114,4 +114,60 @@ void FPGA::Launch::Calculate()
             post = num_bytes - pred;
         }
     }
+}
+
+
+TBase::E FPGA::Compactor::CompactTBase()
+{
+    int base = SET_TBASE;
+
+    return (TBase::E)Math::Limitation<int>(base - 2, 0, base);
+}
+
+
+int FPGA::Compactor::Koeff()
+{
+    if (!Enabled())
+    {
+        return 1;
+    }
+
+    // При включённом уплотнении сигнала будем засылать бОльшую растяжку, чем установлено (на 2 ступени)
+    // После стрелки указана TBase, которую нужно засылать
+    static const int koeff[TBase::Count] =
+    {
+        1,  // 2ns    -> 
+        1,  // 5ns    ->
+        1,  // 10ns   ->
+        1,  // 20ns   ->
+        1,  // 50ns   ->
+        1,  // 100ns  ->
+        1,  // 200ns  ->
+
+        5,  // 500ns  -> 100 ns
+        5,  // 1us    -> 200 ns
+        4,  // 2us    -> 500 ns
+        5,  // 5us    ->   1 us
+        5,  // 10us   ->   2 us
+        4,  // 20us   ->   5 us
+        5,  // 50us   ->  10 us
+        5,  // 100us  ->  20 us
+        4,  // 200us  ->  50 us
+        5,  // 500us  -> 100 us
+        5,  // 1ms    -> 200 us
+        4,  // 2ms    -> 500 us
+        5,  // 5ms    ->   1 ms
+        5,  // 10ms   ->   2 ms
+        4,  // 20ms   ->   5 ms
+        5,  // 50ms   ->  10 ms
+        5,  // 100ms  ->  20 ms
+        4,  // 200ms  ->  50 ms
+        5,  // 500ms  -> 100 ms
+        5,  // 1s     -> 200 ms
+        4,  // 2s     -> 500 ms
+        5,  // 5s     ->   1 s
+        5,  // 10s    ->   2 s
+    };
+
+    return koeff[SET_TBASE];
 }

@@ -402,7 +402,7 @@ void FPGA::ReadPoints(Chan::E ch)
 
         const int stretch = TBase::StretchRand();
 
-        if(FPGA::COUNT_COMPACT == 1)
+        if(Compactor::Koeff() == 1)             // Без уплотнения
         {
             while (dat < end && IN_PROCESS_READ)
             {
@@ -414,7 +414,7 @@ void FPGA::ReadPoints(Chan::E ch)
                 dat += stretch;
             }
         }
-        else if (FPGA::COUNT_COMPACT == 2)
+        else if (Compactor::Koeff() == 4)       // Выкидываются 3 байта из 4 (уплотнение в 4 раза)
         {
             while (dat < end && IN_PROCESS_READ)
             {
@@ -422,17 +422,28 @@ void FPGA::ReadPoints(Chan::E ch)
 
                 *dat = data1.byte0;
                 dat += stretch;
+
+                funcRead();
             }
         }
-        else if (FPGA::COUNT_COMPACT == 4)
+        else if (Compactor::Koeff() == 5)       // Выкидываются 4 байта зи 5 (уплотнение в 5 раз)
         {
             while (dat < end && IN_PROCESS_READ)
             {
                 BitSet16 data1 = funcRead();
                 BitSet16 data2 = funcRead();
+                BitSet16 data3 = funcRead();
+                BitSet16 data4 = funcRead();
+                BitSet16 data5 = funcRead();
 
                 *dat = data1.byte0;
                 dat += stretch;
+
+                if (dat < end)
+                {
+                    *dat = data3.byte1;
+                    dat += stretch;
+                }
             }
         }
     }
