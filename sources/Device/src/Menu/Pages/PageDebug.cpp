@@ -16,15 +16,10 @@
 #include <stdio.h>
 
 
-extern const Page pDebug;
-extern const Page mpConsole;
-
-
-extern const Choice     mcConsole_SizeFont;                 // ОТЛАДКА - КОНСОЛЬ - Размер шрифта
+extern const Page       pDebug;
+extern const Page       mpConsole;
 extern const Page       mpADC;                              // ОТЛАДКА - АЦП
 extern const Page       mpADC_Balance;                      // ОТЛАДКА - АЦП - БАЛАНС
-extern const Governor   mgADC_Balance_ShiftA;               // ОТЛАДКА - АЦП - БАЛАНС - Смещение 1
-extern const Governor   mgADC_Balance_ShiftB;               // ОТЛАДКА - АЦП - БАЛАНС - Смещение 2
 extern const Page       mpADC_Stretch;                      // ОТЛАДКА - АЦП - РАСТЯЖКА
 extern const Page       mpADC_AltRShift;                    // ОТЛАДКА - АЦП - ДОП СМЕЩ
 extern const Button     mbADC_AltRShift_Reset;              // ОТЛАДКА - АЦП - ДОП СМЕЩ - Сброс
@@ -105,6 +100,22 @@ static const Governor mgConsole_NumStrings
 );
 
 
+static const Choice mcConsole_SizeFont =
+{
+    Item_Choice, &mpConsole, 0,
+    {
+        "Размер шрифта", "Size font",
+        "",
+        ""
+    },
+    {
+        "5",    "5",
+        "8",    "8"
+    },
+    (int8 *)&SIZE_FONT_CONSOLE
+};
+
+
 static const arrayItems itemsConsole =
 {
     (void *)&mgConsole_NumStrings,   // ОТЛАДКА - КОНСОЛЬ - Число строк
@@ -120,28 +131,6 @@ static const Page mpConsole
     "",
     Page_DebugConsole, &itemsConsole
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -172,21 +161,7 @@ const Page pDebug
 
 
 
-// ОТЛАДКА - КОНСОЛЬ - Размер шрифта -----------------------------------------------------------------------------------------------------------------
-static const Choice mcConsole_SizeFont =
-{
-    Item_Choice, &mpConsole, 0,
-    {
-        "Размер шрифта", "Size font",
-        "",
-        ""
-    },
-    {
-        "5",    "5",
-        "8",    "8"
-    },
-    (int8*)&SIZE_FONT_CONSOLE
-};
+
 
 
 static void OnPress_ResetShift()
@@ -221,7 +196,6 @@ static const Page mpADC_Shift
 );
 
 
-// ОТЛАДКА - АЦП ///////////////////
 static const arrayItems itemsADC =
 {
     (void*)&mpADC_Balance,      // ОТЛАДКА - АЦП - БАЛАНС
@@ -229,6 +203,7 @@ static const arrayItems itemsADC =
     (void*)&mpADC_Shift,
     (void*)&mpADC_AltRShift     // ОТЛАДКА - АЦП - ДОП СМЕЩ
 };
+
 
 static const Page mpADC
 (
@@ -239,7 +214,27 @@ static const Page mpADC
     Page_DebugADC, &itemsADC
 );
 
-// ОТЛАДКА - АЦП - БАЛАНС //////////
+
+static const Governor mgADC_Balance_ShiftA
+(
+    &mpADC_Balance, nullptr,
+    "Смещение 1", "Offset 1",
+    "",
+    "",
+    (int16 *)&SET_BALANCE_ADC_A, -125, 125, nullptr
+);
+
+
+static const Governor mgADC_Balance_ShiftB
+(
+    &mpADC_Balance, nullptr,
+    "Смещение 2", "Offset 2",
+    "",
+    "",
+    (int16 *)&SET_BALANCE_ADC_B, -125, 125, nullptr
+);
+
+
 static const arrayItems itemsADC_Balance =
 {
     (void*)&mgADC_Balance_ShiftA,   // ОТЛАДКА - АЦП - БАЛАНС - Смещение 1
@@ -256,26 +251,8 @@ static const Page mpADC_Balance
 );
 
 
-// ОТЛАДКА - АЦП - БАЛАНС - Смещение 1 ---------------------------------------------------------------------------------------------------------------
-static const Governor mgADC_Balance_ShiftA
-(
-    &mpADC_Balance, nullptr,
-    "Смещение 1", "Offset 1",
-    "",
-    "",
-    (int16 *)&SET_BALANCE_ADC_A, -125, 125, nullptr
-);
 
 
-// ОТЛАДКА - АЦП - БАЛАНС - Смещение 2----------------------------------------------------------------------------------------------------------------
-static const Governor mgADC_Balance_ShiftB
-(
-    &mpADC_Balance, nullptr,
-    "Смещение 2", "Offset 2",
-    "",
-    "",
-    (int16 *)&SET_BALANCE_ADC_B, -125, 125, nullptr
-);
 
 
 static void OnPress_ResetStretch()
