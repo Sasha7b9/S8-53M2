@@ -19,3 +19,4 @@ endif()
 
 add_subdirectory(Device)
 add_subdirectory(Loader)
+add_subdirectory(Panel)

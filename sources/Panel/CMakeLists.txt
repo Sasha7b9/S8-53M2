@@ -60,4 +60,4 @@ source_group(libs/vs_keil/ARMCLANG FILES ${VS_KEIL_ARMCLANG})
 source_group(libs/vs_keil/CMSIS    FILES ${VS_KEIL_CMSIS})
 source_group(src                   FILES ${SRC})
 
-add_library(Panel ${VS_KEIL_ARMCLANG} ${VS_KEIL_CMSIS} ${SRC})
+add_library(${PROJECT_NAME} ${VS_KEIL_ARMCLANG} ${VS_KEIL_CMSIS} ${SRC})
