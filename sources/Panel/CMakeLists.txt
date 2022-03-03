@@ -7,9 +7,9 @@ include_directories(src
                     ..
                     ../common/_VS_KEIL/ARMCLANG
                     ../common/_VS_KEIL/CMSIS
-                    ../common/STM32Cube_L0/Drivers/STM32L0xx_HAL_Driver/Inc
-                    ../common/STM32Cube_L0/Drivers/CMSIS/Device/ST/STM32L0xx/Include
-                    ../common/STM32Cube_L0/Drivers/CMSIS/Include
+                    ../STM32Cube_FW_L0/Drivers/STM32L0xx_HAL_Driver/Inc
+                    ../STM32Cube_FW_L0/Drivers/CMSIS/Device/ST/STM32L0xx/Include
+                    ../STM32Cube_FW_L0/Drivers/CMSIS/Include
 if(WIN32)
 else()
                     /usr/include/x86_64-linux-gnu
