@@ -439,14 +439,6 @@ void TShift::Set(int tShift)
 };
 
 
-void TShift::SetDelta(int shift)
-{
-    FPGA::deltaTShift[SET_TBASE] = shift;
-
-    FPGA::Launch::Load();
-}
-
-
 void PeackDetMode::Set(PeackDetMode::E peackDetMode)
 {
     SET_PEAKDET = peackDetMode;
