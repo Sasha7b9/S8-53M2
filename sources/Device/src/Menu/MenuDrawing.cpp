@@ -315,7 +315,7 @@ void Page::DrawItems(int layer, int yTop)
     {
         void *item = GetItem(posItem);
         int top = yTop + MI_HEIGHT * count;
-        funcOfDraw[type](item, Menu::CalculateX(layer), top);
+        funcOfDraw[Menu::TypeMenuItem(item)](item, Menu::CalculateX(layer), top);
         count++;
         itemUnderButton[GetFuncButtonFromY(top)] = item;
     }
