@@ -113,7 +113,10 @@ struct ControlStruct
 class Item
 {
 public:
-    COMMON_PART_MENU_ITEM
+    TypeItem::E       type;         /* Тип итема */
+    const class Page *keeper;       /* Адрес страницы, которой принадлежит. Для NamePage::MainPage = 0 */
+    pFuncBV           funcOfActive; /* Активен ли данный элемент */
+    pchar             titleHint[4]; /* Название страницы на русском и английском языках. Также подсказка для режима помощи */
 
 public:
     Item(const ControlStruct *str);
@@ -140,7 +143,7 @@ typedef pVOID arrayItems[MAX_NUM_ITEMS_IN_PAGE];
 
 
 // Описывает страницу меню.
-class Page : public     Item
+class Page : public Item
 {
 public:
     NamePage::E       name;         // Имя из перечисления NamePage
@@ -282,6 +285,42 @@ public:
 };
 
 
+class Choice
+{
+public:
+    COMMON_PART_MENU_ITEM
+        pchar names[MAX_NUM_SUBITEMS_IN_CHOICE][2];   // Варианты выбора на русском и английском языках.
+    int8 *cell;                                   // Адрес ячейки, в которой хранится позиция текущего выбора.
+    pFuncVB	    funcOnChanged;                          // Функция должна вызываться после изменения значения элемента.
+    pFuncVII    funcForDraw;                            // Функция вызывается после отрисовки элемента. 
+    pchar NameSubItem(int i);
+    // Возвращает имя текущего варианта выбора элемента choice, как оно записано в исходном коде программы.
+    pchar NameCurrentSubItem();
+    // Возвращает имя следующего варианта выбора элемента choice, как оно записано в исходном коде программы.
+    pchar NameNextSubItem();
+
+    pchar NamePrevSubItem();
+    // Возвращает количество вариантов выбора в элементе по адресу choice.
+    int NumSubItems();
+
+    void StartChange(int delta);
+    // Рассчитывает следующий кадр анимации.
+    float Step();
+    // Изменяет значение choice в зависимости от величины и знака delta.
+    void ChangeValue(int delta);
+
+    void FuncOnChanged(bool active);
+
+    void FuncForDraw(int x, int y);
+
+    void Draw(int x, int y, bool opened);
+
+    void DrawClosed(int x, int y);
+
+    void DrawOpened(int x, int y);
+};
+
+
 struct IPaddressStruct
 {
     ControlStruct str;
@@ -294,7 +333,7 @@ struct IPaddressStruct
 };
 
 
-class  IPaddress : public Item
+class IPaddress : public Item
 {
 public:
     uint8*  ip0;
@@ -397,42 +436,6 @@ public:
     void DrawValue(int x, int y, int delta);
 
     void DrawClosed(int x, int y);
-};
-
-
-class Choice
-{
-public:
-    COMMON_PART_MENU_ITEM
-    pchar names[MAX_NUM_SUBITEMS_IN_CHOICE][2];   // Варианты выбора на русском и английском языках.
-    int8*       cell;                                   // Адрес ячейки, в которой хранится позиция текущего выбора.
-    pFuncVB	    funcOnChanged;                          // Функция должна вызываться после изменения значения элемента.
-    pFuncVII    funcForDraw;                            // Функция вызывается после отрисовки элемента. 
-    pchar NameSubItem(int i);
-    // Возвращает имя текущего варианта выбора элемента choice, как оно записано в исходном коде программы.
-    pchar NameCurrentSubItem();
-    // Возвращает имя следующего варианта выбора элемента choice, как оно записано в исходном коде программы.
-    pchar NameNextSubItem();
-
-    pchar NamePrevSubItem();
-    // Возвращает количество вариантов выбора в элементе по адресу choice.
-    int NumSubItems();
-
-    void StartChange(int delta);
-    // Рассчитывает следующий кадр анимации.
-    float Step();
-    // Изменяет значение choice в зависимости от величины и знака delta.
-    void ChangeValue(int delta);
-
-    void FuncOnChanged(bool active);
-
-    void FuncForDraw(int x, int y);
-
-    void Draw(int x, int y, bool opened);
-
-    void DrawClosed(int x, int y);
-
-    void DrawOpened(int x, int y);
 };
 
 
