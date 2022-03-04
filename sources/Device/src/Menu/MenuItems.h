@@ -120,6 +120,9 @@ public:
     Control(TypeItem::E, const Page* keeper_, pFuncBV funcOfActive_, pchar tileRU, pchar titleEN, pchar hintRU, pchar hintEN);
     // Возвращает true, если кнопка, соответствующая данному элементу меню, находится в нажатом положении.
     bool IsPressed();
+
+    // Возвращает адрес открытого элемента меню.
+    static void *Opened();
 };
 
 

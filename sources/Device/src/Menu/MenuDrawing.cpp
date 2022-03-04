@@ -107,10 +107,10 @@ static void DrawHintItem(int x, int y, int width)
 
 void Menu::Draw()
 {
-    if(MenuIsShown() || TypeMenuItem(OpenedItem()) != TypeItem::Page)
+    if(MenuIsShown() || TypeMenuItem(Control::Opened()) != TypeItem::Page)
     {
         ResetItemsUnderButton();
-        void *item = OpenedItem();
+        void *item = Control::Opened();
         if(MenuIsShown())
         {
             if (TypeMenuItem(item) == TypeItem::Page)
@@ -386,7 +386,7 @@ int Menu::CalculateX(int layer)
 
 bool Menu::IsShade(void* item)
 {
-    return Keeper(item)->CurrentItemIsOpened() && (item != OpenedItem());
+    return Keeper(item)->CurrentItemIsOpened() && (item != Control::Opened());
 }
 
 

@@ -326,7 +326,7 @@ void ShowMenu(bool show)
 
 bool MenuIsMinimize()
 {
-    return Menu::TypeOpenedItem() == TypeItem::Page && ((const Page *)Menu::OpenedItem())->GetName() >= NamePage::SB_Curs;
+    return Menu::TypeOpenedItem() == TypeItem::Page && ((const Page *)Control::Opened())->GetName() >= NamePage::SB_Curs;
 }
 
 bool MenuPageDebugIsActive()
@@ -341,7 +341,8 @@ void SetMenuPageDebugActive(bool active)
 
 void CurrentPageSBregSet(int angle)
 {
-    Page *page = (Page *)Menu::OpenedItem();
+    Page *page = (Page *)Control::Opened();
+
     if (page->funcRegSetSB)
     {
         page->funcRegSetSB(angle);

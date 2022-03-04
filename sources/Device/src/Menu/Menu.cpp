@@ -364,7 +364,7 @@ char* Menu::StringNavigation(char buffer[100])
         buffer[0] = 0;
         pchar titles[10] = {0};
         int numTitle = 0;
-        void *item = OpenedItem();
+        void *item = Control::Opened();
         if(IsMainPage(item))
         {
             return 0;
@@ -441,7 +441,7 @@ void Menu::ProcessingShortPressureButton()
             }
             else                                                        // Если меню не показано.
             {
-                NamePage::E name = ((const Page *)OpenedItem())->GetName();
+                NamePage::E name = ((const Page *)Control::Opened())->GetName();
                 if(button == Key::ChannelA && name == NamePage::Channel0)
                 {
                     SET_ENABLED_A = !Chan::Enabled(Chan::A);
@@ -514,12 +514,12 @@ void Menu::ProcessingRegulatorSet()
         return;
     }
 
-    if (MenuIsShown() || TypeMenuItem(OpenedItem()) != TypeItem::Page)
+    if (MenuIsShown() || TypeMenuItem(Control::Opened()) != TypeItem::Page)
     {
         void *item = CurrentItem();
         TypeItem::E type = TypeMenuItem(item);
 
-        if (TypeMenuItem(OpenedItem()) == TypeItem::Page && (type == TypeItem::ChoiceReg ||
+        if (TypeMenuItem(Control::Opened()) == TypeItem::Page && (type == TypeItem::ChoiceReg ||
             type == TypeItem::Governor || type == TypeItem::IP || type == TypeItem::MAC))
         {
             if (angleRegSet > stepAngleRegSet || angleRegSet < -stepAngleRegSet)
@@ -532,7 +532,7 @@ void Menu::ProcessingRegulatorSet()
         }
         else
         {
-            item = OpenedItem();
+            item = Control::Opened();
             type = TypeMenuItem(item);
             if (MenuIsMinimize())
             {
@@ -628,7 +628,7 @@ void Menu::ShortPress_ChoiceReg(void *choice)
     {
         ((Choice *)choice)->FuncOnChanged(false);
     } 
-    else if(OpenedItem() != choice) 
+    else if(Control::Opened() != choice)
     {
         SetCurrentItem(choice, CurrentItem() != choice);
     }
@@ -702,7 +702,7 @@ void Menu::ShortPress_Governor(void *governor)
     {
         return;
     }
-    if(OpenedItem() == gov)
+    if(Control::Opened() == gov)
     {
         gov->NextPosition();
     }
@@ -715,7 +715,7 @@ void Menu::ShortPress_Governor(void *governor)
 
 void Menu::ShortPress_IP(void *item)
 {
-    if (OpenedItem() == item)
+    if (Control::Opened() == item)
     {
         ((IPaddress*)item)->NextPosition();
     }
@@ -724,7 +724,7 @@ void Menu::ShortPress_IP(void *item)
 
 void Menu::ShortPress_MAC(void *item)
 {
-    if (OpenedItem() == item)
+    if (Control::Opened() == item)
     {
         CircleIncreaseInt8(&MACaddress::cur_digit, 0, 5);
     }
@@ -737,8 +737,10 @@ void Menu::ShortPress_GovernorColor(void *governorColor)
     {
         return;
     }
+
     GovernorColor *governor = (GovernorColor*)governorColor;
-    if(OpenedItem() == governor)
+
+    if(Control::Opened() == governor)
     {
         CircleIncreaseInt8(&(governor->colorType->currentField), 0, 3);
     }
@@ -832,7 +834,7 @@ void Menu::ChangeStateFlashDrive()
     {
         if(GetNameOpenedPage() == NamePage::SB_FileManager)
         {
-            ShortPressOnPageItem((Page *)OpenedItem(), 0);
+            ShortPressOnPageItem((Page *)Control::Opened(), 0);
         }
     }
     else if(FLASH_AUTOCONNECT)
@@ -899,7 +901,7 @@ bool Menu::NeedForFireSetLED()
 
     TypeItem::E typeOpenedItem = TypeOpenedItem();
     if (typeOpenedItem == TypeItem::Choice       ||
-        (typeOpenedItem == TypeItem::Page && ((Page *)OpenedItem())->NumSubPages() > 1)
+        (typeOpenedItem == TypeItem::Page && ((Page *)Control::Opened())->NumSubPages() > 1)
         )
     {
         return true;
