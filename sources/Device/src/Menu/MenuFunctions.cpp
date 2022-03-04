@@ -50,7 +50,7 @@ void Menu::SetCurrentItem(const void *item, bool active)
         }
         else
         {
-            for(int8 i = 0; i < NumItemsInPage(page); i++)
+            for(int8 i = 0; i < page->NumItems(); i++)
             {
                 if(Item(page, i) == item)
                 {
@@ -104,7 +104,7 @@ int Menu::HeightOpenedItem(void *item)
 
     if(type == TypeItem::Page)
     {
-        int numItems = NumItemsInPage((const Page *)item) - ((Page *)item)->NumCurrentSubPage() * MENU_ITEMS_ON_DISPLAY;
+        int numItems = ((const Page *)item)->NumItems() - ((Page *)item)->NumCurrentSubPage() * MENU_ITEMS_ON_DISPLAY;
         LIMITATION(numItems, numItems, 0, MENU_ITEMS_ON_DISPLAY);
         return MP_TITLE_HEIGHT + MI_HEIGHT * numItems;
     } 
@@ -161,7 +161,7 @@ void Menu::ChangeSubPage(const Page *page, int delta)
 
 int Menu::NumSubPages(const Page *page)
 {
-    return (NumItemsInPage(page) - 1) / MENU_ITEMS_ON_DISPLAY + 1;
+    return (page->NumItems() - 1) / MENU_ITEMS_ON_DISPLAY + 1;
 }
 
 
@@ -282,9 +282,8 @@ bool Menu::ItemIsActive(void *item)
 {
     TypeItem::E type = TypeMenuItem(item);
 
-    /** @todo Здесь оптимизировать через битовую маску */
-
-    if (type == TypeItem::Choice || type == TypeItem::Page || type == TypeItem::Button || type == TypeItem::Governor || type == TypeItem::SmallButton)
+    if (type == TypeItem::Choice || type == TypeItem::Page || type == TypeItem::Button || type == TypeItem::Governor ||
+        type == TypeItem::SmallButton)
     {
         pFuncBV func = ((Page*)(item))->funcOfActive;
 
@@ -295,13 +294,13 @@ bool Menu::ItemIsActive(void *item)
 }
 
 
-int Menu::NumItemsInPage(const Page * const page) 
+int Page::NumItems() const
 {
-    if (page->name == NamePage::MainPage)
+    if (name == NamePage::MainPage)
     {
         return (SHOW_DEBUG_MENU == 0) ? 10 : 11;
     }
-    else if (page->IsSB())
+    else if (IsSB())
     {
         return 5;
     }
@@ -309,7 +308,7 @@ int Menu::NumItemsInPage(const Page * const page)
     {
         for (int i = 0; i < MAX_NUM_ITEMS_IN_PAGE; i++)
         {
-            if (Item(page, i) == 0)
+            if (Menu::Item(this, i) == 0)
             {
                 return i;
             }
