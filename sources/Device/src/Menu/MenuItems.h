@@ -104,7 +104,7 @@ class SmallButton;
 
 
 
-struct ControlStruct
+struct ItemStruct
 {
     COMMON_PART_MENU_ITEM
 };
@@ -119,7 +119,7 @@ public:
     pchar             titleHint[4]; /* Название страницы на русском и английском языках. Также подсказка для режима помощи */
 
 public:
-    Item(const ControlStruct *str);
+    Item(const ItemStruct *str);
     Item(TypeItem::E, const Page* keeper_, pFuncBV funcOfActive_, pchar tileRU, pchar titleEN, pchar hintRU, pchar hintEN);
     // Возвращает true, если кнопка, соответствующая данному элементу меню, находится в нажатом положении.
     bool IsPressed();
@@ -323,7 +323,7 @@ public:
 
 struct IPaddressStruct
 {
-    ControlStruct str;
+    ItemStruct str;
     uint8* ip0;
     uint8* ip1;
     uint8* ip2;

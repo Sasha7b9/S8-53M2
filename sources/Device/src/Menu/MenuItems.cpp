@@ -26,7 +26,7 @@ static TimeStructChoice tsChoice;
 
 
 
-Item::Item(const ControlStruct *str) : type(str->type), keeper(str->keeper), funcOfActive(str->funcOfActive)
+Item::Item(const ItemStruct *str) : type(str->type), keeper(str->keeper), funcOfActive(str->funcOfActive)
 {
     titleHint[0] = str->titleHint[0];
     titleHint[1] = str->titleHint[1];
