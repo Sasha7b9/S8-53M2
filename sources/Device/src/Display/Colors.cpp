@@ -45,10 +45,12 @@ Color::E ColorCursors(Chan::E ch)
 Color::E ColorTrig()
 {
     TrigSource::E trigChan = TRIG_SOURCE;
+
     if (trigChan == TrigSource::ChannelA || trigChan == TrigSource::ChannelB)
     {
         return ColorChannel((Chan::E)trigChan);
     }
+
     return COLOR_FILL;
 }
 

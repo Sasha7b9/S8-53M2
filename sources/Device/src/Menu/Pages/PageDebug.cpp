@@ -307,7 +307,7 @@ static const Governor mgADC_Balance_ShiftA
     "Смещение 1", "Offset 1",
     "",
     "",
-    (int16 *)&SET_BALANCE_ADC_A, -125, 125, nullptr
+    &SET_BALANCE_ADC_A, -125, 125, nullptr
 );
 
 
@@ -317,7 +317,7 @@ static const Governor mgADC_Balance_ShiftB
     "Смещение 2", "Offset 2",
     "",
     "",
-    (int16 *)&SET_BALANCE_ADC_B, -125, 125, nullptr
+    &SET_BALANCE_ADC_B, -125, 125, nullptr
 );
 
 
