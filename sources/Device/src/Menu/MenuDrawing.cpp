@@ -310,7 +310,7 @@ void Menu::DrawItemsPage(Page *page, int layer, int yTop)
         DrawSmallButton     // TypeItem::SmallButton
     };
 
-    int posFirstItem = PosItemOnTop(page);
+    int posFirstItem = page->PosItemOnTop();
     int posLastItem = posFirstItem + MENU_ITEMS_ON_DISPLAY - 1;
     LIMITATION(posLastItem, posLastItem, 0, NumItemsInPage(page) - 1);
     int count = 0;

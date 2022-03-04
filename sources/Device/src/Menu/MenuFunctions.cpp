@@ -129,9 +129,9 @@ pchar  Menu::TitleItem(void *item)
 }
 
 
-int Menu::PosItemOnTop(Page *page)
+int Page::PosItemOnTop()
 {
-    return NumCurrentSubPage(page) * MENU_ITEMS_ON_DISPLAY;
+    return Menu::NumCurrentSubPage(this) * MENU_ITEMS_ON_DISPLAY;
 }
 
 
