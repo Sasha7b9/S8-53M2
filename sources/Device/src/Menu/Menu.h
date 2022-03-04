@@ -53,8 +53,6 @@ namespace Menu
     bool ItemIsActive(void *item);
     // Возвращает количество элементов в странице по адресу page.
     int NumItemsInPage(const Page * const page);
-    // Возвращает номер текущей подстранцы элемента по адресу page.
-    int NumCurrentSubPage(Page *page);
     // Dозвращает число подстраниц в странице по адресу page.
     int NumSubPages(const Page *page);
     // Возвращает тип элемента меню по адресу address.

@@ -104,7 +104,7 @@ int Menu::HeightOpenedItem(void *item)
 
     if(type == TypeItem::Page)
     {
-        int numItems = NumItemsInPage((const Page *)item) - NumCurrentSubPage((Page *)item) * MENU_ITEMS_ON_DISPLAY;
+        int numItems = NumItemsInPage((const Page *)item) - ((Page *)item)->NumCurrentSubPage() * MENU_ITEMS_ON_DISPLAY;
         LIMITATION(numItems, numItems, 0, MENU_ITEMS_ON_DISPLAY);
         return MP_TITLE_HEIGHT + MI_HEIGHT * numItems;
     } 
@@ -117,9 +117,9 @@ int Menu::HeightOpenedItem(void *item)
 }
 
 
-int Menu::NumCurrentSubPage(Page *page)
+int Page::NumCurrentSubPage()
 {
-    return MenuCurrentSubPage(page->name);
+    return MenuCurrentSubPage(name);
 }
 
 
@@ -131,7 +131,7 @@ pchar  Menu::TitleItem(void *item)
 
 int Page::PosItemOnTop()
 {
-    return Menu::NumCurrentSubPage(this) * MENU_ITEMS_ON_DISPLAY;
+    return NumCurrentSubPage() * MENU_ITEMS_ON_DISPLAY;
 }
 
 
