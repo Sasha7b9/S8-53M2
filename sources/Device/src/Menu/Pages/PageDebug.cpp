@@ -282,12 +282,35 @@ static const Page mpADC_Shift
 );
 
 
+void OnChanged_Compact(bool)
+{
+    TBase::Set(SET_TBASE);
+}
+
+
+static const Choice mcADC_Compact =
+{
+    TypeItem::Choice, &mpADC, nullptr,
+    {
+        "Уплотнение", "Compress",
+        "При включении считывается больше точек",
+        "Read more points when turned on",
+    },
+    {
+        {DISABLE_RU,    DISABLE_EN},
+        {ENABLE_RU,     ENABLE_EN}
+    },
+    (int8 *)&SET_FPGA_COMPACT, OnChanged_Compact
+};
+
+
 static const arrayItems itemsADC =
 {
-    (void*)&mpADC_Balance,      // ОТЛАДКА - АЦП - БАЛАНС
-    (void*)&mpADC_Stretch,      // ОТЛАДКА - АЦП - РАСТЯЖКА
-    (void*)&mpADC_Shift,
-    (void*)&mpADC_AltRShift     // ОТЛАДКА - АЦП - ДОП СМЕЩ
+    (void *)&mpADC_Balance,
+    (void *)&mpADC_Stretch,
+    (void *)&mpADC_Shift,
+    (void *)&mpADC_AltRShift,
+    (void *)&mcADC_Compact
 };
 
 

@@ -12,6 +12,8 @@
 #define SET_BALANCE_ADC_A       (SET_BALANCE_ADC(ChA))
 #define SET_BALANCE_ADC_B       (SET_BALANCE_ADC(ChB))
 
+#define SET_FPGA_COMPACT        set.debug.fpga_compact
+
 
 // Несбрасываемые настройки настройки.
 struct SettingsNRST
@@ -22,4 +24,5 @@ struct SettingsNRST
     bool    showStats;              // Показывать статистику на экране (fps, например).
     int16   numAveForRand;          // По скольким измерениям усреднять сигнал в режиме рандомизатора.
     int16   balanceADC[2];          // Баланс АЦП (смещение первой точки относительно второй) для обоих каналов
+    bool    fpga_compact;           // Если true - уплотнять сигнал (FPGA::Compactor)
 };
