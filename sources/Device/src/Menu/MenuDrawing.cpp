@@ -29,8 +29,6 @@ namespace Menu
 
     int CalculateX(int layer);
 
-    void DrawPagesUGO(Page *, int right, int bottom);
-
     int ItemOpenedPosY(void *item);
 }
 
@@ -199,17 +197,17 @@ void Page::DrawTitle(int layer, int yTop)
     delta = 0;
 
     Color::SetCurrent(colorText);
-    Menu::DrawPagesUGO(this, Menu::CalculateX(layer) + MP_TITLE_WIDTH - 3 + delta, yTop + MP_TITLE_HEIGHT - 2 + delta);
+    DrawUGO(Menu::CalculateX(layer) + MP_TITLE_WIDTH - 3 + delta, yTop + MP_TITLE_HEIGHT - 2 + delta);
 }
 
 
-void Menu::DrawPagesUGO(Page *page, int right, int bottom)
+void Page::DrawUGO(int right, int bottom)
 {
     int size = 4;
     int delta = 2;
     
-    int allPages = (page->NumItems() - 1) / MENU_ITEMS_ON_DISPLAY + 1;
-    int currentPage = page->NumCurrentSubPage();
+    int allPages = (NumItems() - 1) / MENU_ITEMS_ON_DISPLAY + 1;
+    int currentPage = NumCurrentSubPage();
 
     int left = right - (size + 1) * allPages - delta + (3 - allPages);
     int top = bottom - size - delta;

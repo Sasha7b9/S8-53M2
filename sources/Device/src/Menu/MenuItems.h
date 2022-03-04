@@ -169,6 +169,8 @@ public:
 
     void DrawItems(int layer, int yTop);
 
+    void DrawUGO(int right, int bottom);
+
     bool IsSB() const;
 
     // Возвращает имя страницы page.
