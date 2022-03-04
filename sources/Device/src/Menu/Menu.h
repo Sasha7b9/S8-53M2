@@ -52,7 +52,7 @@ namespace Menu
     // Вовзращает true, если элемент меню item является ативным, т.е. может быть нажат.
     bool ItemIsActive(void *item);
     // Возвращает тип элемента меню по адресу address.
-    TypeItem::E TypeMenuItem(void *address);
+    TypeItem::E TypeMenuItem(const void *);
     // Возвращает тип открытого элемента меню.
     TypeItem::E TypeOpenedItem();
     // Возвращает адрес открытого элемента меню.
@@ -66,8 +66,6 @@ namespace Menu
 
     NamePage::E GetNameOpenedPage();
 
-    void OpenPageAndSetItCurrent(void *page);
-
     bool ChangeOpenedItem(void *item, int delta);
     // Уменьшает или увеличивает значение Governor, GovernorColor или Choice по адресу item в зависимости от знака delta
     void ChangeItem(void *item, int delta);
@@ -80,15 +78,15 @@ namespace Menu
     // Закрыть открытый элемент меню.
     void CloseOpenedItem();
 
-    void OpenItem(const void *item, bool open);          // Открыть/закрыть элемент меню по адрему item.
+    void OpenItem(const void *item, bool open);             // Открыть/закрыть элемент меню по адрему item.
 
-    bool ItemIsOpened(void *item);                       // Возвращает true, если элемент меню по адрему item открыт.
+    bool ItemIsOpened(const void *item);                    // Возвращает true, если элемент меню по адрему item открыт.
 
-    void ShortPressOnPageItem(Page *page, int numItem);   // Вызывает функцию короткого нажатия кнопки над итемом numItem страницы page;
+    void ShortPressOnPageItem(Page *page, int numItem);     // Вызывает функцию короткого нажатия кнопки над итемом numItem страницы page;
 
     Page *PagePointerFromName(NamePage::E namePage);
 
     void ChangeStateFlashDrive();
 
-    int8 PosActItem(NamePage::E namePage);                         // Возвращает позицию активного пункта на странице namePage.
+    int8 PosActItem(NamePage::E namePage);                  // Возвращает позицию активного пункта на странице namePage.
 };

@@ -947,14 +947,14 @@ static const Page ppInformation
     NamePage::SB_Information, &itemsInformation, OnPress_Information, EmptyFuncVV, EmptyFuncVI
 );
 
-void *PageService::Information::GetPointer()
+const Page *PageService::Information::GetPointer()
 {
-    return (void *)&ppInformation;
+    return &ppInformation;
 }
 
 static void OnPress_Information()
 {
-    Menu::OpenPageAndSetItCurrent(PageService::Information::GetPointer());
+    PageService::Information::GetPointer()->OpenAndSetCurrent();
     Display::SetDrawMode(DrawMode_Hand, Information_Draw);
 }
 

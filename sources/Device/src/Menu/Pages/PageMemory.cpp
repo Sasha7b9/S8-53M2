@@ -175,11 +175,11 @@ static void PressSB_SetName_Exit()
     }
     else if (EXIT_FROM_SET_NAME_TO_LAST)
     {
-        Menu::OpenPageAndSetItCurrent(PageMemory::Latest::GetPointer());
+        PageMemory::Latest::GetPointer()->OpenAndSetCurrent();
     }
     else if (EXIT_FROM_SET_NAME_TO_INT)
     {
-        Menu::OpenPageAndSetItCurrent(PageMemory::Internal::GetPointer());
+        PageMemory::Internal::GetPointer()->OpenAndSetCurrent();
     }
     EXIT_FROM_SET_NAME_TO = RETURN_TO_DISABLE_MENU;
 }
@@ -218,7 +218,7 @@ const SmallButton sbMemLastNext
 
 void PressSB_MemLast_IntEnter()
 {
-    Menu::OpenPageAndSetItCurrent(PageMemory::Internal::GetPointer());
+    PageMemory::Internal::GetPointer()->OpenAndSetCurrent();
     MODE_WORK = ModeWork_MemInt;
     HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
     EXIT_FROM_INT_TO_LAST = 1;
@@ -804,7 +804,7 @@ void PressSB_MemInt_Exit()
 
     if (EXIT_FROM_INT_TO_LAST)
     {
-        Menu::OpenPageAndSetItCurrent(PageMemory::Latest::GetPointer());
+        PageMemory::Latest::GetPointer()->OpenAndSetCurrent();
         MODE_WORK = ModeWork_Latest;
         EXIT_FROM_INT_TO_LAST = 0;
         NEED_CLOSE_PAGE_SB = 0;
@@ -843,7 +843,7 @@ static const SmallButton sbExitMemInt    // Êíîïêà äëÿ âûõîäà èç ðåæèìà ìàëûõ êí
 // Íàæàòèå ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - Ìàñêà
 void OnPressMemoryExtMask()
 {
-    Menu::OpenPageAndSetItCurrent(PageMemory::SetMask::GetPointer());
+    PageMemory::SetMask::GetPointer()->OpenAndSetCurrent();
     Display::SetAddDrawFunction(DrawSetMask);
 }
 
@@ -1104,7 +1104,7 @@ void PageMemory::SaveSignalToFlashDrive()
     {
         if (FILE_NAMING_MODE_IS_HAND)
         {
-            Menu::OpenPageAndSetItCurrent(PageMemory::SetName::GetPointer());
+            PageMemory::SetName::GetPointer()->OpenAndSetCurrent();
             Display::SetAddDrawFunction(DrawSetName);
         }
         else
@@ -1204,7 +1204,7 @@ void PageMemory::OnPressExtFileManager()
 {
     if(FLASH_DRIVE_IS_CONNECTED)
     {
-        Menu::OpenPageAndSetItCurrent(PageMemory::FileManager::GetPointer());
+        PageMemory::FileManager::GetPointer()->OpenAndSetCurrent();
         Display::SetDrawMode(DrawMode_Hand, FM::Draw);
         NEED_REDRAW_FILEMANAGER = 1;
     }
@@ -1277,7 +1277,7 @@ static const Page mspMemoryExt
 // Íàæàòèå ÏÀÌßÒÜ - Âíóòð ÇÓ
 void OnPressMemoryInt()
 {
-    Menu::OpenPageAndSetItCurrent(PageMemory::Internal::GetPointer());
+    PageMemory::Internal::GetPointer()->OpenAndSetCurrent();
     MODE_WORK = ModeWork_MemInt;
 
     HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
@@ -1352,31 +1352,31 @@ void *PageMemory::GetPointer()
 }
 
 
-void *PageMemory::Latest::GetPointer()
+const Page *PageMemory::Latest::GetPointer()
 {
-    return (void *)&mspMemLast;
+    return &mspMemLast;
 }
 
 
-void *PageMemory::Internal::GetPointer()
+const Page *PageMemory::Internal::GetPointer()
 {
-    return (void *)&mspMemInt;
+    return &mspMemInt;
 }
 
 
-void *PageMemory::SetMask::GetPointer()
+const Page *PageMemory::SetMask::GetPointer()
 {
-    return (void *)&mspSetMask;
+    return &mspSetMask;
 }
 
 
-void *PageMemory::SetName::GetPointer()
+const Page *PageMemory::SetName::GetPointer()
 {
-    return (void *)&mpSetName;
+    return &mpSetName;
 }
 
 
-void *PageMemory::FileManager::GetPointer()
+const Page *PageMemory::FileManager::GetPointer()
 {
-    return (void *)&mspFileManager;
+    return &mspFileManager;
 }

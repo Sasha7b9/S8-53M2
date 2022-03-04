@@ -26,7 +26,7 @@ namespace Menu
 
 
 
-TypeItem::E Menu::TypeMenuItem(void *address) 
+TypeItem::E Menu::TypeMenuItem(const void *address) 
 {
     return address ? (*((TypeItem::E *)address)) : TypeItem::None;
 }
@@ -230,7 +230,7 @@ void Menu::OpenItem(const void *item, bool open)
 }
 
 
-bool Menu::ItemIsOpened(void *item)
+bool Menu::ItemIsOpened(const void *item)
 {
     TypeItem::E type = TypeMenuItem(item);
     Page *page = Keeper(item);
@@ -268,10 +268,10 @@ NamePage::E Menu::GetNameOpenedPage()
 }
 
 
-void Menu::OpenPageAndSetItCurrent(void *page)
+void Page::OpenAndSetCurrent() const
 {
-    SetCurrentItem(page, true);
-    OpenItem((Page *)page, !ItemIsOpened((Page *)page));
+    Menu::SetCurrentItem(this, true);
+    Menu::OpenItem(this, !Menu::ItemIsOpened(this));
 }
 
 

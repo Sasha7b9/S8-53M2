@@ -5,6 +5,9 @@
 #include "Settings/SettingsCursors.h"
 
 
+class Page;
+
+
 struct PageChannelA
 {
     static void OnChanged_Input(bool active);
@@ -54,7 +57,7 @@ struct PageDebug
 {
     struct SerialNumber
     {
-        static void *GetPointer();
+        static Page *GetPointer();
     };
 };
 
@@ -86,27 +89,27 @@ struct PageMemory
 
     struct Latest
     {
-        static void *GetPointer();
+        static const Page *GetPointer();
     };
 
     struct Internal
     {
-        static void *GetPointer();
+        static const Page *GetPointer();
     };
 
     struct SetMask
     {
-        static void *GetPointer();
+        static const Page *GetPointer();
     };
 
     struct SetName
     {
-        static void *GetPointer();
+        static const Page *GetPointer();
     };
 
     struct FileManager
     {
-        static void *GetPointer();
+        static const Page *GetPointer();
     };
 
     static void *GetPointer();
@@ -135,7 +138,7 @@ struct PageService
 
     struct Information
     {
-        static void *GetPointer();
+        static const Page *GetPointer();
     };
 };
 

@@ -38,9 +38,9 @@ struct StructForSN
 
 extern Page mainPage;
 
-void *PageDebug::SerialNumber::GetPointer()
+Page *PageDebug::SerialNumber::GetPointer()
 {
-    return (void *)&ppSerialNumber;
+    return (Page *)&ppSerialNumber;
 }
 
 
@@ -726,7 +726,7 @@ static void Draw_EnterSerialNumber()
 
 static void OnPress_SerialNumber()
 {
-    Menu::OpenPageAndSetItCurrent(PageDebug::SerialNumber::GetPointer());
+    PageDebug::SerialNumber::GetPointer()->OpenAndSetCurrent();
     Display::SetAddDrawFunction(Draw_EnterSerialNumber);
     MALLOC_EXTRAMEM(StructForSN, s);
     s->number = 01;

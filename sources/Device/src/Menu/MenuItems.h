@@ -182,6 +182,8 @@ public:
     void ChangeSubPage(int delta) const;
 
     SmallButton *GetSmallButon(int numButton);
+
+    void OpenAndSetCurrent() const;
 };
 
 
