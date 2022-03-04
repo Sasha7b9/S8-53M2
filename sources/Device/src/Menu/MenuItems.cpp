@@ -46,7 +46,7 @@ Control::Control(TypeItem::E type_, const Page* keeper_, pFuncBV funcOfActive_, 
 
 
 Page::Page(const Page *keeper_, pFuncBV funcOfActive_, pchar titleRU, pchar titleEN, pchar hintRU, pchar hintEN, 
-           NamePage name_, const arrayItems *items_, pFuncVV funcOnPress_, pFuncVV funcOnDraw_, pFuncVI funcRegSetSB_) :
+           NamePage::E name_, const arrayItems *items_, pFuncVV funcOnPress_, pFuncVV funcOnDraw_, pFuncVI funcRegSetSB_) :
     Control(TypeItem::Page, keeper_, funcOfActive_, titleRU, titleEN, hintRU, hintEN),
     name(name_), items(items_), funcOnPress(funcOnPress_), funcOnDraw(funcOnDraw_), funcRegSetSB(funcRegSetSB_)
 {

@@ -91,17 +91,17 @@ struct SettingsCommon
 
 struct SettingsMenu
 {
-    int8        posActItem[Page_NumPages];      // Позиция ативного пункта. bit7 == 1 - item is opened, 0x7f - нет активного пункта
-    int8        currentSubPage[Page_NumPages];  // Номер текущей подстраницы.
+    int8        posActItem[NamePage::Count];      // Позиция ативного пункта. bit7 == 1 - item is opened, 0x7f - нет активного пункта
+    int8        currentSubPage[NamePage::Count];  // Номер текущей подстраницы.
     bool        pageDebugActive;                // Активна ли кнопка отладки в меню.
     unsigned    isShown : 1;                    // Меню показано.
 };
 
 
 
-void SetMenuPosActItem(NamePage namePage, int8 pos);            // Установить позицию активного пункта на странице namePage.
-int8 MenuCurrentSubPage(NamePage namePage);                     // Возвращает номер текущей подстраницы страницы namePage.
-void SetMenuCurrentSubPage(NamePage namePage, int8 posSubPage); // Устанавливает номер текущей подстраницы в странице namePage.
+void SetMenuPosActItem(NamePage::E namePage, int8 pos);            // Установить позицию активного пункта на странице namePage.
+int8 MenuCurrentSubPage(NamePage::E namePage);                     // Возвращает номер текущей подстраницы страницы namePage.
+void SetMenuCurrentSubPage(NamePage::E namePage, int8 posSubPage); // Устанавливает номер текущей подстраницы в странице namePage.
 bool MenuIsShown();                                             // Отображено ли меню на экране.
 void ShowMenu(bool show);                                       // Отобразить/скрыть меню.
 bool MenuIsMinimize();                                          // Если true - меню находится в дополнительном режиме.

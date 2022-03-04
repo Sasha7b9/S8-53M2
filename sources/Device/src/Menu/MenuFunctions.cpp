@@ -32,7 +32,7 @@ TypeItem::E Menu::TypeMenuItem(void *address)
 }
 
 
-bool Menu::CurrentItemIsOpened(NamePage namePage)
+bool Menu::CurrentItemIsOpened(NamePage::E namePage)
 {
     bool retValue = _GET_BIT(PosActItem(namePage), 7) == 1;
     return retValue;
@@ -205,7 +205,7 @@ void Menu::CloseOpenedItem()
 
         if(NEED_CLOSE_PAGE_SB == 1)
         {
-            NamePage namePage = Keeper(item)->name;
+            NamePage::E namePage = Keeper(item)->name;
             SetMenuPosActItem(namePage, PosActItem(namePage) & 0x7f);   // Сбрасываем бит 7 - "закрываем" активный пункт страницы namePage
         }
 
@@ -254,18 +254,18 @@ Page* Menu::Keeper(const void *item)
 }
 
 
-NamePage Page::GetName() const
+NamePage::E Page::GetName() const
 {
     if(Menu::TypeMenuItem((void*)this) != TypeItem::Page)
     {
-        return Page_NoPage;
+        return NamePage::NoPage;
     }
 
     return name;
 }
 
 
-NamePage Menu::GetNameOpenedPage()
+NamePage::E Menu::GetNameOpenedPage()
 {
     return ((const Page *)OpenedItem())->GetName();
 }
@@ -297,7 +297,7 @@ bool Menu::ItemIsActive(void *item)
 
 int Menu::NumItemsInPage(const Page * const page) 
 {
-    if (page->name == Page_MainPage)
+    if (page->name == NamePage::MainPage)
     {
         return (SHOW_DEBUG_MENU == 0) ? 10 : 11;
     }
@@ -386,8 +386,8 @@ void Menu::ShortPressOnPageItem(Page *page, int numItem)
     {
         return;
     }
-    NamePage namePage = page->name;
-    if (namePage >= Page_SB_Curs)
+    NamePage::E namePage = page->name;
+    if (namePage >= NamePage::SB_Curs)
     {
         SmallButton *sb = (SmallButton*)(*page->items)[numItem];
         if (sb && sb->funcOnPress)
@@ -398,7 +398,7 @@ void Menu::ShortPressOnPageItem(Page *page, int numItem)
 }
 
 
-Page* Menu::PagePointerFromName(NamePage)
+Page* Menu::PagePointerFromName(NamePage::E)
 {
     return 0;
 }
@@ -406,7 +406,7 @@ Page* Menu::PagePointerFromName(NamePage)
 
 bool Page::IsSB() const
 {
-    return (name >= Page_SB_Curs);
+    return (name >= NamePage::SB_Curs);
 }
 
 

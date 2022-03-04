@@ -293,22 +293,22 @@ bool Settings::DebugModeEnable()
     return true;
 }
 
-int8 Menu::PosActItem(NamePage namePage)
+int8 Menu::PosActItem(NamePage::E namePage)
 {
     return set.menu.posActItem[namePage];
 }
 
-void SetMenuPosActItem(NamePage namePage, int8 pos)
+void SetMenuPosActItem(NamePage::E namePage, int8 pos)
 {
     set.menu.posActItem[namePage] = pos;
 }
 
-int8 MenuCurrentSubPage(NamePage namePage)
+int8 MenuCurrentSubPage(NamePage::E namePage)
 {
     return set.menu.currentSubPage[namePage];
 }
 
-void SetMenuCurrentSubPage(NamePage namePage, int8 posSubPage)
+void SetMenuCurrentSubPage(NamePage::E namePage, int8 posSubPage)
 {
     set.menu.currentSubPage[namePage] = posSubPage;
 }
@@ -326,7 +326,7 @@ void ShowMenu(bool show)
 
 bool MenuIsMinimize()
 {
-    return Menu::TypeOpenedItem() == TypeItem::Page && ((const Page *)Menu::OpenedItem())->GetName() >= Page_SB_Curs;
+    return Menu::TypeOpenedItem() == TypeItem::Page && ((const Page *)Menu::OpenedItem())->GetName() >= NamePage::SB_Curs;
 }
 
 bool MenuPageDebugIsActive()

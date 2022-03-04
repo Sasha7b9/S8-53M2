@@ -180,7 +180,7 @@ static const Page pCursors                // КУРСОРЫ
     "КУРСОРЫ", "CURSORS",
     "Курсорные измерения.",
     "Cursor measurements.",
-    Page_Cursors, &itemsCursors
+    NamePage::Cursors, &itemsCursors
 );
 
 void *PageCursors::GetPointer()
@@ -301,7 +301,7 @@ static const Page mspSet
     "УСТАНОВИТЬ", "SET",
     "Переход в режим курсорных измерений",
     "Switch to cursor measures",
-    Page_SB_Curs, &itemsSet, EmptyFuncVV, EmptyFuncVV, OnRotate_RegSet_Set
+    NamePage::SB_Curs, &itemsSet, EmptyFuncVV, EmptyFuncVV, OnRotate_RegSet_Set
 );
 
 static void OnRotate_RegSet_Set(int angle)

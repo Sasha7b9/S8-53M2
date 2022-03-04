@@ -1972,7 +1972,7 @@ void Display::DrawMeasures()
         {
             int x = x0 + dX * elem;
             int y = y0 + str * dY;
-            bool active = Measures::IsActive(str, elem) && Menu::GetNameOpenedPage() == Page_SB_MeasTuneMeas;
+            bool active = Measures::IsActive(str, elem) && (Menu::GetNameOpenedPage() == NamePage::SB_MeasTuneMeas);
             Color::E color = active ? COLOR_BACK : COLOR_FILL;
             Measure::E meas = Measures::Type(str, elem);
 
@@ -2016,7 +2016,7 @@ void Display::DrawMeasures()
         }
     }
 
-    if(Menu::GetNameOpenedPage() == Page_SB_MeasTuneMeas)
+    if(Menu::GetNameOpenedPage() == NamePage::SB_MeasTuneMeas)
     {
         Measures::DrawPageChoice();
     }

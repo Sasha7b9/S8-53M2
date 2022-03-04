@@ -441,14 +441,14 @@ void Menu::ProcessingShortPressureButton()
             }
             else                                                        // Если меню не показано.
             {
-                NamePage name = ((const Page *)OpenedItem())->GetName();
-                if(button == Key::ChannelA && name == Page_Channel0)
+                NamePage::E name = ((const Page *)OpenedItem())->GetName();
+                if(button == Key::ChannelA && name == NamePage::Channel0)
                 {
                     SET_ENABLED_A = !Chan::Enabled(Chan::A);
                     PageChannelA::OnChanged_Input(true);
                     break;
                 }
-                if(button == Key::ChannelB && name == Page_Channel1)
+                if(button == Key::ChannelB && name == NamePage::Channel1)
                 {
                     SET_ENABLED_B = !Chan::Enabled(Chan::B);
                     PageChannelB::OnChanged_Input(true);
@@ -830,7 +830,7 @@ void Menu::ChangeStateFlashDrive()
 {
     if(FLASH_DRIVE_IS_CONNECTED == 0)
     {
-        if(GetNameOpenedPage() == Page_SB_FileManager)
+        if(GetNameOpenedPage() == NamePage::SB_FileManager)
         {
             ShortPressOnPageItem((Page *)OpenedItem(), 0);
         }
@@ -871,20 +871,20 @@ bool Menu::NeedForFireSetLED()
     {
         return false;
     }
-    NamePage name = GetNameOpenedPage();
+    NamePage::E name = GetNameOpenedPage();
 
-    if (name == Page_SB_MeasTuneMeas && MEAS_NUM == MN_1 && !PageMeasures::choiceMeasuresIsActive)
+    if (name == NamePage::SB_MeasTuneMeas && MEAS_NUM == MN_1 && !PageMeasures::choiceMeasuresIsActive)
     {
         return false;
     }
 
     if (
-        name == Page_SB_MathCursorsFFT                             ||
-        name == Page_SB_MeasTuneMeas                               ||
-        name == Page_SB_MemLatest                                  || 
-        name == Page_SB_MemInt                                     ||
-        ((name == Page_SB_MathFunction) && !DISABLED_DRAW_MATH)    ||
-        ((name == Page_SB_Curs) && PageCursors::NecessaryDrawCursors())
+        name == NamePage::SB_MathCursorsFFT                             ||
+        name == NamePage::SB_MeasTuneMeas                               ||
+        name == NamePage::SB_MemLatest                                  || 
+        name == NamePage::SB_MemInt                                     ||
+        ((name == NamePage::SB_MathFunction) && !DISABLED_DRAW_MATH)    ||
+        ((name == NamePage::SB_Curs) && PageCursors::NecessaryDrawCursors())
         )
     {
         return true;

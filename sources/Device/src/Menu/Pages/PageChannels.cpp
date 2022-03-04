@@ -79,7 +79,7 @@ const Page pChanA           // КАНАЛ 1
     "КАНАЛ 1", "CHANNEL 1",
     "Содержит настройки канала 1.",
     "Contains settings of the channel 1.",
-    Page_Channel0, &itemsChanA
+    NamePage::Channel0, &itemsChanA
 );
 
 
@@ -206,7 +206,7 @@ const Page pChanB
     "КАНАЛ 2", "CHANNEL 2",
     "Содержит настройки канала 2.",
     "Contains settings of the channel 2.",
-    Page_Channel1, &itemsChanB
+    NamePage::Channel1, &itemsChanB
 );
 
 

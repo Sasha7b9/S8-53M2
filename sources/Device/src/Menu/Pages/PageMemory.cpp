@@ -171,7 +171,7 @@ static void PressSB_SetName_Exit()
     Display::RemoveAddDrawFunction();
     if (EXIT_FROM_SET_NAME_TO_DIS_MENU)
     {
-        Menu::ShortPressOnPageItem(Menu::PagePointerFromName(Page_SB_MemExtSetName), 0);
+        Menu::ShortPressOnPageItem(Menu::PagePointerFromName(NamePage::SB_MemExtSetName), 0);
     }
     else if (EXIT_FROM_SET_NAME_TO_LAST)
     {
@@ -812,13 +812,14 @@ void PressSB_MemInt_Exit()
     else
     {
         MODE_WORK = ModeWork_Direct;
-        Menu::ShortPressOnPageItem(Menu::PagePointerFromName(Page_SB_MemInt), 0);
+        Menu::ShortPressOnPageItem(Menu::PagePointerFromName(NamePage::SB_MemInt), 0);
     }
 }
 
 extern const Page mpSetName;
 
-static const SmallButton sbExitSetName     // Кнопк для выхода из режима задания имени сохраняемому сигналу. Одновременно кнопка отказа от сохранения
+// Кнопк для выхода из режима задания имени сохраняемому сигналу. Одновременно кнопка отказа от сохранения
+static const SmallButton sbExitSetName
 (
     &mpSetName, 0,
     EXIT_RU, EXIT_EN,
@@ -1162,7 +1163,7 @@ static const Page mspMemLast
     "ПОСЛЕДНИЕ", "LATEST",
     "Переход в режим работы с последними полученными сигналами",
     "Transition to an operating mode with the last received signals",
-    Page_SB_MemLatest, &itemsMemLast, OnPressMemoryLatest, FuncDrawingAdditionSPageMemoryLast, RotateSB_MemLast
+    NamePage::SB_MemLatest, &itemsMemLast, OnPressMemoryLatest, FuncDrawingAdditionSPageMemoryLast, RotateSB_MemLast
 );
 
 static void PressSB_SetMask_Exit()
@@ -1195,7 +1196,7 @@ static const Page mspSetMask
     "МАСКА", "MASK",
     "Режим ввода маски для автоматического именования файлов",
     "Input mode mask for automatic file naming",
-    Page_SB_MemExtSetMask, &itemsSetMask, EmptyFuncVV, OnPressMemoryExtMask, OnMemExtSetMaskRegSet
+    NamePage::SB_MemExtSetMask, &itemsSetMask, EmptyFuncVV, OnPressMemoryExtMask, OnMemExtSetMaskRegSet
 );
 
 // ПАМЯТЬ - ВНЕШН ЗУ - Каталог ///////////////////////////////////////////////////////////////////////////////
@@ -1248,7 +1249,7 @@ static const Page mspFileManager
     "КАТАЛОГ", "DIRECTORY",
     "Открывает доступ к файловой системе подключенного накопителя",
     "Provides access to the file system of the connected drive",
-    Page_SB_FileManager, &itemsFileManager, PageMemory::OnPressExtFileManager, EmptyFuncVV, FM::RotateRegSet
+    NamePage::SB_FileManager, &itemsFileManager, PageMemory::OnPressExtFileManager, EmptyFuncVV, FM::RotateRegSet
 );
 
 // ПАМЯТЬ - ВНЕШН ЗУ /////////////////////////////////////////////////////////////////
@@ -1268,7 +1269,7 @@ static const Page mspMemoryExt
     "ВНЕШН ЗУ", "EXT STORAGE",
     "Работа с внешним запоминающим устройством.",
     "Work with external storage device.",
-    Page_MemoryExt, &itemsMemoryExt
+    NamePage::MemoryExt, &itemsMemoryExt
 );
 
 // ПАМЯТЬ - Внутр ЗУ ///////////////////////////////////////////////////////////////////////////////////////
@@ -1298,7 +1299,7 @@ static const Page mspMemInt
     "ВНУТР ЗУ", "INT STORAGE",
     "Переход в режим работы с внутренней памятью",
     "Transition to an operating mode with internal memory",
-    Page_SB_MemInt, &itemsMemInt, OnPressMemoryInt, FuncAdditionDrawingSPageMemoryInt, FuncOnRegSetMemInt
+    NamePage::SB_MemInt, &itemsMemInt, OnPressMemoryInt, FuncAdditionDrawingSPageMemoryInt, FuncOnRegSetMemInt
 );
 
 // Страница вызывается при выбранном ручном режиме задания имени файла перед сохранением на флешку ///////////////
@@ -1323,7 +1324,7 @@ static const Page mpSetName
     "", "",
     "", 
     "",
-    Page_SB_MemExtSetName, &itemsSetName, EmptyFuncVV, EmptyFuncVV, OnMemExtSetNameRegSet
+    NamePage::SB_MemExtSetName, &itemsSetName, EmptyFuncVV, EmptyFuncVV, OnMemExtSetNameRegSet
 );
 
 // ПАМЯТЬ /////////////////////////////////////////////////////////////////////////////
@@ -1341,7 +1342,7 @@ static const Page pMemory              // ПАМЯТЬ
     "ПАМЯТЬ", "MEMORY",
     "Работа с внешней и внутренней памятью.",
     "Working with external and internal memory.",
-    Page_Memory, &itemsMemory
+    NamePage::Memory, &itemsMemory
 );
 
 

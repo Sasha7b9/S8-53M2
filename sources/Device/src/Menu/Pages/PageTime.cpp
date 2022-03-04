@@ -46,7 +46,7 @@ const Page pTime            // РАЗВЕРТКА
     "РАЗВЕРТКА", "SCAN",
     "Содержит настройки развёртки.",
     "Contains scan settings.",
-    Page_Time, &itemsTime
+    NamePage::Time, &itemsTime
 );
 
 // РАЗВЕРТКА - Выборка ------

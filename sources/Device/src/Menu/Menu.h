@@ -9,7 +9,8 @@ namespace Menu
     // Возвращает адрес элемента меню, соответствующего данной button.
     void* ItemUnderButton(Key::E);
 
-    // Возвращает true, если элемент меню item затенён (находится не на самом верхнем слое. Как правило, это означает, что раскрыт раскрывающийся элемент меню вроде Choice или Governor.
+    // Возвращает true, если элемент меню item затенён (находится не на самом верхнем слое. Как правило, это означает,
+    // что раскрыт раскрывающийся элемент меню вроде Choice или Governor.
     bool IsShade(void* item);
 
     bool IsPressed(void* item);
@@ -67,13 +68,13 @@ namespace Menu
     // Возвращает адрес элемента меню заданной страницы.
     void *Item(const Page *page, int numElement);
     // Возвращает true, если текущий элемент страницы с именем namePage открыт.
-    bool CurrentItemIsOpened(NamePage namePage);
+    bool CurrentItemIsOpened(NamePage::E namePage);
     // Сделать/разделать текущим пункт страницы.
     void SetCurrentItem(const void *item, bool active);
     // Возвращает адрес элемента, которому принадлежит элемент по адресу item.
     Page* Keeper(const void *item);
 
-    NamePage GetNameOpenedPage();
+    NamePage::E GetNameOpenedPage();
 
     void OpenPageAndSetItCurrent(void *page);
 
@@ -99,11 +100,11 @@ namespace Menu
 
     void ShortPressOnPageItem(Page *page, int numItem);   // Вызывает функцию короткого нажатия кнопки над итемом numItem страницы page;
 
-    Page *PagePointerFromName(NamePage namePage);
+    Page *PagePointerFromName(NamePage::E namePage);
 
     SmallButton *SmallButonFromPage(Page *page, int numButton);
 
     void ChangeStateFlashDrive();
 
-    int8 PosActItem(NamePage namePage);                         // Возвращает позицию активного пункта на странице namePage.
+    int8 PosActItem(NamePage::E namePage);                         // Возвращает позицию активного пункта на странице namePage.
 };

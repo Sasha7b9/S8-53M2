@@ -280,7 +280,7 @@ static const Page mspMeasTune
     "НАСТРОИТЬ", "CONFIGURE",
     "Переход в режми точной настройки количества и видов измерений",
     "Transition to rezhm of exact control of quantity and types of measurements",
-    Page_SB_MeasTuneMeas, &itemsMeasTune, EmptyFuncVV, EmptyFuncVV, Measures::RotateRegSet
+    NamePage::SB_MeasTuneMeas, &itemsMeasTune, EmptyFuncVV, EmptyFuncVV, Measures::RotateRegSet
 );
 
 
@@ -300,7 +300,7 @@ const Page pMeasures            // ИЗМЕРЕНИЯ
     "ИЗМЕРЕНИЯ", "MEASURES",
     "Автоматические измерения",
     "Automatic measurements",
-    Page_Measures, &itemsMeasures
+    NamePage::Measures, &itemsMeasures
 );
 
 void *PageMeasures::Tune::pointer = (void *)&mspMeasTune;

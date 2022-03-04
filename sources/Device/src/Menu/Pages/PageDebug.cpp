@@ -99,7 +99,7 @@ static const Page mpConsole
     "КОНСОЛЬ", "CONSOLE",
     "",
     "",
-    Page_DebugConsole, &itemsConsole
+    NamePage::DebugConsole, &itemsConsole
 );
 
 
@@ -200,7 +200,7 @@ const Page pDebug
     "ОТЛАДКА", "DEBUG",
     "",
     "",
-    Page_Debug, &itemsDebug
+    NamePage::Debug, &itemsDebug
 );
 
 
@@ -278,7 +278,7 @@ static const Page mpADC_Shift
     "СМЕЩЕНИЕ", "SHIFT",
     "",
     "",
-    Page_DebugADCshift, &itemsADC_Shift
+    NamePage::DebugADCshift, &itemsADC_Shift
 );
 
 
@@ -297,7 +297,7 @@ static const Page mpADC
     "АЦП", "ADC",
     "",
     "",
-    Page_DebugADC, &itemsADC
+    NamePage::DebugADC, &itemsADC
 );
 
 
@@ -333,7 +333,7 @@ static const Page mpADC_Balance
     "БАЛАНС", "BALANCE",
     "",
     "",
-    Page_DebugADCbalance, &itemsADC_Balance
+    NamePage::DebugADCbalance, &itemsADC_Balance
 );
 
 
@@ -410,7 +410,7 @@ static const Page mpADC_Stretch
     "РАСТЯЖКА", "STRETCH",
     "",
     "",
-    Page_DebugADCstretch, &itemsADC_Stretch
+    NamePage::DebugADCstretch, &itemsADC_Stretch
 );
 
 
@@ -531,7 +531,7 @@ static const Page mpADC_AltRShift
     "ДОП СМЕЩ", "ADD RSHFIT",
     "",
     "",
-    Page_DebugADCrShift, &itemsADC_AltRShift
+    NamePage::DebugADCrShift, &itemsADC_AltRShift
 );
 
 
@@ -574,7 +574,7 @@ static const Page mpRandomizer
     "РАНД-ТОР", "RANDOMIZER",
     "",
     "",
-    Page_DebugRandomizer, &itemsRandomizer
+    NamePage::DebugRandomizer, &itemsRandomizer
 );
 
 
@@ -761,5 +761,5 @@ static const Page ppSerialNumber
     "С/Н", "S/N",
     "Запись серийного номера в OTP-память. ВНИМАНИЕ!!! ОТP-память - память с однократной записью.",
     "Serial number recording in OTP-memory. ATTENTION!!! OTP memory is a one-time programming memory.",
-    Page_SB_SerialNumber, &itemsSerialNumber, OnPress_SerialNumber, 0, OnRegSet_SerialNumber
+    NamePage::SB_SerialNumber, &itemsSerialNumber, OnPress_SerialNumber, 0, OnRegSet_SerialNumber
 );

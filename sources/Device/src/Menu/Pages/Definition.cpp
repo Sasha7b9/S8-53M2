@@ -116,7 +116,7 @@ const Page mainPage
     "лемч", "MENU",
     "",
     "",
-    Page_MainPage, &itemsMainPage
+    NamePage::MainPage, &itemsMainPage
 );
 
 
