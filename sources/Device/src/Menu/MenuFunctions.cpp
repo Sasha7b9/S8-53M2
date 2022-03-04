@@ -32,9 +32,9 @@ TypeItem::E Menu::TypeMenuItem(void *address)
 }
 
 
-bool Menu::CurrentItemIsOpened(NamePage::E namePage)
+bool Page::CurrentItemIsOpened()
 {
-    bool retValue = _GET_BIT(PosActItem(namePage), 7) == 1;
+    bool retValue = _GET_BIT(Menu::PosActItem(GetName()), 7) == 1;
     return retValue;
 }
 
@@ -167,7 +167,7 @@ int Page::NumSubPages() const
 
 void* Menu::RetLastOpened(Page *page, TypeItem::E *type)
 {
-    if(CurrentItemIsOpened(page->GetName()))
+    if(page->CurrentItemIsOpened())
     {
         int8 posActItem = page->PosCurrentItem();
         void *item = page->Item(posActItem);
@@ -240,7 +240,7 @@ bool Menu::ItemIsOpened(void *item)
 
     if(type == TypeItem::Page)
     {
-        return CurrentItemIsOpened(Keeper(item)->GetName());
+        return Keeper(item)->CurrentItemIsOpened();
     }
 
     return (PosActItem(page->name) & 0x80) != 0;

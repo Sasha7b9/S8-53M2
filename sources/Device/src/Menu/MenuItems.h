@@ -174,6 +174,9 @@ public:
 
     // Возвращает адрес элемента меню заданной страницы.
     void *Item(int numElement) const;
+
+    // Возвращает true, если текущий элемент страницы с именем namePage открыт.
+    bool CurrentItemIsOpened();
 };
 
 
