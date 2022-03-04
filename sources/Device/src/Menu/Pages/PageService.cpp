@@ -192,7 +192,7 @@ static const Page ppCalibrator
 // СЕРВИС - КАЛИБРАТОР - Калибратор ------------------------------------------------------------------------------------------------------------------
 static const Choice cCalibrator_Mode =
 {
-    Item_Choice, &ppCalibrator, 0,
+    TypeItem::Choice, &ppCalibrator, 0,
     {
         "Калибратор",  "Calibrator",
         "Режим работы калибратора",
@@ -582,7 +582,7 @@ static void OnPress_Math_FFT()
 // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Отображение --------------------------------------------------------------------------------------------------------
 static const Choice cMath_FFT_Enable =
 {
-    Item_Choice, &pppMath_FFT, 0,
+    TypeItem::Choice, &pppMath_FFT, 0,
     {
         "Отображение", "Display",
         "Включает и выключает отображение спектра",
@@ -598,7 +598,7 @@ static const Choice cMath_FFT_Enable =
 // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Шкала --------------------------------------------------------------------------------------------------------------
 static const Choice cMath_FFT_Scale =
 {
-    Item_Choice, &pppMath_FFT, 0,
+    TypeItem::Choice, &pppMath_FFT, 0,
     {
         "Шкала", "Scale",
         "Задаёт масштаб вывода спектра - линейный или логарифмический",
@@ -614,7 +614,7 @@ static const Choice cMath_FFT_Scale =
 // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Источник -----------------------------------------------------------------------------------------------------------
 static const Choice cMath_FFT_Source =
 {
-    Item_Choice, &pppMath_FFT, 0,
+    TypeItem::Choice, &pppMath_FFT, 0,
     {
         "Источник", "Source",
         "Выбор источника для расчёта спектра",
@@ -631,7 +631,7 @@ static const Choice cMath_FFT_Source =
 // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Окно ---------------------------------------------------------------------------------------------------------------
 static const Choice cMath_FFT_Window =
 {
-    Item_Choice, &pppMath_FFT, 0,
+    TypeItem::Choice, &pppMath_FFT, 0,
     {
         "Окно", "Window",
         "Задаёт окно для расчёта спектра",
@@ -720,7 +720,7 @@ static void Draw_Math_FFT_Cursors_Source(int x, int y)
 // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Диапазон -----------------------------------------------------------------------------------------------------------
 static const Choice cMath_FFT_Limit =
 {
-    Item_Choice, &pppMath_FFT,  IsActive_Math_FFT_Limit,
+    TypeItem::Choice, &pppMath_FFT,  IsActive_Math_FFT_Limit,
     {
         "Диапазон", "Range",
         "Здесь можно задать предел наблюдения за мощностью спектра",
@@ -761,7 +761,7 @@ static const Page ppEthernet
 // СЕРВИС - ETHERNET - Ethernet ----------------------------------------------------------------------------------------------------------------------
 static const Choice cEthernet_Enable =
 {
-    Item_Choice, &ppEthernet, 0,
+    TypeItem::Choice, &ppEthernet, 0,
     {
         "Ethernet", "Ethernet"
         ,
@@ -787,7 +787,7 @@ static void OnChanged_Ethernet_Enable(bool)
 // СЕРВИС - ETHERNET - IP адрес ----------------------------------------------------------------------------------------------------------------------
 static const IPaddressStruct structIP =
 {
-    { Item_IP, &ppEthernet, 0,
+    { TypeItem::IP, &ppEthernet, 0,
     {   "IP адрес", "IP-address",
         "Установка IP адреса",
         "Set of IP-address",  } },
@@ -805,7 +805,7 @@ static const IPaddress ipEthernet_IP
 // СЕРВИС - ETHERNET - Маска подсети -----------------------------------------------------------------------------------------------------------------
 static const IPaddressStruct structMask =
 {
-    { Item_IP, &ppEthernet, 0,
+    { TypeItem::IP, &ppEthernet, 0,
     {   "Маска подсети", "Network mask",
         "Установка маски подсети",
         "Set of network mask",    } },
@@ -821,7 +821,7 @@ static const IPaddress ipEthernet_Mask
 // СЕРВИС - ETHERNET - Шлюз -
 static const IPaddressStruct structGateway =
 {
-    { Item_IP, &ppEthernet, 0,
+    { TypeItem::IP, &ppEthernet, 0,
     {   "Шлюз", "Gateway",
         "Установка адреса основного шлюза",
         "Set of gateway address", } },
@@ -837,7 +837,7 @@ static const IPaddress ipEthernet_Gateway
 // СЕРВИС - ETHERNET - Физ адрес ---------------------------------------------------------------------------------------------------------------------
 static const MACaddress macEthernet_MAC =
 {
-    Item_MAC, &ppEthernet, 0,
+    TypeItem::MAC, &ppEthernet, 0,
     {
         "Физ адрес", "MAC-address",
         "Установка физического адреса",
@@ -850,7 +850,7 @@ static const MACaddress macEthernet_MAC =
 // СЕРВИС - Звук ------------
 static const Choice cSound =
 {
-    Item_Choice, &pService, 0,
+    TypeItem::Choice, &pService, 0,
     {
         "Звук", "Sound",
         "Включение/выключение звука",
@@ -867,7 +867,7 @@ static const Choice cSound =
 // СЕРВИС - Язык ------------
 static const Choice cLang =
 {
-    Item_Choice, &pService, 0,
+    TypeItem::Choice, &pService, 0,
     {
         "Язык", "Language",
         "Позволяет выбрать язык меню",
@@ -886,7 +886,7 @@ static int8 dServicetime = 0;
 static int8 hours = 0, minutes = 0, secondes = 0, year = 0, month = 0, day = 0;
 static const Time tTime =
 {
-    Item_Time, &pService, 0,
+    TypeItem::Time, &pService, 0,
     {
         "Время", "Time"
         ,
@@ -910,7 +910,7 @@ static const Time tTime =
 // СЕРВИС - Реж длит СИНХР --
 static const Choice cModeLongPressButtonTrig =
 {
-    Item_Choice, &pService, 0,
+    TypeItem::Choice, &pService, 0,
     {
         "Реж длит СИНХР", "Mode long СИНХР"
         ,

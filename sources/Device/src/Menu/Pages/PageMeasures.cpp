@@ -133,7 +133,7 @@ extern const Page pMeasures;
 // ИЗМЕРЕНИЯ -> Количество
 const Choice mcMeasuresNumber =
 {
-    Item_Choice, &pMeasures, IsActiveChoiceMeasuresNumber,
+    TypeItem::Choice, &pMeasures, IsActiveChoiceMeasuresNumber,
     {
         "Количество", "Number"
         ,
@@ -170,7 +170,7 @@ const Choice mcMeasuresNumber =
 // ИЗМЕРЕНИЯ -> Каналы
 const Choice mcMeasuresChannels =
 {
-    Item_Choice, &pMeasures, IsActiveChoiceMeasuresChannels,
+    TypeItem::Choice, &pMeasures, IsActiveChoiceMeasuresChannels,
     {
         "Каналы", "Channels",
         "По каким каналам выводить измерения",
@@ -187,7 +187,7 @@ const Choice mcMeasuresChannels =
 // ИЗМЕРЕНИЯ -> Показывать
 const Choice mcMeasuresIsShow =
 {
-    Item_Choice, &pMeasures, 0,
+    TypeItem::Choice, &pMeasures, 0,
     {
         "Показывать", "Show",
         "Выводить или не выводить измерения на экран",
@@ -203,7 +203,7 @@ const Choice mcMeasuresIsShow =
 // ИЗМЕРЕНИЯ -> Вид
 const Choice mcMeasuresSignal =
 {
-    Item_Choice, &pMeasures, IsActiveChoiceMeasuresSignal,
+    TypeItem::Choice, &pMeasures, IsActiveChoiceMeasuresSignal,
     {
         "Вид", "View",
         "Уменьшать или нет зону вывода сигнала для исключения перекрытия его результами измерений",
@@ -226,7 +226,7 @@ extern const Page mspMeasuresField;
 /*
 const Choice mcMeasuresFieldType =
 {
-    Item_Choice, &mspMeasuresField, 0,
+    TypeItem::Choice, &mspMeasuresField, 0,
     {
         "Область", "Field",
         "Выбор области, из которой будут браться значения для автоматических измерений",

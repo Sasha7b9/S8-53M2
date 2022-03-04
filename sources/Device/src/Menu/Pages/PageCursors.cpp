@@ -191,7 +191,7 @@ void *PageCursors::GetPointer()
 // КУРСОРЫ - Показывать -----
 static const Choice mcShow =
 {
-    Item_Choice, &pCursors, 0,
+    TypeItem::Choice, &pCursors, 0,
     {
         "Показывать", "Shown",
         "Включает/отключает курсоры.",
@@ -208,7 +208,7 @@ static const Choice mcShow =
 // КУРСОРЫ - Курсоры T1,U1 --
 static const Choice mcTrackingT1U1 =
 {
-    Item_Choice, &pCursors, 0,
+    TypeItem::Choice, &pCursors, 0,
     {
         "Слежение \x8e, \x9e",  "Tracking \x8e, \x9e"
         ,
@@ -237,7 +237,7 @@ static const Choice mcTrackingT1U1 =
 // КУРСОРЫ - Курсоры T2,U2 --
 static const Choice mcTrackingT2U2 =
 {
-    Item_Choice, &pCursors, 0,
+    TypeItem::Choice, &pCursors, 0,
     {
         "Слежение \x8f, \x9f", "Tracking \x8f, \x9f"
         ,
@@ -266,7 +266,7 @@ static const Choice mcTrackingT2U2 =
 // КУРОСРЫ - 1/dT -----------
 static const Choice mcShowFreq =
 {
-    Item_Choice, &pCursors, 0,
+    TypeItem::Choice, &pCursors, 0,
     {
         "1/dT", "1/dT"
         ,

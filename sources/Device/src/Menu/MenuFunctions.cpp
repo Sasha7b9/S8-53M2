@@ -21,14 +21,14 @@ extern const Page mainPage;
 
 namespace Menu
 {
-    void *RetLastOpened(Page *, TypeItem *);
+    void *RetLastOpened(Page *, TypeItem::E *);
 }
 
 
 
-TypeItem Menu::TypeMenuItem(void *address) 
+TypeItem::E Menu::TypeMenuItem(void *address) 
 {
-    return address ? (*((TypeItem*)address)) : Item_None;
+    return address ? (*((TypeItem::E *)address)) : TypeItem::None;
 }
 
 
@@ -63,7 +63,7 @@ void Menu::SetCurrentItem(const void *item, bool active)
 }
 
 
-TypeItem Menu::TypeOpenedItem()
+TypeItem::E Menu::TypeOpenedItem()
 {
     return TypeMenuItem(OpenedItem());
 }
@@ -71,7 +71,7 @@ TypeItem Menu::TypeOpenedItem()
 
 void* Menu::OpenedItem()
 {
-    TypeItem type = Item_None;
+    TypeItem::E type = TypeItem::None;
     return RetLastOpened((Page*)&mainPage, &type);
 }
 
@@ -85,11 +85,11 @@ void* Menu::Item(const Page *page, int numElement)
 
 void* Menu::CurrentItem()
 {
-    TypeItem type = Item_None;
+    TypeItem::E type = TypeItem::None;
     void *lastOpened = RetLastOpened((Page*)&mainPage, &type);
     int8 pos = ((const Page *)lastOpened)->PosCurrentItem();
 
-    if(type == Item_Page && pos != 0x7f)
+    if(type == TypeItem::Page && pos != 0x7f)
     {
         return Item((const Page *)lastOpened, pos);
     }
@@ -100,15 +100,15 @@ void* Menu::CurrentItem()
 
 int Menu::HeightOpenedItem(void *item) 
 {
-    TypeItem type = TypeMenuItem(item);
+    TypeItem::E type = TypeMenuItem(item);
 
-    if(type == Item_Page)
+    if(type == TypeItem::Page)
     {
         int numItems = NumItemsInPage((const Page *)item) - NumCurrentSubPage((Page *)item) * MENU_ITEMS_ON_DISPLAY;
         LIMITATION(numItems, numItems, 0, MENU_ITEMS_ON_DISPLAY);
         return MP_TITLE_HEIGHT + MI_HEIGHT * numItems;
     } 
-    else if(type == Item_Choice || type == Item_ChoiceReg)
+    else if(type == TypeItem::Choice || type == TypeItem::ChoiceReg)
     {
         return MOI_HEIGHT_TITLE + ((Choice *)item)->NumSubItems() * MOSI_HEIGHT - 1;
     }
@@ -165,15 +165,15 @@ int Menu::NumSubPages(const Page *page)
 }
 
 
-void* Menu::RetLastOpened(Page *page, TypeItem *type)
+void* Menu::RetLastOpened(Page *page, TypeItem::E *type)
 {
     if(CurrentItemIsOpened(page->GetName()))
     {
         int8 posActItem = page->PosCurrentItem();
         void *item = Item(page, posActItem);
-        TypeItem typeLocal = TypeMenuItem(Item(page, posActItem));
+        TypeItem::E typeLocal = TypeMenuItem(Item(page, posActItem));
 
-        if(typeLocal == Item_Page)
+        if(typeLocal == TypeItem::Page)
         {
             return RetLastOpened((Page *)item, type);
         }
@@ -183,7 +183,7 @@ void* Menu::RetLastOpened(Page *page, TypeItem *type)
         }
     }
 
-    *type = Item_Page;
+    *type = TypeItem::Page;
     return page;
 }
 
@@ -192,7 +192,7 @@ void Menu::CloseOpenedItem()
 {
     void *item = OpenedItem();
 
-    if(TypeOpenedItem() == Item_Page)
+    if(TypeOpenedItem() == TypeItem::Page)
     {
         if (((const Page *)item)->IsSB())                               // Для страницы малых кнопок
         {
@@ -235,10 +235,10 @@ void Menu::OpenItem(const void *item, bool open)
 
 bool Menu::ItemIsOpened(void *item)
 {
-    TypeItem type = TypeMenuItem(item);
+    TypeItem::E type = TypeMenuItem(item);
     Page *page = Keeper(item);
 
-    if(type == Item_Page)
+    if(type == TypeItem::Page)
     {
         return CurrentItemIsOpened(Keeper(item)->GetName());
     }
@@ -256,7 +256,7 @@ Page* Menu::Keeper(const void *item)
 
 NamePage Page::GetName() const
 {
-    if(Menu::TypeMenuItem((void*)this) != Item_Page)
+    if(Menu::TypeMenuItem((void*)this) != TypeItem::Page)
     {
         return Page_NoPage;
     }
@@ -280,11 +280,11 @@ void Menu::OpenPageAndSetItCurrent(void *page)
 
 bool Menu::ItemIsActive(void *item)
 {
-    TypeItem type = TypeMenuItem(item);
+    TypeItem::E type = TypeMenuItem(item);
 
     /** @todo Здесь оптимизировать через битовую маску */
 
-    if (type == Item_Choice || type == Item_Page || type == Item_Button || type == Item_Governor || type == Item_SmallButton)
+    if (type == TypeItem::Choice || type == TypeItem::Page || type == TypeItem::Button || type == TypeItem::Governor || type == TypeItem::SmallButton)
     {
         pFuncBV func = ((Page*)(item))->funcOfActive;
 
@@ -326,25 +326,25 @@ bool Menu::ChangeOpenedItem(void *item, int delta)
         return false;
     }
 
-    TypeItem type = TypeMenuItem(item);
+    TypeItem::E type = TypeMenuItem(item);
 
-    if (type == Item_Page)
+    if (type == TypeItem::Page)
     {
         ChangeSubPage((const Page *)item, delta);
     }
-    else if (type == Item_IP)
+    else if (type == TypeItem::IP)
     {
         ((IPaddress *)item)->ChangeValue(delta);
     }
-    else if (type == Item_MAC)
+    else if (type == TypeItem::MAC)
     {
         ((MACaddress *)item)->ChangeValue(delta);
     }
-    else if (type == Item_ChoiceReg || type == Item_Choice)
+    else if (type == TypeItem::ChoiceReg || type == TypeItem::Choice)
     {
         ((Choice *)item)->ChangeValue(delta);
     }
-    else if (type == Item_Governor)
+    else if (type == TypeItem::Governor)
     {
         ((Governor *)item)->ChangeValue(delta);
     }
@@ -355,13 +355,13 @@ bool Menu::ChangeOpenedItem(void *item, int delta)
 
 void Menu::ChangeItem(void *item, int delta)
 {
-    TypeItem type = TypeMenuItem(item);
+    TypeItem::E type = TypeMenuItem(item);
 
-    if (type == Item_Choice || type == Item_ChoiceReg)
+    if (type == TypeItem::Choice || type == TypeItem::ChoiceReg)
     {
         ((Choice *)item)->StartChange(delta);
     }
-    else if (type == Item_Governor)
+    else if (type == TypeItem::Governor)
     {
         Governor *governor = (Governor*)item;
         if (OpenedItem() != governor)
@@ -373,7 +373,7 @@ void Menu::ChangeItem(void *item, int delta)
             governor->ChangeValue(delta);
         }
     }
-    else if (type == Item_GovernorColor)
+    else if (type == TypeItem::GovernorColor)
     {
         ((GovernorColor *)item)->ChangeValue(delta);
     }
@@ -382,7 +382,7 @@ void Menu::ChangeItem(void *item, int delta)
 
 void Menu::ShortPressOnPageItem(Page *page, int numItem)
 {
-    if (TypeMenuItem(page) != Item_Page)
+    if (TypeMenuItem(page) != TypeItem::Page)
     {
         return;
     }

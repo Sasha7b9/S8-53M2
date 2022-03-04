@@ -46,7 +46,7 @@ void *PageDebug::SerialNumber::GetPointer()
 
 static const Choice mcStats =
 {
-    Item_Choice, &pDebug, 0,
+    TypeItem::Choice, &pDebug, 0,
     {
         "Статистика", "Statistics",
         "Показывать/не показывать время/кадр, кадров в секунду, количество сигналов с последними настройками в памяти/количество сохраняемых в памяти сигналов",
@@ -72,7 +72,7 @@ static const Governor mgConsole_NumStrings
 
 static const Choice mcConsole_SizeFont =
 {
-    Item_Choice, &mpConsole, 0,
+    TypeItem::Choice, &mpConsole, 0,
     {
         "Размер шрифта", "Size font",
         "",
@@ -111,7 +111,7 @@ static void OnDraw_SizeSettings(int x, int y)
 
 static const Choice mcSizeSettings =
 {
-    Item_Choice, &pDebug, 0,
+    TypeItem::Choice, &pDebug, 0,
     {
         "Размер настроек", "Size settings",
         "Вывод размера структуры Settings",
@@ -228,7 +228,7 @@ static void OnDraw_ShiftADCA(int x, int y)
 
 static const Choice mcShiftADCA =
 {
-    Item_Choice, &pDebug, nullptr,
+    TypeItem::Choice, &pDebug, nullptr,
     {
         "Смещение к1", "Shift ch1",
         "Смещение первого канала",
@@ -250,7 +250,7 @@ static void OnDraw_ShiftADCB(int x, int y)
 
 static const Choice mcShiftADCB =
 {
-    Item_Choice, &pDebug, nullptr,
+    TypeItem::Choice, &pDebug, nullptr,
     {
         "Смещение к1", "Shift ch1",
         "Смещение первого канала",
@@ -361,7 +361,7 @@ static void OnDraw_StretchADCA(int x, int y)
 
 static const Choice mcStretchADCA =
 {
-    Item_Choice, &pDebug, nullptr,
+    TypeItem::Choice, &pDebug, nullptr,
     {
         "Растяжка к1", "Stretch ch1",
         "Растяжка первого канала",
@@ -383,7 +383,7 @@ static void OnDraw_StretchADCB(int x, int y)
 
 static const Choice mcStretchADCB =
 {
-    Item_Choice, &pDebug, nullptr,
+    TypeItem::Choice, &pDebug, nullptr,
     {
         "Растяжка к2", "Stretch ch2",
         "Растяжка первого канала",

@@ -52,7 +52,7 @@ const Page pTime            // РАЗВЕРТКА
 // РАЗВЕРТКА - Выборка ------
 static const Choice mcSample =
 {
-    Item_Choice, &pTime, IsActive_Sample,
+    TypeItem::Choice, &pTime, IsActive_Sample,
     {
         "Выборка", "Sampling"
         ,
@@ -77,7 +77,7 @@ static bool IsActive_Sample()
 // РАЗВЕРТКА - Пик дет ------
 static const Choice mcPeakDet =
 {
-    Item_Choice, &pTime, IsActive_PeakDet,
+    TypeItem::Choice, &pTime, IsActive_PeakDet,
     {
         "Пик дет", "Pic deat",
         "Включает/выключает пиковый детектор.",
@@ -124,7 +124,7 @@ void OnChanged_PeakDet(bool active)
 // РАЗВЕРТКА - To -----------
 static const Choice mcTPos =
 {
-    Item_Choice, &pTime, 0,
+    TypeItem::Choice, &pTime, 0,
     {
         "\x7b", "\x7b",
         "Задаёт точку привязки нулевого смещения по времени к экрану - левый край, центр, правый край.",
@@ -147,7 +147,7 @@ void OnChanged_TPos(bool active)
 // РАЗВЕРТКА - Самописец ----
 static const Choice mcSelfRecorder =
 {
-    Item_Choice, &pTime, IsActive_SelfRecorder,
+    TypeItem::Choice, &pTime, IsActive_SelfRecorder,
     {
         "Самописец", "Self-Recorder",
         "Включает/выключает режим самописца. Этот режим доступен на развёртках 20мс/дел и более медленных.",
@@ -168,7 +168,7 @@ static bool IsActive_SelfRecorder()
 // РАЗВЕРТКА - Ф-ция ВР/ДЕЛ -
 static const Choice mcDivRole =
 {
-    Item_Choice, &pTime, 0,
+    TypeItem::Choice, &pTime, 0,
     {
         "Ф-ция ВР/ДЕЛ", "Func Time/DIV"
         ,

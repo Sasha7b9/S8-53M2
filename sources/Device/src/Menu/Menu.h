@@ -57,9 +57,9 @@ namespace Menu
     // Dозвращает число подстраниц в странице по адресу page.
     int NumSubPages(const Page *page);
     // Возвращает тип элемента меню по адресу address.
-    TypeItem TypeMenuItem(void *address);
+    TypeItem::E TypeMenuItem(void *address);
     // Возвращает тип открытого элемента меню.
-    TypeItem TypeOpenedItem();
+    TypeItem::E TypeOpenedItem();
     // Возвращает адрес открытого элемента меню.
     void *OpenedItem();
     // Возвращает адрес текущего элемента меню (текущим, как правило, является элемент, кнопка которого была нажата последней.

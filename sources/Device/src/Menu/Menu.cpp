@@ -514,17 +514,20 @@ void Menu::ProcessingRegulatorSet()
         return;
     }
 
-    if (MenuIsShown() || TypeMenuItem(OpenedItem()) != Item_Page)
+    if (MenuIsShown() || TypeMenuItem(OpenedItem()) != TypeItem::Page)
     {
         void *item = CurrentItem();
-        TypeItem type = TypeMenuItem(item);
-        if (TypeMenuItem(OpenedItem()) == Item_Page && (type == Item_ChoiceReg || type == Item_Governor || type == Item_IP || type == Item_MAC))
+        TypeItem::E type = TypeMenuItem(item);
+
+        if (TypeMenuItem(OpenedItem()) == TypeItem::Page && (type == TypeItem::ChoiceReg ||
+            type == TypeItem::Governor || type == TypeItem::IP || type == TypeItem::MAC))
         {
             if (angleRegSet > stepAngleRegSet || angleRegSet < -stepAngleRegSet)
             {
                 ChangeItem(item, angleRegSet);
                 angleRegSet = 0;
             }
+
             return;
         }
         else
@@ -535,7 +538,7 @@ void Menu::ProcessingRegulatorSet()
             {
                 CurrentPageSBregSet(angleRegSet);
             }
-            else if (type == Item_Page || type == Item_IP || type == Item_MAC || type == Item_Choice || type == Item_ChoiceReg || type == Item_Governor)
+            else if (type == TypeItem::Page || type == TypeItem::IP || type == TypeItem::MAC || type == TypeItem::Choice || type == TypeItem::ChoiceReg || type == TypeItem::Governor)
             {
                 if (ChangeOpenedItem(item, angleRegSet))
                 {
@@ -543,11 +546,11 @@ void Menu::ProcessingRegulatorSet()
                 }
                 return;
             }
-            else if (type == Item_GovernorColor)
+            else if (type == TypeItem::GovernorColor)
             {
                 ChangeItem(item, angleRegSet);
             }
-            else if (type == Item_Time)
+            else if (type == TypeItem::Time)
             {
                 angleRegSet > 0 ? ((Time *)item)->IncCurrentPosition() : ((Time *)item)->DecCurrentPosition();
             }
@@ -765,21 +768,21 @@ void Menu::ExecuteFuncForShortPressOnItem(void *item)
 {
     typedef void(*pFuncMenuVpV)(void*);
 
-    static const pFuncMenuVpV shortFunction[Item_NumberItems] =
+    static const pFuncMenuVpV shortFunction[TypeItem::Count] =
     {
-        0,                                  // Item_None
-        &Menu::ShortPress_Choice,           // Item_Choice
-        &Menu::ShortPress_Button,           // Item_Button
-        &Menu::ShortPress_Page,             // Item_Page
-        &Menu::ShortPress_Governor,         // Item_Governor
-        &Menu::ShortPress_Time,             // Item_Time
-        &Menu::ShortPress_IP,               // Item_IP
+        0,                                  // TypeItem::None
+        &Menu::ShortPress_Choice,           // TypeItem::Choice
+        &Menu::ShortPress_Button,           // TypeItem::Button
+        &Menu::ShortPress_Page,             // TypeItem::Page
+        &Menu::ShortPress_Governor,         // TypeItem::Governor
+        &Menu::ShortPress_Time,             // TypeItem::Time
+        &Menu::ShortPress_IP,               // TypeItem::IP
         0,                                  // Item_SwitchButton
-        &Menu::ShortPress_GovernorColor,    // Item_GovernorColor
+        &Menu::ShortPress_GovernorColor,    // TypeItem::GovernorColor
         0,                                  // Item_Formula
-        &Menu::ShortPress_MAC,              // Item_MAC
-        &Menu::ShortPress_ChoiceReg,        // Item_ChoiceReg
-        &Menu::ShortPress_SmallButton       // Item_SmallButton
+        &Menu::ShortPress_MAC,              // TypeItem::MAC
+        &Menu::ShortPress_ChoiceReg,        // TypeItem::ChoiceReg
+        &Menu::ShortPress_SmallButton       // TypeItem::SmallButton
     };
  
     pFuncMenuVpV func = shortFunction[TypeMenuItem(item)];
@@ -795,21 +798,21 @@ void Menu::ExecuteFuncForLongPressureOnItem(void *item)
 {
     typedef void(*pFuncMenuVpV)(void*);
 
-    static const pFuncMenuVpV longFunction[Item_NumberItems] =
+    static const pFuncMenuVpV longFunction[TypeItem::Count] =
     {
-        0,                                  // Item_None
-        &Menu::FuncOnLongPressItem,         // Item_Choice
-        &Menu::FuncOnLongPressItemButton,   // Item_Button
-        &Menu::FuncOnLongPressItem,         // Item_Page
-        &Menu::FuncOnLongPressItem,         // Item_Governor
-        &Menu::FuncOnLongPressItemTime,     // Item_Time
-        &Menu::FuncOnLongPressItem,         // Item_IP
+        0,                                  // TypeItem::None
+        &Menu::FuncOnLongPressItem,         // TypeItem::Choice
+        &Menu::FuncOnLongPressItemButton,   // TypeItem::Button
+        &Menu::FuncOnLongPressItem,         // TypeItem::Page
+        &Menu::FuncOnLongPressItem,         // TypeItem::Governor
+        &Menu::FuncOnLongPressItemTime,     // TypeItem::Time
+        &Menu::FuncOnLongPressItem,         // TypeItem::IP
         0,                                  // Item_SwitchButton
-        &Menu::FuncOnLongPressItem,         // Item_GovernorColor
+        &Menu::FuncOnLongPressItem,         // TypeItem::GovernorColor
         0,                                  // Item_Formula
-        &Menu::FuncOnLongPressItem,         // Item_MAC
-        &Menu::FuncOnLongPressItem,         // Item_ChoiceReg
-        &Menu::ShortPress_SmallButton       // Item_SmallButton
+        &Menu::FuncOnLongPressItem,         // TypeItem::MAC
+        &Menu::FuncOnLongPressItem,         // TypeItem::ChoiceReg
+        &Menu::ShortPress_SmallButton       // TypeItem::SmallButton
     };
 
     if (ItemIsActive(item))
@@ -887,16 +890,16 @@ bool Menu::NeedForFireSetLED()
         return true;
     }
     
-    TypeItem typeCurrentItem = TypeMenuItem(CurrentItem());
-    if (typeCurrentItem == Item_Governor    ||
-        typeCurrentItem == Item_ChoiceReg)
+    TypeItem::E typeCurrentItem = TypeMenuItem(CurrentItem());
+    if (typeCurrentItem == TypeItem::Governor    ||
+        typeCurrentItem == TypeItem::ChoiceReg)
     {
         return true;
     }
 
-    TypeItem typeOpenedItem = TypeOpenedItem();
-    if (typeOpenedItem == Item_Choice       ||
-        (typeOpenedItem == Item_Page && NumSubPages((Page *)OpenedItem()) > 1)
+    TypeItem::E typeOpenedItem = TypeOpenedItem();
+    if (typeOpenedItem == TypeItem::Choice       ||
+        (typeOpenedItem == TypeItem::Page && NumSubPages((Page *)OpenedItem()) > 1)
         )
     {
         return true;

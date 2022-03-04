@@ -857,7 +857,7 @@ static bool FuncActiveMemoryNumPoinst()
 // ПАМЯТЬ - Точки
 const Choice mcMemoryNumPoints =
 {
-    Item_Choice, &pMemory, FuncActiveMemoryNumPoinst,
+    TypeItem::Choice, &pMemory, FuncActiveMemoryNumPoinst,
     {
         "Точки", "Points"
         ,
@@ -881,7 +881,7 @@ extern const Page mspMemoryExt;
 // ПАМЯТЬ - ВНЕШН ЗУ - Имя файла
 const Choice mcMemoryExtName =
 {
-    Item_Choice, &mspMemoryExt, 0,
+    TypeItem::Choice, &mspMemoryExt, 0,
     {
         "Имя файла", "File name"
         ,
@@ -903,7 +903,7 @@ const Choice mcMemoryExtName =
 // ПАМЯТЬ - ВНЕШН ЗУ - Автоподключение
 const Choice mcMemoryExtAutoConnectFlash =
 {
-    Item_Choice, &mspMemoryExt, 0,
+    TypeItem::Choice, &mspMemoryExt, 0,
     {
         "Автоподкл.", "AutoConnect",
         "Eсли \"Вкл\", при подключении внешнего накопителя происходит автоматический переход на страницу ПАМЯТЬ - Внешн ЗУ",
@@ -919,7 +919,7 @@ const Choice mcMemoryExtAutoConnectFlash =
 // ПАМЯТЬ - ВНЕШН ЗУ - Реж кн ПАМЯТЬ
 const Choice mcMemoryExtModeBtnMemory =
 {
-    Item_Choice, &mspMemoryExt, 0,
+    TypeItem::Choice, &mspMemoryExt, 0,
     {
         "Реж кн ПАМЯТЬ", "Mode btn MEMORY",
         "",
@@ -935,7 +935,7 @@ const Choice mcMemoryExtModeBtnMemory =
 // ПАМЯТЬ - ВНЕШН ЗУ - Сохранять как
 const Choice mcMemoryExtModeSave =
 {
-    Item_Choice, &mspMemoryExt, 0,
+    TypeItem::Choice, &mspMemoryExt, 0,
     {
         "Сохранять как", "Save as"
         ,
