@@ -81,7 +81,7 @@ Governor::Governor(const Page *keeper_, pFuncBV funcOfActive_,
 
 bool Item::IsPressed()
 {
-    return this == Menu::ItemUnderKey();
+    return (this == UnderKey());
 }
 
 

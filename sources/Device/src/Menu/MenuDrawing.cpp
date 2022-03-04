@@ -392,7 +392,7 @@ bool Menu::IsShade(void* item)
 
 bool Menu::IsPressed(void* item)
 {
-    return item == Menu::ItemUnderKey();
+    return item == Item::UnderKey();
 }
 
 

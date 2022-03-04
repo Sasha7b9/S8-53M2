@@ -334,9 +334,9 @@ void Menu::Handlers::RotateRegSetLeft()
 };
 
 
-void* Menu::ItemUnderKey()
+void* Item::UnderKey()
 {
-    return itemUnderKey;
+    return Menu::itemUnderKey;
 };
 
 
