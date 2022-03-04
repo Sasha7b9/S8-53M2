@@ -899,7 +899,7 @@ bool Menu::NeedForFireSetLED()
 
     TypeItem::E typeOpenedItem = TypeOpenedItem();
     if (typeOpenedItem == TypeItem::Choice       ||
-        (typeOpenedItem == TypeItem::Page && NumSubPages((Page *)OpenedItem()) > 1)
+        (typeOpenedItem == TypeItem::Page && ((Page *)OpenedItem())->NumSubPages() > 1)
         )
     {
         return true;

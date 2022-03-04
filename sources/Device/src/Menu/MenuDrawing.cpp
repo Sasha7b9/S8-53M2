@@ -186,7 +186,7 @@ void Page::DrawTitle(int layer, int yTop)
     }
 
     Painter::DrawVLine(x, yTop, yTop + Menu::HeightOpenedItem(this), ColorBorderMenu(false));
-    bool condDrawRSet = Menu::NumSubPages(this) > 1 && Menu::TypeMenuItem(Menu::CurrentItem()) != TypeItem::ChoiceReg &&
+    bool condDrawRSet = NumSubPages() > 1 && Menu::TypeMenuItem(Menu::CurrentItem()) != TypeItem::ChoiceReg &&
         Menu::TypeMenuItem(Menu::CurrentItem()) != TypeItem::Governor && Menu::TypeOpenedItem() == TypeItem::Page;
     int delta = condDrawRSet ? -10 : 0;
     Color::E colorText = shade ? LightShadingTextColor() : Color::BLACK;

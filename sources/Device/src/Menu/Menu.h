@@ -51,8 +51,6 @@ namespace Menu
     void OpenItemTime();
     // Вовзращает true, если элемент меню item является ативным, т.е. может быть нажат.
     bool ItemIsActive(void *item);
-    // Dозвращает число подстраниц в странице по адресу page.
-    int NumSubPages(const Page *page);
     // Возвращает тип элемента меню по адресу address.
     TypeItem::E TypeMenuItem(void *address);
     // Возвращает тип открытого элемента меню.

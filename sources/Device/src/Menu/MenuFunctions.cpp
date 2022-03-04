@@ -145,7 +145,7 @@ void Menu::ChangeSubPage(const Page *page, int delta)
 {
     if (page)
     {
-        if (delta > 0 && MenuCurrentSubPage(page->name) < NumSubPages(page) - 1)
+        if (delta > 0 && MenuCurrentSubPage(page->name) < page->NumSubPages() - 1)
         {
             Sound::RegulatorSwitchRotate();
             SetMenuCurrentSubPage(page->name, MenuCurrentSubPage(page->name) + 1);
@@ -159,9 +159,9 @@ void Menu::ChangeSubPage(const Page *page, int delta)
 }
 
 
-int Menu::NumSubPages(const Page *page)
+int Page::NumSubPages() const
 {
-    return (page->NumItems() - 1) / MENU_ITEMS_ON_DISPLAY + 1;
+    return (NumItems() - 1) / MENU_ITEMS_ON_DISPLAY + 1;
 }
 
 
