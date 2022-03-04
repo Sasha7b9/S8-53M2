@@ -177,7 +177,7 @@
 
 /* Section 3: Common PHY Registers */
 
-#define PHY_BCR                         ((uint16_t)0x00)    /*!< Transceiver Basic Control Register   */
+#define PHY_BCR                         ((uint16_t)0x00)    /*!< Transceiver Basic Item Register   */
 #define PHY_BSR                         ((uint16_t)0x01)    /*!< Transceiver Basic Status Register    */
  
 #define PHY_RESET                       ((uint16_t)0x8000)  /*!< PHY Reset */
@@ -198,8 +198,8 @@
 /* Section 4: Extended PHY Registers */
 
 #define PHY_SR                          ((uint16_t)0x10)    /*!< PHY status register Offset                      */
-#define PHY_MICR                        ((uint16_t)0x11)    /*!< MII Interrupt Control Register                  */
-#define PHY_MISR                        ((uint16_t)0x12)    /*!< MII Interrupt Status and Misc. Control Register */
+#define PHY_MICR                        ((uint16_t)0x11)    /*!< MII Interrupt Item Register                  */
+#define PHY_MISR                        ((uint16_t)0x12)    /*!< MII Interrupt Status and Misc. Item Register */
  
 #define PHY_LINK_STATUS                 ((uint16_t)0x0001)  /*!< PHY Link mask                                   */
 #define PHY_SPEED_STATUS                ((uint16_t)0x0002)  /*!< PHY Speed mask                                  */

@@ -65,11 +65,11 @@ void Menu::SetCurrentItem(const void *item, bool active)
 
 TypeItem::E Menu::TypeOpenedItem()
 {
-    return TypeMenuItem(Control::Opened());
+    return TypeMenuItem(Item::Opened());
 }
 
 
-void* Control::Opened()
+void* Item::Opened()
 {
     TypeItem::E type = TypeItem::None;
     return Menu::RetLastOpened((Page*)&mainPage, &type);
@@ -187,7 +187,7 @@ void* Menu::RetLastOpened(Page *page, TypeItem::E *type)
 
 void Menu::CloseOpenedItem()
 {
-    void *item = Control::Opened();
+    void *item = Item::Opened();
 
     if(TypeOpenedItem() == TypeItem::Page)
     {
@@ -264,7 +264,7 @@ NamePage::E Page::GetName() const
 
 NamePage::E Menu::GetNameOpenedPage()
 {
-    return ((const Page *)Control::Opened())->GetName();
+    return ((const Page *)Item::Opened())->GetName();
 }
 
 
@@ -360,7 +360,7 @@ void Menu::ChangeItem(void *item, int delta)
     else if (type == TypeItem::Governor)
     {
         Governor *governor = (Governor*)item;
-        if (Control::Opened() != governor)
+        if (Item::Opened() != governor)
         {
             governor->StartChange(delta);
         }

@@ -26,7 +26,7 @@ static TimeStructChoice tsChoice;
 
 
 
-Control::Control(const ControlStruct *str) : type(str->type), keeper(str->keeper), funcOfActive(str->funcOfActive)
+Item::Item(const ControlStruct *str) : type(str->type), keeper(str->keeper), funcOfActive(str->funcOfActive)
 {
     titleHint[0] = str->titleHint[0];
     titleHint[1] = str->titleHint[1];
@@ -35,7 +35,7 @@ Control::Control(const ControlStruct *str) : type(str->type), keeper(str->keeper
 }
 
 
-Control::Control(TypeItem::E type_, const Page* keeper_, pFuncBV funcOfActive_, pchar titleRU, pchar titleEN, pchar hintRU, pchar hintEN) :
+Item::Item(TypeItem::E type_, const Page* keeper_, pFuncBV funcOfActive_, pchar titleRU, pchar titleEN, pchar hintRU, pchar hintEN) :
     type(type_), keeper(keeper_), funcOfActive(funcOfActive_)
 {
     titleHint[0] = titleRU;
@@ -47,7 +47,7 @@ Control::Control(TypeItem::E type_, const Page* keeper_, pFuncBV funcOfActive_, 
 
 Page::Page(const Page *keeper_, pFuncBV funcOfActive_, pchar titleRU, pchar titleEN, pchar hintRU, pchar hintEN, 
            NamePage::E name_, const arrayItems *items_, pFuncVV funcOnPress_, pFuncVV funcOnDraw_, pFuncVI funcRegSetSB_) :
-    Control(TypeItem::Page, keeper_, funcOfActive_, titleRU, titleEN, hintRU, hintEN),
+    Item(TypeItem::Page, keeper_, funcOfActive_, titleRU, titleEN, hintRU, hintEN),
     name(name_), items(items_), funcOnPress(funcOnPress_), funcOnDraw(funcOnDraw_), funcRegSetSB(funcRegSetSB_)
 {
 }
@@ -55,7 +55,7 @@ Page::Page(const Page *keeper_, pFuncBV funcOfActive_, pchar titleRU, pchar titl
 
 Button::Button(const Page *keeper_, pFuncBV funcOfActive_,
        pchar titleRU, pchar titleEN, pchar hintRU, pchar hintEN, pFuncVV funcOnPress_) :
-    Control(TypeItem::Button, keeper_, funcOfActive_, titleRU, titleEN, hintRU, hintEN),
+    Item(TypeItem::Button, keeper_, funcOfActive_, titleRU, titleEN, hintRU, hintEN),
     funcOnPress(funcOnPress_)
 {
 };
@@ -64,7 +64,7 @@ Button::Button(const Page *keeper_, pFuncBV funcOfActive_,
 SmallButton::SmallButton(const Page *keeper_, pFuncBV funcOfActive_,
             pchar titleRU, pchar titleEN, pchar hintRU, pchar hintEN,
             pFuncVV funcOnPress_, pFuncVII funcOnDraw_, const arrayHints *hintUGO_) :
-    Control(TypeItem::SmallButton, keeper_, funcOfActive_, titleRU, titleEN, hintRU, hintEN),
+    Item(TypeItem::SmallButton, keeper_, funcOfActive_, titleRU, titleEN, hintRU, hintEN),
     funcOnPress(funcOnPress_), funcOnDraw(funcOnDraw_), hintUGO(hintUGO_)
 {
 }
@@ -73,20 +73,20 @@ SmallButton::SmallButton(const Page *keeper_, pFuncBV funcOfActive_,
 Governor::Governor(const Page *keeper_, pFuncBV funcOfActive_,
          pchar titleRU, pchar titleEN, pchar hintRU, pchar hintEN,
          int16 *cell_, int16 minValue_, int16 maxValue_, pFuncVV funcOfChanged_, pFuncVV funcBeforeDraw_) :
-    Control(TypeItem::Governor, keeper_, funcOfActive_, titleRU, titleEN, hintRU, hintEN),
+    Item(TypeItem::Governor, keeper_, funcOfActive_, titleRU, titleEN, hintRU, hintEN),
     cell(cell_), minValue(minValue_), maxValue(maxValue_), funcOfChanged(funcOfChanged_), funcBeforeDraw(funcBeforeDraw_)
 {
 }
 
 
-bool Control::IsPressed()
+bool Item::IsPressed()
 {
     return this == Menu::ItemUnderKey();
 }
 
 
 IPaddress::IPaddress(const IPaddressStruct *str) :
-    Control(&str->str), ip0(str->ip0), ip1(str->ip1), ip2(str->ip2), ip3(str->ip3), funcOfChanged(str->funcOfChanged), port(str->port)
+    Item(&str->str), ip0(str->ip0), ip1(str->ip1), ip2(str->ip2), ip3(str->ip3), funcOfChanged(str->funcOfChanged), port(str->port)
 {
 
 }

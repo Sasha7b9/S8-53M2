@@ -185,7 +185,7 @@ USBH_StatusTypeDef USBH_LL_ClosePipe(USBH_HandleTypeDef *phost, uint8_t pipe)
   *           1: Input
   * @param  ep_type: Endpoint Type
   *          This parameter can be one of these values:
-  *            @arg EP_TYPE_CTRL: Control type
+  *            @arg EP_TYPE_CTRL: Item type
   *            @arg EP_TYPE_ISOC: Isochronous type
   *            @arg EP_TYPE_BULK: Bulk type
   *            @arg EP_TYPE_INTR: Interrupt type

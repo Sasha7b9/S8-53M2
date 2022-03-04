@@ -56,7 +56,7 @@ static void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool 
         else if (type == TypeItem::Time)
         {
             Time *time = (Time*)item;
-            if ((Control::Opened() == item) && (*time->curField != iEXIT) && (*time->curField != iSET))
+            if ((Item::Opened() == item) && (*time->curField != iEXIT) && (*time->curField != iSET))
             {
                 int8 values[7] =
                 {
@@ -92,7 +92,7 @@ void Governor::DrawLowPart(int x, int y, bool, bool shade)
 
     x = PText::DrawText(x + 4, y + 21, "\x80", colorTextDown);
 
-    if(Control::Opened() != this)
+    if(Item::Opened() != this)
     {
         float delta = Step();
 
@@ -148,7 +148,7 @@ void IPaddress::DrawLowPart(int x, int y, bool, bool shade)
 
     sprintf(buffer, "%03d.%03d.%03d.%03d", *ip0, *ip1, *ip2, *ip3);
 
-    if (Control::Opened() != this)
+    if (Item::Opened() != this)
     {
         
         PText::DrawText(x + 4, y + 21, buffer, colorTextDown);
@@ -174,7 +174,7 @@ static void DrawMACaddressLowPart(MACaddress *mac, int x, int y, bool, bool shad
 
     sprintf(buffer, "%02X.%02X.%02X.%02X.%02X.%02X", *mac->mac0, *mac->mac1, *mac->mac2, *mac->mac3, *mac->mac4, *mac->mac5);
 
-    if (Control::Opened() != mac)
+    if (Item::Opened() != mac)
     {
 
         PText::DrawText(x + 4, y + 21, buffer, colorTextDown);

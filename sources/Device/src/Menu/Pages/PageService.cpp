@@ -185,7 +185,7 @@ static const Page ppCalibrator
     &pService, 0,
     "КАЛИБРАТОР", "CALIBRATOR",
     "Управлением калибратором и калибровка осциллографа",
-    "Control of the calibrator and calibration of an oscillograph",
+    "Item of the calibrator and calibration of an oscillograph",
     NamePage::ServiceCalibrator, &itemsCalibrator
 );
 
@@ -899,9 +899,9 @@ static const Time tTime =
         ,
         "Setting the current time. \nPoryadok work:\n"
         "Click on the menu item \"Time\".The menu set the current time.By briefly pressing the button on the numeric keypad of conformity "
-        "Control \"Time\", highlight the hours, minutes, seconds, year, month, or a number.The selected item is indicated by a flashing area. "
+        "Item \"Time\", highlight the hours, minutes, seconds, year, month, or a number.The selected item is indicated by a flashing area. "
         "Turn the setting knob to set the desired value. Then highlight \"Save\", press and udrezhivat more than 0.5 seconds, the button on the panel "
-        "Control. Menu Setting the current time will be closed to the conservation of the new current time. Pressing a button on the prolonged retention of any other element "
+        "Item. Menu Setting the current time will be closed to the conservation of the new current time. Pressing a button on the prolonged retention of any other element "
         "will lead to the closure of the current time setting menu without saving the new current time"
     },
     &dServicetime, &hours, &minutes, &secondes, &month, &day, &year
