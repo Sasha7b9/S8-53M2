@@ -84,8 +84,6 @@ namespace Menu
 
     bool ItemIsOpened(void *item);                       // Возвращает true, если элемент меню по адрему item открыт.
 
-    void ChangeSubPage(const Page *page, int delta);
-
     void ShortPressOnPageItem(Page *page, int numItem);   // Вызывает функцию короткого нажатия кнопки над итемом numItem страницы page;
 
     Page *PagePointerFromName(NamePage::E namePage);

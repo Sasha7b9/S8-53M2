@@ -177,6 +177,8 @@ public:
 
     // Возвращает true, если текущий элемент страницы с именем namePage открыт.
     bool CurrentItemIsOpened();
+
+    void ChangeSubPage(int delta) const;
 };
 
 

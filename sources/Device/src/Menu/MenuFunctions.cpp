@@ -141,20 +141,17 @@ bool Menu::IsFunctionalButton(Key::E button)
 }
 
 
-void Menu::ChangeSubPage(const Page *page, int delta)
+void Page::ChangeSubPage(int delta) const
 {
-    if (page)
+    if (delta > 0 && MenuCurrentSubPage(name) < NumSubPages() - 1)
     {
-        if (delta > 0 && MenuCurrentSubPage(page->name) < page->NumSubPages() - 1)
-        {
-            Sound::RegulatorSwitchRotate();
-            SetMenuCurrentSubPage(page->name, MenuCurrentSubPage(page->name) + 1);
-        }
-        else if (delta < 0 && MenuCurrentSubPage(page->name) > 0)
-        {
-            Sound::RegulatorSwitchRotate();
-            SetMenuCurrentSubPage(page->name, MenuCurrentSubPage(page->name) - 1);
-        }
+        Sound::RegulatorSwitchRotate();
+        SetMenuCurrentSubPage(name, MenuCurrentSubPage(name) + 1);
+    }
+    else if (delta < 0 && MenuCurrentSubPage(name) > 0)
+    {
+        Sound::RegulatorSwitchRotate();
+        SetMenuCurrentSubPage(name, MenuCurrentSubPage(name) - 1);
     }
 }
 
@@ -329,7 +326,7 @@ bool Menu::ChangeOpenedItem(void *item, int delta)
 
     if (type == TypeItem::Page)
     {
-        ChangeSubPage((const Page *)item, delta);
+        ((const Page *)item)->ChangeSubPage(delta);
     }
     else if (type == TypeItem::IP)
     {
