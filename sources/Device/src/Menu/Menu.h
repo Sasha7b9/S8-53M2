@@ -59,8 +59,6 @@ namespace Menu
     void *OpenedItem();
     // Возвращает адрес текущего элемента меню (текущим, как правило, является элемент, кнопка которого была нажата последней.
     void *CurrentItem();
-    // Возвращает адрес элемента меню заданной страницы.
-    void *Item(const Page *page, int numElement);
     // Возвращает true, если текущий элемент страницы с именем namePage открыт.
     bool CurrentItemIsOpened(NamePage::E namePage);
     // Сделать/разделать текущим пункт страницы.

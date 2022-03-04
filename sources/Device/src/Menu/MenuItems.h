@@ -171,6 +171,9 @@ public:
 
     // Dозвращает число подстраниц в странице по адресу page.
     int NumSubPages() const;
+
+    // Возвращает адрес элемента меню заданной страницы.
+    void *Item(int numElement) const;
 };
 
 

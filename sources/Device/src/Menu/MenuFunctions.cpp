@@ -52,7 +52,7 @@ void Menu::SetCurrentItem(const void *item, bool active)
         {
             for(int8 i = 0; i < page->NumItems(); i++)
             {
-                if(Item(page, i) == item)
+                if(page->Item(i) == item)
                 {
                     SetMenuPosActItem(page->name, i);
                     return;
@@ -76,10 +76,10 @@ void* Menu::OpenedItem()
 }
 
 
-void* Menu::Item(const Page *page, int numElement)
+void *Page::Item(int numElement) const
 {
-    const arrayItems &array = (*page->items);
-    return array[numElement + (page->IsSB() ? 1 : 0)];
+    const arrayItems &array = (*items);
+    return array[numElement + (IsSB() ? 1 : 0)];
 }
 
 
@@ -91,7 +91,7 @@ void* Menu::CurrentItem()
 
     if(type == TypeItem::Page && pos != 0x7f)
     {
-        return Item((const Page *)lastOpened, pos);
+        return ((const Page *)lastOpened)->Item(pos);
     }
 
     return lastOpened;
@@ -170,8 +170,8 @@ void* Menu::RetLastOpened(Page *page, TypeItem::E *type)
     if(CurrentItemIsOpened(page->GetName()))
     {
         int8 posActItem = page->PosCurrentItem();
-        void *item = Item(page, posActItem);
-        TypeItem::E typeLocal = TypeMenuItem(Item(page, posActItem));
+        void *item = page->Item(posActItem);
+        TypeItem::E typeLocal = TypeMenuItem(page->Item(posActItem));
 
         if(typeLocal == TypeItem::Page)
         {
@@ -308,7 +308,7 @@ int Page::NumItems() const
     {
         for (int i = 0; i < MAX_NUM_ITEMS_IN_PAGE; i++)
         {
-            if (Menu::Item(this, i) == 0)
+            if (Item(i) == 0)
             {
                 return i;
             }

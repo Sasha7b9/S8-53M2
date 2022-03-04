@@ -317,7 +317,7 @@ void Menu::DrawItemsPage(Page *page, int layer, int yTop)
 
     for(int posItem = posFirstItem; posItem <= posLastItem; posItem++)
     {
-        void *item = Item(page, posItem);
+        void *item = page->Item(posItem);
         TypeItem::E type = TypeMenuItem(item);
         int top = yTop + MI_HEIGHT * count;
         funcOfDraw[type](item, CalculateX(layer), top);
@@ -335,7 +335,7 @@ void Page::DrawOpened(int layer, int yTop)
     if (Menu::CurrentItemIsOpened(GetName()))
     {
         int8 posCurItem = PosCurrentItem();
-        void *item = Menu::Item(this, posCurItem);
+        void *item = Item(posCurItem);
 
         for (int i = 0; i < 5; i++)
         {
