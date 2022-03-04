@@ -20,4 +20,3 @@ namespace Keyboard
         KeyboardEvent GetNextEvent();
     };
 };
-    
