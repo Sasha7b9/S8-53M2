@@ -67,8 +67,6 @@ namespace Menu
     void ChangeItem(void *item, int delta);
     // Возвращает высоту в пикселях открытого элемента Choice или NamePage по адресу item.
     int HeightOpenedItem(void *item);
-    // Возвращает название элемента по адресу item, как оно выглядит на дисплее прибора.
-    pchar  TitleItem(void *item);
     // Возвращает true, если button - функциональная клавиша [1..5].
     bool IsFunctionalButton(Key::E);
     // Закрыть открытый элемент меню.

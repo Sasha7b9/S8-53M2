@@ -13,7 +13,7 @@
 #include <stdio.h>
 
 
-static void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool pressed, bool shade, bool opened)
+static void DrawGovernorChoiceColorFormulaHiPart(Item *item, int x, int y, bool pressed, bool shade, bool opened)
 {
     int delta = pressed && !shade ? 1 : 0;
     int width = MI_WIDTH_VALUE;
@@ -36,7 +36,7 @@ static void DrawGovernorChoiceColorFormulaHiPart(void *item, int x, int y, bool 
             ColorMenuItemBrighter(), ColorMenuItemLessBright(), pressed, shade);
     }
 
-    PText::DrawText(x + 6 + delta, y + 6 + delta, Menu::TitleItem(item), color);
+    PText::DrawText(x + 6 + delta, y + 6 + delta, item->Title(), color);
     
     TypeItem::E type = Menu::TypeMenuItem(item);
 
@@ -174,7 +174,7 @@ static void DrawMACaddressLowPart(MACaddress *mac, int x, int y, bool, bool shad
 
     sprintf(buffer, "%02X.%02X.%02X.%02X.%02X.%02X", *mac->mac0, *mac->mac1, *mac->mac2, *mac->mac3, *mac->mac4, *mac->mac5);
 
-    if (Item::Opened() != mac)
+    if (Item::Opened() != (Item *)mac)
     {
 
         PText::DrawText(x + 4, y + 21, buffer, colorTextDown);
@@ -256,7 +256,7 @@ static void ItemMACaddress_DrawClosed(MACaddress *mac, int x, int y)
     bool pressed = Menu::IsPressed(mac);
     bool shade = Menu::IsShade(mac) || !Menu::ItemIsActive(mac);
     DrawMACaddressLowPart(mac, x, y, pressed, shade);
-    DrawGovernorChoiceColorFormulaHiPart(mac, x, y, pressed, shade, false);
+    DrawGovernorChoiceColorFormulaHiPart((Item *)mac, x, y, pressed, shade, false);
 }
 
 void Formula_DrawClosed(Formula *formula, int x, int y)
@@ -264,7 +264,7 @@ void Formula_DrawClosed(Formula *formula, int x, int y)
     bool pressed = Menu::IsPressed(formula);
     bool shade = Menu::IsShade(formula) || !Menu::ItemIsActive(formula);
     formula->DrawLowPart(x, y, pressed, shade);
-    DrawGovernorChoiceColorFormulaHiPart(formula, x, y, pressed, shade, false);
+    DrawGovernorChoiceColorFormulaHiPart((Item *)formula, x, y, pressed, shade, false);
 }
 
 static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits, int selPos, bool hLine, bool fillNull) // Если selPos == -1, подсвечивать не нужно
@@ -481,14 +481,16 @@ void GovernorColor::DrawOpened(int x, int y)
     Painter::DrawVolumeButton(x + 1, y + 1, MI_WIDTH_VALUE + 2 + delta, MI_HEIGHT_VALUE + 3, 2, ColorMenuItem(false), 
         ColorMenuItemBrighter(), ColorMenuItemLessBright(), Menu::IsPressed(this), Menu::IsShade(this));
     Painter::DrawHLine(y + MI_HEIGHT / 2 + 2, x, x + MI_WIDTH + delta, ColorMenuTitle(false));
-    PText::DrawStringInCenterRect(x + (Menu::IsPressed(this) ? 2 : 1), y + (Menu::IsPressed(this) ? 2 : 1), MI_WIDTH + delta, MI_HEIGHT / 2 + 2, Menu::TitleItem(this), Color::WHITE);
+    PText::DrawStringInCenterRect(x + (Menu::IsPressed(this) ? 2 : 1), y + (Menu::IsPressed(this) ? 2 : 1),
+        MI_WIDTH + delta, MI_HEIGHT / 2 + 2, ((Item *)this)->Title(), Color::WHITE);
     DrawValue(x + 1, y + 19, delta);
 }
 
 void GovernorColor::DrawClosed(int x, int y)
 {
     colorType->Init();
-    DrawGovernorChoiceColorFormulaHiPart(this, x, y, Menu::IsPressed(this), Menu::IsShade(this) || !Menu::ItemIsActive(this), true);
+    DrawGovernorChoiceColorFormulaHiPart((Item *)this, x, y, Menu::IsPressed(this), Menu::IsShade(this) ||
+        !Menu::ItemIsActive(this), true);
     Painter::FillRegion(x + 2, y + 20, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1, colorType->color);
 }
 
@@ -510,7 +512,7 @@ void Choice::DrawOpened(int x, int y)
 
     Painter::DrawRectangle(x - 1, y - 1, MP_TITLE_WIDTH + 2, height + 3, COLOR_BACK);
     
-    DrawGovernorChoiceColorFormulaHiPart(this, x - 1, y - 1, Menu::IsPressed(this), false, true);
+    DrawGovernorChoiceColorFormulaHiPart((Item *)this, x - 1, y - 1, Menu::IsPressed(this), false, true);
     Painter::DrawRectangle(x - 1, y, MP_TITLE_WIDTH + 1, height + 1, ColorMenuTitle(false));
  
     Painter::DrawHLine(y + MOI_HEIGHT_TITLE - 1, x, x + MOI_WIDTH);
@@ -537,7 +539,7 @@ void Time::DrawOpened(int x, int y)
     int width = MI_WIDTH_VALUE + 3;
     int height = 61;
     Painter::DrawRectangle(x - 1, y - 1, width + 2, height + 3, COLOR_BACK);
-    DrawGovernorChoiceColorFormulaHiPart(this, x - 1, y - 1, Menu::IsPressed(this), false, true);
+    DrawGovernorChoiceColorFormulaHiPart((Item *)this, x - 1, y - 1, Menu::IsPressed(this), false, true);
 
     Painter::DrawRectangle(x - 1, y, width + 1, height + 1, ColorMenuTitle(false));
 
@@ -600,7 +602,7 @@ static void GovernorIpCommon_DrawOpened(void *item, int x, int y, int dWidth)
     Painter::DrawRectangle(x - 1, y - 1, MP_TITLE_WIDTH + 2 + dWidth, height + 3, COLOR_BACK);
     Painter::DrawRectangle(x - 1, y, MP_TITLE_WIDTH + 1 + dWidth, height + 1, ColorMenuTitle(false));
     Painter::DrawHLine(y + MOI_HEIGHT_TITLE - 1, x, x + MOI_WIDTH + dWidth);
-    DrawGovernorChoiceColorFormulaHiPart(item, x - 1, y - 1, Menu::IsPressed(item), false, true);
+    DrawGovernorChoiceColorFormulaHiPart((Item *)item, x - 1, y - 1, Menu::IsPressed(item), false, true);
     Painter::DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1 + dWidth, height - MOI_HEIGHT_TITLE, 1, Color::BLACK, ColorMenuTitleBrighter(),
                              ColorMenuTitleLessBright(), false, false);
 }
@@ -652,7 +654,7 @@ void Choice::DrawClosed(int x, int y)
     }
     Painter::DrawHLine(y + MI_HEIGHT + 1, x, x + MI_WIDTH, ColorBorderMenu(false));
 
-    DrawGovernorChoiceColorFormulaHiPart(this, x, y, pressed, shade, false);
+    DrawGovernorChoiceColorFormulaHiPart((Item *)this, x, y, pressed, shade, false);
 
     FuncForDraw(x, y);
 }
@@ -675,7 +677,7 @@ void Time::DrawClosed(int x, int y)
     
     bool pressed = Menu::IsPressed(this);
     bool shade = Menu::IsShade(this);
-    DrawGovernorChoiceColorFormulaHiPart(this, x, y, pressed, shade, false);
+    DrawGovernorChoiceColorFormulaHiPart((Item *)this, x, y, pressed, shade, false);
 
     Painter::DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, shade ? ColorMenuTitleLessBright() : ColorMenuField(), 
         ColorMenuItemBrighter(), ColorMenuItemLessBright(), true, shade);
@@ -712,6 +714,7 @@ void Time::Draw(int x, int y, bool opened)
     }
 }
 
+
 void Button::Draw(int x, int y)
 {
     bool pressed = Menu::IsPressed(this);
@@ -725,8 +728,9 @@ void Button::Draw(int x, int y)
 
     int delta = (pressed && (!shade)) ? 2 : 1;
     
-    PText::DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, Menu::TitleItem(this), color);
+    PText::DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, Title(), color);
 }
+
 
 void SmallButton::Draw(int x, int y)
 {
@@ -750,25 +754,31 @@ void SmallButton::Draw(int x, int y)
     }
 }
 
+
 void Page::Draw(int x, int y)
 {
     bool isShade = Menu::IsShade(this) || !Menu::ItemIsActive(this);
     bool isPressed = Menu::IsPressed(this);
     Painter::DrawHLine(y + 1, x, x + MI_WIDTH, ColorBorderMenu(false));
+
     if (isShade)
     {
         Painter::FillRegion(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, ColorMenuTitleLessBright());
     }
     else
     {
-        Painter::DrawVolumeButton(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, 2, ColorMenuItem(isShade), ColorMenuItemBrighter(), ColorMenuItemLessBright(), isPressed, isShade);
+        Painter::DrawVolumeButton(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, 2, ColorMenuItem(isShade),
+            ColorMenuItemBrighter(), ColorMenuItemLessBright(), isPressed, isShade);
     }
+
     Color::E colorText = isShade ? LightShadingTextColor() : Color::BLACK;
     int delta = 0;
+
     if(isPressed && (!isShade))
     {
         colorText = COLOR_FILL;
         delta = 1;
     }
-    PText::DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, Menu::TitleItem(this), colorText);
+
+    PText::DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, Title(), colorText);
 }

@@ -69,10 +69,10 @@ TypeItem::E Menu::TypeOpenedItem()
 }
 
 
-void* Item::Opened()
+Item* Item::Opened()
 {
     TypeItem::E type = TypeItem::None;
-    return Menu::RetLastOpened((Page*)&mainPage, &type);
+    return (Item *)Menu::RetLastOpened((Page*)&mainPage, &type);
 }
 
 
@@ -123,9 +123,9 @@ int Page::NumCurrentSubPage()
 }
 
 
-pchar  Menu::TitleItem(void *item) 
+pchar Item::Title() 
 {
-    return TITLE((Page*)item);
+    return TITLE((Page*)this);
 }
 
 

@@ -190,7 +190,7 @@ void Page::DrawTitle(int layer, int yTop)
         Menu::TypeMenuItem(Menu::CurrentItem()) != TypeItem::Governor && Menu::TypeOpenedItem() == TypeItem::Page;
     int delta = condDrawRSet ? -10 : 0;
     Color::E colorText = shade ? LightShadingTextColor() : Color::BLACK;
-    x = PText::DrawStringInCenterRect(x, yTop, MP_TITLE_WIDTH + 2 + delta, MP_TITLE_HEIGHT, Menu::TitleItem(this), colorText);
+    x = PText::DrawStringInCenterRect(x, yTop, MP_TITLE_WIDTH + 2 + delta, MP_TITLE_HEIGHT, Title(), colorText);
     if(condDrawRSet)
     {
         PText::Draw4SymbolsInRect(x + 4, yTop + 11, GetSymbolForGovernor(NumCurrentSubPage()), colorText);

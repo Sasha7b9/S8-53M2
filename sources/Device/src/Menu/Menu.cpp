@@ -364,16 +364,19 @@ char* Menu::StringNavigation(char buffer[100])
         buffer[0] = 0;
         pchar titles[10] = {0};
         int numTitle = 0;
-        void *item = Item::Opened();
+        Item *item = Item::Opened();
+
         if(IsMainPage(item))
         {
             return 0;
         }
+
         while(!IsMainPage(item))
         {
-            titles[numTitle++] = TitleItem(item);
+            titles[numTitle++] = item->Title();
             item = Keeper(item);
         }
+
         for(int i = 9; i >= 0; i--)
         {
             if(titles[i])
@@ -385,6 +388,7 @@ char* Menu::StringNavigation(char buffer[100])
                 }
             }
         }
+
         return buffer;
     }
     return 0;
@@ -740,7 +744,7 @@ void Menu::ShortPress_GovernorColor(void *governorColor)
 
     GovernorColor *governor = (GovernorColor*)governorColor;
 
-    if(Item::Opened() == governor)
+    if(Item::Opened() == (Item *)governor)
     {
         CircleIncreaseInt8(&(governor->colorType->currentField), 0, 3);
     }
