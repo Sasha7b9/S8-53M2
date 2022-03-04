@@ -148,6 +148,9 @@ public:
     int8 PosCurrentItem() const;
 
     bool IsSB() const;
+
+    // Возвращает имя страницы page.
+    NamePage GetName() const;
 };
 
 

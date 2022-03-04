@@ -72,8 +72,6 @@ namespace Menu
     void SetCurrentItem(const void *item, bool active);
     // Возвращает адрес элемента, которому принадлежит элемент по адресу item.
     Page* Keeper(const void *item);
-    // Возвращает имя страницы page.
-    NamePage GetNamePage(const Page *page);
 
     NamePage GetNameOpenedPage();
 

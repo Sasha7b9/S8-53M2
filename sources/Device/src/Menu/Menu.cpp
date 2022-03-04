@@ -441,7 +441,7 @@ void Menu::ProcessingShortPressureButton()
             }
             else                                                        // Если меню не показано.
             {
-                NamePage name = GetNamePage((const Page *)OpenedItem());
+                NamePage name = ((const Page *)OpenedItem())->GetName();
                 if(button == Key::ChannelA && name == Page_Channel0)
                 {
                     SET_ENABLED_A = !Chan::Enabled(Chan::A);

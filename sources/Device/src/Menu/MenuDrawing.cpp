@@ -170,7 +170,7 @@ void Page::DrawTitle(int layer, int yTop)
     }
 
     int height = Menu::HeightOpenedItem(this);
-    bool shade = Menu::CurrentItemIsOpened(Menu::GetNamePage(this));
+    bool shade = Menu::CurrentItemIsOpened(GetName());
     Painter::FillRegion(x - 1, yTop, MP_TITLE_WIDTH + 2, height + 2, COLOR_BACK);
     Painter::DrawRectangle(x, yTop, MP_TITLE_WIDTH + 1, height + 1, ColorBorderMenu(shade));
 
@@ -331,7 +331,7 @@ void Page::DrawOpened(int layer, int yTop)
     DrawTitle(layer, yTop);
     Menu::DrawItemsPage(this, layer, yTop + MP_TITLE_HEIGHT);
 
-    if (Menu::CurrentItemIsOpened(Menu::GetNamePage(this)))
+    if (Menu::CurrentItemIsOpened(GetName()))
     {
         int8 posCurItem = PosCurrentItem();
         void *item = Menu::Item(this, posCurItem);
@@ -385,7 +385,7 @@ int Menu::CalculateX(int layer)
 
 bool Menu::IsShade(void* item)
 {
-    return CurrentItemIsOpened(GetNamePage(Keeper(item))) && (item != OpenedItem());
+    return CurrentItemIsOpened(Keeper(item)->GetName()) && (item != OpenedItem());
 }
 
 
