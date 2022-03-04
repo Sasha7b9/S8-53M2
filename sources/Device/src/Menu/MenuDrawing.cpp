@@ -165,7 +165,7 @@ void Page::DrawTitle(int layer, int yTop)
 
     if (IsSB())
     {
-        Menu::SmallButonFromPage(this, 0)->Draw(LEFT_SB, yTop + 3);
+        GetSmallButon(0)->Draw(LEFT_SB, yTop + 3);
         return;
     }
 

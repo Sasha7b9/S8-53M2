@@ -94,6 +94,7 @@ struct NamePage
 };             // При добавлении страниц нужно изменять инициализацию SettingsMenu в SSettings.c
 
 class Page;
+class SmallButton;
 
 #define COMMON_PART_MENU_ITEM                                                                                     \
     TypeItem::E         type;             /* Тип итема */                                                     \
@@ -179,6 +180,8 @@ public:
     bool CurrentItemIsOpened();
 
     void ChangeSubPage(int delta) const;
+
+    SmallButton *GetSmallButon(int numButton);
 };
 
 

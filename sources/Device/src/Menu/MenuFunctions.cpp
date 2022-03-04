@@ -191,10 +191,10 @@ void Menu::CloseOpenedItem()
 
     if(TypeOpenedItem() == TypeItem::Page)
     {
-        if (((const Page *)item)->IsSB())                               // Для страницы малых кнопок
+        if (((const Page *)item)->IsSB())                           // Для страницы малых кнопок
         {
-            SmallButton *sb = SmallButonFromPage((Page *)item, 0);      // Выполняем функцию нажатия кнопки Key::Menu
-            if (sb->funcOnPress)                                        // Если она есть
+            SmallButton *sb = ((Page *)item)->GetSmallButon(0);     // Выполняем функцию нажатия кнопки Key::Menu
+            if (sb->funcOnPress)                                    // Если она есть
             {
                 sb->funcOnPress();
             }
@@ -406,7 +406,7 @@ bool Page::IsSB() const
 }
 
 
-SmallButton* Menu::SmallButonFromPage(Page *page, int numButton)
+SmallButton* Page::GetSmallButon(int numButton)
 {
-    return (SmallButton *)(*page->items)[numButton];
+    return (SmallButton *)(*items)[numButton];
 }

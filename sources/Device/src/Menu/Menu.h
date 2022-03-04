@@ -88,8 +88,6 @@ namespace Menu
 
     Page *PagePointerFromName(NamePage::E namePage);
 
-    SmallButton *SmallButonFromPage(Page *page, int numButton);
-
     void ChangeStateFlashDrive();
 
     int8 PosActItem(NamePage::E namePage);                         // ¬озвращает позицию активного пункта на странице namePage.
