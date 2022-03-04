@@ -167,6 +167,8 @@ public:
     // Возвращает позицию текущего элемента странцы page.
     int8 PosCurrentItem() const;
 
+    void DrawItems(int layer, int yTop);
+
     bool IsSB() const;
 
     // Возвращает имя страницы page.

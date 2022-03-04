@@ -31,8 +31,6 @@ namespace Menu
 
     void DrawPagesUGO(Page *, int right, int bottom);
 
-    void DrawItemsPage(Page *, int layer, int yTop);
-
     int ItemOpenedPosY(void *item);
 }
 
@@ -291,7 +289,7 @@ static void DrawPage(void *item, int x, int y)
 }
 
 
-void Menu::DrawItemsPage(Page *page, int layer, int yTop)
+void Page::DrawItems(int layer, int yTop)
 {
     void (*funcOfDraw[TypeItem::Count])(void*, int, int) = 
     {  
@@ -310,17 +308,16 @@ void Menu::DrawItemsPage(Page *page, int layer, int yTop)
         DrawSmallButton     // TypeItem::SmallButton
     };
 
-    int posFirstItem = page->PosItemOnTop();
+    int posFirstItem = PosItemOnTop();
     int posLastItem = posFirstItem + MENU_ITEMS_ON_DISPLAY - 1;
-    LIMITATION(posLastItem, posLastItem, 0, page->NumItems() - 1);
+    LIMITATION(posLastItem, posLastItem, 0, NumItems() - 1);
     int count = 0;
 
     for(int posItem = posFirstItem; posItem <= posLastItem; posItem++)
     {
-        void *item = page->GetItem(posItem);
-        TypeItem::E type = TypeMenuItem(item);
+        void *item = GetItem(posItem);
         int top = yTop + MI_HEIGHT * count;
-        funcOfDraw[type](item, CalculateX(layer), top);
+        funcOfDraw[type](item, Menu::CalculateX(layer), top);
         count++;
         itemUnderButton[GetFuncButtonFromY(top)] = item;
     }
@@ -330,7 +327,7 @@ void Menu::DrawItemsPage(Page *page, int layer, int yTop)
 void Page::DrawOpened(int layer, int yTop)
 {
     DrawTitle(layer, yTop);
-    Menu::DrawItemsPage(this, layer, yTop + MP_TITLE_HEIGHT);
+    DrawItems(layer, yTop + MP_TITLE_HEIGHT);
 
     if (CurrentItemIsOpened())
     {
