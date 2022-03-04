@@ -228,7 +228,7 @@ static void OnDraw_ShiftADCA(int x, int y)
 
 static const Choice mcShiftADCA =
 {
-    TypeItem::Choice, &pDebug, nullptr,
+    TypeItem::Choice, &mpADC_Shift, nullptr,
     {
         "Смещение к1", "Shift ch1",
         "Смещение первого канала",
@@ -250,7 +250,7 @@ static void OnDraw_ShiftADCB(int x, int y)
 
 static const Choice mcShiftADCB =
 {
-    TypeItem::Choice, &pDebug, nullptr,
+    TypeItem::Choice, &mpADC_Shift, nullptr,
     {
         "Смещение к1", "Shift ch1",
         "Смещение первого канала",
@@ -384,7 +384,7 @@ static void OnDraw_StretchADCA(int x, int y)
 
 static const Choice mcStretchADCA =
 {
-    TypeItem::Choice, &pDebug, nullptr,
+    TypeItem::Choice, &mpADC_Stretch, nullptr,
     {
         "Растяжка к1", "Stretch ch1",
         "Растяжка первого канала",
@@ -406,7 +406,7 @@ static void OnDraw_StretchADCB(int x, int y)
 
 static const Choice mcStretchADCB =
 {
-    TypeItem::Choice, &pDebug, nullptr,
+    TypeItem::Choice, &mpADC_Stretch, nullptr,
     {
         "Растяжка к2", "Stretch ch2",
         "Растяжка первого канала",
@@ -584,10 +584,32 @@ static const Governor mgRandomizer_Average
 );
 
 
+static const Governor mgGatesMin
+(
+    &mpRandomizer, nullptr,
+    "Ворота мин", "Gates min",
+    "",
+    "",
+    &FPGA_GATES_MIN, 0, 1000
+);
+
+
+static const Governor mgGatesMax
+(
+    &mpRandomizer, nullptr,
+    "Ворота макс", "Gates max",
+    "",
+    "",
+    &FPGA_GATES_MAX, 0, 1000
+);
+
+
 static const arrayItems itemsRandomizer =
 {
-    (void*)&mgRandomizer_SamplesForGates,   // ОТЛАДКА - РАНД-ТОР - Выб-к/ворота
-    (void*)&mgRandomizer_Average            // ОТЛАДКА - РАНД-ТОР - Усредн.
+    (void *)&mgRandomizer_SamplesForGates,
+    (void *)&mgRandomizer_Average,
+    (void *)&mgGatesMin,
+    (void *)&mgGatesMax
 };
 
 

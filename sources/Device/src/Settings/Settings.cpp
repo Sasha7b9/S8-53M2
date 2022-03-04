@@ -216,7 +216,10 @@ static const Settings defaultSettings =
         1000,       // numMeasuresForGates
         false,      // showStats
         6,          // numAveForRand
-        {0, 0}      // balanceADC
+        {0, 0},     // balanceADC
+        false,      // fpga_compact
+        0,          // fpga_gates_min
+        0           // fpga_gates_max
     }
 };
 
