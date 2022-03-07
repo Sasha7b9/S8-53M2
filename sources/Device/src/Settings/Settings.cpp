@@ -301,7 +301,7 @@ int8 Menu::PosActItem(NamePage::E namePage)
     return set.menu.posActItem[namePage];
 }
 
-void SetMenuPosActItem(NamePage::E namePage, int8 pos)
+void Page::SetPosActItem(NamePage::E namePage, int8 pos)
 {
     set.menu.posActItem[namePage] = pos;
 }
@@ -321,7 +321,7 @@ bool Menu::IsShown()
     return set.menu.isShown;
 }
 
-void ShowMenu(bool show)
+void Menu::Show(bool show)
 {
     set.menu.isShown = show ? 1U : 0U;
     Menu::SetAutoHide(true);

@@ -99,10 +99,8 @@ struct SettingsMenu
 
 
 
-void SetMenuPosActItem(NamePage::E namePage, int8 pos);             // ”становить позицию активного пункта на странице namePage.
 int8 MenuCurrentSubPage(NamePage::E namePage);                      // ¬озвращает номер текущей подстраницы страницы namePage.
 void SetMenuCurrentSubPage(NamePage::E namePage, int8 posSubPage);  // ”станавливает номер текущей подстраницы в странице namePage.
-void ShowMenu(bool show);                                           // ќтобразить/скрыть меню.
 bool MenuIsMinimize();                                              // ≈сли true - меню находитс€ в дополнительном режиме.
 bool MenuPageDebugIsActive();                                       // јктивна ли страница отладки.
 void SetMenuPageDebugActive(bool active);                           // —делать/разделать активной страницу отладки.
