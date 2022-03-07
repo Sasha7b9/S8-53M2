@@ -10,7 +10,6 @@ void *extraMEM = 0;
 
 BitField gBF =
 {
-    0,  // soundWarnIsBeep
     0,  // buttonIsPressed
     
     1,  // panelIsRunning
