@@ -430,7 +430,7 @@ void Menu::ProcessingShortPressureButton()
             }
             else if (IsShown() && IsFunctionalButton(button))       // Если меню показано и нажата функциональная клавиша
             {
-                void *item = Item::UnderKey(button);
+                Item *item = Item::UnderKey(button);
 
                 if (SHOW_HELP_HINTS)
                 {

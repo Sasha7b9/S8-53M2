@@ -500,9 +500,9 @@ struct Time
 // Данные для подсказки
 struct Hint
 {
-    static void SetItem(void *item);
+    static void SetItem(Item *item);
 
-    static void *item;      // Item, подсказку для которого нужно выводить в случае включённого режима подсказок.
+    static Item *item;      // Item, подсказку для которого нужно выводить в случае включённого режима подсказок.
 
     static pchar string;    // Строка подсказки, которую надо выводить в случае включённого режима подсказок.
 };

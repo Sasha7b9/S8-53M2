@@ -13,7 +13,7 @@ int8 IPaddress::cur_digit = 0;
 int8 Governor::cur_digit = 0;
 
 Item *Item::underKey = nullptr;
-void *Hint::item = nullptr;
+Item *Hint::item = nullptr;
 pchar Hint::string = nullptr;
 
 
@@ -161,7 +161,7 @@ void Choice::StartChange(int delta)
     Sound::GovernorChangedValue();
     if (SHOW_HELP_HINTS)
     {
-        Hint::SetItem(this);
+        Hint::SetItem((Item *)this);
     }
     else if (!Menu::ItemIsActive(this))
     {
@@ -258,7 +258,7 @@ void Choice::ChangeValue(int delta)
 }
 
 
-void Hint::SetItem(void *_item)
+void Hint::SetItem(Item *_item)
 {
     string = nullptr;
     item = _item;
