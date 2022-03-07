@@ -425,7 +425,7 @@ void Menu::ProcessingShortPressureButton()
                 }
                 else
                 {
-                    CloseOpenedItem();
+                    Item::CloseOpened();
                 }
             }
             else if (IsShown() && Key::IsFunctional(button))       // Если меню показано и нажата функциональная клавиша

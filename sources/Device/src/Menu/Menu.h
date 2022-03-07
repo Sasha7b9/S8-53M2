@@ -41,9 +41,6 @@ namespace Menu
     // Возвращает путь к текущему пункту меню в текстовом виде, готовом к выводу на экран.
     char *StringNavigation(char buffer[100]);
 
-    // Закрыть открытый элемент меню.
-    void CloseOpenedItem();
-
     void ChangeStateFlashDrive();
 
     // Отображено ли меню на экране.

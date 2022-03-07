@@ -177,7 +177,7 @@ Item* Menu::RetLastOpened(Page *page, TypeItem::E *type)
 }
 
 
-void Menu::CloseOpenedItem()
+void Item::CloseOpened()
 {
     Item *item = Item::Opened();
 
@@ -202,7 +202,7 @@ void Menu::CloseOpenedItem()
 
         if(item == &mainPage)
         {
-            Show(false);
+            Menu::Show(false);
         }
     }
     else

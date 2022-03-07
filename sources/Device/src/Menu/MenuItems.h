@@ -177,6 +177,9 @@ public:
 
     // Возвращает адрес элемента меню, соответствующего данной button.
     static Item *UnderKey(Key::E);
+
+    // Закрыть открытый элемент меню.
+    static void CloseOpened();
 };
 
 
