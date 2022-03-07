@@ -2,6 +2,7 @@
 #pragma once
 #include "defines.h"
 #include "Settings/SettingsTypes.h"
+#include "FPGA/SettingsFPGA.h"
 
 
 #define LIMIT_BELOW(x, min)         if(x < min) { x = min; }

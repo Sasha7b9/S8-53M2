@@ -109,6 +109,15 @@ struct StructRelAbs
 #define ERROR_HANDLER() HardwareErrorHandler(__FILE__, __FUNCTION__, __LINE__)
 void HardwareErrorHandler(pchar file, pchar function, int line);
 
-#include "Globals.h"
+extern void *extraMEM;      // Это специальный указатель. Используется для выделения памяти переменным, которые не нужны всё время выполения программы,
+                            // но нужны болеее чем в одной функции. Перед использованием с помощью вызова malloc() выделяется необходимое количество
+                            // памяти, которая затем освобождается вызвом free()
+
+#define MALLOC_EXTRAMEM(NameStruct, name)   extraMEM = malloc(sizeof(NameStruct));    \
+                                            NameStruct *name = (NameStruct*)extraMEM
+#define ACCESS_EXTRAMEM(NameStruct, name)   NameStruct *(name) = (NameStruct*)extraMEM //-V1003
+#define FREE_EXTRAMEM()                     free(extraMEM)
+
+
 #include "Log.h"
 //#include "Utils/Debug.h"

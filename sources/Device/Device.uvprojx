@@ -869,11 +869,6 @@
               <FilePath>.\src\Tables.h</FilePath>
             </File>
             <File>
-              <FileName>Globals.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Globals.h</FilePath>
-            </File>
-            <File>
               <FileName>main2.s</FileName>
               <FileType>2</FileType>
               <FilePath>.\src\main2.s</FilePath>
@@ -935,11 +930,6 @@
               <FileName>Tables.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Tables.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Globals.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Globals.cpp</FilePath>
             </File>
             <File>
               <FileName>Log.cpp</FileName>
@@ -2830,11 +2820,6 @@
               <FilePath>.\src\Tables.h</FilePath>
             </File>
             <File>
-              <FileName>Globals.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Globals.h</FilePath>
-            </File>
-            <File>
               <FileName>main2.s</FileName>
               <FileType>2</FileType>
               <FilePath>.\src\main2.s</FilePath>
@@ -2896,11 +2881,6 @@
               <FileName>Tables.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Tables.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Globals.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Globals.cpp</FilePath>
             </File>
             <File>
               <FileName>Log.cpp</FileName>

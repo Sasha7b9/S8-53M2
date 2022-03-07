@@ -2,7 +2,6 @@
 #include "defines.h"
 #include "Log.h"
 #include "SCPI.h"
-#include "Globals.h"
 #include "VCP/VCP.h"
 #include "Settings/Settings.h"
 #include "Utils/GlobalFunctions.h"

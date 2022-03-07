@@ -5,6 +5,9 @@
 #include "Display/Display.h"
 
 
+struct DataSettings;
+
+
 // Программа и константные данные
 #define ADDR_FLASH_SECTOR_0     ((uint)0x08000000)  // Base @ of Sector 0, 16 Kbytes
 #define ADDR_FLASH_SECTOR_1     ((uint)0x08004000)  // Base @ of Sector 1, 16 Kbytes
