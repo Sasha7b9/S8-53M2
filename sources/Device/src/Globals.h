@@ -10,20 +10,8 @@ struct DataSettings;
 
 #define NEED_SAVE_TO_DRIVE              (gMemory.needForSaveToFlashDrive)
 
-#define EXIT_FROM_SET_NAME_TO           (gMemory.exitFromModeSetNameTo)
-#define RETURN_TO_MAIN_MENU             0U
-#define RETURN_TO_LAST_MEM              1U
-#define RETURN_TO_INT_MEM               2U
-#define RETURN_TO_DISABLE_MENU          3U
-#define EXIT_FROM_SET_NAME_TO_MAIN_MENU (EXIT_FROM_SET_NAME_TO == RETURN_TO_MAIN_MENU)
-#define EXIT_FROM_SET_NAME_TO_LAST      (EXIT_FROM_SET_NAME_TO == RETURN_TO_LAST_MEM)
-#define EXIT_FROM_SET_NAME_TO_INT       (EXIT_FROM_SET_NAME_TO == RETURN_TO_INT_MEM)
-#define EXIT_FROM_SET_NAME_TO_DIS_MENU  (EXIT_FROM_SET_NAME_TO == RETURN_TO_DISABLE_MENU)
-
 struct GMemory
 {
-    uint    exitFromModeSetNameTo           : 2;    // Куда возвращаться из окна установки имени при сохранении : 0 - в основное меню, 1 - в окно 
-                                                    // последних, 2 - в окно Внутр ЗУ, 3 - в основно окно в выключенным меню
     uint    needForSaveToFlashDrive         : 1;    // Если 1, то нужно сохранить после отрисовки на флешку.
 };
 

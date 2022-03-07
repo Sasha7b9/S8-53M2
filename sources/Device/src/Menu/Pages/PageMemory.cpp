@@ -161,7 +161,7 @@ static void DrawSB_MemExtSetNameSave(int x, int y)
 
 static void PressSB_MemLast_SaveToFlash()
 {
-    EXIT_FROM_SET_NAME_TO = RETURN_TO_LAST_MEM;
+    PageMemory::SetName::exitTo = RETURN_TO_LAST_MEM;
     PageMemory::SaveSignalToFlashDrive();
 }
 
@@ -183,7 +183,7 @@ static void PressSB_SetName_Exit()
         PageMemory::Internal::self->OpenAndSetCurrent();
     }
 
-    EXIT_FROM_SET_NAME_TO = RETURN_TO_DISABLE_MENU;
+    PageMemory::SetName::exitTo = RETURN_TO_DISABLE_MENU;
 }
 
 
@@ -613,7 +613,7 @@ static void FuncAdditionDrawingSPageMemoryInt()
 
 void PressSB_MemInt_SaveToFlashDrive()
 {
-    EXIT_FROM_SET_NAME_TO = RETURN_TO_INT_MEM;
+    PageMemory::SetName::exitTo = RETURN_TO_INT_MEM;
     PageMemory::SaveSignalToFlashDrive();
 }
 
@@ -1116,7 +1116,7 @@ void PageMemory::SaveSignalToFlashDrive()
     }
     else
     {
-        EXIT_FROM_SET_NAME_TO = RETURN_TO_MAIN_MENU;
+        PageMemory::SetName::exitTo = RETURN_TO_MAIN_MENU;
     }
 }
 

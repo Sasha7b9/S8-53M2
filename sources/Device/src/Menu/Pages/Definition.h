@@ -110,6 +110,17 @@ struct PageMemory
 
     struct SetName
     {
+#define RETURN_TO_MAIN_MENU             0U
+#define RETURN_TO_LAST_MEM              1U
+#define RETURN_TO_INT_MEM               2U
+#define RETURN_TO_DISABLE_MENU          3U
+
+#define EXIT_FROM_SET_NAME_TO_MAIN_MENU (PageMemory::SetName::exitTo == RETURN_TO_MAIN_MENU)
+#define EXIT_FROM_SET_NAME_TO_LAST      (PageMemory::SetName::exitTo == RETURN_TO_LAST_MEM)
+#define EXIT_FROM_SET_NAME_TO_INT       (PageMemory::SetName::exitTo == RETURN_TO_INT_MEM)
+#define EXIT_FROM_SET_NAME_TO_DIS_MENU  (PageMemory::SetName::exitTo == RETURN_TO_DISABLE_MENU)
+        static uint8 exitTo;    // Куда возвращаться из окна установки имени при сохранении : 0 - в основное меню, 1 - в окно 
+                                // последних, 2 - в окно Внутр ЗУ, 3 - в основно окно в выключенным меню
         static Page *self;
     };
 

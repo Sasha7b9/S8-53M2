@@ -410,7 +410,7 @@ void Menu::ProcessingShortPressureButton()
     {
         if (shortPressureButton == Key::Memory && MODE_BTN_MEMORY_IS_SAVE && FDrive::isConnected)
         {
-            EXIT_FROM_SET_NAME_TO = IsShown() ? RETURN_TO_MAIN_MENU : RETURN_TO_DISABLE_MENU;
+            PageMemory::SetName::exitTo = IsShown() ? RETURN_TO_MAIN_MENU : RETURN_TO_DISABLE_MENU;
             PageMemory::SaveSignalToFlashDrive();
             shortPressureButton = Key::Empty;
             return;

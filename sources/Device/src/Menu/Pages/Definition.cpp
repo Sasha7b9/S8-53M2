@@ -11,9 +11,10 @@
 
 
 int16 PageMemory::Latest::current = 0;
-int8 PageMemory::Internal::currentSignal = 0;
-bool PageMemory::Internal::showAlways = false;
-bool PageMemory::Internal::exitToLast = false;
+int8  PageMemory::Internal::currentSignal = 0;
+bool  PageMemory::Internal::showAlways = false;
+bool  PageMemory::Internal::exitToLast = false;
+uint8 PageMemory::SetName::exitTo = RETURN_TO_MAIN_MENU;
 
 
 void CalculateConditions(int16 pos0, int16 pos1, CursCntrl cursCntrl, bool *cond0, bool *cond1)
