@@ -4,12 +4,12 @@
 #include "SettingsTypes.h"
 
 
-#define START_MODE              (set.trig.startMode)                    // SettingsTrig.startMode
-#define START_MODE_IS_SINGLE    (START_MODE == StartMode_Single)        // \c true, если однократный режим запуска.
-#define START_MODE_IS_AUTO      (START_MODE == StartMode_Auto)          // \c true, если автоматический режим запуска.
+#define START_MODE              (set.trig.startMode)
+#define START_MODE_IS_SINGLE    (START_MODE == StartMode::Single)
+#define START_MODE_IS_AUTO      (START_MODE == StartMode::Auto)
 
-#define TRIG_SOURCE             (set.trig.source)                       // SettingsTrig.source
-#define TRIG_SOURCE_IS_EXT      (TRIG_SOURCE == TrigSource::Ext)         // \c true, если внешний источник синхронизации.
+#define TRIG_SOURCE             (set.trig.source)
+#define TRIG_SOURCE_IS_EXT      (TRIG_SOURCE == TrigSource::Ext)
 
 #define TRIG_POLARITY           (set.trig.polarity)                     // SettingsTrig.polarity
 #define TRIG_POLARITY_IS_FRONT  (TRIG_POLARITY == TrigPolarity::Front)   // \c true, если синхронизация по фронту.
@@ -34,11 +34,14 @@
 
 
 // Режим запуска.
-enum StartMode
+struct StartMode
 {
-    StartMode_Auto,             // Автоматический.
-    StartMode_Wait,             // Ждущий.
-    StartMode_Single            // Однократный.
+    enum E
+    {
+        Auto,             // Автоматический.
+        Wait,             // Ждущий.
+        Single            // Однократный.
+    };
 };
 
 
@@ -63,7 +66,7 @@ enum TrigModeFind
 // Настройки синхронизации
 struct SettingsTrig
 {
-    StartMode           startMode;          // Режим запуска.
+    StartMode::E        startMode;          // Режим запуска.
     TrigSource::E       source;             // Источник.
     TrigPolarity::E     polarity;           // Тип синхронизации.
     TrigInput::E        input;              // Вход синхронизации.

@@ -47,9 +47,9 @@ void SCPI::TRIGGER::MODE(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (0 == value)         { START_MODE = StartMode_Auto; OnPress_Mode(true); }
-        else if (1 == value)    { START_MODE = StartMode_Wait; OnPress_Mode(true); }
-        else if (2 == value)    { START_MODE = StartMode_Single; OnPress_Mode(true); }
+        if (0 == value)         { START_MODE = StartMode::Auto; OnPress_Mode(true); }
+        else if (1 == value)    { START_MODE = StartMode::Wait; OnPress_Mode(true); }
+        else if (2 == value)    { START_MODE = StartMode::Single; OnPress_Mode(true); }
         else if (3 == value)
         {
             SCPI_SEND(":TRIGGER:MODE %s", map[START_MODE].key);

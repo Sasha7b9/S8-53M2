@@ -75,13 +75,10 @@ enum ModeSaveSignal
     ModeSaveSignal_TXT      // Сохранять данные на флешку в текствовом виде.
 };
 
-
-
-
-typedef  struct
+struct StructMemoryLast
 {
     bool isActiveModeSelect;
-} StructMemoryLast;
+};
 
 // Настройки МЕНЮ->ПАМЯТЬ
 struct SettingsMemory
