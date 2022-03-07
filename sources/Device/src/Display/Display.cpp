@@ -51,6 +51,8 @@ namespace Display
     bool framesElapsed = false;
     int  numDrawingSignals = 0;
 
+    int topMeasrues = GRID_BOTTOM;
+
     void ShowWarn(pchar  message);
 
     // Нарисовать сетку.
@@ -1946,7 +1948,7 @@ void Display::DrawMeasures()
 {
     if(!SHOW_MEASURES)
     {
-        TOP_MEASURES = GRID_BOTTOM;
+        topMeasures = GRID_BOTTOM;
         return;
     }
 
@@ -1985,7 +1987,7 @@ void Display::DrawMeasures()
             {
                 Painter::FillRegion(x, y, dX, dY, COLOR_BACK);
                 Painter::DrawRectangle(x, y, dX, dY, COLOR_FILL);
-                TOP_MEASURES = Math::MinFrom2Int(TOP_MEASURES, y);
+                topMeasures = Math::MinFrom2Int(topMeasures, y);
             }
 
             if(active)

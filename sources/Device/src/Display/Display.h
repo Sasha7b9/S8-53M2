@@ -17,6 +17,9 @@ namespace Display
     extern bool framesElapsed;
     extern int  numDrawingSignals;  // Число нарисованных сигналов для режима накопления
 
+    extern int topMeasures;         // Верх таблицы вывода измерений. Это значение нужно для нормального вывода сообщений на экран - чтобы 
+                                    // они ничего не перекрывали
+
     void Init();
 
     void Update(bool endScene = true);
