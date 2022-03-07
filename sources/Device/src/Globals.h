@@ -7,7 +7,6 @@
 
 struct DataSettings;
 
-#define SETTINGS_IS_LOADED       (gBF.settingsLoaded)
 #define NEED_OPEN_FILE_MANAGER   (gBF.needOpenFileMananger)
 #define NEED_CLOSE_PAGE_SB       (gBF.needClosePageSB)
 #define NEED_RESET_SETTINGS      (gBF.needResetSettings)
@@ -17,10 +16,6 @@ struct DataSettings;
 
 struct BitField
 {
-    // Flash drive
-    uint settingsLoaded             : 1;    // Эта переменная нужна для того, чтобы исключить ложную запись пустых настроек из-за неправильного 
-                                            // включения прибора (при исключённом из схемы программном включении иногда сигнал от кнопки отключения 
-                                            // питания приходит быстрее, чем программа успевает настроить настройки).
     uint showHelpHints              : 1;    // Если 1, то при нажатии кнопки вместо выполнения её фунции выводится подсказка о её назначении
 
     uint showDebugMenu              : 1;

@@ -17,6 +17,7 @@
 
 bool Settings::need_save = false;
 uint Settings::time_save = 0;
+bool Settings::isLoaded = false;
 
 
 static const Settings defaultSettings =
@@ -261,7 +262,7 @@ void Settings::Load(bool _default)
     Menu::SetAutoHide(true);
     Display::ChangedRShiftMarkers();
 
-    SETTINGS_IS_LOADED = 1;
+    isLoaded = true;
 }
 
 void Settings::SaveBeforePowerDown()

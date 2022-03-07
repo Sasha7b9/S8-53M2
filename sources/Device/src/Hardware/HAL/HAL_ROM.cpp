@@ -122,7 +122,7 @@ void HAL_ROM::WriteAddressDataInRecord(RecordConfig *record)
 
 void HAL_ROM::SaveSettings(bool verifyLoadede)
 {
-    if (!verifyLoadede && !SETTINGS_IS_LOADED)
+    if (!verifyLoadede && !Settings::isLoaded)
     {
         return;
     }
