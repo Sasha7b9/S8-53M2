@@ -18,6 +18,7 @@
 #include "Hardware/Sound.h"
 #include "Panel/Panel.h"
 #include "FDrive/FDrive.h"
+#include "Menu/FileManager.h"
 #include <string.h>
 
 
@@ -105,11 +106,11 @@ void Menu::UpdateInput()
     ProcessingPressButton();
     ProcessingReleaseButton();
     SwitchSetLED();
-    
-    if(NEED_OPEN_FILE_MANAGER)
+
+    if (FM::needOpen)
     {
-        NEED_OPEN_FILE_MANAGER = 0;
-        OpenFileManager();       
+        FM::needOpen = false;
+        OpenFileManager();
     }
 };
 
@@ -855,7 +856,7 @@ void Menu::ChangeStateFlashDrive()
     }
     else if(FLASH_AUTOCONNECT)
     {
-        NEED_OPEN_FILE_MANAGER = 1;
+        FM::needOpen = true;
     }
 }
 

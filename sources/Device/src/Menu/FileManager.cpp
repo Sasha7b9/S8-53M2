@@ -33,6 +33,7 @@ namespace FM
 
     bool cursorInDirs = true;   // Если true, то ручка УСТАНОВКА перемещает по каталогам
     int  needRedraw = 1;
+    bool needOpen = false;
 
     bool FileIsExist(char name[255]);
 

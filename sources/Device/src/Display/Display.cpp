@@ -51,7 +51,7 @@ namespace Display
     bool framesElapsed = false;
     int  numDrawingSignals = 0;
 
-    int topMeasrues = GRID_BOTTOM;
+    int topMeasures = GRID_BOTTOM;
 
     void ShowWarn(pchar  message);
 

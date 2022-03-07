@@ -10,7 +10,6 @@ void *extraMEM = 0;
 
 BitField gBF =
 {
-    0,  // needOpenFileManager
     1,  // needClosePageSB
     0   // needResetSettings
 };
