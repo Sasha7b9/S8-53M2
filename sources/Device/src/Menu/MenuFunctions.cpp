@@ -214,7 +214,7 @@ void Menu::CloseOpenedItem()
 }
 
 
-void Menu::OpenItem(const void *item, bool open)
+void Item::Open(bool open) const
 {
     if(item)
     {
