@@ -763,7 +763,7 @@ void Menu::ShortPress_SmallButton(void *smallButton)
         if (func)
         {
             func();
-            Item::underKey = smallButton;
+            Item::underKey = (Item *)smallButton;
         }
     }
 }

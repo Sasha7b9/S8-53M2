@@ -12,7 +12,7 @@ int8 MACaddress::cur_digit = 0;
 int8 IPaddress::cur_digit = 0;
 int8 Governor::cur_digit = 0;
 
-void *Item::underKey = nullptr;
+Item *Item::underKey = nullptr;
 
 
 // »спользуетс€ дл€ анимации изменени€ значени€ Choice
