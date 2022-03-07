@@ -52,4 +52,7 @@ namespace Menu
 
     // Отображено ли меню на экране.
     bool IsShown();
+
+    // Если true - меню находится в дополнительном режиме.
+    bool IsMinimize();
 };

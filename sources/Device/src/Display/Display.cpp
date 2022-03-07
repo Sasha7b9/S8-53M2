@@ -659,7 +659,7 @@ void Display::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan::E ch)
     Math_CalculateFFT(dataR, numPoints, spectrum, &freq0, &density0, &freq1, &density1, &y0, &y1);
     DrawSpectrumChannel(spectrum, ColorChannel(ch));
 
-    if (!Menu::IsShown() || MenuIsMinimize())
+    if (!Menu::IsShown() || Menu::IsMinimize())
     {
         Color::E color = COLOR_FILL;
         WriteParametersFFT(ch, freq0, density0, freq1, density1);
@@ -1432,13 +1432,13 @@ void Display::DrawGridSpectrum()
         {
             int y = (int)(Grid::MathTop() + i * scale);
             Painter::DrawHLine(y, Grid::Left(), Grid::Left() + 256, ColorGrid());
-            if (!MenuIsMinimize())
+            if (!Menu::IsMinimize())
             {
                 Color::SetCurrent(COLOR_FILL);
                 PText::DrawText(3, y - 4, strs[i]);
             }
         }
-        if (!MenuIsMinimize())
+        if (!Menu::IsMinimize())
         {
             Color::SetCurrent(COLOR_FILL);
             PText::DrawText(5, Grid::MathTop() + 1, "Да");
@@ -1452,7 +1452,7 @@ void Display::DrawGridSpectrum()
         {
             int y = (int)(Grid::MathTop() + i * scale);
             Painter::DrawHLine(y, Grid::Left(), Grid::Left() + 256, ColorGrid());
-            if (!MenuIsMinimize())
+            if (!Menu::IsMinimize())
             {
                 PText::DrawText(5, y - 4, strs[i], COLOR_FILL);
             }
@@ -1626,7 +1626,7 @@ void Display::DrawGrid(int left, int top, int width, int height)
         Painter::DrawHLine(top, 1, left - 2);
         Painter::DrawHLine(top, right + 2, SCREEN_WIDTH - 2);
 
-        if (!MenuIsMinimize() || !Menu::IsShown())
+        if (!Menu::IsMinimize() || !Menu::IsShown())
         {
             Painter::DrawVLine(1, top + 2, bottom - 2);
             Painter::DrawVLine(318, top + 2, bottom - 2);
@@ -1690,7 +1690,7 @@ void Display::DrawScaleLine(int x, bool forTrigLev)
 
 void Display::DrawCursorsWindow()
 {
-    if((!MenuIsMinimize() || !Menu::IsShown()) && DRAW_RSHIFT_MARKERS)
+    if((!Menu::IsMinimize() || !Menu::IsShown()) && DRAW_RSHIFT_MARKERS)
     {
         DrawScaleLine(2, false);
     }
@@ -1742,7 +1742,7 @@ void Display::DrawCursorTrigLevel()
     PText::DrawChar(x + 5, y - 9 + dY, simbols[TRIG_SOURCE], COLOR_BACK);
     Font::Set(TypeFont::_8);
 
-    if (DRAW_RSHIFT_MARKERS && !MenuIsMinimize())
+    if (DRAW_RSHIFT_MARKERS && !Menu::IsMinimize())
     {
         DrawScaleLine(SCREEN_WIDTH - 11, true);
         int left = Grid::Right() + 9;
@@ -1814,7 +1814,7 @@ void Display::DrawCursorRShift(Chan::E ch)
     Font::Set(TypeFont::_5);
     int dY = 0;
 
-    if((!MenuIsMinimize() || !Menu::IsShown()) && DRAW_RSHIFT_MARKERS)
+    if((!Menu::IsMinimize() || !Menu::IsShown()) && DRAW_RSHIFT_MARKERS)
     {
         Painter::FillRegion(4, (int)(yFull - 3), 4, 6, ColorChannel(ch));
         PText::DrawChar(5, (int)(yFull - 9 + dY), ch == Chan::A ? '1' : '2', COLOR_BACK);

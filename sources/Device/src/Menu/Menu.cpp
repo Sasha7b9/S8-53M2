@@ -537,7 +537,7 @@ void Menu::ProcessingRegulatorSet()
         {
             item = Item::Opened();
             type = item->GetType();
-            if (MenuIsMinimize())
+            if (IsMinimize())
             {
                 CurrentPageSBregSet(angleRegSet);
             }

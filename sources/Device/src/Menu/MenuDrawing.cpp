@@ -136,7 +136,7 @@ void Menu::Draw()
     {
         int x = 0;
         int y = 0;
-        int width = MenuIsMinimize() ? 289 : 220;
+        int width = IsMinimize() ? 289 : 220;
         PText::DrawTextInBoundedRectWithTransfers(x + 1, y, width - 1,
             LANG_RU ?    "Включён режим подсказок. В этом режиме при нажатии на кнопку на экран выводится информация о её назначении. "
                                                 "Чтобы выключить этот режим, нажмите кнопку ПОМОЩЬ и удерживайте её в течение 0.5с." : 

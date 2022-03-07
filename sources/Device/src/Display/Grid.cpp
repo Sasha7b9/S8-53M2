@@ -13,13 +13,13 @@ namespace Grid
 
 int Grid::Left()
 {
-    return (MenuIsMinimize() && Menu::IsShown() ? 9 : 20) + Measures::GetDeltaGridLeft();
+    return (Menu::IsMinimize() && Menu::IsShown() ? 9 : 20) + Measures::GetDeltaGridLeft();
 }
 
 
 int Grid::Right()
 {
-    return ((MenuIsMinimize() && Menu::IsShown()) ? 9 : 20) + 280;
+    return ((Menu::IsMinimize() && Menu::IsShown()) ? 9 : 20) + 280;
 }
 
 

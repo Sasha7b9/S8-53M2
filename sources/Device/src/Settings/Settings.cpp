@@ -312,7 +312,7 @@ void Menu::Show(bool show)
     Menu::SetAutoHide(true);
 }
 
-bool MenuIsMinimize()
+bool Menu::IsMinimize()
 {
     return Menu::TypeOpenedItem() == TypeItem::Page && ((const Page *)Item::Opened())->GetName() >= NamePage::SB_Curs;
 }
