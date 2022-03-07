@@ -331,6 +331,8 @@ struct TrigLev
     TrigLev &operator=(int16 trigLev) { value = trigLev; return *this; }
 
     int16 value;
+
+    static bool showLevel;      // Ќужно ли рисовать горизонтальную линию уровн€ смещени€ уровн€ синхронизации
 };
 
 

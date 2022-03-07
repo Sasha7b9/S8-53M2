@@ -276,7 +276,7 @@ void Display::RotateTrigLev()
 {
     if (TIME_SHOW_LEVELS)
     {
-        SHOW_LEVEL_TRIGLEV = 1;
+        TrigLev::showLevel = true;
         Timer::Enable(TypeTimer::ShowLevelTrigLev, TIME_SHOW_LEVELS * 1000, FuncOnTimerDisableShowLevelTrigLev);
     }
     Display::Redraw();
@@ -1394,7 +1394,7 @@ void Display::Update(bool endScene)
 
 void Display::WriteValueTrigLevel()
 {
-    if (SHOW_LEVEL_TRIGLEV && MODE_WORK_IS_DIRECT)
+    if (TrigLev::showLevel && MODE_WORK_IS_DIRECT)
     {
         float trigLev = TRIG_LEVEL_SOURCE.ToAbs(SET_RANGE(TRIG_SOURCE));     // WARN Здесь для внешней синхронизации неправильно рассчитывается уровень.
 
@@ -2328,7 +2328,7 @@ void Display::DisableShowLevelRShiftB()
 
 void Display::DisableShowLevelTrigLev()
 {
-    SHOW_LEVEL_TRIGLEV = 0;
+    TrigLev::showLevel = false;
     Timer::Disable(TypeTimer::ShowLevelTrigLev);
 }
 
