@@ -49,7 +49,7 @@ static void DrawGovernorChoiceColorFormulaHiPart(Item *item, int x, int y, bool 
             symbol = GetSymbolForGovernor(*((Governor*)item)->cell);
             ADDRESS_GOVERNOR = (uint)item;
         }
-        else if (type == TypeItem::ChoiceReg || (Menu::ItemIsOpened(item) && type == TypeItem::Choice))
+        else if (type == TypeItem::ChoiceReg || (item->IsOpened() && type == TypeItem::Choice))
         {
             symbol = GetSymbolForGovernor(*((Choice*)item)->cell);
         }
@@ -72,7 +72,7 @@ static void DrawGovernorChoiceColorFormulaHiPart(Item *item, int x, int y, bool 
             }
         }
 
-        PText::Draw4SymbolsInRect(x + MI_WIDTH - 13, y + 5 + (Menu::ItemIsOpened(item) ? 0 : 15), symbol, IS_COLOR_SCHEME_WHITE_LETTERS ? COLOR_BACK : COLOR_FILL);
+        PText::Draw4SymbolsInRect(x + MI_WIDTH - 13, y + 5 + (item->IsOpened() ? 0 : 15), symbol, IS_COLOR_SCHEME_WHITE_LETTERS ? COLOR_BACK : COLOR_FILL);
     }
 }
 

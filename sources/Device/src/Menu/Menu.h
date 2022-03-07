@@ -62,8 +62,6 @@ namespace Menu
     // Закрыть открытый элемент меню.
     void CloseOpenedItem();
 
-    bool ItemIsOpened(const void *item);                    // Возвращает true, если элемент меню по адрему item открыт.
-
     void ShortPressOnPageItem(Page *page, int numItem);     // Вызывает функцию короткого нажатия кнопки над итемом numItem страницы page;
 
     void ChangeStateFlashDrive();

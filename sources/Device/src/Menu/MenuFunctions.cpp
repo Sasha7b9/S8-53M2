@@ -227,14 +227,13 @@ void Item::Open(bool open) const
 }
 
 
-bool Menu::ItemIsOpened(const void *item)
+bool Item::IsOpened() const
 {
-    TypeItem::E type = TypeMenuItem(item);
-    Page *page = Keeper(item);
+    Page *page = Menu::Keeper(this);
 
-    if(type == TypeItem::Page)
+    if(Menu::TypeMenuItem(this) == TypeItem::Page)
     {
-        return Keeper(item)->CurrentItemIsOpened();
+        return Menu::Keeper(this)->CurrentItemIsOpened();
     }
 
     return (POS_ACT_ITEM(page->name) & 0x80) != 0;
@@ -268,7 +267,7 @@ NamePage::E Menu::GetNameOpenedPage()
 void Page::OpenAndSetCurrent() const
 {
     SetCurrent(true);
-    Open(!Menu::ItemIsOpened(this));
+    Open(!IsOpened());
 }
 
 
