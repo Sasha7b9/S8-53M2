@@ -30,6 +30,9 @@ struct Key
     };
 
     static pchar Name(Key::E);
+
+    // Возвращает true, если button - функциональная клавиша [1..5].
+    static bool IsFunctional(Key::E);
 };
 
 Key::E& operator++(Key::E &);

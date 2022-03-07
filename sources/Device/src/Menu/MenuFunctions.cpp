@@ -127,7 +127,7 @@ int Page::PosItemOnTop()
 }
 
 
-bool Menu::IsFunctionalButton(Key::E button)
+bool Key::IsFunctional(Key::E button)
 {
     return button >= Key::F1 && button <= Key::F5;
 }

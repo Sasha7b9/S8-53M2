@@ -45,9 +45,6 @@ namespace Menu
 
     NamePage::E GetNameOpenedPage();
 
-    // Возвращает true, если button - функциональная клавиша [1..5].
-    bool IsFunctionalButton(Key::E);
-
     // Закрыть открытый элемент меню.
     void CloseOpenedItem();
 
