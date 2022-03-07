@@ -106,8 +106,5 @@ struct StructRelAbs
 #define ERROR_STRING_VALUE  "--.--"
 #define M_PI                3.14159265358979323846
 
-#define ERROR_HANDLER() HardwareErrorHandler(__FILE__, __FUNCTION__, __LINE__)
-void HardwareErrorHandler(pchar file, pchar function, int line);
-
 #include "Log.h"
 //#include "Utils/Debug.h"

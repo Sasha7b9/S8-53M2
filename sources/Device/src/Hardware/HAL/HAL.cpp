@@ -156,3 +156,11 @@ uint HAL::CalculateCRC32()
 {
     return 0xab3cadef;
 }
+
+
+void ERROR_HANDLER()
+{
+    while (1)
+    {
+    }
+}

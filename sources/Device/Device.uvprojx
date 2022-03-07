@@ -922,11 +922,6 @@
               <FilePath>.\src\main.cpp</FilePath>
             </File>
             <File>
-              <FileName>defines.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\defines.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Tables.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Tables.cpp</FilePath>
@@ -2871,11 +2866,6 @@
               <FileName>main.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\main.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>defines.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\defines.cpp</FilePath>
             </File>
             <File>
               <FileName>Tables.cpp</FileName>

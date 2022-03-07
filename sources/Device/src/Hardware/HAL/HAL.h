@@ -28,6 +28,9 @@
 */
 
 
+void ERROR_HANDLER();
+
+
 namespace HAL
 {
     void Init();
