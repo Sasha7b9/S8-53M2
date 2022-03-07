@@ -42,7 +42,7 @@ void TimeLong()
 
 void TrigLong()
 {
-    if (MODE_LONG_PRESS_TRIG_IS_LEVEL0)
+    if (MODE_LONG_PRESS_TRIG_IS_LEVEL_ZERO)
     {
         Menu::Handlers::LongPressureButton(Key::Trig);
     }
