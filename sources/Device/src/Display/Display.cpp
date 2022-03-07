@@ -49,6 +49,7 @@ namespace Display
 
     bool needFinishDraw = true;
     bool framesElapsed = false;
+    int  numDrawingSignals = 0;
 
     void ShowWarn(pchar  message);
 
@@ -797,7 +798,7 @@ void Display::DrawDataNormal()
 
         if (prevAddr == 0 || prevAddr != ds->addrPrev)
         {
-            NUM_DRAWING_SIGNALS++;
+            Display::numDrawingSignals++;
             prevAddr = ds->addrPrev;
         }
     }
@@ -1308,9 +1309,9 @@ bool Display::NeedForClearScreen()
         return true;
     }
 
-    if (MODE_ACCUM_IS_RESET && NUM_DRAWING_SIGNALS >= (uint)numAccum)
+    if (MODE_ACCUM_IS_RESET && Display::numDrawingSignals >= numAccum)
     {
-        NUM_DRAWING_SIGNALS = 0;
+        Display::numDrawingSignals = 0;
         return true;
     }
 

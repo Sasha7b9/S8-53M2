@@ -15,6 +15,7 @@ namespace Display
 
     extern bool needFinishDraw;     // ≈сли true, то дисплей нуждаетс€ в перерисовке
     extern bool framesElapsed;
+    extern int  numDrawingSignals;  // „исло нарисованных сигналов дл€ режима накоплени€
 
     void Init();
 

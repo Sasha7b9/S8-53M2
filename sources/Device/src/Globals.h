@@ -15,7 +15,6 @@ struct DataSettings;
 #define FLASH_DRIVE_IS_CONNECTED (gBF.flashDriveIsConnected)
 #define NEED_CLOSE_PAGE_SB       (gBF.needClosePageSB)
 #define NEED_RESET_SETTINGS      (gBF.needResetSettings)
-#define NUM_DRAWING_SIGNALS      (gBF.numDrawingSignals)
 #define TOP_MEASURES             (gBF.topMeasures)
 #define SOUND_IS_BEEP            (gBF.soundIsBeep)
 #define SOUND_WARN_IS_BEEP       (gBF.soundWarnIsBeep)
@@ -33,9 +32,6 @@ struct DataSettings;
 
 struct BitField
 {
-    // Для рисования : Display::c
-    uint numDrawingSignals          : 8;    // Число нарисованных сигналов для режима накопления
-
     // Звук
     uint soundIsBeep                : 1;
     uint soundWarnIsBeep            : 1;
