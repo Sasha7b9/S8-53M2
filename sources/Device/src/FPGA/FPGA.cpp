@@ -43,6 +43,7 @@ namespace FPGA
     bool TRIG_AUTO_FIND = false;    // Установленное в 1 значение означает, что нужно производить автоматический поиск
                                     // синхронизации, если  выбрана соответствующая настройка.
     bool AUTO_FIND_IN_PROGRESS = false;
+    bool runningBeforeSmallButtons = false;
     bool TEMPORARY_PAUSE = false;
     bool CAN_READ_DATA = false;
     bool NEED_AUTO_TRIG = false;    // Если true, нужно делать автозапуск (автоматический режим запуска и отсутсвует

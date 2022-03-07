@@ -10,7 +10,6 @@ void *extraMEM = 0;
 
 GMemory gMemory =
 {
-    0,  // runningFPGAbeforeSmallButtons
     0,  // exitFromIntToLast
     0,  // после установки имени и сохранения на флешку возвращаемся в основное рабочее окно
     0   // needForSaveToFlashDrive

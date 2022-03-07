@@ -1123,11 +1123,13 @@ void PageMemory::SaveSignalToFlashDrive()
 static void PressSB_MemLast_Exit()
 {
     MODE_WORK = ModeWork_Direct;
-    if (RUN_FPGA_AFTER_SMALL_BUTTONS)
+
+    if (FPGA::runningBeforeSmallButtons)
     {
         FPGA::Start();
-        RUN_FPGA_AFTER_SMALL_BUTTONS = 0;
+        FPGA::runningBeforeSmallButtons = false;
     }
+
     Display::RemoveAddDrawFunction();
 }
 
@@ -1135,7 +1137,7 @@ static void PressSB_MemLast_Exit()
 void OnPressMemoryLatest()
 {
     PageMemory::Latest::current = 0;
-    RUN_FPGA_AFTER_SMALL_BUTTONS = FPGA::IsRunning() ? 1U : 0U;
+    FPGA::runningBeforeSmallButtons = FPGA::IsRunning();
     FPGA::Stop(false);
     MODE_WORK = ModeWork_Latest;
 }

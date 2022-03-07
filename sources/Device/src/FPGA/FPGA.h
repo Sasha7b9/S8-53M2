@@ -16,6 +16,8 @@ namespace FPGA
 
     extern bool AUTO_FIND_IN_PROGRESS;
 
+    extern bool runningBeforeSmallButtons;      // Здесь сохраняется информация о том, работала ли ПЛИС перед переходом в режим работы с памятью
+
     namespace FreqMeter
     {
         // Получить значение частоты.
