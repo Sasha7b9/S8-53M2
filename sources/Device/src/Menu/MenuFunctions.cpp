@@ -21,7 +21,7 @@ extern const Page mainPage;
 
 namespace Menu
 {
-    void *RetLastOpened(Page *, TypeItem::E *);
+    Item *RetLastOpened(Page *, TypeItem::E *);
 }
 
 
@@ -83,10 +83,10 @@ Item *Page::GetItem(int numElement) const
 }
 
 
-void* Menu::CurrentItem()
+Item* Menu::CurrentItem()
 {
     TypeItem::E type = TypeItem::None;
-    void *lastOpened = RetLastOpened((Page*)&mainPage, &type);
+    Item *lastOpened = RetLastOpened((Page*)&mainPage, &type);
     int8 pos = ((const Page *)lastOpened)->PosCurrentItem();
 
     if(type == TypeItem::Page && pos != 0x7f)
@@ -156,12 +156,12 @@ int Page::NumSubPages() const
 }
 
 
-void* Menu::RetLastOpened(Page *page, TypeItem::E *type)
+Item* Menu::RetLastOpened(Page *page, TypeItem::E *type)
 {
     if(page->CurrentItemIsOpened())
     {
         int8 posActItem = page->PosCurrentItem();
-        void *item = page->GetItem(posActItem);
+        Item *item = page->GetItem(posActItem);
         TypeItem::E typeLocal = TypeMenuItem(page->GetItem(posActItem));
 
         if(typeLocal == TypeItem::Page)
@@ -348,17 +348,17 @@ bool Menu::ChangeOpenedItem(void *item, int delta)
 }
 
 
-void Menu::ChangeItem(void *item, int delta)
+void Item::Change(int delta)
 {
-    TypeItem::E type = TypeMenuItem(item);
+    TypeItem::E _type = Menu::TypeMenuItem(this);
 
-    if (type == TypeItem::Choice || type == TypeItem::ChoiceReg)
+    if (_type == TypeItem::Choice || _type == TypeItem::ChoiceReg)
     {
-        ((Choice *)item)->StartChange(delta);
+        ((Choice *)this)->StartChange(delta);
     }
-    else if (type == TypeItem::Governor)
+    else if (_type == TypeItem::Governor)
     {
-        Governor *governor = (Governor*)item;
+        Governor *governor = (Governor*)this;
         if (Item::Opened() != governor)
         {
             governor->StartChange(delta);
@@ -368,9 +368,9 @@ void Menu::ChangeItem(void *item, int delta)
             governor->ChangeValue(delta);
         }
     }
-    else if (type == TypeItem::GovernorColor)
+    else if (_type == TypeItem::GovernorColor)
     {
-        ((GovernorColor *)item)->ChangeValue(delta);
+        ((GovernorColor *)this)->ChangeValue(delta);
     }
 }
 

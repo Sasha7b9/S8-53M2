@@ -54,7 +54,7 @@ namespace Menu
     // Возвращает тип открытого элемента меню.
     TypeItem::E TypeOpenedItem();
     // Возвращает адрес текущего элемента меню (текущим, как правило, является элемент, кнопка которого была нажата последней.
-    void *CurrentItem();
+    Item *CurrentItem();
     // Сделать/разделать текущим пункт страницы.
     void SetCurrentItem(const void *item, bool active);
     // Возвращает адрес элемента, которому принадлежит элемент по адресу item.
@@ -63,12 +63,13 @@ namespace Menu
     NamePage::E GetNameOpenedPage();
 
     bool ChangeOpenedItem(void *item, int delta);
-    // Уменьшает или увеличивает значение Governor, GovernorColor или Choice по адресу item в зависимости от знака delta
-    void ChangeItem(void *item, int delta);
+
     // Возвращает высоту в пикселях открытого элемента Choice или NamePage по адресу item.
     int HeightOpenedItem(void *item);
+
     // Возвращает true, если button - функциональная клавиша [1..5].
     bool IsFunctionalButton(Key::E);
+
     // Закрыть открытый элемент меню.
     void CloseOpenedItem();
 

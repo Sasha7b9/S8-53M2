@@ -142,6 +142,9 @@ public:
 
     // Открыть/закрыть элемент меню по адрему item.
     void Open(bool open) const;
+
+    // Уменьшает или увеличивает значение Governor, GovernorColor или Choice по адресу item в зависимости от знака delta
+    void Change(int delta);
 };
 
 

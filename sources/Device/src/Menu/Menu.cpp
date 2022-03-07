@@ -519,7 +519,7 @@ void Menu::ProcessingRegulatorSet()
 
     if (IsShown() || TypeMenuItem(Item::Opened()) != TypeItem::Page)
     {
-        void *item = CurrentItem();
+        Item *item = CurrentItem();
         TypeItem::E type = TypeMenuItem(item);
 
         if (TypeMenuItem(Item::Opened()) == TypeItem::Page && (type == TypeItem::ChoiceReg ||
@@ -527,7 +527,7 @@ void Menu::ProcessingRegulatorSet()
         {
             if (angleRegSet > stepAngleRegSet || angleRegSet < -stepAngleRegSet)
             {
-                ChangeItem(item, angleRegSet);
+                item->Change(angleRegSet);
                 angleRegSet = 0;
             }
 
@@ -551,7 +551,7 @@ void Menu::ProcessingRegulatorSet()
             }
             else if (type == TypeItem::GovernorColor)
             {
-                ChangeItem(item, angleRegSet);
+                item->Change(angleRegSet);
             }
             else if (type == TypeItem::Time)
             {
