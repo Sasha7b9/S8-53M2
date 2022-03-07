@@ -517,12 +517,12 @@ void Menu::ProcessingRegulatorSet()
         return;
     }
 
-    if (IsShown() || TypeMenuItem(Item::Opened()) != TypeItem::Page)
+    if (IsShown() || Item::Opened()->GetType() != TypeItem::Page)
     {
         Item *item = Item::Current();
-        TypeItem::E type = TypeMenuItem(item);
+        TypeItem::E type = item->GetType();
 
-        if (TypeMenuItem(Item::Opened()) == TypeItem::Page && (type == TypeItem::ChoiceReg ||
+        if (Item::Opened()->GetType() == TypeItem::Page && (type == TypeItem::ChoiceReg ||
             type == TypeItem::Governor || type == TypeItem::IP || type == TypeItem::MAC))
         {
             if (angleRegSet > stepAngleRegSet || angleRegSet < -stepAngleRegSet)
@@ -536,7 +536,7 @@ void Menu::ProcessingRegulatorSet()
         else
         {
             item = Item::Opened();
-            type = TypeMenuItem(item);
+            type = item->GetType();
             if (MenuIsMinimize())
             {
                 CurrentPageSBregSet(angleRegSet);
@@ -800,7 +800,7 @@ void Menu::ExecuteFuncForShortPressOnItem(Item *item)
         &Menu::ShortPress_SmallButton       // TypeItem::SmallButton
     };
  
-    pFuncMenuVpV func = shortFunction[TypeMenuItem(item)];
+    pFuncMenuVpV func = shortFunction[item->GetType()];
 
     if (func)
     {
@@ -832,7 +832,7 @@ void Menu::ExecuteFuncForLongPressureOnItem(Item *item)
 
     if (item->IsActive())
     {
-        pFuncMenuVpV func = longFunction[TypeMenuItem(item)];
+        pFuncMenuVpV func = longFunction[item->GetType()];
         if (func)
         {
             (func)(item);
@@ -905,7 +905,7 @@ bool Menu::NeedForFireSetLED()
         return true;
     }
     
-    TypeItem::E typeCurrentItem = TypeMenuItem(Item::Current());
+    TypeItem::E typeCurrentItem = Item::Current()->GetType();
     if (typeCurrentItem == TypeItem::Governor    ||
         typeCurrentItem == TypeItem::ChoiceReg)
     {

@@ -162,6 +162,9 @@ public:
 
     // Возвращает true, если элемент меню по адрему item открыт.
     bool IsOpened() const;
+
+    // Возвращает тип элемента меню по адресу address.
+    TypeItem::E GetType() const;
 };
 
 

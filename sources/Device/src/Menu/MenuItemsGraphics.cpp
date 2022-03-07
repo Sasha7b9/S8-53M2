@@ -18,7 +18,7 @@ static void DrawGovernorChoiceColorFormulaHiPart(Item *item, int x, int y, bool 
     int delta = pressed && !shade ? 1 : 0;
     int width = MI_WIDTH_VALUE;
 
-    if (Menu::TypeMenuItem(item) == TypeItem::IP && opened && ((IPaddress*)item)->port != 0)
+    if (item->GetType() == TypeItem::IP && opened && ((IPaddress*)item)->port != 0)
     {
         width += MOI_WIDTH_D_IP;
     }
@@ -38,7 +38,7 @@ static void DrawGovernorChoiceColorFormulaHiPart(Item *item, int x, int y, bool 
 
     PText::DrawText(x + 6 + delta, y + 6 + delta, item->Title(), color);
     
-    TypeItem::E type = Menu::TypeMenuItem(item);
+    TypeItem::E type = item->GetType();
 
     if(Item::Current() == item)
     {
