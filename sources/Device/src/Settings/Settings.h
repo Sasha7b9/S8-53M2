@@ -95,7 +95,6 @@ struct SettingsMenu
 {
     int8        posActItem[NamePage::Count];        // Позиция ативного пункта. bit7 == 1 - item is opened, 0x7f - нет активного пункта
     int8        currentSubPage[NamePage::Count];    // Номер текущей подстраницы.
-    bool        pageDebugActive;                    // Активна ли кнопка отладки в меню.
     unsigned    isShown : 1;                        // Меню показано.
 };
 
