@@ -44,21 +44,23 @@ const float Range::voltsInPoint[Range::Count] =
 };
 
 
+bool RShift::showLevelA = false;
+
 const float RShift::absStep[Range::Count] =
 {
-    2e-3f / 20 / RShift::STEP,
-    5e-3f / 20 / RShift::STEP,
-    10e-3f / 20 / RShift::STEP,
-    20e-3f / 20 / RShift::STEP,
-    50e-3f / 20 / RShift::STEP,
+    2e-3f   / 20 / RShift::STEP,
+    5e-3f   / 20 / RShift::STEP,
+    10e-3f  / 20 / RShift::STEP,
+    20e-3f  / 20 / RShift::STEP,
+    50e-3f  / 20 / RShift::STEP,
     100e-3f / 20 / RShift::STEP,
     200e-3f / 20 / RShift::STEP,
     500e-3f / 20 / RShift::STEP,
-    1.0f / 20 / RShift::STEP,
-    2.0f / 20 / RShift::STEP,
-    5.0f / 20 / RShift::STEP,
-    10.0f / 20 / RShift::STEP,
-    20.0f / 20 / RShift::STEP
+    1.0f    / 20 / RShift::STEP,
+    2.0f    / 20 / RShift::STEP,
+    5.0f    / 20 / RShift::STEP,
+    10.0f   / 20 / RShift::STEP,
+    20.0f   / 20 / RShift::STEP
 };
 
 

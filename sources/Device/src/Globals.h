@@ -16,7 +16,6 @@ struct DataSettings;
 #define NEED_CLOSE_PAGE_SB       (gBF.needClosePageSB)
 #define NEED_RESET_SETTINGS      (gBF.needResetSettings)
 #define NEED_FINISH_REDRAW       (gBF.needFinishDraw)
-#define SHOW_LEVEL_RSHIFT_0      (gBF.showLevelRShift0)
 #define SHOW_LEVEL_RSHIFT_1      (gBF.showLevelRShift1)
 #define SHOW_LEVEL_TRIGLEV       (gBF.showLevelTrigLev)
 #define NUM_DRAWING_SIGNALS      (gBF.numDrawingSignals)
@@ -41,7 +40,6 @@ struct DataSettings;
 struct BitField
 {
     // ƒл€ рисовани€ : Display::c
-    uint showLevelRShift0           : 1;    // Ќужно ли рисовать горизонтальную линию уровн€ смещени€ первого канала
     uint showLevelRShift1           : 1;
     uint showLevelTrigLev           : 1;    // Ќужно ли рисовать горизонтальную линию уровн€ смещени€ уровн€ синхронизации
     uint trigEnable                 : 1;

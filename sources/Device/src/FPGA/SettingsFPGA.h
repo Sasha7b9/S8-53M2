@@ -304,6 +304,8 @@ struct RShift
     int16 value;
 
     static const float absStep[Range::Count];
+
+    static bool showLevelA;     // Нужно ли рисовать горизонтальную линию уровня смещения первого канала
 };
 
 

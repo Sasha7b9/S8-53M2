@@ -10,7 +10,6 @@ void *extraMEM = 0;
 
 BitField gBF =
 {
-    0,  // showLevelRShift0
     0,  // showLevelRShift1
     0,  // showLevelTrigLev
     0,  // trigEnable
