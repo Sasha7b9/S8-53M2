@@ -47,7 +47,7 @@ static void DrawGovernorChoiceColorFormulaHiPart(Item *item, int x, int y, bool 
         if (type == TypeItem::Governor)
         {
             symbol = GetSymbolForGovernor(*((Governor*)item)->cell);
-            ADDRESS_GOVERNOR = (uint)item;
+            Governor::address = item;
         }
         else if (type == TypeItem::ChoiceReg || (item->IsOpened() && type == TypeItem::Choice))
         {

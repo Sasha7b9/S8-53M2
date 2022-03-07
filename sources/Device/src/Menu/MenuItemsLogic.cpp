@@ -16,11 +16,11 @@ void Governor::StartChange(int delta)
 {
     Sound::GovernorChangedValue();
 
-    if (delta > 0 && ADDRESS_GOVERNOR == (uint)this && inMoveIncrease)
+    if ((delta > 0) && (address == this) && inMoveIncrease)
     {
         *cell = NextValue();
     }
-    else if (delta < 0 && ADDRESS_GOVERNOR == (uint)this && inMoveDecrease)
+    else if ((delta < 0) && (address == this) && inMoveDecrease)
     {
         *cell = PrevValue();
     }
@@ -108,8 +108,6 @@ void IPaddress::GetNumPosIPvalue(int *numIP, int *selPos)
         *numIP = 4;
         *selPos = 4 - (IPaddress::cur_digit - 12);
     }
-
-
 }
 
 float Governor::Step()
@@ -117,7 +115,7 @@ float Governor::Step()
     static const float speed = 0.05f;
     static const int numLines = 10;
 
-    if (ADDRESS_GOVERNOR == (uint)this && inMoveDecrease)
+    if ((address == this) && inMoveDecrease)
     {
         float delta = -speed * (TIME_MS - TIME_START_MS);
 
@@ -142,7 +140,7 @@ float Governor::Step()
         return delta;
     }
 
-    if (ADDRESS_GOVERNOR == (uint)this && inMoveIncrease)
+    if ((address == this) && inMoveIncrease)
     {
         float delta = speed * (TIME_MS - TIME_START_MS);
 
