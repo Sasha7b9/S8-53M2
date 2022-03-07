@@ -17,13 +17,9 @@ struct DataSettings;
 #define CURSORS_IN_DIRS          (gBF.cursorInDirs)
 #define SHOW_HELP_HINTS          (gBF.showHelpHints)
 #define SHOW_DEBUG_MENU          (gBF.showDebugMenu)
-#define TIME_START_MS            (gBF.timeStartMS)
 
 struct BitField
 {
-    // Governor
-    uint timeStartMS                : 32;
-
     // Flash drive
     uint flashDriveIsConnected      : 1;
     uint cursorInDirs               : 1;    // Если 1, то ручка УСТАНОВКА перемещает по каталогам

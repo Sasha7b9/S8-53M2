@@ -20,6 +20,7 @@ pchar Hint::string = nullptr;
 bool Governor::inMoveIncrease = false;
 bool Governor::inMoveDecrease = false;
 void *Governor::address = nullptr;
+uint Governor::timeStart = 0;
 
 
 // »спользуетс€ дл€ анимации изменени€ значени€ Choice

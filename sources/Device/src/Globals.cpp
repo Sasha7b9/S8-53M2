@@ -10,9 +10,6 @@ void *extraMEM = 0;
 
 BitField gBF =
 {
-    // Governor
-    0,
-
     // Flash drive
     0,  // flashDriveIsConnected
     1,  // cursorInDirs

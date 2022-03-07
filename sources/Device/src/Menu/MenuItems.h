@@ -354,6 +354,7 @@ public:
     static bool inMoveIncrease;
     static bool inMoveDecrease;
     static void *address;
+    static uint timeStart;
 };
 
 
