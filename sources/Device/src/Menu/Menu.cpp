@@ -73,7 +73,7 @@ namespace Menu
 
     void ShortPress_SmallButton(void *smallButton);
     // Обработка длинного нажатия на элемент меню item.
-    void FuncOnLongPressItem(void *item);
+    void FuncOnLongPressItem(Item *item);
 
     void FuncOnLongPressItemTime(void *item);
     // Обработка длинного нажатия на элемент Button с адресом button.
@@ -462,7 +462,7 @@ void Menu::ProcessingShortPressureButton()
                 if(page)
                 {
                     SetCurrentItem(page, true);
-                    OpenItem(page, true);
+                    page->Open(true);
                     Show(true);
                 }
             }
@@ -603,7 +603,7 @@ void Menu::ShortPress_Page(void *item)
         return;
     }
     SetCurrentItem(page, true);
-    OpenItem((Page*)page, !ItemIsOpened((Page*)page));
+    ((Page*)page)->Open(!ItemIsOpened((Page*)page));
 }
 
 
@@ -661,6 +661,7 @@ void Menu::FuncOnLongPressItem(void *item)
     {
         SetCurrentItem(item, true);
     }
+
     OpenItem(item, !ItemIsOpened(item));
 }
 

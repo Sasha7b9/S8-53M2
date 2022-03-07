@@ -181,7 +181,7 @@ void* Menu::RetLastOpened(Page *page, TypeItem::E *type)
 
 void Menu::CloseOpenedItem()
 {
-    void *item = Item::Opened();
+    Item *item = Item::Opened();
 
     if(TypeOpenedItem() == TypeItem::Page)
     {
@@ -209,25 +209,22 @@ void Menu::CloseOpenedItem()
     }
     else
     {
-        OpenItem(item, false);
+        item->Open(false);
     } 
 }
 
 
 void Item::Open(bool open) const
 {
-    if(item)
-    {
-        Page *page = Keeper(item);
+    Page *page = Menu::Keeper(this);
 
-        if (open)
-        {
-            POS_ACT_ITEM(page->name) |= 0x80;
-        }
-        else
-        {
-            POS_ACT_ITEM(page->name) &= 0x7f;
-        }
+    if (open)
+    {
+        POS_ACT_ITEM(page->name) |= 0x80;
+    }
+    else
+    {
+        POS_ACT_ITEM(page->name) &= 0x7f;
     }
 }
 
@@ -273,7 +270,7 @@ NamePage::E Menu::GetNameOpenedPage()
 void Page::OpenAndSetCurrent() const
 {
     Menu::SetCurrentItem(this, true);
-    Menu::OpenItem(this, !Menu::ItemIsOpened(this));
+    Open(!Menu::ItemIsOpened(this));
 }
 
 
