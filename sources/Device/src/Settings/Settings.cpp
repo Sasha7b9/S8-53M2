@@ -317,10 +317,6 @@ bool Menu::IsMinimize()
     return Menu::TypeOpenedItem() == TypeItem::Page && ((const Page *)Item::Opened())->GetName() >= NamePage::SB_Curs;
 }
 
-bool MenuPageDebugIsActive()
-{
-    return set.menu.pageDebugActive;
-}
 
 void SetMenuPageDebugActive(bool active)
 {
