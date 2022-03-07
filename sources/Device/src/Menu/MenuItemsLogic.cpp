@@ -282,5 +282,5 @@ void GovernorColor::ChangeValue(int delta)
 
 int8 Page::PosCurrentItem() const
 {
-    return Menu::PosActItem(name) & 0x7f;
+    return PosActItem() & 0x7f;
 }
