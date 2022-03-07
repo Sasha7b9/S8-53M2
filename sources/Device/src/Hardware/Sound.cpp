@@ -9,11 +9,25 @@
 
 namespace Sound
 {
-    struct TypeWave { enum E {
-        Sine,
-        Meandr,
-        Triangle
-    }; };
+    struct TypeWave {
+        enum E {
+            Sine,
+            Meandr,
+            Triangle
+        };
+    };
+
+    static bool warnIsBeep = false;
+    static bool buttonIsPressed = false;
+    static float mainVolume = 0.1f;
+
+    static const int POINTS_IN_PERIOD = 10;
+    static uint8 points[POINTS_IN_PERIOD] = {0};
+    static float frequency = 0.0F;
+    static float amplitude = 0.0F;
+    static TypeWave::E typeWave = TypeWave::Sine;
+
+    bool isBeep = false;
 
     static void Beep(TypeWave::E typeWave, float frequency, float amplitude, int duration, float mainVolume = 0.1f);
 
@@ -28,17 +42,6 @@ namespace Sound
     static void CalculateMeandr();
 
     static void CalculateTriangle();
-
-    volatile static bool isBeep = false;
-    static bool warnIsBeep = false;
-    static bool buttonIsPressed = false;
-    static float mainVolume = 0.1f;
-
-    static const int POINTS_IN_PERIOD = 10;
-    static uint8 points[POINTS_IN_PERIOD] = {0};
-    static float frequency = 0.0F;
-    static float amplitude = 0.0F;
-    static TypeWave::E typeWave = TypeWave::Sine;
 }
 
 

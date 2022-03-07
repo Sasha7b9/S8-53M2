@@ -273,7 +273,7 @@ void HAL_ROM::EraseData()
 
     uint error = 0;
 
-    while(SOUND_IS_BEEP) {};
+    while(Sound::isBeep) {};
 
     HAL_FLASHEx_Erase(&flashITD, &error);
 
@@ -501,7 +501,7 @@ void HAL_ROM::EraseSector(uint startAddress)
     flashITD.VoltageRange = VOLTAGE_RANGE_3;
 
     uint32_t error = 0;
-    while (SOUND_IS_BEEP) {};
+    while (Sound::isBeep) {};
     HAL_FLASHEx_Erase(&flashITD, &error);
 
     HAL_FLASH_Lock();
