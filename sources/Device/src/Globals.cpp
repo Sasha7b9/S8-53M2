@@ -10,7 +10,6 @@ void *extraMEM = 0;
 
 BitField gBF =
 {
-    1,  // needFinishDraw
     0,  // framesElapsed
     0,  // numDrawingSignals
 

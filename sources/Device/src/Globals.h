@@ -15,7 +15,6 @@ struct DataSettings;
 #define FLASH_DRIVE_IS_CONNECTED (gBF.flashDriveIsConnected)
 #define NEED_CLOSE_PAGE_SB       (gBF.needClosePageSB)
 #define NEED_RESET_SETTINGS      (gBF.needResetSettings)
-#define NEED_FINISH_REDRAW       (gBF.needFinishDraw)
 #define NUM_DRAWING_SIGNALS      (gBF.numDrawingSignals)
 #define TOP_MEASURES             (gBF.topMeasures)
 #define FRAMES_ELAPSED           (gBF.framesElapsed)
@@ -36,7 +35,6 @@ struct DataSettings;
 struct BitField
 {
     // Для рисования : Display::c
-    uint needFinishDraw             : 1;    // Если 1, то дисплей нуждается в перерисовке
     uint framesElapsed              : 1;
     uint numDrawingSignals          : 8;    // Число нарисованных сигналов для режима накопления
 

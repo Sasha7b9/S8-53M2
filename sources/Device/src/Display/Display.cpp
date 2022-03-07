@@ -47,6 +47,8 @@ namespace Display
     pFuncVV funcAdditionDraw = 0;
     pFuncVV funcAfterDraw    = 0;
 
+    bool needFinishDraw = true;
+
     void ShowWarn(pchar  message);
 
     // Нарисовать сетку.
@@ -291,7 +293,7 @@ void Display::FuncOnTimerDisableShowLevelTrigLev()
 
 void Display::Redraw()
 {
-    NEED_FINISH_REDRAW = 1;
+    needFinishDraw = true;
 }
 
 
@@ -1299,9 +1301,9 @@ bool Display::NeedForClearScreen()
         return true;
     }
 
-    if (NEED_FINISH_REDRAW)
+    if (needFinishDraw)
     {
-        NEED_FINISH_REDRAW = 0;
+        needFinishDraw = false;
         return true;
     }
 

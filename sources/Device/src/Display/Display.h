@@ -13,6 +13,8 @@ namespace Display
 
     extern uint8 *const back_buffer;
 
+    extern bool needFinishDraw;     // ≈сли true, то дисплей нуждаетс€ в перерисовке
+
     void Init();
 
     void Update(bool endScene = true);
