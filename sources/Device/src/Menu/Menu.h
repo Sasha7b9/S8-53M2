@@ -6,10 +6,6 @@
 
 namespace Menu
 {
-    // Возвращает true, если элемент меню item затенён (находится не на самом верхнем слое. Как правило, это означает,
-    // что раскрыт раскрывающийся элемент меню вроде Choice или Governor.
-    bool IsShade(void* item);
-
     bool IsPressed(void* item);
 
     void Draw();

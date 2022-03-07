@@ -381,9 +381,9 @@ int Menu::CalculateX(int layer)
 }
 
 
-bool Menu::IsShade(void* item)
+bool Item::IsShade() const
 {
-    return ((Item *)item)->Keeper()->CurrentItemIsOpened() && (item != Item::Opened());
+    return Keeper()->CurrentItemIsOpened() && (this != Item::Opened());
 }
 
 
