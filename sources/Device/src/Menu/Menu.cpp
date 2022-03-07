@@ -53,13 +53,13 @@ namespace Menu
     // Включить/выключить светодиод ручки УСТАНОВКА, если необходимо.
     void SwitchSetLED();
     // Обработка короткого нажатия на элемент NamePage с адресом page.
-    void ShortPress_Page(void *page);
+    void ShortPress_Page(Item *page);
     // Обработка короткого нажатия на элемент Choice с адресом choice.
-    void ShortPress_Choice(void *choice);
+    void ShortPress_Choice(Item *choice);
 
-    void ShortPress_Time(void *time);
+    void ShortPress_Time(Item *time);
     // Обработка короткого нажатия на элемент Button с адресом button.
-    void ShortPress_Button(void *button);
+    void ShortPress_Button(Item *button);
     // Обработка короткого нажатия на элемент Governor с адресом governor.
     void ShortPress_Governor(void *governor);
     // Обработка короткого нажатия на элемент GovernorColor с адресом governorColor.
@@ -75,7 +75,7 @@ namespace Menu
     // Обработка длинного нажатия на элемент меню item.
     void FuncOnLongPressItem(Item *item);
 
-    void FuncOnLongPressItemTime(void *item);
+    void FuncOnLongPressItemTime(Item *item);
     // Обработка длинного нажатия на элемент Button с адресом button.
     void FuncOnLongPressItemButton(void *button);
     // Возвращает функцию обработки короткого нажатия на элемент меню item.
@@ -591,23 +591,26 @@ void Menu::ProcessingReleaseButton()
 }
 
 
-void Menu::ShortPress_Page(void *item)
+void Menu::ShortPress_Page(Item *item)
 {
     Page *page = (Page *)item;
+
     if (page->funcOnPress)
     {
         page->funcOnPress();
     }
+
     if (!ItemIsActive(page))
     {
         return;
     }
+
     SetCurrentItem(page, true);
     ((Page*)page)->Open(!ItemIsOpened((Page*)page));
 }
 
 
-void Menu::ShortPress_Choice(void *choice)
+void Menu::ShortPress_Choice(Item *choice)
 {
     if (!ItemIsActive(choice))
     {
@@ -640,11 +643,11 @@ void Menu::ShortPress_ChoiceReg(void *choice)
 
 void Menu::FuncOnLongPressItemButton(void *button)
 {
-    ShortPress_Button(button);
+    ShortPress_Button((Item *)button);
 }
 
 
-void Menu::ShortPress_Button(void *button)
+void Menu::ShortPress_Button(Item *button)
 {
     if(!ItemIsActive(button))
     {
@@ -655,18 +658,18 @@ void Menu::ShortPress_Button(void *button)
 }
 
 
-void Menu::FuncOnLongPressItem(void *item)
+void Menu::FuncOnLongPressItem(Item *item)
 {
     if (CurrentItem() != item)
     {
         SetCurrentItem(item, true);
     }
 
-    OpenItem(item, !ItemIsOpened(item));
+    item->Open(!ItemIsOpened(item));
 }
 
 
-void Menu::FuncOnLongPressItemTime(void *time)
+void Menu::FuncOnLongPressItemTime(Item *time)
 {
     if (CurrentItem() != time)
     {
@@ -678,19 +681,19 @@ void Menu::FuncOnLongPressItemTime(void *time)
         ((Time *)time)->SetNewTime();
     }
 
-    OpenItem(time, !ItemIsOpened(time));
+    time->Open(!ItemIsOpened(time));
 
     ((Time *)time)->SetOpened();
 }
 
 
-void Menu::ShortPress_Time(void *time)
+void Menu::ShortPress_Time(Item *time)
 {
     if(!ItemIsOpened(time))
     {
         SetCurrentItem(time, true);
         ((Time *)time)->SetOpened();
-        OpenItem(time, true);
+        time->Open(true);
     }
     else
     {
@@ -750,7 +753,7 @@ void Menu::ShortPress_GovernorColor(void *governorColor)
     }
     else
     {
-        FuncOnLongPressItem(governorColor);
+        FuncOnLongPressItem((Item *)governorColor);
     }
 }
 
@@ -772,20 +775,20 @@ void Menu::ShortPress_SmallButton(void *smallButton)
 
 void Menu::ExecuteFuncForShortPressOnItem(void *item)
 {
-    typedef void(*pFuncMenuVpV)(void*);
+    typedef void(*pFuncMenuVpV)(Item *);
 
     static const pFuncMenuVpV shortFunction[TypeItem::Count] =
     {
-        0,                                  // TypeItem::None
+        nullptr,                            // TypeItem::None
         &Menu::ShortPress_Choice,           // TypeItem::Choice
         &Menu::ShortPress_Button,           // TypeItem::Button
         &Menu::ShortPress_Page,             // TypeItem::Page
         &Menu::ShortPress_Governor,         // TypeItem::Governor
         &Menu::ShortPress_Time,             // TypeItem::Time
         &Menu::ShortPress_IP,               // TypeItem::IP
-        0,                                  // Item_SwitchButton
+        nullptr,                            // Item_SwitchButton
         &Menu::ShortPress_GovernorColor,    // TypeItem::GovernorColor
-        0,                                  // Item_Formula
+        nullptr,                            // Item_Formula
         &Menu::ShortPress_MAC,              // TypeItem::MAC
         &Menu::ShortPress_ChoiceReg,        // TypeItem::ChoiceReg
         &Menu::ShortPress_SmallButton       // TypeItem::SmallButton
