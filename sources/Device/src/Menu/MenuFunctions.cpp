@@ -272,14 +272,14 @@ void Page::OpenAndSetCurrent() const
 }
 
 
-bool Menu::ItemIsActive(void *item)
+bool Item::IsActive() const
 {
-    TypeItem::E type = TypeMenuItem(item);
+    TypeItem::E _type = Menu::TypeMenuItem(this);
 
-    if (type == TypeItem::Choice || type == TypeItem::Page || type == TypeItem::Button || type == TypeItem::Governor ||
-        type == TypeItem::SmallButton)
+    if (_type == TypeItem::Choice || _type == TypeItem::Page || _type == TypeItem::Button || _type == TypeItem::Governor ||
+        _type == TypeItem::SmallButton)
     {
-        pFuncBV func = ((Page*)(item))->funcOfActive;
+        pFuncBV func = funcOfActive;
 
         return func ? func() : true;
     }

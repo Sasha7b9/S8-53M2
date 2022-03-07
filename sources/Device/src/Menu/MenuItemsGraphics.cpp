@@ -237,7 +237,7 @@ void Formula::DrawLowPart(int x, int y, bool, bool shade)
 void Governor::DrawClosed(int x, int y)
 {
     bool pressed = Menu::IsPressed(this);
-    bool shade = Menu::IsShade(this) || !Menu::ItemIsActive(this);
+    bool shade = Menu::IsShade(this) || !IsActive();
     DrawLowPart(x, y, pressed, shade);
     DrawGovernorChoiceColorFormulaHiPart(this, x, y, pressed, shade, false);
 }
@@ -246,7 +246,7 @@ void Governor::DrawClosed(int x, int y)
 static void ItemIPaddress_DrawClosed(IPaddress *ip, int x, int y)
 {
     bool pressed = Menu::IsPressed(ip);
-    bool shade = Menu::IsShade(ip) || !Menu::ItemIsActive(ip);
+    bool shade = Menu::IsShade(ip) || !((Item *)ip)->IsActive();
     ip->DrawLowPart(x, y, pressed, shade);
     DrawGovernorChoiceColorFormulaHiPart(ip, x, y, pressed, shade, false);
 }
@@ -254,7 +254,7 @@ static void ItemIPaddress_DrawClosed(IPaddress *ip, int x, int y)
 static void ItemMACaddress_DrawClosed(MACaddress *mac, int x, int y)
 {
     bool pressed = Menu::IsPressed(mac);
-    bool shade = Menu::IsShade(mac) || !Menu::ItemIsActive(mac);
+    bool shade = Menu::IsShade(mac) || !((Item *)mac)->IsActive();
     DrawMACaddressLowPart(mac, x, y, pressed, shade);
     DrawGovernorChoiceColorFormulaHiPart((Item *)mac, x, y, pressed, shade, false);
 }
@@ -262,7 +262,7 @@ static void ItemMACaddress_DrawClosed(MACaddress *mac, int x, int y)
 void Formula_DrawClosed(Formula *formula, int x, int y)
 {
     bool pressed = Menu::IsPressed(formula);
-    bool shade = Menu::IsShade(formula) || !Menu::ItemIsActive(formula);
+    bool shade = Menu::IsShade(formula) || !((Item *)formula)->IsActive();
     formula->DrawLowPart(x, y, pressed, shade);
     DrawGovernorChoiceColorFormulaHiPart((Item *)formula, x, y, pressed, shade, false);
 }
@@ -490,7 +490,7 @@ void GovernorColor::DrawClosed(int x, int y)
 {
     colorType->Init();
     DrawGovernorChoiceColorFormulaHiPart((Item *)this, x, y, Menu::IsPressed(this), Menu::IsShade(this) ||
-        !Menu::ItemIsActive(this), true);
+        !((Item *)this)->IsActive(), true);
     Painter::FillRegion(x + 2, y + 20, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1, colorType->color);
 }
 
@@ -628,7 +628,7 @@ void MACaddress::DrawOpened(int x, int y)
 void Choice::DrawClosed(int x, int y)
 {
     bool pressed = Menu::IsPressed(this);
-    bool shade = Menu::IsShade(this) || !Menu::ItemIsActive(this);
+    bool shade = Menu::IsShade(this) || !((Item *)this)->IsActive();
         
     if (shade)
     {
@@ -718,7 +718,7 @@ void Time::Draw(int x, int y, bool opened)
 void Button::Draw(int x, int y)
 {
     bool pressed = Menu::IsPressed(this);
-    bool shade = Menu::IsShade(this) || !Menu::ItemIsActive(this);
+    bool shade = Menu::IsShade(this) || !IsActive();
 
     Painter::DrawHLine(y + 1, x, x + MI_WIDTH, ColorMenuTitle(shade));
     Color::E color = shade ? Color::MENU_SHADOW : Color::WHITE;
@@ -734,7 +734,7 @@ void Button::Draw(int x, int y)
 
 void SmallButton::Draw(int x, int y)
 {
-    if (Menu::ItemIsActive(this))
+    if (IsActive())
     {
         if (Menu::IsPressed(this))
         {
@@ -757,7 +757,7 @@ void SmallButton::Draw(int x, int y)
 
 void Page::Draw(int x, int y)
 {
-    bool isShade = Menu::IsShade(this) || !Menu::ItemIsActive(this);
+    bool isShade = Menu::IsShade(this) || !IsActive();
     bool isPressed = Menu::IsPressed(this);
     Painter::DrawHLine(y + 1, x, x + MI_WIDTH, ColorBorderMenu(false));
 

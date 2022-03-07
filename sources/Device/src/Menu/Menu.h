@@ -46,8 +46,6 @@ namespace Menu
     // Возвращает путь к текущему пункту меню в текстовом виде, готовом к выводу на экран.
     char *StringNavigation(char buffer[100]);
 
-    // Вовзращает true, если элемент меню item является ативным, т.е. может быть нажат.
-    bool ItemIsActive(void *item);
     // Возвращает тип элемента меню по адресу address.
     TypeItem::E TypeMenuItem(const void *);
     // Возвращает тип открытого элемента меню.

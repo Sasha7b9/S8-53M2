@@ -156,6 +156,9 @@ public:
 
     // —делать/разделать текущим пункт страницы.
     void SetCurrent(bool active) const;
+
+    // ¬овзращает true, если элемент меню item €вл€етс€ ативным, т.е. может быть нажат.
+    bool IsActive() const;
 };
 
 

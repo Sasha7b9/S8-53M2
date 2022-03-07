@@ -163,7 +163,7 @@ void Choice::StartChange(int delta)
     {
         Hint::SetItem((Item *)this);
     }
-    else if (!Menu::ItemIsActive(this))
+    else if (!((Item *)this)->IsActive())
     {
         FuncOnChanged(false);
     }
@@ -205,13 +205,16 @@ float Choice::Step()
 {
     static const float speed = 0.1f;
     static const int numLines = 12;
+
     if (tsChoice.choice == this)
     {
         float delta = speed * (TIME_MS - tsChoice.timeStartMS);
+
         if (delta == 0.0f)
         {
             delta = 0.001f; // Таймер в несколько первых кадров может показать, что прошло 0 мс, но мы возвращаем большее число, потому что ноль будет говорить о том, что движения нет
         }
+
         if (tsChoice.inMoveIncrease == 1)
         {
             if (delta <= numLines)
@@ -230,12 +233,15 @@ float Choice::Step()
             }
             CircleDecreaseInt8(cell, 0, NumSubItems() - 1);
         }
+
         tsChoice.choice = 0;
-        FuncOnChanged(Menu::ItemIsActive(this));
+        FuncOnChanged(((Item *)this)->IsActive());
         Display::Redraw();
         tsChoice.inMoveDecrease = tsChoice.inMoveIncrease = 0;
+
         return 0.0f;
     }
+
     return 0.0f;
 }
 
@@ -252,7 +258,8 @@ void Choice::ChangeValue(int delta)
         int8 value = (*cell == 0) ? (NumSubItems() - 1) : (*cell - 1);
         *cell = value;
     }
-    FuncOnChanged(Menu::ItemIsActive(this));
+
+    FuncOnChanged(((Item *)this)->IsActive());
     Sound::GovernorChangedValue();
     Display::Redraw();
 }
