@@ -47,8 +47,6 @@ struct DataSettings;
 struct BitField
 {
     // Ethernet
-    uint ethTimeLastEthifInput      : 32;   // Время последнего входа в процедуру ethernetif.c:ethernetif_input() Используется для определения того, 
-                                            // что разъём ethernet подключен. Анализироваться будет в функции отрисовки значка подключения
     uint cableLANisConnected        : 1;    // Если 1, значит, просто подключён кабель
     uint clientLANisConnected       : 1;    // Если 1, то подсоединён клиент
 
