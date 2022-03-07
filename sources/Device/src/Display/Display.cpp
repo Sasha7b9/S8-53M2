@@ -836,7 +836,7 @@ void Display::DrawData()
         }
         else
         {
-            if (INT_SHOW_ALWAYS)
+            if (PageMemory::Internal::showAlways)
             {
                 DrawDataMemInt();
             }

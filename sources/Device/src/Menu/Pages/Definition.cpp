@@ -12,6 +12,7 @@
 
 int16 PageMemory::Latest::current = 0;
 int8 PageMemory::Internal::currentSignal = 0;
+bool PageMemory::Internal::showAlways = false;
 
 
 void CalculateConditions(int16 pos0, int16 pos1, CursCntrl cursCntrl, bool *cond0, bool *cond1)

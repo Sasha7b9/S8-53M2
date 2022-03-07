@@ -648,7 +648,7 @@ static void DrawSB_MemInt_ShowSignalAllways_No(int x, int y)
 
 static void DrawSB_MemInt_ShowSignalAlways(int x, int y)
 {
-    if (INT_SHOW_ALWAYS == 0)
+    if (!PageMemory::Internal::showAlways)
     {
         DrawSB_MemInt_ShowSignalAllways_No(x, y);
     }
@@ -660,7 +660,7 @@ static void DrawSB_MemInt_ShowSignalAlways(int x, int y)
 
 static void PressSB_MemInt_ShowSignalAlways()
 {
-    INT_SHOW_ALWAYS = (INT_SHOW_ALWAYS == 0) ? 1U : 0U;
+    PageMemory::Internal::showAlways = !PageMemory::Internal::showAlways;
 }
 
 extern const Page mspMemInt;

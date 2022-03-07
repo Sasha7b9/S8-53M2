@@ -98,6 +98,8 @@ struct PageMemory
     {
         static int8 currentSignal;          // Текущий номер сигнала, сохранённого в ППЗУ
 
+        static bool showAlways;             // Если 1, то показывать всегда выбранный в режиме "Внутр. ЗУ" сигнал
+
         static Page *self;
     };
 

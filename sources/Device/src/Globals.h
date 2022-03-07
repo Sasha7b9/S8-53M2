@@ -10,7 +10,6 @@ struct DataSettings;
 
 #define EXIT_FROM_INT_TO_LAST           (gMemory.exitFromIntToLast)
 #define RUN_FPGA_AFTER_SMALL_BUTTONS    (gMemory.runningFPGAbeforeSmallButtons)
-#define INT_SHOW_ALWAYS                 (gMemory.showAlways)
 #define NEED_SAVE_TO_DRIVE              (gMemory.needForSaveToFlashDrive)
 
 #define EXIT_FROM_SET_NAME_TO           (gMemory.exitFromModeSetNameTo)
@@ -25,7 +24,6 @@ struct DataSettings;
 
 struct GMemory
 {
-    uint    showAlways                      : 1;    // Если 1, то показывать всегда выбранный в режиме "Внутр. ЗУ" сигнал
     uint    runningFPGAbeforeSmallButtons   : 1;    // Здесь сохраняется информация о том, работала ли ПЛИС перед переходом в режим работы с памятью
     uint    exitFromIntToLast               : 1;    // Если 1, то выходить из страницы внутренней памяти нужно не стандартно, а в меню последних
     uint    exitFromModeSetNameTo           : 2;    // Куда возвращаться из окна установки имени при сохранении : 0 - в основное меню, 1 - в окно 
