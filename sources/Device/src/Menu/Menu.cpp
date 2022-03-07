@@ -35,9 +35,6 @@ namespace Menu
     int angleRegSet = 0;
 
     static const int stepAngleRegSet = 2;
-    // Здесь хранится адрес элемента меню, соответствующего функциональной клавише [1..5], если она находится в нижнем положении, и 0, если ни одна 
-    // кнопка не нажата.
-    static void *itemUnderKey = 0;
 
     static const int  SIZE_BUFFER_FOR_BUTTONS = 5;
     static Key::E bufferForButtons[SIZE_BUFFER_FOR_BUTTONS] = {Key::Empty, Key::Empty, Key::Empty, Key::Empty, Key::Empty};
@@ -336,7 +333,7 @@ void Menu::Handlers::RotateRegSetLeft()
 
 Item *Item::UnderKey()
 {
-    return (Item *)Menu::itemUnderKey;
+    return (Item *)underKey;
 };
 
 
@@ -577,7 +574,7 @@ void Menu::ProcessingPressButton()
     {
         if (pressButton != Key::Menu)
         {
-            itemUnderKey = Item::UnderKey(pressButton);
+            Item::underKey = Item::UnderKey(pressButton);
         }
     }
     pressButton = Key::Empty;
@@ -588,7 +585,7 @@ void Menu::ProcessingReleaseButton()
 {
     if(releaseButton >= Key::F1 && releaseButton <= Key::F5 || pressButton == Key::Menu)
     {
-        itemUnderKey = 0;
+        Item::underKey = nullptr;
         releaseButton = Key::Empty;
     }
 }
@@ -766,7 +763,7 @@ void Menu::ShortPress_SmallButton(void *smallButton)
         if (func)
         {
             func();
-            itemUnderKey = smallButton;
+            Item::underKey = smallButton;
         }
     }
 }
