@@ -335,7 +335,7 @@ err_t CallbackOnAcceptPolicyPort(void *_arg, struct tcp_pcb *_newPCB, err_t _err
 }
 
 
-bool TCPSocket_Init(void(*_funcConnect)(), void(*_funcReciever)(pchar _buffer, uint _length))
+bool SocketTCP::Init(void(*_funcConnect)(), void(*_funcReciever)(pchar _buffer, uint _length))
 {
     struct tcp_pcb *pcb = tcp_new();
     if (pcb != NULL)
@@ -385,7 +385,7 @@ bool TCPSocket_Init(void(*_funcConnect)(), void(*_funcReciever)(pchar _buffer, u
 }
 
 
-bool TCPSocket_Send(pchar, uint)
+bool SocketTCP::Send(pchar, uint)
 {
     /*
     if (pcbClient)
@@ -406,15 +406,15 @@ bool TCPSocket_Send(pchar, uint)
 }
 
 
-void TCPSocket_SendFormatString(char *format, ...)
+void SocketTCP::SendFormatString(char *format, ...)
 {
-#undef SIZE_BUFFER
-#define SIZE_BUFFER 200
+    const int SIZE_BUFFER = 200;
     static char buffer[SIZE_BUFFER];
+
     va_list args;
     va_start(args, format);
     vsprintf(buffer, format, args);
     va_end(args);
     strcat(buffer, "\r\n");
-    TCPSocket_Send(buffer, (uint)strlen(buffer));
+    Send(buffer, (uint)strlen(buffer));
 }

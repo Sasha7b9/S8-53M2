@@ -151,7 +151,7 @@ void Painter::DrawDashedHLine(int y, int x0, int x1, int deltaFill, int deltaEmp
 void InterCom::Send(uint8 *pointer, int size)
 {
     VCP::SendDataSynch(pointer, size);
-    TCPSocket_Send((pchar )pointer, (uint)size);
+    SocketTCP::Send((pchar )pointer, (uint)size);
 }
 
 
