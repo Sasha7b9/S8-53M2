@@ -107,7 +107,6 @@ bool MenuIsMinimize();                                              // Если true
 bool MenuPageDebugIsActive();                                       // Активна ли страница отладки.
 void SetMenuPageDebugActive(bool active);                           // Сделать/разделать активной страницу отладки.
 void CurrentPageSBregSet(int angle);                                // Повернуть ручку УСТАНОВКА на текущей странице малых кнопок.
-const SmallButton*  GetSmallButton(Key::E);                         // Вернуть указатель на малую кнопку, соответствующую данной кнопки панели.
 
 
 // Струкура хранит все настройки прибора.
