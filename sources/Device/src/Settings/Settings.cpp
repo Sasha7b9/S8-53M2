@@ -296,11 +296,6 @@ bool Settings::DebugModeEnable()
     return true;
 }
 
-int8 Page::PosActItem() const
-{
-    return set.menu.posActItem[name];
-}
-
 void Page::SetPosActItem(int8 pos)
 {
     set.menu.posActItem[name] = pos;

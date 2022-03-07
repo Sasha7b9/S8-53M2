@@ -34,7 +34,7 @@ TypeItem::E Menu::TypeMenuItem(const void *address)
 
 bool Page::CurrentItemIsOpened()
 {
-    bool retValue = _GET_BIT(PosActItem(), 7) == 1;
+    bool retValue = _GET_BIT(POS_ACT_ITEM(name), 7) == 1;
     return retValue;
 }
 
@@ -197,7 +197,7 @@ void Menu::CloseOpenedItem()
         if(NEED_CLOSE_PAGE_SB == 1)
         {
             Page *page = Keeper(item);
-            page->SetPosActItem(page->PosActItem() & 0x7f);             // Сбрасываем бит 7 - "закрываем" активный пункт страницы namePage
+            page->SetPosActItem(POS_ACT_ITEM(page->name) & 0x7f);   // Сбрасываем бит 7 - "закрываем" активный пункт страницы namePage
         }
 
         NEED_CLOSE_PAGE_SB = 1;
@@ -234,7 +234,7 @@ bool Menu::ItemIsOpened(const void *item)
         return Keeper(item)->CurrentItemIsOpened();
     }
 
-    return (page->PosActItem() & 0x80) != 0;
+    return (POS_ACT_ITEM(page->name) & 0x80) != 0;
 }
 
 

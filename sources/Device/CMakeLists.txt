@@ -45,6 +45,7 @@ if(WIN32)
     add_compile_options(/wd5220)    # '<unnamed-tag>::SR': a non-static data member with a volatile qualified type no longer
                                     # implies that compiler generated copy/move constructors and copy/move assignment
                                     # operators are not trivia
+    add_compile_options(/wd26812)
 
 else()
 
