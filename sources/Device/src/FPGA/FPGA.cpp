@@ -28,6 +28,13 @@
 
 namespace FPGA
 {
+    StateFPGA state =
+    {
+        false,
+        StateWorkFPGA::Stop,
+        StateCalibration::None
+    };
+
     uint timeStart = 0;
 
     DataSettings ds;
@@ -117,10 +124,10 @@ void FPGA::Update()
 {
     ReadFlag();
 
-    if (gStateFPGA.needCalibration)              // Если вошли в режим калибровки -
+    if (state.needCalibration)              // Если вошли в режим калибровки -
     {
-        FPGA::ProcedureCalibration();            // выполняем её.
-        gStateFPGA.needCalibration = false;
+        FPGA::ProcedureCalibration();       // выполняем её.
+        state.needCalibration = false;
     }
 
     if (TEMPORARY_PAUSE)

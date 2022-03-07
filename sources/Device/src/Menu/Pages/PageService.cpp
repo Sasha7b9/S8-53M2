@@ -223,7 +223,7 @@ static const Button cCalibrator_Calibrate
 
 static void OnPress_Calibrator_Calibrate()
 {
-    gStateFPGA.needCalibration = true;
+    FPGA::state.needCalibration = true;
 }
 
 // —≈–¬»— - Ã¿“≈Ã¿“» ¿ /////////////

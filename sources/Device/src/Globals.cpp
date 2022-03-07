@@ -8,12 +8,4 @@
 void *extraMEM = 0;
 
 
-StateFPGA gStateFPGA = 
-{
-    false,
-    StateWorkFPGA::Stop,
-    StateCalibration::None
-};
-
-
 int transmitBytes = 0;
