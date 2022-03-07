@@ -39,24 +39,22 @@ bool Page::CurrentItemIsOpened()
 }
 
 
-void Menu::SetCurrentItem(const void *item, bool active)
+void Item::SetCurrent(bool active) const
 {
-    if(item != 0)
+    Page *page = (Menu::Keeper(this));
+
+    if (!active)
     {
-        Page *page = (Keeper(item));
-        if(!active)
+        POS_ACT_ITEM(page->name) = 0x7f;
+    }
+    else
+    {
+        for (int8 i = 0; i < page->NumItems(); i++)
         {
-            POS_ACT_ITEM(page->name) = 0x7f;
-        }
-        else
-        {
-            for(int8 i = 0; i < page->NumItems(); i++)
+            if (page->GetItem(i) == this)
             {
-                if(page->GetItem(i) == item)
-                {
-                    POS_ACT_ITEM(page->name) = i;
-                    return;
-                }
+                POS_ACT_ITEM(page->name) = i;
+                return;
             }
         }
     }
@@ -269,7 +267,7 @@ NamePage::E Menu::GetNameOpenedPage()
 
 void Page::OpenAndSetCurrent() const
 {
-    Menu::SetCurrentItem(this, true);
+    SetCurrent(true);
     Open(!Menu::ItemIsOpened(this));
 }
 

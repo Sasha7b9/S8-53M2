@@ -461,7 +461,7 @@ void Menu::ProcessingShortPressureButton()
 
                 if(page)
                 {
-                    SetCurrentItem(page, true);
+                    page->SetCurrent(true);
                     page->Open(true);
                     Show(true);
                 }
@@ -605,7 +605,7 @@ void Menu::ShortPress_Page(Item *item)
         return;
     }
 
-    SetCurrentItem(page, true);
+    page->SetCurrent(true);
     ((Page*)page)->Open(!ItemIsOpened((Page*)page));
 }
 
@@ -618,7 +618,7 @@ void Menu::ShortPress_Choice(Item *choice)
     }
     else if (!ItemIsOpened(choice))
     {
-        SetCurrentItem(choice, Item::Current() != choice);
+        choice->SetCurrent(Item::Current() != choice);
         ((Choice *)choice)->StartChange(1);
     }
     else
@@ -636,7 +636,7 @@ void Menu::ShortPress_ChoiceReg(Item *choice)
     } 
     else if(Item::Opened() != choice)
     {
-        SetCurrentItem(choice, Item::Current() != choice);
+        choice->SetCurrent(Item::Current() != choice);
     }
 }
 
@@ -653,7 +653,8 @@ void Menu::ShortPress_Button(Item *button)
     {
         return;
     }
-    SetCurrentItem(button, true);
+    
+    button->SetCurrent(true);
     ((Button*)button)->funcOnPress();
 }
 
@@ -662,7 +663,7 @@ void Menu::FuncOnLongPressItem(Item *item)
 {
     if (Item::Current() != item)
     {
-        SetCurrentItem(item, true);
+        item->SetCurrent(true);
     }
 
     item->Open(!ItemIsOpened(item));
@@ -673,7 +674,7 @@ void Menu::FuncOnLongPressItemTime(Item *time)
 {
     if (Item::Current() != time)
     {
-        SetCurrentItem(time, true);
+        time->SetCurrent(true);
     }
 
     if(ItemIsOpened(time) && *((Time*)time)->curField == iSET)
@@ -691,7 +692,7 @@ void Menu::ShortPress_Time(Item *time)
 {
     if(!ItemIsOpened(time))
     {
-        SetCurrentItem(time, true);
+        time->SetCurrent(true);
         ((Time *)time)->SetOpened();
         time->Open(true);
     }
@@ -705,17 +706,19 @@ void Menu::ShortPress_Time(Item *time)
 void Menu::ShortPress_Governor(Item *governor)
 {
     Governor *gov = (Governor*)governor;
+
     if(!ItemIsActive(governor))
     {
         return;
     }
+
     if(Item::Opened() == gov)
     {
         gov->NextPosition();
     }
     else
     {
-        SetCurrentItem(gov, Item::Current() != gov);
+        gov->SetCurrent(Item::Current() != gov);
     }
 }
 

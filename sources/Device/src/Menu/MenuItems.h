@@ -153,6 +153,9 @@ public:
 
     // ¬озвращает высоту в пиксел€х открытого элемента Choice или NamePage по адресу item.
     int HeightOpened() const;
+
+    // —делать/разделать текущим пункт страницы.
+    void SetCurrent(bool active) const;
 };
 
 
