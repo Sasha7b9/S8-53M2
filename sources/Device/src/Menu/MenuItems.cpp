@@ -161,7 +161,7 @@ void Choice::StartChange(int delta)
     Sound::GovernorChangedValue();
     if (SHOW_HELP_HINTS)
     {
-        SetItemForHint(this);
+        Hint::SetItem(this);
     }
     else if (!Menu::ItemIsActive(this))
     {
@@ -255,4 +255,11 @@ void Choice::ChangeValue(int delta)
     FuncOnChanged(Menu::ItemIsActive(this));
     Sound::GovernorChangedValue();
     Display::Redraw();
+}
+
+
+void Hint::SetItem(void *_item)
+{
+    string = nullptr;
+    item = _item;
 }

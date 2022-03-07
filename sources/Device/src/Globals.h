@@ -179,8 +179,6 @@ struct StateFPGA
 };
 
 
-void SetItemForHint(void *item);
-
 extern StateFPGA gStateFPGA;
 
 extern void *extraMEM;      // Это специальный указатель. Используется для выделения памяти переменным, которые не нужны всё время выполения программы,

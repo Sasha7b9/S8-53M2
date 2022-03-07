@@ -76,10 +76,4 @@ StateFPGA gStateFPGA =
 };
 
 
-void SetItemForHint(void *item)
-{
-    Hint::string = nullptr;
-    Hint::item = item;
-}
-
 int transmitBytes = 0;

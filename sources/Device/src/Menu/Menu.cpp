@@ -434,7 +434,7 @@ void Menu::ProcessingShortPressureButton()
 
                 if (SHOW_HELP_HINTS)
                 {
-                    SetItemForHint(item);
+                    Hint::SetItem(item);
                 }
                 else
                 {
