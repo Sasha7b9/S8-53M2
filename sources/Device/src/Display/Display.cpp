@@ -1212,7 +1212,7 @@ void Display::DrawHiRightPart()
 
         x += 2;
 
-        if (TRIG_ENABLE)
+        if (TrigLev::fireLED)
         {
             Painter::FillRegion(x, 1 + y, GRID_TOP - 3, GRID_TOP - 7);
             PText::DrawText(x + 3, 3 + y, LANG_RU ? "ях" : "Tr", COLOR_BACK);
@@ -2335,7 +2335,7 @@ void Display::DisableShowLevelTrigLev()
 
 void Display::EnableTrigLabel(bool enable)
 {
-    TRIG_ENABLE = enable ? 1U : 0U;
+    TrigLev::fireLED = enable;
 }
 
 

@@ -333,6 +333,8 @@ struct TrigLev
     int16 value;
 
     static bool showLevel;      // Нужно ли рисовать горизонтальную линию уровня смещения уровня синхронизации
+
+    static bool fireLED;        // Если горит лампочка
 };
 
 

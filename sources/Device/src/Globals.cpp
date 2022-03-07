@@ -10,7 +10,6 @@ void *extraMEM = 0;
 
 BitField gBF =
 {
-    0,  // trigEnable
     0,  // drawRShiftMarkers
     1,  // needFinishDraw
     0,  // framesElapsed
