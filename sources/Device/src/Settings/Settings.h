@@ -88,6 +88,8 @@ struct SettingsCommon
 };
 
 
+#define POS_ACT_ITEM(name_page) set.menu.posActItem[name_page]
+
 
 struct SettingsMenu
 {
