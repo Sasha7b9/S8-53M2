@@ -50,6 +50,7 @@ const float Range::voltsInPoint[Range::Count] =
 
 bool RShift::showLevelA = false;
 bool RShift::showLevelB = false;
+bool RShift::drawMarkers = false;
 
 const float RShift::absStep[Range::Count] =
 {

@@ -307,6 +307,7 @@ struct RShift
 
     static bool showLevelA;     // Нужно ли рисовать горизонтальную линию уровня смещения первого канала
     static bool showLevelB;
+    static bool drawMarkers;
 };
 
 

@@ -1691,7 +1691,7 @@ void Display::DrawScaleLine(int x, bool forTrigLev)
 
 void Display::DrawCursorsWindow()
 {
-    if((!Menu::IsMinimize() || !Menu::IsShown()) && DRAW_RSHIFT_MARKERS)
+    if((!Menu::IsMinimize() || !Menu::IsShown()) && RShift::drawMarkers)
     {
         DrawScaleLine(2, false);
     }
@@ -1743,7 +1743,7 @@ void Display::DrawCursorTrigLevel()
     PText::DrawChar(x + 5, y - 9 + dY, simbols[TRIG_SOURCE], COLOR_BACK);
     Font::Set(TypeFont::_8);
 
-    if (DRAW_RSHIFT_MARKERS && !Menu::IsMinimize())
+    if (RShift::drawMarkers && !Menu::IsMinimize())
     {
         DrawScaleLine(SCREEN_WIDTH - 11, true);
         int left = Grid::Right() + 9;
@@ -1815,7 +1815,7 @@ void Display::DrawCursorRShift(Chan::E ch)
     Font::Set(TypeFont::_5);
     int dY = 0;
 
-    if((!Menu::IsMinimize() || !Menu::IsShown()) && DRAW_RSHIFT_MARKERS)
+    if((!Menu::IsMinimize() || !Menu::IsShown()) && RShift::drawMarkers)
     {
         Painter::FillRegion(4, (int)(yFull - 3), 4, 6, ColorChannel(ch));
         PText::DrawChar(5, (int)(yFull - 9 + dY), ch == Chan::A ? '1' : '2', COLOR_BACK);
@@ -2371,7 +2371,7 @@ void Display::ShiftScreen(int delta)
 
 void Display::ChangedRShiftMarkers()
 {
-    DRAW_RSHIFT_MARKERS = ALT_MARKERS_HIDE ? 0U : 1U;
+    RShift::drawMarkers = !ALT_MARKERS_HIDE;
     Timer::Enable(TypeTimer::RShiftMarkersAutoHide, 5000, FuncOnTimerRShiftMarkersAutoHide);
 }
 
@@ -2383,7 +2383,7 @@ void Display::FuncOnTimerRShiftMarkersAutoHide()
 
 void Display::OnRShiftMarkersAutoHide()
 {
-    DRAW_RSHIFT_MARKERS = 0;
+    RShift::drawMarkers = false;
     Timer::Disable(TypeTimer::RShiftMarkersAutoHide);
 }
 
