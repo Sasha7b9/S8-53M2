@@ -100,7 +100,6 @@ struct SettingsMenu
 };
 
 
-void SetMenuPageDebugActive(bool active);                           // Сделать/разделать активной страницу отладки.
 void CurrentPageSBregSet(int angle);                                // Повернуть ручку УСТАНОВКА на текущей странице малых кнопок.
 
 

@@ -318,11 +318,6 @@ bool Menu::IsMinimize()
 }
 
 
-void SetMenuPageDebugActive(bool active)
-{
-    set.menu.pageDebugActive = active;
-}
-
 void CurrentPageSBregSet(int angle)
 {
     Page *page = (Page *)Item::Opened();
