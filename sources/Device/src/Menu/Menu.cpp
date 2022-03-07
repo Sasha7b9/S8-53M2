@@ -459,7 +459,8 @@ void Menu::ProcessingShortPressureButton()
                     break;
                 }
 
-                const void *page = PageForButton(button);
+                const Page *page = Page::ForButton(button);
+
                 if(page)
                 {
                     SetCurrentItem(page, true);

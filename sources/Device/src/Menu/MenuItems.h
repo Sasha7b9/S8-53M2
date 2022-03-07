@@ -200,6 +200,9 @@ public:
     SmallButton *GetSmallButon(int numButton);
 
     void OpenAndSetCurrent() const;
+
+    // ¬озвращает страницу меню, котора€ должна открыватьс€ по нажатию кнопки
+    static const Page *ForButton(Key::E);
 };
 
 
