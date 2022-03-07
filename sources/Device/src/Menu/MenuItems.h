@@ -131,7 +131,7 @@ public:
     static Item *UnderKey();
 
     // Возвращает адрес элемента меню, соответствующего данной button.
-    static void *UnderKey(Key::E);
+    static Item *UnderKey(Key::E);
 
     // Возвращает название элемента по адресу item, как оно выглядит на дисплее прибора.
     pchar Title();
