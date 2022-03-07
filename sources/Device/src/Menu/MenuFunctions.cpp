@@ -372,16 +372,16 @@ void Item::Change(int delta)
 }
 
 
-void Menu::ShortPressOnPageItem(Page *page, int numItem)
+void Page::ShortPressOnItem(int numItem)
 {
-    if (page->GetType() != TypeItem::Page)
+    if (GetType() != TypeItem::Page)
     {
         return;
     }
-    NamePage::E namePage = page->name;
-    if (namePage >= NamePage::SB_Curs)
+
+    if (name >= NamePage::SB_Curs)
     {
-        SmallButton *sb = (SmallButton*)(*page->items)[numItem];
+        SmallButton *sb = (SmallButton*)(*items)[numItem];
         if (sb && sb->funcOnPress)
         {
             sb->funcOnPress();

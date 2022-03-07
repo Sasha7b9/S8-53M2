@@ -172,7 +172,7 @@ static void PressSB_SetName_Exit()
 
     if (EXIT_FROM_SET_NAME_TO_DIS_MENU)
     {
-        Menu::ShortPressOnPageItem(Page::FromName(NamePage::SB_MemExtSetName), 0);
+        Page::FromName(NamePage::SB_MemExtSetName)->ShortPressOnItem(0);
     }
     else if (EXIT_FROM_SET_NAME_TO_LAST)
     {
@@ -814,7 +814,7 @@ void PressSB_MemInt_Exit()
     else
     {
         MODE_WORK = ModeWork_Direct;
-        Menu::ShortPressOnPageItem(Page::FromName(NamePage::SB_MemInt), 0);
+        Page::FromName(NamePage::SB_MemInt)->ShortPressOnItem(0);
     }
 }
 

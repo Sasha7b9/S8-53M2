@@ -62,7 +62,7 @@ void StartDown()                        // Key::Start
 
 void PowerDown()                        // Key::Power
 {
-    Menu::ShortPressOnPageItem((Page *)Item::Opened(), 0);
+    ((Page *)Item::Opened())->ShortPressOnItem(0);
     Settings::SaveBeforePowerDown();
     Log::DisconnectLoggerUSB();
 

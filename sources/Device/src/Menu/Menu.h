@@ -51,8 +51,6 @@ namespace Menu
     // Закрыть открытый элемент меню.
     void CloseOpenedItem();
 
-    void ShortPressOnPageItem(Page *page, int numItem);     // Вызывает функцию короткого нажатия кнопки над итемом numItem страницы page;
-
     void ChangeStateFlashDrive();
 
     // Отображено ли меню на экране.
