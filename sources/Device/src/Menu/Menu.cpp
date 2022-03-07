@@ -61,27 +61,27 @@ namespace Menu
     // Обработка короткого нажатия на элемент Button с адресом button.
     void ShortPress_Button(Item *button);
     // Обработка короткого нажатия на элемент Governor с адресом governor.
-    void ShortPress_Governor(void *governor);
+    void ShortPress_Governor(Item *governor);
     // Обработка короткого нажатия на элемент GovernorColor с адресом governorColor.
-    void ShortPress_GovernorColor(void *governorColor);
+    void ShortPress_GovernorColor(Item *governorColor);
 
-    void ShortPress_IP(void *item);
+    void ShortPress_IP(Item *item);
 
-    void ShortPress_MAC(void *item);
+    void ShortPress_MAC(Item *item);
 
-    void ShortPress_ChoiceReg(void *choice);
+    void ShortPress_ChoiceReg(Item *choice);
 
-    void ShortPress_SmallButton(void *smallButton);
+    void ShortPress_SmallButton(Item *smallButton);
     // Обработка длинного нажатия на элемент меню item.
     void FuncOnLongPressItem(Item *item);
 
     void FuncOnLongPressItemTime(Item *item);
     // Обработка длинного нажатия на элемент Button с адресом button.
-    void FuncOnLongPressItemButton(void *button);
+    void FuncOnLongPressItemButton(Item *button);
     // Возвращает функцию обработки короткого нажатия на элемент меню item.
-    void ExecuteFuncForShortPressOnItem(void *item);
+    void ExecuteFuncForShortPressOnItem(Item *item);
     // Возвращает функцию обработки длинного нажатия на элемент меню item.
-    void ExecuteFuncForLongPressureOnItem(void *item);
+    void ExecuteFuncForLongPressureOnItem(Item *item);
 
     // Возвращает true, если лампочка УСТАНОВКА должна гореть
     bool NeedForFireSetLED();
@@ -502,7 +502,7 @@ void Menu::ProcessingLongPressureButton()
         }
         else if(IsShown() && IsFunctionalButton(longPressureButton))
         {
-            void *item = Item::UnderKey(longPressureButton);
+            Item *item = Item::UnderKey(longPressureButton);
             ExecuteFuncForLongPressureOnItem(item);
         }
         longPressureButton = Key::Empty;
@@ -628,7 +628,7 @@ void Menu::ShortPress_Choice(Item *choice)
 }
 
 
-void Menu::ShortPress_ChoiceReg(void *choice)
+void Menu::ShortPress_ChoiceReg(Item *choice)
 {
     if(!ItemIsActive(choice)) 
     {
@@ -641,9 +641,9 @@ void Menu::ShortPress_ChoiceReg(void *choice)
 }
 
 
-void Menu::FuncOnLongPressItemButton(void *button)
+void Menu::FuncOnLongPressItemButton(Item *button)
 {
-    ShortPress_Button((Item *)button);
+    ShortPress_Button(button);
 }
 
 
@@ -702,7 +702,7 @@ void Menu::ShortPress_Time(Item *time)
 }
 
 
-void Menu::ShortPress_Governor(void *governor)
+void Menu::ShortPress_Governor(Item *governor)
 {
     Governor *gov = (Governor*)governor;
     if(!ItemIsActive(governor))
@@ -720,7 +720,7 @@ void Menu::ShortPress_Governor(void *governor)
 }
 
 
-void Menu::ShortPress_IP(void *item)
+void Menu::ShortPress_IP(Item *item)
 {
     if (Item::Opened() == item)
     {
@@ -729,7 +729,7 @@ void Menu::ShortPress_IP(void *item)
 }
 
 
-void Menu::ShortPress_MAC(void *item)
+void Menu::ShortPress_MAC(Item *item)
 {
     if (Item::Opened() == item)
     {
@@ -738,7 +738,7 @@ void Menu::ShortPress_MAC(void *item)
 }
 
 
-void Menu::ShortPress_GovernorColor(void *governorColor)
+void Menu::ShortPress_GovernorColor(Item *governorColor)
 {
     if(!ItemIsActive(governorColor))
     {
@@ -758,12 +758,14 @@ void Menu::ShortPress_GovernorColor(void *governorColor)
 }
 
 
-void Menu::ShortPress_SmallButton(void *smallButton)
+void Menu::ShortPress_SmallButton(Item *smallButton)
 {
     SmallButton *sb = (SmallButton *)smallButton;
+
     if (sb)
     {
         pFuncVV func = sb->funcOnPress;
+
         if (func)
         {
             func();
@@ -773,7 +775,7 @@ void Menu::ShortPress_SmallButton(void *smallButton)
 }
 
 
-void Menu::ExecuteFuncForShortPressOnItem(void *item)
+void Menu::ExecuteFuncForShortPressOnItem(Item *item)
 {
     typedef void(*pFuncMenuVpV)(Item *);
 
@@ -803,9 +805,9 @@ void Menu::ExecuteFuncForShortPressOnItem(void *item)
 }
 
 
-void Menu::ExecuteFuncForLongPressureOnItem(void *item)
+void Menu::ExecuteFuncForLongPressureOnItem(Item *item)
 {
-    typedef void(*pFuncMenuVpV)(void*);
+    typedef void(*pFuncMenuVpV)(Item *);
 
     static const pFuncMenuVpV longFunction[TypeItem::Count] =
     {
