@@ -21,7 +21,6 @@ struct DataSettings;
 #define SHOW_HELP_HINTS          (gBF.showHelpHints)
 #define SHOW_DEBUG_MENU          (gBF.showDebugMenu)
 #define ADDRESS_GOVERNOR         (gBF.addressGovernor)
-#define IN_MOVE_INCREASE         (gBF.inMoveIncrease)
 #define IN_MOVE_DECREASE         (gBF.inMoveDecrease)
 #define TIME_START_MS            (gBF.timeStartMS)
 
@@ -29,7 +28,6 @@ struct DataSettings;
 struct BitField
 {
     // Governor
-    uint inMoveIncrease             : 1;
     uint inMoveDecrease             : 1;
     uint addressGovernor            : 32;
     uint timeStartMS                : 32;

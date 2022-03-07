@@ -350,6 +350,8 @@ public:
     void DrawClosed(int x, int y);
 
     static int8 cur_digit;
+
+    static bool inMoveIncrease;
 };
 
 

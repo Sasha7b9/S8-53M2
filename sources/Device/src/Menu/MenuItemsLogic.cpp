@@ -16,7 +16,7 @@ void Governor::StartChange(int delta)
 {
     Sound::GovernorChangedValue();
 
-    if (delta > 0 && ADDRESS_GOVERNOR == (uint)this && IN_MOVE_INCREASE)
+    if (delta > 0 && ADDRESS_GOVERNOR == (uint)this && inMoveIncrease)
     {
         *cell = NextValue();
     }
@@ -29,7 +29,7 @@ void Governor::StartChange(int delta)
         TIME_START_MS = TIME_MS;
     }
 
-    IN_MOVE_INCREASE = (delta > 0) ? 1U : 0U;
+    inMoveIncrease = delta > 0;
     IN_MOVE_DECREASE = (delta < 0) ? 1U : 0U;
 }
 
@@ -128,7 +128,7 @@ float Governor::Step()
 
         if (delta < -numLines)
         {
-            IN_MOVE_DECREASE = IN_MOVE_INCREASE = 0;
+            IN_MOVE_DECREASE = inMoveIncrease = false;
             *cell = PrevValue();
 
             if (funcOfChanged)
@@ -142,7 +142,7 @@ float Governor::Step()
         return delta;
     }
 
-    if (ADDRESS_GOVERNOR == (uint)this && IN_MOVE_INCREASE)
+    if (ADDRESS_GOVERNOR == (uint)this && inMoveIncrease)
     {
         float delta = speed * (TIME_MS - TIME_START_MS);
 
@@ -153,7 +153,7 @@ float Governor::Step()
 
         if (delta > numLines)
         {
-            IN_MOVE_DECREASE = IN_MOVE_INCREASE = 0;
+            IN_MOVE_DECREASE = inMoveIncrease = false;
             *cell = NextValue();
 
             if(funcOfChanged)

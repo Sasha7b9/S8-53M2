@@ -17,6 +17,9 @@ Item *Hint::item = nullptr;
 pchar Hint::string = nullptr;
 
 
+bool Governor::inMoveIncrease = false;
+
+
 // »спользуетс€ дл€ анимации изменени€ значени€ Choice
 struct TimeStructChoice
 {

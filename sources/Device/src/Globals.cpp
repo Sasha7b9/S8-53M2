@@ -14,7 +14,6 @@ BitField gBF =
     0,
     0,
     0,
-    0,
 
     // Flash drive
     0,  // flashDriveIsConnected
