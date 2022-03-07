@@ -205,7 +205,7 @@ public:
     static const Page *ForButton(Key::E);
 
     // ”становить позицию активного пункта на странице namePage.
-    static void SetPosActItem(NamePage::E, int8 pos);
+    void SetPosActItem(int8 pos);
 };
 
 

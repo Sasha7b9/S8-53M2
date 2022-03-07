@@ -46,7 +46,7 @@ void Menu::SetCurrentItem(const void *item, bool active)
         Page *page = (Keeper(item));
         if(!active)
         {
-            Page::SetPosActItem(page->name, 0x7f);
+            page->SetPosActItem(0x7f);
         }
         else
         {
@@ -54,7 +54,7 @@ void Menu::SetCurrentItem(const void *item, bool active)
             {
                 if(page->GetItem(i) == item)
                 {
-                    Page::SetPosActItem(page->name, i);
+                    page->SetPosActItem(i);
                     return;
                 }
             }
@@ -197,7 +197,7 @@ void Menu::CloseOpenedItem()
         if(NEED_CLOSE_PAGE_SB == 1)
         {
             NamePage::E namePage = Keeper(item)->name;
-            Page::SetPosActItem(namePage, PosActItem(namePage) & 0x7f);   // Сбрасываем бит 7 - "закрываем" активный пункт страницы namePage
+            Keeper(item)->SetPosActItem(PosActItem(namePage) & 0x7f);       // Сбрасываем бит 7 - "закрываем" активный пункт страницы namePage
         }
 
         NEED_CLOSE_PAGE_SB = 1;
@@ -219,7 +219,7 @@ void Menu::OpenItem(const void *item, bool open)
     if(item)
     {
         Page *page = Keeper(item);
-        Page::SetPosActItem(page->GetName(), open ? (page->PosCurrentItem() | 0x80) : (page->PosCurrentItem() & 0x7f));
+        page->SetPosActItem(open ? (page->PosCurrentItem() | 0x80) : (page->PosCurrentItem() & 0x7f));
     }
 }
 
