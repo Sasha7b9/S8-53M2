@@ -15,6 +15,7 @@ int8 Governor::cur_digit = 0;
 Item *Item::underKey = nullptr;
 Item *Hint::item = nullptr;
 pchar Hint::string = nullptr;
+bool  Hint::show = false;
 
 
 bool Governor::inMoveIncrease = false;
@@ -164,8 +165,10 @@ void Choice::StartChange(int delta)
     {
         return;
     }
+
     Sound::GovernorChangedValue();
-    if (SHOW_HELP_HINTS)
+
+    if (Hint::show)
     {
         Hint::SetItem((Item *)this);
     }
@@ -177,6 +180,7 @@ void Choice::StartChange(int delta)
     {
         tsChoice.choice = this;
         tsChoice.timeStartMS = TIME_MS;
+
         if (delta > 0)
         {
             tsChoice.inMoveIncrease = 1;

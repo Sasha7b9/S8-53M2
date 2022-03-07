@@ -20,7 +20,7 @@ static void ChangeRShift(int *prevTime, void(*f)(Chan::E, int16), Chan::E ch, in
 
 void HelpLong()
 {
-    SHOW_HELP_HINTS++;
+    Hint::show = !Hint::show;
     Hint::string = nullptr;
     Hint::item = nullptr;
 }

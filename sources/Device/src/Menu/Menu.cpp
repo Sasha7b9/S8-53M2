@@ -114,11 +114,11 @@ void Menu::UpdateInput()
 
 void Menu::Handlers::ShortPressureButton(Key::E button)
 {
-    if (!SHOW_HELP_HINTS)
+    if (!Hint::show)
     {
         if(button == Key::Help)
         {
-            SHOW_HELP_HINTS++;
+            Hint::show = !Hint::show;
             Hint::string = nullptr;
             Hint::item = nullptr;
         }
@@ -130,7 +130,7 @@ void Menu::Handlers::ShortPressureButton(Key::E button)
 
 void Menu::Handlers::LongPressureButton(Key::E button)
 {
-    if (SHOW_HELP_HINTS == 0)
+    if (!Hint::show)
     {
         longPressureButton = button;
         Display::Redraw();
@@ -273,7 +273,7 @@ void Menu::Handlers::PressButton(Key::E button)
 {
     Sound::ButtonPress();
 
-    if (SHOW_HELP_HINTS)
+    if (Hint::show)
     {
         ProcessButtonForHint(button);
         return;
@@ -305,7 +305,7 @@ void Menu::Handlers::ReleaseButton(Key::E button)
 {
     Sound::ButtonRelease();
 
-    if (SHOW_HELP_HINTS == 0)
+    if (!Hint::show)
     {
         releaseButton = button;
     }
@@ -314,7 +314,7 @@ void Menu::Handlers::ReleaseButton(Key::E button)
 
 void Menu::Handlers::RotateRegSetRight()
 {   
-    if (SHOW_HELP_HINTS == 0)
+    if (!Hint::show)
     {
         angleRegSet++;
         Display::Redraw();
@@ -324,7 +324,7 @@ void Menu::Handlers::RotateRegSetRight()
 
 void Menu::Handlers::RotateRegSetLeft()
 {
-    if (SHOW_HELP_HINTS == 0)
+    if (!Hint::show)
     {
         angleRegSet--;
         Display::Redraw();
@@ -433,7 +433,7 @@ void Menu::ProcessingShortPressureButton()
             {
                 Item *item = Item::UnderKey(button);
 
-                if (SHOW_HELP_HINTS)
+                if (Hint::show)
                 {
                     Hint::SetItem(item);
                 }

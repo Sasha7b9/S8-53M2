@@ -132,7 +132,7 @@ void Menu::Draw()
         }
     }
 
-    if (SHOW_HELP_HINTS)
+    if (Hint::show)
     {
         int x = 0;
         int y = 0;
