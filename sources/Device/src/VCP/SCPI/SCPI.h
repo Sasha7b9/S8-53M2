@@ -18,7 +18,7 @@
 
 
 #define SCPI_SEND(...)                                  \
-    if(CLIENT_VCP_IS_CONNECTED)                         \
+    if(VCP::clientIsConnected)                          \
     {                                                   \
         VCP::SendFormatStringAsynch(__VA_ARGS__);       \
     }                                                   \

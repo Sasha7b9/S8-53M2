@@ -13,4 +13,6 @@ namespace VCP
 
     extern void *handlePCD;
     extern void *handleUSBD;
+
+    extern bool clientIsConnected;
 };

@@ -2249,9 +2249,9 @@ void Display::DrawLowPart()
         PText::Draw4SymbolsInRect(x + 87, GRID_BOTTOM + 2, SYMBOL_ETHERNET, LAN::clientIsConnected ? COLOR_FILL : Color::FLASH_01);
     }
 
-    if (CLIENT_VCP_IS_CONNECTED || CABLE_VCP_IS_CONNECTED)
+    if (VCP::clientIsConnected || CABLE_VCP_IS_CONNECTED)
     {
-        PText::Draw4SymbolsInRect(x + 72, GRID_BOTTOM + 2, SYMBOL_USB, CLIENT_VCP_IS_CONNECTED ? COLOR_FILL : Color::FLASH_01);
+        PText::Draw4SymbolsInRect(x + 72, GRID_BOTTOM + 2, SYMBOL_USB, VCP::clientIsConnected ? COLOR_FILL : Color::FLASH_01);
     }
     
     Color::SetCurrent(COLOR_FILL);

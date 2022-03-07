@@ -10,7 +10,6 @@
 struct DataSettings;
 
 
-#define CLIENT_VCP_IS_CONNECTED  (gBF.connectToHost)
 #define CABLE_VCP_IS_CONNECTED   (gBF.cableVCPisConnected)
 
 
@@ -71,7 +70,6 @@ struct BitField
 
     // VCP
     uint cableVCPisConnected        : 1;
-    uint connectToHost              : 1;
 
     // Flash drive
     uint flashDriveIsConnected      : 1;

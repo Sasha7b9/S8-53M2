@@ -30,6 +30,8 @@ namespace VCP
 
     void *handlePCD = &_handlePCD;
     void *handleUSBD = &_handleUSBD;
+
+    bool clientIsConnected = false;
 }
 
 
@@ -79,7 +81,7 @@ void VCP::Flush()
 
 void VCP::SendDataSynch(const uint8 *buffer, int size)
 {
-    if (CLIENT_VCP_IS_CONNECTED == 0)
+    if (VCP::clientIsConnected == false)
     {
         return;
     }

@@ -38,7 +38,7 @@ USBD_CDC_ItfTypeDef USBD_CDC_fops =
 static void SetAttributeConnected()
 {
     CABLE_VCP_IS_CONNECTED = 1;
-    CLIENT_VCP_IS_CONNECTED = 0;
+    VCP::clientIsConnected = false;
     Timer::Disable(TypeTimer::Temp);
 }
 
@@ -54,7 +54,7 @@ static int8_t CDC_Itf_Init()
 static int8_t CDC_Itf_DeInit()
 {
     CABLE_VCP_IS_CONNECTED = 0;
-    CLIENT_VCP_IS_CONNECTED = 0;
+    VCP::clientIsConnected = false;
 
     return (USBD_OK);
 }

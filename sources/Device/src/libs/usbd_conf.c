@@ -64,13 +64,13 @@ void HAL_PCD_SetupStageCallback(PCD_HandleTypeDef *hpcd)
         {                                                           //
             if (prevLength != 0)                                    //
             {                                                       //
-                CLIENT_VCP_IS_CONNECTED = 1;                        // GOVNOCODE
+                VCP::clientIsConnected = true;                      // GOVNOCODE
             }                                                       //
             else                                                    //
             {                                                       //
-                CLIENT_VCP_IS_CONNECTED = 0;                        //
+                VCP::clientIsConnected = false;                     //
             }                                                       //
-            CLIENT_VCP_IS_CONNECTED = (prevLength != 0) ? 1U : 0U;  //
+            VCP::clientIsConnected = (prevLength != 0);             //
         }                                                           //
     }                                                               //
     prevLength = request.wLength;                                   //
