@@ -433,7 +433,8 @@ void Menu::ProcessingShortPressureButton()
             }
             else if (IsShown() && IsFunctionalButton(button))       // Если меню показано и нажата функциональная клавиша
             {
-                void *item = ItemUnderButton(button);
+                void *item = Item::UnderKey(button);
+
                 if (SHOW_HELP_HINTS)
                 {
                     SetItemForHint(item);
@@ -504,7 +505,7 @@ void Menu::ProcessingLongPressureButton()
         }
         else if(IsShown() && IsFunctionalButton(longPressureButton))
         {
-            void *item = ItemUnderButton(longPressureButton);
+            void *item = Item::UnderKey(longPressureButton);
             ExecuteFuncForLongPressureOnItem(item);
         }
         longPressureButton = Key::Empty;
@@ -576,7 +577,7 @@ void Menu::ProcessingPressButton()
     {
         if (pressButton != Key::Menu)
         {
-            itemUnderKey = ItemUnderButton(pressButton);
+            itemUnderKey = Item::UnderKey(pressButton);
         }
     }
     pressButton = Key::Empty;

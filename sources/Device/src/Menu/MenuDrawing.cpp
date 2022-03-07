@@ -392,9 +392,9 @@ bool Menu::IsPressed(void* item)
 }
 
 
-void* Menu::ItemUnderButton(Key::E button)
+void* Item::UnderKey(Key::E key)
 {
-    return itemUnderButton[button];
+    return itemUnderButton[key];
 }
 
 
