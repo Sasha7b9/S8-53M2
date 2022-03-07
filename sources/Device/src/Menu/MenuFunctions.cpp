@@ -258,7 +258,7 @@ NamePage::E Page::GetName() const
 }
 
 
-NamePage::E Menu::GetNameOpenedPage()
+NamePage::E Page::NameOpened()
 {
     return ((const Page *)Item::Opened())->GetName();
 }

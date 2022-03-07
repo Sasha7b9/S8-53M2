@@ -845,7 +845,7 @@ void Menu::ChangeStateFlashDrive()
 {
     if(FLASH_DRIVE_IS_CONNECTED == 0)
     {
-        if(GetNameOpenedPage() == NamePage::SB_FileManager)
+        if(Page::NameOpened() == NamePage::SB_FileManager)
         {
             ((Page *)Item::Opened())->ShortPressOnItem(0);
         }
@@ -886,7 +886,7 @@ bool Menu::NeedForFireSetLED()
     {
         return false;
     }
-    NamePage::E name = GetNameOpenedPage();
+    NamePage::E name = Page::NameOpened();
 
     if (name == NamePage::SB_MeasTuneMeas && MEAS_NUM == MN_1 && !PageMeasures::choiceMeasuresIsActive)
     {

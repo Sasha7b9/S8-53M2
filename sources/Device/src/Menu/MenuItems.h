@@ -256,6 +256,8 @@ public:
 
     // Повернуть ручку УСТАНОВКА на текущей странице малых кнопок.
     static void RotateRegSetSB(int angle);
+
+    static NamePage::E NameOpened();
 };
 
 

@@ -43,8 +43,6 @@ namespace Menu
     // Возвращает тип открытого элемента меню.
     TypeItem::E TypeOpenedItem();
 
-    NamePage::E GetNameOpenedPage();
-
     // Закрыть открытый элемент меню.
     void CloseOpenedItem();
 
