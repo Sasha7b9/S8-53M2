@@ -193,7 +193,7 @@ public:
     int NumSubPages() const;
 
     // Возвращает адрес элемента меню заданной страницы.
-    void *GetItem(int numElement) const;
+    Item *GetItem(int numElement) const;
 
     // Возвращает true, если текущий элемент страницы с именем namePage открыт.
     bool CurrentItemIsOpened();

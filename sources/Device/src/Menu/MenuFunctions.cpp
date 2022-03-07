@@ -76,10 +76,10 @@ Item* Item::Opened()
 }
 
 
-void *Page::GetItem(int numElement) const
+Item *Page::GetItem(int numElement) const
 {
     const arrayItems &array = (*items);
-    return array[numElement + (IsSB() ? 1 : 0)];
+    return (Item *)array[numElement + (IsSB() ? 1 : 0)];
 }
 
 
