@@ -18,18 +18,39 @@
 #include <string.h>
 
 
-#define RECS_ON_PAGE 23
-#define WIDTH_COL 135
+namespace FM
+{
+    const int RECS_ON_PAGE = 23;
+    const int WIDTH_COL = 135;
 
+    char currentDir[255] = "\\";
+    int numFirstDir = 0;         // Номер первого выведенного каталога в левой панели. Всего может быть выведено RECS_ON_PAGE каталогов
+    int numCurDir = 0;           // Номер подсвеченного каталога
+    int numFirstFile = 0;        // Номер первого выведенного файла в правой панели. Всего может быть выведено RECS_ON_PAGE файлов.
+    int numCurFile = 0;          // Номер подсвеченного файла
+    int numDirs = 0;
+    int numFiles = 0;
 
+    bool FileIsExist(char name[255]);
 
-static char currentDir[255] = "\\";
-static int numFirstDir = 0;         // Номер первого выведенного каталога в левой панели. Всего может быть выведено RECS_ON_PAGE каталогов
-static int numCurDir = 0;           // Номер подсвеченного каталога
-static int numFirstFile = 0;        // Номер первого выведенного файла в правой панели. Всего может быть выведено RECS_ON_PAGE файлов.
-static int numCurFile = 0;          // Номер подсвеченного файла
-static int numDirs = 0;
-static int numFiles = 0;
+    void DrawLongString(int x, int y, char *string, bool hightlight);
+
+    void DrawDirs(int x, int y);
+
+    void DrawFiles(int x, int y);
+
+    void DecCurrentDir();
+
+    void DecCurrentFile();
+
+    void DrawHat(int x, int y, char *string, int num1, int num2);
+
+    void DrawNameCurrentDir(int left, int top);
+
+    void IncCurrentDir();
+
+    void IncCurrentFile();
+}
 
 
 

@@ -4,42 +4,19 @@
 
 
 // Вызывается один раз при обнаружении новой флешки.
-class FM
+namespace FM
 {
-public:
-    static void Init();
-    
-    static void Draw();
-    
-    static void PressLevelUp();
-    
-    static void PressLevelDown();
-    
-    static void RotateRegSet(int angle);
-    
-    static bool GetNameForNewFile(char name[255]);
+    void Init();
 
-    static void PressTab();
+    void Draw();
 
-private:
-    
-    static bool FileIsExist(char name[255]);
+    void PressLevelUp();
 
-    static void DrawLongString(int x, int y, char *string, bool hightlight);
+    void PressLevelDown();
 
-    static void DrawDirs(int x, int y);
+    void RotateRegSet(int angle);
 
-    static void DrawFiles(int x, int y);
+    bool GetNameForNewFile(char name[255]);
 
-    static void DecCurrentDir();
-
-    static void DecCurrentFile();
-
-    static void DrawHat(int x, int y, char *string, int num1, int num2);
-
-    static void DrawNameCurrentDir(int left, int top);
-
-    static void IncCurrentDir();
-
-    static void IncCurrentFile();
+    void PressTab();
 };
