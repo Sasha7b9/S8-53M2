@@ -108,7 +108,7 @@ void SCPI::TBASE::SAMPLING(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value < 2) { SET_SAMPLE_TYPE = (SampleType)value; }
+        if (value < 2) { SET_SAMPLE_TYPE = (SampleType::E)value; }
         else if (2 == value)
         {
             SCPI_SEND(":TBASE:SAMPLING %s", map[SET_SAMPLE_TYPE].key);
@@ -193,7 +193,7 @@ void SCPI::TBASE::FUNCTIMEDIV(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value < 2) { SET_TIME_DIV_XPOS = (FunctionTime)value; }
+        if (value < 2) { SET_TIME_DIV_XPOS = (FunctionTime::E)value; }
         else if (2 == value)
         {
             SCPI_SEND(":TBASE:FUNCTIMEDIV %s", map[SET_TIME_DIV_XPOS].key);

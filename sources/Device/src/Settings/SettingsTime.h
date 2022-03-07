@@ -10,7 +10,7 @@
 #define SET_TSHIFT                           (set.time.tshift_points)
 
 #define SET_TIME_DIV_XPOS                    (set.time.timeDivXPos)
-#define SET_TIME_DIV_XPOS_IS_SHIFT_IN_MEMORY (SET_TIME_DIV_XPOS == FunctionTime_ShiftInMemory)
+#define SET_TIME_DIV_XPOS_IS_SHIFT_IN_MEMORY (SET_TIME_DIV_XPOS == FunctionTime::ShiftInMemory)
 
 #define SET_TPOS                             (set.time.tPos)
 #define SET_TPOS_IS_LEFT                     (SET_TPOS == TPos::Left)
@@ -18,8 +18,8 @@
 #define SET_TPOS_IS_RIGHT                    (SET_TPOS == TPos::Right)
 
 #define SET_SAMPLE_TYPE                      (set.time.sampleType)
-#define SET_SAMPLE_TYPE_IS_EQUAL             (SET_SAMPLE_TYPE == SampleType_Equal)
-#define SET_SAMPLE_TYPE_IS_REAL              (SET_SAMPLE_TYPE == SampleType_Real)
+#define SET_SAMPLE_TYPE_IS_EQUAL             (SET_SAMPLE_TYPE == SampleType::Equal)
+#define SET_SAMPLE_TYPE_IS_REAL              (SET_SAMPLE_TYPE == SampleType::Real)
 
 #define SET_PEAKDET                          (set.time.peakDet)
 #define SET_PEAKDET_IS_DISABLE               (SET_PEAKDET == PeackDetMode::Disable)
@@ -31,18 +31,24 @@
 
 
 // Функция ручки ВРЕМЯ/ДЕЛ.
-enum FunctionTime
+struct FunctionTime
 {
-    FunctionTime_Time,              // Ручка управляет смещением по времени.
-    FunctionTime_ShiftInMemory      // Ручка управляет отображаемым на экране участком памяти.
+    enum E
+    {
+        Time,              // Ручка управляет смещением по времени.
+        ShiftInMemory      // Ручка управляет отображаемым на экране участком памяти.
+    };
 };
 
 
 // Тип выборки для режима рандомизатора.
-enum SampleType
+struct SampleType
 {
-    SampleType_Real,   // реальное время - в построении участвуют только реально считанные точки, ничего не рассчитывается.
-    SampleType_Equal   // эквивалентная - сигнал строится по последним точкам, полученным от рандомизатора.
+    enum E
+    {
+        Real,   // реальное время - в построении участвуют только реально считанные точки, ничего не рассчитывается.
+        Equal   // эквивалентная - сигнал строится по последним точкам, полученным от рандомизатора.
+    };
 };
 
 
@@ -51,9 +57,9 @@ struct SettingsTime
 { //-V802
     TBase::E            tBase;          // Масштаб по времени.
     int                 tshift_points;  // Смещение по времени в точках
-    FunctionTime        timeDivXPos;
+    FunctionTime::E     timeDivXPos;
     TPos::E             tPos;           // Привязка синхронизации к памяти.
-    SampleType          sampleType;     // Тип выборки для режима рандомизатора.
+    SampleType::E       sampleType;     // Тип выборки для режима рандомизатора.
     PeackDetMode::E     peakDet;        // Режим работы пикового детектора
     bool                selfRecorder;   // Включен ли режим самописца.
 };
