@@ -3,7 +3,7 @@
 #include "Globals.h"
 #include "Settings/SettingsTypes.h"
 #include "Settings/Settings.h"
-#include "Ethernet/LAN.h"
+#include "LAN/LAN.h"
 #include "Symbols.h"
 #include "Display.h"
 #include "Grid.h"

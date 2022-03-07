@@ -63,11 +63,11 @@ file(GLOB LIBS                src/libs/*.*)
 file(GLOB DATA                src/Data/*.*)
 file(GLOB DISPLAY             src/Display/*.*)
 file(GLOB DISPLAY_FONT        src/Display/font/*.*)
-file(GLOB ETHERNET            src/Ethernet/*.*)
 file(GLOB FDRIVE              src/FDrive/*.*)
 file(GLOB FPGA                src/FPGA/*.*)
 file(GLOB HARDWARE            src/Hardware/*.*)
 file(GLOB HARDWARE_HAL        src/Hardware/HAL/*.*)
+file(GLOB LAN                 src/LAN/*.*)
 file(GLOB MENU                src/Menu/*.*)
 file(GLOB MENU_PAGES          src/Menu/Pages/*.*)
 file(GLOB PANEL               src/Panel/*.*)
@@ -82,7 +82,7 @@ source_group(libs             FILES ${LIBS})
 source_group(Data             FILES ${DATA})
 source_group(Display          FILES ${DISPLAY})
 source_group(Display/font     FILES ${DISPLAY_FONT})
-source_group(Ethernet         FILES ${ETHERNET})
+source_group(LAN              FILES ${LAN})
 source_group(FDrive           FILES ${FDRIVE})
 source_group(FPGA             FILES ${FPGA})
 source_group(Hardware         FILES ${HARDWARE})
@@ -105,7 +105,7 @@ set_source_files_properties(src/libs/ethernetif.cpp
                             src/Panel/PanelFunctions.cpp
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
-add_library(${PROJECT_NAME} ${SRC} ${LIBS} ${DISPLAY} ${DISPLAY_FONT} ${ETHERNET}
+add_library(${PROJECT_NAME} ${SRC} ${LIBS} ${DISPLAY} ${DISPLAY_FONT} ${LAN}
                             ${DATA}
                             ${FDRIVE} ${FPGA} ${HARDWARE} ${HARDWARE_HAL} ${MENU} ${MENU_PAGES}
                             ${PANEL} ${SETTINGS}

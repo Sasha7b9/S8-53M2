@@ -1,7 +1,7 @@
 // 2022/02/11 17:48:06 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Ethernet/LAN.h"
-#include "Ethernet/TcpSocket.h"
+#include "LAN/LAN.h"
+#include "LAN/TcpSocket.h"
 #include <lwip/tcp.h>
 #include <string.h>
 #include <stdarg.h>

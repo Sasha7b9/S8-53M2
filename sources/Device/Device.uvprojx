@@ -89,7 +89,7 @@
             <nStopA1X>0</nStopA1X>
             <nStopA2X>0</nStopA2X>
           </AfterMake>
-          <SelectedForBatchBuild>0</SelectedForBatchBuild>
+          <SelectedForBatchBuild>1</SelectedForBatchBuild>
           <SVCSIdString></SVCSIdString>
         </TargetCommonOption>
         <CommonProperty>
@@ -1144,31 +1144,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Ethernet</GroupName>
-          <Files>
-            <File>
-              <FileName>LAN.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Ethernet\LAN.h</FilePath>
-            </File>
-            <File>
-              <FileName>LAN.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Ethernet\LAN.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>TcpSocket.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Ethernet\TcpSocket.h</FilePath>
-            </File>
-            <File>
-              <FileName>TcpSocket.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Ethernet\TcpSocket.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>FDrive</GroupName>
           <Files>
             <File>
@@ -1380,6 +1355,31 @@
               <FileName>HAL_USBH.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_USBH.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>LAN</GroupName>
+          <Files>
+            <File>
+              <FileName>LAN.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\LAN\LAN.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>LAN.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\LAN\LAN.h</FilePath>
+            </File>
+            <File>
+              <FileName>TcpSocket.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\LAN\TcpSocket.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>TcpSocket.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\LAN\TcpSocket.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3105,31 +3105,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Ethernet</GroupName>
-          <Files>
-            <File>
-              <FileName>LAN.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Ethernet\LAN.h</FilePath>
-            </File>
-            <File>
-              <FileName>LAN.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Ethernet\LAN.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>TcpSocket.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Ethernet\TcpSocket.h</FilePath>
-            </File>
-            <File>
-              <FileName>TcpSocket.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Ethernet\TcpSocket.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>FDrive</GroupName>
           <Files>
             <File>
@@ -3341,6 +3316,31 @@
               <FileName>HAL_USBH.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_USBH.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>LAN</GroupName>
+          <Files>
+            <File>
+              <FileName>LAN.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\LAN\LAN.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>LAN.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\LAN\LAN.h</FilePath>
+            </File>
+            <File>
+              <FileName>TcpSocket.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\LAN\TcpSocket.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>TcpSocket.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\LAN\TcpSocket.h</FilePath>
             </File>
           </Files>
         </Group>

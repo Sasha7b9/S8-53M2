@@ -2,8 +2,8 @@
 #pragma once
 #include "Globals.h"
 #include "VCP/VCP.h"
-#include "Ethernet/LAN.h"
-#include "Ethernet/TcpSocket.h"
+#include "LAN/LAN.h"
+#include "LAN/TcpSocket.h"
 
 
 #define ENTER_ANALYSIS                                  \
