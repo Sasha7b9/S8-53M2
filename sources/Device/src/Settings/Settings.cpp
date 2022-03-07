@@ -296,11 +296,6 @@ bool Settings::DebugModeEnable()
     return true;
 }
 
-void Page::SetPosActItem(int8 pos)
-{
-    set.menu.posActItem[name] = pos;
-}
-
 int Page::NumCurrentSubPage() const
 {
     return set.menu.currentSubPage[name];

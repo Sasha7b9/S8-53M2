@@ -203,9 +203,6 @@ public:
 
     // ¬озвращает страницу меню, котора€ должна открыватьс€ по нажатию кнопки
     static const Page *ForButton(Key::E);
-
-    // ”становить позицию активного пункта на странице namePage.
-    void SetPosActItem(int8 pos);
 };
 
 
