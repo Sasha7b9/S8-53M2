@@ -2,6 +2,7 @@
 #pragma once
 #include "Globals.h"
 #include "VCP/VCP.h"
+#include "Ethernet/LAN.h"
 #include "Ethernet/TcpSocket.h"
 
 
@@ -17,11 +18,11 @@
 
 
 #define SCPI_SEND(...)                                  \
-    if(CLIENT_VCP_IS_CONNECTED)                             \
+    if(CLIENT_VCP_IS_CONNECTED)                         \
     {                                                   \
         VCP::SendFormatStringAsynch(__VA_ARGS__);       \
     }                                                   \
-    if (CLIENT_LAN_IS_CONNECTED)                        \
+    if (LAN::clientIsConnected)                         \
     {                                                   \
         TCPSocket_SendFormatString(__VA_ARGS__);        \
     }

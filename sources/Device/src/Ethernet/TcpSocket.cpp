@@ -1,5 +1,7 @@
 // 2022/02/11 17:48:06 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
-#include "TcpSocket.h"
+#include "defines.h"
+#include "Ethernet/LAN.h"
+#include "Ethernet/TcpSocket.h"
 #include <lwip/tcp.h>
 #include <string.h>
 #include <stdarg.h>
@@ -28,7 +30,7 @@ void(*SocketFuncReciever)(pchar buffer, uint length) = 0;     // this function w
 
 void CloseConnection(struct tcp_pcb *tpcb, struct State *ss)
 {
-    CLIENT_LAN_IS_CONNECTED = 0;
+    LAN::clientIsConnected = false;
     tcp_arg(tpcb, NULL);
     tcp_sent(tpcb, NULL);
     tcp_recv(tpcb, NULL);
@@ -241,7 +243,7 @@ void CallbackOnError(void *_arg, err_t _err)
     }
     //tcp_close(tpcb);
 
-    CLIENT_LAN_IS_CONNECTED = 0;
+    LAN::clientIsConnected = false;
 }
 
 
@@ -312,7 +314,7 @@ err_t CallbackOnAccept(void *_arg, struct tcp_pcb *_newPCB, err_t _err)
             {
                 pcbClient = _newPCB;
                 SocketFuncConnect();
-                CLIENT_LAN_IS_CONNECTED = 1;
+                LAN::clientIsConnected = true;
                 s->state = S_RECIEVED;
             }
         }

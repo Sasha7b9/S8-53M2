@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include "Settings/SettingsTypes.h"
 #include "Settings/Settings.h"
+#include "Ethernet/LAN.h"
 #include "Symbols.h"
 #include "Display.h"
 #include "Grid.h"
@@ -2243,9 +2244,9 @@ void Display::DrawLowPart()
     }
 
     // Ethernet
-    if ((CLIENT_LAN_IS_CONNECTED || CABLE_LAN_IS_CONNECTED) && TIME_MS > 2000)
+    if ((LAN::clientIsConnected || CABLE_LAN_IS_CONNECTED) && TIME_MS > 2000)
     {
-        PText::Draw4SymbolsInRect(x + 87, GRID_BOTTOM + 2, SYMBOL_ETHERNET, CLIENT_LAN_IS_CONNECTED ? COLOR_FILL : Color::FLASH_01);
+        PText::Draw4SymbolsInRect(x + 87, GRID_BOTTOM + 2, SYMBOL_ETHERNET, LAN::clientIsConnected ? COLOR_FILL : Color::FLASH_01);
     }
 
     if (CLIENT_VCP_IS_CONNECTED || CABLE_VCP_IS_CONNECTED)

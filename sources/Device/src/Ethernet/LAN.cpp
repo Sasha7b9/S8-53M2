@@ -14,6 +14,13 @@
 #include <netif/etharp.h>
 
 
+namespace LAN
+{
+    bool clientIsConnected = false;
+}
+
+
+
 static void Netif_Config();
 
 static struct netif gnetif;
