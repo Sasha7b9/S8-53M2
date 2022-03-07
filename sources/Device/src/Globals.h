@@ -4,11 +4,8 @@
 #include "Settings/SettingsTypes.h"
 #include "Settings/SettingsChannel.h"
 #include "Settings/SettingsTime.h"
-//#include <usbd_def.h>
-
 
 struct DataSettings;
-
 
 #define SETTINGS_IS_LOADED       (gBF.settingsLoaded)
 #define NEED_OPEN_FILE_MANAGER   (gBF.needOpenFileMananger)
@@ -21,14 +18,11 @@ struct DataSettings;
 #define SHOW_HELP_HINTS          (gBF.showHelpHints)
 #define SHOW_DEBUG_MENU          (gBF.showDebugMenu)
 #define ADDRESS_GOVERNOR         (gBF.addressGovernor)
-#define IN_MOVE_DECREASE         (gBF.inMoveDecrease)
 #define TIME_START_MS            (gBF.timeStartMS)
-
 
 struct BitField
 {
     // Governor
-    uint inMoveDecrease             : 1;
     uint addressGovernor            : 32;
     uint timeStartMS                : 32;
 

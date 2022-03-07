@@ -20,7 +20,7 @@ void Governor::StartChange(int delta)
     {
         *cell = NextValue();
     }
-    else if (delta < 0 && ADDRESS_GOVERNOR == (uint)this && IN_MOVE_DECREASE)
+    else if (delta < 0 && ADDRESS_GOVERNOR == (uint)this && inMoveDecrease)
     {
         *cell = PrevValue();
     }
@@ -30,7 +30,7 @@ void Governor::StartChange(int delta)
     }
 
     inMoveIncrease = delta > 0;
-    IN_MOVE_DECREASE = (delta < 0) ? 1U : 0U;
+    inMoveDecrease = delta < 0;
 }
 
 void Governor::ChangeValue(int delta)
@@ -117,7 +117,7 @@ float Governor::Step()
     static const float speed = 0.05f;
     static const int numLines = 10;
 
-    if (ADDRESS_GOVERNOR == (uint)this && IN_MOVE_DECREASE)
+    if (ADDRESS_GOVERNOR == (uint)this && inMoveDecrease)
     {
         float delta = -speed * (TIME_MS - TIME_START_MS);
 
@@ -128,7 +128,7 @@ float Governor::Step()
 
         if (delta < -numLines)
         {
-            IN_MOVE_DECREASE = inMoveIncrease = false;
+            inMoveDecrease = inMoveIncrease = false;
             *cell = PrevValue();
 
             if (funcOfChanged)
@@ -153,7 +153,7 @@ float Governor::Step()
 
         if (delta > numLines)
         {
-            IN_MOVE_DECREASE = inMoveIncrease = false;
+            inMoveDecrease = inMoveIncrease = false;
             *cell = NextValue();
 
             if(funcOfChanged)

@@ -352,6 +352,7 @@ public:
     static int8 cur_digit;
 
     static bool inMoveIncrease;
+    static bool inMoveDecrease;
 };
 
 

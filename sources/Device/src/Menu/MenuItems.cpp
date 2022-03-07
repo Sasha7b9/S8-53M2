@@ -18,6 +18,7 @@ pchar Hint::string = nullptr;
 
 
 bool Governor::inMoveIncrease = false;
+bool Governor::inMoveDecrease = false;
 
 
 // »спользуетс€ дл€ анимации изменени€ значени€ Choice
