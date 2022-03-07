@@ -164,15 +164,11 @@ Page *Page::FromName(NamePage::E name)
 {
     if (name == NamePage::SB_MemExtSetName)
     {
-        extern const Page mpSetName;
-
-        return (Page *)&mpSetName;
+        return PageMemory::SetName::self;
     }
     else if (name == NamePage::SB_MemInt)
     {
-        extern const Page mspMemInt;
-
-        return (Page *)&mspMemInt;
+        return PageMemory::Internal::self;
     }
 
     return nullptr;

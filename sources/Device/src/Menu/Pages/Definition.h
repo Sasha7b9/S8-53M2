@@ -94,7 +94,7 @@ struct PageMemory
 
     struct Internal
     {
-        static const Page *GetPointer();
+        static Page *self;
     };
 
     struct SetMask
@@ -104,7 +104,7 @@ struct PageMemory
 
     struct SetName
     {
-        static const Page *GetPointer();
+        static Page *self;
     };
 
     struct FileManager

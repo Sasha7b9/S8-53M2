@@ -180,7 +180,7 @@ static void PressSB_SetName_Exit()
     }
     else if (EXIT_FROM_SET_NAME_TO_INT)
     {
-        PageMemory::Internal::GetPointer()->OpenAndSetCurrent();
+        PageMemory::Internal::self->OpenAndSetCurrent();
     }
 
     EXIT_FROM_SET_NAME_TO = RETURN_TO_DISABLE_MENU;
@@ -220,7 +220,7 @@ const SmallButton sbMemLastNext
 
 void PressSB_MemLast_IntEnter()
 {
-    PageMemory::Internal::GetPointer()->OpenAndSetCurrent();
+    PageMemory::Internal::self->OpenAndSetCurrent();
     MODE_WORK = ModeWork_MemInt;
     HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
     EXIT_FROM_INT_TO_LAST = 1;
@@ -1106,7 +1106,7 @@ void PageMemory::SaveSignalToFlashDrive()
     {
         if (FILE_NAMING_MODE_IS_HAND)
         {
-            PageMemory::SetName::GetPointer()->OpenAndSetCurrent();
+            PageMemory::SetName::self->OpenAndSetCurrent();
             Display::SetAddDrawFunction(DrawSetName);
         }
         else
@@ -1279,7 +1279,7 @@ static const Page mspMemoryExt
 // Нажатие ПАМЯТЬ - Внутр ЗУ
 void OnPressMemoryInt()
 {
-    PageMemory::Internal::GetPointer()->OpenAndSetCurrent();
+    PageMemory::Internal::self->OpenAndSetCurrent();
     MODE_WORK = ModeWork_MemInt;
 
     HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
@@ -1295,7 +1295,7 @@ static const arrayItems itemsMemInt =
     (void*)&sbMemIntSaveToFlash
 };
 
-const Page mspMemInt
+static const Page mspMemInt
 (
     &pMemory, 0,
     "ВНУТР ЗУ", "INT STORAGE",
@@ -1303,6 +1303,9 @@ const Page mspMemInt
     "Transition to an operating mode with internal memory",
     NamePage::SB_MemInt, &itemsMemInt, OnPressMemoryInt, FuncAdditionDrawingSPageMemoryInt, FuncOnRegSetMemInt
 );
+
+
+Page *PageMemory::Internal::self = (Page *)&mspMemInt;
 
 // Страница вызывается при выбранном ручном режиме задания имени файла перед сохранением на флешку ///////////////
 static void OnMemExtSetNameRegSet(int angle)
@@ -1320,7 +1323,7 @@ static const arrayItems itemsSetName =
     (void*)&sbSetNameSave
 };
 
-const Page mpSetName
+static const Page mpSetName
 (
     0, 0,
     "", "",
@@ -1328,6 +1331,10 @@ const Page mpSetName
     "",
     NamePage::SB_MemExtSetName, &itemsSetName, EmptyFuncVV, EmptyFuncVV, OnMemExtSetNameRegSet
 );
+
+
+Page *PageMemory::SetName::self = (Page *)&mpSetName;
+
 
 // ПАМЯТЬ /////////////////////////////////////////////////////////////////////////////
 static const arrayItems itemsMemory =
@@ -1360,21 +1367,9 @@ const Page *PageMemory::Latest::GetPointer()
 }
 
 
-const Page *PageMemory::Internal::GetPointer()
-{
-    return &mspMemInt;
-}
-
-
 const Page *PageMemory::SetMask::GetPointer()
 {
     return &mspSetMask;
-}
-
-
-const Page *PageMemory::SetName::GetPointer()
-{
-    return &mpSetName;
 }
 
 
