@@ -2,9 +2,6 @@
 #include "defines.h"
 
 
-void *extraMEM = 0;
-
-
 void HardwareErrorHandler(pchar , pchar , int)
 {
     while(true)

@@ -28,12 +28,12 @@ extern const Page  ppSerialNumber;                     // ОТЛАДКА - С/Н
 
 
 // В этой структуре будут храниться данные серийного номера при открытой странице ppSerialNumer
-struct StructForSN
+static struct StructForSN
 {
     int number;     // Соответственно, порядковый номер.
     int year;       // Соответственно, год.
     int curDigt;    // Соответственно, номером (0) или годом (1) управляет ручка УСТАНОВКА.
-};
+} structSN;
 
 
 extern Page mainPage;
@@ -626,7 +626,6 @@ static const Page mpRandomizer
 static void OnPress_SerialNumber_Exit()
 {
     Display::RemoveAddDrawFunction();
-    FREE_EXTRAMEM();
 }
 
 
@@ -641,9 +640,9 @@ static const SmallButton bSerialNumber_Exit
 
 static void OnPress_SerialNumber_Change()
 {
-    ACCESS_EXTRAMEM(StructForSN, s);
-    ++s->curDigt;
-    s->curDigt %= 2;
+    structSN.curDigt++;
+    structSN.curDigt %= 2;
+
     Color::ResetFlash();
 }
 
@@ -669,11 +668,9 @@ static const SmallButton bSerialNumber_Change
 
 static void OnPress_SerialNumber_Save()
 {
-    ACCESS_EXTRAMEM(StructForSN, s);
-
     char stringSN[20];
 
-    snprintf(stringSN, 19, "%02d %04d", s->number, s->year);
+    snprintf(stringSN, 19, "%02d %04d", structSN.number, structSN.year);
 
     if (!OTP::SaveSerialNumber(stringSN))
     {
@@ -724,12 +721,10 @@ static void Draw_EnterSerialNumber()
 
     int deltaX = 10;
 
-    ACCESS_EXTRAMEM(StructForSN, s);
-
-    bool selNumber = s->curDigt == 0;
+    bool selNumber = (structSN.curDigt == 0);
 
     char buffer[20];
-    snprintf(buffer, 19, "%02d", s->number);
+    snprintf(buffer, 19, "%02d", structSN.number);
 
     Color::E colorText = COLOR_FILL;
     Color::E colorBackground = COLOR_BACK;
@@ -754,7 +749,7 @@ static void Draw_EnterSerialNumber()
         colorBackground = COLOR_BACK;
     }
 
-    snprintf(buffer, 19, "%04d", s->year);
+    snprintf(buffer, 19, "%04d", structSN.year);
 
     Color::SetCurrent(colorText);
     PText::DrawTextOnBackground(x + 5, y, buffer, colorBackground);
@@ -773,10 +768,10 @@ static void OnPress_SerialNumber()
 {
     PageDebug::SerialNumber::GetPointer()->OpenAndSetCurrent();
     Display::SetAddDrawFunction(Draw_EnterSerialNumber);
-    MALLOC_EXTRAMEM(StructForSN, s);
-    s->number = 01;
-    s->year = 2017;
-    s->curDigt = 0;
+
+    structSN.number = 01;
+    structSN.year = 2022;
+    structSN.curDigt = 0;
 }
 
 
@@ -786,15 +781,13 @@ static void OnRegSet_SerialNumber(int angle)
 
     pFunc p = angle > 0 ? CircleIncreaseInt : CircleDecreaseInt;
 
-    ACCESS_EXTRAMEM(StructForSN, s);
-
-    if (s->curDigt == 0)
+    if (structSN.curDigt == 0)
     {
-        p(&s->number, 1, 99);
+        p(&structSN.number, 1, 99);
     }
     else
     {
-        p(&s->year, 2014, 2050);
+        p(&structSN.year, 2014, 2050);
     }
     Sound::GovernorChangedValue();
 }
