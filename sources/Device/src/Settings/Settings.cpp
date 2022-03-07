@@ -18,6 +18,7 @@
 bool Settings::need_save = false;
 uint Settings::time_save = 0;
 bool Settings::isLoaded = false;
+bool Settings::needReset = false;
 
 
 static const Settings defaultSettings =

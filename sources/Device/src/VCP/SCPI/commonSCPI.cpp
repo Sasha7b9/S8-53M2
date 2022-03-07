@@ -30,7 +30,7 @@ void SCPI::COMMON::STOP(uint8 *)
 
 void SCPI::COMMON::RESET(uint8 *)
 {
-    NEED_RESET_SETTINGS = 1;
+    Settings::needReset = true;
 }
 
 

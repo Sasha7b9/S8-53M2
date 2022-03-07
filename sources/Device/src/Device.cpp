@@ -49,10 +49,10 @@ void Device::Init()
 
 void Device::Update()
 {
-    if (NEED_RESET_SETTINGS)
+    if (Settings::needReset)
     {
         Settings::Load(true);
-        NEED_RESET_SETTINGS = 0;
+        Settings::needReset = false;
     }
 
     Timer::StartMultiMeasurement();      // —брос таймера дл€ замера длительности временных интервалов в течение одной итерации цикла.
