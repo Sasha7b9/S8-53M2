@@ -5,7 +5,7 @@
 #include "Display/font/Font.h"
 #include "Log.h"
 #include "LAN/LAN.h"
-#include "LAN/TcpSocket.h"
+#include "LAN/SocketTCP.h"
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"
 #include "VCP/VCP.h"

@@ -1357,14 +1357,14 @@
               <FilePath>.\src\LAN\LAN.h</FilePath>
             </File>
             <File>
-              <FileName>TcpSocket.cpp</FileName>
+              <FileName>SocketTCP.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\LAN\TcpSocket.cpp</FilePath>
+              <FilePath>.\src\LAN\SocketTCP.cpp</FilePath>
             </File>
             <File>
-              <FileName>TcpSocket.h</FileName>
+              <FileName>SocketTCP.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\LAN\TcpSocket.h</FilePath>
+              <FilePath>.\src\LAN\SocketTCP.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3303,14 +3303,14 @@
               <FilePath>.\src\LAN\LAN.h</FilePath>
             </File>
             <File>
-              <FileName>TcpSocket.cpp</FileName>
+              <FileName>SocketTCP.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\LAN\TcpSocket.cpp</FilePath>
+              <FilePath>.\src\LAN\SocketTCP.cpp</FilePath>
             </File>
             <File>
-              <FileName>TcpSocket.h</FileName>
+              <FileName>SocketTCP.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\LAN\TcpSocket.h</FilePath>
+              <FilePath>.\src\LAN\SocketTCP.h</FilePath>
             </File>
           </Files>
         </Group>

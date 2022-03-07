@@ -1,7 +1,7 @@
 // 2022/02/11 17:46:13 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "LAN/LAN.h"
-#include "TcpSocket.h"
+#include "LAN/SocketTCP.h"
 #include "main.h"
 #include "Hardware/Timer.h"
 #include "ethernetif.h"

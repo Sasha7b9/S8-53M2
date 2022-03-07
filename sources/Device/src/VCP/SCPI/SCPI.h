@@ -2,7 +2,7 @@
 #pragma once
 #include "VCP/VCP.h"
 #include "LAN/LAN.h"
-#include "LAN/TcpSocket.h"
+#include "LAN/SocketTCP.h"
 
 
 #define ENTER_ANALYSIS                                  \
