@@ -8,14 +8,7 @@
 #include "Utils/GlobalFunctions.h"
 
 
-/** @addtogroup Menu
- *  @{
- *  @addtogroup PageTrig
- *  @{
- */
-
 extern const Page pTrig;
-
 
 
 extern const Choice mcMode;                     // ÑÈÍÕÐ - Ðåæèì
@@ -238,7 +231,3 @@ static void OnPress_AutoFind_Search()
 {
     FPGA::FindAndSetTrigLevel();
 }
-
-
-/** @}  @}
- */
