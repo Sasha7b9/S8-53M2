@@ -116,7 +116,7 @@ void Menu::Draw()
             }
             else
             {
-                Keeper(item)->DrawOpened(0, GRID_TOP);
+                item->Keeper()->DrawOpened(0, GRID_TOP);
             }
         }
         else
@@ -383,7 +383,7 @@ int Menu::CalculateX(int layer)
 
 bool Menu::IsShade(void* item)
 {
-    return Keeper(item)->CurrentItemIsOpened() && (item != Item::Opened());
+    return ((Item *)item)->Keeper()->CurrentItemIsOpened() && (item != Item::Opened());
 }
 
 
@@ -410,7 +410,7 @@ void Menu::ResetItemsUnderButton()
 
 int Menu::ItemOpenedPosY(Item *item)
 {
-    Page *page = Keeper(item);
+    Page *page = item->Keeper();
     int8 posCurItem = page->PosCurrentItem();
     int y = GRID_TOP + (posCurItem % MENU_ITEMS_ON_DISPLAY) * MI_HEIGHT + MP_TITLE_HEIGHT;
 

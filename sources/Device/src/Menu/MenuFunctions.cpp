@@ -41,7 +41,7 @@ bool Page::CurrentItemIsOpened()
 
 void Item::SetCurrent(bool active) const
 {
-    Page *page = (Menu::Keeper(this));
+    Page *page = Keeper();
 
     if (!active)
     {
@@ -194,7 +194,7 @@ void Menu::CloseOpenedItem()
 
         if(NEED_CLOSE_PAGE_SB == 1)
         {
-            Page *page = Keeper(item);
+            Page *page = item->Keeper();
             POS_ACT_ITEM(page->name) &= 0x7f;                       // Сбрасываем бит 7 - "закрываем" активный пункт страницы namePage
         }
 
@@ -214,7 +214,7 @@ void Menu::CloseOpenedItem()
 
 void Item::Open(bool open) const
 {
-    Page *page = Menu::Keeper(this);
+    Page *page = Keeper();
 
     if (open)
     {
@@ -229,20 +229,20 @@ void Item::Open(bool open) const
 
 bool Item::IsOpened() const
 {
-    Page *page = Menu::Keeper(this);
+    Page *page = Keeper();
 
     if(GetType() == TypeItem::Page)
     {
-        return Menu::Keeper(this)->CurrentItemIsOpened();
+        return Keeper()->CurrentItemIsOpened();
     }
 
     return (POS_ACT_ITEM(page->name) & 0x80) != 0;
 }
 
 
-Page* Menu::Keeper(const void *item)
+Page* Item::Keeper() const
 {
-    const Page* page = ((Page*)(item))->keeper;
+    const Page* page = ((Page*)(this))->keeper;
     return (Page *)page;
 }
 

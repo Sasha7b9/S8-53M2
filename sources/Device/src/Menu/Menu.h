@@ -49,9 +49,6 @@ namespace Menu
     // Возвращает тип открытого элемента меню.
     TypeItem::E TypeOpenedItem();
 
-    // Возвращает адрес элемента, которому принадлежит элемент по адресу item.
-    Page* Keeper(const void *item);
-
     NamePage::E GetNameOpenedPage();
 
     // Возвращает true, если button - функциональная клавиша [1..5].

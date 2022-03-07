@@ -371,7 +371,7 @@ char* Menu::StringNavigation(char buffer[100])
         while(!IsMainPage(item))
         {
             titles[numTitle++] = item->Title();
-            item = Keeper(item);
+            item = item->Keeper();
         }
 
         for(int i = 9; i >= 0; i--)
