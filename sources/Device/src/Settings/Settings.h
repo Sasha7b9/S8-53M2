@@ -99,7 +99,6 @@ struct SettingsMenu
 
 
 
-int8 MenuCurrentSubPage(NamePage::E namePage);                      // ¬озвращает номер текущей подстраницы страницы namePage.
 void SetMenuCurrentSubPage(NamePage::E namePage, int8 posSubPage);  // ”станавливает номер текущей подстраницы в странице namePage.
 bool MenuIsMinimize();                                              // ≈сли true - меню находитс€ в дополнительном режиме.
 bool MenuPageDebugIsActive();                                       // јктивна ли страница отладки.

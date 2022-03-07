@@ -117,12 +117,6 @@ int Menu::HeightOpenedItem(void *item)
 }
 
 
-int Page::NumCurrentSubPage()
-{
-    return MenuCurrentSubPage(name);
-}
-
-
 pchar Item::Title() 
 {
     return TITLE((Page*)this);
@@ -143,15 +137,15 @@ bool Menu::IsFunctionalButton(Key::E button)
 
 void Page::ChangeSubPage(int delta) const
 {
-    if (delta > 0 && MenuCurrentSubPage(name) < NumSubPages() - 1)
+    if (delta > 0 && NumCurrentSubPage() < NumSubPages() - 1)
     {
         Sound::RegulatorSwitchRotate();
-        SetMenuCurrentSubPage(name, MenuCurrentSubPage(name) + 1);
+        SetMenuCurrentSubPage(name, NumCurrentSubPage() + 1);
     }
-    else if (delta < 0 && MenuCurrentSubPage(name) > 0)
+    else if (delta < 0 && NumCurrentSubPage() > 0)
     {
         Sound::RegulatorSwitchRotate();
-        SetMenuCurrentSubPage(name, MenuCurrentSubPage(name) - 1);
+        SetMenuCurrentSubPage(name, NumCurrentSubPage() - 1);
     }
 }
 

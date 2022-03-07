@@ -181,7 +181,7 @@ public:
     int PosItemOnTop();
 
     // Возвращает номер текущей подстранцы элемента по адресу page.
-    int NumCurrentSubPage();
+    int NumCurrentSubPage() const;
 
     // Возвращает количество элементов в странице по адресу page.
     int NumItems() const;

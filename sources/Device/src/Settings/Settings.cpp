@@ -306,9 +306,9 @@ void Page::SetPosActItem(NamePage::E namePage, int8 pos)
     set.menu.posActItem[namePage] = pos;
 }
 
-int8 MenuCurrentSubPage(NamePage::E namePage)
+int Page::NumCurrentSubPage() const
 {
-    return set.menu.currentSubPage[namePage];
+    return set.menu.currentSubPage[name];
 }
 
 void SetMenuCurrentSubPage(NamePage::E namePage, int8 posSubPage)
