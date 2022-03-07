@@ -185,7 +185,7 @@ void Page::DrawTitle(int layer, int yTop)
 
     Painter::DrawVLine(x, yTop, yTop + HeightOpened(), ColorBorderMenu(false));
     bool condDrawRSet = NumSubPages() > 1 && Item::Current()->GetType() != TypeItem::ChoiceReg &&
-        Item::Current()->GetType() != TypeItem::Governor && Menu::TypeOpenedItem() == TypeItem::Page;
+        Item::Current()->GetType() != TypeItem::Governor && Item::TypeOpened() == TypeItem::Page;
     int delta = condDrawRSet ? -10 : 0;
     Color::E colorText = shade ? LightShadingTextColor() : Color::BLACK;
     x = PText::DrawStringInCenterRect(x, yTop, MP_TITLE_WIDTH + 2 + delta, MP_TITLE_HEIGHT, Title(), colorText);

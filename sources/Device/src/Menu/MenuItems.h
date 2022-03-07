@@ -124,30 +124,14 @@ public:
     // Возвращает true, если кнопка, соответствующая данному элементу меню, находится в нажатом положении.
     bool IsPressed();
 
-    // Возвращает адрес открытого элемента меню.
-    static Item *Opened();
-
-    // Возвращает адрес пункта меню, находящегося под нажатой в данный момент кнопкой.
-    static Item *UnderKey();
-
-    // Возвращает адрес элемента меню, соответствующего данной button.
-    static Item *UnderKey(Key::E);
-
     // Возвращает название элемента по адресу item, как оно выглядит на дисплее прибора.
     pchar Title();
-
-    // Здесь хранится адрес элемента меню, соответствующего функциональной клавише [1..5], если она находится в нижнем положении, и 0, если ни одна 
-    // кнопка не нажата.
-    static Item *underKey;
 
     // Открыть/закрыть элемент меню по адрему item.
     void Open(bool open) const;
 
     // Уменьшает или увеличивает значение Governor, GovernorColor или Choice по адресу item в зависимости от знака delta
     void Change(int delta);
-
-    // Возвращает адрес текущего элемента меню (текущим, как правило, является элемент, кнопка которого была нажата последней.
-    static Item *Current();
 
     bool ChangeOpened(int delta);
 
@@ -174,6 +158,25 @@ public:
     bool IsShade() const;
 
     bool IsPressed() const;
+
+    // Возвращает тип открытого элемента меню.
+    static TypeItem::E TypeOpened();
+
+    // Возвращает адрес текущего элемента меню (текущим, как правило, является элемент, кнопка которого была нажата последней.
+    static Item *Current();
+
+    // Здесь хранится адрес элемента меню, соответствующего функциональной клавише [1..5], если она находится в нижнем положении, и 0, если ни одна 
+    // кнопка не нажата.
+    static Item *underKey;
+
+    // Возвращает адрес открытого элемента меню.
+    static Item *Opened();
+
+    // Возвращает адрес пункта меню, находящегося под нажатой в данный момент кнопкой.
+    static Item *UnderKey();
+
+    // Возвращает адрес элемента меню, соответствующего данной button.
+    static Item *UnderKey(Key::E);
 };
 
 
@@ -243,11 +246,6 @@ public:
 
     void OpenAndSetCurrent() const;
 
-    // Возвращает страницу меню, которая должна открываться по нажатию кнопки
-    static const Page *ForButton(Key::E);
-
-    static Page *FromName(NamePage::E);
-
     // Устанавливает номер текущей подстраницы в странице namePage.
     void SetCurrentSubPage(int8 posSubPage) const;
 
@@ -258,6 +256,11 @@ public:
     static void RotateRegSetSB(int angle);
 
     static NamePage::E NameOpened();
+
+    // Возвращает страницу меню, которая должна открываться по нажатию кнопки
+    static const Page *ForButton(Key::E);
+
+    static Page *FromName(NamePage::E);
 };
 
 

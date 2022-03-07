@@ -61,7 +61,7 @@ void Item::SetCurrent(bool active) const
 }
 
 
-TypeItem::E Menu::TypeOpenedItem()
+TypeItem::E Item::TypeOpened()
 {
     return Item::Opened()->GetType();
 }
@@ -181,7 +181,7 @@ void Menu::CloseOpenedItem()
 {
     Item *item = Item::Opened();
 
-    if(TypeOpenedItem() == TypeItem::Page)
+    if(Item::TypeOpened() == TypeItem::Page)
     {
         if (((const Page *)item)->IsSB())                           // Для страницы малых кнопок
         {

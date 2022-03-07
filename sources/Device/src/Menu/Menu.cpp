@@ -912,7 +912,8 @@ bool Menu::NeedForFireSetLED()
         return true;
     }
 
-    TypeItem::E typeOpenedItem = TypeOpenedItem();
+    TypeItem::E typeOpenedItem = Item::TypeOpened();
+
     if (typeOpenedItem == TypeItem::Choice       ||
         (typeOpenedItem == TypeItem::Page && ((Page *)Item::Opened())->NumSubPages() > 1)
         )

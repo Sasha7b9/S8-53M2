@@ -6,14 +6,6 @@
 
 namespace Menu
 {
-    void Draw();
-
-    // Функция должна вызываться в главном цикле.
-    void UpdateInput();
-
-    // Отобразить/скрыть меню.
-    void Show(bool);
-
     namespace Handlers
     {
         // Функция обработки короткого нажатия кнопки (менее 0.5 сек.).
@@ -35,13 +27,19 @@ namespace Menu
         void RotateRegSetLeft();
     }
 
+    void Draw();
+
+    // Функция должна вызываться в главном цикле.
+    void UpdateInput();
+
+    // Отобразить/скрыть меню.
+    void Show(bool);
+
     // Установить время автоматического сокрытия меню в соответствии с установками.
     void SetAutoHide(bool active);
+
     // Возвращает путь к текущему пункту меню в текстовом виде, готовом к выводу на экран.
     char *StringNavigation(char buffer[100]);
-
-    // Возвращает тип открытого элемента меню.
-    TypeItem::E TypeOpenedItem();
 
     // Закрыть открытый элемент меню.
     void CloseOpenedItem();
