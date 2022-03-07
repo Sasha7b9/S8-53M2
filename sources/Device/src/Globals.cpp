@@ -10,8 +10,6 @@ void *extraMEM = 0;
 
 BitField gBF =
 {
-    1,  // panelIsRunning
-    
     // Governor
     0,
     0,

@@ -36,6 +36,8 @@ namespace Panel
 
     Queue<uint16> input_buffer;
 
+    bool isRunning = true;
+
     // Преобразует данные из новой панели в данные, опознаваемые старой прошивкой
     uint16 TranslateCommand(const uint8 *data, uint size);
 
@@ -256,7 +258,7 @@ void Panel::ProcessingCommandFromPIC(uint16 command)
         pressedButton = pressButton;
     }
 
-    if(PANEL_IS_RUNNING == 0)
+    if(!isRunning)
     {
         return;
     }
@@ -380,13 +382,13 @@ uint16 Panel::NextData()
 
 void Panel::Disable()
 {
-    PANEL_IS_RUNNING = 0;
+    isRunning = false;
 }
 
 
 void Panel::Enable()
 {
-    PANEL_IS_RUNNING = 1;
+    isRunning = true;
 }
 
 

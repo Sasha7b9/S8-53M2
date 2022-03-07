@@ -24,14 +24,10 @@ struct DataSettings;
 #define IN_MOVE_INCREASE         (gBF.inMoveIncrease)
 #define IN_MOVE_DECREASE         (gBF.inMoveDecrease)
 #define TIME_START_MS            (gBF.timeStartMS)
-#define PANEL_IS_RUNNING         (gBF.panelIsRunning)
 
 
 struct BitField
 {
-    // Панель
-    uint panelIsRunning             : 1;
-    
     // Governor
     uint inMoveIncrease             : 1;
     uint inMoveDecrease             : 1;
