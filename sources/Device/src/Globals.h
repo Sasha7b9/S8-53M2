@@ -179,8 +179,6 @@ struct StateFPGA
 };
 
 
-extern pchar gStringForHint;  // Строка подсказки, которую надо выводить в случае включённого режима подсказок.
-
 void SetItemForHint(void *item);
 
 extern StateFPGA gStateFPGA;

@@ -14,6 +14,7 @@ int8 Governor::cur_digit = 0;
 
 Item *Item::underKey = nullptr;
 void *Hint::item = nullptr;
+pchar Hint::string = nullptr;
 
 
 // »спользуетс€ дл€ анимации изменени€ значени€ Choice

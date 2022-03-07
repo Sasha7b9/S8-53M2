@@ -144,9 +144,10 @@ void Menu::Draw()
                                                 "To disable this mode, press the button HELP and hold it for 0.5s.",
                                                 COLOR_BACK, COLOR_FILL);
         y += LANG_RU ? 49 : 40;
-        if (gStringForHint)
+
+        if (Hint::string)
         {
-            PText::DrawTextInBoundedRectWithTransfers(x + 1, y, width - 1, gStringForHint, COLOR_BACK, COLOR_FILL);
+            PText::DrawTextInBoundedRectWithTransfers(x + 1, y, width - 1, Hint::string, COLOR_BACK, COLOR_FILL);
         }
         else if (Hint::item)
         {

@@ -21,7 +21,7 @@ static void ChangeRShift(int *prevTime, void(*f)(Chan::E, int16), Chan::E ch, in
 void HelpLong()
 {
     SHOW_HELP_HINTS++;
-    gStringForHint = 0;
+    Hint::string = nullptr;
     Hint::item = nullptr;
 }
 

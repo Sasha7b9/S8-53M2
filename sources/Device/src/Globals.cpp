@@ -75,12 +75,10 @@ StateFPGA gStateFPGA =
     StateCalibration_None
 };
 
-pchar gStringForHint = 0;
-
 
 void SetItemForHint(void *item)
 {
-    gStringForHint = 0;
+    Hint::string = nullptr;
     Hint::item = item;
 }
 
