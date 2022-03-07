@@ -93,12 +93,12 @@ void PressSB_MemLastSelect()
 
 void PressSB_MemLast_Next()
 {
-    CircleIncreaseInt16(&CURRENT_NUM_LATEST_SIGNAL, 0, Storage::NumElements() - 1);
+    CircleIncreaseInt16(&PageMemory::Latest::current, 0, Storage::NumElements() - 1);
 }
 
 void PressSB_MemLast_Prev()
 {
-    CircleDecreaseInt16(&CURRENT_NUM_LATEST_SIGNAL, 0, Storage::NumElements() - 1);
+    CircleDecreaseInt16(&PageMemory::Latest::current, 0, Storage::NumElements() - 1);
 }
 
 static void RotateSB_MemLast(int angle)
@@ -125,7 +125,7 @@ static void FuncDrawingAdditionSPageMemoryLast()
     int height = 10;
     Painter::FillRegion(Grid::Right() - width, GRID_TOP, width, height, COLOR_BACK);
     Painter::DrawRectangle(Grid::Right() - width, GRID_TOP, width, height, COLOR_FILL);
-    PText::DrawText(Grid::Right() - width + 2, GRID_TOP + 1, Int2String(CURRENT_NUM_LATEST_SIGNAL + 1, false, 3, buffer));
+    PText::DrawText(Grid::Right() - width + 2, GRID_TOP + 1, Int2String(PageMemory::Latest::current + 1, false, 3, buffer));
     PText::DrawText(Grid::Right() - width + 17, GRID_TOP + 1, "/");
     PText::DrawText(Grid::Right() - width + 23, GRID_TOP + 1, Int2String(Storage::NumElements(), false, 3, buffer));
 }
@@ -222,7 +222,7 @@ void PressSB_MemLast_IntEnter()
 {
     PageMemory::Internal::self->OpenAndSetCurrent();
     MODE_WORK = ModeWork_MemInt;
-    HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
+    HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
     EXIT_FROM_INT_TO_LAST = 1;
 }
 
@@ -545,8 +545,8 @@ static void SaveSignalToIntMemory()
     {
         if  (Storage::dsLast != 0)
         {                               // то сохраняем сигнал из последних
-            HAL_ROM::SaveData(CURRENT_NUM_INT_SIGNAL, Storage::dsLast, Storage::dataLastA, Storage::dataLastB);
-            HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
+            HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Storage::dsLast, Storage::dataLastA, Storage::dataLastB);
+            HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
             Display::ShowWarningGood(Warning::SignalIsSaved);
         }
     }
@@ -554,8 +554,8 @@ static void SaveSignalToIntMemory()
     {
         if (Storage::DS != 0)
         {
-            HAL_ROM::SaveData(CURRENT_NUM_INT_SIGNAL, Storage::DS, Storage::dataA, Storage::dataB);
-            HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::DS, &Storage::dataIntA, &Storage::dataIntB);
+            HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Storage::DS, Storage::dataA, Storage::dataB);
+            HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::DS, &Storage::dataIntA, &Storage::dataIntB);
             Display::ShowWarningGood(Warning::SignalIsSaved);
         }
     }
@@ -584,9 +584,9 @@ static void DrawMemoryWave(int num, bool exist)
     int x = Grid::Left() + 2 + num * 12;
     int y = Grid::FullBottom() - 10;
     int width = 12;
-    Painter::FillRegion(x, y, width, 10, num == CURRENT_NUM_INT_SIGNAL ? Color::FLASH_10 : COLOR_BACK);
+    Painter::FillRegion(x, y, width, 10, (num == PageMemory::Internal::currentSignal) ? Color::FLASH_10 : COLOR_BACK);
     Painter::DrawRectangle(x, y, width, 10, COLOR_FILL);
-    Color::SetCurrent(num == CURRENT_NUM_INT_SIGNAL ? Color::FLASH_01 : COLOR_FILL);
+    Color::SetCurrent(num == PageMemory::Internal::currentSignal ? Color::FLASH_01 : COLOR_FILL);
     if (exist)
     {
         PText::DrawText(x + 2, y + 1, Int2String(num + 1, false, 2, buffer));
@@ -622,13 +622,13 @@ static void FuncOnRegSetMemInt(int delta)
     Sound::RegulatorSwitchRotate();
     if (delta < 0)
     {
-        CircleDecreaseInt8(&CURRENT_NUM_INT_SIGNAL, 0, MAX_NUM_SAVED_WAVES - 1);
+        CircleDecreaseInt8(&PageMemory::Internal::currentSignal, 0, MAX_NUM_SAVED_WAVES - 1);
     }
     else if (delta > 0)
     {
-        CircleIncreaseInt8(&CURRENT_NUM_INT_SIGNAL, 0, MAX_NUM_SAVED_WAVES - 1);
+        CircleIncreaseInt8(&PageMemory::Internal::currentSignal, 0, MAX_NUM_SAVED_WAVES - 1);
     }
-    HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
+    HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
     Color::ResetFlash();
 }
 
@@ -759,7 +759,7 @@ static const SmallButton sbMemIntModeShow
 
 static void PressSB_MemInt_Delete()
 {
-    HAL_ROM::DeleteData(CURRENT_NUM_INT_SIGNAL);
+    HAL_ROM::DeleteData(PageMemory::Internal::currentSignal);
 }
 
 static void DrawSB_MemInt_Delete(int x, int y)
@@ -802,7 +802,7 @@ const SmallButton sbMemIntSaveToFlash
 
 void PressSB_MemInt_Exit()
 {
-    HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
+    HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
 
     if (EXIT_FROM_INT_TO_LAST)
     {
@@ -1134,7 +1134,7 @@ static void PressSB_MemLast_Exit()
 // Нажатие ПАМЯТЬ - Последние.
 void OnPressMemoryLatest()
 {
-    CURRENT_NUM_LATEST_SIGNAL = 0;
+    PageMemory::Latest::current = 0;
     RUN_FPGA_AFTER_SMALL_BUTTONS = FPGA::IsRunning() ? 1U : 0U;
     FPGA::Stop(false);
     MODE_WORK = ModeWork_Latest;
@@ -1282,7 +1282,7 @@ void OnPressMemoryInt()
     PageMemory::Internal::self->OpenAndSetCurrent();
     MODE_WORK = ModeWork_MemInt;
 
-    HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
+    HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
 }
 
 static const arrayItems itemsMemInt =

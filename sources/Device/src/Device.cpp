@@ -110,14 +110,14 @@ void Device::ProcessingSignal()
         dataA = Storage::dataLastA;
         dataB = Storage::dataLastB;
         ds = &Storage::dsLast;
-        Storage::GetData(CURRENT_NUM_LATEST_SIGNAL, &Storage::dsLast, &Storage::dataLastA, &Storage::dataLastB);
+        Storage::GetData(PageMemory::Latest::current, &Storage::dsLast, &Storage::dataLastA, &Storage::dataLastB);
     }
     else if (MODE_WORK_IS_MEMINT)
     {
         dataA = Storage::dataIntA;
         dataB = Storage::dataIntB;
         ds = &Storage::dsInt;
-        HAL_ROM::GetData(CURRENT_NUM_INT_SIGNAL, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
+        HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
     }
 
     if (MODE_WORK_IS_MEMINT)

@@ -10,8 +10,6 @@ void *extraMEM = 0;
 
 GMemory gMemory =
 {
-    0,  // currentNumLatestSignal
-    0,  // currentNumIntSignal
     0,  // showAlways
     0,  // runningFPGAbeforeSmallButtons
     0,  // exitFromIntToLast
