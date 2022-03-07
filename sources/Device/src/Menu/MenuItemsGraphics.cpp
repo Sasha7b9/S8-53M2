@@ -40,7 +40,7 @@ static void DrawGovernorChoiceColorFormulaHiPart(Item *item, int x, int y, bool 
     
     TypeItem::E type = Menu::TypeMenuItem(item);
 
-    if(Menu::CurrentItem() == item)
+    if(Item::Current() == item)
     {
         char symbol = 0;
 

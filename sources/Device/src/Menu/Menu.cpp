@@ -519,7 +519,7 @@ void Menu::ProcessingRegulatorSet()
 
     if (IsShown() || TypeMenuItem(Item::Opened()) != TypeItem::Page)
     {
-        Item *item = CurrentItem();
+        Item *item = Item::Current();
         TypeItem::E type = TypeMenuItem(item);
 
         if (TypeMenuItem(Item::Opened()) == TypeItem::Page && (type == TypeItem::ChoiceReg ||
@@ -618,7 +618,7 @@ void Menu::ShortPress_Choice(Item *choice)
     }
     else if (!ItemIsOpened(choice))
     {
-        SetCurrentItem(choice, CurrentItem() != choice);       
+        SetCurrentItem(choice, Item::Current() != choice);
         ((Choice *)choice)->StartChange(1);
     }
     else
@@ -636,7 +636,7 @@ void Menu::ShortPress_ChoiceReg(Item *choice)
     } 
     else if(Item::Opened() != choice)
     {
-        SetCurrentItem(choice, CurrentItem() != choice);
+        SetCurrentItem(choice, Item::Current() != choice);
     }
 }
 
@@ -660,7 +660,7 @@ void Menu::ShortPress_Button(Item *button)
 
 void Menu::FuncOnLongPressItem(Item *item)
 {
-    if (CurrentItem() != item)
+    if (Item::Current() != item)
     {
         SetCurrentItem(item, true);
     }
@@ -671,7 +671,7 @@ void Menu::FuncOnLongPressItem(Item *item)
 
 void Menu::FuncOnLongPressItemTime(Item *time)
 {
-    if (CurrentItem() != time)
+    if (Item::Current() != time)
     {
         SetCurrentItem(time, true);
     }
@@ -715,7 +715,7 @@ void Menu::ShortPress_Governor(Item *governor)
     }
     else
     {
-        SetCurrentItem(gov, CurrentItem() != gov);
+        SetCurrentItem(gov, Item::Current() != gov);
     }
 }
 
@@ -901,7 +901,7 @@ bool Menu::NeedForFireSetLED()
         return true;
     }
     
-    TypeItem::E typeCurrentItem = TypeMenuItem(CurrentItem());
+    TypeItem::E typeCurrentItem = TypeMenuItem(Item::Current());
     if (typeCurrentItem == TypeItem::Governor    ||
         typeCurrentItem == TypeItem::ChoiceReg)
     {

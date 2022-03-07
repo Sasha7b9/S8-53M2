@@ -53,8 +53,6 @@ namespace Menu
     TypeItem::E TypeMenuItem(const void *);
     // Возвращает тип открытого элемента меню.
     TypeItem::E TypeOpenedItem();
-    // Возвращает адрес текущего элемента меню (текущим, как правило, является элемент, кнопка которого была нажата последней.
-    Item *CurrentItem();
     // Сделать/разделать текущим пункт страницы.
     void SetCurrentItem(const void *item, bool active);
     // Возвращает адрес элемента, которому принадлежит элемент по адресу item.

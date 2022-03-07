@@ -83,10 +83,10 @@ Item *Page::GetItem(int numElement) const
 }
 
 
-Item* Menu::CurrentItem()
+Item *Item::Current()
 {
     TypeItem::E type = TypeItem::None;
-    Item *lastOpened = RetLastOpened((Page*)&mainPage, &type);
+    Item *lastOpened = Menu::RetLastOpened((Page*)&mainPage, &type);
     int8 pos = ((const Page *)lastOpened)->PosCurrentItem();
 
     if(type == TypeItem::Page && pos != 0x7f)
