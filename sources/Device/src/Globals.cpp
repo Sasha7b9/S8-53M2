@@ -12,7 +12,7 @@ StateFPGA gStateFPGA =
 {
     false,
     StateWorkFPGA::Stop,
-    StateCalibration_None
+    StateCalibration::None
 };
 
 
