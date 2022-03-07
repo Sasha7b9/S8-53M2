@@ -17,6 +17,7 @@
 #include "FPGA/FPGA.h"
 #include "Hardware/Sound.h"
 #include "Panel/Panel.h"
+#include "FDrive/FDrive.h"
 #include <string.h>
 
 
@@ -403,7 +404,7 @@ void Menu::ProcessingShortPressureButton()
 {
     if(shortPressureButton != Key::Empty)
     {
-        if (shortPressureButton == Key::Memory && MODE_BTN_MEMORY_IS_SAVE && FLASH_DRIVE_IS_CONNECTED == 1)
+        if (shortPressureButton == Key::Memory && MODE_BTN_MEMORY_IS_SAVE && FDrive::isConnected)
         {
             EXIT_FROM_SET_NAME_TO = IsShown() ? RETURN_TO_MAIN_MENU : RETURN_TO_DISABLE_MENU;
             PageMemory::SaveSignalToFlashDrive();
@@ -843,7 +844,7 @@ void Menu::ExecuteFuncForLongPressureOnItem(Item *item)
 
 void Menu::ChangeStateFlashDrive()
 {
-    if(FLASH_DRIVE_IS_CONNECTED == 0)
+    if(!FDrive::isConnected)
     {
         if(Page::NameOpened() == NamePage::SB_FileManager)
         {

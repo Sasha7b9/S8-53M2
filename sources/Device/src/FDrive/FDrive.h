@@ -31,6 +31,8 @@ struct StructForReadDir
 
 namespace FDrive
 {
+    extern bool isConnected;
+
     void Init();
 
     void Update();

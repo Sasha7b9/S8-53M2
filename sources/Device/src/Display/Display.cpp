@@ -2242,7 +2242,7 @@ void Display::DrawLowPart()
     Font::Set(TypeFont::UGO2);
 
     // Флешка
-    if (FLASH_DRIVE_IS_CONNECTED)
+    if (FDrive::isConnected)
     {
         PText::Draw4SymbolsInRect(x + 57, GRID_BOTTOM + 2, SYMBOL_FLASH_DRIVE);
     }

@@ -9,7 +9,6 @@ struct DataSettings;
 
 #define SETTINGS_IS_LOADED       (gBF.settingsLoaded)
 #define NEED_OPEN_FILE_MANAGER   (gBF.needOpenFileMananger)
-#define FLASH_DRIVE_IS_CONNECTED (gBF.flashDriveIsConnected)
 #define NEED_CLOSE_PAGE_SB       (gBF.needClosePageSB)
 #define NEED_RESET_SETTINGS      (gBF.needResetSettings)
 #define TOP_MEASURES             (gBF.topMeasures)
@@ -21,7 +20,6 @@ struct DataSettings;
 struct BitField
 {
     // Flash drive
-    uint flashDriveIsConnected      : 1;
     uint cursorInDirs               : 1;    // Если 1, то ручка УСТАНОВКА перемещает по каталогам
     uint needRedrawFileManager      : 2;    // Если 1, то файл-менеджер нуждается в полной перерисовке
                                             // Если 2, то перерисовать только каталоги

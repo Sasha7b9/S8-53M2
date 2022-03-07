@@ -139,7 +139,7 @@ void DrawSB_MemLast_IntEnter(int x, int y)
 
 void DrawSB_MemLast_SaveToFlash(int x, int y)
 {
-    if (FLASH_DRIVE_IS_CONNECTED)
+    if (FDrive::isConnected)
     {
         Font::Set(TypeFont::UGO2);
         PText::Draw4SymbolsInRect(x + 2, y + 1, '\x42');
@@ -149,7 +149,7 @@ void DrawSB_MemLast_SaveToFlash(int x, int y)
 
 static void DrawSB_MemExtSetNameSave(int x, int y)
 {
-    if (FLASH_DRIVE_IS_CONNECTED)
+    if (FDrive::isConnected)
     {
         Font::Set(TypeFont::UGO2);
         PText::Draw4SymbolsInRect(x + 2, y + 1, '\x42');
@@ -189,7 +189,7 @@ static void PressSB_SetName_Exit()
 
 static void PressSB_MemExtSetNameSave()
 {
-    if (FLASH_DRIVE_IS_CONNECTED)
+    if (FDrive::isConnected)
     {
         PressSB_SetName_Exit();
         NEED_SAVE_TO_DRIVE = 1;
@@ -569,7 +569,7 @@ void PressSB_MemInt_SaveToIntMemory()
 
 void DrawSB_MemInt_SaveToFlashDrive(int x, int y) //-V524
 {
-    if (FLASH_DRIVE_IS_CONNECTED)
+    if (FDrive::isConnected)
     {
         Font::Set(TypeFont::UGO2);
         PText::Draw4SymbolsInRect(x + 2, y + 1, '\x42');
@@ -1102,7 +1102,7 @@ void DrawSetMask()
 
 void PageMemory::SaveSignalToFlashDrive()
 {
-    if (FLASH_DRIVE_IS_CONNECTED)
+    if (FDrive::isConnected)
     {
         if (FILE_NAMING_MODE_IS_HAND)
         {
@@ -1204,7 +1204,7 @@ static const Page mspSetMask
 // ÏÀÌßÒÜ - ÂÍÅØÍ ÇÓ - Êàòàëîã ///////////////////////////////////////////////////////////////////////////////
 void PageMemory::OnPressExtFileManager()
 {
-    if(FLASH_DRIVE_IS_CONNECTED)
+    if(FDrive::isConnected)
     {
         PageMemory::FileManager::GetPointer()->OpenAndSetCurrent();
         Display::SetDrawMode(DrawMode_Hand, FM::Draw);
@@ -1214,7 +1214,7 @@ void PageMemory::OnPressExtFileManager()
 
 bool FuncOfActiveExtMemFolder()
 {
-    return FLASH_DRIVE_IS_CONNECTED == 1;
+    return FDrive::isConnected;
 }
 
 static void PressSB_FM_Exit()

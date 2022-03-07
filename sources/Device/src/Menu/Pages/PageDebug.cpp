@@ -127,7 +127,7 @@ static const Choice mcSizeSettings =
 
 static bool IsActive_SaveFirmware()
 {
-    return FLASH_DRIVE_IS_CONNECTED == 1;
+    return FDrive::isConnected;
 }
 
 
