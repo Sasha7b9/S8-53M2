@@ -543,7 +543,7 @@ void Menu::ProcessingRegulatorSet()
             }
             else if (type == TypeItem::Page || type == TypeItem::IP || type == TypeItem::MAC || type == TypeItem::Choice || type == TypeItem::ChoiceReg || type == TypeItem::Governor)
             {
-                if (ChangeOpenedItem(item, angleRegSet))
+                if (item->ChangeOpened(angleRegSet))
                 {
                     angleRegSet = 0;
                 }

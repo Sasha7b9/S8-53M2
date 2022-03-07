@@ -60,8 +60,6 @@ namespace Menu
 
     NamePage::E GetNameOpenedPage();
 
-    bool ChangeOpenedItem(void *item, int delta);
-
     // Возвращает высоту в пикселях открытого элемента Choice или NamePage по адресу item.
     int HeightOpenedItem(void *item);
 

@@ -314,34 +314,34 @@ int Page::NumItems() const
 }
 
 
-bool Menu::ChangeOpenedItem(void *item, int delta)
+bool Item::ChangeOpened(int delta)
 {
     if (delta < 2 && delta > -2)
     {
         return false;
     }
 
-    TypeItem::E type = TypeMenuItem(item);
+    TypeItem::E _type = Menu::TypeMenuItem(this);
 
-    if (type == TypeItem::Page)
+    if (_type == TypeItem::Page)
     {
-        ((const Page *)item)->ChangeSubPage(delta);
+        ((const Page *)this)->ChangeSubPage(delta);
     }
-    else if (type == TypeItem::IP)
+    else if (_type == TypeItem::IP)
     {
-        ((IPaddress *)item)->ChangeValue(delta);
+        ((IPaddress *)this)->ChangeValue(delta);
     }
-    else if (type == TypeItem::MAC)
+    else if (_type == TypeItem::MAC)
     {
-        ((MACaddress *)item)->ChangeValue(delta);
+        ((MACaddress *)this)->ChangeValue(delta);
     }
-    else if (type == TypeItem::ChoiceReg || type == TypeItem::Choice)
+    else if (_type == TypeItem::ChoiceReg || _type == TypeItem::Choice)
     {
-        ((Choice *)item)->ChangeValue(delta);
+        ((Choice *)this)->ChangeValue(delta);
     }
-    else if (type == TypeItem::Governor)
+    else if (_type == TypeItem::Governor)
     {
-        ((Governor *)item)->ChangeValue(delta);
+        ((Governor *)this)->ChangeValue(delta);
     }
     
     return true;
