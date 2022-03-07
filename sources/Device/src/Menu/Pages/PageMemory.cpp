@@ -223,7 +223,7 @@ void PressSB_MemLast_IntEnter()
     PageMemory::Internal::self->OpenAndSetCurrent();
     MODE_WORK = ModeWork_MemInt;
     HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
-    EXIT_FROM_INT_TO_LAST = 1;
+    PageMemory::Internal::exitToLast = true;
 }
 
 const SmallButton sbMemLastIntEnter
@@ -541,7 +541,7 @@ void DrawSB_MemInt_SaveToIntMemory(int x, int y)
 
 static void SaveSignalToIntMemory()
 {
-    if (EXIT_FROM_INT_TO_LAST)          // Åñëè ïåðåøëè âî ÂÍÓÒÐ ÇÓ èç ÏÎÑËÅÄÍÈÅ
+    if (PageMemory::Internal::exitToLast)          // Åñëè ïåðåøëè âî ÂÍÓÒÐ ÇÓ èç ÏÎÑËÅÄÍÈÅ
     {
         if  (Storage::dsLast != 0)
         {                               // òî ñîõðàíÿåì ñèãíàë èç ïîñëåäíèõ
@@ -804,11 +804,11 @@ void PressSB_MemInt_Exit()
 {
     HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
 
-    if (EXIT_FROM_INT_TO_LAST)
+    if (PageMemory::Internal::exitToLast)
     {
         PageMemory::Latest::GetPointer()->OpenAndSetCurrent();
         MODE_WORK = ModeWork_Latest;
-        EXIT_FROM_INT_TO_LAST = 0;
+        PageMemory::Internal::exitToLast = false;
         Menu::needClosePageSB = false;
     }
     else
