@@ -387,9 +387,9 @@ bool Item::IsShade() const
 }
 
 
-bool Menu::IsPressed(void* item)
+bool Item::IsPressed() const
 {
-    return item == Item::UnderKey();
+    return (this == Item::UnderKey());
 }
 
 

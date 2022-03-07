@@ -6,8 +6,6 @@
 
 namespace Menu
 {
-    bool IsPressed(void* item);
-
     void Draw();
 
     // Функция должна вызываться в главном цикле.
