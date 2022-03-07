@@ -16,7 +16,6 @@ struct DataSettings;
 #define NEED_CLOSE_PAGE_SB       (gBF.needClosePageSB)
 #define NEED_RESET_SETTINGS      (gBF.needResetSettings)
 #define TOP_MEASURES             (gBF.topMeasures)
-#define BUTTON_IS_PRESSED        (gBF.buttonIsPressed)
 #define NEED_REDRAW_FILEMANAGER  (gBF.needRedrawFileManager)
 #define CURSORS_IN_DIRS          (gBF.cursorInDirs)
 #define SHOW_HELP_HINTS          (gBF.showHelpHints)
@@ -30,10 +29,6 @@ struct DataSettings;
 
 struct BitField
 {
-    // Звук
-    uint buttonIsPressed            : 1;    // Когда запускается звук нажатой кнопки, устанавливается этот флаг, чтобы знать, проигрывать ли знак 
-                                            // отпускания
-
     // Панель
     uint panelIsRunning             : 1;
     
