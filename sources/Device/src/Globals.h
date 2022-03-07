@@ -17,7 +17,6 @@ struct DataSettings;
 #define NEED_RESET_SETTINGS      (gBF.needResetSettings)
 #define NUM_DRAWING_SIGNALS      (gBF.numDrawingSignals)
 #define TOP_MEASURES             (gBF.topMeasures)
-#define FRAMES_ELAPSED           (gBF.framesElapsed)
 #define SOUND_IS_BEEP            (gBF.soundIsBeep)
 #define SOUND_WARN_IS_BEEP       (gBF.soundWarnIsBeep)
 #define BUTTON_IS_PRESSED        (gBF.buttonIsPressed)
@@ -35,7 +34,6 @@ struct DataSettings;
 struct BitField
 {
     // Для рисования : Display::c
-    uint framesElapsed              : 1;
     uint numDrawingSignals          : 8;    // Число нарисованных сигналов для режима накопления
 
     // Звук

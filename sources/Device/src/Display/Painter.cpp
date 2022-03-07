@@ -603,9 +603,9 @@ void Painter::BeginScene(Color::E color)
 
 void Painter::EndScene(bool endScene)
 {
-    if (FRAMES_ELAPSED != 1)
+    if (Display::framesElapsed != 1)
     {
-        FRAMES_ELAPSED = 1;
+        Display::framesElapsed = 1;
         return;
     }
 

@@ -48,6 +48,7 @@ namespace Display
     pFuncVV funcAfterDraw    = 0;
 
     bool needFinishDraw = true;
+    bool framesElapsed = false;
 
     void ShowWarn(pchar  message);
 
