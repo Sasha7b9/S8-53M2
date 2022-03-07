@@ -103,11 +103,12 @@ static void DrawHintItem(int x, int y, int width)
 
 void Menu::Draw()
 {
-    if(MenuIsShown() || TypeMenuItem(Item::Opened()) != TypeItem::Page)
+    if(IsShown() || TypeMenuItem(Item::Opened()) != TypeItem::Page)
     {
         ResetItemsUnderButton();
         void *item = Item::Opened();
-        if(MenuIsShown())
+
+        if(IsShown())
         {
             if (TypeMenuItem(item) == TypeItem::Page)
             {

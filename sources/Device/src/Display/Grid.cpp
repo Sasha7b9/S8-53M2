@@ -1,6 +1,8 @@
 // 2022/02/11 17:44:35 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+#include "defines.h"
 #include "Grid.h"
 #include "Settings/Settings.h"
+#include "Menu/Menu.h"
 
 
 namespace Grid
@@ -11,13 +13,13 @@ namespace Grid
 
 int Grid::Left()
 {
-    return (MenuIsMinimize() && MenuIsShown() ? 9 : 20) + Measures::GetDeltaGridLeft();
+    return (MenuIsMinimize() && Menu::IsShown() ? 9 : 20) + Measures::GetDeltaGridLeft();
 }
 
 
 int Grid::Right()
 {
-    return ((MenuIsMinimize() && MenuIsShown()) ? 9 : 20) + 280;
+    return ((MenuIsMinimize() && Menu::IsShown()) ? 9 : 20) + 280;
 }
 
 
@@ -71,7 +73,7 @@ int Grid::FullCenterHeight()
 
 int Grid::WidthInCells()
 {
-    return MenuIsShown() ? 10 : 14;
+    return Menu::IsShown() ? 10 : 14;
 }
 
 

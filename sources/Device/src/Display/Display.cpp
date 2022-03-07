@@ -659,7 +659,7 @@ void Display::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan::E ch)
     Math_CalculateFFT(dataR, numPoints, spectrum, &freq0, &density0, &freq1, &density1, &y0, &y1);
     DrawSpectrumChannel(spectrum, ColorChannel(ch));
 
-    if (!MenuIsShown() || MenuIsMinimize())
+    if (!Menu::IsShown() || MenuIsMinimize())
     {
         Color::E color = COLOR_FILL;
         WriteParametersFFT(ch, freq0, density0, freq1, density1);
@@ -1626,7 +1626,7 @@ void Display::DrawGrid(int left, int top, int width, int height)
         Painter::DrawHLine(top, 1, left - 2);
         Painter::DrawHLine(top, right + 2, SCREEN_WIDTH - 2);
 
-        if (!MenuIsMinimize() || !MenuIsShown())
+        if (!MenuIsMinimize() || !Menu::IsShown())
         {
             Painter::DrawVLine(1, top + 2, bottom - 2);
             Painter::DrawVLine(318, top + 2, bottom - 2);
@@ -1690,7 +1690,7 @@ void Display::DrawScaleLine(int x, bool forTrigLev)
 
 void Display::DrawCursorsWindow()
 {
-    if((!MenuIsMinimize() || !MenuIsShown()) && DRAW_RSHIFT_MARKERS)
+    if((!MenuIsMinimize() || !Menu::IsShown()) && DRAW_RSHIFT_MARKERS)
     {
         DrawScaleLine(2, false);
     }
@@ -1814,7 +1814,7 @@ void Display::DrawCursorRShift(Chan::E ch)
     Font::Set(TypeFont::_5);
     int dY = 0;
 
-    if((!MenuIsMinimize() || !MenuIsShown()) && DRAW_RSHIFT_MARKERS)
+    if((!MenuIsMinimize() || !Menu::IsShown()) && DRAW_RSHIFT_MARKERS)
     {
         Painter::FillRegion(4, (int)(yFull - 3), 4, 6, ColorChannel(ch));
         PText::DrawChar(5, (int)(yFull - 9 + dY), ch == Chan::A ? '1' : '2', COLOR_BACK);

@@ -83,4 +83,7 @@ namespace Menu
     void ChangeStateFlashDrive();
 
     int8 PosActItem(NamePage::E namePage);                  // Возвращает позицию активного пункта на странице namePage.
+
+    // Отображено ли меню на экране.
+    bool IsShown();
 };

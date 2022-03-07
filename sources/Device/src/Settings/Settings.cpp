@@ -316,7 +316,7 @@ void SetMenuCurrentSubPage(NamePage::E namePage, int8 posSubPage)
     set.menu.currentSubPage[namePage] = posSubPage;
 }
 
-bool MenuIsShown()
+bool Menu::IsShown()
 {
     return set.menu.isShown;
 }
