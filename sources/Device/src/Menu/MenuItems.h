@@ -128,7 +128,7 @@ public:
     static Item *Opened();
 
     // Возвращает адрес пункта меню, находящегося под нажатой в данный момент кнопкой.
-    static void *UnderKey();
+    static Item *UnderKey();
 
     // Возвращает адрес элемента меню, соответствующего данной button.
     static void *UnderKey(Key::E);
