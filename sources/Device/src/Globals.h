@@ -16,7 +16,6 @@ struct DataSettings;
 #define NEED_CLOSE_PAGE_SB       (gBF.needClosePageSB)
 #define NEED_RESET_SETTINGS      (gBF.needResetSettings)
 #define NEED_FINISH_REDRAW       (gBF.needFinishDraw)
-#define SHOW_LEVEL_RSHIFT_1      (gBF.showLevelRShift1)
 #define SHOW_LEVEL_TRIGLEV       (gBF.showLevelTrigLev)
 #define NUM_DRAWING_SIGNALS      (gBF.numDrawingSignals)
 #define TRIG_ENABLE              (gBF.trigEnable)
@@ -40,7 +39,6 @@ struct DataSettings;
 struct BitField
 {
     // Для рисования : Display::c
-    uint showLevelRShift1           : 1;
     uint showLevelTrigLev           : 1;    // Нужно ли рисовать горизонтальную линию уровня смещения уровня синхронизации
     uint trigEnable                 : 1;
     uint drawRShiftMarkers          : 1;

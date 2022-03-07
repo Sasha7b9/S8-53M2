@@ -247,7 +247,7 @@ void Display::RotateRShift(Chan::E ch)
 
     if(TIME_SHOW_LEVELS)
     {
-        (ch == Chan::A) ? (RShift::showLevelA = true) : (SHOW_LEVEL_RSHIFT_1 = 1);
+        (ch == Chan::A) ? (RShift::showLevelA = true) : (RShift::showLevelB = true);
         Timer::Enable((ch == Chan::A) ?
             TypeTimer::ShowLevelRShift0 :
             TypeTimer::ShowLevelRShift1, TIME_SHOW_LEVELS  * 1000,
@@ -1806,7 +1806,7 @@ void Display::DrawCursorRShift(Chan::E ch)
     else
     {
         PText::DrawChar((int)(x - 8), (int)(y - 4), SYMBOL_RSHIFT_NORMAL, ColorChannel(ch));
-        if(((ch == Chan::A) ? (RShift::showLevelA == true) : (SHOW_LEVEL_RSHIFT_1 == 1)) && MODE_WORK_IS_DIRECT)
+        if(((ch == Chan::A) ? (RShift::showLevelA == true) : (RShift::showLevelB == true)) && MODE_WORK_IS_DIRECT)
         {
             Painter::DrawDashedHLine((int)y, Grid::Left(), Grid::Right(), 7, 3, 0);
         }
@@ -2321,7 +2321,7 @@ void Display::DisableShowLevelRShiftA()
 
 void Display::DisableShowLevelRShiftB()
 {
-    SHOW_LEVEL_RSHIFT_1 = 0;
+    RShift::showLevelB = false;
     Timer::Disable(TypeTimer::ShowLevelRShift1);
 }
 

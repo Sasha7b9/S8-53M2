@@ -45,6 +45,7 @@ const float Range::voltsInPoint[Range::Count] =
 
 
 bool RShift::showLevelA = false;
+bool RShift::showLevelB = false;
 
 const float RShift::absStep[Range::Count] =
 {
