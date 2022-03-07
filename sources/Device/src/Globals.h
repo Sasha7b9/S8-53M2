@@ -8,17 +8,6 @@
 struct DataSettings;
 
 
-#define NEED_SAVE_TO_DRIVE              (gMemory.needForSaveToFlashDrive)
-
-struct GMemory
-{
-    uint    needForSaveToFlashDrive         : 1;    // Если 1, то нужно сохранить после отрисовки на флешку.
-};
-
-
-extern GMemory gMemory;
-
-
 enum StateCalibration
 {
     StateCalibration_None,

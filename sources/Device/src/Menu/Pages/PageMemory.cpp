@@ -192,7 +192,7 @@ static void PressSB_MemExtSetNameSave()
     if (FDrive::isConnected)
     {
         PressSB_SetName_Exit();
-        NEED_SAVE_TO_DRIVE = 1;
+        FDrive::needSave = true;
     }
 }
 
@@ -1111,7 +1111,7 @@ void PageMemory::SaveSignalToFlashDrive()
         }
         else
         {
-            NEED_SAVE_TO_DRIVE = 1;
+            FDrive::needSave = true;
         }
     }
     else

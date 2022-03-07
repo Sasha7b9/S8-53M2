@@ -24,6 +24,7 @@ static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8 id);
 namespace FDrive
 {
     bool isConnected = false;
+    bool needSave = false;
 }
 
 

@@ -32,6 +32,7 @@ struct StructForReadDir
 namespace FDrive
 {
     extern bool isConnected;
+    extern bool needSave;           // Если true, то нужно сохранить после отрисовки на флешку.
 
     void Init();
 

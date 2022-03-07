@@ -1381,13 +1381,13 @@ void Display::Update(bool endScene)
 
     Painter::EndScene(endScene);
 
-    if (NEED_SAVE_TO_DRIVE)
+    if (FDrive::needSave)
     {
         if (Painter::SaveScreenToFlashDrive())
         {
             Display::ShowWarningGood(Warning::FileIsSaved);
         }
-        NEED_SAVE_TO_DRIVE = 0;
+        FDrive::needSave = false;
     }
 
     if (funcAfterDraw)
