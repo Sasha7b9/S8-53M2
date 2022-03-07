@@ -150,6 +150,9 @@ public:
     static Item *Current();
 
     bool ChangeOpened(int delta);
+
+    // Возвращает высоту в пикселях открытого элемента Choice или NamePage по адресу item.
+    int HeightOpened() const;
 };
 
 

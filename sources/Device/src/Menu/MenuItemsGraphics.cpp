@@ -508,7 +508,7 @@ void GovernorColor::Draw(int x, int y, bool opened)
 
 void Choice::DrawOpened(int x, int y)
 {
-    int height = Menu::HeightOpenedItem(this);
+    int height = ((Item *)this)->HeightOpened();
 
     Painter::DrawRectangle(x - 1, y - 1, MP_TITLE_WIDTH + 2, height + 3, COLOR_BACK);
     

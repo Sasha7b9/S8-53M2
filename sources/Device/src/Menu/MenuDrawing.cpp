@@ -29,7 +29,7 @@ namespace Menu
 
     int CalculateX(int layer);
 
-    int ItemOpenedPosY(void *item);
+    int ItemOpenedPosY(Item *item);
 }
 
 
@@ -167,7 +167,7 @@ void Page::DrawTitle(int layer, int yTop)
         return;
     }
 
-    int height = Menu::HeightOpenedItem(this);
+    int height = HeightOpened();
     bool shade = CurrentItemIsOpened();
     Painter::FillRegion(x - 1, yTop, MP_TITLE_WIDTH + 2, height + 2, COLOR_BACK);
     Painter::DrawRectangle(x, yTop, MP_TITLE_WIDTH + 1, height + 1, ColorBorderMenu(shade));
@@ -183,7 +183,7 @@ void Page::DrawTitle(int layer, int yTop)
             ColorMenuTitleBrighter(), ColorMenuTitleLessBright(), shade, false);
     }
 
-    Painter::DrawVLine(x, yTop, yTop + Menu::HeightOpenedItem(this), ColorBorderMenu(false));
+    Painter::DrawVLine(x, yTop, yTop + HeightOpened(), ColorBorderMenu(false));
     bool condDrawRSet = NumSubPages() > 1 && Menu::TypeMenuItem(Item::Current()) != TypeItem::ChoiceReg &&
         Menu::TypeMenuItem(Item::Current()) != TypeItem::Governor && Menu::TypeOpenedItem() == TypeItem::Page;
     int delta = condDrawRSet ? -10 : 0;
@@ -332,7 +332,7 @@ void Page::DrawOpened(int layer, int yTop)
     if (CurrentItemIsOpened())
     {
         int8 posCurItem = PosCurrentItem();
-        void *item = GetItem(posCurItem);
+        Item *item = GetItem(posCurItem);
 
         for (int i = 0; i < 5; i++)
         {
@@ -408,15 +408,15 @@ void Menu::ResetItemsUnderButton()
 }
 
 
-int Menu::ItemOpenedPosY(void *item)
+int Menu::ItemOpenedPosY(Item *item)
 {
     Page *page = Keeper(item);
     int8 posCurItem = page->PosCurrentItem();
     int y = GRID_TOP + (posCurItem % MENU_ITEMS_ON_DISPLAY) * MI_HEIGHT + MP_TITLE_HEIGHT;
 
-    if(y + HeightOpenedItem(item) > GRID_BOTTOM)
+    if(y + item->HeightOpened() > GRID_BOTTOM)
     {
-        y = GRID_BOTTOM - HeightOpenedItem(item) - 2;
+        y = GRID_BOTTOM - item->HeightOpened() - 2;
     }
 
     return y + 1;

@@ -98,19 +98,19 @@ Item *Item::Current()
 }
 
 
-int Menu::HeightOpenedItem(void *item) 
+int Item::HeightOpened() const
 {
-    TypeItem::E type = TypeMenuItem(item);
+    TypeItem::E _type = Menu::TypeMenuItem(this);
 
-    if(type == TypeItem::Page)
+    if(_type == TypeItem::Page)
     {
-        int numItems = ((const Page *)item)->NumItems() - ((Page *)item)->NumCurrentSubPage() * MENU_ITEMS_ON_DISPLAY;
+        int numItems = ((const Page *)this)->NumItems() - ((Page *)this)->NumCurrentSubPage() * MENU_ITEMS_ON_DISPLAY;
         LIMITATION(numItems, numItems, 0, MENU_ITEMS_ON_DISPLAY);
         return MP_TITLE_HEIGHT + MI_HEIGHT * numItems;
     } 
-    else if(type == TypeItem::Choice || type == TypeItem::ChoiceReg)
+    else if(_type == TypeItem::Choice || _type == TypeItem::ChoiceReg)
     {
-        return MOI_HEIGHT_TITLE + ((Choice *)item)->NumSubItems() * MOSI_HEIGHT - 1;
+        return MOI_HEIGHT_TITLE + ((Choice *)this)->NumSubItems() * MOSI_HEIGHT - 1;
     }
 
     return MI_HEIGHT;

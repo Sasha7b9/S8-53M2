@@ -60,9 +60,6 @@ namespace Menu
 
     NamePage::E GetNameOpenedPage();
 
-    // Возвращает высоту в пикселях открытого элемента Choice или NamePage по адресу item.
-    int HeightOpenedItem(void *item);
-
     // Возвращает true, если button - функциональная клавиша [1..5].
     bool IsFunctionalButton(Key::E);
 
