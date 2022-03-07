@@ -2,6 +2,7 @@
 #include "defines.h"
 #include "Globals.h"
 #include "Display/DisplayTypes.h"
+#include "Menu/MenuItems.h"
 
 
 void *extraMEM = 0;
@@ -75,13 +76,12 @@ StateFPGA gStateFPGA =
 };
 
 pchar gStringForHint = 0;
-void *gItemHint = 0;
 
 
 void SetItemForHint(void *item)
 {
     gStringForHint = 0;
-    gItemHint = item;
+    Item::forHint = item;
 }
 
 int transmitBytes = 0;

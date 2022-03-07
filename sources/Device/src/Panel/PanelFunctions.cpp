@@ -22,7 +22,7 @@ void HelpLong()
 {
     SHOW_HELP_HINTS++;
     gStringForHint = 0;
-    gItemHint = 0;
+    Item::forHint = 0;
 }
 
 void ChannelALong()
