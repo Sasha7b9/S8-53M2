@@ -11,12 +11,9 @@ struct DataSettings;
 #define NEED_CLOSE_PAGE_SB       (gBF.needClosePageSB)
 #define NEED_RESET_SETTINGS      (gBF.needResetSettings)
 #define TOP_MEASURES             (gBF.topMeasures)
-#define SHOW_DEBUG_MENU          (gBF.showDebugMenu)
 
 struct BitField
 {
-    uint showDebugMenu              : 1;
-    
     int topMeasures                 : 9;    // Верх таблицы вывода измерений. Это значение нужно для нормального вывода сообщений на экран - чтобы 
                                             // они ничего не перекрывали
     uint needOpenFileMananger       : 1;    // Если 1, то нужно открыть файловый менеджер (сработало автоподключение)

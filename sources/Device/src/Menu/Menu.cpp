@@ -24,6 +24,8 @@
 
 namespace Menu
 {
+    bool showDebugMenu = true;
+
     // Если произошло короткое нажатие кнопки, то здесь хранится имя этой кнопки до обработки этого  нажатия.
     Key::E shortPressureButton = Key::Empty;
     // Если произошло длинное нажатие кнопки, то здесь хранится имя этой кнопки до обработки этого нажатия.
@@ -292,7 +294,7 @@ void Menu::Handlers::PressButton(Key::E button)
       
         if (memcmp(bufferForButtons, sampleBufferForButtons, SIZE_BUFFER_FOR_BUTTONS * sizeof(Key::E)) == 0)
         {
-            SHOW_DEBUG_MENU = 1;
+            showDebugMenu = true;
             Display::ShowWarningGood(Warning::MenuDebugEnabled);
         }
     }

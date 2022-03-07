@@ -6,6 +6,8 @@
 
 namespace Menu
 {
+    extern bool showDebugMenu;
+
     namespace Handlers
     {
         // Функция обработки короткого нажатия кнопки (менее 0.5 сек.).

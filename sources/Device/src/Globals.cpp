@@ -10,9 +10,6 @@ void *extraMEM = 0;
 
 BitField gBF =
 {
-    // Flash drive
-    0,  // showDebugMenu
-
     GRID_BOTTOM, // topMeasures
  
     0,  // needOpenFileManager
