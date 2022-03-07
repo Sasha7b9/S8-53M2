@@ -119,7 +119,7 @@ void Menu::Handlers::ShortPressureButton(Key::E button)
         {
             SHOW_HELP_HINTS++;
             gStringForHint = 0;
-            Item::forHint = nullptr;
+            Hint::item = nullptr;
         }
         shortPressureButton = button;
     }

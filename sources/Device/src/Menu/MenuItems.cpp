@@ -13,7 +13,7 @@ int8 IPaddress::cur_digit = 0;
 int8 Governor::cur_digit = 0;
 
 Item *Item::underKey = nullptr;
-void *Item::forHint = nullptr;
+void *Hint::item = nullptr;
 
 
 // »спользуетс€ дл€ анимации изменени€ значени€ Choice

@@ -81,7 +81,7 @@ pchar gStringForHint = 0;
 void SetItemForHint(void *item)
 {
     gStringForHint = 0;
-    Item::forHint = item;
+    Hint::item = item;
 }
 
 int transmitBytes = 0;

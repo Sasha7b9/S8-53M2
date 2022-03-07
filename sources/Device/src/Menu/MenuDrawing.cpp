@@ -56,7 +56,7 @@ Key::E GetFuncButtonFromY(int _y)
 
 static void DrawHintItem(int x, int y, int width)
 {
-    if (!Item::forHint)
+    if (!Hint::item)
     {
         return;
     }
@@ -78,9 +78,9 @@ static void DrawHintItem(int x, int y, int width)
         {"Кнопка",      "Button"}   // TypeItem::SmallButton
     };
 
-    TypeItem::E type = Menu::TypeMenuItem(Item::forHint);
+    TypeItem::E type = Menu::TypeMenuItem(Hint::item);
     Language lang = LANG;
-    Page *item = (Page*)Item::forHint;
+    Page *item = (Page*)Hint::item;
 
     const int SIZE = 100;
     char title[SIZE];
@@ -148,7 +148,7 @@ void Menu::Draw()
         {
             PText::DrawTextInBoundedRectWithTransfers(x + 1, y, width - 1, gStringForHint, COLOR_BACK, COLOR_FILL);
         }
-        else if (Item::forHint)
+        else if (Hint::item)
         {
             DrawHintItem(x + 1, y, width - 1);
         }
