@@ -132,7 +132,6 @@ struct Settings
     static void SaveBeforePowerDown();  // Сохранить настройки во флеш-память перед выключением
     static void NeedSave();             // Установить признак того, что настройки нуждаются в сохранении
     static void SaveIfNeed();           // Сохранить настройки, если нужно
-    static bool DebugModeEnable();      // Возвращает true, если включён режим отладки.
 
 private:
 

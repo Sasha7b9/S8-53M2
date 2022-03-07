@@ -291,11 +291,6 @@ void Settings::SaveIfNeed()
 }
 
 
-bool Settings::DebugModeEnable()
-{
-    return true;
-}
-
 int Page::NumCurrentSubPage() const
 {
     return set.menu.currentSubPage[name];
