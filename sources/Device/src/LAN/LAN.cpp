@@ -17,6 +17,7 @@
 namespace LAN
 {
     bool clientIsConnected = false;
+    bool cableIsConnected = false;
 }
 
 
@@ -62,7 +63,7 @@ void LAN::Update(uint timeMS)
 
     do 
     {
-        CABLE_LAN_IS_CONNECTED = (TIME_MS - gEthTimeLastEthifInput <= 1500) ? 1U : 0U;
+        LAN::cableIsConnected = TIME_MS - gEthTimeLastEthifInput <= 1500;
 
         ethernetif_input(&gnetif);
         sys_check_timeouts();

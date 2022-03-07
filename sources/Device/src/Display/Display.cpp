@@ -2244,7 +2244,7 @@ void Display::DrawLowPart()
     }
 
     // Ethernet
-    if ((LAN::clientIsConnected || CABLE_LAN_IS_CONNECTED) && TIME_MS > 2000)
+    if ((LAN::clientIsConnected || LAN::cableIsConnected) && TIME_MS > 2000)
     {
         PText::Draw4SymbolsInRect(x + 87, GRID_BOTTOM + 2, SYMBOL_ETHERNET, LAN::clientIsConnected ? COLOR_FILL : Color::FLASH_01);
     }

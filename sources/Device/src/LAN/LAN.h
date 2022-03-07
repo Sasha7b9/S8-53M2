@@ -10,4 +10,5 @@ namespace LAN
     void Update(uint timeMS);
 
     extern bool clientIsConnected;
+    extern bool cableIsConnected;
 };
