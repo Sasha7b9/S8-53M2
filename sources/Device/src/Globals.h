@@ -13,14 +13,12 @@ struct DataSettings;
 #define NEED_RESET_SETTINGS      (gBF.needResetSettings)
 #define TOP_MEASURES             (gBF.topMeasures)
 #define NEED_REDRAW_FILEMANAGER  (gBF.needRedrawFileManager)
-#define CURSORS_IN_DIRS          (gBF.cursorInDirs)
 #define SHOW_HELP_HINTS          (gBF.showHelpHints)
 #define SHOW_DEBUG_MENU          (gBF.showDebugMenu)
 
 struct BitField
 {
     // Flash drive
-    uint cursorInDirs               : 1;    // Если 1, то ручка УСТАНОВКА перемещает по каталогам
     uint needRedrawFileManager      : 2;    // Если 1, то файл-менеджер нуждается в полной перерисовке
                                             // Если 2, то перерисовать только каталоги
                                             // Если 3, то перерисовать только файлы

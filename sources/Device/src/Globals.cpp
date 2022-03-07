@@ -11,7 +11,6 @@ void *extraMEM = 0;
 BitField gBF =
 {
     // Flash drive
-    1,  // cursorInDirs
     1,  // needRedrawFileManager
 
     0,  // settingsLoaded

@@ -24,12 +24,14 @@ namespace FM
     const int WIDTH_COL = 135;
 
     char currentDir[255] = "\\";
-    int numFirstDir = 0;         // Номер первого выведенного каталога в левой панели. Всего может быть выведено RECS_ON_PAGE каталогов
-    int numCurDir = 0;           // Номер подсвеченного каталога
-    int numFirstFile = 0;        // Номер первого выведенного файла в правой панели. Всего может быть выведено RECS_ON_PAGE файлов.
-    int numCurFile = 0;          // Номер подсвеченного файла
+    int numFirstDir = 0;        // Номер первого выведенного каталога в левой панели. Всего может быть выведено RECS_ON_PAGE каталогов
+    int numCurDir = 0;          // Номер подсвеченного каталога
+    int numFirstFile = 0;       // Номер первого выведенного файла в правой панели. Всего может быть выведено RECS_ON_PAGE файлов.
+    int numCurFile = 0;         // Номер подсвеченного файла
     int numDirs = 0;
     int numFiles = 0;
+
+    bool cursorInDirs = true;   // Если true, то ручка УСТАНОВКА перемещает по каталогам
 
     bool FileIsExist(char name[255]);
 
@@ -99,14 +101,16 @@ void FM::DrawDirs(int x, int y)
     char nameDir[255];
     StructForReadDir sfrd;
     y += 12;
+
     if (FDrive::GetNameDir(currentDir, numFirstDir, nameDir, &sfrd))
     {
         int  drawingDirs = 0;
-        DrawLongString(x, y, nameDir, CURSORS_IN_DIRS && ( numFirstDir + drawingDirs == numCurDir));
+        DrawLongString(x, y, nameDir, cursorInDirs && ( numFirstDir + drawingDirs == numCurDir));
+
         while (drawingDirs < (RECS_ON_PAGE - 1) && FDrive::GetNextNameDir(nameDir, &sfrd))
         {
             drawingDirs++;
-            DrawLongString(x, y + drawingDirs * 9, nameDir, CURSORS_IN_DIRS && ( numFirstDir + drawingDirs == numCurDir));
+            DrawLongString(x, y + drawingDirs * 9, nameDir, cursorInDirs && ( numFirstDir + drawingDirs == numCurDir));
         }
     }
 }
@@ -118,14 +122,16 @@ void FM::DrawFiles(int x, int y)
     char nameFile[255];
     StructForReadDir sfrd;
     y += 12;
+
     if (FDrive::GetNameFile(currentDir, numFirstFile, nameFile, &sfrd))
     {
         int drawingFiles = 0;
-        DrawLongString(x, y, nameFile, CURSORS_IN_DIRS == 0 && (numFirstFile + drawingFiles == numCurFile));
+        DrawLongString(x, y, nameFile, !cursorInDirs && (numFirstFile + drawingFiles == numCurFile));
+
         while (drawingFiles < (RECS_ON_PAGE - 1) && FDrive::GetNextNameFile(nameFile, &sfrd))
         {
             drawingFiles++;
-            DrawLongString(x, y + drawingFiles * 9, nameFile, CURSORS_IN_DIRS == 0 && (numFirstFile + drawingFiles == numCurFile));
+            DrawLongString(x, y + drawingFiles * 9, nameFile, !cursorInDirs && (numFirstFile + drawingFiles == numCurFile));
         }
     }
 }
@@ -221,18 +227,18 @@ void FM::PressTab()
 {
     NEED_REDRAW_FILEMANAGER = 1;
 
-    if (CURSORS_IN_DIRS)
+    if (cursorInDirs)
     {
         if (numFiles != 0)
         {
-            CURSORS_IN_DIRS = 0;
+            cursorInDirs = false;
         }
     }
     else
     {
         if (numDirs != 0)
         {
-            CURSORS_IN_DIRS = 1;
+            cursorInDirs = true;
         }
     }
 }
@@ -241,12 +247,15 @@ void FM::PressTab()
 void FM::PressLevelDown()
 {
     NEED_REDRAW_FILEMANAGER = 1;
-    if (CURSORS_IN_DIRS == 0)
+
+    if (!cursorInDirs)
     {
         return;
     }
+
     char nameDir[100];
     StructForReadDir sfrd;
+
     if (FDrive::GetNameDir(currentDir, numCurDir, nameDir, &sfrd))
     {
         if (strlen(currentDir) + strlen(nameDir) < 250)
@@ -258,6 +267,7 @@ void FM::PressLevelDown()
         }
 
     }
+
     FDrive::CloseCurrentDir(&sfrd);
 }
 
@@ -265,18 +275,22 @@ void FM::PressLevelDown()
 void FM::PressLevelUp()
 {
     NEED_REDRAW_FILEMANAGER = 1;
+
     if (strlen(currentDir) == 1)
     {
         return;
     }
+
     char *pointer = currentDir + strlen(currentDir);
+
     while (*pointer != '\\')
     {
         pointer--;
     }
+
     *pointer = '\0';
     numFirstDir = numFirstFile = numCurDir = numCurFile = 0;
-    CURSORS_IN_DIRS = 1;
+    cursorInDirs = true;
 }
 
 
@@ -355,7 +369,8 @@ void FM::DecCurrentFile()
 void FM::RotateRegSet(int angle)
 {
     Sound::RegulatorSwitchRotate();
-    if (CURSORS_IN_DIRS)
+
+    if (cursorInDirs)
     {
         angle > 0 ? DecCurrentDir() : IncCurrentDir();
         NEED_REDRAW_FILEMANAGER = 2;
