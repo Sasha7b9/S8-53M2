@@ -8,12 +8,6 @@
 void *extraMEM = 0;
 
 
-BitField gBF =
-{
-    1  // needClosePageSB
-};
-
-
 GMemory gMemory =
 {
     0,  // currentNumLatestSignal

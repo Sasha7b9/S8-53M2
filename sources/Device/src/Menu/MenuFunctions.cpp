@@ -192,13 +192,13 @@ void Item::CloseOpened()
             }
         }
 
-        if(NEED_CLOSE_PAGE_SB == 1)
+        if(Menu::needClosePageSB)
         {
             Page *page = item->Keeper();
             POS_ACT_ITEM(page->name) &= 0x7f;                       // Сбрасываем бит 7 - "закрываем" активный пункт страницы namePage
         }
 
-        NEED_CLOSE_PAGE_SB = 1;
+        Menu::needClosePageSB = true;
 
         if(item == &mainPage)
         {

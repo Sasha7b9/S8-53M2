@@ -7,15 +7,6 @@
 
 struct DataSettings;
 
-#define NEED_CLOSE_PAGE_SB       (gBF.needClosePageSB)
-
-struct BitField
-{
-    uint needClosePageSB            : 1;    // ≈сли 1, нужно закрывать страницу малых кнопок
-};
-
-
-extern BitField gBF;
 
 #define CURRENT_NUM_LATEST_SIGNAL       (gMemory.currentNumLatestSignal)
 #define CURRENT_NUM_INT_SIGNAL          (gMemory.currentNumIntSignal)

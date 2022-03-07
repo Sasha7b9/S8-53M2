@@ -809,7 +809,7 @@ void PressSB_MemInt_Exit()
         PageMemory::Latest::GetPointer()->OpenAndSetCurrent();
         MODE_WORK = ModeWork_Latest;
         EXIT_FROM_INT_TO_LAST = 0;
-        NEED_CLOSE_PAGE_SB = 0;
+        Menu::needClosePageSB = false;
     }
     else
     {

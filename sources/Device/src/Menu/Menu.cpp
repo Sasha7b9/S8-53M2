@@ -26,6 +26,7 @@
 namespace Menu
 {
     bool showDebugMenu = true;
+    bool needClosePageSB = true;
 
     // Если произошло короткое нажатие кнопки, то здесь хранится имя этой кнопки до обработки этого  нажатия.
     Key::E shortPressureButton = Key::Empty;

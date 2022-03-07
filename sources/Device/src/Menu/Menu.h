@@ -7,6 +7,7 @@
 namespace Menu
 {
     extern bool showDebugMenu;
+    extern bool needClosePageSB;    // ≈сли 1, нужно закрывать страницу малых кнопок
 
     namespace Handlers
     {
