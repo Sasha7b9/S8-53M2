@@ -140,12 +140,12 @@ void Page::ChangeSubPage(int delta) const
     if (delta > 0 && NumCurrentSubPage() < NumSubPages() - 1)
     {
         Sound::RegulatorSwitchRotate();
-        SetMenuCurrentSubPage(name, NumCurrentSubPage() + 1);
+        SetCurrentSubPage(NumCurrentSubPage() + 1);
     }
     else if (delta < 0 && NumCurrentSubPage() > 0)
     {
         Sound::RegulatorSwitchRotate();
-        SetMenuCurrentSubPage(name, NumCurrentSubPage() - 1);
+        SetCurrentSubPage(NumCurrentSubPage() - 1);
     }
 }
 

@@ -296,9 +296,9 @@ int Page::NumCurrentSubPage() const
     return set.menu.currentSubPage[name];
 }
 
-void SetMenuCurrentSubPage(NamePage::E namePage, int8 posSubPage)
+void Page::SetCurrentSubPage(int8 posSubPage) const
 {
-    set.menu.currentSubPage[namePage] = posSubPage;
+    set.menu.currentSubPage[name] = posSubPage;
 }
 
 bool Menu::IsShown()

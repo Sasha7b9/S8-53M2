@@ -205,6 +205,9 @@ public:
     static const Page *ForButton(Key::E);
 
     static Page *FromName(NamePage::E);
+
+    // Устанавливает номер текущей подстраницы в странице namePage.
+    void SetCurrentSubPage(int8 posSubPage) const;
 };
 
 
