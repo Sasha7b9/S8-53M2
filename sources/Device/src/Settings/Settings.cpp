@@ -317,7 +317,7 @@ bool Menu::IsMinimize()
 }
 
 
-void CurrentPageSBregSet(int angle)
+void Page::RotateRegSetSB(int angle)
 {
     Page *page = (Page *)Item::Opened();
 

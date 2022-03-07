@@ -539,7 +539,7 @@ void Menu::ProcessingRegulatorSet()
             type = item->GetType();
             if (IsMinimize())
             {
-                CurrentPageSBregSet(angleRegSet);
+                Page::RotateRegSetSB(angleRegSet);
             }
             else if (type == TypeItem::Page || type == TypeItem::IP || type == TypeItem::MAC || type == TypeItem::Choice || type == TypeItem::ChoiceReg || type == TypeItem::Governor)
             {

@@ -253,6 +253,9 @@ public:
 
     // Вызывает функцию короткого нажатия кнопки над итемом numItem страницы page;
     void ShortPressOnItem(int numItem);
+
+    // Повернуть ручку УСТАНОВКА на текущей странице малых кнопок.
+    static void RotateRegSetSB(int angle);
 };
 
 

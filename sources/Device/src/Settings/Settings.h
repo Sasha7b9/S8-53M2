@@ -99,9 +99,6 @@ struct SettingsMenu
 };
 
 
-void CurrentPageSBregSet(int angle);                                // Повернуть ручку УСТАНОВКА на текущей странице малых кнопок.
-
-
 // Струкура хранит все настройки прибора.
 struct Settings
 {
