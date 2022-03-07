@@ -81,8 +81,6 @@ namespace Menu
 
     void ShortPressOnPageItem(Page *page, int numItem);     // Вызывает функцию короткого нажатия кнопки над итемом numItem страницы page;
 
-    Page *PagePointerFromName(NamePage::E namePage);
-
     void ChangeStateFlashDrive();
 
     // Отображено ли меню на экране.

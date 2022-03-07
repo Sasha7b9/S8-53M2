@@ -396,12 +396,6 @@ void Menu::ShortPressOnPageItem(Page *page, int numItem)
 }
 
 
-Page* Menu::PagePointerFromName(NamePage::E)
-{
-    return 0;
-}
-
-
 bool Page::IsSB() const
 {
     return (name >= NamePage::SB_Curs);

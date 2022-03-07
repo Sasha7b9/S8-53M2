@@ -203,6 +203,8 @@ public:
 
     // ¬озвращает страницу меню, котора€ должна открыватьс€ по нажатию кнопки
     static const Page *ForButton(Key::E);
+
+    static Page *FromName(NamePage::E);
 };
 
 

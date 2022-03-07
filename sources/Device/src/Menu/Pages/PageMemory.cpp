@@ -169,9 +169,10 @@ static void PressSB_MemLast_SaveToFlash()
 static void PressSB_SetName_Exit()
 {
     Display::RemoveAddDrawFunction();
+
     if (EXIT_FROM_SET_NAME_TO_DIS_MENU)
     {
-        Menu::ShortPressOnPageItem(Menu::PagePointerFromName(NamePage::SB_MemExtSetName), 0);
+        Menu::ShortPressOnPageItem(Page::FromName(NamePage::SB_MemExtSetName), 0);
     }
     else if (EXIT_FROM_SET_NAME_TO_LAST)
     {
@@ -181,6 +182,7 @@ static void PressSB_SetName_Exit()
     {
         PageMemory::Internal::GetPointer()->OpenAndSetCurrent();
     }
+
     EXIT_FROM_SET_NAME_TO = RETURN_TO_DISABLE_MENU;
 }
 
@@ -812,7 +814,7 @@ void PressSB_MemInt_Exit()
     else
     {
         MODE_WORK = ModeWork_Direct;
-        Menu::ShortPressOnPageItem(Menu::PagePointerFromName(NamePage::SB_MemInt), 0);
+        Menu::ShortPressOnPageItem(Page::FromName(NamePage::SB_MemInt), 0);
     }
 }
 
@@ -1293,7 +1295,7 @@ static const arrayItems itemsMemInt =
     (void*)&sbMemIntSaveToFlash
 };
 
-static const Page mspMemInt
+const Page mspMemInt
 (
     &pMemory, 0,
     "¬Õ”“– «”", "INT STORAGE",
@@ -1318,7 +1320,7 @@ static const arrayItems itemsSetName =
     (void*)&sbSetNameSave
 };
 
-static const Page mpSetName
+const Page mpSetName
 (
     0, 0,
     "", "",

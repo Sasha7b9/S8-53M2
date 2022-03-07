@@ -158,3 +158,23 @@ bool PageService::Math::Enabled()
 {
     return !DISABLED_DRAW_MATH || ENABLED_FFT;
 }
+
+
+Page *Page::FromName(NamePage::E name)
+{
+    if (name == NamePage::SB_MemExtSetName)
+    {
+        extern const Page mpSetName;
+
+        return (Page *)&mpSetName;
+    }
+    else if (name == NamePage::SB_MemInt)
+    {
+        extern const Page mspMemInt;
+
+        return (Page *)&mspMemInt;
+    }
+
+    return nullptr;
+}
+
