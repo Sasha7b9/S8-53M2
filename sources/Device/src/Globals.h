@@ -12,17 +12,12 @@ struct DataSettings;
 #define NEED_CLOSE_PAGE_SB       (gBF.needClosePageSB)
 #define NEED_RESET_SETTINGS      (gBF.needResetSettings)
 #define TOP_MEASURES             (gBF.topMeasures)
-#define NEED_REDRAW_FILEMANAGER  (gBF.needRedrawFileManager)
 #define SHOW_HELP_HINTS          (gBF.showHelpHints)
 #define SHOW_DEBUG_MENU          (gBF.showDebugMenu)
 
 struct BitField
 {
     // Flash drive
-    uint needRedrawFileManager      : 2;    // Если 1, то файл-менеджер нуждается в полной перерисовке
-                                            // Если 2, то перерисовать только каталоги
-                                            // Если 3, то перерисовать только файлы
-
     uint settingsLoaded             : 1;    // Эта переменная нужна для того, чтобы исключить ложную запись пустых настроек из-за неправильного 
                                             // включения прибора (при исключённом из схемы программном включении иногда сигнал от кнопки отключения 
                                             // питания приходит быстрее, чем программа успевает настроить настройки).

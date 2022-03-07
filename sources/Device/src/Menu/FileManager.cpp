@@ -32,6 +32,7 @@ namespace FM
     int numFiles = 0;
 
     bool cursorInDirs = true;   // Если true, то ручка УСТАНОВКА перемещает по каталогам
+    int  needRedraw = 1;
 
     bool FileIsExist(char name[255]);
 
@@ -186,7 +187,7 @@ void FM::DrawNameCurrentDir(int left, int top)
 
 void FM::Draw()
 {
-    if (NEED_REDRAW_FILEMANAGER == 0)
+    if (needRedraw == 0)
     {
         return;
     }
@@ -196,7 +197,7 @@ void FM::Draw()
     int width = 297;
     int left2col = width / 2;
 
-    if (NEED_REDRAW_FILEMANAGER == 1)
+    if (needRedraw == 1)
     {
         Painter::BeginScene(COLOR_BACK);
         Menu::Draw();
@@ -207,25 +208,25 @@ void FM::Draw()
         Painter::DrawHLine(top + 15, 0, width);
     }
 
-    if (NEED_REDRAW_FILEMANAGER != 3)
+    if (needRedraw != 3)
     {
         DrawDirs(left + 3, top + 18);
     }
 
-    if (NEED_REDRAW_FILEMANAGER != 2)
+    if (needRedraw != 2)
     {
         DrawFiles(left2col + 3, top + 18);
     }
 
     Painter::EndScene();
 
-    NEED_REDRAW_FILEMANAGER = 0;
+    needRedraw = 0;
 }
 
 
 void FM::PressTab()
 {
-    NEED_REDRAW_FILEMANAGER = 1;
+    needRedraw = 1;
 
     if (cursorInDirs)
     {
@@ -246,7 +247,7 @@ void FM::PressTab()
 
 void FM::PressLevelDown()
 {
-    NEED_REDRAW_FILEMANAGER = 1;
+    needRedraw = 1;
 
     if (!cursorInDirs)
     {
@@ -274,7 +275,7 @@ void FM::PressLevelDown()
 
 void FM::PressLevelUp()
 {
-    NEED_REDRAW_FILEMANAGER = 1;
+    needRedraw = 1;
 
     if (strlen(currentDir) == 1)
     {
@@ -373,12 +374,12 @@ void FM::RotateRegSet(int angle)
     if (cursorInDirs)
     {
         angle > 0 ? DecCurrentDir() : IncCurrentDir();
-        NEED_REDRAW_FILEMANAGER = 2;
+        needRedraw = 2;
     }
     else
     {
         angle > 0 ? DecCurrentFile() : IncCurrentFile();
-        NEED_REDRAW_FILEMANAGER = 3;
+        needRedraw = 3;
     }
 }
 

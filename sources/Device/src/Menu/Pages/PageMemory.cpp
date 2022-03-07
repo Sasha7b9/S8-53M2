@@ -1208,7 +1208,7 @@ void PageMemory::OnPressExtFileManager()
     {
         PageMemory::FileManager::GetPointer()->OpenAndSetCurrent();
         Display::SetDrawMode(DrawMode_Hand, FM::Draw);
-        NEED_REDRAW_FILEMANAGER = 1;
+        FM::needRedraw = 1;
     }
 }
 
