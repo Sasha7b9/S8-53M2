@@ -511,6 +511,8 @@ struct Time
     void DrawClosed(int x, int y);
 
     void DrawOpened(int x, int y);
+
+    static void Open();
 };
 
 

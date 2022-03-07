@@ -859,7 +859,7 @@ void Menu::ChangeStateFlashDrive()
 extern const Page pService;
 
 
-void Menu::OpenItemTime()
+void Time::Open()
 {
     Display::ShowWarningGood(Warning::TimeNotSet);
     Menu::Handlers::ShortPressureButton(Key::Service);
