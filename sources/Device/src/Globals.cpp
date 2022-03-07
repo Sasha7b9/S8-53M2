@@ -6,6 +6,3 @@
 
 
 void *extraMEM = 0;
-
-
-int transmitBytes = 0;
