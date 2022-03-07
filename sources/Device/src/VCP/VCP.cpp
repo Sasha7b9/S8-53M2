@@ -32,6 +32,7 @@ namespace VCP
     void *handleUSBD = &_handleUSBD;
 
     bool clientIsConnected = false;
+    bool cableIsConnected = false;
 }
 
 

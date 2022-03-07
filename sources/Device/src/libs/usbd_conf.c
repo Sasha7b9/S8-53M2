@@ -60,7 +60,7 @@ void HAL_PCD_SetupStageCallback(PCD_HandleTypeDef *hpcd)
                                                                     //
     if (request.wLength == 0)                                       //
     {                                                               //
-        if (CABLE_VCP_IS_CONNECTED)                                 //
+        if (VCP::cableIsConnected)                                  //
         {                                                           //
             if (prevLength != 0)                                    //
             {                                                       //
