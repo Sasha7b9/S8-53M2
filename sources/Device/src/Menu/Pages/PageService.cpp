@@ -948,7 +948,7 @@ static void Information_Draw()
 
 static void OnPress_Information()
 {
-    PageService::Information::GetPointer()->OpenAndSetCurrent();
+    PageService::Information::self->OpenAndSetCurrent();
     Display::SetDrawMode(DrawMode_Hand, Information_Draw);
 }
 
@@ -963,10 +963,7 @@ static const Page ppInformation
 );
 
 
-const Page *PageService::Information::GetPointer()
-{
-    return &ppInformation;
-}
+Page *PageService::Information::self = (Page *)&ppInformation;
 
 
 static const arrayItems itemsService =

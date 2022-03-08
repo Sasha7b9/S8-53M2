@@ -169,7 +169,7 @@ struct PageService
 
     struct Information
     {
-        static const Page *GetPointer();
+        static Page *self;
     };
 };
 
