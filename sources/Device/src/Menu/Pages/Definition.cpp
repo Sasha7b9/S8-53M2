@@ -104,7 +104,7 @@ static const arrayItems itemsMainPage =
     PageChannelB::self,
     (void*)&pTrig,
     (void*)&pTime,
-    PageCursors::GetPointer(),
+    PageCursors::self,
     PageMemory::GetPointer(),
     PageMeasures::self,
     PageService::self,
@@ -134,7 +134,7 @@ const Page *Page::ForButton(Key::E button)
         PageMemory::GetPointer(),    // Key::Memory
         (void *)&pTrig,              // Key::Trig
         0,                           // Key::Start
-        PageCursors::GetPointer(),   // Key::Cursors
+        PageCursors::self,   // Key::Cursors
         PageMeasures::self,          // Key::Measures
         0,                           // Key::Power
         0,                           // Key::Help

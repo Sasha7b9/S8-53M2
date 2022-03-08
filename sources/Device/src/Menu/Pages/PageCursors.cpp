@@ -183,12 +183,9 @@ static const Page pCursors                // ÊÓĞÑÎĞÛ
     NamePage::Cursors, &itemsCursors
 );
 
-void *PageCursors::GetPointer()
-{
-    return (void *)&pCursors;
-}
+Page *PageCursors::self = (Page *)&pCursors;
 
-// ÊÓĞÑÎĞÛ - Ïîêàçûâàòü -----
+
 static const Choice mcShow =
 {
     TypeItem::Choice, &pCursors, 0,

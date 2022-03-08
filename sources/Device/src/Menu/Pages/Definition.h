@@ -53,7 +53,7 @@ struct PageCursors
         static void *pointer;
     };
 
-    static void *GetPointer();
+    static Page *self;
 };
 
 
