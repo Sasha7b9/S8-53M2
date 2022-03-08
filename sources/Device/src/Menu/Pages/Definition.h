@@ -176,6 +176,12 @@ struct PageService
 };
 
 
+struct PageTime
+{
+    static const Page *self;
+};
+
+
 #define COMMON_BEGIN_SB_EXIT  0, "Выход", "Exit", "Кнопка для выхода в предыдущее меню", "Button for return to the previous menu"
 
 

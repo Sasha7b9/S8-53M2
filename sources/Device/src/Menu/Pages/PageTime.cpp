@@ -40,7 +40,7 @@ static const arrayItems itemsTime =
     (void*)&mcDivRole       // ĞÀÇÂÅĞÒÊÀ - Ô-öèÿ ÂĞ/ÄÅË    
 };
 
-const Page pTime            // ĞÀÇÂÅĞÒÊÀ
+static const Page pTime            // ĞÀÇÂÅĞÒÊÀ
 (
     &mainPage, 0,
     "ĞÀÇÂÅĞÒÊÀ", "SCAN",
@@ -48,6 +48,10 @@ const Page pTime            // ĞÀÇÂÅĞÒÊÀ
     "Contains scan settings.",
     NamePage::Time, &itemsTime
 );
+
+
+const Page *PageTime::self = &pTime;
+
 
 // ĞÀÇÂÅĞÒÊÀ - Âûáîğêà ------
 static const Choice mcSample =
