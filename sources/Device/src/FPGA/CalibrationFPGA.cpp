@@ -14,7 +14,7 @@ namespace FPGA
     {
         struct Progress
         {
-            static const int width = 100;
+            static const int width = 200;
             static const int height = 20;
 
             float value;
@@ -27,16 +27,13 @@ namespace FPGA
 
             void Update()
             {
-                value = (TIME_MS - timeStart) / 10;
-
-                while (value > 100)
-                {
-                    value -= 100;
-                }
+                value = ((TIME_MS - timeStart) / 10) % width;
             }
 
-            void Draw(int x, int y)
+            void Draw(int y)
             {
+                int x = (SCREEN_WIDTH - width) / 2;
+
                 Painter::DrawRectangle(x, y, width, height, COLOR_FILL);
                 Painter::FillRegion(x, y, value, height);
             }
@@ -147,22 +144,22 @@ static void FPGA::Calibrator::FunctionDraw()
     case StateCalibration::RShiftA:
     case StateCalibration::RShiftB:
         {
-            String message(LANG_RU ? "Калибрую настройку 1 канала %d" : "Calibrate setting 1 channel %d", (state == StateCalibration::RShiftA) ? 1 : 2);
+            String message(LANG_RU ? "Калибрую параметр 1 канала %d" : "Calibrate parameter 1 channel %d", (state == StateCalibration::RShiftA) ? 1 : 2);
 
-            PText::DrawInRect(50, 100, SCREEN_WIDTH - 100, SCREEN_HEIGHT, message.c_str());
+            PText::Draw(85, 50, message.c_str());
 
-            progress.Draw(50, 200);
+            progress.Draw(100);
         }
         break;
 
     case StateCalibration::StretchA:
     case StateCalibration::StretchB:
         {
-            String message(LANG_RU ? "Калибрую настройку 2 канала %d" : "Calibrate setting 2 channel %d", (state == StateCalibration::StretchA) ? 1 : 2);
+            String message(LANG_RU ? "Калибрую параметр 2 канала %d" : "Calibrate parameter 2 channel %d", (state == StateCalibration::StretchA) ? 1 : 2);
 
-            PText::DrawInRect(50, 100, SCREEN_WIDTH - 100, SCREEN_HEIGHT, message.c_str());
+            PText::Draw(85, 50, message.c_str());
 
-            progress.Draw(50, 200);
+            progress.Draw(100);
         }
         break;
 

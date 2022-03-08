@@ -247,6 +247,8 @@ void Panel::OnTimerPressedKey()
 
 Key::E Panel::WaitPressingButton()
 {
+    input_buffer.Clear();
+
     pressedButton = Key::Empty;
 
     while (pressedButton == Key::Empty)

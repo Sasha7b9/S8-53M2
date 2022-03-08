@@ -10,6 +10,7 @@ template Queue<uint8>::~Queue();
 template uint16 Queue<uint16>::Front();
 template uint8 Queue<uint8>::Front();
 template bool Queue<uint16>::IsEmpty() const;
+template void Queue<uint16>::Clear();
 
 
 template<typename T>
