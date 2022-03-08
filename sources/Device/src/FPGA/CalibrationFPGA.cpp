@@ -11,6 +11,18 @@ namespace FPGA
 {
     namespace Calibrator
     {
+        struct StateCalibration
+        {
+            enum E
+            {
+                Start,
+                ErrorChannelA,
+                ErrorChannelB,
+                Finish
+            };
+        };
+
+        static StateCalibration::E state = StateCalibration::Start;
     }
 }
 
