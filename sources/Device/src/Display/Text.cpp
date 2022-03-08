@@ -337,7 +337,7 @@ int PText::DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int 
 }
 
 
-int PText::DrawTextWithLimitationC(int x, int y, pchar  text, Color::E color, int limitX, int limitY, int limitWidth,
+int PText::DrawWithLimitation(int x, int y, pchar  text, Color::E color, int limitX, int limitY, int limitWidth,
     int limitHeight)
 {
     Color::SetCurrent(color);

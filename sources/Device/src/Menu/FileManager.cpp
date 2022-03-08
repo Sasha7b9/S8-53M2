@@ -82,7 +82,7 @@ void FM::DrawLongString(int x, int y, char *string, bool hightlight)
     }
     else
     {
-        PText::DrawTextWithLimitationC(x, y, string, color, x, y, WIDTH_COL, 10);
+        PText::DrawWithLimitation(x, y, string, color, x, y, WIDTH_COL, 10);
         PText::Draw(x + WIDTH_COL + 3, y, "...");
     }
 }
