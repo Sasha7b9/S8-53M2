@@ -12,6 +12,7 @@
 #include "Settings/Settings.h"
 #include <stdio.h>
 
+
 extern Page mainPage;
 extern const Page pService;
 extern const Page ppCalibrator;
@@ -21,60 +22,6 @@ extern const Page pppMath_FFT;
 extern const Page ppppMath_FFT_Cursors;
 extern const Page ppEthernet;
 extern const Page ppInformation;
-
-
-
-
-static void        OnPress_Math_Function_ModeDraw();
-static void           Draw_Math_Function_ModeDraw(int x, int y);
-static void           Draw_Math_Function_ModeDraw_Disable(int x, int y);
-static void           Draw_Math_Function_ModeDraw_Separate(int x, int y);
-static void           Draw_Math_Function_ModeDraw_Together(int x, int y);
-extern const SmallButton sbMath_Function_Type;          // СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ - Вид
-static void        OnPress_Math_Function_Type();
-static void           Draw_Math_Function_Type(int x, int y);
-static void           Draw_Math_Function_Type_Sum(int x, int y);
-static void           Draw_Math_Function_Type_Mul(int x, int y);
-extern const SmallButton sbMath_Function_ModeRegSet;    // СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ - Режим ручки УСТАНОВКА
-static void        OnPress_Math_Function_ModeRegSet();
-static void           Draw_Math_Function_ModeRegSet(int x, int y);
-static void           Draw_Math_Function_ModeRegSet_Range(int x, int y);
-static void           Draw_Math_Function_ModeRegSet_RShift(int x, int y);
-extern const SmallButton sbMath_Function_RangeA;        // СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ - Масштаб 1-го канала
-static void        OnPress_Math_Function_RangeA();
-static void           Draw_Math_Function_RangeA(int x, int y);
-extern const SmallButton sbMath_Function_RangeB;        // СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ - Масштаб 2-го канала
-static void        OnPress_Math_Function_RangeB();
-static void           Draw_Math_Function_RangeB(int x, int y);
-static void        OnPress_Math_FFT();
-static bool       IsActive_Math_FFT();
-extern const Choice       cMath_FFT_Enable;             // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Отображение
-extern const Choice       cMath_FFT_Scale;              // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Шкала
-extern const Choice       cMath_FFT_Source;             // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Источник
-extern const Choice       cMath_FFT_Window;             // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Окно
-static bool       IsActive_Math_FFT_Cursors();
-static void       OnRegSet_Math_FFT_Cursors(int angle);
-extern const SmallButton  cMath_FFT_Cursors_Exit;        // СЕРВИС - МАТЕМАТИКА - СПЕКТР - КУРСОРЫ - Выход
-static void        OnPress_Math_FFT_Cursors_Exit();
-extern const SmallButton  cMath_FFT_Cursors_Source;      // СЕРВИС - МАТЕМАТИКА - СПЕКТР - КУРСОРЫ - Источник
-static void        OnPress_Math_FFT_Cursors_Source();
-static void           Draw_Math_FFT_Cursors_Source(int x, int y);
-extern const Choice       cMath_FFT_Limit;              // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Диапазон
-static bool       IsActive_Math_FFT_Limit();
-extern const Choice       cEthernet_Enable;             // СЕРВИС - ETHERNET - Ethernet
-static void      OnChanged_Ethernet_Enable(bool active);
-extern const IPaddress   ipEthernet_IP;                 // СЕРВИС - ETHERNET - IP адрес
-extern const IPaddress   ipEthernet_Mask;               // СЕРВИС - ETHERNET - Маска подсети
-extern const IPaddress   ipEthernet_Gateway;            // СЕРВИС - ETHERNET - Шлюз
-extern const MACaddress macEthernet_MAC;                // СЕРВИС - ETHERNET - Физ адрес
-extern const Choice       cSound;                       // СЕРВИС - Звук
-extern const Choice       cLang;                        // СЕРВИС - Язык
-extern const Time         tTime;                        // СЕРВИС - Время
-extern const Choice       cModeLongPressButtonTrig;     // СЕРВИС - Реж длит СИНХР
-static void        OnPress_Information();
-static void Information_Draw();
-extern const SmallButton sbInformation_Exit;             // СЕРВИС - ИНФОРМАЦИЯ - Выход
-static void        OnPress_Information_Exit();
 
 
 static void FuncDraw()
@@ -179,8 +126,8 @@ static const Button cCalibrator_Calibrate
 
 static const arrayItems itemsCalibrator =
 {
-    (void *)&cCalibrator_Mode,       // СЕРВИС - КАЛИБРАТОР - Калибратор
-    (void *)&cCalibrator_Calibrate   // СЕРВИС - КАЛИБРАТОР - Калибровать
+    (void *)&cCalibrator_Mode,
+    (void *)&cCalibrator_Calibrate
 };
 
 
@@ -194,71 +141,12 @@ static const Page ppCalibrator
 );
 
 
-static const arrayItems itemsService =
-{
-    (void*)&bResetSettings,             // СЕРВИС - Сброс настроек
-    (void*)&bAutoSearch,                // СЕРВИС - Поиск сигнала
-    (void*)&ppCalibrator,               // СЕРВИС - КАЛИБРАТОР
-    (void*)&ppMath,                     // СЕРВИС - МАТЕМАТИКА
-    (void*)&ppEthernet,                 // СЕРВИС - ETHERNET
-    (void*)&cSound,                     // СЕРВИС - Звук
-    (void*)&cLang,                      // СЕРВИС - Язык
-    (void*)&tTime,                      // СЕРВИС - Время
-    (void*)&cModeLongPressButtonTrig,   // СЕРВИС - Реж длит СИНХР
-    (void*)&ppInformation               // СЕРВИС - ИНФОРМАЦИЯ
-};
-
-
-const Page pService                     // СЕРВИС
-(
-    &mainPage, 0,
-    "СЕРВИС", "SERVICE",
-    "Дополнительные настройки, калибровка, поиск сигнала, математические функции",
-    "Additional settings, calibration, signal search, mathematical functions",
-    NamePage::Service, &itemsService
-);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// СЕРВИС - МАТЕМАТИКА /////////////
 static const arrayItems itemsMath =
 {
-    (void*)&pppMath_Function,     // СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ
-    (void*)&pppMath_FFT           // СЕРВИС - МАТЕМАТИКА - СПЕКТР
+    (void*)&pppMath_Function,
+    (void*)&pppMath_FFT
 };
+
 
 static const Page ppMath
 (
@@ -279,6 +167,26 @@ static const SmallButton sbMath_Function_Exit
 );
 
 
+static void Draw_Math_Function_ModeDraw_Disable(int x, int y)
+{
+    PText::DrawText(x + 2 + (LANG_EN ? 2 : 0), y + 5, LANG_RU ? "Вык" : "Dis");
+}
+
+
+static void Draw_Math_Function_ModeDraw_Separate(int x, int y)
+{
+    Painter::DrawRectangle(x + 3, y + 5, 13, 9);
+    Painter::DrawHLine(y + 9, x + 3, x + 16);
+    Painter::DrawHLine(y + 10, x + 3, x + 16);
+}
+
+
+static void Draw_Math_Function_ModeDraw_Together(int x, int y)
+{
+    Painter::DrawRectangle(x + 3, y + 5, 13, 9);
+}
+
+
 static const arrayHints hintsMath_Function_ModeDraw =
 {
     {Draw_Math_Function_ModeDraw_Disable,  "Вывод математической функции отключён",
@@ -288,6 +196,31 @@ static const arrayHints hintsMath_Function_ModeDraw =
     {Draw_Math_Function_ModeDraw_Together, "Сигналы и математическая функция выводятся в одном окне",
                                             "Signals and mathematical function are removed in one window"}
 };
+
+
+static void OnPress_Math_Function_ModeDraw()
+{
+    if (ENABLED_FFT)
+    {
+        Display::ShowWarningBad(Warning::ImpossibleEnableMathFunction);
+    }
+    else
+    {
+        CircleIncreaseInt8((int8 *)&MODE_DRAW_MATH, 0, 2);
+    }
+}
+
+
+static void Draw_Math_Function_ModeDraw(int x, int y)
+{
+    static const pFuncVII funcs[3] =
+    {
+        Draw_Math_Function_ModeDraw_Disable,
+        Draw_Math_Function_ModeDraw_Separate,
+        Draw_Math_Function_ModeDraw_Together
+    };
+    funcs[MODE_DRAW_MATH](x, y);
+}
 
 
 static const SmallButton sbMath_Function_ModeDraw
@@ -302,14 +235,153 @@ static const SmallButton sbMath_Function_ModeDraw
 );
 
 
+static void OnPress_Math_Function_Type()
+{
+    CircleIncreaseInt8((int8 *)&MATH_FUNC, 0, 1);
+}
+
+
+static void Draw_Math_Function_Type_Sum(int x, int y)
+{
+    Painter::DrawHLine(y + 9, x + 4, x + 14);
+    Painter::DrawVLine(x + 9, y + 4, y + 14);
+}
+
+
+static void Draw_Math_Function_Type_Mul(int x, int y)
+{
+    Font::Set(TypeFont::UGO2);
+    PText::Draw4SymbolsInRect(x + 4, y + 3, SYMBOL_MATH_FUNC_MUL);
+    Font::Set(TypeFont::_8);
+}
+
+
+static void Draw_Math_Function_Type(int x, int y)
+{
+    const pFuncVII funcs[2] = {Draw_Math_Function_Type_Sum, Draw_Math_Function_Type_Mul};
+    funcs[MATH_FUNC](x, y);
+}
+
+
+static const arrayHints hintsMath_Function_Type =
+{
+    { Draw_Math_Function_Type_Sum,      "Сложение",     "Addition"       },
+    { Draw_Math_Function_Type_Mul,      "Умножение",    "Multiplication" }
+};
+
+
+static const SmallButton sbMath_Function_Type
+(
+    &pppMath_Function, 0,
+    "Вид", "Type",
+    "Выбор математической функции",
+    "Choice of mathematical function",
+    OnPress_Math_Function_Type,
+    Draw_Math_Function_Type,
+    &hintsMath_Function_Type
+);
+
+
+static void OnPress_Math_Function_ModeRegSet()
+{
+    CircleIncreaseInt8((int8 *)&MATH_MODE_REG_SET, 0, 1);
+}
+
+
+static void Draw_Math_Function_ModeRegSet_Range(int x, int y)
+{
+    PText::DrawChar(x + 7, y + 5, LANG_RU ? 'M' : 'S');
+}
+
+
+static void Draw_Math_Function_ModeRegSet_RShift(int x, int y)
+{
+    PText::DrawText(x + 5 - (LANG_EN ? 3 : 0), y + 5, LANG_RU ? "См" : "Shif");
+}
+
+
+static void Draw_Math_Function_ModeRegSet(int x, int y)
+{
+    const pFuncVII funcs[2] = {Draw_Math_Function_ModeRegSet_Range, Draw_Math_Function_ModeRegSet_RShift};
+    funcs[MATH_MODE_REG_SET](x, y);
+}
+
+
+static const arrayHints hintsMath_Function_ModeRegSet =
+{
+    {Draw_Math_Function_ModeRegSet_Range,  "Управление масштабом", "Management of scale"},
+    {Draw_Math_Function_ModeRegSet_RShift, "Управление смещением", "Management of shift"}
+};
+
+
+static const SmallButton sbMath_Function_ModeRegSet
+(
+    &pppMath_Function, 0,
+    "Режим ручки УСТАНОВКА", "Mode regulator SET",
+    "Выбор режима ручки УСТАНОВКА - управление масштабом или смещением",
+    "Choice mode regulcator УСТАНОВКА - management of scale or shift",
+    OnPress_Math_Function_ModeRegSet,
+    Draw_Math_Function_ModeRegSet,
+    &hintsMath_Function_ModeRegSet
+);
+
+
+static void OnPress_Math_Function_RangeA()
+{
+    SET_RANGE_MATH = SET_RANGE_A;
+    MATH_MULTIPLIER = SET_DIVIDER_A;
+}
+
+
+static void Draw_Math_Function_RangeA(int x, int y)
+{
+    PText::DrawChar(x + 8, y + 5, '1');
+}
+
+
+static const SmallButton sbMath_Function_RangeA
+(
+    &pppMath_Function, 0,
+    "Масштаб 1-го канала", "Scale of the 1st channel",
+    "Берёт масштаб для математического сигнала из первого канала",
+    "Takes scale for a mathematical signal from the first channel",
+    OnPress_Math_Function_RangeA,
+    Draw_Math_Function_RangeA
+);
+
+
+static void OnPress_Math_Function_RangeB()
+{
+    SET_RANGE_MATH = SET_RANGE_B;
+    MATH_MULTIPLIER = SET_DIVIDER_B;
+}
+
+
+static void Draw_Math_Function_RangeB(int x, int y)
+{
+    PText::DrawChar(x + 8, y + 5, '2');
+}
+
+
+static const SmallButton sbMath_Function_RangeB
+(
+    &pppMath_Function, 0,
+    "Масштаб 2-го канала", "Scale of the 2nd channel",
+    "Берёт масштаб для математического сигнала из второго канала",
+    "Takes scale for a mathematical signal from the second channel",
+    OnPress_Math_Function_RangeB,
+    Draw_Math_Function_RangeB
+);
+
+
 static const arrayItems itemsMath_Function =
 {
-    (void*)&sbMath_Function_Exit,       // СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ - Выход
-    (void*)&sbMath_Function_ModeDraw,   // СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ - Экран
-    (void*)&sbMath_Function_Type,       // СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ - Вид
-    (void*)&sbMath_Function_ModeRegSet, // СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ - Режим ручки УСТАНОВКА
-    (void*)&sbMath_Function_RangeA,     // СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ - Масштаб 1-го канала
-    (void*)&sbMath_Function_RangeB      // СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ - Масштаб 2-го канала    
+    (void*)&sbMath_Function_Exit,
+    (void*)&sbMath_Function_ModeDraw,
+    (void*)&sbMath_Function_Type,
+    (void*)&sbMath_Function_ModeRegSet,
+    (void*)&sbMath_Function_RangeA,
+    (void*)&sbMath_Function_RangeB
 };
 
 
@@ -415,215 +487,6 @@ void *PageService::Math::Function::GetPointer()
 }
 
 
-
-
-
-
-
-
-
-
-
-
-static void OnPress_Math_Function_ModeDraw()
-{
-    if (ENABLED_FFT)
-    {
-        Display::ShowWarningBad(Warning::ImpossibleEnableMathFunction);
-    }
-    else
-    {
-        CircleIncreaseInt8((int8*)&MODE_DRAW_MATH, 0, 2);
-    }
-}
-
-static void Draw_Math_Function_ModeDraw(int x, int y)
-{
-    static const pFuncVII funcs[3] =
-    {
-        Draw_Math_Function_ModeDraw_Disable,
-        Draw_Math_Function_ModeDraw_Separate,
-        Draw_Math_Function_ModeDraw_Together
-    };
-    funcs[MODE_DRAW_MATH](x, y);
-}
-
-static void Draw_Math_Function_ModeDraw_Disable(int x, int y)
-{
-    PText::DrawText(x + 2 + (LANG_EN ? 2 : 0), y + 5, LANG_RU ? "Вык" : "Dis");
-}
-
-static void Draw_Math_Function_ModeDraw_Separate(int x, int y)
-{
-    Painter::DrawRectangle(x + 3, y + 5, 13, 9);
-    Painter::DrawHLine(y + 9, x + 3, x + 16);
-    Painter::DrawHLine(y + 10, x + 3, x + 16);
-}
-
-static void Draw_Math_Function_ModeDraw_Together(int x, int y)
-{
-    Painter::DrawRectangle(x + 3, y + 5, 13, 9);
-}
-
-// СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ - Вид ---------------------------------------------------------------------------------------------------------------
-static const arrayHints hintsMath_Function_Type =
-{
-    { Draw_Math_Function_Type_Sum,      "Сложение",     "Addition"       },
-    { Draw_Math_Function_Type_Mul,      "Умножение",    "Multiplication" }
-};
-
-static const SmallButton sbMath_Function_Type
-(
-    &pppMath_Function, 0,
-    "Вид", "Type",
-    "Выбор математической функции",
-    "Choice of mathematical function",
-    OnPress_Math_Function_Type,
-    Draw_Math_Function_Type,
-    &hintsMath_Function_Type
-);
-
-static void OnPress_Math_Function_Type()
-{
-    CircleIncreaseInt8((int8*)&MATH_FUNC, 0, 1);
-}
-
-static void Draw_Math_Function_Type(int x, int y)
-{
-    const pFuncVII funcs[2] = {Draw_Math_Function_Type_Sum, Draw_Math_Function_Type_Mul};
-    funcs[MATH_FUNC](x, y);
-}
-
-static void Draw_Math_Function_Type_Sum(int x, int y)
-{
-    Painter::DrawHLine(y + 9, x + 4, x + 14);
-    Painter::DrawVLine(x + 9, y + 4, y + 14);
-}
-
-static void Draw_Math_Function_Type_Mul(int x, int y)
-{
-    Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 4, y + 3, SYMBOL_MATH_FUNC_MUL);
-    Font::Set(TypeFont::_8);
-}
-
-// СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ - Режим ручки УСТАНОВКА ---------------------------------------------------------------------------------------------
-static const arrayHints hintsMath_Function_ModeRegSet =
-{
-    {Draw_Math_Function_ModeRegSet_Range,  "Управление масштабом", "Management of scale"},
-    {Draw_Math_Function_ModeRegSet_RShift, "Управление смещением", "Management of shift"}
-};
-
-static const SmallButton sbMath_Function_ModeRegSet
-(
-    &pppMath_Function, 0,
-    "Режим ручки УСТАНОВКА", "Mode regulator SET",
-    "Выбор режима ручки УСТАНОВКА - управление масштабом или смещением",
-    "Choice mode regulcator УСТАНОВКА - management of scale or shift",
-    OnPress_Math_Function_ModeRegSet,
-    Draw_Math_Function_ModeRegSet,
-    &hintsMath_Function_ModeRegSet
-);
-
-static void OnPress_Math_Function_ModeRegSet()
-{
-    CircleIncreaseInt8((int8*)&MATH_MODE_REG_SET, 0, 1);
-}
-
-static void Draw_Math_Function_ModeRegSet(int x, int y)
-{
-    const pFuncVII funcs[2] = {Draw_Math_Function_ModeRegSet_Range, Draw_Math_Function_ModeRegSet_RShift};
-    funcs[MATH_MODE_REG_SET](x, y);
-}
-
-static void Draw_Math_Function_ModeRegSet_Range(int x, int y)
-{
-    PText::DrawChar(x + 7, y + 5, LANG_RU ? 'M' : 'S');
-}
-
-static void Draw_Math_Function_ModeRegSet_RShift(int x, int y)
-{
-    PText::DrawText(x + 5 - (LANG_EN ? 3 : 0), y + 5, LANG_RU ? "См" : "Shif");
-}
-
-// СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ - Масштаб 1-го канала -----------------------------------------------------------------------------------------------
-static const SmallButton sbMath_Function_RangeA
-(
-    &pppMath_Function, 0,
-    "Масштаб 1-го канала", "Scale of the 1st channel",
-    "Берёт масштаб для математического сигнала из первого канала",
-    "Takes scale for a mathematical signal from the first channel",
-    OnPress_Math_Function_RangeA,
-    Draw_Math_Function_RangeA
-);
-
-static void OnPress_Math_Function_RangeA()
-{
-    SET_RANGE_MATH = SET_RANGE_A;
-    MATH_MULTIPLIER = SET_DIVIDER_A;
-}
-
-static void Draw_Math_Function_RangeA(int x, int y)
-{
-    PText::DrawChar(x + 8, y + 5, '1');
-}
-
-// СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ - Масштаб 2-го канала -----------------------------------------------------------------------------------------------
-static const SmallButton sbMath_Function_RangeB
-(
-    &pppMath_Function, 0,
-    "Масштаб 2-го канала", "Scale of the 2nd channel",
-    "Берёт масштаб для математического сигнала из второго канала",
-    "Takes scale for a mathematical signal from the second channel",
-    OnPress_Math_Function_RangeB,
-    Draw_Math_Function_RangeB
-);
-
-static void OnPress_Math_Function_RangeB()
-{
-    SET_RANGE_MATH = SET_RANGE_B;
-    MATH_MULTIPLIER = SET_DIVIDER_B;
-}
-
-static void Draw_Math_Function_RangeB(int x, int y)
-{
-    PText::DrawChar(x + 8, y + 5, '2');
-}
-
-// СЕРВИС - МАТЕМАТИКА - СПЕКТР ////
-static const arrayItems itemsMath_FFT =
-{
-    (void*)&cMath_FFT_Enable,       // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Отображение
-    (void*)&cMath_FFT_Scale,        // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Шкала
-    (void*)&cMath_FFT_Source,       // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Источник
-    (void*)&cMath_FFT_Window,       // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Окно
-    (void*)&ppppMath_FFT_Cursors,   // СЕРВИС - МАТЕМАТИКА - СПЕКТР - КУРСОРЫ
-    (void*)&cMath_FFT_Limit         // СЕРВИС - МАТЕМАТИКА - СПЕКТР - Диапазон
-};
-
-static const Page pppMath_FFT
-(
-    &ppMath, IsActive_Math_FFT,
-    "СПЕКТР", "SPECTRUM",
-    "Отображение спектра входного сигнала",
-    "Mapping the input signal spectrum",
-    NamePage::MathFFT, &itemsMath_FFT, OnPress_Math_FFT
-);
-
-static bool IsActive_Math_FFT()
-{
-    return DISABLED_DRAW_MATH;
-}
-
-static void OnPress_Math_FFT()
-{
-    if (!IsActive_Math_FFT())
-    {
-        Display::ShowWarningBad(Warning::ImpossibleEnableFFT);
-    }
-}
-
-// СЕРВИС - МАТЕМАТИКА - СПЕКТР - Отображение --------------------------------------------------------------------------------------------------------
 static const Choice cMath_FFT_Enable =
 {
     TypeItem::Choice, &pppMath_FFT, 0,
@@ -636,10 +499,10 @@ static const Choice cMath_FFT_Enable =
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
     },
-    (int8*)&ENABLED_FFT
+    (int8 *)&ENABLED_FFT
 };
 
-// СЕРВИС - МАТЕМАТИКА - СПЕКТР - Шкала --------------------------------------------------------------------------------------------------------------
+
 static const Choice cMath_FFT_Scale =
 {
     TypeItem::Choice, &pppMath_FFT, 0,
@@ -652,10 +515,10 @@ static const Choice cMath_FFT_Scale =
         {"Логарифм",    "Log"},
         {"Линейная",    "Linear"}
     },
-    (int8*)&SCALE_FFT
+    (int8 *)&SCALE_FFT
 };
 
-// СЕРВИС - МАТЕМАТИКА - СПЕКТР - Источник -----------------------------------------------------------------------------------------------------------
+
 static const Choice cMath_FFT_Source =
 {
     TypeItem::Choice, &pppMath_FFT, 0,
@@ -669,10 +532,10 @@ static const Choice cMath_FFT_Source =
         {"Канал 2",     "Channel 2"},
         {"Канал 1 + 2", "Channel 1 + 2"}
     },
-    (int8*)&SOURCE_FFT
+    (int8 *)&SOURCE_FFT
 };
 
-// СЕРВИС - МАТЕМАТИКА - СПЕКТР - Окно ---------------------------------------------------------------------------------------------------------------
+
 static const Choice cMath_FFT_Window =
 {
     TypeItem::Choice, &pppMath_FFT, 0,
@@ -687,81 +550,16 @@ static const Choice cMath_FFT_Window =
         {"Блэкмена",    "Blackman"},
         {"Ханна",       "Hann"}
     },
-    (int8*)&WINDOW_FFT
+    (int8 *)&WINDOW_FFT
 };
 
-// СЕРВИС - МАТЕМАТИКА - СПЕКТР - КУРСОРЫ ------------------------------------------------------------------------------------------------------------
-static const arrayItems itemsMath_FFT_Cursors =
-{
-    (void*)&cMath_FFT_Cursors_Exit,     // СЕРВИС - МАТЕМАТИКА - СПЕКТР - КУРСОРЫ - Выход
-    (void*)&cMath_FFT_Cursors_Source,   // СЕРВИС - МАТЕМАТИКА - СПЕКТР - КУРСОРЫ - Источник
-    (void*)0,
-    (void*)0,
-    (void*)0,
-    (void*)0
-};
 
-static const Page ppppMath_FFT_Cursors
-(
-    &pppMath_FFT, IsActive_Math_FFT_Cursors,
-    "КУРСОРЫ", "CURSORS",
-    "Включает курсоры для измерения параметров спектра",
-    "Includes cursors to measure the parameters of the spectrum",
-    NamePage::SB_MathCursorsFFT, &itemsMath_FFT_Cursors, EmptyFuncVV, EmptyFuncVV, OnRegSet_Math_FFT_Cursors
-);
-
-void *PageService::Math::FFT::Cursors::GetPointer()
+static bool IsActive_Math_FFT_Limit()
 {
-    return (void *)&ppppMath_FFT_Cursors;
+    return SCALE_FFT_IS_LOG;
 }
 
-static bool IsActive_Math_FFT_Cursors()
-{
-    return ENABLED_FFT;
-}
 
-static void OnRegSet_Math_FFT_Cursors(int angle)
-{
-    FFT_POS_CURSOR(FFT_CUR_CURSOR) += (uint8)angle;
-    Sound::RegulatorShiftRotate();
-}
-
-// СЕРВИС - МАТЕМАТИКА - СПЕКТР - КУРСОРЫ - Выход ----------------------------------------------------------------------------------------------------
-static const SmallButton cMath_FFT_Cursors_Exit
-(
-    &ppppMath_FFT_Cursors,
-    COMMON_BEGIN_SB_EXIT,
-    OnPress_Math_FFT_Cursors_Exit,
-    DrawSB_Exit
-);
-
-static void OnPress_Math_FFT_Cursors_Exit()
-{
-    Display::RemoveAddDrawFunction();
-}
-
-// СЕРВИС - МАТЕМАТИКА - СПЕКТР - КУРСОРЫ - Источник -------------------------------------------------------------------------------------------------
-static const SmallButton cMath_FFT_Cursors_Source
-(
-    &ppppMath_FFT_Cursors, 0,
-    "Источник", "Source",
-    "Выбор источника для расчёта спектра",
-    "Source choice for calculation of a range",
-    OnPress_Math_FFT_Cursors_Source,
-    Draw_Math_FFT_Cursors_Source
-);
-
-static void OnPress_Math_FFT_Cursors_Source()
-{
-    FFT_CUR_CURSOR = (uint8)((FFT_CUR_CURSOR + 1) % 2);
-}
-
-static void Draw_Math_FFT_Cursors_Source(int x, int y)
-{
-    PText::DrawText(x + 7, y + 5, FFT_CUR_CURSOR_IS_0 ? "1" : "2");
-}
-
-// СЕРВИС - МАТЕМАТИКА - СПЕКТР - Диапазон -----------------------------------------------------------------------------------------------------------
 static const Choice cMath_FFT_Limit =
 {
     TypeItem::Choice, &pppMath_FFT,  IsActive_Math_FFT_Limit,
@@ -775,34 +573,131 @@ static const Choice cMath_FFT_Limit =
         {"-60дБ",   "-60dB"},
         {"-80дБ",   "-80dB"}
     },
-    (int8*)&FFT_MAX_DB
+    (int8 *)&FFT_MAX_DB
 };
 
-static bool IsActive_Math_FFT_Limit()
+
+static const arrayItems itemsMath_FFT =
 {
-    return SCALE_FFT_IS_LOG;
+    (void*)&cMath_FFT_Enable,
+    (void*)&cMath_FFT_Scale,
+    (void*)&cMath_FFT_Source,
+    (void*)&cMath_FFT_Window,
+    (void*)&ppppMath_FFT_Cursors,
+    (void*)&cMath_FFT_Limit
+};
+
+
+static bool IsActive_Math_FFT()
+{
+    return DISABLED_DRAW_MATH;
 }
 
-// СЕРВИС - ETHERNET ///////////////
-static const arrayItems itemsEthernet =
-{
-    (void*)&cEthernet_Enable,       // СЕРВИС - ETHERNET - Ethernet
-    (void*)&ipEthernet_IP,          // СЕРВИС - ETHERNET - IP адрес
-    (void*)&ipEthernet_Mask,        // СЕРВИС - ETHERNET - Маска подсети
-    (void*)&ipEthernet_Gateway,     // СЕРВИС - ETHERNET - Шлюз
-    (void*)&macEthernet_MAC         // СЕРВИС - ETHERNET - Физ адрес
-};
 
-static const Page ppEthernet
+static void OnPress_Math_FFT()
+{
+    if (!IsActive_Math_FFT())
+    {
+        Display::ShowWarningBad(Warning::ImpossibleEnableFFT);
+    }
+}
+
+
+static const Page pppMath_FFT
 (
-    &pService, 0,
-    "ETHERNET", "ETHERNET",
-    "Настройки ethernet",
-    "Settings of ethernet",
-    NamePage::ServiceEthernet, &itemsEthernet
+    &ppMath, IsActive_Math_FFT,
+    "СПЕКТР", "SPECTRUM",
+    "Отображение спектра входного сигнала",
+    "Mapping the input signal spectrum",
+    NamePage::MathFFT, &itemsMath_FFT, OnPress_Math_FFT
 );
 
-// СЕРВИС - ETHERNET - Ethernet ----------------------------------------------------------------------------------------------------------------------
+
+static void OnPress_Math_FFT_Cursors_Exit()
+{
+    Display::RemoveAddDrawFunction();
+}
+
+
+static const SmallButton cMath_FFT_Cursors_Exit
+(
+    &ppppMath_FFT_Cursors,
+    COMMON_BEGIN_SB_EXIT,
+    OnPress_Math_FFT_Cursors_Exit,
+    DrawSB_Exit
+);
+
+
+static void OnPress_Math_FFT_Cursors_Source()
+{
+    FFT_CUR_CURSOR = (uint8)((FFT_CUR_CURSOR + 1) % 2);
+}
+
+
+static void Draw_Math_FFT_Cursors_Source(int x, int y)
+{
+    PText::DrawText(x + 7, y + 5, FFT_CUR_CURSOR_IS_0 ? "1" : "2");
+}
+
+
+static const SmallButton cMath_FFT_Cursors_Source
+(
+    &ppppMath_FFT_Cursors, 0,
+    "Источник", "Source",
+    "Выбор источника для расчёта спектра",
+    "Source choice for calculation of a range",
+    OnPress_Math_FFT_Cursors_Source,
+    Draw_Math_FFT_Cursors_Source
+);
+
+
+static const arrayItems itemsMath_FFT_Cursors =
+{
+    (void*)&cMath_FFT_Cursors_Exit,
+    (void*)&cMath_FFT_Cursors_Source,
+    (void*)0,
+    (void*)0,
+    (void*)0,
+    (void*)0
+};
+
+
+static bool IsActive_Math_FFT_Cursors()
+{
+    return ENABLED_FFT;
+}
+
+
+static void OnRegSet_Math_FFT_Cursors(int angle)
+{
+    FFT_POS_CURSOR(FFT_CUR_CURSOR) += (uint8)angle;
+    Sound::RegulatorShiftRotate();
+}
+
+
+static const Page ppppMath_FFT_Cursors
+(
+    &pppMath_FFT, IsActive_Math_FFT_Cursors,
+    "КУРСОРЫ", "CURSORS",
+    "Включает курсоры для измерения параметров спектра",
+    "Includes cursors to measure the parameters of the spectrum",
+    NamePage::SB_MathCursorsFFT, &itemsMath_FFT_Cursors, EmptyFuncVV, EmptyFuncVV, OnRegSet_Math_FFT_Cursors
+);
+
+
+void *PageService::Math::FFT::Cursors::GetPointer()
+{
+    return (void *)&ppppMath_FFT_Cursors;
+}
+
+
+static void OnChanged_Ethernet_Enable(bool)
+{
+    Display::ShowWarningGood(Warning::NeedRebootDevice2);
+    Display::ShowWarningGood(Warning::NeedRebootDevice1);
+}
+
+
 static const Choice cEthernet_Enable =
 {
     TypeItem::Choice, &ppEthernet, 0,
@@ -819,16 +714,10 @@ static const Choice cEthernet_Enable =
         {"Включено",    "Included"},
         {"Отключено",   "Disconnected"}
     },
-    (int8*)&ETH_ENABLE, OnChanged_Ethernet_Enable
+    (int8 *)&ETH_ENABLE, OnChanged_Ethernet_Enable
 };
 
-static void OnChanged_Ethernet_Enable(bool)
-{
-    Display::ShowWarningGood(Warning::NeedRebootDevice2);
-    Display::ShowWarningGood(Warning::NeedRebootDevice1);
-}
 
-// СЕРВИС - ETHERNET - IP адрес ----------------------------------------------------------------------------------------------------------------------
 static const IPaddressStruct structIP =
 {
     { TypeItem::IP, &ppEthernet, 0,
@@ -840,13 +729,13 @@ static const IPaddressStruct structIP =
     &LAN_PORT
 };
 
+
 static const IPaddress ipEthernet_IP
 (
     &structIP
 );
 
 
-// СЕРВИС - ETHERNET - Маска подсети -----------------------------------------------------------------------------------------------------------------
 static const IPaddressStruct structMask =
 {
     { TypeItem::IP, &ppEthernet, 0,
@@ -854,15 +743,16 @@ static const IPaddressStruct structMask =
         "Установка маски подсети",
         "Set of network mask",    } },
     &NETMASK_ADDR0, &NETMASK_ADDR1, &NETMASK_ADDR2, &NETMASK_ADDR3,
-    OnChanged_Ethernet_Enable    
+    OnChanged_Ethernet_Enable
 };
+
 
 static const IPaddress ipEthernet_Mask
 (
     &structMask
 );
 
-// СЕРВИС - ETHERNET - Шлюз -
+
 static const IPaddressStruct structGateway =
 {
     { TypeItem::IP, &ppEthernet, 0,
@@ -873,12 +763,13 @@ static const IPaddressStruct structGateway =
     OnChanged_Ethernet_Enable
 };
 
+
 static const IPaddress ipEthernet_Gateway
 (
     &structGateway
 );
 
-// СЕРВИС - ETHERNET - Физ адрес ---------------------------------------------------------------------------------------------------------------------
+
 static const MACaddress macEthernet_MAC =
 {
     TypeItem::MAC, &ppEthernet, 0,
@@ -891,7 +782,27 @@ static const MACaddress macEthernet_MAC =
     OnChanged_Ethernet_Enable
 };
 
-// СЕРВИС - Звук ------------
+
+static const arrayItems itemsEthernet =
+{
+    (void*)&cEthernet_Enable,
+    (void*)&ipEthernet_IP,
+    (void*)&ipEthernet_Mask,
+    (void*)&ipEthernet_Gateway,
+    (void*)&macEthernet_MAC
+};
+
+
+static const Page ppEthernet
+(
+    &pService, 0,
+    "ETHERNET", "ETHERNET",
+    "Настройки ethernet",
+    "Settings of ethernet",
+    NamePage::ServiceEthernet, &itemsEthernet
+);
+
+
 static const Choice cSound =
 {
     TypeItem::Choice, &pService, 0,
@@ -908,7 +819,6 @@ static const Choice cSound =
 };
 
 
-// СЕРВИС - Язык ------------
 static const Choice cLang =
 {
     TypeItem::Choice, &pService, 0,
@@ -925,9 +835,9 @@ static const Choice cLang =
 };
 
 
-// СЕРВИС - Время -----------
 static int8 dServicetime = 0;
 static int8 hours = 0, minutes = 0, secondes = 0, year = 0, month = 0, day = 0;
+
 static const Time tTime =
 {
     TypeItem::Time, &pService, 0,
@@ -951,7 +861,7 @@ static const Time tTime =
     &dServicetime, &hours, &minutes, &secondes, &month, &day, &year
 };
 
-// СЕРВИС - Реж длит СИНХР --
+
 static const Choice cModeLongPressButtonTrig =
 {
     TypeItem::Choice, &pService, 0,
@@ -971,36 +881,33 @@ static const Choice cModeLongPressButtonTrig =
     (int8*)&MODE_LONG_PRESS_TRIG
 };
 
-// СЕРВИС - ИНФОРМАЦИЯ ------
-static const arrayItems itemsInformation =
-{
-    (void*)&sbInformation_Exit, // СЕРВИС - ИНФОРМАЦИЯ - Выход
-    (void*)0,
-    (void*)0,
-    (void*)0,
-    (void*)0,
-    (void*)0
-};
 
-static const Page ppInformation
+static void OnPress_Information_Exit()
+{
+    Display::SetDrawMode(DrawMode_Auto, 0);
+    Display::RemoveAddDrawFunction();
+}
+
+
+const SmallButton sbInformation_Exit
 (
-    &pService, 0,
-    "ИНФОРМАЦИЯ", "INFORMATION",
-    "Выводит на экран идентификационные данные осциллографа",
-    "Displays identification data of the oscilloscope",
-    NamePage::SB_Information, &itemsInformation, OnPress_Information, EmptyFuncVV, EmptyFuncVI
+    &ppInformation,
+    COMMON_BEGIN_SB_EXIT,
+    OnPress_Information_Exit,
+    DrawSB_Exit
 );
 
-const Page *PageService::Information::GetPointer()
-{
-    return &ppInformation;
-}
 
-static void OnPress_Information()
+static const arrayItems itemsInformation =
 {
-    PageService::Information::GetPointer()->OpenAndSetCurrent();
-    Display::SetDrawMode(DrawMode_Hand, Information_Draw);
-}
+    (void *)&sbInformation_Exit,
+    (void *)0,
+    (void *)0,
+    (void *)0,
+    (void *)0,
+    (void *)0
+};
+
 
 static void Information_Draw()
 {
@@ -1029,7 +936,7 @@ static void Information_Draw()
 
     PText::DrawText(x, y, lang == Russian ? "Программное обеспечение:" : "Software:");
     y += dY;
-    sprintf(buffer, (pchar )((lang == Russian) ? "версия %s" : "version %s"), NUM_VER);
+    sprintf(buffer, (pchar)((lang == Russian) ? "версия %s" : "version %s"), NUM_VER);
     PText::DrawText(x, y, buffer);
     y += dY;
 
@@ -1044,17 +951,50 @@ static void Information_Draw()
     Painter::EndScene();
 }
 
-// СЕРВИС - ИНФОРМАЦИЯ - Выход -----------------------------------------------------------------------------------------------------------------------
-const SmallButton sbInformation_Exit
+
+static void OnPress_Information()
+{
+    PageService::Information::GetPointer()->OpenAndSetCurrent();
+    Display::SetDrawMode(DrawMode_Hand, Information_Draw);
+}
+
+
+static const Page ppInformation
 (
-    &ppInformation,
-    COMMON_BEGIN_SB_EXIT,
-    OnPress_Information_Exit,
-    DrawSB_Exit
+    &pService, 0,
+    "ИНФОРМАЦИЯ", "INFORMATION",
+    "Выводит на экран идентификационные данные осциллографа",
+    "Displays identification data of the oscilloscope",
+    NamePage::SB_Information, &itemsInformation, OnPress_Information, EmptyFuncVV, EmptyFuncVI
 );
 
-static void OnPress_Information_Exit()
+
+const Page *PageService::Information::GetPointer()
 {
-    Display::SetDrawMode(DrawMode_Auto, 0);
-    Display::RemoveAddDrawFunction();
+    return &ppInformation;
 }
+
+
+static const arrayItems itemsService =
+{
+    (void *)&bResetSettings,
+    (void *)&bAutoSearch,
+    (void *)&ppCalibrator,
+    (void *)&ppMath,
+    (void *)&ppEthernet,
+    (void *)&cSound,
+    (void *)&cLang,
+    (void *)&tTime,
+    (void *)&cModeLongPressButtonTrig,
+    (void *)&ppInformation
+};
+
+
+const Page pService
+(
+    &mainPage, 0,
+    "СЕРВИС", "SERVICE",
+    "Дополнительные настройки, калибровка, поиск сигнала, математические функции",
+    "Additional settings, calibration, signal search, mathematical functions",
+    NamePage::Service, &itemsService
+);
