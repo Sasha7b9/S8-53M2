@@ -126,7 +126,7 @@ void FPGA::Update()
 
     if (state.needCalibration)              // Если вошли в режим калибровки -
     {
-//        FPGA::Calibrator::RunCalibrate();       // выполняем её.
+        FPGA::Calibrator::RunCalibrate();       // выполняем её.
         state.needCalibration = false;
     }
 
