@@ -69,14 +69,14 @@ void SCPI::CONTROL::GOVERNOR(uint8 *buffer)
 {
     static const MapElement governors[] =
     {
-        {"RSHIFT1", 21},
-        {"RSHIFT2", 23},
-        {"RANGE1",  20},
-        {"RANGE2",  22},
-        {"SET",     27},
+        {"RSHIFT1",     21},
+        {"RSHIFT2",     23},
+        {"RANGE1",      20},
+        {"RANGE2",      22},
+        {"SET",         27},
         {"SET_TSHIFT",  25},
-        {"TBASE",   24},
-        {"TRIGLEV", 26},
+        {"TBASE",       24},
+        {"TRIGLEV",     26},
         {0}
     };
 
