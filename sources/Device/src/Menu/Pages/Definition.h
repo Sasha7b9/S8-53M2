@@ -117,7 +117,7 @@ struct PageMemory
 
     struct SetMask
     {
-        static const Page *GetPointer();
+        static Page *self;
     };
 
     struct SetName

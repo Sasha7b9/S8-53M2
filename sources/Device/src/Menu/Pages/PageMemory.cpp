@@ -845,7 +845,7 @@ static const SmallButton sbExitMemInt    // Кнопка для выхода из режима малых кн
 // Нажатие ПАМЯТЬ - ВНЕШН ЗУ - Маска
 void OnPressMemoryExtMask()
 {
-    PageMemory::SetMask::GetPointer()->OpenAndSetCurrent();
+    PageMemory::SetMask::self->OpenAndSetCurrent();
     Display::SetAddDrawFunction(DrawSetMask);
 }
 
@@ -1366,10 +1366,7 @@ void *PageMemory::GetPointer()
 Page *PageMemory::Latest::self = (Page *)&mspMemLast;
 
 
-const Page *PageMemory::SetMask::GetPointer()
-{
-    return &mspSetMask;
-}
+Page *PageMemory::SetMask::self = (Page *)&mspSetMask;
 
 
 const Page *PageMemory::FileManager::GetPointer()
