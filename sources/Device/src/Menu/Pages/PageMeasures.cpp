@@ -294,7 +294,7 @@ static const arrayItems itemsMeasures =
     (void*)&mspMeasTune    
 };
 
-const Page pMeasures            // »«Ã≈–≈Õ»ﬂ
+static const Page pMeasures            // »«Ã≈–≈Õ»ﬂ
 (
     &mainPage, 0,
     "»«Ã≈–≈Õ»ﬂ", "MEASURES",
@@ -302,5 +302,8 @@ const Page pMeasures            // »«Ã≈–≈Õ»ﬂ
     "Automatic measurements",
     NamePage::Measures, &itemsMeasures
 );
+
+
+Page *PageMeasures::self = (Page *)&pMeasures;
 
 void *PageMeasures::Tune::pointer = (void *)&mspMeasTune;

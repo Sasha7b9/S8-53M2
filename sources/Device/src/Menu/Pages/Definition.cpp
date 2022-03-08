@@ -92,7 +92,6 @@ extern const Page mainPage;
 
 #include "PageHelp.cpp"
 
-extern const Page pMeasures;
 extern const Page pDebug;
 extern const Page pTime;
 extern const Page pTrig;
@@ -107,7 +106,7 @@ static const arrayItems itemsMainPage =
     (void*)&pTime,
     PageCursors::GetPointer(),
     PageMemory::GetPointer(),
-    (void*)&pMeasures,
+    PageMeasures::self,
     PageService::self,
     (void*)&mpHelp,
     (void*)&pDebug
@@ -136,7 +135,7 @@ const Page *Page::ForButton(Key::E button)
         (void *)&pTrig,              // Key::Trig
         0,                           // Key::Start
         PageCursors::GetPointer(),   // Key::Cursors
-        (void *)&pMeasures,          // Key::Measures
+        PageMeasures::self,          // Key::Measures
         0,                           // Key::Power
         0,                           // Key::Help
         0,                           // Key::Menu

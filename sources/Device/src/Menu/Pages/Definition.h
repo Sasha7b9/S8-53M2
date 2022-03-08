@@ -80,6 +80,8 @@ struct PageHelp
 
 struct PageMeasures
 {
+    static Page *self;
+
     struct Tune
     {
         static void *pointer;
