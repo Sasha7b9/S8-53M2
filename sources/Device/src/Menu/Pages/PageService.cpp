@@ -14,6 +14,7 @@
 
 
 extern const Page pService;
+extern const Page ppCalibrator;
 
 
 extern const Button       bResetSettings;               // СЕРВИС - Сброс настроек
@@ -22,11 +23,6 @@ static void FuncDraw();
 static void OnTimerDraw();
 extern const Button bAutoSearch;                  // СЕРВИС - Поиск сигнала
 static void        OnPress_AutoSearch();
-extern const Page        ppCalibrator;                  // СЕРВИС - КАЛИБРАТОР
-extern const Choice       cCalibrator_Mode;             // СЕРВИС - КАЛИБРАТОР - Калибратор
-static void      OnChanged_Calibrator_Mode(bool active);
-extern const Button       cCalibrator_Calibrate;        // СЕРВИС - КАЛИБРАТОР - Калибровать
-static void        OnPress_Calibrator_Calibrate();
 extern const Page        ppMath;                        // СЕРВИС - МАТЕМАТИКА
 extern const Page       pppMath_Function;               // СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ
 static bool       IsActive_Math_Function();
@@ -91,7 +87,62 @@ static void        OnPress_Information_Exit();
 
 extern Page mainPage;
 
-// СЕРВИС //////////////////////////
+static void OnChanged_Calibrator_Mode(bool)
+{
+    CalibratorMode::Set(CALIBRATOR);
+}
+
+
+static const Choice cCalibrator_Mode =
+{
+    TypeItem::Choice, &ppCalibrator, 0,
+    {
+        "Калибратор",  "Calibrator",
+        "Режим работы калибратора",
+        "Mode of operation of the calibrator"
+    },
+    {
+        {"Перем",   "DC"},
+        {"Пост",    "AC"},
+        {"0В",      "OV"}
+    },
+    (int8 *)&CALIBRATOR, OnChanged_Calibrator_Mode
+};
+
+
+static void OnPress_Calibrator_Calibrate()
+{
+    FPGA::state.needCalibration = true;
+}
+
+
+static const Button cCalibrator_Calibrate
+(
+    &ppCalibrator, 0,
+    "Калибровать", "Calibrate",
+    "Запуск процедуры калибровки",
+    "Running the calibration procedure",
+    OnPress_Calibrator_Calibrate
+);
+
+
+static const arrayItems itemsCalibrator =
+{
+    (void *)&cCalibrator_Mode,       // СЕРВИС - КАЛИБРАТОР - Калибратор
+    (void *)&cCalibrator_Calibrate   // СЕРВИС - КАЛИБРАТОР - Калибровать
+};
+
+
+static const Page ppCalibrator
+(
+    &pService, 0,
+    "КАЛИБРАТОР", "CALIBRATOR",
+    "Управлением калибратором и калибровка осциллографа",
+    "Item of the calibrator and calibration of an oscillograph",
+    NamePage::ServiceCalibrator, &itemsCalibrator
+);
+
+
 static const arrayItems itemsService =
 {
     (void*)&bResetSettings,             // СЕРВИС - Сброс настроек
@@ -106,6 +157,7 @@ static const arrayItems itemsService =
     (void*)&ppInformation               // СЕРВИС - ИНФОРМАЦИЯ
 };
 
+
 const Page pService                     // СЕРВИС
 (
     &mainPage, 0,
@@ -114,6 +166,22 @@ const Page pService                     // СЕРВИС
     "Additional settings, calibration, signal search, mathematical functions",
     NamePage::Service, &itemsService
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // СЕРВИС - Сброс настроек --
 const Button bResetSettings
@@ -173,58 +241,12 @@ static void OnPress_AutoSearch()
     FPGA::AutoFinder::StartAutoFind();
 };
 
-// СЕРВИС - КАЛИБРАТОР /////////////
-static const arrayItems itemsCalibrator =
-{
-    (void*)&cCalibrator_Mode,       // СЕРВИС - КАЛИБРАТОР - Калибратор
-    (void*)&cCalibrator_Calibrate   // СЕРВИС - КАЛИБРАТОР - Калибровать
-};
 
-static const Page ppCalibrator
-(
-    &pService, 0,
-    "КАЛИБРАТОР", "CALIBRATOR",
-    "Управлением калибратором и калибровка осциллографа",
-    "Item of the calibrator and calibration of an oscillograph",
-    NamePage::ServiceCalibrator, &itemsCalibrator
-);
 
-// СЕРВИС - КАЛИБРАТОР - Калибратор ------------------------------------------------------------------------------------------------------------------
-static const Choice cCalibrator_Mode =
-{
-    TypeItem::Choice, &ppCalibrator, 0,
-    {
-        "Калибратор",  "Calibrator",
-        "Режим работы калибратора",
-        "Mode of operation of the calibrator"
-    },
-    {
-        {"Перем",   "DC"},
-        {"Пост",    "AC"},
-        {"0В",      "OV"}
-    },
-    (int8*)&CALIBRATOR, OnChanged_Calibrator_Mode
-};
 
-static void OnChanged_Calibrator_Mode(bool)
-{
-    CalibratorMode::Set(CALIBRATOR);
-}
 
-// СЕРВИС - КАЛИБРАТОР - Калибровать -----------------------------------------------------------------------------------------------------------------
-static const Button cCalibrator_Calibrate
-(
-    &ppCalibrator, 0,
-    "Калибровать", "Calibrate",
-    "Запуск процедуры калибровки",
-    "Running the calibration procedure",
-    OnPress_Calibrator_Calibrate
-);
 
-static void OnPress_Calibrator_Calibrate()
-{
-    FPGA::state.needCalibration = true;
-}
+
 
 // СЕРВИС - МАТЕМАТИКА /////////////
 static const arrayItems itemsMath =
