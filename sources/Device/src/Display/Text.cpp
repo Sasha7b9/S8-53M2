@@ -576,7 +576,7 @@ int PText::DrawPartWord(char *word, int x, int y, int xRight, bool draw)
 }
 
 
-int PText::DrawTextInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, pchar text, Color::E color)
+int PText::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, pchar text, Color::E color)
 {
     Color::SetCurrent(color);
 
@@ -697,14 +697,14 @@ bool PText::GetHeightTextWithTransfers(int left, int top, int right, pchar text,
 }
 
 
-int PText::DrawTextInBoundedRectWithTransfers(int x, int y, int width, pchar text, Color::E colorBackground, Color::E colorFill)
+int PText::DrawInBoundedRectWithTransfers(int x, int y, int width, pchar text, Color::E colorBackground, Color::E colorFill)
 {
     int height = 0;
     GetHeightTextWithTransfers(x + 3, y + 3, x + width - 8, text, &height);
 
     Painter::DrawRectangle(x, y, width, height, colorFill);
     Painter::FillRegion(x + 1, y + 1, width - 2, height - 2, colorBackground);
-    DrawTextInRectWithTransfers(x + 3, y + 3, width - 8, height, text, colorFill);
+    DrawInRectWithTransfers(x + 3, y + 3, width - 8, height, text, colorFill);
     return y + height;
 }
 
@@ -770,7 +770,7 @@ void Painter::DrawHintsForSmallButton(int x, int y, int width, void *smallButton
     {
         DrawRectangle(x, y, WIDTH_SB, WIDTH_SB);
         structHelp->funcDrawUGO(x, y);
-        int yNew = PText::DrawTextInRectWithTransfers(x + 23, y + 1, width - 30, 20, structHelp->helpUGO[LANG]);
+        int yNew = PText::DrawInRectWithTransfers(x + 23, y + 1, width - 30, 20, structHelp->helpUGO[LANG]);
         y = ((yNew - y) < 22) ? (y + 22) : yNew;
         structHelp++;
     }

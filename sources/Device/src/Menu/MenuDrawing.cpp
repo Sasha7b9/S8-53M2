@@ -92,7 +92,7 @@ static void DrawHintItem(int x, int y, int width)
     }
 
     PText::DrawStringInCenterRectAndBoundIt(x, y, width, 15, title, COLOR_BACK, COLOR_FILL);
-    y = PText::DrawTextInBoundedRectWithTransfers(x, y + 15, width, HINT(item), COLOR_BACK, COLOR_FILL);
+    y = PText::DrawInBoundedRectWithTransfers(x, y + 15, width, HINT(item), COLOR_BACK, COLOR_FILL);
 
     if (item->type == TypeItem::SmallButton)
     {
@@ -137,7 +137,7 @@ void Menu::Draw()
         int x = 0;
         int y = 0;
         int width = IsMinimize() ? 289 : 220;
-        PText::DrawTextInBoundedRectWithTransfers(x + 1, y, width - 1,
+        PText::DrawInBoundedRectWithTransfers(x + 1, y, width - 1,
             LANG_RU ?    "Включён режим подсказок. В этом режиме при нажатии на кнопку на экран выводится информация о её назначении. "
                                                 "Чтобы выключить этот режим, нажмите кнопку ПОМОЩЬ и удерживайте её в течение 0.5с." : 
                                                 "Mode is activated hints. In this mode, pressing the button displays the information on its purpose. "
@@ -147,7 +147,7 @@ void Menu::Draw()
 
         if (Hint::string)
         {
-            PText::DrawTextInBoundedRectWithTransfers(x + 1, y, width - 1, Hint::string, COLOR_BACK, COLOR_FILL);
+            PText::DrawInBoundedRectWithTransfers(x + 1, y, width - 1, Hint::string, COLOR_BACK, COLOR_FILL);
         }
         else if (Hint::item)
         {

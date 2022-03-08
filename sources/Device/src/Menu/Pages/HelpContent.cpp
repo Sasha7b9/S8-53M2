@@ -48,7 +48,7 @@ static void DrawPageContent()
 static void DrawPageDescription()
 {
     PText::DrawStringInCenterRect(0, 3, WIDTH, 10, TITLE(currentPage));
-    PText::DrawTextInRectWithTransfers(2, 15, WIDTH - 5, 240, HINT(currentPage));
+    PText::DrawInRectWithTransfers(2, 15, WIDTH - 5, 240, HINT(currentPage));
 }
 
 

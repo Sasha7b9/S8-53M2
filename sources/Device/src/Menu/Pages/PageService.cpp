@@ -27,7 +27,7 @@ static void FuncDraw()
 {
     Painter::BeginScene(COLOR_BACK);
 
-    PText::DrawTextInRectWithTransfers(30, 110, 300, 200, "Подтвердите сброс настроек нажатием кнопки ПУСК/СТОП.\n"
+    PText::DrawInRectWithTransfers(30, 110, 300, 200, "Подтвердите сброс настроек нажатием кнопки ПУСК/СТОП.\n"
         "Нажмите любую другую кнопку, если сброс не нужен.", COLOR_FILL);
 
     Painter::EndScene();

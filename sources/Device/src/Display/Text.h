@@ -16,10 +16,10 @@ namespace PText
     int DrawWithLimitation(int x, int y, pchar  text, Color::E color, int limitX, int limitY, int limitWidth,
         int limitHeight);
 
-    int DrawTextInRectWithTransfers(int x, int y, int width, int height, pchar text, Color::E = Color::Count);
+    int DrawInRectWithTransfers(int x, int y, int width, int height, pchar text, Color::E = Color::Count);
 
     // Возвращает нижнюю координату прямоугольника.
-    int DrawTextInBoundedRectWithTransfers(int x, int y, int width, pchar text, Color::E colorBackground,
+    int DrawInBoundedRectWithTransfers(int x, int y, int width, pchar text, Color::E colorBackground,
         Color::E colorFill);
 
     int DrawFormatText(int x, int y, Color::E color, char *text, ...);
