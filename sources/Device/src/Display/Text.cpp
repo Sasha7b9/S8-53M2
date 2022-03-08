@@ -294,7 +294,7 @@ int PText::Draw(int x, int y, pchar const _text, Color::E color)
 }
 
 
-int PText::DrawTextOnBackground(int x, int y, pchar text, Color::E colorBackground)
+int PText::DrawOnBackground(int x, int y, pchar text, Color::E colorBackground)
 {
     int width = Font::GetLengthText(text);
     int height = Font::GetSize();
