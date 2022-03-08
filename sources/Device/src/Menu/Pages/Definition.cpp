@@ -92,7 +92,6 @@ extern const Page mainPage;
 
 #include "PageHelp.cpp"
 
-extern const Page pChanB;
 extern const Page pMeasures;
 extern const Page pDebug;
 extern const Page pTime;
@@ -103,7 +102,7 @@ static const arrayItems itemsMainPage =
 {
     PageDisplay::self,
     PageChannelA::self,
-    (void*)&pChanB,
+    PageChannelB::self,
     (void*)&pTrig,
     (void*)&pTime,
     PageCursors::GetPointer(),
@@ -130,7 +129,7 @@ const Page *Page::ForButton(Key::E button)
         0,                           // Key::Empty
         PageChannelA::self,             // Key::ChannelA
         PageService::self,   // Key::Service
-        (void *)&pChanB,             // Key::ChannelB
+        PageChannelB::self,             // Key::ChannelB
         PageDisplay::self,           // Key::Display
         (void *)&pTime,              // Key::Time
         PageMemory::GetPointer(),    // Key::Memory

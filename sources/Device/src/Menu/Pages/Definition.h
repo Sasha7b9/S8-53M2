@@ -19,6 +19,8 @@ struct PageChannelA
 struct PageChannelB
 {
     static void OnChanged_Input(bool active);
+
+    static Page *self;
 };
 
 

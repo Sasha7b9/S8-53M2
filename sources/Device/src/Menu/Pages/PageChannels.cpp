@@ -203,7 +203,7 @@ static const arrayItems itemsChanB =
     (void*)&mcMultiplierB   // ÊÀÍÀË 2 - Ìíîæèòåëü
 };
 
-const Page pChanB
+static const Page pChanB
 (
     &mainPage, 0,
     "ÊÀÍÀË 2", "CHANNEL 2",
@@ -211,6 +211,9 @@ const Page pChanB
     "Contains settings of the channel 2.",
     NamePage::Channel1, &itemsChanB
 );
+
+
+Page *PageChannelB::self = (Page *)&pChanB;
 
 
 // ÊÀÍÀË 2 - Âõîä -----------
