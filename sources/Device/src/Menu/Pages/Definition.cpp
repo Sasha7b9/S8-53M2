@@ -122,7 +122,7 @@ const Page *PageMain::self = &mainPage;
 const Page *Page::ForButton(Key::E button)
 {
     static const void *pages[] = {  
-        0,                      // Key::Empty
+        nullptr,                // Key::Empty
         PageChannelA::self,     // Key::ChannelA
         PageService::self,      // Key::Service
         PageChannelB::self,     // Key::ChannelB
@@ -130,17 +130,17 @@ const Page *Page::ForButton(Key::E button)
         PageTime::self,         // Key::Time
         PageMemory::self,       // Key::Memory
         PageTrig::self,         // Key::Trig
-        0,                      // Key::Start
+        nullptr,                // Key::Start
         PageCursors::self,      // Key::Cursors
         PageMeasures::self,     // Key::Measures
-        0,                      // Key::Power
-        0,                      // Key::Help
-        0,                      // Key::Menu
-        0,                      // Key::F1
-        0,                      // Key::F2
-        0,                      // Key::F3
-        0,                      // Key::F4
-        0,                      // Key::F5
+        nullptr,                // Key::Power
+        nullptr,                // Key::Help
+        nullptr,                // Key::Menu
+        nullptr,                // Key::F1
+        nullptr,                // Key::F2
+        nullptr,                // Key::F3
+        nullptr,                // Key::F4
+        nullptr,                // Key::F5
     };
 
     return (const Page *)pages[button];
