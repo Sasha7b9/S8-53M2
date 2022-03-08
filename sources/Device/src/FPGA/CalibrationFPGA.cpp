@@ -25,12 +25,17 @@ namespace FPGA
             };
         };
 
-        static StateCalibration::E state = StateCalibration::Start;
+        static StateCalibration::E state = StateCalibration::WaitA;
 
-        static bool errorA = false;
-        static bool errorB = false;
+        static bool errorCalibration[Chan::Count];
 
         static void FunctionDraw();
+
+        static void CalibrateChannel(Chan::E);
+
+        static bool CalibrateRShift(Chan::E);
+
+        static bool CalibrateStretch(Chan::E);
     }
 }
 
@@ -39,13 +44,20 @@ void FPGA::Calibrator::RunCalibrate()
 {
     Display::SetDrawMode(DrawMode::Hand, FunctionDraw);
 
-    errorA = false;
-    errorB = false;
+    Panel::Disable();
 
-    if (errorA || errorB)
+    CalibrateChannel(ChA);
+
+    CalibrateChannel(ChB);
+
+    if (errorCalibration[ChA] || errorCalibration[ChB])
     {
         state = StateCalibration::Error;
+
+        Panel::WaitPressingButton();
     }
+
+    Panel::Enable();
 
     Display::SetDrawMode(DrawMode::Auto);
 }
@@ -58,7 +70,13 @@ static void FPGA::Calibrator::FunctionDraw()
     switch (state)
     {
     case StateCalibration::WaitA:
+        PText::DrawInRect(50, 25, SCREEN_WIDTH - 100, SCREEN_HEIGHT, "Подключите ко входу канала 1 выход калибратора и нажмите кнопку ПУСК/СТОП. \
+                                                                         Если вы не хотите калибровать первый канала, нажмите любую другую кнопку.");
+        break;
+
     case StateCalibration::WaitB:
+        PText::DrawInRect(50, 25, SCREEN_WIDTH - 100, SCREEN_HEIGHT, "Подключите ко входу канала 2 выход калибратора и нажмите кнопку ПУСК/СТОП. \
+                                                                         Если вы не хотите калибровать первый канала, нажмите любую другую кнопку.");
         break;
 
     case StateCalibration::RShiftA:
@@ -74,4 +92,32 @@ static void FPGA::Calibrator::FunctionDraw()
     }
 
     Painter::EndScene();
+}
+
+
+static void FPGA::Calibrator::CalibrateChannel(Chan::E ch)
+{
+    errorCalibration[ch] = false;
+
+    if (CalibrateRShift(ch))
+    {
+        if (CalibrateStretch(ch))
+        {
+            return;
+        }
+    }
+
+    errorCalibration[ch] = true;
+}
+
+
+static bool FPGA::Calibrator::CalibrateRShift(Chan::E)
+{
+    return false;
+}
+
+
+static bool FPGA::Calibrator::CalibrateStretch(Chan::E)
+{
+    return false;
 }
