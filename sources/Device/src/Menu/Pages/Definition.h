@@ -11,6 +11,8 @@ class Page;
 struct PageChannelA
 {
     static void OnChanged_Input(bool active);
+
+    static Page *self;
 };
 
 
