@@ -135,6 +135,8 @@ struct PageMemory
 
 struct PageService
 {
+    static Page *self;
+
     struct Math
     {
         static bool Enabled();

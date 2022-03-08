@@ -990,7 +990,7 @@ static const arrayItems itemsService =
 };
 
 
-const Page pService
+static const Page pService
 (
     &mainPage, 0,
     "ÑÅÐÂÈÑ", "SERVICE",
@@ -998,3 +998,6 @@ const Page pService
     "Additional settings, calibration, signal search, mathematical functions",
     NamePage::Service, &itemsService
 );
+
+
+Page *PageService::self = (Page *)&pService;
