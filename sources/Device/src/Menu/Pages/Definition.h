@@ -141,7 +141,7 @@ struct PageMemory
         static Page *self;
     };
 
-    static void *GetPointer();
+    static Page *self;
 };
 
 

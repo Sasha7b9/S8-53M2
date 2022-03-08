@@ -1357,10 +1357,7 @@ static const Page pMemory              // œ¿Ãﬂ“‹
 );
 
 
-void *PageMemory::GetPointer()
-{
-    return (void *)&pMemory;
-}
+Page *PageMemory::self = (Page *)&pMemory;
 
 
 Page *PageMemory::Latest::self = (Page *)&mspMemLast;
