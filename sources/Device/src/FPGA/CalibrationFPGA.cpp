@@ -4,6 +4,7 @@
 #include "Panel/Panel.h"
 #include "Hardware/Timer.h"
 #include "Display/Text.h"
+#include "Utils/Containers/String.h"
 #include <stm32f4xx_hal.h>
 
 
@@ -11,6 +12,17 @@ namespace FPGA
 {
     namespace Calibrator
     {
+        struct Progress
+        {
+            float value;
+
+            uint timeStart;
+
+            void Reset() { value = 0.0f; timeStart = TIME_MS; }
+
+            void Update();
+        };
+
         struct StateCalibration
         {
             enum E
@@ -27,15 +39,24 @@ namespace FPGA
 
         static StateCalibration::E state = StateCalibration::WaitA;
 
-        static bool errorCalibration[Chan::Count];
+        static Progress progress;
 
+        static bool errorCalibration[Chan::Count];      // Если true - произошла ошибка в процессе калибровки
+        static bool carriedOut[Chan::Count];            // Если true - калибровка выполнялась
+
+        // Функция отрисовка
         static void FunctionDraw();
 
-        static void CalibrateChannel(Chan::E);
+        static void CalibrateChannel(Chan);
 
-        static bool CalibrateRShift(Chan::E);
+        // Калибровать смещение канала
+        static bool CalibrateRShift(Chan);
 
-        static bool CalibrateStretch(Chan::E);
+        // Калибровать растяжку канала
+        static bool CalibrateStretch(Chan);
+
+        // Изобразить результат калибровки
+        static void DrawResultCalibration(int x, int y, Chan);
     }
 }
 
@@ -46,9 +67,31 @@ void FPGA::Calibrator::RunCalibrate()
 
     Panel::Disable();
 
-    CalibrateChannel(ChA);
+    {
+        state = StateCalibration::WaitA;
+        errorCalibration[ChA] = false;
+        carriedOut[ChA] = false;
 
-    CalibrateChannel(ChB);
+        if (Panel::WaitPressingButton() == Key::Start)
+        {
+            carriedOut[ChA] = true;
+
+            CalibrateChannel(ChA);
+        }
+    }
+
+    {
+        state = StateCalibration::WaitB;
+        errorCalibration[ChB] = false;
+        carriedOut[ChB] = false;
+
+        if (Panel::WaitPressingButton() == Key::Start)
+        {
+            carriedOut[ChB] = true;
+
+            CalibrateChannel(ChB);
+        }
+    }
 
     if (errorCalibration[ChA] || errorCalibration[ChB])
     {
@@ -67,27 +110,53 @@ static void FPGA::Calibrator::FunctionDraw()
 {
     Painter::BeginScene(COLOR_BACK);
 
+    Color::SetCurrent(COLOR_FILL);
+
     switch (state)
     {
     case StateCalibration::WaitA:
-        PText::DrawInRect(50, 25, SCREEN_WIDTH - 100, SCREEN_HEIGHT, "Подключите ко входу канала 1 выход калибратора и нажмите кнопку ПУСК/СТОП. \
-                                                                         Если вы не хотите калибровать первый канала, нажмите любую другую кнопку.");
-        break;
-
     case StateCalibration::WaitB:
-        PText::DrawInRect(50, 25, SCREEN_WIDTH - 100, SCREEN_HEIGHT, "Подключите ко входу канала 2 выход калибратора и нажмите кнопку ПУСК/СТОП. \
-                                                                         Если вы не хотите калибровать первый канала, нажмите любую другую кнопку.");
+        {
+            String message(LANG_RU ? "Подключите ко входу канала %d выход калибратора и нажмите кнопку ПУСК/СТОП. Если вы не хотите калибровать первый канала, нажмите любую другую кнопку." :
+                "Connect the output of the calibrator to channel %d input and press the START/STOP button. If you do not want to calibrate the first channel, press any other button.",
+                (state == StateCalibration::WaitA) ? 1 : 2);
+
+            PText::DrawInRect(50, 25, SCREEN_WIDTH - 100, SCREEN_HEIGHT, message.c_str());
+        }
         break;
 
     case StateCalibration::RShiftA:
     case StateCalibration::RShiftB:
+        {
+            String message(LANG_RU ? "Калибрую настройку 1 канала %d" : "Calibrate setting 1 channel %d", (state == StateCalibration::RShiftA) ? 1 : 2);
+
+            PText::DrawInRect(50, 25, SCREEN_WIDTH - 100, SCREEN_HEIGHT, message.c_str());
+        }
         break;
 
     case StateCalibration::StretchA:
     case StateCalibration::StretchB:
+        {
+            String message(LANG_RU ? "Калибрую настройку 2 канала %d" : "Calibrate setting 2 channel %d", (state == StateCalibration::StretchA) ? 1 : 2);
+
+            PText::DrawInRect(50, 25, SCREEN_WIDTH - 100, SCREEN_HEIGHT, message.c_str());
+        }
         break;
 
     case StateCalibration::Error:
+        {
+            int y1 = 50;
+            int y2 = 100;
+
+            PText::Draw(50, y1, LANG_RU ? "Канал 1" : "Channel 1");
+            PText::Draw(50, y2, LANG_RU ? "Канал 2" : "Channel 2");
+
+            int x = 200;
+
+            DrawResultCalibration(x, y1, ChA);
+
+            DrawResultCalibration(x, y2, ChB);
+        }
         break;
     }
 
@@ -95,10 +164,8 @@ static void FPGA::Calibrator::FunctionDraw()
 }
 
 
-static void FPGA::Calibrator::CalibrateChannel(Chan::E ch)
+static void FPGA::Calibrator::CalibrateChannel(Chan ch)
 {
-    errorCalibration[ch] = false;
-
     if (CalibrateRShift(ch))
     {
         if (CalibrateStretch(ch))
@@ -111,13 +178,63 @@ static void FPGA::Calibrator::CalibrateChannel(Chan::E ch)
 }
 
 
-static bool FPGA::Calibrator::CalibrateRShift(Chan::E)
+static bool FPGA::Calibrator::CalibrateRShift(Chan ch)
 {
-    return false;
+    bool result = true;
+
+    state = ch.IsA() ? StateCalibration::RShiftA : StateCalibration::RShiftB;
+
+    progress.Reset();
+
+    while (TIME_MS - progress.timeStart < 3000)
+    {
+        progress.Update();
+    }
+
+    return result;
 }
 
 
-static bool FPGA::Calibrator::CalibrateStretch(Chan::E)
+static bool FPGA::Calibrator::CalibrateStretch(Chan ch)
 {
-    return false;
+    bool result = true;
+
+    state = ch.IsA() ? StateCalibration::StretchA : StateCalibration::StretchB;
+
+    progress.Reset();
+
+    while (TIME_MS - progress.timeStart < 3000)
+    {
+        progress.Update();
+    }
+
+    return result;
+}
+
+
+static void FPGA::Calibrator::DrawResultCalibration(int x, int y, Chan ch)
+{
+    Color::SetCurrent(COLOR_FILL);
+
+    String message;
+
+    if (!carriedOut[ch])
+    {
+        message.SetFormat(LANG_RU ? "Калибровка не выполнялась." : "Calibration not implemented.");
+    }
+    else
+    {
+        if (errorCalibration[ch])
+        {
+            Color::SetCurrent(Color::FLASH_01);
+
+            message.SetFormat(LANG_RU ? "!!! Ошибка калибровки !!!" : "!!! Calibration error !!!");
+        }
+        else
+        {
+            message.SetFormat(LANG_RU ? "Калибровка прошла успешно." : "Calibration successful.");
+        }
+    }
+
+    PText::Draw(x, y, message.c_str());
 }

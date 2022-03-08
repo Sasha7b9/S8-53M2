@@ -27,10 +27,19 @@ struct Chan
         Count = 2
     };
 
+    E value;
+
+    Chan(E v) : value(v) {}
+
     static bool Enabled(E);
 
     // Возвращает номер канала от 1 до 2
     static int GetNumber(E ch) { return (ch == Chan::A) ? 1 : 2; }
+
+    bool IsA() const { return value == A; }
+    bool IsB() const { return value == B; }
+
+    operator int() { return (int)value; }
 };
 
 
