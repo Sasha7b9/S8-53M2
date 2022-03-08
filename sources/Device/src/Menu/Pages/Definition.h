@@ -74,7 +74,7 @@ struct PageDisplay
 
 struct PageHelp
 {
-    static void *GetPointer();
+    static Page *self;
 };
 
 

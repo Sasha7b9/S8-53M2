@@ -108,7 +108,7 @@ static const arrayItems itemsMainPage =
     PageMemory::GetPointer(),
     PageMeasures::self,
     PageService::self,
-    (void*)&mpHelp,
+    PageHelp::self,
     (void*)&pDebug
 };
 

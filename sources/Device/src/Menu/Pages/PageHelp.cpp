@@ -113,8 +113,4 @@ static const Page mpHelp            // онлныэ
 );
 
 
-
-void *PageHelp::GetPointer()
-{
-    return (void *)&mpHelp;
-}
+Page *PageHelp::self = (Page *)&mpHelp;
