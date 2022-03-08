@@ -78,12 +78,12 @@ void FM::DrawLongString(int x, int y, char *string, bool hightlight)
 
     if (length <= WIDTH_COL)
     {
-        PText::DrawText(x, y, string, color);
+        PText::Draw(x, y, string, color);
     }
     else
     {
         PText::DrawTextWithLimitationC(x, y, string, color, x, y, WIDTH_COL, 10);
-        PText::DrawText(x + WIDTH_COL + 3, y, "...");
+        PText::Draw(x + WIDTH_COL + 3, y, "...");
     }
 }
 
@@ -164,7 +164,7 @@ void FM::DrawNameCurrentDir(int left, int top)
     int length = Font::GetLengthText(currentDir);
     if (length < 277)
     {
-        PText::DrawText(left + 1, top + 1, currentDir);
+        PText::Draw(left + 1, top + 1, currentDir);
     }
     else
     {
@@ -181,7 +181,7 @@ void FM::DrawNameCurrentDir(int left, int top)
             }
             length = Font::GetLengthText(++pointer);
         }
-        PText::DrawText(left + 1, top + 1, pointer);
+        PText::Draw(left + 1, top + 1, pointer);
     }
 }
 

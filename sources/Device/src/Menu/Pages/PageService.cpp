@@ -168,7 +168,7 @@ static const SmallButton sbMath_Function_Exit
 
 static void Draw_Math_Function_ModeDraw_Disable(int x, int y)
 {
-    PText::DrawText(x + 2 + (LANG_EN ? 2 : 0), y + 5, LANG_RU ? "Вык" : "Dis");
+    PText::Draw(x + 2 + (LANG_EN ? 2 : 0), y + 5, LANG_RU ? "Вык" : "Dis");
 }
 
 
@@ -295,7 +295,7 @@ static void Draw_Math_Function_ModeRegSet_Range(int x, int y)
 
 static void Draw_Math_Function_ModeRegSet_RShift(int x, int y)
 {
-    PText::DrawText(x + 5 - (LANG_EN ? 3 : 0), y + 5, LANG_RU ? "См" : "Shif");
+    PText::Draw(x + 5 - (LANG_EN ? 3 : 0), y + 5, LANG_RU ? "См" : "Shif");
 }
 
 
@@ -632,7 +632,7 @@ static void OnPress_Math_FFT_Cursors_Source()
 
 static void Draw_Math_FFT_Cursors_Source(int x, int y)
 {
-    PText::DrawText(x + 7, y + 5, FFT_CUR_CURSOR_IS_0 ? "1" : "2");
+    PText::Draw(x + 7, y + 5, FFT_CUR_CURSOR_IS_0 ? "1" : "2");
 }
 
 
@@ -912,9 +912,9 @@ static void Information_Draw()
     int y = 20;
     Painter::DrawRectangle(0, 0, 319, 239, COLOR_FILL);
     y += dY;
-    PText::DrawText(x, y, lang == Russian ? "ИНФОРМАЦИЯ" : "INFORMATION");
+    PText::Draw(x, y, lang == Russian ? "ИНФОРМАЦИЯ" : "INFORMATION");
     y += dY;
-    PText::DrawText(x, y, lang == Russian ? "Модель : С8-53/1" : "Model : S8-53/1");
+    PText::Draw(x, y, lang == Russian ? "Модель : С8-53/1" : "Model : S8-53/1");
     y += dY;
 
     char buffer[100];
@@ -927,10 +927,10 @@ static void Information_Draw()
     }
     */
 
-    PText::DrawText(x, y, lang == Russian ? "Программное обеспечение:" : "Software:");
+    PText::Draw(x, y, lang == Russian ? "Программное обеспечение:" : "Software:");
     y += dY;
     sprintf(buffer, (pchar)((lang == Russian) ? "версия %s" : "version %s"), NUM_VER);
-    PText::DrawText(x, y, buffer);
+    PText::Draw(x, y, buffer);
     y += dY;
 
     PText::DrawFormatText(x, y, COLOR_FILL, "CRC32 : %X", HAL::CalculateCRC32());

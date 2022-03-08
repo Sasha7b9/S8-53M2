@@ -124,9 +124,9 @@ static void FuncDrawingAdditionSPageMemoryLast()
     int height = 10;
     Painter::FillRegion(Grid::Right() - width, GRID_TOP, width, height, COLOR_BACK);
     Painter::DrawRectangle(Grid::Right() - width, GRID_TOP, width, height, COLOR_FILL);
-    PText::DrawText(Grid::Right() - width + 2, GRID_TOP + 1, Int2String(PageMemory::Latest::current + 1, false, 3, buffer));
-    PText::DrawText(Grid::Right() - width + 17, GRID_TOP + 1, "/");
-    PText::DrawText(Grid::Right() - width + 23, GRID_TOP + 1, Int2String(Storage::NumElements(), false, 3, buffer));
+    PText::Draw(Grid::Right() - width + 2, GRID_TOP + 1, Int2String(PageMemory::Latest::current + 1, false, 3, buffer));
+    PText::Draw(Grid::Right() - width + 17, GRID_TOP + 1, "/");
+    PText::Draw(Grid::Right() - width + 23, GRID_TOP + 1, Int2String(Storage::NumElements(), false, 3, buffer));
 }
 
 void DrawSB_MemLast_IntEnter(int x, int y)
@@ -588,11 +588,11 @@ static void DrawMemoryWave(int num, bool exist)
     Color::SetCurrent(num == PageMemory::Internal::currentSignal ? Color::FLASH_01 : COLOR_FILL);
     if (exist)
     {
-        PText::DrawText(x + 2, y + 1, Int2String(num + 1, false, 2, buffer));
+        PText::Draw(x + 2, y + 1, Int2String(num + 1, false, 2, buffer));
     }
     else
     {
-        PText::DrawText(x + 3, y + 1, "\x88");
+        PText::Draw(x + 3, y + 1, "\x88");
     }
 }
 
@@ -996,7 +996,7 @@ void DrawSetName()
         position++;
     }
 
-    int x = PText::DrawText(x0 + deltaX, y0 + 65, FILE_NAME, COLOR_FILL);
+    int x = PText::Draw(x0 + deltaX, y0 + 65, FILE_NAME, COLOR_FILL);
     Painter::FillRegion(x, y0 + 65, 5, 8, Color::FLASH_10);
 }
 
@@ -1022,7 +1022,7 @@ static void DrawFileMask(int x, int y)
             }
             else
             {
-                x = PText::DrawText(x, y, Tables::symbolsAlphaBet[*ch + 0x40]);
+                x = PText::Draw(x, y, Tables::symbolsAlphaBet[*ch + 0x40]);
             }
         }
         ch++;
@@ -1095,7 +1095,7 @@ void DrawSetMask()
     Color::SetCurrent(COLOR_FILL);
     for(int i = 0; i < sizeof(strings) / 4; i++)
     {
-        PText::DrawText(x0 + deltaX, y0 + 100 + deltaY * i, strings[i]);
+        PText::Draw(x0 + deltaX, y0 + 100 + deltaY * i, strings[i]);
     }
 }
 

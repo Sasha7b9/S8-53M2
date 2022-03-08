@@ -144,5 +144,5 @@ void Tables::DrawStr(int index, int x, int y)
         Painter::FillRegion(x - 1, y, Font::GetLengthText(str), 9, Color::FLASH_10);
     }
 
-    PText::DrawText(x, y, symbolsAlphaBet[index], index == INDEX_SYMBOL ? Color::FLASH_01 : COLOR_FILL);
+    PText::Draw(x, y, symbolsAlphaBet[index], index == INDEX_SYMBOL ? Color::FLASH_01 : COLOR_FILL);
 }

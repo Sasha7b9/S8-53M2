@@ -239,7 +239,7 @@ void Display::DrawStringNavigation()
         int height = 10;
         Painter::DrawRectangle(Grid::Left(), GRID_TOP, length + 2, height, COLOR_FILL);
         Painter::FillRegion(Grid::Left() + 1, GRID_TOP + 1, length, height - 2, COLOR_BACK);
-        PText::DrawText(Grid::Left() + 2, GRID_TOP + 1, string, COLOR_FILL);
+        PText::Draw(Grid::Left() + 2, GRID_TOP + 1, string, COLOR_FILL);
     }
 }
 
@@ -592,11 +592,11 @@ void Display::DrawMath()
     Painter::DrawRectangle(Grid::Left(), Grid::MathTop() + delta, width, height, COLOR_FILL);
     Painter::FillRegion(Grid::Left() + 1, Grid::MathTop() + 1 + delta, width - 2, height - 2, COLOR_BACK);
     Divider::E multiplier = MATH_MULTIPLIER;
-    PText::DrawText(Grid::Left() + 2, Grid::MathTop() + 1 + delta, Range::ToString(SET_RANGE_MATH, multiplier),
+    PText::Draw(Grid::Left() + 2, Grid::MathTop() + 1 + delta, Range::ToString(SET_RANGE_MATH, multiplier),
         COLOR_FILL);
-    PText::DrawText(Grid::Left() + 25, Grid::MathTop() + 1 + delta, ":");
+    PText::Draw(Grid::Left() + 25, Grid::MathTop() + 1 + delta, ":");
     char buffer[20];
-    PText::DrawText(Grid::Left() + 27, Grid::MathTop() + 1 + delta, SET_RSHIFT_MATH.ToString(SET_RANGE_MATH, multiplier,
+    PText::Draw(Grid::Left() + 27, Grid::MathTop() + 1 + delta, SET_RSHIFT_MATH.ToString(SET_RANGE_MATH, multiplier,
         buffer));
 }
 
@@ -622,9 +622,9 @@ void Display::WriteParametersFFT(Chan::E ch, float freq0, float density0, float 
 
     char buffer[20];
     Color::SetCurrent(COLOR_FILL);
-    PText::DrawText(x, y, Freq2String(freq0, false, buffer));
+    PText::Draw(x, y, Freq2String(freq0, false, buffer));
     y += dY;
-    PText::DrawText(x, y, Freq2String(freq1, false, buffer));
+    PText::Draw(x, y, Freq2String(freq1, false, buffer));
     if (ch == Chan::A)
     {
         y += dY + 2;
@@ -634,9 +634,9 @@ void Display::WriteParametersFFT(Chan::E ch, float freq0, float density0, float 
         y += dY * 3 + 4;
     }
     Color::SetCurrent(ColorChannel(ch));
-    PText::DrawText(x, y, SCALE_FFT_IS_LOG ? Float2Db(density0, 4, buffer) : Float2String(density0, false, 7, buffer));
+    PText::Draw(x, y, SCALE_FFT_IS_LOG ? Float2Db(density0, 4, buffer) : Float2String(density0, false, 7, buffer));
     y += dY;
-    PText::DrawText(x, y, SCALE_FFT_IS_LOG ? Float2Db(density1, 4, buffer) : Float2String(density1, false, 7, buffer));
+    PText::Draw(x, y, SCALE_FFT_IS_LOG ? Float2Db(density1, 4, buffer) : Float2String(density1, false, 7, buffer));
 }
 
 
@@ -877,11 +877,11 @@ void Display::DrawTime(int x, int y)
             time.seconds = ds->time.seconds;
             time.month = ds->time.month;
             time.year = ds->time.year;
-            PText::DrawText(x, y, Int2String((int)time.day, false, 2, buffer));
-            PText::DrawText(x + dField, y, ":");
-            PText::DrawText(x + dField + dSeparator, y, Int2String((int)time.month, false, 2, buffer));
-            PText::DrawText(x + 2 * dField + dSeparator, y, ":");
-            PText::DrawText(x + 2 * dField + 2 * dSeparator, y, Int2String((int)time.year + 2000, false, 4, buffer));
+            PText::Draw(x, y, Int2String((int)time.day, false, 2, buffer));
+            PText::Draw(x + dField, y, ":");
+            PText::Draw(x + dField + dSeparator, y, Int2String((int)time.month, false, 2, buffer));
+            PText::Draw(x + 2 * dField + dSeparator, y, ":");
+            PText::Draw(x + 2 * dField + 2 * dSeparator, y, Int2String((int)time.year + 2000, false, 4, buffer));
             y += 9;
         }
         else
@@ -891,11 +891,11 @@ void Display::DrawTime(int x, int y)
     }
     
     
-    PText::DrawText(x, y, Int2String((int)time.hours, false, 2, buffer));
-    PText::DrawText(x + dField, y, ":");
-    PText::DrawText(x + dField + dSeparator, y, Int2String((int)time.minutes, false, 2, buffer));
-    PText::DrawText(x + 2 * dField + dSeparator, y, ":");
-    PText::DrawText(x + 2 * dField + 2 * dSeparator, y, Int2String((int)time.seconds, false, 2, buffer));
+    PText::Draw(x, y, Int2String((int)time.hours, false, 2, buffer));
+    PText::Draw(x + dField, y, ":");
+    PText::Draw(x + dField + dSeparator, y, Int2String((int)time.minutes, false, 2, buffer));
+    PText::Draw(x + 2 * dField + dSeparator, y, ":");
+    PText::Draw(x + 2 * dField + 2 * dSeparator, y, Int2String((int)time.seconds, false, 2, buffer));
 }
 
 
@@ -1151,19 +1151,19 @@ void Display::WriteCursors()
 
         if(!CURS_CNTRL_U_IS_DISABLE(source))
         {
-            PText::DrawText(x, y1, "1:", colorText);
-            PText::DrawText(x, y2, "2:");
+            PText::Draw(x, y1, "1:", colorText);
+            PText::Draw(x, y2, "2:");
             x += 7;
-            PText::DrawText(x, y1, PageCursors::GetCursVoltage(source, 0, buffer));
-            PText::DrawText(x, y2, PageCursors::GetCursVoltage(source, 1, buffer));
+            PText::Draw(x, y1, PageCursors::GetCursVoltage(source, 0, buffer));
+            PText::Draw(x, y2, PageCursors::GetCursVoltage(source, 1, buffer));
             x = startX + 49;
             float pos0 = Math::VoltageCursor(PageCursors::GetCursPosU(source, 0), SET_RANGE(source), SET_RSHIFT(source));
             float pos1 = Math::VoltageCursor(PageCursors::GetCursPosU(source, 1), SET_RANGE(source), SET_RSHIFT(source));
             float delta = fabsf(pos1 - pos0);
-            PText::DrawText(x, y1, ":dU=");
-            PText::DrawText(x + 17, y1, Voltage2String(delta, false, buffer));
-            PText::DrawText(x, y2, ":");
-            PText::DrawText(x + 10, y2, PageCursors::GetCursorPercentsU(source, buffer));
+            PText::Draw(x, y1, ":dU=");
+            PText::Draw(x + 17, y1, Voltage2String(delta, false, buffer));
+            PText::Draw(x, y2, ":");
+            PText::Draw(x + 10, y2, PageCursors::GetCursorPercentsU(source, buffer));
         }
 
         x = startX + 101;
@@ -1173,20 +1173,20 @@ void Display::WriteCursors()
         if(!CURS_CNTRL_T_IS_DISABLE(source))
         {
             Color::SetCurrent(colorText);
-            PText::DrawText(x, y1, "1:");
-            PText::DrawText(x, y2, "2:");
+            PText::Draw(x, y1, "1:");
+            PText::Draw(x, y2, "2:");
             x+=7;
-            PText::DrawText(x, y1, PageCursors::GetCursorTime(source, 0, buffer));
-            PText::DrawText(x, y2, PageCursors::GetCursorTime(source, 1, buffer));
+            PText::Draw(x, y1, PageCursors::GetCursorTime(source, 0, buffer));
+            PText::Draw(x, y2, PageCursors::GetCursorTime(source, 1, buffer));
             x = startX + 153;
             float pos0 = Math::TimeCursor(CURS_POS_T0(source), SET_TBASE);
             float pos1 = Math::TimeCursor(CURS_POS_T1(source), SET_TBASE);
             float delta = fabsf(pos1 - pos0);
-            PText::DrawText(x, y1, ":dT=");
+            PText::Draw(x, y1, ":dT=");
             char buf[20];
-            PText::DrawText(x + 17, y1, Time2String(delta, false, buf));
-            PText::DrawText(x, y2, ":");
-            PText::DrawText(x + 8, y2, PageCursors::GetCursorPercentsT(source, buf));
+            PText::Draw(x + 17, y1, Time2String(delta, false, buf));
+            PText::Draw(x, y2, ":");
+            PText::Draw(x + 8, y2, PageCursors::GetCursorPercentsT(source, buf));
 
             if(CURSORS_SHOW_FREQ)
             {
@@ -1194,9 +1194,9 @@ void Display::WriteCursors()
                 int x0 = Grid::Right() - width;
                 Painter::DrawRectangle(x0, GRID_TOP, width, 12, COLOR_FILL);
                 Painter::FillRegion(x0 + 1, GRID_TOP + 1, width - 2, 10, COLOR_BACK);
-                PText::DrawText(x0 + 1, GRID_TOP + 2, "1/dT=", colorText);
+                PText::Draw(x0 + 1, GRID_TOP + 2, "1/dT=", colorText);
                 char buff[20];
-                PText::DrawText(x0 + 25, GRID_TOP + 2, Freq2String(1.0f / delta, false, buff));
+                PText::Draw(x0 + 25, GRID_TOP + 2, Freq2String(1.0f / delta, false, buff));
             }
         }
     }
@@ -1220,7 +1220,7 @@ void Display::DrawHiRightPart()
         if (TrigLev::fireLED)
         {
             Painter::FillRegion(x, 1 + y, GRID_TOP - 3, GRID_TOP - 7);
-            PText::DrawText(x + 3, 3 + y, LANG_RU ? "—»" : "Tr", COLOR_BACK);
+            PText::Draw(x + 3, 3 + y, LANG_RU ? "—»" : "Tr", COLOR_BACK);
         }
     }
 
@@ -1237,7 +1237,7 @@ void Display::DrawHiRightPart()
         x += 18;
         Painter::DrawVLine(x, 1, GRID_TOP - 2, COLOR_FILL);
         x += 2;
-        PText::DrawText(LANG_RU ? x : x + 3, -1, LANG_RU ? "режим" : "mode");
+        PText::Draw(LANG_RU ? x : x + 3, -1, LANG_RU ? "режим" : "mode");
         PText::DrawStringInCenterRect(x + 1, 9, 25, 8, strings_[MODE_WORK][LANG]);
     }
     else
@@ -1421,7 +1421,7 @@ void Display::WriteValueTrigLevel()
         int y = Grid::BottomMessages() - 20;
         Painter::DrawRectangle(x, y, width, 10, COLOR_FILL);
         Painter::FillRegion(x + 1, y + 1, width - 2, 8, COLOR_BACK);
-        PText::DrawText(x + 2, y + 1, buffer, COLOR_FILL);
+        PText::Draw(x + 2, y + 1, buffer, COLOR_FILL);
     }
 }
 
@@ -1441,13 +1441,13 @@ void Display::DrawGridSpectrum()
             if (!Menu::IsMinimize())
             {
                 Color::SetCurrent(COLOR_FILL);
-                PText::DrawText(3, y - 4, strs[i]);
+                PText::Draw(3, y - 4, strs[i]);
             }
         }
         if (!Menu::IsMinimize())
         {
             Color::SetCurrent(COLOR_FILL);
-            PText::DrawText(5, Grid::MathTop() + 1, "дЅ");
+            PText::Draw(5, Grid::MathTop() + 1, "дЅ");
         }
     }
     else if (SCALE_FFT_IS_LINEAR)
@@ -1460,7 +1460,7 @@ void Display::DrawGridSpectrum()
             Painter::DrawHLine(y, Grid::Left(), Grid::Left() + 256, ColorGrid());
             if (!Menu::IsMinimize())
             {
-                PText::DrawText(5, y - 4, strs[i], COLOR_FILL);
+                PText::Draw(5, y - 4, strs[i], COLOR_FILL);
             }
         }
     }
@@ -1997,26 +1997,26 @@ void Display::DrawMeasures()
             if(meas != Measure::None)
             {
                 char buffer[20];
-                PText::DrawText(x + 4, y + 2, Measures::Name(str, elem), color);
+                PText::Draw(x + 4, y + 2, Measures::Name(str, elem), color);
 
                 if(meas == MEAS_MARKED)
                 {
                     Painter::FillRegion(x + 1, y + 1, dX - 2, 9, active ? COLOR_BACK : COLOR_FILL);
-                    PText::DrawText(x + 4, y + 2, Measures::Name(str, elem), active ? COLOR_FILL : COLOR_BACK);
+                    PText::Draw(x + 4, y + 2, Measures::Name(str, elem), active ? COLOR_FILL : COLOR_BACK);
                 }
 
                 if(MEAS_SOURCE_IS_A)
                 {
-                    PText::DrawText(x + 2, y + 11, Processing::GetStringMeasure(meas, Chan::A, buffer), ColorChannel(Chan::A));
+                    PText::Draw(x + 2, y + 11, Processing::GetStringMeasure(meas, Chan::A, buffer), ColorChannel(Chan::A));
                 }
                 else if(MEAS_SOURCE_IS_B)
                 {
-                    PText::DrawText(x + 2, y + 11, Processing::GetStringMeasure(meas, Chan::B, buffer), ColorChannel(Chan::B));
+                    PText::Draw(x + 2, y + 11, Processing::GetStringMeasure(meas, Chan::B, buffer), ColorChannel(Chan::B));
                 }
                 else
                 {
-                    PText::DrawText(x + 2, y + 11, Processing::GetStringMeasure(meas, Chan::A, buffer), ColorChannel(Chan::A));
-                    PText::DrawText(x + 2, y + 20, Processing::GetStringMeasure(meas, Chan::B, buffer), ColorChannel(Chan::B));
+                    PText::Draw(x + 2, y + 11, Processing::GetStringMeasure(meas, Chan::A, buffer), ColorChannel(Chan::A));
+                    PText::Draw(x + 2, y + 20, Processing::GetStringMeasure(meas, Chan::B, buffer), ColorChannel(Chan::B));
                 }
             }
         }
@@ -2077,11 +2077,11 @@ void Display::WriteTextVoltage(Chan::E ch, int x, int y)
         sprintf(buffer, "%s\xa5%s\xa5%s", (ch == Chan::A) ? (LANG_RU ? "1к" : "1c") : (LANG_RU ? "2к" : "2c"), couple[modeCouple], 
             Range::ToString(range, multiplier));
 
-        PText::DrawText(x + 1, y, buffer, colorDraw);
+        PText::Draw(x + 1, y, buffer, colorDraw);
 
         char bufferTemp[20];
         sprintf(buffer, "\xa5%s", rShift.ToString(range, multiplier, bufferTemp));
-        PText::DrawText(x + 46, y, buffer);
+        PText::Draw(x + 46, y, buffer);
     }
 }
 
@@ -2090,7 +2090,7 @@ void Display::WriteTextVoltage(Chan::E ch, int x, int y)
 void Display::WriteStringAndNumber(char *text, int x, int y, int number)
 {
     char buffer[100];
-    PText::DrawText(x, y, text, COLOR_FILL);
+    PText::Draw(x, y, text, COLOR_FILL);
 
     if(number == 0)
     {
@@ -2138,12 +2138,12 @@ void Display::DrawLowPart()
     }
 
     sprintf(buffer, "р\xa5%s", TBase::ToString(tBase));
-    PText::DrawText(x, y0, buffer);
+    PText::Draw(x, y0, buffer);
 
     buffer[0] = 0;
     char bufForVal[20];
     sprintf(buffer, "\xa5%s", TShift::ToString(tShift, bufForVal));
-    PText::DrawText(x + 35, y0, buffer);
+    PText::Draw(x + 35, y0, buffer);
 
     buffer[0] = 0;
 
@@ -2153,7 +2153,7 @@ void Display::DrawLowPart()
         sprintf(buffer, "с\xa5\x10%s", source[TRIG_SOURCE]);
     }
 
-    PText::DrawText(x, y1, buffer, ColorTrig());
+    PText::Draw(x, y1, buffer, ColorTrig());
 
     buffer[0] = 0;
     static pchar couple[] =
@@ -2178,7 +2178,7 @@ void Display::DrawLowPart()
     if (MODE_WORK_IS_DIRECT)
     {
         sprintf(buffer, "\xa5\x10%s\x10\xa5\x10%s\x10\xa5\x10", couple[TRIG_INPUT], polar[TRIG_POLARITY]);
-        PText::DrawText(x + 18, y1, buffer);
+        PText::Draw(x + 18, y1, buffer);
         PText::DrawChar(x + 45, y1, filtr[TRIG_INPUT][0]);
         PText::DrawChar(x + 53, y1, filtr[TRIG_INPUT][1]);
     }
@@ -2193,7 +2193,7 @@ void Display::DrawLowPart()
     if (MODE_WORK_IS_DIRECT)
     {
         sprintf(buffer, "\xa5\x10%c", mode[START_MODE]);
-        PText::DrawText(x + 63, y1, buffer);
+        PText::Draw(x + 63, y1, buffer);
     }
     
     Painter::DrawVLine(x + 79, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, COLOR_FILL);
@@ -2233,7 +2233,7 @@ void Display::DrawLowPart()
         {
             strcat(mesFreq, Freq2String(freq, false, buf));
         }
-        PText::DrawText(x + 3, GRID_BOTTOM + 2, mesFreq);
+        PText::Draw(x + 3, GRID_BOTTOM + 2, mesFreq);
     }
 
     DrawTime(x + 3, GRID_BOTTOM + 11);
@@ -2305,7 +2305,7 @@ void Display::DrawTimeForFrame(uint timeTicks)
 
     Painter::DrawRectangle(Grid::Left(), Grid::FullBottom() - 10, 84, 10, COLOR_FILL);
     Painter::FillRegion(Grid::Left() + 1, Grid::FullBottom() - 9, 82, 8, COLOR_BACK);
-    PText::DrawText(Grid::Left() + 2, Grid::FullBottom() - 9, buffer, COLOR_FILL);
+    PText::Draw(Grid::Left() + 2, Grid::FullBottom() - 9, buffer, COLOR_FILL);
 
     char message[20] = {0};
     sprintf(message, "%d", Storage::NumElementsWithSameSettings());
@@ -2313,7 +2313,7 @@ void Display::DrawTimeForFrame(uint timeTicks)
     char numAvail[10] = {0};
     sprintf(numAvail, "%d", Storage::NumberAvailableEntries());
     strcat(message, numAvail);
-    PText::DrawText(Grid::Left() + 50, Grid::FullBottom() - 9, message);
+    PText::Draw(Grid::Left() + 50, Grid::FullBottom() - 9, message);
 }
 
 
@@ -2515,7 +2515,7 @@ void Display::DrawConsole()
 
         Painter::FillRegion(Grid::Left() + 1, y, width, 5, COLOR_BACK);
 
-        PText::DrawText(Grid::Left() + 2, y - 10, strings[numString], COLOR_FILL);
+        PText::Draw(Grid::Left() + 2, y - 10, strings[numString], COLOR_FILL);
 
         y += height + 1;
     }
@@ -2619,7 +2619,7 @@ void Display::DrawStringInRectangle(int, int y, char const *text)
     Painter::DrawRectangle(Grid::Left(), y, width + 4, height + 4, COLOR_FILL);
     Painter::DrawRectangle(Grid::Left() + 1, y + 1, width + 2, height + 2, COLOR_BACK);
     Painter::FillRegion(Grid::Left() + 2, y + 2, width, height, Color::FLASH_10);
-    PText::DrawText(Grid::Left() + 3, y + 2, text, Color::FLASH_01);
+    PText::Draw(Grid::Left() + 3, y + 2, text, Color::FLASH_01);
 }
 
 

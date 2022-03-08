@@ -238,7 +238,7 @@ int PText::DrawChar(int x, int y, char symbol, Color::E color)
 }
 
 
-int PText::DrawText(int x, int y, pchar const _text, Color::E color)
+int PText::Draw(int x, int y, pchar const _text, Color::E color)
 {
     Color::SetCurrent(color);
 
@@ -303,7 +303,7 @@ int PText::DrawTextOnBackground(int x, int y, pchar text, Color::E colorBackgrou
     Painter::FillRegion(x - 1, y, width, height, colorBackground);
     Color::SetCurrent(colorText);
 
-    return DrawText(x, y, text);
+    return Draw(x, y, text);
 }
 
 
@@ -565,7 +565,7 @@ int PText::DrawPartWord(char *word, int x, int y, int xRight, bool draw)
         {
             if (draw)
             {
-                DrawText(x, y, subString);
+                Draw(x, y, subString);
             }
 
             return (int)strlen(subString) - 1;
@@ -627,7 +627,7 @@ int PText::DrawTextInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, 
                 else
                 {
                     curSymbol += length;
-                    x = DrawText(x, y, word);
+                    x = Draw(x, y, word);
                 }
             }
         }
@@ -719,7 +719,7 @@ int PText::DrawFormatText(int x, int y, Color::E color, char *text, ...)
     vsprintf(buffer, text, args);
     va_end(args);
 
-    return DrawText(x, y, buffer, color);
+    return Draw(x, y, buffer, color);
 }
 
 
@@ -732,7 +732,7 @@ int PText::DrawStringInCenterRect(int eX, int eY, int width, int eHeight, pchar 
     int x = eX + (width - lenght) / 2;
     int y = eY + (eHeight - height) / 2;
 
-    return DrawText(x, y, text);
+    return Draw(x, y, text);
 }
 
 
@@ -843,7 +843,7 @@ void PText::DrawTextRelativelyRight(int xRight, int y, pchar text, Color::E colo
     Color::SetCurrent(color);
 
     int lenght = Font::GetLengthText(text);
-    DrawText(xRight - lenght, y, text);
+    Draw(xRight - lenght, y, text);
 }
 
 

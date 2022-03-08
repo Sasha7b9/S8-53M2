@@ -4,7 +4,7 @@
 
 namespace PText
 {
-    int DrawText(int x, int y, pchar text, Color::E = Color::Count);
+    int Draw(int x, int y, pchar text, Color::E = Color::Count);
 
     int DrawStringInCenterRect(int x, int y, int width, int height, pchar text, Color::E = Color::Count);
 
