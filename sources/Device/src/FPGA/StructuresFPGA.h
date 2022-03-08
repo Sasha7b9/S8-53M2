@@ -8,7 +8,6 @@ struct StateCalibration
     enum E
     {
         None,
-        ADCinProgress,
         RShift0start,
         RShift0inProgress,
         RShift1start,

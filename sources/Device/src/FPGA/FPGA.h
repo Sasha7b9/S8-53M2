@@ -46,6 +46,12 @@ namespace FPGA
         TBase::E CompactTBase();
     }
 
+    namespace Calibrator
+    {
+        // Запуск функции калибровки.
+        void RunCalibrate();
+    }
+
     void Init();
 
     // Установить количество считываемых сигналов в секунду.
@@ -79,9 +85,6 @@ namespace FPGA
 
     // Найти и установить уровень синхронизации по последнему считанному сигналу
     void FindAndSetTrigLevel();
-
-    // Запуск функции калибровки.
-    void ProcedureCalibration();
 }
 
 
