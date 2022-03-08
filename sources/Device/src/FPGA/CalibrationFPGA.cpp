@@ -14,12 +14,14 @@ namespace FPGA
     {
         struct Progress
         {
-            const int width = 100;
-            const int height = 20;
+            static const int width = 100;
+            static const int height = 20;
 
             float value;
 
             uint timeStart;
+
+            Progress() : value(0.0f), timeStart(0) {}
 
             void Reset() { value = 0.0f; timeStart = TIME_MS; }
 

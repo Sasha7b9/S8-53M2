@@ -766,6 +766,7 @@ void Painter::DrawHintsForSmallButton(int x, int y, int width, void *smallButton
     const StructHelpSmallButton *structHelp = &(*sb->hintUGO)[0];
     x += 3;
     y += 3;
+
     while (structHelp->funcDrawUGO)
     {
         DrawRectangle(x, y, WIDTH_SB, WIDTH_SB);
@@ -779,25 +780,31 @@ void Painter::DrawHintsForSmallButton(int x, int y, int width, void *smallButton
 
 int PText::GetLenghtSubString(char *text)
 {
-    int retValue = 0;
+    int result = 0;
+
     while (((*text) != ' ') && ((*text) != '\0'))
     {
-        retValue += Font::GetLengthSymbol((uint8)*text);
+        result += Font::GetLengthSymbol((uint8)*text);
         text++;
+        result++;
     }
-    return retValue;
+
+    return result;
 }
 
 
 int PText::DrawSubString(int x, int y, char *text)
 {
     int numSymbols = 0;
+
     while (((*text) != ' ') && ((*text) != '\0'))
     {
         x = DrawChar(x, y, *text);
         numSymbols++;
         text++;
+        x++;
     }
+
     return numSymbols;
 }
 
@@ -805,12 +812,14 @@ int PText::DrawSubString(int x, int y, char *text)
 int PText::DrawSpaces(int x, int y, char *text, int *numSymbols)
 {
     *numSymbols = 0;
+
     while (*text == ' ')
     {
         x = DrawChar(x, y, *text);
         text++;
         (*numSymbols)++;
     }
+
     return x;
 }
 
@@ -823,11 +832,13 @@ void PText::DrawInRect(int x, int y, int width, int, char *text)
     while (*text != 0)
     {
         int length = GetLenghtSubString(text);
+
         if (length + x > xEnd)
         {
             x = xStart;
             y += Font::GetHeightSymbol(*text);
         }
+
         int numSymbols = 0;
         numSymbols = DrawSubString(x, y, text);
         text += numSymbols;
