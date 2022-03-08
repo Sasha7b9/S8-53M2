@@ -25,17 +25,6 @@ extern const Page ppInformation;
 
 
 
-extern const Button       bResetSettings;               // СЕРВИС - Сброс настроек
-static void        OnPress_ResetSettings();
-static void FuncDraw();
-static void OnTimerDraw();
-extern const Button bAutoSearch;                  // СЕРВИС - Поиск сигнала
-static void        OnPress_AutoSearch();
-static bool       IsActive_Math_Function();
-static void        OnPress_Math_Function();
-static void       OnRegSet_Math_Function(int delta);
-extern const SmallButton sbMath_Function_Exit;          // СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ - Выход
-extern const SmallButton sbMath_Function_ModeDraw;      // СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ - Экран
 static void        OnPress_Math_Function_ModeDraw();
 static void           Draw_Math_Function_ModeDraw(int x, int y);
 static void           Draw_Math_Function_ModeDraw_Disable(int x, int y);
@@ -86,6 +75,67 @@ static void        OnPress_Information();
 static void Information_Draw();
 extern const SmallButton sbInformation_Exit;             // СЕРВИС - ИНФОРМАЦИЯ - Выход
 static void        OnPress_Information_Exit();
+
+
+static void FuncDraw()
+{
+    Painter::BeginScene(COLOR_BACK);
+
+    PText::DrawTextInRectWithTransfers(30, 110, 300, 200, "Подтвердите сброс настроек нажатием кнопки ПУСК/СТОП.\n"
+        "Нажмите любую другую кнопку, если сброс не нужен.", COLOR_FILL);
+
+    Painter::EndScene();
+}
+
+
+static void OnTimerDraw()
+{
+    Display::Update();
+}
+
+
+static void OnPress_ResetSettings()
+{
+    Panel::Disable();
+    Display::SetDrawMode(DrawMode_Hand, FuncDraw);
+    Timer::Enable(TypeTimer::TimerDrawHandFunction, 100, OnTimerDraw);
+
+    if (Panel::WaitPressingButton() == Key::Start)
+    {
+        Settings::Load(true);
+        FPGA::Init();
+    }
+
+    Timer::Disable(TypeTimer::TimerDrawHandFunction);
+    Display::SetDrawMode(DrawMode_Auto, 0);
+    Panel::Enable();
+}
+
+
+const Button bResetSettings
+(
+    &pService, nullptr,
+    "Сброс настроек", "Reset settings",
+    "Сброс настроек на настройки по умолчанию",
+    "Reset to default settings",
+    OnPress_ResetSettings
+);
+
+
+static void OnPress_AutoSearch()
+{
+    FPGA::AutoFinder::StartAutoFind();
+};
+
+
+static const Button bAutoSearch
+(
+    &pService, 0,
+    "Поиск сигнала", "Find signal",
+    "Устанавливает оптимальные установки осциллографа для сигнала в канале 1",
+    "Sets optimal settings for the oscilloscope signal on channel 1",
+    OnPress_AutoSearch
+);
 
 
 static void OnChanged_Calibrator_Mode(bool)
@@ -184,63 +234,17 @@ const Page pService                     // СЕРВИС
 
 
 
-// СЕРВИС - Сброс настроек --
-const Button bResetSettings
-(
-    &pService, nullptr,
-    "Сброс настроек", "Reset settings",
-    "Сброс настроек на настройки по умолчанию",
-    "Reset to default settings",
-    OnPress_ResetSettings
-);
-
-static void OnPress_ResetSettings()
-{
-    Panel::Disable();
-    Display::SetDrawMode(DrawMode_Hand, FuncDraw);
-    Timer::Enable(TypeTimer::TimerDrawHandFunction, 100, OnTimerDraw);
-
-    if (Panel::WaitPressingButton() == Key::Start)
-    {
-        Settings::Load(true);
-        FPGA::Init();
-    }
-
-    Timer::Disable(TypeTimer::TimerDrawHandFunction);
-    Display::SetDrawMode(DrawMode_Auto, 0);
-    Panel::Enable();
-}
-
-static void FuncDraw()
-{
-    Painter::BeginScene(COLOR_BACK);
-
-    PText::DrawTextInRectWithTransfers(30, 110, 300, 200, "Подтвердите сброс настроек нажатием кнопки ПУСК/СТОП.\n"
-                                         "Нажмите любую другую кнопку, если сброс не нужен.", COLOR_FILL);
-
-    Painter::EndScene();
-}
-
-static void OnTimerDraw()
-{
-    Display::Update();
-}
 
 
-// СЕРВИС - Поиск сигнала ---
-static const Button bAutoSearch
-(
-    &pService, 0,
-    "Поиск сигнала", "Find signal",
-    "Устанавливает оптимальные установки осциллографа для сигнала в канале 1",
-    "Sets optimal settings for the oscilloscope signal on channel 1",
-    OnPress_AutoSearch
-);
 
-static void OnPress_AutoSearch()
-{
-    FPGA::AutoFinder::StartAutoFind();
-};
+
+
+
+
+
+
+
+
 
 
 
@@ -265,7 +269,39 @@ static const Page ppMath
     NamePage::Math, &itemsMath
 );
 
-// СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ ///
+
+static const SmallButton sbMath_Function_Exit
+(
+    &pppMath_Function,
+    COMMON_BEGIN_SB_EXIT,
+    EmptyFuncVV,
+    DrawSB_Exit
+);
+
+
+static const arrayHints hintsMath_Function_ModeDraw =
+{
+    {Draw_Math_Function_ModeDraw_Disable,  "Вывод математической функции отключён",
+                                            "The conclusion of mathematical function is disconnected"},
+    {Draw_Math_Function_ModeDraw_Separate, "Сигналы и математическая функция выводятся в разных окнах",
+                                            "Signals and mathematical function are removed in different windows"},
+    {Draw_Math_Function_ModeDraw_Together, "Сигналы и математическая функция выводятся в одном окне",
+                                            "Signals and mathematical function are removed in one window"}
+};
+
+
+static const SmallButton sbMath_Function_ModeDraw
+(
+    &pppMath_Function, 0,
+    "Экран", "Display",
+    "Выбирает режим отображения математического сигнала",
+    "Chooses the mode of display of a mathematical signal",
+    OnPress_Math_Function_ModeDraw,
+    Draw_Math_Function_ModeDraw,
+    &hintsMath_Function_ModeDraw
+);
+
+
 static const arrayItems itemsMath_Function =
 {
     (void*)&sbMath_Function_Exit,       // СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ - Выход
@@ -276,24 +312,12 @@ static const arrayItems itemsMath_Function =
     (void*)&sbMath_Function_RangeB      // СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ - Масштаб 2-го канала    
 };
 
-static const Page pppMath_Function
-(
-    &ppMath, IsActive_Math_Function,
-    "ФУНКЦИЯ", "FUNCTION",
-    "Установка и выбор математической функции - сложения или умножения",
-    "Installation and selection of mathematical functions - addition or multiplication",
-    NamePage::SB_MathFunction, &itemsMath_Function, OnPress_Math_Function, EmptyFuncVV, OnRegSet_Math_Function
-);
-
-void *PageService::Math::Function::GetPointer()
-{
-    return (void *)&pppMath_Function;
-}
 
 static bool IsActive_Math_Function()
 {
     return !ENABLED_FFT;
 }
+
 
 static void OnPress_Math_Function()
 {
@@ -302,6 +326,7 @@ static void OnPress_Math_Function()
         Display::ShowWarningBad(Warning::ImpossibleEnableMathFunction);
     }
 }
+
 
 static void OnRegSet_Math_Function(int delta)
 {
@@ -373,36 +398,32 @@ static void OnRegSet_Math_Function(int delta)
     }
 }
 
-// СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ - Выход -------------------------------------------------------------------------------------------------------------
-static const SmallButton sbMath_Function_Exit
+
+static const Page pppMath_Function
 (
-    &pppMath_Function,
-    COMMON_BEGIN_SB_EXIT,
-    EmptyFuncVV,
-    DrawSB_Exit
+    &ppMath, IsActive_Math_Function,
+    "ФУНКЦИЯ", "FUNCTION",
+    "Установка и выбор математической функции - сложения или умножения",
+    "Installation and selection of mathematical functions - addition or multiplication",
+    NamePage::SB_MathFunction, &itemsMath_Function, OnPress_Math_Function, EmptyFuncVV, OnRegSet_Math_Function
 );
 
-// СЕРВИС - МАТЕМАТИКА - ФУНКЦИЯ - Экран -------------------------------------------------------------------------------------------------------------
-static const arrayHints hintsMath_Function_ModeDraw =
+
+void *PageService::Math::Function::GetPointer()
 {
-    {Draw_Math_Function_ModeDraw_Disable,  "Вывод математической функции отключён",
-                                            "The conclusion of mathematical function is disconnected"},
-    {Draw_Math_Function_ModeDraw_Separate, "Сигналы и математическая функция выводятся в разных окнах",
-                                            "Signals and mathematical function are removed in different windows"},
-    {Draw_Math_Function_ModeDraw_Together, "Сигналы и математическая функция выводятся в одном окне",
-                                            "Signals and mathematical function are removed in one window"}
-};
+    return (void *)&pppMath_Function;
+}
 
-static const SmallButton sbMath_Function_ModeDraw
-(
-    &pppMath_Function, 0,
-    "Экран", "Display",
-    "Выбирает режим отображения математического сигнала",
-    "Chooses the mode of display of a mathematical signal",
-    OnPress_Math_Function_ModeDraw,
-    Draw_Math_Function_ModeDraw,
-    &hintsMath_Function_ModeDraw
-);
+
+
+
+
+
+
+
+
+
+
 
 static void OnPress_Math_Function_ModeDraw()
 {
