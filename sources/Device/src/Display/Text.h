@@ -34,7 +34,7 @@ namespace PText
 
     void DrawInRect(int x, int y, int width, int height, char *text);
 
-    void DrawTextRelativelyRight(int xRight, int y, pchar text, Color::E = Color::Count);
+    void DrawRelativelyRight(int xRight, int y, pchar text, Color::E = Color::Count);
 
     void Draw2Symbols(int x, int y, char symbol1, char symbol2, Color::E color1, Color::E color2);
 

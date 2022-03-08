@@ -838,7 +838,7 @@ void PText::DrawInRect(int x, int y, int width, int, char *text)
 }
 
 
-void PText::DrawTextRelativelyRight(int xRight, int y, pchar text, Color::E color)
+void PText::DrawRelativelyRight(int xRight, int y, pchar text, Color::E color)
 {
     Color::SetCurrent(color);
 

@@ -2101,7 +2101,7 @@ void Display::WriteStringAndNumber(char *text, int x, int y, int number)
         sprintf(buffer, "%d", number);
     }
 
-    PText::DrawTextRelativelyRight(x + 41, y, buffer);
+    PText::DrawRelativelyRight(x + 41, y, buffer);
 }
 
 

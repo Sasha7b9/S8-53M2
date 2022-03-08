@@ -288,7 +288,7 @@ void Measures::DrawPageChoice()
             Color::SetCurrent(active ? Color::FLASH_01 : COLOR_FILL);
             PText::Draw10SymbolsInRect(x0 + 2, y0 + 1, GetChar(meas));
             Font::Set(TypeFont::_5);
-            PText::DrawTextRelativelyRight(x0 + dX, y0 + 6, measures[meas].name, active ? Color::FLASH_01 : COLOR_FILL);
+            PText::DrawRelativelyRight(x0 + dX, y0 + 6, measures[meas].name, active ? Color::FLASH_01 : COLOR_FILL);
             Font::Set(TypeFont::UGO);
             ++meas;
         }
