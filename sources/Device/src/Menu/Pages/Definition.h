@@ -103,7 +103,7 @@ struct PageMemory
     {
         static int16 current;               // Текущий номер последнего сигнала в режиме ПАМЯТЬ - Последние
 
-        static const Page *GetPointer();
+        static Page *self;
     };
 
     struct Internal

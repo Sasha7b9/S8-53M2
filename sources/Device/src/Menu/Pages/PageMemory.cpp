@@ -176,7 +176,7 @@ static void PressSB_SetName_Exit()
     }
     else if (EXIT_FROM_SET_NAME_TO_LAST)
     {
-        PageMemory::Latest::GetPointer()->OpenAndSetCurrent();
+        PageMemory::Latest::self->OpenAndSetCurrent();
     }
     else if (EXIT_FROM_SET_NAME_TO_INT)
     {
@@ -806,7 +806,7 @@ void PressSB_MemInt_Exit()
 
     if (PageMemory::Internal::exitToLast)
     {
-        PageMemory::Latest::GetPointer()->OpenAndSetCurrent();
+        PageMemory::Latest::self->OpenAndSetCurrent();
         MODE_WORK = ModeWork_Latest;
         PageMemory::Internal::exitToLast = false;
         Menu::needClosePageSB = false;
@@ -1363,10 +1363,7 @@ void *PageMemory::GetPointer()
 }
 
 
-const Page *PageMemory::Latest::GetPointer()
-{
-    return &mspMemLast;
-}
+Page *PageMemory::Latest::self = (Page *)&mspMemLast;
 
 
 const Page *PageMemory::SetMask::GetPointer()
