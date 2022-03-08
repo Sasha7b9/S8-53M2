@@ -27,7 +27,7 @@ namespace FPGA
 
             void Update()
             {
-                value = (TIME_MS - value) / 10;
+                value = (TIME_MS - timeStart) / 10;
 
                 while (value > 100)
                 {
@@ -140,7 +140,7 @@ static void FPGA::Calibrator::FunctionDraw()
                 "Connect the output of the calibrator to channel %d input and press the START/STOP button. If you do not want to calibrate the first channel, press any other button.",
                 (state == StateCalibration::WaitA) ? 1 : 2);
 
-            PText::DrawInRect(50, 25, SCREEN_WIDTH - 100, SCREEN_HEIGHT, message.c_str());
+            PText::DrawInRect(50, 80, SCREEN_WIDTH - 100, SCREEN_HEIGHT, message.c_str(), 2);
         }
         break;
 
@@ -149,7 +149,7 @@ static void FPGA::Calibrator::FunctionDraw()
         {
             String message(LANG_RU ? "Калибрую настройку 1 канала %d" : "Calibrate setting 1 channel %d", (state == StateCalibration::RShiftA) ? 1 : 2);
 
-            PText::DrawInRect(50, 25, SCREEN_WIDTH - 100, SCREEN_HEIGHT, message.c_str());
+            PText::DrawInRect(50, 100, SCREEN_WIDTH - 100, SCREEN_HEIGHT, message.c_str());
 
             progress.Draw(50, 200);
         }
@@ -160,7 +160,7 @@ static void FPGA::Calibrator::FunctionDraw()
         {
             String message(LANG_RU ? "Калибрую настройку 2 канала %d" : "Calibrate setting 2 channel %d", (state == StateCalibration::StretchA) ? 1 : 2);
 
-            PText::DrawInRect(50, 25, SCREEN_WIDTH - 100, SCREEN_HEIGHT, message.c_str());
+            PText::DrawInRect(50, 100, SCREEN_WIDTH - 100, SCREEN_HEIGHT, message.c_str());
 
             progress.Draw(50, 200);
         }
@@ -168,8 +168,8 @@ static void FPGA::Calibrator::FunctionDraw()
 
     case StateCalibration::Error:
         {
-            int y1 = 50;
-            int y2 = 100;
+            int y1 = 100;
+            int y2 = 130;
 
             PText::Draw(50, y1, LANG_RU ? "Канал 1" : "Channel 1");
             PText::Draw(50, y2, LANG_RU ? "Канал 2" : "Channel 2");
@@ -209,7 +209,7 @@ static bool FPGA::Calibrator::CalibrateRShift(Chan ch)
 
     progress.Reset();
 
-    while (TIME_MS - progress.timeStart < 3000)
+    while (TIME_MS - progress.timeStart < 1000)
     {
         progress.Update();
     }
@@ -226,7 +226,7 @@ static bool FPGA::Calibrator::CalibrateStretch(Chan ch)
 
     progress.Reset();
 
-    while (TIME_MS - progress.timeStart < 3000)
+    while (TIME_MS - progress.timeStart < 1000)
     {
         progress.Update();
     }

@@ -32,7 +32,7 @@ namespace PText
     int DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, pchar text, Color::E colorBackground,
         Color::E colorFill);
 
-    void DrawInRect(int x, int y, int width, int height, char *text);
+    void DrawInRect(int x, int y, int width, int height, char *text, int dy = 0);
 
     void DrawRelativelyRight(int xRight, int y, pchar text, Color::E = Color::Count);
 
