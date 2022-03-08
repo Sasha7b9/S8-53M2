@@ -12,9 +12,17 @@
 #include "Settings/Settings.h"
 #include <stdio.h>
 
-
+extern Page mainPage;
 extern const Page pService;
 extern const Page ppCalibrator;
+extern const Page ppMath;
+extern const Page pppMath_Function;
+extern const Page pppMath_FFT;
+extern const Page ppppMath_FFT_Cursors;
+extern const Page ppEthernet;
+extern const Page ppInformation;
+
+
 
 
 extern const Button       bResetSettings;               // ÑÅĞÂÈÑ - Ñáğîñ íàñòğîåê
@@ -23,8 +31,6 @@ static void FuncDraw();
 static void OnTimerDraw();
 extern const Button bAutoSearch;                  // ÑÅĞÂÈÑ - Ïîèñê ñèãíàëà
 static void        OnPress_AutoSearch();
-extern const Page        ppMath;                        // ÑÅĞÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ
-extern const Page       pppMath_Function;               // ÑÅĞÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÔÓÍÊÖÈß
 static bool       IsActive_Math_Function();
 static void        OnPress_Math_Function();
 static void       OnRegSet_Math_Function(int delta);
@@ -51,14 +57,12 @@ static void           Draw_Math_Function_RangeA(int x, int y);
 extern const SmallButton sbMath_Function_RangeB;        // ÑÅĞÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÔÓÍÊÖÈß - Ìàñøòàá 2-ãî êàíàëà
 static void        OnPress_Math_Function_RangeB();
 static void           Draw_Math_Function_RangeB(int x, int y);
-extern const Page       pppMath_FFT;                    // ÑÅĞÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒĞ
 static void        OnPress_Math_FFT();
 static bool       IsActive_Math_FFT();
 extern const Choice       cMath_FFT_Enable;             // ÑÅĞÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒĞ - Îòîáğàæåíèå
 extern const Choice       cMath_FFT_Scale;              // ÑÅĞÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒĞ - Øêàëà
 extern const Choice       cMath_FFT_Source;             // ÑÅĞÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒĞ - Èñòî÷íèê
 extern const Choice       cMath_FFT_Window;             // ÑÅĞÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒĞ - Îêíî
-extern const Page      ppppMath_FFT_Cursors;            // ÑÅĞÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒĞ - ÊÓĞÑÎĞÛ
 static bool       IsActive_Math_FFT_Cursors();
 static void       OnRegSet_Math_FFT_Cursors(int angle);
 extern const SmallButton  cMath_FFT_Cursors_Exit;        // ÑÅĞÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒĞ - ÊÓĞÑÎĞÛ - Âûõîä
@@ -68,7 +72,6 @@ static void        OnPress_Math_FFT_Cursors_Source();
 static void           Draw_Math_FFT_Cursors_Source(int x, int y);
 extern const Choice       cMath_FFT_Limit;              // ÑÅĞÂÈÑ - ÌÀÒÅÌÀÒÈÊÀ - ÑÏÅÊÒĞ - Äèàïàçîí
 static bool       IsActive_Math_FFT_Limit();
-extern const Page        ppEthernet;                    // ÑÅĞÂÈÑ - ETHERNET
 extern const Choice       cEthernet_Enable;             // ÑÅĞÂÈÑ - ETHERNET - Ethernet
 static void      OnChanged_Ethernet_Enable(bool active);
 extern const IPaddress   ipEthernet_IP;                 // ÑÅĞÂÈÑ - ETHERNET - IP àäğåñ
@@ -79,13 +82,11 @@ extern const Choice       cSound;                       // ÑÅĞÂÈÑ - Çâóê
 extern const Choice       cLang;                        // ÑÅĞÂÈÑ - ßçûê
 extern const Time         tTime;                        // ÑÅĞÂÈÑ - Âğåìÿ
 extern const Choice       cModeLongPressButtonTrig;     // ÑÅĞÂÈÑ - Ğåæ äëèò ÑÈÍÕĞ
-extern const Page        ppInformation;                 // ÑÅĞÂÈÑ - ÈÍÔÎĞÌÀÖÈß
 static void        OnPress_Information();
 static void Information_Draw();
 extern const SmallButton sbInformation_Exit;             // ÑÅĞÂÈÑ - ÈÍÔÎĞÌÀÖÈß - Âûõîä
 static void        OnPress_Information_Exit();
 
-extern Page mainPage;
 
 static void OnChanged_Calibrator_Mode(bool)
 {
