@@ -26,6 +26,7 @@ struct SettingsNRST
     int8    sizeFont;               // Размер шрифта консоли - 0 - 5, 1 - 8,
     int16   numMeasuresForGates;    // Число измерений для ворот.
     bool    showStats;              // Показывать статистику на экране (fps, например).
+
     int16   numAveForRand;          // По скольким измерениям усреднять сигнал в режиме рандомизатора.
     int16   balanceADC[2];          // Баланс АЦП (смещение первой точки относительно второй) для обоих каналов
     bool    fpga_compact;           // Если true - уплотнять сигнал (FPGA::Compactor)
