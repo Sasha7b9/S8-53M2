@@ -4,13 +4,13 @@
 #include "FPGA/SettingsFPGA.h"
 
 
-#define SET_STRETCH_ADC(ch)     (set.chan[ch].stretchADC)
-#define SET_STRETCH_ADC_A       (SET_STRETCH_ADC(ChA))
-#define SET_STRETCH_ADC_B       (SET_STRETCH_ADC(ChB))
+#define CAL_STRETCH(ch)         (set.chan[ch].cal_stretch)
+#define CAL_STRETCH_A           (CAL_STRETCH(ChA))
+#define CAL_STRETCH_B           (CAL_STRETCH(ChB))
 
-#define SET_SHIFT_ADC(ch)       (set.chan[ch].shiftADC)
-#define SET_SHIFT_ADC_A         (SET_SHIFT_ADC(ChA))
-#define SET_SHIFT_ADC_B         (SET_SHIFT_ADC(ChB))
+#define CAL_RSHIFT(ch)          (set.chan[ch].cal_rshift)
+#define CAL_RSHIFT_A            (CAL_RSHIFT(ChA))
+#define CAL_RSHIFT_B            (CAL_RSHIFT(ChB))
 
 
 #define SET_INVERSE(ch)         (set.chan[ch].inverse)          // SettingsChannel.inverse
@@ -44,21 +44,18 @@
 #define SET_FILTR_A             (SET_FILTR(Chan::A))            // set.chan[Chan::A].filtr
 #define SET_FILTR_B             (SET_FILTR(Chan::B))            // set.chan[Chan::B].filtr
 
-#define RSHIFT_ADD(ch, range, closed) set.chan[ch].rShiftAdd[range][closed]
 
- // Настройки каналов
+// Настройки каналов
 struct SettingsChannel
 {
-    float         stretchADC;                   // Коэффицент растяжки (на него умножается сигнал)
-    int8          shiftADC;                     // Добавочное смещение для балансировки АЦП.
+    float         cal_stretch;      // Коэффицент растяжки (на него умножается сигнал)
+    int8          cal_rshift;       // Добавочное смещение.
 
     RShift        rShift;
-    int16         rShiftAdd[Range::Count][2];   // Добавочное смещение для открытого (0) и закрытого (1) входов.
-
-    ModeCouple::E modeCouple;                   // Режим по входу.
-    Divider::E    divider;                      // Множитель.
-    Range::E      range;                        // Масштаб по напряжению.
-    bool          enable;                       // Включён ли канал.
-    bool          inverse;                      // Инвертирован ли канал.
-    bool          filtr;                        // Фильтр
+    ModeCouple::E modeCouple;       // Режим по входу.
+    Divider::E    divider;          // Множитель.
+    Range::E      range;            // Масштаб по напряжению.
+    bool          enable;           // Включён ли канал.
+    bool          inverse;          // Инвертирован ли канал.
+    bool          filtr;            // Фильтр
 };

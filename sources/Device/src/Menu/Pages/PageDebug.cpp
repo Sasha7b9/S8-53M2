@@ -204,8 +204,8 @@ const Page *PageDebug::self = &pDebug;
 
 static void OnPress_ResetShift()
 {
-    SET_SHIFT_ADC_A = 0;
-    SET_SHIFT_ADC_B = 0;
+    CAL_RSHIFT_A = 0;
+    CAL_RSHIFT_B = 0;
 }
 
 
@@ -220,7 +220,7 @@ static const Button bResetShift
 
 static void OnDraw_ShiftADCA(int x, int y)
 {
-    PText::DrawFormat(x + 5, y + 21, Color::BLACK, "%d", SET_SHIFT_ADC_A);
+    PText::DrawFormat(x + 5, y + 21, Color::BLACK, "%d", CAL_RSHIFT_A);
 }
 
 
@@ -242,7 +242,7 @@ static const Choice mcShiftADCA =
 
 static void OnDraw_ShiftADCB(int x, int y)
 {
-    PText::DrawFormat(x + 5, y + 21, Color::BLACK, "%d", SET_SHIFT_ADC_B);
+    PText::DrawFormat(x + 5, y + 21, Color::BLACK, "%d", CAL_RSHIFT_B);
 }
 
 
@@ -360,8 +360,8 @@ static const Page mpADC_Balance
 
 static void OnPress_ResetStretch()
 {
-    SET_STRETCH_ADC_A = 1.0f;
-    SET_STRETCH_ADC_B = 1.0f;
+    CAL_STRETCH_A = 1.0f;
+    CAL_STRETCH_B = 1.0f;
 }
 
 
@@ -376,7 +376,7 @@ static const Button bResetStretch
 
 static void OnDraw_StretchADCA(int x, int y)
 {
-    PText::DrawFormat(x + 5, y + 21, Color::BLACK, "%f", SET_STRETCH_ADC_A);
+    PText::DrawFormat(x + 5, y + 21, Color::BLACK, "%f", CAL_STRETCH_A);
 }
 
 
@@ -398,7 +398,7 @@ static const Choice mcStretchADCA =
 
 static void OnDraw_StretchADCB(int x, int y)
 {
-    PText::DrawFormat(x + 5, y + 21, Color::BLACK, "%f", SET_STRETCH_ADC_B);
+    PText::DrawFormat(x + 5, y + 21, Color::BLACK, "%f", CAL_STRETCH_B);
 }
 
 
@@ -443,7 +443,7 @@ static void OnPress_ADC_AltRShift_Reset()
         {
             for (int range = 0; range < Range::Count; range++)
             {
-                RSHIFT_ADD(ch, range, mode) = 0;
+                RSHIFT_HAND(ch, range, mode) = 0;
             }
         }
     }
@@ -474,7 +474,7 @@ static const Governor mbADC_AltRShift_2mV_DC_A
     "—м 1к 2м¬ пост", "Shift 1ch 2mV DC",
     "",
     "",
-    &RSHIFT_ADD(Chan::A, Range::_2mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_A
+    &RSHIFT_HAND(Chan::A, Range::_2mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_A
 );
 
 
@@ -490,7 +490,7 @@ static const Governor mbADC_AltRShift_2mV_DC_B
     "—м 2к 2м¬ пост", "Shift 2ch 2mV DC",
     "",
     "",
-    &RSHIFT_ADD(Chan::B, Range::_2mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_B
+    &RSHIFT_HAND(Chan::B, Range::_2mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_B
 );
 
 
@@ -500,7 +500,7 @@ static const Governor mbADC_AltRShift_5mV_DC_A
     "—м 1к 5м¬ пост", "Shift 1ch 5mV DC",
     "",
     "",
-    &RSHIFT_ADD(Chan::A, Range::_5mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_A
+    &RSHIFT_HAND(Chan::A, Range::_5mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_A
 );
 
 
@@ -510,7 +510,7 @@ static const Governor mbADC_AltRShift_5mV_DC_B
     "—м 2к 5м¬ пост", "Shift 2ch 5mV DC",
     "",
     "",
-    &RSHIFT_ADD(Chan::B, Range::_5mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_B
+    &RSHIFT_HAND(Chan::B, Range::_5mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_B
 );
 
 
@@ -520,7 +520,7 @@ static const Governor mbADC_AltRShift_10mV_DC_A
     "—м 1к 10м¬ пост", "Shift 1ch 10mV DC",
     "",
     "",
-    &RSHIFT_ADD(Chan::A, Range::_10mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_A
+    &RSHIFT_HAND(Chan::A, Range::_10mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_A
 );
 
 
@@ -530,7 +530,7 @@ static const Governor mbADC_AltRShift_10mV_DC_B
     "—м 2к 10м¬ пост", "Shift 2ch 10mV DC",
     "",
     "",
-    &RSHIFT_ADD(Chan::B, Range::_10mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_B
+    &RSHIFT_HAND(Chan::B, Range::_10mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_B
 );
 
 

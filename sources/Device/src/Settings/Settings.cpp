@@ -68,10 +68,10 @@ static const Settings defaultSettings =
     // channels
     {
         {
-            1.0f,                   // коэффициент калибровки
-            0,                      // shiftADC
+            1.0f,                   // cal_stretch
+            0,                      // cal_rshift
+
             RShift::ZERO,
-            {{0}, {0}},             // rShiftAdd
             ModeCouple::AC,         // ModCouple
             Divider::_1,            // Divider
             Range::_500mV,          // range
@@ -80,10 +80,10 @@ static const Settings defaultSettings =
             false                   // filtr
         },
         {
-            1.0f,                   // коэффициент калибровки
-            0,
+            1.0f,                   // cal_stretch
+            0,                      // cal_rshift
+
             RShift::ZERO,
-            {{0}, {0}},             // rShiftAdd
             ModeCouple::AC,         // ModCouple
             Divider::_1,            // Divider
             Range::_500mV,          // range
@@ -239,8 +239,8 @@ void Settings::Load(bool _default)
         uint16 rShiftAddA[Range::Count][2];
         uint16 rshiftAddB[Range::Count][2];
 
-        memcpy((void *)rShiftAddA, (void *)&RSHIFT_ADD(Chan::A, 0, 0), 2 * Range::Count * 2); // Сначала сохраняем несбрасываемые настройки
-        memcpy((void *)rshiftAddB, (void *)&RSHIFT_ADD(Chan::B, 0, 0), 2 * Range::Count * 2);
+        memcpy((void *)rShiftAddA, (void *)&RSHIFT_HAND(Chan::A, 0, 0), 2 * Range::Count * 2); // Сначала сохраняем несбрасываемые настройки
+        memcpy((void *)rshiftAddB, (void *)&RSHIFT_HAND(Chan::B, 0, 0), 2 * Range::Count * 2);
 
         int16  balanceADC0 = SET_BALANCE_ADC_A;
         int16  balanceADC1 = SET_BALANCE_ADC_B;
@@ -248,8 +248,8 @@ void Settings::Load(bool _default)
 
         memcpy((void *)&set, (void *)(&defaultSettings), sizeof(set));                // Потом заполняем значениями по умолчанию
 
-        memcpy((void *)&RSHIFT_ADD(Chan::A, 0, 0), (void *)rShiftAddA, 2 * Range::Count * 2);  // И восстанавливаем несбрасываемые настройки
-        memcpy((void *)&RSHIFT_ADD(Chan::B, 0, 0), (void *)rshiftAddB, 2 * Range::Count * 2);
+        memcpy((void *)&RSHIFT_HAND(Chan::A, 0, 0), (void *)rShiftAddA, 2 * Range::Count * 2);  // И восстанавливаем несбрасываемые настройки
+        memcpy((void *)&RSHIFT_HAND(Chan::B, 0, 0), (void *)rshiftAddB, 2 * Range::Count * 2);
 
         SET_BALANCE_ADC_A = balanceADC0;
         SET_BALANCE_ADC_B = balanceADC1;
