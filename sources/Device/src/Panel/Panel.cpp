@@ -245,6 +245,19 @@ void Panel::OnTimerPressedKey()
 }
 
 
+Key::E Panel::WaitPressingButton()
+{
+    pressedButton = Key::Empty;
+
+    while (pressedButton == Key::Empty)
+    {
+        Panel::Update();
+    };
+
+    return pressedButton;
+}
+
+
 void Panel::ProcessingCommandFromPIC(uint16 command)
 {
     Key::E releaseButton = ButtonIsRelease(command);
@@ -409,14 +422,6 @@ void Panel::EnableLEDRegSet(bool enable)
     }
 
     TransmitData(data);
-}
-
-
-Key::E Panel::WaitPressingButton()
-{
-    pressedButton = Key::Empty;
-    while (pressedButton == Key::Empty) {};
-    return pressedButton;
 }
 
 
