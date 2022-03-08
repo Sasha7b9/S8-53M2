@@ -23,7 +23,7 @@
 #define SET_RANGE_A             (SET_RANGE(Chan::A))
 #define SET_RANGE_B             (SET_RANGE(Chan::B))
 
-#define SET_RSHIFT(ch)          (set.chan[ch].rShiftRel)        // SettingsChannel.rShiftRel
+#define SET_RSHIFT(ch)          (set.chan[ch].rShift)           // SettingsChannel.rShiftRel
 #define SET_RSHIFT_A            (SET_RSHIFT(Chan::A))
 #define SET_RSHIFT_B            (SET_RSHIFT(Chan::B))
 
@@ -52,7 +52,7 @@ struct SettingsChannel
     float         stretchADC;                   // Коэффицент растяжки (на него умножается сигнал)
     int8          shiftADC;                     // Добавочное смещение для балансировки АЦП.
 
-    RShift        rShiftRel;
+    RShift        rShift;
     int16         rShiftAdd[Range::Count][2];   // Добавочное смещение для открытого (0) и закрытого (1) входов.
 
     ModeCouple::E modeCouple;                   // Режим по входу.

@@ -24,6 +24,7 @@ add_definitions(-DSTM32F429xx -DUSE_HAL_DRIVER -DDEVICE)
 if(WIN32)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
 
+    add_compile_options(/wd4062)
     add_compile_options(/wd4201)
     add_compile_options(/wd4211)
     add_compile_options(/wd4244)
@@ -103,7 +104,6 @@ set_source_files_properties(src/libs/ethernetif.cpp
                             src/libs/usbd_conf.c
                             src/Menu/Pages/PageHelp.cpp
                             src/Panel/PanelFunctions.cpp
-                            src/FPGA/CalibrationFPGA.cpp
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
 add_library(${PROJECT_NAME} ${SRC} ${LIBS} ${DISPLAY} ${DISPLAY_FONT} ${LAN}
