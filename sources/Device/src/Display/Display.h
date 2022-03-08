@@ -38,7 +38,7 @@ namespace Display
 
     void ClearFromWarnings();
 
-    void SetDrawMode(DrawMode mode, pFuncVV func);
+    void SetDrawMode(DrawMode::E, pFuncVV = nullptr);
 
     void SetAddDrawFunction(pFuncVV func);
 

@@ -23,6 +23,7 @@
 #include "Log.h"
 #include "Hardware/HAL/HAL.h"
 #include "Menu/Pages/Definition.h"
+#include "Hardware/Timer.h"
 #include <stm32f4xx_hal.h>
 #include <math.h>
 #include <limits.h>
@@ -2344,9 +2345,18 @@ void Display::EnableTrigLabel(bool enable)
 }
 
 
-void Display::SetDrawMode(DrawMode mode, pFuncVV func)
+void Display::SetDrawMode(DrawMode::E mode, pFuncVV func)
 {
-    funcOnHand = mode == DrawMode_Auto ? 0 : func;
+    funcOnHand = func;
+
+    if (mode == DrawMode::Hand)
+    {
+        Timer::Enable(TypeTimer::UpdateDisplay, 40, func);
+    }
+    else
+    {
+        Timer::Disable(TypeTimer::UpdateDisplay);
+    }
 }
 
 

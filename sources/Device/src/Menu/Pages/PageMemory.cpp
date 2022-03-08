@@ -1208,7 +1208,7 @@ void PageMemory::OnPressExtFileManager()
     if(FDrive::isConnected)
     {
         PageMemory::FileManager::self->OpenAndSetCurrent();
-        Display::SetDrawMode(DrawMode_Hand, FM::Draw);
+        Display::SetDrawMode(DrawMode::Hand, FM::Draw);
         FM::needRedraw = 1;
     }
 }
@@ -1220,7 +1220,7 @@ bool FuncOfActiveExtMemFolder()
 
 static void PressSB_FM_Exit()
 {
-    Display::SetDrawMode(DrawMode_Auto, 0);
+    Display::SetDrawMode(DrawMode::Auto);
     Display::RemoveAddDrawFunction();
 }
 

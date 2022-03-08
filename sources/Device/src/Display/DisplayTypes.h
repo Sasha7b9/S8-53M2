@@ -35,10 +35,13 @@
 #define WIDTH_SB                19
 #define LEFT_SB                 299 
 
-enum DrawMode
+struct DrawMode
 {
-    DrawMode_Auto,
-    DrawMode_Hand
+    enum E
+    {
+        Auto,
+        Hand
+    };
 };
 
 enum SourceBuffer

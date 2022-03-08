@@ -23,10 +23,22 @@ namespace FPGA
         };
 
         static StateCalibration::E state = StateCalibration::Start;
+
+        static void FunctionDraw();
     }
 }
 
 
 void FPGA::Calibrator::RunCalibrate()
 {
+    Display::SetDrawMode(DrawMode::Hand, FunctionDraw);
+
+
+    Display::SetDrawMode(DrawMode::Auto);
+}
+
+
+static void FPGA::Calibrator::FunctionDraw()
+{
+
 }

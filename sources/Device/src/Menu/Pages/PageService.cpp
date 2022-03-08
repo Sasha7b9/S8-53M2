@@ -34,17 +34,10 @@ static void FuncDraw()
 }
 
 
-static void OnTimerDraw()
-{
-    Display::Update();
-}
-
-
 static void OnPress_ResetSettings()
 {
     Panel::Disable();
-    Display::SetDrawMode(DrawMode_Hand, FuncDraw);
-    Timer::Enable(TypeTimer::TimerDrawHandFunction, 100, OnTimerDraw);
+    Display::SetDrawMode(DrawMode::Hand, FuncDraw);
 
     if (Panel::WaitPressingButton() == Key::Start)
     {
@@ -52,8 +45,7 @@ static void OnPress_ResetSettings()
         FPGA::Init();
     }
 
-    Timer::Disable(TypeTimer::TimerDrawHandFunction);
-    Display::SetDrawMode(DrawMode_Auto, 0);
+    Display::SetDrawMode(DrawMode::Auto);
     Panel::Enable();
 }
 
@@ -877,7 +869,7 @@ static const Choice cModeLongPressButtonTrig =
 
 static void OnPress_Information_Exit()
 {
-    Display::SetDrawMode(DrawMode_Auto, 0);
+    Display::SetDrawMode(DrawMode::Auto);
     Display::RemoveAddDrawFunction();
 }
 
@@ -948,7 +940,7 @@ static void Information_Draw()
 static void OnPress_Information()
 {
     PageService::Information::self->OpenAndSetCurrent();
-    Display::SetDrawMode(DrawMode_Hand, Information_Draw);
+    Display::SetDrawMode(DrawMode::Hand, Information_Draw);
 }
 
 
