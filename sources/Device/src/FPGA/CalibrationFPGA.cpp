@@ -25,13 +25,10 @@ namespace FPGA
 
             void Reset() { value = 0.0f; timeStart = TIME_MS; }
 
-            void Update()
-            {
-                value = ((TIME_MS - timeStart) / 10) % width;
-            }
-
             void Draw(int y)
             {
+                value = ((TIME_MS - timeStart) / 10) % width;
+
                 int x = (SCREEN_WIDTH - width) / 2;
 
                 Painter::DrawRectangle(x, y, width, height, COLOR_FILL);
@@ -49,7 +46,7 @@ namespace FPGA
                 WaitB,
                 RShiftB,
                 StretchB,
-                Error          // В это состояние переходим при хотя бы одной ошибке калибровки
+                Finish
             };
         };
 
@@ -109,12 +106,9 @@ void FPGA::Calibrator::RunCalibrate()
         }
     }
 
-    if (errorCalibration[ChA] || errorCalibration[ChB])
-    {
-        state = StateCalibration::Error;
+    state = StateCalibration::Finish;
 
-        Panel::WaitPressingButton();
-    }
+    Panel::WaitPressingButton();
 
     Panel::Enable();
 
@@ -163,15 +157,15 @@ static void FPGA::Calibrator::FunctionDraw()
         }
         break;
 
-    case StateCalibration::Error:
+    case StateCalibration::Finish:
         {
-            int y1 = 100;
-            int y2 = 130;
+            int y1 = 70;
+            int y2 = 100;
 
-            PText::Draw(50, y1, LANG_RU ? "Канал 1" : "Channel 1");
-            PText::Draw(50, y2, LANG_RU ? "Канал 2" : "Channel 2");
+            PText::Draw(80, y1, LANG_RU ? "Канал 1 :" : "Channel 1 :");
+            PText::Draw(80, y2, LANG_RU ? "Канал 2 :" : "Channel 2 :");
 
-            int x = 200;
+            int x = 125;
 
             DrawResultCalibration(x, y1, ChA);
 
@@ -206,11 +200,6 @@ static bool FPGA::Calibrator::CalibrateRShift(Chan ch)
 
     progress.Reset();
 
-    while (TIME_MS - progress.timeStart < 1000)
-    {
-        progress.Update();
-    }
-
     return result;
 }
 
@@ -222,11 +211,6 @@ static bool FPGA::Calibrator::CalibrateStretch(Chan ch)
     state = ch.IsA() ? StateCalibration::StretchA : StateCalibration::StretchB;
 
     progress.Reset();
-
-    while (TIME_MS - progress.timeStart < 1000)
-    {
-        progress.Update();
-    }
 
     return result;
 }

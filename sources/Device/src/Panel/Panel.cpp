@@ -235,10 +235,12 @@ void Panel::OnTimerPressedKey()
     {
         void (*func)() = funcOnLongPressure[pressedKey];
         Menu::Handlers::ReleaseButton(pressedKey);
+
         if(func != 0)
         {
             func();
         }
+
         pressedKey = Key::Empty;
     }
     Timer::Disable(TypeTimer::PressKey);
@@ -247,6 +249,8 @@ void Panel::OnTimerPressedKey()
 
 Key::E Panel::WaitPressingButton()
 {
+    Timer::PauseOnTime(500);
+
     input_buffer.Clear();
 
     pressedButton = Key::Empty;
@@ -255,6 +259,8 @@ Key::E Panel::WaitPressingButton()
     {
         Panel::Update();
     };
+
+    input_buffer.Clear();
 
     return pressedButton;
 }
