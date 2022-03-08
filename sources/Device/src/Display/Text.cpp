@@ -709,7 +709,7 @@ int PText::DrawInBoundedRectWithTransfers(int x, int y, int width, pchar text, C
 }
 
 
-int PText::DrawFormatText(int x, int y, Color::E color, char *text, ...)
+int PText::DrawFormat(int x, int y, Color::E color, char *text, ...)
 {
     static int const SIZE_BUFFER = 200;
     char buffer[SIZE_BUFFER];

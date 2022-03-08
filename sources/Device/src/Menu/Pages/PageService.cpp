@@ -922,7 +922,7 @@ static void Information_Draw()
     OTP_GetSerialNumber(buffer);
     if (buffer[0])
     {
-        PText::DrawFormatText(x, y, COLOR_FILL, lang == Russian ? "C/Н : %s" : "S/N : %s", buffer);
+        PText::DrawFormat(x, y, COLOR_FILL, lang == Russian ? "C/Н : %s" : "S/N : %s", buffer);
         y += dY;
     }
     */
@@ -933,7 +933,7 @@ static void Information_Draw()
     PText::Draw(x, y, buffer);
     y += dY;
 
-    PText::DrawFormatText(x, y, COLOR_FILL, "CRC32 : %X", HAL::CalculateCRC32());
+    PText::DrawFormat(x, y, COLOR_FILL, "CRC32 : %X", HAL::CalculateCRC32());
 
     dY = -10;
     PText::DrawStringInCenterRect(0, 190 + dY, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");

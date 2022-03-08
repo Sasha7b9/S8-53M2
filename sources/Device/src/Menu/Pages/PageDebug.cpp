@@ -100,7 +100,7 @@ static const Page mpConsole
 
 static void OnDraw_SizeSettings(int x, int y)
 {
-    PText::DrawFormatText(x + 5, y + 21, Color::BLACK, "Размер %d", sizeof(Settings));
+    PText::DrawFormat(x + 5, y + 21, Color::BLACK, "Размер %d", sizeof(Settings));
 }
 
 
@@ -220,7 +220,7 @@ static const Button bResetShift
 
 static void OnDraw_ShiftADCA(int x, int y)
 {
-    PText::DrawFormatText(x + 5, y + 21, Color::BLACK, "%d", SET_SHIFT_ADC_A);
+    PText::DrawFormat(x + 5, y + 21, Color::BLACK, "%d", SET_SHIFT_ADC_A);
 }
 
 
@@ -242,7 +242,7 @@ static const Choice mcShiftADCA =
 
 static void OnDraw_ShiftADCB(int x, int y)
 {
-    PText::DrawFormatText(x + 5, y + 21, Color::BLACK, "%d", SET_SHIFT_ADC_B);
+    PText::DrawFormat(x + 5, y + 21, Color::BLACK, "%d", SET_SHIFT_ADC_B);
 }
 
 
@@ -376,7 +376,7 @@ static const Button bResetStretch
 
 static void OnDraw_StretchADCA(int x, int y)
 {
-    PText::DrawFormatText(x + 5, y + 21, Color::BLACK, "%f", SET_STRETCH_ADC_A);
+    PText::DrawFormat(x + 5, y + 21, Color::BLACK, "%f", SET_STRETCH_ADC_A);
 }
 
 
@@ -398,7 +398,7 @@ static const Choice mcStretchADCA =
 
 static void OnDraw_StretchADCB(int x, int y)
 {
-    PText::DrawFormatText(x + 5, y + 21, Color::BLACK, "%f", SET_STRETCH_ADC_B);
+    PText::DrawFormat(x + 5, y + 21, Color::BLACK, "%f", SET_STRETCH_ADC_B);
 }
 
 
@@ -756,9 +756,9 @@ static void Draw_EnterSerialNumber()
 
     int allShots = OTP::GetSerialNumber(buffer);
 
-    PText::DrawFormatText(x0 + deltaX, y0 + 130, COLOR_FILL, "Текущий сохранённый номер %s", buffer[0] == 0 ? "-- ----" : buffer);
+    PText::DrawFormat(x0 + deltaX, y0 + 130, COLOR_FILL, "Текущий сохранённый номер %s", buffer[0] == 0 ? "-- ----" : buffer);
 
-    PText::DrawFormatText(x0 + deltaX, y0 + 100, COLOR_FILL, "Осталось места для %d попыток", allShots);
+    PText::DrawFormat(x0 + deltaX, y0 + 100, COLOR_FILL, "Осталось места для %d попыток", allShots);
 }
 
 

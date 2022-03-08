@@ -81,7 +81,7 @@ void HelpContent::Draw()
     {
         DrawPageDescription();
     }
-    PText::DrawFormatText(2, 230, COLOR_FILL, "%d", TIME_MS - startTime);
+    PText::DrawFormat(2, 230, COLOR_FILL, "%d", TIME_MS - startTime);
 }
 
 static int NumParagraphs(const PageHelp *page)
