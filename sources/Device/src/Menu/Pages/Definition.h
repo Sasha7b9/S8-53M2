@@ -62,6 +62,12 @@ struct PageDebug
 };
 
 
+struct PageDisplay
+{
+    static Page *self;
+};
+
+
 struct PageHelp
 {
     static void *GetPointer();

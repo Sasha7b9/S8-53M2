@@ -1,6 +1,6 @@
 // 2022/2/11 19:48:06 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
-#include "Menu/MenuItems.h"
 #include "defines.h"
+#include "Menu/MenuItems.h"
 #include "Menu/Menu.h"
 #include "Tables.h"
 #include "Display/Painter.h"
@@ -9,6 +9,7 @@
 #include "Settings/Settings.h"
 #include "Utils/GlobalFunctions.h"
 #include "Hardware/HAL/HAL.h"
+#include "Menu/Pages/Definition.h"
 
 
 extern const Page pDisplay;
@@ -80,7 +81,7 @@ static const arrayItems itemsDisplay =
     //(void*)&mcDisplMemoryWindow,  // ÄÈÑÏËÅÉ - Îêíî ïàìÿòè
 };
 
-const Page pDisplay                 // ÄÈÑÏËÅÉ
+static const Page pDisplay                 // ÄÈÑÏËÅÉ
 (
     &mainPage, 0,
     "ÄÈÑÏËÅÉ", "DISPLAY",
@@ -88,6 +89,9 @@ const Page pDisplay                 // ÄÈÑÏËÅÉ
     "Contains settings of display of the Display::",
     NamePage::Display, &itemsDisplay
 );
+
+
+Page *PageDisplay::self = (Page *)&pDisplay;
 
 
 // ÄÈÑÏËÅÉ - Îòîáğàæåíèå ----
