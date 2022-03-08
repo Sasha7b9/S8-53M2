@@ -138,7 +138,7 @@ struct PageMemory
 
     struct FileManager
     {
-        static const Page *GetPointer();
+        static Page *self;
     };
 
     static void *GetPointer();

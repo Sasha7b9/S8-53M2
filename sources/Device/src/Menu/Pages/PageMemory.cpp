@@ -1208,7 +1208,7 @@ void PageMemory::OnPressExtFileManager()
 {
     if(FDrive::isConnected)
     {
-        PageMemory::FileManager::GetPointer()->OpenAndSetCurrent();
+        PageMemory::FileManager::self->OpenAndSetCurrent();
         Display::SetDrawMode(DrawMode_Hand, FM::Draw);
         FM::needRedraw = 1;
     }
@@ -1369,7 +1369,4 @@ Page *PageMemory::Latest::self = (Page *)&mspMemLast;
 Page *PageMemory::SetMask::self = (Page *)&mspSetMask;
 
 
-const Page *PageMemory::FileManager::GetPointer()
-{
-    return &mspFileManager;
-}
+Page *PageMemory::FileManager::self = (Page *)&mspFileManager;
