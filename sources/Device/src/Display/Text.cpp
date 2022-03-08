@@ -815,7 +815,7 @@ int PText::DrawSpaces(int x, int y, char *text, int *numSymbols)
 }
 
 
-void PText::DrawTextInRect(int x, int y, int width, int, char *text)
+void PText::DrawInRect(int x, int y, int width, int, char *text)
 {
     int xStart = x;
     int xEnd = xStart + width;
