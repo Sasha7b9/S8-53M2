@@ -99,17 +99,17 @@ extern const Page pTrig;
 
 static const arrayItems itemsMainPage =
 {
-    PageDisplay::self,
-    PageChannelA::self,
-    PageChannelB::self,
-    (void*)&pTrig,
-    (void*)&pTime,
-    PageCursors::self,
-    PageMemory::self,
-    PageMeasures::self,
-    PageService::self,
-    PageHelp::self,
-    (void*)&pDebug
+    (void *)PageDisplay::self,
+    (void *)PageChannelA::self,
+    (void *)PageChannelB::self,
+    (void *)&pTrig,
+    (void *)&pTime,
+    (void *)PageCursors::self,
+    (void *)PageMemory::self,
+    (void *)PageMeasures::self,
+    (void *)PageService::self,
+    (void *)PageHelp::self,
+    (void *)&pDebug
 };
 
 const Page mainPage
@@ -162,7 +162,7 @@ bool PageService::Math::Enabled()
 }
 
 
-Page *Page::FromName(NamePage::E name)
+const Page *Page::FromName(NamePage::E name)
 {
     if (name == NamePage::SB_MemExtSetName)
     {

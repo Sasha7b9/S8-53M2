@@ -372,7 +372,7 @@ void Item::Change(int delta)
 }
 
 
-void Page::ShortPressOnItem(int numItem)
+void Page::ShortPressOnItem(int numItem) const
 {
     if (GetType() != TypeItem::Page)
     {

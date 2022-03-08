@@ -12,7 +12,7 @@ struct PageChannelA
 {
     static void OnChanged_Input(bool active);
 
-    static Page *self;
+    static const Page *self;
 };
 
 
@@ -20,7 +20,7 @@ struct PageChannelB
 {
     static void OnChanged_Input(bool active);
 
-    static Page *self;
+    static const Page *self;
 };
 
 
@@ -53,7 +53,7 @@ struct PageCursors
         static void *pointer;
     };
 
-    static Page *self;
+    static const Page *self;
 };
 
 
@@ -61,26 +61,26 @@ struct PageDebug
 {
     struct SerialNumber
     {
-        static Page *self;
+        static const Page *self;
     };
 };
 
 
 struct PageDisplay
 {
-    static Page *self;
+    static const Page *self;
 };
 
 
 struct PageHelp
 {
-    static Page *self;
+    static const Page *self;
 };
 
 
 struct PageMeasures
 {
-    static Page *self;
+    static const Page *self;
 
     struct Tune
     {
@@ -103,7 +103,7 @@ struct PageMemory
     {
         static int16 current;               // Текущий номер последнего сигнала в режиме ПАМЯТЬ - Последние
 
-        static Page *self;
+        static const Page *self;
     };
 
     struct Internal
@@ -112,12 +112,12 @@ struct PageMemory
         static bool showAlways;             // Если true, то показывать всегда выбранный в режиме "Внутр. ЗУ" сигнал
         static bool exitToLast;             // Если true, то выходить из страницы внутренней памяти нужно не стандартно, а в меню последних
 
-        static Page *self;
+        static const Page *self;
     };
 
     struct SetMask
     {
-        static Page *self;
+        static const Page *self;
     };
 
     struct SetName
@@ -133,21 +133,21 @@ struct PageMemory
 #define EXIT_FROM_SET_NAME_TO_DIS_MENU  (PageMemory::SetName::exitTo == RETURN_TO_DISABLE_MENU)
         static uint8 exitTo;    // Куда возвращаться из окна установки имени при сохранении : 0 - в основное меню, 1 - в окно 
                                 // последних, 2 - в окно Внутр ЗУ, 3 - в основно окно в выключенным меню
-        static Page *self;
+        static const Page *self;
     };
 
     struct FileManager
     {
-        static Page *self;
+        static const Page *self;
     };
 
-    static Page *self;
+    static const Page *self;
 };
 
 
 struct PageService
 {
-    static Page *self;
+    static const Page *self;
 
     struct Math
     {
@@ -155,21 +155,21 @@ struct PageService
 
         struct Function
         {
-            static Page *self;
+            static const Page *self;
         };
 
         struct FFT
         {
             struct Cursors
             {
-                static Page *self;
+                static const Page *self;
             };
         };
     };
 
     struct Information
     {
-        static Page *self;
+        static const Page *self;
     };
 };
 

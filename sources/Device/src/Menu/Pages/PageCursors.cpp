@@ -183,7 +183,7 @@ static const Page pCursors                //  ”–—Œ–€
     NamePage::Cursors, &itemsCursors
 );
 
-Page *PageCursors::self = (Page *)&pCursors;
+const Page *PageCursors::self = &pCursors;
 
 
 static const Choice mcShow =

@@ -38,7 +38,7 @@ static struct StructForSN
 
 extern Page mainPage;
 
-Page *PageDebug::SerialNumber::self = (Page *)&ppSerialNumber;
+const Page *PageDebug::SerialNumber::self = &ppSerialNumber;
 
 
 static const Choice mcStats =

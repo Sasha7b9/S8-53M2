@@ -83,7 +83,7 @@ static const Page pChanA           // ÊÀÍÀË 1
 );
 
 
-Page *PageChannelA::self = (Page *)&pChanA;
+const Page *PageChannelA::self = &pChanA;
 
 
 // ÊÀÍÀË 1 - Âõîä -----------
@@ -213,7 +213,7 @@ static const Page pChanB
 );
 
 
-Page *PageChannelB::self = (Page *)&pChanB;
+const Page *PageChannelB::self = &pChanB;
 
 
 // ÊÀÍÀË 2 - Âõîä -----------

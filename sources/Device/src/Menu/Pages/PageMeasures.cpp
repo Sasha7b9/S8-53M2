@@ -304,6 +304,6 @@ static const Page pMeasures            // ÈÇÌÅĞÅÍÈß
 );
 
 
-Page *PageMeasures::self = (Page *)&pMeasures;
+const Page *PageMeasures::self = &pMeasures;
 
 void *PageMeasures::Tune::pointer = (void *)&mspMeasTune;

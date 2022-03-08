@@ -91,7 +91,7 @@ static const Page pDisplay                 // ДИСПЛЕЙ
 );
 
 
-Page *PageDisplay::self = (Page *)&pDisplay;
+const Page *PageDisplay::self = &pDisplay;
 
 
 // ДИСПЛЕЙ - Отображение ----

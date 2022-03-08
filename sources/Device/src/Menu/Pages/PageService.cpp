@@ -481,7 +481,7 @@ static const Page pppMath_Function
 );
 
 
-Page *PageService::Math::Function::self = (Page *)&pppMath_Function;
+const Page *PageService::Math::Function::self = &pppMath_Function;
 
 
 static const Choice cMath_FFT_Enable =
@@ -682,7 +682,7 @@ static const Page ppppMath_FFT_Cursors
 );
 
 
-Page *PageService::Math::FFT::Cursors::self = (Page *)&ppppMath_FFT_Cursors;
+const Page *PageService::Math::FFT::Cursors::self = &ppppMath_FFT_Cursors;
 
 
 static void OnChanged_Ethernet_Enable(bool)
@@ -963,7 +963,7 @@ static const Page ppInformation
 );
 
 
-Page *PageService::Information::self = (Page *)&ppInformation;
+const Page *PageService::Information::self = &ppInformation;
 
 
 static const arrayItems itemsService =
@@ -991,4 +991,4 @@ static const Page pService
 );
 
 
-Page *PageService::self = (Page *)&pService;
+const Page *PageService::self = &pService;

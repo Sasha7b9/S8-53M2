@@ -254,7 +254,7 @@ public:
     void SetCurrentSubPage(int8 posSubPage) const;
 
     // Вызывает функцию короткого нажатия кнопки над итемом numItem страницы page;
-    void ShortPressOnItem(int numItem);
+    void ShortPressOnItem(int numItem) const;
 
     // Повернуть ручку УСТАНОВКА на текущей странице малых кнопок.
     static void RotateRegSetSB(int angle);
@@ -264,7 +264,7 @@ public:
     // Возвращает страницу меню, которая должна открываться по нажатию кнопки
     static const Page *ForButton(Key::E);
 
-    static Page *FromName(NamePage::E);
+    static const Page *FromName(NamePage::E);
 };
 
 

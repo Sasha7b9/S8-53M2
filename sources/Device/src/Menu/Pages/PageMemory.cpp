@@ -1307,7 +1307,7 @@ static const Page mspMemInt
 );
 
 
-Page *PageMemory::Internal::self = (Page *)&mspMemInt;
+const Page *PageMemory::Internal::self = &mspMemInt;
 
 // —траница вызываетс€ при выбранном ручном режиме задани€ имени файла перед сохранением на флешку ///////////////
 static void OnMemExtSetNameRegSet(int angle)
@@ -1335,7 +1335,7 @@ static const Page mpSetName
 );
 
 
-Page *PageMemory::SetName::self = (Page *)&mpSetName;
+const Page *PageMemory::SetName::self = &mpSetName;
 
 
 // ѕјћя“№ /////////////////////////////////////////////////////////////////////////////
@@ -1357,13 +1357,13 @@ static const Page pMemory              // ѕјћя“№
 );
 
 
-Page *PageMemory::self = (Page *)&pMemory;
+const Page *PageMemory::self = &pMemory;
 
 
-Page *PageMemory::Latest::self = (Page *)&mspMemLast;
+const Page *PageMemory::Latest::self = &mspMemLast;
 
 
-Page *PageMemory::SetMask::self = (Page *)&mspSetMask;
+const Page *PageMemory::SetMask::self = &mspSetMask;
 
 
-Page *PageMemory::FileManager::self = (Page *)&mspFileManager;
+const Page *PageMemory::FileManager::self = &mspFileManager;

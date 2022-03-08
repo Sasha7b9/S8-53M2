@@ -113,4 +113,4 @@ static const Page mpHelp            // онлныэ
 );
 
 
-Page *PageHelp::self = (Page *)&mpHelp;
+const Page *PageHelp::self = &mpHelp;
