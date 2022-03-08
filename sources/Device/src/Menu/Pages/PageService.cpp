@@ -481,10 +481,7 @@ static const Page pppMath_Function
 );
 
 
-void *PageService::Math::Function::GetPointer()
-{
-    return (void *)&pppMath_Function;
-}
+Page *PageService::Math::Function::self = (Page *)&pppMath_Function;
 
 
 static const Choice cMath_FFT_Enable =

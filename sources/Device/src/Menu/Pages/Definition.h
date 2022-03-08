@@ -155,7 +155,7 @@ struct PageService
 
         struct Function
         {
-            static void *GetPointer();
+            static Page *self;
         };
 
         struct FFT
