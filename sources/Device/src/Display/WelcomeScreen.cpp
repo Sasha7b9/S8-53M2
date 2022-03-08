@@ -118,7 +118,7 @@ bool WelcomeScreen::Run()
         }
     }
 
-    PText::DrawBigText(45, (int)y0, 8, "МНИПИ");
+    PText::DrawBig(45, (int)y0, 8, "МНИПИ");
 
     PText::DrawStringInCenterRect(0, 190, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");
     PText::DrawStringInCenterRect(0, 205, 320, 20, "Отдел маркетинга: тел./факс. 8-017-262-57-50");

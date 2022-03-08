@@ -876,7 +876,7 @@ void PText::Draw10SymbolsInRect(int x, int y, char eChar)
 }
 
 
-void PText::DrawBigText(int eX, int eY, int size, pchar text)
+void PText::DrawBig(int eX, int eY, int size, pchar text)
 {
     int numSymbols = (int)strlen(text);
 

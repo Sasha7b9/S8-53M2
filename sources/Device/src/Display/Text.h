@@ -42,5 +42,5 @@ namespace PText
 
     void Draw10SymbolsInRect(int x, int y, char eChar);
 
-    void DrawBigText(int x, int y, int size, pchar text);
+    void DrawBig(int x, int y, int size, pchar text);
 }
