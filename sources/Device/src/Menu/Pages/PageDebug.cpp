@@ -38,10 +38,7 @@ static struct StructForSN
 
 extern Page mainPage;
 
-Page *PageDebug::SerialNumber::GetPointer()
-{
-    return (Page *)&ppSerialNumber;
-}
+Page *PageDebug::SerialNumber::self = (Page *)&ppSerialNumber;
 
 
 static const Choice mcStats =
@@ -766,7 +763,7 @@ static void Draw_EnterSerialNumber()
 
 static void OnPress_SerialNumber()
 {
-    PageDebug::SerialNumber::GetPointer()->OpenAndSetCurrent();
+    PageDebug::SerialNumber::self->OpenAndSetCurrent();
     Display::SetAddDrawFunction(Draw_EnterSerialNumber);
 
     structSN.number = 01;

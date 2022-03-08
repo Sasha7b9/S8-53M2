@@ -61,7 +61,7 @@ struct PageDebug
 {
     struct SerialNumber
     {
-        static Page *GetPointer();
+        static Page *self;
     };
 };
 
