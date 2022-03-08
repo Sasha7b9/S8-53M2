@@ -162,7 +162,7 @@ struct PageService
         {
             struct Cursors
             {
-                static void *GetPointer();
+                static Page *self;
             };
         };
     };

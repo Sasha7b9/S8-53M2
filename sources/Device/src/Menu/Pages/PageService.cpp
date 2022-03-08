@@ -682,10 +682,7 @@ static const Page ppppMath_FFT_Cursors
 );
 
 
-void *PageService::Math::FFT::Cursors::GetPointer()
-{
-    return (void *)&ppppMath_FFT_Cursors;
-}
+Page *PageService::Math::FFT::Cursors::self = (Page *)&ppppMath_FFT_Cursors;
 
 
 static void OnChanged_Ethernet_Enable(bool)
