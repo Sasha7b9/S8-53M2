@@ -613,8 +613,8 @@ DataSettings *Storage::GetDataSettings(int indexFromEnd)
 
     if (index != 0)
     {
-        LOG_ERROR("Неправильный индекс %d, всего данных %d", indexFromEnd, NumElements());
-        return 0;
+//        LOG_ERROR("Неправильный индекс %d, всего данных %d", indexFromEnd, NumElements());      // \todo После сброса настроек здесь срабатывает
+        return nullptr;
     }
 
     return ds;
