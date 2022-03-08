@@ -92,7 +92,6 @@ extern const Page mainPage;
 
 #include "PageHelp.cpp"
 
-extern const Page pDebug;
 extern const Page pTime;
 extern const Page pTrig;
 
@@ -109,7 +108,7 @@ static const arrayItems itemsMainPage =
     (void *)PageMeasures::self,
     (void *)PageService::self,
     (void *)PageHelp::self,
-    (void *)&pDebug
+    (void *)PageDebug::self
 };
 
 const Page mainPage

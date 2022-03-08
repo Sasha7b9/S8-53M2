@@ -191,7 +191,7 @@ static const arrayItems itemsDebug =
     (void *)&ppSerialNumber      // ÎÒËÀÄÊÀ - Ñ/Í
 };
 
-const Page pDebug
+static const Page pDebug
 (
     &mainPage, 0,
     "ÎÒËÀÄÊÀ", "DEBUG",
@@ -199,6 +199,9 @@ const Page pDebug
     "",
     NamePage::Debug, &itemsDebug
 );
+
+
+const Page *PageDebug::self = &pDebug;
 
 
 static void OnPress_ResetShift()

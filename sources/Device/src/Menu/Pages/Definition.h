@@ -59,6 +59,8 @@ struct PageCursors
 
 struct PageDebug
 {
+    static const Page *self;
+
     struct SerialNumber
     {
         static const Page *self;
