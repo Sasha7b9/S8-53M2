@@ -65,7 +65,6 @@ static void OnChanged_Settings_AutoHide(bool autoHide);     // Вызывается при из
 
 
 // ДИСПЛЕЙ /////////////////////////
-extern Page mainPage;
 
 static const arrayItems itemsDisplay =
 {
@@ -83,7 +82,7 @@ static const arrayItems itemsDisplay =
 
 static const Page pDisplay                 // ДИСПЛЕЙ
 (
-    &mainPage, 0,
+    PageMain::self, 0,
     "ДИСПЛЕЙ", "DISPLAY",
     "Содержит настройки отображения дисплея.",
     "Contains settings of display of the Display::",

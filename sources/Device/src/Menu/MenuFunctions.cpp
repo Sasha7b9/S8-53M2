@@ -13,10 +13,8 @@
 #include "Panel/Panel.h"
 #include "Log.h"
 #include "Hardware/Sound.h"
+#include "Menu/Pages/Definition.h"
 
-
-
-extern const Page mainPage;
 
 
 namespace Menu
@@ -70,7 +68,7 @@ TypeItem::E Item::TypeOpened()
 Item* Item::Opened()
 {
     TypeItem::E type = TypeItem::None;
-    return (Item *)Menu::RetLastOpened((Page*)&mainPage, &type);
+    return (Item *)Menu::RetLastOpened((Page*)PageMain::self, &type);
 }
 
 
@@ -84,7 +82,7 @@ Item *Page::GetItem(int numElement) const
 Item *Item::Current()
 {
     TypeItem::E type = TypeItem::None;
-    Item *lastOpened = Menu::RetLastOpened((Page*)&mainPage, &type);
+    Item *lastOpened = Menu::RetLastOpened((Page*)PageMain::self, &type);
     int8 pos = ((const Page *)lastOpened)->PosCurrentItem();
 
     if(type == TypeItem::Page && pos != 0x7f)
@@ -192,7 +190,7 @@ void Item::CloseOpened()
             }
         }
 
-        if(Menu::needClosePageSB)
+        if (Menu::needClosePageSB)
         {
             Page *page = item->Keeper();
             POS_ACT_ITEM(page->name) &= 0x7f;                       // Сбрасываем бит 7 - "закрываем" активный пункт страницы namePage
@@ -200,7 +198,7 @@ void Item::CloseOpened()
 
         Menu::needClosePageSB = true;
 
-        if(item == &mainPage)
+        if (item == PageMain::self)
         {
             Menu::Show(false);
         }

@@ -6,6 +6,7 @@
 #include "FPGA/FPGA.h"
 #include "Settings/Settings.h"
 #include "Utils/GlobalFunctions.h"
+#include "Menu/Pages/Definition.h"
 
 
 extern const Page pTrig;
@@ -25,8 +26,6 @@ extern const Button mbAutoFind_Search;          // СИНХР - ПОИСК - Найти
 static bool  IsActive_AutoFind_Search();
 static void   OnPress_AutoFind_Search();
 
-extern const Page mainPage;
-
 // СИНХР ///////////////////////////
 static const arrayItems itemsTrig =
 {
@@ -37,14 +36,17 @@ static const arrayItems itemsTrig =
     (void*)&mpAutoFind      // СИНХР - ПОИСК
 };
 
-const Page pTrig              // СИНХР
+static const Page pTrig              // СИНХР
 (
-    &mainPage, 0,
+    PageMain::self, 0,
     "СИНХР", "TRIG",
     "Содержит настройки синхронизации.",
     "Contains synchronization settings.",
     NamePage::Trig, &itemsTrig
 );
+
+
+const Page *PageTrig::self = &pTrig;
 
 
 // СИНХР - Режим ------------

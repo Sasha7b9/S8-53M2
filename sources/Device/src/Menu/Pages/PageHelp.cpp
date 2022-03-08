@@ -105,7 +105,7 @@ static const arrayItems itemsHelp =
 
 static const Page mpHelp            // ѕќћќў№
 (
-    &mainPage, 0,
+    PageMain::self, 0,
     "ѕќћќў№", "HELP",
     "ќткрыть разделы помощи",
     "To open sections of the help",

@@ -13,7 +13,6 @@
 #include <stdio.h>
 
 
-extern Page mainPage;
 extern const Page pService;
 extern const Page ppCalibrator;
 extern const Page ppMath;
@@ -983,7 +982,7 @@ static const arrayItems itemsService =
 
 static const Page pService
 (
-    &mainPage, 0,
+    PageMain::self, 0,
     "СЕРВИС", "SERVICE",
     "Дополнительные настройки, калибровка, поиск сигнала, математические функции",
     "Additional settings, calibration, signal search, mathematical functions",

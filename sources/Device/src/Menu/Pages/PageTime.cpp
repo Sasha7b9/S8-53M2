@@ -27,8 +27,6 @@ static bool  IsActive_SelfRecorder();
 extern const Choice mcDivRole;          // РАЗВЕРТКА - Ф-ция ВР/ДЕЛ
 
 
-extern Page mainPage;
-
 
 // РАЗВЕРТКА //////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const arrayItems itemsTime =
@@ -42,7 +40,7 @@ static const arrayItems itemsTime =
 
 static const Page pTime            // РАЗВЕРТКА
 (
-    &mainPage, 0,
+    PageMain::self, 0,
     "РАЗВЕРТКА", "SCAN",
     "Содержит настройки развёртки.",
     "Contains scan settings.",

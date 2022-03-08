@@ -36,8 +36,6 @@ static struct StructForSN
 } structSN;
 
 
-extern Page mainPage;
-
 const Page *PageDebug::SerialNumber::self = &ppSerialNumber;
 
 
@@ -193,7 +191,7 @@ static const arrayItems itemsDebug =
 
 static const Page pDebug
 (
-    &mainPage, 0,
+    PageMain::self, 0,
     "ÎÒËÀÄÊÀ", "DEBUG",
     "",
     "",

@@ -88,11 +88,7 @@ void DrawSB_Exit(int x, int y)
 }
 
 
-extern const Page mainPage;
-
 #include "PageHelp.cpp"
-
-extern const Page pTrig;
 
 
 static const arrayItems itemsMainPage =
@@ -100,7 +96,7 @@ static const arrayItems itemsMainPage =
     (void *)PageDisplay::self,
     (void *)PageChannelA::self,
     (void *)PageChannelB::self,
-    (void *)&pTrig,
+    (void *)PageTrig::self,
     (void *)PageTime::self,
     (void *)PageCursors::self,
     (void *)PageMemory::self,
@@ -110,7 +106,7 @@ static const arrayItems itemsMainPage =
     (void *)PageDebug::self
 };
 
-const Page mainPage
+static const Page mainPage
 (
     0, 0,
     "лемч", "MENU",
@@ -120,28 +116,31 @@ const Page mainPage
 );
 
 
+const Page *PageMain::self = &mainPage;
+
+
 const Page *Page::ForButton(Key::E button)
 {
     static const void *pages[] = {  
-        0,                           // Key::Empty
-        PageChannelA::self,             // Key::ChannelA
-        PageService::self,   // Key::Service
-        PageChannelB::self,             // Key::ChannelB
-        PageDisplay::self,           // Key::Display
-        PageTime::self,              // Key::Time
-        PageMemory::self,    // Key::Memory
-        (void *)&pTrig,              // Key::Trig
-        0,                           // Key::Start
-        PageCursors::self,   // Key::Cursors
-        PageMeasures::self,          // Key::Measures
-        0,                           // Key::Power
-        0,                           // Key::Help
-        0,                           // Key::Menu
-        0,                           // Key::F1
-        0,                           // Key::F2
-        0,                           // Key::F3
-        0,                           // Key::F4
-        0,                           // Key::F5
+        0,                      // Key::Empty
+        PageChannelA::self,     // Key::ChannelA
+        PageService::self,      // Key::Service
+        PageChannelB::self,     // Key::ChannelB
+        PageDisplay::self,      // Key::Display
+        PageTime::self,         // Key::Time
+        PageMemory::self,       // Key::Memory
+        PageTrig::self,         // Key::Trig
+        0,                      // Key::Start
+        PageCursors::self,      // Key::Cursors
+        PageMeasures::self,     // Key::Measures
+        0,                      // Key::Power
+        0,                      // Key::Help
+        0,                      // Key::Menu
+        0,                      // Key::F1
+        0,                      // Key::F2
+        0,                      // Key::F3
+        0,                      // Key::F4
+        0,                      // Key::F5
     };
 
     return (const Page *)pages[button];

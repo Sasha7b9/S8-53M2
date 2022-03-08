@@ -13,7 +13,6 @@
 
 
 extern const Page pMeasures;
-extern const Page mainPage;
 
 
 static CursCntrl    GetMeasuresCursCntrlActive();       // Каким курсором из активной пары сейчас происходит управление.
@@ -296,7 +295,7 @@ static const arrayItems itemsMeasures =
 
 static const Page pMeasures            // ИЗМЕРЕНИЯ
 (
-    &mainPage, 0,
+    PageMain::self, 0,
     "ИЗМЕРЕНИЯ", "MEASURES",
     "Автоматические измерения",
     "Automatic measurements",

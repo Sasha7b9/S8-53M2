@@ -26,7 +26,6 @@
 
 extern const Page pMemory;
 
-extern Page mainPage;
 
 
 static void DrawSetMask();  // Ёта функци€ рисует, когда выбран режим задани€ маски.
@@ -1349,7 +1348,7 @@ static const arrayItems itemsMemory =
 
 static const Page pMemory              // ѕјћя“№
 (
-    &mainPage, 0,
+    PageMain::self, 0,
     "ѕјћя“№", "MEMORY",
     "–абота с внешней и внутренней пам€тью.",
     "Working with external and internal memory.",

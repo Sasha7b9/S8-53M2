@@ -162,8 +162,6 @@ void SetCursPosT(Chan::E ch, int numCur, float pos)
 }
 
 
-extern const Page mainPage;
-
 // ÊÓĞÑÎĞÛ /////////////////////////
 static const arrayItems itemsCursors =
 {
@@ -176,7 +174,7 @@ static const arrayItems itemsCursors =
 
 static const Page pCursors                // ÊÓĞÑÎĞÛ
 (
-    &mainPage, 0,
+    PageMain::self, 0,
     "ÊÓĞÑÎĞÛ", "CURSORS",
     "Êóğñîğíûå èçìåğåíèÿ.",
     "Cursor measurements.",

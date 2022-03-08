@@ -60,9 +60,6 @@ extern const char chanMultiplierEn[] = "Attenuation: \n\"x1\" - the signal is no
 
 
 
-extern const Page mainPage;
-
-
 // КАНАЛ 1 /////////////////////////
 static const arrayItems itemsChanA =
 {
@@ -75,7 +72,7 @@ static const arrayItems itemsChanA =
 
 static const Page pChanA           // КАНАЛ 1
 (
-    &mainPage, 0,
+    PageMain::self, 0,
     "КАНАЛ 1", "CHANNEL 1",
     "Содержит настройки канала 1.",
     "Contains settings of the channel 1.",
@@ -205,7 +202,7 @@ static const arrayItems itemsChanB =
 
 static const Page pChanB
 (
-    &mainPage, 0,
+    PageMain::self, 0,
     "КАНАЛ 2", "CHANNEL 2",
     "Содержит настройки канала 2.",
     "Contains settings of the channel 2.",

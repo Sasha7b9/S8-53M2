@@ -8,6 +8,12 @@
 class Page;
 
 
+struct PageMain
+{
+    static const Page *self;
+};
+
+
 struct PageChannelA
 {
     static void OnChanged_Input(bool active);
@@ -177,6 +183,12 @@ struct PageService
 
 
 struct PageTime
+{
+    static const Page *self;
+};
+
+
+struct PageTrig
 {
     static const Page *self;
 };
