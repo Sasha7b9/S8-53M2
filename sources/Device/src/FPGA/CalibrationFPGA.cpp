@@ -14,13 +14,30 @@ namespace FPGA
     {
         struct Progress
         {
+            const int width = 100;
+            const int height = 20;
+
             float value;
 
             uint timeStart;
 
             void Reset() { value = 0.0f; timeStart = TIME_MS; }
 
-            void Update();
+            void Update()
+            {
+                value = (TIME_MS - value) / 10;
+
+                while (value > 100)
+                {
+                    value -= 100;
+                }
+            }
+
+            void Draw(int x, int y)
+            {
+                Painter::DrawRectangle(x, y, width, height, COLOR_FILL);
+                Painter::FillRegion(x, y, value, height);
+            }
         };
 
         struct StateCalibration
@@ -131,6 +148,8 @@ static void FPGA::Calibrator::FunctionDraw()
             String message(LANG_RU ? "Калибрую настройку 1 канала %d" : "Calibrate setting 1 channel %d", (state == StateCalibration::RShiftA) ? 1 : 2);
 
             PText::DrawInRect(50, 25, SCREEN_WIDTH - 100, SCREEN_HEIGHT, message.c_str());
+
+            progress.Draw(50, 200);
         }
         break;
 
@@ -140,6 +159,8 @@ static void FPGA::Calibrator::FunctionDraw()
             String message(LANG_RU ? "Калибрую настройку 2 канала %d" : "Calibrate setting 2 channel %d", (state == StateCalibration::StretchA) ? 1 : 2);
 
             PText::DrawInRect(50, 25, SCREEN_WIDTH - 100, SCREEN_HEIGHT, message.c_str());
+
+            progress.Draw(50, 200);
         }
         break;
 
