@@ -178,22 +178,16 @@ static const Button bEraseData
 );
 
 
-void PageDebug::PageADC::ResetCalRShiftA()
+void PageDebug::PageADC::ResetCalRShift(Chan::E ch)
 {
-    std::memset(&set.chan[ChA].cal_rshift[0][0], 0, sizeof(int8) * Range::Count * ModeCouple::Count);
-}
-
-
-void PageDebug::PageADC::ResetCalRShfitB()
-{
-    std::memset(&set.chan[ChB].cal_rshift[0][0], 0, sizeof(int8) * Range::Count * ModeCouple::Count);
+    std::memset(&set.chan[ch].cal_rshift[0][0], 0, sizeof(int8) * Range::Count * ModeCouple::Count);
 }
 
 
 static void OnPress_RestRShift()
 {
-    PageDebug::PageADC::ResetCalRShiftA();
-    PageDebug::PageADC::ResetCalRShfitB();
+    PageDebug::PageADC::ResetCalRShift(ChA);
+    PageDebug::PageADC::ResetCalRShift(ChB);
 }
 
 
