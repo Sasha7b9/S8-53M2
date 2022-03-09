@@ -204,6 +204,17 @@ const Page *PageDebug::self = &pDebug;
 
 static void OnPress_ResetShift()
 {
+    for (int ch = 0; ch < Chan::Count; ch++)
+    {
+        for (int range = 0; range < Range::Count; range++)
+        {
+            for (int couple = 0; couple < ModeCouple::Count; couple++)
+            {
+
+            }
+        }
+    }
+
     CAL_RSHIFT_A = 0;
     CAL_RSHIFT_B = 0;
 }

@@ -69,7 +69,21 @@ static const Settings defaultSettings =
     {
         {
             1.0f,                   // cal_stretch
-            0,                      // cal_rshift
+            {                       // cal_rshift
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0}
+            },
 
             RShift::ZERO,
             ModeCouple::AC,         // ModCouple
@@ -81,7 +95,21 @@ static const Settings defaultSettings =
         },
         {
             1.0f,                   // cal_stretch
-            0,                      // cal_rshift
+            {                       // cal_rshift
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0}
+            },
 
             RShift::ZERO,
             ModeCouple::AC,         // ModCouple

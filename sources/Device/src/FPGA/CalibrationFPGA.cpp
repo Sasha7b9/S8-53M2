@@ -76,6 +76,10 @@ namespace FPGA
 
 void FPGA::Calibrator::RunCalibrate()
 {
+    bool isRunning = FPGA::IsRunning();
+
+    FPGA::Stop(false);
+
     Display::SetDrawMode(DrawMode::Hand, FunctionDraw);
 
     Panel::Disable();
@@ -113,6 +117,11 @@ void FPGA::Calibrator::RunCalibrate()
     Panel::Enable();
 
     Display::SetDrawMode(DrawMode::Auto);
+
+    if (isRunning)
+    {
+        FPGA::Start();
+    }
 }
 
 
@@ -199,6 +208,8 @@ static bool FPGA::Calibrator::CalibrateRShift(Chan ch)
     state = ch.IsA() ? StateCalibration::RShiftA : StateCalibration::RShiftB;
 
     progress.Reset();
+
+    
 
     return result;
 }
