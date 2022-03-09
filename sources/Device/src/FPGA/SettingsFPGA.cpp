@@ -371,7 +371,7 @@ void RShift::Load(Chan ch)
     int16 rshiftHand = RSHIFT_HAND(ch, range, index[mode]);
     int8 rshiftCal = CAL_RSHIFT(ch);
 
-    uint16 rshift = (uint16)(SET_RSHIFT(ch) + (SET_INVERSE(ch) ? -1 : 1) * rshiftHand + (SET_INVERSE(ch) ? -1 : 1) * rshiftCal);
+    uint16 rshift = (uint16)(SET_RSHIFT(ch) + (SET_INVERSE(ch) ? -1 : 1) * (rshiftHand + rshiftCal));
 
     int16 delta = -(rshift - RShift::ZERO);
 
