@@ -552,7 +552,6 @@ bool FPGA::CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
 
     if (rand < 500 || rand > 3500)
     {
-        LOG_WRITE("ÎØÈÁÊÀ!!! ñ÷èòàíî %d", rand);
         return false;
     }
 
