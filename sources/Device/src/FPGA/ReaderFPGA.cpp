@@ -31,6 +31,8 @@ void FPGA::Reader::ReadPoints(Chan ch, uint8 *first, const uint8 *last)
 
     pFuncRead funcRead = ch.IsA() ? Reader::ReadA : Reader::ReadB;
 
+    funcRead();
+
     uint8 *data = first;
 
     while (data < last)

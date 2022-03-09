@@ -389,7 +389,7 @@ void FPGA::Reader::ReadPoints(Chan ch)
     pFuncRead funcRead = ch.IsA() ? Reader::ReadA : Reader::ReadB;
 
     funcRead();         // Ёто лишнее чтение сделано потому, что перва€ считанна€ точка бракованна€.
-                        // ƒл€ компенсации этого эффекта
+                        // ƒл€ компенсации этого эффекта лишн€€ точка получаетс€ уменьшением адреса на один в FPGA::Reader::CalculateAddressRead()
 
     if (SET_PEAKDET_IS_ENABLE)
     {

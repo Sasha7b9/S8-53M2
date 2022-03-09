@@ -611,7 +611,7 @@ void Painter::EndScene(bool endScene)
 
 #ifdef DEBUG
 
-    PText::Draw(260, 21, "Debug", COLOR_FILL);
+    PText::Draw(262, 207, "Отладка", COLOR_FILL);
 
 #endif
 

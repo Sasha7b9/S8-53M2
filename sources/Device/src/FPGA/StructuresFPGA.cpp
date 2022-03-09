@@ -56,12 +56,12 @@ uint16 FPGA::Reader::CalculateAddressRead()
     if (TBase::InModeRandomizer())
     {
         return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) -
-            ENUM_POINTS_FPGA::ToNumBytes() * Compactor::Koeff() / TBase::StretchRand() + shift[SET_TBASE]);
+            ENUM_POINTS_FPGA::ToNumBytes() * Compactor::Koeff() / TBase::StretchRand() + shift[SET_TBASE] - 1);
     }
     else
     {
         return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) -
-            ENUM_POINTS_FPGA::ToNumBytes() * FPGA::Compactor::Koeff() + shift[SET_TBASE]);
+            ENUM_POINTS_FPGA::ToNumBytes() * FPGA::Compactor::Koeff() + shift[SET_TBASE] - 1);
     }
 }
 
