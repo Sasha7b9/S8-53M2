@@ -35,19 +35,20 @@ struct Font
     static TypeFont::E current;
 
     static int GetSize();
+
     static int GetLengthText(pchar text);
+
     static int GetHeightSymbol(char symbol);
+
     static int GetLengthSymbol(uchar symbol);
+
     static void Set(TypeFont::E);
+
     // Загрузить шрифта в дисплей.
     static void Load(TypeFont::E);
+
     static int GetSpacing();
 
     // Возвращает размер шрифта, которым нужно выводить сообщения в консоли.
     static int GetSizeFontForConsole();
 };
-
-extern const uchar font5display[3080];
-extern const uchar font8display[3080];
-extern const uchar fontUGOdisplay[3080];
-extern const uchar fontUGO2display[3080];
