@@ -411,15 +411,11 @@ void FPGA::ReadPoints(Chan::E ch)
 
         if(Compactor::Koeff() == 1)             // Без уплотнения
         {
-            flag.Read();
-
-            if (flag.FirstByte())
+            if (!flag.FirstByte())
             {
-                LOG_WRITE("1");
-            }
-            else
-            {
-                LOG_WRITE("                        0");
+                BitSet16 data = funcRead();
+                *dat = data.byte1;
+                dat += stretch;
             }
 
             while (dat < end && IN_PROCESS_READ)

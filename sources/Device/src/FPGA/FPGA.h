@@ -65,7 +65,7 @@ namespace FPGA
             FreqMeter::Update(value);
         }
 
-        bool FirstByte() { return value & FL_LAST_RECOR; }
+        bool FirstByte() { return _GET_BIT(value, FL_LAST_RECOR) == 1; }
     };
 
     extern Flag flag;
