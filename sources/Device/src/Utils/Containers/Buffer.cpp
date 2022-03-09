@@ -13,6 +13,7 @@ template void   Buffer<uint8>::Fill(uint8);
 template void   Buffer<uint8>::Realloc(int);
 template uint8 &Buffer<uint8>::operator[](int) const;
 template void   Buffer<uint8>::Log() const;
+template float  Buffer<uint8>::Sum(uint8 *, uint);
 
 
 template<class T>

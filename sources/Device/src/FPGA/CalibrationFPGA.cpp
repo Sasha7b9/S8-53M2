@@ -5,8 +5,12 @@
 #include "Hardware/Timer.h"
 #include "Display/Text.h"
 #include "Utils/Containers/String.h"
+#include "Utils/Containers/Buffer.h"
 #include "Menu/Pages/Definition.h"
+#include "Hardware/HAL/HAL.h"
+#include "Utils/Containers/Queue.h"
 #include <stm32f4xx_hal.h>
+#include <cstring>
 
 
 namespace FPGA
@@ -71,7 +75,20 @@ namespace FPGA
 
         // Изобразить результат калибровки
         static void DrawResultCalibration(int x, int y, Chan);
+
+        // Читает 1024 точки и возвращает их среднее значение
+        static float Read1024PointsAve(Chan);
+
+        static void Read1024Points(uint8 buffer[1024], Chan);
+
+        static int CalculateAddRShift(float ave);
+
+        // Читает 1024 точки и возвращает минимальное и максимальное значения
+        static void Read1024PointsMinMax(Chan, float *min, float *max);
     }
+
+    // Принудительно запустить синхронизацию.
+    void SwitchingTrig();
 }
 
 
@@ -222,29 +239,54 @@ static bool FPGA::Calibrator::CalibrateRShift(Chan ch)
 
     CalibratorMode::Set(CalibratorMode::GND);
 
-    bool result = true;
-
     for (int range = 0; range < Range::Count; range++)
     {
         for (int couple = 0; couple < ModeCouple::Count; couple++)
         {
             Range::Set(ch, (Range::E)range);
+            ModeCouple::Set(ch, (ModeCouple::E)couple);
+
+            float ave = Read1024PointsAve(ch);
+
+            int addShift = CalculateAddRShift(ave);
+
+            if (addShift < -50 || addShift > 50)
+            {
+                return false;
+            }
+
+            CAL_RSHIFT(ch) = (int8)addShift;
         }
     }
 
-    return result;
+    return true;
 }
 
 
 static bool FPGA::Calibrator::CalibrateStretch(Chan ch)
 {
-    bool result = true;
-
     state = ch.IsA() ? StateCalibration::StretchA : StateCalibration::StretchB;
 
     progress.Reset();
 
-    return result;
+    ModeCouple::Set(ch, ModeCouple::AC);
+    Range::Set(ch, Range::_500mV);
+    RShift::Set(ch, RShift::ZERO);
+    TBase::Set(TBase::_200us);
+    TShift::Set(0);
+    TrigSource::Set((TrigSource::E)ch.value);
+    TrigPolarity::Set(TrigPolarity::Front);
+    TrigLev::Set((TrigSource::E)ch.value, TrigLev::ZERO);
+    PeackDetMode::Set(PeackDetMode::Disable);
+
+    CalibratorMode::Set(CalibratorMode::Freq);
+
+    float min = 0.0f;
+    float max = 0.0f;
+
+    Read1024PointsMinMax(ch, &min, &max);
+
+    return true;
 }
 
 
@@ -273,4 +315,89 @@ static void FPGA::Calibrator::DrawResultCalibration(int x, int y, Chan ch)
     }
 
     PText::Draw(x, y, message.c_str());
+}
+
+
+float FPGA::Calibrator::Read1024PointsAve(Chan ch)
+{
+    uint8 buffer[1024];
+
+    Read1024Points(buffer, ch);
+
+    return Buffer<uint8>::Sum(buffer, 1024) / 1024;
+}
+
+
+void FPGA::Calibrator::Read1024Points(uint8 buffer[1024], Chan ch)
+{
+    Timer::PauseOnTime((SET_RANGE(ch) < 2) ? 500U : 100U);
+
+    FPGA::Start();
+
+    std::memset(buffer, 255, 1024);
+
+    Timer::PauseOnTime(8);
+
+    uint16 fl = HAL_FMC::Read(RD_FL);
+
+    while (_GET_BIT(fl, FL_PRED) == 0) { fl = HAL_FMC::Read(RD_FL); }
+
+    FPGA::SwitchingTrig();
+
+    while (_GET_BIT(fl, FL_TRIG) == 0) { fl = HAL_FMC::Read(RD_FL); }
+
+    Timer::PauseOnTime(8);
+
+    while (_GET_BIT(fl, FL_DATA) == 0) { fl = HAL_FMC::Read(RD_FL); }
+
+    FPGA::Stop(false);
+
+    FPGA::Reader::ReadPoints(ch, buffer, &buffer[0] + 1024);
+}
+
+
+int FPGA::Calibrator::CalculateAddRShift(float ave)
+{
+    return (int)((ValueFPGA::AVE - ave) * 2);
+}
+
+
+void FPGA::Calibrator::Read1024PointsMinMax(Chan ch, float *min, float *max)
+{
+    uint8 buffer[1024];
+
+    Read1024Points(buffer, ch);
+
+    Queue<float> mins;
+    Queue<float> maxs;
+
+    for (int i = 0; i < 1024; i++)
+    {
+        if (buffer[i] > 200)
+        {
+            maxs.Push(buffer[i]);
+        }
+        else if (buffer[i] < 50)
+        {
+            mins.Push(buffer[i]);
+        }
+    }
+
+    *min = 0.0f;
+
+    for (int i = 0; i < mins.Size(); i++)
+    {
+        *min += (float)mins[(int)i];
+    }
+
+    *min = *min / mins.Size();
+
+    *max = 0.0f;
+
+    for (int i = 0; i < maxs.Size(); i++)
+    {
+        *max += (float)maxs[(int)i];
+    }
+
+    *max = *max / maxs.Size();
 }

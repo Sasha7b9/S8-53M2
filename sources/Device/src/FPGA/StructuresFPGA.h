@@ -58,6 +58,9 @@ namespace FPGA
         // Эта функция должна вызываться только для чтения первого канала. При чтении второго канала нужно использовать
         // ранее полученное значение
         uint16 CalculateAddressRead();
+
+        // Читать массив точек от first до last
+        void ReadPoints(Chan, uint8 *first, const uint8 *last);
     }
 
     namespace Launch

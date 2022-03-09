@@ -115,7 +115,7 @@ struct ModeCouple
     };
 
     // Установить режим канала по входу.
-    static void Set(Chan::E, ModeCouple::E modeCoupe);
+    static void Set(Chan, ModeCouple::E modeCoupe);
 };
 
 

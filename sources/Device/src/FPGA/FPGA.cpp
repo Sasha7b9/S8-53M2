@@ -638,12 +638,6 @@ void FPGA::ReadPoint()
 }
 
 
-void BUS_FPGA::WriteToHardware(uint8 *, uint8, bool)
-{
-
-}
-
-
 void BUS_FPGA::Write(uint16 *address, uint16 data, bool restart)
 {
     bool is_running = FPGA::IsRunning();
