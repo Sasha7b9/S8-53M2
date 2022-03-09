@@ -368,9 +368,9 @@ void RShift::Load(Chan ch)
     Range::E range = SET_RANGE(ch);
     ModeCouple::E mode = SET_COUPLE(ch);
     static const int index[3] = {0, 1, 1};
-    int16 rShiftAdd = RSHIFT_HAND(ch, range, index[mode]);
+    int16 rShiftHand = RSHIFT_HAND(ch, range, index[mode]);
 
-    uint16 rShift = (uint16)(SET_RSHIFT(ch) + (SET_INVERSE(ch) ? -1 : 1) * rShiftAdd);
+    uint16 rShift = (uint16)(SET_RSHIFT(ch) + (SET_INVERSE(ch) ? -1 : 1) * rShiftHand);
 
     int16 delta = -(rShift - RShift::ZERO);
 
