@@ -58,8 +58,7 @@ namespace FPGA
     bool FIRST_AFTER_WRITE = false; // Используется в режиме рандомизатора. После записи любого параметра в альтеру
                     // нужно не использовать первое считанное данное с АЦП, потому что оно завышено и портит ворота
 
-
-    uint16 ReadFlag();
+    Flag flag;
 
     void ReadPoint();
 
@@ -122,7 +121,7 @@ void FPGA::Init()
 
 void FPGA::Update()
 {
-    ReadFlag();
+    flag.Read();
 
     if (state.needCalibration)              // Если вошли в режим калибровки -
     {
@@ -164,7 +163,7 @@ void FPGA::Update()
 
 void FPGA::ProcessingData()
 {
-    uint16 flag = ReadFlag();
+    flag.Read();
 
     if (NEED_AUTO_TRIG)
     {
@@ -174,12 +173,12 @@ void FPGA::ProcessingData()
             TRIG_AUTO_FIND = true;
             NEED_AUTO_TRIG = false;
         }
-        else if (_GET_BIT(flag, FL_TRIG))
+        else if (_GET_BIT(flag.value, FL_TRIG))
         {
             NEED_AUTO_TRIG = false;
         }
     }
-    else if (_GET_BIT(flag, FL_DATA))
+    else if (_GET_BIT(flag.value, FL_DATA))
     {
         Panel::EnableLEDTrig(true);
 
@@ -199,7 +198,7 @@ void FPGA::ProcessingData()
     }
     else
     {
-        if (flag & (1 << 2))
+        if (flag.value & (1 << 2))
         {
             if (START_MODE_IS_AUTO)
             {
@@ -209,7 +208,7 @@ void FPGA::ProcessingData()
         }
     }
 
-    Panel::EnableLEDTrig(_GET_BIT(flag, FL_TRIG) ? true : false);
+    Panel::EnableLEDTrig(_GET_BIT(flag.value, FL_TRIG) ? true : false);
 }
 
 
@@ -562,16 +561,6 @@ bool FPGA::CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
 }
 
 
-uint16 FPGA::ReadFlag()
-{
-    uint16 flag = HAL_FMC::Read(RD_FL);
-
-    FreqMeter::Update(flag);
-
-    return flag;
-}
-
-
 void FPGA::ClearData()
 {
     int num_bytes = ENUM_POINTS_FPGA::ToNumBytes();
@@ -586,7 +575,9 @@ void FPGA::ClearData()
 
 void FPGA::ReadPoint()
 {
-    if (_GET_BIT(ReadFlag(), FL_POINT))
+    flag.Read();
+
+    if (_GET_BIT(flag.value, FL_POINT))
     {
         BitSet16 dataA(*RD_ADC_A);
         BitSet16 dataB(*RD_ADC_B);

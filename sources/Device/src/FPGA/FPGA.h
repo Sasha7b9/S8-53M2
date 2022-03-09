@@ -8,6 +8,7 @@
 #include "FPGA/TypesFPGA.h"
 #include "FPGA/StructuresFPGA.h"
 #include "Settings/Settings.h"
+#include "Hardware/HAL/HAL.h"
 
 
 namespace FPGA
@@ -24,6 +25,8 @@ namespace FPGA
     {
         // Получить значение частоты.
         float GetFreq();
+
+        void Update(uint16);
     }
 
     namespace AutoFinder
@@ -51,6 +54,18 @@ namespace FPGA
         // Запуск функции калибровки.
         void RunCalibrate();
     }
+
+    struct Flag
+    {
+        uint16 value;
+        void Read()
+        {
+            value = HAL_FMC::Read(RD_FL);
+            FreqMeter::Update(value);
+        }
+    };
+
+    extern Flag flag;
 
     void Init();
 
