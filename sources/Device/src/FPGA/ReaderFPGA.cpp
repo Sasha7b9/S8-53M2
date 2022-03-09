@@ -47,7 +47,21 @@ BitSet16 FPGA::Reader::ReadA()
 {
     BitSet16 data(*RD_ADC_A);
 
+    int delta0 = data.byte0 - ValueFPGA::AVE;
+    delta0 *= CAL_STRETCH_A;
+    
+    int byte0 = ValueFPGA::AVE - delta0;
+
+    if (byte0 < 0) { byte0 = 0; }
+    else if (byte0 > 255) { byte0 = 255; }
+
+    data.byte0 = (uint8)byte0;
+
     int byte1 = (int)data.byte1 + SET_BALANCE_ADC_A;
+
+    int delta1 = byte1 - ValueFPGA::AVE;
+    delta1 *= CAL_STRETCH_A;
+    byte1 = ValueFPGA::AVE - delta1;
 
     if (byte1 < 0)        { byte1 = 0; }
     else if (byte1 > 255) { byte1 = 255; }
@@ -62,7 +76,21 @@ BitSet16 FPGA::Reader::ReadB()
 {
     BitSet16 data(*RD_ADC_B);
 
+    int delta0 = data.byte0 - ValueFPGA::AVE;
+    delta0 *= CAL_STRETCH_B;
+
+    int byte0 = ValueFPGA::AVE - delta0;
+
+    if (byte0 < 0) { byte0 = 0; }
+    else if (byte0 > 255) { byte0 = 255; }
+
+    data.byte0 = (uint8)byte0;
+
     int byte1 = (int)data.byte1 + SET_BALANCE_ADC_B;
+
+    int delta1 = byte1 - ValueFPGA::AVE;
+    delta1 *= CAL_STRETCH_B;
+    byte1 = ValueFPGA::AVE - delta1;
 
     if (byte1 < 0)        { byte1 = 0; }
     else if (byte1 > 255) { byte1 = 255; }
