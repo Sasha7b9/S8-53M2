@@ -209,8 +209,6 @@ static bool FPGA::Calibrator::CalibrateRShift(Chan ch)
 
     progress.Reset();
 
-    
-
     return result;
 }
 

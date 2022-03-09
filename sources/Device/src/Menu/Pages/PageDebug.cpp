@@ -13,7 +13,8 @@
 #include "Menu/Menu.h"
 #include "Log.h"
 #include "Hardware/HAL/HAL.h"
-#include <stdio.h>
+#include <cstdio>
+#include <cstring>
 
 
 extern const Page  pDebug;
@@ -177,21 +178,22 @@ static const Button bEraseData
 );
 
 
-static void OnPress_ResetShift()
+void PageDebug::PageADC::ResetCalRShiftA()
 {
-    for (int ch = 0; ch < Chan::Count; ch++)
-    {
-        for (int range = 0; range < Range::Count; range++)
-        {
-            for (int couple = 0; couple < ModeCouple::Count; couple++)
-            {
+    std::memset(&set.chan[ChA].cal_rshift[0][0], 0, sizeof(int8) * Range::Count * ModeCouple::Count);
+}
 
-            }
-        }
-    }
 
-    CAL_RSHIFT_A = 0;
-    CAL_RSHIFT_B = 0;
+void PageDebug::PageADC::ResetCalRShfitB()
+{
+    std::memset(&set.chan[ChB].cal_rshift[0][0], 0, sizeof(int8) * Range::Count * ModeCouple::Count);
+}
+
+
+static void OnPress_RestRShift()
+{
+    PageDebug::PageADC::ResetCalRShiftA();
+    PageDebug::PageADC::ResetCalRShfitB();
 }
 
 
@@ -200,7 +202,7 @@ static const Button bResetShift
     &mpADC_Stretch, nullptr,
     "Сброс", "Reset",
     "Сброс коэффициента растяжки в 1", "Сброс коэффициента растяжки в 1",
-    OnPress_ResetShift
+    OnPress_RestRShift
 );
 
 
@@ -654,7 +656,7 @@ static void OnPress_SerialNumber_Save()
 {
     char stringSN[20];
 
-    snprintf(stringSN, 19, "%02d %04d", structSN.number, structSN.year);
+    std::snprintf(stringSN, 19, "%02d %04d", structSN.number, structSN.year);
 
     if (!OTP::SaveSerialNumber(stringSN))
     {
@@ -708,7 +710,7 @@ static void Draw_EnterSerialNumber()
     bool selNumber = (structSN.curDigt == 0);
 
     char buffer[20];
-    snprintf(buffer, 19, "%02d", structSN.number);
+    std::snprintf(buffer, 19, "%02d", structSN.number);
 
     Color::E colorText = COLOR_FILL;
     Color::E colorBackground = COLOR_BACK;
@@ -733,7 +735,7 @@ static void Draw_EnterSerialNumber()
         colorBackground = COLOR_BACK;
     }
 
-    snprintf(buffer, 19, "%04d", structSN.year);
+    std::snprintf(buffer, 19, "%04d", structSN.year);
 
     Color::SetCurrent(colorText);
     PText::DrawOnBackground(x + 5, y, buffer, colorBackground);

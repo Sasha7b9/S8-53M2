@@ -71,6 +71,15 @@ struct PageDebug
     {
         static const Page *self;
     };
+
+    struct PageADC
+    {
+        // —бросить калибровочные коэффициенты смещени€ первого канала
+        static void ResetCalRShiftA();
+
+        // —бросить калибровочные коэффициенты смещени€ второго канала
+        static void ResetCalRShfitB();
+    };
 };
 
 
