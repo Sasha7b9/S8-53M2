@@ -31,7 +31,7 @@ void FPGA::Reader::ReadPoints(Chan ch, uint8 *first, const uint8 *last)
 
     pFuncRead funcRead = ch.IsA() ? Reader::ReadA : Reader::ReadB;
 
-    funcRead();
+    funcRead();                 // Делаем лишнее чтение, потому что адрес первой точки на 1 меньше требуемого (что-то глючит в альтере)
 
     uint8 *data = first;
 
