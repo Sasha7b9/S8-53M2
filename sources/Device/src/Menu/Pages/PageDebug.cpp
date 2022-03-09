@@ -177,31 +177,6 @@ static const Button bEraseData
 );
 
 
-static const arrayItems itemsDebug =
-{
-    (void *)&mcStats,            // ОТЛАДКА - Статистика
-    (void *)&mpConsole,          // ОТЛАДКА - КОНСОЛЬ
-    (void *)&mpADC,              // ОТЛАДКА - АЦП
-    (void *)&mpRandomizer,       // ОТЛАДКА - РАНД-ТОР
-    (void *)&mcSizeSettings,     // ОТЛАДКА - Размер настроек
-    (void *)&mbSaveFirmware,     // ОТЛАДКА - Сохр. прошивку
-    (void *)&bEraseData,         // ОТЛАДКА - Стереть данные
-    (void *)&ppSerialNumber      // ОТЛАДКА - С/Н
-};
-
-static const Page pDebug
-(
-    PageMain::self, 0,
-    "ОТЛАДКА", "DEBUG",
-    "",
-    "",
-    NamePage::Debug, &itemsDebug
-);
-
-
-const Page *PageDebug::self = &pDebug;
-
-
 static void OnPress_ResetShift()
 {
     for (int ch = 0; ch < Chan::Count; ch++)
@@ -810,3 +785,28 @@ static const Page ppSerialNumber
     "Serial number recording in OTP-memory. ATTENTION!!! OTP memory is a one-time programming memory.",
     NamePage::SB_SerialNumber, &itemsSerialNumber, OnPress_SerialNumber, 0, OnRegSet_SerialNumber
 );
+
+
+static const arrayItems itemsDebug =
+{
+    (void *)&mcStats,            // ОТЛАДКА - Статистика
+    (void *)&mpConsole,          // ОТЛАДКА - КОНСОЛЬ
+    (void *)&mpADC,              // ОТЛАДКА - АЦП
+    (void *)&mpRandomizer,       // ОТЛАДКА - РАНД-ТОР
+    (void *)&mcSizeSettings,     // ОТЛАДКА - Размер настроек
+    (void *)&mbSaveFirmware,     // ОТЛАДКА - Сохр. прошивку
+    (void *)&bEraseData,         // ОТЛАДКА - Стереть данные
+    (void *)&ppSerialNumber      // ОТЛАДКА - С/Н
+};
+
+static const Page pDebug
+(
+    PageMain::self, 0,
+    "ОТЛАДКА", "DEBUG",
+    "",
+    "",
+    NamePage::Debug, &itemsDebug
+);
+
+
+const Page *PageDebug::self = &pDebug;
