@@ -49,8 +49,8 @@ uint16 FPGA::Launch::PredForWrite()
 uint16 FPGA::Reader::CalculateAddressRead()
 {
     static const int shift[TBase::Count] =
-    {// 2ns 5ns 10ns 20ns 50ns 100ns
-        0,  0,  0,   0,   20,   4,   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    {// 2ns 5ns  10ns 20ns 50ns  100ns 200ns
+        0,  -12, -14, -41, -118, 4,    2,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
 
     if (TBase::InModeRandomizer())
@@ -61,7 +61,7 @@ uint16 FPGA::Reader::CalculateAddressRead()
     else
     {
         return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) -
-            ENUM_POINTS_FPGA::ToNumBytes() * FPGA::Compactor::Koeff() + shift[SET_TBASE] + 20);
+            ENUM_POINTS_FPGA::ToNumBytes() * FPGA::Compactor::Koeff() + shift[SET_TBASE]);
     }
 }
 
@@ -69,15 +69,15 @@ uint16 FPGA::Reader::CalculateAddressRead()
 void FPGA::Launch::Calculate()
 {
     static const int8 d_pred[TBase::Count] =   // Дополнительное смещение для предзапуска
-    {//  2    5   10   20   50  100  200 500                ns
-        50,  50,  50,  50,  0,   0,  0,  0, 
+    {// 2   5   10  20  50  100  200 500                ns
+        0,  0,  0,  0,  0,   0,  0,  0, 
      // 1                                                   us
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
 
     static const int8 d_post[TBase::Count] =   // Дополнительное смещение для послезапуска
-    {//  2    5   10   20   50  100  200 500                ns
-        50,  50,  50,  50,  0,   0,  0,  0,
+    {// 2   5   10  20  50  100  200 500                ns
+        0,  0,  0,  0,  0,   0,  0,  0,
      // 1                                                   us
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };

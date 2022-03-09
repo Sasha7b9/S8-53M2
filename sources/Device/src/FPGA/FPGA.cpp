@@ -388,6 +388,9 @@ void FPGA::Reader::ReadPoints(Chan ch)
 
     pFuncRead funcRead = ch.IsA() ? Reader::ReadA : Reader::ReadB;
 
+    funcRead();         // Это лишнее чтение сделано потому, что первая считанная точка бракованная.
+                        // Для компенсации этого эффекта
+
     if (SET_PEAKDET_IS_ENABLE)
     {
         uint8 *p_min = dat;
