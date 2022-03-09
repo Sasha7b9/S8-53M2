@@ -29,7 +29,7 @@ namespace FPGA
 
             Progress() : value(0.0f), max(0.0f), timeStart(0) {}
 
-            void Reset(float _max) { max = _max; }
+            void Reset(float _max) { max = _max; value = 0; }
 
             void SetValue(float _value)
             {

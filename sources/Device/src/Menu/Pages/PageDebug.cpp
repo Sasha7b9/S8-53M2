@@ -202,7 +202,7 @@ static const Button bResetShift
 
 static void OnDraw_ShiftADCA(int x, int y)
 {
-    PText::DrawFormat(x + 5, y + 21, Color::BLACK, "%d", CAL_RSHIFT_A);
+    PText::DrawFormat(x + 5, y + 21, Color::BLACK, "%d", set.chan[ChA].cal_rshift[Range::_2mV][ModeCouple::DC]);
 }
 
 
@@ -224,7 +224,7 @@ static const Choice mcShiftADCA =
 
 static void OnDraw_ShiftADCB(int x, int y)
 {
-    PText::DrawFormat(x + 5, y + 21, Color::BLACK, "%d", CAL_RSHIFT_B);
+    PText::DrawFormat(x + 5, y + 21, Color::BLACK, "%d", set.chan[ChB].cal_rshift[Range::_2mV][ModeCouple::DC]);
 }
 
 
