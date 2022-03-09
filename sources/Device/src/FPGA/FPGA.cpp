@@ -153,7 +153,12 @@ void FPGA::Update()
         ReadPoint();
     }
 
-    ProcessingData();
+    int num_cycles = TBase::StretchRand();
+
+    for (int i = 0; i < num_cycles; i++)
+    {
+        ProcessingData();
+    }
 
     CAN_READ_DATA = false;
 }
