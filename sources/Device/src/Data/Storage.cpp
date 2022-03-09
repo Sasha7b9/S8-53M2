@@ -119,10 +119,10 @@ void Storage::Clear()
 
 void Storage::ClearLimitsAndSums()
 {
-    memset(lim_up[0], 0, FPGA::MAX_POINTS);
-    memset(lim_up[1], 0, FPGA::MAX_POINTS);
-    memset(lim_down[0], 0xff, FPGA::MAX_POINTS);
-    memset(lim_down[1], 0xff, FPGA::MAX_POINTS);
+    memset(lim_up[0], 0, FPGA::MAX_POINTS * 2);
+    memset(lim_up[1], 0, FPGA::MAX_POINTS * 2);
+    memset(lim_down[0], 0xff, FPGA::MAX_POINTS * 2);
+    memset(lim_down[1], 0xff, FPGA::MAX_POINTS * 2);
     memset(&(sum[0][0]), 0, Chan::Count * FPGA::MAX_POINTS * sizeof(uint));
 }
 
@@ -331,37 +331,23 @@ bool Storage::GetData(int fromEnd, DataSettings **ds, uint8 **a, uint8 **b)
         return false;
     }
 
-    volatile int size = dataImportRel[ChA].Size();
-    size = size;
-
-    volatile int bytes = dp->BytesInChannel();
-    bytes = bytes;
-
     if (dataImportRel[ChA].Size() != dp->BytesInChannel())
     {
         dataImportRel[ChA].Realloc(dp->BytesInChannel());
         dataImportRel[ChB].Realloc(dp->BytesInChannel());
     }
 
-    size = dataImportRel[ChA].Size();
-
     if (a)
     {
         *a = CopyData(dp, Chan::A, dataImportRel[ChA]) ? dataImportRel[ChA].Data() : nullptr;
     }
-
-    size = dataImportRel[ChA].Size();
 
     if (b)
     {
         *b = CopyData(dp, Chan::B, dataImportRel[ChB]) ? dataImportRel[ChB].Data() : nullptr;
     }
 
-    size = dataImportRel[ChA].Size();
-
     *ds = dp;
-
-    size = dataImportRel[ChA].Size();
 
     return true;
 }
@@ -630,7 +616,7 @@ bool Storage::SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1)
 }
 
 
-void Storage::P2P::CreateFrame(DataSettings _ds)
+void Storage::P2P::CreateFrame(const DataSettings _ds)
 {
     if (Storage::NumElements() == 0)
     {

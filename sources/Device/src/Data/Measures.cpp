@@ -115,7 +115,7 @@ Measure::E Measures::Type(int row, int col)
 
 int Measures::GetTopTable()
 {
-    if(MEAS_NUM_IS_6_2 || MEAS_NUM_IS_6_2)
+    if(MEAS_NUM_IS_6_1 || MEAS_NUM_IS_6_2)
     {
         return GRID_BOTTOM - Measures::GetDY() * 6;
     }
