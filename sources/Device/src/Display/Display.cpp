@@ -1349,11 +1349,11 @@ void Display::Update(bool endScene)
         DrawHiPart();
         DrawLowPart();
         DrawCursorsWindow();
+        TShift::Draw();
         DrawCursorTrigLevel();
         DrawCursorsRShift();
         DrawMeasures();
         DrawStringNavigation();
-        TShift::Draw();
     }
     
     Menu::Draw();
