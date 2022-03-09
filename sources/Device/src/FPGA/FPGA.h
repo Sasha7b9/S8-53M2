@@ -58,11 +58,14 @@ namespace FPGA
     struct Flag
     {
         uint16 value;
+
         void Read()
         {
             value = HAL_FMC::Read(RD_FL);
             FreqMeter::Update(value);
         }
+
+        bool FirstByte() { return value & FL_LAST_RECOR; }
     };
 
     extern Flag flag;

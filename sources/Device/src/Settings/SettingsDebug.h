@@ -33,5 +33,7 @@ struct SettingsNRST
     int16   fpga_gates_min;         // \ ћинимальные и максимальные значени€, за пределами которых нужно отбрасывать
     int16   fpag_gates_max;         // /
 
+    int16   first_byte;
+
     int16   hand_rshift[Chan::Count][Range::Count][ModeCouple::Count];   // ¬ручную устанавливаемое дополнительное смещение
 };

@@ -409,8 +409,12 @@ void FPGA::ReadPoints(Chan::E ch)
 
         const int stretch = TBase::StretchRand();
 
+
+
         if(Compactor::Koeff() == 1)             // Без уплотнения
         {
+//            if (!flag.FirstByte()) { dat++; }
+
             while (dat < end && IN_PROCESS_READ)
             {
                 BitSet16 data = funcRead();

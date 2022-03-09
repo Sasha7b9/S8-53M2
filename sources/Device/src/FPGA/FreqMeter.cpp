@@ -79,10 +79,10 @@ BitSet32 FPGA::FreqMeter::ReadRegFrequency()
 }
 
 
-void FPGA::FreqMeter::Update(uint16 flag)
+void FPGA::FreqMeter::Update(uint16 fl)
 {
-    bool freqReady = _GET_BIT(flag, FL_FREQ) == 1;
-    bool periodReady = _GET_BIT(flag, FL_PERIOD) == 1;
+    bool freqReady = _GET_BIT(fl, FL_FREQ) == 1;
+    bool periodReady = _GET_BIT(fl, FL_PERIOD) == 1;
 
     if (freqReady)
     {
