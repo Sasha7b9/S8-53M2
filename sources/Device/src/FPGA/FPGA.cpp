@@ -404,29 +404,44 @@ void FPGA::ReadPoints(Chan::E ch)
     }
     else
     {
-        const int shift_rand = ShiftRandomizerADC();
-        dat += shift_rand;
-
         const int stretch = TBase::StretchRand();
+
+        const int shift_rand = ShiftRandomizerADC();
+
+        dat += shift_rand;
 
         if(Compactor::Koeff() == 1)             // Без уплотнения
         {
-            if (!flag.FirstByte() && !TBase::InModeRandomizer())
+            if (TBase::InModeRandomizer())
             {
-                BitSet16 data = funcRead();
-                *dat = data.byte1;
-                dat += stretch;
+                while (dat < end && IN_PROCESS_READ)
+                {
+                    BitSet16 data = funcRead();
+
+                    *dat = data.byte0;
+                    dat += stretch;
+                }
+            }
+            else
+            {
+                if (!flag.FirstByte())
+                {
+                    BitSet16 data = funcRead();
+                    *dat = data.byte1;
+                    dat += stretch;
+                }
+
+                while (dat < end && IN_PROCESS_READ)
+                {
+                    BitSet16 data = funcRead();
+
+                    *dat = data.byte0;
+                    dat += stretch;
+                    *dat = data.byte1;
+                    dat += stretch;
+                }
             }
 
-            while (dat < end && IN_PROCESS_READ)
-            {
-                BitSet16 data = funcRead();
-
-                *dat = data.byte0;
-                dat += stretch;
-                *dat = data.byte1;
-                dat += stretch;
-            }
         }
         else if (Compactor::Koeff() == 4)       // Выкидываются 3 байта из 4 (уплотнение в 4 раза)
         {
