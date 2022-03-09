@@ -458,48 +458,6 @@ void FPGA::ReadPoints(Chan::E ch)
 }
 
 
-BitSet16 FPGA::Reader::ReadA()
-{
-    BitSet16 data(*RD_ADC_A);
-
-    int byte1 = (int)data.byte1 + SET_BALANCE_ADC_A;
-
-    if (byte1 < 0)
-    {
-        byte1 = 0;
-    }
-    else if (byte1 > 255)
-    {
-        byte1 = 255;
-    }
-
-    data.byte1 = (uint8)byte1;
-
-    return data;
-}
-
-
-BitSet16 FPGA::Reader::ReadB()
-{
-    BitSet16 data(*RD_ADC_B);
-
-    int byte1 = (int)data.byte1 + SET_BALANCE_ADC_B;
-
-    if (byte1 < 0)
-    {
-        byte1 = 0;
-    }
-    else if (byte1 > 255)
-    {
-        byte1 = 255;
-    }
-
-    data.byte1 = (uint8)byte1;
-
-    return data;
-}
-
-
 void FPGA::InverseDataIsNecessary(Chan::E ch, Buffer<uint8> &data)
 {
     if (SET_INVERSE(ch))

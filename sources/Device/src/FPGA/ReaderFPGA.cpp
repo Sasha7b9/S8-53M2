@@ -41,3 +41,45 @@ void FPGA::Reader::ReadPoints(Chan ch, uint8 *first, const uint8 *last)
         *data++ = bytes.byte1;
     }
 }
+
+
+BitSet16 FPGA::Reader::ReadA()
+{
+    BitSet16 data(*RD_ADC_A);
+
+    int byte1 = (int)data.byte1 + SET_BALANCE_ADC_A;
+
+    if (byte1 < 0)
+    {
+        byte1 = 0;
+    }
+    else if (byte1 > 255)
+    {
+        byte1 = 255;
+    }
+
+    data.byte1 = (uint8)byte1;
+
+    return data;
+}
+
+
+BitSet16 FPGA::Reader::ReadB()
+{
+    BitSet16 data(*RD_ADC_B);
+
+    int byte1 = (int)data.byte1 + SET_BALANCE_ADC_B;
+
+    if (byte1 < 0)
+    {
+        byte1 = 0;
+    }
+    else if (byte1 > 255)
+    {
+        byte1 = 255;
+    }
+
+    data.byte1 = (uint8)byte1;
+
+    return data;
+}
