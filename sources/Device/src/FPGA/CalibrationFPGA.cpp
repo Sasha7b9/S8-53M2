@@ -23,21 +23,25 @@ namespace FPGA
             static const int height = 20;
 
             float value;
+            float max;
 
             uint timeStart;
 
-            Progress() : value(0.0f), timeStart(0) {}
+            Progress() : value(0.0f), max(0.0f), timeStart(0) {}
 
-            void Reset() { value = 0.0f; timeStart = TIME_MS; }
+            void Reset(float _max) { max = _max; }
+
+            void SetValue(float _value)
+            {
+                value = _value;
+            }
 
             void Draw(int y)
             {
-                value = ((TIME_MS - timeStart) / 10) % width;
-
                 int x = (SCREEN_WIDTH - width) / 2;
 
                 Painter::DrawRectangle(x, y, width, height, COLOR_FILL);
-                Painter::FillRegion(x, y, value, height);
+                Painter::FillRegion(x, y, width * value / max, height);
             }
         };
 
@@ -64,6 +68,9 @@ namespace FPGA
 
         // Функция отрисовка
         static void FunctionDraw();
+
+        // Вывести информацию о найденных калибровочных коэффициентах
+        static void ShowCalibrationInfo(const int y, Chan);
 
         static void CalibrateChannel(Chan);
 
@@ -200,6 +207,10 @@ static void FPGA::Calibrator::FunctionDraw()
             DrawResultCalibration(x, y1, ChA);
 
             DrawResultCalibration(x, y2, ChB);
+
+            ShowCalibrationInfo(130, ChA);
+
+            ShowCalibrationInfo(185, ChB);
         }
         break;
     }
@@ -226,7 +237,7 @@ static bool FPGA::Calibrator::CalibrateRShift(Chan ch)
 {
     state = ch.IsA() ? StateCalibration::RShiftA : StateCalibration::RShiftB;
 
-    progress.Reset();
+    progress.Reset(Range::Count * ModeCouple::Count);
 
     PageDebug::PageADC::ResetCalRShift(ch);
 
@@ -241,6 +252,8 @@ static bool FPGA::Calibrator::CalibrateRShift(Chan ch)
     PeackDetMode::Set(PeackDetMode::Disable);
 
     CalibratorMode::Set(CalibratorMode::GND);
+
+    int counter = 0;
 
     for (int range = 0; range < Range::Count; range++)
     {
@@ -259,6 +272,8 @@ static bool FPGA::Calibrator::CalibrateRShift(Chan ch)
             }
 
             CAL_RSHIFT(ch) = (int8)addShift;
+
+            progress.SetValue((float)++counter);
         }
     }
 
@@ -270,7 +285,7 @@ static bool FPGA::Calibrator::CalibrateStretch(Chan ch)
 {
     state = ch.IsA() ? StateCalibration::StretchA : StateCalibration::StretchB;
 
-    progress.Reset();
+    progress.Reset(1);
 
     PageDebug::PageADC::ResetCalStretch(ch);
 
@@ -299,6 +314,8 @@ static bool FPGA::Calibrator::CalibrateStretch(Chan ch)
     }
 
     CAL_STRETCH(ch) = stretch;
+
+    progress.SetValue(1);
 
     return true;
 }
@@ -424,4 +441,25 @@ void FPGA::Calibrator::Read1024PointsMinMax(Chan ch, float *min, float *max)
     }
 
     *max = *max / maxs.Size();
+}
+
+
+void FPGA::Calibrator::ShowCalibrationInfo(const int y0, Chan ch)
+{
+    const int x0 = 30;
+    const int dX = 20;
+    const int dY = 12;
+
+    Color::SetCurrent(COLOR_FILL);
+
+    for (int couple = 0; couple < ModeCouple::Count; couple++)
+    {
+        for (int range = 0; range < Range::Count; range++)
+        {
+            String message("%d", set.chan[ch].cal_rshift[range][couple]);
+            PText::Draw(x0 + range * dX, y0 + couple * dY, message.c_str());
+        }
+    }
+
+    PText::DrawFormat(x0, y0 + dY * ModeCouple::Count, COLOR_FILL, "%f", CAL_STRETCH(ch));
 }

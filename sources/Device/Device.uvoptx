@@ -73,9 +73,9 @@
         <LExpSel>0</LExpSel>
       </OPTXL>
       <OPTFL>
-        <tvExp>0</tvExp>
+        <tvExp>1</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
-        <IsCurrentTarget>1</IsCurrentTarget>
+        <IsCurrentTarget>0</IsCurrentTarget>
       </OPTFL>
       <CpuCode>18</CpuCode>
       <DebugOpt>
@@ -164,6 +164,54 @@
           <Filename>&lt;2&gt;.\src\Hardware\HAL\HAL_IT.cpp</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\S8_53\src/Hardware/HAL/HAL_IT.cpp\32</Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>117</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134426714</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>&lt;2&gt;.\src\FPGA\CalibrationFPGA.cpp</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\S8_53\src/FPGA/CalibrationFPGA.cpp\117</Expression>
+        </Bp>
+        <Bp>
+          <Number>2</Number>
+          <Type>0</Type>
+          <LineNumber>265</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134427272</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>&lt;2&gt;.\src\FPGA\CalibrationFPGA.cpp</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\S8_53\src/FPGA/CalibrationFPGA.cpp\265</Expression>
+        </Bp>
+        <Bp>
+          <Number>3</Number>
+          <Type>0</Type>
+          <LineNumber>258</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134427172</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>&lt;2&gt;.\src\FPGA\CalibrationFPGA.cpp</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\S8_53\src/FPGA/CalibrationFPGA.cpp\258</Expression>
         </Bp>
       </Breakpoint>
       <Tracepoint>
@@ -272,7 +320,7 @@
       <OPTFL>
         <tvExp>0</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
-        <IsCurrentTarget>0</IsCurrentTarget>
+        <IsCurrentTarget>1</IsCurrentTarget>
       </OPTFL>
       <CpuCode>18</CpuCode>
       <DebugOpt>
@@ -2084,7 +2132,7 @@
 
   <Group>
     <GroupName>FPGA</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
