@@ -50,7 +50,7 @@ uint16 FPGA::Reader::CalculateAddressRead()
 {
     static const int shift[TBase::Count] =
     {// 2ns 5ns  10ns 20ns 50ns  100ns 200ns
-        -1,  -2, -14, -41, -118, 4,    2,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        6,  -2, -14, -41, -118, 4,    2,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
 
     if (TBase::InModeRandomizer())
