@@ -1849,7 +1849,7 @@ void TShift::Draw()
     };
 
     // Рисуем tShift
-    int shiftTShift = TPos::InPoints(Storage::DS->e_points_in_channel, SET_TPOS) - Storage::DS->tShift * 2;
+    int shiftTShift = TPos::InPoints(Storage::DS->e_points_in_channel, SET_TPOS) - SET_TSHIFT * 2;
 
     if(IntInRange(shiftTShift, firstPoint, lastPoint))
     {
