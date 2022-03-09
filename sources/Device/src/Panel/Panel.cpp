@@ -437,9 +437,7 @@ uint16 Panel::TranslateCommand(const uint8 *data, uint)
 {
     static const int NUM_BUTTONS = 27;
 
-    volatile uint8 data0 = data[0];
     volatile uint8 data1 = data[1];
-    volatile uint8 data2 = data[2];
     
     if(data1 == 24)
     {
@@ -496,15 +494,6 @@ uint16 Panel::TranslateCommand(const uint8 *data, uint)
         {
             if (data[2] == 0)       { command |= 0x80; }
         }
-    }
-
-    data0 = data0;
-    data1 = data1;
-    data2 = data2;
-
-    if (command == 25)
-    {
-        command = command;
     }
 
     return command;

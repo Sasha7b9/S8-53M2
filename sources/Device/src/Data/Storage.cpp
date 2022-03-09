@@ -123,7 +123,7 @@ void Storage::ClearLimitsAndSums()
     memset(lim_up[1], 0, FPGA::MAX_POINTS * 2);
     memset(lim_down[0], 0xff, FPGA::MAX_POINTS * 2);
     memset(lim_down[1], 0xff, FPGA::MAX_POINTS * 2);
-    memset(&(sum[0][0]), 0, Chan::Count * FPGA::MAX_POINTS * sizeof(uint));
+    memset(&(sum[0][0]), 0, Chan::Count * FPGA::MAX_POINTS * sizeof(uint) * 2);
 }
 
 
@@ -616,7 +616,7 @@ bool Storage::SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1)
 }
 
 
-void Storage::P2P::CreateFrame(const DataSettings _ds)
+void Storage::P2P::CreateFrame(const DataSettings &_ds)
 {
     if (Storage::NumElements() == 0)
     {

@@ -51,7 +51,7 @@ namespace Storage
     namespace P2P
     {
         // —оздать новый фрейм поточечного вывода.
-        void CreateFrame(const DataSettings);
+        void CreateFrame(const DataSettings &);
 
         // —бросить точки текущего фрейма
         void Reset();

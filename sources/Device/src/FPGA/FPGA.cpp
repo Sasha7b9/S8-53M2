@@ -467,7 +467,7 @@ void FPGA::Reader::ReadPoints(Chan ch)
             {
                 BitSet16 data1 = funcRead();
                 BitSet16 data2 = funcRead();
-                BitSet16 data3 = funcRead();
+                BitSet16 data3 = funcRead(); //-V821
                 BitSet16 data4 = funcRead();
                 BitSet16 data5 = funcRead();
 
