@@ -5,6 +5,7 @@
 #include "Hardware/Timer.h"
 #include "Display/Text.h"
 #include "Utils/Containers/String.h"
+#include "Menu/Pages/Definition.h"
 #include <stm32f4xx_hal.h>
 
 
@@ -203,11 +204,33 @@ static void FPGA::Calibrator::CalibrateChannel(Chan ch)
 
 static bool FPGA::Calibrator::CalibrateRShift(Chan ch)
 {
-    bool result = true;
-
     state = ch.IsA() ? StateCalibration::RShiftA : StateCalibration::RShiftB;
 
     progress.Reset();
+
+    PageDebug::PageADC::ResetCalRShift(ch);
+
+    PageDebug::PageADC::ResetCalStretch(ch);
+
+    RShift::Set(ch, RShift::ZERO);
+    TBase::Set(TBase::_200us);
+    TShift::Set(0);
+    TrigSource::Set((TrigSource::E)ch.value);
+    TrigPolarity::Set(TrigPolarity::Front);
+    TrigLev::Set((TrigSource::E)ch.value, TrigLev::ZERO);
+    PeackDetMode::Set(PeackDetMode::Disable);
+
+    CalibratorMode::Set(CalibratorMode::GND);
+
+    bool result = true;
+
+    for (int range = 0; range < Range::Count; range++)
+    {
+        for (int couple = 0; couple < ModeCouple::Count; couple++)
+        {
+            Range::Set(ch, (Range::E)range);
+        }
+    }
 
     return result;
 }

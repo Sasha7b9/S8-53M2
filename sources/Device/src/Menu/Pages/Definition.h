@@ -75,7 +75,9 @@ struct PageDebug
     struct PageADC
     {
         // —бросить калибровочные коэффициенты смещени€ канала
-        static void ResetCalRShift(Chan::E);
+        static void ResetCalRShift(Chan);
+
+        static void ResetCalStretch(Chan);
     };
 };
 

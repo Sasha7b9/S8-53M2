@@ -172,9 +172,9 @@ void FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog::E type)
 }
 
 
-void Range::Set(Chan::E ch, Range::E range)
+void Range::Set(Chan ch, Range::E range)
 {
-    if (!Chan::Enabled(ch))
+    if (!Chan::Enabled(ch.value))
     {
         return;
     }
@@ -200,7 +200,7 @@ void Range::Set(Chan::E ch, Range::E range)
 };
 
 
-void Range::Load(Chan::E ch)
+void Range::Load(Chan ch)
 {
     FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog::RangeA);
     RShift::Load(ch);
@@ -330,9 +330,9 @@ void TBase::Increase()
 }
 
 
-void RShift::Set(Chan::E ch, int16 rShift)
+void RShift::Set(Chan ch, int16 rShift)
 {
-    if (!Chan::Enabled(ch))
+    if (!Chan::Enabled(ch.value))
     {
         return;
     }
@@ -356,12 +356,12 @@ void RShift::Set(Chan::E ch, int16 rShift)
     }
 
     SET_RSHIFT(ch) = rShift;
-    Load(ch);
-    Display::RotateRShift(ch);
+    Load(ch.value);
+    Display::RotateRShift(ch.value);
 };
 
 
-void RShift::Load(Chan::E ch)
+void RShift::Load(Chan ch)
 {
     static const uint16 mask[2] = {0x2000, 0x6000};
 

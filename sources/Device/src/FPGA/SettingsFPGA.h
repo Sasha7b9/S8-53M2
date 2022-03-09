@@ -248,7 +248,7 @@ struct Range
     };
 
     // Установить масштаб по напряжению.
-    static void Set(Chan::E, Range::E);
+    static void Set(Chan, Range::E);
 
     // Увеличить масштаб по напряжению.
     static bool Increase(Chan::E);
@@ -257,7 +257,7 @@ struct Range
     static bool Decrease(Chan::E);
 
     // Загрузка масштаба по напряжению в аппаратную часть.
-    static void Load(Chan::E);
+    static void Load(Chan);
 
     static pchar ToName(Range::E);
 
@@ -287,10 +287,10 @@ struct RShift
     static const int16 STEP = (((RShift::MAX - RShift::MIN) / 24) / GRID_DELTA);   // На столько единиц нужно изменить значение смещения, чтобы маркер смещения по напряжению передвинулся на одну точку.
 
     // Установить относительное смещение по напряжению.
-    static void Set(Chan::E, int16);
+    static void Set(Chan, int16);
 
     // Загрузка смещения по напряжению в аппаратную часть.
-    static void Load(Chan::E);
+    static void Load(Chan);
 
     pchar ToString(Range::E, Divider::E, char buffer[20]);
 

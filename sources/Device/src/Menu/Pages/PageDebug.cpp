@@ -178,7 +178,7 @@ static const Button bEraseData
 );
 
 
-void PageDebug::PageADC::ResetCalRShift(Chan::E ch)
+void PageDebug::PageADC::ResetCalRShift(Chan ch)
 {
     std::memset(&set.chan[ch].cal_rshift[0][0], 0, sizeof(int8) * Range::Count * ModeCouple::Count);
 }
@@ -340,10 +340,16 @@ static const Page mpADC_Balance
 );
 
 
+void PageDebug::PageADC::ResetCalStretch(Chan ch)
+{
+    CAL_STRETCH(ch) = 1.0f;
+}
+
+
 static void OnPress_ResetStretch()
 {
-    CAL_STRETCH_A = 1.0f;
-    CAL_STRETCH_B = 1.0f;
+    PageDebug::PageADC::ResetCalStretch(ChA);
+    PageDebug::PageADC::ResetCalStretch(ChB);
 }
 
 
