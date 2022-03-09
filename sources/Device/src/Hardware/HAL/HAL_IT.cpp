@@ -26,7 +26,7 @@ extern "C" {
         volatile int line = Debug::line[0];
         volatile pchar file = Debug::file[0];
 
-        while (1)
+        while (1) //-V776
         {
             line = line;
             file = file;

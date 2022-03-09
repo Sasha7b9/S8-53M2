@@ -264,11 +264,11 @@ void Settings::Load(bool _default)
 
     if (_default)
     {
-        uint16 rShiftAddA[Range::Count][2];
-        uint16 rshiftAddB[Range::Count][2];
+        int16 rShiftAddA[Range::Count][ModeCouple::Count];
+        int16 rshiftAddB[Range::Count][ModeCouple::Count];
 
-        memcpy((void *)rShiftAddA, (void *)&RSHIFT_HAND(Chan::A, 0, 0), 2 * Range::Count * 2); // Сначала сохраняем несбрасываемые настройки
-        memcpy((void *)rshiftAddB, (void *)&RSHIFT_HAND(Chan::B, 0, 0), 2 * Range::Count * 2);
+        memcpy((void *)rShiftAddA, (void *)&RSHIFT_HAND(Chan::A, 0, 0), Range::Count * ModeCouple::Count * sizeof(int16)); // Сначала сохраняем несбрасываемые настройки
+        memcpy((void *)rshiftAddB, (void *)&RSHIFT_HAND(Chan::B, 0, 0), Range::Count * ModeCouple::Count * sizeof(int16));
 
         int16  balanceADC0 = SET_BALANCE_ADC_A;
         int16  balanceADC1 = SET_BALANCE_ADC_B;

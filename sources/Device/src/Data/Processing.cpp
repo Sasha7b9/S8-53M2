@@ -1180,8 +1180,8 @@ int Processing::GetMarkerVertical(Chan::E ch, int numMarker)
 
 void Processing::CountedToCurrentSettings()
 {
-    memset(dataOutA, 0, FPGA::MAX_POINTS);
-    memset(dataOutB, 0, FPGA::MAX_POINTS);
+    memset(dataOutA, 0, FPGA::MAX_POINTS * 2);
+    memset(dataOutB, 0, FPGA::MAX_POINTS * 2);
     
     int numPoints = dset->BytesInChannel();
 

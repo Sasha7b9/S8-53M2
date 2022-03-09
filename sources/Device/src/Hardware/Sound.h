@@ -4,7 +4,7 @@
 
 namespace Sound
 {
-    extern bool isBeep;
+    extern volatile bool isBeep;
 
     void Init();
 

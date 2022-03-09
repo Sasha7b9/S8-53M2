@@ -27,7 +27,7 @@ namespace Sound
     static float amplitude = 0.0F;
     static TypeWave::E typeWave = TypeWave::Sine;
 
-    bool isBeep = false;
+    volatile bool isBeep = false;
 
     static void Beep(TypeWave::E typeWave, float frequency, float amplitude, int duration, float mainVolume = 0.1f);
 
