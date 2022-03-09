@@ -48,34 +48,36 @@ uint16 FPGA::Launch::PredForWrite()
 
 uint16 FPGA::Reader::CalculateAddressRead()
 {
+    static const int shift[TBase::Count] =
+    {// 2ns 5ns 10ns 20ns 50ns 100ns
+        0,  0,  0,   0,   20,   4,   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    };
+
     if (TBase::InModeRandomizer())
     {
-        //                            2ns 5ns 10ns 20ns 50ns
-        static const int shift[5] = { 44, 44, 42,  40,  38};
-
         return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) -
-            ENUM_POINTS_FPGA::ToNumBytes() * Compactor::Koeff() / TBase::StretchRand() - shift[SET_TBASE]);
+            ENUM_POINTS_FPGA::ToNumBytes() * Compactor::Koeff() / TBase::StretchRand() + shift[SET_TBASE]);
     }
     else
     {
-        return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) - ENUM_POINTS_FPGA::ToNumBytes() * FPGA::Compactor::Koeff());
+        return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) -
+            ENUM_POINTS_FPGA::ToNumBytes() * FPGA::Compactor::Koeff() + shift[SET_TBASE] + 20);
     }
 }
-
 
 
 void FPGA::Launch::Calculate()
 {
     static const int8 d_pred[TBase::Count] =   // Дополнительное смещение для предзапуска
     {//  2    5   10   20   50  100  200 500                ns
-        50,  50,  50,  50,  10,   5,   3,  0, 
+        50,  50,  50,  50,  0,   0,  0,  0, 
      // 1                                                   us
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
 
     static const int8 d_post[TBase::Count] =   // Дополнительное смещение для послезапуска
     {//  2    5   10   20   50  100  200 500                ns
-        50,  50,  50,  50,  10,   5,   3,  0,
+        50,  50,  50,  50,  0,   0,  0,  0,
      // 1                                                   us
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
