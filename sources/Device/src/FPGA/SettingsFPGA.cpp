@@ -368,21 +368,22 @@ void RShift::Load(Chan ch)
     Range::E range = SET_RANGE(ch);
     ModeCouple::E mode = SET_COUPLE(ch);
     static const int index[3] = {0, 1, 1};
-    int16 rShiftHand = RSHIFT_HAND(ch, range, index[mode]);
+    int16 rshiftHand = RSHIFT_HAND(ch, range, index[mode]);
+    int8 rshiftCal = CAL_RSHIFT(ch);
 
-    uint16 rShift = (uint16)(SET_RSHIFT(ch) + (SET_INVERSE(ch) ? -1 : 1) * rShiftHand);
+    uint16 rshift = (uint16)(SET_RSHIFT(ch) + (SET_INVERSE(ch) ? -1 : 1) * rshiftHand + (SET_INVERSE(ch) ? -1 : 1) * rshiftCal);
 
-    int16 delta = -(rShift - RShift::ZERO);
+    int16 delta = -(rshift - RShift::ZERO);
 
     if (SET_INVERSE(ch))
     {
         delta = -delta;
     }
 
-    rShift = (uint16)(delta + RShift::ZERO);
+    rshift = (uint16)(delta + RShift::ZERO);
 
-    rShift = (uint16)(RShift::MAX + RShift::MIN - rShift);
-    BUS_FPGA::WriteDAC(ch == Chan::A ? TypeWriteDAC::RShiftA : TypeWriteDAC::RShiftB, (uint16)(mask[ch] | (rShift << 2)));
+    rshift = (uint16)(RShift::MAX + RShift::MIN - rshift);
+    BUS_FPGA::WriteDAC(ch == Chan::A ? TypeWriteDAC::RShiftA : TypeWriteDAC::RShiftB, (uint16)(mask[ch] | (rshift << 2)));
 }
 
 
