@@ -664,7 +664,7 @@ static void SetCursPos100(Chan::E ch)
 static void DrawSB_Cursors_100(int x, int y)
 {
     Font::Set(TypeFont::_5);
-    PText::Draw(x + 2, y + 3, "100%");
+    PText::Draw(x + 2, y - 3, "100%");
     Font::Set(TypeFont::_8);
 }
 
@@ -714,6 +714,6 @@ static void DrawSB_Cursors_PointsPercents_Percents(int x, int y)
 static void DrawSB_Cursors_PointsPercents_Points(int x, int y)
 {
     Font::Set(TypeFont::_5);
-    PText::Draw(x + 4, y + 3, "ò÷ê");
+    PText::Draw(x + 4, y - 3, "ò÷ê");
     Font::Set(TypeFont::_8);
 }
