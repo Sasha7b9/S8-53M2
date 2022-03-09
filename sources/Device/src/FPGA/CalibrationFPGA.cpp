@@ -81,10 +81,13 @@ namespace FPGA
 
         static void Read1024Points(uint8 buffer[1024], Chan);
 
-        static int CalculateAddRShift(float ave);
-
         // Читает 1024 точки и возвращает минимальное и максимальное значения
         static void Read1024PointsMinMax(Chan, float *min, float *max);
+
+        static int CalculateAddRShift(float ave);
+
+        // Рассчитать коэффициент растяжки исходя из измеренных min и max
+        static float CalculateStretch(float min, float max);
     }
 
     // Принудительно запустить синхронизацию.
@@ -269,6 +272,8 @@ static bool FPGA::Calibrator::CalibrateStretch(Chan ch)
 
     progress.Reset();
 
+    PageDebug::PageADC::ResetCalStretch(ch);
+
     ModeCouple::Set(ch, ModeCouple::AC);
     Range::Set(ch, Range::_500mV);
     RShift::Set(ch, RShift::ZERO);
@@ -286,7 +291,26 @@ static bool FPGA::Calibrator::CalibrateStretch(Chan ch)
 
     Read1024PointsMinMax(ch, &min, &max);
 
+    float stretch = CalculateStretch(min, max);
+
+    if (stretch < 0.8f || stretch > 1.2f)
+    {
+        return false;
+    }
+
+    CAL_STRETCH(ch) = stretch;
+
     return true;
+}
+
+
+float FPGA::Calibrator::CalculateStretch(float min, float max)
+{
+    const float K = 200.0f;
+
+    float delta = max - min;
+
+    return K / delta;
 }
 
 
