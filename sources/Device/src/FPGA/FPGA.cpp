@@ -409,11 +409,18 @@ void FPGA::ReadPoints(Chan::E ch)
 
         const int stretch = TBase::StretchRand();
 
-
-
         if(Compactor::Koeff() == 1)             // Без уплотнения
         {
-//            if (!flag.FirstByte()) { dat++; }
+            flag.Read();
+
+            if (flag.FirstByte())
+            {
+                LOG_WRITE("1");
+            }
+            else
+            {
+                LOG_WRITE("                        0");
+            }
 
             while (dat < end && IN_PROCESS_READ)
             {
