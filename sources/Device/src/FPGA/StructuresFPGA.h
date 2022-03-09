@@ -61,6 +61,8 @@ namespace FPGA
 
         // Читать массив точек от first до last
         void ReadPoints(Chan, uint8 *first, const uint8 *last);
+
+        void ReadPoints(Chan);
     }
 
     namespace Launch

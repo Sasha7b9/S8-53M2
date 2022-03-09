@@ -67,8 +67,6 @@ namespace FPGA
     // Прочитать данные.
     void DataRead();
 
-    void ReadPoints(Chan::E);
-
     // Инвертирует данные.
     void InverseDataIsNecessary(Chan::E, Buffer<uint8> &data);
 
@@ -347,8 +345,8 @@ void FPGA::DataRead()
 
     IN_PROCESS_READ = true;
 
-    ReadPoints(ChA);
-    ReadPoints(ChB);
+    Reader::ReadPoints(ChA);
+    Reader::ReadPoints(ChB);
 
     if (!TBase::InModeRandomizer())
     {
@@ -369,11 +367,11 @@ void FPGA::DataRead()
 }
 
 
-void FPGA::ReadPoints(Chan::E ch)
+void FPGA::Reader::ReadPoints(Chan ch)
 {
     static uint16 address = 0;
 
-    if (ch == ChA)
+    if (ch.IsA())
     {
         address = Reader::CalculateAddressRead();
     }
@@ -381,14 +379,14 @@ void FPGA::ReadPoints(Chan::E ch)
     HAL_FMC::Write(WR_PRED, address);
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
-    DataBuffer &buffer = (ch == ChA) ? dataReadA : dataReadB;
+    DataBuffer &buffer = ch.IsA() ? dataReadA : dataReadB;
 
     uint8 *dat = buffer.Data();
     const uint8 *const end = buffer.Last();
 
     typedef BitSet16(*pFuncRead)();
 
-    pFuncRead funcRead = (ch == ChA) ? Reader::ReadA : Reader::ReadB;
+    pFuncRead funcRead = ch.IsA() ? Reader::ReadA : Reader::ReadB;
 
     if (SET_PEAKDET_IS_ENABLE)
     {
