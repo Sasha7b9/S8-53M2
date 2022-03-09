@@ -411,7 +411,7 @@ void FPGA::ReadPoints(Chan::E ch)
 
         if(Compactor::Koeff() == 1)             // Без уплотнения
         {
-            if (!flag.FirstByte())
+            if (!flag.FirstByte() && !TBase::InModeRandomizer())
             {
                 BitSet16 data = funcRead();
                 *dat = data.byte1;
