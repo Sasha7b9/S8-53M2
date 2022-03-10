@@ -220,6 +220,11 @@ namespace Panel
             static int prevTime = 0;
             ChangeRShift(&prevTime, SetRShift, Chan::A, -RShift::STEP);
         }
+        else if (action.IsRight())
+        {
+            static int prevTime = 0;
+            ChangeRShift(&prevTime, SetRShift, Chan::A, +RShift::STEP);
+        }
     }
 
     static void FuncRShiftB(Action action)
@@ -228,6 +233,11 @@ namespace Panel
         {
             static int prevTime = 0;
             ChangeRShift(&prevTime, SetRShift, Chan::B, -RShift::STEP);
+        }
+        else if (action.IsRight())
+        {
+            static int prevTime = 0;
+            ChangeRShift(&prevTime, SetRShift, Chan::B, +RShift::STEP);
         }
     }
 
@@ -299,8 +309,6 @@ namespace Panel
 
     static void (*funculatorRight[Key::Count])() =
     {
-        RShift0Right,   // RegulatorOld::RShiftA
-        RShift1Right,   // RegulatorOld::RShiftB
         TBaseRight,     // RegulatorOld::TBase
         TShiftRight,    // RegulatorOld::TShift
         TrigLevRight,   // RegulatorOld::TrigLev

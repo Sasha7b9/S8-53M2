@@ -169,17 +169,7 @@ static void SetRShift(Chan::E ch, int16 rShift)
     RShift::Set(ch, rShift);
 }
 
-void RShift0Right()
-{
-    static int prevTime = 0;
-    ChangeRShift(&prevTime, SetRShift, Chan::A, +RShift::STEP);
-}
 
-void RShift1Right()
-{
-    static int prevTime = 0;
-    ChangeRShift(&prevTime, SetRShift, Chan::B, +RShift::STEP);
-}
 
 static void SetTrigLev(TrigSource::E ch, int16 trigLev)
 {
