@@ -2,7 +2,6 @@
 #include "defines.h"
 #include "Display/DisplayTypes.h"
 #include "MenuItems.h"
-#include "Panel/Controls_Old.h"
 #include "Menu/Menu.h"
 #include "Settings/SettingsTypes.h"
 #include "Data/Measures.h"
@@ -125,9 +124,9 @@ int Page::PosItemOnTop()
 }
 
 
-bool KeyOld::IsFunctional(Key::E button)
+bool Key::IsFunctional(Key::E button)
 {
-    return button >= KeyOld::F1 && button <= KeyOld::F5;
+    return button >= Key::F1 && button <= Key::F5;
 }
 
 
@@ -183,7 +182,7 @@ void Item::CloseOpened()
     {
         if (((const Page *)item)->IsSB())                           // Для страницы малых кнопок
         {
-            SmallButton *sb = ((Page *)item)->GetSmallButon(0);     // Выполняем функцию нажатия кнопки KeyOld::Menu
+            SmallButton *sb = ((Page *)item)->GetSmallButon(0);     // Выполняем функцию нажатия кнопки Key::Menu
             if (sb->funcOnPress)                                    // Если она есть
             {
                 sb->funcOnPress();

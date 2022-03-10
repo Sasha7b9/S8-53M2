@@ -1,6 +1,5 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Panel/Controls_Old.h"
 #include "Settings/SettingsTypes.h"
 #include "Data/Measures.h"
 #include "Tables.h"
@@ -19,7 +18,7 @@
 #include <stdio.h>
 
 
-static void *itemUnderButton[KeyOld::Count] = {0};
+static void *itemUnderButton[Key::Count] = {0};
 
 
 
@@ -38,7 +37,7 @@ Key::E GetFuncButtonFromY(int _y)
 {
     int y = GRID_TOP + GRID_HEIGHT / 12;
     int step = GRID_HEIGHT / 6;
-    Key::E button = KeyOld::Menu;
+    Key::E button = Key::Menu;
 
     for(int i = 0; i < 6; i++)
     {
@@ -50,7 +49,7 @@ Key::E GetFuncButtonFromY(int _y)
         y += step;
     }
 
-    return  KeyOld::F5;
+    return  Key::F5;
 }
 
 
@@ -336,9 +335,9 @@ void Page::DrawOpened(int layer, int yTop)
 
         for (int i = 0; i < 5; i++)
         {
-            if (itemUnderButton[i + KeyOld::F1] != item)
+            if (itemUnderButton[i + Key::F1] != item)
             {
-                itemUnderButton[i + KeyOld::F1] = 0;
+                itemUnderButton[i + Key::F1] = 0;
             }
         }
 
@@ -401,7 +400,7 @@ Item *Item::UnderKey(Key::E key)
 
 void Menu::ResetItemsUnderButton()
 {
-    for(int i = 0; i < KeyOld::Count; i++)
+    for(int i = 0; i < Key::Count; i++)
     {
         itemUnderButton[i] = 0;
     }

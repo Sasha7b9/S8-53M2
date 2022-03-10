@@ -122,25 +122,25 @@ const Page *PageMain::self = &mainPage;
 const Page *Page::ForButton(Key::E button)
 {
     static const void *pages[] = {  
-        nullptr,                // KeyOld::Empty
-        PageChannelA::self,     // KeyOld::ChannelA
-        PageService::self,      // KeyOld::Service
-        PageChannelB::self,     // KeyOld::ChannelB
-        PageDisplay::self,      // KeyOld::Display
-        PageTime::self,         // KeyOld::Time
-        PageMemory::self,       // KeyOld::Memory
-        PageTrig::self,         // KeyOld::Trig
-        nullptr,                // KeyOld::Start
-        PageCursors::self,      // KeyOld::Cursors
-        PageMeasures::self,     // KeyOld::Measures
-        nullptr,                // KeyOld::Power
-        nullptr,                // KeyOld::Help
-        nullptr,                // KeyOld::Menu
-        nullptr,                // KeyOld::F1
-        nullptr,                // KeyOld::F2
-        nullptr,                // KeyOld::F3
-        nullptr,                // KeyOld::F4
-        nullptr,                // KeyOld::F5
+        nullptr,                // Key::Empty
+        PageChannelA::self,     // Key::ChannelA
+        PageService::self,      // Key::Service
+        PageChannelB::self,     // Key::ChannelB
+        PageDisplay::self,      // Key::Display
+        PageTime::self,         // Key::Time
+        PageMemory::self,       // Key::Memory
+        PageTrig::self,         // Key::Trig
+        nullptr,                // Key::Start
+        PageCursors::self,      // Key::Cursors
+        PageMeasures::self,     // Key::Measures
+        nullptr,                // Key::Power
+        nullptr,                // Key::Help
+        nullptr,                // Key::Menu
+        nullptr,                // Key::F1
+        nullptr,                // Key::F2
+        nullptr,                // Key::F3
+        nullptr,                // Key::F4
+        nullptr,                // Key::F5
     };
 
     return (const Page *)pages[button];

@@ -1,6 +1,5 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "Panel.h"
-#include "Panel/Controls_Old.h"
 #include "FPGA/FPGA.h"
 #include "Utils/Math.h"
 #include "Utils/GlobalFunctions.h"
@@ -27,8 +26,8 @@ namespace Panel
     const uint8 LED_CHAN_A   = 3;
     const uint8 LED_CHAN_B   = 4;
 
-    Key::E pressedKey = KeyOld::Empty;
-    volatile Key::E pressedButton = KeyOld::Empty;         // Это используется для отслеживания нажатой кнопки при отключенной панели
+    Key::E pressedKey = Key::Empty;
+    volatile Key::E pressedButton = Key::Empty;         // Это используется для отслеживания нажатой кнопки при отключенной панели
 
     Queue<uint8> data_for_send;                         // Здесь данные для пересылки в панель
 
@@ -51,73 +50,73 @@ namespace Panel
 
     RegulatorOld::E RegulatorIsPress(uint16 command);
 
-    static void(*funcOnKeyDown[KeyOld::Count])() =
+    static void(*funcOnKeyDown[Key::Count])() =
     {
         0,
-        EmptyFuncVV,    // KeyOld::ChannelA
-        EmptyFuncVV,    // KeyOld::Service
-        EmptyFuncVV,    // KeyOld::ChannelB
-        EmptyFuncVV,    // KeyOld::Display
-        EmptyFuncVV,    // KeyOld::Time
-        EmptyFuncVV,    // KeyOld::Memory                                         
+        EmptyFuncVV,    // Key::ChannelA
+        EmptyFuncVV,    // Key::Service
+        EmptyFuncVV,    // Key::ChannelB
+        EmptyFuncVV,    // Key::Display
+        EmptyFuncVV,    // Key::Time
+        EmptyFuncVV,    // Key::Memory                                         
         EmptyFuncVV,    // B_Sinchro
-        StartDown,      // KeyOld::Start
-        EmptyFuncVV,    // KeyOld::Cursors
-        EmptyFuncVV,    // KeyOld::Measures
-        PowerDown,      // KeyOld::Power
-        EmptyFuncVV,    // KeyOld::Help
-        EmptyFuncVV,    // KeyOld::Menu
-        EmptyFuncVV,    // KeyOld::F1
-        EmptyFuncVV,    // KeyOld::F2
-        EmptyFuncVV,    // KeyOld::F3
-        EmptyFuncVV,    // KeyOld::F4
-        EmptyFuncVV     // KeyOld::F5
+        StartDown,      // Key::Start
+        EmptyFuncVV,    // Key::Cursors
+        EmptyFuncVV,    // Key::Measures
+        PowerDown,      // Key::Power
+        EmptyFuncVV,    // Key::Help
+        EmptyFuncVV,    // Key::Menu
+        EmptyFuncVV,    // Key::F1
+        EmptyFuncVV,    // Key::F2
+        EmptyFuncVV,    // Key::F3
+        EmptyFuncVV,    // Key::F4
+        EmptyFuncVV     // Key::F5
     };
 
-    static void (*funcOnKeyUp[KeyOld::Count])() =
+    static void (*funcOnKeyUp[Key::Count])() =
     {
         0,
-        EmptyFuncVV,    // KeyOld::ChannelA
-        EmptyFuncVV,    // KeyOld::Service
-        EmptyFuncVV,    // KeyOld::ChannelB
-        EmptyFuncVV,    // KeyOld::Display
-        EmptyFuncVV,    // KeyOld::Time
-        EmptyFuncVV,    // KeyOld::Memory
+        EmptyFuncVV,    // Key::ChannelA
+        EmptyFuncVV,    // Key::Service
+        EmptyFuncVV,    // Key::ChannelB
+        EmptyFuncVV,    // Key::Display
+        EmptyFuncVV,    // Key::Time
+        EmptyFuncVV,    // Key::Memory
         EmptyFuncVV,    // B_Sinchro
-        EmptyFuncVV,    // KeyOld::Start
-        EmptyFuncVV,    // KeyOld::Cursors
-        EmptyFuncVV,    // KeyOld::Measures
-        EmptyFuncVV,    // KeyOld::Power
-        EmptyFuncVV,    // KeyOld::Help
-        EmptyFuncVV,    // KeyOld::Menu
-        EmptyFuncVV,    // KeyOld::F1
-        EmptyFuncVV,    // KeyOld::F2
-        EmptyFuncVV,    // KeyOld::F3
-        EmptyFuncVV,    // KeyOld::F4
-        EmptyFuncVV     // KeyOld::F5
+        EmptyFuncVV,    // Key::Start
+        EmptyFuncVV,    // Key::Cursors
+        EmptyFuncVV,    // Key::Measures
+        EmptyFuncVV,    // Key::Power
+        EmptyFuncVV,    // Key::Help
+        EmptyFuncVV,    // Key::Menu
+        EmptyFuncVV,    // Key::F1
+        EmptyFuncVV,    // Key::F2
+        EmptyFuncVV,    // Key::F3
+        EmptyFuncVV,    // Key::F4
+        EmptyFuncVV     // Key::F5
     };
 
-    static void (*funcOnLongPressure[KeyOld::Count])() =
+    static void (*funcOnLongPressure[Key::Count])() =
     {
         0,
-        ChannelALong,   // KeyOld::ChannelA
-        EmptyFuncVV,    // KeyOld::Service
-        ChannelBLong,   // KeyOld::ChannelB
-        EmptyFuncVV,    // KeyOld::Display
-        TimeLong,       // KeyOld::Time
-        EmptyFuncVV,    // KeyOld::Memory
+        ChannelALong,   // Key::ChannelA
+        EmptyFuncVV,    // Key::Service
+        ChannelBLong,   // Key::ChannelB
+        EmptyFuncVV,    // Key::Display
+        TimeLong,       // Key::Time
+        EmptyFuncVV,    // Key::Memory
         TrigLong,       // B_Sinchro
-        EmptyFuncVV,    // KeyOld::Start
-        EmptyFuncVV,    // KeyOld::Cursors
-        EmptyFuncVV,    // KeyOld::Measures
-        EmptyFuncVV,    // KeyOld::Power
-        HelpLong,       // KeyOld::Help
-        MenuLong,       // KeyOld::Menu
-        F1Long,         // KeyOld::F1
-        F2Long,         // KeyOld::F2
-        F3Long,         // KeyOld::F3
-        F4Long,         // KeyOld::F4
-        F5Long          // KeyOld::F5
+        EmptyFuncVV,    // Key::Start
+        EmptyFuncVV,    // Key::Cursors
+        EmptyFuncVV,    // Key::Measures
+        EmptyFuncVV,    // Key::Power
+        HelpLong,       // Key::Help
+        MenuLong,       // Key::Menu
+        F1Long,         // Key::F1
+        F2Long,         // Key::F2
+        F3Long,         // Key::F3
+        F4Long,         // Key::F4
+        F5Long          // Key::F5
     };
 
     static void (*funcOnRegulatorPress[8])() =
@@ -163,9 +162,9 @@ namespace Panel
 
 Key::E Panel::ButtonIsRelease(uint16 command)
 {
-    Key::E button = KeyOld::Empty;
+    Key::E button = Key::Empty;
 
-    if(command < KeyOld::Count && command > KeyOld::Empty)
+    if(command < Key::Count && command > Key::Empty)
     {
         if(TIME_MS - timePrevReleaseButton > 100)
         {
@@ -180,9 +179,9 @@ Key::E Panel::ButtonIsRelease(uint16 command)
 
 Key::E Panel::ButtonIsPress(uint16 command)
 {
-    Key::E button = KeyOld::Empty;
+    Key::E button = Key::Empty;
 
-    if (((command & 0x7f) < KeyOld::Count) && ((command & 0x7f) > KeyOld::Empty))
+    if (((command & 0x7f) < Key::Count) && ((command & 0x7f) > Key::Empty))
     {
         if(TIME_MS - timePrevPressButton > 100)
         {
@@ -229,7 +228,7 @@ RegulatorOld::E Panel::RegulatorRight(uint16 command)
 
 void Panel::OnTimerPressedKey()
 {
-    if(pressedKey != KeyOld::Empty)
+    if(pressedKey != Key::Empty)
     {
         void (*func)() = funcOnLongPressure[pressedKey];
         Menu::Handlers::ReleaseButton(pressedKey);
@@ -239,7 +238,7 @@ void Panel::OnTimerPressedKey()
             func();
         }
 
-        pressedKey = KeyOld::Empty;
+        pressedKey = Key::Empty;
     }
     Timer::Disable(TypeTimer::PressKey);
 }
@@ -251,9 +250,9 @@ Key::E Panel::WaitPressingButton()
 
     input_buffer.Clear();
 
-    pressedButton = KeyOld::Empty;
+    pressedButton = Key::Empty;
 
-    while (pressedButton == KeyOld::Empty)
+    while (pressedButton == Key::Empty)
     {
         Panel::Update();
     };
@@ -272,7 +271,7 @@ void Panel::ProcessingCommandFromPIC(uint16 command)
     RegulatorOld::E regRight = RegulatorRight(command);
     RegulatorOld::E regPress = RegulatorIsPress(command);
 
-    if (pressButton != KeyOld::Empty)
+    if (pressButton != Key::Empty)
     {
         pressedButton = pressButton;
     }
@@ -282,19 +281,19 @@ void Panel::ProcessingCommandFromPIC(uint16 command)
         return;
     }
 
-    if(releaseButton != KeyOld::Empty)
+    if(releaseButton != Key::Empty)
     {
         Menu::Handlers::ReleaseButton(releaseButton);
 
         funcOnKeyUp[releaseButton]();
 
-        if(pressedKey != KeyOld::Empty)
+        if(pressedKey != Key::Empty)
         {
             Menu::Handlers::ShortPressureButton(releaseButton);
-            pressedKey = KeyOld::Empty;
+            pressedKey = Key::Empty;
         }
     }
-    else if(pressButton != KeyOld::Empty)
+    else if(pressButton != Key::Empty)
     {
         funcOnKeyDown[pressButton]();
         Menu::Handlers::PressButton(pressButton);
@@ -437,25 +436,25 @@ uint16 Panel::TranslateCommand(const uint8 *data, uint)
 
     static const uint16 commands[NUM_BUTTONS] =
     {
-        KeyOld::Empty,
-        KeyOld::F1,
-        KeyOld::F2,
-        KeyOld::F3,
-        KeyOld::F4,
-        KeyOld::F5,
-        KeyOld::ChannelA,
-        KeyOld::ChannelB,
-        KeyOld::Time,
-        KeyOld::Trig,
-        KeyOld::Cursors,
-        KeyOld::Measures,
-        KeyOld::Display,
-        KeyOld::Help,
-        KeyOld::Start,
-        KeyOld::Memory,
-        KeyOld::Service,
-        KeyOld::Menu,
-        KeyOld::Power,
+        Key::Empty,
+        Key::F1,
+        Key::F2,
+        Key::F3,
+        Key::F4,
+        Key::F5,
+        Key::ChannelA,
+        Key::ChannelB,
+        Key::Time,
+        Key::Trig,
+        Key::Cursors,
+        Key::Measures,
+        Key::Display,
+        Key::Help,
+        Key::Start,
+        Key::Memory,
+        Key::Service,
+        Key::Menu,
+        Key::Power,
         RegulatorOld::RangeA,
         RegulatorOld::RangeB,
         RegulatorOld::RShiftA,

@@ -117,7 +117,7 @@ void FPGA::Calibrator::RunCalibrate()
         errorCalibration[ChA] = false;
         carriedOut[ChA] = false;
 
-        if (Panel::WaitPressingButton() == KeyOld::Start)
+        if (Panel::WaitPressingButton() == Key::Start)
         {
             carriedOut[ChA] = true;
 
@@ -130,7 +130,7 @@ void FPGA::Calibrator::RunCalibrate()
         errorCalibration[ChB] = false;
         carriedOut[ChB] = false;
 
-        if (Panel::WaitPressingButton() == KeyOld::Start)
+        if (Panel::WaitPressingButton() == Key::Start)
         {
             carriedOut[ChB] = true;
 
