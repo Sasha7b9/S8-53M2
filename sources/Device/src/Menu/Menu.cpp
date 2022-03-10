@@ -1,6 +1,6 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Panel/Controls.h"
+#include "Panel/Controls_Old.h"
 #include "Menu/Menu.h" 
 #include "Settings/Settings.h"
 #include "Pages/Definition.h"

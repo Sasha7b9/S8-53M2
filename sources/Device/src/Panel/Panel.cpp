@@ -1,6 +1,6 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "Panel.h"
-#include "Controls.h"
+#include "Panel/Controls_Old.h"
 #include "FPGA/FPGA.h"
 #include "Utils/Math.h"
 #include "Utils/GlobalFunctions.h"

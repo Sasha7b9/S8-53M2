@@ -3,7 +3,7 @@
 #include "SettingsTypes.h"
 #include "Data/Measures.h"
 #include "Menu/MenuItems.h"
-#include "Panel/Controls.h"
+#include "Panel/Controls_Old.h"
 #include "SettingsChannel.h"
 #include "SettingsDisplay.h"
 #include "SettingsMemory.h"

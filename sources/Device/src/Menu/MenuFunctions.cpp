@@ -2,7 +2,7 @@
 #include "defines.h"
 #include "Display/DisplayTypes.h"
 #include "MenuItems.h"
-#include "Panel/Controls.h"
+#include "Panel/Controls_Old.h"
 #include "Menu/Menu.h"
 #include "Settings/SettingsTypes.h"
 #include "Data/Measures.h"
