@@ -106,7 +106,7 @@ int Item::HeightOpened() const
     } 
     else if(_type == TypeItem::Choice || _type == TypeItem::ChoiceReg)
     {
-        return MOI_HEIGHT_TITLE + ((Choice *)this)->NumSubItems() * MOSI_HEIGHT - 1;
+        return MOI_HEIGHT_TITLE + ((Choice *)this)->NumSubItems() * MOSI_HEIGHT - 1; //-V1027
     }
 
     return MI_HEIGHT;
@@ -328,11 +328,11 @@ bool Item::ChangeOpened(int delta)
     }
     else if (_type == TypeItem::MAC)
     {
-        ((MACaddress *)this)->ChangeValue(delta);
+        ((MACaddress *)this)->ChangeValue(delta); //-V1027
     }
     else if (_type == TypeItem::ChoiceReg || _type == TypeItem::Choice)
     {
-        ((Choice *)this)->ChangeValue(delta);
+        ((Choice *)this)->ChangeValue(delta); //-V1027
     }
     else if (_type == TypeItem::Governor)
     {
@@ -349,7 +349,7 @@ void Item::Change(int delta)
 
     if (_type == TypeItem::Choice || _type == TypeItem::ChoiceReg)
     {
-        ((Choice *)this)->StartChange(delta);
+        ((Choice *)this)->StartChange(delta); //-V1027
     }
     else if (_type == TypeItem::Governor)
     {
@@ -365,7 +365,7 @@ void Item::Change(int delta)
     }
     else if (_type == TypeItem::GovernorColor)
     {
-        ((GovernorColor *)this)->ChangeValue(delta);
+        ((GovernorColor *)this)->ChangeValue(delta); //-V1027
     }
 }
 

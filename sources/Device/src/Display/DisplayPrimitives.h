@@ -13,4 +13,4 @@ struct ProgressBar
 };
 
 
-void ProgressBar_Draw(ProgressBar *bar);
+void ProgressBar_Draw(const ProgressBar *bar);

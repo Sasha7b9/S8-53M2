@@ -6,7 +6,7 @@
 #include <stdio.h> 
 
 
-void ProgressBar_Draw(ProgressBar *bar)
+void ProgressBar_Draw(const ProgressBar *bar)
 {
     int x = bar->x;
     int y = bar->y;

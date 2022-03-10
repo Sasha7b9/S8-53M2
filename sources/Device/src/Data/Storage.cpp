@@ -72,7 +72,7 @@ namespace Storage
     void RemoveFirstElement();
 
     // Сохранить данные
-    void PushData(DataSettings *, uint8 *dataA, uint8 *dataB);
+    void PushData(DataSettings *, const uint8 *dataA, const uint8 *dataB);
 
     // Возвращает указатель на измерение, следующее за elem
     DataSettings *NextElem(DataSettings *);
@@ -86,7 +86,7 @@ namespace Storage
     // Очистка значений мин, макс и сумм
     void ClearLimitsAndSums();
 
-    void CalculateLimits(DataSettings *, const uint8 *dataA, const uint8 *dataB);
+    void CalculateLimits(const DataSettings *, const uint8 *dataA, const uint8 *dataB);
 
     // Копирует данные канала chan из, определяемые ds, в одну из двух строк массива dataImportRel. Возвращаемое
     // значение false означает, что данный канал выключен.
@@ -192,7 +192,7 @@ int Storage::NumElements()
 }
 
 
-void Storage::CalculateLimits(DataSettings *dss, const uint8 *a, const uint8 *b)
+void Storage::CalculateLimits(const DataSettings *dss, const uint8 *a, const uint8 *b)
 {
     uint numElements = (uint)dss->PointsInChannel();
 
@@ -470,7 +470,7 @@ int Storage::NumberAvailableEntries()
 }
 
 
-void Storage::PushData(DataSettings *dp, uint8 *a, uint8 *b)
+void Storage::PushData(DataSettings *dp, const uint8 *a, const uint8 *b)
 {
     int required = dp->SizeElem();
 

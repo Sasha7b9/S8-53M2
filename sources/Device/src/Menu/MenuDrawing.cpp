@@ -29,7 +29,7 @@ namespace Menu
 
     int CalculateX(int layer);
 
-    int ItemOpenedPosY(Item *item);
+    int ItemOpenedPosY(const Item *item);
 }
 
 
@@ -123,7 +123,7 @@ void Menu::Draw()
         {
             if(item->GetType() == TypeItem::Choice)
             {
-                ((Choice *)item)->Draw(CalculateX(0), GRID_TOP, true);
+                ((Choice *)item)->Draw(CalculateX(0), GRID_TOP, true); //-V1027
             }
             else if(item->GetType() == TypeItem::Governor)
             {
@@ -134,10 +134,10 @@ void Menu::Draw()
 
     if (Hint::show)
     {
-        int x = 0;
+        const int x = 0;
         int y = 0;
         int width = IsMinimize() ? 289 : 220;
-        PText::DrawInBoundedRectWithTransfers(x + 1, y, width - 1,
+        PText::DrawInBoundedRectWithTransfers(x + 1, y, width - 1, //-V2007
             LANG_RU ?    "Включён режим подсказок. В этом режиме при нажатии на кнопку на экран выводится информация о её назначении. "
                                                 "Чтобы выключить этот режим, нажмите кнопку ПОМОЩЬ и удерживайте её в течение 0.5с." : 
                                                 "Mode is activated hints. In this mode, pressing the button displays the information on its purpose. "
@@ -147,11 +147,11 @@ void Menu::Draw()
 
         if (Hint::string)
         {
-            PText::DrawInBoundedRectWithTransfers(x + 1, y, width - 1, Hint::string, COLOR_BACK, COLOR_FILL);
+            PText::DrawInBoundedRectWithTransfers(x + 1, y, width - 1, Hint::string, COLOR_BACK, COLOR_FILL); //-V2007
         }
         else if (Hint::item)
         {
-            DrawHintItem(x + 1, y, width - 1);
+            DrawHintItem(x + 1, y, width - 1); //-V2007
         }
     }
 }
@@ -344,7 +344,7 @@ void Page::DrawOpened(int layer, int yTop)
 
         if (type == TypeItem::Choice || type == TypeItem::ChoiceReg)
         {
-            ((Choice *)item)->Draw(Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true);
+            ((Choice *)item)->Draw(Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true); //-V1027
         }
         else if (type == TypeItem::Governor)
         {
@@ -352,11 +352,11 @@ void Page::DrawOpened(int layer, int yTop)
         }
         else if (type == TypeItem::GovernorColor)
         {
-            ((GovernorColor *)item)->Draw(Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true);
+            ((GovernorColor *)item)->Draw(Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true); //-V1027
         }
         else if (type == TypeItem::Time)
         {
-            ((Time *)item)->Draw(Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true);
+            ((Time *)item)->Draw(Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true); //-V1027
         }
         else if (type == TypeItem::IP)
         {
@@ -364,7 +364,7 @@ void Page::DrawOpened(int layer, int yTop)
         }
         else if (type == TypeItem::MAC)
         {
-            ((MACaddress *)item)->Draw(Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true);
+            ((MACaddress *)item)->Draw(Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true); //-V1027
         }
     }
 
@@ -408,7 +408,7 @@ void Menu::ResetItemsUnderButton()
 }
 
 
-int Menu::ItemOpenedPosY(Item *item)
+int Menu::ItemOpenedPosY(const Item *item)
 {
     Page *page = item->Keeper();
     int8 posCurItem = page->PosCurrentItem();
