@@ -104,6 +104,8 @@ struct KeyboardEvent
     bool IsFunctional() const;
 
     bool IsRotate() const { return (action.value == Action::RotateRight) || (action.value == Action::RotateLeft); }
+    bool IsLeft() const { return action.value == Action::RotateLeft; }
+    bool IsRight() const { return action.value == Action::RotateRight; }
 
     void Log() const;
     

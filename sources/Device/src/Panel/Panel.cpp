@@ -163,10 +163,14 @@ Key::E Panel::WaitPressingButton()
 }
 
 
-void Panel::ProcessingCommandFromPIC(uint16 command)
+void Panel::ProcessingKeyboardEvent(KeyboardEvent event)
 {
-    Key::E releaseButton = ButtonIsRelease(command);
-    Key::E pressButton = ButtonIsPress(command);
+    Key::E releaseButton = event.IsUp() ? event.key.value : Key::None;
+    Key::E pressButton = event.IsDown() ? event.key.value : Key::None;
+    Key::E regLeft = event.IsLeft() ? event.key.value : Key::None;
+    Key::E regRight = Key::None;
+    Key::E regPress = Key::None;
+
     RegulatorOld::E regLeft = RegulatorLeft(command);
     RegulatorOld::E regRight = RegulatorRight(command);
     RegulatorOld::E regPress = RegulatorIsPress(command);
@@ -411,6 +415,6 @@ void Panel::Update()
     if (!input_buffer.IsEmpty())
     {
         uint16 command = input_buffer.Front();
-        ProcessingCommandFromPIC(command);
+        ProcessingKeyboardEvent(command);
     }
 }

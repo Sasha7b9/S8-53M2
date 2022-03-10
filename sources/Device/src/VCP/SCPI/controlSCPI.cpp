@@ -55,7 +55,7 @@ void SCPI::CONTROL::KEY(uint8 *buffer)
                 {
                     code += 128;
                 }
-                Panel::ProcessingCommandFromPIC(code);
+                Panel::ProcessingKeyboardEvent(KeyboardEvent());
                 return;
             }
             numKey++;
@@ -95,8 +95,8 @@ void SCPI::CONTROL::GOVERNOR(uint8 *buffer)
                 {
                     code += 128;
                 }
-                //LOG_WRITE("to panel %d", code);
-                Panel::ProcessingCommandFromPIC(code);
+
+                Panel::ProcessingKeyboardEvent(KeyboardEvent());
                 return;
             }
             numGov++;
