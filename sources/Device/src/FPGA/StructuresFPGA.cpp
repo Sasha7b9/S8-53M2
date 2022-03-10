@@ -48,21 +48,23 @@ uint16 FPGA::Launch::PredForWrite()
 
 uint16 FPGA::Reader::CalculateAddressRead()
 {
-    static const int shift[TBase::Count] =
+    static const int shift[TPos::Count][TBase::Count] =
     {
-    //  2ns  5ns 10ns 20ns 50ns 100ns 200ns
-        0,  0,  1,  8,   9,  4,    2,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    //    2ns 5ns 10ns 20ns 50ns 100ns 200ns
+        { 0,  0,  1,   8,   9,   4,    2,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },     // TPos::Left
+        { 0,  0,  1,   0,   9,   4,    2,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },     // TPos::Center
+        { 0,  0,  1,   8,   9,   4,    2,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }      // TPos::Right
     };
 
     if (TBase::InModeRandomizer())
     {
         return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) -
-            ENUM_POINTS_FPGA::ToNumBytes() * Compactor::Koeff() / (TBase::StretchRand() - 1) + shift[SET_TBASE] - 1);
+            ENUM_POINTS_FPGA::ToNumBytes() * Compactor::Koeff() / (TBase::StretchRand() - 1) + shift[SET_TPOS][SET_TBASE] - 1);
     }
     else
     {
         return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) -
-            ENUM_POINTS_FPGA::ToNumBytes() * FPGA::Compactor::Koeff() + shift[SET_TBASE] - 1);
+            ENUM_POINTS_FPGA::ToNumBytes() * FPGA::Compactor::Koeff() + shift[SET_TPOS][SET_TBASE] - 1);
     }
 }
 
