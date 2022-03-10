@@ -14,8 +14,6 @@
 #include "common/Panel/Controls.h"
 #include <stm32f4xx_hal.h>
 #include <stm32f4xx_hal_gpio.h>
-#include <stdio.h>
-#include <string.h>
 
 
 namespace Panel
