@@ -21,6 +21,7 @@ typedef unsigned    int         uint;
 typedef unsigned long long int  uint64;
 typedef unsigned    char        uchar;
 typedef const char             *pchar;
+typedef const char *const       pstring;
 
 
 typedef void   (*pFuncVV)();       // ”казатель на функцию, ничего не принимающую и ничего не возвращающую.

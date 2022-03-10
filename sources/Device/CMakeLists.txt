@@ -17,7 +17,8 @@ include_directories(../common/_VS_KEIL/ARMCLANG
                     ../STM32Cube_FW_F4/Middlewares/Third_Party/LwIP/src/include
                     ../STM32Cube_FW_F4/Middlewares/Third_Party/LwIP/system
                     src
-                    src/libs)
+                    src/libs
+                    ..)
 
 add_definitions(-DSTM32F429xx -DUSE_HAL_DRIVER -DDEVICE)
 
@@ -72,7 +73,8 @@ file(GLOB HARDWARE_HAL        src/Hardware/HAL/*.*)
 file(GLOB LAN                 src/LAN/*.*)
 file(GLOB MENU                src/Menu/*.*)
 file(GLOB MENU_PAGES          src/Menu/Pages/*.*)
-file(GLOB PANEL               src/Panel/*.*)
+file(GLOB PANEL               src/Panel/*.*
+                        ../common/Panel/*.*)
 file(GLOB SETTINGS            src/Settings/*.*)
 file(GLOB UTILS               src/Utils/*.*)
 file(GLOB UTILS_CONTAINERS    src/Utils/Containers/*.*)
