@@ -49,8 +49,8 @@ uint16 FPGA::Launch::PredForWrite()
 uint16 FPGA::Reader::CalculateAddressRead()
 {
     static const int shift[TBase::Count] =
-    {// 2ns 5ns  10ns 20ns 50ns  100ns 200ns
-        6,  -2, -14, -41, -118, 4,    2,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    {// 2ns     5ns  10ns 20ns 50ns  100ns 200ns
+        -23, -2, -14, -41, -118, 4,    2,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
 
     if (TBase::InModeRandomizer())
@@ -68,16 +68,16 @@ uint16 FPGA::Reader::CalculateAddressRead()
 
 void FPGA::Launch::Calculate()
 {
-    static const int8 d_pred[TBase::Count] =   // Дополнительное смещение для предзапуска
-    {// 2   5   10  20  50  100  200 500                ns
-        0,  0,  0,  0,  0,   0,  0,  0, 
+    static const int d_pred[TBase::Count] =   // Дополнительное смещение для предзапуска
+    {// 2  5   10  20  50   100 200 500                ns
+        0, 10, 50, 50, 150, 0,  0,  0, 
      // 1                                                   us
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
 
-    static const int8 d_post[TBase::Count] =   // Дополнительное смещение для послезапуска
-    {// 2   5   10  20  50  100  200 500                ns
-        0,  0,  0,  0,  0,   0,  0,  0,
+    static const int d_post[TBase::Count] =   // Дополнительное смещение для послезапуска
+    {// 2   5  10 20 50 100 200 500                ns
+        49, 0, 0, 0, 0, 0,  0,  0,
      // 1                                                   us
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
