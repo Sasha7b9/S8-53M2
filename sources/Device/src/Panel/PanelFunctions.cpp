@@ -169,22 +169,10 @@ static void SetRShift(Chan::E ch, int16 rShift)
     RShift::Set(ch, rShift);
 }
 
-void RShift0Left()
-{
-    static int prevTime = 0;
-    ChangeRShift(&prevTime, SetRShift, Chan::A, -RShift::STEP);
-}
-
 void RShift0Right()
 {
     static int prevTime = 0;
     ChangeRShift(&prevTime, SetRShift, Chan::A, +RShift::STEP);
-}
-
-void RShift1Left()
-{
-    static int prevTime = 0;
-    ChangeRShift(&prevTime, SetRShift, Chan::B, -RShift::STEP);
 }
 
 void RShift1Right()
@@ -196,12 +184,6 @@ void RShift1Right()
 static void SetTrigLev(TrigSource::E ch, int16 trigLev)
 {
     TrigLev::Set(ch, trigLev);
-}
-
-void TrigLevLeft()
-{
-    static int prevTime = 0;
-    ChangeTrigLev(&prevTime, SetTrigLev, TRIG_SOURCE, -RShift::STEP);
 }
 
 void TrigLevRight()
@@ -236,11 +218,6 @@ void XShift(int delta)
     }
 }
 
-void TShiftLeft()
-{
-    XShift(-1);
-}
-
 void TShiftRight()
 {
     XShift(1);
@@ -258,21 +235,12 @@ void RangeRightB()
     Range::Decrease(Chan::B);
 }
 
-void TBaseLeft()
-{
-    Sound::RegulatorSwitchRotate();
-    TBase::Increase();
-}
+
 
 void TBaseRight()
 {
     Sound::RegulatorSwitchRotate();
     TBase::Decrease();
-}
-
-void SetLeft()
-{
-    Menu::Handlers::RotateRegSetLeft();
 }
 
 void SetRight()

@@ -203,34 +203,56 @@ namespace Panel
         }
     }
 
-    static void FuncRShiftA(Action)
+    static void FuncRShiftA(Action action)
     {
-
+        if (action.IsLeft())
+        {
+            static int prevTime = 0;
+            ChangeRShift(&prevTime, SetRShift, Chan::A, -RShift::STEP);
+        }
     }
 
-    static void FuncRShiftB(Action)
+    static void FuncRShiftB(Action action)
     {
-
+        if (action.IsLeft())
+        {
+            static int prevTime = 0;
+            ChangeRShift(&prevTime, SetRShift, Chan::B, -RShift::STEP);
+        }
     }
 
-    static void FuncTBase(Action)
+    static void FuncTBase(Action action)
     {
-
+        if (action.IsLeft())
+        {
+            Sound::RegulatorSwitchRotate();
+            TBase::Increase();
+        }
     }
 
-    static void FuncTShift(Action)
+    static void FuncTShift(Action action)
     {
-
+        if (action.IsLeft())
+        {
+            XShift(-1);
+        }
     }
 
-    static void FuncTrigLev(Action)
+    static void FuncTrigLev(Action action)
     {
-
+        if (action.IsLeft())
+        {
+            static int prevTime = 0;
+            ChangeTrigLev(&prevTime, SetTrigLev, TRIG_SOURCE, -RShift::STEP);
+        }
     }
 
-    static void FuncSetting(Action)
+    static void FuncSetting(Action action)
     {
-
+        if (action.IsLeft())
+        {
+            Menu::Handlers::RotateRegSetLeft();
+        }
     }
 
     static void (* const funcOnKey[Key::Count])(Action) =
@@ -264,16 +286,6 @@ namespace Panel
         FuncSetting
     };
 
-
-    static void (*funculatorLeft[Key::Count])() =
-    {
-        RShift0Left,    // RegulatorOld::RShiftA
-        RShift1Left,    // RegulatorOld::RShiftB
-        TBaseLeft,      // RegulatorOld::TBase
-        TShiftLeft,     // RegulatorOld::TShift
-        TrigLevLeft,    // RegulatorOld::TrigLev
-        SetLeft         // RegulatorOld::Set
-    };
 
     static void (*funculatorRight[Key::Count])() =
     {
