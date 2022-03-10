@@ -620,16 +620,16 @@ void Menu::ShortPress_Choice(Item *choice)
 {
     if (!choice->IsActive())
     {
-        ((Choice *)choice)->FuncOnChanged(false);
+        ((Choice *)choice)->FuncOnChanged(false); //-V1027
     }
     else if (!choice->IsOpened())
     {
         choice->SetCurrent(Item::Current() != choice);
-        ((Choice *)choice)->StartChange(1);
+        ((Choice *)choice)->StartChange(1); //-V1027
     }
     else
     {
-        ((Choice *)choice)->ChangeValue(-1);
+        ((Choice *)choice)->ChangeValue(-1); //-V1027
     }
 }
 
@@ -638,7 +638,7 @@ void Menu::ShortPress_ChoiceReg(Item *choice)
 {
     if(!choice->IsActive()) 
     {
-        ((Choice *)choice)->FuncOnChanged(false);
+        ((Choice *)choice)->FuncOnChanged(false); //-V1027
     } 
     else if(Item::Opened() != choice)
     {
@@ -754,9 +754,9 @@ void Menu::ShortPress_GovernorColor(Item *governorColor)
         return;
     }
 
-    GovernorColor *governor = (GovernorColor*)governorColor;
+    GovernorColor *governor = (GovernorColor*)governorColor; //-V1027
 
-    if(Item::Opened() == (Item *)governor)
+    if(Item::Opened() == (Item *)governor) //-V1027
     {
         CircleIncreaseInt8(&(governor->colorType->currentField), 0, 3);
     }

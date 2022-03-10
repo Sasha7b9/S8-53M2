@@ -92,7 +92,7 @@ namespace Storage
     // значение false означает, что данный канал выключен.
     bool CopyData(DataSettings *, Chan::E ch, Buffer<uint8> &datatImportRel);
 
-    void CalculateAroundAverage(DataSettings *, uint8 *dataA, uint8 *dataB);
+    void CalculateAroundAverage(const DataSettings *, uint8 *dataA, uint8 *dataB);
 
     namespace P2P
     {
@@ -127,7 +127,7 @@ void Storage::ClearLimitsAndSums()
 }
 
 
-void Storage::CalculateAroundAverage(DataSettings *dss, uint8 *a, uint8 *b)
+void Storage::CalculateAroundAverage(const DataSettings *dss, uint8 *a, uint8 *b)
 {
     int numAveData = NumElementsWithCurrentSettings();
 

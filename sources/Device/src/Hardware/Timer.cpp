@@ -84,7 +84,7 @@ void Timer::Disable(TypeTimer::E type)
 
 void Timer::Pause(TypeTimer::E type)
 {
-    isRun[type] = false;
+    Disable(type);
 }
 
 

@@ -765,6 +765,11 @@ int TShift::ShiftForRandomizer()
 {
     int stretch_1 = TBase::StretchRand() - 1;
 
+    if (stretch_1 < 2)
+    {
+        return 0;
+    }
+
     int tshift = SET_TSHIFT;
 
     switch (SET_TBASE)

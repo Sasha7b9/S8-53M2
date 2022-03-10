@@ -170,9 +170,9 @@ void Choice::StartChange(int delta)
 
     if (Hint::show)
     {
-        Hint::SetItem((Item *)this);
+        Hint::SetItem((Item *)this); //-V1027
     }
-    else if (!((Item *)this)->IsActive())
+    else if (!((Item *)this)->IsActive()) //-V1027
     {
         FuncOnChanged(false);
     }
@@ -245,7 +245,7 @@ float Choice::Step()
         }
 
         tsChoice.choice = 0;
-        FuncOnChanged(((Item *)this)->IsActive());
+        FuncOnChanged(((Item *)this)->IsActive()); //-V1027
         Display::Redraw();
         tsChoice.inMoveDecrease = tsChoice.inMoveIncrease = 0;
 

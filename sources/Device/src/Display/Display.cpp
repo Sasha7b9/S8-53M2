@@ -916,11 +916,12 @@ void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, 
 
     width--;
     float elemsInColumn = (float)numElems / (float)width;
-    uint8 min[300] = {255};
+
+    uint8 min[300];
+    uint8 max[300];
 
     std::memset(min, 255, 300);
-
-    uint8 max[300] = {0};
+    std::memset(max, 0, 300);
 
     if (SET_TBASE >= TBase::_20ms && SET_PEAKDET_IS_ENABLE)
     {
