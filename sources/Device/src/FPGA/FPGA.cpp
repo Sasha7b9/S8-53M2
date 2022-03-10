@@ -428,8 +428,6 @@ void FPGA::Reader::ReadPoints(Chan ch)
                     funcRead();
                 }
 
-                LOG_WRITE("%d : %d : %d", TBase::StretchRand(),  SET_TSHIFT, TShift::ShiftForRandomizer());
-
                 while (dat < end && IN_PROCESS_READ)
                 {
                     BitSet16 data = funcRead();

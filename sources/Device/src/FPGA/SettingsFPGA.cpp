@@ -765,12 +765,21 @@ int TShift::ShiftForRandomizer()
 {
     int stretch_1 = TBase::StretchRand() - 1;
 
-    if (SET_TSHIFT >= 0)
+    int tshift = SET_TSHIFT;
+
+    switch (SET_TBASE)
     {
-        return -(SET_TSHIFT % stretch_1);
+    case TBase::_10ns:  tshift -= 6;    break;
+    case TBase::_5ns:   tshift -= 11;   break;
+    case TBase::_2ns:   tshift -= 16;   break;
     }
 
-    int shift = -((-SET_TSHIFT) % stretch_1);
+    if (tshift >= 0)
+    {
+        return -(tshift % stretch_1);
+    }
+
+    int shift = -((-tshift) % stretch_1);
 
     int result = -(stretch_1 + shift);
 
