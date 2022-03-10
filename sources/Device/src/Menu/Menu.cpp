@@ -76,8 +76,7 @@ namespace Menu
     void FuncOnLongPressItemTime(Item *item);
     // Обработка длинного нажатия на элемент Button с адресом button.
     void FuncOnLongPressItemButton(Item *button);
-    // Возвращает функцию обработки короткого нажатия на элемент меню item.
-    void ExecuteFuncForShortPressOnItem(Item *item);
+
     // Возвращает true, если лампочка УСТАНОВКА должна гореть
     bool NeedForFireSetLED();
 
@@ -370,43 +369,27 @@ void Menu::ProcessingShortPressureButton()
 
     do
     {
-        if (IsShown() && Key::IsFunctional(button))       // Если меню показано и нажата функциональная клавиша
+        NamePage::E name = ((const Page *)Item::Opened())->GetName();
+        if (button == Key::ChannelA && name == NamePage::Channel0)
         {
-            Item *item = Item::UnderKey(button);
-
-            if (Hint::show)
-            {
-                Hint::SetItem(item);
-            }
-            else
-            {
-                ExecuteFuncForShortPressOnItem(item);
-            }
+            SET_ENABLED_A = !Chan::Enabled(Chan::A);
+            PageChannelA::OnChanged_Input(true);
+            break;
         }
-        else                                                        // Если меню не показано.
+        if (button == Key::ChannelB && name == NamePage::Channel1)
         {
-            NamePage::E name = ((const Page *)Item::Opened())->GetName();
-            if (button == Key::ChannelA && name == NamePage::Channel0)
-            {
-                SET_ENABLED_A = !Chan::Enabled(Chan::A);
-                PageChannelA::OnChanged_Input(true);
-                break;
-            }
-            if (button == Key::ChannelB && name == NamePage::Channel1)
-            {
-                SET_ENABLED_B = !Chan::Enabled(Chan::B);
-                PageChannelB::OnChanged_Input(true);
-                break;
-            }
+            SET_ENABLED_B = !Chan::Enabled(Chan::B);
+            PageChannelB::OnChanged_Input(true);
+            break;
+        }
 
-            const Page *page = Page::ForButton(button);
+        const Page *page = Page::ForButton(button);
 
-            if (page)
-            {
-                page->SetCurrent(true);
-                page->Open(true);
-                Show(true);
-            }
+        if (page)
+        {
+            page->SetCurrent(true);
+            page->Open(true);
+            Show(true);
         }
     } while (false);
 }

@@ -235,70 +235,66 @@ namespace Panel
 
     }
 
-    static void FuncF1(Action action)
+    static void OnFunctionalKey(Action action, Key::E key)
     {
-        if (action.IsLong())
+        if (action.IsUp())
         {
             if (Menu::IsShown())
             {
-                Item *item = Item::UnderKey(Key::F1);
+                Item *item = Item::UnderKey(key);
+
+                if (Hint::show)
+                {
+                    Hint::SetItem(item);
+                }
+                else
+                {
+                    Menu::ExecuteFuncForShortPressOnItem(item);
+                }
+            }
+        }
+        else if (action.IsLong())
+        {
+            if (Menu::IsShown())
+            {
+                Item *item = Item::UnderKey(key);
                 Menu::ExecuteFuncForLongPressureOnItem(item);
             }
         }
+    }
+
+    static void FuncF1(Action action)
+    {
+        OnFunctionalKey(action, Key::F1);
     }
 
     static void FuncF2(Action action)
     {
-        if (action.IsLong())
-        {
-            if (Menu::IsShown())
-            {
-                Item *item = Item::UnderKey(Key::F2);
-                Menu::ExecuteFuncForLongPressureOnItem(item);
-            }
-        }
+        OnFunctionalKey(action, Key::F2);
     }
 
     static void FuncF3(Action action)
     {
-        if(action.IsLong())
-        {
-            if (Menu::IsShown())
-            {
-                Item *item = Item::UnderKey(Key::F3);
-                Menu::ExecuteFuncForLongPressureOnItem(item);
-            }
-        }
+        OnFunctionalKey(action, Key::F3);
     }
 
     static void FuncF4(Action action)
     {
-        if(action.IsLong())
-        {
-            if (Menu::IsShown())
-            {
-                Item *item = Item::UnderKey(Key::F4);
-                Menu::ExecuteFuncForLongPressureOnItem(item);
-            }
-        }
+        OnFunctionalKey(action, Key::F4);
     }
 
     static void FuncF5(Action action)
     {
-        if(action.IsLong())
-        {
-            if (Menu::IsShown())
-            {
-                Item *item = Item::UnderKey(Key::F5);
-                Menu::ExecuteFuncForLongPressureOnItem(item);
-            }
-        }
+        OnFunctionalKey(action, Key::F5);
     }
 
     static void FuncChannelA(Action action)
     {
         if (action.IsLong())
         {
+            Menu::SetAutoHide(true);
+            Display::Redraw();
+
             RShift::Set(Chan::A, RShift::ZERO);
         }
     }

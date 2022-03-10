@@ -48,4 +48,7 @@ namespace Menu
 
     // Возвращает функцию обработки длинного нажатия на элемент меню item.
     void ExecuteFuncForLongPressureOnItem(Item *item);
+
+    // Возвращает функцию обработки короткого нажатия на элемент меню item.
+    void ExecuteFuncForShortPressOnItem(Item *item);
 };
