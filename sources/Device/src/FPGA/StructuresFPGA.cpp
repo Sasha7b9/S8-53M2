@@ -66,7 +66,7 @@ uint16 FPGA::Reader::CalculateAddressRead()
         //    2ns  5ns  10ns 20ns 50ns 100ns 200ns                                                                                                   // 1024 points
             {  -9,   0,   1,   8, 9,   4,    2,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },     // TPos::Left
             { -14, -13, -22, -30, 9,   4,    2,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },     // TPos::Center
-            { -19, -24, -44, -30, 9,   4,    2,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }      // TPos::Right
+            { -19, -24, -44, -67, 9,   4,    2,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }      // TPos::Right
         }
     };
 
@@ -85,13 +85,6 @@ uint16 FPGA::Reader::CalculateAddressRead()
 
 void FPGA::Launch::Calculate()
 {
-    static const int d_pred[TBase::Count] =   // Дополнительное смещение для предзапуска
-    {// 2  5   10  20  50 100 200 500                ns
-        0, 20, 40, 10, 0, 0,  0,  0, 
-     // 1                                                   us
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    };
-
     static const int d_post[TBase::Count] =   // Дополнительное смещение для послезапуска
     {// 2   5   10  20 50 100 200 500                ns
         20, 11, 10, 2, 0, 0,  0,  0,
@@ -120,12 +113,11 @@ void FPGA::Launch::Calculate()
 
         int stretch = TBase::StretchRand();
 
-        pred = pred / (stretch - 1) + d_pred[SET_TBASE];
+        pred = pred / (stretch - 1) + 50;
         post = post / (stretch - 1) + d_post[SET_TBASE];
     }
     else
     {
-        pred += d_pred[SET_TBASE];
         post += d_post[SET_TBASE];
 
         if (pred + post < num_bytes)
