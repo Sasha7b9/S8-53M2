@@ -25,52 +25,12 @@ void HelpLong()
     Hint::item = nullptr;
 }
 
-void ChannelALong()
-{
-    Menu::Handlers::LongPressureButton(Key::ChannelA);
-}
 
-void ChannelBLong()
-{
-    Menu::Handlers::LongPressureButton(Key::ChannelB);
-}
 
-void TimeLong()
-{
-    Menu::Handlers::LongPressureButton(Key::Time);
-}
 
-void TrigLong()
-{
-    if (MODE_LONG_PRESS_TRIG_IS_LEVEL_ZERO)
-    {
-        Menu::Handlers::LongPressureButton(Key::Trig);
-    }
-    else
-    {
-        FPGA::FindAndSetTrigLevel();
-    }
-}
 
-void StartDown()                        // Key::Start
-{
-    if (MODE_WORK_IS_DIRECT)
-    {
-        Menu::Handlers::PressButton(Key::Start);
-    }
-}
 
-void PowerDown()                        // Key::Power
-{
-    ((Page *)Item::Opened())->ShortPressOnItem(0);
-    Settings::SaveBeforePowerDown();
-    Log::DisconnectLoggerUSB();
 
-    if (TIME_MS > 1000)
-    {
-        Panel::TransmitData(0x05);
-    }
-}
 
 void MenuLong() 
 {

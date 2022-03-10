@@ -58,6 +58,7 @@ struct Key { enum E
     static bool IsFunctional(E);
     pchar Name() const;
     operator int() const { return (int)value; }
+    operator E() const { return value; }
 };
 
 Key::E& operator++(Key::E &right);

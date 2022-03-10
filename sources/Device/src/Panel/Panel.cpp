@@ -35,66 +35,210 @@ namespace Panel
 
     bool isRunning = true;
 
-    static void(*funcOnKeyDown[Key::Count])() =
+    static void FuncNone(Action)
     {
-        0,
-        EmptyFuncVV,    // Key::ChannelA
-        EmptyFuncVV,    // Key::Service
-        EmptyFuncVV,    // Key::ChannelB
-        EmptyFuncVV,    // Key::Display
-        EmptyFuncVV,    // Key::Time
-        EmptyFuncVV,    // Key::Memory                                         
-        EmptyFuncVV,    // B_Sinchro
-        StartDown,      // Key::Start
-        EmptyFuncVV,    // Key::Cursors
-        EmptyFuncVV,    // Key::Measures
-        PowerDown,      // Key::Power
-        EmptyFuncVV,    // Key::Help
-        EmptyFuncVV,    // Key::Menu
-        EmptyFuncVV,    // Key::F1
-        EmptyFuncVV,    // Key::F2
-        EmptyFuncVV,    // Key::F3
-        EmptyFuncVV,    // Key::F4
-        EmptyFuncVV     // Key::F5
+
+    }
+
+    static void FuncF1(Action)
+    {
+
+    }
+
+    static void FuncF2(Action)
+    {
+
+    }
+
+    static void FuncF3(Action)
+    {
+
+    }
+
+    static void FuncF4(Action)
+    {
+
+    }
+
+    static void FuncF5(Action)
+    {
+
+    }
+
+    static void FuncChannelA(Action action)
+    {
+        if (action.IsLong())
+        {
+            Menu::Handlers::LongPressureButton(Key::ChannelA);
+        }
+    }
+
+    static void FuncChannelB(Action action)
+    {
+        if (action.IsLong())
+        {
+            Menu::Handlers::LongPressureButton(Key::ChannelB);
+        }
+    }
+
+    static void FuncTime(Action action)
+    {
+        if (action.IsLong())
+        {
+            Menu::Handlers::LongPressureButton(Key::Time);
+        }
+    }
+
+    static void FuncTrig(Action action)
+    {
+        if (action.IsLong())
+        {
+            if (MODE_LONG_PRESS_TRIG_IS_LEVEL_ZERO)
+            {
+                Menu::Handlers::LongPressureButton(Key::Trig);
+            }
+            else
+            {
+                FPGA::FindAndSetTrigLevel();
+            }
+        }
+    }
+
+    static void FuncCursors(Action)
+    {
+
+    }
+
+    static void FuncMeasures(Action)
+    {
+
+    }
+
+    static void FuncDisplay(Action)
+    {
+
+    }
+
+    static void FuncHelp(Action)
+    {
+
+    }
+
+    static void FuncStart(Action action)
+    {
+        if (action.IsDown())
+        {
+            if (MODE_WORK_IS_DIRECT)
+            {
+                Menu::Handlers::PressButton(Key::Start);
+            }
+        }
+    }
+
+    static void FuncMemory(Action)
+    {
+
+    }
+
+    static void FuncService(Action)
+    {
+
+    }
+
+    static void FuncMenu(Action)
+    {
+
+    }
+
+    static void FuncPower(Action action)
+    {
+        if (action.IsDown())
+        {
+            ((Page *)Item::Opened())->ShortPressOnItem(0);
+            Settings::SaveBeforePowerDown();
+            Log::DisconnectLoggerUSB();
+
+            if (TIME_MS > 1000)
+            {
+                Panel::TransmitData(0x05);
+            }
+        }
+    }
+
+    static void FuncRangeA(Action)
+    {
+
+    }
+
+    static void FuncRangeB(Action)
+    {
+
+    }
+
+    static void FuncRShiftA(Action)
+    {
+
+    }
+
+    static void FuncRShiftB(Action)
+    {
+
+    }
+
+    static void FuncTBase(Action)
+    {
+
+    }
+
+    static void FuncTShift(Action)
+    {
+
+    }
+
+    static void FuncTrigLev(Action)
+    {
+
+    }
+
+    static void FuncSetting(Action)
+    {
+
+    }
+
+    static void (* const funcOnKey[Key::Count])(Action) =
+    {
+        FuncNone,
+        FuncF1,
+        FuncF2,
+        FuncF3,
+        FuncF4,
+        FuncF5,
+        FuncChannelA,
+        FuncChannelB,
+        FuncTime,
+        FuncTrig,
+        FuncCursors,
+        FuncMeasures,
+        FuncDisplay,
+        FuncHelp,
+        FuncStart,
+        FuncMemory,
+        FuncService,
+        FuncMenu,
+        FuncPower,
+        FuncRangeA,
+        FuncRangeB,
+        FuncRShiftA,
+        FuncRShiftB,
+        FuncTBase,
+        FuncTShift,
+        FuncTrigLev,
+        FuncSetting
     };
 
-    static void (*funcOnKeyUp[Key::Count])() =
-    {
-        0,
-        EmptyFuncVV,    // Key::ChannelA
-        EmptyFuncVV,    // Key::Service
-        EmptyFuncVV,    // Key::ChannelB
-        EmptyFuncVV,    // Key::Display
-        EmptyFuncVV,    // Key::Time
-        EmptyFuncVV,    // Key::Memory
-        EmptyFuncVV,    // B_Sinchro
-        EmptyFuncVV,    // Key::Start
-        EmptyFuncVV,    // Key::Cursors
-        EmptyFuncVV,    // Key::Measures
-        EmptyFuncVV,    // Key::Power
-        EmptyFuncVV,    // Key::Help
-        EmptyFuncVV,    // Key::Menu
-        EmptyFuncVV,    // Key::F1
-        EmptyFuncVV,    // Key::F2
-        EmptyFuncVV,    // Key::F3
-        EmptyFuncVV,    // Key::F4
-        EmptyFuncVV     // Key::F5
-    };
 
     static void (*funcOnLongPressure[Key::Count])() =
     {
-        0,
-        ChannelALong,   // Key::ChannelA
-        EmptyFuncVV,    // Key::Service
-        ChannelBLong,   // Key::ChannelB
-        EmptyFuncVV,    // Key::Display
-        TimeLong,       // Key::Time
-        EmptyFuncVV,    // Key::Memory
-        TrigLong,       // B_Sinchro
-        EmptyFuncVV,    // Key::Start
-        EmptyFuncVV,    // Key::Cursors
-        EmptyFuncVV,    // Key::Measures
-        EmptyFuncVV,    // Key::Power
         HelpLong,       // Key::Help
         MenuLong,       // Key::Menu
         F1Long,         // Key::F1
@@ -106,19 +250,11 @@ namespace Panel
 
     static void (*funcOnRegulatorPress[Key::Count])() =
     {
-        ChannelALong,   // 20 - RegulatorOld::RangeA
-        ChannelALong,   // 21 - RegulatorOld::RShiftA
-        ChannelBLong,   // 22 - RegulatorOld::RangeB
-        ChannelBLong,   // 23 - RegulatorOld::RShiftB
-        TimeLong,       // 24 - RegulatorOld::TBase
-        TimeLong,       // 25 - RegulatorOld::TShift
-        TrigLong,       // 26 - RegulatorOld::TrigLev
         MenuLong        // 27 - RegulatorOld::Set
     };
 
     static void (*funculatorLeft[Key::Count])() =
     {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         RangeLeftA,     // RegulatorOld::RangeA
         RangeLeftB,     // RegulatorOld::RangeB
         RShift0Left,    // RegulatorOld::RShiftA
@@ -131,7 +267,6 @@ namespace Panel
 
     static void (*funculatorRight[Key::Count])() =
     {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         RangeRightA,    // RegulatorOld::RangeA
         RangeRightB,    // RegulatorOld::RangeB
         RShift0Right,   // RegulatorOld::RShiftA
@@ -165,6 +300,9 @@ Key::E Panel::WaitPressingButton()
 
 void Panel::ProcessingKeyboardEvent(KeyboardEvent event)
 {
+    funcOnKey[event.key](event.action);
+
+    /*
     Key::E releaseButton = event.IsUp() ? event.key.value : Key::None;
     Key::E pressButton = event.IsDown() ? event.key.value : Key::None;
     Key::E regLeft = event.IsLeft() ? event.key.value : Key::None;
@@ -208,6 +346,7 @@ void Panel::ProcessingKeyboardEvent(KeyboardEvent event)
 
         funcOnRegulatorPress[event.key]();
     }
+    */
 }
 
 
