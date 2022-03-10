@@ -426,21 +426,21 @@ void TrigLev::Load()
 }
 
 
-void TShift::Set(int tShift)
+void TShift::Set(int tshift)
 {
     if (!Chan::Enabled(Chan::A) && !Chan::Enabled(Chan::B))
     {
         return;
     }
 
-    if (tShift < TShift::Min() || tShift > TShift::MAX)
+    if (tshift < TShift::Min() || tshift > TShift::MAX)
     {
-        Math::Limitation<int>(&tShift, TShift::Min(), TShift::MAX);
+        Math::Limitation<int>(&tshift, TShift::Min(), TShift::MAX);
 
         Display::ShowWarningBad(Warning::LimitSweep_TShift);
     }
 
-    SET_TSHIFT = (int16)tShift;
+    SET_TSHIFT = (int16)tshift;
 
     FPGA::Launch::Load();
 
