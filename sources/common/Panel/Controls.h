@@ -91,6 +91,7 @@ struct Action { enum E {
 struct KeyboardEvent
 {
     KeyboardEvent(Key::E k = Key::Count, Action::E a = Action::Count) :key(k), action(a) {}
+    KeyboardEvent(uint8 *buffer);
 
     Key::E key;
     Action::E action;
@@ -108,6 +109,8 @@ struct KeyboardEvent
     bool IsFunctional() const;
 
     bool IsRotate() const { return (action == Action::RotateRight) || (action == Action::RotateLeft); }
+
+    void Log() const;
     
     bool operator==(const KeyboardEvent &rhl) const
     {

@@ -17,7 +17,7 @@ bool KeyboardEvent::IsRelease() const
 
 pstring Key::Name() const
 {
-    static pstring names[] =
+    static pstring names[Key::Count] =
     {
         "None",
         "F1",
@@ -37,13 +37,16 @@ pstring Key::Name() const
         "оюлърэ",
         "яепбхя",
         "лемч",
-        "Left",
-        "Right",
-        "On1",
-        "On2",
-        "RegLeft",
-        "RegRight",
-        "RegButton"
+        "охрюмхе",
+
+        "бнкэр/дек 1",
+        "бнкэр/дек 2",
+        "RSHIFT 1",
+        "RSHIFT 2",
+        "бпелъ/дек",
+        "TSHIFT",
+        "спнбмэ",
+        "сярюмнбйю"
     };
 
     return names[value];
@@ -110,4 +113,28 @@ pchar Action::Name() const
     };
 
     return names[value];
+}
+
+
+KeyboardEvent::KeyboardEvent(uint8 *buffer)
+{
+    if (*buffer == 0xFF)
+    {
+        key = (Key::E) *(buffer + 1);
+        action = (Action::E) *(buffer + 2);
+    }
+    else
+    {
+        key = Key::None;
+        action = Action::Count;
+    }
+}
+
+
+void KeyboardEvent::Log() const
+{
+    if (key != Key::None)
+    {
+
+    }
 }
