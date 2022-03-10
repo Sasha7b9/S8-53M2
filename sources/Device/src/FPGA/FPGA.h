@@ -1,7 +1,6 @@
 // 2022/02/11 17:48:42 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "defines.h"
-#include "Panel/Controls_Old.h"
 #include "Settings/SettingsTrig.h"
 #include "Settings/SettingsService.h"
 #include "FPGA/SettingsFPGA.h"

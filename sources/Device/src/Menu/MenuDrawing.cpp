@@ -34,11 +34,11 @@ namespace Menu
 
 
 
-KeyOld::E GetFuncButtonFromY(int _y)
+Key::E GetFuncButtonFromY(int _y)
 {
     int y = GRID_TOP + GRID_HEIGHT / 12;
     int step = GRID_HEIGHT / 6;
-    KeyOld::E button = KeyOld::Menu;
+    Key::E button = KeyOld::Menu;
 
     for(int i = 0; i < 6; i++)
     {
@@ -393,7 +393,7 @@ bool Item::IsPressed() const
 }
 
 
-Item *Item::UnderKey(KeyOld::E key)
+Item *Item::UnderKey(Key::E key)
 {
     return (Item *)itemUnderButton[key];
 }

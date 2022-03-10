@@ -2,7 +2,7 @@
 #pragma once
 #include "Display/Display.h"
 #include "Display/Colors.h"
-#include "Panel/Controls_Old.h"
+#include "common/Panel/Controls.h"
 #include "defines.h"
 
                                             
@@ -177,7 +177,7 @@ public:
     static Item *UnderKey();
 
     // Возвращает адрес элемента меню, соответствующего данной button.
-    static Item *UnderKey(KeyOld::E);
+    static Item *UnderKey(Key::E);
 
     // Закрыть открытый элемент меню.
     static void CloseOpened();
@@ -262,7 +262,7 @@ public:
     static NamePage::E NameOpened();
 
     // Возвращает страницу меню, которая должна открываться по нажатию кнопки
-    static const Page *ForButton(KeyOld::E);
+    static const Page *ForButton(Key::E);
 
     static const Page *FromName(NamePage::E);
 };

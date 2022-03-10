@@ -1,7 +1,7 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-#include "Panel/Controls_Old.h"
 #include "Menu/MenuItems.h"
+#include "common/Panel/Controls.h"
 
 
 namespace Menu
@@ -12,16 +12,16 @@ namespace Menu
     namespace Handlers
     {
         // Функция обработки короткого нажатия кнопки (менее 0.5 сек.).
-        void ShortPressureButton(KeyOld::E);
+        void ShortPressureButton(Key::E);
 
         // Функция обработки длинного нажатия кнопки (более 0.5 сек.).
-        void LongPressureButton(KeyOld::E);
+        void LongPressureButton(Key::E);
 
         // Функция вызывается, когда кнопка переходит из отжатого в нажатое положение.
-        void PressButton(KeyOld::E);
+        void PressButton(Key::E);
 
         // Функция вызывается, когда кнопка переходит из нажатого в отжатое положение.
-        void ReleaseButton(KeyOld::E);
+        void ReleaseButton(Key::E);
 
         // Функция обработки поворота ручки УСТАНОВКА вправо.
         void RotateRegSetRight();

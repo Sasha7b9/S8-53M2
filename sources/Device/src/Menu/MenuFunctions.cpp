@@ -125,7 +125,7 @@ int Page::PosItemOnTop()
 }
 
 
-bool KeyOld::IsFunctional(KeyOld::E button)
+bool KeyOld::IsFunctional(Key::E button)
 {
     return button >= KeyOld::F1 && button <= KeyOld::F5;
 }

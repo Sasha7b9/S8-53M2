@@ -119,7 +119,7 @@ static const Page mainPage
 const Page *PageMain::self = &mainPage;
 
 
-const Page *Page::ForButton(KeyOld::E button)
+const Page *Page::ForButton(Key::E button)
 {
     static const void *pages[] = {  
         nullptr,                // KeyOld::Empty

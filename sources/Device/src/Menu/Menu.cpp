@@ -29,21 +29,21 @@ namespace Menu
     bool needClosePageSB = true;
 
     // Если произошло короткое нажатие кнопки, то здесь хранится имя этой кнопки до обработки этого  нажатия.
-    KeyOld::E shortPressureButton = KeyOld::Empty;
+    Key::E shortPressureButton = KeyOld::Empty;
     // Если произошло длинное нажатие кнопки, то здесь хранится имя этой кнопки до обработки этого нажатия.
-    KeyOld::E longPressureButton = KeyOld::Empty;
+    Key::E longPressureButton = KeyOld::Empty;
     // При нажатии кнопки её имя записывается в эту переменную и хранится там до обратоки события нажатия кнопки.
-    KeyOld::E pressButton = KeyOld::Empty;
+    Key::E pressButton = KeyOld::Empty;
     // При отпускании кнопки её имя записывается в эту переменную и хранится там до обработки  события отпускания кнопки.
-    KeyOld::E releaseButton = KeyOld::Empty;
+    Key::E releaseButton = KeyOld::Empty;
     // Угол, на который нужно повернуть ручку УСТАНОВКА - величина означает количество щелчков, знак - направление - "-" - влево, "+" - вправо
     int angleRegSet = 0;
 
     static const int stepAngleRegSet = 2;
 
     static const int  SIZE_BUFFER_FOR_BUTTONS = 5;
-    static KeyOld::E bufferForButtons[SIZE_BUFFER_FOR_BUTTONS] = {KeyOld::Empty, KeyOld::Empty, KeyOld::Empty, KeyOld::Empty, KeyOld::Empty};
-    static const KeyOld::E sampleBufferForButtons[SIZE_BUFFER_FOR_BUTTONS] = {KeyOld::F5, KeyOld::F4, KeyOld::F3, KeyOld::F2, KeyOld::F1};
+    static Key::E bufferForButtons[SIZE_BUFFER_FOR_BUTTONS] = {KeyOld::Empty, KeyOld::Empty, KeyOld::Empty, KeyOld::Empty, KeyOld::Empty};
+    static const Key::E sampleBufferForButtons[SIZE_BUFFER_FOR_BUTTONS] = {KeyOld::F5, KeyOld::F4, KeyOld::F3, KeyOld::F2, KeyOld::F1};
 
     // Обработка короткого нажатия кнопки.
     void ProcessingShortPressureButton();
@@ -95,7 +95,7 @@ namespace Menu
     // Обработка события таймера автоматического сокрытия меню.
     void OnTimerAutoHide();
 
-    void ProcessButtonForHint(KeyOld::E button);
+    void ProcessButtonForHint(Key::E button);
 }
 
 
@@ -116,7 +116,7 @@ void Menu::UpdateInput()
 };
 
 
-void Menu::Handlers::ShortPressureButton(KeyOld::E button)
+void Menu::Handlers::ShortPressureButton(Key::E button)
 {
     if (!Hint::show)
     {
@@ -132,7 +132,7 @@ void Menu::Handlers::ShortPressureButton(KeyOld::E button)
 
 
 
-void Menu::Handlers::LongPressureButton(KeyOld::E button)
+void Menu::Handlers::LongPressureButton(Key::E button)
 {
     if (!Hint::show)
     {
@@ -142,7 +142,7 @@ void Menu::Handlers::LongPressureButton(KeyOld::E button)
 };
 
 
-void Menu::ProcessButtonForHint(KeyOld::E button)
+void Menu::ProcessButtonForHint(Key::E button)
 {
     if (button == KeyOld::Menu)
     {
@@ -273,7 +273,7 @@ void Menu::ProcessButtonForHint(KeyOld::E button)
 }
 
 
-void Menu::Handlers::PressButton(KeyOld::E button)
+void Menu::Handlers::PressButton(Key::E button)
 {
     Sound::ButtonPress();
 
@@ -294,7 +294,7 @@ void Menu::Handlers::PressButton(KeyOld::E button)
         }
         bufferForButtons[0] = button;
       
-        if (memcmp(bufferForButtons, sampleBufferForButtons, SIZE_BUFFER_FOR_BUTTONS * sizeof(KeyOld::E)) == 0)
+        if (memcmp(bufferForButtons, sampleBufferForButtons, SIZE_BUFFER_FOR_BUTTONS * sizeof(Key::E)) == 0)
         {
             showDebugMenu = true;
             Display::ShowWarningGood(Warning::MenuDebugEnabled);
@@ -305,7 +305,7 @@ void Menu::Handlers::PressButton(KeyOld::E button)
 };
 
 
-void Menu::Handlers::ReleaseButton(KeyOld::E button)
+void Menu::Handlers::ReleaseButton(Key::E button)
 {
     Sound::ButtonRelease();
 
@@ -418,7 +418,7 @@ void Menu::ProcessingShortPressureButton()
         Display::Redraw();
         Menu::SetAutoHide(true);
 
-        KeyOld::E button = shortPressureButton;
+        Key::E button = shortPressureButton;
 
         do
         {

@@ -27,8 +27,8 @@ namespace Panel
     const uint8 LED_CHAN_A   = 3;
     const uint8 LED_CHAN_B   = 4;
 
-    KeyOld::E pressedKey = KeyOld::Empty;
-    volatile KeyOld::E pressedButton = KeyOld::Empty;         // Ёто используетс€ дл€ отслеживани€ нажатой кнопки при отключенной панели
+    Key::E pressedKey = KeyOld::Empty;
+    volatile Key::E pressedButton = KeyOld::Empty;         // Ёто используетс€ дл€ отслеживани€ нажатой кнопки при отключенной панели
 
     Queue<uint8> data_for_send;                         // «десь данные дл€ пересылки в панель
 
@@ -39,14 +39,11 @@ namespace Panel
 
     bool isRunning = true;
 
-    // ѕреобразует данные из новой панели в данные, опознаваемые старой прошивкой
-    uint16 TranslateCommand(const uint8 *data, uint size);
-
     void OnTimerPressedKey();
 
-    KeyOld::E ButtonIsRelease(uint16 command);
+    Key::E ButtonIsRelease(uint16 command);
 
-    KeyOld::E ButtonIsPress(uint16 command);
+    Key::E ButtonIsPress(uint16 command);
 
     RegulatorOld::E RegulatorLeft(uint16 command);
 
@@ -164,15 +161,15 @@ namespace Panel
 
 
 
-KeyOld::E Panel::ButtonIsRelease(uint16 command)
+Key::E Panel::ButtonIsRelease(uint16 command)
 {
-    KeyOld::E button = KeyOld::Empty;
+    Key::E button = KeyOld::Empty;
 
     if(command < KeyOld::Count && command > KeyOld::Empty)
     {
         if(TIME_MS - timePrevReleaseButton > 100)
         {
-            button = (KeyOld::E)command;
+            button = (Key::E)command;
             timePrevReleaseButton = TIME_MS;
         }
     }
@@ -181,15 +178,15 @@ KeyOld::E Panel::ButtonIsRelease(uint16 command)
 }
 
 
-KeyOld::E Panel::ButtonIsPress(uint16 command)
+Key::E Panel::ButtonIsPress(uint16 command)
 {
-    KeyOld::E button = KeyOld::Empty;
+    Key::E button = KeyOld::Empty;
 
     if (((command & 0x7f) < KeyOld::Count) && ((command & 0x7f) > KeyOld::Empty))
     {
         if(TIME_MS - timePrevPressButton > 100)
         {
-            button = (KeyOld::E)(command & 0x7f);
+            button = (Key::E)(command & 0x7f);
             timePrevPressButton = TIME_MS;
         }
     }
@@ -248,7 +245,7 @@ void Panel::OnTimerPressedKey()
 }
 
 
-KeyOld::E Panel::WaitPressingButton()
+Key::E Panel::WaitPressingButton()
 {
     Timer::PauseOnTime(500);
 
@@ -269,8 +266,8 @@ KeyOld::E Panel::WaitPressingButton()
 
 void Panel::ProcessingCommandFromPIC(uint16 command)
 {
-    KeyOld::E releaseButton = ButtonIsRelease(command);
-    KeyOld::E pressButton = ButtonIsPress(command);
+    Key::E releaseButton = ButtonIsRelease(command);
+    Key::E pressButton = ButtonIsPress(command);
     RegulatorOld::E regLeft = RegulatorLeft(command);
     RegulatorOld::E regRight = RegulatorRight(command);
     RegulatorOld::E regPress = RegulatorIsPress(command);
