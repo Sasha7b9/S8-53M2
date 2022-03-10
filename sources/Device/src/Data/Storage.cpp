@@ -86,7 +86,7 @@ namespace Storage
     // Очистка значений мин, макс и сумм
     void ClearLimitsAndSums();
 
-    void CalculateLimits(DataSettings *, uint8 *dataA, uint8 *dataB);
+    void CalculateLimits(DataSettings *, const uint8 *dataA, const uint8 *dataB);
 
     // Копирует данные канала chan из, определяемые ds, в одну из двух строк массива dataImportRel. Возвращаемое
     // значение false означает, что данный канал выключен.
@@ -192,7 +192,7 @@ int Storage::NumElements()
 }
 
 
-void Storage::CalculateLimits(DataSettings *dss, uint8 *a, uint8 *b)
+void Storage::CalculateLimits(DataSettings *dss, const uint8 *a, const uint8 *b)
 {
     uint numElements = (uint)dss->PointsInChannel();
 

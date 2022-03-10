@@ -24,9 +24,9 @@ namespace FPGA
 
         TBase::E AccurateFindTBase(Chan::E);
 
-        uint8 CalculateMinWithout0(uint8 buffer[100]);
+        uint8 CalculateMinWithout0(const uint8 buffer[100]);
 
-        uint8 CalculateMaxWithout255(uint8 buffer[100]);
+        uint8 CalculateMaxWithout255(const uint8 buffer[100]);
 
         TBase::E CalculateTBase(float freq_);
 
@@ -277,7 +277,7 @@ TBase::E FPGA::AutoFinder::CalculateTBase(float freq_)
 }
 
 
-uint8 FPGA::AutoFinder::CalculateMinWithout0(uint8 buffer[100])
+uint8 FPGA::AutoFinder::CalculateMinWithout0(const uint8 buffer[100])
 {
     // \todo На одном экземпляре был страшенныый глюк, когда без сигнала выбивались значения 0 и 255 в рандомных местах
     // Вот такой кастыиль на скорую ногу, чтобы нули выкинуть.
@@ -294,7 +294,7 @@ uint8 FPGA::AutoFinder::CalculateMinWithout0(uint8 buffer[100])
 }
 
 
-uint8 FPGA::AutoFinder::CalculateMaxWithout255(uint8 buffer[100])
+uint8 FPGA::AutoFinder::CalculateMaxWithout255(const uint8 buffer[100])
 {
     // \todo На одном экземпляре был страшенныый глюк, когда без сигнала выбивались значения 0 и 255 в рандомных местах
     // Вот такой кастыиль на скорую ногу, чтобы нули выкинуть.

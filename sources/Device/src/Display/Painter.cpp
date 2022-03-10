@@ -148,7 +148,7 @@ void Painter::DrawDashedHLine(int y, int x0, int x1, int deltaFill, int deltaEmp
 }
 
 
-void InterCom::Send(uint8 *pointer, int size)
+void InterCom::Send(const uint8 *pointer, int size)
 {
     VCP::SendDataSynch(pointer, size);
     SocketTCP::Send((pchar )pointer, (uint)size);
@@ -320,7 +320,7 @@ Color::E Painter::GetColor(int x, int y)
 }
 
 
-void Painter::DrawMultiVPointLine(int numLines, const int y, uint16 x[], int delta, int count, Color::E color) 
+void Painter::DrawMultiVPointLine(int numLines, const int y, const uint16 x[], int delta, int count, Color::E color) 
 {
     numLines = Math::Limitation<int>(numLines, 0, 20);
 
@@ -364,7 +364,7 @@ void Painter::DrawVPointLine(int x, int y, int count, int delta)
 }
 
 
-void Painter::DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color::E color)
+void Painter::DrawMultiHPointLine(int numLines, int x, const uint8 y[], int delta, int count, Color::E color)
 {
     numLines = Math::Limitation<int>(numLines, 0, 20);
 
@@ -526,7 +526,7 @@ void Painter::DrawVLineArray(int x, int num_lines, uint8 *y0y1, Color::E color, 
 }
 
 
-void Painter::DrawSignal(const int _x, uint8 data[281], bool modeLines)
+void Painter::DrawSignal(const int _x, const uint8 data[281], bool modeLines)
 {
     int x = _x;
 

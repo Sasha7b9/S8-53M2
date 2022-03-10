@@ -27,11 +27,11 @@ namespace Painter
 
     void DrawHPointLine(int y, int x0, int x1, float delta);
 
-    void DrawMultiVPointLine(int numLines, const int y, uint16 x[], int delta, int count, Color::E);
+    void DrawMultiVPointLine(int numLines, const int y, const uint16 x[], int delta, int count, Color::E);
 
     void DrawVPointLine(int x, int y, int count, int delta);
 
-    void DrawMultiHPointLine(int numLines, int x, uint8 y[], int delta, int count, Color::E);
+    void DrawMultiHPointLine(int numLines, int x, const uint8 y[], int delta, int count, Color::E);
 
     void DrawHPointLine(int x, int y, int count, int delta);
 
@@ -58,7 +58,7 @@ namespace Painter
     void DrawVLineArray(int x, int numLines, uint8 *y0y1, Color::E, uint8 transparency);
 
     // modeLines - true - точками, false - точками
-    void DrawSignal(const int x, uint8 data[281], bool modeLines);
+    void DrawSignal(const int x, const uint8 data[281], bool modeLines);
 
     bool SaveScreenToFlashDrive();
 

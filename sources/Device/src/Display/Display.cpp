@@ -27,7 +27,7 @@
 #include <stm32f4xx_hal.h>
 #include <math.h>
 #include <limits.h>
-#include <string.h>
+#include <cstring>
 #include <stdio.h>
 
 
@@ -917,6 +917,9 @@ void Display::DrawDataInRect(int x, int width, const uint8 *data, int numElems, 
     width--;
     float elemsInColumn = (float)numElems / (float)width;
     uint8 min[300] = {255};
+
+    std::memset(min, 255, 300);
+
     uint8 max[300] = {0};
 
     if (SET_TBASE >= TBase::_20ms && SET_PEAKDET_IS_ENABLE)
@@ -1414,9 +1417,9 @@ void Display::WriteValueTrigLevel()
         }
 
         char buffer[20];
-        strcpy(buffer, LANG_RU ? "Ур синхр = " : "Trig lvl = ");
+        std::strcpy(buffer, LANG_RU ? "Ур синхр = " : "Trig lvl = ");
         char bufForVolt[20];
-        strcat(buffer, Voltage2String(trigLev, true, bufForVolt));
+        std::strcat(buffer, Voltage2String(trigLev, true, bufForVolt));
         int width = 96;
         int x = (Grid::Width() - width) / 2 + Grid::Left();
         int y = Grid::BottomMessages() - 20;
@@ -2228,11 +2231,11 @@ void Display::DrawLowPart()
         float freq = FPGA::FreqMeter::GetFreq();
         if (freq == -1.0f) //-V550
         {
-            strcat(mesFreq, "******");
+            std::strcat(mesFreq, "******");
         }
         else
         {
-            strcat(mesFreq, Freq2String(freq, false, buf));
+            std::strcat(mesFreq, Freq2String(freq, false, buf));
         }
         PText::Draw(x + 3, GRID_BOTTOM + 2, mesFreq);
     }
@@ -2310,10 +2313,10 @@ void Display::DrawTimeForFrame(uint timeTicks)
 
     char message[20] = {0};
     sprintf(message, "%d", Storage::NumElementsWithSameSettings());
-    strcat(message, "/");
+    std::strcat(message, "/");
     char numAvail[10] = {0};
     sprintf(numAvail, "%d", Storage::NumberAvailableEntries());
-    strcat(message, numAvail);
+    std::strcat(message, numAvail);
     PText::Draw(Grid::Left() + 50, Grid::FullBottom() - 9, message);
 }
 
@@ -2423,7 +2426,7 @@ int Display::CalculateFreeSize()
     {
         return SIZE_BUFFER_FOR_STRINGS;
     }
-    return (int)(SIZE_BUFFER_FOR_STRINGS - (strings[firstEmptyString - 1] - bufferForStrings) - strlen(strings[firstEmptyString - 1]) - 1);
+    return (int)(SIZE_BUFFER_FOR_STRINGS - (strings[firstEmptyString - 1] - bufferForStrings) - std::strlen(strings[firstEmptyString - 1]) - 1);
 }
 
 
@@ -2433,7 +2436,7 @@ void Display::DeleteFirstString()
     {
         return;
     }
-    int delta = (int)strlen(strings[0]) + 1;
+    int delta = (int)std::strlen(strings[0]) + 1;
     int numStrings = FirstEmptyString();
     for(int i = 1; i < numStrings; i++)
     {
@@ -2456,8 +2459,8 @@ void Display::AddString(pchar string)
     static int num = 0;
     char buffer[100];
     sprintf(buffer, "%d\x11", num++);
-    strcat(buffer, string);
-    int size = (int)strlen(buffer) + 1;
+    std::strcat(buffer, string);
+    int size = (int)std::strlen(buffer) + 1;
 
     while(CalculateFreeSize() < size)
     {
@@ -2467,14 +2470,14 @@ void Display::AddString(pchar string)
     if(!strings[0])
     {
         strings[0] = bufferForStrings;
-        strcpy(strings[0], buffer);
+        std::strcpy(strings[0], buffer);
     }
     else
     {
         char *addressLastString = strings[FirstEmptyString() - 1];
-        char *address = addressLastString + strlen(addressLastString) + 1;
+        char *address = addressLastString + std::strlen(addressLastString) + 1;
         strings[FirstEmptyString()] = address; //-V557
-        strcpy(address, buffer);
+        std::strcpy(address, buffer);
     }
 }
 

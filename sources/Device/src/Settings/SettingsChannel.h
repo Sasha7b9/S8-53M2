@@ -47,7 +47,7 @@
 
 // Настройки каналов
 struct SettingsChannel
-{
+{ //-V802
     float         cal_stretch;                                  // Коэффицент растяжки (на него умножается сигнал)
     int8          cal_rshift[Range::Count][ModeCouple::Count];  // Добавочное смещение, вычисляемое при калибровке
 

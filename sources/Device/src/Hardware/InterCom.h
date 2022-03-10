@@ -8,7 +8,7 @@ namespace InterCom
     // Возвращает true, если можно передавать изображение ГУИ
     bool TransmitGUIinProcess();
 
-    void Send(uint8 *, int);
+    void Send(const uint8 *, int);
 }
 
 
