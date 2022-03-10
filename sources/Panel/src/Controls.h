@@ -74,6 +74,7 @@ struct Action { enum E {
         Count
     } value;
 
+    Action(E v) : value(v) {}
     Action(uint8 v) : value((E)v) {}
     static Action::E FromCode(uint16 code);
     static uint16 ToCode(Action::E action);

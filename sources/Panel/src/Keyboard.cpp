@@ -8,7 +8,7 @@
 
 struct Buffer
 {
-    static void AppendEvent(Key::E key, Action::E action);
+    static void AppendEvent(Key, Action);
     static KeyboardEvent commands[10];
     static int pointer;
     static bool IsEmpty() { return (pointer == 0); }
@@ -80,7 +80,7 @@ struct GovernorStruct
     void Process();
 
 private:
-    void SendEvent(Key::E key, Action::E action);
+    void SendEvent(Key key, Action action);
 
     Key::E key;
     uint8  rlA;
@@ -211,23 +211,47 @@ void GovernorStruct::Process()
 }
 
 
-void GovernorStruct::SendEvent(Key::E key_, Action::E action)
+void GovernorStruct::SendEvent(Key _key, Action action)
 {
-    Buffer::AppendEvent(key_, action);
+    static KeyboardEvent event;
+    static uint prevTime = 0;
+
+    if (event.key == _key.value)        // Не будем посылать событие, если это событие - вращение последней
+    {                                   // вращаемой ручки менее чем через 50 мс в обратном направлении
+        if (TIME_MS - prevTime < 50)
+        {
+            if (
+                ((event.action == Action::RotateLeft) && action.IsRotateRight())
+                ||
+                ((event.action == Action::RotateRight) && action.IsRotateLeft())
+                )
+            {
+                return;
+            }
+        }
+    }
+
+    {
+        event.key = _key.value;
+        event.action = action.value;
+        prevTime = TIME_MS;
+    }
+
+    Buffer::AppendEvent(_key, action);
     prevStateIsSame = false;
     nextTime = TIME_MS + dT;
 }
 
 
-void Buffer::AppendEvent(Key::E key, Action::E action)
+void Buffer::AppendEvent(Key key, Action action)
 {
-    if (key == Key::Power && action != Action::Down)
+    if (key.value == Key::Power && !action.IsDown())
     {
         return;
     }
 
-    commands[pointer].key = key;
-    commands[pointer].action = action;
+    commands[pointer].key = key.value;
+    commands[pointer].action = action.value;
     pointer++;
 }
 
