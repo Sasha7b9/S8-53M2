@@ -77,6 +77,13 @@ bool Key::IsFunctional() const
     return (value >= Key::F1) && (value <= Key::F5);
 }
 
+
+bool Key::IsFunctional(Key::E value)
+{
+    return Key(value).IsFunctional();
+}
+
+
 pchar Action::Name() const
 {
     static const pchar names[Count] =
