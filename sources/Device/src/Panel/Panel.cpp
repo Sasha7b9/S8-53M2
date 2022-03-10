@@ -201,10 +201,15 @@ namespace Panel
 
     static void FuncRangeB(Action action)
     {
+        Sound::RegulatorSwitchRotate();
+
         if (action.IsLeft())
         {
-            Sound::RegulatorSwitchRotate();
             Range::Increase(Chan::B);
+        }
+        else if (action.IsRight())
+        {
+            Range::Decrease(Chan::B);
         }
     }
 
@@ -294,8 +299,6 @@ namespace Panel
 
     static void (*funculatorRight[Key::Count])() =
     {
-        RangeRightA,    // RegulatorOld::RangeA
-        RangeRightB,    // RegulatorOld::RangeB
         RShift0Right,   // RegulatorOld::RShiftA
         RShift1Right,   // RegulatorOld::RShiftB
         TBaseRight,     // RegulatorOld::TBase

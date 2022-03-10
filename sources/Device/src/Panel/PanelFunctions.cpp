@@ -225,12 +225,6 @@ void TShiftRight()
 
 
 
-void RangeRightB()
-{
-    Sound::RegulatorSwitchRotate();
-    Range::Decrease(Chan::B);
-}
-
 
 
 void TBaseRight()
