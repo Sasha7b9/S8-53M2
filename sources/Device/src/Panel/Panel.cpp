@@ -1,4 +1,5 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+#include "defines.h"
 #include "Panel.h"
 #include "FPGA/FPGA.h"
 #include "Utils/Math.h"
@@ -356,11 +357,25 @@ namespace Panel
 
     }
 
-    static void FuncHelp(Action)
+    static void FuncHelp(Action action)
     {
-        Hint::show = !Hint::show;
-        Hint::string = nullptr;
-        Hint::item = nullptr;
+//        Hint::show = !Hint::show;
+//        Hint::string = nullptr;
+//        Hint::item = nullptr;
+
+        if (action.IsUp())
+        {
+            if (Hint::show)
+            {
+
+            }
+            else
+            {
+                Hint::show = !Hint::show;
+                Hint::string = nullptr;
+                Hint::item = nullptr;
+            }
+        }
     }
 
     static void FuncStart(Action action)
@@ -554,6 +569,13 @@ namespace Panel
 
 void Panel::ProcessingKeyboardEvent(KeyboardEvent event)
 {
+    if (event.IsUp())
+    {
+        event.action.value = Action::Up;
+    }
+
+    DEBUG_POINT_0;
+
     if (!isRunning)
     {
         if (event.IsDown())
@@ -564,16 +586,16 @@ void Panel::ProcessingKeyboardEvent(KeyboardEvent event)
         return;
     }
 
-    if (event.IsUp())
-    {
-        Menu::Handlers::ShortPressureButton(event.key);
-    }
-//    else if (event.IsUp())
+//    if (event.IsUp())
 //    {
 //        Menu::Handlers::ReleaseButton(event.key);
 //    }
 
+    DEBUG_POINT_0;
+
     funcOnKey[event.key](event.action);
+
+    DEBUG_POINT_0;
 }
 
 

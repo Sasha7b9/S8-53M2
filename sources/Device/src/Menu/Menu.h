@@ -11,9 +11,6 @@ namespace Menu
 
     namespace Handlers
     {
-        // Функция обработки короткого нажатия кнопки (менее 0.5 сек.).
-        void ShortPressureButton(Key::E);
-
         // Функция вызывается, когда кнопка переходит из отжатого в нажатое положение.
         void PressButton(Key::E);
 

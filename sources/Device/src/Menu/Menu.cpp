@@ -27,8 +27,6 @@ namespace Menu
     bool showDebugMenu = true;
     bool needClosePageSB = true;
 
-    // Если произошло короткое нажатие кнопки, то здесь хранится имя этой кнопки до обработки этого  нажатия.
-    Key::E shortPressureButton = Key::None;
     // При нажатии кнопки её имя записывается в эту переменную и хранится там до обратоки события нажатия кнопки.
     Key::E pressButton = Key::None;
     // При отпускании кнопки её имя записывается в эту переменную и хранится там до обработки  события отпускания кнопки.
@@ -105,22 +103,6 @@ void Menu::UpdateInput()
         OpenFileManager();
     }
 };
-
-
-void Menu::Handlers::ShortPressureButton(Key::E button)
-{
-    if (!Hint::show)
-    {
-        if(button == Key::Help)
-        {
-            Hint::show = !Hint::show;
-            Hint::string = nullptr;
-            Hint::item = nullptr;
-        }
-        shortPressureButton = button;
-    }
-};
-
 
 
 void Menu::ProcessButtonForHint(Key::E button)
@@ -246,10 +228,6 @@ void Menu::ProcessButtonForHint(Key::E button)
 #pragma pop
 #endif
             "3. Pressing and holding the button СИНХР for 0.5s when setting \"SERVICE\x99Mode long TRIG\x99SReset trig level\" sets the trigger level 0V.";
-    }
-    else
-    {
-        shortPressureButton = button;
     }
 }
 
