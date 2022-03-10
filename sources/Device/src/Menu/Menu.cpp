@@ -362,18 +362,6 @@ void Menu::OnTimerAutoHide()
 }
 
 
-const Page *Page::ForButton(Key::E button)
-{
-    static const void *pages[] = {
-        PageTrig::self,         // Key::Trig
-        PageCursors::self,      // Key::Cursors
-        PageMeasures::self,     // Key::Measures
-    };
-
-    return (const Page *)pages[button];
-}
-
-
 void Menu::ProcessingShortPressureButton()
 {
     Display::Redraw();

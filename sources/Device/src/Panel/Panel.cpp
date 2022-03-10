@@ -357,7 +357,13 @@ namespace Panel
 
     static void FuncTrig(Action action)
     {
-        if (action.IsLong())
+        if (action.IsUp())
+        {
+            PageTrig::self->SetCurrent(true);
+            PageTrig::self->Open(true);
+            Menu::Show(true);
+        }
+        else if (action.IsLong())
         {
             Display::Redraw();
             Menu::SetAutoHide(true);
@@ -373,20 +379,23 @@ namespace Panel
         }
     }
 
-    static void FuncCursors(Action)
+    static void FuncCursors(Action action)
     {
-
+        if (action.IsUp())
+        {
+            PageCursors::self->SetCurrent(true);
+            PageCursors::self->Open(true);
+            Menu::Show(true);
+        }
     }
 
     static void FuncMeasures(Action action)
     {
         if (action.IsUp())
         {
-            if (MODE_BTN_MEMORY_IS_SAVE && FDrive::isConnected)
-            {
-                PageMemory::SetName::exitTo = Menu::IsShown() ? RETURN_TO_MAIN_MENU : RETURN_TO_DISABLE_MENU;
-                PageMemory::SaveSignalToFlashDrive();
-            }
+            PageMeasures::self->SetCurrent(true);
+            PageMeasures::self->Open(true);
+            Menu::Show(true);
         }
     }
 
@@ -437,9 +446,17 @@ namespace Panel
     {
         if (action.IsUp())
         {
-            PageMemory::self->SetCurrent(true);
-            PageMemory::self->Open(true);
-            Menu::Show(true);
+            if (MODE_BTN_MEMORY_IS_SAVE && FDrive::isConnected)
+            {
+                PageMemory::SetName::exitTo = Menu::IsShown() ? RETURN_TO_MAIN_MENU : RETURN_TO_DISABLE_MENU;
+                PageMemory::SaveSignalToFlashDrive();
+            }
+            else
+            {
+                PageMemory::self->SetCurrent(true);
+                PageMemory::self->Open(true);
+                Menu::Show(true);
+            }
         }
     }
 
