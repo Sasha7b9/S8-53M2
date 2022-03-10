@@ -38,7 +38,7 @@ struct KeyOld
 KeyOld::E& operator++(KeyOld::E &);
 
 // Идентификаторы регуляторов.
-struct Regulator
+struct RegulatorOld
 {
     enum E
     {

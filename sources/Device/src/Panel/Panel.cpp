@@ -47,11 +47,11 @@ namespace Panel
 
     KeyOld::E ButtonIsPress(uint16 command);
 
-    Regulator::E RegulatorLeft(uint16 command);
+    RegulatorOld::E RegulatorLeft(uint16 command);
 
-    Regulator::E RegulatorRight(uint16 command);
+    RegulatorOld::E RegulatorRight(uint16 command);
 
-    Regulator::E RegulatorIsPress(uint16 command);
+    RegulatorOld::E RegulatorIsPress(uint16 command);
 
     static void(*funcOnKeyDown[KeyOld::Count])() =
     {
@@ -124,40 +124,40 @@ namespace Panel
 
     static void (*funcOnRegulatorPress[8])() =
     {
-        ChannelALong,   // 20 - Regulator::RangeA
-        ChannelALong,   // 21 - Regulator::RShiftA
-        ChannelBLong,   // 22 - Regulator::RangeB
-        ChannelBLong,   // 23 - Regulator::RShiftB
-        TimeLong,       // 24 - Regulator::TBase
-        TimeLong,       // 25 - Regulator::TShift
-        TrigLong,       // 26 - Regulator::TrigLev
-        MenuLong        // 27 - Regulator::Set
+        ChannelALong,   // 20 - RegulatorOld::RangeA
+        ChannelALong,   // 21 - RegulatorOld::RShiftA
+        ChannelBLong,   // 22 - RegulatorOld::RangeB
+        ChannelBLong,   // 23 - RegulatorOld::RShiftB
+        TimeLong,       // 24 - RegulatorOld::TBase
+        TimeLong,       // 25 - RegulatorOld::TShift
+        TrigLong,       // 26 - RegulatorOld::TrigLev
+        MenuLong        // 27 - RegulatorOld::Set
     };
 
-    static void (*funculatorLeft[Regulator::Set + 1])() =
+    static void (*funculatorLeft[RegulatorOld::Set + 1])() =
     {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        RangeLeftA,     // Regulator::RangeA
-        RShift0Left,    // Regulator::RShiftA
-        RangeLeftB,     // Regulator::RangeB
-        RShift1Left,    // Regulator::RShiftB
-        TBaseLeft,      // Regulator::TBase
-        TShiftLeft,     // Regulator::TShift
-        TrigLevLeft,    // Regulator::TrigLev
-        SetLeft         // Regulator::Set
+        RangeLeftA,     // RegulatorOld::RangeA
+        RShift0Left,    // RegulatorOld::RShiftA
+        RangeLeftB,     // RegulatorOld::RangeB
+        RShift1Left,    // RegulatorOld::RShiftB
+        TBaseLeft,      // RegulatorOld::TBase
+        TShiftLeft,     // RegulatorOld::TShift
+        TrigLevLeft,    // RegulatorOld::TrigLev
+        SetLeft         // RegulatorOld::Set
     };
 
-    static void (*funculatorRight[Regulator::Set + 1])() =
+    static void (*funculatorRight[RegulatorOld::Set + 1])() =
     {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        RangeRightA,    // Regulator::RangeA
-        RShift0Right,   // Regulator::RShiftA
-        RangeRightB,    // Regulator::RangeB
-        RShift1Right,   // Regulator::RShiftB
-        TBaseRight,     // Regulator::TBase
-        TShiftRight,    // Regulator::TShift
-        TrigLevRight,   // Regulator::TrigLev
-        SetRight        // Regulator::Set
+        RangeRightA,    // RegulatorOld::RangeA
+        RShift0Right,   // RegulatorOld::RShiftA
+        RangeRightB,    // RegulatorOld::RangeB
+        RShift1Right,   // RegulatorOld::RShiftB
+        TBaseRight,     // RegulatorOld::TBase
+        TShiftRight,    // RegulatorOld::TShift
+        TrigLevRight,   // RegulatorOld::TrigLev
+        SetRight        // RegulatorOld::Set
     };
 }
 
@@ -197,35 +197,35 @@ KeyOld::E Panel::ButtonIsPress(uint16 command)
 }
 
 
-Regulator::E Panel::RegulatorIsPress(uint16 command)
+RegulatorOld::E Panel::RegulatorIsPress(uint16 command)
 {
     if ((command & 0xC0) != 0xC0)
     {
-        return Regulator::Empty;
+        return RegulatorOld::Empty;
     }
 
-    return (Regulator::E)(command & 0x3F);
+    return (RegulatorOld::E)(command & 0x3F);
 }
 
 
-Regulator::E Panel::RegulatorLeft(uint16 command)
+RegulatorOld::E Panel::RegulatorLeft(uint16 command)
 {
-    if(Regulator::IsLeft(command))
+    if(RegulatorOld::IsLeft(command))
     {
-        return (Regulator::E)command;
+        return (RegulatorOld::E)command;
     }
 
-    return Regulator::Empty;
+    return RegulatorOld::Empty;
 }
 
 
-Regulator::E Panel::RegulatorRight(uint16 command)
+RegulatorOld::E Panel::RegulatorRight(uint16 command)
 {
-    if(Regulator::IsRight(command))
+    if(RegulatorOld::IsRight(command))
     {
-        return (Regulator::E)(command & 0x7f);
+        return (RegulatorOld::E)(command & 0x7f);
     }
-    return Regulator::Empty;
+    return RegulatorOld::Empty;
 }
 
 
@@ -270,9 +270,9 @@ void Panel::ProcessingCommandFromPIC(uint16 command)
 {
     KeyOld::E releaseButton = ButtonIsRelease(command);
     KeyOld::E pressButton = ButtonIsPress(command);
-    Regulator::E regLeft = RegulatorLeft(command);
-    Regulator::E regRight = RegulatorRight(command);
-    Regulator::E regPress = RegulatorIsPress(command);
+    RegulatorOld::E regLeft = RegulatorLeft(command);
+    RegulatorOld::E regRight = RegulatorRight(command);
+    RegulatorOld::E regPress = RegulatorIsPress(command);
 
     if (pressButton != KeyOld::Empty)
     {
@@ -303,18 +303,18 @@ void Panel::ProcessingCommandFromPIC(uint16 command)
         pressedKey = pressButton;
         Timer::Enable(TypeTimer::PressKey, 500, OnTimerPressedKey);
     }
-    else if(regLeft != Regulator::Empty)
+    else if(regLeft != RegulatorOld::Empty)
     {
          funculatorLeft[regLeft]();
     }
-    else if(regRight != Regulator::Empty)
+    else if(regRight != RegulatorOld::Empty)
     {
         funculatorRight[regRight]();
     }
 
-    if (regPress != Regulator::Empty)
+    if (regPress != RegulatorOld::Empty)
     {
-        int index = regPress - Regulator::RangeA;
+        int index = regPress - RegulatorOld::RangeA;
 
         Sound::ButtonPress();
 
@@ -465,14 +465,14 @@ uint16 Panel::TranslateCommand(const uint8 *data, uint)
         KeyOld::Service,
         KeyOld::Menu,
         KeyOld::Power,
-        Regulator::RangeA,
-        Regulator::RangeB,
-        Regulator::RShiftA,
-        Regulator::RShiftB,
-        Regulator::TBase,
-        Regulator::TShift,
-        Regulator::TrigLev,
-        Regulator::Set
+        RegulatorOld::RangeA,
+        RegulatorOld::RangeB,
+        RegulatorOld::RShiftA,
+        RegulatorOld::RShiftB,
+        RegulatorOld::TBase,
+        RegulatorOld::TShift,
+        RegulatorOld::TrigLev,
+        RegulatorOld::Set
     };
 
     uint16 command = 0;
