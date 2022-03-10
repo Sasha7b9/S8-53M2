@@ -12,6 +12,7 @@
 #include "Hardware/Sound.h"
 #include "Hardware/HAL/HAL.h"
 #include "Utils/Containers/Queue.h"
+#include "common/Panel/Controls.h"
 #include <stm32f4xx_hal.h>
 #include <stm32f4xx_hal_gpio.h>
 #include <stdio.h>
@@ -437,13 +438,6 @@ uint16 Panel::TranslateCommand(const uint8 *data, uint)
 {
     static const int NUM_BUTTONS = 27;
 
-    volatile uint8 data1 = data[1];
-    
-    if(data1 == 24)
-    {
-        data1 = data1;
-    }
-
     static const uint16 commands[NUM_BUTTONS] =
     {
         KeyOld::Empty,
@@ -502,6 +496,10 @@ uint16 Panel::TranslateCommand(const uint8 *data, uint)
 
 void Panel::CallbackOnReceiveSPI5(const uint8 *data, uint size)
 {
+    KeyboardEvent event(data);
+
+    event.Log();
+
     uint16 command = TranslateCommand(data, size);
 
     if (command != 0)

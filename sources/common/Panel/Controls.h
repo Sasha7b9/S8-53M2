@@ -90,7 +90,7 @@ struct Action { enum E {
 struct KeyboardEvent
 {
     KeyboardEvent(Key::E k = Key::Count, Action::E a = Action::Count) :key(k), action(a) {}
-    KeyboardEvent(uint8 *buffer);
+    KeyboardEvent(const uint8 *buffer);
 
     Key key;
     Action action;

@@ -17,7 +17,7 @@ bool KeyboardEvent::IsRelease() const
 
 pchar Key::Name() const
 {
-    static pchar names[Key::Count] =
+    static pchar names[Count] =
     {
         "None",
         "F1",
@@ -116,18 +116,10 @@ pchar Action::Name() const
 }
 
 
-KeyboardEvent::KeyboardEvent(uint8 *buffer)
+KeyboardEvent::KeyboardEvent(const uint8 *buffer)
 {
-    if (*buffer == 0xFF)
-    {
-        key = (Key::E) *(buffer + 1);
-        action = (Action::E) *(buffer + 2);
-    }
-    else
-    {
-        key = Key::None;
-        action = Action::Count;
-    }
+    key = (Key::E) *(buffer + 1);
+    action = (Action::E) *(buffer + 2);
 }
 
 
@@ -135,6 +127,6 @@ void KeyboardEvent::Log() const
 {
     if (key.value != Key::None)
     {
-
+        LOG_WRITE("%s : %s", key.Name(), key.Name());
     }
 }

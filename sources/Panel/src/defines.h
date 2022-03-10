@@ -12,3 +12,6 @@ typedef const char       *pchar;
 #ifndef WIN32
 #define nullptr 0 //-V1059
 #endif
+
+
+#define LOG_WRITE(...)
