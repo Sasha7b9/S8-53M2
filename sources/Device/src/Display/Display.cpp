@@ -161,7 +161,7 @@ namespace Display
 
     bool NeedForClearScreen();
 
-    void WriteStringAndNumber(char* text, int x, int y, int number);
+    void WriteStringAndNumber(pchar text, int x, int y, int number);
 
     void DrawGridType3(int left, int top, int right, int bottom, int centerX, int centerY, int deltaX, int deltaY,
         int stepX, int stepY);
@@ -2091,7 +2091,7 @@ void Display::WriteTextVoltage(Chan::E ch, int x, int y)
 
 
 
-void Display::WriteStringAndNumber(char *text, int x, int y, int number)
+void Display::WriteStringAndNumber(pchar text, int x, int y, int number)
 {
     char buffer[100];
     PText::Draw(x, y, text, COLOR_FILL);
