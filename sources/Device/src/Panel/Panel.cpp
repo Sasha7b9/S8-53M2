@@ -185,14 +185,22 @@ namespace Panel
         }
     }
 
-    static void FuncRangeA(Action)
+    static void FuncRangeA(Action action)
     {
-
+        if (action.IsLeft())
+        {
+            Sound::RegulatorSwitchRotate();
+            Range::Increase(Chan::A);
+        }
     }
 
-    static void FuncRangeB(Action)
+    static void FuncRangeB(Action action)
     {
-
+        if (action.IsLeft())
+        {
+            Sound::RegulatorSwitchRotate();
+            Range::Increase(Chan::B);
+        }
     }
 
     static void FuncRShiftA(Action)
@@ -259,8 +267,6 @@ namespace Panel
 
     static void (*funculatorLeft[Key::Count])() =
     {
-        RangeLeftA,     // RegulatorOld::RangeA
-        RangeLeftB,     // RegulatorOld::RangeB
         RShift0Left,    // RegulatorOld::RShiftA
         RShift1Left,    // RegulatorOld::RShiftB
         TBaseLeft,      // RegulatorOld::TBase

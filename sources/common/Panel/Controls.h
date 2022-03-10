@@ -79,8 +79,8 @@ struct Action { enum E {
     bool IsDown() const { return value == Down; }
     bool IsUp() const { return value == Up; }
     bool IsLong() const { return value == Long; }
-    bool IsRotateLeft() const { return value == RotateLeft; }
-    bool IsRotateRight() const { return value == RotateRight; }
+    bool IsLeft() const { return value == RotateLeft; }
+    bool IsRight() const { return value == RotateRight; }
     pchar Name() const;
 };
 

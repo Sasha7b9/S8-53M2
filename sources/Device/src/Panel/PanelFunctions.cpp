@@ -246,22 +246,10 @@ void TShiftRight()
     XShift(1);
 }
 
-void RangeLeftA()
-{
-    Sound::RegulatorSwitchRotate();
-    Range::Increase(Chan::A);
-}
-
 void RangeRightA()
 {
     Sound::RegulatorSwitchRotate();
     Range::Decrease(Chan::A);
-}
-
-void RangeLeftB()
-{
-    Sound::RegulatorSwitchRotate();
-    Range::Increase(Chan::B);
 }
 
 void RangeRightB()

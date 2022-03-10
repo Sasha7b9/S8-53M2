@@ -221,9 +221,9 @@ void GovernorStruct::SendEvent(Key _key, Action action)
         if (TIME_MS - prevTime < 100)
         {
             if (
-                ((event.action.value == Action::RotateLeft) && action.IsRotateRight())
+                ((event.action.value == Action::RotateLeft) && action.IsRight())
                 ||
-                ((event.action.value == Action::RotateRight) && action.IsRotateLeft())
+                ((event.action.value == Action::RotateRight) && action.IsLeft())
                 )
             {
                 return;
