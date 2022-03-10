@@ -223,6 +223,8 @@ struct TShift
     static int ToRel(float shfit, TBase::E);
 
     static const float absStep[TBase::Count];
+
+    static int ShiftForRandomizer();
 };
 
 

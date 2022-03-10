@@ -751,11 +751,6 @@ void DataSettings::AppendPoints(uint8 *a, uint8 *b, BitSet16 pointsA, BitSet16 p
         }
 
         rec_point += 2;
-
-//        if (rec_point == 10)
-//        {
-//            SU::LogBuffer(a, 10);
-//        }
     }
 }
 
@@ -763,6 +758,17 @@ void DataSettings::AppendPoints(uint8 *a, uint8 *b, BitSet16 pointsA, BitSet16 p
 float TShift::ToAbs(int shift, TBase::E base)
 {
     return absStep[base] * shift * 2.0f;
+}
+
+
+int TShift::ShiftForRandomizer()
+{
+    if (SET_TSHIFT >= 0)
+    {
+        return -(SET_TSHIFT % TBase::StretchRand()) * 2;
+    }
+
+    return (-SET_TSHIFT) % TBase::StretchRand();
 }
 
 

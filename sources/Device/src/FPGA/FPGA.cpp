@@ -420,6 +420,15 @@ void FPGA::Reader::ReadPoints(Chan ch)
         {
             if (TBase::InModeRandomizer())
             {
+                dat += TShift::ShiftForRandomizer();
+
+                while (dat < buffer.Data())
+                {
+                    dat += stretch;
+                }
+
+                LOG_WRITE("%d : %d : %d", TBase::StretchRand(),  SET_TSHIFT, TShift::ShiftForRandomizer());
+
                 while (dat < end && IN_PROCESS_READ)
                 {
                     BitSet16 data = funcRead();
