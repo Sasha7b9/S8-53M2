@@ -50,42 +50,19 @@ uint16 FPGA::Reader::CalculateAddressRead()
 {
     static const int shift[TBase::Count] =
     {
-
+    //  2ns  5ns 10ns 20ns 50ns 100ns 200ns
+        -9,  1, 11,  10,  9,  4,    2,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
-
-    /*
-    static const int shift[TPos::Count][ENUM_POINTS_FPGA::Count][TBase::Count] =
-    {
-        {                                                                                                                               // TPos::Left
-         //  2ns  5ns 10ns 20ns 50ns 100ns 200ns
-            {0,   0,  0,   0,   5,   4,    2,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},       // 281
-            {0,   0,  0,   0,   0,   4,    2,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},       // 512
-            {0,   0,  0,   0,   0,   4,    2,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}        // 1024
-        },
-        {                                                                                                                               // TPos::Center
-         //  2ns  5ns 10ns 20ns 50ns 100ns 200ns
-            {0,   0,  0,   0,   0,   4,    2,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},       // 281
-            {0,   0,  0,   0,   0,   4,    2,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},       // 512
-            {0,   0,  0,   0,   0,   4,    2,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}        // 1024
-        },
-        {                                                                                                                               // TPos::Right
-         //  2ns  5ns 10ns 20ns 50ns 100ns 200ns
-            {0,   0,  0,   0,   0,   4,    2,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},       // 281
-            {0,   0,  0,   0,   0,   4,    2,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},       // 512
-            {0,   0,  0,   0,   0,   4,    2,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}        // 1024
-        }
-    };
-    */
 
     if (TBase::InModeRandomizer())
     {
         return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) -
-            ENUM_POINTS_FPGA::ToNumBytes() * Compactor::Koeff() / (TBase::StretchRand() - 1) + shift[SET_TPOS][SET_ENUM_POINTS][SET_TBASE] - 1);
+            ENUM_POINTS_FPGA::ToNumBytes() * Compactor::Koeff() / (TBase::StretchRand() - 1) + shift[SET_TBASE] - 1);
     }
     else
     {
         return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) -
-            ENUM_POINTS_FPGA::ToNumBytes() * FPGA::Compactor::Koeff() + shift[SET_TPOS][SET_ENUM_POINTS][SET_TBASE] - 1);
+            ENUM_POINTS_FPGA::ToNumBytes() * FPGA::Compactor::Koeff() + shift[SET_TBASE] - 1);
     }
 }
 
@@ -93,15 +70,15 @@ uint16 FPGA::Reader::CalculateAddressRead()
 void FPGA::Launch::Calculate()
 {
     static const int d_pred[TBase::Count] =   // Дополнительное смещение для предзапуска
-    {// 2  5   10  20  50   100 200 500                ns
+    {// 2  5   10  20  50 100 200 500                ns
         0, 0,  0,  0,  0, 0,  0,  0, 
      // 1                                                   us
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
 
     static const int d_post[TBase::Count] =   // Дополнительное смещение для послезапуска
-    {// 2  5  10 20 50 100 200 500                ns
-        0, 0, 0, 0, 0, 0,  0,  0,
+    {// 2   5   10 20 50 100 200 500                ns
+        20, 10, 5, 2, 0, 0,  0,  0,
      // 1                                                   us
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
