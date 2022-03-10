@@ -47,6 +47,7 @@ if(WIN32)
                                     # implies that compiler generated copy/move constructors and copy/move assignment
                                     # operators are not trivia
     add_compile_options(/wd26812)
+    add_compile_options(/wd33010)
 
 else()
 

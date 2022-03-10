@@ -54,7 +54,8 @@ bool Chan::Enabled(Chan::E ch)
     {
         return true;
     }
-    return SET_ENABLED(ch);
+
+    return (ch <= ChB) ? SET_ENABLED(ch) : false;
 }
 
 
