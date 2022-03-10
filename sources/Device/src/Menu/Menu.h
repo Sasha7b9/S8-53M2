@@ -14,9 +14,6 @@ namespace Menu
         // Функция обработки короткого нажатия кнопки (менее 0.5 сек.).
         void ShortPressureButton(Key::E);
 
-        // Функция обработки длинного нажатия кнопки (более 0.5 сек.).
-        void LongPressureButton(Key::E);
-
         // Функция вызывается, когда кнопка переходит из отжатого в нажатое положение.
         void PressButton(Key::E);
 
@@ -51,4 +48,7 @@ namespace Menu
 
     // Если true - меню находится в дополнительном режиме.
     bool IsMinimize();
+
+    // Возвращает функцию обработки длинного нажатия на элемент меню item.
+    void ExecuteFuncForLongPressureOnItem(Item *item);
 };

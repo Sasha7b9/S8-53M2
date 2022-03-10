@@ -239,7 +239,11 @@ namespace Panel
     {
         if (action.IsLong())
         {
-            Menu::Handlers::LongPressureButton(Key::F1);
+            if (Menu::IsShown())
+            {
+                Item *item = Item::UnderKey(Key::F1);
+                Menu::ExecuteFuncForLongPressureOnItem(item);
+            }
         }
     }
 
@@ -247,7 +251,11 @@ namespace Panel
     {
         if (action.IsLong())
         {
-            Menu::Handlers::LongPressureButton(Key::F2);
+            if (Menu::IsShown())
+            {
+                Item *item = Item::UnderKey(Key::F2);
+                Menu::ExecuteFuncForLongPressureOnItem(item);
+            }
         }
     }
 
@@ -255,7 +263,11 @@ namespace Panel
     {
         if(action.IsLong())
         {
-            Menu::Handlers::LongPressureButton(Key::F3);
+            if (Menu::IsShown())
+            {
+                Item *item = Item::UnderKey(Key::F3);
+                Menu::ExecuteFuncForLongPressureOnItem(item);
+            }
         }
     }
 
@@ -263,7 +275,11 @@ namespace Panel
     {
         if(action.IsLong())
         {
-            Menu::Handlers::LongPressureButton(Key::F4);
+            if (Menu::IsShown())
+            {
+                Item *item = Item::UnderKey(Key::F4);
+                Menu::ExecuteFuncForLongPressureOnItem(item);
+            }
         }
     }
 
@@ -271,7 +287,11 @@ namespace Panel
     {
         if(action.IsLong())
         {
-            Menu::Handlers::LongPressureButton(Key::F5);
+            if (Menu::IsShown())
+            {
+                Item *item = Item::UnderKey(Key::F5);
+                Menu::ExecuteFuncForLongPressureOnItem(item);
+            }
         }
     }
 
@@ -279,7 +299,7 @@ namespace Panel
     {
         if (action.IsLong())
         {
-            Menu::Handlers::LongPressureButton(Key::ChannelA);
+            RShift::Set(Chan::A, RShift::ZERO);
         }
     }
 
@@ -287,7 +307,10 @@ namespace Panel
     {
         if (action.IsLong())
         {
-            Menu::Handlers::LongPressureButton(Key::ChannelB);
+            Menu::SetAutoHide(true);
+            Display::Redraw();
+
+            RShift::Set(Chan::B, RShift::ZERO);
         }
     }
 
@@ -295,7 +318,10 @@ namespace Panel
     {
         if (action.IsLong())
         {
-            Menu::Handlers::LongPressureButton(Key::Time);
+            Menu::SetAutoHide(true);
+            Display::Redraw();
+
+            TShift::Set(0);
         }
     }
 
@@ -303,9 +329,12 @@ namespace Panel
     {
         if (action.IsLong())
         {
+            Display::Redraw();
+            Menu::SetAutoHide(true);
+
             if (MODE_LONG_PRESS_TRIG_IS_LEVEL_ZERO)
             {
-                Menu::Handlers::LongPressureButton(Key::Trig);
+                TrigLev::Set(TRIG_SOURCE, TrigLev::ZERO);
             }
             else
             {
@@ -361,7 +390,10 @@ namespace Panel
     {
         if (action.IsLong())
         {
-            Menu::Handlers::LongPressureButton(Key::Menu);
+            Menu::SetAutoHide(true);
+            Display::Redraw();
+
+            Menu::Show(!Menu::IsShown());
         }
     }
 

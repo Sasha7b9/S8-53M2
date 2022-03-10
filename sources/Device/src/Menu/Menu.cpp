@@ -29,8 +29,6 @@ namespace Menu
 
     // Если произошло короткое нажатие кнопки, то здесь хранится имя этой кнопки до обработки этого  нажатия.
     Key::E shortPressureButton = Key::None;
-    // Если произошло длинное нажатие кнопки, то здесь хранится имя этой кнопки до обработки этого нажатия.
-    Key::E longPressureButton = Key::None;
     // При нажатии кнопки её имя записывается в эту переменную и хранится там до обратоки события нажатия кнопки.
     Key::E pressButton = Key::None;
     // При отпускании кнопки её имя записывается в эту переменную и хранится там до обработки  события отпускания кнопки.
@@ -46,8 +44,6 @@ namespace Menu
 
     // Обработка короткого нажатия кнопки.
     void ProcessingShortPressureButton();
-    // Обработка длинного нажатия кнопки.
-    void ProcessingLongPressureButton();
     // Обработка опускания кнопки вниз.
     void ProcessingPressButton();
     // Обработка поднятия кнопки вверх.
@@ -84,9 +80,6 @@ namespace Menu
     void FuncOnLongPressItemButton(Item *button);
     // Возвращает функцию обработки короткого нажатия на элемент меню item.
     void ExecuteFuncForShortPressOnItem(Item *item);
-    // Возвращает функцию обработки длинного нажатия на элемент меню item.
-    void ExecuteFuncForLongPressureOnItem(Item *item);
-
     // Возвращает true, если лампочка УСТАНОВКА должна гореть
     bool NeedForFireSetLED();
 
@@ -101,7 +94,6 @@ namespace Menu
 void Menu::UpdateInput()
 {
     ProcessingShortPressureButton();
-    ProcessingLongPressureButton();
     ProcessingRegulatorSet();
     ProcessingPressButton();
     ProcessingReleaseButton();
@@ -129,16 +121,6 @@ void Menu::Handlers::ShortPressureButton(Key::E button)
     }
 };
 
-
-
-void Menu::Handlers::LongPressureButton(Key::E button)
-{
-    if (!Hint::show)
-    {
-        longPressureButton = button;
-        Display::Redraw();
-    }
-};
 
 
 void Menu::ProcessButtonForHint(Key::E button)
@@ -473,43 +455,6 @@ void Menu::ProcessingShortPressureButton()
         } while(false);
 
         shortPressureButton = Key::None;
-    }
-}
-
-
-void Menu::ProcessingLongPressureButton()
-{
-    if(longPressureButton != Key::None)
-    {
-        Display::Redraw();
-        Menu::SetAutoHide(true);
-
-        if(longPressureButton == Key::Time)
-        {
-            TShift::Set(0);
-        }
-        else if(longPressureButton == Key::Trig)
-        {
-            TrigLev::Set(TRIG_SOURCE, TrigLev::ZERO);
-        }
-        else if(longPressureButton == Key::ChannelA)
-        {
-            RShift::Set(Chan::A, RShift::ZERO);
-        }
-        else if(longPressureButton == Key::ChannelB)
-        {
-            RShift::Set(Chan::B, RShift::ZERO);
-        }
-        else if(longPressureButton == Key::Menu)
-        {
-                Show(!IsShown());
-        }
-        else if(IsShown() && Key::IsFunctional(longPressureButton))
-        {
-            Item *item = Item::UnderKey(longPressureButton);
-            ExecuteFuncForLongPressureOnItem(item);
-        }
-        longPressureButton = Key::None;
     }
 }
 
