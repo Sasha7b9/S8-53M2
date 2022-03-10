@@ -357,53 +357,16 @@ void Panel::ProcessingKeyboardEvent(KeyboardEvent event)
         return;
     }
 
+    if (event.IsDown())
+    {
+        Menu::Handlers::ShortPressureButton(event.key);
+    }
+    else if (event.IsUp())
+    {
+        Menu::Handlers::ReleaseButton(event.key);
+    }
+
     funcOnKey[event.key](event.action);
-
-    /*
-    Key::E releaseButton = event.IsUp() ? event.key.value : Key::None;
-    Key::E pressButton = event.IsDown() ? event.key.value : Key::None;
-    Key::E regLeft = event.IsLeft() ? event.key.value : Key::None;
-    Key::E regRight = event.IsRight() ? event.key.value : Key::None;
-    Key::E regPress = event.IsDown() ? event.key.value : Key::None;
-
-    if (pressButton != Key::None)
-    {
-        pressedButton = pressButton;
-    }
-
-    if(!isRunning)
-    {
-        return;
-    }
-
-    if(releaseButton != Key::None)
-    {
-        Menu::Handlers::ReleaseButton(releaseButton);
-
-        funcOnKeyUp[releaseButton]();
-
-        if(pressedKey != Key::None)
-        {
-            Menu::Handlers::ShortPressureButton(releaseButton);
-            pressedKey = Key::None;
-        }
-    }
-    else if(regLeft != Key::None)
-    {
-         funculatorLeft[regLeft]();
-    }
-    else if(regRight != Key::None)
-    {
-        funculatorRight[regRight]();
-    }
-
-    if (regPress != Key::None)
-    {
-        Sound::ButtonPress();
-
-        funcOnRegulatorPress[event.key]();
-    }
-    */
 }
 
 
