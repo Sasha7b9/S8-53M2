@@ -564,14 +564,14 @@ void Panel::ProcessingKeyboardEvent(KeyboardEvent event)
         return;
     }
 
-    if (event.IsDown())
+    if (event.IsUp())
     {
         Menu::Handlers::ShortPressureButton(event.key);
     }
-    else if (event.IsUp())
-    {
-        Menu::Handlers::ReleaseButton(event.key);
-    }
+//    else if (event.IsUp())
+//    {
+//        Menu::Handlers::ReleaseButton(event.key);
+//    }
 
     funcOnKey[event.key](event.action);
 }
