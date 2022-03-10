@@ -18,7 +18,7 @@ struct TypeLED
 
 
 struct Key { enum E
-{
+{                                   // йМНОЙХ
         None,       // 
         F1,         // 1
         F2,         // 2
@@ -38,6 +38,7 @@ struct Key { enum E
         Service,    // яепбхя
         Menu,       // лемч
         Power,      // бшйк
+                                    // пСВЙХ
         RangeA,     // бнкэр/дек 1
         RangeB,     // бнкэр/дек 2
         RShiftA,    // 

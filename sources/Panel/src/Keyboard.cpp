@@ -218,7 +218,7 @@ void GovernorStruct::SendEvent(Key _key, Action action)
 
     if (event.key == _key.value)        // Не будем посылать событие, если это событие - вращение последней
     {                                   // вращаемой ручки менее чем через 50 мс в обратном направлении
-        if (TIME_MS - prevTime < 50)
+        if (TIME_MS - prevTime < 100)
         {
             if (
                 ((event.action == Action::RotateLeft) && action.IsRotateRight())
