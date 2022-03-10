@@ -48,23 +48,37 @@ uint16 FPGA::Launch::PredForWrite()
 
 uint16 FPGA::Reader::CalculateAddressRead()
 {
-    static const int shift[TPos::Count][TBase::Count] =
+    static const int shift[ENUM_POINTS_FPGA::Count][TPos::Count][TBase::Count] =
     {
-    //    2ns  5ns 10ns 20ns 50ns 100ns 200ns                                                                                                   // 281 points
-        {  -9,  0,   1,   8,  9,   4,    2,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },     // TPos::Left
-        { -11, -4,  -5,  -1,  9,   4,    2,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },     // TPos::Center
-        { -11, -7, -11, -11,  9,   4,    2,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }      // TPos::Right
+        {
+        //    2ns  5ns 10ns 20ns 50ns 100ns 200ns                                                                                                   // 512 points
+            {  -9,  0,   1,   8, 9,   4,    2,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },     // TPos::Left
+            { -11, -4,  -5,  -1, 9,   4,    2,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },     // TPos::Center
+            { -11, -7, -11, -11, 9,   4,    2,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }      // TPos::Right
+        },
+        {
+        //    2ns  5ns 10ns 20ns 50ns 100ns 200ns                                                                                                   // 512 points
+            {  -9,  0,   1,   8, 9,   4,    2,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },     // TPos::Left
+            { -11, -4,  -5,  -1, 9,   4,    2,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },     // TPos::Center
+            { -11, -7, -11, -11, 9,   4,    2,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }      // TPos::Right
+        },
+        {
+        //    2ns  5ns 10ns 20ns 50ns 100ns 200ns                                                                                                   // 1024 points
+            {  -9,  0,   1,   8, 9,   4,    2,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },     // TPos::Left
+            { -11, -4,  -5,  -1, 9,   4,    2,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },     // TPos::Center
+            { -11, -7, -11, -11, 9,   4,    2,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }      // TPos::Right
+        }
     };
 
     if (TBase::InModeRandomizer())
     {
         return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) -
-            ENUM_POINTS_FPGA::ToNumBytes() * Compactor::Koeff() / (TBase::StretchRand() - 1) + shift[SET_TPOS][SET_TBASE] - 1);
+            ENUM_POINTS_FPGA::ToNumBytes() * Compactor::Koeff() / (TBase::StretchRand() - 1) + shift[SET_ENUM_POINTS][SET_TPOS][SET_TBASE] - 1);
     }
     else
     {
         return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) -
-            ENUM_POINTS_FPGA::ToNumBytes() * FPGA::Compactor::Koeff() + shift[SET_TPOS][SET_TBASE] - 1);
+            ENUM_POINTS_FPGA::ToNumBytes() * FPGA::Compactor::Koeff() + shift[SET_ENUM_POINTS][SET_TPOS][SET_TBASE] - 1);
     }
 }
 
