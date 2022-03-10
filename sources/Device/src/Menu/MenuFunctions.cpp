@@ -125,9 +125,9 @@ int Page::PosItemOnTop()
 }
 
 
-bool Key::IsFunctional(Key::E button)
+bool KeyOld::IsFunctional(KeyOld::E button)
 {
-    return button >= Key::F1 && button <= Key::F5;
+    return button >= KeyOld::F1 && button <= KeyOld::F5;
 }
 
 
@@ -183,7 +183,7 @@ void Item::CloseOpened()
     {
         if (((const Page *)item)->IsSB())                           // Для страницы малых кнопок
         {
-            SmallButton *sb = ((Page *)item)->GetSmallButon(0);     // Выполняем функцию нажатия кнопки Key::Menu
+            SmallButton *sb = ((Page *)item)->GetSmallButon(0);     // Выполняем функцию нажатия кнопки KeyOld::Menu
             if (sb->funcOnPress)                                    // Если она есть
             {
                 sb->funcOnPress();

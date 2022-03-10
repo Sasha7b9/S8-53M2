@@ -3,7 +3,7 @@
 
 
 // Идентификаторы кнопок.
-struct Key
+struct KeyOld
 {
     enum E
     {
@@ -29,13 +29,13 @@ struct Key
         Count            // общее количество кнопок
     };
 
-    static pchar Name(Key::E);
+    static pchar Name(KeyOld::E);
 
     // Возвращает true, если button - функциональная клавиша [1..5].
-    static bool IsFunctional(Key::E);
+    static bool IsFunctional(KeyOld::E);
 };
 
-Key::E& operator++(Key::E &);
+KeyOld::E& operator++(KeyOld::E &);
 
 // Идентификаторы регуляторов.
 struct Regulator

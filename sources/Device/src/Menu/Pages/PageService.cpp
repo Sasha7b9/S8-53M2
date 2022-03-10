@@ -39,7 +39,7 @@ static void OnPress_ResetSettings()
     Panel::Disable();
     Display::SetDrawMode(DrawMode::Hand, FuncDraw);
 
-    if (Panel::WaitPressingButton() == Key::Start)
+    if (Panel::WaitPressingButton() == KeyOld::Start)
     {
         Settings::Load(true);
         FPGA::Init();

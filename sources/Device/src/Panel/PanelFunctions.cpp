@@ -27,24 +27,24 @@ void HelpLong()
 
 void ChannelALong()
 {
-    Menu::Handlers::LongPressureButton(Key::ChannelA);
+    Menu::Handlers::LongPressureButton(KeyOld::ChannelA);
 }
 
 void ChannelBLong()
 {
-    Menu::Handlers::LongPressureButton(Key::ChannelB);
+    Menu::Handlers::LongPressureButton(KeyOld::ChannelB);
 }
 
 void TimeLong()
 {
-    Menu::Handlers::LongPressureButton(Key::Time);
+    Menu::Handlers::LongPressureButton(KeyOld::Time);
 }
 
 void TrigLong()
 {
     if (MODE_LONG_PRESS_TRIG_IS_LEVEL_ZERO)
     {
-        Menu::Handlers::LongPressureButton(Key::Trig);
+        Menu::Handlers::LongPressureButton(KeyOld::Trig);
     }
     else
     {
@@ -52,15 +52,15 @@ void TrigLong()
     }
 }
 
-void StartDown()                        // Key::Start
+void StartDown()                        // KeyOld::Start
 {
     if (MODE_WORK_IS_DIRECT)
     {
-        Menu::Handlers::PressButton(Key::Start);
+        Menu::Handlers::PressButton(KeyOld::Start);
     }
 }
 
-void PowerDown()                        // Key::Power
+void PowerDown()                        // KeyOld::Power
 {
     ((Page *)Item::Opened())->ShortPressOnItem(0);
     Settings::SaveBeforePowerDown();
@@ -74,32 +74,32 @@ void PowerDown()                        // Key::Power
 
 void MenuLong() 
 {
-    Menu::Handlers::LongPressureButton(Key::Menu);
+    Menu::Handlers::LongPressureButton(KeyOld::Menu);
 }
 
 void F1Long()
 {
-    Menu::Handlers::LongPressureButton(Key::F1);
+    Menu::Handlers::LongPressureButton(KeyOld::F1);
 }
 
 void F2Long()
 {
-    Menu::Handlers::LongPressureButton(Key::F2);
+    Menu::Handlers::LongPressureButton(KeyOld::F2);
 }
 
 void F3Long()
 {
-    Menu::Handlers::LongPressureButton(Key::F3);
+    Menu::Handlers::LongPressureButton(KeyOld::F3);
 }
 
 void F4Long()
 {
-    Menu::Handlers::LongPressureButton(Key::F4);
+    Menu::Handlers::LongPressureButton(KeyOld::F4);
 }
 
 void F5Long()
 {
-    Menu::Handlers::LongPressureButton(Key::F5);
+    Menu::Handlers::LongPressureButton(KeyOld::F5);
 }
 
 

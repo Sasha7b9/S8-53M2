@@ -12,16 +12,16 @@ namespace Menu
     namespace Handlers
     {
         // Функция обработки короткого нажатия кнопки (менее 0.5 сек.).
-        void ShortPressureButton(Key::E);
+        void ShortPressureButton(KeyOld::E);
 
         // Функция обработки длинного нажатия кнопки (более 0.5 сек.).
-        void LongPressureButton(Key::E);
+        void LongPressureButton(KeyOld::E);
 
         // Функция вызывается, когда кнопка переходит из отжатого в нажатое положение.
-        void PressButton(Key::E);
+        void PressButton(KeyOld::E);
 
         // Функция вызывается, когда кнопка переходит из нажатого в отжатое положение.
-        void ReleaseButton(Key::E);
+        void ReleaseButton(KeyOld::E);
 
         // Функция обработки поворота ручки УСТАНОВКА вправо.
         void RotateRegSetRight();
