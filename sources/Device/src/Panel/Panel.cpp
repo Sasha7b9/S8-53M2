@@ -509,6 +509,7 @@ namespace Panel
         FuncService,
         FuncMenu,
         FuncPower,
+
         FuncRangeA,
         FuncRangeB,
         FuncRShiftA,
