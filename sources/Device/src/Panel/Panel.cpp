@@ -521,25 +521,6 @@ namespace Panel
 }
 
 
-Key::E Panel::WaitPressingButton()
-{
-    Timer::PauseOnTime(500);
-
-    input_buffer.Clear();
-
-    pressedButton = Key::None;
-
-    while (pressedButton == Key::None)
-    {
-        Panel::Update();
-    };
-
-    input_buffer.Clear();
-
-    return pressedButton;
-}
-
-
 void Panel::ProcessingKeyboardEvent(KeyboardEvent event)
 {
     if (!isRunning)
@@ -562,6 +543,25 @@ void Panel::ProcessingKeyboardEvent(KeyboardEvent event)
     }
 
     funcOnKey[event.key](event.action);
+}
+
+
+Key::E Panel::WaitPressingButton()
+{
+    Timer::PauseOnTime(500);
+
+    input_buffer.Clear();
+
+    pressedButton = Key::None;
+
+    while (pressedButton == Key::None)
+    {
+        Panel::Update();
+    };
+
+    input_buffer.Clear();
+
+    return pressedButton;
 }
 
 
