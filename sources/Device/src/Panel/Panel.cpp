@@ -818,8 +818,16 @@ void Panel::CallbackOnReceiveSPI5(const uint8 *data, uint)
 
 void Panel::Update()
 {
-    if (!input_buffer.IsEmpty())
+    while (!input_buffer.IsEmpty())
     {
         ProcessingKeyboardEvent(input_buffer.Front());
     }
+}
+
+
+void Panel::ProcessEvent(KeyboardEvent event)
+{
+    input_buffer.Push(event);
+
+    Update();
 }

@@ -40,8 +40,6 @@ namespace Menu
     static Key::E bufferForButtons[SIZE_BUFFER_FOR_BUTTONS] = {Key::None, Key::None, Key::None, Key::None, Key::None};
     static const Key::E sampleBufferForButtons[SIZE_BUFFER_FOR_BUTTONS] = {Key::F5, Key::F4, Key::F3, Key::F2, Key::F1};
 
-    // Обработка короткого нажатия кнопки.
-    void ProcessingShortPressureButton();
     // Обработка опускания кнопки вниз.
     void ProcessingPressButton();
     // Обработка поднятия кнопки вверх.
@@ -90,7 +88,6 @@ namespace Menu
 
 void Menu::UpdateInput()
 {
-    ProcessingShortPressureButton();
     ProcessingRegulatorSet();
     ProcessingPressButton();
     ProcessingReleaseButton();
@@ -359,25 +356,6 @@ void Menu::OnTimerAutoHide()
 {
     Show(false);
     Timer::Disable(TypeTimer::MenuAutoHide);
-}
-
-
-void Menu::ProcessingShortPressureButton()
-{
-    Display::Redraw();
-    Menu::SetAutoHide(true);
-
-    do
-    {
-        const Page *page = Page::ForButton(button);
-
-        if (page)
-        {
-            page->SetCurrent(true);
-            page->Open(true);
-            Show(true);
-        }
-    } while (false);
 }
 
 
@@ -734,8 +712,7 @@ extern const Page pService;
 void Time::Open()
 {
     Display::ShowWarningGood(Warning::TimeNotSet);
-    Menu::Handlers::ShortPressureButton(Key::Service);
-    Menu::UpdateInput();
+    Panel::ProcessEvent(KeyboardEvent(Key::Service, Action::Up));
     Display::Update();
 
     for (int i = 0; i < 2; i++)
@@ -745,8 +722,7 @@ void Time::Open()
         Display::Update();
     }
 
-    Menu::Handlers::ShortPressureButton(Key::F4);
-    Menu::UpdateInput();
+    Panel::ProcessEvent(KeyboardEvent(Key::F4, Action::Up));
     Display::Update();
 }
 
@@ -822,15 +798,13 @@ void Menu::OpenFileManager()
     angleRegSet = 0;
     for (int i = 0; i < 10; i++)
     {
-        Handlers::ShortPressureButton(Key::Menu);
-        UpdateInput();
+        Panel::ProcessEvent(KeyboardEvent(Key::Menu, Action::Up));
         Display::Update(false);
     }
 
     if (!IsShown())
     {
-        Handlers::ShortPressureButton(Key::Menu);
-        UpdateInput();
+        Panel::ProcessEvent(KeyboardEvent(Key::Menu, Action::Up));
         Display::Update(false);
     }
 
@@ -852,12 +826,10 @@ void Menu::OpenFileManager()
 
     angleRegSet = 0;
 
-    Handlers::ShortPressureButton(Key::F2);
-    UpdateInput();
+    Panel::ProcessEvent(KeyboardEvent(Key::F2, Action::Up));
     Display::Update(false);
 
-    Handlers::ShortPressureButton(Key::F4);
-    UpdateInput();
+    Panel::ProcessEvent(KeyboardEvent(Key::F4, Action::Up));
     Display::Update(false);
 
     for (int i = 0; i < stepAngleRegSet + 1; i++)
@@ -869,8 +841,7 @@ void Menu::OpenFileManager()
 
     for (int i = 0; i < 2; i++)
     {
-        Handlers::ShortPressureButton(Key::F1);
-        UpdateInput();
+        Panel::ProcessEvent(KeyboardEvent(Key::F1, Action::Up));
         Display::Update(false);
     }
 }

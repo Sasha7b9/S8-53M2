@@ -38,4 +38,7 @@ namespace Panel
 
     // Передать даннные в мк панели управления.
     void TransmitData(uint8 data);
+
+    // Добавить событие и обработать всё, что есть
+    void ProcessEvent(KeyboardEvent);
 };
