@@ -347,6 +347,16 @@ Key::E Panel::WaitPressingButton()
 
 void Panel::ProcessingKeyboardEvent(KeyboardEvent event)
 {
+    if (!isRunning)
+    {
+        if (event.IsDown())
+        {
+            pressedButton = event.key;
+        }
+
+        return;
+    }
+
     funcOnKey[event.key](event.action);
 
     /*
