@@ -425,6 +425,7 @@ void FPGA::Reader::ReadPoints(Chan ch)
                 while (dat < buffer.Data())
                 {
                     dat += stretch;
+                    funcRead();
                 }
 
                 LOG_WRITE("%d : %d : %d", TBase::StretchRand(),  SET_TSHIFT, TShift::ShiftForRandomizer());
