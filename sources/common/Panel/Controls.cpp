@@ -127,6 +127,6 @@ void KeyboardEvent::Log() const
 {
     if (key.value != Key::None)
     {
-        LOG_WRITE("%s : %s", key.Name(), key.Name());
+        LOG_WRITE("%s : %s", key.Name(), action.Name());
     }
 }
