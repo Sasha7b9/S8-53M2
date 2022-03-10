@@ -31,7 +31,7 @@ namespace Panel
 
     Queue<uint8> data_for_send;                         // Здесь данные для пересылки в панель
 
-    Queue<uint16> input_buffer;
+    Queue<KeyboardEvent> input_buffer;
 
     bool isRunning = true;
 
@@ -168,12 +168,8 @@ void Panel::ProcessingKeyboardEvent(KeyboardEvent event)
     Key::E releaseButton = event.IsUp() ? event.key.value : Key::None;
     Key::E pressButton = event.IsDown() ? event.key.value : Key::None;
     Key::E regLeft = event.IsLeft() ? event.key.value : Key::None;
-    Key::E regRight = Key::None;
-    Key::E regPress = Key::None;
-
-    RegulatorOld::E regLeft = RegulatorLeft(command);
-    RegulatorOld::E regRight = RegulatorRight(command);
-    RegulatorOld::E regPress = RegulatorIsPress(command);
+    Key::E regRight = event.IsRight() ? event.key.value : Key::None;
+    Key::E regPress = event.IsDown() ? event.key.value : Key::None;
 
     if (pressButton != Key::None)
     {
@@ -197,29 +193,20 @@ void Panel::ProcessingKeyboardEvent(KeyboardEvent event)
             pressedKey = Key::None;
         }
     }
-    else if(pressButton != Key::None)
-    {
-        funcOnKeyDown[pressButton]();
-        Menu::Handlers::PressButton(pressButton);
-        pressedKey = pressButton;
-        Timer::Enable(TypeTimer::PressKey, 500, OnTimerPressedKey);
-    }
-    else if(regLeft != RegulatorOld::Empty)
+    else if(regLeft != Key::None)
     {
          funculatorLeft[regLeft]();
     }
-    else if(regRight != RegulatorOld::Empty)
+    else if(regRight != Key::None)
     {
         funculatorRight[regRight]();
     }
 
-    if (regPress != RegulatorOld::Empty)
+    if (regPress != Key::None)
     {
-        int index = regPress - RegulatorOld::RangeA;
-
         Sound::ButtonPress();
 
-        funcOnRegulatorPress[index]();
+        funcOnRegulatorPress[event.key]();
     }
 }
 
@@ -334,77 +321,13 @@ void Panel::EnableLEDRegSet(bool enable)
 }
 
 
-uint16 Panel::TranslateCommand(const uint8 *data, uint)
-{
-    static const int NUM_BUTTONS = 27;
-
-    static const uint16 commands[NUM_BUTTONS] =
-    {
-        Key::None,
-        Key::F1,
-        Key::F2,
-        Key::F3,
-        Key::F4,
-        Key::F5,
-        Key::ChannelA,
-        Key::ChannelB,
-        Key::Time,
-        Key::Trig,
-        Key::Cursors,
-        Key::Measures,
-        Key::Display,
-        Key::Help,
-        Key::Start,
-        Key::Memory,
-        Key::Service,
-        Key::Menu,
-        Key::Power,
-        RegulatorOld::RangeA,
-        RegulatorOld::RangeB,
-        RegulatorOld::RShiftA,
-        RegulatorOld::RShiftB,
-        RegulatorOld::TBase,
-        RegulatorOld::TShift,
-        RegulatorOld::TrigLev,
-        RegulatorOld::Set
-    };
-
-    uint16 command = 0;
-
-    uint8 key = data[1];
-
-    if (key > 0 && key < NUM_BUTTONS)
-    {
-        command = commands[key];
-
-        if (command >= 20)
-        {
-            if (data[2] == 1)       { command |= 0xC0; }        // Нажатие ручки
-            else if (data[2] == 3)  { }                         // Поворот влево
-            else if (data[2] == 4)  { command |= 0x80; }        // Поворот вправо
-            else                    { command = 0; }
-        }
-        else
-        {
-            if (data[2] == 0)       { command |= 0x80; }
-        }
-    }
-
-    return command;
-}
-
-
-void Panel::CallbackOnReceiveSPI5(const uint8 *data, uint size)
+void Panel::CallbackOnReceiveSPI5(const uint8 *data, uint)
 {
     KeyboardEvent event(data);
 
-    event.Log();
-
-    uint16 command = TranslateCommand(data, size);
-
-    if (command != 0)
+    if (event.key != Key::None)
     {
-        input_buffer.Push(command);
+        input_buffer.Push(event);
         Settings::NeedSave();
     }
 }
@@ -414,7 +337,6 @@ void Panel::Update()
 {
     if (!input_buffer.IsEmpty())
     {
-        uint16 command = input_buffer.Front();
-        ProcessingKeyboardEvent(command);
+        ProcessingKeyboardEvent(input_buffer.Front());
     }
 }

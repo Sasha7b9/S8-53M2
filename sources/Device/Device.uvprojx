@@ -1624,16 +1624,6 @@
               </FileOption>
             </File>
             <File>
-              <FileName>Controls_Old.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Panel\Controls_Old.h</FilePath>
-            </File>
-            <File>
-              <FileName>Controls_Old.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Panel\Controls_Old.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Controls.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Panel\Controls.h</FilePath>
@@ -3578,16 +3568,6 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
-            </File>
-            <File>
-              <FileName>Controls_Old.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Panel\Controls_Old.h</FilePath>
-            </File>
-            <File>
-              <FileName>Controls_Old.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Panel\Controls_Old.cpp</FilePath>
             </File>
             <File>
               <FileName>Controls.h</FileName>
