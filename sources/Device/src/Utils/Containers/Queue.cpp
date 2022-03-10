@@ -1,19 +1,25 @@
 // (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Utils/Containers/Queue.h"
+#include "common/Panel/Controls.h"
 
 
 template Queue<uint16>::Queue();
 template Queue<uint8>::Queue();
 template Queue<float>::Queue();
+template Queue<KeyboardEvent>::Queue();
 template Queue<uint16>::~Queue();
 template Queue<uint8>::~Queue();
 template Queue<float>::~Queue();
+template Queue<KeyboardEvent>::~Queue();
 template uint16 Queue<uint16>::Front();
 template uint8 Queue<uint8>::Front();
+template KeyboardEvent Queue<KeyboardEvent>::Front();
 template bool Queue<uint16>::IsEmpty() const;
+template bool Queue<KeyboardEvent>::IsEmpty() const;
 template void Queue<uint16>::Clear();
 template float &Queue<float>::operator[](int);
+template void Queue<KeyboardEvent>::Clear();
 
 
 template<typename T>
