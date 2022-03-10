@@ -365,75 +365,50 @@ void Menu::OnTimerAutoHide()
 
 void Menu::ProcessingShortPressureButton()
 {
-    if(shortPressureButton != Key::None)
+    Display::Redraw();
+    Menu::SetAutoHide(true);
+
+    do
     {
-        if (shortPressureButton == Key::Memory && MODE_BTN_MEMORY_IS_SAVE && FDrive::isConnected)
+        if (IsShown() && Key::IsFunctional(button))       // Если меню показано и нажата функциональная клавиша
         {
-            PageMemory::SetName::exitTo = IsShown() ? RETURN_TO_MAIN_MENU : RETURN_TO_DISABLE_MENU;
-            PageMemory::SaveSignalToFlashDrive();
-            shortPressureButton = Key::None;
-            return;
+            Item *item = Item::UnderKey(button);
+
+            if (Hint::show)
+            {
+                Hint::SetItem(item);
+            }
+            else
+            {
+                ExecuteFuncForShortPressOnItem(item);
+            }
         }
-        Display::Redraw();
-        Menu::SetAutoHide(true);
-
-        Key::E button = shortPressureButton;
-
-        do
+        else                                                        // Если меню не показано.
         {
-            if(button == Key::Menu)                                   // Если нажата кнопка МЕНЮ и мы не находимся в режме настройки измерений.
+            NamePage::E name = ((const Page *)Item::Opened())->GetName();
+            if (button == Key::ChannelA && name == NamePage::Channel0)
             {
-                if(!IsShown())
-                {
-                    Show(true);
-                }
-                else
-                {
-                    Item::CloseOpened();
-                }
+                SET_ENABLED_A = !Chan::Enabled(Chan::A);
+                PageChannelA::OnChanged_Input(true);
+                break;
             }
-            else if (IsShown() && Key::IsFunctional(button))       // Если меню показано и нажата функциональная клавиша
+            if (button == Key::ChannelB && name == NamePage::Channel1)
             {
-                Item *item = Item::UnderKey(button);
-
-                if (Hint::show)
-                {
-                    Hint::SetItem(item);
-                }
-                else
-                {
-                    ExecuteFuncForShortPressOnItem(item);
-                }
+                SET_ENABLED_B = !Chan::Enabled(Chan::B);
+                PageChannelB::OnChanged_Input(true);
+                break;
             }
-            else                                                        // Если меню не показано.
+
+            const Page *page = Page::ForButton(button);
+
+            if (page)
             {
-                NamePage::E name = ((const Page *)Item::Opened())->GetName();
-                if(button == Key::ChannelA && name == NamePage::Channel0)
-                {
-                    SET_ENABLED_A = !Chan::Enabled(Chan::A);
-                    PageChannelA::OnChanged_Input(true);
-                    break;
-                }
-                if(button == Key::ChannelB && name == NamePage::Channel1)
-                {
-                    SET_ENABLED_B = !Chan::Enabled(Chan::B);
-                    PageChannelB::OnChanged_Input(true);
-                    break;
-                }
-
-                const Page *page = Page::ForButton(button);
-
-                if(page)
-                {
-                    page->SetCurrent(true);
-                    page->Open(true);
-                    Show(true);
-                }
+                page->SetCurrent(true);
+                page->Open(true);
+                Show(true);
             }
-        } while(false);
-
-        shortPressureButton = Key::None;
-    }
+        }
+    } while (false);
 }
 
 

@@ -13,8 +13,9 @@
 #include "Hardware/HAL/HAL.h"
 #include "Utils/Containers/Queue.h"
 #include "common/Panel/Controls.h"
+#include "FDrive/FDrive.h"
+#include "Menu/Pages/Definition.h"
 #include <stm32f4xx_hal.h>
-#include <stm32f4xx_hal_gpio.h>
 
 
 namespace Panel
@@ -347,9 +348,16 @@ namespace Panel
 
     }
 
-    static void FuncMeasures(Action)
+    static void FuncMeasures(Action action)
     {
-
+        if (action.IsUp())
+        {
+            if (MODE_BTN_MEMORY_IS_SAVE && FDrive::isConnected)
+            {
+                PageMemory::SetName::exitTo = Menu::IsShown() ? RETURN_TO_MAIN_MENU : RETURN_TO_DISABLE_MENU;
+                PageMemory::SaveSignalToFlashDrive();
+            }
+        }
     }
 
     static void FuncDisplay(Action)
@@ -401,7 +409,18 @@ namespace Panel
 
     static void FuncMenu(Action action)
     {
-        if (action.IsLong())
+        if (action.IsUp())
+        {
+            if (!Menu::IsShown())
+            {
+                Menu::Show(true);
+            }
+            else
+            {
+                Item::CloseOpened();
+            }
+        }
+        else if (action.IsLong())
         {
             Menu::SetAutoHide(true);
             Display::Redraw();
