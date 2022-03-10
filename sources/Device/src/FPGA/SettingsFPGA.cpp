@@ -763,12 +763,23 @@ float TShift::ToAbs(int shift, TBase::E base)
 
 int TShift::ShiftForRandomizer()
 {
+    int stretch_1 = TBase::StretchRand() - 1;
+
     if (SET_TSHIFT >= 0)
     {
-        return -(SET_TSHIFT % (TBase::StretchRand() - 1));
+        return -(SET_TSHIFT % stretch_1);
     }
 
-    return (-SET_TSHIFT) % TBase::StretchRand();
+    int shift = -((-SET_TSHIFT) % stretch_1);
+
+    int result = -(stretch_1 + shift);
+
+    if (result == -stretch_1)
+    {
+        result = 0;
+    }
+
+    return result;
 }
 
 
