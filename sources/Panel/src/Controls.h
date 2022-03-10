@@ -69,7 +69,7 @@ struct Action { enum E {
         Down,         // Нажатие кнопки
         Up,           // Отпускание кнопки
         Long,         // "Длинное" нажатие
-        RotateLeft,   // Поворото ручки влево
+        RotateLeft,   // Поворот ручки влево
         RotateRight,  // Поворот ручки вправо
         Count
     } value;
