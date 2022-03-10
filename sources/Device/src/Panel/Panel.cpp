@@ -290,7 +290,21 @@ namespace Panel
 
     static void FuncChannelA(Action action)
     {
-        if (action.IsLong())
+        if (action.IsUp())
+        {
+            if (Item::Opened() == PageChannelA::self)
+            {
+                SET_ENABLED_A = !Chan::Enabled(ChA);
+                PageChannelA::OnChanged_Input(true);
+            }
+            else
+            {
+                PageChannelA::self->SetCurrent(true);
+                PageChannelA::self->Open(true);
+                Menu::Show(true);
+            }
+        }
+        else if (action.IsLong())
         {
             Menu::SetAutoHide(true);
             Display::Redraw();
@@ -301,7 +315,21 @@ namespace Panel
 
     static void FuncChannelB(Action action)
     {
-        if (action.IsLong())
+        if (action.IsUp())
+        {
+            if (Item::Opened() == PageChannelB::self)
+            {
+                SET_ENABLED_B = !Chan::Enabled(ChB);
+                PageChannelB::OnChanged_Input(true);
+            }
+            else
+            {
+                PageChannelB::self->SetCurrent(true);
+                PageChannelB::self->Open(true);
+                Menu::Show(true);
+            }
+        }
+        else if (action.IsLong())
         {
             Menu::SetAutoHide(true);
             Display::Redraw();
@@ -312,7 +340,13 @@ namespace Panel
 
     static void FuncTime(Action action)
     {
-        if (action.IsLong())
+        if (action.IsUp())
+        {
+            PageTime::self->SetCurrent(true);
+            PageTime::self->Open(true);
+            Menu::Show(true);
+        }
+        else if (action.IsLong())
         {
             Menu::SetAutoHide(true);
             Display::Redraw();
@@ -356,8 +390,14 @@ namespace Panel
         }
     }
 
-    static void FuncDisplay(Action)
+    static void FuncDisplay(Action action)
     {
+        if (action.IsUp())
+        {
+            PageDisplay::self->SetCurrent(true);
+            PageDisplay::self->Open(true);
+            Menu::Show(true);
+        }
 
     }
 
@@ -393,14 +433,24 @@ namespace Panel
         }
     }
 
-    static void FuncMemory(Action)
+    static void FuncMemory(Action action)
     {
-
+        if (action.IsUp())
+        {
+            PageMemory::self->SetCurrent(true);
+            PageMemory::self->Open(true);
+            Menu::Show(true);
+        }
     }
 
-    static void FuncService(Action)
+    static void FuncService(Action action)
     {
-
+        if (action.IsUp())
+        {
+            PageService::self->SetCurrent(true);
+            PageService::self->Open(true);
+            Menu::Show(true);
+        }
     }
 
     static void FuncMenu(Action action)
@@ -589,8 +639,6 @@ void Panel::ProcessingKeyboardEvent(KeyboardEvent event)
         event.action.value = Action::Up;
     }
 
-    DEBUG_POINT_0;
-
     if (!isRunning)
     {
         if (event.IsDown())
@@ -606,11 +654,7 @@ void Panel::ProcessingKeyboardEvent(KeyboardEvent event)
 //        Menu::Handlers::ReleaseButton(event.key);
 //    }
 
-    DEBUG_POINT_0;
-
     funcOnKey[event.key](event.action);
-
-    DEBUG_POINT_0;
 }
 
 

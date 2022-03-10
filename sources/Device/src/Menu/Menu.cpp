@@ -362,6 +362,18 @@ void Menu::OnTimerAutoHide()
 }
 
 
+const Page *Page::ForButton(Key::E button)
+{
+    static const void *pages[] = {
+        PageTrig::self,         // Key::Trig
+        PageCursors::self,      // Key::Cursors
+        PageMeasures::self,     // Key::Measures
+    };
+
+    return (const Page *)pages[button];
+}
+
+
 void Menu::ProcessingShortPressureButton()
 {
     Display::Redraw();
@@ -369,20 +381,6 @@ void Menu::ProcessingShortPressureButton()
 
     do
     {
-        NamePage::E name = ((const Page *)Item::Opened())->GetName();
-        if (button == Key::ChannelA && name == NamePage::Channel0)
-        {
-            SET_ENABLED_A = !Chan::Enabled(Chan::A);
-            PageChannelA::OnChanged_Input(true);
-            break;
-        }
-        if (button == Key::ChannelB && name == NamePage::Channel1)
-        {
-            SET_ENABLED_B = !Chan::Enabled(Chan::B);
-            PageChannelB::OnChanged_Input(true);
-            break;
-        }
-
         const Page *page = Page::ForButton(button);
 
         if (page)

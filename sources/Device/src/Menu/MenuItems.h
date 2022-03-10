@@ -261,9 +261,6 @@ public:
 
     static NamePage::E NameOpened();
 
-    // ¬озвращает страницу меню, котора€ должна открыватьс€ по нажатию кнопки
-    static const Page *ForButton(Key::E);
-
     static const Page *FromName(NamePage::E);
 };
 

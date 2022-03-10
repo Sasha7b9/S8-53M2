@@ -119,34 +119,6 @@ static const Page mainPage
 const Page *PageMain::self = &mainPage;
 
 
-const Page *Page::ForButton(Key::E button)
-{
-    static const void *pages[] = {  
-        nullptr,                // Key::None
-        PageChannelA::self,     // Key::ChannelA
-        PageService::self,      // Key::Service
-        PageChannelB::self,     // Key::ChannelB
-        PageDisplay::self,      // Key::Display
-        PageTime::self,         // Key::Time
-        PageMemory::self,       // Key::Memory
-        PageTrig::self,         // Key::Trig
-        nullptr,                // Key::Start
-        PageCursors::self,      // Key::Cursors
-        PageMeasures::self,     // Key::Measures
-        nullptr,                // Key::Power
-        nullptr,                // Key::Help
-        nullptr,                // Key::Menu
-        nullptr,                // Key::F1
-        nullptr,                // Key::F2
-        nullptr,                // Key::F3
-        nullptr,                // Key::F4
-        nullptr,                // Key::F5
-    };
-
-    return (const Page *)pages[button];
-}
-
-
 bool IsMainPage(void *item)
 {
     return item == &mainPage;
