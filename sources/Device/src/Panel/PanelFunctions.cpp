@@ -176,11 +176,6 @@ static void SetTrigLev(TrigSource::E ch, int16 trigLev)
     TrigLev::Set(ch, trigLev);
 }
 
-void TrigLevRight()
-{
-    static int prevTime = 0;
-    ChangeTrigLev(&prevTime, SetTrigLev, TRIG_SOURCE, +RShift::STEP);
-}
 
 static void ShiftScreen(int shift)
 {
@@ -206,24 +201,4 @@ void XShift(int delta)
     {
         ChangeTShift(&prevTime, SetTShift, (int16)delta);
     }
-}
-
-void TShiftRight()
-{
-    XShift(1);
-}
-
-
-
-
-
-void TBaseRight()
-{
-    Sound::RegulatorSwitchRotate();
-    TBase::Decrease();
-}
-
-void SetRight()
-{
-    Menu::Handlers::RotateRegSetRight();
 }

@@ -243,10 +243,15 @@ namespace Panel
 
     static void FuncTBase(Action action)
     {
+        Sound::RegulatorSwitchRotate();
+
         if (action.IsLeft())
         {
-            Sound::RegulatorSwitchRotate();
             TBase::Increase();
+        }
+        else if (action.IsRight())
+        {
+            TBase::Decrease();
         }
     }
 
@@ -255,6 +260,10 @@ namespace Panel
         if (action.IsLeft())
         {
             XShift(-1);
+        }
+        else if (action.IsRight())
+        {
+            XShift(1);
         }
     }
 
@@ -265,6 +274,11 @@ namespace Panel
             static int prevTime = 0;
             ChangeTrigLev(&prevTime, SetTrigLev, TRIG_SOURCE, -RShift::STEP);
         }
+        else if (action.IsRight())
+        {
+            static int prevTime = 0;
+            ChangeTrigLev(&prevTime, SetTrigLev, TRIG_SOURCE, +RShift::STEP);
+        }
     }
 
     static void FuncSetting(Action action)
@@ -272,6 +286,10 @@ namespace Panel
         if (action.IsLeft())
         {
             Menu::Handlers::RotateRegSetLeft();
+        }
+        else if (action.IsRight())
+        {
+            Menu::Handlers::RotateRegSetRight();
         }
     }
 
@@ -304,15 +322,6 @@ namespace Panel
         FuncTShift,
         FuncTrigLev,
         FuncSetting
-    };
-
-
-    static void (*funculatorRight[Key::Count])() =
-    {
-        TBaseRight,     // RegulatorOld::TBase
-        TShiftRight,    // RegulatorOld::TShift
-        TrigLevRight,   // RegulatorOld::TrigLev
-        SetRight        // RegulatorOld::Set
     };
 }
 
