@@ -17,52 +17,6 @@ static const uint MIN_TIME = 500;
 
 static void ChangeRShift(int *prevTime, void(*f)(Chan::E, int16), Chan::E ch, int16 relStep);
 
-
-void HelpLong()
-{
-    Hint::show = !Hint::show;
-    Hint::string = nullptr;
-    Hint::item = nullptr;
-}
-
-
-
-
-
-
-
-
-void MenuLong() 
-{
-    Menu::Handlers::LongPressureButton(Key::Menu);
-}
-
-void F1Long()
-{
-    Menu::Handlers::LongPressureButton(Key::F1);
-}
-
-void F2Long()
-{
-    Menu::Handlers::LongPressureButton(Key::F2);
-}
-
-void F3Long()
-{
-    Menu::Handlers::LongPressureButton(Key::F3);
-}
-
-void F4Long()
-{
-    Menu::Handlers::LongPressureButton(Key::F4);
-}
-
-void F5Long()
-{
-    Menu::Handlers::LongPressureButton(Key::F5);
-}
-
-
 int CalculateCount(int *prevTime)
 {
     uint time = TIME_MS;

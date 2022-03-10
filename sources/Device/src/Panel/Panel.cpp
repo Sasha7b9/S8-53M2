@@ -40,29 +40,44 @@ namespace Panel
 
     }
 
-    static void FuncF1(Action)
+    static void FuncF1(Action action)
     {
-
+        if (action.IsLong())
+        {
+            Menu::Handlers::LongPressureButton(Key::F1);
+        }
     }
 
-    static void FuncF2(Action)
+    static void FuncF2(Action action)
     {
-
+        if (action.IsLong())
+        {
+            Menu::Handlers::LongPressureButton(Key::F2);
+        }
     }
 
-    static void FuncF3(Action)
+    static void FuncF3(Action action)
     {
-
+        if(action.IsLong())
+        {
+            Menu::Handlers::LongPressureButton(Key::F3);
+        }
     }
 
-    static void FuncF4(Action)
+    static void FuncF4(Action action)
     {
-
+        if(action.IsLong())
+        {
+            Menu::Handlers::LongPressureButton(Key::F4);
+        }
     }
 
-    static void FuncF5(Action)
+    static void FuncF5(Action action)
     {
-
+        if(action.IsLong())
+        {
+            Menu::Handlers::LongPressureButton(Key::F5);
+        }
     }
 
     static void FuncChannelA(Action action)
@@ -121,7 +136,9 @@ namespace Panel
 
     static void FuncHelp(Action)
     {
-
+        Hint::show = !Hint::show;
+        Hint::string = nullptr;
+        Hint::item = nullptr;
     }
 
     static void FuncStart(Action action)
@@ -145,9 +162,12 @@ namespace Panel
 
     }
 
-    static void FuncMenu(Action)
+    static void FuncMenu(Action action)
     {
-
+        if (action.IsLong())
+        {
+            Menu::Handlers::LongPressureButton(Key::Menu);
+        }
     }
 
     static void FuncPower(Action action)
@@ -236,22 +256,6 @@ namespace Panel
         FuncSetting
     };
 
-
-    static void (*funcOnLongPressure[Key::Count])() =
-    {
-        HelpLong,       // Key::Help
-        MenuLong,       // Key::Menu
-        F1Long,         // Key::F1
-        F2Long,         // Key::F2
-        F3Long,         // Key::F3
-        F4Long,         // Key::F4
-        F5Long          // Key::F5
-    };
-
-    static void (*funcOnRegulatorPress[Key::Count])() =
-    {
-        MenuLong        // 27 - RegulatorOld::Set
-    };
 
     static void (*funculatorLeft[Key::Count])() =
     {
