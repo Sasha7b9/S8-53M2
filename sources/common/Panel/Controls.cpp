@@ -60,21 +60,9 @@ Key::E &operator++(Key::E &right)
 }
 
 
-Key::E Key::FromCode(uint16 code)
+bool Key::IsGovernor() const
 {
-    return (Key::E)(code & 0x1F);
-}
-
-
-uint16 Key::ToCode(Key::E key)
-{
-    return (uint16)(key);
-}
-
-
-bool Key::IsGovernor(Key::E key)
-{
-    return (key >= Key::RangeA) && (key <= Key::Setting);
+    return (value >= Key::RangeA) && (value <= Key::Setting);
 }
 
 
@@ -84,21 +72,9 @@ bool Key::Is(Key::E key)
 }
 
 
-Action::E Action::FromCode(uint16 code)
+bool Key::IsFunctional() const
 {
-    return (Action::E)((code >> 5) & 0x7);
-}
-
-
-uint16 Action::ToCode(Action::E action)
-{
-    return (uint16)(action << 5);
-}
-
-
-bool Key::IsFunctional(Key::E key)
-{
-    return (key >= Key::F1) && (key <= Key::F5);
+    return (value >= Key::F1) && (value <= Key::F5);
 }
 
 pchar Action::Name() const

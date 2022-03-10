@@ -52,10 +52,10 @@ struct Key { enum E
 
     Key(E v = None) : value(v) { }
 
-    bool IsGovernor(Key::E key) const;
-    bool Is(Key::E key) const;
-    static bool IsFunctional(Key::E key);
+    bool IsGovernor() const;
+    static bool Is(E);
     bool IsFunctional() const;
+    static bool IsFunctional(E);
     pchar Name() const;
 };
 

@@ -31,24 +31,9 @@ namespace Panel
 
     Queue<uint8> data_for_send;                         // Здесь данные для пересылки в панель
 
-    uint timePrevPressButton = 0;
-    uint timePrevReleaseButton = 0;
-
     Queue<uint16> input_buffer;
 
     bool isRunning = true;
-
-    void OnTimerPressedKey();
-
-    Key::E ButtonIsRelease(uint16 command);
-
-    Key::E ButtonIsPress(uint16 command);
-
-    RegulatorOld::E RegulatorLeft(uint16 command);
-
-    RegulatorOld::E RegulatorRight(uint16 command);
-
-    RegulatorOld::E RegulatorIsPress(uint16 command);
 
     static void(*funcOnKeyDown[Key::Count])() =
     {
@@ -119,7 +104,7 @@ namespace Panel
         F5Long          // Key::F5
     };
 
-    static void (*funcOnRegulatorPress[8])() =
+    static void (*funcOnRegulatorPress[Key::Count])() =
     {
         ChannelALong,   // 20 - RegulatorOld::RangeA
         ChannelALong,   // 21 - RegulatorOld::RShiftA
@@ -131,12 +116,12 @@ namespace Panel
         MenuLong        // 27 - RegulatorOld::Set
     };
 
-    static void (*funculatorLeft[RegulatorOld::Set + 1])() =
+    static void (*funculatorLeft[Key::Count])() =
     {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         RangeLeftA,     // RegulatorOld::RangeA
-        RShift0Left,    // RegulatorOld::RShiftA
         RangeLeftB,     // RegulatorOld::RangeB
+        RShift0Left,    // RegulatorOld::RShiftA
         RShift1Left,    // RegulatorOld::RShiftB
         TBaseLeft,      // RegulatorOld::TBase
         TShiftLeft,     // RegulatorOld::TShift
@@ -144,103 +129,18 @@ namespace Panel
         SetLeft         // RegulatorOld::Set
     };
 
-    static void (*funculatorRight[RegulatorOld::Set + 1])() =
+    static void (*funculatorRight[Key::Count])() =
     {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         RangeRightA,    // RegulatorOld::RangeA
-        RShift0Right,   // RegulatorOld::RShiftA
         RangeRightB,    // RegulatorOld::RangeB
+        RShift0Right,   // RegulatorOld::RShiftA
         RShift1Right,   // RegulatorOld::RShiftB
         TBaseRight,     // RegulatorOld::TBase
         TShiftRight,    // RegulatorOld::TShift
         TrigLevRight,   // RegulatorOld::TrigLev
         SetRight        // RegulatorOld::Set
     };
-}
-
-
-
-Key::E Panel::ButtonIsRelease(uint16 command)
-{
-    Key::E button = Key::None;
-
-    if(command < Key::Count && command > Key::None)
-    {
-        if(TIME_MS - timePrevReleaseButton > 100)
-        {
-            button = (Key::E)command;
-            timePrevReleaseButton = TIME_MS;
-        }
-    }
-
-    return button;
-}
-
-
-Key::E Panel::ButtonIsPress(uint16 command)
-{
-    Key::E button = Key::None;
-
-    if (((command & 0x7f) < Key::Count) && ((command & 0x7f) > Key::None))
-    {
-        if(TIME_MS - timePrevPressButton > 100)
-        {
-            button = (Key::E)(command & 0x7f);
-            timePrevPressButton = TIME_MS;
-        }
-    }
-
-    return button;
-}
-
-
-RegulatorOld::E Panel::RegulatorIsPress(uint16 command)
-{
-    if ((command & 0xC0) != 0xC0)
-    {
-        return RegulatorOld::Empty;
-    }
-
-    return (RegulatorOld::E)(command & 0x3F);
-}
-
-
-RegulatorOld::E Panel::RegulatorLeft(uint16 command)
-{
-    if(RegulatorOld::IsLeft(command))
-    {
-        return (RegulatorOld::E)command;
-    }
-
-    return RegulatorOld::Empty;
-}
-
-
-RegulatorOld::E Panel::RegulatorRight(uint16 command)
-{
-    if(RegulatorOld::IsRight(command))
-    {
-        return (RegulatorOld::E)(command & 0x7f);
-    }
-    return RegulatorOld::Empty;
-}
-
-
-void Panel::OnTimerPressedKey()
-{
-    if(pressedKey != Key::None)
-    {
-        void (*func)() = funcOnLongPressure[pressedKey];
-        Menu::Handlers::ReleaseButton(pressedKey);
-
-        if(func != 0)
-        {
-            func();
-        }
-
-        pressedKey = Key::None;
-    }
-    Timer::Disable(TypeTimer::PressKey);
 }
 
 
