@@ -5,13 +5,13 @@
 
 bool KeyboardEvent::IsFunctional() const
 {
-    return (key >= Key::F1) && (key <= Key::F4);
+    return (key.value >= Key::F1) && (key.value <= Key::F5);
 }
 
 
 bool KeyboardEvent::IsRelease() const
 {
-    return (action == Action::Up) || (action == Action::Long);
+    return (action.value == Action::Up) || (action.value == Action::Long);
 }
 
 
@@ -133,7 +133,7 @@ KeyboardEvent::KeyboardEvent(uint8 *buffer)
 
 void KeyboardEvent::Log() const
 {
-    if (key != Key::None)
+    if (key.value != Key::None)
     {
 
     }

@@ -32,7 +32,7 @@ bool PowerSupply::AttemptToTurnOn(const KeyboardEvent &event)
         return false;
     }
 
-    if (event.key == Key::Power)
+    if (event.key.value == Key::Power)
     {
         if (timeEnabled == (uint)-1)
         {

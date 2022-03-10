@@ -50,17 +50,16 @@ struct Key { enum E
         Count
     };
 
-    Key(E v) : value(v) { }
-
-    pstring Name() const;
+    Key(E v = None) : value(v) { }
 
     E value;
 
-    static Key::E FromCode(uint16 code);
-    static uint16 ToCode(Key::E key);
-    static bool IsGovernor(Key::E key);
-    static bool Is(Key::E key);
-    static bool IsFunctional(Key::E key);
+    Key::E FromCode(uint16 code);
+    uint16 ToCode(Key::E key);
+    bool IsGovernor(Key::E key);
+    bool Is(Key::E key);
+    bool IsFunctional(Key::E key);
+    pstring Name() const;
 };
 
 Key::E& operator++(Key::E &right);
@@ -75,7 +74,7 @@ struct Action { enum E {
         Count
     } value;
 
-    Action(E v) : value(v) {}
+    Action(E v = Count) : value(v) {}
     Action(uint8 v) : value((E)v) {}
     static Action::E FromCode(uint16 code);
     static uint16 ToCode(Action::E action);
@@ -93,27 +92,27 @@ struct KeyboardEvent
     KeyboardEvent(Key::E k = Key::Count, Action::E a = Action::Count) :key(k), action(a) {}
     KeyboardEvent(uint8 *buffer);
 
-    Key::E key;
-    Action::E action;
+    Key key;
+    Action action;
 
-    bool Is(Key::E c) const           { return (c == key); };
-    bool Is(Key::E c, Action::E a) const { return (key == c) && (action == a); };
+    bool Is(Key::E c) const           { return (c == key.value); };
+    bool Is(Key::E c, Action::E a) const { return (key.value == c) && (action.value == a); };
        
-    bool IsUp() const   { return (action == Action::Up); }
-    bool IsDown() const { return (action == Action::Down); }
-    bool IsLong() const { return (action == Action::Long); }
+    bool IsUp() const   { return (action.value == Action::Up); }
+    bool IsDown() const { return (action.value == Action::Down); }
+    bool IsLong() const { return (action.value == Action::Long); }
     // Возвращает true в случае отпускания кнопки или "длинного" нажатия
     bool IsRelease() const;
 
     // true, если функциональная клавиша
     bool IsFunctional() const;
 
-    bool IsRotate() const { return (action == Action::RotateRight) || (action == Action::RotateLeft); }
+    bool IsRotate() const { return (action.value == Action::RotateRight) || (action.value == Action::RotateLeft); }
 
     void Log() const;
     
     bool operator==(const KeyboardEvent &rhl) const
     {
-        return (rhl.key == key) && (rhl.action == action);
+        return (rhl.key.value == key.value) && (rhl.action.value == action.value);
     }
 };

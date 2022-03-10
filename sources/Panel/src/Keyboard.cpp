@@ -216,14 +216,14 @@ void GovernorStruct::SendEvent(Key _key, Action action)
     static KeyboardEvent event;
     static uint prevTime = 0;
 
-    if (event.key == _key.value)        // Не будем посылать событие, если это событие - вращение последней
+    if (event.key.value == _key.value)        // Не будем посылать событие, если это событие - вращение последней
     {                                   // вращаемой ручки менее чем через 50 мс в обратном направлении
         if (TIME_MS - prevTime < 100)
         {
             if (
-                ((event.action == Action::RotateLeft) && action.IsRotateRight())
+                ((event.action.value == Action::RotateLeft) && action.IsRotateRight())
                 ||
-                ((event.action == Action::RotateRight) && action.IsRotateLeft())
+                ((event.action.value == Action::RotateRight) && action.IsRotateLeft())
                 )
             {
                 return;

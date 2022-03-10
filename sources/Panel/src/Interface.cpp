@@ -27,10 +27,10 @@ void Interface::Update(const KeyboardEvent &event)
 
     bool needTransmit = false;
 
-    output[1] = (uint8)event.key;
-    output[2] = (uint8)event.action;
+    output[1] = (uint8)event.key.value;
+    output[2] = (uint8)event.action.value;
 
-    if (event.key != Key::None)
+    if (event.key.value != Key::None)
     {
         output[0] = 0xFF;
         needTransmit = true;
