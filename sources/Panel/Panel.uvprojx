@@ -563,6 +563,21 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>Panel</GroupName>
+          <Files>
+            <File>
+              <FileName>Controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Panel\Controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>Controls.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Panel\Controls.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
       </Groups>
     </Target>
     <Target>
@@ -1119,6 +1134,21 @@
               <FileName>system_stm32l0xx.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\system_stm32l0xx.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Panel</GroupName>
+          <Files>
+            <File>
+              <FileName>Controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Panel\Controls.h</FilePath>
+            </File>
+            <File>
+              <FileName>Controls.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Panel\Controls.cpp</FilePath>
             </File>
           </Files>
         </Group>

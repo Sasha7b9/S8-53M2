@@ -1,6 +1,6 @@
 // (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-#include "Controls.h"
+#include "common/Panel/Controls.h"
 
 
 namespace Keyboard
