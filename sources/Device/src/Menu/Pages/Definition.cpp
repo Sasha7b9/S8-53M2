@@ -122,7 +122,7 @@ const Page *PageMain::self = &mainPage;
 const Page *Page::ForButton(Key::E button)
 {
     static const void *pages[] = {  
-        nullptr,                // Key::Empty
+        nullptr,                // Key::None
         PageChannelA::self,     // Key::ChannelA
         PageService::self,      // Key::Service
         PageChannelB::self,     // Key::ChannelB

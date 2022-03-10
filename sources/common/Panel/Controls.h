@@ -48,17 +48,14 @@ struct Key { enum E
         TrigLev,    // ”–Œ¬≈Õ‹
         Setting,    // ”—“¿ÕŒ¬ ¿
         Count
-    };
+    } value;
 
     Key(E v = None) : value(v) { }
 
-    E value;
-
-    Key::E FromCode(uint16 code);
-    uint16 ToCode(Key::E key);
-    bool IsGovernor(Key::E key);
-    bool Is(Key::E key);
-    bool IsFunctional(Key::E key);
+    bool IsGovernor(Key::E key) const;
+    bool Is(Key::E key) const;
+    static bool IsFunctional(Key::E key);
+    bool IsFunctional() const;
     pchar Name() const;
 };
 
@@ -76,8 +73,7 @@ struct Action { enum E {
 
     Action(E v = Count) : value(v) {}
     Action(uint8 v) : value((E)v) {}
-    static Action::E FromCode(uint16 code);
-    static uint16 ToCode(Action::E action);
+
     bool IsDown() const { return value == Down; }
     bool IsUp() const { return value == Up; }
     bool IsLong() const { return value == Long; }

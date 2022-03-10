@@ -3,7 +3,6 @@
 #include "Definition.h"
 #include "Settings/SettingsTypes.h"
 #include "Settings/Settings.h"
-#include "Panel/Controls_Old.h"
 #include "Display/Colors.h"
 #include "Display/Grid.h"
 #include "Utils/Math.h"

@@ -26,8 +26,8 @@ namespace Panel
     const uint8 LED_CHAN_A   = 3;
     const uint8 LED_CHAN_B   = 4;
 
-    Key::E pressedKey = Key::Empty;
-    volatile Key::E pressedButton = Key::Empty;         // Это используется для отслеживания нажатой кнопки при отключенной панели
+    Key::E pressedKey = Key::None;
+    volatile Key::E pressedButton = Key::None;         // Это используется для отслеживания нажатой кнопки при отключенной панели
 
     Queue<uint8> data_for_send;                         // Здесь данные для пересылки в панель
 
@@ -162,9 +162,9 @@ namespace Panel
 
 Key::E Panel::ButtonIsRelease(uint16 command)
 {
-    Key::E button = Key::Empty;
+    Key::E button = Key::None;
 
-    if(command < Key::Count && command > Key::Empty)
+    if(command < Key::Count && command > Key::None)
     {
         if(TIME_MS - timePrevReleaseButton > 100)
         {
@@ -179,9 +179,9 @@ Key::E Panel::ButtonIsRelease(uint16 command)
 
 Key::E Panel::ButtonIsPress(uint16 command)
 {
-    Key::E button = Key::Empty;
+    Key::E button = Key::None;
 
-    if (((command & 0x7f) < Key::Count) && ((command & 0x7f) > Key::Empty))
+    if (((command & 0x7f) < Key::Count) && ((command & 0x7f) > Key::None))
     {
         if(TIME_MS - timePrevPressButton > 100)
         {
@@ -228,7 +228,7 @@ RegulatorOld::E Panel::RegulatorRight(uint16 command)
 
 void Panel::OnTimerPressedKey()
 {
-    if(pressedKey != Key::Empty)
+    if(pressedKey != Key::None)
     {
         void (*func)() = funcOnLongPressure[pressedKey];
         Menu::Handlers::ReleaseButton(pressedKey);
@@ -238,7 +238,7 @@ void Panel::OnTimerPressedKey()
             func();
         }
 
-        pressedKey = Key::Empty;
+        pressedKey = Key::None;
     }
     Timer::Disable(TypeTimer::PressKey);
 }
@@ -250,9 +250,9 @@ Key::E Panel::WaitPressingButton()
 
     input_buffer.Clear();
 
-    pressedButton = Key::Empty;
+    pressedButton = Key::None;
 
-    while (pressedButton == Key::Empty)
+    while (pressedButton == Key::None)
     {
         Panel::Update();
     };
@@ -271,7 +271,7 @@ void Panel::ProcessingCommandFromPIC(uint16 command)
     RegulatorOld::E regRight = RegulatorRight(command);
     RegulatorOld::E regPress = RegulatorIsPress(command);
 
-    if (pressButton != Key::Empty)
+    if (pressButton != Key::None)
     {
         pressedButton = pressButton;
     }
@@ -281,19 +281,19 @@ void Panel::ProcessingCommandFromPIC(uint16 command)
         return;
     }
 
-    if(releaseButton != Key::Empty)
+    if(releaseButton != Key::None)
     {
         Menu::Handlers::ReleaseButton(releaseButton);
 
         funcOnKeyUp[releaseButton]();
 
-        if(pressedKey != Key::Empty)
+        if(pressedKey != Key::None)
         {
             Menu::Handlers::ShortPressureButton(releaseButton);
-            pressedKey = Key::Empty;
+            pressedKey = Key::None;
         }
     }
-    else if(pressButton != Key::Empty)
+    else if(pressButton != Key::None)
     {
         funcOnKeyDown[pressButton]();
         Menu::Handlers::PressButton(pressButton);
@@ -436,7 +436,7 @@ uint16 Panel::TranslateCommand(const uint8 *data, uint)
 
     static const uint16 commands[NUM_BUTTONS] =
     {
-        Key::Empty,
+        Key::None,
         Key::F1,
         Key::F2,
         Key::F3,

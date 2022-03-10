@@ -28,20 +28,20 @@ namespace Menu
     bool needClosePageSB = true;
 
     // Если произошло короткое нажатие кнопки, то здесь хранится имя этой кнопки до обработки этого  нажатия.
-    Key::E shortPressureButton = Key::Empty;
+    Key::E shortPressureButton = Key::None;
     // Если произошло длинное нажатие кнопки, то здесь хранится имя этой кнопки до обработки этого нажатия.
-    Key::E longPressureButton = Key::Empty;
+    Key::E longPressureButton = Key::None;
     // При нажатии кнопки её имя записывается в эту переменную и хранится там до обратоки события нажатия кнопки.
-    Key::E pressButton = Key::Empty;
+    Key::E pressButton = Key::None;
     // При отпускании кнопки её имя записывается в эту переменную и хранится там до обработки  события отпускания кнопки.
-    Key::E releaseButton = Key::Empty;
+    Key::E releaseButton = Key::None;
     // Угол, на который нужно повернуть ручку УСТАНОВКА - величина означает количество щелчков, знак - направление - "-" - влево, "+" - вправо
     int angleRegSet = 0;
 
     static const int stepAngleRegSet = 2;
 
     static const int  SIZE_BUFFER_FOR_BUTTONS = 5;
-    static Key::E bufferForButtons[SIZE_BUFFER_FOR_BUTTONS] = {Key::Empty, Key::Empty, Key::Empty, Key::Empty, Key::Empty};
+    static Key::E bufferForButtons[SIZE_BUFFER_FOR_BUTTONS] = {Key::None, Key::None, Key::None, Key::None, Key::None};
     static const Key::E sampleBufferForButtons[SIZE_BUFFER_FOR_BUTTONS] = {Key::F5, Key::F4, Key::F3, Key::F2, Key::F1};
 
     // Обработка короткого нажатия кнопки.
@@ -405,13 +405,13 @@ void Menu::OnTimerAutoHide()
 
 void Menu::ProcessingShortPressureButton()
 {
-    if(shortPressureButton != Key::Empty)
+    if(shortPressureButton != Key::None)
     {
         if (shortPressureButton == Key::Memory && MODE_BTN_MEMORY_IS_SAVE && FDrive::isConnected)
         {
             PageMemory::SetName::exitTo = IsShown() ? RETURN_TO_MAIN_MENU : RETURN_TO_DISABLE_MENU;
             PageMemory::SaveSignalToFlashDrive();
-            shortPressureButton = Key::Empty;
+            shortPressureButton = Key::None;
             return;
         }
         Display::Redraw();
@@ -472,14 +472,14 @@ void Menu::ProcessingShortPressureButton()
             }
         } while(false);
 
-        shortPressureButton = Key::Empty;
+        shortPressureButton = Key::None;
     }
 }
 
 
 void Menu::ProcessingLongPressureButton()
 {
-    if(longPressureButton != Key::Empty)
+    if(longPressureButton != Key::None)
     {
         Display::Redraw();
         Menu::SetAutoHide(true);
@@ -509,7 +509,7 @@ void Menu::ProcessingLongPressureButton()
             Item *item = Item::UnderKey(longPressureButton);
             ExecuteFuncForLongPressureOnItem(item);
         }
-        longPressureButton = Key::Empty;
+        longPressureButton = Key::None;
     }
 }
 
@@ -581,7 +581,7 @@ void Menu::ProcessingPressButton()
             Item::underKey = Item::UnderKey(pressButton);
         }
     }
-    pressButton = Key::Empty;
+    pressButton = Key::None;
 }
 
 
@@ -590,7 +590,7 @@ void Menu::ProcessingReleaseButton()
     if(releaseButton >= Key::F1 && releaseButton <= Key::F5 || pressButton == Key::Menu)
     {
         Item::underKey = nullptr;
-        releaseButton = Key::Empty;
+        releaseButton = Key::None;
     }
 }
 
