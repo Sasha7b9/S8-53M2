@@ -187,10 +187,15 @@ namespace Panel
 
     static void FuncRangeA(Action action)
     {
+        Sound::RegulatorSwitchRotate();
+
         if (action.IsLeft())
         {
-            Sound::RegulatorSwitchRotate();
             Range::Increase(Chan::A);
+        }
+        else if (action.IsRight())
+        {
+            Range::Decrease(Chan::A);
         }
     }
 
