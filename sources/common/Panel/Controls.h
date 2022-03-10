@@ -59,7 +59,7 @@ struct Key { enum E
     bool IsGovernor(Key::E key);
     bool Is(Key::E key);
     bool IsFunctional(Key::E key);
-    pstring Name() const;
+    pchar Name() const;
 };
 
 Key::E& operator++(Key::E &right);

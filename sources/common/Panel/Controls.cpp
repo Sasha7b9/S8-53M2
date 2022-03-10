@@ -15,9 +15,9 @@ bool KeyboardEvent::IsRelease() const
 }
 
 
-pstring Key::Name() const
+pchar Key::Name() const
 {
-    static pstring names[Key::Count] =
+    static pchar names[Key::Count] =
     {
         "None",
         "F1",
@@ -108,8 +108,8 @@ pchar Action::Name() const
         "Down",
         "Up",
         "Long",
-        "Rotate_Left",
-        "Rotate_Right"
+        "Rotate-Left",
+        "Rotate-Right"
     };
 
     return names[value];
