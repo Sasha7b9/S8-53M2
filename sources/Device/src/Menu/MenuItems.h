@@ -150,6 +150,13 @@ public:
     TypeItem::E GetType() const;
 
     bool IsPage() const;
+    bool IsChoice() const;
+    bool IsChoiceReg() const;
+    bool IsGovernor() const;
+    bool IsGovernorColor() const;
+    bool IsTime() const;
+    bool IsIP() const;
+    bool IsMAC() const;
 
     // Возвращает адрес элемента, которому принадлежит элемент по адресу item.
     Page *Keeper() const;

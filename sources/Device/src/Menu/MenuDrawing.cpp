@@ -329,10 +329,11 @@ void Page::DrawItems(int yTop)
 
 void Page::DrawOpened(int yTop)
 {
-    if (CurrentItemIsOpened())
+    Item *item = Item::Opened();
+
+    if (item->Keeper() == this)
     {
-        int8 posCurItem = PosCurrentItem();
-        Item *item = GetItem(posCurItem);
+        LOG_WRITE("this page");
 
         for (int key = Key::F1; key <= Key::F5; key++)
         {
@@ -342,29 +343,29 @@ void Page::DrawOpened(int yTop)
             }
         }
 
-        if (type == TypeItem::Choice || type == TypeItem::ChoiceReg)
+        if (item->IsChoice() || item->IsChoiceReg())
         {
-            ((Choice *)item)->Draw(MP_X, Menu::ItemOpenedPosY(item), true); //-V1027
+            ((Choice *)item)->DrawOpened(MP_X, Menu::ItemOpenedPosY(item)); //-V1027
         }
-        else if (type == TypeItem::Governor)
+        else if (item->IsGovernor())
         {
-            ((Governor *)item)->Draw(MP_X, Menu::ItemOpenedPosY(item), true);
+            ((Governor *)item)->DrawOpened(MP_X, Menu::ItemOpenedPosY(item));
         }
-        else if (type == TypeItem::GovernorColor)
+        else if (item->IsGovernorColor())
         {
-            ((GovernorColor *)item)->Draw(MP_X, Menu::ItemOpenedPosY(item), true); //-V1027
+            ((GovernorColor *)item)->DrawOpened(MP_X, Menu::ItemOpenedPosY(item)); //-V1027
         }
-        else if (type == TypeItem::Time)
+        else if (item->IsTime())
         {
-            ((Time *)item)->Draw(MP_X, Menu::ItemOpenedPosY(item), true); //-V1027
+            ((Time *)item)->DrawOpened(MP_X, Menu::ItemOpenedPosY(item)); //-V1027
         }
-        else if (type == TypeItem::IP)
+        else if (item->IsIP())
         {
-            ((IPaddress *)item)->Draw(MP_X, Menu::ItemOpenedPosY(item), true);
+            ((IPaddress *)item)->DrawOpened(MP_X, Menu::ItemOpenedPosY(item));
         }
-        else if (type == TypeItem::MAC)
+        else if (item->IsMAC())
         {
-            ((MACaddress *)item)->Draw(MP_X, Menu::ItemOpenedPosY(item), true); //-V1027
+            ((MACaddress *)item)->DrawOpened(MP_X, Menu::ItemOpenedPosY(item)); //-V1027
         }
     }
     else

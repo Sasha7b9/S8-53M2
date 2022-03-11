@@ -35,6 +35,48 @@ bool Item::IsPage() const
 }
 
 
+bool Item::IsChoice() const
+{
+    return GetType() == TypeItem::Choice;
+}
+
+
+bool Item::IsChoiceReg() const
+{
+    return GetType() == TypeItem::ChoiceReg;
+}
+
+
+bool Item::IsGovernor() const
+{
+    return GetType() == TypeItem::Governor;
+}
+
+
+bool Item::IsGovernorColor() const
+{
+    return GetType() == TypeItem::GovernorColor;
+}
+
+
+bool Item::IsTime() const
+{
+    return GetType() == TypeItem::Time;
+}
+
+
+bool Item::IsIP() const
+{
+    return GetType() == TypeItem::IP;
+}
+
+
+bool Item::IsMAC() const
+{
+    return GetType() == TypeItem::MAC;
+}
+
+
 bool Page::CurrentItemIsOpened()
 {
     bool retValue = _GET_BIT(POS_ACT_ITEM(name), 7) == 1;
