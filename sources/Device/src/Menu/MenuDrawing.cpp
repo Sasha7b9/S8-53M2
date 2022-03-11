@@ -118,33 +118,19 @@ static void DrawHintItem(int x, int y, int width)
 
 void Menu::Draw()
 {
-    if(IsShown() || Item::Opened()->GetType() != TypeItem::Page)
+    if (IsShown())
     {
-        ItemsUnderKey::Reset();
-
         Item *item = Item::Opened();
 
-        if(IsShown())
+        if (item->IsPage())
         {
-            if (item->GetType() == TypeItem::Page)
-            {
-                ((Page *)item)->DrawOpened(GRID_TOP);
-            }
-            else
-            {
-                item->Keeper()->DrawOpened(GRID_TOP);
-            }
+            ItemsUnderKey::Reset();
+
+            ((Page *)item)->DrawOpened(GRID_TOP);
         }
         else
         {
-            if(item->GetType() == TypeItem::Choice)
-            {
-                ((Choice *)item)->Draw(MP_X, GRID_TOP, true);
-            }
-            else if(item->GetType() == TypeItem::Governor)
-            {
-                ((Governor *)item)->Draw(MP_X, GRID_TOP, true);
-            }
+            item->Keeper()->DrawOpened(GRID_TOP);
         }
     }
 
