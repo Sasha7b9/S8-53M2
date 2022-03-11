@@ -630,13 +630,71 @@ namespace Panel
 
     static void FuncSetting(Action action)
     {
-        if (action.IsLeft())
+        static const int step = 2;
+        static int angle = 0;
+
+        if (!Hint::show)
         {
-            Menu::Handlers::RotateRegSetLeft();
-        }
-        else if (action.IsRight())
-        {
-            Menu::Handlers::RotateRegSetRight();
+            if (action.IsLeft() || action.IsRight())
+            {
+                if (action.IsLeft())
+                {
+                    angle--;
+                }
+                else if (action.IsRight())
+                {
+                    angle++;
+                }
+
+                Display::Redraw();
+
+                if (angle != 0)
+                {
+                    if (Menu::IsShown() || !Item::Opened()->IsPage())
+                    {
+                        Item *item = Item::Current();
+                        TypeItem::E type = item->GetType();
+
+                        if (Item::Opened()->GetType() == TypeItem::Page && (type == TypeItem::ChoiceReg ||
+                            type == TypeItem::Governor || type == TypeItem::IP || type == TypeItem::MAC))
+                        {
+                            if (angle > step || angle < -step)
+                            {
+                                item->Change(angle);
+                                angle = 0;
+                            }
+
+                            return;
+                        }
+                        else
+                        {
+                            item = Item::Opened();
+                            type = item->GetType();
+                            if (Menu::IsMinimize())
+                            {
+                                Page::RotateRegSetSB(angle);
+                            }
+                            else if (type == TypeItem::Page || type == TypeItem::IP || type == TypeItem::MAC ||
+                                type == TypeItem::Choice || type == TypeItem::ChoiceReg || type == TypeItem::Governor)
+                            {
+                                if (item->ChangeOpened(angle))
+                                {
+                                    angle = 0;
+                                }
+                                return;
+                            }
+                            else if (type == TypeItem::GovernorColor)
+                            {
+                                item->Change(angle);
+                            }
+                            else if (type == TypeItem::Time)
+                            {
+                                (angle > 0) ? ((Time *)item)->IncCurrentPosition() : ((Time *)item)->DecCurrentPosition();
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

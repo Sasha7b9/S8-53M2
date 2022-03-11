@@ -27,13 +27,7 @@ namespace Menu
     bool showDebugMenu = true;
     bool needClosePageSB = true;
 
-    // Угол, на который нужно повернуть ручку УСТАНОВКА - величина означает количество щелчков, знак - направление - "-" - влево, "+" - вправо
-    int angleRegSet = 0;
 
-    static const int stepAngleRegSet = 2;
-
-    // Обработка поворота ручки УСТАНОВКА.
-    void ProcessingRegulatorSet();
     // Включить/выключить светодиод ручки УСТАНОВКА, если необходимо.
     void SwitchSetLED();
     // Обработка короткого нажатия на элемент NamePage с адресом page.
@@ -74,7 +68,6 @@ namespace Menu
 
 void Menu::UpdateInput()
 {
-    ProcessingRegulatorSet();
     SwitchSetLED();
 
     if (FM::needOpen)
@@ -212,26 +205,6 @@ void Menu::ProcessButtonForHint(Key::E button)
 }
 
 
-void Menu::Handlers::RotateRegSetRight()
-{   
-    if (!Hint::show)
-    {
-        angleRegSet++;
-        Display::Redraw();
-    }
-};
-
-
-void Menu::Handlers::RotateRegSetLeft()
-{
-    if (!Hint::show)
-    {
-        angleRegSet--;
-        Display::Redraw();
-    }
-};
-
-
 void Menu::SetAutoHide(bool)
 {
     if(!IsShown())
@@ -291,60 +264,6 @@ void Menu::OnTimerAutoHide()
 {
     Show(false);
     Timer::Disable(TypeTimer::MenuAutoHide);
-}
-
-
-void Menu::ProcessingRegulatorSet()
-{
-    if (angleRegSet == 0)
-    {
-        return;
-    }
-
-    if (IsShown() || Item::Opened()->GetType() != TypeItem::Page)
-    {
-        Item *item = Item::Current();
-        TypeItem::E type = item->GetType();
-
-        if (Item::Opened()->GetType() == TypeItem::Page && (type == TypeItem::ChoiceReg ||
-            type == TypeItem::Governor || type == TypeItem::IP || type == TypeItem::MAC))
-        {
-            if (angleRegSet > stepAngleRegSet || angleRegSet < -stepAngleRegSet)
-            {
-                item->Change(angleRegSet);
-                angleRegSet = 0;
-            }
-
-            return;
-        }
-        else
-        {
-            item = Item::Opened();
-            type = item->GetType();
-            if (IsMinimize())
-            {
-                Page::RotateRegSetSB(angleRegSet);
-            }
-            else if (type == TypeItem::Page || type == TypeItem::IP || type == TypeItem::MAC || type == TypeItem::Choice || type == TypeItem::ChoiceReg || type == TypeItem::Governor)
-            {
-                if (item->ChangeOpened(angleRegSet))
-                {
-                    angleRegSet = 0;
-                }
-                return;
-            }
-            else if (type == TypeItem::GovernorColor)
-            {
-                item->Change(angleRegSet);
-            }
-            else if (type == TypeItem::Time)
-            {
-                angleRegSet > 0 ? ((Time *)item)->IncCurrentPosition() : ((Time *)item)->DecCurrentPosition();
-            }
-        }
-    }
-
-    angleRegSet = 0;
 }
 
 
@@ -625,8 +544,7 @@ void Time::Open()
 
     for (int i = 0; i < 2; i++)
     {
-        Menu::Handlers::RotateRegSetRight();
-        Menu::UpdateInput();
+        Panel::ProcessEvent(KeyboardEvent(Key::Setting, Action::Right));
         Display::Update();
     }
 
@@ -703,7 +621,6 @@ void Menu::SwitchSetLED()
 
 void Menu::OpenFileManager()
 {
-    angleRegSet = 0;
     for (int i = 0; i < 10; i++)
     {
         Panel::ProcessEvent(KeyboardEvent(Key::Menu, Action::Up));
@@ -716,23 +633,17 @@ void Menu::OpenFileManager()
         Display::Update(false);
     }
 
-    for (int i = 0; i < 5 * stepAngleRegSet + 1; i++)
+    for (int i = 0; i < 5 * 2 + 1; i++)
     {
-        Handlers::RotateRegSetLeft();
-        UpdateInput();
+        Panel::ProcessEvent(KeyboardEvent(Key::Setting, Action::Left));
         Display::Update(false);
     }
 
-    angleRegSet = 0;
-
-    for (int i = 0; i < 2 * stepAngleRegSet + 1; i++)
+    for (int i = 0; i < 2 * 2 + 1; i++)
     {
-        Handlers::RotateRegSetRight();
-        UpdateInput();
+        Panel::ProcessEvent(KeyboardEvent(Key::Setting, Action::Right));
         Display::Update(false);
     }
-
-    angleRegSet = 0;
 
     Panel::ProcessEvent(KeyboardEvent(Key::F2, Action::Up));
     Display::Update(false);
@@ -740,10 +651,9 @@ void Menu::OpenFileManager()
     Panel::ProcessEvent(KeyboardEvent(Key::F4, Action::Up));
     Display::Update(false);
 
-    for (int i = 0; i < stepAngleRegSet + 1; i++)
+    for (int i = 0; i < 2 + 1; i++)
     {
-        Handlers::RotateRegSetLeft();
-        UpdateInput();
+        Panel::ProcessEvent(KeyboardEvent(Key::Setting, Action::Left));
         Display::Update(false);
     }
 

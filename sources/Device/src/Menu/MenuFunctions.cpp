@@ -29,6 +29,12 @@ TypeItem::E Item::GetType() const
 }
 
 
+bool Item::IsPage() const
+{
+    return GetType() == TypeItem::Page;
+}
+
+
 bool Page::CurrentItemIsOpened()
 {
     bool retValue = _GET_BIT(POS_ACT_ITEM(name), 7) == 1;

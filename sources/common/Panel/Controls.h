@@ -65,11 +65,11 @@ Key::E& operator++(Key::E &right);
 
 
 struct Action { enum E {
-        Down,         // Нажатие кнопки
-        Up,           // Отпускание кнопки
-        Long,         // "Длинное" нажатие
-        RotateLeft,   // Поворот ручки влево
-        RotateRight,  // Поворот ручки вправо
+        Down,       // Нажатие кнопки
+        Up,         // Отпускание кнопки
+        Long,       // "Длинное" нажатие
+        Left,       // Поворот ручки влево
+        Right,      // Поворот ручки вправо
         Count
     } value;
 
@@ -79,8 +79,8 @@ struct Action { enum E {
     bool IsDown() const { return value == Down; }
     bool IsUp() const { return value == Up; }
     bool IsLong() const { return value == Long; }
-    bool IsLeft() const { return value == RotateLeft; }
-    bool IsRight() const { return value == RotateRight; }
+    bool IsLeft() const { return value == Left; }
+    bool IsRight() const { return value == Right; }
     pchar Name() const;
 };
 
@@ -105,9 +105,9 @@ struct KeyboardEvent
     // true, если функциональная клавиша
     bool IsFunctional() const;
 
-    bool IsRotate() const { return (action.value == Action::RotateRight) || (action.value == Action::RotateLeft); }
-    bool IsLeft() const { return action.value == Action::RotateLeft; }
-    bool IsRight() const { return action.value == Action::RotateRight; }
+    bool IsRotate() const { return (action.value == Action::Right) || (action.value == Action::Left); }
+    bool IsLeft() const { return action.value == Action::Left; }
+    bool IsRight() const { return action.value == Action::Right; }
 
     void Log() const;
     

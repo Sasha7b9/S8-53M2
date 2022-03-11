@@ -9,15 +9,6 @@ namespace Menu
     extern bool showDebugMenu;
     extern bool needClosePageSB;    // Если 1, нужно закрывать страницу малых кнопок
 
-    namespace Handlers
-    {
-        // Функция обработки поворота ручки УСТАНОВКА вправо.
-        void RotateRegSetRight();
-
-        // Функция обработки поворота ручки УСТАНОВКА влево.
-        void RotateRegSetLeft();
-    }
-
     void Draw();
 
     // Функция должна вызываться в главном цикле.

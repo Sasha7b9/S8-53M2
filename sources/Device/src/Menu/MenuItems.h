@@ -149,6 +149,8 @@ public:
     // Возвращает тип элемента меню по адресу address.
     TypeItem::E GetType() const;
 
+    bool IsPage() const;
+
     // Возвращает адрес элемента, которому принадлежит элемент по адресу item.
     Page *Keeper() const;
 
