@@ -204,7 +204,7 @@ static bool IsActive_Accumulation_Clear()
 
 void OnPress_Accumulation_Clear()
 {
-    Display::Redraw();
+    Flags::needFinishDraw = true;
 }
 
 

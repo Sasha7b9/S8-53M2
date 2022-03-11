@@ -47,7 +47,6 @@ namespace Display
     pFuncVV funcAdditionDraw = 0;
     pFuncVV funcAfterDraw    = 0;
 
-    bool needFinishDraw = true;
     bool framesElapsed = false;
     int  numDrawingSignals = 0;
 
@@ -262,7 +261,7 @@ void Display::RotateRShift(Chan::E ch)
             FuncOnTimerDisableShowLevelRShiftB);
     };
 
-    Display::Redraw();
+    Flags::needFinishDraw = true;
 };
 
 
@@ -285,19 +284,14 @@ void Display::RotateTrigLev()
         TrigLev::showLevel = true;
         Timer::Enable(TypeTimer::ShowLevelTrigLev, TIME_SHOW_LEVELS * 1000, FuncOnTimerDisableShowLevelTrigLev);
     }
-    Display::Redraw();
+
+    Flags::needFinishDraw = true;
 }
 
 
 void Display::FuncOnTimerDisableShowLevelTrigLev()
 {
     Display::DisableShowLevelTrigLev();
-}
-
-
-void Display::Redraw()
-{
-    needFinishDraw = true;
 }
 
 
@@ -1309,9 +1303,9 @@ bool Display::NeedForClearScreen()
         return true;
     }
 
-    if (needFinishDraw)
+    if (Flags::needFinishDraw)
     {
-        needFinishDraw = false;
+        Flags::needFinishDraw = false;
         return true;
     }
 

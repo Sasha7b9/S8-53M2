@@ -240,7 +240,7 @@ float Choice::Step()
 
         tsChoice.choice = 0;
         FuncOnChanged(((Item *)this)->IsActive()); //-V1027
-        Display::Redraw();
+        Flags::needFinishDraw = true;
         tsChoice.inMoveDecrease = tsChoice.inMoveIncrease = 0;
 
         return 0.0f;
@@ -265,7 +265,8 @@ void Choice::ChangeValue(int delta)
 
     FuncOnChanged(((Item *)this)->IsActive());
     Sound::GovernorChangedValue();
-    Display::Redraw();
+
+    Flags::needFinishDraw = true;
 }
 
 

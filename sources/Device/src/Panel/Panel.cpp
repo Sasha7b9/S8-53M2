@@ -336,7 +336,7 @@ namespace Panel
         else if (action.IsLong())
         {
             Menu::SetAutoHide(true);
-            Display::Redraw();
+            Flags::needFinishDraw = true;
 
             RShift::Set(Chan::A, RShift::ZERO);
         }
@@ -361,7 +361,7 @@ namespace Panel
         else if (action.IsLong())
         {
             Menu::SetAutoHide(true);
-            Display::Redraw();
+            Flags::needFinishDraw = true;
 
             RShift::Set(Chan::B, RShift::ZERO);
         }
@@ -378,7 +378,7 @@ namespace Panel
         else if (action.IsLong())
         {
             Menu::SetAutoHide(true);
-            Display::Redraw();
+            Flags::needFinishDraw = true;
 
             TShift::Set(0);
         }
@@ -394,7 +394,7 @@ namespace Panel
         }
         else if (action.IsLong())
         {
-            Display::Redraw();
+            Flags::needFinishDraw = true;
             Menu::SetAutoHide(true);
 
             if (MODE_LONG_PRESS_TRIG_IS_LEVEL_ZERO)
@@ -515,7 +515,7 @@ namespace Panel
         else if (action.IsLong())
         {
             Menu::SetAutoHide(true);
-            Display::Redraw();
+            Flags::needFinishDraw = true;
 
             Menu::Show(!Menu::IsShown());
         }
@@ -638,7 +638,7 @@ namespace Panel
 
                 if (Menu::IsShown() || !Item::Opened()->IsPage())
                 {
-                    Display::Redraw();
+                    Flags::needFinishDraw = true;
 
                     Item *item = Item::Current();
                     TypeItem::E type = item->GetType();
@@ -726,7 +726,7 @@ void Panel::ProcessingKeyboardEvent(KeyboardEvent event)
 
     funcOnKey[event.key](event.action);
 
-    Display::Redraw();
+    Flags::needFinishDraw = true;
 }
 
 

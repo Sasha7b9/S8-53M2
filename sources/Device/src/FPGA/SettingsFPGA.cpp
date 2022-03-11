@@ -224,7 +224,7 @@ void TBase::Set(TBase::E tBase)
         SET_TBASE = tBase;
         Load();
         TShift::Set(TShift::ToRel(tShiftAbsOld, SET_TBASE));
-        Display::Redraw();
+        Flags::needFinishDraw = true;
     }
     else
     {
@@ -444,7 +444,7 @@ void TShift::Set(int tshift)
 
     FPGA::Launch::Load();
 
-    Display::Redraw();
+    Flags::needFinishDraw = true;
 };
 
 
@@ -511,7 +511,8 @@ bool Range::Increase(Chan::E ch)
        Display::ShowWarningBad(ch == Chan::A ? Warning::LimitChan1_Volts : Warning::LimitChan2_Volts);
     }
 
-    Display::Redraw();
+    Flags::needFinishDraw = true;
+
     return retValue;
 };
 
@@ -530,7 +531,8 @@ bool Range::Decrease(Chan::E ch)
         Display::ShowWarningBad(ch == Chan::A ? Warning::LimitChan1_Volts : Warning::LimitChan2_Volts);
     }
 
-    Display::Redraw();
+    Flags::needFinishDraw = true;
+
     return retValue;
 };
 

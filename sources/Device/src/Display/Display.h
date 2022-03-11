@@ -13,7 +13,6 @@ namespace Display
 
     extern uint8 *const back_buffer;
 
-    extern bool needFinishDraw;     // ≈сли true, то дисплей нуждаетс€ в перерисовке
     extern bool framesElapsed;
     extern int  numDrawingSignals;  // „исло нарисованных сигналов дл€ режима накоплени€
 
@@ -27,8 +26,6 @@ namespace Display
     void RotateRShift(Chan::E);
 
     void RotateTrigLev();
-
-    void Redraw();
 
     void EnableTrigLabel(bool enable);
 
