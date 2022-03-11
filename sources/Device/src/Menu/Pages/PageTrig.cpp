@@ -74,13 +74,10 @@ static const Choice mcMode =
     (int8*)&START_MODE, OnPress_Mode
 };
 
-void OnPress_Mode(bool)
+
+static void OnPress_Mode(bool)
 {
-    FPGA::Stop(false);
-    if (!START_MODE_IS_SINGLE)
-    {
-        FPGA::Start();
-    }
+    StartMode::Set(START_MODE);
 }
 
 

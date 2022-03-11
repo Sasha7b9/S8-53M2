@@ -42,6 +42,8 @@ struct StartMode
         Wait,       // Ждущий.
         Single      // Однократный.
     };
+
+    static void Set(E);
 };
 
 

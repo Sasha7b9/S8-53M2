@@ -387,6 +387,15 @@ void RShift::Load(Chan ch)
 }
 
 
+void TrigLev::Set(Chan ch, int16 lev)
+{
+    if (ch < 2)
+    {
+        Set((TrigSource::E)ch.value, lev);
+    }
+}
+
+
 void TrigLev::Set(TrigSource::E ch, int16 trigLev)
 {
     Display::ChangedRShiftMarkers();
@@ -535,6 +544,15 @@ bool Range::Decrease(Chan::E ch)
 
     return retValue;
 };
+
+
+void TrigSource::Set(Chan ch)
+{
+    if (ch < 2)
+    {
+        Set((E)ch);
+    }
+}
 
 
 void TrigSource::Set(TrigSource::E trigSource)
@@ -830,4 +848,17 @@ bool DataSettings::Equal(const DataSettings &ds)
            (div_a    == ds.div_a) &&
            (div_b    == ds.div_b) &&
            (peakDet  == ds.peakDet);
+}
+
+
+void StartMode::Set(StartMode::E mode)
+{
+    START_MODE = mode;
+
+    FPGA::Stop(false);
+
+    if (!START_MODE_IS_SINGLE)
+    {
+        FPGA::Start();
+    }
 }

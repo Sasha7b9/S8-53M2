@@ -23,7 +23,7 @@ struct Warning
         MenuDebugEnabled,
         MovingData,
         TimeNotSet,
-        SignalNotFound,
+        SignalNotFound,                 // Сигнал не найден
         SetTPosToLeft1,
         SetTPosToLeft2,
         SetTPosToLeft3,

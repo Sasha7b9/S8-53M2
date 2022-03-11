@@ -100,6 +100,7 @@ struct TrigSource
 
     // Установить источник синхронизации.
     static void Set(TrigSource::E);
+    static void Set(Chan);
 };
 
 
@@ -326,6 +327,7 @@ struct TrigLev
 
     // Установить относительный уровень синхронизации.
     static void Set(TrigSource::E, int16);
+    static void Set(Chan, int16);
 
     // Загрузка уровня синхронизации в аппаратную часть.
     static void Load();

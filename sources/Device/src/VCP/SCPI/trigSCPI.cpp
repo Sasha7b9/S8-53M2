@@ -32,10 +32,6 @@ LEAVE_PARSE_FUNC
 
 
 
-extern void OnPress_Mode(bool active);
-
-
-
 void SCPI::TRIGGER::MODE(uint8 *buffer)
 {
     static const MapElement map[] =
@@ -47,9 +43,9 @@ void SCPI::TRIGGER::MODE(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (0 == value)         { START_MODE = StartMode::Auto; OnPress_Mode(true); }
-        else if (1 == value)    { START_MODE = StartMode::Wait; OnPress_Mode(true); }
-        else if (2 == value)    { START_MODE = StartMode::Single; OnPress_Mode(true); }
+        if (0 == value)         { StartMode::Set(StartMode::Auto); }
+        else if (1 == value)    { StartMode::Set(StartMode::Wait); }
+        else if (2 == value)    { StartMode::Set(StartMode::Single); }
         else if (3 == value)
         {
             SCPI_SEND(":TRIGGER:MODE %s", map[START_MODE].key);
