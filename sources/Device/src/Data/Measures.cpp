@@ -182,7 +182,6 @@ void Measures::RotateRegSet(int angle)
     if (PageMeasures::choiceMeasuresIsActive)
     {
         posOnPageChoice += (int8)Math::Sign(currentAngle);
-        Sound::RegulatorSwitchRotate();
 
         if (posOnPageChoice < 0)
         {
@@ -223,7 +222,6 @@ void Measures::RotateRegSet(int angle)
         }
 
         SetActive(row, col);
-        Sound::RegulatorSwitchRotate();
     }
     currentAngle = 0;
 }

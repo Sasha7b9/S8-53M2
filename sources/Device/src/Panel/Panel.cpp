@@ -118,7 +118,6 @@ namespace Panel
             }
             if (CanChangeRShiftOrTrigLev((TrigSource::E)ch, (int16)rShift))
             {
-                Sound::RegulatorShiftRotate();
                 f(ch, (int16)rShift);
             }
         }
@@ -134,7 +133,6 @@ namespace Panel
             }
             if (CanChangeRShiftOrTrigLev(trigSource, (int16)trigLev))
             {
-                Sound::RegulatorShiftRotate();
                 f(trigSource, (int16)trigLev);
             }
         }
@@ -166,7 +164,6 @@ namespace Panel
             }
             if (CanChangeTShift(tShift))
             {
-                Sound::RegulatorShiftRotate();
                 f(tShift);
             }
         }
@@ -230,6 +227,35 @@ namespace Panel
     }
 
 
+    static void OnKeyboardEvent(KeyboardEvent event)
+    {
+        if (event.IsDown())
+        {
+            Sound::ButtonPress();
+
+            if (Hint::show)
+            {
+                Menu::ProcessButtonForHint(event.key);
+            }
+        }
+        else if (event.IsUp() || event.IsLong())
+        {
+            Sound::ButtonRelease();
+        }
+        else if (event.IsLeft() || event.IsRight())
+        {
+            if (event.key == Key::RShiftA || event.key == Key::RShiftB || event.key == Key::TShift || event.key == Key::TrigLev)
+            {
+                Sound::RegulatorShiftRotate();
+            }
+            else
+            {
+                Sound::RegulatorSwitchRotate();
+            }
+        }
+    }
+
+
     static void FuncNone(Action)
     {
 
@@ -237,7 +263,11 @@ namespace Panel
 
     static void OnFunctionalKey(Action action, Key::E key)
     {
-        if (action.IsUp())
+        if (action.IsDown())
+        {
+            Item::underKey = Item::UnderKey(key);
+        }
+        else if (action.IsUp())
         {
             if (Menu::IsShown())
             {
@@ -437,7 +467,7 @@ namespace Panel
         {
             if (MODE_WORK_IS_DIRECT)
             {
-                Menu::Handlers::PressButton(Key::Start);
+                FPGA::OnPressStartStop();
             }
         }
     }
@@ -509,8 +539,6 @@ namespace Panel
 
     static void FuncRangeA(Action action)
     {
-        Sound::RegulatorSwitchRotate();
-
         if (action.IsLeft())
         {
             Range::Increase(Chan::A);
@@ -523,8 +551,6 @@ namespace Panel
 
     static void FuncRangeB(Action action)
     {
-        Sound::RegulatorSwitchRotate();
-
         if (action.IsLeft())
         {
             Range::Increase(Chan::B);
@@ -651,11 +677,6 @@ namespace Panel
 
 void Panel::ProcessingKeyboardEvent(KeyboardEvent event)
 {
-    if (event.IsUp())
-    {
-        event.action.value = Action::Up;
-    }
-
     if (!isRunning)
     {
         if (event.IsDown())
@@ -666,10 +687,7 @@ void Panel::ProcessingKeyboardEvent(KeyboardEvent event)
         return;
     }
 
-//    if (event.IsUp())
-//    {
-//        Menu::Handlers::ReleaseButton(event.key);
-//    }
+    OnKeyboardEvent(event);
 
     funcOnKey[event.key](event.action);
 }

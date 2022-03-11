@@ -27,8 +27,6 @@ namespace Menu
     bool showDebugMenu = true;
     bool needClosePageSB = true;
 
-    // При нажатии кнопки её имя записывается в эту переменную и хранится там до обратоки события нажатия кнопки.
-    Key::E pressButton = Key::None;
     // При отпускании кнопки её имя записывается в эту переменную и хранится там до обработки  события отпускания кнопки.
     Key::E releaseButton = Key::None;
     // Угол, на который нужно повернуть ручку УСТАНОВКА - величина означает количество щелчков, знак - направление - "-" - влево, "+" - вправо
@@ -36,12 +34,6 @@ namespace Menu
 
     static const int stepAngleRegSet = 2;
 
-    static const int  SIZE_BUFFER_FOR_BUTTONS = 5;
-    static Key::E bufferForButtons[SIZE_BUFFER_FOR_BUTTONS] = {Key::None, Key::None, Key::None, Key::None, Key::None};
-    static const Key::E sampleBufferForButtons[SIZE_BUFFER_FOR_BUTTONS] = {Key::F5, Key::F4, Key::F3, Key::F2, Key::F1};
-
-    // Обработка опускания кнопки вниз.
-    void ProcessingPressButton();
     // Обработка поднятия кнопки вверх.
     void ProcessingReleaseButton();
     // Обработка поворота ручки УСТАНОВКА.
@@ -81,15 +73,12 @@ namespace Menu
     void OpenFileManager();
     // Обработка события таймера автоматического сокрытия меню.
     void OnTimerAutoHide();
-
-    void ProcessButtonForHint(Key::E button);
 }
 
 
 void Menu::UpdateInput()
 {
     ProcessingRegulatorSet();
-    ProcessingPressButton();
     ProcessingReleaseButton();
     SwitchSetLED();
 
@@ -228,42 +217,8 @@ void Menu::ProcessButtonForHint(Key::E button)
 }
 
 
-void Menu::Handlers::PressButton(Key::E button)
-{
-    Sound::ButtonPress();
-
-    if (Hint::show)
-    {
-        ProcessButtonForHint(button);
-        return;
-    }
-
-    if (pressButton == Key::Start)
-    {
-    } 
-    else if (!Menu::IsShown())
-    {
-        for (int i = SIZE_BUFFER_FOR_BUTTONS - 1; i > 0; i--)
-        {
-            bufferForButtons[i] = bufferForButtons[i - 1];
-        }
-        bufferForButtons[0] = button;
-      
-        if (memcmp(bufferForButtons, sampleBufferForButtons, SIZE_BUFFER_FOR_BUTTONS * sizeof(Key::E)) == 0)
-        {
-            showDebugMenu = true;
-            Display::ShowWarningGood(Warning::MenuDebugEnabled);
-        }
-    }
-
-    pressButton = button;
-};
-
-
 void Menu::Handlers::ReleaseButton(Key::E button)
 {
-    Sound::ButtonRelease();
-
     if (!Hint::show)
     {
         releaseButton = button;
@@ -413,26 +368,9 @@ void Menu::ProcessingRegulatorSet()
 }
 
 
-void Menu::ProcessingPressButton()
-{
-    if (pressButton == Key::Start && !MODE_WORK_IS_LATEST)
-    {
-        FPGA::OnPressStartStop();
-    } 
-    else if((pressButton >= Key::F1 && pressButton <= Key::F5) || pressButton == Key::Menu)
-    {
-        if (pressButton != Key::Menu)
-        {
-            Item::underKey = Item::UnderKey(pressButton);
-        }
-    }
-    pressButton = Key::None;
-}
-
-
 void Menu::ProcessingReleaseButton()
 {
-    if(releaseButton >= Key::F1 && releaseButton <= Key::F5 || pressButton == Key::Menu)
+    if(releaseButton >= Key::F1 && releaseButton <= Key::F5)
     {
         Item::underKey = nullptr;
         releaseButton = Key::None;

@@ -102,10 +102,6 @@ void PressSB_MemLast_Prev()
 
 static void RotateSB_MemLast(int angle)
 {
-    if (Storage::NumElements() > 1)
-    {
-        Sound::RegulatorSwitchRotate();
-    }
     if (Math::Sign(angle) > 0)
     {
         PressSB_MemLast_Next();
@@ -392,13 +388,13 @@ void OnMemExtSetMaskNameRegSet(int angle, int maxIndex)
     };
 
     Color::ResetFlash();
+
     if (INDEX_SYMBOL > maxIndex)
     {
         INDEX_SYMBOL = maxIndex - 1;
     }
-    func[Math::Sign(angle) + 1](&INDEX_SYMBOL, 0, maxIndex - 1);
-    Sound::RegulatorSwitchRotate();
 
+    func[Math::Sign(angle) + 1](&INDEX_SYMBOL, 0, maxIndex - 1);
 }
 
 static void OnMemExtSetMaskRegSet(int angle)
@@ -618,7 +614,6 @@ void PressSB_MemInt_SaveToFlashDrive()
 
 static void FuncOnRegSetMemInt(int delta)
 {
-    Sound::RegulatorSwitchRotate();
     if (delta < 0)
     {
         CircleDecreaseInt8(&PageMemory::Internal::currentSignal, 0, MAX_NUM_SAVED_WAVES - 1);
@@ -627,6 +622,7 @@ static void FuncOnRegSetMemInt(int delta)
     {
         CircleIncreaseInt8(&PageMemory::Internal::currentSignal, 0, MAX_NUM_SAVED_WAVES - 1);
     }
+
     HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
     Color::ResetFlash();
 }

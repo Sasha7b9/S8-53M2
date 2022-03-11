@@ -11,9 +11,6 @@ namespace Menu
 
     namespace Handlers
     {
-        // Функция вызывается, когда кнопка переходит из отжатого в нажатое положение.
-        void PressButton(Key::E);
-
         // Функция вызывается, когда кнопка переходит из нажатого в отжатое положение.
         void ReleaseButton(Key::E);
 
@@ -47,8 +44,10 @@ namespace Menu
     bool IsMinimize();
 
     // Возвращает функцию обработки длинного нажатия на элемент меню item.
-    void ExecuteFuncForLongPressureOnItem(Item *item);
+    void ExecuteFuncForLongPressureOnItem(Item *);
 
     // Возвращает функцию обработки короткого нажатия на элемент меню item.
-    void ExecuteFuncForShortPressOnItem(Item *item);
+    void ExecuteFuncForShortPressOnItem(Item *);
+
+    void ProcessButtonForHint(Key::E);
 };
