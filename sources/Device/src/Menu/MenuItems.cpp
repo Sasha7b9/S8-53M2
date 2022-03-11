@@ -12,7 +12,7 @@ int8 MACaddress::cur_digit = 0;
 int8 IPaddress::cur_digit = 0;
 int8 Governor::cur_digit = 0;
 
-Item *Item::underKey = nullptr;
+Item *Item::pressed = nullptr;
 Item *Hint::item = nullptr;
 pchar Hint::string = nullptr;
 bool  Hint::show = false;
@@ -87,12 +87,6 @@ Governor::Governor(const Page *keeper_, pFuncBV funcOfActive_,
     Item(TypeItem::Governor, keeper_, funcOfActive_, titleRU, titleEN, hintRU, hintEN),
     cell(cell_), minValue(minValue_), maxValue(maxValue_), funcOfChanged(funcOfChanged_), funcBeforeDraw(funcBeforeDraw_)
 {
-}
-
-
-bool Item::IsPressed()
-{
-    return (this == UnderKey());
 }
 
 

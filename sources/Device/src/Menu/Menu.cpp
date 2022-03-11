@@ -232,12 +232,6 @@ void Menu::Handlers::RotateRegSetLeft()
 };
 
 
-Item *Item::UnderKey()
-{
-    return (Item *)underKey;
-};
-
-
 void Menu::SetAutoHide(bool)
 {
     if(!IsShown())
@@ -536,7 +530,7 @@ void Menu::ShortPress_SmallButton(Item *smallButton)
         if (func)
         {
             func();
-            Item::underKey = (Item *)smallButton;
+            Item::pressed = (Item *)smallButton;
         }
     }
 }

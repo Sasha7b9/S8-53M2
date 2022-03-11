@@ -388,7 +388,7 @@ bool Item::IsShade() const
 
 bool Item::IsPressed() const
 {
-    return (this == Item::UnderKey());
+    return (this == Item::pressed);
 }
 
 

@@ -265,7 +265,7 @@ namespace Panel
     {
         if (action.IsDown())
         {
-            Item::underKey = Item::UnderKey(key);
+            Item::pressed = Item::UnderKey(key);
         }
         else if (action.IsUp() || action.IsLong())
         {
@@ -288,7 +288,7 @@ namespace Panel
                         Menu::ExecuteFuncForLongPressureOnItem(item);
                     }
 
-                    Item::underKey = nullptr;
+                    Item::pressed = nullptr;
                 }
             }
         }
