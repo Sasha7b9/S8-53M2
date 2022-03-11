@@ -49,7 +49,6 @@ namespace FPGA
     bool IN_PROCESS_READ = false;
     bool TRIG_AUTO_FIND = false;    // Установленное в 1 значение означает, что нужно производить автоматический поиск
                                     // синхронизации, если  выбрана соответствующая настройка.
-    bool AUTO_FIND_IN_PROGRESS = false;
     bool runningBeforeSmallButtons = false;
     bool TEMPORARY_PAUSE = false;
     bool CAN_READ_DATA = false;
@@ -80,11 +79,6 @@ namespace FPGA
 
     // Эта функция вызывается по таймеру, когда можно считывать новыый сигнал
     void OnTimerCanReadData();
-
-    namespace AutoFinder
-    {
-        void AutoFind();
-    }
 
     namespace FreqMeter
     {
@@ -131,13 +125,7 @@ void FPGA::Update()
     {
         return;
     }
-
-    if (AUTO_FIND_IN_PROGRESS)
-    {
-        AutoFinder::AutoFind();
-        return;
-    }
-    
+  
     if(!CAN_READ_DATA)
     {
         return;

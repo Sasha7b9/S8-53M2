@@ -14,8 +14,6 @@ namespace FPGA
 {
     static const int MAX_POINTS = 1024;
 
-    extern bool AUTO_FIND_IN_PROGRESS;
-
     extern bool runningBeforeSmallButtons;      // Здесь сохраняется информация о том, работала ли ПЛИС перед переходом в режим работы с памятью
 
     extern StateFPGA state;
@@ -30,8 +28,8 @@ namespace FPGA
 
     namespace AutoFinder
     {
-        // Запустить процесс поиска сигнала.
-        void StartAutoFind();
+        // Ищет сигнал. Если сигнал найден, то по завершении сигнал будет на экране
+        void FindSignal();
     }
 
     namespace Compactor

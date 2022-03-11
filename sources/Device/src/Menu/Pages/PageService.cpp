@@ -62,7 +62,7 @@ const Button bResetSettings
 
 static void OnPress_AutoSearch()
 {
-    FPGA::AutoFinder::StartAutoFind();
+    FPGA::AutoFinder::FindSignal();
 };
 
 
