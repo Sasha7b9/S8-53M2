@@ -29,26 +29,20 @@ namespace Menu
 }
 
 
-void ItemsUnderKey::Set(Key::E key, Item *item, const char *function, int line)
+void ItemsUnderKey::Set(Key::E key, Item *item)
 {
-//    LOG_WRITE("ItemsUnderKey::Set %d %x", key, item);
-
     items[key] = item;
 }
 
 
-Item *ItemsUnderKey::Get(Key::E key, const char *function, int line)
+Item *ItemsUnderKey::Get(Key::E key)
 {
-//    LOG_WRITE("Get %s:%d", function, line);
-
     return items[key];
 }
 
 
-void ItemsUnderKey::Reset(const char *function, int line)
+void ItemsUnderKey::Reset()
 {
-//    LOG_WRITE("Reset %s:%d", function, line);
-
     for (int i = 0; i < Key::Count; i++)
     {
         items[i] = nullptr;
@@ -128,7 +122,7 @@ void Menu::Draw()
 {
     if(IsShown() || Item::Opened()->GetType() != TypeItem::Page)
     {
-        ItemsUnderKey::Reset(__FUNCTION__, __LINE__);
+        ItemsUnderKey::Reset();
 
         Item *item = Item::Opened();
 
@@ -218,7 +212,7 @@ void Page::DrawTitle(int layer, int yTop)
         PText::Draw4SymbolsInRect(x + 4, yTop + 11, GetSymbolForGovernor(NumCurrentSubPage()), colorText);
     }
 
-    ItemsUnderKey::Set(GetFuncButtonFromY(yTop), this, __FUNCTION__, __LINE__);
+    ItemsUnderKey::Set(GetFuncButtonFromY(yTop), this);
 
     delta = 0;
 
@@ -344,7 +338,7 @@ void Page::DrawItems(int layer, int yTop)
         funcOfDraw[item->GetType()](item, Menu::CalculateX(layer), top);
         count++;
 
-        ItemsUnderKey::Set(GetFuncButtonFromY(top), item, __FUNCTION__, __LINE__);
+        ItemsUnderKey::Set(GetFuncButtonFromY(top), item);
     }
 }
 
@@ -361,9 +355,9 @@ void Page::DrawOpened(int layer, int yTop)
 
         for (int key = Key::F1; key <= Key::F5; key++)
         {
-            if (ItemsUnderKey::Get((Key::E)key, __FUNCTION__, __LINE__) != item)
+            if (ItemsUnderKey::Get((Key::E)key) != item)
             {
-                ItemsUnderKey::Set((Key::E)key, nullptr, __FUNCTION__, __LINE__);
+                ItemsUnderKey::Set((Key::E)key, nullptr);
             }
         }
 

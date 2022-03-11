@@ -265,16 +265,7 @@ namespace Panel
     {
         if (action.IsDown())
         {
-            Item::now_pressed = ItemsUnderKey::Get(key, __FUNCTION__, __LINE__);
-
-            LOG_WRITE("%d pressed = %x", key, Item::now_pressed);
-
-            if (Item::now_pressed->IsPage())
-            {
-                Page *page = (Page *)Item::now_pressed;
-
-                LOG_WRITE("page %d", page->GetName());
-            }
+            Item::now_pressed = ItemsUnderKey::Get(key);
         }
         else if (action.IsUp() || action.IsLong())
         {
@@ -282,7 +273,7 @@ namespace Panel
             {
                 if (Hint::show)
                 {
-                    Hint::SetItem(ItemsUnderKey::Get(key, __FUNCTION__, __LINE__));
+                    Hint::SetItem(ItemsUnderKey::Get(key));
                 }
                 else
                 {

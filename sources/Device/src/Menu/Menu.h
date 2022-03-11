@@ -7,9 +7,9 @@
 // Здесь хранятся итемы, соответстующие фанкцинональным кнопкам
 struct ItemsUnderKey
 {
-    static void Set(Key::E, Item *, const char *function, int line);
-    static Item *Get(Key::E, const char *function, int line);
-    static void Reset(const char *function, int line);
+    static void Set(Key::E, Item *);
+    static Item *Get(Key::E);
+    static void Reset();
 private:
     static Item *items[Key::Count];
 };
