@@ -859,7 +859,7 @@ void Panel::EnableLEDRegSet(bool enable)
 }
 
 
-void Panel::CallbackOnReceiveSPI5(const uint8 *data, uint)
+void Panel::Callback::OnReceiveSPI5(const uint8 *data, uint)
 {
     KeyboardEvent event(data);
 

@@ -29,9 +29,6 @@ namespace Panel
     // Ожидать нажатие клавиши.
     Key::E WaitPressingButton();
 
-    // Эта функция должна вызываться из приёмной фунции SPI5
-    void CallbackOnReceiveSPI5(const uint8 *data, uint size);
-
     void ProcessingKeyboardEvent(KeyboardEvent);
 
     uint16 NextData();
@@ -41,4 +38,10 @@ namespace Panel
 
     // Добавить событие и обработать всё, что есть
     void ProcessEvent(KeyboardEvent);
+
+    namespace Callback
+    {
+        // Эта функция должна вызываться из приёмной фунции SPI5
+        void OnReceiveSPI5(const uint8 *data, uint size);
+    }
 };

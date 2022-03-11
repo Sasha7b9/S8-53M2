@@ -72,7 +72,7 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi) //-V2009
 
     if (hspi == &handleSPI5)
     {
-        Panel::CallbackOnReceiveSPI5(buffer_in, SIZE_PACKET);
+        Panel::Callback::OnReceiveSPI5(buffer_in, SIZE_PACKET);
 
         HAL_SPI_Receive_IT(&handleSPI5, buffer_in, SIZE_PACKET);
 
