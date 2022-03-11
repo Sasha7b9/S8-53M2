@@ -4,6 +4,17 @@
 #include "common/Panel/Controls.h"
 
 
+// Здесь хранятся итемы, соответстующие фанкцинональным кнопкам
+struct ItemsUnderKey
+{
+    static void Set(Key::E, Item *);
+    static Item *Get(Key::E);
+    static void Reset();
+private:
+    static Item *items[Key::Count];
+};
+
+
 namespace Menu
 {
     extern bool showDebugMenu;

@@ -64,11 +64,11 @@ void Device::Update()
 
     ProcessingSignal();
 
-    Panel::Update();
-
     Menu::UpdateInput();                 // Обновляем состояние меню
 
     Display::Update();                   // Рисуем экран.
+
+    Panel::Update();
 
     Settings::SaveIfNeed();
 

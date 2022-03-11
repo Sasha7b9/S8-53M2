@@ -263,9 +263,18 @@ namespace Panel
 
     static void OnFunctionalKey(Action action, Key::E key)
     {
+        LOG_FUNC_ENTER();
+
         if (action.IsDown())
         {
-            Item::pressed = Item::ForKey(key);
+            Item::pressed = ItemsUnderKey::Get(key);
+
+            if (Item::pressed->IsPage())
+            {
+                Page *page = (Page *)Item::pressed;
+
+                LOG_WRITE("page %d", page->GetName());
+            }
         }
         else if (action.IsUp() || action.IsLong())
         {
@@ -273,7 +282,7 @@ namespace Panel
             {
                 if (Hint::show)
                 {
-                    Hint::SetItem(Item::ForKey(key));
+                    Hint::SetItem(ItemsUnderKey::Get(key));
                 }
                 else
                 {

@@ -18,8 +18,28 @@
 #include <stdio.h>
 
 
-static void *itemUnderButton[Key::Count] = {0};
+Item *ItemsUnderKey::items[Key::Count];
 
+
+void ItemsUnderKey::Set(Key::E key, Item *item)
+{
+    items[key] = item;
+}
+
+
+Item *ItemsUnderKey::Get(Key::E key)
+{
+    return items[key];
+}
+
+
+void ItemsUnderKey::Reset()
+{
+    for (int i = 0; i < Key::Count; i++)
+    {
+        items[i] = nullptr;
+    }
+}
 
 
 namespace Menu
@@ -193,7 +213,7 @@ void Page::DrawTitle(int layer, int yTop)
         PText::Draw4SymbolsInRect(x + 4, yTop + 11, GetSymbolForGovernor(NumCurrentSubPage()), colorText);
     }
 
-    itemUnderButton[GetFuncButtonFromY(yTop)] = this;
+    ItemsUnderKey::Set(GetFuncButtonFromY(yTop), this);
 
     delta = 0;
 
@@ -318,7 +338,8 @@ void Page::DrawItems(int layer, int yTop)
         int top = yTop + MI_HEIGHT * count;
         funcOfDraw[item->GetType()](item, Menu::CalculateX(layer), top);
         count++;
-        itemUnderButton[GetFuncButtonFromY(top)] = item;
+
+        ItemsUnderKey::Set(GetFuncButtonFromY(top), item);
     }
 }
 
@@ -333,11 +354,11 @@ void Page::DrawOpened(int layer, int yTop)
         int8 posCurItem = PosCurrentItem();
         Item *item = GetItem(posCurItem);
 
-        for (int i = 0; i < 5; i++)
+        for (int key = Key::F1; key <= Key::F5; key++)
         {
-            if (itemUnderButton[i + Key::F1] != item)
+            if (ItemsUnderKey::Get((Key::E)key) != item)
             {
-                itemUnderButton[i + Key::F1] = 0;
+                ItemsUnderKey::Set((Key::E)key, nullptr);
             }
         }
 
@@ -389,21 +410,6 @@ bool Item::IsShade() const
 bool Item::IsPressed() const
 {
     return (this == Item::pressed);
-}
-
-
-Item *Item::ForKey(Key::E key)
-{
-    return (Item *)itemUnderButton[key];
-}
-
-
-void Menu::ResetItemsUnderButton()
-{
-    for(int i = 0; i < Key::Count; i++)
-    {
-        itemUnderButton[i] = 0;
-    }
 }
 
 
