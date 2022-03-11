@@ -267,11 +267,11 @@ namespace Panel
 
         if (action.IsDown())
         {
-            Item::pressed = ItemsUnderKey::Get(key);
+            Item::now_pressed = ItemsUnderKey::Get(key);
 
-            if (Item::pressed->IsPage())
+            if (Item::now_pressed->IsPage())
             {
-                Page *page = (Page *)Item::pressed;
+                Page *page = (Page *)Item::now_pressed;
 
                 LOG_WRITE("page %d", page->GetName());
             }
@@ -288,14 +288,14 @@ namespace Panel
                 {
                     if (action.IsUp())
                     {
-                        Menu::ExecuteFuncForShortPressOnItem(Item::pressed);
+                        Menu::ExecuteFuncForShortPressOnItem(Item::now_pressed);
                     }
                     else if (action.IsLong())
                     {
-                        Menu::ExecuteFuncForLongPressureOnItem(Item::pressed);
+                        Menu::ExecuteFuncForLongPressureOnItem(Item::now_pressed);
                     }
 
-                    Item::pressed = nullptr;
+                    Item::now_pressed = nullptr;
                 }
             }
         }

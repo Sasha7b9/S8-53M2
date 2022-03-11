@@ -21,6 +21,14 @@
 Item *ItemsUnderKey::items[Key::Count];
 
 
+namespace Menu
+{
+    int CalculateX(int layer);
+
+    int ItemOpenedPosY(const Item *item);
+}
+
+
 void ItemsUnderKey::Set(Key::E key, Item *item)
 {
     items[key] = item;
@@ -40,17 +48,6 @@ void ItemsUnderKey::Reset()
         items[i] = nullptr;
     }
 }
-
-
-namespace Menu
-{
-    void ResetItemsUnderButton();
-
-    int CalculateX(int layer);
-
-    int ItemOpenedPosY(const Item *item);
-}
-
 
 
 Key::E GetFuncButtonFromY(int _y)
@@ -124,7 +121,8 @@ void Menu::Draw()
 {
     if(IsShown() || Item::Opened()->GetType() != TypeItem::Page)
     {
-        ResetItemsUnderButton();
+        ItemsUnderKey::Reset();
+
         Item *item = Item::Opened();
 
         if(IsShown())
@@ -409,7 +407,7 @@ bool Item::IsShade() const
 
 bool Item::IsPressed() const
 {
-    return (this == Item::pressed);
+    return (this == Item::now_pressed);
 }
 
 

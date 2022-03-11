@@ -449,7 +449,7 @@ void Menu::ShortPress_SmallButton(Item *smallButton)
         if (func)
         {
             func();
-            Item::pressed = (Item *)smallButton;
+            Item::now_pressed = (Item *)smallButton;
         }
     }
 }

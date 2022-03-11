@@ -12,7 +12,7 @@ int8 MACaddress::cur_digit = 0;
 int8 IPaddress::cur_digit = 0;
 int8 Governor::cur_digit = 0;
 
-Item *Item::pressed = nullptr;
+Item *Item::now_pressed = nullptr;
 Item *Hint::item = nullptr;
 pchar Hint::string = nullptr;
 bool  Hint::show = false;
