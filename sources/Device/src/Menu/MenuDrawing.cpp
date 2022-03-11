@@ -23,8 +23,6 @@ Item *ItemsUnderKey::items[Key::Count];
 
 namespace Menu
 {
-    int CalculateX(int layer);
-
     int ItemOpenedPosY(const Item *item);
 }
 
@@ -130,22 +128,22 @@ void Menu::Draw()
         {
             if (item->GetType() == TypeItem::Page)
             {
-                ((Page *)item)->DrawOpened(0, GRID_TOP);
+                ((Page *)item)->DrawOpened(GRID_TOP);
             }
             else
             {
-                item->Keeper()->DrawOpened(0, GRID_TOP);
+                item->Keeper()->DrawOpened(GRID_TOP);
             }
         }
         else
         {
             if(item->GetType() == TypeItem::Choice)
             {
-                ((Choice *)item)->Draw(CalculateX(0), GRID_TOP, true);
+                ((Choice *)item)->Draw(MP_X, GRID_TOP, true);
             }
             else if(item->GetType() == TypeItem::Governor)
             {
-                ((Governor *)item)->Draw(CalculateX(0), GRID_TOP, true);
+                ((Governor *)item)->Draw(MP_X, GRID_TOP, true);
             }
         }
     }
@@ -175,9 +173,9 @@ void Menu::Draw()
 }
 
 
-void Page::DrawTitle(int layer, int yTop)
+void Page::DrawTitle(int yTop)
 {
-    int x = Menu::CalculateX(layer);
+    int x = MP_X;
 
     if (IsSB())
     {
@@ -217,7 +215,7 @@ void Page::DrawTitle(int layer, int yTop)
     delta = 0;
 
     Color::SetCurrent(colorText);
-    DrawUGO(Menu::CalculateX(layer) + MP_TITLE_WIDTH - 3 + delta, yTop + MP_TITLE_HEIGHT - 2 + delta);
+    DrawUGO(MP_X + MP_TITLE_WIDTH - 3 + delta, yTop + MP_TITLE_HEIGHT - 2 + delta);
 }
 
 
@@ -307,7 +305,7 @@ static void DrawPage(void *item, int x, int y)
 }
 
 
-void Page::DrawItems(int layer, int yTop)
+void Page::DrawItems(int yTop)
 {
     void (*funcOfDraw[TypeItem::Count])(void*, int, int) = 
     {  
@@ -335,7 +333,7 @@ void Page::DrawItems(int layer, int yTop)
     {
         Item *item = GetItem(posItem);
         int top = yTop + MI_HEIGHT * count;
-        funcOfDraw[item->GetType()](item, Menu::CalculateX(layer), top);
+        funcOfDraw[item->GetType()](item, MP_X, top);
         count++;
 
         ItemsUnderKey::Set(GetFuncButtonFromY(top), item);
@@ -343,10 +341,10 @@ void Page::DrawItems(int layer, int yTop)
 }
 
 
-void Page::DrawOpened(int layer, int yTop)
+void Page::DrawOpened(int yTop)
 {
-    DrawTitle(layer, yTop);
-    DrawItems(layer, yTop + MP_TITLE_HEIGHT);
+    DrawTitle(yTop);
+    DrawItems(yTop + MP_TITLE_HEIGHT);
 
     if (CurrentItemIsOpened())
     {
@@ -363,27 +361,27 @@ void Page::DrawOpened(int layer, int yTop)
 
         if (type == TypeItem::Choice || type == TypeItem::ChoiceReg)
         {
-            ((Choice *)item)->Draw(Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true); //-V1027
+            ((Choice *)item)->Draw(MP_X, Menu::ItemOpenedPosY(item), true); //-V1027
         }
         else if (type == TypeItem::Governor)
         {
-            ((Governor *)item)->Draw(Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true);
+            ((Governor *)item)->Draw(MP_X, Menu::ItemOpenedPosY(item), true);
         }
         else if (type == TypeItem::GovernorColor)
         {
-            ((GovernorColor *)item)->Draw(Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true); //-V1027
+            ((GovernorColor *)item)->Draw(MP_X, Menu::ItemOpenedPosY(item), true); //-V1027
         }
         else if (type == TypeItem::Time)
         {
-            ((Time *)item)->Draw(Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true); //-V1027
+            ((Time *)item)->Draw(MP_X, Menu::ItemOpenedPosY(item), true); //-V1027
         }
         else if (type == TypeItem::IP)
         {
-            ((IPaddress *)item)->Draw(Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true);
+            ((IPaddress *)item)->Draw(MP_X, Menu::ItemOpenedPosY(item), true);
         }
         else if (type == TypeItem::MAC)
         {
-            ((MACaddress *)item)->Draw(Menu::CalculateX(1), Menu::ItemOpenedPosY(item), true); //-V1027
+            ((MACaddress *)item)->Draw(MP_X, Menu::ItemOpenedPosY(item), true); //-V1027
         }
     }
 
@@ -391,12 +389,6 @@ void Page::DrawOpened(int layer, int yTop)
     {
         funcOnDraw();
     }
-}
-
-
-int Menu::CalculateX(int layer)
-{
-    return MP_X - layer * GRID_DELTA / 4;
 }
 
 

@@ -525,12 +525,14 @@ void Choice::DrawOpened(int x, int y)
     for(int i = 0; i < NumSubItems(); i++)
     {
         int yItem = y + MOI_HEIGHT_TITLE + i * MOSI_HEIGHT + 1;
-        bool pressed = i == index;
+        bool pressed = (i == index);
+
         if(pressed)
         {
             Painter::DrawVolumeButton(x + 1, yItem, MOI_WIDTH - 2 , MOSI_HEIGHT - 2, 2, ColorMenuField(), ColorMenuTitleBrighter(),
                 ColorMenuTitleLessBright(), pressed, false);
         }
+
         PText::Draw(x + 4, yItem + 2, NameSubItem(i), pressed ? Color::BLACK : ColorMenuField());
     }
 }
@@ -662,6 +664,13 @@ void Choice::DrawClosed(int x, int y)
     FuncForDraw(x, y);
 }
 
+
+void Choice::Draw(int x, int y)
+{
+    Draw(x, y, ((Item *)this)->IsOpened());
+}
+
+
 void Choice::Draw(int x, int y, bool opened)
 {
     if(opened)
@@ -673,6 +682,7 @@ void Choice::Draw(int x, int y, bool opened)
         DrawClosed(x, y);
     }
 }
+
 
 void Time::DrawClosed(int x, int y)
 {

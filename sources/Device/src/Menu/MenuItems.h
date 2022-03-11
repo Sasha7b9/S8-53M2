@@ -202,16 +202,16 @@ public:
          pchar titleRU, pchar titleEN, pchar hintRU, pchar hintEN, NamePage::E name_,
          const arrayItems *items_, pFuncVV funcOnPress_ = 0, pFuncVV funcOnDraw_ = 0, pFuncVI funcRegSetSB_ = 0);
 
-    void DrawOpened(int layer, int yTop);
+    void DrawOpened(int yTop);
 
     void Draw(int x, int y);
 
-    void DrawTitle(int layer, int yTop);
+    void DrawTitle(int yTop);
 
     // Возвращает позицию текущего элемента странцы page.
     int8 PosCurrentItem() const;
 
-    void DrawItems(int layer, int yTop);
+    void DrawItems(int yTop);
 
     void DrawUGO(int right, int bottom);
 
@@ -378,6 +378,8 @@ public:
     void FuncOnChanged(bool active);
 
     void FuncForDraw(int x, int y);
+
+    void Draw(int x, int y);
 
     void Draw(int x, int y, bool opened);
 
