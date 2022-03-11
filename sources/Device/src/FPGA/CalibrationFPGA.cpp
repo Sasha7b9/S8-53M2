@@ -72,7 +72,7 @@ namespace FPGA
         // Вывести информацию о найденных калибровочных коэффициентах
         static void ShowCalibrationInfo(const int y, Chan);
 
-        static void CalibrateChannel(Chan);
+        static bool CalibrateChannel(Chan);
 
         // Калибровать смещение канала
         static bool CalibrateRShift(Chan);
@@ -110,6 +110,8 @@ void FPGA::Calibrator::RunCalibrate()
 
     Display::SetDrawMode(DrawMode::Hand, FunctionDraw);
 
+    Settings old = set;
+
     Panel::Disable();
 
     {
@@ -121,7 +123,7 @@ void FPGA::Calibrator::RunCalibrate()
         {
             carriedOut[ChA] = true;
 
-            CalibrateChannel(ChA);
+            errorCalibration[ChA] = !CalibrateChannel(ChA);
         }
     }
 
@@ -134,8 +136,21 @@ void FPGA::Calibrator::RunCalibrate()
         {
             carriedOut[ChB] = true;
 
-            CalibrateChannel(ChB);
+            errorCalibration[ChB] = !CalibrateChannel(ChB);
         }
+    }
+
+    Settings set_cal = set;                     // Сохраняем скалиброванные настройки
+
+    set = old;                                  // Возвращаем настройки, которые были до калибровки
+
+    if (carriedOut[ChA] && !errorCalibration[ChA])
+    {
+        Settings::CopyCalibrationSettings(ChA, set, set_cal);       // Загружаем найденные калибровки, если успешно
+    }
+    else if (carriedOut[ChB] && !errorCalibration[ChB])
+    {
+        Settings::CopyCalibrationSettings(ChB, set, set_cal);
     }
 
     state = StateCalibration::Finish;
@@ -145,6 +160,8 @@ void FPGA::Calibrator::RunCalibrate()
     Panel::Enable();
 
     Display::SetDrawMode(DrawMode::Auto);
+
+    FPGA::Init();
 
     if (isRunning)
     {
@@ -219,17 +236,17 @@ static void FPGA::Calibrator::FunctionDraw()
 }
 
 
-static void FPGA::Calibrator::CalibrateChannel(Chan ch)
+static bool FPGA::Calibrator::CalibrateChannel(Chan ch)
 {
     if (CalibrateRShift(ch))
     {
         if (CalibrateStretch(ch))
         {
-            return;
+            return true;;
         }
     }
 
-    errorCalibration[ch] = true;
+    return false;
 }
 
 

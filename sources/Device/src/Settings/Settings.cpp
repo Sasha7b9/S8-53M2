@@ -275,24 +275,25 @@ void Settings::Reset()
     *   set.debug
     */
 
-    SettingsChannel set_chanA = set.chan[ChA];
-    SettingsChannel set_chanB = set.chan[ChB];
-    SettingsNRST    set_nrst = set.debug;
+    Settings old = set;
 
     set = defaultSettings;
 
-    set.chan[ChA].cal_stretch = set_chanA.cal_stretch;
-    set.chan[ChB].cal_stretch = set_chanB.cal_stretch;
-
-    std::memcpy(&set.chan[ChA].cal_rshift[0][0], &set_chanA.cal_rshift[0][0],
-        Range::Count * ModeCouple::Count * sizeof(set_chanA.cal_rshift[0][0]));
-
-    std::memcpy(&set.chan[ChB].cal_rshift[0][0], &set_chanB.cal_rshift[0][0],
-        Range::Count * ModeCouple::Count * sizeof(set_chanB.cal_rshift[0][0]));
-
-    set.debug = set_nrst;
+    CopyCalibrationSettings(ChA, set, old);
+    CopyCalibrationSettings(ChB, set, old);
 
     RunAfterLoad();
+}
+
+
+void Settings::CopyCalibrationSettings(Chan ch, Settings &dest, Settings &src)
+{
+    dest.chan[ch].cal_stretch = src.chan[ch].cal_stretch;
+
+    std::memcpy(&dest.chan[ch].cal_rshift[0][0], &src.chan[ch].cal_rshift[0][0],
+        Range::Count * ModeCouple::Count * sizeof(src.chan[ch].cal_rshift[0][0]));
+
+    dest.debug = src.debug;
 }
 
 
