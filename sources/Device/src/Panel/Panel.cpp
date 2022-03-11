@@ -263,11 +263,11 @@ namespace Panel
 
     static void OnFunctionalKey(Action action, Key::E key)
     {
-        LOG_FUNC_ENTER();
-
         if (action.IsDown())
         {
             Item::now_pressed = ItemsUnderKey::Get(key);
+
+            LOG_WRITE("pressed = %x", Item::now_pressed);
 
             if (Item::now_pressed->IsPage())
             {
