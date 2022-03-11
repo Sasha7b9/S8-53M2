@@ -305,8 +305,6 @@ void Settings::RunAfterLoad()
     Menu::SetAutoHide(true);
     Display::ChangedRShiftMarkers();
 
-    FPGA::Init();
-
     isLoaded = true;
 }
 

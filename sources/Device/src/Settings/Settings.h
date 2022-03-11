@@ -131,13 +131,12 @@ struct Settings
     static void SaveBeforePowerDown();  // Сохранить настройки во флеш-память перед выключением
     static void NeedSave();             // Установить признак того, что настройки нуждаются в сохранении
     static void SaveIfNeed();           // Сохранить настройки, если нужно
+    static void RunAfterLoad();         // После загрузки настроек нужно выполнить эти команды
 
 private:
 
     static bool need_save;              // Признак того, что настройки нужно сохранить в главном цикле
     static uint time_save;              // В это время нужно сохранять
-
-    static void RunAfterLoad();         // После загрузки настроек нужно выполнить эти команды
 };
 
 extern Settings set;
