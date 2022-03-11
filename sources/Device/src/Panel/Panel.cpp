@@ -725,6 +725,8 @@ void Panel::ProcessingKeyboardEvent(KeyboardEvent event)
     OnKeyboardEvent(event);
 
     funcOnKey[event.key](event.action);
+
+    Display::Redraw();
 }
 
 
