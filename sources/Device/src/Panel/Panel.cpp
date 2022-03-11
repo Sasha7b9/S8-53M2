@@ -265,9 +265,9 @@ namespace Panel
     {
         if (action.IsDown())
         {
-            Item::now_pressed = ItemsUnderKey::Get(key);
+            Item::now_pressed = ItemsUnderKey::Get(key, __FUNCTION__, __LINE__);
 
-            LOG_WRITE("pressed = %x", Item::now_pressed);
+            LOG_WRITE("%d pressed = %x", key, Item::now_pressed);
 
             if (Item::now_pressed->IsPage())
             {
@@ -282,7 +282,7 @@ namespace Panel
             {
                 if (Hint::show)
                 {
-                    Hint::SetItem(ItemsUnderKey::Get(key));
+                    Hint::SetItem(ItemsUnderKey::Get(key, __FUNCTION__, __LINE__));
                 }
                 else
                 {

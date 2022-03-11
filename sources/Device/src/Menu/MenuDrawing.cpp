@@ -29,20 +29,26 @@ namespace Menu
 }
 
 
-void ItemsUnderKey::Set(Key::E key, Item *item)
+void ItemsUnderKey::Set(Key::E key, Item *item, const char *function, int line)
 {
+//    LOG_WRITE("ItemsUnderKey::Set %d %x", key, item);
+
     items[key] = item;
 }
 
 
-Item *ItemsUnderKey::Get(Key::E key)
+Item *ItemsUnderKey::Get(Key::E key, const char *function, int line)
 {
+//    LOG_WRITE("Get %s:%d", function, line);
+
     return items[key];
 }
 
 
-void ItemsUnderKey::Reset()
+void ItemsUnderKey::Reset(const char *function, int line)
 {
+//    LOG_WRITE("Reset %s:%d", function, line);
+
     for (int i = 0; i < Key::Count; i++)
     {
         items[i] = nullptr;
@@ -54,15 +60,16 @@ Key::E GetFuncButtonFromY(int _y)
 {
     int y = GRID_TOP + GRID_HEIGHT / 12;
     int step = GRID_HEIGHT / 6;
-    Key::E button = Key::Menu;
+
+    Key::E buttons[6] = {Key::Menu, Key::F1, Key::F2, Key::F3, Key::F4, Key::F5};
 
     for(int i = 0; i < 6; i++)
     {
         if(_y < y)
         {
-            return button;
+            return buttons[i];
         }
-        ++button;
+
         y += step;
     }
 
@@ -121,7 +128,7 @@ void Menu::Draw()
 {
     if(IsShown() || Item::Opened()->GetType() != TypeItem::Page)
     {
-        ItemsUnderKey::Reset();
+        ItemsUnderKey::Reset(__FUNCTION__, __LINE__);
 
         Item *item = Item::Opened();
 
@@ -211,7 +218,7 @@ void Page::DrawTitle(int layer, int yTop)
         PText::Draw4SymbolsInRect(x + 4, yTop + 11, GetSymbolForGovernor(NumCurrentSubPage()), colorText);
     }
 
-    ItemsUnderKey::Set(GetFuncButtonFromY(yTop), this);
+    ItemsUnderKey::Set(GetFuncButtonFromY(yTop), this, __FUNCTION__, __LINE__);
 
     delta = 0;
 
@@ -337,7 +344,7 @@ void Page::DrawItems(int layer, int yTop)
         funcOfDraw[item->GetType()](item, Menu::CalculateX(layer), top);
         count++;
 
-        ItemsUnderKey::Set(GetFuncButtonFromY(top), item);
+        ItemsUnderKey::Set(GetFuncButtonFromY(top), item, __FUNCTION__, __LINE__);
     }
 }
 
@@ -354,9 +361,9 @@ void Page::DrawOpened(int layer, int yTop)
 
         for (int key = Key::F1; key <= Key::F5; key++)
         {
-            if (ItemsUnderKey::Get((Key::E)key) != item)
+            if (ItemsUnderKey::Get((Key::E)key, __FUNCTION__, __LINE__) != item)
             {
-                ItemsUnderKey::Set((Key::E)key, nullptr);
+                ItemsUnderKey::Set((Key::E)key, nullptr, __FUNCTION__, __LINE__);
             }
         }
 
