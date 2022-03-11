@@ -202,7 +202,7 @@ struct TBase
 
 struct TShift
 {
-    static const int EMPTY = 1000000;
+    static const int ERROR = 1000000;
     static const int MAX = 16383;           // Максимально значение задержки по времени относительно точки синхронизации,
                                             // засылаемое в альтеру.
 

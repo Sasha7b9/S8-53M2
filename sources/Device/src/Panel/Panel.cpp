@@ -34,6 +34,7 @@ namespace Panel
 
     bool isRunning = true;
 
+    uint timeLastEvent = 0;
 
     namespace Processing
     {
@@ -867,7 +868,14 @@ void Panel::Callback::OnReceiveSPI5(const uint8 *data, uint)
     {
         input_buffer.Push(event);
         Settings::NeedSave();
+        timeLastEvent = TIME_MS;
     }
+}
+
+
+uint Panel::TimePassedAfterLastEvent()
+{
+    return TIME_MS - timeLastEvent;
 }
 
 

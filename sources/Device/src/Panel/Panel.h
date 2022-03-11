@@ -36,6 +36,9 @@ namespace Panel
     // Передать даннные в мк панели управления.
     void TransmitData(uint8 data);
 
+    // Времени прошло после последнего события
+    uint TimePassedAfterLastEvent();
+
     namespace Callback
     {
         // Эта функция должна вызываться из приёмной фунции SPI5

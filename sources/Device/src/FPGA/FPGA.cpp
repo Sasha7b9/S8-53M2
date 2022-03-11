@@ -414,6 +414,11 @@ void FPGA::Reader::ReadPoints(Chan ch)
 
         const int shift_rand = ShiftRandomizerADC();
 
+        if (shift_rand == TShift::ERROR)
+        {
+            return;
+        }
+
         dat += shift_rand;
 
         if(Compactor::Koeff() == 1)             // Без уплотнения
@@ -516,19 +521,20 @@ int FPGA::ShiftRandomizerADC()
         uint16 min = 0;
         uint16 max = 0;
 
-        if (SET_TBASE == TBase::_200ns)
+        if (Panel::TimePassedAfterLastEvent() < 20)
         {
-            return rand < 3000 ? 0 : -1;
+            return TShift::ERROR;
         }
 
         if (!CalculateGate(rand, &min, &max))
         {
-            return TShift::EMPTY;
+            return TShift::ERROR;
         }
 
         float tin = (float)(rand - min) / (float)(max - min) * 10e-9f;
         int shift = (int)(tin / 10e-9f * (float)TBase::StretchRand());
-        return shift;                                               //можно раскомментировать при необходимости
+
+        return shift;
     }
 
     return 0;
