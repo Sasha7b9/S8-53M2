@@ -265,27 +265,25 @@ namespace Panel
     {
         if (action.IsDown())
         {
-            Item::pressed = Item::UnderKey(key);
+            Item::pressed = Item::ForKey(key);
         }
         else if (action.IsUp() || action.IsLong())
         {
             if (Menu::IsShown())
             {
-                Item *item = Item::UnderKey(key);
-
                 if (Hint::show)
                 {
-                    Hint::SetItem(item);
+                    Hint::SetItem(Item::ForKey(key));
                 }
                 else
                 {
                     if (action.IsUp())
                     {
-                        Menu::ExecuteFuncForShortPressOnItem(item);
+                        Menu::ExecuteFuncForShortPressOnItem(Item::pressed);
                     }
                     else if (action.IsLong())
                     {
-                        Menu::ExecuteFuncForLongPressureOnItem(item);
+                        Menu::ExecuteFuncForLongPressureOnItem(Item::pressed);
                     }
 
                     Item::pressed = nullptr;

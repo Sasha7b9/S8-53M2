@@ -392,7 +392,7 @@ bool Item::IsPressed() const
 }
 
 
-Item *Item::UnderKey(Key::E key)
+Item *Item::ForKey(Key::E key)
 {
     return (Item *)itemUnderButton[key];
 }

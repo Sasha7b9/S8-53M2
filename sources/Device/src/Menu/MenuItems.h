@@ -173,7 +173,7 @@ public:
     static Item *Opened();
 
     // Возвращает адрес элемента меню, соответствующего данной button.
-    static Item *UnderKey(Key::E);
+    static Item *ForKey(Key::E);
 
     // Закрыть открытый элемент меню.
     static void CloseOpened();
