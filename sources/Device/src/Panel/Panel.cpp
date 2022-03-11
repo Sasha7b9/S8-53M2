@@ -630,67 +630,45 @@ namespace Panel
 
     static void FuncSetting(Action action)
     {
-        static const int step = 2;
-        static int angle = 0;
-
         if (!Hint::show)
         {
             if (action.IsLeft() || action.IsRight())
             {
-                if (action.IsLeft())
-                {
-                    angle--;
-                }
-                else if (action.IsRight())
-                {
-                    angle++;
-                }
+                int angle = action.IsLeft() ? -1 : 1;
 
-                Display::Redraw();
-
-                if (angle != 0)
+                if (Menu::IsShown() || !Item::Opened()->IsPage())
                 {
-                    if (Menu::IsShown() || !Item::Opened()->IsPage())
+                    Display::Redraw();
+
+                    Item *item = Item::Current();
+                    TypeItem::E type = item->GetType();
+
+                    if (Item::Opened()->IsPage() && (type == TypeItem::ChoiceReg ||
+                        type == TypeItem::Governor || type == TypeItem::IP || type == TypeItem::MAC))
                     {
-                        Item *item = Item::Current();
-                        TypeItem::E type = item->GetType();
+                        item->Change(angle);
+                    }
+                    else
+                    {
+                        item = Item::Opened();
+                        type = item->GetType();
 
-                        if (Item::Opened()->IsPage() && (type == TypeItem::ChoiceReg ||
-                            type == TypeItem::Governor || type == TypeItem::IP || type == TypeItem::MAC))
+                        if (Menu::IsMinimize())
                         {
-//                            if (angle > step || angle < -step)
-                            {
-                                item->Change(angle);
-                                angle = 0;
-                            }
-
-                            return;
+                            Page::RotateRegSetSB(angle);
                         }
-                        else
+                        else if (type == TypeItem::Page || type == TypeItem::IP || type == TypeItem::MAC ||
+                            type == TypeItem::Choice || type == TypeItem::ChoiceReg || type == TypeItem::Governor)
                         {
-                            item = Item::Opened();
-                            type = item->GetType();
-                            if (Menu::IsMinimize())
-                            {
-                                Page::RotateRegSetSB(angle);
-                            }
-                            else if (type == TypeItem::Page || type == TypeItem::IP || type == TypeItem::MAC ||
-                                type == TypeItem::Choice || type == TypeItem::ChoiceReg || type == TypeItem::Governor)
-                            {
-                                if (item->ChangeOpened(angle))
-                                {
-                                    angle = 0;
-                                }
-                                return;
-                            }
-                            else if (type == TypeItem::GovernorColor)
-                            {
-                                item->Change(angle);
-                            }
-                            else if (type == TypeItem::Time)
-                            {
-                                (angle > 0) ? ((Time *)item)->IncCurrentPosition() : ((Time *)item)->DecCurrentPosition();
-                            }
+                            item->ChangeOpened(angle);
+                        }
+                        else if (type == TypeItem::GovernorColor)
+                        {
+                            item->Change(angle);
+                        }
+                        else if (type == TypeItem::Time)
+                        {
+                            (angle > 0) ? ((Time *)item)->IncCurrentPosition() : ((Time *)item)->DecCurrentPosition();
                         }
                     }
                 }
