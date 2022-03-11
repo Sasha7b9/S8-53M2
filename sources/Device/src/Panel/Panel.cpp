@@ -251,7 +251,10 @@ namespace Panel
             }
             else
             {
-                Sound::RegulatorSwitchRotate();
+                if (event.key != Key::Setting)
+                {
+                    Sound::RegulatorSwitchRotate();
+                }
             }
         }
     }
@@ -630,46 +633,68 @@ namespace Panel
     }
 
     static void FuncSetting(Action action)
-    {
+    { 
+        static const int step = 3;
+        static int angle = 0;
+
         if (!Hint::show)
         {
             if (action.IsLeft() || action.IsRight())
             {
-                int angle = action.IsLeft() ? -1 : 1;
+                angle = action.IsLeft() ? (angle - 1) : (angle + 1);
 
-                if (Menu::IsShown() || !Item::Opened()->IsPage())
+                if (angle != 0)
                 {
-                    Flags::needFinishDraw = true;
-
-                    Item *item = Item::Current();
-                    TypeItem::E type = item->GetType();
-
-                    if (Item::Opened()->IsPage() && (type == TypeItem::ChoiceReg ||
-                        type == TypeItem::Governor || type == TypeItem::IP || type == TypeItem::MAC))
+                    if (Menu::IsShown() || !Item::Opened()->IsPage())
                     {
-                        item->Change(angle);
-                    }
-                    else
-                    {
-                        item = Item::Opened();
-                        type = item->GetType();
+                        Item *item = Item::Current();
+                        TypeItem::E type = item->GetType();
 
-                        if (Menu::IsMinimize())
+                        if (Item::Opened()->IsPage() && (type == TypeItem::ChoiceReg ||
+                            type == TypeItem::Governor || type == TypeItem::IP || type == TypeItem::MAC))
                         {
-                            Page::RotateRegSetSB(angle);
+                            if (angle > step || angle < -step)
+                            {
+                                Flags::needFinishDraw = true;
+                                item->Change(angle);
+                                Sound::RegulatorSwitchRotate();
+                                angle = 0;
+                            }
                         }
-                        else if (type == TypeItem::Page || type == TypeItem::IP || type == TypeItem::MAC ||
-                            type == TypeItem::Choice || type == TypeItem::ChoiceReg || type == TypeItem::Governor)
+                        else
                         {
-                            item->ChangeOpened(angle);
-                        }
-                        else if (type == TypeItem::GovernorColor)
-                        {
-                            item->Change(angle);
-                        }
-                        else if (type == TypeItem::Time)
-                        {
-                            (angle > 0) ? ((Time *)item)->IncCurrentPosition() : ((Time *)item)->DecCurrentPosition();
+                            item = Item::Opened();
+                            type = item->GetType();
+
+                            if (Menu::IsMinimize())
+                            {
+                                Flags::needFinishDraw = true;
+                                Page::RotateRegSetSB(angle);
+                                Sound::RegulatorSwitchRotate();
+                            }
+                            else if (type == TypeItem::Page || type == TypeItem::IP || type == TypeItem::MAC ||
+                                type == TypeItem::Choice || type == TypeItem::ChoiceReg || type == TypeItem::Governor)
+                            {
+                                if (angle > step || angle < -step)
+                                {
+                                    item->ChangeOpened(angle);
+                                    Sound::RegulatorSwitchRotate();
+                                    Flags::needFinishDraw = true;
+                                    angle = 0;
+                                }
+                            }
+                            else if (type == TypeItem::GovernorColor)
+                            {
+                                Flags::needFinishDraw = true;
+                                item->Change(angle);
+                                Sound::RegulatorSwitchRotate();
+                            }
+                            else if (type == TypeItem::Time)
+                            {
+                                Flags::needFinishDraw = true;
+                                (angle > 0) ? ((Time *)item)->IncCurrentPosition() : ((Time *)item)->DecCurrentPosition();
+                                Sound::RegulatorSwitchRotate();
+                            }
                         }
                     }
                 }
