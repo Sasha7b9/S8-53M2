@@ -333,8 +333,6 @@ void Page::DrawOpened(int yTop)
 
     if (item->Keeper() == this)
     {
-        LOG_WRITE("this page");
-
         for (int key = Key::F1; key <= Key::F5; key++)
         {
             if (ItemsUnderKey::Get((Key::E)key) != item)
