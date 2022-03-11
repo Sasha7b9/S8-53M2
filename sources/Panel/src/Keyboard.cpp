@@ -243,8 +243,43 @@ void GovernorStruct::SendEvent(Key _key, Action action)
 }
 
 
+// ¬озвращает true, если событие нужно игнорировать
+static bool IgnoreEvent(Key key, Action action)
+{
+    static int ignored = 0;
+
+    if (key == Key::Service)
+    {
+        if (action.IsDown())
+        {
+            ignored = 0;
+        }
+    }
+
+    if (key == Key::RShiftA || key == Key::RShiftB || key == Key::TShift)
+    {
+        if (action.IsLeft() || action.IsRight())
+        {
+            ignored++;
+
+            if (ignored < 3)
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+
 void Buffer::AppendEvent(Key key, Action action)
 {
+    if (IgnoreEvent(key, action))
+    {
+        return;
+    }
+
     if (key.value == Key::Power && !action.IsDown())
     {
         return;
