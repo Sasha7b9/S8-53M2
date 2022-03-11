@@ -12,7 +12,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
 #include <stm32f4xx_hal.h>
-#include <string.h>
+#include <cstring>
 
 
 bool Settings::need_save = false;
@@ -255,41 +255,57 @@ static const Settings defaultSettings =
 Settings set;
 
 
-void Settings::Load(bool _default)
+void Settings::Load()
 {
-    if (!_default)
+    if (!HAL_ROM::LoadSettings())
     {
-        _default = !HAL_ROM::LoadSettings();
+        Reset();
     }
 
-    if (_default)
-    {
-        int16 rShiftAddA[Range::Count][ModeCouple::Count];
-        int16 rshiftAddB[Range::Count][ModeCouple::Count];
+    RunAfterLoad();
+}
 
-        memcpy((void *)rShiftAddA, (void *)&RSHIFT_HAND(Chan::A, 0, 0), Range::Count * ModeCouple::Count * sizeof(int16)); // Сначала сохраняем несбрасываемые настройки
-        memcpy((void *)rshiftAddB, (void *)&RSHIFT_HAND(Chan::B, 0, 0), Range::Count * ModeCouple::Count * sizeof(int16));
 
-        int16  balanceADC0 = SET_BALANCE_ADC_A;
-        int16  balanceADC1 = SET_BALANCE_ADC_B;
-        int16  numAverageForRand = NUM_AVE_FOR_RAND;
+void Settings::Reset()
+{
+    /*
+    * Сохраняемые настройки:
+    *   set.ch.cal_stretch
+    *   set.ch.cal_rshift
+    *   set.debug
+    */
 
-        memcpy((void *)&set, (void *)(&defaultSettings), sizeof(set));                // Потом заполняем значениями по умолчанию
+    SettingsChannel set_chanA = set.chan[ChA];
+    SettingsChannel set_chanB = set.chan[ChB];
+    SettingsNRST    set_nrst = set.debug;
 
-        memcpy((void *)&RSHIFT_HAND(Chan::A, 0, 0), (void *)rShiftAddA, 2 * Range::Count * 2);  // И восстанавливаем несбрасываемые настройки
-        memcpy((void *)&RSHIFT_HAND(Chan::B, 0, 0), (void *)rshiftAddB, 2 * Range::Count * 2);
+    set = defaultSettings;
 
-        SET_BALANCE_ADC_A = balanceADC0;
-        SET_BALANCE_ADC_B = balanceADC1;
-        NUM_AVE_FOR_RAND = numAverageForRand;
-    }
+    set.chan[ChA].cal_stretch = set_chanA.cal_stretch;
+    set.chan[ChB].cal_stretch = set_chanB.cal_stretch;
 
+    std::memcpy(&set.chan[ChA].cal_rshift[0][0], &set_chanA.cal_rshift[0][0],
+        Range::Count * ModeCouple::Count * sizeof(set_chanA.cal_rshift[0][0]));
+
+    std::memcpy(&set.chan[ChB].cal_rshift[0][0], &set_chanB.cal_rshift[0][0],
+        Range::Count * ModeCouple::Count * sizeof(set_chanB.cal_rshift[0][0]));
+
+    set.debug = set_nrst;
+
+    RunAfterLoad();
+}
+
+
+void Settings::RunAfterLoad()
+{
     HAL_LTDC::LoadPalette();
 
     Panel::EnableLEDChannelA(Chan::Enabled(Chan::A));
     Panel::EnableLEDChannelB(Chan::Enabled(Chan::B));
     Menu::SetAutoHide(true);
     Display::ChangedRShiftMarkers();
+
+    FPGA::Init();
 
     isLoaded = true;
 }

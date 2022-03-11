@@ -30,7 +30,7 @@ void Device::Init()
 
     Sound::Init();
 
-    Settings::Load(false);
+    Settings::Load();
 
     FPGA::Init();
 
@@ -52,7 +52,7 @@ void Device::Update()
 {
     if (Settings::needReset)
     {
-        Settings::Load(true);
+        Settings::Reset();
         Settings::needReset = false;
     }
 
