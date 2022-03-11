@@ -655,7 +655,7 @@ namespace Panel
                         Item *item = Item::Current();
                         TypeItem::E type = item->GetType();
 
-                        if (Item::Opened()->GetType() == TypeItem::Page && (type == TypeItem::ChoiceReg ||
+                        if (Item::Opened()->IsPage() && (type == TypeItem::ChoiceReg ||
                             type == TypeItem::Governor || type == TypeItem::IP || type == TypeItem::MAC))
                         {
                             if (angle > step || angle < -step)
