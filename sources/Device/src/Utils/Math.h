@@ -34,6 +34,10 @@ namespace Math
 
     uint8 GetMaxFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint);
 
+    // Сравнивает два числа. Возвращает true, если числа отличаются друг от друга не более, чем на epsilonPart. При
+    // этом для расчёта epsilonPart используется большее в смысле модуля число.
+    bool FloatsIsEquals(float value0, float value1, float epsilonPart);
+
     template<class T> T Limitation(T value, T min, T max)
     {
         if (value < min)      { return min; }

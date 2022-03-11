@@ -652,6 +652,14 @@ int TPos::InPoints(ENUM_POINTS_FPGA::E enum_points, TPos::E tPos)
 }
 
 
+void TPos::Set(E pos)
+{
+    SET_TPOS = pos;
+    PageMemory::OnChanged_NumPoints(true);
+    TShift::Set(SET_TSHIFT);
+}
+
+
 int RShift::ToRel(float rShiftAbs, Range::E range)
 {
     int retValue = ZERO + rShiftAbs / RShift::absStep[range];

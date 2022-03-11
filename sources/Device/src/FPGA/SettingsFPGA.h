@@ -45,6 +45,8 @@ struct TPos
 
     // Узнать привязку отсительно уровня синхронизации в точках.
     static int InPoints(ENUM_POINTS_FPGA::E, TPos::E);
+
+    static void Set(E);
 };
 
 

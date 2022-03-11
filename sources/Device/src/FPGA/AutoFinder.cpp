@@ -1,116 +1,164 @@
 // 2022/02/21 12:24:24 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "FPGA/FPGA.h"
+#include "Utils/Math.h"
 
 
 namespace FPGA
 {
     namespace AutoFinder
     {
-        // Нахоит сигнал на канале ch. Возвращает true, если сигнал найден и параметры сигнала в tBase, range
-        static bool FindSignal(Chan, TBase::E *, Range::E *, ModeCouple::E *);
-        static bool FullSearchSignal(Chan, const Settings *);
+        static bool FindWave(Chan);
 
-        // Отмасштабировать сигнал. Если onlyReduce - только сжать
-        static void ScaleChannel(Chan, bool onlyReduce);
+        static Range::E FindRange(Chan);
 
-        // Находит частоту на канале ch
-        static bool FindFrequency(Chan, float *outFreq, Range::E *, ModeCouple::E *);
+        static bool AccurateFindParams(Chan);
 
-        // Рассчитывает TBase, необходимый для отображения задданой частоты
-        static TBase::E CalculateTBase(float frequency);
+        static bool ReadingCycle(uint timeWait);
     }
 }
 
 
 void FPGA::AutoFinder::FindSignal()
 {
+    /*
+        Алгоритм поиска.
+        1. Устанавливаем закрытый вход по каналу, синхронизация - ПС.
+        2. Устанавливаем развёртку 20мс/дел, растяжку - 2мВ/дел.
+        3. Запускаем АЦП.
+        4. Ждём синхронизацию. Если синхронизации нет - переходим на второй канал. Если есть:
+        5. Включаем пиковый детектр и считываем данные. Если считанные данные занимают по высоте меньше 2 клеток -
+            переходим к поиску по второму каналу. Если занимают больше 2 клеток:
+        6. Устанавливаем вертикальный масштаб 5мВ, 10мВ, 20мВ и более, пока считанный сигнал полностью не впишется в
+            экран.
+        7. Переходим к поиску TBase.
+    */
+
+    /** \todo Оптимизировать алгоритм в плане скорости.\n
+                1. Сначала находим время между флагами снихронизации.\n
+                2. Затем устанавливаем такую развёртку, чтобы на длину памяти приходилось не более двух импульсов синхронизации.\n
+                3. Это позволит быстрее считывать и обрабатывать данные.
+    */
+
     Settings old = set;
 
-    if (!FullSearchSignal(ChA, &old))
+    if (!FindWave(ChA))
     {
-        if (!FullSearchSignal(ChB, &old))
+        if (!FindWave(ChB))
         {
             Display::ShowWarningBad(Warning::SignalNotFound);
-
             set = old;
+            set.RunAfterLoad();
             FPGA::Init();
         }
     }
+
+    FPGA::Start();
 }
 
 
-static bool FPGA::AutoFinder::FullSearchSignal(Chan ch, const Settings *old) //-V2506
+static bool FPGA::AutoFinder::FindWave(Chan ch)
 {
-    TBase::E tBase = TBase::Count;
-    Range::E range = Range::Count;
-    ModeCouple::E couple = ModeCouple::Count;
-
-    if (FindSignal(ch, &tBase, &range, &couple))
-    {
-        set = *old;
-        SET_TBASE = tBase;
-        SET_RANGE(ch) = range;
-        SET_COUPLE(ch) = couple;
-        TrigSource::Set((TrigSource::E)ch.value);
-        RShift::Set(ch, 0);
-        TrigLev::Set((TrigSource::E)ch.value, 0);
-        StartMode::Set(StartMode::Wait);
-
-        FPGA::Init();
-
-        ScaleChannel(ChA, ch == Chan::B);
-        ScaleChannel(ChB, ch == Chan::A);
-
-        FPGA::Init();
-
-        return true;
-    }
-
-    return false;
-}
-
-
-static bool FPGA::AutoFinder::FindSignal(Chan ch, TBase::E *tBase, Range::E *outRange, ModeCouple::E *couple)
-{
-    float frequency = 0.0F;
-
-    if (FindFrequency(ch, &frequency, outRange, couple))
-    {
-        *tBase = CalculateTBase(frequency);
-
-        return true;
-    }
-
-    return false;
-}
-
-
-static bool FPGA::AutoFinder::FindFrequency(Chan ch, float *outFreq, Range::E *outRange, ModeCouple::E *couple)
-{
-    FPGA::Stop(false);
-    ModeCouple::Set(ch, ModeCouple::AC);
+    TBase::Set((TBase::E)(TBase::MIN_P2P - 1));
+    SET_ENABLED(ch) = true;
     TrigSource::Set(ch);
-    StartMode::Set(StartMode::Wait);
-    TrigLev::Set(ch, 0);
-    TBase::Set(TBase::_100ns);
-    TShift::Set(0);
-    RShift::Set(ch, 0);
+    TrigLev::Set(ch, TrigLev::ZERO);
+    RShift::Set(ch, RShift::ZERO);
+    ModeCouple::Set(ch, ModeCouple::AC);
     TrigInput::Set(TrigInput::Full);
 
-    if (FindFrequencyForRanges(ch, 150, outFreq, outRange))
+    Range::E range = FindRange(ch);
+
+    if (range == Range::Count)
     {
-        *couple = ModeCouple::AC;
-        return true;
+        return false;
     }
 
-    ModeCouple::Set(ch, ModeCouple::DC);
+    Range::Set(ch, range);
 
-    if (FindFrequencyForRanges(ch, 1200, outFreq, outRange))
+    return AccurateFindParams(ch);
+}
+
+
+static Range::E FPGA::AutoFinder::FindRange(Chan ch)
+{
+    PeackDetMode::E peackDet = SET_PEAKDET;
+    TPos::E tPos = SET_TPOS;
+    Range::E oldRange = SET_RANGE(ch);
+
+    START_MODE = StartMode::Wait;                // Устанавливаем ждущий режим синхронизации, чтоб понять, есть ли сигнал
+
+    Stop(false);
+
+    PeackDetMode::Set(PeackDetMode::Enable);
+    Range::Set(ch, Range::_2mV);
+    TPos::Set(TPos::Left);
+
+    int range = Range::Count;
+
+    ReadingCycle(1000);
+
+    if (ReadingCycle(2000))                                 // Если в течение 2 секунд не считан сигнал, то его нет на этом канале - выходим
     {
-        *couple = ModeCouple::DC;
-        return true;
+        uint8 min = 0;
+        uint8 max = 0;
+
+        uint8 bound = GetBound(Storage::GetData_RAM(ch, 0), &min, &max);
+
+        if (bound > (MAX_VALUE - MIN_VALUE) / 10.0 * 2)      // Если размах сигнала меньше двух клеток - тоже выходим
+        {
+            START_MODE = StartMode_Auto;
+
+            for (range = 0; range < RangeSize; ++range)
+            {
+                /// \todo Этот алгоритм возвращает результат "Сигнал не найден", если при (range == RangeSize - 1) сигнал выходит за пределы экрана
+
+                SetRange(ch, (Range)range);
+
+                ReadingCycle(10000);
+
+                GetBound(Storage::GetData_RAM(ch, 0), &min, &max);
+
+                if (min > MIN_VALUE && max < MAX_VALUE)     // Если все значения внутри экрана
+                {
+                    break;                                  // То мы нашли наш Range - выходим из цикла
+                }
+            }
+        }
     }
 
-    return false;
+    SetRange(ch, oldRange);
+    SetPeackDetMode(peackDet);
+    SetTPos(tPos);
+
+    return (Range)range;
+}
+
+
+static bool FPGA::AutoFinder::AccurateFindParams(Chan ch)
+{
+    TBase tBase = TBaseSize;
+    FindParams(ch, &tBase);
+
+    return true;
+}
+
+
+bool FPGA::AutoFinder::ReadingCycle(uint timeWait)
+{
+    Start();
+    uint timeStart = HAL_GetTick();
+    while (!ProcessingData())
+    {
+        FuncDrawAutoFind();
+        if ((HAL_GetTick() - timeStart) > timeWait)
+        {
+            Stop(false);
+
+            return false;
+        }
+    };
+    Stop(false);
+
+    return true;
 }

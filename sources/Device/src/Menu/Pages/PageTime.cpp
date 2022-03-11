@@ -142,8 +142,7 @@ static const Choice mcTPos =
 
 void OnChanged_TPos(bool active)
 {
-    PageMemory::OnChanged_NumPoints(active);
-    TShift::Set(SET_TSHIFT);
+    TPos::Set(SET_TPOS);
 }
 
 // РАЗВЕРТКА - Самописец ----
