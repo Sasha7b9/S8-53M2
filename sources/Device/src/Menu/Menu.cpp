@@ -27,15 +27,11 @@ namespace Menu
     bool showDebugMenu = true;
     bool needClosePageSB = true;
 
-    // При отпускании кнопки её имя записывается в эту переменную и хранится там до обработки  события отпускания кнопки.
-    Key::E releaseButton = Key::None;
     // Угол, на который нужно повернуть ручку УСТАНОВКА - величина означает количество щелчков, знак - направление - "-" - влево, "+" - вправо
     int angleRegSet = 0;
 
     static const int stepAngleRegSet = 2;
 
-    // Обработка поднятия кнопки вверх.
-    void ProcessingReleaseButton();
     // Обработка поворота ручки УСТАНОВКА.
     void ProcessingRegulatorSet();
     // Включить/выключить светодиод ручки УСТАНОВКА, если необходимо.
@@ -79,7 +75,6 @@ namespace Menu
 void Menu::UpdateInput()
 {
     ProcessingRegulatorSet();
-    ProcessingReleaseButton();
     SwitchSetLED();
 
     if (FM::needOpen)
@@ -215,15 +210,6 @@ void Menu::ProcessButtonForHint(Key::E button)
             "3. Pressing and holding the button СИНХР for 0.5s when setting \"SERVICE\x99Mode long TRIG\x99SReset trig level\" sets the trigger level 0V.";
     }
 }
-
-
-void Menu::Handlers::ReleaseButton(Key::E button)
-{
-    if (!Hint::show)
-    {
-        releaseButton = button;
-    }
-};
 
 
 void Menu::Handlers::RotateRegSetRight()
@@ -365,16 +351,6 @@ void Menu::ProcessingRegulatorSet()
     }
 
     angleRegSet = 0;
-}
-
-
-void Menu::ProcessingReleaseButton()
-{
-    if(releaseButton >= Key::F1 && releaseButton <= Key::F5)
-    {
-        Item::underKey = nullptr;
-        releaseButton = Key::None;
-    }
 }
 
 

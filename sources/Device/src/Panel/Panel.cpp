@@ -267,7 +267,7 @@ namespace Panel
         {
             Item::underKey = Item::UnderKey(key);
         }
-        else if (action.IsUp())
+        else if (action.IsUp() || action.IsLong())
         {
             if (Menu::IsShown())
             {
@@ -279,16 +279,17 @@ namespace Panel
                 }
                 else
                 {
-                    Menu::ExecuteFuncForShortPressOnItem(item);
+                    if (action.IsUp())
+                    {
+                        Menu::ExecuteFuncForShortPressOnItem(item);
+                    }
+                    else if (action.IsLong())
+                    {
+                        Menu::ExecuteFuncForLongPressureOnItem(item);
+                    }
+
+                    Item::underKey = nullptr;
                 }
-            }
-        }
-        else if (action.IsLong())
-        {
-            if (Menu::IsShown())
-            {
-                Item *item = Item::UnderKey(key);
-                Menu::ExecuteFuncForLongPressureOnItem(item);
             }
         }
     }

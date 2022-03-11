@@ -11,9 +11,6 @@ namespace Menu
 
     namespace Handlers
     {
-        // Функция вызывается, когда кнопка переходит из нажатого в отжатое положение.
-        void ReleaseButton(Key::E);
-
         // Функция обработки поворота ручки УСТАНОВКА вправо.
         void RotateRegSetRight();
 
