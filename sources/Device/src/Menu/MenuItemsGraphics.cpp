@@ -9,8 +9,9 @@
 #include "Log.h"
 #include "Hardware/HAL/HAL.h"
 #include "Display/font/Font.h"
-#include <string.h>
-#include <stdio.h>
+#include "Menu/Pages/Definition.h"
+#include <cstring>
+#include <cstdio>
 
 
 static void DrawGovernorChoiceColorFormulaHiPart(Item *item, int x, int y, bool pressed, bool shade, bool opened)
@@ -146,7 +147,7 @@ void IPaddress::DrawLowPart(int x, int y, bool, bool shade)
         colorTextDown = ColorMenuItem(false);
     }
 
-    sprintf(buffer, "%03d.%03d.%03d.%03d", *ip0, *ip1, *ip2, *ip3);
+    std::sprintf(buffer, "%03d.%03d.%03d.%03d", *ip0, *ip1, *ip2, *ip3);
 
     if (Item::Opened() != this)
     {
@@ -172,7 +173,7 @@ static void DrawMACaddressLowPart(MACaddress *mac, int x, int y, bool, bool shad
         colorTextDown = ColorMenuItem(false);
     }
 
-    sprintf(buffer, "%02X.%02X.%02X.%02X.%02X.%02X", *mac->mac0, *mac->mac1, *mac->mac2, *mac->mac3, *mac->mac4, *mac->mac5);
+    std::sprintf(buffer, "%02X.%02X.%02X.%02X.%02X.%02X", *mac->mac0, *mac->mac1, *mac->mac2, *mac->mac3, *mac->mac4, *mac->mac5);
 
     if (Item::Opened() != (Item *)mac)
     {
@@ -371,12 +372,14 @@ void MACaddress::DrawValue(int x, int y)
     for (int num = 5; num >= 0; num--)
     {
         int value = (int)(*(bytes + num));
+
         if (MACaddress::cur_digit == num)
         {
             Painter::FillRegion(x - 1, y, 10, 8, COLOR_FILL);
         }
+
         char buffer[20];
-        sprintf(buffer, "%02X", value);
+        std::sprintf(buffer, "%02X", value);
         PText::Draw(x, y, buffer, (MACaddress::cur_digit == num) ? COLOR_BACK : COLOR_FILL);
         x -= 12;
     }
@@ -574,14 +577,14 @@ void Time::DrawOpened(int x, int y)
     };
 
     char strI[8][20];
-    strcpy(strI[iEXIT],     "Не сохранять");
-    strcpy(strI[iDAY],      Int2String(*day,      false, 2, buffer));
-    strcpy(strI[iMONTH],    Int2String(*month,    false, 2, buffer));
-    strcpy(strI[iYEAR],     Int2String(*year,     false, 2, buffer));
-    strcpy(strI[iHOURS],    Int2String(*hours,    false, 2, buffer));
-    strcpy(strI[iMIN],      Int2String(*minutes,  false, 2, buffer));
-    strcpy(strI[iSEC],      Int2String(*seconds,  false, 2, buffer));
-    strcpy(strI[iSET],      "Сохранить");
+    std::strcpy(strI[iEXIT],     "Не сохранять");
+    std::strcpy(strI[iDAY],      Int2String(*day,      false, 2, buffer));
+    std::strcpy(strI[iMONTH],    Int2String(*month,    false, 2, buffer));
+    std::strcpy(strI[iYEAR],     Int2String(*year,     false, 2, buffer));
+    std::strcpy(strI[iHOURS],    Int2String(*hours,    false, 2, buffer));
+    std::strcpy(strI[iMIN],      Int2String(*minutes,  false, 2, buffer));
+    std::strcpy(strI[iSEC],      Int2String(*seconds,  false, 2, buffer));
+    std::strcpy(strI[iSET],      "Сохранить");
 
     PText::Draw(x + 3, y + y0, "д м г - ", COLOR_FILL);
     PText::Draw(x + 3, y + y1, "ч м с - ");
@@ -661,6 +664,11 @@ void Choice::DrawClosed(int x, int y)
 
 void Choice::Draw(int x, int y, bool opened)
 {
+    if (PageDisplay::self->GetItem(0) == (Item *)this)
+    {
+        LOG_WRITE("it is i am");
+    }
+
     if(opened)
     {
         DrawOpened(x, y);
