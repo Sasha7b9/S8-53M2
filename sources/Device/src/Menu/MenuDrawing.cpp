@@ -14,8 +14,8 @@
 #include "Utils/Math.h"
 #include "Data/Measures.h"
 #include "Hardware/Timer.h"
-#include "Log.h"
-#include <stdio.h>
+#include "Menu/Pages/Definition.h"
+#include <cstdio>
 
 
 Item *ItemsUnderKey::items[Key::Count];
@@ -101,7 +101,7 @@ static void DrawHintItem(int x, int y, int width)
 
     const int SIZE = 100;
     char title[SIZE];
-    snprintf(title, SIZE, "%s \"%s\"", names[type][lang], TITLE(item));
+    std::snprintf(title, SIZE, "%s \"%s\"", names[type][lang], TITLE(item));
 
     if (item->type == TypeItem::SmallButton)
     {
@@ -141,7 +141,7 @@ void Menu::Draw()
         {
             if(item->GetType() == TypeItem::Choice)
             {
-                ((Choice *)item)->Draw(CalculateX(0), GRID_TOP, true); //-V1027
+                ((Choice *)item)->Draw(CalculateX(0), GRID_TOP, true);
             }
             else if(item->GetType() == TypeItem::Governor)
             {

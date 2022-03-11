@@ -664,11 +664,6 @@ void Choice::DrawClosed(int x, int y)
 
 void Choice::Draw(int x, int y, bool opened)
 {
-    if (PageDisplay::self->GetItem(0) == (Item *)this)
-    {
-        LOG_WRITE("it is i am");
-    }
-
     if(opened)
     {
         DrawOpened(x, y);
