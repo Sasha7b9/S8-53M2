@@ -282,7 +282,7 @@ static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits
         }
         if (!(rest == 0 && value == 0) || (firstValue == 0 && i == 0))
         {
-            PText::DrawChar(x, y, rest + 48, selPos == i ? COLOR_BACK : COLOR_FILL);
+            PText::DrawChar(x - 20, y - 20, rest + 48, (selPos == i) ? COLOR_BACK : COLOR_FILL);
         }
         else if (fillNull)
         {
