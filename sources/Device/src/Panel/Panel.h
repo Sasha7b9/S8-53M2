@@ -29,15 +29,12 @@ namespace Panel
     // Ожидать нажатие клавиши.
     Key::E WaitPressingButton();
 
-    void ProcessingKeyboardEvent(KeyboardEvent);
+    void ProcessEvent(KeyboardEvent);
 
     uint16 NextData();
 
     // Передать даннные в мк панели управления.
     void TransmitData(uint8 data);
-
-    // Добавить событие и обработать всё, что есть
-    void ProcessEvent(KeyboardEvent);
 
     namespace Callback
     {

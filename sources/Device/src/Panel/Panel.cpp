@@ -710,7 +710,7 @@ namespace Panel
 }
 
 
-void Panel::ProcessingKeyboardEvent(KeyboardEvent event)
+void Panel::ProcessEvent(KeyboardEvent event)
 {
     if (!isRunning)
     {
@@ -875,14 +875,6 @@ void Panel::Update()
 {
     while (!input_buffer.IsEmpty())
     {
-        ProcessingKeyboardEvent(input_buffer.Front());
+        ProcessEvent(input_buffer.Front());
     }
-}
-
-
-void Panel::ProcessEvent(KeyboardEvent event)
-{
-    input_buffer.Push(event);
-
-    Update();
 }
