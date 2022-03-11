@@ -343,9 +343,6 @@ void Page::DrawItems(int yTop)
 
 void Page::DrawOpened(int yTop)
 {
-    DrawTitle(yTop);
-    DrawItems(yTop + MP_TITLE_HEIGHT);
-
     if (CurrentItemIsOpened())
     {
         int8 posCurItem = PosCurrentItem();
@@ -383,6 +380,11 @@ void Page::DrawOpened(int yTop)
         {
             ((MACaddress *)item)->Draw(MP_X, Menu::ItemOpenedPosY(item), true); //-V1027
         }
+    }
+    else
+    {
+        DrawTitle(yTop);
+        DrawItems(yTop + MP_TITLE_HEIGHT);
     }
 
     if (funcOnDraw)
