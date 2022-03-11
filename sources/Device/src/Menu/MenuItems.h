@@ -362,7 +362,7 @@ class Choice
 {
 public:
     COMMON_PART_MENU_ITEM
-        pchar names[MAX_NUM_SUBITEMS_IN_CHOICE][2];   // Варианты выбора на русском и английском языках.
+    pchar names[MAX_NUM_SUBITEMS_IN_CHOICE][2];   // Варианты выбора на русском и английском языках.
     int8 *cell;                                   // Адрес ячейки, в которой хранится позиция текущего выбора.
     pFuncVB	    funcOnChanged;                          // Функция должна вызываться после изменения значения элемента.
     pFuncVII    funcForDraw;                            // Функция вызывается после отрисовки элемента. 

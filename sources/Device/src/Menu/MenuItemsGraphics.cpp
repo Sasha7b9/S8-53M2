@@ -310,8 +310,8 @@ static void DrawGovernorValue(int x, int y, const Governor *governor)
 
     Font::Set(TypeFont::_5);
     bool sign = governor->minValue < 0;
-    PText::Draw(x + 55, y - 5, Int2String(governor->maxValue, sign, 1, buffer), COLOR_FILL);
-    PText::Draw(x + 55, y + 2, Int2String(governor->minValue, sign, 1, buffer));
+    PText::Draw(x + 55, y - 10, Int2String(governor->maxValue, sign, 1, buffer), COLOR_FILL);
+    PText::Draw(x + 55, y - 3,  Int2String(governor->minValue, sign, 1, buffer));
     Font::Set(TypeFont::_8);
 
     DrawValueWithSelectedPosition(startX, y, value, governor->NumDigits(), Governor::cur_digit, true, true);
