@@ -658,7 +658,7 @@ namespace Panel
                         if (Item::Opened()->IsPage() && (type == TypeItem::ChoiceReg ||
                             type == TypeItem::Governor || type == TypeItem::IP || type == TypeItem::MAC))
                         {
-                            if (angle > step || angle < -step)
+//                            if (angle > step || angle < -step)
                             {
                                 item->Change(angle);
                                 angle = 0;

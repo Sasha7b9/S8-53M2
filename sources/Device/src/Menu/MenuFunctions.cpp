@@ -308,11 +308,6 @@ int Page::NumItems() const
 
 bool Item::ChangeOpened(int delta)
 {
-    if (delta < 2 && delta > -2)
-    {
-        return false;
-    }
-
     TypeItem::E _type = GetType();
 
     if (_type == TypeItem::Page)
