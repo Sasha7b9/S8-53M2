@@ -23,7 +23,7 @@ namespace Display
 
     void Update(bool endScene = true);
 
-    void RotateRShift(Chan::E);
+    void RotateRShift(Chan);
 
     void RotateTrigLev();
 

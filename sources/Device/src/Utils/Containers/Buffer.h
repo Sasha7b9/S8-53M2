@@ -13,10 +13,8 @@ class Buffer
 public:
 
     Buffer(int size = 0U);
-    Buffer(const Buffer &rhs) : data(nullptr)
-    {
-        *this = rhs;
-    }
+
+    Buffer(const Buffer<T> &);
 
     ~Buffer();
 
@@ -40,14 +38,7 @@ public:
 
     static float Sum(T *data, uint number);
 
-    Buffer<T> &operator=(const Buffer<T> &rhs)
-    {
-        Realloc(rhs.Size());
-
-        std::memcpy(data, rhs.data, (uint)Size());
-
-        return *this;
-    }
+    Buffer<T> &operator=(const Buffer<T> &);
 
     T &operator[](uint i) const;
     T &operator[](int i) const;

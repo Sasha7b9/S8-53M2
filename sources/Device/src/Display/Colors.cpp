@@ -28,14 +28,14 @@ void ColorType::SetColor()
 }
 
 
-Color::E ColorChannel(Chan::E ch)
+Color::E ColorChannel(Chan ch)
 {
     static const Color::E colors[4] = {Color::DATA_A, Color::DATA_B, Color::WHITE, Color::WHITE};
     return colors[ch];
 }
 
 
-Color::E ColorCursors(Chan::E ch)
+Color::E ColorCursors(Chan ch)
 {
     static const Color::E colors[4] = {Color::DATA_A, Color::DATA_B, Color::WHITE, Color::WHITE};
     return colors[ch];

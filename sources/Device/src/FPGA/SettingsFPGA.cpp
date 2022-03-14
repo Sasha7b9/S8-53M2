@@ -507,7 +507,7 @@ pchar TShift::ToString(int tShiftRel, char buffer[20])
 }
 
 
-bool Range::Increase(Chan::E ch)
+bool Range::Increase(Chan ch)
 {
     bool retValue = false;
 
@@ -527,7 +527,7 @@ bool Range::Increase(Chan::E ch)
 };
 
 
-bool Range::Decrease(Chan::E ch)
+bool Range::Decrease(Chan ch)
 {
     bool retValue = false;
 
@@ -596,7 +596,7 @@ void ModeCouple::Set(Chan ch, ModeCouple::E modeCoupe)
 }
 
 
-void Filtr::Enable(Chan::E ch, bool enable)
+void Filtr::Enable(Chan ch, bool enable)
 {
     SET_FILTR(ch) = enable;
     FPGA::SetAttribChannelsAndTrig(ch == Chan::A ? TypeWriteAnalog::ChanParam0 : TypeWriteAnalog::ChanParam1);
@@ -739,7 +739,7 @@ int DataSettings::PointsInChannel() const
 }
 
 
-int16 DataSettings::GetRShift(Chan::E ch) const
+int16 DataSettings::GetRShift(Chan ch) const
 {
     return (int16)((ch == ChA) ? rShiftA : rShiftB);
 }

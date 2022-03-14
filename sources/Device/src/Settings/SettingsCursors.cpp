@@ -11,7 +11,7 @@
 #include <string.h>
 
 
-float PageCursors::GetCursPosU(Chan::E ch, int numCur)
+float PageCursors::GetCursPosU(Chan ch, int numCur)
 {
     return CURS_POS_U(ch, numCur) / (Grid::ChannelBottom() == Grid::FullBottom() ? 1.0f : 2.0f);
 }
@@ -24,14 +24,14 @@ bool PageCursors::NecessaryDrawCursors()
 }
 
 
-pchar  PageCursors::GetCursVoltage(Chan::E source, int numCur, char buffer[20])
+pchar  PageCursors::GetCursVoltage(Chan source, int numCur, char buffer[20])
 {
     float voltage = Math::VoltageCursor(PageCursors::GetCursPosU(source, numCur), SET_RANGE(source), SET_RSHIFT(source));
     return Voltage2String(voltage, true, buffer);
 }
 
 
-pchar PageCursors::GetCursorTime(Chan::E source, int numCur, char buffer[20])
+pchar PageCursors::GetCursorTime(Chan source, int numCur, char buffer[20])
 {
     float time = Math::TimeCursor(CURS_POS_T(source, numCur), SET_TBASE);
         
@@ -39,7 +39,7 @@ pchar PageCursors::GetCursorTime(Chan::E source, int numCur, char buffer[20])
 }
 
 
-pchar PageCursors::GetCursorPercentsU(Chan::E source, char buffer[20])
+pchar PageCursors::GetCursorPercentsU(Chan source, char buffer[20])
 {
     buffer[0] = 0;
     float dPerc = DELTA_U100(source);
@@ -52,7 +52,7 @@ pchar PageCursors::GetCursorPercentsU(Chan::E source, char buffer[20])
 }
 
 
-pchar PageCursors::GetCursorPercentsT(Chan::E source, char buffer[20])
+pchar PageCursors::GetCursorPercentsT(Chan source, char buffer[20])
 {
     buffer[0] = 0;
     float dPerc = DELTA_T100(source);

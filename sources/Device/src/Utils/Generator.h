@@ -12,10 +12,10 @@ enum TypeWave
 
 struct SGenerator
 {
-    void(*SetParametersWave)(Chan::E, TypeWave typeWave, float frequency, float startAngle, float amplWave, float amplNoise);    // numWave = 1, 2. Может быть до двух сигналов.
+    void(*SetParametersWave)(Chan, TypeWave typeWave, float frequency, float startAngle, float amplWave, float amplNoise);    // numWave = 1, 2. Может быть до двух сигналов.
                                                                                                     // amplWave = 0.0f...1.0f, amplNoise = 0.0f...1.0f - относительно амплитуды сигнала.
-    void(*StartNewWave)(Chan::E);
-    uint8(*GetSampleWave)(Chan::E);
+    void(*StartNewWave)(Chan);
+    uint8(*GetSampleWave)(Chan);
 };
 
 extern const SGenerator Generator;

@@ -396,7 +396,7 @@ bool Storage::CopyData(DataSettings *ds, Chan ch, Buffer<uint8> &datatImportRel)
 }
 
 
-uint8 *Storage::GetAverageData(Chan::E ch)
+uint8 *Storage::GetAverageData(Chan ch)
 {
     static uint8 data[Chan::Count][FPGA::MAX_POINTS * 2];
 
@@ -442,7 +442,7 @@ uint8 *Storage::GetAverageData(Chan::E ch)
 }
 
 
-uint8 *Storage::GetLimitation(Chan::E ch, int direction)
+uint8 *Storage::GetLimitation(Chan ch, int direction)
 {
     uint8 *retValue = 0;
 

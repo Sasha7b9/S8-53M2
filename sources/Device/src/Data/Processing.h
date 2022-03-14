@@ -14,23 +14,23 @@ namespace Processing
     void GetData(uint8 **data0, uint8 **data1, DataSettings **ds);
 
     // Получить позицию курсора напряжения, соответствующю заданной позиции курсора posCurT.
-    float GetCursU(Chan::E, float posCurT);
+    float GetCursU(Chan, float posCurT);
 
     // Получить позицию курсора времени, соответствующую заданной позиции курсора напряжения posCurU.
-    float GetCursT(Chan::E, float posCurU, int numCur);
+    float GetCursT(Chan, float posCurU, int numCur);
 
     // Аппроксимировать единичное измерение режима рандомизатора функцией sinX/X.
     void InterpolationSinX_X(uint8 data[FPGA::MAX_POINTS * 2], TBase::E tBase);
 
     // Возвращает строку автоматического измерения.
-    char* GetStringMeasure(Measure::E measure, Chan::E, char buffer[20]);
+    char* GetStringMeasure(Measure::E measure, Chan, char buffer[20]);
 
     // Расчитать все измерения.
     void CalculateMeasures();
 
     // Возвращает значение горизонтального маркера. Если ERROR_VALUE_INT - маркер рисовать не нужно.
-    int GetMarkerHorizontal(Chan::E, int numMarker);
+    int GetMarkerHorizontal(Chan, int numMarker);
 
     // Возвращает значение вертикального маркера. Если ERROR_VALUE_INT - маркер рисовать не нужно.
-    int GetMarkerVertical(Chan::E, int numMarker);
+    int GetMarkerVertical(Chan, int numMarker);
 };

@@ -29,10 +29,10 @@ namespace Storage
     uint8* GetData(Chan, int fromEnd);
 
     // Получить усреднённые данные по нескольким измерениям.
-    uint8* GetAverageData(Chan::E);
+    uint8* GetAverageData(Chan);
 
     // Получить ограничивающую линию сигнала 0 - снизу, 1 - сверху.
-    uint8* GetLimitation(Chan::E, int direction);                                      
+    uint8* GetLimitation(Chan, int direction);                                      
 
     int NumberAvailableEntries();
 

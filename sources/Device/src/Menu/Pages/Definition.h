@@ -32,22 +32,22 @@ struct PageChannelB
 struct PageCursors
 {
     // Получить позицию курсора напряжения.
-    static float GetCursPosU(Chan::E, int numCur);
+    static float GetCursPosU(Chan, int numCur);
 
     // Возвращает true,если нужно рисовать курсоры.
     static bool NecessaryDrawCursors();
 
     // Получить строку курсора напряжения.
-    static pchar GetCursVoltage(Chan::E source, int numCur, char buffer[20]);
+    static pchar GetCursVoltage(Chan, int numCur, char buffer[20]);
 
     // Получить строку курсора времени.
-    static pchar GetCursorTime(Chan::E source, int numCur, char buffer[20]);
+    static pchar GetCursorTime(Chan, int numCur, char buffer[20]);
 
     // Получить строку процентов курсоров напряжения.
-    static pchar GetCursorPercentsU(Chan::E source, char buffer[20]);
+    static pchar GetCursorPercentsU(Chan, char buffer[20]);
 
     // Получить строку процентов курсоров времени.
-    static pchar GetCursorPercentsT(Chan::E source, char buffer[20]);
+    static pchar GetCursorPercentsT(Chan, char buffer[20]);
 
     static void DrawMenuCursVoltage(int x, int y, bool top, bool bottom);
 

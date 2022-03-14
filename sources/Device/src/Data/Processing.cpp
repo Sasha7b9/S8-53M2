@@ -972,7 +972,7 @@ void Processing::GetData(uint8 **data0, uint8 **data1, DataSettings **ds)
     *ds = dset;
 }
 
-float Processing::GetCursU(Chan::E ch, float posCurT)
+float Processing::GetCursU(Chan ch, float posCurT)
 {
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
@@ -983,7 +983,7 @@ float Processing::GetCursU(Chan::E ch, float posCurT)
     return retValue;
 }
 
-float Processing::GetCursT(Chan::E ch, float posCurU, int numCur)
+float Processing::GetCursT(Chan ch, float posCurU, int numCur)
 {
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
@@ -1135,7 +1135,7 @@ void Processing::InterpolationSinX_X(uint8 data[FPGA::MAX_POINTS * 2], TBase::E 
     }
 }
 
-char* Processing::GetStringMeasure(Measure::E measure, Chan::E ch, char buffer[20])
+char* Processing::GetStringMeasure(Measure::E measure, Chan ch, char buffer[20])
 {
     if (!SET_ENABLED(ch))
     {
@@ -1168,12 +1168,12 @@ char* Processing::GetStringMeasure(Measure::E measure, Chan::E ch, char buffer[2
     return buffer;
 }
 
-int Processing::GetMarkerHorizontal(Chan::E ch, int numMarker)
+int Processing::GetMarkerHorizontal(Chan ch, int numMarker)
 {
     return markerHor[ch][numMarker] - ValueFPGA::MIN;
 }
 
-int Processing::GetMarkerVertical(Chan::E ch, int numMarker)
+int Processing::GetMarkerVertical(Chan ch, int numMarker)
 {
     return markerVert[ch][numMarker];
 }

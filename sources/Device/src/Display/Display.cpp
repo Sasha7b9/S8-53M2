@@ -241,7 +241,7 @@ void Display::DrawStringNavigation()
 }
 
 
-void Display::RotateRShift(Chan::E ch)
+void Display::RotateRShift(Chan ch)
 {
     Storage::P2P::Reset();
 

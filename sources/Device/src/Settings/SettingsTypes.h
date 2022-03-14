@@ -29,7 +29,7 @@ struct Chan
 
     E value;
 
-    Chan(E v) : value(v) {}
+    Chan(E v = A) : value(v) {}
 
     static bool Enabled(E);
 

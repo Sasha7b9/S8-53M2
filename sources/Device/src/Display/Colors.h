@@ -44,8 +44,8 @@ private:
 };
 
 
-Color::E ColorChannel(Chan::E);
-Color::E ColorCursors(Chan::E);
+Color::E ColorChannel(Chan);
+Color::E ColorCursors(Chan);
 Color::E ColorTrig();                  // Возвращает цвет синхронизации.
 Color::E ColorMenuTitle                    // Цвет заголовка страницы.
                     (bool inShade       // Затенена ли страница.

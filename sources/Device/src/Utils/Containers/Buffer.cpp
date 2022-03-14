@@ -19,9 +19,16 @@ template float  Buffer<uint8>::Sum(uint8 *, uint);
 
 
 template<class T>
-Buffer<T>::Buffer(int s) : data(nullptr)
+Buffer<T>::Buffer(int _size) : data(nullptr)
 {
-    Malloc(s);
+    Malloc(_size);
+}
+
+
+template<class T>
+Buffer<T>::Buffer(const Buffer<T> &rhs) : data(nullptr)
+{
+    *this = rhs;
 }
 
 
@@ -154,4 +161,15 @@ void Buffer<T>::Log() const
     }
 
     LOG_WRITE(buffer);
+}
+
+
+template<class T>
+Buffer<T> &Buffer<T>::operator=(const Buffer<T> &rhs)
+{
+    Realloc(rhs.Size());
+
+    std::memcpy(data, rhs.data, (uint)Size());
+
+    return *this;
 }

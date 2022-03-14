@@ -53,7 +53,7 @@ struct TPos
 struct Filtr
 {
     // Включить/выключить фильтр на входе канала.
-    static void Enable(Chan::E, bool);
+    static void Enable(Chan, bool);
 };
 
 
@@ -258,10 +258,10 @@ struct Range
     static void Set(Chan, Range::E);
 
     // Увеличить масштаб по напряжению.
-    static bool Increase(Chan::E);
+    static bool Increase(Chan);
 
     // Уменьшить масштаб по напряжению.
-    static bool Decrease(Chan::E);
+    static bool Decrease(Chan);
 
     // Загрузка масштаба по напряжению в аппаратную часть.
     static void Load(Chan);
@@ -400,7 +400,7 @@ struct DataSettings
 
     int PointsInChannel() const;
 
-    int16 GetRShift(Chan::E) const;
+    int16 GetRShift(Chan) const;
 
     bool InModeP2P() const;
 
