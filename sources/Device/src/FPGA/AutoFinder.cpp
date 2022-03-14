@@ -27,7 +27,7 @@ namespace FPGA
         static bool ReadData(uint timeWait, uint8 data[1024]);
 
         // ¬озвращает размах сигнала - разность между минимальным и максимальным значени€ми
-        static uint8 GetBound(uint8 data[1024], uint8 *min, uint8 *max);
+        static int GetBound(uint8 data[1024], int *min, int *max);
 
         static bool FindParams(TBase::E *);
 
@@ -117,14 +117,14 @@ static Range::E FPGA::AutoFinder::FindRange(Chan ch)
 
     uint8 data[1024];
 
-    if (ReadData(2000, data))          // ≈сли в течение 2 секунд не считан сигнал, то его нет на этом канале - выходим
+    if (ReadData(2000, data))        // ≈сли в течение 2 секунд не считан сигнал, то его нет на этом канале - выходим
     {
-        uint8 min = 0;
-        uint8 max = 0;
+        int min = 0;
+        int max = 0;
 
-        uint8 bound = GetBound(data, &min, &max);
+        int bound = GetBound(data, &min, &max);
 
-        if (bound > (ValueFPGA::MAX - ValueFPGA::MIN) / 10.0 * 2)      // ≈сли размах сигнала меньше двух клеток - тоже выходим
+        if (bound > (ValueFPGA::MAX - ValueFPGA::MIN) / 10.0 * 2)   // ≈сли размах сигнала меньше двух клеток - тоже выходим
         {
             StartMode::Set(StartMode::Auto);
 
@@ -136,9 +136,9 @@ static Range::E FPGA::AutoFinder::FindRange(Chan ch)
 
                 GetBound(data, &min, &max);
 
-                if (min > ValueFPGA::MIN && max < ValueFPGA::MAX)     // ≈сли все значени€ внутри экрана
+                if (min > ValueFPGA::MIN && max < ValueFPGA::MAX)       // ≈сли все значени€ внутри экрана
                 {
-                    break;                                  // “о мы нашли наш Range - выходим из цикла
+                    break;                                              // “о мы нашли наш Range - выходим из цикла
                 }
             }
         }
@@ -167,10 +167,11 @@ static bool FPGA::AutoFinder::ReadData(uint , uint8 [1024])
 }
 
 
-static uint8 FPGA::AutoFinder::GetBound(uint8 data[1024], uint8 *_min, uint8 *_max)
+static int FPGA::AutoFinder::GetBound(uint8 data[1024], int *_min, int *_max)
 {
-    uint8 min = 255;
-    uint8 max = 0;
+    int min = 255;
+    int max = 0;
+
     for (int i = 0; i < 512; i++)
     {
         SET_MIN_IF_LESS(data[i], min);
@@ -180,7 +181,7 @@ static uint8 FPGA::AutoFinder::GetBound(uint8 data[1024], uint8 *_min, uint8 *_m
     *_min = min;
     *_max = max;
 
-    return (uint8)(max - min);
+    return max - min;
 }
 
 
