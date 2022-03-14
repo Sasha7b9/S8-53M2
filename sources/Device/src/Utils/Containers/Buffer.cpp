@@ -149,6 +149,13 @@ Buffer<T> &Buffer<T>::operator=(const Buffer<T> &rhs)
 
 
 template<class T>
+Buffer<T>::Buffer(const Buffer &rhs) : data(nullptr)
+{
+    *this = rhs;
+}
+
+
+template<class T>
 void Buffer<T>::Log() const
 {
     char buffer[1024];

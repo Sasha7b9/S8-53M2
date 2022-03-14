@@ -12,6 +12,7 @@ class Buffer
 public:
 
     Buffer(int size = 0U);
+    Buffer(const Buffer &);
 
     ~Buffer();
 
