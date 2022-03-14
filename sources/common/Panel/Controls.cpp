@@ -78,9 +78,9 @@ bool Key::IsFunctional() const
 }
 
 
-bool Key::IsFunctional(Key::E value)
+bool Key::IsFunctional(Key::E val)
 {
-    return Key(value).IsFunctional();
+    return Key(val).IsFunctional();
 }
 
 

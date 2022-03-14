@@ -138,24 +138,6 @@ float Buffer<T>::Sum(T *data, uint number)
 
 
 template<class T>
-Buffer<T> &Buffer<T>::operator=(const Buffer<T> &rhs)
-{
-    Realloc(rhs.Size());
-
-    std::memcpy(data, rhs.data, (uint)Size());
-
-    return *this;
-}
-
-
-template<class T>
-Buffer<T>::Buffer(const Buffer &rhs) : data(nullptr)
-{
-    *this = rhs;
-}
-
-
-template<class T>
 void Buffer<T>::Log() const
 {
     char buffer[1024];
