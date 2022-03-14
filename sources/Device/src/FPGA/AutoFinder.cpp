@@ -154,8 +154,8 @@ static Range::E FPGA::AutoFinder::FindRange(Chan ch)
 
 static bool FPGA::AutoFinder::AccurateFindParams()
 {
-    TBase::E tBase = TBase::Count;
-    FindParams(&tBase);
+    TBase::E tbase = TBase::Count;
+    FindParams(&tbase);
 
     return true;
 }
@@ -184,7 +184,7 @@ static uint8 FPGA::AutoFinder::GetBound(uint8 data[1024], uint8 *_min, uint8 *_m
 }
 
 
-bool FPGA::AutoFinder::FindParams(TBase::E *tBase)
+bool FPGA::AutoFinder::FindParams(TBase::E *tbase)
 {
     TrigInput::Set(TrigInput::Full);
 
@@ -211,14 +211,14 @@ bool FPGA::AutoFinder::FindParams(TBase::E *tBase)
 
     if (freq >= 50.0f)
     {
-        *tBase = CalculateTBase(freq);
+        *tbase = CalculateTBase(freq);
 
-        if (*tBase >= TBase::MIN_P2P)
+        if (*tbase >= TBase::MIN_P2P)
         {
-            *tBase = TBase::MIN_P2P;
+            *tbase = TBase::MIN_P2P;
         }
 
-        TBase::Set(*tBase);
+        TBase::Set(*tbase);
 
         Start();
 
@@ -233,14 +233,14 @@ bool FPGA::AutoFinder::FindParams(TBase::E *tBase)
 
         if (freq > 0.0f)
         {
-            *tBase = CalculateTBase(freq);
+            *tbase = CalculateTBase(freq);
 
-            if (*tBase >= TBase::MIN_P2P)
+            if (*tbase >= TBase::MIN_P2P)
             {
-                *tBase = TBase::MIN_P2P;
+                *tbase = TBase::MIN_P2P;
             }
 
-            TBase::Set(*tBase);
+            TBase::Set(*tbase);
             Timer::PauseOnTime(10);
             Start();
             return true;
@@ -283,7 +283,7 @@ static TBase::E FPGA::AutoFinder::CalculateTBase(float freq)
     struct STR
     {
         float    freq;
-        TBase::E tBase;
+        TBase::E tbase;
     };
 
     static const STR structs[TBase::Count] =
@@ -322,7 +322,7 @@ static TBase::E FPGA::AutoFinder::CalculateTBase(float freq)
     {
         if (freq >= str->freq)
         {
-            return str->tBase;
+            return str->tbase;
         }
         ++str;
     }
