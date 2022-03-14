@@ -8,7 +8,9 @@
 
 
 template        Buffer<uint8>::Buffer(int);
+template        Buffer<char>::Buffer(int);
 template        Buffer<uint8>::~Buffer();
+template        Buffer<char>::~Buffer();
 template void   Buffer<uint8>::Fill(uint8);
 template void   Buffer<uint8>::Realloc(int);
 template uint8 &Buffer<uint8>::operator[](int) const;

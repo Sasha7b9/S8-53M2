@@ -4,9 +4,10 @@
 #include "SCPI.h"
 #include "Utils/Strings.h"
 #include "Utils/GlobalFunctions.h"
-#include <ctype.h>
-#include <string.h>
-#include <stdlib.h>
+#include "Utils/Containers/Buffer.h"
+#include <cctype>
+#include <cstring>
+#include <cstdlib>
 
 
 enum
@@ -27,14 +28,14 @@ static int pointer = 0;
 
 void SCPI::AddNewData(uint8 *data, uint length)
 {
-    memcpy(&bufData[pointer], data, length);
+    std::memcpy(&bufData[pointer], data, length);
     pointer += length;
 
 label_another:
 
     for (int i = 0; i < pointer; i++)
     {
-        bufData[i] = (uint8)toupper((int8)bufData[i]);
+        bufData[i] = (uint8)std::toupper((int8)bufData[i]);
 
         if (bufData[i] == 0x0d || bufData[i] == 0x0a)
         {
@@ -113,7 +114,7 @@ void SCPI::ProcessingCommand(const StructCommand *commands, uint8 *buffer)
     }
     for (int i = 0; i < sizeNameCommand; i++)
     {
-        buffer[i] = (uint8)toupper((int8)buffer[i]);
+        buffer[i] = (uint8)std::toupper((int8)buffer[i]);
     }
     int numCommand = -1;
     char *name = 0;
@@ -150,14 +151,14 @@ int FindNumSymbolsInCommand(uint8 *buffer)
 bool SCPI::FirstIsInt(uint8 *buffer, int *value, int min, int max)
 {
     Word param;
+
     if (GetWord(buffer, &param, 0))
     {
-        char *n = (char *)malloc((uint)(param.numSymbols + 1));
-        memcpy(n, param.address, (uint)param.numSymbols);
-        n[param.numSymbols] = '\0';
-        bool res = String2Int(n, value) && *value >= min && *value <= max;
-        free(n);
-        return res;
+        Buffer<char> data(param.numSymbols + 1);
+        std::memcpy(data.Data(), param.address, (uint)param.numSymbols);
+        data.Data()[param.numSymbols] = '\0';
+        return String2Int(data.Data(), value) && (*value >= min) && (*value <= max);
     }
+
     return false;
 }

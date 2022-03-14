@@ -1,5 +1,6 @@
 // (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
+#include <cstring>
 
 
 /*
@@ -39,7 +40,7 @@ public:
 
     static float Sum(T *data, uint number);
 
-    Buffer<T> &operator=(const Buffer<T> &)
+    Buffer<T> &operator=(const Buffer<T> &rhs)
     {
         Realloc(rhs.Size());
 
