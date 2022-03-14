@@ -134,3 +134,21 @@ void Timer::Update10ms()
         }
     }
 }
+
+
+Waiter::Waiter()
+{
+    Reset();
+}
+
+
+void Waiter::Reset()
+{
+    time_start = TIME_MS;
+}
+
+
+uint Waiter::ElapsedTime()
+{
+    return TIME_MS - time_start;
+}

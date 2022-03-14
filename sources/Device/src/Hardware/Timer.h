@@ -72,3 +72,20 @@ namespace Timer
   * Количество тиков, прошедших с момента последнего вызова функции Timer_StartMultiMeasurement(). Не более (1 << 32).
 ***/
 #define TIME_TICKS (TIM2->CNT)
+
+
+// Структура для отсчёта времени
+struct Waiter
+{
+    Waiter();
+
+    // Установить момент отсчёта
+    void Reset();
+
+    // Столько миллисекунд прошло с момента вызова Reset()
+    uint ElapsedTime();
+
+private:
+
+    uint time_start;
+};

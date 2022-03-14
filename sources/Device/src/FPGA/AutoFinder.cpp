@@ -24,7 +24,8 @@ namespace FPGA
 
         static bool AccurateFindParams();
 
-        static bool ReadData(uint timeWait, uint8 data[1024]);
+        // „итать данные с ожиданием импульса синхронизации
+        static bool ReadDataWithSynchronization(Chan, uint timeWait, Buffer<uint8> &);
 
         // ¬озвращает размах сигнала - разность между минимальным и максимальным значени€ми
         static int GetBound(uint8 data[1024], int *min, int *max);
@@ -115,14 +116,14 @@ static Range::E FPGA::AutoFinder::FindRange(Chan ch)
 
     int range = Range::Count;
 
-    uint8 data[1024];
+    Buffer<uint8> data(1024);
 
-    if (ReadData(2000, data))        // ≈сли в течение 2 секунд не считан сигнал, то его нет на этом канале - выходим
+    if (ReadDataWithSynchronization(ch, 2000, data))        // ≈сли в течение 2 секунд не считан сигнал, то его нет на этом канале - выходим
     {
         int min = 0;
         int max = 0;
 
-        int bound = GetBound(data, &min, &max);
+        int bound = GetBound(data.Data(), &min, &max);
 
         if (bound > (ValueFPGA::MAX - ValueFPGA::MIN) / 10.0 * 2)   // ≈сли размах сигнала меньше двух клеток - тоже выходим
         {
@@ -132,9 +133,9 @@ static Range::E FPGA::AutoFinder::FindRange(Chan ch)
             {
                 Range::Set(ch, (Range::E)range);
 
-                ReadData(10000, data);
+                ReadDataWithSynchronization(ch, 10000, data);
 
-                GetBound(data, &min, &max);
+                GetBound(data.Data(), &min, &max);
 
                 if (min > ValueFPGA::MIN && max < ValueFPGA::MAX)       // ≈сли все значени€ внутри экрана
                 {
@@ -161,8 +162,14 @@ static bool FPGA::AutoFinder::AccurateFindParams()
 }
 
 
-static bool FPGA::AutoFinder::ReadData(uint , uint8 [1024])
+static bool FPGA::AutoFinder::ReadDataWithSynchronization(Chan ch, uint time_wait, Buffer<uint8> &data)
 {
+    FPGA::Start();
+
+    data.Fill(ValueFPGA::NONE);
+
+    while (_GET_BIT(flag.Read(), FL_PRED) == 0) { }
+
     return false;
 }
 
