@@ -170,6 +170,20 @@ static bool FPGA::AutoFinder::ReadDataWithSynchronization(Chan ch, uint time_wai
 
     while (_GET_BIT(flag.Read(), FL_PRED) == 0) { }
 
+    Waiter waiter;
+
+    while(_GET_BIT(flag.Read(), FL_TRIG) == 0)
+    {
+        if (waiter.ElapsedTime() > time_wait)
+        {
+            FPGA::Stop(false);
+
+            return false;
+        }
+    }
+
+    while(_GET_BIT(flag.Read(), FL_DATA) == 0) { }
+
     return false;
 }
 
