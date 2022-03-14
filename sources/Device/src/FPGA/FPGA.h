@@ -56,10 +56,11 @@ namespace FPGA
     {
         uint16 value;
 
-        void Read()
+        uint16 Read()
         {
             value = HAL_FMC::Read(RD_FL);
             FreqMeter::Update(value);
+            return value;
         }
 
         bool FirstByte() { return _GET_BIT(value, FL_LAST_RECOR) == 1; }

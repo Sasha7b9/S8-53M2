@@ -140,7 +140,7 @@ static const Choice mcTPos =
     (int8*)&SET_TPOS, OnChanged_TPos
 };
 
-void OnChanged_TPos(bool active)
+void OnChanged_TPos(bool)
 {
     TPos::Set(SET_TPOS);
 }

@@ -9,6 +9,7 @@
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
 #include "Utils/Strings.h"
+#include "Menu/Pages/Definition.h"
 #include <cstring>
 
 
@@ -550,7 +551,7 @@ void TrigSource::Set(Chan ch)
 {
     if (ch < 2)
     {
-        Set((E)ch);
+        Set((E)ch.value);
     }
 }
 

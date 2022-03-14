@@ -93,9 +93,6 @@ namespace Display
     // Вывести значения автоматических измерений.
     void DrawMeasures();
 
-    // Написать сообщения отладочной консоли.
-    void DrawConsole();
-
     // Написать предупреждения.
     void DrawWarnings();
 

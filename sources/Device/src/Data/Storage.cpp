@@ -90,7 +90,7 @@ namespace Storage
 
     //  опирует данные канала chan из, определ€емые ds, в одну из двух строк массива dataImportRel. ¬озвращаемое
     // значение false означает, что данный канал выключен.
-    bool CopyData(DataSettings *, Chan::E ch, Buffer<uint8> &datatImportRel);
+    bool CopyData(DataSettings *, Chan ch, Buffer<uint8> &datatImportRel);
 
     void CalculateAroundAverage(const DataSettings *, uint8 *dataA, uint8 *dataB);
 
@@ -353,7 +353,7 @@ bool Storage::GetData(int fromEnd, DataSettings **ds, uint8 **a, uint8 **b)
 }
 
 
-uint8 *Storage::GetData(Chan::E ch, int fromEnd)
+uint8 *Storage::GetData(Chan ch, int fromEnd)
 {
     static Buffer<uint8> dataImport[Chan::Count];
 
@@ -374,7 +374,7 @@ uint8 *Storage::GetData(Chan::E ch, int fromEnd)
 }
 
 
-bool Storage::CopyData(DataSettings *ds, Chan::E ch, Buffer<uint8> &datatImportRel)
+bool Storage::CopyData(DataSettings *ds, Chan ch, Buffer<uint8> &datatImportRel)
 {
     if ((ch == Chan::A && !ds->en_a) || (ch == Chan::B && !ds->en_b))
     {

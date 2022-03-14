@@ -86,8 +86,6 @@ namespace FPGA
         // Читает 1024 точки и возвращает их среднее значение
         static float Read1024PointsAve(Chan);
 
-        static void Read1024Points(uint8 buffer[1024], Chan);
-
         // Читает 1024 точки и возвращает минимальное и максимальное значения
         static void Read1024PointsMinMax(Chan, float *min, float *max);
 
@@ -380,13 +378,13 @@ float FPGA::Calibrator::Read1024PointsAve(Chan ch)
 {
     uint8 buffer[1024];
 
-    Read1024Points(buffer, ch);
+    Reader::Read1024Points(buffer, ch);
 
     return Buffer<uint8>::Sum(buffer, 1024) / 1024;
 }
 
 
-void FPGA::Calibrator::Read1024Points(uint8 buffer[1024], Chan ch)
+void FPGA::Reader::Read1024Points(uint8 buffer[1024], Chan ch)
 {
     Timer::PauseOnTime((SET_RANGE(ch) < 2) ? 500U : 100U);
 
@@ -424,7 +422,7 @@ void FPGA::Calibrator::Read1024PointsMinMax(Chan ch, float *min, float *max)
 {
     uint8 buffer[1024];
 
-    Read1024Points(buffer, ch);
+    Reader::Read1024Points(buffer, ch);
 
     Queue<float> mins;
     Queue<float> maxs;

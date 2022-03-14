@@ -64,6 +64,8 @@ namespace FPGA
         void ReadPoints(Chan, uint8 *first, const uint8 *last);
 
         void ReadPoints(Chan);
+
+        void Read1024Points(uint8 buffer[1024], Chan);
     }
 
     namespace Launch

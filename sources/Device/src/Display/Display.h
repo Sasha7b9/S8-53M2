@@ -61,5 +61,7 @@ namespace Display
     void DisableShowLevelTrigLev();
 
     void OnRShiftMarkersAutoHide();
-};
 
+    // Ќаписать сообщени€ отладочной консоли.
+    void DrawConsole();
+};
