@@ -147,6 +147,8 @@ static bool FPGA::AutoFinder::FindRange(Chan ch)
                 range = (Range::E)Math::Limitation<int>(r + 1, 0, Range::_20V);
 
                 result = true;
+
+                break;
             }
         }
     }
@@ -175,8 +177,6 @@ bool FPGA::AutoFinder::DataFinder::ReadDataWithSynchronization(Chan ch, uint tim
         if (waiter.ElapsedTime() > time_wait)
         {
             FPGA::Stop(false);
-
-            LOG_ERROR("%d : range %d, Нет сигнала", ch.ToNumber(), SET_RANGE(ch));
 
             return false;
         }
@@ -214,8 +214,6 @@ bool FPGA::AutoFinder::DataFinder::ReadDataWithSynchronization(Chan ch, uint tim
             *elem++ = bytes.byte1;
         }
     }
-
-    LOG_WRITE("%d : range %d сигнал считан", ch.ToNumber(), SET_RANGE(ch));
 
     return true;
 }
