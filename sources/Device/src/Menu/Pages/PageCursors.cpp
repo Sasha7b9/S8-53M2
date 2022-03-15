@@ -36,12 +36,10 @@ void SetCursSource(Chan::E ch)
 }
 
 
-
 void IncCursCntrlU(Chan::E ch)
 {
     CircleIncreaseInt8((int8*)&CURsU_CNTRL_CH(ch), 0, 3);
 }
-
 
 
 void IncCursCntrlT(Chan::E ch)

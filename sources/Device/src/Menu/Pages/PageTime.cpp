@@ -15,43 +15,12 @@
 extern const Page pTime;
 
 
-extern const Choice mcSample;           // РАЗВЕРТКА - Выборка
-static bool  IsActive_Sample();
-extern const Choice mcPeakDet;          // РАЗВЕРТКА - Пик дет
-static bool  IsActive_PeakDet();
-void        OnChanged_PeakDet(bool active);
-extern const Choice mcTPos;             // РАЗВЕРТКА - To
-void        OnChanged_TPos(bool active);
-extern const Choice mcSelfRecorder;     // РАЗВЕРТКА - Самописец
-static bool  IsActive_SelfRecorder();
-extern const Choice mcDivRole;          // РАЗВЕРТКА - Ф-ция ВР/ДЕЛ
-
-
-
-// РАЗВЕРТКА //////////////////////////////////////////////////////////////////////////////////////////////////////////
-static const arrayItems itemsTime =
+static bool IsActive_Sample()
 {
-    (void*)&mcSample,       // РАЗВЕРТКА - Выборка
-    (void*)&mcPeakDet,      // РАЗВЕРТКА - Пик дет
-    (void*)&mcTPos,         // РАЗВЕРТКА - To
-    (void*)&mcSelfRecorder, // РАЗВЕРТКА - Самописец
-    (void*)&mcDivRole       // РАЗВЕРТКА - Ф-ция ВР/ДЕЛ    
-};
-
-static const Page pTime            // РАЗВЕРТКА
-(
-    PageMain::self, 0,
-    "РАЗВЕРТКА", "SCAN",
-    "Содержит настройки развёртки.",
-    "Contains scan settings.",
-    NamePage::Time, &itemsTime
-);
+    return TBase::InModeRandomizer();
+}
 
 
-const Page *PageTime::self = &pTime;
-
-
-// РАЗВЕРТКА - Выборка ------
 static const Choice mcSample =
 {
     TypeItem::Choice, &pTime, IsActive_Sample,
@@ -71,31 +40,12 @@ static const Choice mcSample =
     (int8*)&SET_SAMPLE_TYPE
 };
 
-static bool IsActive_Sample()
-{
-    return TBase::InModeRandomizer();
-}
-
-// РАЗВЕРТКА - Пик дет ------
-static const Choice mcPeakDet =
-{
-    TypeItem::Choice, &pTime, IsActive_PeakDet,
-    {
-        "Пик дет", "Pic deat",
-        "Включает/выключает пиковый детектор.",
-        "Turns on/off peak detector."
-    },
-    {
-        {DISABLE_RU,    DISABLE_EN},
-        {ENABLE_RU,     ENABLE_EN}
-    },
-    (int8*)&SET_PEAKDET, OnChanged_PeakDet
-};
 
 static bool IsActive_PeakDet()
 {
     return (SET_TBASE >= TBase::MIN_PEC_DEAT);
 }
+
 
 void OnChanged_PeakDet(bool active)
 {
@@ -123,7 +73,29 @@ void OnChanged_PeakDet(bool active)
     }
 }
 
-// РАЗВЕРТКА - To -----------
+
+static const Choice mcPeakDet =
+{
+    TypeItem::Choice, &pTime, IsActive_PeakDet,
+    {
+        "Пик дет", "Pic deat",
+        "Включает/выключает пиковый детектор.",
+        "Turns on/off peak detector."
+    },
+    {
+        {DISABLE_RU,    DISABLE_EN},
+        {ENABLE_RU,     ENABLE_EN}
+    },
+    (int8*)&SET_PEAKDET, OnChanged_PeakDet
+};
+
+
+void OnChanged_TPos(bool)
+{
+    TPos::Set(SET_TPOS);
+}
+
+
 static const Choice mcTPos =
 {
     TypeItem::Choice, &pTime, 0,
@@ -140,12 +112,13 @@ static const Choice mcTPos =
     (int8*)&SET_TPOS, OnChanged_TPos
 };
 
-void OnChanged_TPos(bool)
+
+static bool IsActive_SelfRecorder()
 {
-    TPos::Set(SET_TPOS);
+    return TBase::InModeP2P();
 }
 
-// РАЗВЕРТКА - Самописец ----
+
 static const Choice mcSelfRecorder =
 {
     TypeItem::Choice, &pTime, IsActive_SelfRecorder,
@@ -161,12 +134,7 @@ static const Choice mcSelfRecorder =
     (int8*)&SET_SELFRECORDER
 };
 
-static bool IsActive_SelfRecorder()
-{
-    return TBase::InModeP2P();
-}
 
-// РАЗВЕРТКА - Ф-ция ВР/ДЕЛ -
 static const Choice mcDivRole =
 {
     TypeItem::Choice, &pTime, 0,
@@ -187,3 +155,24 @@ static const Choice mcDivRole =
     },
     (int8*)&SET_TIME_DIV_XPOS
 };
+
+
+static const arrayItems itemsTime =
+{
+    (void *)&mcSample,       // РАЗВЕРТКА - Выборка
+    (void *)&mcPeakDet,      // РАЗВЕРТКА - Пик дет
+    (void *)&mcTPos,         // РАЗВЕРТКА - To
+    (void *)&mcSelfRecorder, // РАЗВЕРТКА - Самописец
+    (void *)&mcDivRole       // РАЗВЕРТКА - Ф-ция ВР/ДЕЛ    
+};
+
+static const Page pTime            // РАЗВЕРТКА
+(
+    PageMain::self, 0,
+    "РАЗВЕРТКА", "SCAN",
+    "Содержит настройки развёртки.",
+    "Contains scan settings.",
+    NamePage::Time, &itemsTime
+);
+
+const Page *PageTime::self = &pTime;
