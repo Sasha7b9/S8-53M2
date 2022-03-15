@@ -16,10 +16,7 @@ namespace Storage
 {
     DataStruct data;
     DataStruct last;
-
-    uint8 *dataIntA = nullptr;
-    uint8 *dataIntB = nullptr;
-    DataSettings *dsInt = nullptr;
+    DataStruct ins;
 
     // Количество отведённой для измерений памяти.
     const int SIZE_POOL = (30 * 1024);

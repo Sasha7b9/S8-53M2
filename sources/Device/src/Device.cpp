@@ -115,10 +115,10 @@ void Device::ProcessingSignal()
     }
     else if (MODE_WORK_IS_MEMINT)
     {
-        dataA = Storage::dataIntA;
-        dataB = Storage::dataIntB;
-        ds = &Storage::dsInt;
-        HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
+        dataA = Storage::ins.A;
+        dataB = Storage::ins.B;
+        ds = &Storage::ins.ds;
+        HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::ins.ds, &Storage::ins.A, &Storage::ins.B);
     }
 
     if (MODE_WORK_IS_MEMINT)

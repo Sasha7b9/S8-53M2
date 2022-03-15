@@ -46,12 +46,9 @@ namespace Storage
 
     int NumberAvailableEntries();
 
-    extern DataStruct data;                // Рисуемый сигнал
+    extern DataStruct data;             // Рисуемый сигнал
     extern DataStruct last;
-
-    extern uint8        *dataIntA;    // | Здесь данные из ППЗУ, которые должны выводиться на экран
-    extern uint8        *dataIntB;    //-/
-    extern DataSettings *dsInt;       //--
+    extern DataStruct ins;              // Здесь данные из ППЗУ, которые должны выводиться на экран
 
     namespace P2P
     {

@@ -212,7 +212,7 @@ void PressSB_MemLast_IntEnter()
 {
     PageMemory::Internal::self->OpenAndSetCurrent();
     MODE_WORK = ModeWork_MemInt;
-    HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
+    HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::ins.ds, &Storage::ins.A, &Storage::ins.B);
     PageMemory::Internal::exitToLast = true;
 }
 
@@ -540,7 +540,7 @@ static void SaveSignalToIntMemory()
         if  (Storage::last.ds)
         {                               // то сохраняем сигнал из последних
             HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Storage::last.ds, Storage::last.A, Storage::last.B);
-            HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
+            HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::ins.ds, &Storage::ins.A, &Storage::ins.B);
             Display::ShowWarningGood(Warning::SignalIsSaved);
         }
     }
@@ -549,7 +549,7 @@ static void SaveSignalToIntMemory()
         if (Storage::data.ds)
         {
             HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Storage::data.ds, Storage::data.A, Storage::data.B);
-            HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::data.ds, &Storage::dataIntA, &Storage::dataIntB);
+            HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::data.ds, &Storage::ins.A, &Storage::ins.B);
             Display::ShowWarningGood(Warning::SignalIsSaved);
         }
     }
@@ -622,7 +622,7 @@ static void FuncOnRegSetMemInt(int delta)
         CircleIncreaseInt8(&PageMemory::Internal::currentSignal, 0, MAX_NUM_SAVED_WAVES - 1);
     }
 
-    HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
+    HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::ins.ds, &Storage::ins.A, &Storage::ins.B);
     Color::ResetFlash();
 }
 
@@ -796,7 +796,7 @@ const SmallButton sbMemIntSaveToFlash
 
 void PressSB_MemInt_Exit()
 {
-    HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
+    HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::ins.ds, &Storage::ins.A, &Storage::ins.B);
 
     if (PageMemory::Internal::exitToLast)
     {
@@ -1281,7 +1281,7 @@ void OnPressMemoryInt()
     PageMemory::Internal::self->OpenAndSetCurrent();
     MODE_WORK = ModeWork_MemInt;
 
-    HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
+    HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::ins.ds, &Storage::ins.A, &Storage::ins.B);
 }
 
 
