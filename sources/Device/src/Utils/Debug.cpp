@@ -3,7 +3,6 @@
 #include "Hardware/HAL/HAL.h"
 #include "Utils/Debug.h"
 #include "Hardware/Timer.h"
-#include <stm32f4xx_hal.h>
 
 
 static uint timeStart;
