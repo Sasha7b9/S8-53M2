@@ -130,9 +130,9 @@ static bool FPGA::AutoFinder::FindRange(Chan ch)
 
     PeackDetMode::Set(PeackDetMode::Enable);
 
-    for (Range::E r = (Range::E)(Range::Count - 1); (int)r >= 0; --r)
+    for(int r = Range::_20V; r >= 0; r--)
     {
-        Range::Set(ch, r);
+        Range::Set(ch, (Range::E)r);
 
         DataFinder data;
 
