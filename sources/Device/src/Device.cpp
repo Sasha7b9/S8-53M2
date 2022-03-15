@@ -15,6 +15,7 @@
 #include "FDrive/FDrive.h"
 #include "Menu/Pages/Definition.h"
 #include "Utils/Strings.h"
+#include "Data/DataController.h"
 #include <stm32f4xx_hal.h>
 
 
