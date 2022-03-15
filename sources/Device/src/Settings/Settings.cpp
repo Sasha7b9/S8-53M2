@@ -288,10 +288,51 @@ void Settings::Reset()
 
 void Settings::CopyCalibrationSettings(Chan ch, Settings &dest, Settings &src)
 {
+    if (src.chan[ch].cal_stretch < 0.75f || src.chan[ch].cal_stretch > 1.25f)
+    {
+        return;
+    }
+
+    for (int range = 0; range < Range::Count; range++)
+    {
+        for (int couple = 0; couple < ModeCouple::Count; couple++)
+        {
+            if (src.chan[ch].cal_rshift[range][couple] > 40 || src.chan[ch].cal_rshift[range][couple] < -40)
+            {
+                return;
+            }
+        }
+    }
+
+    if (src.debug.numStrings < 0 || src.debug.numStrings > 40)
+    {
+        return;
+    }
+
+    if (src.debug.sizeFont < 0 || src.debug.sizeFont > 1)
+    {
+        return;
+    }
+
+    if (src.debug.balanceADC[0] < 0 || src.debug.balanceADC[0] > 20)
+    {
+        return;
+    }
+
+    if (src.debug.balanceADC[1] < 0 || src.debug.balanceADC[1] > 20)
+    {
+        return;
+    }
+
     dest.chan[ch].cal_stretch = src.chan[ch].cal_stretch;
 
-    std::memcpy(&dest.chan[ch].cal_rshift[0][0], &src.chan[ch].cal_rshift[0][0],
-        Range::Count * ModeCouple::Count * sizeof(src.chan[ch].cal_rshift[0][0]));
+    for (int range = 0; range < Range::Count; range++)
+    {
+        for (int couple = 0; couple < ModeCouple::Count; couple++)
+        {
+            dest.chan[ch].cal_rshift[range][couple] = src.chan[ch].cal_rshift[range][couple];
+        }
+    }
 
     dest.debug = src.debug;
 }
