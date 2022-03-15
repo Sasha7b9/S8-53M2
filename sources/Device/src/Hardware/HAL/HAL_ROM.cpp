@@ -484,14 +484,17 @@ uint HAL_ROM::GetSector(uint startAddress)
         case ADDR_SECTOR_SETTINGS:
             return FLASH_SECTOR_11;
     }
-    LOG_ERROR("Недопустимый сектор");
+
+    LOG_ERROR_TRACE("Недопустимый сектор");
+
     return FLASH_SECTOR_11;
 }
 
 
 void HAL_ROM::EraseSector(uint startAddress)
 {
-    __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR);
+    __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR |
+        FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR);
 
     HAL_FLASH_Unlock();
 
@@ -511,12 +514,16 @@ void HAL_ROM::EraseSector(uint startAddress)
 
 void HAL_ROM::WriteWord(uint address, uint word)
 {
-    __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR);
+    __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR |
+        FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR);
+
     HAL_FLASH_Unlock();
+
     if (HAL_FLASH_Program(TYPEPROGRAM_WORD, address, (uint64_t)word) != HAL_OK)
     {
-        LOG_ERROR("Не могу записать в память");
+        LOG_ERROR_TRACE("Не могу записать в память");
     }
+
     HAL_FLASH_Lock();
 }
 

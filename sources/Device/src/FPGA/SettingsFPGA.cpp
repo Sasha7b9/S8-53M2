@@ -636,7 +636,7 @@ int TShift::Min()
         return m[SET_ENUM_POINTS][SET_TPOS];
     }
 
-    LOG_ERROR("");
+    LOG_ERROR_TRACE("");
     return 0;
 }
 

@@ -102,7 +102,7 @@ void Painter::DrawDashedVLine(int x, int y0, int y1, int deltaFill, int deltaEmt
 {
     if (deltaStart < 0 || deltaStart >= (deltaFill + deltaEmtpy))
     {
-        LOG_ERROR("Неправильный аргумент deltaStart = %d", deltaStart);
+        LOG_ERROR_TRACE("Неправильный аргумент deltaStart = %d", deltaStart);
         return;
     }
     int y = y0;
@@ -127,7 +127,7 @@ void Painter::DrawDashedHLine(int y, int x0, int x1, int deltaFill, int deltaEmp
 {
     if (deltaStart < 0 || deltaStart >= (deltaFill + deltaEmpty))
     {
-        LOG_ERROR("Неправильный аргумент deltaStart = %d", deltaStart);
+        LOG_ERROR_TRACE("Неправильный аргумент deltaStart = %d", deltaStart);
         return;
     }
     int x = x0;

@@ -89,7 +89,7 @@ ENumSignalsInSec::E ENumSignalsInSec::FromNum(int num)
         return ENumSignalsInSec::_25;
     }
 
-    LOG_ERROR("Число сигналов в секунду равно %d", num);
+    LOG_ERROR_TRACE("Число сигналов в секунду равно %d", num);
 
     return ENumSignalsInSec::_1;
 }
@@ -104,7 +104,7 @@ int ENumSignalsInSec::ToNum(ENumSignalsInSec::E enumSignalsInSec)
         return fps[enumSignalsInSec];
     }
 
-    LOG_ERROR("Неправильный параметр %d", (int)enumSignalsInSec);
+    LOG_ERROR_TRACE("Неправильный параметр %d", (int)enumSignalsInSec);
 
     return 1;
 }

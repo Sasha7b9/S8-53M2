@@ -38,7 +38,7 @@ void FDrive::Init()
     }
     else
     {
-        LOG_ERROR("Can not %s", __FUNCTION__);
+        LOG_ERROR_TRACE("Can not %s", __FUNCTION__);
     }
 }
 
@@ -61,7 +61,7 @@ void USBH_UserProcess(USBH_HandleTypeDef *, uint8 id)
             Menu::ChangeStateFlashDrive();
             if (f_mount(&USBDISKFatFs, (TCHAR const*)USBDISKPath, 0) != FR_OK)
             {
-                LOG_ERROR("Не могу примонтировать диск");
+                LOG_ERROR_TRACE("Не могу примонтировать диск");
             }
             break;
         case HOST_USER_CLASS_SELECTED:
