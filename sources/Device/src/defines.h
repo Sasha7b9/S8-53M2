@@ -72,8 +72,14 @@ union BitSet32
 // Объединение размером 64 бита
 union BitSet64
 {
+    BitSet64(int iword0, int iword1)
+    {
+        iword[0] = iword0;
+        iword[1] = iword1;
+    }
     long long unsigned int dword;
     unsigned int           word[2];
+    int                    iword[2];
 };
 
 struct StructRelAbs

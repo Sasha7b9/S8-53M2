@@ -20,6 +20,9 @@ namespace FPGA
 
             // „итать данные с ожиданием импульса синхронизации
             bool ReadDataWithSynchronization(Chan, uint timeWait);
+
+            // ¬озвращает размах сигнала - разность между минимальным и максимальным значени€ми
+            BitSet64 GetBound();
         };
 
         static Waiter waiter;
@@ -27,9 +30,6 @@ namespace FPGA
         static bool FindWave(Chan);
 
         static Range::E FindRange(Chan);
-
-        // ¬озвращает размах сигнала - разность между минимальным и максимальным значени€ми
-        static int GetBound(uint8 data[1024], int *min, int *max);
 
         static bool FindParams(TBase::E *);
 
@@ -137,57 +137,27 @@ static Range::E FPGA::AutoFinder::FindRange(Chan ch)
 
     Range::E result = Range::Count;
 
-    for (int range = Range::Count - 1; range >= Range::_2mV; range--)
+    for (Range::E range = (Range::E)(Range::Count - 1); (int)range >= 0; --range)
     {
-        Range::Set(ch, (Range::E)range);
+        Range::Set(ch, range);
 
         DataFinder data;
 
-        if (data.ReadDataWithSynchronization(ch, 2000))
+        if (data.ReadDataWithSynchronization(ch, 1000))
         {
-            int min = INT_MAX;
-            int max = INT_MAX;
+            BitSet64 limits = data.GetBound();
 
-            GetBound(data.Data(), &min, &max);
-
-            if (min > ValueFPGA::MIN && max < ValueFPGA::MAX)
+            if (limits.iword[0] < ValueFPGA::MIN || limits.iword[1] > ValueFPGA::MAX)
             {
-                continue;
-            }
-            else
-            {
+                result = range;
 
+                if (result != Range::_20V)
+                {
+                    ++result;
+                }
             }
         }
     }
-
-
-//    if (ReadDataWithSynchronization(ch, 2000, data))        // ≈сли в течение 2 секунд не считан сигнал, то его нет на этом канале - выходим
-//    {
-//        int min = 0;
-//        int max = 0;
-//
-//        int bound = GetBound(data.Data(), &min, &max);
-//
-//        if (bound > (ValueFPGA::MAX - ValueFPGA::MIN) / 10.0 * 2)   // ≈сли размах сигнала меньше двух клеток - тоже выходим
-//        {
-//            StartMode::Set(StartMode::Auto);
-//
-//            for (range = Range::Count - 1; range >= Range::_2mV; range--)
-//            {
-//                Range::Set(ch, (Range::E)range);
-//
-//                ReadDataWithSynchronization(ch, 10000, data);
-//
-//                GetBound(data.Data(), &min, &max);
-//
-//                if (min > ValueFPGA::MIN && max < ValueFPGA::MAX)       // ≈сли все значени€ внутри экрана
-//                {
-//                    break;                                              // “о мы нашли наш Range - выходим из цикла
-//                }
-//            }
-//        }
-//    }
 
     Range::Set(ch, oldRange);
     PeackDetMode::Set(peackDet);
@@ -259,21 +229,20 @@ bool FPGA::AutoFinder::DataFinder::ReadDataWithSynchronization(Chan ch, uint tim
 }
 
 
-static int FPGA::AutoFinder::GetBound(uint8 data[1024], int *_min, int *_max)
+BitSet64 FPGA::AutoFinder::DataFinder::GetBound()
 {
     int min = 255;
     int max = 0;
 
-    for (int i = 0; i < 512; i++)
+    uint8 *dat = Data();
+
+    for (int i = 0; i < Size(); i++)
     {
-        SET_MIN_IF_LESS(data[i], min);
-        SET_MAX_IF_LARGER(data[i], max);
+        SET_MIN_IF_LESS(dat[i], min);
+        SET_MAX_IF_LARGER(dat[i], max);
     }
 
-    *_min = min;
-    *_max = max;
-
-    return max - min;
+    return BitSet64(min, max);
 }
 
 
