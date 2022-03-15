@@ -5,6 +5,7 @@
 #include "Hardware/Sound.h"
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"
+#include <stm32f4xx_hal.h>
 
 
 int8 MACaddress::cur_digit = 0;

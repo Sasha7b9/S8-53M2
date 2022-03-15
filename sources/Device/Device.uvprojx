@@ -986,16 +986,6 @@
               <FileType>5</FileType>
               <FilePath>.\src\Data\Processing.h</FilePath>
             </File>
-            <File>
-              <FileName>DataController.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Data\DataController.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>DataController.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Data\DataController.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -2895,16 +2885,6 @@
               <FileName>Processing.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Data\Processing.h</FilePath>
-            </File>
-            <File>
-              <FileName>DataController.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Data\DataController.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>DataController.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Data\DataController.h</FilePath>
             </File>
           </Files>
         </Group>

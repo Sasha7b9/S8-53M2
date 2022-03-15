@@ -29,20 +29,8 @@ void Timer::PauseOnTime(uint timeMS)
 
 void Timer::PauseOnTicks(uint numTicks)
 {
-    uint startTicks = TIM2->CNT;
-    while (TIM2->CNT - startTicks < numTicks) {};
-}
-
-
-uint Timer::GetTicks()
-{
-    return TIM2->CNT;
-}
-
-
-uint Timer::GetMS()
-{
-    return HAL_GetTick();
+    uint startTicks = TIME_TICKS;
+    while (TIME_TICKS - startTicks < numTicks) {};
 }
 
 
@@ -56,15 +44,15 @@ void Timer::StartMultiMeasurement()
 
 void Timer::StartLogging()
 {
-    timeStartLogging = TIM2->CNT;
+    timeStartLogging = TIME_TICKS;
     timePrevPoint = timeStartLogging;
 }
 
 
 uint Timer::LogPointUS(char *name)
 {
-    uint interval = TIM2->CNT - timePrevPoint;
-    timePrevPoint = TIM2->CNT;
+    uint interval = TIME_TICKS - timePrevPoint;
+    timePrevPoint = TIME_TICKS;
     LOG_WRITE("%s %.2f us", name, interval / 120.0f);
     return interval;
 }
@@ -72,14 +60,14 @@ uint Timer::LogPointUS(char *name)
 
 uint Timer::LogPointMS(char *name)
 {
-    uint interval = TIM2->CNT - timePrevPoint;
-    timePrevPoint = TIM2->CNT;
+    uint interval = TIME_TICKS - timePrevPoint;
+    timePrevPoint = TIME_TICKS;
     LOG_WRITE("%s %.2f ms", name, interval / 120e3);
     return interval;
 }
 
 
-void Timer::Enable(TypeTimer::E type, int timeInMS, pFuncVV eF)
+void Timer::Enable(TypeTimer::E type, int timeInMS, void(*eF)())
 {
     f[type] = eF;
     reactionTimeMS[type] = timeInMS;

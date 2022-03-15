@@ -4,10 +4,6 @@
 #include "Utils/GlobalFunctions.h"
 
 
-#define TIME_MS    Timer::GetMS()
-#define TIME_TICKS Timer::GetTicks()
-
-
 struct TypeTimer
 {
     enum E
@@ -36,13 +32,6 @@ namespace Timer
     void PauseOnTime(uint timeMS);
 
     void PauseOnTicks(uint numTicks);
-
-    // Колличество тиков, прошедших с момента последнего вызова функции Timer_StartMultiMeasurement().
-    // В одной секунде 120.000.000 тиков. Максимальный отрезок времени, который можно отсчитать с её помощью - 35 сек.
-    // Количество тиков, прошедших с момента последнего вызова функции Timer_StartMultiMeasurement(). Не более (1 << 32).
-    uint GetTicks();
-
-    uint GetMS();
 
     // Функция вызывается по прерыванию системного таймера для работы таймеров. Увеличивает внутренее время таймеров на 1мс.
     void Update1ms();
@@ -74,6 +63,15 @@ namespace Timer
 
     uint LogPointMS(char *name);
 };
+
+#define TIME_MS HAL_GetTick()
+
+/**
+  * gTimerTics - количество тиков, прошедших с момента последнего вызова функции Timer_StartMultiMeasurement().
+  * В одной секунде 120.000.000 тиков. Максимальный отрезок времени, который можно отсчитать с её помощью - 35 сек.
+  * Количество тиков, прошедших с момента последнего вызова функции Timer_StartMultiMeasurement(). Не более (1 << 32).
+***/
+#define TIME_TICKS (TIM2->CNT)
 
 
 // Структура для отсчёта времени

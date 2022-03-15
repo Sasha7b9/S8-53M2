@@ -36,6 +36,10 @@ namespace Storage
 
     int NumberAvailableEntries();
 
+    extern uint8        *dataA;     // ”казатель на данные первого канала, который надо рисовать на экране
+    extern uint8        *dataB;     // ”казатель на данные второго канала, который надо рисовать на экране
+    extern DataSettings *DS;        // ”казатель на параметры рисуемых сигналов
+
     extern uint8        *dataLastA;
     extern uint8        *dataLastB;
     extern DataSettings *dsLast;

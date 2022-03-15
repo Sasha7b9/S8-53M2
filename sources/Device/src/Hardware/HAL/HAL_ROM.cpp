@@ -6,7 +6,6 @@
 #include "Utils/GlobalFunctions.h"
 #include "Log.h"
 #include "Hardware/HAL/HAL.h"
-#include "Data/DataController.h"
 #include <stm32f4xx_hal.h>
 #include <cstring>
 

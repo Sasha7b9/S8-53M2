@@ -1,5 +1,4 @@
 // 2022/02/11 17:49:10 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
-#include "defines.h"
 #include "Data/Storage.h"
 #include "FPGA/FPGA.h"
 #include "Settings/Settings.h"
@@ -10,12 +9,15 @@
 #include "Hardware/HAL/HAL.h"
 #include "Utils/Strings.h"
 #include "Utils/Containers/Buffer.h"
-#include "Data/DataController.h"
 #include <cstring>
 
 
 namespace Storage
 {
+    uint8 *dataA = nullptr;
+    uint8 *dataB = nullptr;
+    DataSettings *DS = nullptr;
+
     uint8 *dataLastA = nullptr;
     uint8 *dataLastB = nullptr;
     DataSettings *dsLast = nullptr;
@@ -97,6 +99,12 @@ namespace Storage
         // тупо добавляет новый фрейм
         void AppendFrame(DataSettings);
     }
+}
+
+
+void DataSettings::PrintElement()
+{
+    LOG_WRITE("addr:%x, addrNext:%x, addrPrev:%x, size:%d", this, addrNext, addrPrev, SizeElem());
 }
 
 

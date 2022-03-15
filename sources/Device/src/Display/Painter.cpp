@@ -15,6 +15,7 @@
 #include "Menu/FileManager.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/InterCom.h"
+#include <stm32f4xx_hal.h>
 #include <cstring>
 
 
@@ -747,6 +748,7 @@ bool Painter::SaveScreenToFlashDrive() {
         FDrive::WriteToFile(buffer, 256, &structForWrite);
     }
 
+    HAL_GPIO_WritePin(GPIOG, GPIO_PIN_1, GPIO_PIN_SET);     // Отключаем буфер управления FPGA, чтобы снять шунтирование чтения дисплея
     for(int y = 239; y >= 0; y--)
     {
         for(int x = 1; x < 320; x += 2)
@@ -757,6 +759,7 @@ bool Painter::SaveScreenToFlashDrive() {
         }
         FDrive::WriteToFile(buffer, 160, &structForWrite);
     }
+    HAL_GPIO_WritePin(GPIOG, GPIO_PIN_1, GPIO_PIN_RESET);   // Подключаем буфер управления FPGA
     
     FDrive::CloseFile(&structForWrite);
     

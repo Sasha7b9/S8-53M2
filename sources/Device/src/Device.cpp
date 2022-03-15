@@ -15,7 +15,7 @@
 #include "FDrive/FDrive.h"
 #include "Menu/Pages/Definition.h"
 #include "Utils/Strings.h"
-#include "Data/DataController.h"
+#include <stm32f4xx_hal.h>
 
 
 namespace Device
@@ -58,8 +58,6 @@ void Device::Update()
 
     Timer::StartMultiMeasurement();      // Сброс таймера для замера длительности временных интервалов в течение одной итерации цикла.
 
-    DataController::ResetFlags();
-
     FDrive::Update();
 
     FPGA::Update();                      // Обновляем аппаратную часть.
@@ -82,6 +80,47 @@ void Device::Update()
 
 void Device::ProcessingSignal()
 {
+    if (Storage::NumElements() == 0)
+    {
+        static DataSettings ds_null;
+        ds_null.Init();
+        Storage::DS = &ds_null;
+        return;
+    }
+
+    uint8 *dataA = Storage::dataA;
+    uint8 *dataB = Storage::dataB;
+    DataSettings **ds = &Storage::DS;
+
+    BitSet32 points = SettingsDisplay::PointsOnDisplay();
+
+    if (MODE_WORK_IS_DIRECT)
+    {
+        Storage::GetData(0, &Storage::DS, &Storage::dataA, &Storage::dataB);
+        dataA = Storage::dataA;
+        dataB = Storage::dataB;
+
+        if (SettingsDisplay::NumAverages() != 1 || TBase::InModeRandomizer())
+        {
+            Storage::dataA = Storage::GetAverageData(Chan::A);
+            Storage::dataB = Storage::GetAverageData(Chan::B);
+        }
+    }
+    else if (MODE_WORK_IS_LATEST)
+    {
+        dataA = Storage::dataLastA;
+        dataB = Storage::dataLastB;
+        ds = &Storage::dsLast;
+        Storage::GetData(PageMemory::Latest::current, &Storage::dsLast, &Storage::dataLastA, &Storage::dataLastB);
+    }
+    else if (MODE_WORK_IS_MEMINT)
+    {
+        dataA = Storage::dataIntA;
+        dataB = Storage::dataIntB;
+        ds = &Storage::dsInt;
+        HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
+    }
+
     if (MODE_WORK_IS_MEMINT)
     {
         if (!MODE_SHOW_MEMINT_IS_SAVED)

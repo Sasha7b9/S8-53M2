@@ -15,6 +15,7 @@
 #include "common/Panel/Controls.h"
 #include "FDrive/FDrive.h"
 #include "Menu/Pages/Definition.h"
+#include <stm32f4xx_hal.h>
 
 
 namespace Panel

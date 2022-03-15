@@ -6,7 +6,6 @@
 #include "Log.h"
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"
-#include "Data/DataController.h"
 #include <cmath>
 #include <cstring>
 #include <cstdio>
