@@ -3,6 +3,7 @@
 #include "defines.h"
 #include "Settings/SettingsTypes.h"
 #include "Display/Display.h"
+#include "Data/Data.h"
 
 
 struct DataSettings;
@@ -45,7 +46,7 @@ public:
     static void GetDataInfo(bool existData[MAX_NUM_SAVED_WAVES]);
     static bool ExistData(int num);
     static void SaveData(int num, DataSettings *ds, uint8 *data0, uint8 *data1);
-    static bool GetData(int num, DataSettings **ds, uint8 **data0, uint8 **data1);
+    static bool GetData(int num, DataStruct &);
     static void DeleteData(int num);
     // Стирает сектора с данными
     static void EraseData();

@@ -23,6 +23,7 @@ public:
     void Free();
 
     void Fill(T value);
+    void Fill(T *buffer, int size);
 
     inline int Size() const { return size; }
 

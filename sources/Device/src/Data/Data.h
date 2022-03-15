@@ -1,5 +1,6 @@
 #pragma once
 #include "FPGA/SettingsFPGA.h"
+#include "Utils/Containers/Buffer.h"
 
 
 struct PackedTime
@@ -63,13 +64,19 @@ struct DataSettings
 };
 
 
+struct BufferU8 : public Buffer<uint8>
+{
+    BufferU8(int size = 0) : Buffer<uint8>(size) { }
+};
+
+
 struct DataStruct
 {
-    uint8 *A;
-    uint8 *B;
+    BufferU8 A;
+    BufferU8 B;
     DataSettings *ds;
 
-    DataStruct() : A(nullptr), B(nullptr), ds(nullptr) { }
+    DataStruct() : ds(nullptr) { }
 };
 
 

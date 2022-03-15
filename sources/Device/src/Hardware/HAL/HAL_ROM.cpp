@@ -429,44 +429,47 @@ void HAL_ROM::SaveData(int num, DataSettings *ds, uint8 *data0, uint8 *data1)
 }
 
 
-bool HAL_ROM::GetData(int num, DataSettings **ds, uint8 **dataA, uint8 **dataB)
+bool HAL_ROM::GetData(int num, DataStruct &data_struct)
 {
     uint addrDataInfo = FindActualDataInfo();
+
+    data_struct.A.Realloc(0);
+    data_struct.B.Realloc(0);
+
     if (READ_WORD(addrDataInfo + 4 * num) == 0)
     {
-        *ds = 0;
-        *dataA = 0;
-        *dataB = 0;
+        data_struct.ds = nullptr;
+
         return false;
     }
 
     uint addrDS = READ_WORD(addrDataInfo + 4 * num);
 
-    uint addrData0 = 0;
-    uint addrData1 = 0;
-
-    *ds = (DataSettings*)addrDS;
+    data_struct.ds = (DataSettings*)addrDS;
     
-    if ((*ds)->en_a)
+    if (data_struct.ds->en_a)
     {
-        addrData0 = addrDS + sizeof(DataSettings);
+        uint address = addrDS + sizeof(DataSettings);
+
+        data_struct.A.Fill((uint8 *)address, data_struct.ds->BytesInChannel());
     }
 
-    if ((*ds)->en_b)
+    if (data_struct.ds->en_b)
     {
-        if (addrData0 != 0)
+        uint address = 0;
+
+        if (data_struct.ds->en_a)
         {
-            addrData1 = addrData0 + (*ds)->BytesInChannel();
+            address = addrDS + sizeof(DataSettings) + data_struct.ds->BytesInChannel();
         }
         else
         {
-            addrData1 = addrDS + sizeof(DataSettings);
+            address = addrDS + sizeof(DataSettings);
         }
+
+        data_struct.B.Fill((uint8 *)address, data_struct.ds->BytesInChannel());
     }
 
-    *dataA = (uint8*)addrData0;
-    *dataB = (uint8*)addrData1;
-    
     return true;
 }
 

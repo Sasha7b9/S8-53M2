@@ -736,8 +736,8 @@ void Display::DrawDataMemInt()
 {
     if(Data::ins.ds)
      {
-        DrawDataChannel(Data::ins.A, Chan::A, Data::ins.ds, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Data::ins.B, Chan::B, Data::ins.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Data::ins.A.Data(), Chan::A, Data::ins.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Data::ins.B.Data(), Chan::B, Data::ins.ds, GRID_TOP, Grid::ChannelBottom());
     }
 }
 
@@ -1013,8 +1013,8 @@ void Display::DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int
 
 void Display::DrawMemoryWindow()
 {
-    uint8 *datA = Data::ins.A;
-    uint8 *datB = Data::ins.B;
+    uint8 *datA = Data::ins.A.Data();
+    uint8 *datB = Data::ins.B.Data();
     DataSettings *ds = Data::ins.ds;
     
     if(MODE_WORK_IS_DIRECT || MODE_WORK_IS_LATEST)
