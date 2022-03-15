@@ -13,19 +13,11 @@
 
 
 extern const Page pDisplay;
+extern const Page mspAccumulation;
+extern const Page mspAveraging;
+extern const Page mspGrid;
 
 
-extern const Choice mcMapping;                              //     ДИСПЛЕЙ - Отображение
-
-extern const Page mspAccumulation;                          //     ДИСПЛЕЙ - НАКОПЛЕНИЕ
-static bool IsActive_Accumulation();                        // Активна ли страница ДИСПЛЕЙ-НАКОПЛЕНИЕ
-extern const Choice mcAccumulation_Number;                  // ДИСПЛЕЙ - НАКОПЛЕНИЕ - Количество
-extern const Choice mcAccumulation_Mode;                    // ДИСПЛЕЙ - НАКОПЛЕНИЕ - Режим
-extern const Button mcAccumulation_Clear;                   // ДИСПЛЕЙ - НАКОПЛЕНИЕ - Очистить
-static bool IsActive_Accumulation_Clear();                  // Активна ли кнопка ДИСПЛЕЙ-НАКОПЛЕНИЕ-Очистить
-void OnPress_Accumulation_Clear();                          // Обработка нажатия ДИСПЛЕЙ-НАКОПЛЕНИЕ-Очистить
-
-extern const Page mspAveraging;                             //     ДИСПЛЕЙ - УСРЕДНЕНИЕ
 static bool IsActive_Averaging();                           // Активна ли страница ДИСПЛЕЙ-УСРЕДНЕНИЕ
 extern const Choice mcAveraging_Number;                     // ДИСПЛЕЙ - УСРЕДНЕНИЕ - Количество
 extern const Choice mcAveraging_Mode;                       // ДИСПЛЕЙ - УСРЕДНЕНИЕ - Режим
@@ -38,7 +30,6 @@ extern const Choice mcSmoothing;                            //     ДИСПЛЕЙ - Сгл
 
 extern const Choice mcRefreshFPS;                           //     ДИСПЛЕЙ - Частота обновл
 void OnChanged_RefreshFPS(bool active);                     // Реакция на изменение ДИСПЛЕЙ-Частота обновл
-extern const Page mspGrid;                                  //     ДИСПЛЕЙ - СЕТКА
 
 extern const Choice mcGrid_Type;                            //     ДИСПЛЕЙ - СЕТКА - Тип
 extern const Governor mgGrid_Brightness;                    // ДИСПЛЕЙ - СЕТКА - Яркость
@@ -64,20 +55,34 @@ extern const Choice mcSettings_AutoHide;                    // ДИСПЛЕЙ - НАСТРОЙ
 static void OnChanged_Settings_AutoHide(bool autoHide);     // Вызывается при изменении ДИСПЛЕЙ-НАСТРОЙКИ-Скрывать
 
 
-// ДИСПЛЕЙ /////////////////////////
+
+static const Choice mcMapping =
+{
+    TypeItem::Choice, &pDisplay, 0,
+    {
+        "Отображение", "View",
+        "Задаёт режим отображения сигнала.",
+        "Sets the display mode signal."
+    },
+    {
+        {"Вектор",  "Vector"},
+        {"Точки",   "Points"}
+    },
+    (int8 *)&MODE_DRAW_SIGNAL
+};
+
 
 static const arrayItems itemsDisplay =
 {
-    (void*)&mcMapping,              // ДИСПЛЕЙ - Отображение
-    (void*)&mspAccumulation,        // ДИСПЛЕЙ - НАКОПЛЕНИЕ
-    (void*)&mspAveraging,           // ДИСПЛЕЙ - УСРЕДНЕНИЕ
-    (void*)&mcMinMax,               // ДИСПЛЕЙ - Мин Макс
-    (void*)&mcSmoothing,            // ДИСПЛЕЙ - Сглаживание
-    (void*)&mcRefreshFPS,           // ДИСПЛЕЙ - Частота обновл
-    (void*)&mspGrid,                // ДИСПЛЕЙ - СЕТКА
-    (void*)&mcTypeShift,            // ДИСПЛЕЙ - Смещение
-    (void*)&mspSettings             // ДИСПЛЕЙ - НАСТРОЙКИ
-    //(void*)&mcDisplMemoryWindow,  // ДИСПЛЕЙ - Окно памяти
+    (void *)&mcMapping,
+    (void *)&mspAccumulation,
+    (void *)&mspAveraging,
+    (void *)&mcMinMax,
+    (void *)&mcSmoothing,
+    (void *)&mcRefreshFPS,
+    (void *)&mspGrid,
+    (void *)&mcTypeShift,
+    (void *)&mspSettings
 };
 
 static const Page pDisplay                 // ДИСПЛЕЙ
@@ -93,46 +98,6 @@ static const Page pDisplay                 // ДИСПЛЕЙ
 const Page *PageDisplay::self = &pDisplay;
 
 
-// ДИСПЛЕЙ - Отображение ----
-static const Choice mcMapping =
-{
-    TypeItem::Choice, &pDisplay, 0,
-    {
-        "Отображение", "View",
-        "Задаёт режим отображения сигнала.",
-        "Sets the display mode signal."
-    },
-    {
-        {"Вектор",  "Vector"},
-        {"Точки",   "Points"}
-    },
-    (int8*)&MODE_DRAW_SIGNAL
-};
-
-
-// ДИСПЛЕЙ - НАКОПЛЕНИЕ ////////////
-static const arrayItems itemsAccumulation =
-{
-    (void*)&mcAccumulation_Number,  // ДИСПЛЕЙ - НАКОПЛЕНИЕ - Количество
-    (void*)&mcAccumulation_Mode,    // ДИСПЛЕЙ - НАКОПЛЕНИЕ - Режим
-    (void*)&mcAccumulation_Clear    // ДИСПЛЕЙ - НАКОПЛЕНИЕ - Очистить    
-};
-
-static const Page mspAccumulation
-(
-    &pDisplay, IsActive_Accumulation,
-    "НАКОПЛЕНИЕ", "ACCUMULATION",
-    "Настройки режима отображения последних сигналов на экране.",
-    "Mode setting signals to display the last screen.",
-    NamePage::DisplayAccumulation, &itemsAccumulation
-);
-
-static bool IsActive_Accumulation()
-{
-    return !TBase::InModeRandomizer();
-}
-
-// ДИСПЛЕЙ - НАКОПЛЕНИЕ - Количество -----------------------------------------------------------------------------------------------------------------
 static const Choice mcAccumulation_Number =
 {
     TypeItem::ChoiceReg, &mspAccumulation, 0,
@@ -158,11 +123,10 @@ static const Choice mcAccumulation_Number =
         {"128",             "128"},
         {"Бесконечность",   "Infinity"}
     },
-    (int8*)&ENUM_ACCUM
+    (int8 *)&ENUM_ACCUM
 };
 
 
-// ДИСПЛЕЙ - НАКОПЛЕНИЕ - Режим ----------------------------------------------------------------------------------------------------------------------
 static const Choice mcAccumulation_Mode =
 {
     TypeItem::Choice, &mspAccumulation, 0,
@@ -183,11 +147,22 @@ static const Choice mcAccumulation_Mode =
         {"Не сбрасывать",   "Not to dump"},
         {"Сбрасывать",      "Dump"}
     },
-    (int8*)&MODE_ACCUM
+    (int8 *)&MODE_ACCUM
 };
 
 
-// ДИСПЛЕЙ - НАКОПЛЕНИЕ - Очистить /
+static bool IsActive_Accumulation_Clear()
+{
+    return ENUM_ACCUM_IS_INFINITY;
+}
+
+
+void OnPress_Accumulation_Clear()
+{
+    Flags::needFinishDraw = true;
+}
+
+
 static const Button mcAccumulation_Clear
 (
     &mspAccumulation, IsActive_Accumulation_Clear,
@@ -197,23 +172,37 @@ static const Button mcAccumulation_Clear
     OnPress_Accumulation_Clear
 );
 
-static bool IsActive_Accumulation_Clear()
+
+static const arrayItems itemsAccumulation =
 {
-    return ENUM_ACCUM_IS_INFINITY;
+    (void*)&mcAccumulation_Number,
+    (void*)&mcAccumulation_Mode,
+    (void*)&mcAccumulation_Clear
+};
+
+
+static bool IsActive_Accumulation()
+{
+    return !TBase::InModeRandomizer();
 }
 
-void OnPress_Accumulation_Clear()
-{
-    Flags::needFinishDraw = true;
-}
+
+static const Page mspAccumulation
+(
+    &pDisplay, IsActive_Accumulation,
+    "НАКОПЛЕНИЕ", "ACCUMULATION",
+    "Настройки режима отображения последних сигналов на экране.",
+    "Mode setting signals to display the last screen.",
+    NamePage::DisplayAccumulation, &itemsAccumulation
+);
 
 
-// ДИСПЛЕЙ - УСРЕДНЕНИЕ ////////////
 static const arrayItems itemsAveraging =
 {
     (void*)&mcAveraging_Number, // ДИСПЛЕЙ - УСРЕДНЕНИЕ - Количество
     (void*)&mcAveraging_Mode    // ДИСПЛЕЙ - УСРЕДНЕНИЕ - Режим    
 };
+
 
 static const Page mspAveraging
 (
@@ -224,13 +213,13 @@ static const Page mspAveraging
     NamePage::DisplayAverage, &itemsAveraging
 );
 
+
 static bool IsActive_Averaging()
 {
     return true;
 }
 
 
-// ДИСПЛЕЙ - УСРЕДНЕНИЕ - Количество -----------------------------------------------------------------------------------------------------------------
 static const Choice mcAveraging_Number =
 {
     TypeItem::ChoiceReg, &mspAveraging, 0,
@@ -255,7 +244,6 @@ static const Choice mcAveraging_Number =
 };
 
 
-// ДИСПЛЕЙ - УСРЕДНЕНИЕ - Режим ----------------------------------------------------------------------------------------------------------------------
 static const Choice mcAveraging_Mode =
 {
     TypeItem::Choice, &mspAveraging, 0,
@@ -278,7 +266,6 @@ static const Choice mcAveraging_Mode =
 };
 
 
-// ДИСПЛЕЙ - Мин Макс -------
 static const Choice mcMinMax =
 {
     TypeItem::ChoiceReg, &pDisplay, IsActive_MinMax,
