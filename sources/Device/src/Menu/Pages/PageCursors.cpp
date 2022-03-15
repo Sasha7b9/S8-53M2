@@ -17,54 +17,12 @@
 
 
 extern const Page pCursors;
+extern const Page mspSet;
+extern const SmallButton sbSetU;              // КУРСОРЫ - УСТАНОВИТЬ - Курсоры U . Выбор курсора напряжения - курсор 1, курсор 2, оба курсора или отключены.
+extern const SmallButton sbSetT;              // КУРСОРЫ - УСТАНОВИТЬ - Курсоры T . Выбор курсора времени - курсор 1, курсор 2, оба курсора или отключены.
+extern const SmallButton sbSet100;            // КУРСОРЫ - УСТАНОВИТЬ - 100% . Установка 100 процентов в текущие места курсоров.
+extern const SmallButton sbSetPointsPercents; // КУРСОРЫ - УСТАНОВИТЬ - Перемещение . Переключение шага перемещения курсоров - по пикселям или по процентам.
 
-extern const Choice mcShow;                             // КУРСОРЫ - Показывать
-
-extern const Choice mcTrackingT1U1;                     // КУРСОРЫ - Курсоры T1,U1
-
-extern const Choice mcTrackingT2U2;                     // КУРСОРЫ - Курсоры T2,U2
-
-extern const Choice mcShowFreq;                         // КУРОСРЫ - 1/dT
-
-extern const Page mspSet;                               // КУРСОРЫ - УСТАНОВИТЬ
-static void OnRotate_RegSet_Set(int angle);             // Вращение ручки УСТАНОВКА на странице КУРСОРЫ-УСТАНОВИТЬ
-extern const SmallButton sbSetExit;                     // КУРСОРЫ - УСТАНОВИТЬ - Выход
-static void PressSB_Cursors_Exit();
-extern const SmallButton sbSetSource;                   // КУРСОРЫ - УСТАНОВИТЬ - Источник
-static void PressSB_Cursors_Source();
-static void DrawSB_Cursors_Source(int x, int y);
-static void DrawSB_Cursors_SourceA(int x, int y);
-static void DrawSB_Cursors_SourceB(int x, int y);
-extern const SmallButton sbSetU;                        // КУРСОРЫ - УСТАНОВИТЬ - Курсоры U . Выбор курсора напряжения - курсор 1, курсор 2, оба курсора или отключены.
-static void PressSB_Cursors_U();
-static void DrawSB_Cursors_U(int x, int y);
-static void DrawSB_Cursors_U_Disable(int x, int y);
-static void DrawSB_Cursors_U_Upper(int x, int y);
-static void DrawSB_Cursors_U_Lower(int x, int y);
-static void DrawSB_Cursors_U_Both_Enable(int x, int y);
-static void DrawSB_Cursors_U_Both_Disable(int x, int y);
-extern const SmallButton sbSetT;                        // КУРСОРЫ - УСТАНОВИТЬ - Курсоры T . Выбор курсора времени - курсор 1, курсор 2, оба курсора или отключены.
-static void PressSB_Cursors_T();
-static void DrawSB_Cursors_T(int x, int y);
-static void DrawSB_Cursors_T_Disable(int x, int y);
-static void DrawSB_Cursors_T_Both_Disable(int x, int y);
-static void DrawSB_Cursors_T_Left(int x, int y);
-static void DrawSB_Cursors_T_Right(int x, int y);
-static void DrawSB_Cursors_T_Both_Enable(int x, int y);
-extern const SmallButton sbSet100;                      // КУРСОРЫ - УСТАНОВИТЬ - 100% . Установка 100 процентов в текущие места курсоров.
-static void DrawSB_Cursors_100(int x, int y);
-static void PressSB_Cursors_100();
-extern const SmallButton sbSetPointsPercents;           // КУРСОРЫ - УСТАНОВИТЬ - Перемещение . Переключение шага перемещения курсоров - по пикселям или по процентам.
-static void PressSB_Cursors_PointsPercents();
-static void DrawSB_Cursors_PointsPercents(int x, int y);
-static void DrawSB_Cursors_PointsPercents_Percents(int x, int y);
-static void DrawSB_Cursors_PointsPercents_Points(int x, int y);
-
-
-static void MoveCursUonPercentsOrPoints(int delta);
-static void MoveCursTonPercentsOrPoints(int delta);
-static void SetShiftCursPosU(Chan::E ch, int numCur, float delta);    // Изменить значение позиции курсора напряжения на delta точек
-static void SetShiftCursPosT(Chan::E ch, int numCurs, float delta);   // Изменить значение позиции курсора времени на delta точек
 static void SetCursPos100(Chan::E ch);                                // Запомнить позиции курсоров, соответствующие 100%.
 static void SetCursSource(Chan::E ch);                                // Установить источник курсорных измерений.
 static void IncCursCntrlU(Chan::E ch);                                // Выбрать следующий курсор.
@@ -147,7 +105,6 @@ void SetCursPosU(Chan::E ch, int numCur, float pos)
 }
 
 
-
 void SetCursPosT(Chan::E ch, int numCur, float pos)
 {
     if (CURS_MOVEMENT_IS_PERCENTS)
@@ -159,28 +116,6 @@ void SetCursPosT(Chan::E ch, int numCur, float pos)
         CURS_POS_T(ch, numCur) = Math::Limitation<float>(pos, 0, MAX_POS_T);
     }
 }
-
-
-// КУРСОРЫ /////////////////////////
-static const arrayItems itemsCursors =
-{
-    (void*)&mcShow,             // КУРСОРЫ - Показывать
-    (void*)&mcTrackingT1U1,     // КУРСОРЫ - Курсоры T1,U1
-    (void*)&mcTrackingT2U2,     // КУРСОРЫ - Курсоры T2,U2
-    (void*)&mcShowFreq,         // КУРОСРЫ - 1/dT
-    (void*)&mspSet              // КУРСОРЫ - УСТАНОВИТЬ
-};
-
-static const Page pCursors                // КУРСОРЫ
-(
-    PageMain::self, 0,
-    "КУРСОРЫ", "CURSORS",
-    "Курсорные измерения.",
-    "Cursor measurements.",
-    NamePage::Cursors, &itemsCursors
-);
-
-const Page *PageCursors::self = &pCursors;
 
 
 static const Choice mcShow =
@@ -199,7 +134,6 @@ static const Choice mcShow =
 };
 
 
-// КУРСОРЫ - Курсоры T1,U1 --
 static const Choice mcTrackingT1U1 =
 {
     TypeItem::Choice, &pCursors, 0,
@@ -228,7 +162,6 @@ static const Choice mcTrackingT1U1 =
 };
 
 
-// КУРСОРЫ - Курсоры T2,U2 --
 static const Choice mcTrackingT2U2 =
 {
     TypeItem::Choice, &pCursors, 0,
@@ -257,7 +190,6 @@ static const Choice mcTrackingT2U2 =
 };
 
 
-// КУРОСРЫ - 1/dT -----------
 static const Choice mcShowFreq =
 {
     TypeItem::Choice, &pCursors, 0,
@@ -278,63 +210,76 @@ static const Choice mcShowFreq =
 };
 
 
-// КУРСОРЫ - УСТАНОВИТЬ ////////////
-static const arrayItems itemsSet =
+static void PressSB_Cursors_Exit()
 {
-    (void*)&sbSetExit,              // КУРСОРЫ - УСТАНОВИТЬ - Выход
-    (void*)&sbSetSource,            // КУРСОРЫ - УСТАНОВИТЬ - Источник
-    (void*)&sbSetU,                 // КУРСОРЫ - УСТАНОВИТЬ - Курсоры U
-    (void*)&sbSetT,                 // КУРСОРЫ - УСТАНОВИТЬ - Курсоры T
-    (void*)&sbSet100,               // КУРСОРЫ - УСТАНОВИТЬ - 100%
-    (void*)&sbSetPointsPercents     // КУРСОРЫ - УСТАНОВИТЬ - Перемещение
-};
+    Display::RemoveAddDrawFunction();
+}
 
-static const Page mspSet
+
+static const SmallButton sbSetExit
 (
-    &pCursors, 0,
-    "УСТАНОВИТЬ", "SET",
-    "Переход в режим курсорных измерений",
-    "Switch to cursor measures",
-    NamePage::SB_Curs, &itemsSet, EmptyFuncVV, EmptyFuncVV, OnRotate_RegSet_Set
+    &mspSet,
+    COMMON_BEGIN_SB_EXIT,
+    PressSB_Cursors_Exit,
+    DrawSB_Exit
 );
 
-static void OnRotate_RegSet_Set(int angle)
+
+static void PressSB_Cursors_Source()
 {
-    if(CURS_ACTIVE_IS_U)
-    {
-        MoveCursUonPercentsOrPoints(angle);
-    }
-    else
-    {
-        MoveCursTonPercentsOrPoints(angle);
-    }
+    Chan::E source = CURS_SOURCE_A ? Chan::B : Chan::A;
+    SetCursSource(source);
 }
 
-static void MoveCursUonPercentsOrPoints(int delta)
+
+static void DrawSB_Cursors_SourceA(int x, int y)
 {
-    CursCntrl cursCntrl = CURsU_CNTRL;
-
-    float value = delta;
-
-    Chan::E source = CURS_SOURCE;
-
-    if(CURS_MOVEMENT_IS_PERCENTS)
-    {
-        value *= DELTA_U100(source) / 100.0f;
-    }
-
-    if(cursCntrl == CursCntrl_1 || cursCntrl == CursCntrl_1_2)
-    {
-        SetShiftCursPosU(source, 0, value);
-    }
-    if(cursCntrl == CursCntrl_2 || cursCntrl == CursCntrl_1_2)
-    {
-        SetShiftCursPosU(source, 1, value);
-    }
-
-    PageCursors::Cursors_Update();
+    PText::Draw(x + 7, y + 5, "1");
 }
 
+
+static void DrawSB_Cursors_SourceB(int x, int y)
+{
+    PText::Draw(x + 7, y + 5, "2");
+}
+
+
+static void DrawSB_Cursors_Source(int x, int y)
+{
+    CURS_SOURCE_A ? DrawSB_Cursors_SourceA(x, y) : DrawSB_Cursors_SourceB(x, y);
+}
+
+
+static const arrayHints hintsSetSource =
+{
+    { DrawSB_Cursors_SourceA, "канал 1", "channel 1" }, { DrawSB_Cursors_SourceB, "канал 2", "channel 2" }
+};
+
+
+static const SmallButton sbSetSource
+(
+    &mspSet, 0,
+    "Источник", "Source",
+    "Выбор канала для курсорных измерений",
+    "Channel choice for measurements",
+    PressSB_Cursors_Source,
+    DrawSB_Cursors_Source,
+    &hintsSetSource
+);
+
+
+static const arrayItems itemsSet =
+{
+    (void*)&sbSetExit,
+    (void*)&sbSetSource,
+    (void*)&sbSetU,
+    (void*)&sbSetT,
+    (void*)&sbSet100,
+    (void*)&sbSetPointsPercents
+};
+
+
+// Изменить значение позиции курсора напряжения на delta точек
 static void SetShiftCursPosU(Chan::E ch, int numCur, float delta)
 {
     if (CURS_MOVEMENT_IS_PERCENTS)
@@ -347,30 +292,34 @@ static void SetShiftCursPosU(Chan::E ch, int numCur, float delta)
     }
 }
 
-static void MoveCursTonPercentsOrPoints(int delta)
+
+static void MoveCursUonPercentsOrPoints(int delta)
 {
-    Chan::E source = CURS_SOURCE;
-    CursCntrl cursCntrl = CURS_CNTRL_T(source);
+    CursCntrl cursCntrl = CURsU_CNTRL;
 
     float value = delta;
 
-    if(CURS_MOVEMENT_IS_PERCENTS)
+    Chan::E source = CURS_SOURCE;
+
+    if (CURS_MOVEMENT_IS_PERCENTS)
     {
-        value *= DELTA_T100(source) / 100.0f;
+        value *= DELTA_U100(source) / 100.0f;
     }
 
-    if(cursCntrl == CursCntrl_1 || cursCntrl == CursCntrl_1_2)
+    if (cursCntrl == CursCntrl_1 || cursCntrl == CursCntrl_1_2)
     {
-        SetShiftCursPosT(source, 0, value);
+        SetShiftCursPosU(source, 0, value);
     }
-    if(cursCntrl == CursCntrl_2 || cursCntrl == CursCntrl_1_2)
+    if (cursCntrl == CursCntrl_2 || cursCntrl == CursCntrl_1_2)
     {
-        SetShiftCursPosT(source, 1, value);
+        SetShiftCursPosU(source, 1, value);
     }
 
     PageCursors::Cursors_Update();
 }
 
+
+// Изменить значение позиции курсора времени на delta точек
 static void SetShiftCursPosT(Chan::E ch, int numCur, float delta)
 {
     if (CURS_MOVEMENT_IS_PERCENTS)
@@ -384,61 +333,84 @@ static void SetShiftCursPosT(Chan::E ch, int numCur, float delta)
 }
 
 
-// КУРСОРЫ - УСТАНОВИТЬ - Выход ----------------------------------------------------------------------------------------------------------------------
-static const SmallButton sbSetExit
+static void MoveCursTonPercentsOrPoints(int delta)
+{
+    Chan::E source = CURS_SOURCE;
+    CursCntrl cursCntrl = CURS_CNTRL_T(source);
+
+    float value = delta;
+
+    if (CURS_MOVEMENT_IS_PERCENTS)
+    {
+        value *= DELTA_T100(source) / 100.0f;
+    }
+
+    if (cursCntrl == CursCntrl_1 || cursCntrl == CursCntrl_1_2)
+    {
+        SetShiftCursPosT(source, 0, value);
+    }
+    if (cursCntrl == CursCntrl_2 || cursCntrl == CursCntrl_1_2)
+    {
+        SetShiftCursPosT(source, 1, value);
+    }
+
+    PageCursors::Cursors_Update();
+}
+
+
+static void OnRotate_RegSet_Set(int angle)
+{
+    if (CURS_ACTIVE_IS_U)
+    {
+        MoveCursUonPercentsOrPoints(angle);
+    }
+    else
+    {
+        MoveCursTonPercentsOrPoints(angle);
+    }
+}
+
+
+static const Page mspSet
 (
-    &mspSet,
-    COMMON_BEGIN_SB_EXIT,
-    PressSB_Cursors_Exit,
-    DrawSB_Exit
+    &pCursors, 0,
+    "УСТАНОВИТЬ", "SET",
+    "Переход в режим курсорных измерений",
+    "Switch to cursor measures",
+    NamePage::SB_Curs, &itemsSet, EmptyFuncVV, EmptyFuncVV, OnRotate_RegSet_Set
 );
 
-static void PressSB_Cursors_Exit()
+
+static void DrawSB_Cursors_U_Disable(int x, int y)
 {
-    Display::RemoveAddDrawFunction();
+    PText::Draw(x + 7, y + 5, "U");
 }
 
 
-// КУРСОРЫ - УСТАНОВИТЬ - Источник ----------------------------------------------------------------------------------------------------------------------
-static const arrayHints hintsSetSource =
+static void DrawSB_Cursors_U_Both_Disable(int x, int y)
 {
-    { DrawSB_Cursors_SourceA, "канал 1", "channel 1" }, { DrawSB_Cursors_SourceB, "канал 2", "channel 2" }
-};
-
-static const SmallButton sbSetSource
-(
-    &mspSet, 0,
-    "Источник", "Source",
-    "Выбор канала для курсорных измерений",
-    "Channel choice for measurements",
-    PressSB_Cursors_Source,
-    DrawSB_Cursors_Source,
-    &hintsSetSource
-);
-
-static void PressSB_Cursors_Source()
-{
-    Chan::E source = CURS_SOURCE_A ? Chan::B : Chan::A;
-    SetCursSource(source);
-}
-
-static void DrawSB_Cursors_Source(int x, int y)
-{
-    CURS_SOURCE_A ? DrawSB_Cursors_SourceA(x, y) : DrawSB_Cursors_SourceB(x, y);
-}
-
-static void DrawSB_Cursors_SourceA(int x, int y)
-{
-    PText::Draw(x + 7, y + 5, "1");
-}
-
-static void DrawSB_Cursors_SourceB(int x, int y)
-{
-    PText::Draw(x + 7, y + 5, "2");
+    PageCursors::DrawMenuCursVoltage(x + 7, y + 5, false, false);
 }
 
 
-// КУРСОРЫ - УСТАНОВИТЬ - Курсоры U ------------------------------------------------------------------------------------------------------------------
+static void DrawSB_Cursors_U_Upper(int x, int y)
+{
+    PageCursors::DrawMenuCursVoltage(x + 7, y + 5, true, false);
+}
+
+
+static void DrawSB_Cursors_U_Lower(int x, int y)
+{
+    PageCursors::DrawMenuCursVoltage(x + 7, y + 5, false, true);
+}
+
+
+static void DrawSB_Cursors_U_Both_Enable(int x, int y)
+{
+    PageCursors::DrawMenuCursVoltage(x + 7, y + 5, true, true);
+}
+
+
 static const arrayHints hintsSetU =
 {
     { DrawSB_Cursors_U_Disable,     "курсоры напряжения выключены",
@@ -453,16 +425,6 @@ static const arrayHints hintsSetU =
                                     "cursors of tension are switched on, control of both cursors" }
 };
 
-static const SmallButton sbSetU
-(
-    &mspSet, 0,
-    "Курсоры U", "Cursors U",
-    "Выбор курсоров напряжения для индикации и управления",
-    "Choice of cursors of voltage for indication and management",
-    PressSB_Cursors_U,
-    DrawSB_Cursors_U,
-    &hintsSetU
-);
 
 static void PressSB_Cursors_U()
 {
@@ -473,12 +435,13 @@ static void PressSB_Cursors_U()
     CURS_ACTIVE = CursActive_U;
 }
 
+
 static void DrawSB_Cursors_U(int x, int y)
 {
     CursCntrl cursCntrl = CURsU_CNTRL;
     if (cursCntrl == CursCntrl_Disable)
     {
-       DrawSB_Cursors_U_Disable(x, y);
+        DrawSB_Cursors_U_Disable(x, y);
     }
     else
     {
@@ -516,33 +479,45 @@ static void DrawSB_Cursors_U(int x, int y)
     }
 }
 
-static void DrawSB_Cursors_U_Disable(int x, int y)
+
+static const SmallButton sbSetU
+(
+    &mspSet, 0,
+    "Курсоры U", "Cursors U",
+    "Выбор курсоров напряжения для индикации и управления",
+    "Choice of cursors of voltage for indication and management",
+    PressSB_Cursors_U,
+    DrawSB_Cursors_U,
+    &hintsSetU
+);
+
+
+static void DrawSB_Cursors_T_Disable(int x, int y)
 {
-    PText::Draw(x + 7, y + 5, "U");
+    PText::Draw(x + 7, y + 5, "T");
 }
 
-static void DrawSB_Cursors_U_Upper(int x, int y)
+static void DrawSB_Cursors_T_Both_Disable(int x, int y)
 {
-    PageCursors::DrawMenuCursVoltage(x + 7, y + 5, true, false);
+    DrawMenuCursTime(x, y, false, false);
 }
 
-static void DrawSB_Cursors_U_Lower(int x, int y)
+static void DrawSB_Cursors_T_Left(int x, int y)
 {
-    PageCursors::DrawMenuCursVoltage(x + 7, y + 5, false, true);
+    DrawMenuCursTime(x, y, true, false);
 }
 
-static void DrawSB_Cursors_U_Both_Enable(int x, int y)
+static void DrawSB_Cursors_T_Right(int x, int y)
 {
-    PageCursors::DrawMenuCursVoltage(x + 7, y + 5, true, true);
+    DrawMenuCursTime(x, y, false, true);
 }
 
-static void DrawSB_Cursors_U_Both_Disable(int x, int y)
+static void DrawSB_Cursors_T_Both_Enable(int x, int y)
 {
-    PageCursors::DrawMenuCursVoltage(x + 7, y + 5, false, false);
+    DrawMenuCursTime(x, y, true, true);
 }
 
 
-// КУРСОРЫ - УСТАНОВИТЬ - Курсоры T ------------------------------------------------------------------------------------------------------------------
 static const arrayHints hintsSetT =
 {
     { DrawSB_Cursors_T_Disable,         "курсоры времени выключены",
@@ -557,16 +532,6 @@ static const arrayHints hintsSetT =
                                         "cursors of time are switched on, control of both cursors" }    
 };
 
-static const SmallButton sbSetT
-(
-    &mspSet, 0,
-    "Курсоры T", "Cursors T",
-    "Выбор курсоров времени для индикации и управления",
-    "Choice of cursors of time for indication and management",
-    PressSB_Cursors_T,
-    DrawSB_Cursors_T,
-    &hintsSetT
-);
 
 static void PressSB_Cursors_T()
 {
@@ -576,6 +541,7 @@ static void PressSB_Cursors_T()
     }
     CURS_ACTIVE = CursActive_T;
 }
+
 
 static void DrawSB_Cursors_T(int x, int y)
 {
@@ -611,33 +577,33 @@ static void DrawSB_Cursors_T(int x, int y)
     }
 }
 
-static void DrawSB_Cursors_T_Disable(int x, int y)
-{
-    PText::Draw(x + 7, y + 5, "T");
-}
 
-static void DrawSB_Cursors_T_Both_Disable(int x, int y)
-{
-    DrawMenuCursTime(x, y, false, false);
-}
+static const SmallButton sbSetT
+(
+    &mspSet, 0,
+    "Курсоры T", "Cursors T",
+    "Выбор курсоров времени для индикации и управления",
+    "Choice of cursors of time for indication and management",
+    PressSB_Cursors_T,
+    DrawSB_Cursors_T,
+    &hintsSetT
+);
 
-static void DrawSB_Cursors_T_Left(int x, int y)
-{
-    DrawMenuCursTime(x, y, true, false);
-}
 
-static void DrawSB_Cursors_T_Right(int x, int y)
+static void PressSB_Cursors_100()
 {
-    DrawMenuCursTime(x, y, false, true);
-}
-
-static void DrawSB_Cursors_T_Both_Enable(int x, int y)
-{
-    DrawMenuCursTime(x, y, true, true);
+    SetCursPos100(CURS_SOURCE);
 }
 
 
-// КУРСОРЫ - УСТАНОВИТЬ - 100% -----------------------------------------------------------------------------------------------------------------------
+static void DrawSB_Cursors_100(int x, int y)
+{
+    Font::Set(TypeFont::_5);
+    PText::Draw(x + 2, y - 3, "100%");
+    Font::Set(TypeFont::_8);
+}
+
+
 static const SmallButton sbSet100
 (
     &mspSet, 0,
@@ -648,10 +614,6 @@ static const SmallButton sbSet100
     DrawSB_Cursors_100
 );
 
-static void PressSB_Cursors_100()
-{
-    SetCursPos100(CURS_SOURCE);
-}
 
 static void SetCursPos100(Chan::E ch)
 {
@@ -659,15 +621,21 @@ static void SetCursPos100(Chan::E ch)
     DELTA_T100(ch) = fabs(CURS_POS_T0(ch) - CURS_POS_T1(ch));
 }
 
-static void DrawSB_Cursors_100(int x, int y)
+
+static void DrawSB_Cursors_PointsPercents_Percents(int x, int y)
+{
+    PText::Draw(x + 6, y + 5, "\x83");
+}
+
+
+static void DrawSB_Cursors_PointsPercents_Points(int x, int y)
 {
     Font::Set(TypeFont::_5);
-    PText::Draw(x + 2, y - 3, "100%");
+    PText::Draw(x + 4, y - 3, "тчк");
     Font::Set(TypeFont::_8);
 }
 
 
-// КУРСОРЫ - УСТАНОВИТЬ - Перемещение ----------------------------------------------------------------------------------------------------------------
 static const arrayHints hintsSetPointsPercents =
 {
     { DrawSB_Cursors_PointsPercents_Percents,   "шаг перемещения курсоров кратен одному проценту",
@@ -676,21 +644,12 @@ static const arrayHints hintsSetPointsPercents =
                                                 "the step of movement of the cursor is multiple to one pixel" }
 };
 
-static const SmallButton sbSetPointsPercents
-(
-    &mspSet, 0,
-    "Перемещение", "Movement",
-    "Выбор шага перемещения курсоров - проценты или точки",
-    "Choice of a step of movement of cursors - percent or points",
-    PressSB_Cursors_PointsPercents,
-    DrawSB_Cursors_PointsPercents,
-    &hintsSetPointsPercents
-);
 
 static void PressSB_Cursors_PointsPercents()
 {
-    CircleIncreaseInt8((int8*)&CURS_MOVEMENT, 0, 1);
+    CircleIncreaseInt8((int8 *)&CURS_MOVEMENT, 0, 1);
 }
+
 
 static void DrawSB_Cursors_PointsPercents(int x, int y)
 {
@@ -704,14 +663,37 @@ static void DrawSB_Cursors_PointsPercents(int x, int y)
     }
 }
 
-static void DrawSB_Cursors_PointsPercents_Percents(int x, int y)
-{
-    PText::Draw(x + 6, y + 5, "\x83");
-}
 
-static void DrawSB_Cursors_PointsPercents_Points(int x, int y)
+static const SmallButton sbSetPointsPercents
+(
+    &mspSet, 0,
+    "Перемещение", "Movement",
+    "Выбор шага перемещения курсоров - проценты или точки",
+    "Choice of a step of movement of cursors - percent or points",
+    PressSB_Cursors_PointsPercents,
+    DrawSB_Cursors_PointsPercents,
+    &hintsSetPointsPercents
+);
+
+
+static const arrayItems itemsCursors =
 {
-    Font::Set(TypeFont::_5);
-    PText::Draw(x + 4, y - 3, "тчк");
-    Font::Set(TypeFont::_8);
-}
+    (void *)&mcShow,             // КУРСОРЫ - Показывать
+    (void *)&mcTrackingT1U1,     // КУРСОРЫ - Курсоры T1,U1
+    (void *)&mcTrackingT2U2,     // КУРСОРЫ - Курсоры T2,U2
+    (void *)&mcShowFreq,         // КУРОСРЫ - 1/dT
+    (void *)&mspSet              // КУРСОРЫ - УСТАНОВИТЬ
+};
+
+
+static const Page pCursors                // КУРСОРЫ
+(
+    PageMain::self, 0,
+    "КУРСОРЫ", "CURSORS",
+    "Курсорные измерения.",
+    "Cursor measurements.",
+    NamePage::Cursors, &itemsCursors
+);
+
+
+const Page *PageCursors::self = &pCursors;
