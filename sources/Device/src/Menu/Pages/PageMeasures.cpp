@@ -13,9 +13,10 @@
 
 
 extern const Page pMeasures;
+extern const Page mspMeasTune;
+extern const Page pMeasures;
 
 
-static CursCntrl    GetMeasuresCursCntrlActive();       // Каким курсором из активной пары сейчас происходит управление.
 bool PageMeasures::choiceMeasuresIsActive = false;
 
 
@@ -26,10 +27,12 @@ void DrawSB_MeasTune_Settings(int x, int y)
     Font::Set(TypeFont::_8);
 }
 
+
 void PressSB_MeasTune_Settings()
 {
     Measures::ShorPressOnSmallButtonSettings();
 }
+
 
 void DrawSB_MeasTune_Markers(int x, int y)
 {
@@ -38,10 +41,23 @@ void DrawSB_MeasTune_Markers(int x, int y)
     Font::Set(TypeFont::_8);
 }
 
+
 void PressSB_MeasTune_Markers()
 {
     Measures::ShortPressOnSmallButonMarker();
 }
+
+
+// Каким курсором из активной пары сейчас происходит управление.
+CursCntrl GetMeasuresCursCntrlActive()
+{
+    if (MEAS_CURS_ACTIVE_IS_T)
+    {
+        return MEAS_CURS_CNTRL_T;
+    }
+    return MEAS_CURS_CNTRL_U;
+}
+
 
 void RotateRegMeasureSetField(int angle)
 {
@@ -74,7 +90,6 @@ void RotateRegMeasureSetField(int angle)
     }
 }
 
-extern const Page mspMeasTune;
 
 const SmallButton sbMeasTuneSettings        // Настройка измерений.
 (
@@ -86,6 +101,7 @@ const SmallButton sbMeasTuneSettings        // Настройка измерений.
     DrawSB_MeasTune_Settings
 );
 
+
 const SmallButton sbMeasTuneMarkers        // Включение/отключение маркера для режима измерений.
 (
     &mspMeasTune, 0,
@@ -96,40 +112,43 @@ const SmallButton sbMeasTuneMarkers        // Включение/отключение маркера для р
     DrawSB_MeasTune_Markers
 );
 
+
 bool IsActiveChoiceMeasuresNumber()
 {
     return SHOW_MEASURES;
 }
+
 
 bool IsActiveChoiceMeasuresChannels()
 {
     return SHOW_MEASURES;
 }
 
+
 bool IsActivePageMeasuresFields()
 {
     return SHOW_MEASURES;
 }
+
 
 bool IsActiveChoiceMeasuresSignal()
 {
     return SHOW_MEASURES;
 }
 
+
 bool IsActiveButtonMeasuresTune()
 {
     return SHOW_MEASURES;
 }
+
 
 bool IsActiveButtonMeasuresFieldSet()
 {
     return MEAS_FIELD_IS_HAND;
 }
 
-// ИЗМЕРЕНИЯ
-extern const Page pMeasures;
 
-// ИЗМЕРЕНИЯ -> Количество
 const Choice mcMeasuresNumber =
 {
     TypeItem::Choice, &pMeasures, IsActiveChoiceMeasuresNumber,
@@ -166,7 +185,7 @@ const Choice mcMeasuresNumber =
     (int8*)&MEAS_NUM
 };
 
-// ИЗМЕРЕНИЯ -> Каналы
+
 const Choice mcMeasuresChannels =
 {
     TypeItem::Choice, &pMeasures, IsActiveChoiceMeasuresChannels,
@@ -183,7 +202,7 @@ const Choice mcMeasuresChannels =
     (int8*)&MEAS_SOURCE
 };
 
-// ИЗМЕРЕНИЯ -> Показывать
+
 const Choice mcMeasuresIsShow =
 {
     TypeItem::Choice, &pMeasures, 0,
@@ -199,7 +218,7 @@ const Choice mcMeasuresIsShow =
     (int8*)&SHOW_MEASURES
 };
 
-// ИЗМЕРЕНИЯ -> Вид
+
 const Choice mcMeasuresSignal =
 {
     TypeItem::Choice, &pMeasures, IsActiveChoiceMeasuresSignal,
@@ -217,8 +236,6 @@ const Choice mcMeasuresSignal =
 
 
 
-/**********************************************************************************************************************************************************/
-// ИЗМЕРЕНИЯ -> ЗОНА
 extern const Page mspMeasuresField;
 
 // ИЗМЕРЕНИЯ -> ЗОНА -> Область
@@ -240,19 +257,12 @@ const Choice mcMeasuresFieldType =
 };
 */
 
-CursCntrl GetMeasuresCursCntrlActive()
-{
-    if(MEAS_CURS_ACTIVE_IS_T)
-    {
-        return MEAS_CURS_CNTRL_T;
-    }
-    return MEAS_CURS_CNTRL_U;
-}
 
 static void PressSB_MeasTune_Exit()
 {
     Display::RemoveAddDrawFunction();
 }
+
 
 static const SmallButton sbExitMeasTune
 (
@@ -262,7 +272,7 @@ static const SmallButton sbExitMeasTune
     DrawSB_Exit
 );
 
-// ИЗМЕРЕНИЯ - Настроить ///////////////////////////////////////////////////////////////////////////////////////////
+
 static const arrayItems itemsMeasTune =
 {
     (void*)&sbExitMeasTune,
@@ -272,6 +282,7 @@ static const arrayItems itemsMeasTune =
     (void*)&sbMeasTuneMarkers,
     (void*)&sbMeasTuneSettings
 };
+
 
 static const Page mspMeasTune
 (
@@ -283,7 +294,6 @@ static const Page mspMeasTune
 );
 
 
-// ИЗМЕРЕНИЯ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static const arrayItems itemsMeasures =
 {
     (void*)&mcMeasuresIsShow,
@@ -293,7 +303,7 @@ static const arrayItems itemsMeasures =
     (void*)&mspMeasTune    
 };
 
-static const Page pMeasures            // ИЗМЕРЕНИЯ
+static const Page pMeasures
 (
     PageMain::self, 0,
     "ИЗМЕРЕНИЯ", "MEASURES",

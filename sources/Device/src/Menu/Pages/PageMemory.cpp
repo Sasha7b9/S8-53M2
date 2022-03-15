@@ -28,7 +28,6 @@ extern const Page pMemory;
 
 
 
-static void DrawSetMask();  // Эта функция рисует, когда выбран режим задания маски.
 static void DrawSetName();  // Эта функция рисует, когда нужно задать имя файла для сохранения
 
 
@@ -837,22 +836,123 @@ static const SmallButton sbExitMemInt    // Кнопка для выхода из режима малых кн
 );
 
 
-// Нажатие ПАМЯТЬ - ВНЕШН ЗУ - Маска
+static void DrawFileMask(int x, int y)
+{
+    char *ch = FILE_NAME_MASK;
+
+    Color::SetCurrent(COLOR_FILL);
+    while (*ch != '\0')
+    {
+        if (*ch >= 32)
+        {
+            x = PText::DrawChar(x, y, *ch);
+        }
+        else
+        {
+            if (*ch == 0x07)
+            {
+                x = PText::DrawChar(x, y, '%');
+                x = PText::DrawChar(x, y, (char)(0x30 | *(ch + 1)));
+                x = PText::DrawChar(x, y, 'N');
+                ch++;
+            }
+            else
+            {
+                x = PText::Draw(x, y, Tables::symbolsAlphaBet[*ch + 0x40]);
+            }
+        }
+        ch++;
+    }
+    Painter::FillRegion(x, y, 5, 8, Color::FLASH_10);
+}
+
+
+// Эта функция рисует, когда выбран режим задания маски.
+void DrawSetMask()
+{
+    int x0 = Grid::Left() + 40;
+    int y0 = GRID_TOP + 20;
+    int width = Grid::Width() - 80;
+    int height = 160;
+
+    Painter::DrawRectangle(x0, y0, width, height, COLOR_FILL);
+    Painter::FillRegion(x0 + 1, y0 + 1, width - 2, height - 2, COLOR_BACK);
+
+    int index = 0;
+    int position = 0;
+    int deltaX = 10;
+    int deltaY0 = 5;
+    int deltaY = 12;
+
+    // Рисуем большие буквы английского алфавита
+    while (Tables::symbolsAlphaBet[index][0] != ' ')
+    {
+        Tables::DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0);
+        index++;
+        position++;
+    }
+
+    // Теперь рисуем цифры и пробел
+    position = 0;
+    while (Tables::symbolsAlphaBet[index][0] != 'a')
+    {
+        Tables::DrawStr(index, x0 + deltaX + 50 + position * 7, y0 + deltaY0 + deltaY);
+        index++;
+        position++;
+    }
+
+    // Теперь рисуем малые буквы алфавита
+    position = 0;
+    while (Tables::symbolsAlphaBet[index][0] != '%')
+    {
+        Tables::DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0 + deltaY * 2);
+        index++;
+        position++;
+    }
+
+    // Теперь рисуем спецсимволы
+    position = 0;
+    while (index < (sizeof(Tables::symbolsAlphaBet) / 4))
+    {
+        Tables::DrawStr(index, x0 + deltaX + 26 + position * 20, y0 + deltaY0 + deltaY * 3);
+        index++;
+        position++;
+    }
+
+    DrawFileMask(x0 + deltaX, y0 + 65);
+
+    static pchar strings[] =
+    {
+        "%y - год, %m - месяц, %d - день",
+        "%H - часы, %M - минуты, %S - секунды",
+        "%nN - порядковый номер, где",
+        "n - минимальное количество знаков для N"
+    };
+
+    deltaY--;
+    Color::SetCurrent(COLOR_FILL);
+    for (int i = 0; i < sizeof(strings) / 4; i++)
+    {
+        PText::Draw(x0 + deltaX, y0 + 100 + deltaY * i, strings[i]);
+    }
+}
+
+
 void OnPressMemoryExtMask()
 {
     PageMemory::SetMask::self->OpenAndSetCurrent();
     Display::SetAddDrawFunction(DrawSetMask);
 }
 
-// ПАМЯТЬ
 extern const Page pMemory;
+
 
 static bool FuncActiveMemoryNumPoinst()
 {
     return SET_PEAKDET_IS_DISABLE;
 }
 
-// ПАМЯТЬ - Точки
+
 const Choice mcMemoryNumPoints =
 {
     TypeItem::Choice, &pMemory, FuncActiveMemoryNumPoinst,
@@ -996,104 +1096,6 @@ void DrawSetName()
     Painter::FillRegion(x, y0 + 65, 5, 8, Color::FLASH_10);
 }
 
-static void DrawFileMask(int x, int y)
-{
-    char *ch = FILE_NAME_MASK;
-
-    Color::SetCurrent(COLOR_FILL);
-    while (*ch != '\0')
-    {
-        if (*ch >= 32)
-        {
-            x = PText::DrawChar(x, y, *ch);
-        }
-        else
-        {
-            if (*ch == 0x07)
-            {
-                x = PText::DrawChar(x, y, '%');
-                x = PText::DrawChar(x, y, (char)(0x30 | *(ch + 1)));
-                x = PText::DrawChar(x, y, 'N');
-                ch++;
-            }
-            else
-            {
-                x = PText::Draw(x, y, Tables::symbolsAlphaBet[*ch + 0x40]);
-            }
-        }
-        ch++;
-    }
-    Painter::FillRegion(x, y, 5, 8, Color::FLASH_10);
-}
-
-void DrawSetMask()
-{
-    int x0 = Grid::Left() + 40;
-    int y0 = GRID_TOP + 20;
-    int width = Grid::Width() - 80;
-    int height = 160;
-
-    Painter::DrawRectangle(x0, y0, width, height, COLOR_FILL);
-    Painter::FillRegion(x0 + 1, y0 + 1, width - 2, height - 2, COLOR_BACK);
-
-    int index = 0;
-    int position = 0;
-    int deltaX = 10;
-    int deltaY0 = 5;
-    int deltaY = 12;
-
-    // Рисуем большие буквы английского алфавита
-    while(Tables::symbolsAlphaBet[index][0] != ' ')
-    {
-        Tables::DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0);
-        index++;
-        position++;
-    }
-    
-    // Теперь рисуем цифры и пробел
-    position = 0;
-    while(Tables::symbolsAlphaBet[index][0] != 'a')
-    {
-        Tables::DrawStr(index, x0 + deltaX + 50 + position * 7, y0 + deltaY0 + deltaY);
-        index++;
-        position++;
-    }
-
-    // Теперь рисуем малые буквы алфавита
-    position = 0;
-    while(Tables::symbolsAlphaBet[index][0] != '%')
-    {
-        Tables::DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0 + deltaY * 2);
-        index++;
-        position++;
-    }
-
-    // Теперь рисуем спецсимволы
-    position = 0;
-    while (index < (sizeof(Tables::symbolsAlphaBet) / 4))
-    {
-        Tables::DrawStr(index, x0 + deltaX + 26 + position * 20, y0 + deltaY0 + deltaY * 3);
-        index++;
-        position++;
-    }
-
-    DrawFileMask(x0 + deltaX, y0 + 65);
-
-    static pchar strings[] =
-    {
-        "%y - год, %m - месяц, %d - день",
-        "%H - часы, %M - минуты, %S - секунды",
-        "%nN - порядковый номер, где",
-        "n - минимальное количество знаков для N"
-    };
-
-    deltaY--;
-    Color::SetCurrent(COLOR_FILL);
-    for(int i = 0; i < sizeof(strings) / 4; i++)
-    {
-        PText::Draw(x0 + deltaX, y0 + 100 + deltaY * i, strings[i]);
-    }
-}
 
 void PageMemory::SaveSignalToFlashDrive()
 {
