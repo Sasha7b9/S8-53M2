@@ -6,6 +6,16 @@
 #include "Utils/Containers/Buffer.h"
 
 
+struct DataStruct
+{
+    uint8        *A;
+    uint8        *B;
+    DataSettings *ds;
+
+    DataStruct() : A(nullptr), B(nullptr), ds(nullptr) { }
+};
+
+
 namespace Storage
 {
     // ”даление всех сохранЄнных измерений
@@ -36,9 +46,7 @@ namespace Storage
 
     int NumberAvailableEntries();
 
-    extern uint8        *dataA;     // ”казатель на данные первого канала, который надо рисовать на экране
-    extern uint8        *dataB;     // ”казатель на данные второго канала, который надо рисовать на экране
-    extern DataSettings *DS;        // ”казатель на параметры рисуемых сигналов
+    extern DataStruct data;                // –исуемый сигнал
 
     extern uint8        *dataLastA;
     extern uint8        *dataLastB;

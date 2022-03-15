@@ -84,26 +84,26 @@ void Device::ProcessingSignal()
     {
         static DataSettings ds_null;
         ds_null.Init();
-        Storage::DS = &ds_null;
+        Storage::data.ds = &ds_null;
         return;
     }
 
-    uint8 *dataA = Storage::dataA;
-    uint8 *dataB = Storage::dataB;
-    DataSettings **ds = &Storage::DS;
+    uint8 *dataA = Storage::data.A;
+    uint8 *dataB = Storage::data.B;
+    DataSettings **ds = &Storage::data.ds;
 
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
     if (MODE_WORK_IS_DIRECT)
     {
-        Storage::GetData(0, &Storage::DS, &Storage::dataA, &Storage::dataB);
-        dataA = Storage::dataA;
-        dataB = Storage::dataB;
+        Storage::GetData(0, &Storage::data.ds, &Storage::data.A, &Storage::data.B);
+        dataA = Storage::data.A;
+        dataB = Storage::data.B;
 
         if (SettingsDisplay::NumAverages() != 1 || TBase::InModeRandomizer())
         {
-            Storage::dataA = Storage::GetAverageData(Chan::A);
-            Storage::dataB = Storage::GetAverageData(Chan::B);
+            Storage::data.A = Storage::GetAverageData(Chan::A);
+            Storage::data.B = Storage::GetAverageData(Chan::B);
         }
     }
     else if (MODE_WORK_IS_LATEST)
@@ -125,7 +125,7 @@ void Device::ProcessingSignal()
     {
         if (!MODE_SHOW_MEMINT_IS_SAVED)
         {
-            Processing::SetSignal(Storage::dataA, Storage::dataB, Storage::DS, points);
+            Processing::SetSignal(Storage::data.A, Storage::data.B, Storage::data.ds, points);
         }
     }
     else
@@ -133,11 +133,11 @@ void Device::ProcessingSignal()
         Processing::SetSignal(dataA, dataB, *ds, points);
     }
 
-    if (Storage::DS == nullptr)
+    if (Storage::data.ds == nullptr)
     {
         static DataSettings ds_null;
         ds_null.Init();
-        Storage::DS = &ds_null;
+        Storage::data.ds = &ds_null;
     }
 
     PageCursors::Cursors_Update();    // В случае, если находимся в режиме курсорных измерений, обновляем их положение, если нужно.

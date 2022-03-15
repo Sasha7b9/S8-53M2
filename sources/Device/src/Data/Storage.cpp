@@ -14,9 +14,7 @@
 
 namespace Storage
 {
-    uint8 *dataA = nullptr;
-    uint8 *dataB = nullptr;
-    DataSettings *DS = nullptr;
+    DataStruct data;
 
     uint8 *dataLastA = nullptr;
     uint8 *dataLastB = nullptr;
@@ -398,11 +396,11 @@ bool Storage::CopyData(DataSettings *ds, Chan ch, Buffer<uint8> &datatImportRel)
 
 uint8 *Storage::GetAverageData(Chan ch)
 {
-    static uint8 data[Chan::Count][FPGA::MAX_POINTS * 2];
+    static uint8 data_out[Chan::Count][FPGA::MAX_POINTS * 2];
 
     if (newSumCalculated[ch] == false)
     {
-        return &data[ch][0];
+        return &data_out[ch][0];
     }
 
     newSumCalculated[ch] = false;
@@ -424,9 +422,9 @@ uint8 *Storage::GetAverageData(Chan ch)
 
         for (uint i = 0; i < numPoints; i++)
         {
-            data[ch][i] = (uint8)(floatAveData[i]);
+            data_out[ch][i] = (uint8)(floatAveData[i]);
         }
-        return &data[ch][0];
+        return &data_out[ch][0];
     }
 
     int numAveraging = SettingsDisplay::NumAverages();
@@ -435,10 +433,10 @@ uint8 *Storage::GetAverageData(Chan ch)
 
     for (uint i = 0; i < numPoints; i++)
     {
-        data[ch][i] = sum[ch][i] / numAveraging;
+        data_out[ch][i] = sum[ch][i] / numAveraging;
     }
 
-    return &data[ch][0];
+    return &data_out[ch][0];
 }
 
 
