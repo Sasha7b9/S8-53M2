@@ -18,7 +18,7 @@
 #include "Panel/Panel.h"
 #include "FDrive/FDrive.h"
 #include "Menu/FileManager.h"
-#include <string.h>
+#include <cstring>
 
 
 
@@ -246,10 +246,11 @@ char* Menu::StringNavigation(char buffer[100])
         {
             if(titles[i])
             {
-                strcat(buffer, titles[i]);
+                std::strcat(buffer, titles[i]);
+
                 if(i != 0)
                 {
-                    strcat(buffer, " - ");
+                    std::strcat(buffer, " - ");
                 }
             }
         }

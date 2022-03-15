@@ -15,7 +15,7 @@
 #include "Log.h"
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
-#include <string.h>
+#include <cstring>
 
 
 namespace FM
@@ -60,7 +60,7 @@ namespace FM
 
 void FM::Init()
 {
-    strcpy(currentDir, "\\");
+    std::strcpy(currentDir, "\\");
     numFirstDir = numFirstFile = numCurDir = numCurFile = 0;
 }
 
@@ -148,7 +148,7 @@ bool FM::FileIsExist(char name[255])
     {
         while(FDrive::GetNextNameFile(nameFile, &sfrd))
         {
-            if(strcmp(name + 2, nameFile) == 0)
+            if(std::strcmp(name + 2, nameFile) == 0)
             {
                 return true;
             }
@@ -260,11 +260,11 @@ void FM::PressLevelDown()
 
     if (FDrive::GetNameDir(currentDir, numCurDir, nameDir, &sfrd))
     {
-        if (strlen(currentDir) + strlen(nameDir) < 250)
+        if (std::strlen(currentDir) + std::strlen(nameDir) < 250)
         {
             FDrive::CloseCurrentDir(&sfrd);
-            strcat(currentDir, "\\");
-            strcat(currentDir, nameDir);
+            std::strcat(currentDir, "\\");
+            std::strcat(currentDir, nameDir);
             numFirstDir = numFirstFile = numCurDir = numCurFile = 0;
         }
 
@@ -278,12 +278,12 @@ void FM::PressLevelUp()
 {
     needRedraw = 1;
 
-    if (strlen(currentDir) == 1)
+    if (std::strlen(currentDir) == 1)
     {
         return;
     }
 
-    char *pointer = currentDir + strlen(currentDir);
+    char *pointer = currentDir + std::strlen(currentDir);
 
     while (*pointer != '\\')
     {
@@ -390,10 +390,10 @@ bool FM::GetNameForNewFile(char name[255])
 
 LabelNextNumber:
 
-    strcpy(name, currentDir);
-    strcat(name, "\\");
+    std::strcpy(name, currentDir);
+    std::strcat(name, "\\");
 
-    int size = (int)strlen(FILE_NAME);
+    int size = (int)std::strlen(FILE_NAME);
     if (size == 0)
     {
         return false;
@@ -402,9 +402,9 @@ LabelNextNumber:
     if (FILE_NAMING_MODE_IS_HAND)
     {
         LIMITATION(size, size, 1, 95);
-        strcat(name, FILE_NAME);
-        strcat(name, ".");
-        strcat(name, MODE_SAVE_SIGNAL_IS_BMP ? "bmp" : "txt");
+        std::strcat(name, FILE_NAME);
+        std::strcat(name, ".");
+        std::strcat(name, MODE_SAVE_SIGNAL_IS_BMP ? "bmp" : "txt");
         return true;
     }
     else
@@ -432,16 +432,16 @@ LabelNextNumber:
             {
                 if (*ch == 0x07)    // ≈сли здесь надо записать пор€дковый номер
                 {
-                    strcpy(wr, Int2String(number, false, *(ch + 1), buffer));
-                    wr += strlen(buffer);
+                    std::strcpy(wr, Int2String(number, false, *(ch + 1), buffer));
+                    wr += std::strlen(buffer);
                     ch++;
                 }
                 else
                 {
                     if (*ch >= 0x01 && *ch <= 0x06)
                     {
-                        strcpy(wr, Int2String((int)values[*ch], false, 2, buffer));
-                        wr += strlen(buffer);
+                        std::strcpy(wr, Int2String((int)values[*ch], false, 2, buffer));
+                        wr += std::strlen(buffer);
                     }
                 }
             }
@@ -451,7 +451,7 @@ LabelNextNumber:
         *wr = '.';
         *(wr + 1) = '\0';
 
-        strcat(name, MODE_SAVE_SIGNAL_IS_BMP ? "bmp" : "txt");
+        std::strcat(name, MODE_SAVE_SIGNAL_IS_BMP ? "bmp" : "txt");
 
         if(FileIsExist(name))
         {

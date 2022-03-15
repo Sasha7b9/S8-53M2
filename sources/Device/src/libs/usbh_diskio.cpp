@@ -1,7 +1,7 @@
 // 2022/2/11 19:33:28 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
-#include <string.h>
+#include <cstring>
 #include <usbh_def.h>
 #include <usbh_msc.h>
 #include "ff_gen_drv.h"

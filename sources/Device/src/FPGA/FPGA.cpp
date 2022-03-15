@@ -11,7 +11,7 @@
 #include "Utils/Containers/Buffer.h"
 #include "Utils/Strings.h"
 #include <stm32f4xx_hal.h>
-#include <string.h>
+#include <cstring>
 
 
 #define WRITE_AND_OR_INVERSE(addr, data, ch)                                                                        \

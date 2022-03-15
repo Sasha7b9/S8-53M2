@@ -3,7 +3,7 @@
 #include "lwip/timeouts.h"
 #include "netif/etharp.h"
 #include "ethernetif.h"
-#include <string.h>
+#include <cstring>
 #include "Settings/Settings.h"
 #include "Hardware/Timer.h"
 
