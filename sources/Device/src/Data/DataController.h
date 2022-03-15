@@ -89,6 +89,20 @@ struct DataStruct
     DataSettings   ds;
     PointsStructU8 dU8[Chan::Count];
     PointsStructF  dF[Chan::Count];
+
+    // Признак того, что нуждается в пересчёте
+    bool need_calculate;
+
+    DataStruct();
+
+    // Сброс структуры - значения заполянются ValueFPGA::NONE, ds заполняется текущими настройками
+    void Reset();
+
+    void GetFromStorage(int fromEnd);
+
+    void GetFromROM();
+
+    void GetAverage();
 };
 
 
@@ -96,14 +110,17 @@ struct TypeData
 {
     enum E
     {
-        Dir,            // Непосредственно считанные
-        Last,           // Из ПАМЯТЬ-ПОСЛЕДНИЕ
-        Int             // Из ПАМЯТЬ-ВНУТР ЗУ
+        Direct,     // Непосредственно считанные
+        Last,       // Из ПАМЯТЬ-ПОСЛЕДНИЕ
+        Internal    // Из ПАМЯТЬ-ВНУТР ЗУ
     };
 };
 
 
 namespace DataController
 {
+    // Признак того, что начался новый цикл, нужно пересчитать
+    void ResetFlags();
+
     DataStruct &GetData(TypeData::E);
 }

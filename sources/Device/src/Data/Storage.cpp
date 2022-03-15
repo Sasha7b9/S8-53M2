@@ -16,10 +16,6 @@
 
 namespace Storage
 {
-    uint8 *dataA = nullptr;
-    uint8 *dataB = nullptr;
-    DataSettings *DS = nullptr;
-
     uint8 *dataLastA = nullptr;
     uint8 *dataLastB = nullptr;
     DataSettings *dsLast = nullptr;

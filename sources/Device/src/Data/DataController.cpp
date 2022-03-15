@@ -1,7 +1,23 @@
 #include "defines.h"
 #include "Data/DataController.h"
 #include "Settings/Settings.h"
+#include "Data/Storage.h"
+#include "Menu/Pages/Definition.h"
 #include <cstring>
+
+
+namespace DataController
+{
+    static DataStruct dataDirect;
+    static DataStruct dataLast;
+    static DataStruct dataInternal;
+
+    static void FillDataDirect();
+
+    static void FillDataLast();
+
+    static void FillDataInternal();
+}
 
 
 void DataSettings::PrintElement()
@@ -107,20 +123,116 @@ void DataSettings::AppendPoints(uint8 *a, uint8 *b, BitSet16 pointsA, BitSet16 p
 bool DataSettings::Equal(const DataSettings &ds)
 {
     return (en_a == ds.en_a) &&
-        (en_b == ds.en_b) &&
-        (inv_a == ds.inv_a) &&
-        (inv_b == ds.inv_b) &&
-        (range[0] == ds.range[0]) &&
-        (range[1] == ds.range[1]) &&
-        (rShiftA == ds.rShiftA) &&
-        (rShiftB == ds.rShiftB) &&
-        (tBase == ds.tBase) &&
-        (tShift == ds.tShift) &&
-        (coupleA == ds.coupleA) &&
-        (coupleB == ds.coupleB) &&
-        (trigLevA == ds.trigLevA) &&
-        (trigLevB == ds.trigLevB) &&
-        (div_a == ds.div_a) &&
-        (div_b == ds.div_b) &&
-        (peakDet == ds.peakDet);
+           (en_b == ds.en_b) &&
+           (inv_a == ds.inv_a) &&
+           (inv_b == ds.inv_b) &&
+           (range[0] == ds.range[0]) &&
+           (range[1] == ds.range[1]) &&
+           (rShiftA == ds.rShiftA) &&
+           (rShiftB == ds.rShiftB) &&
+           (tBase == ds.tBase) &&
+           (tShift == ds.tShift) &&
+           (coupleA == ds.coupleA) &&
+           (coupleB == ds.coupleB) &&
+           (trigLevA == ds.trigLevA) &&
+           (trigLevB == ds.trigLevB) &&
+           (div_a == ds.div_a) &&
+           (div_b == ds.div_b) &&
+           (peakDet == ds.peakDet);
+}
+
+
+void DataController::ResetFlags()
+{
+    dataDirect.need_calculate = true;
+    dataLast.need_calculate = true;
+    dataInternal.need_calculate = true;
+}
+
+
+DataStruct &DataController::GetData(TypeData::E type)
+{
+    if (type == TypeData::Direct)
+    {
+        FillDataDirect();
+
+        return dataDirect;
+    }
+    else if (type == TypeData::Last)
+    {
+        FillDataLast();
+
+        return dataLast;
+    }
+    else if (type == TypeData::Internal)
+    {
+        FillDataInternal();
+
+        return dataInternal;
+    }
+
+    return dataDirect;
+}
+
+
+void DataController::FillDataDirect()
+{
+    if (!dataDirect.need_calculate)
+    {
+        return;
+    }
+
+    if (Storage::NumElements() == 0)
+    {
+        dataDirect.Reset();
+    }
+    else
+    {
+        dataDirect.GetFromStorage(0);
+
+        if (SettingsDisplay::NumAverages() != 1 || TBase::InModeRandomizer())
+        {
+            dataDirect.GetAverage();
+        }
+    }
+
+    dataDirect.need_calculate = false;
+}
+
+
+void DataController::FillDataLast()
+{
+    if (!dataLast.need_calculate)
+    {
+        return;
+    }
+
+    if (Storage::NumElements() == 0)
+    {
+        dataLast.Reset();
+    }
+    else
+    {
+        dataLast.GetFromStorage(PageMemory::Internal::currentSignal);
+
+        if (SettingsDisplay::NumAverages() != 1)
+        {
+            dataLast.GetAverage();
+        }
+    }
+
+    dataLast.need_calculate = false;
+}
+
+
+void DataController::FillDataInternal()
+{
+    if (!dataInternal.need_calculate)
+    {
+        return;
+    }
+
+    dataInternal.GetFromROM();
+
+    dataInternal.need_calculate = false;
 }
