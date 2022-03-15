@@ -15,26 +15,6 @@ extern const Page pChanA;
 extern const Page pChanB;
 
 
-extern const Choice mcInputA;                   // КАНАЛ 1 - Вход
-extern const Choice mcCoupleA;                  // КАНАЛ 1 - Связь
-void OnChanged_CoupleA(bool active);
-extern const Choice mcFiltrA;                   // КАНАЛ 1 - Фильтр
-void OnChanged_FiltrA(bool active);
-extern const Choice mcInverseA;                 // КАНАЛ 1 - Инверсия
-static void OnChanged_InverseA(bool active);
-extern const Choice mcMultiplierA;              // КАНАЛ 1 - Множитель
-
-extern const Choice mcInputB;                   // КАНАЛ 2 - Вход
-extern const Choice mcCoupleB;                  // КАНАЛ 2 - Связь
-void OnChanged_CoupleB(bool active);
-extern const Choice mcFiltrB;                   // КАНАЛ 2 - Фильтр
-void OnChanged_FiltrB(bool active);
-extern const Choice mcInverseB;                 // КАНАЛ 2 - Инверсия
-static void OnChanged_InverseB(bool active);
-extern const Choice mcMultiplierB;              // КАНАЛ 2 - Множитель
-
-
-
 extern const char chanInputRu[] =   "1. \"Вкл\" - выводить сигнал на экран.\n"
                                     "2. \"Откл\" - не выводить сигнал на экран.";
 extern const char chanInputEn[] =   "1. \"Enable\" - signal output to the screen.\n"
@@ -59,31 +39,12 @@ extern const char chanMultiplierRu[] = "Ослабление сигнала:\n\"x1\" - сигнал не 
 extern const char chanMultiplierEn[] = "Attenuation: \n\"x1\" - the signal is not attenuated.\n\"x10\" - the signal is attenuated by 10 times";
 
 
-
-// КАНАЛ 1 /////////////////////////
-static const arrayItems itemsChanA =
+void PageChannelB::OnChanged_Input(bool)
 {
-    (void*)&mcInputA,       // КАНАЛ 1 - Вход
-    (void*)&mcCoupleA,      // КАНАЛ 1 - Связь
-    (void*)&mcFiltrA,       // КАНАЛ 1 - Фильтр
-    (void*)&mcInverseA,     // КАНАЛ 1 - Инверсия
-    (void*)&mcMultiplierA   // КАНАЛ 1 - Множитель
-};
-
-static const Page pChanA           // КАНАЛ 1
-(
-    PageMain::self, 0,
-    "КАНАЛ 1", "CHANNEL 1",
-    "Содержит настройки канала 1.",
-    "Contains settings of the channel 1.",
-    NamePage::Channel0, &itemsChanA
-);
+    Panel::EnableLEDChannelB(SET_ENABLED_B);
+}
 
 
-const Page *PageChannelA::self = &pChanA;
-
-
-// КАНАЛ 1 - Вход -----------
 static const Choice mcInputA =
 {
     TypeItem::Choice, &pChanA, 0,
@@ -99,13 +60,19 @@ static const Choice mcInputA =
     (int8*)&SET_ENABLED_A, PageChannelA::OnChanged_Input
 };
 
+
 void PageChannelA::OnChanged_Input(bool)
 {
     Panel::EnableLEDChannelA(SET_ENABLED_A);
 }
 
 
-// КАНАЛ 1 - Связь ----------
+void OnChanged_CoupleA(bool)
+{
+    ModeCouple::Set(Chan::A, SET_COUPLE_A);
+}
+
+
 static const Choice mcCoupleA =
 {
     TypeItem::Choice, &pChanA, 0,
@@ -122,13 +89,13 @@ static const Choice mcCoupleA =
     (int8*)&SET_COUPLE_A, OnChanged_CoupleA
 };
 
-void OnChanged_CoupleA(bool)
+
+void OnChanged_FiltrA(bool)
 {
-    ModeCouple::Set(Chan::A, SET_COUPLE_A);
+    Filtr::Enable(Chan::A, SET_FILTR_A);
 }
 
 
-// КАНАЛ 1 - Фильтр ---------
 static const Choice mcFiltrA =
 {
     TypeItem::Choice, &pChanA, 0,
@@ -144,13 +111,13 @@ static const Choice mcFiltrA =
     (int8*)&SET_FILTR_A, OnChanged_FiltrA
 };
 
-void OnChanged_FiltrA(bool)
+
+static void OnChanged_InverseA(bool)
 {
-    Filtr::Enable(Chan::A, SET_FILTR_A);
+    RShift::Set(Chan::A, SET_RSHIFT_A);
 }
 
 
-// КАНАЛ 1 - Инверсия -------
 static const Choice mcInverseA =
 {
     TypeItem::Choice, &pChanA, 0,
@@ -166,13 +133,7 @@ static const Choice mcInverseA =
     (int8*)&SET_INVERSE_A, OnChanged_InverseA
 };
 
-static void OnChanged_InverseA(bool)
-{
-    RShift::Set(Chan::A, SET_RSHIFT_A);
-}
 
-
-// КАНАЛ 1 - Множитель ------
 static const Choice mcMultiplierA =
 {
     TypeItem::Choice, &pChanA, 0,
@@ -189,32 +150,7 @@ static const Choice mcMultiplierA =
 };
 
 
-
-// КАНАЛ 2 /////////////////////////
-static const arrayItems itemsChanB =
-{
-    (void*)&mcInputB,       // КАНАЛ 2 - Вход
-    (void*)&mcCoupleB,      // КАНАЛ 2 - Связь
-    (void*)&mcFiltrB,       // КАНАЛ 2 - Фильтр
-    (void*)&mcInverseB,     // КАНАЛ 2 - Инверсия
-    (void*)&mcMultiplierB   // КАНАЛ 2 - Множитель
-};
-
-static const Page pChanB
-(
-    PageMain::self, 0,
-    "КАНАЛ 2", "CHANNEL 2",
-    "Содержит настройки канала 2.",
-    "Contains settings of the channel 2.",
-    NamePage::Channel1, &itemsChanB
-);
-
-
-const Page *PageChannelB::self = &pChanB;
-
-
-// КАНАЛ 2 - Вход -----------
-static const Choice mcInputB =  // КАНАЛ 2
+static const Choice mcInputB =
 {
     TypeItem::Choice, &pChanB, 0,
     {
@@ -226,16 +162,16 @@ static const Choice mcInputB =  // КАНАЛ 2
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
     },
-    (int8*)&SET_ENABLED_B, PageChannelB::OnChanged_Input
+    (int8 *)&SET_ENABLED_B, PageChannelB::OnChanged_Input
 };
 
-void PageChannelB::OnChanged_Input(bool)
+
+void OnChanged_CoupleB(bool)
 {
-    Panel::EnableLEDChannelB(SET_ENABLED_B);
+    ModeCouple::Set(Chan::B, SET_COUPLE_B);
 }
 
 
-// КАНАЛ 2 - Связь ----------
 static const Choice mcCoupleB =
 {
     TypeItem::Choice, &pChanB, 0,
@@ -249,15 +185,16 @@ static const Choice mcCoupleB =
         {"Перем",   "DC"},
         {"Земля",   "Ground"}
     },
-    (int8*)&SET_COUPLE_B, OnChanged_CoupleB
+    (int8 *)&SET_COUPLE_B, OnChanged_CoupleB
 };
 
-void OnChanged_CoupleB(bool)
+
+void OnChanged_FiltrB(bool)
 {
-    ModeCouple::Set(Chan::B, SET_COUPLE_B);
+    Filtr::Enable(Chan::B, SET_FILTR_B);
 }
 
-// КАНАЛ 2 - Фильтр ---------
+
 static const Choice mcFiltrB =
 {
     TypeItem::Choice, &pChanB, 0,
@@ -270,16 +207,16 @@ static const Choice mcFiltrB =
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
     },
-    (int8*)&SET_FILTR_B, OnChanged_FiltrB
+    (int8 *)&SET_FILTR_B, OnChanged_FiltrB
 };
 
-void OnChanged_FiltrB(bool)
+
+static void OnChanged_InverseB(bool)
 {
-    Filtr::Enable(Chan::B, SET_FILTR_B);
+    RShift::Set(Chan::B, SET_RSHIFT_B);
 }
 
 
-// КАНАЛ 2 - Инверсия -------
 static const Choice mcInverseB =
 {
     TypeItem::Choice, &pChanB, 0,
@@ -292,16 +229,10 @@ static const Choice mcInverseB =
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
     },
-    (int8*)&SET_INVERSE_B, OnChanged_InverseB
+    (int8 *)&SET_INVERSE_B, OnChanged_InverseB
 };
 
-static void OnChanged_InverseB(bool)
-{
-    RShift::Set(Chan::B, SET_RSHIFT_B);
-}
 
-
-// КАНАЛ 2 - Множитель ------
 static const Choice mcMultiplierB =
 {
     TypeItem::Choice, &pChanB, 0,
@@ -314,5 +245,49 @@ static const Choice mcMultiplierB =
         {"х1",  "x1"},
         {"x10", "x10"}
     },
-    (int8*)&SET_DIVIDER(Chan::B)
+    (int8 *)&SET_DIVIDER(Chan::B)
 };
+
+
+static const arrayItems itemsChanB =
+{
+    (void *)&mcInputB,
+    (void *)&mcCoupleB,
+    (void *)&mcFiltrB,
+    (void *)&mcInverseB,
+    (void *)&mcMultiplierB
+};
+
+
+static const Page pChanB
+(
+    PageMain::self, 0,
+    "КАНАЛ 2", "CHANNEL 2",
+    "Содержит настройки канала 2.",
+    "Contains settings of the channel 2.",
+    NamePage::Channel1, &itemsChanB
+);
+
+const Page *PageChannelB::self = &pChanB;
+
+
+static const arrayItems itemsChanA =
+{
+    (void *)&mcInputA,
+    (void *)&mcCoupleA,
+    (void *)&mcFiltrA,
+    (void *)&mcInverseA,
+    (void *)&mcMultiplierA
+};
+
+
+static const Page pChanA
+(
+    PageMain::self, 0,
+    "КАНАЛ 1", "CHANNEL 1",
+    "Содержит настройки канала 1.",
+    "Contains settings of the channel 1.",
+    NamePage::Channel0, &itemsChanA
+);
+
+const Page *PageChannelA::self = &pChanA;
