@@ -12,8 +12,8 @@
 #include "Log.h"
 #include "Display/Painter.h"
 #include "Utils/Map.h"
-#include <math.h>
-#include <string.h>
+#include <cmath>
+#include <cstring>
 
 
 extern const Page pCursors;
@@ -584,8 +584,8 @@ static const SmallButton sbSetT
 // «апомнить позиции курсоров, соответствующие 100%.
 static void SetCursPos100(Chan::E ch)
 {
-    DELTA_U100(ch) = fabs(CURS_POS_U0(ch) - CURS_POS_U1(ch));
-    DELTA_T100(ch) = fabs(CURS_POS_T0(ch) - CURS_POS_T1(ch));
+    DELTA_U100(ch) = std::fabs(CURS_POS_U0(ch) - CURS_POS_U1(ch));
+    DELTA_T100(ch) = std::fabs(CURS_POS_T0(ch) - CURS_POS_T1(ch));
 }
 
 

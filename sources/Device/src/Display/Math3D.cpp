@@ -1,24 +1,24 @@
 // 2022/02/11 17:44:44 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "Math3D.h"
-#include <string.h>
-#include <math.h>
+#include <cstring>
+#include <cmath>
 
 
 void FillMatriceRotation(Mat4x4 *mat, float angleX, float angleY, float angleZ)
 {
-    memset(mat, 0, sizeof(float)* 16);
+    std::memset(mat, 0, sizeof(float)* 16);
 
     Mat4x4 matX = {0};
     Mat4x4 matY = {0};
     Mat4x4 matZ = {0};
     Mat4x4 matTemp = {0};
 
-    float cosX = cos(angleX);
-    float sinX = sin(angleX);
-    float cosY = cos(angleY);
-    float sinY = sin(angleY);
-    float cosZ = cos(angleZ);
-    float sinZ = sin(angleZ);
+    float cosX = std::cos(angleX);
+    float sinX = std::sin(angleX);
+    float cosY = std::cos(angleY);
+    float sinY = std::sin(angleY);
+    float cosZ = std::cos(angleZ);
+    float sinZ = std::sin(angleZ);
 
     matZ.n[0][0] = cosZ;
     matZ.n[0][1] = sinZ;
@@ -43,7 +43,7 @@ void FillMatriceRotation(Mat4x4 *mat, float angleX, float angleY, float angleZ)
 
 void FillMatriceScale(Mat4x4 *mat, float scaleX, float scaleY, float scaleZ)
 {
-    memset(mat, 0, sizeof(float)* 16);
+    std::memset(mat, 0, sizeof(float)* 16);
     mat->n[0][0] = scaleX;
     mat->n[1][1] = scaleY;
     mat->n[2][2] = scaleZ;
@@ -53,7 +53,7 @@ void FillMatriceScale(Mat4x4 *mat, float scaleX, float scaleY, float scaleZ)
 
 void FillMatriceMov(Mat4x4 *mat, float movX, float movY, float movZ)
 {
-    memset(mat, 0, sizeof(float)* 16);
+    std::memset(mat, 0, sizeof(float)* 16);
     mat->n[0][0] = mat->n[1][1] = mat->n[2][2] = mat->n[3][3] = 1.0f;
     mat->n[3][0] = movX;
     mat->n[3][1] = movY;

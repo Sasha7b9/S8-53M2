@@ -9,7 +9,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Utils/Strings.h"
 #include "Utils/Containers/Buffer.h"
-#include <string.h>
+#include <cstring>
 
 
 namespace Storage
@@ -119,11 +119,11 @@ void Storage::Clear()
 
 void Storage::ClearLimitsAndSums()
 {
-    memset(lim_up[0], 0, FPGA::MAX_POINTS * 2);
-    memset(lim_up[1], 0, FPGA::MAX_POINTS * 2);
-    memset(lim_down[0], 0xff, FPGA::MAX_POINTS * 2);
-    memset(lim_down[1], 0xff, FPGA::MAX_POINTS * 2);
-    memset(&(sum[0][0]), 0, Chan::Count * FPGA::MAX_POINTS * sizeof(uint) * 2);
+    std::memset(lim_up[0], 0, FPGA::MAX_POINTS * 2);
+    std::memset(lim_up[1], 0, FPGA::MAX_POINTS * 2);
+    std::memset(lim_down[0], 0xff, FPGA::MAX_POINTS * 2);
+    std::memset(lim_down[1], 0xff, FPGA::MAX_POINTS * 2);
+    std::memset(&(sum[0][0]), 0, Chan::Count * FPGA::MAX_POINTS * sizeof(uint) * 2);
 }
 
 
@@ -390,7 +390,7 @@ bool Storage::CopyData(DataSettings *ds, Chan ch, Buffer<uint8> &datatImportRel)
         address += length;
     }
 
-    memcpy(datatImportRel.Data(), address, length);
+    std::memcpy(datatImportRel.Data(), address, length);
 
     return true;
 }
@@ -504,7 +504,7 @@ void Storage::PushData(DataSettings *dp, const uint8 *a, const uint8 *b)
 
     last_ds = (DataSettings *)addrRecord;
 
-#define COPY_AND_INCREASE(address, data, length) memcpy((address), (data), (length)); address += (length);
+#define COPY_AND_INCREASE(address, data, length) std::memcpy((address), (data), (length)); address += (length);
 
     COPY_AND_INCREASE(addrRecord, dp, sizeof(DataSettings));
 

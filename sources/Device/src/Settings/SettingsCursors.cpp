@@ -7,8 +7,8 @@
 #include "Utils/Math.h"
 #include "Utils/GlobalFunctions.h"
 #include "Menu/Pages/Definition.h"
-#include <math.h>
-#include <string.h>
+#include <cmath>
+#include <cstring>
 
 
 float PageCursors::GetCursPosU(Chan ch, int numCur)
@@ -43,11 +43,11 @@ pchar PageCursors::GetCursorPercentsU(Chan source, char buffer[20])
 {
     buffer[0] = 0;
     float dPerc = DELTA_U100(source);
-    float dValue = fabs(PageCursors::GetCursPosU(source, 0) - PageCursors::GetCursPosU(source, 1));
+    float dValue = std::fabs(PageCursors::GetCursPosU(source, 0) - PageCursors::GetCursPosU(source, 1));
     char bufferOut[20];
     char* percents = Float2String(dValue / dPerc * 100.0f, false, 5, bufferOut);
-    strcat(buffer, percents);
-    strcat(buffer, "%");
+    std::strcat(buffer, percents);
+    std::strcat(buffer, "%");
     return buffer;
 }
 
@@ -56,10 +56,10 @@ pchar PageCursors::GetCursorPercentsT(Chan source, char buffer[20])
 {
     buffer[0] = 0;
     float dPerc = DELTA_T100(source);
-    float dValue = fabs(CURS_POS_T0(source) - CURS_POS_T1(source));
+    float dValue = std::fabs(CURS_POS_T0(source) - CURS_POS_T1(source));
     char bufferOut[20];
     char* percents = Float2String(dValue / dPerc * 100.0f, false, 6, bufferOut);
-    strcat(buffer, percents);
-    strcat(buffer, "%");
+    std::strcat(buffer, percents);
+    std::strcat(buffer, "%");
     return buffer;
 }

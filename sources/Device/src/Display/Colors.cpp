@@ -5,7 +5,7 @@
 #include "Utils/GlobalFunctions.h"
 #include "Utils/Math.h"
 #include "Hardware/Timer.h"
-#include <math.h>
+#include <cmath>
 
 
 uint Color::Make(uint8 r, uint8 g, uint8 b)
