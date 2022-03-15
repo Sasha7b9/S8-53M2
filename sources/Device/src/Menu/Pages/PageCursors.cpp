@@ -23,19 +23,11 @@ extern const SmallButton sbSetT;              // КУРСОРЫ - УСТАНОВИТЬ - Курсоры 
 extern const SmallButton sbSet100;            // КУРСОРЫ - УСТАНОВИТЬ - 100% . Установка 100 процентов в текущие места курсоров.
 extern const SmallButton sbSetPointsPercents; // КУРСОРЫ - УСТАНОВИТЬ - Перемещение . Переключение шага перемещения курсоров - по пикселям или по процентам.
 
-static void SetCursPos100(Chan::E ch);                                // Запомнить позиции курсоров, соответствующие 100%.
-static void SetCursSource(Chan::E ch);                                // Установить источник курсорных измерений.
-static void IncCursCntrlU(Chan::E ch);                                // Выбрать следующий курсор.
-static void IncCursCntrlT(Chan::E ch);                                // Выбрать следующий курсор.
-static void SetCursPosU(Chan::E ch, int numCur, float pos);           // Установить позицию курсора напряжения.
-static void SetCursPosT(Chan::E ch, int numCur, float pos);           // Установить значение курсора по времени.
 
-
-#define MAX_POS_U   200
-#define MAX_POS_T   280
+static const int MAX_POS_U = 200;
+static const int MAX_POS_T = 280;
 
 void *PageCursors::PageSet::pointer = (void *)&mspSet;
-
 
 
 void SetCursSource(Chan::E ch)
@@ -57,6 +49,33 @@ void IncCursCntrlT(Chan::E ch)
     CircleIncreaseInt8((int8*)&CURS_CNTRL_T(ch), 0, 3);
 }
 
+
+// Установить позицию курсора напряжения.
+void SetCursPosU(Chan::E ch, int numCur, float pos)
+{
+    if (CURS_MOVEMENT_IS_PERCENTS)
+    {
+        CURS_POS_U(ch, numCur) = Math::Limitation<float>(pos, 0, MAX_POS_U);
+    }
+    else
+    { //-V523
+        CURS_POS_U(ch, numCur) = Math::Limitation<float>(pos, 0, MAX_POS_U);
+    }
+}
+
+
+// Установить значение курсора по времени.
+void SetCursPosT(Chan::E ch, int numCur, float pos)
+{
+    if (CURS_MOVEMENT_IS_PERCENTS)
+    {
+        CURS_POS_T(ch, numCur) = Math::Limitation<float>(pos, 0, MAX_POS_T);
+    }
+    else
+    { //-V523
+        CURS_POS_T(ch, numCur) = Math::Limitation<float>(pos, 0, MAX_POS_T);
+    }
+}
 
 
 void PageCursors::Cursors_Update()
@@ -88,32 +107,6 @@ void PageCursors::Cursors_Update()
         int posU1 = CURS_POS_U1(source);
         posT1 = Processing::GetCursT(source, posU1, 1);
         SetCursPosT(source, 1, posT1);
-    }
-}
-
-
-void SetCursPosU(Chan::E ch, int numCur, float pos)
-{
-    if (CURS_MOVEMENT_IS_PERCENTS)
-    {
-        CURS_POS_U(ch, numCur) = Math::Limitation<float>(pos, 0, MAX_POS_U);
-    }
-    else
-    { //-V523
-        CURS_POS_U(ch, numCur) = Math::Limitation<float>(pos, 0, MAX_POS_U);
-    }
-}
-
-
-void SetCursPosT(Chan::E ch, int numCur, float pos)
-{
-    if (CURS_MOVEMENT_IS_PERCENTS)
-    {
-        CURS_POS_T(ch, numCur) = Math::Limitation<float>(pos, 0, MAX_POS_T);
-    }
-    else
-    { //-V523
-        CURS_POS_T(ch, numCur) = Math::Limitation<float>(pos, 0, MAX_POS_T);
     }
 }
 
@@ -590,6 +583,14 @@ static const SmallButton sbSetT
 );
 
 
+// Запомнить позиции курсоров, соответствующие 100%.
+static void SetCursPos100(Chan::E ch)
+{
+    DELTA_U100(ch) = fabs(CURS_POS_U0(ch) - CURS_POS_U1(ch));
+    DELTA_T100(ch) = fabs(CURS_POS_T0(ch) - CURS_POS_T1(ch));
+}
+
+
 static void PressSB_Cursors_100()
 {
     SetCursPos100(CURS_SOURCE);
@@ -613,13 +614,6 @@ static const SmallButton sbSet100
     PressSB_Cursors_100,
     DrawSB_Cursors_100
 );
-
-
-static void SetCursPos100(Chan::E ch)
-{
-    DELTA_U100(ch) = fabs(CURS_POS_U0(ch) - CURS_POS_U1(ch));
-    DELTA_T100(ch) = fabs(CURS_POS_T0(ch) - CURS_POS_T1(ch));
-}
 
 
 static void DrawSB_Cursors_PointsPercents_Percents(int x, int y)
