@@ -22,8 +22,6 @@ namespace FPGA
 
         static Range::E FindRange(Chan);
 
-        static bool AccurateFindParams();
-
         // Читать данные с ожиданием импульса синхронизации
         static bool ReadDataWithSynchronization(Chan, uint timeWait, Buffer<uint8> &);
 
@@ -35,6 +33,15 @@ namespace FPGA
         static void FuncDrawAutoFind();
 
         static TBase::E CalculateTBase(float freq);
+    }
+
+    namespace Reader
+    {
+        // Чтение двух байт канала 1 (с калибровочными коэффициентами, само собой)
+        BitSet16 ReadA();
+
+        // Чтение двух байт канала 2 (с калибровочными коэффициентами, само собой)
+        BitSet16 ReadB();
     }
 }
 
@@ -96,7 +103,11 @@ static bool FPGA::AutoFinder::FindWave(Chan ch)
 
     Range::Set(ch, range);
 
-    return AccurateFindParams();
+    TBase::E tbase = TBase::Count;
+
+    FindParams(&tbase);
+
+    return (tbase != TBase::Count);
 }
 
 
@@ -153,20 +164,13 @@ static Range::E FPGA::AutoFinder::FindRange(Chan ch)
 }
 
 
-static bool FPGA::AutoFinder::AccurateFindParams()
-{
-    TBase::E tbase = TBase::Count;
-    FindParams(&tbase);
-
-    return true;
-}
-
-
 static bool FPGA::AutoFinder::ReadDataWithSynchronization(Chan ch, uint time_wait, Buffer<uint8> &data)
 {
-    FPGA::Start();
-
     data.Fill(ValueFPGA::NONE);
+
+    HAL_FMC::Write(WR_PRED, (uint16)(~(2)));
+    HAL_FMC::Write(WR_POST, (uint16)(~(data.Size() + 20)));
+    HAL_FMC::Write(WR_START, 1);
 
     while (_GET_BIT(flag.Read(), FL_PRED) == 0) { }
 
@@ -184,7 +188,40 @@ static bool FPGA::AutoFinder::ReadDataWithSynchronization(Chan ch, uint time_wai
 
     while(_GET_BIT(flag.Read(), FL_DATA) == 0) { }
 
-    return false;
+    uint16 address = (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) - data.Size() - 2);
+    HAL_FMC::Write(WR_PRED, address);
+    HAL_FMC::Write(WR_ADDR_READ, 0xffff);
+
+    typedef BitSet16 (*pFuncRead)();
+
+    pFuncRead funcRead = ch.IsA() ? Reader::ReadA : Reader::ReadB;
+
+    uint8 *elem = data.Data();
+    uint8 *last = data.Last();
+
+    funcRead();
+
+    if (SET_TBASE <= TBase::MAX_RAND)
+    {
+        while (elem < last)
+        {
+            BitSet16 bytes = funcRead();
+
+            *elem++ = bytes.byte0;
+        }
+    }
+    else
+    {
+        while (elem < last)
+        {
+            BitSet16 bytes = funcRead();
+
+            *elem++ = bytes.byte0;
+            *elem++ = bytes.byte1;
+        }
+    }
+
+    return true;
 }
 
 
