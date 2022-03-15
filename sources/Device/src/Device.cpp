@@ -108,17 +108,17 @@ void Device::ProcessingSignal()
     }
     else if (MODE_WORK_IS_LATEST)
     {
-        dataA = Storage::last.A;
-        dataB = Storage::last.B;
-        ds = &Storage::last.ds;
-        Storage::GetData(PageMemory::Latest::current, &Storage::last.ds, &Storage::last.A, &Storage::last.B);
+        dataA = Data::last.A;
+        dataB = Data::last.B;
+        ds = &Data::last.ds;
+        Storage::GetData(PageMemory::Latest::current, &Data::last.ds, &Data::last.A, &Data::last.B);
     }
     else if (MODE_WORK_IS_MEMINT)
     {
-        dataA = Storage::ins.A;
-        dataB = Storage::ins.B;
-        ds = &Storage::ins.ds;
-        HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::ins.ds, &Storage::ins.A, &Storage::ins.B);
+        dataA = Data::ins.A;
+        dataB = Data::ins.B;
+        ds = &Data::ins.ds;
+        HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Data::ins.ds, &Data::ins.A, &Data::ins.B);
     }
 
     if (MODE_WORK_IS_MEMINT)

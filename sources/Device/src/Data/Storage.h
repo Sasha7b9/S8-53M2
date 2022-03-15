@@ -46,10 +46,6 @@ namespace Storage
 
     int NumberAvailableEntries();
 
-
-    extern DataStruct last;
-    extern DataStruct ins;              // Здесь данные из ППЗУ, которые должны выводиться на экран
-
     namespace P2P
     {
         // Создать новый фрейм поточечного вывода.

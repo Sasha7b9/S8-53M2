@@ -3,7 +3,6 @@
 #include "FPGA/FPGA.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
-#include <stm32f4xx_hal.h>
 
 
 namespace FPGA

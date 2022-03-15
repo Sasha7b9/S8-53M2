@@ -10,7 +10,6 @@
 #include "Data/Processing.h"
 #include "Utils/Containers/Buffer.h"
 #include "Utils/Strings.h"
-#include <stm32f4xx_hal.h>
 #include <cstring>
 
 

@@ -14,9 +14,6 @@
 
 namespace Storage
 {
-    DataStruct last;
-    DataStruct ins;
-
     // Количество отведённой для измерений памяти.
     const int SIZE_POOL = (30 * 1024);
 

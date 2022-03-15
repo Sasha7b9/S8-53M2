@@ -734,20 +734,20 @@ void Display::DrawBothChannels(uint8 *data0, uint8 *data1)
 
 void Display::DrawDataMemInt()
 {
-    if(Storage::ins.ds)
+    if(Data::ins.ds)
      {
-        DrawDataChannel(Storage::ins.A, Chan::A, Storage::ins.ds, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::ins.B, Chan::B, Storage::ins.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Data::ins.A, Chan::A, Data::ins.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Data::ins.B, Chan::B, Data::ins.ds, GRID_TOP, Grid::ChannelBottom());
     }
 }
 
 
 void Display::DrawDataInModeWorkLatest()
 {
-    if (Storage::last.ds)
+    if (Data::last.ds)
     {
-        DrawDataChannel(Storage::last.A, Chan::A, Storage::last.ds, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::last.B, Chan::B, Storage::last.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Data::last.A, Chan::A, Data::last.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Data::last.B, Chan::B, Data::last.ds, GRID_TOP, Grid::ChannelBottom());
     }
 }
 
@@ -859,7 +859,7 @@ void Display::DrawTime(int x, int y)
     
     if (MODE_WORK_IS_MEMINT || MODE_WORK_IS_LATEST)
     {
-        DataSettings *ds = MODE_WORK_IS_MEMINT ? Storage::ins.ds : Storage::last.ds;
+        DataSettings *ds = MODE_WORK_IS_MEMINT ? Data::ins.ds : Data::last.ds;
 
         if (ds != 0)
         {
@@ -1013,9 +1013,9 @@ void Display::DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int
 
 void Display::DrawMemoryWindow()
 {
-    uint8 *datA = Storage::ins.A;
-    uint8 *datB = Storage::ins.B;
-    DataSettings *ds = Storage::ins.ds;
+    uint8 *datA = Data::ins.A;
+    uint8 *datB = Data::ins.B;
+    DataSettings *ds = Data::ins.ds;
     
     if(MODE_WORK_IS_DIRECT || MODE_WORK_IS_LATEST)
     {
@@ -2048,7 +2048,7 @@ void Display::WriteTextVoltage(Chan ch, int x, int y)
 
     if (!MODE_WORK_IS_DIRECT)
     {
-        DataSettings *ds = MODE_WORK_IS_DIRECT ? Data::dir.ds : Storage::ins.ds;
+        DataSettings *ds = MODE_WORK_IS_DIRECT ? Data::dir.ds : Data::ins.ds;
         if (ds != 0)
         {
             inverse = (ch == Chan::A) ? ds->inv_a : ds->inv_b;
@@ -2128,7 +2128,7 @@ void Display::DrawLowPart()
 
     if (!MODE_WORK_IS_DIRECT)
     {
-        DataSettings *ds = MODE_WORK_IS_LATEST ? Storage::last.ds : Storage::ins.ds;
+        DataSettings *ds = MODE_WORK_IS_LATEST ? Data::last.ds : Data::ins.ds;
         if (ds != 0)
         {
             tBase = ds->tBase;
