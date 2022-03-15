@@ -47,10 +47,7 @@ namespace Storage
     int NumberAvailableEntries();
 
     extern DataStruct data;                // Рисуемый сигнал
-
-    extern uint8        *dataLastA;
-    extern uint8        *dataLastB;
-    extern DataSettings *dsLast;
+    extern DataStruct last;
 
     extern uint8        *dataIntA;    // | Здесь данные из ППЗУ, которые должны выводиться на экран
     extern uint8        *dataIntB;    //-/

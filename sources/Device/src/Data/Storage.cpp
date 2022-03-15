@@ -15,10 +15,7 @@
 namespace Storage
 {
     DataStruct data;
-
-    uint8 *dataLastA = nullptr;
-    uint8 *dataLastB = nullptr;
-    DataSettings *dsLast = nullptr;
+    DataStruct last;
 
     uint8 *dataIntA = nullptr;
     uint8 *dataIntB = nullptr;

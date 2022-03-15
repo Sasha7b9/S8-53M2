@@ -537,9 +537,9 @@ static void SaveSignalToIntMemory()
 {
     if (PageMemory::Internal::exitToLast)          // Если перешли во ВНУТР ЗУ из ПОСЛЕДНИЕ
     {
-        if  (Storage::dsLast != 0)
+        if  (Storage::last.ds)
         {                               // то сохраняем сигнал из последних
-            HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Storage::dsLast, Storage::dataLastA, Storage::dataLastB);
+            HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Storage::last.ds, Storage::last.A, Storage::last.B);
             HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
             Display::ShowWarningGood(Warning::SignalIsSaved);
         }

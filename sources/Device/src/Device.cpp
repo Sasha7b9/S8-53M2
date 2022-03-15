@@ -108,10 +108,10 @@ void Device::ProcessingSignal()
     }
     else if (MODE_WORK_IS_LATEST)
     {
-        dataA = Storage::dataLastA;
-        dataB = Storage::dataLastB;
-        ds = &Storage::dsLast;
-        Storage::GetData(PageMemory::Latest::current, &Storage::dsLast, &Storage::dataLastA, &Storage::dataLastB);
+        dataA = Storage::last.A;
+        dataB = Storage::last.B;
+        ds = &Storage::last.ds;
+        Storage::GetData(PageMemory::Latest::current, &Storage::last.ds, &Storage::last.A, &Storage::last.B);
     }
     else if (MODE_WORK_IS_MEMINT)
     {
