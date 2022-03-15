@@ -1,5 +1,6 @@
 #pragma once
 #include "FPGA/SettingsFPGA.h"
+#include "Utils/Containers/Buffer.h"
 
 
 /*
@@ -68,17 +69,26 @@ struct DataSettings
 };
 
 
-// ¬ этой структуре хран€тс€ только точки
-struct PointsStruct
+// ¬ этой структуре хран€тс€ считанные точки
+struct PointsStructU8 : public Buffer<uint8>
 {
+    PointsStructU8(int size = 0);
+};
 
+
+// ¬ этой структуре хран€тс€ обработанные точки
+struct PointsStructF : public Buffer<float>
+{
+    PointsStructF(int size = 0);
 };
 
 
 // Ёта структура полностью описывает фрейм данных - настройки, считанные и готовые к выводу данные
 struct DataStruct
 {
-    DataSettings ds;
+    DataSettings   ds;
+    PointsStructU8 dU8[Chan::Count];
+    PointsStructF  dF[Chan::Count];
 };
 
 
