@@ -73,9 +73,19 @@ struct DataStruct
 };
 
 
+struct DataStructTemp
+{
+    uint8 *A;
+    uint8 *B;
+    DataSettings *ds;
+
+    DataStructTemp() : A(nullptr), B(nullptr), ds(nullptr) { }
+};
+
+
 namespace Data
 {
     extern DataStruct dir;             // Рисуемый сигнал
     extern DataStruct last;
-    extern DataStruct ins;              // Здесь данные из ППЗУ, которые должны выводиться на экран
+    extern DataStructTemp ins;              // Здесь данные из ППЗУ, которые должны выводиться на экран
 }
