@@ -48,14 +48,14 @@ int Divider::ToAbs(Divider::E multiplier)
 }
 
 
-bool Chan::Enabled(Chan::E ch)
+bool Chan::Enabled()
 {
-    if (ch == Chan::Math && !DISABLED_DRAW_MATH)
+    if (value == Chan::Math && !DISABLED_DRAW_MATH)
     {
         return true;
     }
 
-    return (ch <= ChB) ? SET_ENABLED(ch) : false;
+    return (value <= ChB) ? SET_ENABLED(value) : false;
 }
 
 

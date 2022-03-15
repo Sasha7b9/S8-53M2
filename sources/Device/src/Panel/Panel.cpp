@@ -327,7 +327,7 @@ namespace Panel
         {
             if (Item::Opened() == PageChannelA::self)
             {
-                SET_ENABLED_A = !Chan::Enabled(ChA);
+                SET_ENABLED_A = !SET_ENABLED_A;
                 PageChannelA::OnChanged_Input(true);
             }
             else
@@ -352,7 +352,7 @@ namespace Panel
         {
             if (Item::Opened() == PageChannelB::self)
             {
-                SET_ENABLED_B = !Chan::Enabled(ChB);
+                SET_ENABLED_B = !SET_ENABLED_B;
                 PageChannelB::OnChanged_Input(true);
             }
             else

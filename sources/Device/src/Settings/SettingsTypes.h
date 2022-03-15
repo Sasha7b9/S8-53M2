@@ -31,10 +31,10 @@ struct Chan
 
     Chan(E v = A) : value(v) {}
 
-    static bool Enabled(E);
+    bool Enabled();
 
     // Возвращает номер канала от 1 до 2
-    static int GetNumber(E ch) { return (ch == Chan::A) ? 1 : 2; }
+    int ToNumber() { return (value == Chan::A) ? 1 : 2; }
 
     bool IsA() const { return value == A; }
     bool IsB() const { return value == B; }

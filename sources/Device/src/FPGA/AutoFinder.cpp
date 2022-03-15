@@ -100,7 +100,12 @@ static bool FPGA::AutoFinder::FindWave(Chan ch)
 
     if (range == Range::Count)
     {
+        LOG_ERROR("range %d не найден", ch.ToNumber());
         return false;
+    }
+    else
+    {
+        LOG_ERROR("range = %d", range);
     }
 
     Range::Set(ch, range);

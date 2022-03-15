@@ -175,7 +175,7 @@ void FPGA::SetAttribChannelsAndTrig(TypeWriteAnalog::E type)
 
 void Range::Set(Chan ch, Range::E range)
 {
-    if (!Chan::Enabled(ch.value))
+    if (!ch.Enabled())
     {
         return;
     }
@@ -215,10 +215,11 @@ void Range::Load(Chan ch)
 
 void TBase::Set(TBase::E tBase)
 {
-    if (!Chan::Enabled(Chan::A) && !Chan::Enabled(Chan::B))
+    if (!SET_ENABLED_A && !SET_ENABLED_B)
     {
         return;
     }
+
     if (tBase < TBase::Count && (int)tBase >= 0)
     {
         float tShiftAbsOld = TShift::ToAbs(SET_TSHIFT, SET_TBASE);
@@ -333,7 +334,7 @@ void TBase::Increase()
 
 void RShift::Set(Chan ch, int16 rShift)
 {
-    if (!Chan::Enabled(ch.value))
+    if (!ch.Enabled())
     {
         return;
     }
@@ -438,7 +439,7 @@ void TrigLev::Load()
 
 void TShift::Set(int tshift)
 {
-    if (!Chan::Enabled(Chan::A) && !Chan::Enabled(Chan::B))
+    if (!SET_ENABLED_A && !SET_ENABLED_B)
     {
         return;
     }
@@ -682,8 +683,8 @@ void DataSettings::Init()
 {
     rec_point = TBase::InModeP2P() ? 0 : -1;
 
-    en_a = Chan::Enabled(Chan::A) ? 1U : 0U;
-    en_b = Chan::Enabled(Chan::B) ? 1U : 0U;
+    en_a = SET_ENABLED_A ? 1U : 0U;
+    en_b = SET_ENABLED_B ? 1U : 0U;
     inv_a = SET_INVERSE_A ? 1U : 0U;
     inv_b = SET_INVERSE_B ? 1U : 0U;
     range[0] = SET_RANGE_A;

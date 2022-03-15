@@ -301,8 +301,8 @@ void Settings::RunAfterLoad()
 {
     HAL_LTDC::LoadPalette();
 
-    Panel::EnableLEDChannelA(Chan::Enabled(Chan::A));
-    Panel::EnableLEDChannelB(Chan::Enabled(Chan::B));
+    Panel::EnableLEDChannelA(SET_ENABLED_A);
+    Panel::EnableLEDChannelB(SET_ENABLED_B);
     Menu::SetAutoHide(true);
     Display::ChangedRShiftMarkers();
 

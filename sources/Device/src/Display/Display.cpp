@@ -65,7 +65,7 @@ namespace Display
     void DrawCursorsRShift();
 
     // Нарисовать маркеры смещения по напряжению
-    void DrawCursorRShift(Chan::E ch);
+    void DrawCursorRShift(Chan);
 
     // Нарисовать маркер уровня синхронизации.
     void DrawCursorTrigLevel();
@@ -100,9 +100,9 @@ namespace Display
 
     int CalculateFreeSize();
 
-    bool ChannelNeedForDraw(const uint8* data, Chan::E ch, const DataSettings* ds);
+    bool ChannelNeedForDraw(const uint8* data, Chan, const DataSettings *);
 
-    void DrawDataChannel(uint8* data, Chan::E ch, DataSettings* ds, int minY, int maxY);
+    void DrawDataChannel(uint8* data, Chan, DataSettings *, int minY, int maxY);
 
     void DrawBothChannels(uint8* data0, uint8* data1);
 
@@ -119,17 +119,17 @@ namespace Display
     // Нарисовать окно памяти
     void DrawMemoryWindow();
 
-    void DRAW_SPECTRUM(const uint8* data, int numPoints, Chan::E ch);
+    void DRAW_SPECTRUM(const uint8* data, int numPoints, Chan);
 
     void DrawGridSpectrum();
 
-    void DrawMarkersForMeasure(float scale, Chan::E ch);
+    void DrawMarkersForMeasure(float scale, Chan);
 
     void DrawScaleLine(int x, bool forTrigLev);
 
-    void WriteParametersFFT(Chan::E ch, float freq0, float density0, float freq1, float density1);
+    void WriteParametersFFT(Chan, float freq0, float density0, float freq1, float density1);
 
-    void WriteTextVoltage(Chan::E ch, int x, int y);
+    void WriteTextVoltage(Chan, int x, int y);
 
     void FuncOnTimerDisableShowLevelRShiftA();
 
@@ -292,7 +292,7 @@ void Display::FuncOnTimerDisableShowLevelTrigLev()
 }
 
 
-bool Display::ChannelNeedForDraw(const uint8 *data, Chan::E ch, const DataSettings *ds)
+bool Display::ChannelNeedForDraw(const uint8 *data, Chan ch, const DataSettings *ds)
 {
     if (!data)
     {
@@ -301,7 +301,7 @@ bool Display::ChannelNeedForDraw(const uint8 *data, Chan::E ch, const DataSettin
 
     if (MODE_WORK_IS_DIRECT)
     {
-        if (!Chan::Enabled(ch))
+        if (!ch.Enabled())
         {
             return false;
         }
@@ -322,7 +322,7 @@ bool Display::ChannelNeedForDraw(const uint8 *data, Chan::E ch, const DataSettin
 
 
 
-void Display::DrawMarkersForMeasure(float scale, Chan::E ch)
+void Display::DrawMarkersForMeasure(float scale, Chan ch)
 {
     if (ch == Chan::Math)
     {
@@ -493,7 +493,7 @@ void Display::DrawSignalPointed(const uint8 *data, const DataSettings *ds, int s
 
 
 // Если data == 0, то данные брать из GetData
-void Display::DrawDataChannel(uint8 *data, Chan::E ch, DataSettings *ds, int minY, int maxY)
+void Display::DrawDataChannel(uint8 *data, Chan ch, DataSettings *ds, int minY, int maxY)
 {
     bool calculateFiltr = true;
     if (data == 0)
@@ -606,7 +606,7 @@ void Display::DrawSpectrumChannel(const float *spectrum, Color::E color)
 }
 
 
-void Display::WriteParametersFFT(Chan::E ch, float freq0, float density0, float freq1, float density1)
+void Display::WriteParametersFFT(Chan ch, float freq0, float density0, float freq1, float density1)
 {
     int x = Grid::Left() + 259;
     int y = Grid::ChannelBottom() + 5;
@@ -633,12 +633,13 @@ void Display::WriteParametersFFT(Chan::E ch, float freq0, float density0, float 
 
 
 
-void Display::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan::E ch)
+void Display::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan ch)
 {
-    if (!Chan::Enabled(ch))
+    if (!ch.Enabled())
     {
         return;
     }
+
     float dataR[FPGA::MAX_POINTS * 2];
     float spectrum[FPGA::MAX_POINTS * 2];
 
@@ -1762,7 +1763,7 @@ void Display::DrawCursorTrigLevel()
 }
 
 
-void Display::DrawCursorRShift(Chan::E ch)
+void Display::DrawCursorRShift(Chan ch)
 {
     float x = (float)(Grid::Right() - Grid::Width() - Measures::GetDeltaGridLeft());
 
@@ -1775,7 +1776,8 @@ void Display::DrawCursorRShift(Chan::E ch)
         PText::DrawChar((int)(x - 8), (int)(y - 5), 'm', COLOR_BACK);
         return;
     }
-    if(!Chan::Enabled(ch))
+
+    if(!ch.Enabled())
     {
         return;
     }
@@ -2026,7 +2028,7 @@ void Display::DrawMeasures()
 
 
 
-void Display::WriteTextVoltage(Chan::E ch, int x, int y)
+void Display::WriteTextVoltage(Chan ch, int x, int y)
 {
     static pchar couple[] =
     {
