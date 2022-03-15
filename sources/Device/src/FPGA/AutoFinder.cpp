@@ -6,20 +6,27 @@
 #include "Hardware/Timer.h"
 #include <stm32f4xx.h>
 #include <cstring>
+#include <climits>
 
 
 namespace FPGA
 {
     namespace AutoFinder
     {
+        class DataFinder : public Buffer<uint8>
+        {
+        public:
+            DataFinder() : Buffer<uint8>(1024) { }
+
+            // Читать данные с ожиданием импульса синхронизации
+            bool ReadDataWithSynchronization(Chan, uint timeWait);
+        };
+
         static Waiter waiter;
 
         static bool FindWave(Chan);
 
         static Range::E FindRange(Chan);
-
-        // Читать данные с ожиданием импульса синхронизации
-        static bool ReadDataWithSynchronization(Chan, uint timeWait, Buffer<uint8> &);
 
         // Возвращает размах сигнала - разность между минимальным и максимальным значениями
         static int GetBound(uint8 data[1024], int *min, int *max);
@@ -69,6 +76,8 @@ void FPGA::AutoFinder::FindSignal()
 
     Settings old = set;
 
+    FPGA::Stop(false);
+
     if (!FindWave(ChA))
     {
         if (!FindWave(ChB))
@@ -89,7 +98,6 @@ void FPGA::AutoFinder::FindSignal()
 static bool FPGA::AutoFinder::FindWave(Chan ch)
 {
     TBase::Set((TBase::E)(TBase::MIN_P2P - 1));
-    SET_ENABLED(ch) = true;
     TrigSource::Set(ch);
     TrigLev::Set(ch, TrigLev::ZERO);
     RShift::Set(ch, RShift::ZERO);
@@ -105,7 +113,7 @@ static bool FPGA::AutoFinder::FindWave(Chan ch)
     }
     else
     {
-        LOG_WRITE("range = %d", range);
+        LOG_WRITE("range %d = %d", ch.ToNumber(), range);
     }
 
     Range::Set(ch, range);
@@ -121,62 +129,79 @@ static bool FPGA::AutoFinder::FindWave(Chan ch)
 static Range::E FPGA::AutoFinder::FindRange(Chan ch)
 {
     PeackDetMode::E peackDet = SET_PEAKDET;
-    TPos::E tPos = SET_TPOS;
     Range::E oldRange = SET_RANGE(ch);
 
-    START_MODE = StartMode::Wait;                // Устанавливаем ждущий режим синхронизации, чтоб понять, есть ли сигнал
-
-    Stop(false);
+    FPGA::Stop(false);
 
     PeackDetMode::Set(PeackDetMode::Enable);
-    Range::Set(ch, Range::_2mV);
-    TPos::Set(TPos::Left);
 
-    int range = Range::Count;
+    Range::E result = Range::Count;
 
-    Buffer<uint8> data(1024);
-
-    if (ReadDataWithSynchronization(ch, 2000, data))        // Если в течение 2 секунд не считан сигнал, то его нет на этом канале - выходим
+    for (int range = Range::Count - 1; range >= Range::_2mV; range--)
     {
-        int min = 0;
-        int max = 0;
+        Range::Set(ch, (Range::E)range);
 
-        int bound = GetBound(data.Data(), &min, &max);
+        DataFinder data;
 
-        if (bound > (ValueFPGA::MAX - ValueFPGA::MIN) / 10.0 * 2)   // Если размах сигнала меньше двух клеток - тоже выходим
+        if (data.ReadDataWithSynchronization(ch, 2000))
         {
-            StartMode::Set(StartMode::Auto);
+            int min = INT_MAX;
+            int max = INT_MAX;
 
-            for (range = 0; range < Range::Count; ++range)
+            GetBound(data.Data(), &min, &max);
+
+            if (min > ValueFPGA::MIN && max < ValueFPGA::MAX)
             {
-                Range::Set(ch, (Range::E)range);
+                continue;
+            }
+            else
+            {
 
-                ReadDataWithSynchronization(ch, 10000, data);
-
-                GetBound(data.Data(), &min, &max);
-
-                if (min > ValueFPGA::MIN && max < ValueFPGA::MAX)       // Если все значения внутри экрана
-                {
-                    break;                                              // То мы нашли наш Range - выходим из цикла
-                }
             }
         }
     }
 
+
+//    if (ReadDataWithSynchronization(ch, 2000, data))        // Если в течение 2 секунд не считан сигнал, то его нет на этом канале - выходим
+//    {
+//        int min = 0;
+//        int max = 0;
+//
+//        int bound = GetBound(data.Data(), &min, &max);
+//
+//        if (bound > (ValueFPGA::MAX - ValueFPGA::MIN) / 10.0 * 2)   // Если размах сигнала меньше двух клеток - тоже выходим
+//        {
+//            StartMode::Set(StartMode::Auto);
+//
+//            for (range = Range::Count - 1; range >= Range::_2mV; range--)
+//            {
+//                Range::Set(ch, (Range::E)range);
+//
+//                ReadDataWithSynchronization(ch, 10000, data);
+//
+//                GetBound(data.Data(), &min, &max);
+//
+//                if (min > ValueFPGA::MIN && max < ValueFPGA::MAX)       // Если все значения внутри экрана
+//                {
+//                    break;                                              // То мы нашли наш Range - выходим из цикла
+//                }
+//            }
+//        }
+//    }
+
     Range::Set(ch, oldRange);
     PeackDetMode::Set(peackDet);
-    TPos::Set(tPos);
 
-    return (Range::E)range;
+    return result;
 }
 
 
-static bool FPGA::AutoFinder::ReadDataWithSynchronization(Chan ch, uint time_wait, Buffer<uint8> &data)
+bool FPGA::AutoFinder::DataFinder::ReadDataWithSynchronization(Chan ch, uint time_wait)
 {
-    data.Fill(ValueFPGA::NONE);
+    Fill(ValueFPGA::NONE);
 
     HAL_FMC::Write(WR_PRED, (uint16)(~(2)));
-    HAL_FMC::Write(WR_POST, (uint16)(~(data.Size() + 20)));
+    HAL_FMC::Write(WR_POST, (uint16)(~(Size() + 20)));
     HAL_FMC::Write(WR_START, 1);
 
     while (_GET_BIT(flag.Read(), FL_PRED) == 0) { }
@@ -189,13 +214,15 @@ static bool FPGA::AutoFinder::ReadDataWithSynchronization(Chan ch, uint time_wai
         {
             FPGA::Stop(false);
 
+            LOG_ERROR("range %d, Нет сигнала", SET_RANGE(ch));
+
             return false;
         }
     }
 
     while(_GET_BIT(flag.Read(), FL_DATA) == 0) { }
 
-    uint16 address = (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) - data.Size() - 2);
+    uint16 address = (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) - Size() - 2);
     HAL_FMC::Write(WR_PRED, address);
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
@@ -203,8 +230,8 @@ static bool FPGA::AutoFinder::ReadDataWithSynchronization(Chan ch, uint time_wai
 
     pFuncRead funcRead = ch.IsA() ? Reader::ReadA : Reader::ReadB;
 
-    uint8 *elem = data.Data();
-    uint8 *last = data.Last();
+    uint8 *elem = Data();
+    uint8 *last = Last();
 
     funcRead();
 
@@ -225,6 +252,8 @@ static bool FPGA::AutoFinder::ReadDataWithSynchronization(Chan ch, uint time_wai
             *elem++ = bytes.byte1;
         }
     }
+
+    LOG_WRITE("range %d сигнал считан", SET_RANGE(ch));
 
     return true;
 }
