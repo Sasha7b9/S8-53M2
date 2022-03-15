@@ -40,6 +40,12 @@ uint Timer::GetTicks()
 }
 
 
+uint Timer::GetMS()
+{
+    return HAL_GetTick();
+}
+
+
 void Timer::StartMultiMeasurement()
 {
     TIM2->CR1 &= (uint16)~TIM_CR1_CEN;

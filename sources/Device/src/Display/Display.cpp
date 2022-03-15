@@ -25,7 +25,6 @@
 #include "Menu/Pages/Definition.h"
 #include "Hardware/Timer.h"
 #include "Data/DataController.h"
-#include <stm32f4xx_hal.h>
 #include <cmath>
 #include <climits>
 #include <cstring>

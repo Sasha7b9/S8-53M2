@@ -4,7 +4,7 @@
 #include "Utils/GlobalFunctions.h"
 
 
-#define TIME_MS    HAL_GetTick()
+#define TIME_MS    Timer::GetMS()
 #define TIME_TICKS Timer::GetTicks()
 
 
@@ -41,6 +41,8 @@ namespace Timer
     // В одной секунде 120.000.000 тиков. Максимальный отрезок времени, который можно отсчитать с её помощью - 35 сек.
     // Количество тиков, прошедших с момента последнего вызова функции Timer_StartMultiMeasurement(). Не более (1 << 32).
     uint GetTicks();
+
+    uint GetMS();
 
     // Функция вызывается по прерыванию системного таймера для работы таймеров. Увеличивает внутренее время таймеров на 1мс.
     void Update1ms();
