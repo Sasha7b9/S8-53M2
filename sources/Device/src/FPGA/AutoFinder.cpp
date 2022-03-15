@@ -31,7 +31,7 @@ namespace FPGA
 
         static Range::E FindRange(Chan);
 
-        static bool FindParams(TBase::E *);
+        static bool FindTBase();
 
         static void FunctionDraw();
 
@@ -113,21 +113,12 @@ static bool FPGA::AutoFinder::FindWave(Chan ch)
 
     if (range == Range::Count)
     {
-        LOG_ERROR("%d : range не найден", ch.ToNumber());
         return false;
-    }
-    else
-    {
-        LOG_WRITE("%d : range = %d", ch.ToNumber(), range);
     }
 
     Range::Set(ch, range);
 
-    TBase::E tbase = TBase::Count;
-
-    FindParams(&tbase);
-
-    return (tbase != TBase::Count);
+    return FindTBase();
 }
 
 
@@ -253,7 +244,7 @@ BitSet64 FPGA::AutoFinder::DataFinder::GetBound()
 }
 
 
-bool FPGA::AutoFinder::FindParams(TBase::E *tbase)
+bool FPGA::AutoFinder::FindTBase()
 {
     TrigInput::Set(TrigInput::Full);
 
@@ -275,14 +266,14 @@ bool FPGA::AutoFinder::FindParams(TBase::E *tbase)
 
     if (freq >= 50.0f)
     {
-        *tbase = CalculateTBase(freq);
+        TBase::E tbase = CalculateTBase(freq);
 
-        if (*tbase >= TBase::MIN_P2P)
+        if (tbase >= TBase::MIN_P2P)
         {
-            *tbase = TBase::MIN_P2P;
+            tbase = TBase::MIN_P2P;
         }
 
-        TBase::Set(*tbase);
+        TBase::Set(tbase);
 
         Start();
 
@@ -297,16 +288,17 @@ bool FPGA::AutoFinder::FindParams(TBase::E *tbase)
 
         if (freq > 0.0f)
         {
-            *tbase = CalculateTBase(freq);
+            TBase::E tbase = CalculateTBase(freq);
 
-            if (*tbase >= TBase::MIN_P2P)
+            if (tbase >= TBase::MIN_P2P)
             {
-                *tbase = TBase::MIN_P2P;
+                tbase = TBase::MIN_P2P;
             }
 
-            TBase::Set(*tbase);
+            TBase::Set(tbase);
             Timer::PauseOnTime(10);
             Start();
+
             return true;
         }
     }
