@@ -6,16 +6,6 @@
 #include "Utils/Containers/Buffer.h"
 
 
-struct DataStruct
-{
-    uint8        *A;
-    uint8        *B;
-    DataSettings *ds;
-
-    DataStruct() : A(nullptr), B(nullptr), ds(nullptr) { }
-};
-
-
 namespace Storage
 {
     // Удаление всех сохранённых измерений

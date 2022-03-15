@@ -1,5 +1,6 @@
 #pragma once
-#include "Data/Storage.h"
+#include "defines.h"
+#include "Data/Data.h"
 
 
 namespace Data
