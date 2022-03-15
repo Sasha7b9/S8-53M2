@@ -88,30 +88,30 @@ void Device::ProcessingSignal()
         return;
     }
 
-    uint8 *dataA = Data::dir.A;
-    uint8 *dataB = Data::dir.B;
-    DataSettings **ds = &Data::dir.ds;
+    uint8 *dataA = nullptr;
+    uint8 *dataB = nullptr;
+    DataSettings **ds = nullptr;
 
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
     if (MODE_WORK_IS_DIRECT)
     {
-        Storage::GetData(0, &Data::dir.ds, &Data::dir.A, &Data::dir.B);
-        dataA = Data::dir.A;
-        dataB = Data::dir.B;
+        Storage::GetData(0, Data::dir);
+        dataA = Data::dir.A.Data();
+        dataB = Data::dir.B.Data();
 
         if (SettingsDisplay::NumAverages() != 1 || TBase::InModeRandomizer())
         {
-            Data::dir.A = Storage::GetAverageData(Chan::A);
-            Data::dir.B = Storage::GetAverageData(Chan::B);
+            Storage::GetAverageData(Chan::A, Data::dir.A);
+            Storage::GetAverageData(Chan::B, Data::dir.B);
         }
     }
     else if (MODE_WORK_IS_LATEST)
     {
-        dataA = Data::last.A;
-        dataB = Data::last.B;
+        Storage::GetData(PageMemory::Latest::current, Data::last);
+        dataA = Data::last.A.Data();
+        dataB = Data::last.B.Data();
         ds = &Data::last.ds;
-        Storage::GetData(PageMemory::Latest::current, &Data::last.ds, &Data::last.A, &Data::last.B);
     }
     else if (MODE_WORK_IS_MEMINT)
     {
@@ -125,7 +125,7 @@ void Device::ProcessingSignal()
     {
         if (!MODE_SHOW_MEMINT_IS_SAVED)
         {
-            Processing::SetSignal(Data::dir.A, Data::dir.B, Data::dir.ds, points);
+            Processing::SetSignal(Data::dir.A.Data(), Data::dir.B.Data(), Data::dir.ds, points);
         }
     }
     else

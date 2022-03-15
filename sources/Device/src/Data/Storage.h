@@ -24,12 +24,12 @@ namespace Storage
     int NumElementsWithCurrentSettings();
 
     // Получить указатель на данные
-    bool GetData(int fromEnd, DataSettings **ds, uint8 **dataA, uint8 **dataB);
+    bool GetData(int fromEnd, DataStruct &);
 
     uint8* GetData(Chan, int fromEnd);
 
     // Получить усреднённые данные по нескольким измерениям.
-    uint8* GetAverageData(Chan);
+    void GetAverageData(Chan, BufferU8 &);
 
     // Получить ограничивающую линию сигнала 0 - снизу, 1 - сверху.
     uint8* GetLimitation(Chan, int direction);                                      

@@ -78,7 +78,7 @@ namespace Storage
 
     //  опирует данные канала chan из, определ€емые ds, в одну из двух строк массива dataImportRel. ¬озвращаемое
     // значение false означает, что данный канал выключен.
-    bool CopyData(DataSettings *, Chan ch, Buffer<uint8> &datatImportRel);
+    bool CopyData(DataSettings *, Chan ch, BufferU8 &datatImportRel);
 
     void CalculateAroundAverage(const DataSettings *, uint8 *dataA, uint8 *dataB);
 
@@ -226,13 +226,11 @@ void Storage::CalculateLimits(const DataSettings *dss, const uint8 *a, const uin
 
 void Storage::CalculateSums()
 {
-    DataSettings *ds = 0;
-    uint8 *data0 = 0;
-    uint8 *data1 = 0;
+    DataStruct data;
 
-    GetData(0, &ds, &data0, &data1);
+    GetData(0, data);
 
-    uint numPoints = (uint)ds->BytesInChannel();
+    uint numPoints = (uint)data.ds->BytesInChannel();
 
     int numAveragings = 0;
 
@@ -248,8 +246,8 @@ void Storage::CalculateSums()
 
     for (uint i = 0; i < numPoints; i++)
     {
-        sum[0][i] = data0[i];
-        sum[1][i] = data1[i];
+        sum[0][i] = data.A[i];
+        sum[1][i] = data.B[i];
     }
     if (numAveragings > 1)
     {
@@ -262,12 +260,12 @@ void Storage::CalculateSums()
 
         for (int i = 1; i < numAveragings; i++)
         {
-            GetData(i, &ds, &data0, &data1);
+            GetData(i, data);
 
             for (uint point = 0; point < numPoints; point++)
             {
-                sum[0][point] += data0[point];
-                sum[1][point] += data1[point];
+                sum[0][point] += data.A[point];
+                sum[1][point] += data.B[point];
             }
         }
     }
@@ -308,34 +306,26 @@ int Storage::NumElementsWithCurrentSettings()
 }
 
 
-bool Storage::GetData(int fromEnd, DataSettings **ds, uint8 **a, uint8 **b)
+bool Storage::GetData(int fromEnd, DataStruct &data)
 {
-    static Buffer<uint8> dataImportRel[Chan::Count];
-
     DataSettings *dp = GetDataSettings(fromEnd);
+
+    data.ds = dp;
 
     if (dp == nullptr)
     {
         return false;
     }
 
-    if (dataImportRel[ChA].Size() != dp->BytesInChannel())
+    if (dp->en_a)
     {
-        dataImportRel[ChA].Realloc(dp->BytesInChannel());
-        dataImportRel[ChB].Realloc(dp->BytesInChannel());
+        CopyData(dp, Chan::A, data.A);
     }
 
-    if (a)
+    if (dp->en_a)
     {
-        *a = CopyData(dp, Chan::A, dataImportRel[ChA]) ? dataImportRel[ChA].Data() : nullptr;
+        CopyData(dp, Chan::B, data.B);
     }
-
-    if (b)
-    {
-        *b = CopyData(dp, Chan::B, dataImportRel[ChB]) ? dataImportRel[ChB].Data() : nullptr;
-    }
-
-    *ds = dp;
 
     return true;
 }
@@ -343,7 +333,7 @@ bool Storage::GetData(int fromEnd, DataSettings **ds, uint8 **a, uint8 **b)
 
 uint8 *Storage::GetData(Chan ch, int fromEnd)
 {
-    static Buffer<uint8> dataImport[Chan::Count];
+    static BufferU8 dataImport[Chan::Count];
 
     DataSettings *dp = GetDataSettings(fromEnd);
 
@@ -362,7 +352,7 @@ uint8 *Storage::GetData(Chan ch, int fromEnd)
 }
 
 
-bool Storage::CopyData(DataSettings *ds, Chan ch, Buffer<uint8> &datatImportRel)
+bool Storage::CopyData(DataSettings *ds, Chan ch, BufferU8 &datatImportRel)
 {
     if ((ch == Chan::A && !ds->en_a) || (ch == Chan::B && !ds->en_b))
     {
@@ -378,33 +368,35 @@ bool Storage::CopyData(DataSettings *ds, Chan ch, Buffer<uint8> &datatImportRel)
         address += length;
     }
 
-    std::memcpy(datatImportRel.Data(), address, length);
+    datatImportRel.Fill(address, (int)length);
 
     return true;
 }
 
 
-uint8 *Storage::GetAverageData(Chan ch)
+void Storage::GetAverageData(Chan ch, BufferU8 &_data)
 {
     static uint8 data_out[Chan::Count][FPGA::MAX_POINTS * 2];
 
     if (newSumCalculated[ch] == false)
     {
-        return &data_out[ch][0];
+        _data.Fill(&data_out[ch][0], FPGA::MAX_POINTS * 2);
+
+        return;
     }
 
     newSumCalculated[ch] = false;
 
-    DataSettings *ds = 0;
-    uint8 *d0, *d1;
-    GetData(0, &ds, &d0, &d1);
+    DataStruct data;
 
-    if (ds == 0)
+    GetData(0, data);
+
+    if (!data.ds)
     {
-        return 0;
+        return;
     }
 
-    uint numPoints = (uint)ds->BytesInChannel();
+    uint numPoints = (uint)data.ds->BytesInChannel();
 
     if (SettingsDisplay::GetModeAveraging() == ModeAveraging::Around)
     {
@@ -414,7 +406,10 @@ uint8 *Storage::GetAverageData(Chan ch)
         {
             data_out[ch][i] = (uint8)(floatAveData[i]);
         }
-        return &data_out[ch][0];
+
+        _data.Fill(&data_out[ch][0], FPGA::MAX_POINTS * 2);
+
+        return;
     }
 
     int numAveraging = SettingsDisplay::NumAverages();
@@ -426,7 +421,7 @@ uint8 *Storage::GetAverageData(Chan ch)
         data_out[ch][i] = sum[ch][i] / numAveraging;
     }
 
-    return &data_out[ch][0];
+    _data.Fill(&data_out[ch][0], FPGA::MAX_POINTS * 2);
 }
 
 
@@ -639,8 +634,8 @@ void Storage::P2P::AppendFrame(DataSettings ds)
 
     int num_bytes = ds.BytesInChannel();
 
-    DataBuffer bufferA(num_bytes);
-    DataBuffer bufferB(num_bytes);
+    BufferU8 bufferA(num_bytes);
+    BufferU8 bufferB(num_bytes);
 
     bufferA.Fill(ValueFPGA::NONE);
     bufferB.Fill(ValueFPGA::NONE);
@@ -662,12 +657,10 @@ void Storage::P2P::Reset()
 
 void Storage::P2P::AddPoints(BitSet16 bytesA, BitSet16 bytesB)
 {
-    DataSettings *ds = nullptr;
-    uint8 *a = nullptr;
-    uint8 *b = nullptr;
+    DataStruct data;
 
-    if (GetData(0, &ds, &a, &b))
+    if (GetData(0, data))
     {
-        ds->AppendPoints(a, b, bytesA, bytesB);
+        data.ds->AppendPoints(data.A.Data(), data.B.Data(), bytesA, bytesB);
     }
 }

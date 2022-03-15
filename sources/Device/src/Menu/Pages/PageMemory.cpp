@@ -540,7 +540,7 @@ static void SaveSignalToIntMemory()
     {
         if  (Data::last.ds)
         {                               // то сохраняем сигнал из последних
-            HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Data::last.ds, Data::last.A, Data::last.B);
+            HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Data::last.ds, Data::last.A.Data(), Data::last.B.Data());
             HAL_ROM::GetData(PageMemory::Internal::currentSignal, Data::ins);
             Display::ShowWarningGood(Warning::SignalIsSaved);
         }
@@ -549,7 +549,7 @@ static void SaveSignalToIntMemory()
     {
         if (Data::dir.ds)
         {
-            HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Data::dir.ds, Data::dir.A, Data::dir.B);
+            HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Data::dir.ds, Data::dir.A.Data(), Data::dir.B.Data());
             HAL_ROM::GetData(PageMemory::Internal::currentSignal, Data::ins);
             Display::ShowWarningGood(Warning::SignalIsSaved);
         }

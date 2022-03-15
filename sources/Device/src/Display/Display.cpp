@@ -119,7 +119,7 @@ namespace Display
     // Нарисовать окно памяти
     void DrawMemoryWindow();
 
-    void DRAW_SPECTRUM(const uint8* data, int numPoints, Chan);
+    void DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan);
 
     void DrawGridSpectrum();
 
@@ -690,23 +690,23 @@ void Display::DrawSpectrum()
 
         if (SOURCE_FFT_IS_A)
         {
-            DRAW_SPECTRUM(Data::dir.A, numPoints, Chan::A);
+            DRAW_SPECTRUM(Data::dir.A.Data(), numPoints, Chan::A);
         }
         else if (SOURCE_FFT_IS_B)
         {
-            DRAW_SPECTRUM(Data::dir.B, numPoints, Chan::B);
+            DRAW_SPECTRUM(Data::dir.B.Data(), numPoints, Chan::B);
         }
         else
         {
             if (LAST_AFFECTED_CHANNEL_IS_A)
             {
-                DRAW_SPECTRUM(Data::dir.B, numPoints, Chan::B);
-                DRAW_SPECTRUM(Data::dir.A, numPoints, Chan::A);
+                DRAW_SPECTRUM(Data::dir.B.Data(), numPoints, Chan::B);
+                DRAW_SPECTRUM(Data::dir.A.Data(), numPoints, Chan::A);
             }
             else
             {
-                DRAW_SPECTRUM(Data::dir.A, numPoints, Chan::A);
-                DRAW_SPECTRUM(Data::dir.B, numPoints, Chan::B);
+                DRAW_SPECTRUM(Data::dir.A.Data(), numPoints, Chan::A);
+                DRAW_SPECTRUM(Data::dir.B.Data(), numPoints, Chan::B);
             }
         }
     }
@@ -746,8 +746,8 @@ void Display::DrawDataInModeWorkLatest()
 {
     if (Data::last.ds)
     {
-        DrawDataChannel(Data::last.A, Chan::A, Data::last.ds, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Data::last.B, Chan::B, Data::last.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Data::last.A.Data(), Chan::A, Data::last.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Data::last.B.Data(), Chan::B, Data::last.ds, GRID_TOP, Grid::ChannelBottom());
     }
 }
 
@@ -1013,15 +1013,11 @@ void Display::DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int
 
 void Display::DrawMemoryWindow()
 {
-    uint8 *datA = Data::ins.A.Data();
-    uint8 *datB = Data::ins.B.Data();
-    DataSettings *ds = Data::ins.ds;
-    
+    DataStruct *dat = &Data::ins;
+
     if(MODE_WORK_IS_DIRECT || MODE_WORK_IS_LATEST)
     {
-        datA = Data::dir.A;
-        datB = Data::dir.B;
-        ds = Data::dir.ds;
+        dat = &Data::dir;
     }
     
     int leftX = 3;
@@ -1051,22 +1047,22 @@ void Display::DrawMemoryWindow()
 
     if (showFull)
     {
-        if (Data::dir.A || Data::dir.B)
+        if (dat->A.Size() || dat->A.Size())
         {
             Chan::E chanFirst = LAST_AFFECTED_CHANNEL_IS_A ? Chan::B : Chan::A;
             Chan::E chanSecond = LAST_AFFECTED_CHANNEL_IS_A ? Chan::A : Chan::B;
-            const uint8 *dataFirst = LAST_AFFECTED_CHANNEL_IS_A ? datB : datA;
-            const uint8 *dataSecond = LAST_AFFECTED_CHANNEL_IS_A ? datA : datB;
+            const uint8 *dataFirst = LAST_AFFECTED_CHANNEL_IS_A ? dat->B.Data() : dat->A.Data();
+            const uint8 *dataSecond = LAST_AFFECTED_CHANNEL_IS_A ? dat->A.Data() : dat->B.Data();
 
-            int shiftForPeakDet = (ds->peakDet == PeackDetMode::Disable) ? 0 : ds->PointsInChannel();
+            int shiftForPeakDet = (dat->ds->peakDet == PeackDetMode::Disable) ? 0 : dat->ds->PointsInChannel();
 
-            if (ChannelNeedForDraw(dataFirst, chanFirst, ds))
+            if (ChannelNeedForDraw(dataFirst, chanFirst, dat->ds))
             {
                 DrawChannelInWindowMemory(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataFirst, rightX,
                     chanFirst, shiftForPeakDet);
             }
 
-            if (ChannelNeedForDraw(dataSecond, chanSecond, ds))
+            if (ChannelNeedForDraw(dataSecond, chanSecond, dat->ds))
             {
                 DrawChannelInWindowMemory(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataSecond, rightX,
                     chanSecond, shiftForPeakDet);

@@ -54,6 +54,3 @@ private:
 
     void Malloc(int size);
 };
-
-
-typedef Buffer<uint8> DataBuffer;

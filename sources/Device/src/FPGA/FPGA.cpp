@@ -38,8 +38,8 @@ namespace FPGA
 
     DataSettings ds;
 
-    Buffer<uint8> dataReadA;            // Буфер используется для чтения данных первого канала.
-    Buffer<uint8> dataReadB;            // Буфер используется для чтения данных второго канала.
+    BufferU8 dataReadA;            // Буфер используется для чтения данных первого канала.
+    BufferU8 dataReadB;            // Буфер используется для чтения данных второго канала.
 
     int addition_shift = 0;
 
@@ -371,7 +371,7 @@ void FPGA::Reader::ReadPoints(Chan ch)
     HAL_FMC::Write(WR_PRED, address);
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
-    DataBuffer &buffer = ch.IsA() ? dataReadA : dataReadB;
+    BufferU8 &buffer = ch.IsA() ? dataReadA : dataReadB;
 
     uint8 *dat = buffer.Data();
     const uint8 *const end = buffer.Last();
