@@ -531,7 +531,6 @@ namespace Panel
         {
             ((Page *)Item::Opened())->ShortPressOnItem(0);
             Settings::SaveBeforePowerDown();
-            Log::DisconnectLoggerUSB();
 
             if (TIME_MS > 1000)
             {
