@@ -1,11 +1,10 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
-#pragma once
+#include "defines.h"
 #include "Generator.h"
 #include "Utils/Math.h"
 #include "Settings/Settings.h"
 #include "FPGA/TypesFPGA.h"
-#include <stdlib.h>
-#include <math.h>
+#include <cmath>
 
 
 static void SetParametersWave(Chan ch, TypeWave typeWave, float frequency, float startAngle, float amplWave, float amplNoise);
@@ -55,7 +54,7 @@ uint8 GetSampleWave(Chan ch)
 uint8 GetSampleSinusWave(Chan ch, int numSample_)
 {
     float dT = numSample_ * TShift::ToAbs(1, SET_TBASE);
-    float voltage = ampl[ch] * sin(2 * M_PI * freq[ch] * dT + angle[ch]) + NewNoiseValue(ch);
+    float voltage = ampl[ch] * std::sin(2 * M_PI * freq[ch] * dT + angle[ch]) + NewNoiseValue(ch);
     return ValueFPGA::FromVoltage(voltage, SET_RANGE(ch), SET_RSHIFT(ch));
 }
 
