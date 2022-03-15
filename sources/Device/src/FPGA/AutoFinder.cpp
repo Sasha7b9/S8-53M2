@@ -29,7 +29,7 @@ namespace FPGA
 
         static bool FindWave(Chan);
 
-        static Range::E FindRange(Chan);
+        static bool FindRange(Chan);
 
         static bool FindTBase();
 
@@ -109,33 +109,30 @@ static bool FPGA::AutoFinder::FindWave(Chan ch)
     ModeCouple::Set(ch, ModeCouple::AC);
     TrigInput::Set(TrigInput::Full);
 
-    Range::E range = FindRange(ch);
-
-    if (range == Range::Count)
+    if (FindRange(ch))
     {
-        return false;
+        if (FindTBase())
+        {
+            return true;
+        }
     }
 
-    Range::Set(ch, range);
-
-    return FindTBase();
+    return false;
 }
 
 
-static Range::E FPGA::AutoFinder::FindRange(Chan ch)
+static bool FPGA::AutoFinder::FindRange(Chan ch)
 {
     PeackDetMode::E peackDet = SET_PEAKDET;
-    Range::E oldRange = SET_RANGE(ch);
+    Range::E range = SET_RANGE(ch);
 
     FPGA::Stop(false);
 
     PeackDetMode::Set(PeackDetMode::Enable);
 
-    Range::E result = Range::Count;
-
-    for (Range::E range = (Range::E)(Range::Count - 1); (int)range >= 0; --range)
+    for (Range::E r = (Range::E)(Range::Count - 1); (int)r >= 0; --r)
     {
-        Range::Set(ch, range);
+        Range::Set(ch, r);
 
         DataFinder data;
 
@@ -145,22 +142,17 @@ static Range::E FPGA::AutoFinder::FindRange(Chan ch)
 
             if (limits.iword[0] < ValueFPGA::MIN || limits.iword[1] > ValueFPGA::MAX)
             {
-                result = range;
+                range = (Range::E)Math::Limitation<int>(r + 1, 0, Range::_20V);
 
-                if (result != Range::_20V)
-                {
-                    ++result;
-                }
-                
                 break;
             }
         }
     }
 
-    Range::Set(ch, oldRange);
+    Range::Set(ch, range);
     PeackDetMode::Set(peackDet);
 
-    return result;
+    return false;
 }
 
 
