@@ -14,7 +14,6 @@
 
 namespace Storage
 {
-    DataStruct data;
     DataStruct last;
     DataStruct ins;
 

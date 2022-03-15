@@ -20,6 +20,7 @@
 #include "Log.h"
 #include "Tables.h"
 #include "Hardware/HAL/HAL.h"
+#include "Data/Data.h"
 #include <cstring>
 #include <cstdio>
 
@@ -546,10 +547,10 @@ static void SaveSignalToIntMemory()
     }
     else                                // Иначе сохраняем текущий сигнал
     {
-        if (Storage::data.ds)
+        if (Data::dir.ds)
         {
-            HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Storage::data.ds, Storage::data.A, Storage::data.B);
-            HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::data.ds, &Storage::ins.A, &Storage::ins.B);
+            HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Data::dir.ds, Data::dir.A, Data::dir.B);
+            HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Data::dir.ds, &Storage::ins.A, &Storage::ins.B);
             Display::ShowWarningGood(Warning::SignalIsSaved);
         }
     }

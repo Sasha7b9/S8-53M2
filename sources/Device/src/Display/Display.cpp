@@ -24,7 +24,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Menu/Pages/Definition.h"
 #include "Hardware/Timer.h"
-#include <stm32f4xx_hal.h>
+#include "Data/Data.h"
 #include <cmath>
 #include <climits>
 #include <cstring>
@@ -651,9 +651,9 @@ void Display::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan ch)
     int y1 = 0;
     int s = 2;
 
-    ValueFPGA::ToVoltage(data, numPoints, Storage::data.ds->range[ch], (ch == Chan::A) ?
-        (int16)Storage::data.ds->rShiftA :
-        (int16)Storage::data.ds->rShiftB, dataR);
+    ValueFPGA::ToVoltage(data, numPoints, Data::dir.ds->range[ch], (ch == Chan::A) ?
+        (int16)Data::dir.ds->rShiftA :
+        (int16)Data::dir.ds->rShiftB, dataR);
 
     Math_CalculateFFT(dataR, numPoints, spectrum, &freq0, &density0, &freq1, &density1, &y0, &y1);
     DrawSpectrumChannel(spectrum, ColorChannel(ch));
@@ -690,23 +690,23 @@ void Display::DrawSpectrum()
 
         if (SOURCE_FFT_IS_A)
         {
-            DRAW_SPECTRUM(Storage::data.A, numPoints, Chan::A);
+            DRAW_SPECTRUM(Data::dir.A, numPoints, Chan::A);
         }
         else if (SOURCE_FFT_IS_B)
         {
-            DRAW_SPECTRUM(Storage::data.B, numPoints, Chan::B);
+            DRAW_SPECTRUM(Data::dir.B, numPoints, Chan::B);
         }
         else
         {
             if (LAST_AFFECTED_CHANNEL_IS_A)
             {
-                DRAW_SPECTRUM(Storage::data.B, numPoints, Chan::B);
-                DRAW_SPECTRUM(Storage::data.A, numPoints, Chan::A);
+                DRAW_SPECTRUM(Data::dir.B, numPoints, Chan::B);
+                DRAW_SPECTRUM(Data::dir.A, numPoints, Chan::A);
             }
             else
             {
-                DRAW_SPECTRUM(Storage::data.A, numPoints, Chan::A);
-                DRAW_SPECTRUM(Storage::data.B, numPoints, Chan::B);
+                DRAW_SPECTRUM(Data::dir.A, numPoints, Chan::A);
+                DRAW_SPECTRUM(Data::dir.B, numPoints, Chan::B);
             }
         }
     }
@@ -721,13 +721,13 @@ void Display::DrawBothChannels(uint8 *data0, uint8 *data1)
 {
 	if (LAST_AFFECTED_CHANNEL_IS_B)
     {
-        DrawDataChannel(data0, Chan::A, Storage::data.ds, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(data1, Chan::B, Storage::data.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(data0, Chan::A, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(data1, Chan::B, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
     }
     else
     {
-        DrawDataChannel(data1, Chan::B, Storage::data.ds, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(data0, Chan::A, Storage::data.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(data1, Chan::B, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(data0, Chan::A, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
     }
 }
 
@@ -758,17 +758,17 @@ void Display::DrawDataMinMax()
     MODE_DRAW_SIGNAL = ModeDrawSignal_Lines;
     if (LAST_AFFECTED_CHANNEL_IS_B)
     {
-        DrawDataChannel(Storage::GetLimitation(Chan::A, 0), Chan::A, Storage::data.ds, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(Chan::A, 1), Chan::A, Storage::data.ds, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(Chan::B, 0), Chan::B, Storage::data.ds, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(Chan::B, 1), Chan::B, Storage::data.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::GetLimitation(Chan::A, 0), Chan::A, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::GetLimitation(Chan::A, 1), Chan::A, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::GetLimitation(Chan::B, 0), Chan::B, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::GetLimitation(Chan::B, 1), Chan::B, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
     }
     else
     {
-        DrawDataChannel(Storage::GetLimitation(Chan::B, 0), Chan::B, Storage::data.ds, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(Chan::B, 1), Chan::B, Storage::data.ds, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(Chan::A, 0), Chan::A, Storage::data.ds, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(Chan::A, 1), Chan::A, Storage::data.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::GetLimitation(Chan::B, 0), Chan::B, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::GetLimitation(Chan::B, 1), Chan::B, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::GetLimitation(Chan::A, 0), Chan::A, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::GetLimitation(Chan::A, 1), Chan::A, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
     }
     MODE_DRAW_SIGNAL = modeDrawSignalOld;
 }
@@ -1019,9 +1019,9 @@ void Display::DrawMemoryWindow()
     
     if(MODE_WORK_IS_DIRECT || MODE_WORK_IS_LATEST)
     {
-        datA = Storage::data.A;
-        datB = Storage::data.B;
-        ds = Storage::data.ds;
+        datA = Data::dir.A;
+        datB = Data::dir.B;
+        ds = Data::dir.ds;
     }
     
     int leftX = 3;
@@ -1051,7 +1051,7 @@ void Display::DrawMemoryWindow()
 
     if (showFull)
     {
-        if (Storage::data.A || Storage::data.B)
+        if (Data::dir.A || Data::dir.B)
         {
             Chan::E chanFirst = LAST_AFFECTED_CHANNEL_IS_A ? Chan::B : Chan::A;
             Chan::E chanSecond = LAST_AFFECTED_CHANNEL_IS_A ? Chan::A : Chan::B;
@@ -1094,7 +1094,7 @@ void Display::DrawMemoryWindow()
     float scale = (float)(rightX - leftX + 1) / ((float)ENUM_POINTS_FPGA::ToNumPoints() -
         (ENUM_POINTS_FPGA::ToNumPoints() == 281 ? 1 : 0));
 
-    float xShift = 1 + (TPos::InPoints(Storage::data.ds->e_points_in_channel, SET_TPOS) - Storage::data.ds->tShift * 2) * scale;
+    float xShift = 1 + (TPos::InPoints(Data::dir.ds->e_points_in_channel, SET_TPOS) - Data::dir.ds->tShift * 2) * scale;
     
     if(xShift < leftX - 2)
     {
@@ -1319,7 +1319,8 @@ bool Display::NeedForClearScreen()
 
 void Display::Update(bool endScene)
 {
-	uint timeStart = TIME_TICKS;
+    uint timeStart = TIME_TICKS;
+
     if (funcOnHand != 0)
     {
         funcOnHand();
@@ -1835,7 +1836,7 @@ void TShift::Draw()
     int lastPoint = points.half_iword[1];
 
     // Рисуем TPos
-    int shiftTPos = TPos::InPoints(Storage::data.ds->e_points_in_channel, SET_TPOS) - SHIFT_IN_MEMORY;
+    int shiftTPos = TPos::InPoints(Data::dir.ds->e_points_in_channel, SET_TPOS) - SHIFT_IN_MEMORY;
     float scale = (float)(lastPoint - firstPoint) / Grid::Width();
     int gridLeft = Grid::Left();
     int x = (int)(gridLeft + shiftTPos * scale - 3);
@@ -1846,7 +1847,7 @@ void TShift::Draw()
     };
 
     // Рисуем tShift
-    int shiftTShift = TPos::InPoints(Storage::data.ds->e_points_in_channel, SET_TPOS) - SET_TSHIFT * 2;
+    int shiftTShift = TPos::InPoints(Data::dir.ds->e_points_in_channel, SET_TPOS) - SET_TSHIFT * 2;
 
     if(IntInRange(shiftTShift, firstPoint, lastPoint))
     {
@@ -2047,7 +2048,7 @@ void Display::WriteTextVoltage(Chan ch, int x, int y)
 
     if (!MODE_WORK_IS_DIRECT)
     {
-        DataSettings *ds = MODE_WORK_IS_DIRECT ? Storage::data.ds : Storage::ins.ds;
+        DataSettings *ds = MODE_WORK_IS_DIRECT ? Data::dir.ds : Storage::ins.ds;
         if (ds != 0)
         {
             inverse = (ch == Chan::A) ? ds->inv_a : ds->inv_b;

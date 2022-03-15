@@ -46,7 +46,7 @@ namespace Storage
 
     int NumberAvailableEntries();
 
-    extern DataStruct data;             // Рисуемый сигнал
+
     extern DataStruct last;
     extern DataStruct ins;              // Здесь данные из ППЗУ, которые должны выводиться на экран
 

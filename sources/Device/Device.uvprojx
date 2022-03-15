@@ -986,6 +986,16 @@
               <FileType>5</FileType>
               <FilePath>.\src\Data\Processing.h</FilePath>
             </File>
+            <File>
+              <FileName>Data.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Data\Data.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Data.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Data\Data.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2885,6 +2895,16 @@
               <FileName>Processing.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Data\Processing.h</FilePath>
+            </File>
+            <File>
+              <FileName>Data.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Data\Data.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Data.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Data\Data.h</FilePath>
             </File>
           </Files>
         </Group>

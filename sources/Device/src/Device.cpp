@@ -15,7 +15,7 @@
 #include "FDrive/FDrive.h"
 #include "Menu/Pages/Definition.h"
 #include "Utils/Strings.h"
-#include <stm32f4xx_hal.h>
+#include "Data/Data.h"
 
 
 namespace Device
@@ -84,26 +84,26 @@ void Device::ProcessingSignal()
     {
         static DataSettings ds_null;
         ds_null.Init();
-        Storage::data.ds = &ds_null;
+        Data::dir.ds = &ds_null;
         return;
     }
 
-    uint8 *dataA = Storage::data.A;
-    uint8 *dataB = Storage::data.B;
-    DataSettings **ds = &Storage::data.ds;
+    uint8 *dataA = Data::dir.A;
+    uint8 *dataB = Data::dir.B;
+    DataSettings **ds = &Data::dir.ds;
 
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
     if (MODE_WORK_IS_DIRECT)
     {
-        Storage::GetData(0, &Storage::data.ds, &Storage::data.A, &Storage::data.B);
-        dataA = Storage::data.A;
-        dataB = Storage::data.B;
+        Storage::GetData(0, &Data::dir.ds, &Data::dir.A, &Data::dir.B);
+        dataA = Data::dir.A;
+        dataB = Data::dir.B;
 
         if (SettingsDisplay::NumAverages() != 1 || TBase::InModeRandomizer())
         {
-            Storage::data.A = Storage::GetAverageData(Chan::A);
-            Storage::data.B = Storage::GetAverageData(Chan::B);
+            Data::dir.A = Storage::GetAverageData(Chan::A);
+            Data::dir.B = Storage::GetAverageData(Chan::B);
         }
     }
     else if (MODE_WORK_IS_LATEST)
@@ -125,7 +125,7 @@ void Device::ProcessingSignal()
     {
         if (!MODE_SHOW_MEMINT_IS_SAVED)
         {
-            Processing::SetSignal(Storage::data.A, Storage::data.B, Storage::data.ds, points);
+            Processing::SetSignal(Data::dir.A, Data::dir.B, Data::dir.ds, points);
         }
     }
     else
@@ -133,11 +133,11 @@ void Device::ProcessingSignal()
         Processing::SetSignal(dataA, dataB, *ds, points);
     }
 
-    if (Storage::data.ds == nullptr)
+    if (Data::dir.ds == nullptr)
     {
         static DataSettings ds_null;
         ds_null.Init();
-        Storage::data.ds = &ds_null;
+        Data::dir.ds = &ds_null;
     }
 
     PageCursors::Cursors_Update();    // В случае, если находимся в режиме курсорных измерений, обновляем их положение, если нужно.

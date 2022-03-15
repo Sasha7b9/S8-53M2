@@ -34,6 +34,18 @@ void Timer::PauseOnTicks(uint numTicks)
 }
 
 
+uint Timer::GetMS()
+{
+    return HAL_GetTick();
+}
+
+
+uint Timer::GetTicks()
+{
+    return TIM2->CNT;
+}
+
+
 void Timer::StartMultiMeasurement()
 {
     TIM2->CR1 &= (uint16)~TIM_CR1_CEN;
@@ -67,7 +79,7 @@ uint Timer::LogPointMS(char *name)
 }
 
 
-void Timer::Enable(TypeTimer::E type, int timeInMS, void(*eF)())
+void Timer::Enable(TypeTimer::E type, int timeInMS, pFuncVV eF)
 {
     f[type] = eF;
     reactionTimeMS[type] = timeInMS;
