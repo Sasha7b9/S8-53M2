@@ -123,6 +123,8 @@ static bool FPGA::AutoFinder::FindWave(Chan ch)
 
 static bool FPGA::AutoFinder::FindRange(Chan ch)
 {
+    bool result = false;
+
     PeackDetMode::E peackDet = SET_PEAKDET;
     Range::E range = SET_RANGE(ch);
 
@@ -144,7 +146,7 @@ static bool FPGA::AutoFinder::FindRange(Chan ch)
             {
                 range = (Range::E)Math::Limitation<int>(r + 1, 0, Range::_20V);
 
-                break;
+                result = true;
             }
         }
     }
@@ -152,7 +154,7 @@ static bool FPGA::AutoFinder::FindRange(Chan ch)
     Range::Set(ch, range);
     PeackDetMode::Set(peackDet);
 
-    return false;
+    return result;
 }
 
 
