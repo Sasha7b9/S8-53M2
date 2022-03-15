@@ -5,7 +5,7 @@
 
 namespace Data
 {
-    DataStruct dir;
-    DataStruct last;
-    DataStructTemp ins;
+    DataStructTemp dir;
+    DataStructTemp last;
+    DataStruct ins;
 }

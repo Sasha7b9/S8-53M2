@@ -85,7 +85,7 @@ struct DataStructTemp
 
 namespace Data
 {
-    extern DataStruct dir;             // Рисуемый сигнал
-    extern DataStruct last;
-    extern DataStructTemp ins;              // Здесь данные из ППЗУ, которые должны выводиться на экран
+    extern DataStructTemp dir;             // Рисуемый сигнал
+    extern DataStructTemp last;
+    extern DataStruct ins;              // Здесь данные из ППЗУ, которые должны выводиться на экран
 }
