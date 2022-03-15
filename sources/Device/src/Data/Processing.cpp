@@ -6,10 +6,10 @@
 #include "Log.h"
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"
-#include <math.h>
-#include <string.h>
-#include <stdio.h>
-#include <limits.h>
+#include <cmath>
+#include <cstring>
+#include <cstdio>
+#include <climits>
 
 
 namespace Processing
@@ -255,7 +255,7 @@ float Processing::CalculateVoltageVybrosPlus(Chan::E ch)
 
     int16 rShift = dset->GetRShift(ch);
 
-    return fabsf(ValueFPGA::ToVoltage(maxSteady, dset->range[ch], rShift) -
+    return std::fabsf(ValueFPGA::ToVoltage(maxSteady, dset->range[ch], rShift) -
         ValueFPGA::ToVoltage(max, dset->range[ch], rShift)) * SET_DIVIDER_ABS(ch);
 }
 
@@ -273,7 +273,7 @@ float Processing::CalculateVoltageVybrosMinus(Chan::E ch)
 
     int16 rShift = dset->GetRShift(ch);
 
-    return fabsf(ValueFPGA::ToVoltage(minSteady, dset->range[ch], rShift) -
+    return std::fabsf(ValueFPGA::ToVoltage(minSteady, dset->range[ch], rShift) -
         ValueFPGA::ToVoltage(min, dset->range[ch], rShift)) * SET_DIVIDER_ABS(ch);
 }
 
@@ -333,10 +333,10 @@ float Processing::CalculateVoltageRMS(Chan::E ch)
 
     if(MEAS_MARKED == Measure::VoltageRMS)
     {
-        markerHor[ch][0] = ValueFPGA::FromVoltage(sqrt(rms / period), dset->range[ch], rShift);
+        markerHor[ch][0] = ValueFPGA::FromVoltage(std::sqrt(rms / period), dset->range[ch], rShift);
     }
 
-    return sqrt(rms / period) * SET_DIVIDER_ABS(ch);
+    return std::sqrt(rms / period) * SET_DIVIDER_ABS(ch);
 }
 
 float Processing::CalculatePeriod(Chan::E ch)
@@ -1095,7 +1095,7 @@ void Processing::InterpolationSinX_X(uint8 data[FPGA::MAX_POINTS * 2], TBase::E 
         {
             int part = num % ((delta - 1) * 2);
             num++;
-            float sinX = (part < delta - 1) ? sin(PI / delta * (part + 1)) : sin(PI / delta * (part - (delta - 1) * 2));
+            float sinX = (part < delta - 1) ? std::sin(PI / delta * (part + 1)) : std::sin(PI / delta * (part - (delta - 1) * 2));
 
             if (tBase > TBase::_5ns)                 // Здесь используем более быструю, но более неправильную арифметику целвых чисел
             {
@@ -1143,11 +1143,11 @@ char* Processing::GetStringMeasure(Measure::E measure, Chan ch, char buffer[20])
     }
 
     buffer[0] = '\0';
-    sprintf(buffer, (ch == Chan::A) ? "1: " : "2: ");
+    std::sprintf(buffer, (ch == Chan::A) ? "1: " : "2: ");
 
     if(dset == 0)
     {
-        strcat(buffer, "-.-");
+        std::strcat(buffer, "-.-");
     }
     else if((ch == Chan::A && !dset->en_a) || (ch == Chan::B && !dset->en_b))
     {
@@ -1158,7 +1158,7 @@ char* Processing::GetStringMeasure(Measure::E measure, Chan ch, char buffer[20])
         pFuncCFBC func = measures[measure].FucnConvertate;
         float value = values[measure].value[ch];
         char *text = func(value, measures[measure].showSign, bufferForFunc);
-        strcat(buffer, text);
+        std::strcat(buffer, text);
     }
     else
     {
@@ -1180,8 +1180,8 @@ int Processing::GetMarkerVertical(Chan ch, int numMarker)
 
 void Processing::CountedToCurrentSettings()
 {
-    memset(dataOutA, 0, FPGA::MAX_POINTS * 2);
-    memset(dataOutB, 0, FPGA::MAX_POINTS * 2);
+    std::memset(dataOutA, 0, FPGA::MAX_POINTS * 2);
+    std::memset(dataOutB, 0, FPGA::MAX_POINTS * 2);
     
     int numPoints = dset->BytesInChannel();
 

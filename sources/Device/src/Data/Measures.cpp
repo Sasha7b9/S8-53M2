@@ -10,7 +10,7 @@
 #include "Display/Grid.h"
 #include "Hardware/Sound.h"
 #include "Menu/Pages/Definition.h"
-#include <stdio.h>
+#include <cstdio>
 
 
 namespace Measures

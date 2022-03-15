@@ -8,9 +8,9 @@
 #include "Menu/MenuItems.h"
 #include "Settings/Settings.h"
 #include "Hardware/InterCom.h"
-#include <stdarg.h>
-#include <string.h>
-#include <stdio.h>
+#include <cstdarg>
+#include <cstring>
+#include <cstdio>
 
 
 namespace PText
@@ -441,8 +441,9 @@ bool PText::FindNextTransfer(char *letters, int8 *lettersInSyllable)
 #define VOWEL       0   // Гласная
 #define CONSONANT   1   // Согласная
 
-    *lettersInSyllable = (int8)strlen(letters);
-    if (strlen(letters) <= 3) //-V1051
+    *lettersInSyllable = (int8)std::strlen(letters);
+
+    if (std::strlen(letters) <= 3) //-V1051
     {
         return false;
     }
@@ -458,7 +459,7 @@ bool PText::FindNextTransfer(char *letters, int8 *lettersInSyllable)
 
     bool consonant[20];
 
-    int size = (int)strlen(letters);
+    int size = (int)std::strlen(letters);
 
     for (int i = 0; i < size; i++)
     {
@@ -475,7 +476,7 @@ bool PText::FindNextTransfer(char *letters, int8 *lettersInSyllable)
         *lettersInSyllable = 2;
         return true;
     }
-    if (strlen(letters) < 5)
+    if (std::strlen(letters) < 5)
     {
         return false;
     }
@@ -484,7 +485,7 @@ bool PText::FindNextTransfer(char *letters, int8 *lettersInSyllable)
         *lettersInSyllable = 3;
         return true;
     }
-    if (strlen(letters) < 6)
+    if (std::strlen(letters) < 6)
     {
         return false;
     }
@@ -513,15 +514,15 @@ int8* PText::BreakWord(char *word)
         num++;
     }
     lengthSyllables[num + 1] = 0;
-    if (strcmp(word, "структуру") == 0)
+    if (std::strcmp(word, "структуру") == 0)
     {
         int8 lengths[] = {5, 2, 2, 0};
-        memcpy(lengthSyllables, lengths, 4);
+        std::memcpy(lengthSyllables, lengths, 4);
     }
-    else if (strcmp(word, "соответствующей") == 0)
+    else if (std::strcmp(word, "соответствующей") == 0)
     {
         int8 lenghts[] = {4, 3, 4, 5, 3, 0};
-        memcpy(lengthSyllables, lenghts, 6);
+        std::memcpy(lengthSyllables, lenghts, 6);
     }
     return lengthSyllables;
 }
@@ -536,7 +537,7 @@ char* PText::PartWordForTransfer(char *word, int8* lengthSyllables, int, int num
         length += lengthSyllables[i];
     }
 
-    memcpy((void*)buffer, (void*)word, (uint)length);
+    std::memcpy((void*)buffer, (void*)word, (uint)length);
     buffer[length] = '-';
     buffer[length + 1] = '\0';
     return buffer;
@@ -568,7 +569,7 @@ int PText::DrawPartWord(char *word, int x, int y, int xRight, bool draw)
                 Draw(x, y, subString);
             }
 
-            return (int)strlen(subString) - 1;
+            return (int)std::strlen(subString) - 1;
         }
     }
 
@@ -586,7 +587,7 @@ int PText::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, pcha
     int bottom = eY + eHeight;
 
     char buffer[20];
-    int numSymb = (int)strlen(text);
+    int numSymb = (int)std::strlen(text);
 
     int y = top - 1;
     int x = left;
@@ -642,7 +643,7 @@ int PText::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, pcha
 bool PText::GetHeightTextWithTransfers(int left, int top, int right, pchar text, int *height)
 {
     char buffer[20];
-    int numSymb = (int)strlen(text);
+    int numSymb = (int)std::strlen(text);
 
     int y = top - 1;
     int x = left;
@@ -714,7 +715,7 @@ int PText::DrawFormat(int x, int y, Color::E color, char *text, ...)
     static int const SIZE_BUFFER = 200;
     char buffer[SIZE_BUFFER];
 
-    va_list args;
+    std::va_list args;
     va_start(args, text);
     vsprintf(buffer, text, args);
     va_end(args);
@@ -890,7 +891,7 @@ void PText::Draw10SymbolsInRect(int x, int y, char eChar)
 
 void PText::DrawBig(int eX, int eY, int size, pchar text)
 {
-    int numSymbols = (int)strlen(text);
+    int numSymbols = (int)std::strlen(text);
 
     int x = eX;
 

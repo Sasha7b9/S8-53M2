@@ -10,7 +10,7 @@
 #include "Utils/Math.h"
 #include "Hardware/HAL/HAL.h"
 #include "Settings/Settings.h"
-#include <stdio.h>
+#include <cstdio>
 
 
 extern const Page pService;
@@ -920,7 +920,7 @@ static void Information_Draw()
 
     PText::Draw(x, y, lang == Russian ? "Программное обеспечение:" : "Software:");
     y += dY;
-    sprintf(buffer, (pchar)((lang == Russian) ? "версия %s" : "version %s"), NUM_VER);
+    std::sprintf(buffer, (pchar)((lang == Russian) ? "версия %s" : "version %s"), NUM_VER);
     PText::Draw(x, y, buffer);
     y += dY;
 

@@ -20,15 +20,11 @@
 #include "Log.h"
 #include "Tables.h"
 #include "Hardware/HAL/HAL.h"
-#include <string.h>
-#include <stdio.h>
+#include <cstring>
+#include <cstdio>
 
 
 extern const Page pMemory;
-
-
-
-static void DrawSetName();  // Ёта функци€ рисует, когда нужно задать им€ файла дл€ сохранени€
 
 
 void PageMemory::OnChanged_NumPoints(bool)
@@ -269,7 +265,8 @@ void DrawSB_SetName_Backspace(int x, int y) //-V524
 
 void PressSB_SetMask_Backspace()
 {
-    int size = (int)strlen(FILE_NAME_MASK);
+    int size = (int)std::strlen(FILE_NAME_MASK);
+
     if (size > 0)
     {
         if (size > 1 && FILE_NAME_MASK[size - 2] == 0x07)
@@ -286,7 +283,7 @@ void PressSB_SetMask_Backspace()
 
 void PressSB_SetName_Backspace()
 {
-    int size = (int)strlen(FILE_NAME);
+    int size = (int)std::strlen(FILE_NAME);
     if (size > 0)
     {
         FILE_NAME[size - 1] = '\0';
@@ -327,11 +324,13 @@ void DrawSB_SetMask_Insert(int x, int y)
 void PressSB_SetMask_Insert()
 {
     int index = INDEX_SYMBOL;
-    int size = (int)strlen(FILE_NAME_MASK);
+    int size = (int)std::strlen(FILE_NAME_MASK);
+
     if (size == MAX_SYMBOLS_IN_FILE_NAME - 1)
     {
         return;
     }
+
     if (index < 0x41)
     {
         FILE_NAME_MASK[size] = Tables::symbolsAlphaBet[index][0];
@@ -369,7 +368,8 @@ void DrawSB_SetName_Insert(int x, int y) //-V524
 
 void PressSB_SetName_Insert()
 {
-    int size = (int)strlen(FILE_NAME);
+    int size = (int)std::strlen(FILE_NAME);
+
     if (size < MAX_SYMBOLS_IN_FILE_NAME - 1)
     {
         FILE_NAME[size] = Tables::symbolsAlphaBet[INDEX_SYMBOL][0];
@@ -1030,7 +1030,7 @@ const Choice mcMemoryExtModeBtnMemory =
     (int8*)&MODE_BTN_MEMORY
 };
 
-// ѕјћя“№ - ¬Ќ≈ЎЌ «” - —охран€ть как
+
 const Choice mcMemoryExtModeSave =
 {
     TypeItem::Choice, &mspMemoryExt, 0,
@@ -1049,7 +1049,9 @@ const Choice mcMemoryExtModeSave =
     },
     (int8*)&MODE_SAVE_SIGNAL
 };
-    
+
+
+// Ёта функци€ рисует, когда нужно задать им€ файла дл€ сохранени€
 void DrawSetName()
 {
     int x0 = Grid::Left() + 40;
@@ -1273,9 +1275,7 @@ static const Page mspMemoryExt
     NamePage::MemoryExt, &itemsMemoryExt
 );
 
-// ѕјћя“№ - ¬нутр «” ///////////////////////////////////////////////////////////////////////////////////////
 
-// Ќажатие ѕјћя“№ - ¬нутр «”
 void OnPressMemoryInt()
 {
     PageMemory::Internal::self->OpenAndSetCurrent();
@@ -1283,6 +1283,7 @@ void OnPressMemoryInt()
 
     HAL_ROM::GetData(PageMemory::Internal::currentSignal, &Storage::dsInt, &Storage::dataIntA, &Storage::dataIntB);
 }
+
 
 static const arrayItems itemsMemInt =
 {
@@ -1322,6 +1323,7 @@ static const arrayItems itemsSetName =
     (void*)&sbSetNameSave
 };
 
+
 static const Page mpSetName
 (
     0, 0,
@@ -1335,7 +1337,6 @@ static const Page mpSetName
 const Page *PageMemory::SetName::self = &mpSetName;
 
 
-// ѕјћя“№ /////////////////////////////////////////////////////////////////////////////
 static const arrayItems itemsMemory =
 {
     (void*)&mcMemoryNumPoints,
@@ -1343,6 +1344,7 @@ static const arrayItems itemsMemory =
     (void*)&mspMemInt,
     (void*)&mspMemoryExt
 };
+
 
 static const Page pMemory              // ѕјћя“№
 (
@@ -1355,12 +1357,6 @@ static const Page pMemory              // ѕјћя“№
 
 
 const Page *PageMemory::self = &pMemory;
-
-
 const Page *PageMemory::Latest::self = &mspMemLast;
-
-
 const Page *PageMemory::SetMask::self = &mspSetMask;
-
-
 const Page *PageMemory::FileManager::self = &mspFileManager;

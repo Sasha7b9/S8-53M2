@@ -25,10 +25,10 @@
 #include "Menu/Pages/Definition.h"
 #include "Hardware/Timer.h"
 #include <stm32f4xx_hal.h>
-#include <math.h>
-#include <limits.h>
+#include <cmath>
+#include <climits>
 #include <cstring>
-#include <stdio.h>
+#include <cstdio>
 
 
 namespace Display
@@ -1156,7 +1156,7 @@ void Display::WriteCursors()
             x = startX + 49;
             float pos0 = Math::VoltageCursor(PageCursors::GetCursPosU(source, 0), SET_RANGE(source), SET_RSHIFT(source));
             float pos1 = Math::VoltageCursor(PageCursors::GetCursPosU(source, 1), SET_RANGE(source), SET_RSHIFT(source));
-            float delta = fabsf(pos1 - pos0);
+            float delta = std::fabsf(pos1 - pos0);
             PText::Draw(x, y1, ":dU=");
             PText::Draw(x + 17, y1, Voltage2String(delta, false, buffer));
             PText::Draw(x, y2, ":");
@@ -1178,7 +1178,7 @@ void Display::WriteCursors()
             x = startX + 153;
             float pos0 = Math::TimeCursor(CURS_POS_T0(source), SET_TBASE);
             float pos1 = Math::TimeCursor(CURS_POS_T1(source), SET_TBASE);
-            float delta = fabsf(pos1 - pos0);
+            float delta = std::fabsf(pos1 - pos0);
             PText::Draw(x, y1, ":dT=");
             char buf[20];
             PText::Draw(x + 17, y1, Time2String(delta, false, buf));
@@ -2072,13 +2072,13 @@ void Display::WriteTextVoltage(Chan ch, int x, int y)
 
         char buffer[100] = {0};
 
-        sprintf(buffer, "%s\xa5%s\xa5%s", (ch == Chan::A) ? (LANG_RU ? "1ê" : "1c") : (LANG_RU ? "2ê" : "2c"), couple[modeCouple], 
-            Range::ToString(range, multiplier));
+        std::sprintf(buffer, "%s\xa5%s\xa5%s", (ch == Chan::A) ? (LANG_RU ? "1ê" : "1c") : (LANG_RU ? "2ê" : "2c"),
+            couple[modeCouple], Range::ToString(range, multiplier));
 
         PText::Draw(x + 1, y, buffer, colorDraw);
 
         char bufferTemp[20];
-        sprintf(buffer, "\xa5%s", rShift.ToString(range, multiplier, bufferTemp));
+        std::sprintf(buffer, "\xa5%s", rShift.ToString(range, multiplier, bufferTemp));
         PText::Draw(x + 46, y, buffer);
     }
 }
@@ -2092,11 +2092,11 @@ void Display::WriteStringAndNumber(pchar text, int x, int y, int number)
 
     if(number == 0)
     {
-        sprintf(buffer, "-");
+        std::sprintf(buffer, "-");
     }
     else
     {
-        sprintf(buffer, "%d", number);
+        std::sprintf(buffer, "%d", number);
     }
 
     PText::DrawRelativelyRight(x + 41, y, buffer);
@@ -2135,12 +2135,12 @@ void Display::DrawLowPart()
         }
     }
 
-    sprintf(buffer, "ð\xa5%s", TBase::ToString(tBase));
+    std::sprintf(buffer, "ð\xa5%s", TBase::ToString(tBase));
     PText::Draw(x, y0, buffer);
 
     buffer[0] = 0;
     char bufForVal[20];
-    sprintf(buffer, "\xa5%s", TShift::ToString(tShift, bufForVal));
+    std::sprintf(buffer, "\xa5%s", TShift::ToString(tShift, bufForVal));
     PText::Draw(x + 35, y0, buffer);
 
     buffer[0] = 0;
@@ -2148,12 +2148,13 @@ void Display::DrawLowPart()
     if (MODE_WORK_IS_DIRECT)
     {
         pchar source[3] = {"1", "2", "\x82"};
-        sprintf(buffer, "ñ\xa5\x10%s", source[TRIG_SOURCE]);
+        std::sprintf(buffer, "ñ\xa5\x10%s", source[TRIG_SOURCE]);
     }
 
     PText::Draw(x, y1, buffer, ColorTrig());
 
     buffer[0] = 0;
+
     static pchar couple[] =
     {
         "\x92",
@@ -2161,11 +2162,13 @@ void Display::DrawLowPart()
         "\x92",
         "\x92"
     };
+
     static pchar polar[] =
     {
         "\xa7",
         "\xa6"
     };
+
     static pchar filtr[] =
     {
         "\xb5\xb6",
@@ -2173,9 +2176,10 @@ void Display::DrawLowPart()
         "\xb3\xb4",
         "\xb1\xb2"
     };
+
     if (MODE_WORK_IS_DIRECT)
     {
-        sprintf(buffer, "\xa5\x10%s\x10\xa5\x10%s\x10\xa5\x10", couple[TRIG_INPUT], polar[TRIG_POLARITY]);
+        std::sprintf(buffer, "\xa5\x10%s\x10\xa5\x10%s\x10\xa5\x10", couple[TRIG_INPUT], polar[TRIG_POLARITY]);
         PText::Draw(x + 18, y1, buffer);
         PText::DrawChar(x + 45, y1, filtr[TRIG_INPUT][0]);
         PText::DrawChar(x + 53, y1, filtr[TRIG_INPUT][1]);
@@ -2188,9 +2192,10 @@ void Display::DrawLowPart()
         '\xa0',
         '\xb0'
     };
+
     if (MODE_WORK_IS_DIRECT)
     {
-        sprintf(buffer, "\xa5\x10%c", mode[START_MODE]);
+        std::sprintf(buffer, "\xa5\x10%c", mode[START_MODE]);
         PText::Draw(x + 63, y1, buffer);
     }
     
@@ -2295,7 +2300,7 @@ void Display::DrawTimeForFrame(uint timeTicks)
     
     if((TIME_MS - timeMSstartCalculation) >= 500)
     {
-        sprintf(buffer, "%.1fms/%d", numMS / numFrames, numFrames * 2);
+        std::sprintf(buffer, "%.1fms/%d", numMS / numFrames, numFrames * 2);
         timeMSstartCalculation = TIME_MS;
         numMS = 0.0f;
         numFrames = 0;
@@ -2306,10 +2311,10 @@ void Display::DrawTimeForFrame(uint timeTicks)
     PText::Draw(Grid::Left() + 2, Grid::FullBottom() - 9, buffer, COLOR_FILL);
 
     char message[20] = {0};
-    sprintf(message, "%d", Storage::NumElementsWithSameSettings());
+    std::sprintf(message, "%d", Storage::NumElementsWithSameSettings());
     std::strcat(message, "/");
     char numAvail[10] = {0};
-    sprintf(numAvail, "%d", Storage::NumberAvailableEntries());
+    std::sprintf(numAvail, "%d", Storage::NumberAvailableEntries());
     std::strcat(message, numAvail);
     PText::Draw(Grid::Left() + 50, Grid::FullBottom() - 9, message);
 }
@@ -2452,7 +2457,7 @@ void Display::AddString(pchar string)
 {
     static int num = 0;
     char buffer[100];
-    sprintf(buffer, "%d\x11", num++);
+    std::sprintf(buffer, "%d\x11", num++);
     std::strcat(buffer, string);
     int size = (int)std::strlen(buffer) + 1;
 
