@@ -31,7 +31,7 @@ void Log::Write(char *format, ...)
 }
 
 
-void Log::Error(pchar module, pchar func, int numLine, char *format, ...)
+void Log::ErrorTrace(pchar module, pchar func, int numLine, char *format, ...)
 {
     char buffer[SIZE_BUFFER_LOG];
     va_list args;
