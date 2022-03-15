@@ -205,9 +205,7 @@ static bool FPGA::AutoFinder::ReadDataWithSynchronization(Chan ch, uint time_wai
     {
         while (elem < last)
         {
-            BitSet16 bytes = funcRead();
-
-            *elem++ = bytes.byte0;
+            *elem++ = funcRead().byte0;
         }
     }
     else
