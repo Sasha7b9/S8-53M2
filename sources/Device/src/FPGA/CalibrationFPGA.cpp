@@ -9,7 +9,6 @@
 #include "Menu/Pages/Definition.h"
 #include "Hardware/HAL/HAL.h"
 #include "Utils/Containers/Queue.h"
-#include <stm32f4xx_hal.h>
 #include <cstring>
 
 
