@@ -12,11 +12,7 @@ namespace FPGA
 {
     namespace AutoFinder
     {
-        struct StrForAutoFind
-        {
-            uint startTime;
-            Settings settings;
-        } structAF;
+        static Waiter waiter;
 
         static bool FindWave(Chan);
 
@@ -30,7 +26,7 @@ namespace FPGA
 
         static bool FindParams(TBase::E *);
 
-        static void FuncDrawAutoFind();
+        static void FunctionDraw();
 
         static TBase::E CalculateTBase(float freq);
     }
@@ -67,6 +63,10 @@ void FPGA::AutoFinder::FindSignal()
         3. Это позволит быстрее считывать и обрабатывать данные.
     */
 
+    waiter.Reset();
+
+    Display::SetDrawMode(DrawMode::Hand, FunctionDraw);
+
     Settings old = set;
 
     if (!FindWave(ChA))
@@ -79,6 +79,8 @@ void FPGA::AutoFinder::FindSignal()
             FPGA::Init();
         }
     }
+
+    Display::SetDrawMode(DrawMode::Auto);
 
     FPGA::Start();
 }
@@ -174,7 +176,7 @@ static bool FPGA::AutoFinder::ReadDataWithSynchronization(Chan ch, uint time_wai
 
     while (_GET_BIT(flag.Read(), FL_PRED) == 0) { }
 
-    Waiter waiter;
+    Waiter localWaiter;
 
     while(_GET_BIT(flag.Read(), FL_TRIG) == 0)
     {
@@ -247,10 +249,7 @@ bool FPGA::AutoFinder::FindParams(TBase::E *tbase)
 
     Start();
 
-    while (_GET_BIT(FPGA::flag.Read(), FL_FREQ) == 0)
-    {
-        FuncDrawAutoFind();
-    };
+    while (_GET_BIT(FPGA::flag.Read(), FL_FREQ) == 0) { };
 
     Stop(false);
     float freq = FreqMeter::GetFreq();
@@ -259,9 +258,7 @@ bool FPGA::AutoFinder::FindParams(TBase::E *tbase)
 
     Start();
 
-    while (_GET_BIT(FPGA::flag.Read(), FL_FREQ) == 0)
-    {
-    };
+    while (_GET_BIT(FPGA::flag.Read(), FL_FREQ) == 0) { };
 
     Stop(false);
     freq = FreqMeter::GetFreq();
@@ -308,19 +305,21 @@ bool FPGA::AutoFinder::FindParams(TBase::E *tbase)
 }
 
 
-static void FPGA::AutoFinder::FuncDrawAutoFind()
+static void FPGA::AutoFinder::FunctionDraw()
 {
+    Painter::BeginScene(COLOR_BACK);
+    Color::SetCurrent(COLOR_FILL);
+
     int width = 220;
     int height = 60;
     int x = 160 - width / 2;
     int y = 120 - height / 2;
-    Painter::BeginScene(COLOR_BACK);
     Painter::FillRegion(x, y, width, height, COLOR_BACK);
     Painter::DrawRectangle(x, y, width, height, COLOR_FILL);
     PText::DrawStringInCenterRect(x, y, width, height - 20, "Идёт поиск сигнала. Подождите");
 
     char buffer[101] = "";
-    uint progress = ((HAL_GetTick() - structAF.startTime) / 20) % 80;
+    uint progress = (waiter.ElapsedTime() / 50) % 80;
 
     for (uint i = 0; i < progress; i++)
     {
