@@ -108,12 +108,12 @@ static bool FPGA::AutoFinder::FindWave(Chan ch)
 
     if (range == Range::Count)
     {
-        LOG_ERROR("range %d не найден", ch.ToNumber());
+        LOG_ERROR("%d : range не найден", ch.ToNumber());
         return false;
     }
     else
     {
-        LOG_WRITE("range %d = %d", ch.ToNumber(), range);
+        LOG_WRITE("%d : range = %d", ch.ToNumber(), range);
     }
 
     Range::Set(ch, range);
@@ -184,7 +184,7 @@ bool FPGA::AutoFinder::DataFinder::ReadDataWithSynchronization(Chan ch, uint tim
         {
             FPGA::Stop(false);
 
-            LOG_ERROR("range %d, Нет сигнала", SET_RANGE(ch));
+            LOG_ERROR("%d : range %d, Нет сигнала", ch.ToNumber(), SET_RANGE(ch));
 
             return false;
         }
@@ -223,7 +223,7 @@ bool FPGA::AutoFinder::DataFinder::ReadDataWithSynchronization(Chan ch, uint tim
         }
     }
 
-    LOG_WRITE("range %d сигнал считан", SET_RANGE(ch));
+    LOG_WRITE("%d : range %d сигнал считан", ch.ToNumber(), SET_RANGE(ch));
 
     return true;
 }
