@@ -70,6 +70,9 @@ void FPGA::AutoFinder::FindSignal()
         3. Это позволит быстрее считывать и обрабатывать данные.
     */
 
+    bool sound_enabled = SOUND_ENABLED;
+    SOUND_ENABLED = false;
+
     waiter.Reset();
 
     Display::SetDrawMode(DrawMode::Hand, FunctionDraw);
@@ -90,6 +93,8 @@ void FPGA::AutoFinder::FindSignal()
     }
 
     Display::SetDrawMode(DrawMode::Auto);
+
+    SOUND_ENABLED = sound_enabled;
 
     FPGA::Start();
 }
@@ -155,6 +160,8 @@ static Range::E FPGA::AutoFinder::FindRange(Chan ch)
                 {
                     ++result;
                 }
+                
+                break;
             }
         }
     }
