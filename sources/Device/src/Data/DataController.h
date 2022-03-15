@@ -7,6 +7,16 @@
 */
 
 
+struct PackedTime
+{
+    uint hours : 5;
+    uint minutes : 6;
+    uint seconds : 6;
+    uint year : 7;
+    uint month : 4;
+    uint day : 5;
+};
+
 
 struct DataSettings
 {
