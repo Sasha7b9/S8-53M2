@@ -10,46 +10,15 @@
 
 
 extern const Page pTrig;
+extern const Page mpAutoFind;
 
 
-extern const Choice mcMode;                     // СИНХР - Режим
-void          OnPress_Mode(bool active);
-extern const Choice mcSource;                   // СИНХР - Источник
-static void OnChanged_Source(bool active);
-extern const Choice mcPolarity;                 // СИНХР - Полярность
-static void OnChanged_Polarity(bool active);
-extern const Choice mcInput;                    // СИНХР - Вход
-static void OnChanged_Input(bool active);
-extern const Page   mpAutoFind;                 // СИНХР - ПОИСК
-extern const Choice mcAutoFind_Mode;            // СИНХР - ПОИСК - Режим
-extern const Button mbAutoFind_Search;          // СИНХР - ПОИСК - Найти
-static bool  IsActive_AutoFind_Search();
-static void   OnPress_AutoFind_Search();
-
-// СИНХР ///////////////////////////
-static const arrayItems itemsTrig =
+static void OnPress_Mode(bool)
 {
-    (void*)&mcMode,         // СИНХР - Режим
-    (void*)&mcSource,       // СИНХР - Источник
-    (void*)&mcPolarity,     // СИНХР - Полярность
-    (void*)&mcInput,        // СИНХР - Вход
-    (void*)&mpAutoFind      // СИНХР - ПОИСК
-};
-
-static const Page pTrig              // СИНХР
-(
-    PageMain::self, 0,
-    "СИНХР", "TRIG",
-    "Содержит настройки синхронизации.",
-    "Contains synchronization settings.",
-    NamePage::Trig, &itemsTrig
-);
+    StartMode::Set(START_MODE);
+}
 
 
-const Page *PageTrig::self = &pTrig;
-
-
-// СИНХР - Режим ------------
 static const Choice mcMode =
 {
     TypeItem::Choice, &pTrig, 0,
@@ -75,13 +44,12 @@ static const Choice mcMode =
 };
 
 
-static void OnPress_Mode(bool)
+static void OnChanged_Source(bool)
 {
-    StartMode::Set(START_MODE);
+    TrigSource::Set(TRIG_SOURCE);
 }
 
 
-// СИНХР - Источник ---------
 static const Choice mcSource =
 {
     TypeItem::Choice, &pTrig, 0,
@@ -98,13 +66,13 @@ static const Choice mcSource =
     (int8*)&TRIG_SOURCE, OnChanged_Source
 };
 
-static void OnChanged_Source(bool)
+
+static void OnChanged_Polarity(bool)
 {
-    TrigSource::Set(TRIG_SOURCE);
+    TrigPolarity::Set(TRIG_POLARITY);
 }
 
 
-// СИНХР - Полярность -------
 static const Choice mcPolarity =
 {
     TypeItem::Choice, &pTrig, 0,
@@ -124,13 +92,13 @@ static const Choice mcPolarity =
     (int8*)&TRIG_POLARITY, OnChanged_Polarity
 };
 
-static void OnChanged_Polarity(bool)
+
+static void OnChanged_Input(bool)
 {
-    TrigPolarity::Set(TRIG_POLARITY);
+    TrigInput::Set(TRIG_INPUT);
 }
 
 
-// СИНХР - Вход -------------
 static const Choice mcInput =
 {
     TypeItem::Choice, &pTrig, 0,
@@ -158,30 +126,7 @@ static const Choice mcInput =
     (int8*)&TRIG_INPUT, OnChanged_Input
 };
 
-static void OnChanged_Input(bool)
-{
-    TrigInput::Set(TRIG_INPUT);
-}
 
-
-// СИНХР - ПОИСК ------------
-static const arrayItems itemsAutoFind =
-{
-    (void*)&mcAutoFind_Mode,     // СИНХР - ПОИСК - Режим
-    (void*)&mbAutoFind_Search     // СИНХР - ПОИСК - Найти    
-};
-
-static const Page mpAutoFind
-(
-    &pTrig, 0,
-    "ПОИСК", "SEARCH",
-    "Управление автоматическим поиском уровня синхронизации.",
-    "Office of the automatic search the trigger level.",
-    NamePage::TrigAuto, &itemsAutoFind
-);
-
-
-// СИНХР - ПОИСК - Режим ----
 static const Choice mcAutoFind_Mode =
 {
     TypeItem::Choice, &mpAutoFind, 0,
@@ -207,11 +152,22 @@ static const Choice mcAutoFind_Mode =
         {"Ручной",          "Hand"},
         {"Автоматический",  "Auto"}
     },
-    (int8*)&TRIG_MODE_FIND
+    (int8 *)&TRIG_MODE_FIND
 };
 
 
-// СИНХР - ПОИСК - Найти ----
+static bool IsActive_AutoFind_Search()
+{
+    return TRIG_MODE_FIND_IS_HAND;
+}
+
+
+static void OnPress_AutoFind_Search()
+{
+    FPGA::FindAndSetTrigLevel();
+}
+
+
 static const Button mbAutoFind_Search
 (
     &mpAutoFind, IsActive_AutoFind_Search,
@@ -221,12 +177,41 @@ static const Button mbAutoFind_Search
     OnPress_AutoFind_Search
 );
 
-static bool IsActive_AutoFind_Search()
-{
-    return TRIG_MODE_FIND_IS_HAND;
-}
 
-static void OnPress_AutoFind_Search()
+static const arrayItems itemsAutoFind =
 {
-    FPGA::FindAndSetTrigLevel();
-}
+    (void*)&mcAutoFind_Mode,     // СИНХР - ПОИСК - Режим
+    (void*)&mbAutoFind_Search     // СИНХР - ПОИСК - Найти    
+};
+
+
+static const Page mpAutoFind
+(
+    &pTrig, 0,
+    "ПОИСК", "SEARCH",
+    "Управление автоматическим поиском уровня синхронизации.",
+    "Office of the automatic search the trigger level.",
+    NamePage::TrigAuto, &itemsAutoFind
+);
+
+
+static const arrayItems itemsTrig =
+{
+    (void *)&mcMode,
+    (void *)&mcSource,
+    (void *)&mcPolarity,
+    (void *)&mcInput,
+    (void *)&mpAutoFind
+};
+
+
+static const Page pTrig
+(
+    PageMain::self, 0,
+    "СИНХР", "TRIG",
+    "Содержит настройки синхронизации.",
+    "Contains synchronization settings.",
+    NamePage::Trig, &itemsTrig
+);
+
+const Page *PageTrig::self = &pTrig;
