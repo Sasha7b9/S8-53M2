@@ -16,6 +16,7 @@
 #include "Menu/Pages/Definition.h"
 #include "Utils/Strings.h"
 #include "Data/Data.h"
+#include "Data/DataExtensions.h"
 
 
 namespace Device
@@ -95,8 +96,8 @@ void Device::ProcessingSignal()
 
         if (SettingsDisplay::NumAverages() != 1 || TBase::InModeRandomizer())
         {
-            Storage::GetAverageData(Chan::A, Data::dir.A);
-            Storage::GetAverageData(Chan::B, Data::dir.B);
+            Averager::Append(Data::dir);
+            Averager::GetData(Data::dir);
         }
 
         Processing::Process(Data::dir);
