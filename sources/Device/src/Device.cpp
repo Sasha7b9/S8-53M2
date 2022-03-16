@@ -94,9 +94,8 @@ void Device::ProcessingSignal()
 
         data = Data::dir;
 
-        if (SettingsDisplay::NumAverages() != 1 || TBase::InModeRandomizer())
+        if (SettingsDisplay::GetNumAverages() != 1 || TBase::InModeRandomizer())
         {
-            Averager::Append(Data::dir);
             Averager::GetData(Data::dir);
         }
 

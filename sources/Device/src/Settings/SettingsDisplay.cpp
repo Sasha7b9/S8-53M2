@@ -56,12 +56,13 @@ ModeAveraging::E SettingsDisplay::GetModeAveraging()
 }
 
 
-int SettingsDisplay::NumAverages()
+int SettingsDisplay::GetNumAverages()
 {
     if (TBase::InModeRandomizer() && (NUM_AVE_FOR_RAND >= NUM_AVE))
     {
         return NUM_AVE_FOR_RAND;
     }
+
     return NUM_AVE;
 }
 

@@ -11,6 +11,7 @@ namespace Averager
     // Получить усреднённые данные по нескольким измерениям.
     void GetData(DataStruct &);
 
-    void Reset(DataStruct &);
+    // Сбросить настройки на настройки, соответствующие текущим
+    void Reset();
 }
 

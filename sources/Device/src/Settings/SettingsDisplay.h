@@ -232,7 +232,7 @@ struct SettingsDisplay
     bool                showStringNavigation;       // Показывать ли строку текущего состояния меню..
     LinkingRShift       linkingRShift;              // Тип привязки смещения по вертикали.
 
-    static int NumAverages();
+    static int GetNumAverages();
 
     // Возвращает index первой и последней точки на экране.
     static BitSet32 PointsOnDisplay();

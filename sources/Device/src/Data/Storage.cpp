@@ -28,9 +28,6 @@ namespace Storage
     // Адрес последнего байта памяти для хранения
     uint8 *endPool = &(pool[SIZE_POOL - 1]);
 
-    // Здесь хранятся суммы измерений обоих каналов
-    uint sum[Chan::Count][FPGA::MAX_POINTS * 2];
-
     // Максимальные значения каналов
     uint8 lim_up[Chan::Count][FPGA::MAX_POINTS * 2];
 
@@ -45,8 +42,6 @@ namespace Storage
 
     // Всего данных сохранено
     int count_data = 0;
-
-    void CalculateSums();
 
     // Возвращает количество свободной памяти в байтах
     int MemoryFree();
@@ -104,7 +99,6 @@ void Storage::ClearLimitsAndSums()
     std::memset(lim_up[1], 0, FPGA::MAX_POINTS * 2);
     std::memset(lim_down[0], 0xff, FPGA::MAX_POINTS * 2);
     std::memset(lim_down[1], 0xff, FPGA::MAX_POINTS * 2);
-    std::memset(&(sum[0][0]), 0, Chan::Count * FPGA::MAX_POINTS * sizeof(uint) * 2);
 }
 
 
@@ -120,8 +114,6 @@ void Storage::AddData(DataSettings dss, uint8 *a, uint8 *b)
     CalculateLimits(&dss, a, b);
 
     PushData(&dss, a, b);
-
-    CalculateSums();
 
     Averager::Append(&dss, a, b);
 
@@ -173,54 +165,6 @@ void Storage::CalculateLimits(const DataSettings *dss, const uint8 *a, const uin
                 if (dA[i] > lim_up[0][i])   lim_up[0][i] = dA[i];
                 if (dB[i] < lim_down[1][i]) lim_down[1][i] = dB[i];
                 if (dB[i] > lim_up[1][i])   lim_up[1][i] = dB[i];
-            }
-        }
-    }
-}
-
-
-void Storage::CalculateSums()
-{
-    DataStruct data;
-
-    GetData(0, data);
-
-    uint numPoints = (uint)data.ds.BytesInChannel();
-
-    int numAveragings = 0;
-
-    if (TBase::InModeRandomizer())
-    {
-        numAveragings = NUM_AVE_FOR_RAND;
-    }
-
-    if (SettingsDisplay::NumAverages() > numAveragings)
-    {
-        numAveragings = SettingsDisplay::NumAverages();
-    }
-
-    for (uint i = 0; i < numPoints; i++)
-    {
-        sum[0][i] = data.A[i];
-        sum[1][i] = data.B[i];
-    }
-    if (numAveragings > 1)
-    {
-        int numSameSettins = NumElementsWithSameSettings();
-
-        if (numSameSettins < numAveragings)
-        {
-            numAveragings = numSameSettins;
-        }
-
-        for (int i = 1; i < numAveragings; i++)
-        {
-            GetData(i, data);
-
-            for (uint point = 0; point < numPoints; point++)
-            {
-                sum[0][point] += data.A[point];
-                sum[1][point] += data.B[point];
             }
         }
     }

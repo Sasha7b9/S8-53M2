@@ -9,13 +9,20 @@
 
 template                Buffer<uint8>::Buffer(int);
 template                Buffer<char>::Buffer(int);
+template                Buffer<float>::Buffer(int);
+template                Buffer<uint>::Buffer(int);
 template                Buffer<uint8>::~Buffer();
 template                Buffer<char>::~Buffer();
+template                Buffer<float>::~Buffer();
+template                Buffer<uint>::~Buffer();
 template void           Buffer<uint8>::Fill(uint8);
 template void           Buffer<uint8>::Fill(uint8 *, int);
+template void           Buffer<uint>::Fill(uint);
 template void           Buffer<uint8>::Realloc(int);
-template uint8 &        Buffer<uint8>::operator[](int) const;
-template uint8 &        Buffer<uint8>::operator[](uint) const;
+template uint8         &Buffer<uint8>::operator[](int) const;
+template uint8         &Buffer<uint8>::operator[](uint) const;
+template float         &Buffer<float>::operator[](int) const;
+template uint          &Buffer<uint>::operator[](int) const;
 template Buffer<uint8> &Buffer<uint8>::operator=(const Buffer<uint8> &);
 template void           Buffer<uint8>::Log() const;
 template float          Buffer<uint8>::Sum(uint8 *, uint);
@@ -63,7 +70,7 @@ void Buffer<T>::Fill(T value)
 #pragma warning(pop)
 #endif
         {
-            std::memset(data, value, (uint)size);
+            std::memset(data, (int)value, (uint)size);
         }
         else
         {

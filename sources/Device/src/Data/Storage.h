@@ -26,6 +26,8 @@ namespace Storage
     // Получить указатель на данные
     bool GetData(int fromEnd, DataStruct &);
 
+    DataSettings *GetDataSettings(int fromEnd);
+
     uint8* GetData(Chan, int fromEnd);
 
     // Получить ограничивающую линию сигнала 0 - снизу, 1 - сверху.
