@@ -10,6 +10,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Utils/Strings.h"
 #include "Utils/Containers/Buffer.h"
+#include "Data/DataExtensions.h"
 #include <cstring>
 
 
@@ -45,13 +46,6 @@ namespace Storage
     // Всего данных сохранено
     int count_data = 0;
 
-    // В этих массивах хранятся усреднённые значения, подсчитанные по приблизительному алгоритму.
-    float ave_a[FPGA::MAX_POINTS * 2] = {0.0f};
-
-    float ave_b[FPGA::MAX_POINTS * 2] = {0.0f};
-    // Если true, то новые суммы рассчитаны, и нужно повторить расчёт среднего
-    bool newSumCalculated[Chan::Count] = {true, true};
-
     void CalculateSums();
 
     // Возвращает количество свободной памяти в байтах
@@ -80,8 +74,6 @@ namespace Storage
     // Копирует данные канала chan из, определяемые ds, в одну из двух строк массива dataImportRel. Возвращаемое
     // значение false означает, что данный канал выключен.
     bool CopyData(DataSettings *, Chan ch, BufferU8 &datatImportRel);
-
-    void CalculateAroundAverage(const DataSettings *, uint8 *dataA, uint8 *dataB);
 
     namespace P2P
     {
@@ -116,44 +108,6 @@ void Storage::ClearLimitsAndSums()
 }
 
 
-void Storage::CalculateAroundAverage(const DataSettings *dss, uint8 *a, uint8 *b)
-{
-    int numAveData = NumElementsWithCurrentSettings();
-
-    int size = dss->BytesInChannel();
-
-    if (numAveData == 1)
-    {
-        for (int i = 0; i < size; i++)
-        {
-            ave_a[i] = a[i];
-            ave_b[i] = b[i];
-        }
-    }
-    else
-    {
-        Math::Limitation<int>(numAveData, 0, SettingsDisplay::NumAverages());
-
-        float numAveDataF = numAveData;
-        float numAveDataFless = numAveDataF - 1.0f;
-        float numAveDataInv = 1.0f / numAveDataF;
-        float *aData0 = &ave_a[0];
-        float *aData1 = &ave_b[0];
-        uint8 *d0 = &a[0];
-        uint8 *d1 = &b[0];
-        float *endData = &ave_a[size];
-
-        do
-        {
-            *aData0 = ((*aData0) * numAveDataFless + (float)(*d0++)) * numAveDataInv;
-            aData0++;
-            *aData1 = ((*aData1) * numAveDataFless + (float)(*d1++)) * numAveDataInv;
-            aData1++;
-        } while (aData0 != endData);
-    }
-}
-
-
 void Storage::AddData(DataSettings dss, uint8 *a, uint8 *b)
 {
     dss.time = HAL_RTC::GetPackedTime();
@@ -169,7 +123,7 @@ void Storage::AddData(DataSettings dss, uint8 *a, uint8 *b)
 
     CalculateSums();
 
-    CalculateAroundAverage(&dss, a, b);
+    Averager::Append(&dss, a, b);
 
     count_data++;
 }
@@ -270,7 +224,6 @@ void Storage::CalculateSums()
             }
         }
     }
-    newSumCalculated[0] = newSumCalculated[1] = true;
 }
 
 
