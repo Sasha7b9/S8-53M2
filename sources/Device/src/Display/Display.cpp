@@ -547,22 +547,22 @@ void Display::DrawMath()
         return;
     }
 
-    DataStruct data;
-
-    Processing::GetData(data);
-
     float dataAbs0[FPGA::MAX_POINTS * 2];
     float dataAbs1[FPGA::MAX_POINTS * 2];
 
-    ValueFPGA::ToVoltage(data.A.Data(), data.ds.BytesInChannel(), data.ds.range[Chan::A], (int16)data.ds.rShiftA, dataAbs0);
-    ValueFPGA::ToVoltage(data.B.Data(), data.ds.BytesInChannel(), data.ds.range[Chan::B], (int16)data.ds.rShiftB, dataAbs1);
+    BufferU8 &dataA = Processing::out.A;
+    BufferU8 &dataB = Processing::out.B;
+    DataSettings &ds = Processing::out.ds;
 
-    Math_CalculateMathFunction(dataAbs0, dataAbs1, data.ds.BytesInChannel());
+    ValueFPGA::ToVoltage(dataA.Data(), ds.BytesInChannel(), ds.range[Chan::A], (int16)ds.rShiftA, dataAbs0);
+    ValueFPGA::ToVoltage(dataB.Data(), ds.BytesInChannel(), ds.range[Chan::B], (int16)ds.rShiftB, dataAbs1);
+
+    Math_CalculateMathFunction(dataAbs0, dataAbs1, ds.BytesInChannel());
     
     uint8 points[FPGA::MAX_POINTS * 2];
-    ValueFPGA::FromVoltage(dataAbs0, data.ds.BytesInChannel(), SET_RANGE_MATH, SET_RSHIFT_MATH, points);
+    ValueFPGA::FromVoltage(dataAbs0, ds.BytesInChannel(), SET_RANGE_MATH, SET_RSHIFT_MATH, points);
 
-    DrawDataChannel(points, Chan::Math, data.ds, Grid::MathTop(), Grid::MathBottom());
+    DrawDataChannel(points, Chan::Math, ds, Grid::MathTop(), Grid::MathBottom());
 
     static const int width = 71;
     static const int height = 10;
@@ -764,10 +764,6 @@ void Display::DrawDataNormal()
 {
     static void *prevAddr = 0;
 
-    DataStruct data;
-
-    Processing::GetData(data);
-
     int16 numSignals = (int16)Storage::NumElementsWithSameSettings();
     LIMITATION(numSignals, numSignals, 1, NUM_ACCUM);
 
@@ -775,10 +771,10 @@ void Display::DrawDataNormal()
     {
         DrawBothChannels(0, 0);
 
-        if (prevAddr == 0 || prevAddr != data.ds.addrPrev)
+        if (prevAddr == 0 || prevAddr != Processing::out.ds.addrPrev)
         {
             Display::numDrawingSignals++;
-            prevAddr = data.ds.addrPrev;
+            prevAddr = Processing::out.ds.addrPrev;
         }
     }
     else

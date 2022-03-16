@@ -112,17 +112,5 @@ void Device::ProcessingSignal()
         data = Data::ins;
     }
 
-    if (MODE_WORK_IS_MEMINT)
-    {
-        if (!MODE_SHOW_MEMINT_IS_SAVED)
-        {
-            Processing::SetData(Data::dir);
-        }
-    }
-    else
-    {
-        Processing::SetData(data);
-    }
-
     PageCursors::Cursors_Update();    // В случае, если находимся в режиме курсорных измерений, обновляем их положение, если нужно.
 }

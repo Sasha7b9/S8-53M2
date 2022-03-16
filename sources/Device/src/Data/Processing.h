@@ -7,11 +7,10 @@
 
 namespace Processing
 {
-    // Установить сигнал для обработки.
-    void SetData(DataStruct &);
+    extern DataStruct out;
 
-    // Получить данные ранее установленного сигнала.
-    void GetData(DataStruct &);
+    // Установить сигнал для обработки. Потом результат хранится в out
+    void Process(DataStruct &in);
 
     // Получить позицию курсора напряжения, соответствующю заданной позиции курсора posCurT.
     float GetCursU(Chan, float posCurT);
