@@ -21,6 +21,7 @@
 #include "Tables.h"
 #include "Hardware/HAL/HAL.h"
 #include "Data/Data.h"
+#include "Data/DataExtensions.h"
 #include <cstring>
 #include <cstdio>
 
@@ -28,32 +29,6 @@
 extern const Page pMemory;
 
 
-void PageMemory::OnChanged_NumPoints(bool)
-{
-    if(ENUM_POINTS_FPGA::ToNumPoints() == 281)
-    {
-        SHIFT_IN_MEMORY = 0;
-    }
-    else
-    {
-        if(SET_TPOS_IS_LEFT)
-        {
-            SHIFT_IN_MEMORY = 0;
-        }
-        else if(SET_TPOS_IS_CENTER)
-        {
-            SHIFT_IN_MEMORY = ENUM_POINTS_FPGA::ToNumPoints() / 2 - Grid::Width() / 2;
-        }
-        else if(SET_TPOS_IS_RIGHT)
-        {
-            SHIFT_IN_MEMORY = ENUM_POINTS_FPGA::ToNumPoints() - Grid::Width() - 2;
-        }
-    }
-
-    TShift::Set(SET_TSHIFT);
-}
-
-// ¿ÍÚË‚Ì‡ ÎË œ¿Ãﬂ“‹ - ¬Õ≈ÿÕ «” - Ã‡ÒÍ‡
 bool IsActiveMemoryExtSetMask()
 {                       
     return FILE_NAMING_MODE_IS_MASK;
@@ -951,6 +926,34 @@ extern const Page pMemory;
 static bool FuncActiveMemoryNumPoinst()
 {
     return SET_PEAKDET_IS_DISABLE;
+}
+
+
+void PageMemory::OnChanged_NumPoints(bool)
+{
+    Averager::Reset();
+
+    if (ENUM_POINTS_FPGA::ToNumPoints() == 281)
+    {
+        SHIFT_IN_MEMORY = 0;
+    }
+    else
+    {
+        if (SET_TPOS_IS_LEFT)
+        {
+            SHIFT_IN_MEMORY = 0;
+        }
+        else if (SET_TPOS_IS_CENTER)
+        {
+            SHIFT_IN_MEMORY = ENUM_POINTS_FPGA::ToNumPoints() / 2 - Grid::Width() / 2;
+        }
+        else if (SET_TPOS_IS_RIGHT)
+        {
+            SHIFT_IN_MEMORY = ENUM_POINTS_FPGA::ToNumPoints() - Grid::Width() - 2;
+        }
+    }
+
+    TShift::Set(SET_TSHIFT);
 }
 
 

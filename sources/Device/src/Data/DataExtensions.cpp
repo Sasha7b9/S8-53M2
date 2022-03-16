@@ -25,11 +25,7 @@ void Averager::Reset()
     }
     else
     {
-        if (ModeAveraging::Current() == ModeAveraging::Accurately)
-        {
-
-        }
-        else
+        if (ModeAveraging::Current() == ModeAveraging::Around)
         {
 
         }
