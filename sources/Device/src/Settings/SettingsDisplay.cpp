@@ -56,7 +56,7 @@ ModeAveraging::E ModeAveraging::Current()
 }
 
 
-int SettingsDisplay::GetNumAverages()
+int ModeAveraging::GetNumber()
 {
     if (TBase::InModeRandomizer() && (NUM_AVE_FOR_RAND >= NUM_AVE))
     {

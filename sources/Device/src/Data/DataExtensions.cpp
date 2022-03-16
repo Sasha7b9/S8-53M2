@@ -58,7 +58,7 @@ void Averager::Append(const DataSettings *dss, uint8 *a, uint8 *b)
     }
     else
     {
-        Math::Limitation<int>(num_datas, 0, SettingsDisplay::GetNumAverages());
+        Math::Limitation<int>(num_datas, 0, ModeAveraging::GetNumber());
 
         float numAveDataF = num_datas;
         float numAveDataFless = numAveDataF - 1.0f;
@@ -97,7 +97,7 @@ void Averager::GetData(DataStruct &data)
 
 void Averager::GetDataAccurately(DataStruct &out)
 {
-    int num_datas = SettingsDisplay::GetNumAverages();
+    int num_datas = ModeAveraging::GetNumber();
 
     LIMIT_ABOVE(num_datas, Storage::NumElementsWithSameSettings());
 

@@ -123,6 +123,9 @@ struct ModeAveraging
 
     // Возвращает режим усреднения
     static ModeAveraging::E Current();
+
+    // Возвращает количество усреднений
+    static int GetNumber();
 };
 
 // Количество измерений для расчёта минимального и максимального значений.
@@ -234,8 +237,6 @@ struct SettingsDisplay
     bool                showFullMemoryWindow;       // Показывать ли окно памяти вверху экрана. \todo Не используется.
     bool                showStringNavigation;       // Показывать ли строку текущего состояния меню..
     LinkingRShift       linkingRShift;              // Тип привязки смещения по вертикали.
-
-    static int GetNumAverages();
 
     // Возвращает index первой и последней точки на экране.
     static BitSet32 PointsOnDisplay();
