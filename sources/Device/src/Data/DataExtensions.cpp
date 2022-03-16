@@ -27,8 +27,8 @@ void Averager::Reset()
     {
         if (ModeAveraging::Current() == ModeAveraging::Around)
         {
-            ave_a.Realloc(ENUM_POINTS_FPGA::ToNumBytes(), 0.0f);
-            ave_b.Realloc(ENUM_POINTS_FPGA::ToNumBytes(), 0.0f);
+            ave_a.Realloc(ENUM_POINTS_FPGA::ToNumBytes());
+            ave_b.Realloc(ENUM_POINTS_FPGA::ToNumBytes());
         }
     }
 }
@@ -60,16 +60,20 @@ void Averager::Append(const DataSettings *dss, uint8 *a, uint8 *b)
         float numAveDataF = num_datas;
         float numAveDataFless = numAveDataF - 1.0f;
         float numAveDataInv = 1.0f / numAveDataF;
+
         float *d_a = &ave_a[0];
         float *d_b = &ave_b[0];
+
         uint8 *d0 = &a[0];
         uint8 *d1 = &b[0];
+
         float *endData = &ave_a[size];
 
         do
         {
             *d_a = ((*d_a) * numAveDataFless + (float)(*d0++)) * numAveDataInv;
             d_a++;
+
             *d_b = ((*d_b) * numAveDataFless + (float)(*d1++)) * numAveDataInv;
             d_b++;
 
