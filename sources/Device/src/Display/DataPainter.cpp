@@ -26,7 +26,7 @@ namespace DataPainter
 
     void DrawDataMinMax();
 
-    void DrawDataChannel(uint8 *data, Chan, DataSettings &, int minY, int maxY);
+    void DrawDataChannel(DataStruct &, Chan, int minY, int maxY);
 
     bool ChannelNeedForDraw(const uint8 *data, Chan, const DataSettings &);
 
@@ -38,7 +38,7 @@ namespace DataPainter
     void DrawSignalPointed(const uint8 *data, const DataSettings *ds, int startPoint, int endPoint, int minY, int maxY,
         float scaleY, float scaleX);
 
-    void DrawBothChannels(uint8 *data0, uint8 *data1);
+    void DrawBothChannels(DataStruct &);
 
     // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена
     // иниформаци€ о максимумах.
@@ -94,18 +94,18 @@ void DataPainter::DrawDataMemInt()
 {
     if (Data::ins.Valid())
     {
-        DrawDataChannel(Data::ins.A.Data(), Chan::A, Data::ins.ds, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Data::ins.B.Data(), Chan::B, Data::ins.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Data::ins, ChA, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Data::ins, ChB, GRID_TOP, Grid::ChannelBottom());
     }
 }
 
 
 // ≈сли data == 0, то данные брать из GetData
-void DataPainter::DrawDataChannel(uint8 *data, Chan ch, DataSettings &ds, int minY, int maxY)
+void DataPainter::DrawDataChannel(DataStruct &data, Chan ch, int minY, int maxY)
 {
     bool calculateFiltr = true;
 
-    if (!ChannelNeedForDraw(data, ch, ds))
+    if (!ChannelNeedForDraw(data.Data(ch).Data(), ch, data.ds))
     {
         return;
     }
@@ -121,6 +121,8 @@ void DataPainter::DrawDataChannel(uint8 *data, Chan ch, DataSettings &ds, int mi
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
     int first = points.half_iword[0];
     int last = points.half_iword[1];
+
+    DataSettings ds = data.ds;
 
     if (ds.InModeP2P())
     {
@@ -140,11 +142,11 @@ void DataPainter::DrawDataChannel(uint8 *data, Chan ch, DataSettings &ds, int mi
 
     if (MODE_DRAW_IS_SIGNAL_LINES)
     {
-        DrawSignalLined(data, &ds, first, last, minY, maxY, scaleY, scaleX, calculateFiltr);
+        DrawSignalLined(data.Data(ch).Data(), &ds, first, last, minY, maxY, scaleY, scaleX, calculateFiltr);
     }
     else
     {
-        DrawSignalPointed(data, &ds, first, last, minY, maxY, scaleY, scaleX);
+        DrawSignalPointed(data.Data(ch).Data(), &ds, first, last, minY, maxY, scaleY, scaleX);
     }
 }
 
@@ -362,10 +364,13 @@ void DataPainter::DrawMath()
 
     Math_CalculateMathFunction(dataAbs0, dataAbs1, ds.BytesInChannel());
 
-    uint8 points[FPGA::MAX_POINTS * 2];
-    ValueFPGA::FromVoltage(dataAbs0, ds.BytesInChannel(), SET_RANGE_MATH, SET_RSHIFT_MATH, points);
+    DataStruct data;
+    data.ds.Set(ds);
+    data.Data(ChA).Realloc(ds.BytesInChannel());
 
-    DrawDataChannel(points, Chan::Math, ds, Grid::MathTop(), Grid::MathBottom());
+    ValueFPGA::FromVoltage(dataAbs0, ds.BytesInChannel(), SET_RANGE_MATH, SET_RSHIFT_MATH, data.Data(ChA).Data());
+
+    DrawDataChannel(data, Chan::Math, Grid::MathTop(), Grid::MathBottom());
 
     static const int width = 71;
     static const int height = 10;
@@ -373,26 +378,30 @@ void DataPainter::DrawMath()
     Painter::DrawRectangle(Grid::Left(), Grid::MathTop() + delta, width, height, COLOR_FILL);
     Painter::FillRegion(Grid::Left() + 1, Grid::MathTop() + 1 + delta, width - 2, height - 2, COLOR_BACK);
     Divider::E multiplier = MATH_MULTIPLIER;
+
     PText::Draw(Grid::Left() + 2, Grid::MathTop() + 1 + delta, Range::ToString(SET_RANGE_MATH, multiplier),
         COLOR_FILL);
+
     PText::Draw(Grid::Left() + 25, Grid::MathTop() + 1 + delta, ":");
+
     char buffer[20];
+
     PText::Draw(Grid::Left() + 27, Grid::MathTop() + 1 + delta, SET_RSHIFT_MATH.ToString(SET_RANGE_MATH, multiplier,
         buffer));
 }
 
 
-void DataPainter::DrawBothChannels(uint8 *data0, uint8 *data1)
+void DataPainter::DrawBothChannels(DataStruct &data)
 {
     if (LAST_AFFECTED_CHANNEL_IS_B)
     {
-        DrawDataChannel(data0, Chan::A, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(data1, Chan::B, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(data, Chan::A, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(data, Chan::B, GRID_TOP, Grid::ChannelBottom());
     }
     else
     {
-        DrawDataChannel(data1, Chan::B, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(data0, Chan::A, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(data, Chan::B, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(data, Chan::A, GRID_TOP, Grid::ChannelBottom());
     }
 }
 
@@ -401,8 +410,8 @@ void DataPainter::DrawDataInModeWorkLatest()
 {
     if (Data::last.Valid())
     {
-        DrawDataChannel(Data::last.A.Data(), Chan::A, Data::last.ds, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Data::last.B.Data(), Chan::B, Data::last.ds, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Data::last, Chan::A, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Data::last, Chan::B, GRID_TOP, Grid::ChannelBottom());
     }
 }
 
@@ -411,20 +420,22 @@ void DataPainter::DrawDataMinMax()
 {
     ModeDrawSignal modeDrawSignalOld = MODE_DRAW_SIGNAL;
     MODE_DRAW_SIGNAL = ModeDrawSignal_Lines;
-    if (LAST_AFFECTED_CHANNEL_IS_B)
-    {
-        DrawDataChannel(Storage::GetLimitation(Chan::A, 0), Chan::A, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(Chan::A, 1), Chan::A, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(Chan::B, 0), Chan::B, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(Chan::B, 1), Chan::B, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
-    }
-    else
-    {
-        DrawDataChannel(Storage::GetLimitation(Chan::B, 0), Chan::B, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(Chan::B, 1), Chan::B, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(Chan::A, 0), Chan::A, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(Chan::A, 1), Chan::A, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
-    }
+
+//    if (LAST_AFFECTED_CHANNEL_IS_B)
+//    {
+//        DrawDataChannel(Storage::GetLimitation(Chan::A, 0), Chan::A, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
+//        DrawDataChannel(Storage::GetLimitation(Chan::A, 1), Chan::A, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
+//        DrawDataChannel(Storage::GetLimitation(Chan::B, 0), Chan::B, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
+//        DrawDataChannel(Storage::GetLimitation(Chan::B, 1), Chan::B, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
+//    }
+//    else
+//    {
+//        DrawDataChannel(Storage::GetLimitation(Chan::B, 0), Chan::B, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
+//        DrawDataChannel(Storage::GetLimitation(Chan::B, 1), Chan::B, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
+//        DrawDataChannel(Storage::GetLimitation(Chan::A, 0), Chan::A, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
+//        DrawDataChannel(Storage::GetLimitation(Chan::A, 1), Chan::A, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
+//    }
+
     MODE_DRAW_SIGNAL = modeDrawSignalOld;
 }
 
@@ -438,7 +449,7 @@ void DataPainter::DrawDataNormal()
 
     if (numSignals == 1 || ENUM_ACCUM_IS_INFINITY || MODE_ACCUM_IS_RESET || TBase::InModeRandomizer())
     {
-        DrawBothChannels(0, 0);
+        DrawBothChannels(Data::dir);
 
         if (prevAddr == 0 || prevAddr != Processing::out.ds.addrPrev)
         {
@@ -450,7 +461,10 @@ void DataPainter::DrawDataNormal()
     {
         for (int i = 0; i < numSignals; i++)
         {
-            DrawBothChannels(Storage::GetData(Chan::A, i), Storage::GetData(Chan::B, i));
+            DataStruct data;
+            Storage::GetData(i, data);
+
+            DrawBothChannels(data);
         }
     }
 }
