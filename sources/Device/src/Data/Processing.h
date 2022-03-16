@@ -8,7 +8,7 @@
 namespace Processing
 {
     // ”становить сигнал дл€ обработки.
-    void SetSignal(uint8 *data0, uint8 *data1, DataSettings *ds, const BitSet32 &points);
+    void SetData(uint8 *data0, uint8 *data1, DataSettings *ds, const BitSet32 &points);
 
     // ѕолучить данные ранее установленного сигнала.
     void GetData(uint8 **data0, uint8 **data1, DataSettings **ds);

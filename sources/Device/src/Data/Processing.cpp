@@ -941,7 +941,7 @@ float Processing::CalculatePhazaMinus(Chan::E ch)
     return delay / period * 360.0f; 
 }
 
-void Processing::SetSignal(uint8 *data0, uint8 *data1, DataSettings *ds, const BitSet32 &points)
+void Processing::SetData(uint8 *data0, uint8 *data1, DataSettings *ds, const BitSet32 &points)
 {
     firstP = points.half_iword[0];
     lastP = points.half_iword[1];

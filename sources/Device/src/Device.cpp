@@ -125,12 +125,12 @@ void Device::ProcessingSignal()
     {
         if (!MODE_SHOW_MEMINT_IS_SAVED)
         {
-            Processing::SetSignal(Data::dir.A.Data(), Data::dir.B.Data(), Data::dir.ds, points);
+            Processing::SetData(Data::dir.A.Data(), Data::dir.B.Data(), Data::dir.ds, points);
         }
     }
     else
     {
-        Processing::SetSignal(dataA, dataB, *ds, points);
+        Processing::SetData(dataA, dataB, *ds, points);
     }
 
     if (Data::dir.ds == nullptr)
