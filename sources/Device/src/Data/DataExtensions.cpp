@@ -60,20 +60,20 @@ void Averager::Append(const DataSettings *dss, uint8 *a, uint8 *b)
         float numAveDataF = num_datas;
         float numAveDataFless = numAveDataF - 1.0f;
         float numAveDataInv = 1.0f / numAveDataF;
-        float *aData0 = &ave_a[0];
-        float *aData1 = &ave_b[0];
+        float *d_a = &ave_a[0];
+        float *d_b = &ave_b[0];
         uint8 *d0 = &a[0];
         uint8 *d1 = &b[0];
         float *endData = &ave_a[size];
 
         do
         {
-            *aData0 = ((*aData0) * numAveDataFless + (float)(*d0++)) * numAveDataInv;
-            aData0++;
-            *aData1 = ((*aData1) * numAveDataFless + (float)(*d1++)) * numAveDataInv;
-            aData1++;
+            *d_a = ((*d_a) * numAveDataFless + (float)(*d0++)) * numAveDataInv;
+            d_a++;
+            *d_b = ((*d_b) * numAveDataFless + (float)(*d1++)) * numAveDataInv;
+            d_b++;
 
-        } while (aData0 != endData);
+        } while (d_a != endData);
     }
 }
 
