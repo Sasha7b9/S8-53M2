@@ -7,17 +7,18 @@
 #include <cstring>
 
 
-template        Buffer<uint8>::Buffer(int);
-template        Buffer<char>::Buffer(int);
-template        Buffer<uint8>::~Buffer();
-template        Buffer<char>::~Buffer();
-template void   Buffer<uint8>::Fill(uint8);
-template void   Buffer<uint8>::Fill(uint8 *, int);
-template void   Buffer<uint8>::Realloc(int);
-template uint8 &Buffer<uint8>::operator[](int) const;
-template uint8 &Buffer<uint8>::operator[](uint) const;
-template void   Buffer<uint8>::Log() const;
-template float  Buffer<uint8>::Sum(uint8 *, uint);
+template                Buffer<uint8>::Buffer(int);
+template                Buffer<char>::Buffer(int);
+template                Buffer<uint8>::~Buffer();
+template                Buffer<char>::~Buffer();
+template void           Buffer<uint8>::Fill(uint8);
+template void           Buffer<uint8>::Fill(uint8 *, int);
+template void           Buffer<uint8>::Realloc(int);
+template uint8 &        Buffer<uint8>::operator[](int) const;
+template uint8 &        Buffer<uint8>::operator[](uint) const;
+template Buffer<uint8> &Buffer<uint8>::operator=(const Buffer<uint8> &);
+template void           Buffer<uint8>::Log() const;
+template float          Buffer<uint8>::Sum(uint8 *, uint);
 
 
 template<class T>

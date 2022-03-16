@@ -88,17 +88,15 @@ void Device::ProcessingSignal()
         return;
     }
 
-    uint8 *dataA = nullptr;
-    uint8 *dataB = nullptr;
-    DataSettings **ds = nullptr;
+    DataStruct data;
 
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
     if (MODE_WORK_IS_DIRECT)
     {
         Storage::GetData(0, Data::dir);
-        dataA = Data::dir.A.Data();
-        dataB = Data::dir.B.Data();
+
+        data = Data::dir;
 
         if (SettingsDisplay::NumAverages() != 1 || TBase::InModeRandomizer())
         {
@@ -109,16 +107,14 @@ void Device::ProcessingSignal()
     else if (MODE_WORK_IS_LATEST)
     {
         Storage::GetData(PageMemory::Latest::current, Data::last);
-        dataA = Data::last.A.Data();
-        dataB = Data::last.B.Data();
-        ds = &Data::last.ds;
+
+        data = Data::last;
     }
     else if (MODE_WORK_IS_MEMINT)
     {
         HAL_ROM::GetData(PageMemory::Internal::currentSignal, Data::ins);
-        dataA = Data::ins.A.Data();
-        dataB = Data::ins.B.Data();
-        ds = &Data::ins.ds;
+
+        data = Data::ins;
     }
 
     if (MODE_WORK_IS_MEMINT)
@@ -130,7 +126,7 @@ void Device::ProcessingSignal()
     }
     else
     {
-        Processing::SetData(dataA, dataB, *ds, points);
+        Processing::SetData(data.A.Data(), data.B.Data(), data.ds, points);
     }
 
     if (Data::dir.ds == nullptr)
