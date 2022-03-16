@@ -25,12 +25,28 @@ namespace Panel
     const uint8 LED_CHAN_B   = 4;
 
     Key::E pressedKey = Key::None;
-    volatile Key::E pressedButton = Key::None;         // Это используется для отслеживания нажатой кнопки при отключенной панели
+    volatile Key::E pressedButton = Key::None;      // Это используется для отслеживания нажатой кнопки при отключенной
+                                                    // панели
 
-    Queue<uint8> data_for_send;                         // Здесь данные для пересылки в панель
+    Queue<uint8> data_for_send;                     // Здесь данные для пересылки в панель
 
-    Queue<KeyboardEvent> input_buffer;
+    struct EventBuffer
+    {
+        void Clear() { buffer.Clear(); }
+        void Push(KeyboardEvent event) { buffer.Push(event); }
+        bool IsEmpty() const { return buffer.IsEmpty(); }
+        KeyboardEvent Back() { return buffer.Back(); }
 
+        Mutex mutex;
+
+    private:
+
+        Queue<KeyboardEvent> buffer;
+    };
+
+    EventBuffer input_buffer;   // Основной буфер событий
+    EventBuffer aux_buffer;     // Вспомогательный буфер - сюда помещаются события, если во время прерывания идёт
+                                // работа с основным буфером input_buffer
     bool isRunning = true;
 
     uint timeLastEvent = 0;
@@ -889,7 +905,14 @@ void Panel::Callback::OnReceiveSPI5(const uint8 *data, uint)
 
     if (event.key != Key::None)
     {
-        input_buffer.Push(event);
+        if (input_buffer.mutex.IsLocked())
+        {
+            aux_buffer.Push(event);
+        }
+        else
+        {
+            input_buffer.Push(event);
+        }
         Settings::NeedSave();
         timeLastEvent = TIME_MS;
     }
@@ -904,8 +927,17 @@ uint Panel::TimePassedAfterLastEvent()
 
 void Panel::Update()
 {
+    input_buffer.mutex.Lock();
+
+    while (!aux_buffer.IsEmpty())
+    {
+        input_buffer.Push(aux_buffer.Back());
+    }
+
     while (!input_buffer.IsEmpty())
     {
-        ProcessEvent(input_buffer.Front());
+        ProcessEvent(input_buffer.Back());
     }
+
+    input_buffer.mutex.Unlock();
 }

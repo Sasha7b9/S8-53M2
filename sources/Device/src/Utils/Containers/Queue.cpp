@@ -14,6 +14,7 @@ template Queue<float>::~Queue();
 template Queue<KeyboardEvent>::~Queue();
 template uint16 Queue<uint16>::Front();
 template uint8 Queue<uint8>::Front();
+template KeyboardEvent Queue<KeyboardEvent>::Back();
 template KeyboardEvent Queue<KeyboardEvent>::Front();
 template bool Queue<uint16>::IsEmpty() const;
 template bool Queue<KeyboardEvent>::IsEmpty() const;
