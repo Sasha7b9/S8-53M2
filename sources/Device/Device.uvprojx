@@ -1091,6 +1091,16 @@
               <FileType>8</FileType>
               <FilePath>.\src\Display\Text.cpp</FilePath>
             </File>
+            <File>
+              <FileName>DataPainter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\DataPainter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>DataPainter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\DataPainter.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3000,6 +3010,16 @@
               <FileName>Text.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Text.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>DataPainter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\DataPainter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>DataPainter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\DataPainter.h</FilePath>
             </File>
           </Files>
         </Group>
