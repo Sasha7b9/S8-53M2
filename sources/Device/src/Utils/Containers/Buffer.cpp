@@ -20,6 +20,7 @@ template void           Buffer<uint8>::FromBuffer(uint8 *, int);
 template void           Buffer<uint>::Fill(uint);
 template void           Buffer<float>::Free();
 template void           Buffer<uint8>::Realloc(int);
+template void           Buffer<float>::Realloc(int);
 template void           Buffer<float>::Realloc(int, float);
 template uint8         &Buffer<uint8>::operator[](int) const;
 template uint8         &Buffer<uint8>::operator[](uint) const;

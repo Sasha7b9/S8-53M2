@@ -162,3 +162,24 @@ void SU::LogBuffer(const T *data, int num)
 
     LOG_WRITE(buffer);
 }
+
+
+template<class T>
+void SU::LogBuffer(pchar label, const T *buffer, int num)
+{
+    char buffer[1024];
+    char buffer_number[20];
+
+    buffer[0] = '\0';
+
+    std::strcat(buffer, label);
+    std::strcat(buffer, " ");
+
+    for (int i = 0; i < num; i++)
+    {
+        std::strcat(buffer, Int2String(data[i], false, 1, buffer_number));
+        std::strcat(buffer, " ");
+    }
+
+    LOG_WRITE(buffer);
+}

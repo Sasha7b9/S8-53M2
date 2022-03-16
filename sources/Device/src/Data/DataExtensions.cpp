@@ -4,6 +4,7 @@
 #include "FPGA/TypesFPGA.h"
 #include "Data/Storage.h"
 #include "Utils/Math.h"
+#include "Utils/Strings.h"
 
 
 namespace Averager
@@ -47,19 +48,22 @@ void Averager::Append(const DataSettings *dss, uint8 *a, uint8 *b)
 
     if (num_datas == 1)
     {
+        SU::LogBuffer<uint8>("1:", a, 10);
+
         for (int i = 0; i < size; i++)
         {
             ave_a[i] = a[i];
             ave_b[i] = b[i];
         }
+
+        SU::LogBuffer<float>("2:", ave_a.Data(), 10);
     }
     else
     {
         Math::Limitation<int>(num_datas, 0, ModeAveraging::GetNumber());
 
-        float numAveDataF = num_datas;
-        float numAveDataFless = numAveDataF - 1.0f;
-        float numAveDataInv = 1.0f / numAveDataF;
+        float ave_fless = (float)num_datas - 1.0f;
+        float ave_inv = 1.0f / (float)num_datas;
 
         float *d_a = &ave_a[0];
         float *d_b = &ave_b[0];
@@ -71,10 +75,10 @@ void Averager::Append(const DataSettings *dss, uint8 *a, uint8 *b)
 
         do
         {
-            *d_a = ((*d_a) * numAveDataFless + (float)(*d0++)) * numAveDataInv;
+            *d_a = ((*d_a) * ave_fless + (float)(*d0++)) * ave_inv;
             d_a++;
 
-            *d_b = ((*d_b) * numAveDataFless + (float)(*d1++)) * numAveDataInv;
+            *d_b = ((*d_b) * ave_fless + (float)(*d1++)) * ave_inv;
             d_b++;
 
         } while (d_a != endData);
