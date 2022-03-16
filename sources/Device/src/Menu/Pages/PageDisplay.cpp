@@ -10,6 +10,7 @@
 #include "Utils/GlobalFunctions.h"
 #include "Hardware/HAL/HAL.h"
 #include "Menu/Pages/Definition.h"
+#include "Data/DataExtensions.h"
 
 
 extern const Page pDisplay;
@@ -275,6 +276,12 @@ static const Page mspAccumulation
 );
 
 
+static void OnChanged_Number(bool)
+{
+    Averager::Reset();
+}
+
+
 static const Choice mcAveraging_Number =
 {
     TypeItem::ChoiceReg, &mspAveraging, 0,
@@ -295,8 +302,14 @@ static const Choice mcAveraging_Number =
         {"256",         "256"},
         {"512",         "512"}
     },
-    (int8 *)&ENUM_AVE
+    (int8 *)&ENUM_AVE, OnChanged_Number, nullptr
 };
+
+
+static void OnChanged_Mode(bool)
+{
+    Averager::Reset();
+}
 
 
 static const Choice mcAveraging_Mode =
@@ -317,7 +330,7 @@ static const Choice mcAveraging_Mode =
         {"Точно",           "Accurately"},
         {"Приблизительно",  "Around"}
     },
-    (int8 *)&MODE_AVE
+    (int8 *)&MODE_AVE, OnChanged_Mode, nullptr
 };
 
 

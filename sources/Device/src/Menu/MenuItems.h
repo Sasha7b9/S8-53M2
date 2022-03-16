@@ -366,19 +366,25 @@ public:
     int8 *cell;                                   // Адрес ячейки, в которой хранится позиция текущего выбора.
     pFuncVB	    funcOnChanged;                          // Функция должна вызываться после изменения значения элемента.
     pFuncVII    funcForDraw;                            // Функция вызывается после отрисовки элемента. 
+
     pchar NameSubItem(int i);
+
     // Возвращает имя текущего варианта выбора элемента choice, как оно записано в исходном коде программы.
     pchar NameCurrentSubItem();
+
     // Возвращает имя следующего варианта выбора элемента choice, как оно записано в исходном коде программы.
     pchar NameNextSubItem();
 
     pchar NamePrevSubItem();
+
     // Возвращает количество вариантов выбора в элементе по адресу choice.
     int NumSubItems();
 
     void StartChange(int delta);
+
     // Рассчитывает следующий кадр анимации.
     float Step();
+
     // Изменяет значение choice в зависимости от величины и знака delta.
     void ChangeValue(int delta);
 

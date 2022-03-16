@@ -18,28 +18,22 @@ namespace Averager
 
 void Averager::Reset()
 {
-//    if (SettingsDisplay::NumAverages() < 2)
-//    {
-//        ave.A.Realloc(0);
-//        ave.B.Realloc(0);
-//        ave_a.Realloc(0);
-//        ave_b.Realloc(0);
-//    }
-//    else
-//    {
-//        ave.ds.Init();
-//
-//        ave.A.Realloc(ave.ds.BytesInChannel());
-//        ave.A.Fill(ValueFPGA::NONE);
-//
-//        ave.B.Realloc(ave.ds.BytesInChannel());
-//        ave.B.Fill(ValueFPGA::NONE);
-//
-//        if (SettingsDisplay::GetModeAveraging() == ModeAveraging::Around)
-//        {
-//
-//        }
-//    }
+    if (SettingsDisplay::GetModeAveraging() < 2)
+    {
+        ave_a.Free();
+        ave_a.Free();
+    }
+    else
+    {
+        if (SettingsDisplay::GetModeAveraging() == ModeAveraging::Accurately)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
 }
 
 
@@ -81,6 +75,7 @@ void Averager::Append(const DataSettings *dss, uint8 *a, uint8 *b)
             aData0++;
             *aData1 = ((*aData1) * numAveDataFless + (float)(*d1++)) * numAveDataInv;
             aData1++;
+
         } while (aData0 != endData);
     }
 }
@@ -149,54 +144,14 @@ void Averager::GetDataAccurately(DataStruct &out)
 
 void Averager::GetDataAround(DataStruct &data)
 {
+    int num_bytes = data.ds.BytesInChannel();
 
+    uint8 *a = data.Data(ChA).Data();
+    uint8 *b = data.Data(ChB).Data();
+
+    for (int i = 0; i < num_bytes; i++)
+    {
+        a[i] = (uint8)ave_a[i];
+        b[i] = (uint8)ave_b[i];
+    }
 }
-
-
-//    static uint8 data_out[Chan::Count][FPGA::MAX_POINTS * 2];
-//
-//    if (newSumCalculated[ch] == false)
-//    {
-//        _data.Fill(&data_out[ch][0], FPGA::MAX_POINTS * 2);
-//
-//        return;
-//    }
-//
-//    newSumCalculated[ch] = false;
-//
-//    DataStruct data;
-//
-//    GetData(0, data);
-//
-//    if (!data.Valid())
-//    {
-//        return;
-//    }
-//
-//    uint numPoints = (uint)data.ds.BytesInChannel();
-//
-//    if (SettingsDisplay::GetModeAveraging() == ModeAveraging::Around)
-//    {
-//        float *floatAveData = (ch == Chan::A) ? ave_a : ave_b;
-//
-//        for (uint i = 0; i < numPoints; i++)
-//        {
-//            data_out[ch][i] = (uint8)(floatAveData[i]);
-//        }
-//
-//        _data.Fill(&data_out[ch][0], FPGA::MAX_POINTS * 2);
-//
-//        return;
-//    }
-//
-//    int numAveraging = SettingsDisplay::NumAverages();
-//
-//    LIMIT_ABOVE(numAveraging, NumElementsWithSameSettings());
-//
-//    for (uint i = 0; i < numPoints; i++)
-//    {
-//        data_out[ch][i] = sum[ch][i] / numAveraging;
-//    }
-//
-//    _data.Fill(&data_out[ch][0], FPGA::MAX_POINTS * 2);
-//}
