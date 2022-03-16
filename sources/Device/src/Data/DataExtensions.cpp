@@ -18,14 +18,14 @@ namespace Averager
 
 void Averager::Reset()
 {
-    if (SettingsDisplay::GetModeAveraging() < 2)
+    if (ModeAveraging::Current() < 2)
     {
         ave_a.Free();
         ave_a.Free();
     }
     else
     {
-        if (SettingsDisplay::GetModeAveraging() == ModeAveraging::Accurately)
+        if (ModeAveraging::Current() == ModeAveraging::Accurately)
         {
 
         }
@@ -39,7 +39,7 @@ void Averager::Reset()
 
 void Averager::Append(const DataSettings *dss, uint8 *a, uint8 *b)
 {
-    if (SettingsDisplay::GetModeAveraging() == ModeAveraging::Accurately)
+    if (ModeAveraging::Current() == ModeAveraging::Accurately)
     {
         return;
     }
@@ -83,12 +83,12 @@ void Averager::Append(const DataSettings *dss, uint8 *a, uint8 *b)
 
 void Averager::GetData(DataStruct &data)
 {
-    if (SettingsDisplay::GetModeAveraging() == ModeAveraging::Accurately)
+    if (ModeAveraging::Current() == ModeAveraging::Accurately)
     {
         GetDataAccurately(data);
     }
 
-    if (SettingsDisplay::GetModeAveraging() == ModeAveraging::Around)
+    if (ModeAveraging::Current() == ModeAveraging::Around)
     {
         GetDataAround(data);
     }

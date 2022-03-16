@@ -120,6 +120,9 @@ struct ModeAveraging
         Accurately,   // Усреднять точно.
         Around        // Усреднять приблизительно.
     };
+
+    // Возвращает режим усреднения
+    static ModeAveraging::E Current();
 };
 
 // Количество измерений для расчёта минимального и максимального значений.
@@ -242,7 +245,4 @@ struct SettingsDisplay
 
     // Если экран разделён на две части и основной сигнал выводится сверху - например, в режиме вывода спектра
     static bool IsSeparate();
-
-    // Возвращает режим усреднения
-    static ModeAveraging::E GetModeAveraging();
 };

@@ -45,7 +45,7 @@ bool SettingsDisplay::IsSeparate()
 }
 
 
-ModeAveraging::E SettingsDisplay::GetModeAveraging()
+ModeAveraging::E ModeAveraging::Current()
 {
     if (TBase::InModeRandomizer())
     {
