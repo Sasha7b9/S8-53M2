@@ -87,8 +87,6 @@ void Device::ProcessingSignal()
 
     DataStruct data;
 
-    BitSet32 points = SettingsDisplay::PointsOnDisplay();
-
     if (MODE_WORK_IS_DIRECT)
     {
         Storage::GetData(0, Data::dir);
@@ -118,12 +116,12 @@ void Device::ProcessingSignal()
     {
         if (!MODE_SHOW_MEMINT_IS_SAVED)
         {
-            Processing::SetData(Data::dir, points);
+            Processing::SetData(Data::dir);
         }
     }
     else
     {
-        Processing::SetData(data, points);
+        Processing::SetData(data);
     }
 
     PageCursors::Cursors_Update();    // В случае, если находимся в режиме курсорных измерений, обновляем их положение, если нужно.

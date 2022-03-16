@@ -8,7 +8,7 @@
 namespace Processing
 {
     // ”становить сигнал дл€ обработки.
-    void SetData(DataStruct &, const BitSet32 &points);
+    void SetData(DataStruct &);
 
     // ѕолучить данные ранее установленного сигнала.
     void GetData(DataStruct &);

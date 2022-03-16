@@ -941,8 +941,10 @@ float Processing::CalculatePhazaMinus(Chan::E ch)
     return delay / period * 360.0f; 
 }
 
-void Processing::SetData(DataStruct &data, const BitSet32 &points)
+void Processing::SetData(DataStruct &data)
 {
+    BitSet32 points = SettingsDisplay::PointsOnDisplay();
+
     firstP = points.half_iword[0];
     lastP = points.half_iword[1];
     numP = lastP - firstP;
