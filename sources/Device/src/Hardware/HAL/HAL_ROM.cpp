@@ -327,31 +327,33 @@ void HAL_ROM::CompactMemory()
 
         if (addrDataOld != 0)
         {
+            DataStruct data;
+
             uint addrDataNew = addrDataOld + 1024 * 128;
-            DataSettings *ds = (DataSettings*)addrDataNew;
+
+            data.ds.Set(*((DataSettings *)addrDataNew));
+
             addrDataNew += sizeof(DataSettings);
-            uint8 *data0 = 0;
-            uint8 *data1 = 0;
 
-            if (ds->en_a)
+            if (data.ds.en_a)
             {
-                data0 = (uint8*)addrDataNew;
-                addrDataNew += ds->BytesInChannel();
+                data.A.Fill((uint8 *)addrDataNew, data.ds.BytesInChannel());
+                addrDataNew += data.ds.BytesInChannel();
             }
 
-            if (ds->en_b)
+            if (data.ds.en_b)
             {
-                data1 = (uint8*)addrDataNew;
+                data.B.Fill((uint8 *)addrDataNew, data.ds.BytesInChannel());
             }
 
-            HAL_ROM::SaveData(i, ds, data0, data1);
+            HAL_ROM::SaveData(i, data);
         }
     }
     Display::ClearFromWarnings();
 }
 
 
-void HAL_ROM::SaveData(int num, DataSettings *ds, uint8 *data0, uint8 *data1)
+void HAL_ROM::SaveData(int num, DataStruct &data)
 {
     /*
         1. Узнаём количество оставшейся памяти.
@@ -379,7 +381,7 @@ void HAL_ROM::SaveData(int num, DataSettings *ds, uint8 *data0, uint8 *data1)
         DeleteData(num);
     }
 
-    int size = CalculateSizeData(ds);
+    int size = CalculateSizeData(&data.ds);
 
 // 2
     if (FreeMemory() < size)
@@ -398,19 +400,19 @@ void HAL_ROM::SaveData(int num, DataSettings *ds, uint8 *data0, uint8 *data1)
 // 5
     uint address = addrDataInfo + MAX_NUM_SAVED_WAVES * 4 + 4;              // Адрес, по которому будет сохранён сигнал с настройками
     uint addressNewData = address;
-    WriteBufferBytes(address, (uint8*)ds, sizeof(DataSettings));            // Сохраняем настройки сигнала
+    WriteBufferBytes(address, (uint8*)&data.ds, sizeof(DataSettings));            // Сохраняем настройки сигнала
     address += sizeof(DataSettings);
     
-    if (ds->en_a)
+    if (data.ds.en_a)
     {
-        WriteBufferBytes(address, (uint8*)data0, ds->BytesInChannel());     // Сохраняем первый канал
-        address += ds->BytesInChannel();
+        WriteBufferBytes(address, (uint8*)data.A.Data(), data.ds.BytesInChannel());     // Сохраняем первый канал
+        address += data.ds.BytesInChannel();
     }
 
-    if (ds->en_b)
+    if (data.ds.en_b)
     {
-        WriteBufferBytes(address, (uint8*)data1, ds->BytesInChannel());     // Сохраняем второй канал
-        address += ds->BytesInChannel();
+        WriteBufferBytes(address, (uint8*)data.B.Data(), data.ds.BytesInChannel());     // Сохраняем второй канал
+        address += data.ds.BytesInChannel();
     }
 
 // 6
@@ -438,36 +440,36 @@ bool HAL_ROM::GetData(int num, DataStruct &data_struct)
 
     if (READ_WORD(addrDataInfo + 4 * num) == 0)
     {
-        data_struct.ds = nullptr;
+        data_struct.ds.valid = 0;
 
         return false;
     }
 
     uint addrDS = READ_WORD(addrDataInfo + 4 * num);
 
-    data_struct.ds = (DataSettings*)addrDS;
+    data_struct.ds.Set(*((DataSettings*)addrDS));
     
-    if (data_struct.ds->en_a)
+    if (data_struct.ds.en_a)
     {
         uint address = addrDS + sizeof(DataSettings);
 
-        data_struct.A.Fill((uint8 *)address, data_struct.ds->BytesInChannel());
+        data_struct.A.Fill((uint8 *)address, data_struct.ds.BytesInChannel());
     }
 
-    if (data_struct.ds->en_b)
+    if (data_struct.ds.en_b)
     {
         uint address = 0;
 
-        if (data_struct.ds->en_a)
+        if (data_struct.ds.en_a)
         {
-            address = addrDS + sizeof(DataSettings) + data_struct.ds->BytesInChannel();
+            address = addrDS + sizeof(DataSettings) + data_struct.ds.BytesInChannel();
         }
         else
         {
             address = addrDS + sizeof(DataSettings);
         }
 
-        data_struct.B.Fill((uint8 *)address, data_struct.ds->BytesInChannel());
+        data_struct.B.Fill((uint8 *)address, data_struct.ds.BytesInChannel());
     }
 
     return true;
