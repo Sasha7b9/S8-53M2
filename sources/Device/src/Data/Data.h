@@ -89,6 +89,8 @@ struct DataStruct
     BufferU8 &Data(Chan ch) { return ch.IsA() ? A : B; }
 
     bool Valid() const { return ds.Valid(); }
+
+    void Log(pchar point);
 };
 
 

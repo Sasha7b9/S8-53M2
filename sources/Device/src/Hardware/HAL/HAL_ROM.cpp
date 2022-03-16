@@ -6,6 +6,7 @@
 #include "Utils/GlobalFunctions.h"
 #include "Log.h"
 #include "Hardware/HAL/HAL.h"
+#include "Utils/Strings.h"
 #include <stm32f4xx_hal.h>
 #include <cstring>
 
@@ -431,45 +432,51 @@ void HAL_ROM::SaveData(int num, DataStruct &data)
 }
 
 
-bool HAL_ROM::GetData(int num, DataStruct &data_struct)
+bool HAL_ROM::GetData(int num, DataStruct &data)
 {
     uint addrDataInfo = FindActualDataInfo();
 
-    data_struct.A.Realloc(0);
-    data_struct.B.Realloc(0);
+    data.A.Realloc(0);
+    data.B.Realloc(0);
 
     if (READ_WORD(addrDataInfo + 4 * num) == 0)
     {
-        data_struct.ds.valid = 0;
+        data.ds.valid = 0;
 
         return false;
     }
 
     uint addrDS = READ_WORD(addrDataInfo + 4 * num);
 
-    data_struct.ds.Set(*((DataSettings*)addrDS));
-    
-    if (data_struct.ds.en_a)
+    DataSettings *ds = (DataSettings *)addrDS;
+
+    LOG_WRITE("en_a = %d", ds->en_a);
+
+    data.ds.Set(*((DataSettings*)addrDS));
+
+    LOG_WRITE("test out");
+
+    if (data.ds.en_a)
     {
         uint address = addrDS + sizeof(DataSettings);
 
-        data_struct.A.Fill((uint8 *)address, data_struct.ds.BytesInChannel());
+        SU::LogBuffer<uint8>((uint8 *)address, 10);
     }
 
-    if (data_struct.ds.en_b)
+    if (data.ds.en_b)
     {
         uint address = 0;
 
-        if (data_struct.ds.en_a)
+        if (data.ds.en_a)
         {
-            address = addrDS + sizeof(DataSettings) + data_struct.ds.BytesInChannel();
+            address = addrDS + sizeof(DataSettings) + data.ds.BytesInChannel();
         }
         else
         {
             address = addrDS + sizeof(DataSettings);
         }
 
-        data_struct.B.Fill((uint8 *)address, data_struct.ds.BytesInChannel());
+        data.B.Fill((uint8 *)address, data.ds.BytesInChannel());
     }
 
     return true;

@@ -98,6 +98,8 @@ void Device::ProcessingSignal()
             Storage::GetAverageData(Chan::A, Data::dir.A);
             Storage::GetAverageData(Chan::B, Data::dir.B);
         }
+
+        Processing::Process(Data::dir);
     }
     else if (MODE_WORK_IS_LATEST)
     {
