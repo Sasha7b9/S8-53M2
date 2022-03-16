@@ -354,7 +354,7 @@ uint8 *Storage::GetData(Chan ch, int fromEnd)
 }
 
 
-bool Storage::CopyData(DataSettings *ds, Chan ch, BufferU8 &datatImportRel)
+bool Storage::CopyData(DataSettings *ds, Chan ch, BufferU8 &data)
 {
     if ((ch == Chan::A && !ds->en_a) || (ch == Chan::B && !ds->en_b))
     {
@@ -370,7 +370,7 @@ bool Storage::CopyData(DataSettings *ds, Chan ch, BufferU8 &datatImportRel)
         address += length;
     }
 
-    datatImportRel.Fill(address, (int)length);
+    data.Fill(address, (int)length);
 
     return true;
 }

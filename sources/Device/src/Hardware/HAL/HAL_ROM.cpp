@@ -448,13 +448,7 @@ bool HAL_ROM::GetData(int num, DataStruct &data)
 
     uint addrDS = READ_WORD(addrDataInfo + 4 * num);
 
-    DataSettings *ds = (DataSettings *)addrDS;
-
-    LOG_WRITE("en_a = %d", ds->en_a);
-
     data.ds.Set(*((DataSettings*)addrDS));
-
-    LOG_WRITE("test out");
 
     if (data.ds.en_a)
     {

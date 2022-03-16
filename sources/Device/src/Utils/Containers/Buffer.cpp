@@ -77,11 +77,11 @@ void Buffer<T>::Fill(T value)
 
 
 template<class T>
-void Buffer<T>::Fill(T *buffer, int s)
+void Buffer<T>::Fill(T *buffer, int _size)
 {
-    Realloc(size);
+    Realloc(_size);
 
-    std::memcpy(data, buffer, (uint)s);
+    std::memcpy(data, buffer, (uint)_size);
 }
 
 
