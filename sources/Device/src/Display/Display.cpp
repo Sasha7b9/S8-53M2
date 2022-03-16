@@ -100,9 +100,9 @@ namespace Display
 
     int CalculateFreeSize();
 
-    bool ChannelNeedForDraw(const uint8* data, Chan, const DataSettings *);
+    bool ChannelNeedForDraw(const uint8* data, Chan, const DataSettings &);
 
-    void DrawDataChannel(uint8* data, Chan, DataSettings *, int minY, int maxY);
+    void DrawDataChannel(uint8* data, Chan, DataSettings &, int minY, int maxY);
 
     void DrawBothChannels(uint8* data0, uint8* data1);
 
@@ -292,7 +292,7 @@ void Display::FuncOnTimerDisableShowLevelTrigLev()
 }
 
 
-bool Display::ChannelNeedForDraw(const uint8 *data, Chan ch, const DataSettings *ds)
+bool Display::ChannelNeedForDraw(const uint8 *data, Chan ch, const DataSettings &ds)
 {
     if (!data)
     {
@@ -306,9 +306,9 @@ bool Display::ChannelNeedForDraw(const uint8 *data, Chan ch, const DataSettings 
             return false;
         }
     }
-    else if (ds != 0)
+    else if (ds.Valid())
     {
-        if ((ch == Chan::A && !ds->en_a) || (ch == Chan::B && !ds->en_b))
+        if ((ch == Chan::A && !ds.en_a) || (ch == Chan::B && !ds.en_b))
         {
             return false;
         }
@@ -491,23 +491,10 @@ void Display::DrawSignalPointed(const uint8 *data, const DataSettings *ds, int s
 }
 
 
-
 // Если data == 0, то данные брать из GetData
-void Display::DrawDataChannel(uint8 *data, Chan ch, DataSettings *ds, int minY, int maxY)
+void Display::DrawDataChannel(uint8 *data, Chan ch, DataSettings &ds, int minY, int maxY)
 {
     bool calculateFiltr = true;
-    if (data == 0)
-    {
-        calculateFiltr = false;
-        if (ch == Chan::A)
-        {
-            Processing::GetData(&data, 0, &ds);
-        }
-        else
-        {
-            Processing::GetData(0, &data, &ds);
-        }
-    }
 
     if (!ChannelNeedForDraw(data, ch, ds))
     {
@@ -526,16 +513,16 @@ void Display::DrawDataChannel(uint8 *data, Chan ch, DataSettings *ds, int minY, 
     int first = points.half_iword[0];
     int last = points.half_iword[1];
 
-    if (ds->InModeP2P())
+    if (ds.InModeP2P())
     {
-        if (ds->rec_point < Grid::Width())
+        if (ds.rec_point < Grid::Width())
         {
             first = 0;
-            last = ds->rec_point + 1;
+            last = ds.rec_point + 1;
         }
         else
         {
-            last = ds->rec_point + 1;
+            last = ds.rec_point + 1;
             first = last - Grid::Width();
         }
     }
@@ -544,11 +531,11 @@ void Display::DrawDataChannel(uint8 *data, Chan ch, DataSettings *ds, int minY, 
 
     if(MODE_DRAW_IS_SIGNAL_LINES)
     {
-        DrawSignalLined(data, ds, first, last, minY, maxY, scaleY, scaleX, calculateFiltr);
+        DrawSignalLined(data, &ds, first, last, minY, maxY, scaleY, scaleX, calculateFiltr);
     }
     else
     {
-        DrawSignalPointed(data, ds, first, last, minY, maxY, scaleY, scaleX);
+        DrawSignalPointed(data, &ds, first, last, minY, maxY, scaleY, scaleX);
     }
 }
 
@@ -560,23 +547,22 @@ void Display::DrawMath()
         return;
     }
 
-    uint8 *dataRel0 = 0;
-    uint8 *dataRel1 = 0;
-    DataSettings *ds = 0;
-    Processing::GetData(&dataRel0, &dataRel1, &ds);
+    DataStruct data;
+
+    Processing::GetData(data);
 
     float dataAbs0[FPGA::MAX_POINTS * 2];
     float dataAbs1[FPGA::MAX_POINTS * 2];
 
-    ValueFPGA::ToVoltage(dataRel0, ds->BytesInChannel(), ds->range[Chan::A], (int16)ds->rShiftA, dataAbs0);
-    ValueFPGA::ToVoltage(dataRel1, ds->BytesInChannel(), ds->range[Chan::B], (int16)ds->rShiftB, dataAbs1);
+    ValueFPGA::ToVoltage(data.A.Data(), data.ds.BytesInChannel(), data.ds.range[Chan::A], (int16)data.ds.rShiftA, dataAbs0);
+    ValueFPGA::ToVoltage(data.B.Data(), data.ds.BytesInChannel(), data.ds.range[Chan::B], (int16)data.ds.rShiftB, dataAbs1);
 
-    Math_CalculateMathFunction(dataAbs0, dataAbs1, ds->BytesInChannel());
+    Math_CalculateMathFunction(dataAbs0, dataAbs1, data.ds.BytesInChannel());
     
     uint8 points[FPGA::MAX_POINTS * 2];
-    ValueFPGA::FromVoltage(dataAbs0, ds->BytesInChannel(), SET_RANGE_MATH, SET_RSHIFT_MATH, points);
+    ValueFPGA::FromVoltage(dataAbs0, data.ds.BytesInChannel(), SET_RANGE_MATH, SET_RSHIFT_MATH, points);
 
-    DrawDataChannel(points, Chan::Math, ds, Grid::MathTop(), Grid::MathBottom());
+    DrawDataChannel(points, Chan::Math, data.ds, Grid::MathTop(), Grid::MathBottom());
 
     static const int width = 71;
     static const int height = 10;
@@ -651,9 +637,9 @@ void Display::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan ch)
     int y1 = 0;
     int s = 2;
 
-    ValueFPGA::ToVoltage(data, numPoints, Data::dir.ds->range[ch], (ch == Chan::A) ?
-        (int16)Data::dir.ds->rShiftA :
-        (int16)Data::dir.ds->rShiftB, dataR);
+    ValueFPGA::ToVoltage(data, numPoints, Data::dir.ds.range[ch], (ch == Chan::A) ?
+        (int16)Data::dir.ds.rShiftA :
+        (int16)Data::dir.ds.rShiftB, dataR);
 
     Math_CalculateFFT(dataR, numPoints, spectrum, &freq0, &density0, &freq1, &density1, &y0, &y1);
     DrawSpectrumChannel(spectrum, ColorChannel(ch));
@@ -734,7 +720,7 @@ void Display::DrawBothChannels(uint8 *data0, uint8 *data1)
 
 void Display::DrawDataMemInt()
 {
-    if(Data::ins.ds)
+    if(Data::ins.Valid())
      {
         DrawDataChannel(Data::ins.A.Data(), Chan::A, Data::ins.ds, GRID_TOP, Grid::ChannelBottom());
         DrawDataChannel(Data::ins.B.Data(), Chan::B, Data::ins.ds, GRID_TOP, Grid::ChannelBottom());
@@ -744,7 +730,7 @@ void Display::DrawDataMemInt()
 
 void Display::DrawDataInModeWorkLatest()
 {
-    if (Data::last.ds)
+    if (Data::last.Valid())
     {
         DrawDataChannel(Data::last.A.Data(), Chan::A, Data::last.ds, GRID_TOP, Grid::ChannelBottom());
         DrawDataChannel(Data::last.B.Data(), Chan::B, Data::last.ds, GRID_TOP, Grid::ChannelBottom());
@@ -778,10 +764,9 @@ void Display::DrawDataNormal()
 {
     static void *prevAddr = 0;
 
-    uint8 *data0 = 0;
-    uint8 *data1 = 0;
-    DataSettings *ds = 0;
-    Processing::GetData(&data0, &data1, &ds);
+    DataStruct data;
+
+    Processing::GetData(data);
 
     int16 numSignals = (int16)Storage::NumElementsWithSameSettings();
     LIMITATION(numSignals, numSignals, 1, NUM_ACCUM);
@@ -790,10 +775,10 @@ void Display::DrawDataNormal()
     {
         DrawBothChannels(0, 0);
 
-        if (prevAddr == 0 || prevAddr != ds->addrPrev)
+        if (prevAddr == 0 || prevAddr != data.ds.addrPrev)
         {
             Display::numDrawingSignals++;
-            prevAddr = ds->addrPrev;
+            prevAddr = data.ds.addrPrev;
         }
     }
     else
@@ -859,17 +844,17 @@ void Display::DrawTime(int x, int y)
     
     if (MODE_WORK_IS_MEMINT || MODE_WORK_IS_LATEST)
     {
-        DataSettings *ds = MODE_WORK_IS_MEMINT ? Data::ins.ds : Data::last.ds;
+        DataSettings &ds = MODE_WORK_IS_MEMINT ? Data::ins.ds : Data::last.ds;
 
-        if (ds != 0)
+        if (ds.Valid())
         {
             y -= 9;
-            time.day = ds->time.day;
-            time.hours = ds->time.hours;
-            time.minutes = ds->time.minutes;
-            time.seconds = ds->time.seconds;
-            time.month = ds->time.month;
-            time.year = ds->time.year;
+            time.day = ds.time.day;
+            time.hours = ds.time.hours;
+            time.minutes = ds.time.minutes;
+            time.seconds = ds.time.seconds;
+            time.month = ds.time.month;
+            time.year = ds.time.year;
             PText::Draw(x, y, Int2String((int)time.day, false, 2, buffer));
             PText::Draw(x + dField, y, ":");
             PText::Draw(x + dField + dSeparator, y, Int2String((int)time.month, false, 2, buffer));
@@ -1054,7 +1039,7 @@ void Display::DrawMemoryWindow()
             const uint8 *dataFirst = LAST_AFFECTED_CHANNEL_IS_A ? dat->B.Data() : dat->A.Data();
             const uint8 *dataSecond = LAST_AFFECTED_CHANNEL_IS_A ? dat->A.Data() : dat->B.Data();
 
-            int shiftForPeakDet = (dat->ds->peakDet == PeackDetMode::Disable) ? 0 : dat->ds->PointsInChannel();
+            int shiftForPeakDet = (dat->ds.peakDet == PeackDetMode::Disable) ? 0 : dat->ds.PointsInChannel();
 
             if (ChannelNeedForDraw(dataFirst, chanFirst, dat->ds))
             {
@@ -1090,7 +1075,7 @@ void Display::DrawMemoryWindow()
     float scale = (float)(rightX - leftX + 1) / ((float)ENUM_POINTS_FPGA::ToNumPoints() -
         (ENUM_POINTS_FPGA::ToNumPoints() == 281 ? 1 : 0));
 
-    float xShift = 1 + (TPos::InPoints(Data::dir.ds->e_points_in_channel, SET_TPOS) - Data::dir.ds->tShift * 2) * scale;
+    float xShift = 1 + (TPos::InPoints(Data::dir.ds.e_points_in_channel, SET_TPOS) - Data::dir.ds.tShift * 2) * scale;
     
     if(xShift < leftX - 2)
     {
@@ -1832,7 +1817,7 @@ void TShift::Draw()
     int lastPoint = points.half_iword[1];
 
     // Рисуем TPos
-    int shiftTPos = TPos::InPoints(Data::dir.ds->e_points_in_channel, SET_TPOS) - SHIFT_IN_MEMORY;
+    int shiftTPos = TPos::InPoints(Data::dir.ds.e_points_in_channel, SET_TPOS) - SHIFT_IN_MEMORY;
     float scale = (float)(lastPoint - firstPoint) / Grid::Width();
     int gridLeft = Grid::Left();
     int x = (int)(gridLeft + shiftTPos * scale - 3);
@@ -1843,7 +1828,7 @@ void TShift::Draw()
     };
 
     // Рисуем tShift
-    int shiftTShift = TPos::InPoints(Data::dir.ds->e_points_in_channel, SET_TPOS) - SET_TSHIFT * 2;
+    int shiftTShift = TPos::InPoints(Data::dir.ds.e_points_in_channel, SET_TPOS) - SET_TSHIFT * 2;
 
     if(IntInRange(shiftTShift, firstPoint, lastPoint))
     {
@@ -2044,15 +2029,16 @@ void Display::WriteTextVoltage(Chan ch, int x, int y)
 
     if (!MODE_WORK_IS_DIRECT)
     {
-        DataSettings *ds = MODE_WORK_IS_DIRECT ? Data::dir.ds : Data::ins.ds;
-        if (ds != 0)
+        DataSettings &ds = MODE_WORK_IS_DIRECT ? Data::dir.ds : Data::ins.ds;
+
+        if (ds.Valid())
         {
-            inverse = (ch == Chan::A) ? ds->inv_a : ds->inv_b;
-            modeCouple = (ch == Chan::A) ? ds->coupleA : ds->coupleB;
-            multiplier = (ch == Chan::A) ? ds->div_a : ds->div_b;
-            range = ds->range[ch];
-            rShift.value = (int16)((ch == Chan::A) ? ds->rShiftA : ds->rShiftB);
-            enable = (ch == Chan::A) ? ds->en_a : ds->en_b;
+            inverse = ch.IsA() ? ds.inv_a : ds.inv_b;
+            modeCouple = ch.IsA() ? ds.coupleA : ds.coupleB;
+            multiplier = ch.IsA() ? ds.div_a : ds.div_b;
+            range = ds.range[ch];
+            rShift.value = (int16)(ch.IsA() ? ds.rShiftA : ds.rShiftB);
+            enable = ch.IsA() ? ds.en_a : ds.en_b;
         }
     }
 
@@ -2124,11 +2110,12 @@ void Display::DrawLowPart()
 
     if (!MODE_WORK_IS_DIRECT)
     {
-        DataSettings *ds = MODE_WORK_IS_LATEST ? Data::last.ds : Data::ins.ds;
-        if (ds != 0)
+        DataSettings &ds = MODE_WORK_IS_LATEST ? Data::last.ds : Data::ins.ds;
+
+        if (ds.Valid())
         {
-            tBase = ds->tBase;
-            tShift = ds->tShift;
+            tBase = ds.tBase;
+            tShift = ds.tShift;
         }
     }
 

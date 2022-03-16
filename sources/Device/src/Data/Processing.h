@@ -8,10 +8,10 @@
 namespace Processing
 {
     // ”становить сигнал дл€ обработки.
-    void SetData(uint8 *data0, uint8 *data1, DataSettings *ds, const BitSet32 &points);
+    void SetData(DataStruct &, const BitSet32 &points);
 
     // ѕолучить данные ранее установленного сигнала.
-    void GetData(uint8 **data0, uint8 **data1, DataSettings **ds);
+    void GetData(DataStruct &);
 
     // ѕолучить позицию курсора напр€жени€, соответствующю заданной позиции курсора posCurT.
     float GetCursU(Chan, float posCurT);

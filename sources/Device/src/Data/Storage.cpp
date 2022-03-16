@@ -231,7 +231,7 @@ void Storage::CalculateSums()
 
     GetData(0, data);
 
-    uint numPoints = (uint)data.ds->BytesInChannel();
+    uint numPoints = (uint)data.ds.BytesInChannel();
 
     int numAveragings = 0;
 
@@ -311,12 +311,13 @@ bool Storage::GetData(int fromEnd, DataStruct &data)
 {
     DataSettings *dp = GetDataSettings(fromEnd);
 
-    data.ds = dp;
-
     if (dp == nullptr)
     {
+        data.ds.valid = 0;
         return false;
     }
+
+    data.ds.Set(*dp);
 
     if (dp->en_a)
     {
@@ -392,12 +393,12 @@ void Storage::GetAverageData(Chan ch, BufferU8 &_data)
 
     GetData(0, data);
 
-    if (!data.ds)
+    if (!data.Valid())
     {
         return;
     }
 
-    uint numPoints = (uint)data.ds->BytesInChannel();
+    uint numPoints = (uint)data.ds.BytesInChannel();
 
     if (SettingsDisplay::GetModeAveraging() == ModeAveraging::Around)
     {
@@ -662,6 +663,6 @@ void Storage::P2P::AddPoints(BitSet16 bytesA, BitSet16 bytesB)
 
     if (GetData(0, data))
     {
-        data.ds->AppendPoints(data.A.Data(), data.B.Data(), bytesA, bytesB);
+        data.ds.AppendPoints(data.A.Data(), data.B.Data(), bytesA, bytesB);
     }
 }

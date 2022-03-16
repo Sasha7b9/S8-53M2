@@ -38,9 +38,14 @@ struct DataSettings
     uint                inv_b               : 1;
     Divider::E          div_a               : 1;
     Divider::E          div_b               : 1;
+    uint                valid               : 1;
     PackedTime          time;
     // Поточечный режим
     int16               rec_point;                  // Сейчас будет записана эта точка. Если -1 - то фрейм не поточечный. Он считан полностью
+
+    DataSettings() { valid = 0; };
+
+    void Set(DataSettings &ds) { *this = ds; valid = 1; }
 
     bool Equal(const DataSettings &);
 
@@ -62,6 +67,8 @@ struct DataSettings
 
     // Добавить точки в поточечном режиме
     void AppendPoints(uint8 *a, uint8 *b, BitSet16 pointsA, BitSet16 pointsB);
+
+    bool Valid() const { return (valid == 1); };
 };
 
 
@@ -73,13 +80,13 @@ struct BufferU8 : public Buffer<uint8>
 
 struct DataStruct
 {
-    BufferU8 A;
-    BufferU8 B;
-    DataSettings *ds;
+    BufferU8     A;
+    BufferU8     B;
+    DataSettings ds;
 
-    DataStruct() : ds(nullptr) { }
+    DataStruct() { }
 
-    bool Valid() const { return (ds != nullptr); }
+    bool Valid() const { return ds.Valid(); }
 };
 
 

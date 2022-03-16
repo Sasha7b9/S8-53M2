@@ -538,18 +538,18 @@ static void SaveSignalToIntMemory()
 {
     if (PageMemory::Internal::exitToLast)          // Если перешли во ВНУТР ЗУ из ПОСЛЕДНИЕ
     {
-        if  (Data::last.ds)
+        if  (Data::last.Valid())
         {                               // то сохраняем сигнал из последних
-            HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Data::last.ds, Data::last.A.Data(), Data::last.B.Data());
+            HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Data::last);
             HAL_ROM::GetData(PageMemory::Internal::currentSignal, Data::ins);
             Display::ShowWarningGood(Warning::SignalIsSaved);
         }
     }
     else                                // Иначе сохраняем текущий сигнал
     {
-        if (Data::dir.ds)
+        if (Data::dir.Valid())
         {
-            HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Data::dir.ds, Data::dir.A.Data(), Data::dir.B.Data());
+            HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Data::dir);
             HAL_ROM::GetData(PageMemory::Internal::currentSignal, Data::ins);
             Display::ShowWarningGood(Warning::SignalIsSaved);
         }

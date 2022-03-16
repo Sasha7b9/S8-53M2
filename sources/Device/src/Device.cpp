@@ -82,9 +82,6 @@ void Device::ProcessingSignal()
 {
     if (Storage::NumElements() == 0)
     {
-        static DataSettings ds_null;
-        ds_null.Init();
-        Data::dir.ds = &ds_null;
         return;
     }
 
@@ -121,19 +118,12 @@ void Device::ProcessingSignal()
     {
         if (!MODE_SHOW_MEMINT_IS_SAVED)
         {
-            Processing::SetData(Data::dir.A.Data(), Data::dir.B.Data(), Data::dir.ds, points);
+            Processing::SetData(Data::dir, points);
         }
     }
     else
     {
-        Processing::SetData(data.A.Data(), data.B.Data(), data.ds, points);
-    }
-
-    if (Data::dir.ds == nullptr)
-    {
-        static DataSettings ds_null;
-        ds_null.Init();
-        Data::dir.ds = &ds_null;
+        Processing::SetData(data, points);
     }
 
     PageCursors::Cursors_Update();    // В случае, если находимся в режиме курсорных измерений, обновляем их положение, если нужно.
