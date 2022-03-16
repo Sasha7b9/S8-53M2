@@ -78,6 +78,8 @@ struct DataStruct
     DataSettings *ds;
 
     DataStruct() : ds(nullptr) { }
+
+    bool Valid() const { return (ds != nullptr); }
 };
 
 
