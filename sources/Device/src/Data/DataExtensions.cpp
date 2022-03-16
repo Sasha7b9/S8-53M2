@@ -27,7 +27,8 @@ void Averager::Reset()
     {
         if (ModeAveraging::Current() == ModeAveraging::Around)
         {
-
+            ave_a.Realloc(ENUM_POINTS_FPGA::ToNumBytes(), 0.0f);
+            ave_b.Realloc(ENUM_POINTS_FPGA::ToNumBytes(), 0.0f);
         }
     }
 }

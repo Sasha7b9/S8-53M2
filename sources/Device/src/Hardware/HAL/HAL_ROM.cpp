@@ -338,13 +338,13 @@ void HAL_ROM::CompactMemory()
 
             if (data.ds.en_a)
             {
-                data.A.Fill((uint8 *)addrDataNew, data.ds.BytesInChannel());
+                data.A.FromBuffer((uint8 *)addrDataNew, data.ds.BytesInChannel());
                 addrDataNew += data.ds.BytesInChannel();
             }
 
             if (data.ds.en_b)
             {
-                data.B.Fill((uint8 *)addrDataNew, data.ds.BytesInChannel());
+                data.B.FromBuffer((uint8 *)addrDataNew, data.ds.BytesInChannel());
             }
 
             HAL_ROM::SaveData(i, data);
@@ -470,7 +470,7 @@ bool HAL_ROM::GetData(int num, DataStruct &data)
             address = addrDS + sizeof(DataSettings);
         }
 
-        data.B.Fill((uint8 *)address, data.ds.BytesInChannel());
+        data.B.FromBuffer((uint8 *)address, data.ds.BytesInChannel());
     }
 
     return true;

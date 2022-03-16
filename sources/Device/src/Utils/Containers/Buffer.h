@@ -19,11 +19,12 @@ public:
     ~Buffer();
 
     void Realloc(int size);
+    void Realloc(int size, T value);
 
     void Free();
 
     void Fill(T value);
-    void Fill(T *buffer, int size);
+    void FromBuffer(T *buffer, int size);
 
     inline int Size() const { return size; }
 

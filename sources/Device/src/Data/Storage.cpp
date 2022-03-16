@@ -267,7 +267,7 @@ bool Storage::CopyData(DataSettings *ds, Chan ch, BufferU8 &data)
         address += length;
     }
 
-    data.Fill(address, (int)length);
+    data.FromBuffer(address, (int)length);
 
     return true;
 }
