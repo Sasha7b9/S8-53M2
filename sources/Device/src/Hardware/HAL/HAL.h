@@ -146,11 +146,19 @@ namespace HAL_RTC
 }
 
 
+// Используется для флешки
 namespace HAL_HCD
 {
     void Init();
-    extern void *handle;        // HCD_HandleTypeDef
+    extern void *handle;
 }
+
+
+// Использвуется для VCP
+namespace HAL_PCD
+{
+    extern void *handle;
+};
 
 
 namespace HAL_USBH
