@@ -602,7 +602,7 @@ void FPGA::ReadPoint()
         BitSet16 dataA(*RD_ADC_A);
         BitSet16 dataB(*RD_ADC_B);
 
-        Storage::P2P::AddPoints(dataA, dataB);
+        Storage::GetDataSettings(0)->AppendPoints(dataA, dataB);
     }
 }
 

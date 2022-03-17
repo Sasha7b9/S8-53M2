@@ -761,11 +761,14 @@ void DataSettings::ResetP2P()
 }
 
 
-void DataSettings::AppendPoints(uint8 *a, uint8 *b, BitSet16 pointsA, BitSet16 pointsB)
+void DataSettings::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
 {
     if (InModeP2P())
     {
         int max_bytes = BytesInChannel();
+
+        uint8 *a = (uint8 *)this + max_bytes;
+        uint8 *b = a + max_bytes;
 
         if (rec_point == max_bytes - 1)
         {

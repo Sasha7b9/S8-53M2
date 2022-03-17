@@ -40,8 +40,5 @@ namespace Storage
     {
         // Создать новый фрейм поточечного вывода.
         void CreateFrame(const DataSettings &);
-
-        // Добавить точки в текущий фрейм
-        void AddPoints(BitSet16 dataA, BitSet16 dataB);
     }
 };

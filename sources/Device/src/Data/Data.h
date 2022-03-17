@@ -67,8 +67,10 @@ struct DataSettings
 
     bool Valid() const { return (valid == 1); };
 
+    //// ************************ Эти функции применяются к данным, хранящимся в Storage ***************************
+
     // Добавить точки в поточечном режиме
-    void AppendPoints(uint8 *a, uint8 *b, BitSet16 pointsA, BitSet16 pointsB);
+    void AppendPoints(BitSet16 pointsA, BitSet16 pointsB);
 };
 
 

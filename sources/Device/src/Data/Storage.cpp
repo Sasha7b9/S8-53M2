@@ -463,14 +463,3 @@ void Storage::P2P::AppendFrame(DataSettings ds)
 
     AddData(data);
 }
-
-
-void Storage::P2P::AddPoints(BitSet16 bytesA, BitSet16 bytesB)
-{
-    DataSettings *ds = Storage::GetDataSettings(0);
-
-    if (ds)
-    {
-        ds->AppendPoints(Storage::GetData(ChA, 0), Storage::GetData(ChB, 0), bytesA, bytesB);
-    }
-}
