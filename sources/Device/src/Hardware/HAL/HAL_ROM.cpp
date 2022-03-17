@@ -430,21 +430,11 @@ bool HAL_ROM::GetData(int num, DataStruct &data)
 
     SU::LogBufferU8((uint8 *)address1, 10);
 
-    if (data.ds.en_b)
-    {
-        uint address = 0;
+    uint address = 0;
 
-        if (data.ds.en_a)
-        {
-            address = addrDS + sizeof(DataSettings) + data.ds.BytesInChannel();
-        }
-        else
-        {
-            address = addrDS + sizeof(DataSettings);
-        }
+    address = addrDS + sizeof(DataSettings) + data.ds.BytesInChannel();
 
-        data.B.FromBuffer((uint8 *)address, data.ds.BytesInChannel());
-    }
+    data.B.FromBuffer((uint8 *)address, data.ds.BytesInChannel());
 
     return true;
 }
