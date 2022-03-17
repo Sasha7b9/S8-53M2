@@ -19,9 +19,7 @@ namespace VCP
 
     static bool PrevSendingComplete();
 
-    static uint lastTimeSend = 0;           // Время последней передачи
-
-    static const int SIZE_BUFFER_VCP = 256;     // WARN если поставить размер буфера 512, то на ТЕ207 глюки
+    static const int SIZE_BUFFER_VCP = 256;
     static uint8 buffSend[SIZE_BUFFER_VCP];
     static int sizeBuffer = 0;
 
@@ -52,8 +50,6 @@ static bool VCP::PrevSendingComplete()
 
 void VCP::SendDataAsinch(uint8 *buffer, int size)
 {
-    lastTimeSend = TIME_MS;
-
     const int SIZE_BUFFER = 64;
     static uint8 trBuf[SIZE_BUFFER];
 
@@ -86,8 +82,6 @@ void VCP::SendDataSynch(const uint8 *buffer, int size)
     {
         return;
     }
-
-    lastTimeSend = TIME_MS;
 
     USBD_CDC_HandleTypeDef *pCDC = (USBD_CDC_HandleTypeDef *)_handleUSBD.pClassData;
 
@@ -127,7 +121,7 @@ void VCP::SendStringSynch(char *data)
 }
 
 
-void VCP::SendFormatStringAsynch(char *format, ...)
+void VCP::SendStringAsynch(char *format, ...)
 {
     static const int SIZE_BUFFER = 200;
     static char buffer[SIZE_BUFFER];
@@ -151,13 +145,4 @@ void VCP::SendFormatStringSynch(char *format, ...) {
     va_end(args);
     strcat(buffer, "\n");
     SendDataSynch((uint8*)buffer, (int)strlen(buffer));
-}
-
-
-void VCP::Update()
-{
-    if(TIME_MS - lastTimeSend > 1000)
-    {
-        LOG_WRITE("Долго нет засылок");
-    }
 }

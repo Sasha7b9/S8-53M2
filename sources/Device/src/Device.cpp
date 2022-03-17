@@ -45,37 +45,55 @@ void Device::Init()
 
     // FDrive::Init();
     // LAN::Init();
-    // VCP::Init();
+    VCP::Init();
 }
 
 
 void Device::Update()
 {
+    DEBUG_POINT_0;
+
     if (Settings::needReset)
     {
         Settings::Reset();
         Settings::needReset = false;
     }
 
+    DEBUG_POINT_0;
+
     Timer::StartMultiMeasurement();      // Сброс таймера для замера длительности временных интервалов в течение одной итерации цикла.
+
+    DEBUG_POINT_0;
 
     FDrive::Update();
 
+    DEBUG_POINT_0;
+
     FPGA::Update();                      // Обновляем аппаратную часть.
+
+    DEBUG_POINT_0;
 
     ProcessingSignal();
 
+    DEBUG_POINT_0;
+
     Panel::Update();
+
+    DEBUG_POINT_0;
 
     Menu::UpdateInput();                 // Обновляем состояние меню
 
+    DEBUG_POINT_0;
+
     Display::Update();                   // Рисуем экран.
+
+    DEBUG_POINT_0;
 
     Settings::SaveIfNeed();
 
-    // LAN::Update(0);
+    DEBUG_POINT_0;
 
-    // VCP::Update();
+    // LAN::Update(0);
 }
 
 

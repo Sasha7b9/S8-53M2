@@ -446,10 +446,13 @@ uint HAL_ROM::GetSector(uint startAddress)
     {
     case ADDR_SECTOR_DATA_MAIN:
         return FLASH_SECTOR_8;
+
     case ADDR_SECTOR_DATA_HELP:
         return FLASH_SECTOR_9;
+
     case ADDR_SECTOR_RESOURCES:
         return FLASH_SECTOR_10;
+
     case ADDR_SECTOR_SETTINGS:
         return FLASH_SECTOR_11;
     }
