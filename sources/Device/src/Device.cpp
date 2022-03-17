@@ -51,7 +51,14 @@ void Device::Init()
 
 void Device::Update()
 {
-    VCP_DEBUG_POINT();
+    static Waiter waiter;
+
+    if (waiter.ElapsedTime() > 1000)
+    {
+        waiter.Reset();
+
+        VCP_DEBUG_POINT();
+    }
 
     if (Settings::needReset)
     {

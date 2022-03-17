@@ -45,6 +45,7 @@ void VCP::SendBuffer(const uint8 *buffer, int size)
     static uint8 trBuf[SIZE_BUFFER];
 
     size = Math::MinFrom2(size, SIZE_BUFFER);
+
     while (!USBD::PrevSendingComplete())
     {
         if(!VCP::connectToHost)
@@ -52,6 +53,7 @@ void VCP::SendBuffer(const uint8 *buffer, int size)
             return;
         }
     };
+
     std::memcpy(trBuf, buffer, (uint)(size));
 
     USBD::Transmit(trBuf, size);
@@ -94,7 +96,7 @@ void VCP::DebugPoint(pchar module, pchar function, int line)
 
     std::sprintf(message, "%s:%s:%d", module, function, line);
 
-    SendBuffer((const uint8 *)message, (int)sizeof(message) + 1);
+    SendBuffer((const uint8 *)message, (int)std::strlen(message) + 1);
 }
 
 
