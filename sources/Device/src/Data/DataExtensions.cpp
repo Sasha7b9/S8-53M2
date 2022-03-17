@@ -54,14 +54,14 @@ void Averager::Append(const DataSettings *dss, uint8 *a, uint8 *b)
 
         for (int i = 0; i < size; i++)
         {
-            if (i == 3)
+            if (i == 0)
             {
                 LOG_WRITE("%f - %d", ave_a[0], a[0]);
             }
 
             ave_a[i] = a[i];
 
-            if (i == 3)
+            if (i == 0)
             {
                 LOG_WRITE("%f - %d", ave_a[0], a[0]);
             }
