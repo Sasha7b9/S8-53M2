@@ -51,6 +51,8 @@ void Device::Init()
 
 void Device::Update()
 {
+    DEBUG_POINT_0;
+
     if (Settings::needReset)
     {
         Settings::Reset();

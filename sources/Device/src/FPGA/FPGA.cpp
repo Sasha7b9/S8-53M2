@@ -36,10 +36,7 @@ namespace FPGA
 
     uint timeStart = 0;
 
-    DataSettings ds;
-
-    BufferU8 dataReadA;            // Буфер используется для чтения данных первого канала.
-    BufferU8 dataReadB;            // Буфер используется для чтения данных второго канала.
+    DataStruct data;            // Сюда будем читать данные
 
     int addition_shift = 0;
 
@@ -222,11 +219,11 @@ void FPGA::Start()
         ClearData();
     }
 
-    ds.Init();
+    data.ds.Init();
 
     if (TBase::InModeP2P())
     {
-        Storage::P2P::CreateFrame(ds);
+        Storage::P2P::CreateFrame(data.ds);
         Timer::Enable(TypeTimer::P2P, 1, ReadPoint);
     }
     else
@@ -342,11 +339,11 @@ void FPGA::DataRead()
 
     if (!TBase::InModeRandomizer())
     {
-        InverseDataIsNecessary(Chan::A, dataReadA);
-        InverseDataIsNecessary(Chan::B, dataReadB);
+        InverseDataIsNecessary(Chan::A, data.A);
+        InverseDataIsNecessary(Chan::B, data.B);
     }
 
-    Storage::AddData(ds, dataReadA.Data(), dataReadB.Data());
+    Storage::AddData(data);
 
     if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)
     {
@@ -371,7 +368,7 @@ void FPGA::Reader::ReadPoints(Chan ch)
     HAL_FMC::Write(WR_PRED, address);
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
-    BufferU8 &buffer = ch.IsA() ? dataReadA : dataReadB;
+    BufferU8 &buffer = ch.IsA() ? data.A : data.B;
 
     uint8 *dat = buffer.Data();
     const uint8 *const end = buffer.Last();
@@ -390,9 +387,9 @@ void FPGA::Reader::ReadPoints(Chan ch)
 
         while (p_max < end && IN_PROCESS_READ)
         {
-            BitSet16 data = funcRead();
-            *p_max++ = data.byte0;
-            *p_min++ = data.byte1;
+            BitSet16 bytes = funcRead();
+            *p_max++ = bytes.byte0;
+            *p_min++ = bytes.byte1;
         }
     }
     else
@@ -422,9 +419,9 @@ void FPGA::Reader::ReadPoints(Chan ch)
 
                 while (dat < end && IN_PROCESS_READ)
                 {
-                    BitSet16 data = funcRead();
+                    BitSet16 bytes = funcRead();
 
-                    *dat = data.byte0;
+                    *dat = bytes.byte0;
                     dat += stretch;
                 }
             }
@@ -432,18 +429,18 @@ void FPGA::Reader::ReadPoints(Chan ch)
             {
                 if (!flag.FirstByte())
                 {
-                    BitSet16 data = funcRead();
-                    *dat = data.byte1;
+                    BitSet16 bytes = funcRead();
+                    *dat = bytes.byte1;
                     dat += stretch;
                 }
 
                 while (dat < end && IN_PROCESS_READ)
                 {
-                    BitSet16 data = funcRead();
+                    BitSet16 bytes = funcRead();
 
-                    *dat = data.byte0;
+                    *dat = bytes.byte0;
                     dat += stretch;
-                    *dat = data.byte1;
+                    *dat = bytes.byte1;
                     dat += stretch;
                 }
             }
@@ -485,15 +482,15 @@ void FPGA::Reader::ReadPoints(Chan ch)
 }
 
 
-void FPGA::InverseDataIsNecessary(Chan::E ch, Buffer<uint8> &data)
+void FPGA::InverseDataIsNecessary(Chan::E ch, Buffer<uint8> &_data)
 {
     if (SET_INVERSE(ch))
     {
-        int size = data.Size();
+        int size = _data.Size();
 
         for (int i = 0; i < size; i++)
         {
-            data[i] = (uint8)((int)(2 * ValueFPGA::AVE) - Math::Limitation<uint8>(data[i], ValueFPGA::MIN, ValueFPGA::MAX));
+            _data[i] = (uint8)((int)(2 * ValueFPGA::AVE) - Math::Limitation<uint8>(_data[i], ValueFPGA::MIN, ValueFPGA::MAX));
         }
     }
 }
@@ -594,11 +591,11 @@ void FPGA::ClearData()
 {
     int num_bytes = ENUM_POINTS_FPGA::ToNumBytes();
 
-    dataReadA.Realloc(num_bytes);
-    dataReadB.Realloc(num_bytes);
+    data.A.Realloc(num_bytes);
+    data.B.Realloc(num_bytes);
 
-    dataReadA.Fill(ValueFPGA::NONE);
-    dataReadB.Fill(ValueFPGA::NONE);
+    data.A.Fill(ValueFPGA::NONE);
+    data.B.Fill(ValueFPGA::NONE);
 }
 
 

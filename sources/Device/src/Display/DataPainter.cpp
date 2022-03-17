@@ -501,6 +501,7 @@ void DataPainter::DrawMemoryWindow()
     const int xVert0 = (int)(leftX + SHIFT_IN_MEMORY * scaleX);
     const int xVert1 = (int)(leftX + SHIFT_IN_MEMORY * scaleX + timeWindowRectWidth);
     bool showFull = set.display.showFullMemoryWindow;
+
     Painter::DrawRectangle(xVert0, top + (showFull ? 0 : 1), xVert1 - xVert0, bottom - top - (showFull ? 0 : 2),
         COLOR_FILL);
 

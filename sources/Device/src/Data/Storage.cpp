@@ -102,22 +102,22 @@ void Storage::ClearLimitsAndSums()
 }
 
 
-void Storage::AddData(DataSettings dss, uint8 *a, uint8 *b)
+void Storage::AddData(DataStruct &data)
 {
-    dss.time = HAL_RTC::GetPackedTime();
+    data.ds.time = HAL_RTC::GetPackedTime();
 
-    if (!dss.en_a && !dss.en_b)
+    if (!data.ds.en_a && !data.ds.en_b)
     {
         return;
     }
 
-    CalculateLimits(&dss, a, b);
+    CalculateLimits(&data.ds, data.A.Data(), data.B.Data());
 
-    PushData(&dss, a, b);
+    PushData(&data.ds, data.A.Data(), data.B.Data());
 
     count_data++;
 
-    Averager::Append(&dss, a, b);
+    Averager::Append(data);
 }
 
 
@@ -482,13 +482,12 @@ void Storage::P2P::AppendFrame(DataSettings ds)
 
     int num_bytes = ds.BytesInChannel();
 
-    BufferU8 bufferA(num_bytes);
-    BufferU8 bufferB(num_bytes);
+    DataStruct data;
+    data.ds.Set(ds);
+    data.A.Realloc(num_bytes, ValueFPGA::NONE);
+    data.A.Realloc(num_bytes, ValueFPGA::NONE);
 
-    bufferA.Fill(ValueFPGA::NONE);
-    bufferB.Fill(ValueFPGA::NONE);
-
-    AddData(ds, bufferA.Data(), bufferB.Data());
+    AddData(data);
 }
 
 

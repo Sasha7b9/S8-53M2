@@ -12,7 +12,7 @@ namespace Storage
     void Clear();
 
     // Добавить считанные данные. При этом настройками считаются текущие настройки прибора.
-    void AddData(DataSettings, uint8 *dataA, uint8 *dataB);
+    void AddData(DataStruct &);
 
     // Сколько всего измерений сохранено в памяти.
     int NumElements();
