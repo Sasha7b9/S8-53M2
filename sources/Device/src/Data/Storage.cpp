@@ -66,9 +66,8 @@ namespace Storage
 
     void CalculateLimits(const DataSettings *, const uint8 *dataA, const uint8 *dataB);
 
-    //  опирует данные канала chan из, определ€емые ds, в одну из двух строк массива dataImportRel. ¬озвращаемое
-    // значение false означает, что данный канал выключен.
-    bool CopyData(DataSettings *, Chan ch, BufferFPGA &);
+    //  опирует данные канала chan из, определ€емые ds, в одну из двух строк массива dataImportRel
+    void CopyData(DataSettings *, Chan ch, BufferFPGA &);
 
     namespace P2P
     {
@@ -105,11 +104,6 @@ void Storage::ClearLimitsAndSums()
 void Storage::AddData(DataStruct &data)
 {
     data.ds.time = HAL_RTC::GetPackedTime();
-
-    if (!data.ds.en_a && !data.ds.en_b)
-    {
-        return;
-    }
 
     CalculateLimits(&data.ds, data.A.Data(), data.B.Data());
 
@@ -216,15 +210,9 @@ bool Storage::GetData(int fromEnd, DataStruct &data)
 
     data.ds.Set(*dp);
 
-    if (dp->en_a)
-    {
-        CopyData(dp, Chan::A, data.A);
-    }
+    CopyData(dp, Chan::A, data.A);
 
-    if (dp->en_a)
-    {
-        CopyData(dp, Chan::B, data.B);
-    }
+    CopyData(dp, Chan::B, data.B);
 
     return true;
 }
@@ -238,7 +226,7 @@ uint8 *Storage::GetData(Chan ch, int fromEnd)
 
     if (dp == 0)
     {
-        return 0;
+        return nullptr;
     }
 
     if (dataImport[ChA].Size() != dp->BytesInChannel())
@@ -247,29 +235,24 @@ uint8 *Storage::GetData(Chan ch, int fromEnd)
         dataImport[ChB].Realloc(dp->BytesInChannel());
     }
 
-    return CopyData(dp, ch, dataImport[ch]) ? dataImport[ch].Data() : nullptr;
+    CopyData(dp, ch, dataImport[ch]);
+
+    return dataImport[ch].Data();
 }
 
 
-bool Storage::CopyData(DataSettings *ds, Chan ch, BufferFPGA &data)
+void Storage::CopyData(DataSettings *ds, Chan ch, BufferFPGA &data)
 {
-    if ((ch == Chan::A && !ds->en_a) || (ch == Chan::B && !ds->en_b))
-    {
-        return false;
-    }
-
     uint8 *address = ((uint8 *)ds + sizeof(DataSettings));
 
     uint length = (uint)ds->BytesInChannel();
 
-    if (ch == Chan::B && ds->en_a)
+    if (ch.IsB())
     {
         address += length;
     }
 
     data.FromBuffer(address, (int)length);
-
-    return true;
 }
 
 
@@ -341,14 +324,9 @@ void Storage::PushData(DataSettings *dp, const uint8 *a, const uint8 *b)
 
     uint bytes_in_channel = (uint)dp->BytesInChannel();
 
-    if (dp->en_a)
-    {
-        COPY_AND_INCREASE(addrRecord, a, bytes_in_channel);
-    }
-    if (dp->en_b)
-    {
-        COPY_AND_INCREASE(addrRecord, b, bytes_in_channel);
-    }
+    COPY_AND_INCREASE(addrRecord, a, bytes_in_channel);
+
+    COPY_AND_INCREASE(addrRecord, b, bytes_in_channel);
 }
 
 
@@ -383,19 +361,7 @@ int Storage::MemoryFree()
 
 int DataSettings::SizeElem()
 {
-    int retValue = sizeof(DataSettings);
-
-    if (en_a)
-    {
-        retValue += BytesInChannel();
-    }
-
-    if (en_b)
-    {
-        retValue += BytesInChannel();
-    }
-
-    return retValue;
+    return (int)sizeof(DataSettings) * BytesInChannel() * 2;
 }
 
 

@@ -28,8 +28,6 @@ namespace DataPainter
 
     void DrawDataChannel(DataStruct &, Chan, int minY, int maxY);
 
-    bool ChannelNeedForDraw(const uint8 *data, Chan, const DataSettings &);
-
     void DrawMarkersForMeasure(float scale, Chan);
 
     void DrawSignalLined(const uint8 *data, const DataSettings *ds, int startPoint, int endPoint, int minY, int maxY,
@@ -105,7 +103,7 @@ void DataPainter::DrawDataChannel(DataStruct &data, Chan ch, int minY, int maxY)
 {
     bool calculateFiltr = true;
 
-    if (!ChannelNeedForDraw(data.Data(ch).Data(), ch, data.ds))
+    if (!SET_ENABLED(ch))
     {
         return;
     }
@@ -148,35 +146,6 @@ void DataPainter::DrawDataChannel(DataStruct &data, Chan ch, int minY, int maxY)
     {
         DrawSignalPointed(data.Data(ch).Data(), &ds, first, last, minY, maxY, scaleY, scaleX);
     }
-}
-
-
-bool DataPainter::ChannelNeedForDraw(const uint8 *data, Chan ch, const DataSettings &ds)
-{
-    if (!data)
-    {
-        return false;
-    }
-
-    if (MODE_WORK_IS_DIRECT)
-    {
-        if (!ch.Enabled())
-        {
-            return false;
-        }
-    }
-    else if (ds.Valid())
-    {
-        if ((ch == Chan::A && !ds.en_a) || (ch == Chan::B && !ds.en_b))
-        {
-            return false;
-        }
-    }
-    else
-    {
-        return false;
-    }
-    return true;
 }
 
 
@@ -509,20 +478,21 @@ void DataPainter::DrawMemoryWindow()
     {
         if (dat->A.Size() || dat->A.Size())
         {
-            Chan::E chanFirst = LAST_AFFECTED_CHANNEL_IS_A ? Chan::B : Chan::A;
-            Chan::E chanSecond = LAST_AFFECTED_CHANNEL_IS_A ? Chan::A : Chan::B;
+            Chan::E chanFirst = LAST_AFFECTED_CHANNEL_IS_A ? ChB : ChA;
+            Chan::E chanSecond = LAST_AFFECTED_CHANNEL_IS_A ? ChA : ChB;
+
             const uint8 *dataFirst = LAST_AFFECTED_CHANNEL_IS_A ? dat->B.Data() : dat->A.Data();
             const uint8 *dataSecond = LAST_AFFECTED_CHANNEL_IS_A ? dat->A.Data() : dat->B.Data();
 
             int shiftForPeakDet = (dat->ds.peakDet == PeackDetMode::Disable) ? 0 : dat->ds.PointsInChannel();
 
-            if (ChannelNeedForDraw(dataFirst, chanFirst, dat->ds))
+            if (SET_ENABLED(chanFirst))
             {
                 DrawChannelInWindowMemory(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataFirst, rightX,
                     chanFirst, shiftForPeakDet);
             }
 
-            if (ChannelNeedForDraw(dataSecond, chanSecond, dat->ds))
+            if (SET_ENABLED(chanSecond))
             {
                 DrawChannelInWindowMemory(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataSecond, rightX,
                     chanSecond, shiftForPeakDet);

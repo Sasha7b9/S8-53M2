@@ -683,8 +683,6 @@ void DataSettings::Init()
 {
     rec_point = TBase::InModeP2P() ? 0 : -1;
 
-    en_a = SET_ENABLED_A ? 1U : 0U;
-    en_b = SET_ENABLED_B ? 1U : 0U;
     inv_a = SET_INVERSE_A ? 1U : 0U;
     inv_b = SET_INVERSE_B ? 1U : 0U;
     range[0] = SET_RANGE_A;
@@ -771,16 +769,11 @@ void DataSettings::AppendPoints(uint8 *a, uint8 *b, BitSet16 pointsA, BitSet16 p
             rec_point = max_bytes - 2;
         }
 
-        if (en_a)
-        {
-            a[rec_point] = pointsA.byte0;
-            a[rec_point + 1] = pointsA.byte1;
-        }
-        if (en_b)
-        {
-            b[rec_point] = pointsB.byte0;
-            b[rec_point + 1] = pointsB.byte1;
-        }
+        a[rec_point] = pointsA.byte0;
+        a[rec_point + 1] = pointsA.byte1;
+
+        b[rec_point] = pointsB.byte0;
+        b[rec_point + 1] = pointsB.byte1;
 
         rec_point += 2;
         all_points += 2;
@@ -844,9 +837,7 @@ float Range::MaxOnScreen(Range::E range)
 
 bool DataSettings::Equal(const DataSettings &ds)
 {
-    return (en_a     == ds.en_a) &&
-           (en_b     == ds.en_b) &&
-           (inv_a    == ds.inv_a) &&
+    return (inv_a    == ds.inv_a) &&
            (inv_b    == ds.inv_b) &&
            (range[0] == ds.range[0]) &&
            (range[1] == ds.range[1]) &&

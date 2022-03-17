@@ -287,19 +287,7 @@ void HAL_ROM::EraseData()
 
 int HAL_ROM::CalculateSizeData(DataSettings *ds)
 {
-    int size = sizeof(DataSettings);
-
-    if (ds->en_a)
-    {
-        size += ds->BytesInChannel();
-    }
-
-    if (ds->en_b)
-    {
-        size += ds->BytesInChannel();
-    }
-
-    return size;
+    return (int)sizeof(DataSettings) + 2 * ds->BytesInChannel();
 }
 
 

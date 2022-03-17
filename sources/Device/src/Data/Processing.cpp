@@ -1122,7 +1122,7 @@ char* Processing::GetStringMeasure(Measure::E measure, Chan ch, char buffer[20])
     {
         std::strcat(buffer, "-.-");
     }
-    else if((ch == Chan::A && !out.ds.en_a) || (ch == Chan::B && !out.ds.en_b))
+    else if(!SET_ENABLED(ch))
     {
     }
     else if(measures[measure].FuncCalculate)
@@ -1178,7 +1178,7 @@ void Processing::CountedToCurrentSettings()
         }
     }
  
-    if (out.ds.en_a && (out.ds.range[0] != SET_RANGE_A || out.ds.rShiftA != (uint)SET_RSHIFT_A))
+    if ((out.ds.range[0] != SET_RANGE_A || out.ds.rShiftA != (uint)SET_RSHIFT_A))
     {
         Range::E range = SET_RANGE_A;
         RShift rShift = SET_RSHIFT_A;
@@ -1193,7 +1193,7 @@ void Processing::CountedToCurrentSettings()
             else                                 { out.A[i] = (uint8)relValue; }
         }
     }
-    if (out.ds.en_b && (out.ds.range[1] != SET_RANGE_B || out.ds.rShiftB != (uint)SET_RSHIFT_B))
+    if ((out.ds.range[1] != SET_RANGE_B || out.ds.rShiftB != (uint)SET_RSHIFT_B))
     {
         Range::E range = SET_RANGE_B;
         RShift rShift = SET_RSHIFT_B;

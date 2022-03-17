@@ -1363,7 +1363,6 @@ void Display::WriteTextVoltage(Chan ch, int x, int y)
             multiplier = ch.IsA() ? ds.div_a : ds.div_b;
             range = ds.range[ch];
             rShift.value = (int16)(ch.IsA() ? ds.rShiftA : ds.rShiftB);
-            enable = ch.IsA() ? ds.en_a : ds.en_b;
         }
     }
 
