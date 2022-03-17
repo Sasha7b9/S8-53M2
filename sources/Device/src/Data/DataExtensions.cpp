@@ -19,7 +19,7 @@ namespace Averager
 
 void Averager::Reset()
 {
-    if (ModeAveraging::Current() < 2)
+    if (ModeAveraging::GetNumber() < 2)
     {
         ave_a.Free();
         ave_a.Free();
@@ -46,31 +46,18 @@ void Averager::Append(const DataSettings *dss, uint8 *a, uint8 *b)
 
     int size = dss->BytesInChannel();
 
+    if (ave_a.Size() != size)
+    {
+        Reset();
+    }
+
     if (num_datas == 1)
     {
-        LOG_WRITE("size = %d", size);
-
-        SU::LogBufferU8("1:", a, 10);
-
         for (int i = 0; i < size; i++)
         {
-            if (i == 0)
-            {
-                LOG_WRITE("%f - %d", ave_a[0], a[0]);
-            }
-
             ave_a[i] = a[i];
-
-            if (i == 0)
-            {
-                LOG_WRITE("%f - %d", ave_a[0], a[0]);
-            }
-
             ave_b[i] = b[i];
         }
-
-        SU::LogBufferU8("1:", a, 10);
-        SU::LogBufferF("2:", ave_a.Data(), 10);
     }
     else
     {
