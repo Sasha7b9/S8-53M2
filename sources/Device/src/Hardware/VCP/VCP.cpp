@@ -73,13 +73,7 @@ void VCP::Send(const uint8 *buffer, int size)
 }
 
 
-void VCP::SendMessage(pchar message)
-{
-    Send((const uint8 *)message, (int)std::strlen(message));
-}
-
-
-void VCP::SendAsynch(char *format, ...)
+void VCP::SendFormat(char *format, ...)
 {
     static const int SIZE_BUFFER = 200;
     static char buffer[SIZE_BUFFER];
@@ -102,10 +96,4 @@ void VCP::DebugPoint(pchar module, pchar function, int line)
     std::sprintf(message, "%s:%s:%d", module, function, line);
 
     Send((const uint8 *)message, (int)std::strlen(message) + 1);
-}
-
-
-void VCP::Flush()
-{
-
 }

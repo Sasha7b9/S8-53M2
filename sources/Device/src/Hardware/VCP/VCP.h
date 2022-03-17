@@ -12,14 +12,9 @@ namespace VCP
 
     void Send(const uint8 *buffer, int size);
 
-    void SendAsynch(char *format, ...);
-
-    // Сообщение передаётся без завершающего нуля
-    void SendMessage(pchar message);
+    void SendFormat(char *format, ...);
 
     void DebugPoint(pchar module, pchar function, int line);
-
-    void Flush();
 
     extern bool cableIsConnected;       // true, если подсоединён кабель
     extern bool connectToHost;          // true, если есть подключение

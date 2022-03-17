@@ -627,7 +627,6 @@ void Painter::EndScene(bool endScene)
 
     if (stateTransmit == StateTransmit_InProcess)
     {
-        VCP::Flush();
         stateTransmit = StateTransmit_Free;
     }
 }
