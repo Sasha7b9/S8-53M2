@@ -79,15 +79,15 @@ namespace Storage
 
 void DataSettings::PrintElement()
 {
-    LOG_WRITE("addr:%x, addrNext:%x, addrPrev:%x, size:%d", this, next, addrPrev, SizeElem());
+    LOG_WRITE("addr:%x, addrNext:%x, addrPrev:%x, size:%d", this, next, prev, SizeElem());
 }
 
 
 void Storage::Clear()
 {
-    first_ds = 0;
+    first_ds = nullptr;
     last_ds = (DataSettings *)beginPool;
-    last_ds->next = last_ds->addrPrev = 0;
+    last_ds->next = last_ds->prev = nullptr;
     ClearLimitsAndSums();
 }
 
@@ -291,8 +291,8 @@ void Storage::PushData(DataSettings *dp, const uint8 *a, const uint8 *b)
     {
         first_ds = (DataSettings *)beginPool;
         addrRecord = beginPool;
-        dp->addrPrev = 0;
-        dp->next = 0;
+        dp->prev = nullptr;
+        dp->next = nullptr;
     }
     else
     {
@@ -303,9 +303,9 @@ void Storage::PushData(DataSettings *dp, const uint8 *a, const uint8 *b)
             addrRecord = beginPool;
         }
 
-        dp->addrPrev = last_ds;
+        dp->prev = last_ds;
         last_ds->next = addrRecord;
-        dp->next = 0;
+        dp->next = nullptr;
     }
 
     last_ds = (DataSettings *)addrRecord;
@@ -362,7 +362,7 @@ void Storage::RemoveFirstFrame()
     if (first_ds)
     {
         first_ds = (DataSettings *)first_ds->next;
-        first_ds->addrPrev = nullptr;
+        first_ds->prev = nullptr;
         count_data--;
     }
 }
@@ -390,7 +390,7 @@ DataSettings *Storage::GetDataSettings(int indexFromEnd)
     int index = indexFromEnd;
     DataSettings *ds = last_ds;
 
-    while (index != 0 && ((ds = (DataSettings *)ds->addrPrev) != 0))
+    while (index != 0 && ((ds = (DataSettings *)ds->prev) != 0))
     {
         index--;
     }

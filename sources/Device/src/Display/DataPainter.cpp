@@ -420,10 +420,10 @@ void DataPainter::DrawDataNormal()
     {
         DrawBothChannels(Data::dir);
 
-        if (prevAddr == 0 || prevAddr != Processing::out.ds.addrPrev)
+        if (prevAddr == 0 || prevAddr != Processing::out.ds.prev)
         {
             Display::numDrawingSignals++;
-            prevAddr = Processing::out.ds.addrPrev;
+            prevAddr = Processing::out.ds.prev;
         }
     }
     else
