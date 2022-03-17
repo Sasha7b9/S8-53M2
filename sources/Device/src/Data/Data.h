@@ -72,12 +72,6 @@ struct DataSettings
 };
 
 
-struct BufferU8 : public Buffer<uint8>
-{
-    BufferU8(int size = 0) : Buffer<uint8>(size) { }
-};
-
-
 struct BufferFPGA : public Buffer<uint8>
 {
     BufferFPGA(int size = 0) : Buffer<uint8>(size) { }
