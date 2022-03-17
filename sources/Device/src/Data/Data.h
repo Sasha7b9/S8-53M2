@@ -17,8 +17,8 @@ struct PackedTime
 
 struct DataSettings
 {
-    void                *addrNext;                   // Адрес следующей записи.
-    void                *addrPrev;                   // Адрес предыдущей записи.
+    void                *addrNext;                  // Адрес следующей записи.
+    void                *addrPrev;                  // Адрес предыдущей записи.
     uint                rShiftA             : 10;   // Смещение по напряжению
     uint                rShiftB             : 10;
     uint                trigLevA            : 10;   // Уровень синхронизации
@@ -42,6 +42,7 @@ struct DataSettings
     PackedTime          time;
     // Поточечный режим
     int16               rec_point;                  // Сейчас будет записана эта точка. Если -1 - то фрейм не поточечный. Он считан полностью
+    int                 all_points;                 // Всего точек
 
     DataSettings() { valid = 0; };
 
@@ -66,6 +67,9 @@ struct DataSettings
     bool InModeP2P() const;
 
     bool Valid() const { return (valid == 1); };
+
+    // Добавить точки в поточечном режиме
+    void AppendPoints(uint8 *a, uint8 *b, BitSet16 pointsA, BitSet16 pointsB);
 };
 
 
@@ -87,9 +91,6 @@ struct DataStruct
     DataStruct() { }
 
     BufferFPGA &Data(Chan ch) { return ch.IsA() ? A : B; }
-
-    // Добавить точки в поточечном режиме
-    void AppendPoints(BitSet16 pointsA, BitSet16 pointsB);
 
     bool Valid() const { return ds.Valid(); }
 

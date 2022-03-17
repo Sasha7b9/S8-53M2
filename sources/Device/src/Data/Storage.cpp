@@ -504,10 +504,10 @@ void Storage::P2P::Reset()
 
 void Storage::P2P::AddPoints(BitSet16 bytesA, BitSet16 bytesB)
 {
-    DataStruct data;
+    DataSettings *ds = Storage::GetDataSettings(0);
 
-    if (GetData(0, data))
+    if (ds)
     {
-        data.AppendPoints(bytesA, bytesB);
+        ds->AppendPoints(Storage::GetData(ChA, 0), Storage::GetData(ChB, 0), bytesA, bytesB);
     }
 }

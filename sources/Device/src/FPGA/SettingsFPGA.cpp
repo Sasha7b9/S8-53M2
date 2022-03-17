@@ -752,40 +752,40 @@ bool DataSettings::InModeP2P() const
 }
 
 
-void DataStruct::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
+void DataSettings::AppendPoints(uint8 *a, uint8 *b, BitSet16 pointsA, BitSet16 pointsB)
 {
-    if (ds.InModeP2P())
+    if (InModeP2P())
     {
-        int max_bytes = ds.BytesInChannel();
+        int max_bytes = BytesInChannel();
 
-        if (ds.rec_point == max_bytes - 1)
+        if (rec_point == max_bytes - 1)
         {
-            std::memmove(A.Pointer(0), A.Pointer(1), (uint)(max_bytes - 1));
-            std::memmove(B.Pointer(0), B.Pointer(1), (uint)(max_bytes - 1));
-            ds.rec_point = max_bytes - 2;
+            std::memmove(a, a + 1, (uint)(max_bytes - 1));
+            std::memmove(b, b + 1, (uint)(max_bytes - 1));
+            rec_point = max_bytes - 2;
         }
-        else if (ds.rec_point == max_bytes)
+        else if (rec_point == max_bytes)
         {
-            std::memmove(A.Pointer(0), A.Pointer(2), (uint)(max_bytes - 2));
-            std::memmove(B.Pointer(0), B.Pointer(2), (uint)(max_bytes - 2));
-            ds.rec_point = max_bytes - 2;
-        }
-
-        if (ds.en_a)
-        {
-            A[ds.rec_point] = pointsA.byte0;
-            A[ds.rec_point + 1] = pointsA.byte1;
-        }
-        if (ds.en_b)
-        {
-            B[ds.rec_point] = pointsB.byte0;
-            B[ds.rec_point + 1] = pointsB.byte1;
+            std::memmove(a, a + 2, (uint)(max_bytes - 2));
+            std::memmove(b, b + 2, (uint)(max_bytes - 2));
+            rec_point = max_bytes - 2;
         }
 
-        ds.rec_point += 2;
+        if (en_a)
+        {
+            a[rec_point] = pointsA.byte0;
+            a[rec_point + 1] = pointsA.byte1;
+        }
+        if (en_b)
+        {
+            b[rec_point] = pointsB.byte0;
+            b[rec_point + 1] = pointsB.byte1;
+        }
+
+        rec_point += 2;
     }
 
-    LOG_WRITE("записано точек %d", ds.rec_point);
+    LOG_WRITE("записано точек %d", rec_point);
 }
 
 
