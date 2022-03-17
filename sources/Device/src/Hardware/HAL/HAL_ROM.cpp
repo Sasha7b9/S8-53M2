@@ -324,16 +324,10 @@ void HAL_ROM::CompactMemory()
 
             addrDataNew += sizeof(DataSettings);
 
-            if (data.ds.en_a)
-            {
-                data.A.FromBuffer((uint8 *)addrDataNew, data.ds.BytesInChannel());
-                addrDataNew += data.ds.BytesInChannel();
-            }
-
-            if (data.ds.en_b)
-            {
-                data.B.FromBuffer((uint8 *)addrDataNew, data.ds.BytesInChannel());
-            }
+            data.A.FromBuffer((uint8 *)addrDataNew, data.ds.BytesInChannel());
+            addrDataNew += data.ds.BytesInChannel();
+ 
+            data.B.FromBuffer((uint8 *)addrDataNew, data.ds.BytesInChannel());
 
             HAL_ROM::SaveData(i, data);
         }
