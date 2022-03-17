@@ -12,8 +12,6 @@ namespace VCP
 
     void Send(const uint8 *buffer, int size);
 
-    void SendSynch(const uint8 *buffer, int size);
-    
     void SendAsynch(char *format, ...);
 
     // Сообщение передаётся без завершающего нуля

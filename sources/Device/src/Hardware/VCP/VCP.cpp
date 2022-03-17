@@ -79,12 +79,6 @@ void VCP::SendMessage(pchar message)
 }
 
 
-void VCP::SendSynch(const uint8 *buffer, int size)
-{
-    Send(buffer, size);
-}
-
-
 void VCP::SendAsynch(char *format, ...)
 {
     static const int SIZE_BUFFER = 200;
