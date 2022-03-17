@@ -2,7 +2,7 @@
 #include "Log.h"
 #include "Display/Display.h"
 #include "Settings/Settings.h"
-#include "VCP/VCP.h"
+#include "Hardware/VCP/VCP.h"
 #include <cstdarg>
 #include <cstdio>
 #include <cstring>

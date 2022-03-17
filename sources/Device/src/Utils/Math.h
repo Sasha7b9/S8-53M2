@@ -72,6 +72,13 @@ namespace Math
         if (*value < min) { *value = min; }
         else if (*value > max) { *value = max; }
     }
+
+    template<class T> T MinFrom2(T val1, T val2)
+    {
+        if (val1 < val2) { return val1; }
+
+        return val2;
+    }
 }
 
 void    Math_DataExtrapolation(uint8 *data, uint8 *there, int size);

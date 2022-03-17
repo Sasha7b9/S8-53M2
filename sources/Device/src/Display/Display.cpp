@@ -13,7 +13,7 @@
 #include "FPGA/FPGA.h"
 #include "Data/Storage.h"
 #include "Hardware/Sound.h"
-#include "VCP/VCP.h"
+#include "Hardware/VCP/VCP.h"
 #include "Menu/Menu.h"
 #include "Data/Measures.h"
 #include "Utils/Math.h"
@@ -1565,9 +1565,9 @@ void Display::DrawLowPart()
         PText::Draw4SymbolsInRect(x + 87, GRID_BOTTOM + 2, SYMBOL_ETHERNET, LAN::clientIsConnected ? COLOR_FILL : Color::FLASH_01);
     }
 
-    if (VCP::clientIsConnected || VCP::cableIsConnected)
+    if (VCP::connectToHost || VCP::cableIsConnected)
     {
-        PText::Draw4SymbolsInRect(x + 72, GRID_BOTTOM + 2, SYMBOL_USB, VCP::clientIsConnected ? COLOR_FILL : Color::FLASH_01);
+        PText::Draw4SymbolsInRect(x + 72, GRID_BOTTOM + 2, SYMBOL_USB, VCP::connectToHost ? COLOR_FILL : Color::FLASH_01);
     }
     
     Color::SetCurrent(COLOR_FILL);

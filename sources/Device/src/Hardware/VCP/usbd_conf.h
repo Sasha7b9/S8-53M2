@@ -1,10 +1,16 @@
-// 2022/2/11 19:32:52 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-#include <stm32f4xx_hal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "stm32f4xx_hal.h"
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
+
+#ifdef WIN32
+#define USBD_CLASS_BOS_ENABLED 0
+#ifndef __STATIC_INLINE
+    #define __STATIC_INLINE inline
+#endif
+#endif
 
 
 #define USBD_MAX_NUM_INTERFACES               1
@@ -16,10 +22,10 @@
 
 #define USBD_LPM_ENABLED 0
  
-#define USBD_malloc               malloc
-#define USBD_free                 free
-#define USBD_memset               memset
-#define USBD_memcpy               memcpy
+#define USBD_malloc         std::malloc
+#define USBD_free           std::free
+#define USBD_memset         std::memset
+#define USBD_memcpy         std::memcpy
     
 #if (USBD_DEBUG_LEVEL > 0)
 #define  USBD_UsrLog(...)   printf(__VA_ARGS__);\

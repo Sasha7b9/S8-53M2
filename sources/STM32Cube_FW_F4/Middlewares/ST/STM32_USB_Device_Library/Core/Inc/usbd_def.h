@@ -342,6 +342,9 @@ __STATIC_INLINE uint16_t SWAPBYTE(uint8_t *addr)
     #ifndef HIBYTE
         #define HIBYTE(x)  ((uint8_t)(((x) & 0xFF00U) >> 8U))
     #endif
+#else
+    #define LOBYTE(x)  ((uint8_t)((x) & 0x00FFU))
+    #define HIBYTE(x)  ((uint8_t)(((x) & 0xFF00U) >> 8U))
 #endif
 
 #ifndef MIN

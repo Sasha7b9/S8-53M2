@@ -6,7 +6,7 @@
 #include "Data/Storage.h"
 #include "FPGA/SettingsFPGA.h"
 #include "Data/Processing.h"
-#include "VCP/VCP.h"
+#include "Hardware/VCP/VCP.h"
 #include "Hardware/Timer.h"
 #include "FDrive/FDrive.h"
 #include "Menu/Menu.h"

@@ -339,7 +339,7 @@
               <MiscControls>--cpp</MiscControls>
               <Define>USE_HAL_DRIVER, STM32F429xx, __cplusplus,DEBUG,DEVICE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\STM32Cube_FW_F4\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Src;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\system;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\ipv4;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\drivers;.\src;.\src\libs;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\lwip;..\STM32Cube_FW_F4\Drivers\CMSIS\Include;..\..\sources</IncludePath>
+              <IncludePath>..\STM32Cube_FW_F4\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Src;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\system;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\ipv4;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\drivers;.\src;.\src\libs;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\lwip;..\STM32Cube_FW_F4\Drivers\CMSIS\Include;..\..\sources;.\src\Hardware\VCP</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -764,21 +764,6 @@
               <FilePath>.\src\libs\ffconf.h</FilePath>
             </File>
             <File>
-              <FileName>usbd_cdc_interface.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\libs\usbd_cdc_interface.h</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_conf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\libs\usbd_conf.h</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_desc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\libs\usbd_desc.h</FilePath>
-            </File>
-            <File>
               <FileName>app_ethernet.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\libs\app_ethernet.h</FilePath>
@@ -804,19 +789,9 @@
               <FilePath>.\src\libs\ethernetif.cpp</FilePath>
             </File>
             <File>
-              <FileName>usbd_cdc_interface.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\libs\usbd_cdc_interface.cpp</FilePath>
-            </File>
-            <File>
               <FileName>usbh_conf.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\libs\usbh_conf.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_desc.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\libs\usbd_desc.cpp</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_conf.h</FileName>
@@ -827,11 +802,6 @@
               <FileName>usbh_diskio.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\libs\usbh_diskio.h</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_conf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\libs\usbd_conf.c</FilePath>
             </File>
             <File>
               <FileName>startup_stm32f429xx.s</FileName>
@@ -1381,6 +1351,66 @@
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_USBH.cpp</FilePath>
             </File>
+            <File>
+              <FileName>HAL_PCD.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_PCD.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Hardware/VCP</GroupName>
+          <Files>
+            <File>
+              <FileName>USBD.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\VCP\USBD.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>USBD.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\VCP\USBD.h</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_cdc_interface.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\VCP\usbd_cdc_interface.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_cdc_interface.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\VCP\usbd_cdc_interface.h</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_conf.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\VCP\usbd_conf.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_conf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\VCP\usbd_conf.h</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_desc.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\VCP\usbd_desc.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_desc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\VCP\usbd_desc.h</FilePath>
+            </File>
+            <File>
+              <FileName>VCP.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\VCP\VCP.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>VCP.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\VCP\VCP.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1820,62 +1850,47 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>VCP</GroupName>
+          <GroupName>SCPI</GroupName>
           <Files>
-            <File>
-              <FileName>VCP.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\VCP\VCP.h</FilePath>
-            </File>
-            <File>
-              <FileName>VCP.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\VCP\VCP.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>VCP/SCPI</GroupName>
-          <Files>
-            <File>
-              <FileName>SCPI.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\VCP\SCPI\SCPI.h</FilePath>
-            </File>
             <File>
               <FileName>channelSCPI.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\VCP\SCPI\channelSCPI.cpp</FilePath>
+              <FilePath>.\src\SCPI\channelSCPI.cpp</FilePath>
             </File>
             <File>
               <FileName>commonSCPI.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\VCP\SCPI\commonSCPI.cpp</FilePath>
+              <FilePath>.\src\SCPI\commonSCPI.cpp</FilePath>
             </File>
             <File>
               <FileName>controlSCPI.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\VCP\SCPI\controlSCPI.cpp</FilePath>
+              <FilePath>.\src\SCPI\controlSCPI.cpp</FilePath>
             </File>
             <File>
               <FileName>displaySCPI.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\VCP\SCPI\displaySCPI.cpp</FilePath>
+              <FilePath>.\src\SCPI\displaySCPI.cpp</FilePath>
             </File>
             <File>
               <FileName>SCPI.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\VCP\SCPI\SCPI.cpp</FilePath>
+              <FilePath>.\src\SCPI\SCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\SCPI\SCPI.h</FilePath>
             </File>
             <File>
               <FileName>tbaseSCPI.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\VCP\SCPI\tbaseSCPI.cpp</FilePath>
+              <FilePath>.\src\SCPI\tbaseSCPI.cpp</FilePath>
             </File>
             <File>
               <FileName>trigSCPI.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\VCP\SCPI\trigSCPI.cpp</FilePath>
+              <FilePath>.\src\SCPI\trigSCPI.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -2694,21 +2709,6 @@
               <FilePath>.\src\libs\ffconf.h</FilePath>
             </File>
             <File>
-              <FileName>usbd_cdc_interface.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\libs\usbd_cdc_interface.h</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_conf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\libs\usbd_conf.h</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_desc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\libs\usbd_desc.h</FilePath>
-            </File>
-            <File>
               <FileName>app_ethernet.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\libs\app_ethernet.h</FilePath>
@@ -2734,19 +2734,9 @@
               <FilePath>.\src\libs\ethernetif.cpp</FilePath>
             </File>
             <File>
-              <FileName>usbd_cdc_interface.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\libs\usbd_cdc_interface.cpp</FilePath>
-            </File>
-            <File>
               <FileName>usbh_conf.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\libs\usbh_conf.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_desc.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\libs\usbd_desc.cpp</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_conf.h</FileName>
@@ -2757,11 +2747,6 @@
               <FileName>usbh_diskio.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\libs\usbh_diskio.h</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_conf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\libs\usbd_conf.c</FilePath>
             </File>
             <File>
               <FileName>startup_stm32f429xx.s</FileName>
@@ -3311,6 +3296,66 @@
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_USBH.cpp</FilePath>
             </File>
+            <File>
+              <FileName>HAL_PCD.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_PCD.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Hardware/VCP</GroupName>
+          <Files>
+            <File>
+              <FileName>USBD.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\VCP\USBD.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>USBD.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\VCP\USBD.h</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_cdc_interface.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\VCP\usbd_cdc_interface.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_cdc_interface.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\VCP\usbd_cdc_interface.h</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_conf.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\VCP\usbd_conf.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_conf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\VCP\usbd_conf.h</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_desc.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\VCP\usbd_desc.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_desc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\VCP\usbd_desc.h</FilePath>
+            </File>
+            <File>
+              <FileName>VCP.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\VCP\VCP.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>VCP.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\VCP\VCP.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3750,62 +3795,47 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>VCP</GroupName>
+          <GroupName>SCPI</GroupName>
           <Files>
-            <File>
-              <FileName>VCP.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\VCP\VCP.h</FilePath>
-            </File>
-            <File>
-              <FileName>VCP.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\VCP\VCP.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>VCP/SCPI</GroupName>
-          <Files>
-            <File>
-              <FileName>SCPI.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\VCP\SCPI\SCPI.h</FilePath>
-            </File>
             <File>
               <FileName>channelSCPI.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\VCP\SCPI\channelSCPI.cpp</FilePath>
+              <FilePath>.\src\SCPI\channelSCPI.cpp</FilePath>
             </File>
             <File>
               <FileName>commonSCPI.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\VCP\SCPI\commonSCPI.cpp</FilePath>
+              <FilePath>.\src\SCPI\commonSCPI.cpp</FilePath>
             </File>
             <File>
               <FileName>controlSCPI.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\VCP\SCPI\controlSCPI.cpp</FilePath>
+              <FilePath>.\src\SCPI\controlSCPI.cpp</FilePath>
             </File>
             <File>
               <FileName>displaySCPI.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\VCP\SCPI\displaySCPI.cpp</FilePath>
+              <FilePath>.\src\SCPI\displaySCPI.cpp</FilePath>
             </File>
             <File>
               <FileName>SCPI.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\VCP\SCPI\SCPI.cpp</FilePath>
+              <FilePath>.\src\SCPI\SCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\SCPI\SCPI.h</FilePath>
             </File>
             <File>
               <FileName>tbaseSCPI.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\VCP\SCPI\tbaseSCPI.cpp</FilePath>
+              <FilePath>.\src\SCPI\tbaseSCPI.cpp</FilePath>
             </File>
             <File>
               <FileName>trigSCPI.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\VCP\SCPI\trigSCPI.cpp</FilePath>
+              <FilePath>.\src\SCPI\trigSCPI.cpp</FilePath>
             </File>
           </Files>
         </Group>

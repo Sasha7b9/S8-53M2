@@ -1,7 +1,7 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Log.h"
-#include "VCP/SCPI/SCPI.h"
+#include "SCPI/SCPI.h"
 #include "Panel/Panel.h"
 #include "Utils/Strings.h"
 #include "Utils/Map.h"

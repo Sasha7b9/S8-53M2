@@ -5,13 +5,14 @@
 #include "main.h"
 #include "Hardware/Timer.h"
 #include "ethernetif.h"
-#include "VCP/SCPI/SCPI.h"
+#include "SCPI/SCPI.h"
 #include "Log.h"
 #include <lwip/init.h>
 #include <lwip/ip_addr.h>
 #include <lwip/netif.h>
 #include <lwip/timeouts.h>
 #include <netif/etharp.h>
+#include <cstring>
 
 
 namespace LAN
@@ -34,7 +35,7 @@ static void FuncConnect()
 
 char *GetStringFromBuffer(pchar buffer, uint length, char *string)
 {
-    memcpy(string, buffer, (uint)length);
+    std::memcpy(string, buffer, (uint)length);
     string[length] = 'E';
     string[length + 1] = '\0';
     return string;

@@ -2,6 +2,7 @@
 #include "main.h"
 #include "lwip/dhcp.h"
 #include "app_ethernet.h"
+#include "Hardware/Timer.h"
 #ifdef USE_LCD
 #include "lcd_log.h"
 #endif
@@ -11,7 +12,7 @@
 #ifdef USE_DHCP
 #define MAX_DHCP_TRIES  4
 uint32_t DHCPfineTimer = 0;
-__IO uint8_t DHCP_state = DHCP_OFF;
+volatile uint8_t DHCP_state = DHCP_OFF;
 #endif
 
 
@@ -153,9 +154,9 @@ void DHCP_Process(struct netif *netif)
 void DHCP_Periodic_Handle(struct netif *netif)
 {  
     /* Fine DHCP periodic process every 500ms */
-    if (HAL_GetTick() - DHCPfineTimer >= DHCP_FINE_TIMER_MSECS)
+    if (TIME_MS - DHCPfineTimer >= DHCP_FINE_TIMER_MSECS)
     {
-        DHCPfineTimer =  HAL_GetTick();
+        DHCPfineTimer =  TIME_MS;
         /* process DHCP state machine */
         DHCP_Process(netif);    
     }

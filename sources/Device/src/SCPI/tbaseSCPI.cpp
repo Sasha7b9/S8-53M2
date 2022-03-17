@@ -4,7 +4,7 @@
 #include "SCPI.h"
 #include "Settings/Settings.h"
 #include "Utils/Map.h"
-#include "VCP/VCP.h"
+#include "Hardware/VCP/VCP.h"
 #include "FPGA/FPGA.h"
 
 

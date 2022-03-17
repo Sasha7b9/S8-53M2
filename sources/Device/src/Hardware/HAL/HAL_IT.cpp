@@ -1,13 +1,14 @@
 // 2022/2/11 19:25:47 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
-#include "usbd_desc.h"
 #include "defines.h"
-#include "VCP/VCP.h"
+#include "Hardware/VCP/usbd_desc.h"
+#include "defines.h"
+#include "Hardware/VCP/VCP.h"
 #include "Log.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
 #include "Hardware/Sound.h"
 #include "Utils/Debug.h"
-#include <usbd_cdc_interface.h>
+#include "Hardware/VCP/usbd_cdc_interface.h"
 
 
 #ifdef __cplusplus

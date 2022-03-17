@@ -70,6 +70,7 @@ file(GLOB FDRIVE              src/FDrive/*.*)
 file(GLOB FPGA                src/FPGA/*.*)
 file(GLOB HARDWARE            src/Hardware/*.*)
 file(GLOB HARDWARE_HAL        src/Hardware/HAL/*.*)
+file(GLOB HARDWARE_VCP        src/Hardware/VCP/*.*)
 file(GLOB LAN                 src/LAN/*.*)
 file(GLOB MENU                src/Menu/*.*)
 file(GLOB MENU_PAGES          src/Menu/Pages/*.*)
@@ -78,8 +79,7 @@ file(GLOB PANEL               src/Panel/*.*
 file(GLOB SETTINGS            src/Settings/*.*)
 file(GLOB UTILS               src/Utils/*.*)
 file(GLOB UTILS_CONTAINERS    src/Utils/Containers/*.*)
-file(GLOB VCP                 src/VCP/*.*)
-file(GLOB VCP_SCPI            src/VCP/SCPI/*.*)
+file(GLOB SCPI                src/SCPI/*.*)
 
 source_group(src              FILES ${SRC})
 source_group(libs             FILES ${LIBS})
@@ -91,14 +91,14 @@ source_group(FDrive           FILES ${FDRIVE})
 source_group(FPGA             FILES ${FPGA})
 source_group(Hardware         FILES ${HARDWARE})
 source_group(Hardware/HAL     FILES ${HARDWARE_HAL})
+source_group(Hardware/VCP     FILES ${HARDWARE_VCP})
 source_group(Menu             FILES ${MENU})
 source_group(Menu/Pages       FILES ${MENU_PAGES})
 source_group(Panel            FILES ${PANEL})
 source_group(Settings         FILES ${SETTINGS})
 source_group(Utils            FILES ${UTILS})
 source_group(Utils/Containers FILES ${UTILS_CONTAINERS})
-source_group(VCP              FILES ${VCP})
-source_group(VCP/SCPI         FILES ${VCP_SCPI})
+source_group(SCPI             FILES ${SCPI})
 
 set_source_files_properties(src/libs/ethernetif.cpp
                             src/libs/usbd_desc.cpp
@@ -111,7 +111,9 @@ set_source_files_properties(src/libs/ethernetif.cpp
 
 add_library(${PROJECT_NAME} ${SRC} ${LIBS} ${DISPLAY} ${DISPLAY_FONT} ${LAN}
                             ${DATA}
-                            ${FDRIVE} ${FPGA} ${HARDWARE} ${HARDWARE_HAL} ${MENU} ${MENU_PAGES}
+                            ${FDRIVE} ${FPGA} ${HARDWARE}
+                            ${HARDWARE_HAL} ${HARDWARE_VCP}
+                            ${MENU} ${MENU_PAGES}
                             ${PANEL} ${SETTINGS}
                             ${UTILS} ${UTILS_CONTAINERS}
-                            ${VCP} ${VCP_SCPI})
+                            ${SCPI})

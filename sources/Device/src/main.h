@@ -55,9 +55,6 @@
 #pragma once
 
 #include "Settings/Settings.h"
-#include <usbd_desc.h>
-#include <usbd_cdc.h>
-#include <usbd_cdc_interface.h>
 
 #define USE_DHCP
 

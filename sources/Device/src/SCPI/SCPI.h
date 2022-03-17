@@ -1,6 +1,6 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-#include "VCP/VCP.h"
+#include "Hardware/VCP/VCP.h"
 #include "LAN/LAN.h"
 #include "LAN/SocketTCP.h"
 
@@ -17,7 +17,7 @@
 
 
 #define SCPI_SEND(...)                                  \
-    if(VCP::clientIsConnected)                          \
+    if(VCP::connectToHost)                              \
     {                                                   \
         VCP::SendAsynch(__VA_ARGS__);                   \
     }                                                   \

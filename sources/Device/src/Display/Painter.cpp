@@ -8,7 +8,7 @@
 #include "LAN/SocketTCP.h"
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"
-#include "VCP/VCP.h"
+#include "Hardware/VCP/VCP.h"
 #include "Utils/Math.h"
 #include "Utils/GlobalFunctions.h"
 #include "FDrive/FDrive.h"

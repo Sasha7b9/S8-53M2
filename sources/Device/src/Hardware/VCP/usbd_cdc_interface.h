@@ -1,5 +1,6 @@
-// 2022/2/11 19:25:11 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
+
+
 #include "usbd_cdc.h"
 
 

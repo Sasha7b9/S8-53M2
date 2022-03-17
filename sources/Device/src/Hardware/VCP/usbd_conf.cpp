@@ -1,12 +1,10 @@
-// 2022/2/11 19:32:45 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include <stm32f4xx_hal.h>
+#include "stm32f4xx_hal.h"
 #include "usbd_core.h"
-#include "VCP/VCP.h"
 #include "Hardware/Timer.h"
+#include "Hardware/VCP/VCP.h"
+#include "Hardware/HAL/HAL.h"
 #include "Display/Display.h"
-#include "Log.h"
-#include "Settings/Settings.h"
 
 
 /*******************************************************************************
@@ -14,23 +12,8 @@
 *******************************************************************************/
 
 
-void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
+void HAL_PCD_MspInit(PCD_HandleTypeDef *)
 {
-    GPIO_InitTypeDef  GPIO_InitStruct;
-
-    /* Configure USB FS GPIOs */
-    __GPIOA_CLK_ENABLE();
-
-    GPIO_InitStruct.Pin = (GPIO_PIN_11 | GPIO_PIN_12);
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF10_OTG_FS;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-    /* Enable USB FS Clocks */
-    __USB_OTG_FS_CLK_ENABLE();
-
     /* Set USBFS Interrupt priority */
     HAL_NVIC_SetPriority(OTG_FS_IRQn, 1, 0);
 
@@ -39,7 +22,7 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
 }
 
 
-void HAL_PCD_MspDeInit(PCD_HandleTypeDef *hpcd)
+void HAL_PCD_MspDeInit(PCD_HandleTypeDef *)
 {
     __USB_OTG_FS_CLK_DISABLE();
 }
@@ -64,13 +47,13 @@ void HAL_PCD_SetupStageCallback(PCD_HandleTypeDef *hpcd)
         {                                                           //
             if (prevLength != 0)                                    //
             {                                                       //
-                VCP::clientIsConnected = true;                      // GOVNOCODE
+                VCP::connectToHost = true;                          // GOVNOCODE
             }                                                       //
             else                                                    //
             {                                                       //
-                VCP::clientIsConnected = false;                     //
+                VCP::connectToHost = false;                         //
             }                                                       //
-            VCP::clientIsConnected = (prevLength != 0);             //
+            VCP::connectToHost = (prevLength != 0);                 // 519
         }                                                           //
     }                                                               //
     prevLength = request.wLength;                                   //
@@ -93,7 +76,7 @@ void HAL_PCD_DataInStageCallback(PCD_HandleTypeDef *hpcd, uint8_t epnum)
 {
     USBD_LL_DataInStage((USBD_HandleTypeDef *)hpcd->pData, epnum, hpcd->IN_ep[epnum].xfer_buff);
     
-    // \todo WARN ����� ���������� ����� ������ �������� ������. ����� �������� ������, ����� �������� ���������.
+    // \todo WARN здесь оказываемя после каждой передачи пакета. Можно отловить момент, когда передача закончена.
 }
 
 
@@ -115,11 +98,10 @@ void HAL_PCD_ResetCallback(PCD_HandleTypeDef *hpcd)
         break;
     
     case PCD_SPEED_FULL:
-        speed = USBD_SPEED_FULL;    
         break;
 	
 	default:
-        speed = USBD_SPEED_FULL;    
+        // здесь ничего
         break;
     }
     USBD_LL_SetSpeed((USBD_HandleTypeDef *)hpcd->pData, speed);  
@@ -171,11 +153,11 @@ void HAL_PCD_DisconnectCallback(PCD_HandleTypeDef *hpcd)
 
 USBD_StatusTypeDef  USBD_LL_Init (USBD_HandleTypeDef *pdev)
 { 
+    PCD_HandleTypeDef &handlePCD = *reinterpret_cast<PCD_HandleTypeDef *>(HAL_PCD::handle);
+
     /* Change Systick prioity */
-    NVIC_SetPriority (SysTick_IRQn, 0);
-
-    PCD_HandleTypeDef &handlePCD = *(PCD_HandleTypeDef *)VCP::handlePCD;
-
+    NVIC_SetPriority (SysTick_IRQn, 0);  
+  
     /*Set LL Driver parameters */
     handlePCD.Instance = USB_OTG_FS;
     handlePCD.Init.dev_endpoints = 4; 
@@ -291,7 +273,6 @@ USBD_StatusTypeDef USBD_LL_PrepareReceive(USBD_HandleTypeDef *pdev, uint8_t  ep_
     HAL_PCD_EP_Receive((PCD_HandleTypeDef *)pdev->pData, ep_addr, pbuf, size);
     return USBD_OK;   
 }
-
 
 uint32_t USBD_LL_GetRxDataSize(USBD_HandleTypeDef *pdev, uint8_t  ep_addr)  
 {

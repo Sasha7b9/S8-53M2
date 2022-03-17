@@ -1,10 +1,11 @@
-// 2022/2/11 19:32:11 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+#define _STL_COMPILER_PREPROCESSOR 0
 #include "defines.h"
-#include "main.h"
-#include "VCP/VCP.h"
-#include "VCP/SCPI/SCPI.h"
-#include "Log.h"
 #include "Hardware/Timer.h"
+#include "Hardware/VCP/VCP.h"
+#include "Hardware/HAL/HAL.h"
+#include "Hardware/VCP/USBD.h"
+#include "SCPI/SCPI.h"
+#include <usbd_cdc.h>
 
 
 static USBD_CDC_LineCodingTypeDef LineCoding =
@@ -16,7 +17,7 @@ static USBD_CDC_LineCodingTypeDef LineCoding =
 };
 
 #define APP_RX_DATA_SIZE  32
-static uint8_t UserRxBuffer[APP_RX_DATA_SIZE];/* Received Data over USB are stored in this buffer */
+static uint8 UserRxBuffer[APP_RX_DATA_SIZE];/* Received Data over USB are stored in this buffer */
 
 
 static int8_t CDC_Itf_Init     ();
@@ -34,32 +35,40 @@ USBD_CDC_ItfTypeDef USBD_CDC_fops =
 };
 
 
+
 static void SetAttributeConnected()
 {
     VCP::cableIsConnected = true;
-    VCP::clientIsConnected = false;
-    Timer::Disable(TypeTimer::Temp);
+    VCP::connectToHost = false;
+    Timer::Disable(TypeTimer::CDC);
 }
+
 
 
 static int8_t CDC_Itf_Init()
 {
-    USBD_CDC_SetRxBuffer((USBD_HandleTypeDef *)VCP::handleUSBD, UserRxBuffer);
-    Timer::Enable(TypeTimer::Temp, 100, SetAttributeConnected);    // GOVNOCODE Задержка введена для того, чтобы не было ложных срабатываний в 
-    return (USBD_OK);                                   // usbd_conf.c:HAL_PCD_SetupStageCallback при определении подключения хоста
-}
+    USBD_CDC_SetRxBuffer(reinterpret_cast<USBD_HandleTypeDef *>(USBD::handle), UserRxBuffer);
 
-
-static int8_t CDC_Itf_DeInit()
-{
-    VCP::cableIsConnected = false;
-    VCP::clientIsConnected = false;
+    // GOVNOCODE Задержка введена для того, чтобы не было ложных срабатываний в
+    // usbd_conf.c:HAL_PCD_SetupStageCallback при определении подключения хоста
+    Timer::Enable(TypeTimer::CDC, 100, SetAttributeConnected);
 
     return (USBD_OK);
 }
 
 
-static int8_t CDC_Itf_Control (uint8_t cmd, uint8_t* pbuf, uint16_t length)
+
+static int8_t CDC_Itf_DeInit()
+{
+    VCP::cableIsConnected = false;
+    VCP::connectToHost = false;
+
+    return (USBD_OK);
+}
+
+
+
+static int8_t CDC_Itf_Control (uint8_t cmd, uint8_t *pbuf, uint16_t)
 { 
     switch (cmd)
     {
@@ -84,18 +93,17 @@ static int8_t CDC_Itf_Control (uint8_t cmd, uint8_t* pbuf, uint16_t length)
         break;
 
     case CDC_SET_LINE_CODING:
-        LineCoding.bitrate    = (uint32_t)(pbuf[0] | (pbuf[1] << 8) |\
-                                (pbuf[2] << 16) | (pbuf[3] << 24));
+        LineCoding.bitrate    = (uint)(pbuf[0] | (pbuf[1] << 8) | (pbuf[2] << 16) | (pbuf[3] << 24));
         LineCoding.format     = pbuf[4];
         LineCoding.paritytype = pbuf[5];
         LineCoding.datatype   = pbuf[6];
         break;
 
     case CDC_GET_LINE_CODING:
-        pbuf[0] = (uint8_t)(LineCoding.bitrate);
-        pbuf[1] = (uint8_t)(LineCoding.bitrate >> 8);
-        pbuf[2] = (uint8_t)(LineCoding.bitrate >> 16);
-        pbuf[3] = (uint8_t)(LineCoding.bitrate >> 24);
+        pbuf[0] = (uint8)(LineCoding.bitrate);
+        pbuf[1] = (uint8)(LineCoding.bitrate >> 8);
+        pbuf[2] = (uint8)(LineCoding.bitrate >> 16);
+        pbuf[3] = (uint8)(LineCoding.bitrate >> 24);
         pbuf[4] = LineCoding.format;
         pbuf[5] = LineCoding.paritytype;
         pbuf[6] = LineCoding.datatype;
@@ -111,6 +119,7 @@ static int8_t CDC_Itf_Control (uint8_t cmd, uint8_t* pbuf, uint16_t length)
         break;    
     
     default:
+        // здесь ничего
         break;
     }
   
@@ -118,10 +127,11 @@ static int8_t CDC_Itf_Control (uint8_t cmd, uint8_t* pbuf, uint16_t length)
 }
 
 
-static int8 CDC_Itf_Receive(uint8* buffer, uint *length)
+
+static int8_t CDC_Itf_Receive(uint8_t * buffer, uint32_t *length) //-V2009
 {
     SCPI::AddNewData(buffer, *length);
 
-    USBD_CDC_ReceivePacket((USBD_HandleTypeDef *)VCP::handleUSBD);
+    USBD_CDC_ReceivePacket(reinterpret_cast<USBD_HandleTypeDef *>(USBD::handle));
     return (USBD_OK);
 }
