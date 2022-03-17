@@ -921,6 +921,16 @@
               <FileType>5</FileType>
               <FilePath>.\src\globals.h</FilePath>
             </File>
+            <File>
+              <FileName>GlobalEvents.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\GlobalEvents.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>GlobalEvents.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\GlobalEvents.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2865,6 +2875,16 @@
               <FileName>globals.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\globals.h</FilePath>
+            </File>
+            <File>
+              <FileName>GlobalEvents.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\GlobalEvents.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>GlobalEvents.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\GlobalEvents.h</FilePath>
             </File>
           </Files>
         </Group>

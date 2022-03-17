@@ -47,7 +47,7 @@ namespace Storage
     int MemoryFree();
 
     // Удалить первое (самое старое) измерение
-    void RemoveFirstElement();
+    void RemoveFirstFrame();
 
     // Сохранить данные
     void PushData(DataSettings *, const uint8 *dataA, const uint8 *dataB);
@@ -282,7 +282,7 @@ void Storage::PushData(DataSettings *dp, const uint8 *a, const uint8 *b)
 
     while (MemoryFree() < required)
     {
-        RemoveFirstElement();
+        RemoveFirstFrame();
     }
 
     uint8 *addrRecord = 0;
@@ -357,11 +357,14 @@ int DataSettings::SizeElem()
 }
 
 
-void Storage::RemoveFirstElement()
+void Storage::RemoveFirstFrame()
 {
-    first_ds = NextElem(first_ds);
-    first_ds->addrPrev = 0;
-    count_data--;
+    if (first_ds)
+    {
+        first_ds = NextElem(first_ds);
+        first_ds->addrPrev = nullptr;
+        count_data--;
+    }
 }
 
 
