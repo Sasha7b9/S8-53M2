@@ -25,7 +25,7 @@ void VCP::Init()
 }
 
 
-void VCP::SendBuffer(const uint8 *buffer, int size)
+void VCP::Send(const uint8 *buffer, int size)
 {
 #ifdef GUI
 
@@ -42,21 +42,32 @@ void VCP::SendBuffer(const uint8 *buffer, int size)
     }
 
     const int SIZE_BUFFER = 64;
-    static uint8 trBuf[SIZE_BUFFER];
+    static uint8 tr_buf[SIZE_BUFFER];
 
-    size = Math::MinFrom2(size, SIZE_BUFFER);
-
-    while (!USBD::PrevSendingComplete())
+    while (size)
     {
-        if(!VCP::connectToHost)
+        int portion = SIZE_BUFFER;
+
+        if (portion > size)
         {
-            return;
+            portion = size;
         }
-    };
 
-    std::memcpy(trBuf, buffer, (uint)(size));
+        while (!USBD::PrevSendingComplete())
+        {
+            if (!VCP::connectToHost)
+            {
+                return;
+            }
+        }
 
-    USBD::Transmit(trBuf, size);
+        std::memcpy(tr_buf, buffer, (uint)portion);
+
+        USBD::Transmit(tr_buf, size);
+
+        buffer += portion;
+        size -= portion;
+    }
 
 #endif
 }
@@ -64,13 +75,13 @@ void VCP::SendBuffer(const uint8 *buffer, int size)
 
 void VCP::SendMessage(pchar message)
 {
-    SendBuffer((const uint8 *)message, (int)std::strlen(message));
+    Send((const uint8 *)message, (int)std::strlen(message));
 }
 
 
 void VCP::SendSynch(const uint8 *buffer, int size)
 {
-    SendBuffer(buffer, size);
+    Send(buffer, size);
 }
 
 
@@ -85,7 +96,7 @@ void VCP::SendAsynch(char *format, ...)
     va_end(args);
     std::strcat(buffer, "\n");
 
-    SendBuffer((uint8 *)buffer, (int)std::strlen(buffer));
+    Send((uint8 *)buffer, (int)std::strlen(buffer));
 }
 
 
@@ -96,7 +107,7 @@ void VCP::DebugPoint(pchar module, pchar function, int line)
 
     std::sprintf(message, "%s:%s:%d", module, function, line);
 
-    SendBuffer((const uint8 *)message, (int)std::strlen(message) + 1);
+    Send((const uint8 *)message, (int)std::strlen(message) + 1);
 }
 
 

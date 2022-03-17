@@ -10,7 +10,7 @@ namespace VCP
 {
     void Init();
 
-    void SendBuffer(const uint8 *buffer, int size);
+    void Send(const uint8 *buffer, int size);
 
     void SendSynch(const uint8 *buffer, int size);
     
