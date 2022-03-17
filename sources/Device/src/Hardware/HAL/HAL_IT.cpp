@@ -78,6 +78,18 @@ extern "C" {
         HAL_IncTick();
     }
 
+    void OTG_HS_IRQHandler(void)
+    {
+        HAL_HCD_IRQHandler((HCD_HandleTypeDef *)HAL_HCD::handle);
+    }
+
+
+
+    void OTG_FS_IRQHandler()
+    {
+        HAL_PCD_IRQHandler((PCD_HandleTypeDef *)HAL_PCD::handle);
+    }
+
 
     // Панель
     void SPI5_IRQHandler()
