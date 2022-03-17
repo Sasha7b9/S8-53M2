@@ -62,9 +62,6 @@ namespace FPGA
     // Прочитать данные.
     void DataRead();
 
-    // Инвертирует данные.
-    void InverseDataIsNecessary(Chan::E, Buffer<uint8> &data);
-
     // Смещение с АЦП рандомизатора
     int ShiftRandomizerADC();
 
@@ -339,8 +336,8 @@ void FPGA::DataRead()
 
     if (!TBase::InModeRandomizer())
     {
-        InverseDataIsNecessary(Chan::A, data.A);
-        InverseDataIsNecessary(Chan::B, data.B);
+        if (SET_INVERSE_A) data.A.InverseData();
+        if (SET_INVERSE_B) data.B.InverseData();
     }
 
     Storage::AddData(data);
@@ -482,16 +479,13 @@ void FPGA::Reader::ReadPoints(Chan ch)
 }
 
 
-void FPGA::InverseDataIsNecessary(Chan::E ch, Buffer<uint8> &_data)
+void BufferFPGA::InverseData()
 {
-    if (SET_INVERSE(ch))
-    {
-        int size = _data.Size();
+    int num_bytes = Size();
 
-        for (int i = 0; i < size; i++)
-        {
-            _data[i] = (uint8)((int)(2 * ValueFPGA::AVE) - Math::Limitation<uint8>(_data[i], ValueFPGA::MIN, ValueFPGA::MAX));
-        }
+    for (int i = 0; i < num_bytes; i++)
+    {
+        data[i] = (uint8)((int)(2 * ValueFPGA::AVE) - Math::Limitation<uint8>(data[i], ValueFPGA::MIN, ValueFPGA::MAX));
     }
 }
 

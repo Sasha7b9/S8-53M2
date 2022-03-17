@@ -47,11 +47,13 @@ public:
 
     void Log() const;
 
+protected:
+
+    T *data;
+
 private:
 
     int size;
-
-    T *data;
 
     void Malloc(int size);
 };

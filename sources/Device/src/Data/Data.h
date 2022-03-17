@@ -72,6 +72,9 @@ struct DataSettings
 struct BufferFPGA : public Buffer<uint8>
 {
     BufferFPGA(int size = 0) : Buffer<uint8>(size) { }
+
+    // Инвертирует данные.
+    void InverseData();
 };
 
 
