@@ -19,7 +19,7 @@
 #define SCPI_SEND(...)                                  \
     if(VCP::clientIsConnected)                          \
     {                                                   \
-        VCP::SendStringAsynch(__VA_ARGS__);             \
+        VCP::SendAsynch(__VA_ARGS__);                   \
     }                                                   \
     if (LAN::clientIsConnected)                         \
     {                                                   \

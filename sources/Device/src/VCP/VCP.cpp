@@ -115,13 +115,13 @@ void SendData(const uint8 *, int)
 }
 
 
-void VCP::SendStringSynch(char *data)
+void VCP::SendSynch(char *data)
 {
     SendSynch((uint8*)data, (int)strlen(data));
 }
 
 
-void VCP::SendStringAsynch(char *format, ...)
+void VCP::SendAsynch(char *format, ...)
 {
     static const int SIZE_BUFFER = 200;
     static char buffer[SIZE_BUFFER];
@@ -136,7 +136,7 @@ void VCP::SendStringAsynch(char *format, ...)
 }
 
 
-void VCP::SendStringSynch(char *format, ...) {
+void VCP::SendSynch(char *format, ...) {
     static const int SIZE_BUFFER = 200;
     char buffer[SIZE_BUFFER];
     std::va_list args;
