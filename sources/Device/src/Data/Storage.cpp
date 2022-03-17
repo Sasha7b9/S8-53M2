@@ -220,24 +220,16 @@ bool Storage::GetData(int fromEnd, DataStruct &data)
 
 uint8 *Storage::GetData(Chan ch, int fromEnd)
 {
-    static BufferFPGA dataImport[Chan::Count];
+    DataSettings *ds = GetDataSettings(fromEnd);
 
-    DataSettings *dp = GetDataSettings(fromEnd);
-
-    if (dp == 0)
+    if (ds == 0)
     {
         return nullptr;
     }
 
-    if (dataImport[ChA].Size() != dp->BytesInChannel())
-    {
-        dataImport[ChA].Realloc(dp->BytesInChannel());
-        dataImport[ChB].Realloc(dp->BytesInChannel());
-    }
+    uint8 *address = (uint8 *)ds + sizeof(DataSettings);
 
-    CopyData(dp, ch, dataImport[ch]);
-
-    return dataImport[ch].Data();
+    return ch.IsA() ? address : (address + ds->BytesInChannel());
 }
 
 
