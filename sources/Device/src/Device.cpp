@@ -51,14 +51,7 @@ void Device::Init()
 
 void Device::Update()
 {
-    static Waiter waiter;
-
-    if (waiter.ElapsedTime() > 1000)
-    {
-        waiter.Reset();
-
-        VCP_DEBUG_POINT();
-    }
+    VCP_DEBUG_POINT();
 
     if (Settings::needReset)
     {
@@ -66,39 +59,39 @@ void Device::Update()
         Settings::needReset = false;
     }
 
-    DEBUG_POINT_0;
+    VCP_DEBUG_POINT();
 
     Timer::StartMultiMeasurement();      // Сброс таймера для замера длительности временных интервалов в течение одной итерации цикла.
 
-    DEBUG_POINT_0;
+    VCP_DEBUG_POINT();
 
     FDrive::Update();
 
-    DEBUG_POINT_0;
+    VCP_DEBUG_POINT();
 
     FPGA::Update();                      // Обновляем аппаратную часть.
 
-    DEBUG_POINT_0;
+    VCP_DEBUG_POINT();
 
     ProcessingSignal();
 
-    DEBUG_POINT_0;
+    VCP_DEBUG_POINT();
 
     Panel::Update();
 
-    DEBUG_POINT_0;
+    VCP_DEBUG_POINT();
 
     Menu::UpdateInput();                 // Обновляем состояние меню
 
-    DEBUG_POINT_0;
+    VCP_DEBUG_POINT();
 
     Display::Update();                   // Рисуем экран.
 
-    DEBUG_POINT_0;
+    VCP_DEBUG_POINT();
 
     Settings::SaveIfNeed();
 
-    DEBUG_POINT_0;
+    VCP_DEBUG_POINT();
 
     // LAN::Update(0);
 }
