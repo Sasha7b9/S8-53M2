@@ -14,6 +14,9 @@ namespace Averager
 
     void GetDataAround(DataStruct &);
     void GetDataAccurately(DataStruct &);
+
+    int added_datas = 0;        // Столько данных учтено в измерениях
+    int number_averaging = 0;   // Текущее число усреднений
 }
 
 
@@ -32,6 +35,9 @@ void Averager::Reset()
             ave_b.Realloc(ENUM_POINTS_FPGA::ToNumBytes());
         }
     }
+
+    added_datas = 0;
+    number_averaging = ModeAveraging::GetNumber();
 }
 
 
@@ -42,16 +48,14 @@ void Averager::Append(const DataSettings *dss, uint8 *a, uint8 *b)
         return;
     }
 
-    int num_datas = Storage::NumElementsWithCurrentSettings();
-
     int size = dss->BytesInChannel();
 
-    if (ave_a.Size() != size)
+    if (ave_a.Size() != size || ModeAveraging::GetNumber() != number_averaging)
     {
         Reset();
     }
 
-    if (num_datas == 1)
+    if (added_datas == 0)
     {
         for (int i = 0; i < size; i++)
         {
@@ -61,6 +65,8 @@ void Averager::Append(const DataSettings *dss, uint8 *a, uint8 *b)
     }
     else
     {
+        int num_datas = Storage::NumElementsWithCurrentSettings();
+
         Math::Limitation<int>(num_datas, 0, ModeAveraging::GetNumber());
 
         float ave_fless = (float)num_datas - 1.0f;
@@ -84,6 +90,8 @@ void Averager::Append(const DataSettings *dss, uint8 *a, uint8 *b)
 
         };
     }
+
+    added_datas++;
 }
 
 
