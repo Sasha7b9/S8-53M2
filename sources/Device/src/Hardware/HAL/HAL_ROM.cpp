@@ -68,7 +68,7 @@ bool HAL_ROM::LoadSettings()
 
     CLEAR_FLAGS;
 
-    if(TheFirstInclusion())                                         // Если это первое включение
+    if (TheFirstInclusion())                                         // Если это первое включение
     {                                                               // то делаем предварительные приготовления
         set.common.countErasedFlashSettings = 0;
         set.common.countEnables = 0;
@@ -76,8 +76,8 @@ bool HAL_ROM::LoadSettings()
         set.common.workingTimeInSecs = 0;
         PrepareSectorForData();
     }
-    
-    if(READ_WORD(ADDR_SECTOR_SETTINGS) == 0x12345)
+
+    if (READ_WORD(ADDR_SECTOR_SETTINGS) == 0x12345)
     {
         EraseSector(ADDR_SECTOR_SETTINGS);
     }
@@ -102,7 +102,7 @@ bool HAL_ROM::LoadSettings()
             address += READ_WORD(address);      // И переходим к следующему прибавлением значения, хранящегося по этому адресу (первый элемент
         }                                       // структуры Settings - её размер. Все настройки хранятся последовательно в памяти, одна структура
                                                 // за другой
-        
+
         if (addressPrev != 0)                   // Если по этому адресу что-то записано
         {
             std::memcpy(&set, (const void *)addressPrev, READ_WORD(addressPrev));    // Счтываем сохранённые настройки
@@ -139,7 +139,7 @@ void HAL_ROM::SaveSettings(bool verifyLoadede)
     {
         address += READ_WORD(address);
     }
-                                                                                // В этой точке address указывает на первый незаписанный байт
+    // В этой точке address указывает на первый незаписанный байт
 
     if (address + sizeof(set) >= (ADDR_SECTOR_SETTINGS + SIZE_SECTOR_SETTINGS)) // Если условие выполняется, то при записи данные выйдут за пределы
     {                                                                           // сектора
@@ -157,7 +157,7 @@ bool HAL_ROM::TheFirstInclusion()
 }
 
 
-RecordConfig* HAL_ROM::RecordConfigForRead()
+RecordConfig *HAL_ROM::RecordConfigForRead()
 {
     if (!TheFirstInclusion())
     {
@@ -171,7 +171,7 @@ RecordConfig* HAL_ROM::RecordConfigForRead()
 
 RecordConfig *HAL_ROM::FirstRecord()
 {
-    return (RecordConfig*)ADDR_ARRAY_POINTERS;
+    return (RecordConfig *)ADDR_ARRAY_POINTERS;
 }
 
 
@@ -221,9 +221,9 @@ uint HAL_ROM::FindAddressNextDataInfo()
 {
     uint addressNextInfo = startDataInfo + MAX_NUM_SAVED_WAVES * 4;
 
-    while (*((uint*)addressNextInfo) != 0xffffffff)
+    while (*((uint *)addressNextInfo) != 0xffffffff)
     {
-        addressNextInfo = *((uint*)addressNextInfo) + MAX_NUM_SAVED_WAVES * 4;
+        addressNextInfo = *((uint *)addressNextInfo) + MAX_NUM_SAVED_WAVES * 4;
     }
 
     return addressNextInfo;
@@ -275,7 +275,7 @@ void HAL_ROM::EraseData()
 
     uint error = 0;
 
-    while(Sound::isBeep) {};
+    while (Sound::isBeep) {};
 
     HAL_FLASHEx_Erase(&flashITD, &error);
 
@@ -305,7 +305,7 @@ void HAL_ROM::CompactMemory()
     uint dataInfoRel = FindActualDataInfo() - ADDR_SECTOR_DATA_MAIN;
 
     EraseSector(ADDR_SECTOR_DATA_HELP);
-    WriteBufferBytes(ADDR_SECTOR_DATA_HELP, (uint8*)ADDR_SECTOR_DATA_MAIN, 1024 * 128); //-V566
+    WriteBufferBytes(ADDR_SECTOR_DATA_HELP, (uint8 *)ADDR_SECTOR_DATA_MAIN, 1024 * 128); //-V566
     PrepareSectorForData();
 
     uint addressDataInfo = ADDR_SECTOR_DATA_HELP + dataInfoRel;
@@ -326,7 +326,7 @@ void HAL_ROM::CompactMemory()
 
             data.A.FromBuffer((uint8 *)addrDataNew, data.ds.BytesInChannel());
             addrDataNew += data.ds.BytesInChannel();
- 
+
             data.B.FromBuffer((uint8 *)addrDataNew, data.ds.BytesInChannel());
 
             HAL_ROM::SaveData(i, data);
@@ -352,7 +352,7 @@ void HAL_ROM::SaveData(int num, DataStruct &data)
         ADDR_SECTOR_DATA_HELP используется для временного хранения данных, когда полностью заполнен ADDR_SECTOR_DATA_MAIN и некуда писать очередной сигнал
 
         Данные расположены в памяти следующим образом.
-    
+
         Начинаются с ADDR_SECTOR_DATA_MAIN.
 
         uint[MAX_NUM_SAVED_WAVES] - адреса, по которым записаны соответствующие сигналы. Если 0 - сигнал стёрт.
@@ -366,13 +366,13 @@ void HAL_ROM::SaveData(int num, DataStruct &data)
 
     int size = CalculateSizeData(&data.ds);
 
-// 2
+    // 2
     if (FreeMemory() < size)
     {
         CompactMemory();
     }
 
-// 3
+    // 3
     uint addrDataInfo = FindActualDataInfo();          // Находим начало действующего информационного массива
 
 // 4
@@ -380,25 +380,19 @@ void HAL_ROM::SaveData(int num, DataStruct &data)
     uint valueForWrite = addrForWrite + 4 + size;                           // Это - адрес следующего информационного массива
     WriteWord(addrForWrite, valueForWrite);
 
-// 5
+    // 5
     uint address = addrDataInfo + MAX_NUM_SAVED_WAVES * 4 + 4;              // Адрес, по которому будет сохранён сигнал с настройками
     uint addressNewData = address;
-    WriteBufferBytes(address, (uint8*)&data.ds, sizeof(DataSettings));            // Сохраняем настройки сигнала
+    WriteBufferBytes(address, (uint8 *)&data.ds, sizeof(DataSettings));            // Сохраняем настройки сигнала
     address += sizeof(DataSettings);
-    
-    if (data.ds.en_a)
-    {
-        WriteBufferBytes(address, (uint8*)data.A.Data(), data.ds.BytesInChannel());     // Сохраняем первый канал
-        address += data.ds.BytesInChannel();
-    }
 
-    if (data.ds.en_b)
-    {
-        WriteBufferBytes(address, (uint8*)data.B.Data(), data.ds.BytesInChannel());     // Сохраняем второй канал
-        address += data.ds.BytesInChannel();
-    }
+    WriteBufferBytes(address, (uint8 *)data.A.Data(), data.ds.BytesInChannel());     // Сохраняем первый канал
+    address += data.ds.BytesInChannel();
 
-// 6
+    WriteBufferBytes(address, (uint8 *)data.B.Data(), data.ds.BytesInChannel());     // Сохраняем второй канал
+    address += data.ds.BytesInChannel();
+
+    // 6
     for (int i = 0; i < MAX_NUM_SAVED_WAVES; i++)
     {
         uint addressForWrite = address + i * 4;
@@ -430,7 +424,7 @@ bool HAL_ROM::GetData(int num, DataStruct &data)
 
     uint addrDS = READ_WORD(addrDataInfo + 4 * num);
 
-    data.ds.Set(*((DataSettings*)addrDS));
+    data.ds.Set(*((DataSettings *)addrDS));
 
     if (data.ds.en_a)
     {
@@ -463,14 +457,14 @@ uint HAL_ROM::GetSector(uint startAddress)
 {
     switch (startAddress)
     {
-        case ADDR_SECTOR_DATA_MAIN:
-            return FLASH_SECTOR_8;
-        case ADDR_SECTOR_DATA_HELP:
-            return FLASH_SECTOR_9;
-        case ADDR_SECTOR_RESOURCES:
-            return FLASH_SECTOR_10;
-        case ADDR_SECTOR_SETTINGS:
-            return FLASH_SECTOR_11;
+    case ADDR_SECTOR_DATA_MAIN:
+        return FLASH_SECTOR_8;
+    case ADDR_SECTOR_DATA_HELP:
+        return FLASH_SECTOR_9;
+    case ADDR_SECTOR_RESOURCES:
+        return FLASH_SECTOR_10;
+    case ADDR_SECTOR_SETTINGS:
+        return FLASH_SECTOR_11;
     }
 
     LOG_ERROR_TRACE("Недопустимый сектор");
@@ -534,17 +528,17 @@ void HAL_ROM::WriteBufferBytes(uint address, uint8 *buffer, int size)
 bool OTP::SaveSerialNumber(char *serialNumber)
 {
     // Находим первую пустую строку длиной 16 байт в области OPT, начиная с начала.
-    uint8 *address = (uint8*)FLASH_OTP_BASE; //-V566
+    uint8 *address = (uint8 *)FLASH_OTP_BASE; //-V566
 
     while ((*address) != 0xff &&                // *address != 0xff означает, что запись в эту строку уже производилась
-           address < (uint8*)FLASH_OTP_END - 16) //-V566
+        address < (uint8 *)FLASH_OTP_END - 16) //-V566
     {
         address += 16;
     }
 
-    if (address < (uint8*)FLASH_OTP_END - 16) //-V566
+    if (address < (uint8 *)FLASH_OTP_END - 16) //-V566
     {
-        HAL_ROM::WriteBufferBytes((uint)address, (uint8*)serialNumber, (int)std::strlen(serialNumber) + 1);
+        HAL_ROM::WriteBufferBytes((uint)address, (uint8 *)serialNumber, (int)std::strlen(serialNumber) + 1);
         return true;
     }
 
@@ -558,12 +552,12 @@ int OTP::GetSerialNumber(char buffer[17])
 
     const int allShotsMAX = 512 / 16;   // Максимальное число записей в OPT серийного номера.
 
-    uint8* address = (uint8*)FLASH_OTP_END - 15; //-V566
+    uint8 *address = (uint8 *)FLASH_OTP_END - 15; //-V566
 
     do
     {
         address -= 16;
-    } while(*address == 0xff && address > (uint8*)FLASH_OTP_BASE); //-V566
+    } while (*address == 0xff && address > (uint8 *)FLASH_OTP_BASE); //-V566
 
     if (*address == 0xff)   // Не нашли строки с информацией, дойдя до начального адреса OTP
     {
@@ -571,7 +565,7 @@ int OTP::GetSerialNumber(char buffer[17])
         return allShotsMAX;
     }
 
-    std::strcpy(buffer, (char*)address);
+    std::strcpy(buffer, (char *)address);
 
-    return allShotsMAX - (address - (uint8*)FLASH_OTP_BASE) / 16 - 1; //-V566
+    return allShotsMAX - (address - (uint8 *)FLASH_OTP_BASE) / 16 - 1; //-V566
 }
