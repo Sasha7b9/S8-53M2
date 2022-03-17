@@ -68,7 +68,7 @@ namespace Storage
 
     //  опирует данные канала chan из, определ€емые ds, в одну из двух строк массива dataImportRel. ¬озвращаемое
     // значение false означает, что данный канал выключен.
-    bool CopyData(DataSettings *, Chan ch, BufferU8 &datatImportRel);
+    bool CopyData(DataSettings *, Chan ch, BufferFPGA &);
 
     namespace P2P
     {
@@ -232,7 +232,7 @@ bool Storage::GetData(int fromEnd, DataStruct &data)
 
 uint8 *Storage::GetData(Chan ch, int fromEnd)
 {
-    static BufferU8 dataImport[Chan::Count];
+    static BufferFPGA dataImport[Chan::Count];
 
     DataSettings *dp = GetDataSettings(fromEnd);
 
@@ -251,7 +251,7 @@ uint8 *Storage::GetData(Chan ch, int fromEnd)
 }
 
 
-bool Storage::CopyData(DataSettings *ds, Chan ch, BufferU8 &data)
+bool Storage::CopyData(DataSettings *ds, Chan ch, BufferFPGA &data)
 {
     if ((ch == Chan::A && !ds->en_a) || (ch == Chan::B && !ds->en_b))
     {

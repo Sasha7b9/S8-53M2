@@ -355,8 +355,8 @@ void DataPainter::DrawMath()
     float dataAbs0[FPGA::MAX_POINTS * 2];
     float dataAbs1[FPGA::MAX_POINTS * 2];
 
-    BufferU8 &dataA = Processing::out.A;
-    BufferU8 &dataB = Processing::out.B;
+    BufferFPGA   &dataA = Processing::out.A;
+    BufferFPGA   &dataB = Processing::out.B;
     DataSettings &ds = Processing::out.ds;
 
     ValueFPGA::ToVoltage(dataA.Data(), ds.BytesInChannel(), ds.range[Chan::A], (int16)ds.rShiftA, dataAbs0);

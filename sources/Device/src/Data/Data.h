@@ -78,15 +78,21 @@ struct BufferU8 : public Buffer<uint8>
 };
 
 
+struct BufferFPGA : public Buffer<uint8>
+{
+    BufferFPGA(int size = 0) : Buffer<uint8>(size) { }
+};
+
+
 struct DataStruct
 {
-    BufferU8     A;
-    BufferU8     B;
+    BufferFPGA   A;
+    BufferFPGA   B;
     DataSettings ds;
 
     DataStruct() { }
 
-    BufferU8 &Data(Chan ch) { return ch.IsA() ? A : B; }
+    BufferFPGA &Data(Chan ch) { return ch.IsA() ? A : B; }
 
     bool Valid() const { return ds.Valid(); }
 

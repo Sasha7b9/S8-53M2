@@ -368,7 +368,7 @@ void FPGA::Reader::ReadPoints(Chan ch)
     HAL_FMC::Write(WR_PRED, address);
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
-    BufferU8 &buffer = ch.IsA() ? data.A : data.B;
+    BufferFPGA &buffer = ch.IsA() ? data.A : data.B;
 
     uint8 *dat = buffer.Data();
     const uint8 *const end = buffer.Last();
