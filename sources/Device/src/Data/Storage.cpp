@@ -55,9 +55,6 @@ namespace Storage
     // Сохранить данные
     void PushData(DataSettings *, const uint8 *dataA, const uint8 *dataB);
 
-    // Возвращает указатель на измерение, следующее за elem
-    DataSettings *NextFrame(DataSettings *);
-
     // Возвращает указатель на данные, отстоящие на indexFromEnd oт последнего сохранённого
     DataSettings *GetDataSettings(int fromEnd = 0);
 
@@ -82,7 +79,7 @@ namespace Storage
 
 void DataSettings::PrintElement()
 {
-    LOG_WRITE("addr:%x, addrNext:%x, addrPrev:%x, size:%d", this, addrNext, addrPrev, SizeElem());
+    LOG_WRITE("addr:%x, addrNext:%x, addrPrev:%x, size:%d", this, next, addrPrev, SizeElem());
 }
 
 
@@ -90,7 +87,7 @@ void Storage::Clear()
 {
     first_ds = 0;
     last_ds = (DataSettings *)beginPool;
-    last_ds->addrNext = last_ds->addrPrev = 0;
+    last_ds->next = last_ds->addrPrev = 0;
     ClearLimitsAndSums();
 }
 
@@ -295,7 +292,7 @@ void Storage::PushData(DataSettings *dp, const uint8 *a, const uint8 *b)
         first_ds = (DataSettings *)beginPool;
         addrRecord = beginPool;
         dp->addrPrev = 0;
-        dp->addrNext = 0;
+        dp->next = 0;
     }
     else
     {
@@ -307,8 +304,8 @@ void Storage::PushData(DataSettings *dp, const uint8 *a, const uint8 *b)
         }
 
         dp->addrPrev = last_ds;
-        last_ds->addrNext = addrRecord;
-        dp->addrNext = 0;
+        last_ds->next = addrRecord;
+        dp->next = 0;
     }
 
     last_ds = (DataSettings *)addrRecord;
@@ -364,7 +361,7 @@ void Storage::RemoveFirstFrame()
 {
     if (first_ds)
     {
-        first_ds = NextFrame(first_ds);
+        first_ds = (DataSettings *)first_ds->next;
         first_ds->addrPrev = nullptr;
         count_data--;
     }
@@ -375,14 +372,11 @@ void Storage::RemoveLastFrame()
 {
     if (last_ds)
     {
-        
+        if (last_ds->next)
+        {
+
+        }
     }
-}
-
-
-DataSettings *Storage::NextFrame(DataSettings *elem)
-{
-    return (DataSettings *)elem->addrNext;
 }
 
 

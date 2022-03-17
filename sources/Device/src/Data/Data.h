@@ -17,7 +17,7 @@ struct PackedTime
 
 struct DataSettings
 {
-    void                *addrNext;                  // Адрес следующей записи.
+    void                *next;                      // Адрес следующей записи.
     void                *addrPrev;                  // Адрес предыдущей записи.
     uint                rShiftA             : 10;   // Смещение по напряжению
     uint                rShiftB             : 10;
