@@ -49,11 +49,14 @@ namespace Storage
     // Удалить первое (самое старое) измерение
     void RemoveFirstFrame();
 
+    // Удалить последнее (самое новое) измерение
+    void RemoveLastFrame();
+
     // Сохранить данные
     void PushData(DataSettings *, const uint8 *dataA, const uint8 *dataB);
 
     // Возвращает указатель на измерение, следующее за elem
-    DataSettings *NextElem(DataSettings *);
+    DataSettings *NextFrame(DataSettings *);
 
     // Возвращает указатель на данные, отстоящие на indexFromEnd oт последнего сохранённого
     DataSettings *GetDataSettings(int fromEnd = 0);
@@ -285,9 +288,9 @@ void Storage::PushData(DataSettings *dp, const uint8 *a, const uint8 *b)
         RemoveFirstFrame();
     }
 
-    uint8 *addrRecord = 0;
+    uint8 *addrRecord = nullptr;
 
-    if (first_ds == 0)
+    if (first_ds == nullptr)
     {
         first_ds = (DataSettings *)beginPool;
         addrRecord = beginPool;
@@ -361,14 +364,23 @@ void Storage::RemoveFirstFrame()
 {
     if (first_ds)
     {
-        first_ds = NextElem(first_ds);
+        first_ds = NextFrame(first_ds);
         first_ds->addrPrev = nullptr;
         count_data--;
     }
 }
 
 
-DataSettings *Storage::NextElem(DataSettings *elem)
+void Storage::RemoveLastFrame()
+{
+    if (last_ds)
+    {
+        
+    }
+}
+
+
+DataSettings *Storage::NextFrame(DataSettings *elem)
 {
     return (DataSettings *)elem->addrNext;
 }
