@@ -115,9 +115,15 @@ void SendData(const uint8 *, int)
 }
 
 
-void VCP::SendSynch(char *data)
+void VCP::SendStringSynch(char *data)
 {
     SendSynch((uint8*)data, (int)strlen(data));
+}
+
+
+void VCP::SendStringSynchZ(char *string)
+{
+    SendSynch((uint8 *)string, (int)strlen(string) + 1);
 }
 
 
@@ -139,10 +145,23 @@ void VCP::SendAsynch(char *format, ...)
 void VCP::SendSynch(char *format, ...) {
     static const int SIZE_BUFFER = 200;
     char buffer[SIZE_BUFFER];
+
     std::va_list args;
     va_start(args, format);
     vsprintf(buffer, format, args);
     va_end(args);
     strcat(buffer, "\n");
+
     SendSynch((uint8*)buffer, (int)strlen(buffer));
+}
+
+
+void VCP::SendDebugPoint(pchar module, pchar func, int line)
+{
+    static const int SIZE_BUFFER = 256;
+    char message[SIZE_BUFFER];
+
+    std::sprintf(message, "%s:%s:%d", module, func, line);
+
+    SendStringSynchZ(message);
 }
