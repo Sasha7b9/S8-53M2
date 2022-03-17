@@ -180,7 +180,7 @@ int Storage::NumFramesWithSameSettings()
 }
 
 
-int Storage::NumElementsWithCurrentSettings()
+int Storage::NumFramesWithCurrentSettings()
 {
     DataSettings dp;
     dp.Init();

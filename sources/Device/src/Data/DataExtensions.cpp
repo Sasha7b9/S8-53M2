@@ -65,7 +65,7 @@ void Averager::Append(DataStruct &data)
     }
     else
     {
-        int num_datas = Storage::NumElementsWithCurrentSettings();
+        int num_datas = Storage::NumFramesWithCurrentSettings();
 
         Math::Limitation<int>(num_datas, 0, ModeAveraging::GetNumber());
 

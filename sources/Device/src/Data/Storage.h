@@ -21,7 +21,7 @@ namespace Storage
     int NumFramesWithSameSettings();
 
     // ¬озвращает число непрерывных измерений, начина€ с последнего, с текущими настройками прибора
-    int NumElementsWithCurrentSettings();
+    int NumFramesWithCurrentSettings();
 
     // ѕолучить указатель на данные
     bool GetData(int fromEnd, DataStruct &);
