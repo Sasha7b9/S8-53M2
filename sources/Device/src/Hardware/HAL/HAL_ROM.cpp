@@ -426,12 +426,9 @@ bool HAL_ROM::GetData(int num, DataStruct &data)
 
     data.ds.Set(*((DataSettings *)addrDS));
 
-    if (data.ds.en_a)
-    {
-        uint address = addrDS + sizeof(DataSettings);
+    uint address1 = addrDS + sizeof(DataSettings);
 
-        SU::LogBufferU8((uint8 *)address, 10);
-    }
+    SU::LogBufferU8((uint8 *)address1, 10);
 
     if (data.ds.en_b)
     {
