@@ -1227,6 +1227,7 @@ void Processing::Process(DataStruct &_in)
     int length = in.ds.BytesInChannel();
 
     Math_CalculateFiltrArray(_in.A.Data(), in.A.Data(), length, numSmoothing);
+
     Math_CalculateFiltrArray(_in.B.Data(), in.B.Data(), length, numSmoothing);
 
     CountedToCurrentSettings();
