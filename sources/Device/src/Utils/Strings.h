@@ -4,8 +4,8 @@
 
 struct Word
 {
-    uint8*   address;
-    int8    numSymbols;
+    uint8 *address;
+    int8   numSymbols;
 };
 
 
@@ -18,6 +18,6 @@ bool EqualsZeroStrings(char *str1, char *str2);
 
 namespace SU
 {
-    template<class T> void LogBuffer(const T *buffer, int num);
+    void LogBufferU8(const uint8 *data, int num);
     template<class T> void LogBuffer(pchar label, const T *buffer, int num);
 };

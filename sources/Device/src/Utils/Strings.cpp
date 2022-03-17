@@ -6,7 +6,8 @@
 #include <cstring>
 
 
-template void SU::LogBuffer<uint8>(const uint8 *buffer, int num);
+template void SU::LogBuffer<float>(pchar, const float *, int);
+template void SU::LogBuffer<uint8>(pchar, const uint8 *, int);
 
 
 static bool ChooseSymbols(const uint8 **string);    // Возвращает false, если выбор невозможен - строка кончилась.
@@ -131,6 +132,7 @@ bool EqualsStrings(char *str1, char *str2, int size)
     return true;
 }
 
+
 bool EqualsZeroStrings(char *str1, char *str2)
 {
     while ((*str1) == (*str2))
@@ -146,8 +148,7 @@ bool EqualsZeroStrings(char *str1, char *str2)
 }
 
 
-template<class T>
-void SU::LogBuffer(const T *data, int num)
+void SU::LogBufferU8(const uint8 *data, int num)
 {
     char buffer[1024];
     char buffer_number[20];
@@ -165,7 +166,7 @@ void SU::LogBuffer(const T *data, int num)
 
 
 template<class T>
-void SU::LogBuffer(pchar label, const T *buffer, int num)
+void SU::LogBuffer(pchar label, const T *data, int num)
 {
     char buffer[1024];
     char buffer_number[20];

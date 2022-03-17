@@ -48,6 +48,8 @@ void Averager::Append(const DataSettings *dss, uint8 *a, uint8 *b)
 
     if (num_datas == 1)
     {
+        LOG_WRITE("size = %d", size);
+
         SU::LogBuffer<uint8>("1:", a, 10);
 
         for (int i = 0; i < size; i++)

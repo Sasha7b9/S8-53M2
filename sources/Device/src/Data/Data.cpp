@@ -16,5 +16,5 @@ namespace Data
 void DataStruct::Log(pchar point)
 {
     LOG_WRITE("%s - data valid = %d", point, Valid());
-    SU::LogBuffer<uint8>(Data(ChA).Data(), 10);
+    SU::LogBufferU8(Data(ChA).Data(), 10);
 }

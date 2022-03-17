@@ -454,7 +454,7 @@ bool HAL_ROM::GetData(int num, DataStruct &data)
     {
         uint address = addrDS + sizeof(DataSettings);
 
-        SU::LogBuffer<uint8>((uint8 *)address, 10);
+        SU::LogBufferU8((uint8 *)address, 10);
     }
 
     if (data.ds.en_b)
