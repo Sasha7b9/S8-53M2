@@ -9,6 +9,7 @@
 #include <cstdarg>
 #include <cstdio>
 #include <cstring>
+#include <usbd_cdc.h>
 
 
 namespace VCP
@@ -67,13 +68,33 @@ void VCP::SendMessage(pchar message)
 
 void VCP::SendSynch(const uint8 *buffer, int size)
 {
-
+    SendBuffer(buffer, size);
 }
 
 
 void VCP::SendAsynch(char *format, ...)
 {
+    static const int SIZE_BUFFER = 200;
+    static char buffer[SIZE_BUFFER];
 
+    std::va_list args;
+    va_start(args, format);
+    vsprintf(buffer, format, args);
+    va_end(args);
+    std::strcat(buffer, "\n");
+
+    SendBuffer((uint8 *)buffer, (int)std::strlen(buffer));
+}
+
+
+void VCP::DebugPoint(pchar module, pchar function, int line)
+{
+    static const int SIZE_BUFFER = 256;
+    char message[SIZE_BUFFER];
+
+    std::sprintf(message, "%s:%s:%d", module, function, line);
+
+    SendBuffer((const uint8 *)message, (int)sizeof(message) + 1);
 }
 
 

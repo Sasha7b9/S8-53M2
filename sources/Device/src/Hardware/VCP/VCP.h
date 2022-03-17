@@ -2,6 +2,10 @@
 #pragma once
 
 
+#define VCP_DEBUG_POINT()       VCP::DebugPoint(__MODULE__, __FUNCTION__, __LINE__)
+
+
+
 namespace VCP
 {
     void Init();
@@ -14,6 +18,8 @@ namespace VCP
 
     // Сообщение передаётся без завершающего нуля
     void SendMessage(pchar message);
+
+    void DebugPoint(pchar module, pchar function, int line);
 
     void Flush();
 

@@ -51,7 +51,7 @@ void Device::Init()
 
 void Device::Update()
 {
-    DEBUG_POINT_0;
+    VCP_DEBUG_POINT();
 
     if (Settings::needReset)
     {
