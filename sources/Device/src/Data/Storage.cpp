@@ -361,7 +361,7 @@ int Storage::MemoryFree()
 
 int DataSettings::SizeElem()
 {
-    return (int)sizeof(DataSettings) * BytesInChannel() * 2;
+    return (int)sizeof(DataSettings) + 2 * BytesInChannel();
 }
 
 
