@@ -4,8 +4,9 @@
 #include "Utils/GlobalFunctions.h"
 
 
-#define TIME_MS    Timer::GetMS()
-#define TIME_TICKS Timer::GetTicks()
+#define TIME_MS     Timer::GetMS()
+#define TIME_TICKS  Timer::GetTicks()
+#define TICKS_IN_US 60
 
 
 struct TypeTimer

@@ -783,9 +783,8 @@ void DataSettings::AppendPoints(uint8 *a, uint8 *b, BitSet16 pointsA, BitSet16 p
         }
 
         rec_point += 2;
+        all_points += 2;
     }
-
-    LOG_WRITE("записано точек %d", rec_point);
 }
 
 

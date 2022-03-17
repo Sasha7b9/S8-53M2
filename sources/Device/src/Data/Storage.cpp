@@ -462,6 +462,7 @@ void Storage::P2P::CreateFrame(const DataSettings &_ds)
             if (ds->Equal(_ds))
             {
                 ds->rec_point = 0;
+                ds->all_points = 0;
             }
             else
             {
@@ -479,6 +480,7 @@ void Storage::P2P::CreateFrame(const DataSettings &_ds)
 void Storage::P2P::AppendFrame(DataSettings ds)
 {
     ds.rec_point = 0;
+    ds.all_points = 0;
 
     int num_bytes = ds.BytesInChannel();
 
@@ -498,6 +500,7 @@ void Storage::P2P::Reset()
     if (ds)
     {
         ds->rec_point = 0;
+        ds->all_points = 0;
     }
 }
 

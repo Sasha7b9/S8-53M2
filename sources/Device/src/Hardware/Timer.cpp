@@ -65,7 +65,7 @@ uint Timer::LogPointUS(char *name)
 {
     uint interval = TIME_TICKS - timePrevPoint;
     timePrevPoint = TIME_TICKS;
-    LOG_WRITE("%s %.2f us", name, interval / 120.0f);
+    LOG_WRITE("%s %.2f us", name, interval / (float)TICKS_IN_US);
     return interval;
 }
 
