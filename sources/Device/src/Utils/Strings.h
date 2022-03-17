@@ -19,5 +19,6 @@ bool EqualsZeroStrings(char *str1, char *str2);
 namespace SU
 {
     void LogBufferU8(const uint8 *data, int num);
-    template<class T> void LogBuffer(pchar label, const T *buffer, int num);
+    void LogBufferU8(pchar label, const uint8 *data, int num);
+    void LogBufferF(pchar label, const float *data, int num);
 };

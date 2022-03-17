@@ -115,9 +115,9 @@ void Storage::AddData(DataSettings dss, uint8 *a, uint8 *b)
 
     PushData(&dss, a, b);
 
-    Averager::Append(&dss, a, b);
-
     count_data++;
+
+    Averager::Append(&dss, a, b);
 }
 
 

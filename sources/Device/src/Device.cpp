@@ -51,6 +51,8 @@ void Device::Init()
 
 void Device::Update()
 {
+    DEBUG_POINT_0;
+
     if (Settings::needReset)
     {
         Settings::Reset();
@@ -72,6 +74,8 @@ void Device::Update()
     Display::Update();                   // Рисуем экран.
 
     Settings::SaveIfNeed();
+
+    DEBUG_POINT_0;
 
     // LAN::Update(0);
 

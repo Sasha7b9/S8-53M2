@@ -50,15 +50,27 @@ void Averager::Append(const DataSettings *dss, uint8 *a, uint8 *b)
     {
         LOG_WRITE("size = %d", size);
 
-        SU::LogBuffer<uint8>("1:", a, 10);
+        SU::LogBufferU8("1:", a, 10);
 
         for (int i = 0; i < size; i++)
         {
+            if (i == 3)
+            {
+                LOG_WRITE("%f - %d", ave_a[0], a[0]);
+            }
+
             ave_a[i] = a[i];
+
+            if (i == 3)
+            {
+                LOG_WRITE("%f - %d", ave_a[0], a[0]);
+            }
+
             ave_b[i] = b[i];
         }
 
-        SU::LogBuffer<float>("2:", ave_a.Data(), 10);
+        SU::LogBufferU8("1:", a, 10);
+        SU::LogBufferF("2:", ave_a.Data(), 10);
     }
     else
     {
@@ -73,9 +85,9 @@ void Averager::Append(const DataSettings *dss, uint8 *a, uint8 *b)
         uint8 *d0 = &a[0];
         uint8 *d1 = &b[0];
 
-        float *endData = &ave_a[size];
+        float *end = ave_a.Pointer(size);
 
-        do
+        while(d_a < end)
         {
             *d_a = ((*d_a) * ave_fless + (float)(*d0++)) * ave_inv;
             d_a++;
@@ -83,7 +95,7 @@ void Averager::Append(const DataSettings *dss, uint8 *a, uint8 *b)
             *d_b = ((*d_b) * ave_fless + (float)(*d1++)) * ave_inv;
             d_b++;
 
-        } while (d_a != endData);
+        };
     }
 }
 

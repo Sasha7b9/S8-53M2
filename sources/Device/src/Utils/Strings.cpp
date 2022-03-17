@@ -6,10 +6,6 @@
 #include <cstring>
 
 
-template void SU::LogBuffer<float>(pchar, const float *, int);
-template void SU::LogBuffer<uint8>(pchar, const uint8 *, int);
-
-
 static bool ChooseSymbols(const uint8 **string);    // Возвращает false, если выбор невозможен - строка кончилась.
 static bool ChooseSpaces(const uint8 **string);     // Возвращает false, если выбор невозможен - строка кончилась.
 
@@ -165,8 +161,7 @@ void SU::LogBufferU8(const uint8 *data, int num)
 }
 
 
-template<class T>
-void SU::LogBuffer(pchar label, const T *data, int num)
+void SU::LogBufferU8(pchar label, const uint8 *data, int num)
 {
     char buffer[1024];
     char buffer_number[20];
@@ -179,6 +174,26 @@ void SU::LogBuffer(pchar label, const T *data, int num)
     for (int i = 0; i < num; i++)
     {
         std::strcat(buffer, Int2String(data[i], false, 1, buffer_number));
+        std::strcat(buffer, " ");
+    }
+
+    LOG_WRITE(buffer);
+}
+
+
+void SU::LogBufferF(pchar label, const float *data, int num)
+{
+    char buffer[1024];
+    char buffer_number[20];
+
+    buffer[0] = '\0';
+
+    std::strcat(buffer, label);
+    std::strcat(buffer, " ");
+
+    for (int i = 0; i < num; i++)
+    {
+        std::strcat(buffer, Float2String(data[i], false, 1, buffer_number));
         std::strcat(buffer, " ");
     }
 
