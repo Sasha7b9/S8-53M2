@@ -784,6 +784,8 @@ void DataStruct::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
 
         ds.rec_point += 2;
     }
+
+    LOG_WRITE("записано точек %d", ds.rec_point);
 }
 
 
