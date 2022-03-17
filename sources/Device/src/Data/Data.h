@@ -65,9 +65,6 @@ struct DataSettings
 
     bool InModeP2P() const;
 
-    // Добавить точки в поточечном режиме
-    void AppendPoints(uint8 *a, uint8 *b, BitSet16 pointsA, BitSet16 pointsB);
-
     bool Valid() const { return (valid == 1); };
 };
 
@@ -87,6 +84,9 @@ struct DataStruct
     DataStruct() { }
 
     BufferFPGA &Data(Chan ch) { return ch.IsA() ? A : B; }
+
+    // Добавить точки в поточечном режиме
+    void AppendPoints(BitSet16 pointsA, BitSet16 pointsB);
 
     bool Valid() const { return ds.Valid(); }
 

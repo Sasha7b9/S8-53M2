@@ -508,6 +508,6 @@ void Storage::P2P::AddPoints(BitSet16 bytesA, BitSet16 bytesB)
 
     if (GetData(0, data))
     {
-        data.ds.AppendPoints(data.A.Data(), data.B.Data(), bytesA, bytesB);
+        data.AppendPoints(bytesA, bytesB);
     }
 }
