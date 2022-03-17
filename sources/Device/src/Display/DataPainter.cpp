@@ -413,7 +413,7 @@ void DataPainter::DrawDataNormal()
 {
     static void *prevAddr = 0;
 
-    int16 numSignals = (int16)Storage::NumElementsWithSameSettings();
+    int16 numSignals = (int16)Storage::NumFramesWithSameSettings();
     LIMITATION(numSignals, numSignals, 1, NUM_ACCUM);
 
     if (numSignals == 1 || ENUM_ACCUM_IS_INFINITY || MODE_ACCUM_IS_RESET || TBase::InModeRandomizer())

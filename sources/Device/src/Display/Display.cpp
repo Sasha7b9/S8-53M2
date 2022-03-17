@@ -1619,7 +1619,7 @@ void Display::DrawTimeForFrame(uint timeTicks)
     PText::Draw(Grid::Left() + 2, Grid::FullBottom() - 9, buffer, COLOR_FILL);
 
     char message[20] = {0};
-    std::sprintf(message, "%d", Storage::NumElementsWithSameSettings());
+    std::sprintf(message, "%d", Storage::NumFramesWithSameSettings());
     std::strcat(message, "/");
     char numAvail[10] = {0};
     std::sprintf(numAvail, "%d", Storage::NumberAvailableEntries());

@@ -113,7 +113,7 @@ void Averager::GetDataAccurately(DataStruct &out)
 {
     int num_datas = ModeAveraging::GetNumber();
 
-    LIMIT_ABOVE(num_datas, Storage::NumElementsWithSameSettings());
+    LIMIT_ABOVE(num_datas, Storage::NumFramesWithSameSettings());
 
     DataSettings &ds = *Storage::GetDataSettings(0);
 

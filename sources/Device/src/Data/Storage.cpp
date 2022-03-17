@@ -135,10 +135,10 @@ void Storage::CalculateLimits(const DataSettings *dss, const uint8 *a, const uin
     }
     else
     {
-        int allDatas = NumElementsWithSameSettings();
+        int allDatas = NumFramesWithSameSettings();
         LIMITATION(allDatas, allDatas, 1, NUM_MIN_MAX);
 
-        if (NumElementsWithSameSettings() >= NUM_MIN_MAX)
+        if (NumFramesWithSameSettings() >= NUM_MIN_MAX)
         {
             for (uint i = 0; i < numElements; i++)
             {
@@ -165,7 +165,7 @@ void Storage::CalculateLimits(const DataSettings *dss, const uint8 *a, const uin
 }
 
 
-int Storage::NumElementsWithSameSettings()
+int Storage::NumFramesWithSameSettings()
 {
     int retValue = 0;
     int numElements = NumFrames();

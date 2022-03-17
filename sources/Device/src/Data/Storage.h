@@ -18,7 +18,7 @@ namespace Storage
     int NumFrames();
 
     // Возвращает число непрерывных измерений, начиная с последнего, с такими же настройками, как у последнего.
-    int NumElementsWithSameSettings();
+    int NumFramesWithSameSettings();
 
     // Возвращает число непрерывных измерений, начиная с последнего, с текущими настройками прибора
     int NumElementsWithCurrentSettings();
