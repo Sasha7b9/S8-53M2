@@ -55,9 +55,6 @@ namespace Storage
     // Сохранить данные
     void PushData(DataSettings *, const uint8 *dataA, const uint8 *dataB);
 
-    // Возвращает указатель на данные, отстоящие на indexFromEnd oт последнего сохранённого
-    DataSettings *GetDataSettings(int fromEnd = 0);
-
     // Возвращает true, если настройки измерений с индексами elemFromEnd0 и elemFromEnd1 совпадают, и false в ином случае.
     bool SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1);
 
@@ -125,7 +122,7 @@ void Storage::CalculateLimits(const DataSettings *dss, const uint8 *a, const uin
 {
     uint numElements = (uint)dss->PointsInChannel();
 
-    if (NumFrames() == 0 || NUM_MIN_MAX == 1 || (!GetDataSettings()->Equal(*dss)))
+    if (NumFrames() == 0 || NUM_MIN_MAX == 1 || (!GetDataSettings(0)->Equal(*dss)))
     {
         for (uint i = 0; i < numElements; i++)
         {
@@ -465,18 +462,6 @@ void Storage::P2P::AppendFrame(DataSettings ds)
     data.A.Realloc(num_bytes, ValueFPGA::NONE);
 
     AddData(data);
-}
-
-
-void Storage::P2P::Reset()
-{
-    DataSettings *ds = GetDataSettings();
-
-    if (ds)
-    {
-        ds->rec_point = 0;
-        ds->all_points = 0;
-    }
 }
 
 

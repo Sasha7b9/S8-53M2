@@ -63,6 +63,8 @@ struct DataSettings
 
     bool InModeP2P() const;
 
+    void ResetP2P();
+
     bool Valid() const { return (valid == 1); };
 
     // Добавить точки в поточечном режиме

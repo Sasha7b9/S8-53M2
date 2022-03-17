@@ -206,8 +206,6 @@ void Display::DrawStringNavigation()
 
 void Display::RotateRShift(Chan ch)
 {
-    Storage::P2P::Reset();
-
     LAST_AFFECTED_CHANNEL = ch;
 
     if(TIME_SHOW_LEVELS)

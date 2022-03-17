@@ -10,6 +10,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Utils/Strings.h"
 #include "Menu/Pages/Definition.h"
+#include "GlobalEvents.h"
 #include <cstring>
 
 
@@ -359,6 +360,9 @@ void RShift::Set(Chan ch, int16 rShift)
 
     SET_RSHIFT(ch) = rShift;
     Load(ch.value);
+
+    Event::OnChnagedSetting();
+
     Display::RotateRShift(ch.value);
 };
 
@@ -747,6 +751,13 @@ int16 DataSettings::GetRShift(Chan ch) const
 bool DataSettings::InModeP2P() const
 {
     return (tBase >= TBase::MIN_P2P) && (rec_point != -1);
+}
+
+
+void DataSettings::ResetP2P()
+{
+    rec_point = 0;
+    all_points = 0;
 }
 
 

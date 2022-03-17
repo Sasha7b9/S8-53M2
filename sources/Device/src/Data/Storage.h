@@ -26,6 +26,7 @@ namespace Storage
     // Получить указатель на данные
     bool GetData(int fromEnd, DataStruct &);
 
+    // Возвращает указатель на данные, отстоящие на fromEnd oт последнего сохранённого
     DataSettings *GetDataSettings(int fromEnd);
 
     uint8* GetData(Chan, int fromEnd);
@@ -39,9 +40,6 @@ namespace Storage
     {
         // Создать новый фрейм поточечного вывода.
         void CreateFrame(const DataSettings &);
-
-        // Сбросить точки текущего фрейма
-        void Reset();
 
         // Добавить точки в текущий фрейм
         void AddPoints(BitSet16 dataA, BitSet16 dataB);
