@@ -42,8 +42,8 @@ public:
 
     Buffer<T> &operator=(const Buffer<T> &);
 
-    T &operator[](uint i) const;
-    T &operator[](int i) const;
+    T &operator[](uint i);
+    T &operator[](int i);
 
     void Log() const;
 

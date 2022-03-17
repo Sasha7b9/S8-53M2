@@ -79,8 +79,8 @@ void Averager::Append(const DataSettings *dss, uint8 *a, uint8 *b)
         float ave_fless = (float)num_datas - 1.0f;
         float ave_inv = 1.0f / (float)num_datas;
 
-        float *d_a = &ave_a[0];
-        float *d_b = &ave_b[0];
+        float *d_a = ave_a.Pointer(0);
+        float *d_b = ave_b.Pointer(0);
 
         uint8 *d0 = &a[0];
         uint8 *d1 = &b[0];

@@ -22,10 +22,10 @@ template void           Buffer<float>::Free();
 template void           Buffer<uint8>::Realloc(int);
 template void           Buffer<float>::Realloc(int);
 template void           Buffer<float>::Realloc(int, float);
-template uint8         &Buffer<uint8>::operator[](int) const;
-template uint8         &Buffer<uint8>::operator[](uint) const;
-template float         &Buffer<float>::operator[](int) const;
-template uint          &Buffer<uint>::operator[](int) const;
+template uint8         &Buffer<uint8>::operator[](int);
+template uint8         &Buffer<uint8>::operator[](uint);
+template float         &Buffer<float>::operator[](int);
+template uint          &Buffer<uint>::operator[](int);
 template Buffer<uint8> &Buffer<uint8>::operator=(const Buffer<uint8> &);
 template void           Buffer<uint8>::Log() const;
 template float          Buffer<uint8>::Sum(uint8 *, uint);
@@ -134,7 +134,7 @@ void Buffer<T>::Malloc(int s)
 
 
 template<class T>
-T &Buffer<T>::operator[](uint i) const
+T &Buffer<T>::operator[](uint i)
 {
     if ((int)i < Size())
     {
@@ -148,7 +148,7 @@ T &Buffer<T>::operator[](uint i) const
 
 
 template<class T>
-T &Buffer<T>::operator[](int i) const
+T &Buffer<T>::operator[](int i)
 {
     if (i >= 0 && i < (int)Size())
     {
