@@ -76,7 +76,7 @@ void VCP::Flush()
 }
 
 
-void VCP::SendDataSynch(const uint8 *buffer, int size)
+void VCP::SendSynch(const uint8 *buffer, int size)
 {
     if (VCP::clientIsConnected == false)
     {
@@ -117,7 +117,7 @@ void SendData(const uint8 *, int)
 
 void VCP::SendStringSynch(char *data)
 {
-    SendDataSynch((uint8*)data, (int)strlen(data));
+    SendSynch((uint8*)data, (int)strlen(data));
 }
 
 
@@ -136,7 +136,7 @@ void VCP::SendStringAsynch(char *format, ...)
 }
 
 
-void VCP::SendFormatStringSynch(char *format, ...) {
+void VCP::SendStringSynch(char *format, ...) {
     static const int SIZE_BUFFER = 200;
     char buffer[SIZE_BUFFER];
     std::va_list args;
@@ -144,5 +144,5 @@ void VCP::SendFormatStringSynch(char *format, ...) {
     vsprintf(buffer, format, args);
     va_end(args);
     strcat(buffer, "\n");
-    SendDataSynch((uint8*)buffer, (int)strlen(buffer));
+    SendSynch((uint8*)buffer, (int)strlen(buffer));
 }
