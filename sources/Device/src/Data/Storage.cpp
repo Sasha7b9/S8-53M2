@@ -79,7 +79,7 @@ namespace Storage
 
 void DataSettings::PrintElement()
 {
-    LOG_WRITE("addr:%x, addrNext:%x, addrPrev:%x, size:%d", this, next, prev, SizeElem());
+    LOG_WRITE("addr:%x, addrNext:%x, addrPrev:%x, size:%d", this, next, prev, SizeFrame());
 }
 
 
@@ -115,7 +115,7 @@ void Storage::AddData(DataStruct &data)
 }
 
 
-int Storage::NumElements()
+int Storage::NumFrames()
 {
     return count_data;
 }
@@ -125,7 +125,7 @@ void Storage::CalculateLimits(const DataSettings *dss, const uint8 *a, const uin
 {
     uint numElements = (uint)dss->PointsInChannel();
 
-    if (NumElements() == 0 || NUM_MIN_MAX == 1 || (!GetDataSettings()->Equal(*dss)))
+    if (NumFrames() == 0 || NUM_MIN_MAX == 1 || (!GetDataSettings()->Equal(*dss)))
     {
         for (uint i = 0; i < numElements; i++)
         {
@@ -168,7 +168,7 @@ void Storage::CalculateLimits(const DataSettings *dss, const uint8 *a, const uin
 int Storage::NumElementsWithSameSettings()
 {
     int retValue = 0;
-    int numElements = NumElements();
+    int numElements = NumFrames();
     for (retValue = 1; retValue < numElements; retValue++)
     {
         if (!SettingsIsIdentical(retValue, retValue - 1))
@@ -185,7 +185,7 @@ int Storage::NumElementsWithCurrentSettings()
     DataSettings dp;
     dp.Init();
     int retValue = 0;
-    int numElements = NumElements();
+    int numElements = NumFrames();
 
     for (retValue = 0; retValue < numElements; retValue++)
     {
@@ -272,13 +272,13 @@ int Storage::NumberAvailableEntries()
         return 0;
     }
 
-    return SIZE_POOL / last_ds->SizeElem();
+    return SIZE_POOL / last_ds->SizeFrame();
 }
 
 
 void Storage::PushData(DataSettings *dp, const uint8 *a, const uint8 *b)
 {
-    int required = dp->SizeElem();
+    int required = dp->SizeFrame();
 
     while (MemoryFree() < required)
     {
@@ -296,9 +296,9 @@ void Storage::PushData(DataSettings *dp, const uint8 *a, const uint8 *b)
     }
     else
     {
-        addrRecord = (uint8 *)last_ds + last_ds->SizeElem();
+        addrRecord = (uint8 *)last_ds + last_ds->SizeFrame();
 
-        if (addrRecord + dp->SizeElem() > endPool)
+        if (addrRecord + dp->SizeFrame() > endPool)
         {
             addrRecord = beginPool;
         }
@@ -330,13 +330,13 @@ int Storage::MemoryFree()
     }
     else if (first_ds == last_ds)
     {
-        return (endPool - (uint8 *)first_ds - (int)first_ds->SizeElem());
+        return (endPool - (uint8 *)first_ds - (int)first_ds->SizeFrame());
     }
     else if (first_ds < last_ds)
     {
         if ((uint8 *)first_ds == beginPool)
         {
-            return (endPool - (uint8 *)last_ds - last_ds->SizeElem());
+            return (endPool - (uint8 *)last_ds - last_ds->SizeFrame());
         }
         else
         {
@@ -345,13 +345,13 @@ int Storage::MemoryFree()
     }
     else if (last_ds < first_ds)
     {
-        return (uint8 *)first_ds - (uint8 *)last_ds - last_ds->SizeElem();
+        return (uint8 *)first_ds - (uint8 *)last_ds - last_ds->SizeFrame();
     }
     return 0;
 }
 
 
-int DataSettings::SizeElem()
+int DataSettings::SizeFrame()
 {
     return (int)sizeof(DataSettings) + 2 * BytesInChannel();
 }
@@ -372,10 +372,18 @@ void Storage::RemoveLastFrame()
 {
     if (last_ds)
     {
-        if (last_ds->next)
+        if (last_ds->prev)
         {
-
+            DataSettings *ds = (DataSettings *)last_ds->prev;
+            ds->next = nullptr;
         }
+        else
+        {
+            last_ds = nullptr;
+            first_ds = nullptr;
+        }
+
+        count_data--;
     }
 }
 
@@ -416,7 +424,7 @@ bool Storage::SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1)
 
 void Storage::P2P::CreateFrame(const DataSettings &_ds)
 {
-    if (Storage::NumElements() == 0)
+    if (Storage::NumFrames() == 0)
     {
         AppendFrame(_ds);
     }

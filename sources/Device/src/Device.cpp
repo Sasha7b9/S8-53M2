@@ -79,7 +79,7 @@ void Device::Update()
 
 void Device::ProcessingSignal()
 {
-    if (Storage::NumElements() == 0)
+    if (Storage::NumFrames() == 0)
     {
         return;
     }

@@ -15,7 +15,7 @@ namespace Storage
     void AddData(DataStruct &);
 
     // —колько всего измерений сохранено в пам€ти.
-    int NumElements();
+    int NumFrames();
 
     // ¬озвращает число непрерывных измерений, начина€ с последнего, с такими же настройками, как у последнего.
     int NumElementsWithSameSettings();

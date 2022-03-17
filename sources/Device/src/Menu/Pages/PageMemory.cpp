@@ -63,12 +63,12 @@ void PressSB_MemLastSelect()
 
 void PressSB_MemLast_Next()
 {
-    CircleIncreaseInt16(&PageMemory::Latest::current, 0, Storage::NumElements() - 1);
+    CircleIncreaseInt16(&PageMemory::Latest::current, 0, Storage::NumFrames() - 1);
 }
 
 void PressSB_MemLast_Prev()
 {
-    CircleDecreaseInt16(&PageMemory::Latest::current, 0, Storage::NumElements() - 1);
+    CircleDecreaseInt16(&PageMemory::Latest::current, 0, Storage::NumFrames() - 1);
 }
 
 static void RotateSB_MemLast(int angle)
@@ -93,7 +93,7 @@ static void FuncDrawingAdditionSPageMemoryLast()
     Painter::DrawRectangle(Grid::Right() - width, GRID_TOP, width, height, COLOR_FILL);
     PText::Draw(Grid::Right() - width + 2, GRID_TOP + 1, Int2String(PageMemory::Latest::current + 1, false, 3, buffer));
     PText::Draw(Grid::Right() - width + 17, GRID_TOP + 1, "/");
-    PText::Draw(Grid::Right() - width + 23, GRID_TOP + 1, Int2String(Storage::NumElements(), false, 3, buffer));
+    PText::Draw(Grid::Right() - width + 23, GRID_TOP + 1, Int2String(Storage::NumFrames(), false, 3, buffer));
 }
 
 void DrawSB_MemLast_IntEnter(int x, int y)

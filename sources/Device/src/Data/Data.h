@@ -50,7 +50,7 @@ struct DataSettings
     void PrintElement();
 
     // Вычисляет, сколько памяти трубуется, чтобы сохранить измерения с настройками dp
-    int SizeElem();
+    int SizeFrame();
 
     // Заполнение полей текущими настройками
     void Init();

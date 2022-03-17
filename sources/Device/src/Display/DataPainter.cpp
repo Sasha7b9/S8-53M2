@@ -51,7 +51,7 @@ namespace DataPainter
 
 void DataPainter::DrawData()
 {
-    if (Storage::NumElements())
+    if (Storage::NumFrames())
     {
         if (MODE_WORK_IS_MEMINT)
         {
