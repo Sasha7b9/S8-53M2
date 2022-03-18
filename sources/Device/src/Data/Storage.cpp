@@ -440,8 +440,7 @@ void Storage::CreateFrameP2P(const DataSettings &_ds)
 
 void Storage::AppendFrameP2P(DataSettings ds)
 {
-    ds.rec_point = 0;
-    ds.all_points = 0;
+    ds.ResetP2P();
 
     int num_bytes = ds.BytesInChannel();
 
