@@ -19,9 +19,6 @@ namespace Processing
         float value[2];
     };
 
-    DataStruct in;
-    DataStruct out;
-
     int firstP = 0;
     int lastP = 0;
     int numP = 0;

@@ -114,7 +114,7 @@ struct DataFrame
 
 namespace Data
 {
-    extern DataFrame dir;             // Рисуемый сигнал
-    extern DataFrame last;
-    extern DataFrame ins;              // Здесь данные из ППЗУ, которые должны выводиться на экран
+    extern DataFrame in;        // Здесь хранятся исходные данные для обработки и отрисовки - последние из Storage, произовльные из Storage, из ПЗУ или математические
+
+    extern DataStruct out;      // Здесь хранятся данные, готовые для вывода - преобразованные из in
 }

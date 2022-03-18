@@ -98,7 +98,7 @@ void Averager::Append(DataSettings *ds)
 }
 
 
-void Averager::GetData(DataStruct &data)
+void Averager::GetData(DataFrame &data)
 {
     if (ModeAveraging::Current() == ModeAveraging::Accurately)
     {
