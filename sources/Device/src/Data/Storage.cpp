@@ -41,7 +41,7 @@ namespace Storage
     DataSettings *last = nullptr;
 
     // Всего данных сохранено
-    int count_data = 0;
+    int count_frames = 0;
 
     // Удалить последнее (самое новое) измерение
     void RemoveLastFrame();
@@ -100,7 +100,7 @@ void Storage::AddData(DataStruct &data)
 
     PushData(&data.ds, data.A.Data(), data.B.Data());
 
-    count_data++;
+    count_frames++;
 
     Averager::Append(data);
 }
@@ -120,7 +120,7 @@ void Storage::CloseFrame()
 
 int Storage::NumFrames()
 {
-    return count_data;
+    return count_frames;
 }
 
 
@@ -281,119 +281,21 @@ int Storage::NumberAvailableEntries()
 
 void Storage::CreateFrame()
 {
+    VCP_FORMAT_TRACE("enter %d frames", count_frames);
+
     DataSettings ds;
     ds.Init();
     ds.time = HAL_RTC::GetPackedTime();
 
     PrapareNewFrame(ds);
 
-    count_data++;
-}
-
-
-namespace Storage
-{
-    // Возвращает количество пустой памяти в начале пула (до первого фрейма)
-    int EmptyMemoryInBegin()
-    {
-        return (uint8 *)first - beginPool;
-    }
-
-    // Количество свободной памяти между последним и первым фреймом (когда последний идёт впереди первого)
-    int EmptyMemoryBetweenLastAndFirst()
-    {
-        uint8 *addr_first = (uint8 *)last;
-        uint8 *first_empty_byte = addr_first + last->SizeFrame();
-
-        return (uint8 *)first - first_empty_byte;
-    }
-
-    void RemoveFirstFrame()
-    {
-        first = (DataSettings *)first->next;
-        first->prev = nullptr;
-        count_data--;
-    }
+    VCP_FORMAT_TRACE("leave %d frames", count_frames);
 }
 
 
 DataSettings *Storage::PrapareNewFrame(DataSettings &ds)
 {
-    if (first == nullptr)
-    {
-        first = (DataSettings *)beginPool;
-        ds.next = nullptr;
-        ds.prev = nullptr;
 
-        std::memcpy(first, &ds, (int)sizeof(DataSettings));
-
-        last = first;
-    }
-
-    if (last == first)                                          // Первый и последний совпадают - в хранилище один фрейм
-    {
-        uint8 *address = (uint8 *)first + first->SizeFrame();
-        uint8 *end = address + ds.SizeFrame();
-
-        if (end > endPool)
-        {
-            address = beginPool;
-        }
-
-        ds.next = nullptr;
-        ds.prev = first;
-        first->next = address;
-
-        std::memcpy(address, &ds, (int)sizeof(DataSettings));
-
-        last = (DataSettings *)address;
-    }
-    else if (last > first)                          // Последний фрейм находится после первого
-    {
-        uint8 *address = (uint8 *)last + last->SizeFrame();
-        uint8 *end = address + ds.SizeFrame();
-
-        if (end > endPool)
-        {
-            while (EmptyMemoryInBegin() < ds.SizeFrame())
-            {
-                RemoveFirstFrame();
-            }
-
-            address = beginPool;
-        }
-
-        ds.next = nullptr;
-        ds.prev = last;
-
-        last->next = address;
-
-        std::memcpy(address, &ds, (int)sizeof(DataSettings));
-
-        last = (DataSettings *)address;
-    }
-    else                                            // Последний фрейм находится перед первым
-    {
-        while (EmptyMemoryBetweenLastAndFirst() < ds.SizeFrame())
-        {
-            RemoveFirstFrame();
-        }
-
-        uint8 *address = (uint8 *)last + last->SizeFrame();
-
-        ds.next = nullptr;
-        ds.prev = last;
-
-        last->next = address;
-
-        std::memcpy(address, &ds, (int)sizeof(DataSettings));
-
-        last = (DataSettings *)address;
-    }
-
-    count_data++;
-
-    return last;
 }
 
 
@@ -422,7 +324,7 @@ void Storage::RemoveLastFrame()
             first = nullptr;
         }
 
-        count_data--;
+        count_frames--;
     }
 }
 
