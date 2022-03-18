@@ -55,8 +55,8 @@ void Averager::Append(DataSettings *ds)
         Reset();
     }
 
-    uint8 *const a = DataFrame(ds).DataBegin(ChA);
-    uint8 *const b = DataFrame(ds).DataBegin(ChB);
+    const uint8 *a = DataFrame(ds).DataBegin(ChA);
+    const uint8 *b = DataFrame(ds).DataBegin(ChB);
 
     if (added_datas == 0)
     {
@@ -78,8 +78,8 @@ void Averager::Append(DataSettings *ds)
         float *d_a = ave_a.Pointer(0);
         float *d_b = ave_b.Pointer(0);
 
-        uint8 *d0 = a;
-        uint8 *d1 = b;
+        const uint8 *d0 = a;
+        const uint8 *d1 = b;
 
         float *end = ave_a.Pointer(size);
 

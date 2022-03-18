@@ -93,18 +93,22 @@ struct DataStruct
 };
 
 
-// Структура хранит в себе ссылки на данные, хранящиеся в хранилище. Их нельзя изменять
+// Структура хранит в себе ссылки на данные, хранящиеся в хранилище. Их нельзя изменять.
+// Это такая обёртка
 struct DataFrame
 {
-    DataSettings *ds;
+    const DataSettings *ds;
 
     DataFrame(DataSettings *_ds) : ds(_ds) { };
 
     // Начало данных канала
-    uint8 *DataBegin(Chan);
+    const uint8 *DataBegin(Chan);
 
     // Конец данных канала
-    uint8 *DataEnd(Chan);
+    const uint8 *DataEnd(Chan);
+
+    // Заполнить данные в хранилещие по адресу dest данными из src
+    void FillData(DataStruct &src, DataSettings *dest);
 };
 
 
