@@ -38,8 +38,6 @@ namespace FPGA
 
     DataStruct data;            // —юда будем читать данные
 
-    int addition_shift = 0;
-
     volatile static int numberMeasuresForGates = 1000;
 
     bool IN_PROCESS_READ = false;
