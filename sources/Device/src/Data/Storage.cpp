@@ -16,6 +16,8 @@
 
 namespace Storage
 {
+    WorkingFrame working;
+
     // Количество отведённой для измерений памяти.
     const int SIZE_POOL = (30 * 1024);
 

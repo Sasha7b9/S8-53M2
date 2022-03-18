@@ -6,8 +6,17 @@
 #include "Utils/Containers/Buffer.h"
 
 
+// Это рабочий фрейм - сюда будем читать даныне перед тем, как сохранить в Storage
+struct WorkingFrame : public DataSettings
+{
+
+};
+
+
 namespace Storage
 {
+    extern WorkingFrame working;
+
     // Удаление всех сохранённых измерений
     void Clear();
 
