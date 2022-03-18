@@ -113,27 +113,6 @@ void Storage::AddData(DataStruct &data)
 }
 
 
-void Storage::OpenFrame()
-{
-    DataSettings ds;
-    ds.Init();
-
-    PrepareNewFrame(ds);
-}
-
-
-void Storage::CloseFrame()
-{
-    DataSettings *ds = GetDataSettings(0);
-
-    ds->time = HAL_RTC::GetPackedTime();
-
-    CalculateLimits(ds, ds->DataBegin(ChA), ds->DataEnd(ChB));
-
-    Averager::Append(ds);
-}
-
-
 int Storage::NumFrames()
 {
     return count_data;
