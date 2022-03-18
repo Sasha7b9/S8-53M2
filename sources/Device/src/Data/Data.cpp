@@ -18,3 +18,22 @@ void DataStruct::Log(pchar point)
     LOG_WRITE("%s - data valid = %d", point, Valid());
     SU::LogBufferU8(Data(ChA).Data(), 10);
 }
+
+
+uint8 *DataSettings::DataBegin(Chan ch)
+{
+    uint8 *address = (uint8 *)this + sizeof(DataSettings);
+
+    if (ch.IsB())
+    {
+        address += BytesInChannel();
+    }
+
+    return address;
+}
+
+
+uint8 *DataSettings::DataEnd(Chan ch)
+{
+    return DataBegin(ch) + BytesInChannel();
+}
