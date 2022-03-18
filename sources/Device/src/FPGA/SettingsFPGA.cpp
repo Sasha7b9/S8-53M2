@@ -361,8 +361,6 @@ void RShift::Set(Chan ch, int16 rShift)
     SET_RSHIFT(ch) = rShift;
     Load(ch.value);
 
-    Event::OnChnagedSetting();
-
     Display::RotateRShift(ch.value);
 };
 
