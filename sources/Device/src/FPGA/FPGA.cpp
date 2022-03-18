@@ -210,7 +210,7 @@ void FPGA::Start()
 {
     if (TBase::InModeP2P())
     {
-        Storage::P2P::CreateFrame();
+        Storage::CreateFrameP2P();
         Timer::Enable(TypeTimer::P2P, 1, ReadPoint);
     }
     else
