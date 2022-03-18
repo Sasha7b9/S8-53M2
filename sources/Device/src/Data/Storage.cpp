@@ -52,6 +52,9 @@ namespace Storage
     // Удалить последнее (самое новое) измерение
     void RemoveLastFrame();
 
+    // Подготовить новый фрейм для данных с настройками в ds
+    DataSettings *PrapareNewFrame(DataSettings &ds);
+
     // Сохранить данные
     void PushData(DataSettings *, const uint8 *dataA, const uint8 *dataB);
 
@@ -109,7 +112,14 @@ void Storage::AddData(DataStruct &data)
 }
 
 
+void Storage::CreateFrame()
+{
+    DataSettings ds;
+    ds.Init();
+    ds.time = HAL_RTC::GetPackedTime();
 
+    PrapareNewFrame(ds);
+}
 
 
 int Storage::NumFrames()
@@ -273,9 +283,9 @@ int Storage::NumberAvailableEntries()
 }
 
 
-void Storage::PushData(DataSettings *dp, const uint8 *a, const uint8 *b)
+DataSettings *Storage::PrapareNewFrame(DataSettings &ds)
 {
-    int required = dp->SizeFrame();
+    int required = ds.SizeFrame();
 
     while (MemoryFree() < required)
     {
@@ -288,34 +298,38 @@ void Storage::PushData(DataSettings *dp, const uint8 *a, const uint8 *b)
     {
         first_ds = (DataSettings *)beginPool;
         addrRecord = beginPool;
-        dp->prev = nullptr;
-        dp->next = nullptr;
+        ds.prev = nullptr;
+        ds.next = nullptr;
     }
     else
     {
         addrRecord = (uint8 *)last_ds + last_ds->SizeFrame();
 
-        if (addrRecord + dp->SizeFrame() > endPool)
+        if (addrRecord + ds.SizeFrame() > endPool)
         {
             addrRecord = beginPool;
         }
 
-        dp->prev = last_ds;
+        ds.prev = last_ds;
         last_ds->next = addrRecord;
-        dp->next = nullptr;
+        ds.next = nullptr;
     }
 
     last_ds = (DataSettings *)addrRecord;
 
-#define COPY_AND_INCREASE(address, data, length) std::memcpy((address), (data), (length)); address += (length);
+    std::memcpy(last_ds, &ds, sizeof(DataSettings));
 
-    COPY_AND_INCREASE(addrRecord, dp, sizeof(DataSettings));
+    return (DataSettings *)last_ds;
+}
 
-    uint bytes_in_channel = (uint)dp->BytesInChannel();
 
-    COPY_AND_INCREASE(addrRecord, a, bytes_in_channel);
+void Storage::PushData(DataSettings *dp, const uint8 *a, const uint8 *b)
+{
+    DataSettings *new_frame = PrapareNewFrame(*dp);
 
-    COPY_AND_INCREASE(addrRecord, b, bytes_in_channel);
+    std::memcpy(new_frame->GetDataBegin(ChA), a, (uint)new_frame->BytesInChannel());
+
+    std::memcpy(new_frame->GetDataBegin(ChB), b, (uint)new_frame->BytesInChannel());
 }
 
 
