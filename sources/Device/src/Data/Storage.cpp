@@ -348,12 +348,6 @@ int Storage::MemoryFree()
 }
 
 
-int DataSettings::SizeFrame()
-{
-    return (int)sizeof(DataSettings) + 2 * BytesInChannel();
-}
-
-
 void Storage::RemoveFirstFrame()
 {
     if (first_ds)
@@ -419,31 +413,26 @@ bool Storage::SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1)
 }
 
 
-void Storage::P2P::CreateFrame(const DataSettings &_ds)
+void Storage::P2P::CreateFrame()
 {
+    DataSettings new_ds;
+    new_ds.Init();
+
     if (Storage::NumFrames() == 0)
     {
-        AppendFrame(_ds);
+        AppendFrame(new_ds);
     }
     else
     {
         DataSettings *ds = GetDataSettings(0);
 
-        if (ds->InModeP2P())
+        if (ds->InModeP2P() && ds->Equal(new_ds))
         {
-            if (ds->Equal(_ds))
-            {
-                ds->rec_point = 0;
-                ds->all_points = 0;
-            }
-            else
-            {
-                AppendFrame(_ds);
-            }
+            ds->ResetP2P();
         }
         else
         {
-            AppendFrame(_ds);
+            AppendFrame(new_ds);
         }
     }
 }

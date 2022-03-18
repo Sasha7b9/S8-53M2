@@ -7,5 +7,4 @@
 
 namespace Event
 {
-    void OnChnagedSetting();
 }
