@@ -440,14 +440,14 @@ void Storage::CreateFrameP2P(const DataSettings &_ds)
 
 void Storage::AppendFrameP2P(DataSettings ds)
 {
-    ds.ResetP2P();
-
     int num_bytes = ds.BytesInChannel();
 
     DataStruct data;
     data.ds.Set(ds);
     data.A.Realloc(num_bytes, ValueFPGA::NONE);
     data.A.Realloc(num_bytes, ValueFPGA::NONE);
+
+    ds.ResetP2P();
 
     AddData(data);
 }
