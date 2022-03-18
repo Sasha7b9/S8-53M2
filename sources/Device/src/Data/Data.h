@@ -36,6 +36,7 @@ struct DataSettings
     Divider::E          div_a               : 1;
     Divider::E          div_b               : 1;
     uint                valid               : 1;
+    uint                closed              : 1;    // Фрейм закрыт - в нём информация, которую можно выводить
     PackedTime          time;
     // Поточечный режим
     int16               rec_point;                  // Сейчас будет записана эта точка. Если -1 - то фрейм не поточечный. Он считан полностью

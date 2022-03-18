@@ -94,24 +94,6 @@ void Storage::ClearLimitsAndSums()
 }
 
 
-//void Storage::AddData(DataStruct &data)
-//{
-//    LOG_WRITE("number frames = %d", NumFrames());
-//
-//    data.ds.time = HAL_RTC::GetPackedTime();
-//
-//    CalculateLimits(&data.ds, data.A.Data(), data.B.Data());
-//
-//    DataSettings *frame = PrepareNewFrame(data.ds);
-//
-//    std::memcpy(frame->DataBegin(ChA), data.A.Data(), (uint)frame->BytesInChannel());
-//
-//    std::memcpy(frame->DataBegin(ChB), data.B.Data(), (uint)frame->BytesInChannel());
-//
-//    Averager::Append(frame);
-//}
-
-
 void Storage::OpenFrame()
 {
     DataSettings ds;
@@ -221,6 +203,16 @@ void Storage::CloseFrame()
     CalculateLimits(ds, ds->DataBegin(ChA), ds->DataEnd(ChB));
 
     Averager::Append(ds);
+
+    if (NumOpenedFrames() == 5)
+    {
+        SU::LogBufferU8("1:", ds->DataBegin(ChA), 10);
+    }
+
+    if (NumOpenedFrames() == 20)
+    {
+        SU::LogBufferU8("2:", ds->DataBegin(ChA), 15);
+    }
 }
 
 
@@ -232,19 +224,20 @@ bool Storage::GetData(int fromEnd, DataStruct &data)
     {
         data.ds.valid = 0;
 
+        LOG_WRITE("Нет данных");
+
         return false;
     }
 
-    if (NumFrames() == 5)
+    if (NumOpenedFrames() == 5)
     {
-        SU::LogBufferU8(ds->DataBegin(ChA), 10);
+        SU::LogBufferU8("3:", ds->DataBegin(ChA), 10);
     }
 
     if (NumOpenedFrames() == 20)
     {
-        SU::LogBufferU8(ds->DataBegin(ChA), 15);
+        SU::LogBufferU8("4:", ds->DataBegin(ChA), 15);
     }
-
 
     data.ds.Set(*ds);
 
@@ -333,6 +326,8 @@ DataSettings *Storage::PrepareNewFrame(DataSettings &ds)
     last_ds = (DataSettings *)addrRecord;
 
     std::memcpy(addrRecord, &ds, sizeof(DataSettings));
+
+    last_ds->closed = 0;
 
     num_frames++;
 
@@ -464,14 +459,7 @@ void Storage::CreateFrameP2P(const DataSettings &_ds)
 
 void Storage::AppendFrameP2P(DataSettings ds)
 {
-    int num_bytes = ds.BytesInChannel();
-
-    DataStruct data;
-    data.ds.Set(ds);
-    data.A.Realloc(num_bytes, ValueFPGA::NONE);
-    data.A.Realloc(num_bytes, ValueFPGA::NONE);
-
     ds.ResetP2P();
 
-//    AddData(data);
+    PrepareNewFrame(ds);
 }
