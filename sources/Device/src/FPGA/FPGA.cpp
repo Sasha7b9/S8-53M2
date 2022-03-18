@@ -73,6 +73,8 @@ namespace FPGA
     // Эта функция вызывается по таймеру, когда можно считывать новыый сигнал
     void OnTimerCanReadData();
 
+    void ProcessP2P();
+
     namespace FreqMeter
     {
         void Update(uint16 flag);
@@ -209,15 +211,8 @@ void FPGA::SwitchingTrig()
 }
 
 
-void FPGA::Start()
+void FPGA::ProcessP2P()
 {
-    if (!TBase::InModeRandomizer())
-    {
-        ClearData();
-    }
-
-    data.ds.Init();
-
     if (TBase::InModeP2P())
     {
         Storage::CreateFrameP2P(data.ds);
@@ -227,6 +222,19 @@ void FPGA::Start()
     {
         Timer::Disable(TypeTimer::P2P);
     }
+}
+
+
+void FPGA::Start()
+{
+    if (!TBase::InModeRandomizer())
+    {
+        ClearData();
+    }
+
+    data.ds.Init();
+
+    ProcessP2P();
 
     HAL_FMC::Write(WR_PRED, FPGA::Launch::PredForWrite());
     HAL_FMC::Write(WR_START, 1);
