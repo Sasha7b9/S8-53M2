@@ -43,8 +43,6 @@ namespace Storage
     // Всего данных сохранено
     int num_frames = 0;
 
-    int opened_frames = 0;
-
     // Возвращает количество свободной памяти в байтах
     int MemoryFree();
 
@@ -100,20 +98,12 @@ void Storage::OpenFrame()
     ds.Init();
 
     PrepareNewFrame(ds);
-
-    opened_frames++;
 }
 
 
 int Storage::NumFrames()
 {
     return num_frames;
-}
-
-
-int Storage::NumOpenedFrames()
-{
-    return opened_frames;
 }
 
 
@@ -165,6 +155,7 @@ int Storage::NumFramesWithSameSettings()
 {
     int retValue = 0;
     int numElements = NumFrames();
+
     for (retValue = 1; retValue < numElements; retValue++)
     {
         if (!SettingsIsIdentical(retValue, retValue - 1))
@@ -203,16 +194,6 @@ void Storage::CloseFrame()
     CalculateLimits(ds, ds->DataBegin(ChA), ds->DataEnd(ChB));
 
     Averager::Append(ds);
-
-    if (NumOpenedFrames() == 5)
-    {
-        SU::LogBufferU8("1:", ds->DataBegin(ChA), 10);
-    }
-
-    if (NumOpenedFrames() == 20)
-    {
-        SU::LogBufferU8("2:", ds->DataBegin(ChA), 15);
-    }
 }
 
 
@@ -227,16 +208,6 @@ bool Storage::GetData(int fromEnd, DataStruct &data)
         LOG_WRITE("Нет данных");
 
         return false;
-    }
-
-    if (NumOpenedFrames() == 5)
-    {
-        SU::LogBufferU8("3:", ds->DataBegin(ChA), 10);
-    }
-
-    if (NumOpenedFrames() == 20)
-    {
-        SU::LogBufferU8("4:", ds->DataBegin(ChA), 15);
     }
 
     data.ds.Set(*ds);
