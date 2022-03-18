@@ -43,6 +43,8 @@ namespace Storage
     // Всего данных сохранено
     int num_frames = 0;
 
+    int opened_frames = 0;
+
     // Возвращает количество свободной памяти в байтах
     int MemoryFree();
 
@@ -62,9 +64,6 @@ namespace Storage
     void ClearLimitsAndSums();
 
     void CalculateLimits(const DataSettings *, const uint8 *dataA, const uint8 *dataB);
-
-    // Копирует данные канала chan из, определяемые ds, в одну из двух строк массива dataImportRel
-    void CopyData(DataSettings *, Chan ch, BufferFPGA &);
 
     // тупо добавляет новый фрейм
     void AppendFrameP2P(DataSettings);
@@ -115,12 +114,12 @@ void Storage::ClearLimitsAndSums()
 
 void Storage::OpenFrame()
 {
-    LOG_WRITE("number frames = %d", NumFrames());
-
     DataSettings ds;
     ds.Init();
 
     PrepareNewFrame(ds);
+
+    opened_frames++;
 }
 
 
@@ -139,6 +138,12 @@ void Storage::CloseFrame()
 int Storage::NumFrames()
 {
     return num_frames;
+}
+
+
+int Storage::NumOpenedFrames()
+{
+    return opened_frames;
 }
 
 
@@ -226,14 +231,14 @@ bool Storage::GetData(int fromEnd, DataStruct &data)
     if (dp == nullptr)
     {
         data.ds.valid = 0;
+
         return false;
     }
 
     data.ds.Set(*dp);
 
-    CopyData(dp, Chan::A, data.A);
-
-    CopyData(dp, Chan::B, data.B);
+    data.A.FromBuffer(dp->DataBegin(ChA), dp->BytesInChannel());
+    data.B.FromBuffer(dp->DataBegin(ChB), dp->BytesInChannel());
 
     return true;
 }
@@ -251,21 +256,6 @@ uint8 *Storage::GetData(Chan ch, int fromEnd)
     uint8 *address = (uint8 *)ds + sizeof(DataSettings);
 
     return ch.IsA() ? address : (address + ds->BytesInChannel());
-}
-
-
-void Storage::CopyData(DataSettings *ds, Chan ch, BufferFPGA &data)
-{
-    uint8 *address = ((uint8 *)ds + sizeof(DataSettings));
-
-    uint length = (uint)ds->BytesInChannel();
-
-    if (ch.IsB())
-    {
-        address += length;
-    }
-
-    data.FromBuffer(address, (int)length);
 }
 
 

@@ -152,18 +152,18 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>30</LineNumber>
+          <LineNumber>234</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134376374</Address>
+          <Address>134502900</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;2&gt;.\src\Hardware\HAL\HAL_IT.cpp</Filename>
+          <Filename>&lt;2&gt;.\src\Data\Storage.cpp</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\S8_53\src/Hardware/HAL/HAL_IT.cpp\30</Expression>
+          <Expression>\\S8_53\src/Data/Storage.cpp\234</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -193,6 +193,14 @@
           <ItemText>last</ItemText>
         </Ww>
       </WatchWindow1>
+      <MemoryWindow1>
+        <Mm>
+          <WinNumber>1</WinNumber>
+          <SubType>256</SubType>
+          <ItemText>data</ItemText>
+          <AccSizeX>0</AccSizeX>
+        </Mm>
+      </MemoryWindow1>
       <Tracepoint>
         <THDelay>0</THDelay>
       </Tracepoint>
@@ -1643,7 +1651,7 @@
 
   <Group>
     <GroupName>Data</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

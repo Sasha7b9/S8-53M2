@@ -26,6 +26,8 @@ namespace Storage
     // —колько всего измерений сохранено в пам€ти.
     int NumFrames();
 
+    int NumOpenedFrames();
+
     // ¬озвращает число непрерывных измерений, начина€ с последнего, с такими же настройками, как у последнего.
     int NumFramesWithSameSettings();
 

@@ -100,13 +100,9 @@ void Device::ProcessingSignal()
         return;
     }
 
-    DataStruct data;
-
     if (MODE_WORK_IS_DIRECT)
     {
         Storage::GetData(0, Data::dir);
-
-        data = Data::dir;
 
         if (ModeAveraging::GetNumber() != 1 || TBase::InModeRandomizer())
         {
@@ -118,14 +114,10 @@ void Device::ProcessingSignal()
     else if (MODE_WORK_IS_LATEST)
     {
         Storage::GetData(PageMemory::Latest::current, Data::last);
-
-        data = Data::last;
     }
     else if (MODE_WORK_IS_MEMINT)
     {
         HAL_ROM::GetData(PageMemory::Internal::currentSignal, Data::ins);
-
-        data = Data::ins;
     }
 
     PageCursors::Cursors_Update();    // В случае, если находимся в режиме курсорных измерений, обновляем их положение, если нужно.
