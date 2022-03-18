@@ -72,6 +72,11 @@ struct DataSettings
     // Добавить точки в поточечном режиме
     void AppendPoints(BitSet16 pointsA, BitSet16 pointsB);
 
+    // Начало данных канала
+    uint8 *DataBegin(Chan);
+
+    // Конец данных канала
+    uint8 *DataEnd(Chan);
 };
 
 

@@ -52,8 +52,8 @@ namespace Storage
     // Удалить последнее (самое новое) измерение
     void RemoveLastFrame();
 
-    // Сохранить данные
-    void PushData(DataSettings *, const uint8 *dataA, const uint8 *dataB);
+    // Подготовить новый фрейм для записи в него данных. Записывает в него данные из ds
+    DataSettings *PrepareNewFrame(DataSettings &ds);
 
     // Возвращает true, если настройки измерений с индексами elemFromEnd0 и elemFromEnd1 совпадают, и false в ином случае.
     bool SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1);
@@ -97,13 +97,17 @@ void Storage::ClearLimitsAndSums()
 
 void Storage::AddData(DataStruct &data)
 {
+    LOG_WRITE("number frames = %d", NumFrames());
+
     data.ds.time = HAL_RTC::GetPackedTime();
 
     CalculateLimits(&data.ds, data.A.Data(), data.B.Data());
 
-    PushData(&data.ds, data.A.Data(), data.B.Data());
+    DataSettings *frame = PrepareNewFrame(data.ds);
 
-    count_data++;
+    std::memcpy(frame->DataBegin(ChA), data.A.Data(), (uint)frame->BytesInChannel());
+
+    std::memcpy(frame->DataBegin(ChB), data.B.Data(), (uint)frame->BytesInChannel());
 
     Averager::Append(data);
 }
@@ -270,9 +274,9 @@ int Storage::NumberAvailableEntries()
 }
 
 
-void Storage::PushData(DataSettings *dp, const uint8 *a, const uint8 *b)
+DataSettings *Storage::PrepareNewFrame(DataSettings &ds)
 {
-    int required = dp->SizeFrame();
+    int required = ds.SizeFrame();
 
     while (MemoryFree() < required)
     {
@@ -285,34 +289,30 @@ void Storage::PushData(DataSettings *dp, const uint8 *a, const uint8 *b)
     {
         first_ds = (DataSettings *)beginPool;
         addrRecord = beginPool;
-        dp->prev = nullptr;
-        dp->next = nullptr;
+        ds.prev = nullptr;
+        ds.next = nullptr;
     }
     else
     {
         addrRecord = (uint8 *)last_ds + last_ds->SizeFrame();
 
-        if (addrRecord + dp->SizeFrame() > endPool)
+        if (addrRecord + ds.SizeFrame() > endPool)
         {
             addrRecord = beginPool;
         }
 
-        dp->prev = last_ds;
+        ds.prev = last_ds;
         last_ds->next = addrRecord;
-        dp->next = nullptr;
+        ds.next = nullptr;
     }
 
     last_ds = (DataSettings *)addrRecord;
 
-#define COPY_AND_INCREASE(address, data, length) std::memcpy((address), (data), (length)); address += (length);
+    std::memcpy(addrRecord, &ds, sizeof(DataSettings));
 
-    COPY_AND_INCREASE(addrRecord, dp, sizeof(DataSettings));
+    count_data++;
 
-    uint bytes_in_channel = (uint)dp->BytesInChannel();
-
-    COPY_AND_INCREASE(addrRecord, a, bytes_in_channel);
-
-    COPY_AND_INCREASE(addrRecord, b, bytes_in_channel);
+    return last_ds;
 }
 
 
