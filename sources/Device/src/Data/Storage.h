@@ -12,7 +12,7 @@ namespace Storage
     void Clear();
 
     // Добавить считанные данные. При этом настройками считаются текущие настройки прибора.
-    void AddData(DataStruct &);
+//    void AddData(DataStruct &);
 
     // Создание нового фрейма. Он последний в хранилище и в него будут записаны данные
     void OpenFrame();

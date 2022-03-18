@@ -95,26 +95,28 @@ void Storage::ClearLimitsAndSums()
 }
 
 
-void Storage::AddData(DataStruct &data)
-{
-    LOG_WRITE("number frames = %d", NumFrames());
-
-    data.ds.time = HAL_RTC::GetPackedTime();
-
-    CalculateLimits(&data.ds, data.A.Data(), data.B.Data());
-
-    DataSettings *frame = PrepareNewFrame(data.ds);
-
-    std::memcpy(frame->DataBegin(ChA), data.A.Data(), (uint)frame->BytesInChannel());
-
-    std::memcpy(frame->DataBegin(ChB), data.B.Data(), (uint)frame->BytesInChannel());
-
-    Averager::Append(frame);
-}
+//void Storage::AddData(DataStruct &data)
+//{
+//    LOG_WRITE("number frames = %d", NumFrames());
+//
+//    data.ds.time = HAL_RTC::GetPackedTime();
+//
+//    CalculateLimits(&data.ds, data.A.Data(), data.B.Data());
+//
+//    DataSettings *frame = PrepareNewFrame(data.ds);
+//
+//    std::memcpy(frame->DataBegin(ChA), data.A.Data(), (uint)frame->BytesInChannel());
+//
+//    std::memcpy(frame->DataBegin(ChB), data.B.Data(), (uint)frame->BytesInChannel());
+//
+//    Averager::Append(frame);
+//}
 
 
 void Storage::OpenFrame()
 {
+    LOG_WRITE("number frames = %d", NumFrames());
+
     DataSettings ds;
     ds.Init();
 
@@ -470,5 +472,5 @@ void Storage::AppendFrameP2P(DataSettings ds)
 
     ds.ResetP2P();
 
-    AddData(data);
+//    AddData(data);
 }
