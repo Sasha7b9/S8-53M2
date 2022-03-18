@@ -107,21 +107,21 @@ void Storage::AddData(DataStruct &data)
 
     DataFrame frame(ds);
 
-    frame.FillData(data, ds);
+    frame.FillDataFromStruct(data);
 
     Averager::Append(ds);
 }
 
 
-void DataFrame::FillData(DataStruct &src, DataSettings *dest)
+void DataFrame::FillDataFromStruct(DataStruct &data)
 {
-    uint8 *address = (uint8 *)dest + sizeof(*dest);
+    uint8 *address = (uint8 *)ds + sizeof(*ds);
 
-    std::memcpy(address, src.A.Data(), (uint)src.ds.BytesInChannel());
+    std::memcpy(address, data.A.Data(), (uint)ds->BytesInChannel());
 
-    address += dest->BytesInChannel();
+    address += ds->BytesInChannel();
 
-    std::memcpy(address, src.B.Data(), (uint)src.ds.BytesInChannel());
+    std::memcpy(address, data.B.Data(), (uint)ds->BytesInChannel());
 }
 
 

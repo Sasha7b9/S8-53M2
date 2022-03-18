@@ -107,8 +107,8 @@ struct DataFrame
     // Конец данных канала
     const uint8 *DataEnd(Chan);
 
-    // Заполнить данные в хранилещие по адресу dest данными из src
-    void FillData(DataStruct &src, DataSettings *dest);
+    // Заполнить фрейм ds из DataStruct
+    void FillDataFromStruct(DataStruct &);
 };
 
 
