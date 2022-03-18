@@ -41,7 +41,7 @@ namespace Storage
     DataSettings *last_ds = nullptr;
 
     // ¬сего данных сохранено
-    int count_data = 0;
+    int num_frames = 0;
 
     // ¬озвращает количество свободной пам€ти в байтах
     int MemoryFree();
@@ -138,7 +138,7 @@ void Storage::CloseFrame()
 
 int Storage::NumFrames()
 {
-    return count_data;
+    return num_frames;
 }
 
 
@@ -333,7 +333,7 @@ DataSettings *Storage::PrepareNewFrame(DataSettings &ds)
 
     std::memcpy(addrRecord, &ds, sizeof(DataSettings));
 
-    count_data++;
+    num_frames++;
 
     return last_ds;
 }
@@ -380,7 +380,7 @@ void Storage::RemoveFirstFrame()
     {
         first_ds = (DataSettings *)first_ds->next;
         first_ds->prev = nullptr;
-        count_data--;
+        num_frames--;
     }
 }
 
@@ -400,7 +400,7 @@ void Storage::RemoveLastFrame()
             first_ds = nullptr;
         }
 
-        count_data--;
+        num_frames--;
     }
 }
 
