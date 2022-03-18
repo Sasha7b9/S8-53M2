@@ -108,7 +108,7 @@ struct DataFrame
     const uint8 *DataEnd(Chan);
 
     // Заполнить фрейм ds из DataStruct
-    void FillDataFromStruct(DataStruct &);
+    void GetDataChannelsFromStruct(DataStruct &);
 };
 
 

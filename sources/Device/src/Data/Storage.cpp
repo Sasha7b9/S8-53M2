@@ -107,13 +107,13 @@ void Storage::AddData(DataStruct &data)
 
     DataFrame frame(ds);
 
-    frame.FillDataFromStruct(data);
+    frame.GetDataChannelsFromStruct(data);
 
     Averager::Append(ds);
 }
 
 
-void DataFrame::FillDataFromStruct(DataStruct &data)
+void DataFrame::GetDataChannelsFromStruct(DataStruct &data)
 {
     uint8 *address = (uint8 *)ds + sizeof(*ds);
 
