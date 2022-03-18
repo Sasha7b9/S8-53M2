@@ -35,10 +35,10 @@ namespace Storage
     uint8 lim_down[Chan::Count][FPGA::MAX_POINTS * 2];
 
     // Указатель на первые сохранённые данные
-    DataSettings *first_ds = nullptr;
+    DataSettings *first = nullptr;
 
     // Указатель на последние сохранённые данные
-    DataSettings *last_ds = nullptr;
+    DataSettings *last = nullptr;
 
     // Всего данных сохранено
     int count_data = 0;
@@ -82,9 +82,9 @@ void DataSettings::PrintElement()
 
 void Storage::Clear()
 {
-    first_ds = nullptr;
-    last_ds = (DataSettings *)beginPool;
-    last_ds->next = last_ds->prev = nullptr;
+    first = nullptr;
+    last = (DataSettings *)beginPool;
+    last->next = last->prev = nullptr;
     ClearLimitsAndSums();
 }
 
@@ -276,12 +276,12 @@ uint8 *Storage::GetLimitation(Chan ch, int direction)
 
 int Storage::NumberAvailableEntries()
 {
-    if (first_ds == nullptr)
+    if (first == nullptr)
     {
         return 0;
     }
 
-    return SIZE_POOL / last_ds->SizeFrame();
+    return SIZE_POOL / last->SizeFrame();
 }
 
 
@@ -299,41 +299,43 @@ void Storage::CreateFrame()
 
 DataSettings *Storage::PrapareNewFrame(DataSettings &ds)
 {
+    VCP_DEBUG_POINT();
+
     int required = ds.SizeFrame();
+
+    VCP_FORMAT_TRACE("memory free %d", MemoryFree());
 
     while (MemoryFree() < required)
     {
-        int memory_free = MemoryFree();
-
-        VCP_FORMAT_TRACE("memory free %d", memory_free);
+        VCP_FORMAT_TRACE("memory free %d", MemoryFree());
 
         RemoveFirstFrame();
     }
 
     uint8 *address = nullptr;
 
-    if (first_ds == nullptr)
+    if (first == nullptr)
     {
-        first_ds = (DataSettings *)beginPool;
+        first = (DataSettings *)beginPool;
         address = beginPool;
         ds.prev = nullptr;
         ds.next = nullptr;
     }
     else
     {
-        address = (uint8 *)last_ds + last_ds->SizeFrame();
+        address = (uint8 *)last + last->SizeFrame();
 
         if (address + ds.SizeFrame() > endPool)
         {
             address = beginPool;
         }
 
-        ds.prev = last_ds;
-        last_ds->next = address;
+        ds.prev = last;
+        last->next = address;
         ds.next = nullptr;
     }
 
-    last_ds = (DataSettings *)address;
+    last = (DataSettings *)address;
 
     std::memcpy(address, &ds, sizeof(DataSettings));
 
@@ -353,28 +355,28 @@ void Storage::PushData(DataSettings *dp, const uint8 *a, const uint8 *b)
 
 int Storage::MemoryFree()
 {
-    if (first_ds == nullptr)
+    if (first == nullptr)
     {
         return SIZE_POOL;
     }
-    else if (first_ds == last_ds)
+    else if (first == last)
     {
-        return (endPool - (uint8 *)first_ds - (int)first_ds->SizeFrame());
+        return (endPool - (uint8 *)first - (int)first->SizeFrame());
     }
-    else if (first_ds < last_ds)
+    else if (first < last)
     {
-        if ((uint8 *)first_ds == beginPool)
+        if ((uint8 *)first == beginPool)
         {
-            return (endPool - (uint8 *)last_ds - last_ds->SizeFrame());
+            return (endPool - (uint8 *)last - last->SizeFrame());
         }
         else
         {
-            return (uint8 *)first_ds - beginPool;
+            return (uint8 *)first - beginPool;
         }
     }
-    else if (last_ds < first_ds)
+    else if (last < first)
     {
-        return (uint8 *)first_ds - (uint8 *)last_ds - last_ds->SizeFrame();
+        return (uint8 *)first - (uint8 *)last - last->SizeFrame();
     }
 
     return 0;
@@ -383,12 +385,12 @@ int Storage::MemoryFree()
 
 void Storage::RemoveFirstFrame()
 {
-    if (first_ds)
+    if (first)
     {
-        VCP_FORMAT_TRACE("first_ds->next = %x, count_data = %d", first_ds->next, count_data);
+        VCP_FORMAT_TRACE("first->next = %x, count_data = %d", first->next, count_data);
 
-        first_ds = (DataSettings *)first_ds->next;
-        first_ds->prev = nullptr;
+        first = (DataSettings *)first->next;
+        first->prev = nullptr;
         count_data--;
     }
 }
@@ -396,17 +398,17 @@ void Storage::RemoveFirstFrame()
 
 void Storage::RemoveLastFrame()
 {
-    if (last_ds)
+    if (last)
     {
-        if (last_ds->prev)
+        if (last->prev)
         {
-            DataSettings *ds = (DataSettings *)last_ds->prev;
+            DataSettings *ds = (DataSettings *)last->prev;
             ds->next = nullptr;
         }
         else
         {
-            last_ds = nullptr;
-            first_ds = nullptr;
+            last = nullptr;
+            first = nullptr;
         }
 
         count_data--;
@@ -416,13 +418,13 @@ void Storage::RemoveLastFrame()
 
 DataSettings *Storage::GetDataSettings(int indexFromEnd)
 {
-    if (first_ds == nullptr)
+    if (first == nullptr)
     {
         return nullptr;
     }
 
     int index = indexFromEnd;
-    DataSettings *ds = last_ds;
+    DataSettings *ds = last;
 
     while (index != 0 && ((ds = (DataSettings *)ds->prev) != 0))
     {
