@@ -37,7 +37,7 @@ void Device::Init()
 
     Timer::PauseOnTime(250);
 
-    FPGA::OnPressStartStop();
+//    FPGA::OnPressStartStop();
 
     Display::Init();
 

@@ -88,6 +88,25 @@ void VCP::SendFormat(char *format, ...)
 }
 
 
+void VCP::SendFormatTrace(pchar module, pchar func, int line, char *format, ...)
+{
+    const int SIZE_BUFFER = 1024;
+
+    char buffer[SIZE_BUFFER];
+
+    std::va_list args;
+    va_start(args, format);
+    vsprintf(buffer, format, args);
+    va_end(args);
+
+    char message[SIZE_BUFFER];
+
+    std::sprintf(message, "%s   %s:%s:%d", buffer, module, func, line);
+
+    Send((uint8 *)message, (int)std::strlen(message) + 1);
+}
+
+
 void VCP::DebugPoint(pchar module, pchar function, int line)
 {
     static const int SIZE_BUFFER = 256;

@@ -15,6 +15,9 @@ namespace Storage
     // нужно заполнить его значениями по умолчанию
     void CreateFrame();
 
+    // После записи данные в поля фрейма нужно вызвать эту функцию
+    void CloseFrame();
+
     // Создать новый фрейм поточечного вывода.
     void CreateFrameP2P();
 
@@ -42,9 +45,4 @@ namespace Storage
     uint8* GetLimitation(Chan, int direction);
 
     int NumberAvailableEntries();
-
-    namespace P2P
-    {
-
-    }
 };

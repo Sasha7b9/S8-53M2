@@ -3,7 +3,7 @@
 
 
 //#define VCP_DEBUG_POINT()       VCP::DebugPoint(__MODULE__, __FUNCTION__, __LINE__)
-
+#define VCP_FORMAT_TRACE(...)   VCP::SendFormatTrace(__MODULE__, __FUNCTION__, __LINE__, __VA_ARGS__)
 
 
 namespace VCP
@@ -13,6 +13,8 @@ namespace VCP
     void Send(const uint8 *buffer, int size);
 
     void SendFormat(char *format, ...);
+
+    void SendFormatTrace(pchar module, pchar func, int line, char *format, ...);
 
     void DebugPoint(pchar module, pchar function, int line);
 

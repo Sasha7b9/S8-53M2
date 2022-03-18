@@ -339,6 +339,8 @@ void FPGA::DataRead()
         TRIG_AUTO_FIND = false;
     }
 
+    Storage::CloseFrame();
+
     IN_PROCESS_READ = false;
 }
 

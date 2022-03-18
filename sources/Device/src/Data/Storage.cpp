@@ -112,13 +112,15 @@ void Storage::AddData(DataStruct &data)
 }
 
 
-void Storage::CreateFrame()
+void Storage::CloseFrame()
 {
-    DataSettings ds;
-    ds.Init();
-    ds.time = HAL_RTC::GetPackedTime();
+    DataStruct data;
 
-    PrapareNewFrame(ds);
+    if (GetData(0, data))
+    {
+        CalculateLimits(&data.ds, data.A.Data(), data.B.Data());
+        Averager::Append(data);
+    }
 }
 
 
@@ -283,6 +285,18 @@ int Storage::NumberAvailableEntries()
 }
 
 
+void Storage::CreateFrame()
+{
+    DataSettings ds;
+    ds.Init();
+    ds.time = HAL_RTC::GetPackedTime();
+
+    PrapareNewFrame(ds);
+
+    count_data++;
+}
+
+
 DataSettings *Storage::PrapareNewFrame(DataSettings &ds)
 {
     int required = ds.SizeFrame();
@@ -292,34 +306,34 @@ DataSettings *Storage::PrapareNewFrame(DataSettings &ds)
         RemoveFirstFrame();
     }
 
-    uint8 *addrRecord = nullptr;
+    uint8 *address = nullptr;
 
     if (first_ds == nullptr)
     {
         first_ds = (DataSettings *)beginPool;
-        addrRecord = beginPool;
+        address = beginPool;
         ds.prev = nullptr;
         ds.next = nullptr;
     }
     else
     {
-        addrRecord = (uint8 *)last_ds + last_ds->SizeFrame();
+        address = (uint8 *)last_ds + last_ds->SizeFrame();
 
-        if (addrRecord + ds.SizeFrame() > endPool)
+        if (address + ds.SizeFrame() > endPool)
         {
-            addrRecord = beginPool;
+            address = beginPool;
         }
 
         ds.prev = last_ds;
-        last_ds->next = addrRecord;
+        last_ds->next = address;
         ds.next = nullptr;
     }
 
-    last_ds = (DataSettings *)addrRecord;
+    last_ds = (DataSettings *)address;
 
-    std::memcpy(last_ds, &ds, sizeof(DataSettings));
+    std::memcpy(address, &ds, sizeof(DataSettings));
 
-    return (DataSettings *)last_ds;
+    return (DataSettings *)address;
 }
 
 
@@ -358,6 +372,7 @@ int Storage::MemoryFree()
     {
         return (uint8 *)first_ds - (uint8 *)last_ds - last_ds->SizeFrame();
     }
+
     return 0;
 }
 

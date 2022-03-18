@@ -15,8 +15,6 @@
 extern "C" {
 #endif
 
-
-
     void NMI_Handler()
     {
     }
