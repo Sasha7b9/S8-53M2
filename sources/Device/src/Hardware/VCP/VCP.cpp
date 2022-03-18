@@ -84,7 +84,7 @@ void VCP::SendFormat(char *format, ...)
     va_end(args);
     std::strcat(buffer, "\n");
 
-    Send((uint8 *)buffer, (int)std::strlen(buffer));
+    Send((uint8 *)buffer, (int)std::strlen(buffer) + 1);
 }
 
 
