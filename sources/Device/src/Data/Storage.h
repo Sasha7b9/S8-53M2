@@ -7,8 +7,10 @@
 
 
 // Это рабочий фрейм - сюда будем читать даныне перед тем, как сохранить в Storage
-struct WorkingFrame : public DataSettings
+struct WorkingFrame
 {
+    DataSettings ds;
+
     // Поточечный режим
     int16  rec_point;   // Сейчас будет записана эта точка. Если -1 - то фрейм не поточечный. Он считан полностью
     int    all_points;  // Всего точек

@@ -431,7 +431,7 @@ void Storage::AppendFrameP2P(DataSettings ds)
 
 void WorkingFrame::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
 {
-    int max_bytes = BytesInChannel();
+    int max_bytes = ds.BytesInChannel();
 
     uint8 *a = (uint8 *)this + max_bytes;
     uint8 *b = a + max_bytes;
