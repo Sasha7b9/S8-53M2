@@ -9,7 +9,7 @@ namespace Averager
     void Append(DataSettings *ds);
 
     // Получить усреднённые данные по нескольким измерениям.
-    void GetData(DataStruct &);
+    void GetData(DataFrame &);
 
     // Сбросить настройки на настройки, соответствующие текущим
     void Reset();

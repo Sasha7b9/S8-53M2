@@ -27,7 +27,7 @@ namespace Storage
     int NumFramesWithCurrentSettings();
 
     // Получить указатель на данные
-    bool GetData(int fromEnd, DataStruct &);
+    bool GetData(int fromEnd, DataFrame &);
 
     // Возвращает указатель на данные, отстоящие на fromEnd oт последнего сохранённого
     DataSettings *GetDataSettings(int fromEnd);

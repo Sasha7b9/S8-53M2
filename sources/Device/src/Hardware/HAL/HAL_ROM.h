@@ -45,8 +45,8 @@ public:
     // Если даннные есть, соответствующий элемент массива равен true/.
     static void GetDataInfo(bool existData[MAX_NUM_SAVED_WAVES]);
     static bool ExistData(int num);
-    static void SaveData(int num, DataStruct &);
-    static bool GetData(int num, DataStruct &);
+    static void SaveData(int num, DataFrame &);
+    static bool GetData(int num, DataFrame &);
     static void DeleteData(int num);
     // Стирает сектора с данными
     static void EraseData();

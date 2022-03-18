@@ -99,7 +99,7 @@ struct DataFrame
 {
     const DataSettings *ds;
 
-    DataFrame(DataSettings *_ds) : ds(_ds) { };
+    DataFrame(DataSettings *_ds = nullptr) : ds(_ds) { };
 
     // Начало данных канала
     const uint8 *DataBegin(Chan);
@@ -114,7 +114,7 @@ struct DataFrame
 
 namespace Data
 {
-    extern DataStruct dir;             // Рисуемый сигнал
-    extern DataStruct last;
-    extern DataStruct ins;              // Здесь данные из ППЗУ, которые должны выводиться на экран
+    extern DataFrame dir;             // Рисуемый сигнал
+    extern DataFrame last;
+    extern DataFrame ins;              // Здесь данные из ППЗУ, которые должны выводиться на экран
 }
