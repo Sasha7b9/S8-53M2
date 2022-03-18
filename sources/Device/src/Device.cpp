@@ -37,7 +37,7 @@ void Device::Init()
 
     Timer::PauseOnTime(250);
 
-//    FPGA::OnPressStartStop();
+    FPGA::OnPressStartStop();
 
     Display::Init();
 
@@ -59,31 +59,17 @@ void Device::Update()
 
     Timer::StartMultiMeasurement();      // Сброс таймера для замера длительности временных интервалов в течение одной итерации цикла.
 
-    VCP_DEBUG_POINT();
-
     FDrive::Update();
-
-    VCP_DEBUG_POINT();
 
     FPGA::Update();                      // Обновляем аппаратную часть.
 
-    VCP_DEBUG_POINT();
-
     ProcessingSignal();
-
-    VCP_DEBUG_POINT();
 
     Panel::Update();
 
-    VCP_DEBUG_POINT();
-
     Menu::UpdateInput();                 // Обновляем состояние меню
 
-    VCP_DEBUG_POINT();
-
     Display::Update();                   // Рисуем экран.
-
-    VCP_DEBUG_POINT();
 
     Settings::SaveIfNeed();
 

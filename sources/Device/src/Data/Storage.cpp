@@ -35,19 +35,22 @@ namespace Storage
     uint8 lim_down[Chan::Count][FPGA::MAX_POINTS * 2];
 
     // Указатель на первые сохранённые данные
-    DataSettings *first = nullptr;
+    DataSettings *first_ds = nullptr;
 
-    // Указатель на последние сохранённые данные. Если данные только одни, то last == first
-    DataSettings *last = nullptr;
+    // Указатель на последние сохранённые данные
+    DataSettings *last_ds = nullptr;
 
     // Всего данных сохранено
-    int count_frames = 0;
+    int count_data = 0;
+
+    // Возвращает количество свободной памяти в байтах
+    int MemoryFree();
+
+    // Удалить первое (самое старое) измерение
+    void RemoveFirstFrame();
 
     // Удалить последнее (самое новое) измерение
     void RemoveLastFrame();
-
-    // Подготовить новый фрейм для данных с настройками в ds
-    DataSettings *PrapareNewFrame(DataSettings &ds);
 
     // Сохранить данные
     void PushData(DataSettings *, const uint8 *dataA, const uint8 *dataB);
@@ -63,8 +66,11 @@ namespace Storage
     // Копирует данные канала chan из, определяемые ds, в одну из двух строк массива dataImportRel
     void CopyData(DataSettings *, Chan ch, BufferFPGA &);
 
-    // Тупо добавляет новый фрейм для поточечного вывода
-    void AppendFrameP2P(DataSettings);
+    namespace P2P
+    {
+        // тупо добавляет новый фрейм
+        void AppendFrame(DataSettings);
+    }
 }
 
 
@@ -76,9 +82,9 @@ void DataSettings::PrintElement()
 
 void Storage::Clear()
 {
-    first = nullptr;
-    last = (DataSettings *)beginPool;
-    last->next = last->prev = nullptr;
+    first_ds = nullptr;
+    last_ds = (DataSettings *)beginPool;
+    last_ds->next = last_ds->prev = nullptr;
     ClearLimitsAndSums();
 }
 
@@ -100,27 +106,15 @@ void Storage::AddData(DataStruct &data)
 
     PushData(&data.ds, data.A.Data(), data.B.Data());
 
-    count_frames++;
+    count_data++;
 
     Averager::Append(data);
 }
 
 
-void Storage::CloseFrame()
-{
-    DataStruct data;
-
-    if (GetData(0, data))
-    {
-        CalculateLimits(&data.ds, data.A.Data(), data.B.Data());
-        Averager::Append(data);
-    }
-}
-
-
 int Storage::NumFrames()
 {
-    return count_frames;
+    return count_data;
 }
 
 
@@ -270,74 +264,136 @@ uint8 *Storage::GetLimitation(Chan ch, int direction)
 
 int Storage::NumberAvailableEntries()
 {
-    if (first == nullptr)
+    if (first_ds == nullptr)
     {
         return 0;
     }
 
-    return SIZE_POOL / last->SizeFrame();
-}
-
-
-void Storage::CreateFrame()
-{
-    VCP_FORMAT_TRACE("enter %d frames", count_frames);
-
-    DataSettings ds;
-    ds.Init();
-    ds.time = HAL_RTC::GetPackedTime();
-
-    PrapareNewFrame(ds);
-
-    VCP_FORMAT_TRACE("leave %d frames", count_frames);
-}
-
-
-DataSettings *Storage::PrapareNewFrame(DataSettings &ds)
-{
-
+    return SIZE_POOL / last_ds->SizeFrame();
 }
 
 
 void Storage::PushData(DataSettings *dp, const uint8 *a, const uint8 *b)
 {
-    DataSettings *new_frame = PrapareNewFrame(*dp);
+    int required = dp->SizeFrame();
 
-    std::memcpy(new_frame->GetDataBegin(ChA), a, (uint)new_frame->BytesInChannel());
+    while (MemoryFree() < required)
+    {
+        RemoveFirstFrame();
+    }
 
-    std::memcpy(new_frame->GetDataBegin(ChB), b, (uint)new_frame->BytesInChannel());
+    uint8 *addrRecord = nullptr;
+
+    if (first_ds == nullptr)
+    {
+        first_ds = (DataSettings *)beginPool;
+        addrRecord = beginPool;
+        dp->prev = nullptr;
+        dp->next = nullptr;
+    }
+    else
+    {
+        addrRecord = (uint8 *)last_ds + last_ds->SizeFrame();
+
+        if (addrRecord + dp->SizeFrame() > endPool)
+        {
+            addrRecord = beginPool;
+        }
+
+        dp->prev = last_ds;
+        last_ds->next = addrRecord;
+        dp->next = nullptr;
+    }
+
+    last_ds = (DataSettings *)addrRecord;
+
+#define COPY_AND_INCREASE(address, data, length) std::memcpy((address), (data), (length)); address += (length);
+
+    COPY_AND_INCREASE(addrRecord, dp, sizeof(DataSettings));
+
+    uint bytes_in_channel = (uint)dp->BytesInChannel();
+
+    COPY_AND_INCREASE(addrRecord, a, bytes_in_channel);
+
+    COPY_AND_INCREASE(addrRecord, b, bytes_in_channel);
+}
+
+
+int Storage::MemoryFree()
+{
+    if (first_ds == nullptr)
+    {
+        return SIZE_POOL;
+    }
+    else if (first_ds == last_ds)
+    {
+        return (endPool - (uint8 *)first_ds - (int)first_ds->SizeFrame());
+    }
+    else if (first_ds < last_ds)
+    {
+        if ((uint8 *)first_ds == beginPool)
+        {
+            return (endPool - (uint8 *)last_ds - last_ds->SizeFrame());
+        }
+        else
+        {
+            return (uint8 *)first_ds - beginPool;
+        }
+    }
+    else if (last_ds < first_ds)
+    {
+        return (uint8 *)first_ds - (uint8 *)last_ds - last_ds->SizeFrame();
+    }
+    return 0;
+}
+
+
+int DataSettings::SizeFrame()
+{
+    return (int)sizeof(DataSettings) + 2 * BytesInChannel();
+}
+
+
+void Storage::RemoveFirstFrame()
+{
+    if (first_ds)
+    {
+        first_ds = (DataSettings *)first_ds->next;
+        first_ds->prev = nullptr;
+        count_data--;
+    }
 }
 
 
 void Storage::RemoveLastFrame()
 {
-    if (last)
+    if (last_ds)
     {
-        if (last->prev)
+        if (last_ds->prev)
         {
-            DataSettings *ds = (DataSettings *)last->prev;
+            DataSettings *ds = (DataSettings *)last_ds->prev;
             ds->next = nullptr;
         }
         else
         {
-            last = nullptr;
-            first = nullptr;
+            last_ds = nullptr;
+            first_ds = nullptr;
         }
 
-        count_frames--;
+        count_data--;
     }
 }
 
 
 DataSettings *Storage::GetDataSettings(int indexFromEnd)
 {
-    if (first == nullptr)
+    if (first_ds == nullptr)
     {
         return nullptr;
     }
 
     int index = indexFromEnd;
-    DataSettings *ds = last;
+    DataSettings *ds = last_ds;
 
     while (index != 0 && ((ds = (DataSettings *)ds->prev) != 0))
     {
@@ -363,32 +419,37 @@ bool Storage::SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1)
 }
 
 
-void Storage::CreateFrameP2P()
+void Storage::P2P::CreateFrame(const DataSettings &_ds)
 {
-    DataSettings new_ds;
-    new_ds.Init();
-
     if (Storage::NumFrames() == 0)
     {
-        AppendFrameP2P(new_ds);
+        AppendFrame(_ds);
     }
     else
     {
         DataSettings *ds = GetDataSettings(0);
 
-        if (ds->InModeP2P() && ds->Equal(new_ds))
+        if (ds->InModeP2P())
         {
-            ds->ResetP2P();
+            if (ds->Equal(_ds))
+            {
+                ds->rec_point = 0;
+                ds->all_points = 0;
+            }
+            else
+            {
+                AppendFrame(_ds);
+            }
         }
         else
         {
-            AppendFrameP2P(new_ds);
+            AppendFrame(_ds);
         }
     }
 }
 
 
-void Storage::AppendFrameP2P(DataSettings ds)
+void Storage::P2P::AppendFrame(DataSettings ds)
 {
     ds.rec_point = 0;
     ds.all_points = 0;

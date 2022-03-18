@@ -36,6 +36,8 @@ namespace FPGA
 
     uint timeStart = 0;
 
+    DataStruct data;            // —юда будем читать данные
+
     int addition_shift = 0;
 
     volatile static int numberMeasuresForGates = 1000;
@@ -93,6 +95,7 @@ namespace FPGA
 
 void FPGA::Init()
 {
+    ClearData();
     Storage::Clear();
     FPGA::LoadSettings();
     FPGA::SetNumSignalsInSec(ENumSignalsInSec::ToNum(ENUM_SIGNALS_IN_SEC));
@@ -208,9 +211,16 @@ void FPGA::SwitchingTrig()
 
 void FPGA::Start()
 {
+    if (!TBase::InModeRandomizer())
+    {
+        ClearData();
+    }
+
+    data.ds.Init();
+
     if (TBase::InModeP2P())
     {
-        Storage::CreateFrameP2P();
+        Storage::P2P::CreateFrame(data.ds);
         Timer::Enable(TypeTimer::P2P, 1, ReadPoint);
     }
     else
@@ -321,16 +331,16 @@ void FPGA::DataRead()
 
     IN_PROCESS_READ = true;
 
-    Storage::CreateFrame();
-
     Reader::ReadPoints(ChA);
     Reader::ReadPoints(ChB);
 
     if (!TBase::InModeRandomizer())
     {
-        if (SET_INVERSE_A) Storage::GetDataSettings(0)->InverseData(ChA);
-        if (SET_INVERSE_B) Storage::GetDataSettings(0)->InverseData(ChB);
+        if (SET_INVERSE_A) data.A.InverseData();
+        if (SET_INVERSE_B) data.B.InverseData();
     }
+
+    Storage::AddData(data);
 
     if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)
     {
@@ -338,8 +348,6 @@ void FPGA::DataRead()
 
         TRIG_AUTO_FIND = false;
     }
-
-    Storage::CloseFrame();
 
     IN_PROCESS_READ = false;
 }
@@ -357,11 +365,10 @@ void FPGA::Reader::ReadPoints(Chan ch)
     HAL_FMC::Write(WR_PRED, address);
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
-    DataSettings &ds = *Storage::GetDataSettings(0);
+    BufferFPGA &buffer = ch.IsA() ? data.A : data.B;
 
-    uint8 *dat = ds.GetDataBegin(ch);
-    const uint8 *const start = dat;
-    const uint8 *const end = ds.GetDataEnd(ch);
+    uint8 *dat = buffer.Data();
+    const uint8 *const end = buffer.Last();
 
     typedef BitSet16(*pFuncRead)();
 
@@ -401,7 +408,7 @@ void FPGA::Reader::ReadPoints(Chan ch)
             {
                 dat += TShift::ShiftForRandomizer();
 
-                while (dat < start)
+                while (dat < buffer.Data())
                 {
                     dat += stretch;
                     funcRead();
@@ -468,6 +475,17 @@ void FPGA::Reader::ReadPoints(Chan ch)
                 }
             }
         }
+    }
+}
+
+
+void BufferFPGA::InverseData()
+{
+    int num_bytes = Size();
+
+    for (int i = 0; i < num_bytes; i++)
+    {
+        data[i] = (uint8)((int)(2 * ValueFPGA::AVE) - Math::Limitation<uint8>(data[i], ValueFPGA::MIN, ValueFPGA::MAX));
     }
 }
 
@@ -560,6 +578,18 @@ bool FPGA::CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
     *eMax = (uint16)maxGate; //-V519
 
     return true;
+}
+
+
+void FPGA::ClearData()
+{
+    int num_bytes = ENUM_POINTS_FPGA::ToNumBytes();
+
+    data.A.Realloc(num_bytes);
+    data.B.Realloc(num_bytes);
+
+    data.A.Fill(ValueFPGA::NONE);
+    data.B.Fill(ValueFPGA::NONE);
 }
 
 

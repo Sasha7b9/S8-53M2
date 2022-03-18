@@ -67,23 +67,19 @@ struct DataSettings
 
     bool Valid() const { return (valid == 1); };
 
-    //// ******** Эти функции применяются к данным, хранящимся в Storage ***************************
+    //// ************************ Эти функции применяются к данным, хранящимся в Storage ***************************
 
     // Добавить точки в поточечном режиме
     void AppendPoints(BitSet16 pointsA, BitSet16 pointsB);
-
-    // Инвертировать данные в канале
-    void InverseData(Chan);
-
-    // Указатель на данные канала
-    uint8 *GetDataBegin(Chan);
-    uint8 *GetDataEnd(Chan);
 };
 
 
 struct BufferFPGA : public Buffer<uint8>
 {
     BufferFPGA(int size = 0) : Buffer<uint8>(size) { }
+
+    // Инвертирует данные.
+    void InverseData();
 };
 
 

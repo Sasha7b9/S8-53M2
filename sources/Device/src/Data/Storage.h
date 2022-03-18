@@ -11,16 +11,6 @@ namespace Storage
     // Удаление всех сохранённых измерений
     void Clear();
 
-    // Создать фрейм с текущими настройками для считывания в него данных целиком. Если находимся в режиме рандомизатора,
-    // нужно заполнить его значениями по умолчанию
-    void CreateFrame();
-
-    // После записи данные в поля фрейма нужно вызвать эту функцию
-    void CloseFrame();
-
-    // Создать новый фрейм поточечного вывода.
-    void CreateFrameP2P();
-
     // Добавить считанные данные. При этом настройками считаются текущие настройки прибора.
     void AddData(DataStruct &);
 
@@ -45,4 +35,10 @@ namespace Storage
     uint8* GetLimitation(Chan, int direction);
 
     int NumberAvailableEntries();
+
+    namespace P2P
+    {
+        // Создать новый фрейм поточечного вывода.
+        void CreateFrame(const DataSettings &);
+    }
 };

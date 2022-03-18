@@ -361,6 +361,8 @@ void RShift::Set(Chan ch, int16 rShift)
     SET_RSHIFT(ch) = rShift;
     Load(ch.value);
 
+    Event::OnChnagedSetting();
+
     Display::RotateRShift(ch.value);
 };
 
@@ -679,13 +681,6 @@ int RShift::ToRel(float rShiftAbs, Range::E range)
 
     return retValue;
 };
-
-
-int DataSettings::SizeFrame()
-{
-    return (int)sizeof(DataSettings) + 2 * BytesInChannel();
-}
-
 
 
 void DataSettings::Init()
