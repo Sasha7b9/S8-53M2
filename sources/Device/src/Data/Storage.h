@@ -11,6 +11,12 @@ namespace Storage
     // Удаление всех сохранённых измерений
     void Clear();
 
+    // Создание нового фрейма. Он последний в хранилище и в него будут записаны данные
+    void OpenFrame();
+
+    // Закрытие ранее открытого функцией OpenFrame() фрейма
+    void CloseFrame();
+
     // Создать новый фрейм поточечного вывода.
     void CreateFrameP2P(const DataSettings &);
 
