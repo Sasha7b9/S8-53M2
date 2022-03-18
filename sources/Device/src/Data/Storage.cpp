@@ -123,18 +123,6 @@ void Storage::OpenFrame()
 }
 
 
-void Storage::CloseFrame()
-{
-    DataSettings *ds = GetDataSettings(0);
-
-    ds->time = HAL_RTC::GetPackedTime();
-
-    CalculateLimits(ds, ds->DataBegin(ChA), ds->DataEnd(ChB));
-
-    Averager::Append(ds);
-}
-
-
 int Storage::NumFrames()
 {
     return num_frames;
@@ -221,6 +209,18 @@ int Storage::NumFramesWithCurrentSettings()
         }
     }
     return retValue;
+}
+
+
+void Storage::CloseFrame()
+{
+    DataSettings *ds = GetDataSettings(0);
+
+    ds->time = HAL_RTC::GetPackedTime();
+
+    CalculateLimits(ds, ds->DataBegin(ChA), ds->DataEnd(ChB));
+
+    Averager::Append(ds);
 }
 
 
