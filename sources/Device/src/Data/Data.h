@@ -59,8 +59,14 @@ struct DataSettings
     int16 GetRShift(Chan) const;
 
     bool Valid() const { return (valid == 1); };
+};
 
-    //// ************************ Эти функции применяются к данным, хранящимся в Storage ***************************
+
+struct Frame
+{
+    DataSettings *ds;
+
+    Frame(DataSettings *_ds) : ds(_ds) { };
 
     // Начало данных канала
     uint8 *DataBegin(Chan);

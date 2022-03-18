@@ -20,22 +20,22 @@ void DataStruct::Log(pchar point)
 }
 
 
-uint8 *DataSettings::DataBegin(Chan ch)
+uint8 *Frame::DataBegin(Chan ch)
 {
-    uint8 *address = (uint8 *)this + sizeof(DataSettings);
+    uint8 *address = (uint8 *)ds + sizeof(DataSettings);
 
     if (ch.IsB())
     {
-        address += BytesInChannel();
+        address += ds->BytesInChannel();
     }
 
     return address;
 }
 
 
-uint8 *DataSettings::DataEnd(Chan ch)
+uint8 *Frame::DataEnd(Chan ch)
 {
-    return DataBegin(ch) + BytesInChannel();
+    return DataBegin(ch) + ds->BytesInChannel();
 }
 
 

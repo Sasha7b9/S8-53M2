@@ -55,8 +55,8 @@ void Averager::Append(DataSettings *ds)
         Reset();
     }
 
-    uint8 *const a = ds->DataBegin(ChA);
-    uint8 *const b = ds->DataBegin(ChB);
+    uint8 *const a = Frame(ds).DataBegin(ChA);
+    uint8 *const b = Frame(ds).DataBegin(ChB);
 
     if (added_datas == 0)
     {

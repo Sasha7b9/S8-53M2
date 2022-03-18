@@ -103,13 +103,15 @@ void Storage::AddData(DataStruct &data)
 
     CalculateLimits(&data.ds, data.A.Data(), data.B.Data());
 
-    DataSettings *frame = PrepareNewFrame(data.ds);
+    DataSettings *ds = PrepareNewFrame(data.ds);
 
-    std::memcpy(frame->DataBegin(ChA), data.A.Data(), (uint)frame->BytesInChannel());
+    Frame frame(ds);
 
-    std::memcpy(frame->DataBegin(ChB), data.B.Data(), (uint)frame->BytesInChannel());
+    std::memcpy(frame.DataBegin(ChA), data.A.Data(), (uint)ds->BytesInChannel());
 
-    Averager::Append(frame);
+    std::memcpy(frame.DataBegin(ChB), data.B.Data(), (uint)ds->BytesInChannel());
+
+    Averager::Append(ds);
 }
 
 
