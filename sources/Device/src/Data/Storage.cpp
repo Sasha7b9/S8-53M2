@@ -287,6 +287,8 @@ int Storage::NumberAvailableEntries()
 
 void Storage::CreateFrame()
 {
+
+
     DataSettings ds;
     ds.Init();
     ds.time = HAL_RTC::GetPackedTime();
@@ -299,16 +301,10 @@ void Storage::CreateFrame()
 
 DataSettings *Storage::PrapareNewFrame(DataSettings &ds)
 {
-    VCP_DEBUG_POINT();
-
     int required = ds.SizeFrame();
-
-    VCP_FORMAT_TRACE("memory free %d", MemoryFree());
 
     while (MemoryFree() < required)
     {
-        VCP_FORMAT_TRACE("memory free %d", MemoryFree());
-
         RemoveFirstFrame();
     }
 
@@ -387,8 +383,6 @@ void Storage::RemoveFirstFrame()
 {
     if (first)
     {
-        VCP_FORMAT_TRACE("first->next = %x, count_data = %d", first->next, count_data);
-
         first = (DataSettings *)first->next;
         first->prev = nullptr;
         count_data--;
