@@ -226,19 +226,30 @@ int Storage::NumFramesWithCurrentSettings()
 
 bool Storage::GetData(int fromEnd, DataStruct &data)
 {
-    DataSettings *dp = GetDataSettings(fromEnd);
+    DataSettings *ds = GetDataSettings(fromEnd);
 
-    if (dp == nullptr)
+    if (ds == nullptr)
     {
         data.ds.valid = 0;
 
         return false;
     }
 
-    data.ds.Set(*dp);
+    if (NumFrames() == 5)
+    {
+        SU::LogBufferU8(ds->DataBegin(ChA), 10);
+    }
 
-    data.A.FromBuffer(dp->DataBegin(ChA), dp->BytesInChannel());
-    data.B.FromBuffer(dp->DataBegin(ChB), dp->BytesInChannel());
+    if (NumOpenedFrames() == 20)
+    {
+        SU::LogBufferU8(ds->DataBegin(ChA), 15);
+    }
+
+
+    data.ds.Set(*ds);
+
+    data.A.FromBuffer(ds->DataBegin(ChA), ds->BytesInChannel());
+    data.B.FromBuffer(ds->DataBegin(ChB), ds->BytesInChannel());
 
     return true;
 }
