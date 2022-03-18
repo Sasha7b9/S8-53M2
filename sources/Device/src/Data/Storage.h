@@ -12,7 +12,7 @@ namespace Storage
     void Clear();
 
     // Добавить считанные данные. При этом настройками считаются текущие настройки прибора.
-//    void AddData(DataStruct &);
+    void AddData(DataStruct &);
 
     // Создание нового фрейма. Он последний в хранилище и в него будут записаны данные
     void OpenFrame();
@@ -35,11 +35,8 @@ namespace Storage
     // Получить указатель на данные
     bool GetData(int fromEnd, DataStruct &);
 
-    // Возвращает указатель на данные, отстоящие на fromEnd oт последнего сохранённого. "Незакрытый" фрейм не учитыватся
+    // Возвращает указатель на данные, отстоящие на fromEnd oт последнего сохранённого
     DataSettings *GetDataSettings(int fromEnd);
-
-    // Возвращает "незакрытый" фрейм, если он имеется
-    DataSettings *GetOpenedDataSettings();
 
     uint8* GetData(Chan, int fromEnd);
 

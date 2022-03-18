@@ -41,7 +41,7 @@ namespace Storage
     DataSettings *last_ds = nullptr;
 
     // Всего данных сохранено
-    int num_frames = 0;
+    int count_data = 0;
 
     // Возвращает количество свободной памяти в байтах
     int MemoryFree();
@@ -62,6 +62,9 @@ namespace Storage
     void ClearLimitsAndSums();
 
     void CalculateLimits(const DataSettings *, const uint8 *dataA, const uint8 *dataB);
+
+    // Копирует данные канала chan из, определяемые ds, в одну из двух строк массива dataImportRel
+    void CopyData(DataSettings *, Chan ch, BufferFPGA &);
 
     // тупо добавляет новый фрейм
     void AppendFrameP2P(DataSettings);
@@ -92,6 +95,24 @@ void Storage::ClearLimitsAndSums()
 }
 
 
+void Storage::AddData(DataStruct &data)
+{
+    LOG_WRITE("number frames = %d", NumFrames());
+
+    data.ds.time = HAL_RTC::GetPackedTime();
+
+    CalculateLimits(&data.ds, data.A.Data(), data.B.Data());
+
+    DataSettings *frame = PrepareNewFrame(data.ds);
+
+    std::memcpy(frame->DataBegin(ChA), data.A.Data(), (uint)frame->BytesInChannel());
+
+    std::memcpy(frame->DataBegin(ChB), data.B.Data(), (uint)frame->BytesInChannel());
+
+    Averager::Append(frame);
+}
+
+
 void Storage::OpenFrame()
 {
     DataSettings ds;
@@ -101,9 +122,21 @@ void Storage::OpenFrame()
 }
 
 
+void Storage::CloseFrame()
+{
+    DataSettings *ds = GetDataSettings(0);
+
+    ds->time = HAL_RTC::GetPackedTime();
+
+    CalculateLimits(ds, ds->DataBegin(ChA), ds->DataEnd(ChB));
+
+    Averager::Append(ds);
+}
+
+
 int Storage::NumFrames()
 {
-    return num_frames;
+    return count_data;
 }
 
 
@@ -155,7 +188,6 @@ int Storage::NumFramesWithSameSettings()
 {
     int retValue = 0;
     int numElements = NumFrames();
-
     for (retValue = 1; retValue < numElements; retValue++)
     {
         if (!SettingsIsIdentical(retValue, retValue - 1))
@@ -185,35 +217,21 @@ int Storage::NumFramesWithCurrentSettings()
 }
 
 
-void Storage::CloseFrame()
-{
-    DataSettings *ds = GetOpenedDataSettings();
-
-    ds->time = HAL_RTC::GetPackedTime();
-
-    ds->closed = 1;
-
-    CalculateLimits(ds, ds->DataBegin(ChA), ds->DataEnd(ChB));
-
-    Averager::Append(ds);
-}
-
-
 bool Storage::GetData(int fromEnd, DataStruct &data)
 {
-    DataSettings *ds = GetDataSettings(fromEnd);
+    DataSettings *dp = GetDataSettings(fromEnd);
 
-    if (ds == nullptr)
+    if (dp == nullptr)
     {
         data.ds.valid = 0;
-
         return false;
     }
 
-    data.ds.Set(*ds);
+    data.ds.Set(*dp);
 
-    data.A.FromBuffer(ds->DataBegin(ChA), ds->BytesInChannel());
-    data.B.FromBuffer(ds->DataBegin(ChB), ds->BytesInChannel());
+    CopyData(dp, Chan::A, data.A);
+
+    CopyData(dp, Chan::B, data.B);
 
     return true;
 }
@@ -231,6 +249,21 @@ uint8 *Storage::GetData(Chan ch, int fromEnd)
     uint8 *address = (uint8 *)ds + sizeof(DataSettings);
 
     return ch.IsA() ? address : (address + ds->BytesInChannel());
+}
+
+
+void Storage::CopyData(DataSettings *ds, Chan ch, BufferFPGA &data)
+{
+    uint8 *address = ((uint8 *)ds + sizeof(DataSettings));
+
+    uint length = (uint)ds->BytesInChannel();
+
+    if (ch.IsB())
+    {
+        address += length;
+    }
+
+    data.FromBuffer(address, (int)length);
 }
 
 
@@ -298,9 +331,7 @@ DataSettings *Storage::PrepareNewFrame(DataSettings &ds)
 
     std::memcpy(addrRecord, &ds, sizeof(DataSettings));
 
-    last_ds->closed = 0;
-
-    num_frames++;
+    count_data++;
 
     return last_ds;
 }
@@ -347,7 +378,7 @@ void Storage::RemoveFirstFrame()
     {
         first_ds = (DataSettings *)first_ds->next;
         first_ds->prev = nullptr;
-        num_frames--;
+        count_data--;
     }
 }
 
@@ -367,36 +398,19 @@ void Storage::RemoveLastFrame()
             first_ds = nullptr;
         }
 
-        num_frames--;
+        count_data--;
     }
 }
 
 
-DataSettings *Storage::GetOpenedDataSettings()
+DataSettings *Storage::GetDataSettings(int indexFromEnd)
 {
-    if (!last_ds)
+    if (first_ds == nullptr)
     {
         return nullptr;
     }
 
-    return last_ds->closed ? nullptr : last_ds;
-}
-
-
-DataSettings *Storage::GetDataSettings(int fromEnd)
-{
-    if (GetOpenedDataSettings())
-    {
-        fromEnd--;
-    }
-
-    if (first_ds == nullptr || fromEnd < (NumFrames() - 1))
-    {
-        return nullptr;
-    }
-
-    int index = fromEnd;
-
+    int index = indexFromEnd;
     DataSettings *ds = last_ds;
 
     while (index != 0 && ((ds = (DataSettings *)ds->prev) != 0))
@@ -447,7 +461,14 @@ void Storage::CreateFrameP2P(const DataSettings &_ds)
 
 void Storage::AppendFrameP2P(DataSettings ds)
 {
+    int num_bytes = ds.BytesInChannel();
+
+    DataStruct data;
+    data.ds.Set(ds);
+    data.A.Realloc(num_bytes, ValueFPGA::NONE);
+    data.A.Realloc(num_bytes, ValueFPGA::NONE);
+
     ds.ResetP2P();
 
-    PrepareNewFrame(ds);
+    AddData(data);
 }

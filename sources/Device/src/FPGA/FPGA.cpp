@@ -36,6 +36,8 @@ namespace FPGA
 
     uint timeStart = 0;
 
+    DataStruct data;            // —юда будем читать данные
+
     volatile static int numberMeasuresForGates = 1000;
 
     bool IN_PROCESS_READ = false;
@@ -211,9 +213,7 @@ void FPGA::ProcessP2P()
 {
     if (TBase::InModeP2P())
     {
-        DataSettings ds;
-        ds.Init();
-        Storage::CreateFrameP2P(ds);
+        Storage::CreateFrameP2P(data.ds);
         Timer::Enable(TypeTimer::P2P, 1, ReadPoint);
     }
     else
@@ -230,7 +230,7 @@ void FPGA::Start()
         ClearData();
     }
 
-    Storage::OpenFrame();
+    data.ds.Init();
 
     ProcessP2P();
 
@@ -342,11 +342,11 @@ void FPGA::DataRead()
 
     if (!TBase::InModeRandomizer())
     {
-//        if (SET_INVERSE_A) data.A.InverseData();
-//        if (SET_INVERSE_B) data.B.InverseData();
+        if (SET_INVERSE_A) data.A.InverseData();
+        if (SET_INVERSE_B) data.B.InverseData();
     }
 
-    Storage::CloseFrame();
+    Storage::AddData(data);
 
     if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)
     {
@@ -371,13 +371,10 @@ void FPGA::Reader::ReadPoints(Chan ch)
     HAL_FMC::Write(WR_PRED, address);
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
-//    BufferFPGA &buffer = ch.IsA() ? data.A : data.B;
+    BufferFPGA &buffer = ch.IsA() ? data.A : data.B;
 
-    DataSettings *ds = Storage::GetDataSettings(0);
-
-    uint8 *dat = ds->DataBegin(ch);
-    const uint8 *const begin = dat;
-    const uint8 *const end = ds->DataEnd(ch);
+    uint8 *dat = buffer.Data();
+    const uint8 *const end = buffer.Last();
 
     typedef BitSet16(*pFuncRead)();
 
@@ -417,7 +414,7 @@ void FPGA::Reader::ReadPoints(Chan ch)
             {
                 dat += TShift::ShiftForRandomizer();
 
-                while (dat < begin)
+                while (dat < buffer.Data())
                 {
                     dat += stretch;
                     funcRead();
@@ -446,11 +443,8 @@ void FPGA::Reader::ReadPoints(Chan ch)
 
                     *dat = bytes.byte0;
                     dat += stretch;
-                    if (dat < end)
-                    {
-                        *dat = bytes.byte1;
-                        dat += stretch;
-                    }
+                    *dat = bytes.byte1;
+                    dat += stretch;
                 }
             }
 
@@ -595,13 +589,13 @@ bool FPGA::CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
 
 void FPGA::ClearData()
 {
-//    int num_bytes = ENUM_POINTS_FPGA::ToNumBytes();
+    int num_bytes = ENUM_POINTS_FPGA::ToNumBytes();
 
-//    data.A.Realloc(num_bytes);
-//    data.B.Realloc(num_bytes);
-//
-//    data.A.Fill(ValueFPGA::NONE);
-//    data.B.Fill(ValueFPGA::NONE);
+    data.A.Realloc(num_bytes);
+    data.B.Realloc(num_bytes);
+
+    data.A.Fill(ValueFPGA::NONE);
+    data.B.Fill(ValueFPGA::NONE);
 }
 
 
