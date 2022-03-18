@@ -36,8 +36,6 @@ namespace FPGA
 
     uint timeStart = 0;
 
-    DataStruct data;            // —юда будем читать данные
-
     volatile static int numberMeasuresForGates = 1000;
 
     bool IN_PROCESS_READ = false;
@@ -216,7 +214,7 @@ void FPGA::Start()
         ClearData();
     }
 
-    data.ds.Init();
+    Storage::working.ds.Init();
 
     HAL_FMC::Write(WR_PRED, FPGA::Launch::PredForWrite());
     HAL_FMC::Write(WR_START, 1);
@@ -326,11 +324,11 @@ void FPGA::DataRead()
 
     if (!TBase::InModeRandomizer())
     {
-        if (SET_INVERSE_A) data.A.InverseData();
-        if (SET_INVERSE_B) data.B.InverseData();
+        if (SET_INVERSE_A) Storage::working.A.InverseData();
+        if (SET_INVERSE_B) Storage::working.B.InverseData();
     }
 
-    Storage::AddData(data);
+    Storage::AddData(Storage::working);
 
     if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)
     {
@@ -355,7 +353,7 @@ void FPGA::Reader::ReadPoints(Chan ch)
     HAL_FMC::Write(WR_PRED, address);
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
-    BufferFPGA &buffer = ch.IsA() ? data.A : data.B;
+    BufferFPGA &buffer = ch.IsA() ? Storage::working.A : Storage::working.B;
 
     uint8 *dat = buffer.Data();
     const uint8 *const end = buffer.Last();
@@ -575,11 +573,11 @@ void FPGA::ClearData()
 {
     int num_bytes = ENUM_POINTS_FPGA::ToNumBytes();
 
-    data.A.Realloc(num_bytes);
-    data.B.Realloc(num_bytes);
+    Storage::working.A.Realloc(num_bytes);
+    Storage::working.B.Realloc(num_bytes);
 
-    data.A.Fill(ValueFPGA::NONE);
-    data.B.Fill(ValueFPGA::NONE);
+    Storage::working.A.Fill(ValueFPGA::NONE);
+    Storage::working.B.Fill(ValueFPGA::NONE);
 }
 
 
