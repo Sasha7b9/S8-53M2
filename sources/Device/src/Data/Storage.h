@@ -6,25 +6,10 @@
 #include "Utils/Containers/Buffer.h"
 
 
-// Это рабочий фрейм - сюда будем читать даныне перед тем, как сохранить в Storage
-struct WorkingFrame
-{
-    DataSettings ds;
-
-    // Поточечный режим
-    int16  rec_point;   // Сейчас будет записана эта точка. Если -1 - то фрейм не поточечный. Он считан полностью
-    int    all_points;  // Всего точек
-
-    BufferFPGA A;
-    BufferFPGA B;
-
-    void AppendPoints(BitSet16 pointsA, BitSet16 pointsB);
-};
-
-
 namespace Storage
 {
-    extern WorkingFrame working;
+    // Сюда считываем непосредственно из FPGA. Рандомизатор, точки там. Чтобы потом переложит в хранилище
+    extern DataStruct working;
 
     // Удаление всех сохранённых измерений
     void Clear();

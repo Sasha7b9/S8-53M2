@@ -85,11 +85,16 @@ struct DataStruct
     BufferFPGA   B;
     DataSettings ds;
 
-    DataStruct() { }
+    int rec_point;
+    int all_points;
+
+    DataStruct() : rec_point(0), all_points(0) { }
 
     BufferFPGA &Data(Chan ch) { return ch.IsA() ? A : B; }
 
     bool Valid() const { return ds.Valid(); }
+
+    void AppendPoints(BitSet16 pointsA, BitSet16 pointsB);
 
     void Log(pchar point);
 };
