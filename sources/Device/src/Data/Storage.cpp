@@ -66,11 +66,8 @@ namespace Storage
     // Копирует данные канала chan из, определяемые ds, в одну из двух строк массива dataImportRel
     void CopyData(DataSettings *, Chan ch, BufferFPGA &);
 
-    namespace P2P
-    {
-        // тупо добавляет новый фрейм
-        void AppendFrame(DataSettings);
-    }
+    // тупо добавляет новый фрейм
+    void AppendFrameP2P(DataSettings);
 }
 
 
@@ -419,37 +416,29 @@ bool Storage::SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1)
 }
 
 
-void Storage::P2P::CreateFrame(const DataSettings &_ds)
+void Storage::CreateFrameP2P(const DataSettings &_ds)
 {
     if (Storage::NumFrames() == 0)
     {
-        AppendFrame(_ds);
+        AppendFrameP2P(_ds);
     }
     else
     {
         DataSettings *ds = GetDataSettings(0);
 
-        if (ds->InModeP2P())
+        if (ds->InModeP2P() && ds->Equal(_ds))
         {
-            if (ds->Equal(_ds))
-            {
-                ds->rec_point = 0;
-                ds->all_points = 0;
-            }
-            else
-            {
-                AppendFrame(_ds);
-            }
+            ds->ResetP2P();
         }
         else
         {
-            AppendFrame(_ds);
+            AppendFrameP2P(_ds);
         }
     }
 }
 
 
-void Storage::P2P::AppendFrame(DataSettings ds)
+void Storage::AppendFrameP2P(DataSettings ds)
 {
     ds.rec_point = 0;
     ds.all_points = 0;

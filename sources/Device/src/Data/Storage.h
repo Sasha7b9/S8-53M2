@@ -11,6 +11,9 @@ namespace Storage
     // Удаление всех сохранённых измерений
     void Clear();
 
+    // Создать новый фрейм поточечного вывода.
+    void CreateFrameP2P(const DataSettings &);
+
     // Добавить считанные данные. При этом настройками считаются текущие настройки прибора.
     void AddData(DataStruct &);
 
@@ -35,10 +38,4 @@ namespace Storage
     uint8* GetLimitation(Chan, int direction);
 
     int NumberAvailableEntries();
-
-    namespace P2P
-    {
-        // Создать новый фрейм поточечного вывода.
-        void CreateFrame(const DataSettings &);
-    }
 };
