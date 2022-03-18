@@ -35,8 +35,11 @@ namespace Storage
     // Получить указатель на данные
     bool GetData(int fromEnd, DataStruct &);
 
-    // Возвращает указатель на данные, отстоящие на fromEnd oт последнего сохранённого
+    // Возвращает указатель на данные, отстоящие на fromEnd oт последнего сохранённого. "Незакрытый" фрейм не учитыватся
     DataSettings *GetDataSettings(int fromEnd);
+
+    // Возвращает "незакрытый" фрейм, если он имеется
+    DataSettings *GetOpenedDataSettings();
 
     uint8* GetData(Chan, int fromEnd);
 

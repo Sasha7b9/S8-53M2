@@ -187,9 +187,11 @@ int Storage::NumFramesWithCurrentSettings()
 
 void Storage::CloseFrame()
 {
-    DataSettings *ds = GetDataSettings(0);
+    DataSettings *ds = GetOpenedDataSettings();
 
     ds->time = HAL_RTC::GetPackedTime();
+
+    ds->closed = 1;
 
     CalculateLimits(ds, ds->DataBegin(ChA), ds->DataEnd(ChB));
 
@@ -204,8 +206,6 @@ bool Storage::GetData(int fromEnd, DataStruct &data)
     if (ds == nullptr)
     {
         data.ds.valid = 0;
-
-        LOG_WRITE("Нет данных");
 
         return false;
     }
@@ -372,14 +372,31 @@ void Storage::RemoveLastFrame()
 }
 
 
-DataSettings *Storage::GetDataSettings(int indexFromEnd)
+DataSettings *Storage::GetOpenedDataSettings()
 {
-    if (first_ds == nullptr)
+    if (!last_ds)
     {
         return nullptr;
     }
 
-    int index = indexFromEnd;
+    return last_ds->closed ? nullptr : last_ds;
+}
+
+
+DataSettings *Storage::GetDataSettings(int fromEnd)
+{
+    if (GetOpenedDataSettings())
+    {
+        fromEnd--;
+    }
+
+    if (first_ds == nullptr || fromEnd < (NumFrames() - 1))
+    {
+        return nullptr;
+    }
+
+    int index = fromEnd;
+
     DataSettings *ds = last_ds;
 
     while (index != 0 && ((ds = (DataSettings *)ds->prev) != 0))
