@@ -62,20 +62,6 @@ struct DataSettings
 };
 
 
-struct Frame
-{
-    DataSettings *ds;
-
-    Frame(DataSettings *_ds) : ds(_ds) { };
-
-    // Начало данных канала
-    uint8 *DataBegin(Chan);
-
-    // Конец данных канала
-    uint8 *DataEnd(Chan);
-};
-
-
 struct BufferFPGA : public Buffer<uint8>
 {
     BufferFPGA(int size = 0) : Buffer<uint8>(size) { }
@@ -85,6 +71,7 @@ struct BufferFPGA : public Buffer<uint8>
 };
 
 
+// Структура хранит в себе полные данные без привязки к хранилищу
 struct DataStruct
 {
     BufferFPGA   A;
@@ -103,6 +90,21 @@ struct DataStruct
     void AppendPoints(BitSet16 pointsA, BitSet16 pointsB);
 
     void Log(pchar point);
+};
+
+
+// Структура хранит в себе ссылки на данные, хранящиеся в хранилище. Их нельзя изменять
+struct DataFrame
+{
+    DataSettings *ds;
+
+    DataFrame(DataSettings *_ds) : ds(_ds) { };
+
+    // Начало данных канала
+    uint8 *DataBegin(Chan);
+
+    // Конец данных канала
+    uint8 *DataEnd(Chan);
 };
 
 

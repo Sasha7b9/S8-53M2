@@ -20,7 +20,7 @@ void DataStruct::Log(pchar point)
 }
 
 
-uint8 *Frame::DataBegin(Chan ch)
+uint8 *DataFrame::DataBegin(Chan ch)
 {
     uint8 *address = (uint8 *)ds + sizeof(DataSettings);
 
@@ -33,7 +33,7 @@ uint8 *Frame::DataBegin(Chan ch)
 }
 
 
-uint8 *Frame::DataEnd(Chan ch)
+uint8 *DataFrame::DataEnd(Chan ch)
 {
     return DataBegin(ch) + ds->BytesInChannel();
 }

@@ -105,7 +105,7 @@ void Storage::AddData(DataStruct &data)
 
     DataSettings *ds = PrepareNewFrame(data.ds);
 
-    Frame frame(ds);
+    DataFrame frame(ds);
 
     std::memcpy(frame.DataBegin(ChA), data.A.Data(), (uint)ds->BytesInChannel());
 
