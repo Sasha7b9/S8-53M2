@@ -41,26 +41,29 @@ void Averager::Reset()
 }
 
 
-void Averager::Append(DataStruct &data)
+void Averager::Append(DataSettings *ds)
 {
     if (ModeAveraging::Current() == ModeAveraging::Accurately)
     {
         return;
     }
 
-    int size = data.ds.BytesInChannel();
+    int size = ds->BytesInChannel();
 
     if (ave_a.Size() != size || ModeAveraging::GetNumber() != number_averaging)
     {
         Reset();
     }
 
+    uint8 *const a = ds->DataBegin(ChA);
+    uint8 *const b = ds->DataBegin(ChB);
+
     if (added_datas == 0)
     {
         for (int i = 0; i < size; i++)
         {
-            ave_a[i] = data.A[i];
-            ave_b[i] = data.B[i];
+            ave_a[i] = a[i];
+            ave_b[i] = b[i];
         }
     }
     else
@@ -75,8 +78,8 @@ void Averager::Append(DataStruct &data)
         float *d_a = ave_a.Pointer(0);
         float *d_b = ave_b.Pointer(0);
 
-        uint8 *d0 = data.A.Pointer(0);
-        uint8 *d1 = data.B.Pointer(0);
+        uint8 *d0 = a;
+        uint8 *d1 = b;
 
         float *end = ave_a.Pointer(size);
 

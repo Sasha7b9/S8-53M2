@@ -109,7 +109,7 @@ void Storage::AddData(DataStruct &data)
 
     std::memcpy(frame->DataBegin(ChB), data.B.Data(), (uint)frame->BytesInChannel());
 
-    Averager::Append(data);
+    Averager::Append(frame);
 }
 
 
