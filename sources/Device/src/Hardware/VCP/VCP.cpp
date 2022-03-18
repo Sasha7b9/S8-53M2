@@ -63,7 +63,7 @@ void VCP::Send(const uint8 *buffer, int size)
 
         std::memcpy(tr_buf, buffer, (uint)portion);
 
-        USBD::Transmit(tr_buf, size);
+        USBD::Transmit(tr_buf, portion);
 
         buffer += portion;
         size -= portion;

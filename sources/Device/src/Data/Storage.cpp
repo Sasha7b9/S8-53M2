@@ -303,6 +303,10 @@ DataSettings *Storage::PrapareNewFrame(DataSettings &ds)
 
     while (MemoryFree() < required)
     {
+        int memory_free = MemoryFree();
+
+        VCP_FORMAT_TRACE("memory free %d", memory_free);
+
         RemoveFirstFrame();
     }
 
@@ -381,6 +385,8 @@ void Storage::RemoveFirstFrame()
 {
     if (first_ds)
     {
+        VCP_FORMAT_TRACE("first_ds->next = %x, count_data = %d", first_ds->next, count_data);
+
         first_ds = (DataSettings *)first_ds->next;
         first_ds->prev = nullptr;
         count_data--;
