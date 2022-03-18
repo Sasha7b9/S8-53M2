@@ -99,8 +99,6 @@ void Storage::ClearLimitsAndSums()
 
 void Storage::AddData(DataStruct &data)
 {
-    LOG_WRITE("number frames = %d", NumFrames());
-
     data.ds.time = HAL_RTC::GetPackedTime();
 
     CalculateLimits(&data.ds, data.A.Data(), data.B.Data());
@@ -439,28 +437,6 @@ bool Storage::SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1)
 }
 
 
-void Storage::CreateFrameP2P(const DataSettings &_ds)
-{
-    if (Storage::NumFrames() == 0)
-    {
-        AppendFrameP2P(_ds);
-    }
-    else
-    {
-        DataSettings *ds = GetDataSettings(0);
-
-        if (ds->InModeP2P() && ds->Equal(_ds))
-        {
-            ds->ResetP2P();
-        }
-        else
-        {
-            AppendFrameP2P(_ds);
-        }
-    }
-}
-
-
 void Storage::AppendFrameP2P(DataSettings ds)
 {
     int num_bytes = ds.BytesInChannel();
@@ -470,7 +446,36 @@ void Storage::AppendFrameP2P(DataSettings ds)
     data.A.Realloc(num_bytes, ValueFPGA::NONE);
     data.A.Realloc(num_bytes, ValueFPGA::NONE);
 
-    ds.ResetP2P();
-
     AddData(data);
+}
+
+
+void WorkingFrame::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
+{
+    int max_bytes = BytesInChannel();
+
+    uint8 *a = (uint8 *)this + max_bytes;
+    uint8 *b = a + max_bytes;
+
+    if (rec_point == max_bytes - 1)
+    {
+        std::memmove(a, a + 1, (uint)(max_bytes - 1));
+        std::memmove(b, b + 1, (uint)(max_bytes - 1));
+        rec_point = max_bytes - 2;
+    }
+    else if (rec_point == max_bytes)
+    {
+        std::memmove(a, a + 2, (uint)(max_bytes - 2));
+        std::memmove(b, b + 2, (uint)(max_bytes - 2));
+        rec_point = max_bytes - 2;
+    }
+
+    a[rec_point] = pointsA.byte0;
+    a[rec_point + 1] = pointsA.byte1;
+
+    b[rec_point] = pointsB.byte0;
+    b[rec_point + 1] = pointsB.byte1;
+
+    rec_point += 2;
+    all_points += 2;
 }

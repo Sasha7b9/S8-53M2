@@ -209,20 +209,6 @@ void FPGA::SwitchingTrig()
 }
 
 
-void FPGA::ProcessP2P()
-{
-    if (TBase::InModeP2P())
-    {
-        Storage::CreateFrameP2P(data.ds);
-        Timer::Enable(TypeTimer::P2P, 1, ReadPoint);
-    }
-    else
-    {
-        Timer::Disable(TypeTimer::P2P);
-    }
-}
-
-
 void FPGA::Start()
 {
     if (!TBase::InModeRandomizer())
@@ -231,8 +217,6 @@ void FPGA::Start()
     }
 
     data.ds.Init();
-
-    ProcessP2P();
 
     HAL_FMC::Write(WR_PRED, FPGA::Launch::PredForWrite());
     HAL_FMC::Write(WR_START, 1);
@@ -608,7 +592,7 @@ void FPGA::ReadPoint()
         BitSet16 dataA(*RD_ADC_A);
         BitSet16 dataB(*RD_ADC_B);
 
-        Storage::GetDataSettings(0)->AppendPoints(dataA, dataB);
+        Storage::working.AppendPoints(dataA, dataB);
     }
 }
 

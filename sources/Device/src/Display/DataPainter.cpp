@@ -122,20 +122,6 @@ void DataPainter::DrawDataChannel(DataStruct &data, Chan ch, int minY, int maxY)
 
     DataSettings ds = data.ds;
 
-    if (ds.InModeP2P())
-    {
-        if (ds.rec_point < Grid::Width())
-        {
-            first = 0;
-            last = ds.rec_point + 1;
-        }
-        else
-        {
-            last = ds.rec_point + 1;
-            first = last - Grid::Width();
-        }
-    }
-
     Color::SetCurrent(ColorChannel(ch));
 
     if (MODE_DRAW_IS_SIGNAL_LINES)

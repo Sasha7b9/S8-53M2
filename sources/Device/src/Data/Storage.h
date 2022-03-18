@@ -9,7 +9,14 @@
 // Это рабочий фрейм - сюда будем читать даныне перед тем, как сохранить в Storage
 struct WorkingFrame : public DataSettings
 {
+    // Поточечный режим
+    int16  rec_point;   // Сейчас будет записана эта точка. Если -1 - то фрейм не поточечный. Он считан полностью
+    int    all_points;  // Всего точек
 
+    BufferFPGA A;
+    BufferFPGA B;
+
+    void AppendPoints(BitSet16 pointsA, BitSet16 pointsB);
 };
 
 
@@ -28,9 +35,6 @@ namespace Storage
 
     // Закрытие ранее открытого функцией OpenFrame() фрейма
     void CloseFrame();
-
-    // Создать новый фрейм поточечного вывода.
-    void CreateFrameP2P(const DataSettings &);
 
     // Сколько всего измерений сохранено в памяти.
     int NumFrames();

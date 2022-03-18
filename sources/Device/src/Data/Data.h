@@ -37,9 +37,6 @@ struct DataSettings
     Divider::E          div_b               : 1;
     uint                valid               : 1;
     PackedTime          time;
-    // Поточечный режим
-    int16               rec_point;                  // Сейчас будет записана эта точка. Если -1 - то фрейм не поточечный. Он считан полностью
-    int                 all_points;                 // Всего точек
 
     DataSettings() { valid = 0; };
 
@@ -61,16 +58,9 @@ struct DataSettings
 
     int16 GetRShift(Chan) const;
 
-    bool InModeP2P() const;
-
-    void ResetP2P();
-
     bool Valid() const { return (valid == 1); };
 
     //// ************************ Эти функции применяются к данным, хранящимся в Storage ***************************
-
-    // Добавить точки в поточечном режиме
-    void AppendPoints(BitSet16 pointsA, BitSet16 pointsB);
 
     // Начало данных канала
     uint8 *DataBegin(Chan);

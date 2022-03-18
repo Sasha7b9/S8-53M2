@@ -681,8 +681,6 @@ int RShift::ToRel(float rShiftAbs, Range::E range)
 
 void DataSettings::Init()
 {
-    rec_point = TBase::InModeP2P() ? 0 : -1;
-
     inv_a = SET_INVERSE_A ? 1U : 0U;
     inv_b = SET_INVERSE_B ? 1U : 0U;
     range[0] = SET_RANGE_A;
@@ -741,53 +739,6 @@ int DataSettings::PointsInChannel() const
 int16 DataSettings::GetRShift(Chan ch) const
 {
     return (int16)((ch == ChA) ? rShiftA : rShiftB);
-}
-
-
-bool DataSettings::InModeP2P() const
-{
-    return (tBase >= TBase::MIN_P2P) && (rec_point != -1);
-}
-
-
-void DataSettings::ResetP2P()
-{
-    rec_point = 0;
-    all_points = 0;
-}
-
-
-void DataSettings::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
-{
-    if (InModeP2P())
-    {
-        int max_bytes = BytesInChannel();
-
-        uint8 *a = (uint8 *)this + max_bytes;
-        uint8 *b = a + max_bytes;
-
-        if (rec_point == max_bytes - 1)
-        {
-            std::memmove(a, a + 1, (uint)(max_bytes - 1));
-            std::memmove(b, b + 1, (uint)(max_bytes - 1));
-            rec_point = max_bytes - 2;
-        }
-        else if (rec_point == max_bytes)
-        {
-            std::memmove(a, a + 2, (uint)(max_bytes - 2));
-            std::memmove(b, b + 2, (uint)(max_bytes - 2));
-            rec_point = max_bytes - 2;
-        }
-
-        a[rec_point] = pointsA.byte0;
-        a[rec_point + 1] = pointsA.byte1;
-
-        b[rec_point] = pointsB.byte0;
-        b[rec_point + 1] = pointsB.byte1;
-
-        rec_point += 2;
-        all_points += 2;
-    }
 }
 
 
