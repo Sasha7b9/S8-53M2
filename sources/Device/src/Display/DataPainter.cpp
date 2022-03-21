@@ -83,6 +83,9 @@ void DataPainter::DrawInModeDirect()
         if (TBase::InModeP2P())
         {
             Processing::Process(Storage::working);
+
+            Processing::out.Log("1: ");
+
             DrawDataNormal();
         }
         else
