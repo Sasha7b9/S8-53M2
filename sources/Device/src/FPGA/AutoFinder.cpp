@@ -25,7 +25,7 @@ namespace FPGA
             BitSet64 GetBound();
         };
 
-        static Waiter waiter;
+        static TimeMeterMS waiter;
 
         static bool FindWave(Chan);
 
@@ -170,7 +170,7 @@ bool FPGA::AutoFinder::DataFinder::ReadDataWithSynchronization(Chan ch, uint tim
 
     while (_GET_BIT(flag.Read(), FL_PRED) == 0) { }
 
-    Waiter localWaiter;
+    TimeMeterMS localWaiter;
 
     while(_GET_BIT(flag.Read(), FL_TRIG) == 0)
     {

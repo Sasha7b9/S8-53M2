@@ -96,9 +96,9 @@ private:
 
 
 // Структура для отсчёта времени
-struct Waiter
+struct TimeMeterMS
 {
-    Waiter();
+    TimeMeterMS();
 
     // Установить момент отсчёта
     void Reset();

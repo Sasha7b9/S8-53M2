@@ -148,19 +148,19 @@ void Timer::Update10ms()
 }
 
 
-Waiter::Waiter()
+TimeMeterMS::TimeMeterMS()
 {
     Reset();
 }
 
 
-void Waiter::Reset()
+void TimeMeterMS::Reset()
 {
     time_start = TIME_MS;
 }
 
 
-uint Waiter::ElapsedTime()
+uint TimeMeterMS::ElapsedTime()
 {
     return TIME_MS - time_start;
 }
