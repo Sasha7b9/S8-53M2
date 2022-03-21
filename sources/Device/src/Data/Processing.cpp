@@ -1238,6 +1238,8 @@ void Processing::Process(DataStruct &in)
 
 void Processing::Process(const DataFrame &in)
 {
+    TimeMeterUS meter;
+
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
     firstP = points.half_iword[0];
@@ -1255,4 +1257,8 @@ void Processing::Process(const DataFrame &in)
     Math::CalculateFiltrArray(in.DataBegin(ChB), Processing::out.Data(ChB).Data(), length, Smoothing::ToPoints());
 
     CountedToCurrentSettings(*in.ds, in.DataBegin(ChA), in.DataBegin(ChB));
+
+    uint last_us = meter.ElapsedUS();
+
+    LOG_WRITE("%d us", last_us);
 }
