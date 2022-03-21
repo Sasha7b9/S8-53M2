@@ -11,9 +11,9 @@
 #define SOURCE_FFT_IS_B             (SOURCE_FFT == SourceFFT::B)
 
 #define WINDOW_FFT                  (set.math.windowFFT)
-#define WINDOW_FFT_IS_HAMMING       (WINDOW_FFT == WindowFFT_Hamming)
-#define WINDOW_FFT_IS_BLACKMAN      (WINDOW_FFT == WindowFFT_Blackman)
-#define WINDOW_FFT_IS_HANN          (WINDOW_FFT == WindowFFT_Hann)
+#define WINDOW_FFT_IS_HAMMING       (WINDOW_FFT == WindowFFT::Hamming)
+#define WINDOW_FFT_IS_BLACKMAN      (WINDOW_FFT == WindowFFT::Blackman)
+#define WINDOW_FFT_IS_HANN          (WINDOW_FFT == WindowFFT::Hann)
 
 #define FFT_MAX_DB                  (set.math.fftMaxDB)
 
@@ -66,12 +66,15 @@ struct SourceFFT
 };
 
 // Вид окна для умножения сигнала перед расчётом спектра.
-enum WindowFFT
+struct WindowFFT
 {
-    WindowFFT_Rectangle,    // Перед расчётом спектра сигнал не умножается на окно.
-    WindowFFT_Hamming,      // Перед расчётом спектра сигнал умножается на окно Хэмминга.
-    WindowFFT_Blackman,     // Перед расчётом спектра сигнал умножается на окно Блэкмана.
-    WindowFFT_Hann          // Перед расчётом спектра сигнал умножается на окно Ханна.
+    enum E
+    {
+        Rectangle,    // Перед расчётом спектра сигнал не умножается на окно.
+        Hamming,      // Перед расчётом спектра сигнал умножается на окно Хэмминга.
+        Blackman,     // Перед расчётом спектра сигнал умножается на окно Блэкмана.
+        Hann          // Перед расчётом спектра сигнал умножается на окно Ханна.
+    };
 };
 
 // Минимальное значение на вертикальной координате графика спектра.
@@ -116,7 +119,7 @@ struct SettingsMath
 {
     ScaleFFT::E     scaleFFT;       // Масштаб шкалы для отображения спектра.
     SourceFFT::E    sourceFFT;      // Источник сигнала для расчёта и отображения спектра.
-    WindowFFT       windowFFT;      // Задаёт вид окна, на которое умножается сигнал перед расчётом спектра.
+    WindowFFT::E    windowFFT;      // Задаёт вид окна, на которое умножается сигнал перед расчётом спектра.
     FFTmaxDB::E     fftMaxDB;       // Минимальное значение на вертикальной координате графика спектра.
     Function        func;           // Включённая математическая функция.
     uint8           currentCursor;  // Определяет, каким курсором спектра управляет ручка УСТАНОВКА.

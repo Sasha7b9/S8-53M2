@@ -196,7 +196,7 @@ static const Settings defaultSettings =
     {
         ScaleFFT::Log,
         SourceFFT::A,
-        WindowFFT_Rectangle,
+        WindowFFT::Rectangle,
         FFTmaxDB::_60,
         Function_Sum,
         0,
