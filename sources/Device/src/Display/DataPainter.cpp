@@ -80,9 +80,17 @@ void DataPainter::DrawInModeDirect()
 {
     if (Storage::NumFrames())
     {
-        DataFrame frame;
-        Processing::Process(Storage::GetData(0, frame));
-        DrawDataNormal();
+        if (TBase::InModeP2P())
+        {
+            Processing::Process(Storage::working);
+            DrawDataNormal();
+        }
+        else
+        {
+            DataFrame frame;
+            Processing::Process(Storage::GetData(0, frame));
+            DrawDataNormal();
+        }
     }
 }
 
