@@ -49,24 +49,25 @@ void PressSB_MeasTune_Markers()
 
 
 // Каким курсором из активной пары сейчас происходит управление.
-CursCntrl GetMeasuresCursCntrlActive()
+CursCntrl::E GetMeasuresCursCntrlActive()
 {
     if (MEAS_CURS_ACTIVE_IS_T)
     {
         return MEAS_CURS_CNTRL_T;
     }
+
     return MEAS_CURS_CNTRL_U;
 }
 
 
 void RotateRegMeasureSetField(int angle)
 {
-    CursCntrl cursCntrl = GetMeasuresCursCntrlActive();
+    CursCntrl::E cursCntrl = GetMeasuresCursCntrlActive();
     CursActive cursActive = MEAS_CURS_ACTIVE;
 
     int sign = Math::Sign(angle);
 
-    if (cursCntrl == CursCntrl_1 || cursCntrl == CursCntrl_1_2)
+    if (cursCntrl == CursCntrl::_1 || cursCntrl == CursCntrl::_1_2)
     {
         if (cursActive == CursActive_T)
         {
@@ -77,7 +78,7 @@ void RotateRegMeasureSetField(int angle)
             LIMITATION(MEAS_POS_CUR_U0, MEAS_POS_CUR_U0 + sign, 0, 200);
         }
     }
-    if (cursCntrl == CursCntrl_2 || cursCntrl == CursCntrl_1_2)
+    if (cursCntrl == CursCntrl::_2 || cursCntrl == CursCntrl::_1_2)
     {
         if (cursActive == CursActive_T)
         {

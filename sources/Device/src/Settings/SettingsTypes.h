@@ -84,12 +84,15 @@ enum ScaleMath
 //  урсоры
 
 //  аким курсором управл€ть.
-enum CursCntrl
+struct CursCntrl
 {
-    CursCntrl_1,            // первым.
-    CursCntrl_2,            // вторым.
-    CursCntrl_1_2,          // обоими.
-    CursCntrl_Disable       // никаким.
+    enum E
+    {
+        _1,         // первым.
+        _2,         // вторым.
+        _1_2,       // обоими.
+        Disable     // никаким.
+    };
 };
 
 

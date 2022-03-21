@@ -286,7 +286,7 @@ static void SetShiftCursPosU(Chan::E ch, int numCur, float delta)
 
 static void MoveCursUonPercentsOrPoints(int delta)
 {
-    CursCntrl cursCntrl = CURsU_CNTRL;
+    CursCntrl::E cursCntrl = CURsU_CNTRL;
 
     float value = delta;
 
@@ -297,11 +297,11 @@ static void MoveCursUonPercentsOrPoints(int delta)
         value *= DELTA_U100(source) / 100.0f;
     }
 
-    if (cursCntrl == CursCntrl_1 || cursCntrl == CursCntrl_1_2)
+    if (cursCntrl == CursCntrl::_1 || cursCntrl == CursCntrl::_1_2)
     {
         SetShiftCursPosU(source, 0, value);
     }
-    if (cursCntrl == CursCntrl_2 || cursCntrl == CursCntrl_1_2)
+    if (cursCntrl == CursCntrl::_2 || cursCntrl == CursCntrl::_1_2)
     {
         SetShiftCursPosU(source, 1, value);
     }
@@ -327,7 +327,7 @@ static void SetShiftCursPosT(Chan::E ch, int numCur, float delta)
 static void MoveCursTonPercentsOrPoints(int delta)
 {
     Chan::E source = CURS_SOURCE;
-    CursCntrl cursCntrl = CURS_CNTRL_T(source);
+    CursCntrl::E cursCntrl = CURS_CNTRL_T(source);
 
     float value = delta;
 
@@ -336,11 +336,11 @@ static void MoveCursTonPercentsOrPoints(int delta)
         value *= DELTA_T100(source) / 100.0f;
     }
 
-    if (cursCntrl == CursCntrl_1 || cursCntrl == CursCntrl_1_2)
+    if (cursCntrl == CursCntrl::_1 || cursCntrl == CursCntrl::_1_2)
     {
         SetShiftCursPosT(source, 0, value);
     }
-    if (cursCntrl == CursCntrl_2 || cursCntrl == CursCntrl_1_2)
+    if (cursCntrl == CursCntrl::_2 || cursCntrl == CursCntrl::_1_2)
     {
         SetShiftCursPosT(source, 1, value);
     }
@@ -429,8 +429,9 @@ static void PressSB_Cursors_U()
 
 static void DrawSB_Cursors_U(int x, int y)
 {
-    CursCntrl cursCntrl = CURsU_CNTRL;
-    if (cursCntrl == CursCntrl_Disable)
+    CursCntrl::E cursCntrl = CURsU_CNTRL;
+
+    if (cursCntrl == CursCntrl::Disable)
     {
         DrawSB_Cursors_U_Disable(x, y);
     }
@@ -537,8 +538,9 @@ static void PressSB_Cursors_T()
 static void DrawSB_Cursors_T(int x, int y)
 {
     Chan::E source = CURS_SOURCE;
-    CursCntrl cursCntrl = CURS_CNTRL_T(source);
-    if (cursCntrl == CursCntrl_Disable)
+    CursCntrl::E cursCntrl = CURS_CNTRL_T(source);
+
+    if (cursCntrl == CursCntrl::Disable)
     {
         DrawSB_Cursors_T_Disable(x, y);
     }

@@ -142,8 +142,8 @@ static const Settings defaultSettings =
     },
     // cursors
     {
-        { CursCntrl_Disable, CursCntrl_Disable },   // CursCntrl U
-        { CursCntrl_Disable, CursCntrl_Disable },   // CursCntrl T
+        { CursCntrl::Disable, CursCntrl::Disable },   // CursCntrl U
+        { CursCntrl::Disable, CursCntrl::Disable },   // CursCntrl T
         Chan::A,                                    // source
         { 60.0f,  140.0f, 60.0f, 140.0f },          // posCur U
         { 80.0f,  200.0f, 80.0f, 200.0f },          // posCur T
@@ -187,8 +187,8 @@ static const Settings defaultSettings =
         //{372, 652},               // начальные значения курсоров времени для зоны измерений
         {50, 150},                  // начальные значения курсоров напряжения для зоны измерений
         {422, 602},                 // начальные значения курсоров времени для зоны измерений
-        CursCntrl_1,                // Управляем первым курсором напряжения
-        CursCntrl_1,                // Управляем первым курсором времени
+        CursCntrl::_1,                // Управляем первым курсором напряжения
+        CursCntrl::_1,                // Управляем первым курсором времени
         CursActive_T,               // Активны курсоры времени.
         Measure::None                // marked Measure
     },

@@ -207,6 +207,7 @@ struct PageTrig
 bool IsMainPage(void *item);            // Возвращает true, если item - адрес главной страницы меню.
 
 
-void CalculateConditions(int16 pos0, int16 pos1, CursCntrl, bool *cond0, bool *cond1);    // Рассчитывает условия отрисовки УГО малых кнопок управления выбором курсорами.
+// Рассчитывает условия отрисовки УГО малых кнопок управления выбором курсорами.
+void CalculateConditions(int16 pos0, int16 pos1, CursCntrl::E, bool *cond0, bool *cond1);
 void DrawMenuCursTime(int x, int y, bool left, bool right);
 void DrawSB_Exit(int x, int y);

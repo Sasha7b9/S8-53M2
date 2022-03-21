@@ -12,10 +12,10 @@
 
 #define CURsU_CNTRL_CH(ch)          (set.cursors.cntrlU[ch])                    // SettingsCursors.cntrlU
 #define CURsU_CNTRL                 (CURsU_CNTRL_CH(CURS_SOURCE))
-#define CURS_CNTRL_U_IS_DISABLE(ch) (CURsU_CNTRL_CH(ch) == CursCntrl_Disable)
+#define CURS_CNTRL_U_IS_DISABLE(ch) (CURsU_CNTRL_CH(ch) == CursCntrl::Disable)
 
 #define CURS_CNTRL_T(ch)            (set.cursors.cntrlT[ch])                    // SettingsCursors.cntrlT
-#define CURS_CNTRL_T_IS_DISABLE(ch) (CURS_CNTRL_T(ch) == CursCntrl_Disable)
+#define CURS_CNTRL_T_IS_DISABLE(ch) (CURS_CNTRL_T(ch) == CursCntrl::Disable)
 
 #define CURS_POS_U(ch, num)         (set.cursors.posCurU[ch][num])              // SettingsCursors.posCurU
 #define CURS_POS_U0(ch)             (CURS_POS_U(ch, 0))
@@ -43,8 +43,8 @@
 // Настройки курсорных измерений.
 struct SettingsCursors
 {
-    CursCntrl       cntrlU[Chan::Count];        // Активные курсоры напряжения.
-    CursCntrl       cntrlT[Chan::Count];        // Активные курсоры напряжения.
+    CursCntrl::E    cntrlU[Chan::Count];        // Активные курсоры напряжения.
+    CursCntrl::E    cntrlT[Chan::Count];        // Активные курсоры напряжения.
     Chan::E         source;                     // Источник - к какому каналу относятся курсоры.
     float           posCurU[Chan::Count][2];    // Текущие позиции курсоров напряжения обоих каналов.
     float           posCurT[Chan::Count][2];    // Текущие позиции курсоров времени обоих каналов.

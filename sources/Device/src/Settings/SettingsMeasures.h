@@ -81,8 +81,8 @@ struct SettingsMeasures
     MeasuresField   field;              // Задаёт область, из которой берутся значения для расчёта измерений.
     int16           posCurU[2];         // Позиции курсоров, которые задают область, из которой берутся значения для расчёта измерений при field == MeasuresField_Hand.
     int16           posCurT[2];         // Позиции курсоров, которые задают область, из которой берутся значения для расчёта измерений при field == MeasuresField_Hand.
-    CursCntrl       cntrlU;             // Активные курсоры напряжения.
-    CursCntrl       cntrlT;             // Активные курсоры времени.
+    CursCntrl::E    cntrlU;             // Активные курсоры напряжения.
+    CursCntrl::E    cntrlT;             // Активные курсоры времени.
     CursActive      cursActive;         // Какие курсоры активны - по времени или напряжению.
     Measure::E      markedMeasure;      // Измерение, на которое нужно выводить маркеры.
 };

@@ -1230,14 +1230,17 @@ void Display::DrawCursors()
             Painter::DrawRectangle(x1 - 2, y1 - 2, 4, 4);
         }
 
-        CursCntrl cntrl = CURS_CNTRL_T(source);
-        if (cntrl != CursCntrl_Disable)
+        CursCntrl::E cntrl = CURS_CNTRL_T(source);
+
+        if (cntrl != CursCntrl::Disable)
         {
             DrawVerticalCursor((int)CURS_POS_T0(source), y0);
             DrawVerticalCursor((int)CURS_POS_T1(source), y1);
         }
+
         cntrl = CURsU_CNTRL;
-        if (cntrl != CursCntrl_Disable)
+
+        if (cntrl != CursCntrl::Disable)
         {
             DrawHorizontalCursor((int)PageCursors::GetCursPosU(source, 0), x0);
             DrawHorizontalCursor((int)PageCursors::GetCursPosU(source, 1), x1);
