@@ -166,7 +166,7 @@ static const Settings defaultSettings =
         {
             false
         },
-        ModeShowIntMem_Both,    // modeShowIntMem
+        ModeShowIntMem::Both,    // modeShowIntMem
         false,                  // flashAutoConnect
         ModeBtnMemory::Menu,
         ModeSaveSignal_BMP

@@ -58,11 +58,14 @@ struct FileNamingMode
 };
 
 // Что показывать в режиме Внутр ЗУ - считанный или записанный сигнал.
-enum ModeShowIntMem
+struct ModeShowIntMem
 {
-    ModeShowIntMem_Direct,  // Показывать данные реального времени.
-    ModeShowIntMem_Saved,   // Показывать сохранённые данные.
-    ModeShowIntMem_Both     // Показывать данные реального времени и сохранённые данные.
+    enum E
+    {
+        Direct,  // Показывать данные реального времени.
+        Saved,   // Показывать сохранённые данные.
+        Both     // Показывать данные реального времени и сохранённые данные.
+    };
 };
 
 // Что делать при нажатии кнопки ПАМЯТЬ.
@@ -104,7 +107,7 @@ struct SettingsMemory
     char                fileName[MAX_SYMBOLS_IN_FILE_NAME];     // Имя файла для режима ручного задания
     int8                indexCurSymbolNameMask;                 // Индекс текущего символа в режиме задания маски или выбора имени.
     StructMemoryLast    strMemoryLast;
-    ModeShowIntMem      modeShowIntMem;                         // Какие сигналы показывать в режиме внутреннего ЗУ
+    ModeShowIntMem::E   modeShowIntMem;                         // Какие сигналы показывать в режиме внутреннего ЗУ
     bool                flashAutoConnect;                       // Если true, при подлючении флеш автоматически выводится NC (Нортон Коммандер)
     ModeBtnMemory::E    modeBtnMemory;
     ModeSaveSignal      modeSaveSignal;                         // В каком виде сохранять сигнал.
