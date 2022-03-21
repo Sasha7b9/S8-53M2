@@ -32,7 +32,7 @@
 #define MODE_BTN_MEMORY_IS_SAVE     (MODE_BTN_MEMORY == ModeBtnMemory::Save)
 
 #define MODE_SAVE_SIGNAL            (set.memory.modeSaveSignal)
-#define MODE_SAVE_SIGNAL_IS_BMP     (MODE_SAVE_SIGNAL == ModeSaveSignal_BMP)
+#define MODE_SAVE_SIGNAL_IS_BMP     (MODE_SAVE_SIGNAL == ModeSaveSignal::BMP)
 
 
 // Режим работы.
@@ -79,10 +79,13 @@ struct ModeBtnMemory
 };
 
 // Как сохранять данные на флешку.
-enum ModeSaveSignal
+struct ModeSaveSignal
 {
-    ModeSaveSignal_BMP,     // Сохранять данные на флешку в формате .bmp.
-    ModeSaveSignal_TXT      // Сохранять данные на флешку в текствовом виде.
+    enum E
+    {
+        BMP,     // Сохранять данные на флешку в формате .bmp.
+        TXT      // Сохранять данные на флешку в текствовом виде.
+    };
 };
 
 struct StructMemoryLast
@@ -110,5 +113,5 @@ struct SettingsMemory
     ModeShowIntMem::E   modeShowIntMem;                         // Какие сигналы показывать в режиме внутреннего ЗУ
     bool                flashAutoConnect;                       // Если true, при подлючении флеш автоматически выводится NC (Нортон Коммандер)
     ModeBtnMemory::E    modeBtnMemory;
-    ModeSaveSignal      modeSaveSignal;                         // В каком виде сохранять сигнал.
+    ModeSaveSignal::E   modeSaveSignal;                         // В каком виде сохранять сигнал.
 };
