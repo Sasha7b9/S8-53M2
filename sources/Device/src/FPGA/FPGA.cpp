@@ -51,9 +51,9 @@ namespace FPGA
 
     Flag flag;
 
-    void ReadPoint();
-
     void ProcessingData();
+
+    void ReadPointP2P();
 
     // Прочитать данные.
     void DataRead();
@@ -129,7 +129,7 @@ void FPGA::Update()
 
     if (SET_SELFRECORDER)
     {
-        ReadPoint();
+        ReadPointP2P();
     }
 
     int num_cycles = TBase::StretchRand();
@@ -215,6 +215,11 @@ void FPGA::Start()
     }
 
     Storage::working.ds.Init();
+
+    if (TBase::InModeP2P())
+    {
+
+    }
 
     HAL_FMC::Write(WR_PRED, FPGA::Launch::PredForWrite());
     HAL_FMC::Write(WR_START, 1);
@@ -581,7 +586,7 @@ void FPGA::ClearData()
 }
 
 
-void FPGA::ReadPoint()
+void FPGA::ReadPointP2P()
 {
     flag.Read();
 

@@ -3,6 +3,7 @@
 #include "FPGA/FPGA.h"
 #include "Hardware/HAL/HAL.h"
 #include "Settings/Settings.h"
+#include "Hardware/Timer.h"
 
 
 namespace FPGA
@@ -16,6 +17,7 @@ namespace FPGA
 
         // Чтение двух байт канала 2 (с калибровочными коэффициентами, само собой)
         BitSet16 ReadB();
+
     }
 }
 
@@ -100,4 +102,32 @@ BitSet16 FPGA::Reader::ReadB()
     data.byte1 = (uint8)byte1;
 
     return data;
+}
+
+
+void FPGA::Reader::Read1024Points(uint8 buffer[1024], Chan ch)
+{
+    Timer::PauseOnTime((SET_RANGE(ch) < 2) ? 500U : 100U);
+
+    FPGA::Start();
+
+    std::memset(buffer, 255, 1024);
+
+    Timer::PauseOnTime(8);
+
+    uint16 fl = HAL_FMC::Read(RD_FL);
+
+    while (_GET_BIT(fl, FL_PRED) == 0) { fl = HAL_FMC::Read(RD_FL); }
+
+    FPGA::SwitchingTrig();
+
+    while (_GET_BIT(fl, FL_TRIG) == 0) { fl = HAL_FMC::Read(RD_FL); }
+
+    Timer::PauseOnTime(8);
+
+    while (_GET_BIT(fl, FL_DATA) == 0) { fl = HAL_FMC::Read(RD_FL); }
+
+    FPGA::Stop(false);
+
+    FPGA::Reader::ReadPoints(ch, buffer, &buffer[0] + 1024);
 }
