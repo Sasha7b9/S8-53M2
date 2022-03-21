@@ -73,16 +73,16 @@ float NewNoiseValue(Chan ch)
 
     float deltaRand = halfAmplNoiseAbs;
 
-    noise += Math_RandFloat(-deltaRand, deltaRand);
+    noise += Math::RandFloat(-deltaRand, deltaRand);
 
     while (noise < -halfAmplNoiseAbs)
     {
-        noise += Math_RandFloat(0, deltaRand * 2);
+        noise += Math::RandFloat(0, deltaRand * 2);
     }
 
     while (noise > halfAmplNoiseAbs)
     {
-        noise -= Math_RandFloat(0, deltaRand * 2);
+        noise -= Math::RandFloat(0, deltaRand * 2);
     }
 
     prevNoise[ch] = noise;

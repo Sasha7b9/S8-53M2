@@ -66,7 +66,7 @@ void HelpContent::Draw()
     Color::SetCurrent(COLOR_FILL);
     for (int i = 0; i < 10000; i++)
     {
-        Painter::SetPoint((*addr1) % WIDTH, Math_LimitationInt(*addr2, 0, 239));
+        Painter::SetPoint((*addr1) % WIDTH, Math::LimitationInt(*addr2, 0, 239));
         addr1++;
         addr2++;
     }

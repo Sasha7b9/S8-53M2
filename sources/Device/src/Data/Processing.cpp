@@ -500,7 +500,7 @@ float Processing::FindIntersectionWithHorLine(Chan::E ch, int numIntersection, b
     {
         return ERROR_VALUE_FLOAT;
     }
-    return Math_GetIntersectionWithHorizontalLine(x, data[x], x + 1, data[x + 1], yLine);
+    return Math::GetIntersectionWithHorizontalLine(x, data[x], x + 1, data[x + 1], yLine);
 }
 
 float Processing::CalculateDurationPlus(Chan::E ch)
@@ -807,7 +807,7 @@ float Processing::CalculateMinRel(Chan::E ch)
 
     if (!min_ready[ch])
     {
-        uint8 val = Math_GetMinFromArrayWithErrorCode(out.Data(ch).Data(), firstP, lastP);
+        uint8 val = Math::GetMinFromArrayWithErrorCode(out.Data(ch).Data(), firstP, lastP);
         min[ch] = val == ERROR_VALUE_UINT8 ? ERROR_VALUE_FLOAT : val;
         min_ready[ch] = true;
     }
@@ -849,7 +849,7 @@ float Processing::CalculateDelayPlus(Chan::E ch)
     float period1 = CalculatePeriod(Chan::B);
 
     EXIT_IF_ERRORS_FLOAT(period0, period1);
-    if(!Math_FloatsIsEquals(period0, period1, 1.05f))
+    if(!Math::FloatsIsEquals(period0, period1, 1.05f))
     {
         return ERROR_VALUE_FLOAT;
     }
@@ -888,7 +888,7 @@ float Processing::CalculateDelayMinus(Chan::E ch)
 
     EXIT_IF_ERRORS_FLOAT(period0, period1);
 
-    if(!Math_FloatsIsEquals(period0, period1, 1.05f))
+    if(!Math::FloatsIsEquals(period0, period1, 1.05f))
     {
         return ERROR_VALUE_FLOAT;
     }

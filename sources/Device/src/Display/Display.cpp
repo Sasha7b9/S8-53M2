@@ -315,7 +315,7 @@ void Display::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan ch)
         (int16)Processing::out.ds.rShiftA :
         (int16)Processing::out.ds.rShiftB, dataR);
 
-    Math_CalculateFFT(dataR, numPoints, spectrum, &freq0, &density0, &freq1, &density1, &y0, &y1);
+    Math::CalculateFFT(dataR, numPoints, spectrum, &freq0, &density0, &freq1, &density1, &y0, &y1);
     DrawSpectrumChannel(spectrum, ColorChannel(ch));
 
     if (!Menu::IsShown() || Menu::IsMinimize())

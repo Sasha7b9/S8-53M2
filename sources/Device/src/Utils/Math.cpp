@@ -71,7 +71,7 @@ float Math::TimeCursor(float shiftCurT, TBase::E tBase)
 }
 
 
-void Math_DataExtrapolation(uint8 *data, uint8 *there, int size)
+void Math::DataExtrapolation(uint8 *data, uint8 *there, int size)
 {
     int pointer = 0;
     while(there[pointer] == 0)
@@ -117,7 +117,7 @@ void Math_DataExtrapolation(uint8 *data, uint8 *there, int size)
 }
 
 
-float Math_GetIntersectionWithHorizontalLine(int x0, int y0, int x1, int y1, int yHorLine)
+float Math::GetIntersectionWithHorizontalLine(int x0, int y0, int x1, int y1, int yHorLine)
 {
     if(y0 == y1)
     {
@@ -128,7 +128,7 @@ float Math_GetIntersectionWithHorizontalLine(int x0, int y0, int x1, int y1, int
 }
 
 
-bool Math_FloatsIsEquals(float value0, float value1, float epsilonPart)
+bool Math::FloatsIsEquals(float value0, float value1, float epsilonPart)
 {
     float max = std::fabs(value0) > std::fabs(value1) ? std::fabs(value0) : std::fabs(value1);
 
@@ -138,7 +138,7 @@ bool Math_FloatsIsEquals(float value0, float value1, float epsilonPart)
 }
 
 
-float Math_MinFrom3float(float value1, float value2, float value3)
+float Math::MinFrom3float(float value1, float value2, float value3)
 {
     float retValue = value1;
     if(value2 < retValue)
@@ -153,7 +153,7 @@ float Math_MinFrom3float(float value1, float value2, float value3)
 }
 
 
-int Math_MinInt(int val1, int val2)
+int Math::MinInt(int val1, int val2)
 {
     return val1 < val2 ? val1 : val2;
 }
@@ -249,7 +249,7 @@ static void MultiplyToWindow(float *data, int numPoints)
 	if (x < min) min = x;	\
 	if (x > max) max = x;
 
-void Math_CalculateFFT(float *dataR, int numPoints, float *result, float *freq0, float *density0, float *freq1, float *density1, int *y0, int *y1)
+void Math::CalculateFFT(float *dataR, int numPoints, float *result, float *freq0, float *density0, float *freq1, float *density1, int *y0, int *y1)
 {
     float scale = 1.0f / TShift::absStep[SET_TBASE] / 1024.0f;
 
@@ -399,7 +399,7 @@ void Math_CalculateFFT(float *dataR, int numPoints, float *result, float *freq0,
     *y1 = Grid::MathBottom() - result[FFT_POS_CURSOR_1] * Grid::MathHeight();
 }
 
-void Math_CalculateMathFunction(float *data0andResult, float *data1, int numPoints)
+void Math::CalculateMathFunction(float *data0andResult, float *data1, int numPoints)
 {
     if (MATH_FUNC_IS_SUM)
     {
@@ -423,13 +423,13 @@ void Math_CalculateMathFunction(float *data0andResult, float *data1, int numPoin
     }
 }
 
-float Math_RandFloat(float min, float max)
+float Math::RandFloat(float min, float max)
 {
     float delta = max - min;
     return min + ((std::rand() / (float)RAND_MAX) * delta);
 }
 
-int8 Math_AddInt8WithLimitation(int8 value, int8 delta, int8, int8 max)
+int8 Math::AddInt8WithLimitation(int8 value, int8 delta, int8, int8 max)
 {
     int8 retValue = value + delta;
     if (retValue < 0)
@@ -468,9 +468,9 @@ int Math::Pow10(int pow)
     return retValue;
 }
 
-int Math_NumDigitsInNumber(int value)
+int Math::NumDigitsInNumber(int value)
 {
-    value = Math_FabsInt(value);
+    value = Math::FabsInt(value);
     int num = 1;
     while ((value /= 10) > 0)
     {
@@ -479,14 +479,14 @@ int Math_NumDigitsInNumber(int value)
     return num;
 }
 
-int Math_FabsInt(int value)
+int Math::FabsInt(int value)
 {
     return value >= 0 ? value : -value;
 }
 
 uint8 Math::GetMaxFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint)
 {
-    uint8 max = Math_GetMaxFromArray(data, firstPoint, lastPoint);
+    uint8 max = Math::GetMaxFromArray(data, firstPoint, lastPoint);
 
     if (max >= ValueFPGA::MAX)
     {
@@ -496,9 +496,9 @@ uint8 Math::GetMaxFromArrayWithErrorCode(const uint8 *data, int firstPoint, int 
     return max;
 }
 
-uint8 Math_GetMinFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint)
+uint8 Math::GetMinFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint)
 {
-    uint8 min = Math_GetMinFromArray(data, firstPoint, lastPoint);
+    uint8 min = Math::GetMinFromArray(data, firstPoint, lastPoint);
     if (min < ValueFPGA::MIN || min >= ValueFPGA::MAX)
     {
         min = ERROR_VALUE_UINT8;
@@ -506,7 +506,7 @@ uint8 Math_GetMinFromArrayWithErrorCode(const uint8 *data, int firstPoint, int l
     return min;
 }
 
-uint8 Math_GetMinFromArray(const uint8 *data, int firstPoint, int lastPoint)
+uint8 Math::GetMinFromArray(const uint8 *data, int firstPoint, int lastPoint)
 {
 
 #define MIN_IF_LESS if(d < min) { min = d; }
@@ -530,7 +530,7 @@ uint8 Math_GetMinFromArray(const uint8 *data, int firstPoint, int lastPoint)
     return min;
 }
 
-uint8 Math_GetMaxFromArray(const uint8 *data, int firstPoint, int lastPoint)
+uint8 Math::GetMaxFromArray(const uint8 *data, int firstPoint, int lastPoint)
 {
 
 #define MAX_IF_ABOVE if(d > max) { max = d; }
@@ -555,7 +555,7 @@ uint8 Math_GetMaxFromArray(const uint8 *data, int firstPoint, int lastPoint)
 }
 
 
-uint8 Math_CalculateFiltr(const uint8 *data, int x, int numPoints, int numSmoothing)
+uint8 Math::CalculateFiltr(const uint8 *data, int x, int numPoints, int numSmoothing)
 {
     if (numSmoothing < 2)
     {

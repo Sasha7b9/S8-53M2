@@ -187,8 +187,8 @@ void Governor::NextPosition()
 
 int Governor::NumDigits() const
 {
-    int min = Math_NumDigitsInNumber(Math_FabsInt(minValue));
-    int max = Math_NumDigitsInNumber(Math_FabsInt(maxValue));
+    int min = Math::NumDigitsInNumber(Math::FabsInt(minValue));
+    int max = Math::NumDigitsInNumber(Math::FabsInt(maxValue));
     if (min > max)
     {
         max = min;

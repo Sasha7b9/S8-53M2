@@ -186,7 +186,7 @@ void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings *ds, int
             if (x0 >= gridLeft && x0 <= gridRight)
             {
                 int index = i - startPoint;
-                int y = calculateFiltr ? Math_CalculateFiltr(data, i, numPoints, numSmoothing) : data[i];
+                int y = calculateFiltr ? Math::CalculateFiltr(data, i, numPoints, numSmoothing) : data[i];
                 CONVERT_DATA_TO_DISPLAY(dataCD[index], y);
             }
         }
@@ -268,7 +268,7 @@ void DataPainter::DrawSignalPointed(const uint8 *data, const DataSettings *ds, i
         for (int i = startPoint; i < endPoint; i++)
         {
             int index = i - startPoint;
-            CONVERT_DATA_TO_DISPLAY(dataCD[index], Math_CalculateFiltr(data, i, numPoints, numSmoothing));
+            CONVERT_DATA_TO_DISPLAY(dataCD[index], Math::CalculateFiltr(data, i, numPoints, numSmoothing));
         }
         Painter::DrawSignal(Grid::Left(), dataCD, false);
 
@@ -281,7 +281,7 @@ void DataPainter::DrawSignalPointed(const uint8 *data, const DataSettings *ds, i
             for (int i = startPoint; i < endPoint; i++)
             {
                 int index = i - startPoint;
-                CONVERT_DATA_TO_DISPLAY(dataCD[index], Math_CalculateFiltr(data, i, numPoints, numSmoothing));
+                CONVERT_DATA_TO_DISPLAY(dataCD[index], Math::CalculateFiltr(data, i, numPoints, numSmoothing));
             }
             Painter::DrawSignal(Grid::Left(), dataCD, false);
         }
@@ -292,7 +292,7 @@ void DataPainter::DrawSignalPointed(const uint8 *data, const DataSettings *ds, i
         {
             int index = i - startPoint;
             int dat = 0;
-            CONVERT_DATA_TO_DISPLAY(dat, Math_CalculateFiltr(data, i, numPoints, numSmoothing));
+            CONVERT_DATA_TO_DISPLAY(dat, Math::CalculateFiltr(data, i, numPoints, numSmoothing));
             Painter::SetPoint((int)(Grid::Left() + index * scaleX), dat);
         }
     }
@@ -316,7 +316,7 @@ void DataPainter::DrawMath()
     ValueFPGA::ToVoltage(dataA.Data(), ds.BytesInChannel(), ds.range[Chan::A], (int16)ds.rShiftA, dataAbs0);
     ValueFPGA::ToVoltage(dataB.Data(), ds.BytesInChannel(), ds.range[Chan::B], (int16)ds.rShiftB, dataAbs1);
 
-    Math_CalculateMathFunction(dataAbs0, dataAbs1, ds.BytesInChannel());
+    Math::CalculateMathFunction(dataAbs0, dataAbs1, ds.BytesInChannel());
 
     DataStruct data;
     data.ds.Set(ds);
