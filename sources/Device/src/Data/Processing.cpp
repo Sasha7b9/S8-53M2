@@ -1225,11 +1225,14 @@ void Processing::Process(DataStruct &in)
 
     int length = in.ds.BytesInChannel();
 
-    out.Data(ChA).ReallocAndFill(length, ValueFPGA::NONE);   // Подготавливаем место для рассчитанных сглаженных точек
-    out.Data(ChB).ReallocAndFill(length, ValueFPGA::NONE);
+    BufferFPGA &A = out.Data(ChA);
+    BufferFPGA &B = out.Data(ChB);
 
-    Math::CalculateFiltrArray(in.A.Data(), out.Data(ChA).Data(), length, Smoothing::ToPoints());
-    Math::CalculateFiltrArray(in.B.Data(), out.Data(ChB).Data(), length, Smoothing::ToPoints());
+    A.ReallocAndFill(length, ValueFPGA::NONE);   // Подготавливаем место для рассчитанных сглаженных точек
+    B.ReallocAndFill(length, ValueFPGA::NONE);
+
+    Math::CalculateFiltrArray(in.A.Data(), A.Data(), length, Smoothing::ToPoints());
+    Math::CalculateFiltrArray(in.B.Data(), B.Data(), length, Smoothing::ToPoints());
 
     in.A.FillFromBuffer(out.Data(ChA).Data(), length);
     in.B.FillFromBuffer(out.Data(ChB).Data(), length);
