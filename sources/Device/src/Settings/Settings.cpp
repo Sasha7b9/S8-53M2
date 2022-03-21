@@ -151,7 +151,7 @@ static const Settings defaultSettings =
         { 120.0f, 120.0f },                             // рассто€ние между курсорами времени дл€ 100%
         CursMovement::Points,                           // CursMovement
         CursActive::None,                               // CursActive
-        { CursLookMode_None, CursLookMode_None },       // –ежим слежени€ курсоров.
+        { CursLookMode::None, CursLookMode::None },       // –ежим слежени€ курсоров.
         false,                                          // showFreq
         false                                           // showCursors
     },

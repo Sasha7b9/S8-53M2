@@ -79,28 +79,28 @@ void SetCursPosT(Chan::E ch, int numCur, float pos)
 void PageCursors::Cursors_Update()
 {
     Chan::E source = CURS_SOURCE;
-    CursLookMode lookMode0 = CURS_LOOKMODE_0;
-    CursLookMode lookMode1 = CURS_LOOKMODE_1;
+    CursLookMode::E lookMode0 = CURS_LOOKMODE_0;
+    CursLookMode::E lookMode1 = CURS_LOOKMODE_1;
 
     int posT0 = 0, posT1 = 0;
 
-    if((lookMode0 == CursLookMode_Voltage || lookMode0 == CursLookMode_Both) && CURS_ACTIVE_IS_T)
+    if((lookMode0 == CursLookMode::Voltage || lookMode0 == CursLookMode::Both) && CURS_ACTIVE_IS_T)
     {
         int posU0 = Processing::GetCursU(source, CURS_POS_T0(source));
         SetCursPosU(source, 0, posU0);
     }
-    if((lookMode1 == CursLookMode_Voltage || lookMode1 == CursLookMode_Both)  && CURS_ACTIVE_IS_T)
+    if((lookMode1 == CursLookMode::Voltage || lookMode1 == CursLookMode::Both)  && CURS_ACTIVE_IS_T)
     {
         int posU1 = Processing::GetCursU(source, CURS_POS_T1(source));
         SetCursPosU(source, 1, posU1);
     }
-    if((lookMode0 == CursLookMode_Time || lookMode0 == CursLookMode_Both) && CURS_ACTIVE_IS_U)
+    if((lookMode0 == CursLookMode::Time || lookMode0 == CursLookMode::Both) && CURS_ACTIVE_IS_U)
     {
         int posU0 = CURS_POS_U0(source);
         posT0 = Processing::GetCursT(source, posU0, 0);
         SetCursPosT(source, 0, posT0);
     }
-    if((lookMode1 == CursLookMode_Time || lookMode1 == CursLookMode_Both) && CURS_ACTIVE_IS_U)
+    if((lookMode1 == CursLookMode::Time || lookMode1 == CursLookMode::Both) && CURS_ACTIVE_IS_U)
     {
         int posU1 = CURS_POS_U1(source);
         posT1 = Processing::GetCursT(source, posU1, 1);
