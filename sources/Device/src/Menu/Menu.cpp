@@ -562,7 +562,7 @@ bool Menu::NeedForFireSetLED()
     }
     NamePage::E name = Page::NameOpened();
 
-    if (name == NamePage::SB_MeasTuneMeas && MEAS_NUM == MN_1 && !PageMeasures::choiceMeasuresIsActive)
+    if (name == NamePage::SB_MeasTuneMeas && (MEAS_NUM == MeasuresNumber::_1) && !PageMeasures::choiceMeasuresIsActive)
     {
         return false;
     }

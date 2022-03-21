@@ -4,12 +4,12 @@
 
 
 #define MEAS_NUM                        (set.measures.number)
-#define MEAS_NUM_IS_1                   (MEAS_NUM == MN_1)
-#define MEAS_NUM_IS_1_5                 (MEAS_NUM == MN_1_5)
-#define MEAS_NUM_IS_2_5                 (MEAS_NUM == MN_2_5)
-#define MEAS_NUM_IS_3_5                 (MEAS_NUM == MN_3_5)
-#define MEAS_NUM_IS_6_1                 (MEAS_NUM == MN_6_1)
-#define MEAS_NUM_IS_6_2                 (MEAS_NUM == MN_6_2)
+#define MEAS_NUM_IS_1                   (MEAS_NUM == MeasuresNumber::_1)
+#define MEAS_NUM_IS_1_5                 (MEAS_NUM == MeasuresNumber::_1_5)
+#define MEAS_NUM_IS_2_5                 (MEAS_NUM == MeasuresNumber::_2_5)
+#define MEAS_NUM_IS_3_5                 (MEAS_NUM == MeasuresNumber::_3_5)
+#define MEAS_NUM_IS_6_1                 (MEAS_NUM == MeasuresNumber::_6_1)
+#define MEAS_NUM_IS_6_2                 (MEAS_NUM == MeasuresNumber::_6_2)
 
 #define MEAS_SOURCE                     (set.measures.source)
 #define MEAS_SOURCE_IS_A                (MEAS_SOURCE == Chan::A)
@@ -49,15 +49,18 @@
 
 
 // Количество и расположение на экране результатов измерений.
-enum MeasuresNumber
+struct MeasuresNumber
 {
-    MN_1,                       // 1 измерение слева внизу.
-    MN_2,                       // 2 измерения слева внизу.
-    MN_1_5,                     // 1 строка с 5 измерениями.
-    MN_2_5,                     // 2 строки по 5 измерений.
-    MN_3_5,                     // 3 строки по 5 измерений.
-    MN_6_1,                     // 6 строк по 1 измерению.
-    MN_6_2                      // 6 строк по 2 измерения.
+    enum E
+    {
+        _1,                       // 1 измерение слева внизу.
+        _2,                       // 2 измерения слева внизу.
+        _1_5,                     // 1 строка с 5 измерениями.
+        _2_5,                     // 2 строки по 5 измерений.
+        _3_5,                     // 3 строки по 5 измерений.
+        _6_1,                     // 6 строк по 1 измерению.
+        _6_2                      // 6 строк по 2 измерения.
+    };
 };
 
 
@@ -73,16 +76,16 @@ enum MeasuresField
 // Настройки меню ИЗМЕРЕНИЯ
 struct SettingsMeasures
 {
-    MeasuresNumber  number;             // Сколько измерений выводить.
-    Chan::E         source;             // Для каких каналов выводить измерения.
-    ModeViewSignals modeViewSignals;    // Сжимать ли сигналы при выводе измерений.
-    Measure::E      measures[15];       // Выбранные для индикации измерения.
-    bool            show;               // Показывать ли измерения.
-    MeasuresField   field;              // Задаёт область, из которой берутся значения для расчёта измерений.
-    int16           posCurU[2];         // Позиции курсоров, которые задают область, из которой берутся значения для расчёта измерений при field == MeasuresField_Hand.
-    int16           posCurT[2];         // Позиции курсоров, которые задают область, из которой берутся значения для расчёта измерений при field == MeasuresField_Hand.
-    CursCntrl::E    cntrlU;             // Активные курсоры напряжения.
-    CursCntrl::E    cntrlT;             // Активные курсоры времени.
-    CursActive::E   cursActive;         // Какие курсоры активны - по времени или напряжению.
-    Measure::E      markedMeasure;      // Измерение, на которое нужно выводить маркеры.
+    MeasuresNumber::E number;          // Сколько измерений выводить.
+    Chan::E           source;          // Для каких каналов выводить измерения.
+    ModeViewSignals   modeViewSignals; // Сжимать ли сигналы при выводе измерений.
+    Measure::E        measures[15];    // Выбранные для индикации измерения.
+    bool              show;            // Показывать ли измерения.
+    MeasuresField     field;           // Задаёт область, из которой берутся значения для расчёта измерений.
+    int16             posCurU[2];      // Позиции курсоров, которые задают область, из которой берутся значения для расчёта измерений при field == MeasuresField_Hand.
+    int16             posCurT[2];      // Позиции курсоров, которые задают область, из которой берутся значения для расчёта измерений при field == MeasuresField_Hand.
+    CursCntrl::E      cntrlU;          // Активные курсоры напряжения.
+    CursCntrl::E      cntrlT;          // Активные курсоры времени.
+    CursActive::E     cursActive;      // Какие курсоры активны - по времени или напряжению.
+    Measure::E        markedMeasure;   // Измерение, на которое нужно выводить маркеры.
 };
