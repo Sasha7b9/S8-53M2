@@ -408,7 +408,7 @@ void DataPainter::DrawDataNormal()
         for (int i = 0; i < numSignals; i++)
         {
             Storage::GetData(i, Data::in);
-            Processing::Process();
+            Processing::Process(Data::in);
 
             DrawBothChannels(Processing::out);
         }

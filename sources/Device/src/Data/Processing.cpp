@@ -23,7 +23,10 @@ namespace Processing
     int lastP = 0;
     int numP = 0;
 
-    DataStruct out;
+    DataSettings *source = nullptr;     // Здесь хранится копия исходных данных. Это нужно для того, чтобы знать,
+                            // пересчитывать ли out. Если Process вызывается с (in.ds == source), то перерасчёт не
+                            // требуется - в out уже хранятся рассчитанные с прошлого раза данные
+    DataStruct out;         // Здесь хранятся данные после обработки, готовые к выводу и расчёту измерений
 
     MeasureValue values[Measure::Count] = {{0.0f, 0.0f}};
 
@@ -1214,8 +1217,15 @@ void Processing::CountedToCurrentSettings()
 }
 
 
-void Processing::Process()
+void Processing::Process(const DataFrame &in)
 {
+    Data::in = in;
+
+    if (in.ds == source)        // Перерасчёт не нужен - данные уже рассчитаны при предущем вызове этой фнукции
+    {
+        return;
+    }
+
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
     firstP = points.half_iword[0];

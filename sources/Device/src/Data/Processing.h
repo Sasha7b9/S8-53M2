@@ -10,7 +10,7 @@ namespace Processing
     extern DataStruct out;      // Здесь хранятся данные, готовые для вывода - преобразованные из in
 
     // Обработать сигнал из Data::in. Результат сохранён в Data::out
-    void Process();
+    void Process(const DataFrame &in);
 
     // Получить позицию курсора напряжения, соответствующю заданной позиции курсора posCurT.
     float GetCursU(Chan, float posCurT);
