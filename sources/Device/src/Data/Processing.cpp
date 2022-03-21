@@ -1230,9 +1230,9 @@ void Processing::Process()
     Processing::out.Data(ChA).Realloc(length, ValueFPGA::NONE);
     Processing::out.Data(ChB).Realloc(length, ValueFPGA::NONE);
 
-    Math_CalculateFiltrArray(Data::in.DataBegin(ChA), Processing::out.Data(ChA).Data(), length, numSmoothing);
+    Math::CalculateFiltrArray(Data::in.DataBegin(ChA), Processing::out.Data(ChA).Data(), length, numSmoothing);
 
-    Math_CalculateFiltrArray(Data::in.DataBegin(ChB), Processing::out.Data(ChB).Data(), length, numSmoothing);
+    Math::CalculateFiltrArray(Data::in.DataBegin(ChB), Processing::out.Data(ChB).Data(), length, numSmoothing);
 
     CountedToCurrentSettings();
 }

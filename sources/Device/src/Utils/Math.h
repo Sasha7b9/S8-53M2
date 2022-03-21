@@ -24,6 +24,7 @@
 
 namespace Math
 {
+    void  CalculateFiltrArray(const uint8 *in, uint8 *out, int numPoints, int numSmoothing);
     int   MinFrom2Int(int val0, int val1);
     int   Sign(int vlaue);
     // Вычисляет 10**pow.
@@ -92,7 +93,6 @@ void    Math_CalculateMathFunction(float *data0andResult, float *data1, int numP
 float   Math_RandFloat(float min, float max);
 int8    Math_AddInt8WithLimitation(int8 value, int8 delta, int8 min, int8 max);
 uint8   Math_CalculateFiltr(const uint8 *data, int x, int numPoints, int numSmoothing);
-void    Math_CalculateFiltrArray(const uint8 *in, uint8 *out, int numPoints, int numSmoothing);
 
 // Возвращает координату x пересечения линии, проходящей через (x0, y0), (x1, y1), с горизонтальной линией, проходящей
 // через точку с ординатой yHorLine.
