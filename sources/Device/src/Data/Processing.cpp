@@ -83,7 +83,7 @@ namespace Processing
     // прохождении из "-" в "+".
     float FindIntersectionWithHorLine(Chan::E, int numIntersection, bool downToUp, uint8 yLine);
 
-    void CountedToCurrentSettings(const DataFrame &);
+    void CountedToCurrentSettings(const DataSettings &, const uint8 *dA, const uint8 *dB);
 
     typedef float (*pFuncFCh)(Chan::E);
 
@@ -1151,30 +1151,29 @@ int Processing::GetMarkerVertical(Chan ch, int numMarker)
 }
 
 
-void Processing::CountedToCurrentSettings(const DataFrame &in)
+void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *dA, const uint8 *dB)
 {
-    int numPoints = in.ds->BytesInChannel();
+    int num_bytes = ds.BytesInChannel();
 
-    out.ds.Set(*in.ds);
-    out.A.Realloc(out.ds.BytesInChannel());
+    out.ds.Set(ds);
+    out.A.Realloc(num_bytes);
     out.A.Fill(ValueFPGA::NONE);
-    out.B.Realloc(out.ds.BytesInChannel());
+    out.B.Realloc(num_bytes);
     out.B.Fill(ValueFPGA::NONE);
-    
 
     int dataTShift = out.ds.tShift;
     int curTShift = SET_TSHIFT;
 
     int16 dTShift = curTShift - dataTShift;
 
-    const uint8 *in_a = in.DataBegin(ChA);
-    const uint8 *in_b = in.DataBegin(ChB);
+    const uint8 *in_a = dA;
+    const uint8 *in_b = dB;
 
-    for (int i = 0; i < numPoints; i++)
+    for (int i = 0; i < num_bytes; i++)
     {
         int index = i - dTShift;
 
-        if (index >= 0 && index < numPoints)
+        if (index >= 0 && index < num_bytes)
         {
             out.A[index] = in_a[i];
             out.B[index] = in_b[i];
@@ -1186,7 +1185,7 @@ void Processing::CountedToCurrentSettings(const DataFrame &in)
         Range::E range = SET_RANGE_A;
         RShift rShift = SET_RSHIFT_A;
 
-        for (int i = 0; i < numPoints; i++)
+        for (int i = 0; i < num_bytes; i++)
         {
             float absValue = ValueFPGA::ToVoltage(out.A[i], out.ds.range[0], (int16)out.ds.rShiftA);
             int relValue = (absValue + Range::MaxOnScreen(range) + rShift.ToAbs(range)) / Range::voltsInPoint[range] + ValueFPGA::MIN;
@@ -1201,7 +1200,7 @@ void Processing::CountedToCurrentSettings(const DataFrame &in)
         Range::E range = SET_RANGE_B;
         RShift rShift = SET_RSHIFT_B;
 
-        for (int i = 0; i < numPoints; i++)
+        for (int i = 0; i < num_bytes; i++)
         {
             float absValue = ValueFPGA::ToVoltage(out.B[i], out.ds.range[1], (int16)out.ds.rShiftB);
             int relValue = (absValue + Range::MaxOnScreen(range) + rShift.ToAbs(range)) / Range::voltsInPoint[range] + ValueFPGA::MIN;
@@ -1232,5 +1231,5 @@ void Processing::Process(const DataFrame &in)
 
     Math::CalculateFiltrArray(in.DataBegin(ChB), Processing::out.Data(ChB).Data(), length, Smoothing::ToPoints());
 
-    CountedToCurrentSettings(in);
+    CountedToCurrentSettings(*in.ds, in.DataBegin(ChA), in.DataBegin(ChB));
 }
