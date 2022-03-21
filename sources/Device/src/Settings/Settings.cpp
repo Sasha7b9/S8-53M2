@@ -218,7 +218,7 @@ static const Settings defaultSettings =
         true,                       // soundEnable
         CalibratorMode::Freq,       // calibratorEnable
         0,                          // IP-адрес (временно)  WARN
-        ColorScheme_WhiteLetters    // colorScheme
+        ColorScheme::WhiteLetters    // colorScheme
     },
     {
         0x8b, 0x2e, 0xaf, 0x8f, 0x13, 0x00, // mac
