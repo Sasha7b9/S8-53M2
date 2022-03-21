@@ -63,10 +63,14 @@ void DataStruct::PrepareForNormalDrawP2P()
 {
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
-    int first = points.half_iword[0];
-    int last = points.half_iword[1];
+    int first = points.half_iword[0];           // Позиция первой выводимой точки
+    int last = points.half_iword[1];            // Позиция последней выводимой точки
 
-    int num_points = last - first;
+    int points_on_screen = last - first;        // Столько точек всего помещается на экран
+    int drawing_points = all_points;            // Здесь будет храниться количество точек, которе нужно вывести на экране
+
+    BufferFPGA tempA(points_on_screen);
+    BufferFPGA tempB(points_on_screen);
 }
 
 
