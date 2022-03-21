@@ -56,9 +56,6 @@ namespace Storage
 
     // Копирует данные канала chan из, определяемые ds, в одну из двух строк массива dataImportRel
     void CopyData(DataSettings *, Chan ch, BufferFPGA &);
-
-    // тупо добавляет новый фрейм
-    void AppendFrameP2P(const DataSettings &);
 }
 
 
@@ -349,17 +346,4 @@ bool Storage::SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1)
     }
 
     return dp0->Equal(*dp1);
-}
-
-
-void Storage::AppendFrameP2P(const DataSettings &ds)
-{
-    int num_bytes = ds.BytesInChannel();
-
-    DataStruct data;
-    data.ds.Set(ds);
-    data.A.ReallocAndFill(num_bytes, ValueFPGA::NONE);
-    data.A.ReallocAndFill(num_bytes, ValueFPGA::NONE);
-
-    AddData(data);
 }
