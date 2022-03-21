@@ -73,7 +73,7 @@ DataStruct::DataStruct(const DataFrame &frame) : rec_point(-1), all_points(0)
 {
     ds.Set(*frame.ds);
 
-    A.FromBuffer(frame.DataBegin(ChA), ds.BytesInChannel());
+    A.ReallocFromBuffer(frame.DataBegin(ChA), ds.BytesInChannel());
 
-    B.FromBuffer(frame.DataBegin(ChB), ds.BytesInChannel());
+    B.ReallocFromBuffer(frame.DataBegin(ChB), ds.BytesInChannel());
 }

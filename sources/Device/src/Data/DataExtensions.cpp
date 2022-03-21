@@ -200,7 +200,7 @@ DataStruct &Limitator::GetLimitation(Chan ch, int direction, DataStruct &data)
 
     data.ds.Set(Processing::out.ds);
 
-    data.Data(ch).FromBuffer(buffer, data.ds.BytesInChannel());
+    data.Data(ch).ReallocFromBuffer(buffer, data.ds.BytesInChannel());
 
     return data;
 }

@@ -190,7 +190,7 @@ void Storage::CopyData(DataSettings *ds, Chan ch, BufferFPGA &data)
         address += length;
     }
 
-    data.FromBuffer(address, (int)length);
+    data.ReallocFromBuffer(address, (int)length);
 }
 
 

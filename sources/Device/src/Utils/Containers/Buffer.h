@@ -20,11 +20,12 @@ public:
 
     void Realloc(int size);
     void Realloc(int size, T value);
+    // Перевыделить память и заполнить её из buffer
+    void ReallocFromBuffer(const T *buffer, int size);
 
     void Free();
 
     void Fill(T value);
-    void FromBuffer(const T *buffer, int size);
 
     inline int Size() const { return size; }
 
