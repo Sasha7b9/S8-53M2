@@ -28,7 +28,7 @@
 #define SHOW_MEASURES                   (set.measures.show)
 
 #define MEAS_FIELD                      (set.measures.field)
-#define MEAS_FIELD_IS_HAND              (MEAS_FIELD == MeasuresField_Hand)
+#define MEAS_FIELD_IS_HAND              (MEAS_FIELD == MeasuresField::Hand)
 
 #define MEAS_POS_CUR_U(num)             (set.measures.posCurU[num])
 #define MEAS_POS_CUR_U0                 (MEAS_POS_CUR_U(0))
@@ -65,11 +65,14 @@ struct MeasuresNumber
 
 
 // Зона, по которой считаются измрения
-enum MeasuresField
+struct MeasuresField
 {
-    MeasuresField_Screen,       // Измерения будут производиться по той части сингала, которая видна на экране.
-    MeasuresField_AllMemory,    // Измерения будут производиться по всему сигналу.
-    MeasuresField_Hand          // Измерения будут производиться по окну, задаваемому пользователем.
+    enum E
+    {
+        Screen,       // Измерения будут производиться по той части сингала, которая видна на экране.
+        AllMemory,    // Измерения будут производиться по всему сигналу.
+        Hand          // Измерения будут производиться по окну, задаваемому пользователем.
+    };
 };
 
 
@@ -81,7 +84,7 @@ struct SettingsMeasures
     ModeViewSignals   modeViewSignals; // Сжимать ли сигналы при выводе измерений.
     Measure::E        measures[15];    // Выбранные для индикации измерения.
     bool              show;            // Показывать ли измерения.
-    MeasuresField     field;           // Задаёт область, из которой берутся значения для расчёта измерений.
+    MeasuresField::E  field;           // Задаёт область, из которой берутся значения для расчёта измерений.
     int16             posCurU[2];      // Позиции курсоров, которые задают область, из которой берутся значения для расчёта измерений при field == MeasuresField_Hand.
     int16             posCurT[2];      // Позиции курсоров, которые задают область, из которой берутся значения для расчёта измерений при field == MeasuresField_Hand.
     CursCntrl::E      cntrlU;          // Активные курсоры напряжения.

@@ -182,7 +182,7 @@ static const Settings defaultSettings =
             Measure::Period,         Measure::Freq,        Measure::TimeNarastaniya, Measure::TimeSpada,         Measure::DurationPlus
         },
         false,                      // show
-        MeasuresField_Screen,       // брать для измерений значения, видимые на экране
+        MeasuresField::Screen,      // брать для измерений значения, видимые на экране
         //{0, 200},                 // начальные значения курсоров напряжения для зоны измерений
         //{372, 652},               // начальные значения курсоров времени для зоны измерений
         {50, 150},                  // начальные значения курсоров напряжения для зоны измерений
