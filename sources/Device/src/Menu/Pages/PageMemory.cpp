@@ -522,9 +522,9 @@ static void SaveSignalToIntMemory()
     }
     else                                // Иначе сохраняем текущий сигнал
     {
-        if (Data::dir.Valid())
+        if (Data::out.Valid())
         {
-            HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Data::dir);
+            HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Data::in);
             HAL_ROM::GetData(PageMemory::Internal::currentSignal, Data::ins);
             Display::ShowWarningGood(Warning::SignalIsSaved);
         }

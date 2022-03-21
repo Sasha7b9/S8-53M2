@@ -23,6 +23,8 @@ namespace Processing
     int lastP = 0;
     int numP = 0;
 
+    DataStruct &out = Data::out;
+
     MeasureValue values[Measure::Count] = {{0.0f, 0.0f}};
 
     int markerHor[Chan::Count][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
@@ -125,7 +127,7 @@ namespace Processing
 
 void Processing::CalculateMeasures()
 {
-    if(!SHOW_MEASURES || !out.Valid())
+    if(!SHOW_MEASURES || !Data::out.Valid())
     {
         return;
     }
@@ -1148,11 +1150,12 @@ int Processing::GetMarkerVertical(Chan ch, int numMarker)
     return markerVert[ch][numMarker];
 }
 
+
 void Processing::CountedToCurrentSettings()
 {
-    int numPoints = in.ds.BytesInChannel();
+    int numPoints = Data::in.ds->BytesInChannel();
 
-    out.ds.Set(in.ds);
+    out.ds.Set(*Data::in.ds);
     out.A.Realloc(out.ds.BytesInChannel());
     out.A.Fill(ValueFPGA::NONE);
     out.B.Realloc(out.ds.BytesInChannel());
@@ -1164,14 +1167,17 @@ void Processing::CountedToCurrentSettings()
 
     int16 dTShift = curTShift - dataTShift;
 
+    const uint8 *in_a = Data::in.DataBegin(ChA);
+    const uint8 *in_b = Data::in.DataBegin(ChB);
+
     for (int i = 0; i < numPoints; i++)
     {
         int index = i - dTShift;
 
         if (index >= 0 && index < numPoints)
         {
-            out.A[index] = in.Data(ChA)[i];
-            out.B[index] = in.Data(ChB)[i];
+            out.A[index] = in_a[i];
+            out.B[index] = in_b[i];
         }
     }
  
@@ -1208,10 +1214,8 @@ void Processing::CountedToCurrentSettings()
 }
 
 
-void Processing::Process(DataStruct &_in)
+void Processing::Process()
 {
-    in = _in;
-
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
     firstP = points.half_iword[0];
@@ -1221,11 +1225,14 @@ void Processing::Process(DataStruct &_in)
 
     int numSmoothing = Smoothing::ToPoints();
 
-    int length = in.ds.BytesInChannel();
+    int length = Data::in.ds->BytesInChannel();
 
-    Math_CalculateFiltrArray(_in.A.Data(), in.A.Data(), length, numSmoothing);
+    Data::out.Data(ChA).Realloc(length, ValueFPGA::NONE);
+    Data::out.Data(ChB).Realloc(length, ValueFPGA::NONE);
 
-    Math_CalculateFiltrArray(_in.B.Data(), in.B.Data(), length, numSmoothing);
+    Math_CalculateFiltrArray(Data::in.DataBegin(ChA), Data::out.Data(ChA).Data(), length, numSmoothing);
+
+    Math_CalculateFiltrArray(Data::in.DataBegin(ChB), Data::out.Data(ChB).Data(), length, numSmoothing);
 
     CountedToCurrentSettings();
 }

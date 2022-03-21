@@ -4,6 +4,9 @@
 #include "Utils/Containers/Buffer.h"
 
 
+struct DataStruct;
+
+
 struct PackedTime
 {
     uint hours   : 5;
@@ -40,7 +43,7 @@ struct DataSettings
 
     DataSettings() { valid = 0; };
 
-    void Set(DataSettings &ds) { *this = ds; valid = 1; }
+    void Set(const DataSettings &ds) { *this = ds; valid = 1; }
 
     bool Equal(const DataSettings &);
 
@@ -71,6 +74,27 @@ struct BufferFPGA : public Buffer<uint8>
 };
 
 
+// Структура хранит в себе ссылки на данные, хранящиеся в хранилище. Их нельзя изменять.
+// Это такая обёртка
+struct DataFrame
+{
+    const DataSettings *ds;
+
+    DataFrame(DataSettings *_ds = nullptr) : ds(_ds) { };
+
+    // Начало данных канала
+    const uint8 *DataBegin(Chan) const;
+
+    // Конец данных канала
+    const uint8 *DataEnd(Chan);
+
+    // Заполнить фрейм ds из DataStruct
+    void GetDataChannelsFromStruct(DataStruct &);
+
+    bool Valid() const { return (ds->valid == 1); }
+};
+
+
 // Структура хранит в себе полные данные без привязки к хранилищу
 struct DataStruct
 {
@@ -83,6 +107,8 @@ struct DataStruct
 
     DataStruct() : rec_point(0), all_points(0) { }
 
+    DataStruct(const DataFrame &);
+
     BufferFPGA &Data(Chan ch) { return ch.IsA() ? A : B; }
 
     bool Valid() const { return ds.Valid(); }
@@ -93,28 +119,13 @@ struct DataStruct
 };
 
 
-// Структура хранит в себе ссылки на данные, хранящиеся в хранилище. Их нельзя изменять.
-// Это такая обёртка
-struct DataFrame
-{
-    const DataSettings *ds;
-
-    DataFrame(DataSettings *_ds = nullptr) : ds(_ds) { };
-
-    // Начало данных канала
-    const uint8 *DataBegin(Chan);
-
-    // Конец данных канала
-    const uint8 *DataEnd(Chan);
-
-    // Заполнить фрейм ds из DataStruct
-    void GetDataChannelsFromStruct(DataStruct &);
-};
-
-
 namespace Data
 {
-    extern DataFrame in;        // Здесь хранятся исходные данные для обработки и отрисовки - последние из Storage, произовльные из Storage, из ПЗУ или математические
+    extern DataFrame in;        // Здесь хранятся исходные данные для обработки и отрисовки - последние из Storage,
+                                //произовльные из Storage, из ПЗУ или математические
 
     extern DataStruct out;      // Здесь хранятся данные, готовые для вывода - преобразованные из in
+
+    extern DataFrame last;      // Здесь сигнал из ПАМЯТЬ-Последние, если нужно для отображения
+    extern DataFrame ins;       // Здесь сигнал из ППЗУ, если нужно для отображения 
 }

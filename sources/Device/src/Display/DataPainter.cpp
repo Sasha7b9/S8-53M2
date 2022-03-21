@@ -90,10 +90,10 @@ void DataPainter::DrawData()
 
 void DataPainter::DrawDataMemInt()
 {
-    if (Data::ins.Valid())
+    if (Data::out.Valid())
     {
-        DrawDataChannel(Data::ins, ChA, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Data::ins, ChB, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Data::out, ChA, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Data::out, ChB, GRID_TOP, Grid::ChannelBottom());
     }
 }
 
@@ -310,9 +310,9 @@ void DataPainter::DrawMath()
     float dataAbs0[FPGA::MAX_POINTS * 2];
     float dataAbs1[FPGA::MAX_POINTS * 2];
 
-    BufferFPGA   &dataA = Processing::out.A;
-    BufferFPGA   &dataB = Processing::out.B;
-    DataSettings &ds = Processing::out.ds;
+    BufferFPGA   &dataA = Data::out.A;
+    BufferFPGA   &dataB = Data::out.B;
+    DataSettings &ds = Data::out.ds;
 
     ValueFPGA::ToVoltage(dataA.Data(), ds.BytesInChannel(), ds.range[Chan::A], (int16)ds.rShiftA, dataAbs0);
     ValueFPGA::ToVoltage(dataB.Data(), ds.BytesInChannel(), ds.range[Chan::B], (int16)ds.rShiftB, dataAbs1);
@@ -363,10 +363,10 @@ void DataPainter::DrawBothChannels(DataStruct &data)
 
 void DataPainter::DrawDataInModeWorkLatest()
 {
-    if (Data::last.Valid())
+    if (Data::out.Valid())
     {
-        DrawDataChannel(Data::last, Chan::A, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Data::last, Chan::B, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Data::out, Chan::A, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Data::out, Chan::B, GRID_TOP, Grid::ChannelBottom());
     }
 }
 
@@ -404,22 +404,22 @@ void DataPainter::DrawDataNormal()
 
     if (numSignals == 1 || ENUM_ACCUM_IS_INFINITY || MODE_ACCUM_IS_RESET || TBase::InModeRandomizer())
     {
-        DrawBothChannels(Data::dir);
+        DrawBothChannels(Data::out);
 
-        if (prevAddr == 0 || prevAddr != Processing::out.ds.prev)
+        if (prevAddr == 0 || prevAddr != Data::in.ds->prev)
         {
             Display::numDrawingSignals++;
-            prevAddr = Processing::out.ds.prev;
+            prevAddr = Data::in.ds->prev;
         }
     }
     else
     {
         for (int i = 0; i < numSignals; i++)
         {
-            DataStruct data;
-            Storage::GetData(i, data);
+            Storage::GetData(i, Data::in);
+            Processing::Process();
 
-            DrawBothChannels(data);
+            DrawBothChannels(Data::out);
         }
     }
 }
@@ -427,12 +427,7 @@ void DataPainter::DrawDataNormal()
 
 void DataPainter::DrawMemoryWindow()
 {
-    DataStruct *dat = &Data::ins;
-
-    if (MODE_WORK_IS_DIRECT || MODE_WORK_IS_LATEST)
-    {
-        dat = &Data::dir;
-    }
+    DataStruct *dat = &Data::out;
 
     int leftX = 3;
     int top = 1;
@@ -506,7 +501,7 @@ void DataPainter::DrawMemoryWindow()
     float scale = (float)(rightX - leftX + 1) / ((float)ENUM_POINTS_FPGA::ToNumPoints() -
         (ENUM_POINTS_FPGA::ToNumPoints() == 281 ? 1 : 0));
 
-    float xShift = 1 + (TPos::InPoints(Data::dir.ds.e_points_in_channel, SET_TPOS) - Data::dir.ds.tShift * 2) * scale;
+    float xShift = 1 + (TPos::InPoints(Data::out.ds.e_points_in_channel, SET_TPOS) - Data::out.ds.tShift * 2) * scale;
 
     if (xShift < leftX - 2)
     {

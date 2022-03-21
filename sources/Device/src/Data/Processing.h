@@ -7,8 +7,8 @@
 
 namespace Processing
 {
-    // Установить сигнал для обработки. Результат будет сохранён в Data::out
-    void Process(DataFrame &in);
+    // Обработать сигнал из Data::in. Результат сохранён в Data::out
+    void Process();
 
     // Получить позицию курсора напряжения, соответствующю заданной позиции курсора posCurT.
     float GetCursU(Chan, float posCurT);

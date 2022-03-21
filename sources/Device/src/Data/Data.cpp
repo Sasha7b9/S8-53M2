@@ -7,8 +7,10 @@
 
 namespace Data
 {
-    DataFrame in;
+    DataFrame  in;
     DataStruct out;
+    DataFrame  last;
+    DataFrame  ins;
 }
 
 
@@ -19,7 +21,7 @@ void DataStruct::Log(pchar point)
 }
 
 
-const uint8 *DataFrame::DataBegin(Chan ch)
+const uint8 *DataFrame::DataBegin(Chan ch) const
 {
     uint8 *address = (uint8 *)ds + sizeof(DataSettings);
 
@@ -66,4 +68,14 @@ void DataStruct::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
 
     rec_point += 2;
     all_points += 2;
+}
+
+
+DataStruct::DataStruct(const DataFrame &frame) : rec_point(-1), all_points(0)
+{
+    ds.Set(*frame.ds);
+
+    A.FromBuffer(frame.DataBegin(ChA), ds.BytesInChannel());
+
+    B.FromBuffer(frame.DataBegin(ChB), ds.BytesInChannel());
 }

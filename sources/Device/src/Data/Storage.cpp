@@ -208,21 +208,21 @@ int Storage::NumFramesWithCurrentSettings()
 }
 
 
-bool Storage::GetData(int fromEnd, DataStruct &data)
+bool Storage::GetData(int fromEnd, DataFrame &data)
 {
+    static DataSettings ds_empty;
+
     DataSettings *dp = GetDataSettings(fromEnd);
 
     if (dp == nullptr)
     {
-        data.ds.valid = 0;
+        data.ds = &ds_empty;
+        ds_empty.valid = 0;
+
         return false;
     }
 
-    data.ds.Set(*dp);
-
-    CopyData(dp, Chan::A, data.A);
-
-    CopyData(dp, Chan::B, data.B);
+    data.ds = dp;
 
     return true;
 }

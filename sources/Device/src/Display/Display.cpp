@@ -311,9 +311,9 @@ void Display::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan ch)
     int y1 = 0;
     int s = 2;
 
-    ValueFPGA::ToVoltage(data, numPoints, Data::dir.ds.range[ch], (ch == Chan::A) ?
-        (int16)Data::dir.ds.rShiftA :
-        (int16)Data::dir.ds.rShiftB, dataR);
+    ValueFPGA::ToVoltage(data, numPoints, Data::out.ds.range[ch], (ch == Chan::A) ?
+        (int16)Data::out.ds.rShiftA :
+        (int16)Data::out.ds.rShiftB, dataR);
 
     Math_CalculateFFT(dataR, numPoints, spectrum, &freq0, &density0, &freq1, &density1, &y0, &y1);
     DrawSpectrumChannel(spectrum, ColorChannel(ch));
@@ -350,23 +350,23 @@ void Display::DrawSpectrum()
 
         if (SOURCE_FFT_IS_A)
         {
-            DRAW_SPECTRUM(Data::dir.A.Data(), numPoints, Chan::A);
+            DRAW_SPECTRUM(Data::out.A.Data(), numPoints, Chan::A);
         }
         else if (SOURCE_FFT_IS_B)
         {
-            DRAW_SPECTRUM(Data::dir.B.Data(), numPoints, Chan::B);
+            DRAW_SPECTRUM(Data::out.B.Data(), numPoints, Chan::B);
         }
         else
         {
             if (LAST_AFFECTED_CHANNEL_IS_A)
             {
-                DRAW_SPECTRUM(Data::dir.B.Data(), numPoints, Chan::B);
-                DRAW_SPECTRUM(Data::dir.A.Data(), numPoints, Chan::A);
+                DRAW_SPECTRUM(Data::out.B.Data(), numPoints, Chan::B);
+                DRAW_SPECTRUM(Data::out.A.Data(), numPoints, Chan::A);
             }
             else
             {
-                DRAW_SPECTRUM(Data::dir.A.Data(), numPoints, Chan::A);
-                DRAW_SPECTRUM(Data::dir.B.Data(), numPoints, Chan::B);
+                DRAW_SPECTRUM(Data::out.A.Data(), numPoints, Chan::A);
+                DRAW_SPECTRUM(Data::out.B.Data(), numPoints, Chan::B);
             }
         }
     }
@@ -389,7 +389,7 @@ void Display::DrawTime(int x, int y)
     
     if (MODE_WORK_IS_MEMINT || MODE_WORK_IS_LATEST)
     {
-        DataSettings &ds = MODE_WORK_IS_MEMINT ? Data::ins.ds : Data::last.ds;
+        const DataSettings &ds = MODE_WORK_IS_MEMINT ? *Data::ins.ds : *Data::last.ds;
 
         if (ds.Valid())
         {
@@ -1140,7 +1140,7 @@ void TShift::Draw()
     int lastPoint = points.half_iword[1];
 
     // Рисуем TPos
-    int shiftTPos = TPos::InPoints(Data::dir.ds.e_points_in_channel, SET_TPOS) - SHIFT_IN_MEMORY;
+    int shiftTPos = TPos::InPoints(Data::out.ds.e_points_in_channel, SET_TPOS) - SHIFT_IN_MEMORY;
     float scale = (float)(lastPoint - firstPoint) / Grid::Width();
     int gridLeft = Grid::Left();
     int x = (int)(gridLeft + shiftTPos * scale - 3);
@@ -1151,7 +1151,7 @@ void TShift::Draw()
     };
 
     // Рисуем tShift
-    int shiftTShift = TPos::InPoints(Data::dir.ds.e_points_in_channel, SET_TPOS) - SET_TSHIFT * 2;
+    int shiftTShift = TPos::InPoints(Data::out.ds.e_points_in_channel, SET_TPOS) - SET_TSHIFT * 2;
 
     if(IntInRange(shiftTShift, firstPoint, lastPoint))
     {
@@ -1352,7 +1352,7 @@ void Display::WriteTextVoltage(Chan ch, int x, int y)
 
     if (!MODE_WORK_IS_DIRECT)
     {
-        DataSettings &ds = MODE_WORK_IS_DIRECT ? Data::dir.ds : Data::ins.ds;
+        const DataSettings &ds = MODE_WORK_IS_DIRECT ? Data::out.ds : *Data::ins.ds;
 
         if (ds.Valid())
         {
@@ -1432,7 +1432,7 @@ void Display::DrawLowPart()
 
     if (!MODE_WORK_IS_DIRECT)
     {
-        DataSettings &ds = MODE_WORK_IS_LATEST ? Data::last.ds : Data::ins.ds;
+        const DataSettings &ds = MODE_WORK_IS_LATEST ? *Data::last.ds : *Data::ins.ds;
 
         if (ds.Valid())
         {

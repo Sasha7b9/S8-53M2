@@ -98,7 +98,7 @@ void Averager::Append(DataSettings *ds)
 }
 
 
-void Averager::GetData(DataFrame &data)
+void Averager::GetData(DataStruct &data)
 {
     if (ModeAveraging::Current() == ModeAveraging::Accurately)
     {
@@ -130,12 +130,12 @@ void Averager::GetDataAccurately(DataStruct &out)
 
     for (int d = 0; d < num_datas; d++)
     {
-        DataStruct data;
+        DataFrame data;
 
         Storage::GetData(d, data);
 
-        uint8 *in_a = data.A.Data();
-        uint8 *in_b = data.B.Data();
+        const uint8 *in_a = data.DataBegin(ChA);
+        const uint8 *in_b = data.DataBegin(ChB);
 
         for (int i = 0; i < num_bytes; i++)
         {

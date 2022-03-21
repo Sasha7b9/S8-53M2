@@ -16,7 +16,7 @@ template                Buffer<char>::~Buffer();
 template                Buffer<float>::~Buffer();
 template                Buffer<uint>::~Buffer();
 template void           Buffer<uint8>::Fill(uint8);
-template void           Buffer<uint8>::FromBuffer(uint8 *, int);
+template void           Buffer<uint8>::FromBuffer(const uint8 *, int);
 template void           Buffer<uint>::Fill(uint);
 template void           Buffer<float>::Free();
 template void           Buffer<uint8>::Realloc(int);
@@ -96,7 +96,7 @@ void Buffer<T>::Fill(T value)
 
 
 template<class T>
-void Buffer<T>::FromBuffer(T *buffer, int _size)
+void Buffer<T>::FromBuffer(const T *buffer, int _size)
 {
     Realloc(_size);
 

@@ -19,12 +19,6 @@
 #include "Data/DataExtensions.h"
 
 
-namespace Device
-{
-    void ProcessingSignal();
-}
-
-
 void Device::Init()
 {
     HAL::Init();
@@ -71,8 +65,6 @@ void Device::Update()
 
     DEBUG_POINT_0;
 
-    ProcessingSignal();
-
     DEBUG_POINT_0;
 
     Panel::Update();
@@ -90,35 +82,4 @@ void Device::Update()
     Settings::SaveIfNeed();
 
     // LAN::Update(0);
-}
-
-
-void Device::ProcessingSignal()
-{
-    if (Storage::NumFrames() == 0)
-    {
-        return;
-    }
-
-    if (MODE_WORK_IS_DIRECT)
-    {
-        Storage::GetData(0, Data::dir);
-
-        if (ModeAveraging::GetNumber() != 1 || TBase::InModeRandomizer())
-        {
-            Averager::GetData(Data::dir);
-        }
-
-        Processing::Process(Data::dir);
-    }
-    else if (MODE_WORK_IS_LATEST)
-    {
-        Storage::GetData(PageMemory::Latest::current, Data::last);
-    }
-    else if (MODE_WORK_IS_MEMINT)
-    {
-        HAL_ROM::GetData(PageMemory::Internal::currentSignal, Data::ins);
-    }
-
-    PageCursors::Cursors_Update();    // В случае, если находимся в режиме курсорных измерений, обновляем их положение, если нужно.
 }

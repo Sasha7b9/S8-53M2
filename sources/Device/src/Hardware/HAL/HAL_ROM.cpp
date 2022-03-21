@@ -336,6 +336,14 @@ void HAL_ROM::CompactMemory()
 }
 
 
+void HAL_ROM::SaveData(int num, DataFrame &_data)
+{
+    DataStruct data(_data);
+
+    SaveData(num, data);
+}
+
+
 void HAL_ROM::SaveData(int num, DataStruct &data)
 {
     /*
@@ -408,33 +416,23 @@ void HAL_ROM::SaveData(int num, DataStruct &data)
 }
 
 
-bool HAL_ROM::GetData(int num, DataStruct &data)
+bool HAL_ROM::GetData(int num, DataFrame &data)
 {
     uint addrDataInfo = FindActualDataInfo();
 
-    data.A.Realloc(0);
-    data.B.Realloc(0);
+    static DataSettings ds_empty;
 
     if (READ_WORD(addrDataInfo + 4 * num) == 0)
     {
-        data.ds.valid = 0;
+        ds_empty.valid = 0;
+        data.ds = &ds_empty;
 
         return false;
     }
 
     uint addrDS = READ_WORD(addrDataInfo + 4 * num);
 
-    data.ds.Set(*((DataSettings *)addrDS));
-
-    uint address1 = addrDS + sizeof(DataSettings);
-
-    SU::LogBufferU8((uint8 *)address1, 10);
-
-    uint address = 0;
-
-    address = addrDS + sizeof(DataSettings) + data.ds.BytesInChannel();
-
-    data.B.FromBuffer((uint8 *)address, data.ds.BytesInChannel());
+    data.ds = (DataSettings *)addrDS;
 
     return true;
 }
