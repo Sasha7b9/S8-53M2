@@ -555,47 +555,11 @@ uint8 Math::GetMaxFromArray(const uint8 *data, int firstPoint, int lastPoint)
 }
 
 
-uint8 Math::CalculateFiltr(const uint8 *data, int x, int numPoints, int numSmoothing)
+void Math::CalculateFiltrArray(const uint8 *in, uint8 *out, int numPoints, int numSmoothing)
 {
     if (numSmoothing < 2)
     {
-        return data[x];
-    }
-
-    int count = 1;
-    int sum = data[x];
-    int startDelta = 1;
-
-    int endDelta = numSmoothing / 2;
-
-    for (int delta = startDelta; delta <= endDelta; delta++)
-    {
-        if (((x - delta) >= 0) && ((x + delta) < (numPoints)))
-        {
-            sum += data[x - delta];
-            sum += data[x + delta];
-            count += 2;
-        }
-    }
-
-    if ((numSmoothing % 2) == 1)
-    {
-        int delta = numSmoothing / 2;
-        if ((x + delta) < numPoints)
-        {
-            sum += data[x + delta];
-            count++;
-        }
-    }
-
-    return (uint8)(sum / count);
-}
-
-void Math::CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoints, int numSmoothing)
-{
-    if (numSmoothing < 2)
-    {
-        std::memcpy(dataOut, dataIn, (uint)numPoints);
+        std::memcpy(out, in, (uint)numPoints);
     }
     else
     {
@@ -607,14 +571,14 @@ void Math::CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoint
         for (int i = 0; i < numPoints; i++)
         {
             int count = 1;
-            int sum = dataIn[i];
+            int sum = in[i];
 
             for (int delta = startDelta; delta <= endDelta; delta++)
             {
                 if (((i - delta) >= 0) && ((i + delta) < (numPoints)))
                 {
-                    sum += dataIn[i - delta];
-                    sum += dataIn[i + delta];
+                    sum += in[i - delta];
+                    sum += in[i + delta];
                     count += 2;
                 }
             }
@@ -623,12 +587,12 @@ void Math::CalculateFiltrArray(const uint8 *dataIn, uint8 *dataOut, int numPoint
             {
                 if ((i + d) < numPoints)
                 {
-                    sum += dataIn[i + d];
+                    sum += in[i + d];
                     count++;
                 }
             }
 
-            dataOut[i] = (uint8)(sum / count);
+            out[i] = (uint8)(sum / count);
         }
     }
 }

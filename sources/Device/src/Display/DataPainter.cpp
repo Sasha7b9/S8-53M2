@@ -40,7 +40,7 @@ namespace DataPainter
     void DrawMarkersForMeasure(float scale, Chan);
 
     void DrawSignalLined(const uint8 *data, const DataSettings *ds, int startPoint, int endPoint, int minY, int maxY,
-        float scaleY, float scaleX, bool calculateFiltr);
+        float scaleY, float scaleX);
 
     void DrawSignalPointed(const uint8 *data, const DataSettings *ds, int startPoint, int endPoint, int minY, int maxY,
         float scaleY, float scaleX);
@@ -119,8 +119,6 @@ void DataPainter::DrawDataInModeWorkLatestMemInt()
 
 void DataPainter::DrawDataChannel(DataStruct &data, Chan ch, int minY, int maxY)
 {
-    bool calculateFiltr = true;
-
     if (!SET_ENABLED(ch))
     {
         return;
@@ -144,7 +142,7 @@ void DataPainter::DrawDataChannel(DataStruct &data, Chan ch, int minY, int maxY)
 
     if (MODE_DRAW_IS_SIGNAL_LINES)
     {
-        DrawSignalLined(data.Data(ch).Data(), &ds, first, last, minY, maxY, scaleY, scaleX, calculateFiltr);
+        DrawSignalLined(data.Data(ch).Data(), &ds, first, last, minY, maxY, scaleY, scaleX);
     }
     else
     {
@@ -182,7 +180,7 @@ void DataPainter::DrawMarkersForMeasure(float scale, Chan ch)
 
 
 void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings *ds, int startPoint, int endPoint, int minY,
-    int maxY, float scaleY, float scaleX, bool calculateFiltr)
+    int maxY, float scaleY, float scaleX)
 {
     if (endPoint < startPoint)
     {
@@ -194,9 +192,6 @@ void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings *ds, int
     int gridLeft = Grid::Left();
     int gridRight = Grid::Right();
 
-    int numPoints = ENUM_POINTS_FPGA::ToNumPoints();
-    int numSmoothing = Smoothing::ToPoints();
-
     if (ds->peakDet == PeackDetMode::Disable)
     {
         for (int i = startPoint; i < endPoint; i++)
@@ -205,8 +200,7 @@ void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings *ds, int
             if (x0 >= gridLeft && x0 <= gridRight)
             {
                 int index = i - startPoint;
-                int y = calculateFiltr ? Math::CalculateFiltr(data, i, numPoints, numSmoothing) : data[i];
-                CONVERT_DATA_TO_DISPLAY(dataCD[index], y);
+                CONVERT_DATA_TO_DISPLAY(dataCD[index], data[i]);
             }
         }
     }
@@ -278,7 +272,6 @@ void DataPainter::DrawSignalPointed(const uint8 *data, const DataSettings *ds, i
     int maxY, float scaleY, float scaleX)
 {
     int numPoints = ENUM_POINTS_FPGA::ToNumPoints();
-    int numSmoothing = Smoothing::ToPoints();
 
     uint8 dataCD[281];
 
@@ -287,8 +280,9 @@ void DataPainter::DrawSignalPointed(const uint8 *data, const DataSettings *ds, i
         for (int i = startPoint; i < endPoint; i++)
         {
             int index = i - startPoint;
-            CONVERT_DATA_TO_DISPLAY(dataCD[index], Math::CalculateFiltr(data, i, numPoints, numSmoothing));
+            CONVERT_DATA_TO_DISPLAY(dataCD[index], data[i]);
         }
+
         DrawSignal(Grid::Left(), dataCD, false);
 
         if (ds->peakDet)
@@ -300,8 +294,9 @@ void DataPainter::DrawSignalPointed(const uint8 *data, const DataSettings *ds, i
             for (int i = startPoint; i < endPoint; i++)
             {
                 int index = i - startPoint;
-                CONVERT_DATA_TO_DISPLAY(dataCD[index], Math::CalculateFiltr(data, i, numPoints, numSmoothing));
+                CONVERT_DATA_TO_DISPLAY(dataCD[index], data[i]);
             }
+
             DrawSignal(Grid::Left(), dataCD, false);
         }
     }
@@ -311,7 +306,7 @@ void DataPainter::DrawSignalPointed(const uint8 *data, const DataSettings *ds, i
         {
             int index = i - startPoint;
             int dat = 0;
-            CONVERT_DATA_TO_DISPLAY(dat, Math::CalculateFiltr(data, i, numPoints, numSmoothing));
+            CONVERT_DATA_TO_DISPLAY(dat, data[i]);
             Painter::SetPoint((int)(Grid::Left() + index * scaleX), dat);
         }
     }

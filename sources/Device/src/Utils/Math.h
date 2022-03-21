@@ -40,7 +40,6 @@ namespace Math
     void  CalculateMathFunction(float *data0andResult, float *data1, int numPoints);
     float RandFloat(float min, float max);
     int8  AddInt8WithLimitation(int8 value, int8 delta, int8 min, int8 max);
-    uint8 CalculateFiltr(const uint8 *data, int x, int numPoints, int numSmoothing);
     uint8 GetMaxFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint);
 
     // Возвращает координату x пересечения линии, проходящей через (x0, y0), (x1, y1), с горизонтальной линией,

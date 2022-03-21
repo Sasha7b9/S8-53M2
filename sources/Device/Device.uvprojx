@@ -992,64 +992,9 @@
           <GroupName>Display</GroupName>
           <Files>
             <File>
-              <FileName>Display.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Display.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Display.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Display.h</FilePath>
-            </File>
-            <File>
-              <FileName>DisplayPrimitives.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\DisplayPrimitives.h</FilePath>
-            </File>
-            <File>
               <FileName>Colors.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Colors.h</FilePath>
-            </File>
-            <File>
-              <FileName>Painter.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Painter.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Painter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Painter.h</FilePath>
-            </File>
-            <File>
-              <FileName>DisplayTypes.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\DisplayTypes.h</FilePath>
-            </File>
-            <File>
-              <FileName>Grid.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Grid.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Grid.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Grid.h</FilePath>
-            </File>
-            <File>
-              <FileName>Math3D.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Math3D.h</FilePath>
-            </File>
-            <File>
-              <FileName>WelcomeScreen.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\WelcomeScreen.h</FilePath>
-            </File>
-            <File>
-              <FileName>Symbols.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Symbols.h</FilePath>
             </File>
             <File>
               <FileName>Colors.cpp</FileName>
@@ -1057,19 +1002,74 @@
               <FilePath>.\src\Display\Colors.cpp</FilePath>
             </File>
             <File>
+              <FileName>DataPainter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\DataPainter.h</FilePath>
+            </File>
+            <File>
+              <FileName>DataPainter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\DataPainter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Display.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Display.h</FilePath>
+            </File>
+            <File>
+              <FileName>Display.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Display.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>DisplayPrimitives.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\DisplayPrimitives.h</FilePath>
+            </File>
+            <File>
               <FileName>DisplayPrimitives.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\DisplayPrimitives.cpp</FilePath>
             </File>
             <File>
-              <FileName>WelcomeScreen.cpp</FileName>
+              <FileName>DisplayTypes.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\DisplayTypes.h</FilePath>
+            </File>
+            <File>
+              <FileName>Grid.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Grid.h</FilePath>
+            </File>
+            <File>
+              <FileName>Grid.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Display\WelcomeScreen.cpp</FilePath>
+              <FilePath>.\src\Display\Grid.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Math3D.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Math3D.h</FilePath>
             </File>
             <File>
               <FileName>Math3D.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Math3D.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Painter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Painter.h</FilePath>
+            </File>
+            <File>
+              <FileName>Painter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Painter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Symbols.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Symbols.h</FilePath>
             </File>
             <File>
               <FileName>Text.h</FileName>
@@ -1082,14 +1082,14 @@
               <FilePath>.\src\Display\Text.cpp</FilePath>
             </File>
             <File>
-              <FileName>DataPainter.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\DataPainter.cpp</FilePath>
+              <FileName>WelcomeScreen.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\WelcomeScreen.h</FilePath>
             </File>
             <File>
-              <FileName>DataPainter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\DataPainter.h</FilePath>
+              <FileName>WelcomeScreen.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\WelcomeScreen.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -2947,64 +2947,9 @@
           <GroupName>Display</GroupName>
           <Files>
             <File>
-              <FileName>Display.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Display.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Display.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Display.h</FilePath>
-            </File>
-            <File>
-              <FileName>DisplayPrimitives.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\DisplayPrimitives.h</FilePath>
-            </File>
-            <File>
               <FileName>Colors.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Colors.h</FilePath>
-            </File>
-            <File>
-              <FileName>Painter.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Painter.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Painter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Painter.h</FilePath>
-            </File>
-            <File>
-              <FileName>DisplayTypes.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\DisplayTypes.h</FilePath>
-            </File>
-            <File>
-              <FileName>Grid.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Grid.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Grid.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Grid.h</FilePath>
-            </File>
-            <File>
-              <FileName>Math3D.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Math3D.h</FilePath>
-            </File>
-            <File>
-              <FileName>WelcomeScreen.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\WelcomeScreen.h</FilePath>
-            </File>
-            <File>
-              <FileName>Symbols.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Symbols.h</FilePath>
             </File>
             <File>
               <FileName>Colors.cpp</FileName>
@@ -3012,19 +2957,74 @@
               <FilePath>.\src\Display\Colors.cpp</FilePath>
             </File>
             <File>
+              <FileName>DataPainter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\DataPainter.h</FilePath>
+            </File>
+            <File>
+              <FileName>DataPainter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\DataPainter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Display.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Display.h</FilePath>
+            </File>
+            <File>
+              <FileName>Display.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Display.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>DisplayPrimitives.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\DisplayPrimitives.h</FilePath>
+            </File>
+            <File>
               <FileName>DisplayPrimitives.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\DisplayPrimitives.cpp</FilePath>
             </File>
             <File>
-              <FileName>WelcomeScreen.cpp</FileName>
+              <FileName>DisplayTypes.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\DisplayTypes.h</FilePath>
+            </File>
+            <File>
+              <FileName>Grid.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Grid.h</FilePath>
+            </File>
+            <File>
+              <FileName>Grid.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Display\WelcomeScreen.cpp</FilePath>
+              <FilePath>.\src\Display\Grid.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Math3D.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Math3D.h</FilePath>
             </File>
             <File>
               <FileName>Math3D.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Math3D.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Painter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Painter.h</FilePath>
+            </File>
+            <File>
+              <FileName>Painter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Painter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Symbols.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Symbols.h</FilePath>
             </File>
             <File>
               <FileName>Text.h</FileName>
@@ -3037,14 +3037,14 @@
               <FilePath>.\src\Display\Text.cpp</FilePath>
             </File>
             <File>
-              <FileName>DataPainter.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\DataPainter.cpp</FilePath>
+              <FileName>WelcomeScreen.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\WelcomeScreen.h</FilePath>
             </File>
             <File>
-              <FileName>DataPainter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\DataPainter.h</FilePath>
+              <FileName>WelcomeScreen.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\WelcomeScreen.cpp</FilePath>
             </File>
           </Files>
         </Group>
