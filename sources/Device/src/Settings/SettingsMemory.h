@@ -88,11 +88,6 @@ struct ModeSaveSignal
     };
 };
 
-struct StructMemoryLast
-{
-    bool isActiveModeSelect;
-};
-
 // Настройки МЕНЮ->ПАМЯТЬ
 struct SettingsMemory
 {
@@ -109,7 +104,7 @@ struct SettingsMemory
          // При этом обратите внимание, что если спецификатор %4N стоИт после временнЫх параметров, то, скорее всего, этот параметр будет всегда равен 0001, т.к. для определения номера просматриваются только символы ДО него.
     char                fileName[MAX_SYMBOLS_IN_FILE_NAME];     // Имя файла для режима ручного задания
     int8                indexCurSymbolNameMask;                 // Индекс текущего символа в режиме задания маски или выбора имени.
-    StructMemoryLast    strMemoryLast;
+    bool                isActiveModeSelect;
     ModeShowIntMem::E   modeShowIntMem;                         // Какие сигналы показывать в режиме внутреннего ЗУ
     bool                flashAutoConnect;                       // Если true, при подлючении флеш автоматически выводится NC (Нортон Коммандер)
     ModeBtnMemory::E    modeBtnMemory;

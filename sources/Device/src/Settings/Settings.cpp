@@ -163,9 +163,7 @@ static const Settings defaultSettings =
         "Signal_\x07\x03",      // \x07 - означает, что здесь должен быть очередной номер, \x03 - минимум на три знакоместа
         "Signal01",
         0,
-        {
-            false
-        },
+        false,
         ModeShowIntMem::Both,    // modeShowIntMem
         false,                  // flashAutoConnect
         ModeBtnMemory::Menu,

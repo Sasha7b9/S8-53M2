@@ -39,7 +39,7 @@ bool IsActiveMemoryExtSetMask()
 void DrawSB_MemLastSelect(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 3, y + 2, set.memory.strMemoryLast.isActiveModeSelect ? '\x2a' : '\x28');
+    PText::Draw4SymbolsInRect(x + 3, y + 2, set.memory.isActiveModeSelect ? '\x2a' : '\x28');
     Font::Set(TypeFont::_8);
 }
 
@@ -59,7 +59,7 @@ void DrawSB_MemLast_Next(int x, int y)
 
 void PressSB_MemLastSelect()
 {
-    set.memory.strMemoryLast.isActiveModeSelect = !set.memory.strMemoryLast.isActiveModeSelect;
+    set.memory.isActiveModeSelect = !set.memory.isActiveModeSelect;
 }
 
 void PressSB_MemLast_Next()
