@@ -51,6 +51,9 @@ namespace FPGA
 
     Flag flag;
 
+    // Перед каждым циклом измерений нужно произвести некоторые действия по подготовке
+    void PrepareForCycle();
+
     void ProcessingData();
 
     // Прочитать данные.
@@ -205,7 +208,7 @@ void FPGA::SwitchingTrig()
 }
 
 
-void FPGA::Start()
+void FPGA::PrepareForCycle()
 {
     if (!TBase::InModeRandomizer())
     {
@@ -222,6 +225,12 @@ void FPGA::Start()
     {
         Timer::Disable(TypeTimer::P2P);
     }
+}
+
+
+void FPGA::Start()
+{
+    PrepareForCycle();
 
     HAL_FMC::Write(WR_PRED, FPGA::Launch::PredForWrite());
     HAL_FMC::Write(WR_START, 1);
