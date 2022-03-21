@@ -23,8 +23,8 @@
 #define INDEX_SYMBOL                (set.memory.indexCurSymbolNameMask)
 
 #define MODE_SHOW_MEMINT            (set.memory.modeShowIntMem)
-#define MODE_SHOW_MEMINT_IS_SAVED   (MODE_SHOW_MEMINT == ModeShowIntMem_Saved)
-#define MODE_SHOW_MEMINT_IS_DIRECT  (MODE_SHOW_MEMINT == ModeShowIntMem_Direct)
+#define MODE_SHOW_MEMINT_IS_SAVED   (MODE_SHOW_MEMINT == ModeShowIntMem::Saved)
+#define MODE_SHOW_MEMINT_IS_DIRECT  (MODE_SHOW_MEMINT == ModeShowIntMem::Direct)
 
 #define FLASH_AUTOCONNECT           (set.memory.flashAutoConnect)
 
