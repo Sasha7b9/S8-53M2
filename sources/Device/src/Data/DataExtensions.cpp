@@ -5,6 +5,7 @@
 #include "Data/Storage.h"
 #include "Utils/Math.h"
 #include "Utils/Strings.h"
+#include "Data/Processing.h"
 
 
 namespace Averager
@@ -197,7 +198,7 @@ DataStruct &Limitator::GetLimitation(Chan ch, int direction, DataStruct &data)
         buffer = &(lim_up[ch][0]);
     }
 
-    data.ds.Set(Data::out.ds);
+    data.ds.Set(Processing::out.ds);
 
     data.Data(ch).FromBuffer(buffer, data.ds.BytesInChannel());
 

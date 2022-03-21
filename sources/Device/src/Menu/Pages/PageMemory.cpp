@@ -22,6 +22,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Data/Data.h"
 #include "Data/DataExtensions.h"
+#include "Data/Processing.h"
 #include <cstring>
 #include <cstdio>
 
@@ -522,7 +523,7 @@ static void SaveSignalToIntMemory()
     }
     else                                // Иначе сохраняем текущий сигнал
     {
-        if (Data::out.Valid())
+        if (Processing::out.Valid())
         {
             HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Data::in);
             HAL_ROM::GetData(PageMemory::Internal::currentSignal, Data::ins);

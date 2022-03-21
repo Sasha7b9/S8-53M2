@@ -89,10 +89,10 @@ void DataPainter::DrawData()
 
 void DataPainter::DrawDataInModeWorkLatestMemInt()
 {
-    if (Data::out.Valid())
+    if (Processing::out.Valid())
     {
-        DrawDataChannel(Data::out, Chan::A, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Data::out, Chan::B, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Processing::out, Chan::A, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Processing::out, Chan::B, GRID_TOP, Grid::ChannelBottom());
     }
 }
 
@@ -309,9 +309,9 @@ void DataPainter::DrawMath()
     float dataAbs0[FPGA::MAX_POINTS * 2];
     float dataAbs1[FPGA::MAX_POINTS * 2];
 
-    BufferFPGA   &dataA = Data::out.A;
-    BufferFPGA   &dataB = Data::out.B;
-    DataSettings &ds = Data::out.ds;
+    BufferFPGA   &dataA = Processing::out.A;
+    BufferFPGA   &dataB = Processing::out.B;
+    DataSettings &ds = Processing::out.ds;
 
     ValueFPGA::ToVoltage(dataA.Data(), ds.BytesInChannel(), ds.range[Chan::A], (int16)ds.rShiftA, dataAbs0);
     ValueFPGA::ToVoltage(dataB.Data(), ds.BytesInChannel(), ds.range[Chan::B], (int16)ds.rShiftB, dataAbs1);
@@ -395,7 +395,7 @@ void DataPainter::DrawDataNormal()
 
     if (numSignals == 1 || ENUM_ACCUM_IS_INFINITY || MODE_ACCUM_IS_RESET || TBase::InModeRandomizer())
     {
-        DrawBothChannels(Data::out);
+        DrawBothChannels(Processing::out);
 
         if (prevAddr == 0 || prevAddr != Data::in.ds->prev)
         {
@@ -410,7 +410,7 @@ void DataPainter::DrawDataNormal()
             Storage::GetData(i, Data::in);
             Processing::Process();
 
-            DrawBothChannels(Data::out);
+            DrawBothChannels(Processing::out);
         }
     }
 }
@@ -418,7 +418,7 @@ void DataPainter::DrawDataNormal()
 
 void DataPainter::DrawMemoryWindow()
 {
-    DataStruct *dat = &Data::out;
+    DataStruct *dat = &Processing::out;
 
     int leftX = 3;
     int top = 1;
@@ -492,7 +492,7 @@ void DataPainter::DrawMemoryWindow()
     float scale = (float)(rightX - leftX + 1) / ((float)ENUM_POINTS_FPGA::ToNumPoints() -
         (ENUM_POINTS_FPGA::ToNumPoints() == 281 ? 1 : 0));
 
-    float xShift = 1 + (TPos::InPoints(Data::out.ds.e_points_in_channel, SET_TPOS) - Data::out.ds.tShift * 2) * scale;
+    float xShift = 1 + (TPos::InPoints(Processing::out.ds.e_points_in_channel, SET_TPOS) - Processing::out.ds.tShift * 2) * scale;
 
     if (xShift < leftX - 2)
     {

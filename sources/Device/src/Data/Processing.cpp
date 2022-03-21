@@ -23,7 +23,7 @@ namespace Processing
     int lastP = 0;
     int numP = 0;
 
-    DataStruct &out = Data::out;
+    DataStruct out;
 
     MeasureValue values[Measure::Count] = {{0.0f, 0.0f}};
 
@@ -127,7 +127,7 @@ namespace Processing
 
 void Processing::CalculateMeasures()
 {
-    if(!SHOW_MEASURES || !Data::out.Valid())
+    if(!SHOW_MEASURES || !Processing::out.Valid())
     {
         return;
     }
@@ -1227,12 +1227,12 @@ void Processing::Process()
 
     int length = Data::in.ds->BytesInChannel();
 
-    Data::out.Data(ChA).Realloc(length, ValueFPGA::NONE);
-    Data::out.Data(ChB).Realloc(length, ValueFPGA::NONE);
+    Processing::out.Data(ChA).Realloc(length, ValueFPGA::NONE);
+    Processing::out.Data(ChB).Realloc(length, ValueFPGA::NONE);
 
-    Math_CalculateFiltrArray(Data::in.DataBegin(ChA), Data::out.Data(ChA).Data(), length, numSmoothing);
+    Math_CalculateFiltrArray(Data::in.DataBegin(ChA), Processing::out.Data(ChA).Data(), length, numSmoothing);
 
-    Math_CalculateFiltrArray(Data::in.DataBegin(ChB), Data::out.Data(ChB).Data(), length, numSmoothing);
+    Math_CalculateFiltrArray(Data::in.DataBegin(ChB), Processing::out.Data(ChB).Data(), length, numSmoothing);
 
     CountedToCurrentSettings();
 }
