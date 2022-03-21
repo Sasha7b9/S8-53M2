@@ -364,20 +364,22 @@ void DataPainter::DrawDataMinMax()
     ModeDrawSignal::E modeDrawSignalOld = MODE_DRAW_SIGNAL;
     MODE_DRAW_SIGNAL = ModeDrawSignal::Lines;
 
-//    if (LAST_AFFECTED_CHANNEL_IS_B)
-//    {
-//        DrawDataChannel(Storage::GetLimitation(Chan::A, 0), Chan::A, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
-//        DrawDataChannel(Storage::GetLimitation(Chan::A, 1), Chan::A, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
-//        DrawDataChannel(Storage::GetLimitation(Chan::B, 0), Chan::B, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
-//        DrawDataChannel(Storage::GetLimitation(Chan::B, 1), Chan::B, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
-//    }
-//    else
-//    {
-//        DrawDataChannel(Storage::GetLimitation(Chan::B, 0), Chan::B, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
-//        DrawDataChannel(Storage::GetLimitation(Chan::B, 1), Chan::B, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
-//        DrawDataChannel(Storage::GetLimitation(Chan::A, 0), Chan::A, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
-//        DrawDataChannel(Storage::GetLimitation(Chan::A, 1), Chan::A, Data::dir.ds, GRID_TOP, Grid::ChannelBottom());
-//    }
+    DataStruct limit;
+
+    if (LAST_AFFECTED_CHANNEL_IS_B)
+    {
+        DrawDataChannel(Storage::GetLimitation(ChA, 0, limit), ChA, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::GetLimitation(ChA, 1, limit), ChA, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::GetLimitation(ChB, 0, limit), ChB, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::GetLimitation(ChB, 1, limit), ChB, GRID_TOP, Grid::ChannelBottom());
+    }
+    else
+    {
+        DrawDataChannel(Storage::GetLimitation(ChB, 0, limit), ChB, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::GetLimitation(ChB, 1, limit), ChB, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::GetLimitation(ChA, 0, limit), ChA, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Storage::GetLimitation(ChA, 1, limit), ChA, GRID_TOP, Grid::ChannelBottom());
+    }
 
     MODE_DRAW_SIGNAL = modeDrawSignalOld;
 }
