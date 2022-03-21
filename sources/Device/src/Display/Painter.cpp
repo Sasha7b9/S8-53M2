@@ -43,22 +43,27 @@ namespace Painter
 }
 
 
-static enum StateTransmit
+struct StateTransmit
 {
-    StateTransmit_Free,
-    StateTransmit_NeedForTransmitFirst,  // Это когда нужно передать первый кадр - передаются шрифты
-    StateTransmit_NeedForTransmitSecond, // Это когда нужно передать второй и последующий кадры - шрифты не передаются
-    StateTransmit_InProcess
-} stateTransmit = StateTransmit_Free;
+    enum E
+    {
+        Free,
+        NeedForTransmitFirst,  // Это когда нужно передать первый кадр - передаются шрифты
+        NeedForTransmitSecond, // Это когда нужно передать второй и последующий кадры - шрифты не передаются
+        InProcess
+    };
+};
+
+static StateTransmit::E stateTransmit = StateTransmit::Free;
 
 
 void Painter::SendFrame(bool first, bool noFonts_)
 {
     noFonts = noFonts_;
 
-    if (stateTransmit == StateTransmit_Free)
+    if (stateTransmit == StateTransmit::Free)
     {
-        stateTransmit = (first ? StateTransmit_NeedForTransmitFirst : StateTransmit_NeedForTransmitSecond);
+        stateTransmit = (first ? StateTransmit::NeedForTransmitFirst : StateTransmit::NeedForTransmitSecond);
     }
 }
 
@@ -156,7 +161,7 @@ void InterCom::Send(const uint8 *pointer, int size)
 
 bool InterCom::TransmitGUIinProcess()
 {
-    return (stateTransmit == StateTransmit_InProcess);
+    return (stateTransmit == StateTransmit::InProcess);
 }
 
 
@@ -527,13 +532,15 @@ void Painter::DrawVLineArray(int x, int num_lines, uint8 *y0y1, Color::E color, 
 
 void Painter::BeginScene(Color::E color)
 {
-    if (stateTransmit == StateTransmit_NeedForTransmitFirst || stateTransmit == StateTransmit_NeedForTransmitSecond)
+    if (stateTransmit == StateTransmit::NeedForTransmitFirst || stateTransmit == StateTransmit::NeedForTransmitSecond)
     {
-        bool needForLoadFontsAndPalette = stateTransmit == StateTransmit_NeedForTransmitFirst;
-        stateTransmit = StateTransmit_InProcess;
+        bool needForLoadFontsAndPalette = stateTransmit == StateTransmit::NeedForTransmitFirst;
+        stateTransmit = StateTransmit::InProcess;
+
         if(needForLoadFontsAndPalette) 
         {
             HAL_LTDC::LoadPalette();
+
             if(!noFonts)                // Если был запрос на загрузку шрифтов
             {
                 Font::Load(TypeFont::_5);
@@ -573,9 +580,9 @@ void Painter::EndScene(bool endScene)
         }
     }
 
-    if (stateTransmit == StateTransmit_InProcess)
+    if (stateTransmit == StateTransmit::InProcess)
     {
-        stateTransmit = StateTransmit_Free;
+        stateTransmit = StateTransmit::Free;
     }
 }
 
