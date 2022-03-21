@@ -8,6 +8,7 @@
 #include "Utils/Math.h"
 #include "Display/Symbols.h"
 #include "Data/DataExtensions.h"
+#include "Hardware/InterCom.h"
 #include <climits>
 
 
@@ -54,6 +55,9 @@ namespace DataPainter
     // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена
     // иниформация о максимумах.
     void DrawDataInRect(int x, int width, const uint8 *data, int numElems, Chan::E ch, int shiftForPeakDet);
+
+    // modeLines - true - точками, false - точками
+    void DrawSignal(const int x, const uint8 data[281], bool modeLines);
 }
 
 
@@ -257,7 +261,7 @@ void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings *ds, int
     if (ds->peakDet == PeackDetMode::Disable)
     {
         CONVERT_DATA_TO_DISPLAY(dataCD[280], data[endPoint]);
-        Painter::DrawSignal(Grid::Left(), dataCD, true);
+        DrawSignal(Grid::Left(), dataCD, true);
     }
 }
 
@@ -277,7 +281,7 @@ void DataPainter::DrawSignalPointed(const uint8 *data, const DataSettings *ds, i
             int index = i - startPoint;
             CONVERT_DATA_TO_DISPLAY(dataCD[index], Math::CalculateFiltr(data, i, numPoints, numSmoothing));
         }
-        Painter::DrawSignal(Grid::Left(), dataCD, false);
+        DrawSignal(Grid::Left(), dataCD, false);
 
         if (ds->peakDet)
         {
@@ -290,7 +294,7 @@ void DataPainter::DrawSignalPointed(const uint8 *data, const DataSettings *ds, i
                 int index = i - startPoint;
                 CONVERT_DATA_TO_DISPLAY(dataCD[index], Math::CalculateFiltr(data, i, numPoints, numSmoothing));
             }
-            Painter::DrawSignal(Grid::Left(), dataCD, false);
+            DrawSignal(Grid::Left(), dataCD, false);
         }
     }
     else
@@ -632,5 +636,57 @@ void DataPainter::DrawDataInRect(int x, int width, const uint8 *data, int numEle
     {
         Painter::DrawVLineArray(x, 255, points, ColorChannel(ch), transparency);
         Painter::DrawVLineArray(x + 255, width - 255, points + 255 * 2, ColorChannel(ch), transparency);
+    }
+}
+
+
+void DataPainter::DrawSignal(const int _x, const uint8 data[281], bool modeLines)
+{
+    int x = _x;
+
+    if (modeLines)
+    {
+        int y_prev = data[0];
+
+        for (int i = 1; i < 280; i++)
+        {
+            int y = data[i];
+
+            if (y == y_prev)
+            {
+                Painter::SetPoint(x, y);
+            }
+            else if (y > y_prev)
+            {
+                Painter::DrawVLine(x, y - 1, y_prev);
+            }
+            else
+            {
+                Painter::DrawVLine(x, y_prev, y + 1);
+            }
+
+            y_prev = y;
+            x++;
+        }
+    }
+    else
+    {
+        for (int i = 0; i < 281; i++)
+        {
+            Painter::SetPoint(x++, data[i]);
+        }
+    }
+
+    if (InterCom::TransmitGUIinProcess())
+    {
+        CommandBuffer command(284, (uint8)(modeLines ? DRAW_SIGNAL_LINES : DRAW_SIGNAL_POINTS));
+        command.PushHalfWord(_x);
+
+        for (int i = 0; i < 281; i++)
+        {
+            command.PushByte(data[i]);
+        }
+
+        command.Transmit(284);
     }
 }

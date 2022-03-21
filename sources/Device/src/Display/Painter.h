@@ -57,9 +57,6 @@ namespace Painter
     // «начени€ transparency не должны выводитьс€
     void DrawVLineArray(int x, int numLines, uint8 *y0y1, Color::E, uint8 transparency);
 
-    // modeLines - true - точками, false - точками
-    void DrawSignal(const int x, const uint8 data[281], bool modeLines);
-
     bool SaveScreenToFlashDrive();
 
     void DrawHintsForSmallButton(int x, int y, int width, void *smallButton);
