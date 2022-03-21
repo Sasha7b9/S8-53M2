@@ -18,8 +18,8 @@
 #define FFT_MAX_DB                  (set.math.fftMaxDB)
 
 #define MATH_FUNC                   (set.math.func)
-#define MATH_FUNC_IS_SUM            (MATH_FUNC == Function_Sum)
-#define MATH_FUNC_IS_MUL            (MATH_FUNC == Function_Mul)
+#define MATH_FUNC_IS_SUM            (MATH_FUNC == Function::Sum)
+#define MATH_FUNC_IS_MUL            (MATH_FUNC == Function::Mul)
 
 #define FFT_CUR_CURSOR              (set.math.currentCursor)
 #define FFT_CUR_CURSOR_IS_0         (FFT_CUR_CURSOR == 0)
@@ -91,10 +91,13 @@ struct FFTmaxDB
 };
 
 // Какую функцию рассчитывать.
-enum Function
+struct Function
 {
-    Function_Sum,           // Сумма двух каналов.
-    Function_Mul            // Произведение двух каналов.
+    enum E
+    {
+        Sum,           // Сумма двух каналов.
+        Mul            // Произведение двух каналов.
+    };
 };
 
 
@@ -121,7 +124,7 @@ struct SettingsMath
     SourceFFT::E    sourceFFT;      // Источник сигнала для расчёта и отображения спектра.
     WindowFFT::E    windowFFT;      // Задаёт вид окна, на которое умножается сигнал перед расчётом спектра.
     FFTmaxDB::E     fftMaxDB;       // Минимальное значение на вертикальной координате графика спектра.
-    Function        func;           // Включённая математическая функция.
+    Function::E     func;           // Включённая математическая функция.
     uint8           currentCursor;  // Определяет, каким курсором спектра управляет ручка УСТАНОВКА.
     uint8           posCur[2];      // Позиция курсора спектра. Изменятеся 0...256.
     int8            koeff1add;      // Коэффициент при первом слагаемом для сложения.
