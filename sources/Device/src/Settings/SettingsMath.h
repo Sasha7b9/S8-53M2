@@ -7,8 +7,8 @@
 #define SCALE_FFT_IS_LINEAR         (SCALE_FFT == ScaleFFT::Linear)
 
 #define SOURCE_FFT                  (set.math.sourceFFT)
-#define SOURCE_FFT_IS_A             (SOURCE_FFT == SourceFFT_A)
-#define SOURCE_FFT_IS_B             (SOURCE_FFT == SourceFFT_B)
+#define SOURCE_FFT_IS_A             (SOURCE_FFT == SourceFFT::A)
+#define SOURCE_FFT_IS_B             (SOURCE_FFT == SourceFFT::B)
 
 #define WINDOW_FFT                  (set.math.windowFFT)
 #define WINDOW_FFT_IS_HAMMING       (WINDOW_FFT == WindowFFT_Hamming)
@@ -55,11 +55,14 @@ struct ScaleFFT
 };
 
 // Источинк сигнала для отображения спектра.
-enum SourceFFT
+struct SourceFFT
 {
-    SourceFFT_A,            // Расчёт и отображение спектра первого канала.
-    SourceFFT_B,            // Расчёт и отображение спектра второго канала.
-    SourceFFT_Both          // Расчёт и отображение спектров обоих каналов.
+    enum E
+    {
+        A,            // Расчёт и отображение спектра первого канала.
+        B,            // Расчёт и отображение спектра второго канала.
+        Both          // Расчёт и отображение спектров обоих каналов.
+    };
 };
 
 // Вид окна для умножения сигнала перед расчётом спектра.
@@ -112,7 +115,7 @@ enum ModeRegSet
 struct SettingsMath
 {
     ScaleFFT::E     scaleFFT;       // Масштаб шкалы для отображения спектра.
-    SourceFFT       sourceFFT;      // Источник сигнала для расчёта и отображения спектра.
+    SourceFFT::E    sourceFFT;      // Источник сигнала для расчёта и отображения спектра.
     WindowFFT       windowFFT;      // Задаёт вид окна, на которое умножается сигнал перед расчётом спектра.
     FFTmaxDB::E     fftMaxDB;       // Минимальное значение на вертикальной координате графика спектра.
     Function        func;           // Включённая математическая функция.
