@@ -58,6 +58,12 @@ void DataStruct::PrepareForNewCycle()
 }
 
 
+void DataStruct::PrepareForNormalDrawP2P()
+{
+
+}
+
+
 void DataStruct::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
 {
     int max_bytes = ds.BytesInChannel();
