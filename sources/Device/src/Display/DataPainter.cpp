@@ -19,6 +19,15 @@
 
 namespace DataPainter
 {
+    // Нарисовать данные в обычном режиме работы
+    void DrawInModeDirect();
+
+    // Нарисовать данные в режиме ПАМЯТЬ-Последние
+    void DrawInModeLatest();
+
+    // Нарисовать данные режиме ПАМЯТЬ-ВНУТР ЗУ
+    void DrawInModeInternal();
+
     void DrawDataNormal();
 
     void DrawDataInModeWorkLatestMemInt();
@@ -50,25 +59,39 @@ namespace DataPainter
 
 void DataPainter::DrawData()
 {
-    if (MODE_WORK_IS_DIRECT)
+    static const pFuncVV functions[ModeWork::Count] =
     {
-        if (Storage::NumFrames())
-        {
-            DataFrame frame;
-            Processing::Process(Storage::GetData(0, frame));
-            DrawDataNormal();
-        }
-    }
-    else if (MODE_WORK_IS_LATEST)
-    {
+        DrawInModeDirect,
+        DrawInModeLatest,
+        DrawInModeInternal
+    };
 
-    }
-    else if (MODE_WORK_IS_MEMINT)
-    {
-
-    }
+    functions[MODE_WORK]();
 
     Painter::DrawRectangle(Grid::Left(), GRID_TOP, Grid::Width(), Grid::FullHeight(), COLOR_FILL);
+}
+
+
+void DataPainter::DrawInModeDirect()
+{
+    if (Storage::NumFrames())
+    {
+        DataFrame frame;
+        Processing::Process(Storage::GetData(0, frame));
+        DrawDataNormal();
+    }
+}
+
+
+void DataPainter::DrawInModeLatest()
+{
+
+}
+
+
+void DataPainter::DrawInModeInternal()
+{
+
 }
 
 
