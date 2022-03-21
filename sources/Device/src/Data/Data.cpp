@@ -4,6 +4,7 @@
 #include "Data/Data.h"
 #include "Utils/Strings.h"
 #include "FPGA/TypesFPGA.h"
+#include "Settings/SettingsDisplay.h"
 
 
 namespace Data
@@ -60,7 +61,12 @@ void DataStruct::PrepareForNewCycle()
 
 void DataStruct::PrepareForNormalDrawP2P()
 {
+    BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
+    int first = points.half_iword[0];
+    int last = points.half_iword[1];
+
+    int num_points = last - first;
 }
 
 

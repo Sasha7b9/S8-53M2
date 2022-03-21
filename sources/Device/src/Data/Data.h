@@ -102,7 +102,7 @@ struct DataStruct
     BufferFPGA   B;
     DataSettings ds;
 
-    int rec_points;         // Эти точки сейчас будут записываться
+    int rec_points;         // Эти точки сейчас будут записываться. Не может быть больше количества байт в канале
     int all_points;         // Всего считано точек
 
     DataStruct() : rec_points(0), all_points(0) { }
