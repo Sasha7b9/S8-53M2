@@ -188,7 +188,7 @@ const SmallButton sbMemLastNext
 void PressSB_MemLast_IntEnter()
 {
     PageMemory::Internal::self->OpenAndSetCurrent();
-    MODE_WORK = ModeWork_MemInt;
+    MODE_WORK = ModeWork::MemInt;
     HAL_ROM::GetData(PageMemory::Internal::currentSignal, Data::ins);
     PageMemory::Internal::exitToLast = true;
 }
@@ -778,13 +778,13 @@ void PressSB_MemInt_Exit()
     if (PageMemory::Internal::exitToLast)
     {
         PageMemory::Latest::self->OpenAndSetCurrent();
-        MODE_WORK = ModeWork_Latest;
+        MODE_WORK = ModeWork::Latest;
         PageMemory::Internal::exitToLast = false;
         Menu::needClosePageSB = false;
     }
     else
     {
-        MODE_WORK = ModeWork_Direct;
+        MODE_WORK = ModeWork::Direct;
         Page::FromName(NamePage::SB_MemInt)->ShortPressOnItem(0);
     }
 }
@@ -1126,7 +1126,7 @@ void PageMemory::SaveSignalToFlashDrive()
 
 static void PressSB_MemLast_Exit()
 {
-    MODE_WORK = ModeWork_Direct;
+    MODE_WORK = ModeWork::Direct;
 
     if (FPGA::runningBeforeSmallButtons)
     {
@@ -1143,7 +1143,7 @@ void OnPressMemoryLatest()
     PageMemory::Latest::current = 0;
     FPGA::runningBeforeSmallButtons = FPGA::IsRunning();
     FPGA::Stop(false);
-    MODE_WORK = ModeWork_Latest;
+    MODE_WORK = ModeWork::Latest;
 }
 
 static const SmallButton sbExitMemLast
@@ -1284,7 +1284,7 @@ static const Page mspMemoryExt
 void OnPressMemoryInt()
 {
     PageMemory::Internal::self->OpenAndSetCurrent();
-    MODE_WORK = ModeWork_MemInt;
+    MODE_WORK = ModeWork::MemInt;
 
     HAL_ROM::GetData(PageMemory::Internal::currentSignal, Data::ins);
 }

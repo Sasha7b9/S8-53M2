@@ -8,9 +8,9 @@
 #define SET_ENUM_POINTS_IS_1024     (SET_ENUM_POINTS == ENUM_POINTS_FPGA::_1024)
 
 #define MODE_WORK                   (set.memory.modeWork)
-#define MODE_WORK_IS_DIRECT         (MODE_WORK == ModeWork_Direct)
-#define MODE_WORK_IS_LATEST         (MODE_WORK == ModeWork_Latest)
-#define MODE_WORK_IS_MEMINT         (MODE_WORK == ModeWork_MemInt)
+#define MODE_WORK_IS_DIRECT         (MODE_WORK == ModeWork::Direct)
+#define MODE_WORK_IS_LATEST         (MODE_WORK == ModeWork::Latest)
+#define MODE_WORK_IS_MEMINT         (MODE_WORK == ModeWork::MemInt)
 
 #define FILE_NAMING_MODE            (set.memory.fileNamingMode)
 #define FILE_NAMING_MODE_IS_MASK    (FILE_NAMING_MODE == FileNamingMode_Mask)
@@ -35,14 +35,15 @@
 #define MODE_SAVE_SIGNAL_IS_BMP     (MODE_SAVE_SIGNAL == ModeSaveSignal_BMP)
 
 
-
-
 // Режим работы.
-enum ModeWork
+struct ModeWork
 {
-    ModeWork_Direct,        // Основной режим.
-    ModeWork_Latest,        // В этом режиме можно просмотреть последние сохранённые измерения.
-    ModeWork_MemInt,        // В этом режиме можно сохранять во flash-памяти измерения просматривать ранее сохранённые.
+    enum E
+    {
+        Direct,        // Основной режим.
+        Latest,        // В этом режиме можно просмотреть последние сохранённые измерения.
+        MemInt,        // В этом режиме можно сохранять во flash-памяти измерения просматривать ранее сохранённые.
+    };
 };
 
 
@@ -88,7 +89,7 @@ struct SettingsMemory
 {
 #define MAX_SYMBOLS_IN_FILE_NAME 35
     ENUM_POINTS_FPGA::E fpgaENumPoints;                         // Число точек.
-    ModeWork            modeWork;                               // Режим работы.
+    ModeWork::E         modeWork;                               // Режим работы.
     FileNamingMode      fileNamingMode;                         // Режим именования файлов.
     char                fileNameMask[MAX_SYMBOLS_IN_FILE_NAME]; // Здесь маска для автоматического именования файлов\n
          // Правила именования.\n
