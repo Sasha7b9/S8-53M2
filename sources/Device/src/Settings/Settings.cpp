@@ -207,7 +207,7 @@ static const Settings defaultSettings =
         1,
         false,
         ModeDrawMath::Disable,       // modeDrawMath
-        ModeRegSet_Range,           // modeRegSet
+        ModeRegSet::Range,           // modeRegSet
         Range::_50mV,
         Divider::_1,
         RShift::ZERO                  // rShift
