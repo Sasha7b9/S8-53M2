@@ -18,6 +18,7 @@ template                Buffer<uint>::~Buffer();
 template void           Buffer<uint8>::Fill(uint8);
 template void           Buffer<uint8>::ReallocFromBuffer(const uint8 *, int);
 template void           Buffer<uint>::Fill(uint);
+template void           Buffer<uint8>::FillFromBuffer(const uint8 *, int);
 template void           Buffer<float>::Free();
 template void           Buffer<uint8>::Realloc(int);
 template void           Buffer<float>::Realloc(int);
