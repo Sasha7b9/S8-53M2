@@ -69,7 +69,7 @@ namespace Storage
     void CopyData(DataSettings *, Chan ch, BufferFPGA &);
 
     // тупо добавляет новый фрейм
-    void AppendFrameP2P(DataSettings);
+    void AppendFrameP2P(const DataSettings);
 }
 
 
@@ -424,11 +424,16 @@ bool Storage::SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1)
     DataSettings *dp0 = GetDataSettings(elemFromEnd0);
     DataSettings *dp1 = GetDataSettings(elemFromEnd1);
 
+    if (!dp0 || !dp1)
+    {
+        return false;
+    }
+
     return dp0->Equal(*dp1);
 }
 
 
-void Storage::AppendFrameP2P(DataSettings ds)
+void Storage::AppendFrameP2P(const DataSettings ds)
 {
     int num_bytes = ds.BytesInChannel();
 

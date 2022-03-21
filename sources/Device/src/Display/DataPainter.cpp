@@ -18,11 +18,9 @@
 
 namespace DataPainter
 {
-    void DrawDataMemInt();
-
     void DrawDataNormal();
 
-    void DrawDataInModeWorkLatest();
+    void DrawDataInModeWorkLatestMemInt();
 
     void DrawDataMinMax();
 
@@ -57,7 +55,7 @@ void DataPainter::DrawData()
         {
             if (!MODE_SHOW_MEMINT_IS_DIRECT)
             {
-                DrawDataMemInt();
+                DrawDataInModeWorkLatestMemInt();
             }
             if (!MODE_SHOW_MEMINT_IS_SAVED)
             {
@@ -66,13 +64,13 @@ void DataPainter::DrawData()
         }
         else if (MODE_WORK_IS_LATEST)
         {
-            DrawDataInModeWorkLatest();
+            DrawDataInModeWorkLatestMemInt();
         }
         else
         {
             if (PageMemory::Internal::showAlways)
             {
-                DrawDataMemInt();
+                DrawDataInModeWorkLatestMemInt();
             }
 
             DrawDataNormal();
@@ -88,12 +86,12 @@ void DataPainter::DrawData()
 }
 
 
-void DataPainter::DrawDataMemInt()
+void DataPainter::DrawDataInModeWorkLatestMemInt()
 {
     if (Data::out.Valid())
     {
-        DrawDataChannel(Data::out, ChA, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Data::out, ChB, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Data::out, Chan::A, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Data::out, Chan::B, GRID_TOP, Grid::ChannelBottom());
     }
 }
 
@@ -361,16 +359,6 @@ void DataPainter::DrawBothChannels(DataStruct &data)
 }
 
 
-void DataPainter::DrawDataInModeWorkLatest()
-{
-    if (Data::out.Valid())
-    {
-        DrawDataChannel(Data::out, Chan::A, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Data::out, Chan::B, GRID_TOP, Grid::ChannelBottom());
-    }
-}
-
-
 void DataPainter::DrawDataMinMax()
 {
     ModeDrawSignal::E modeDrawSignalOld = MODE_DRAW_SIGNAL;
@@ -457,7 +445,7 @@ void DataPainter::DrawMemoryWindow()
 
     if (showFull)
     {
-        if (dat->A.Size() || dat->A.Size())
+        if (dat->A.Size() || dat->B.Size())
         {
             Chan::E chanFirst = LAST_AFFECTED_CHANNEL_IS_A ? ChB : ChA;
             Chan::E chanSecond = LAST_AFFECTED_CHANNEL_IS_A ? ChA : ChB;
