@@ -66,10 +66,6 @@ DSTATUS USBH_status(BYTE lun)
     {
         res = RES_OK;
     }
-    else
-    {
-        res = RES_ERROR;
-    }
 
     return res;
 }
@@ -130,7 +126,6 @@ DRESULT USBH_read(BYTE lun, BYTE *buff, DWORD sector, UINT count)
             break;
 
         default:
-            res = RES_ERROR;
             break;
         }
     }
@@ -198,7 +193,6 @@ DRESULT USBH_write(BYTE lun, const BYTE *buff, DWORD sector, UINT count)
             break;
 
         default:
-            res = RES_ERROR;
             break;
         }
     }
