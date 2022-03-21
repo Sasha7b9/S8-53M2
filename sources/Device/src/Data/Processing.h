@@ -11,7 +11,7 @@ namespace Processing
 
     // Обработать сигнал из in. Результат сохранён в Data::out
     void Process(const DataFrame &in);
-
+    void Process(DataStruct &in);
 
     // Получить позицию курсора напряжения, соответствующю заданной позиции курсора posCurT.
     float GetCursU(Chan, float posCurT);

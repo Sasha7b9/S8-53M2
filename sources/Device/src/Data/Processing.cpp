@@ -83,7 +83,8 @@ namespace Processing
     // прохождении из "-" в "+".
     float FindIntersectionWithHorLine(Chan::E, int numIntersection, bool downToUp, uint8 yLine);
 
-    void CountedToCurrentSettings(const DataSettings &, const uint8 *dA, const uint8 *dB);
+    // Привести к текущим настройкам данные, из inA, inB. Данные сохраняются в Processing::out
+    void CountedToCurrentSettings(const DataSettings &, const uint8 *inA, const uint8 *inB);
 
     typedef float (*pFuncFCh)(Chan::E);
 
@@ -1210,6 +1211,28 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
             else                                 { out.B[i] = (uint8)relValue; }
         }
     }
+}
+
+
+void Processing::Process(DataStruct &in)
+{
+    BitSet32 points = SettingsDisplay::PointsOnDisplay();
+
+    firstP = points.half_iword[0];
+
+    lastP = points.half_iword[1];
+    numP = lastP - firstP;
+
+    int length = in.ds.BytesInChannel();
+
+    Processing::out.Data(ChA).Realloc(length, ValueFPGA::NONE);
+    Processing::out.Data(ChB).Realloc(length, ValueFPGA::NONE);
+
+    Math::CalculateFiltrArray(in.A.Data(), Processing::out.Data(ChA).Data(), length, Smoothing::ToPoints());
+
+    Math::CalculateFiltrArray(in.B.Data(), Processing::out.Data(ChB).Data(), length, Smoothing::ToPoints());
+
+    CountedToCurrentSettings(in.ds, in.A.Data(), in.B.Data());
 }
 
 
