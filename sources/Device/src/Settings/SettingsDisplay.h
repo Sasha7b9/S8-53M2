@@ -209,14 +209,17 @@ struct AltMarkers
 };
 
 // Через какое время после последнего нажатия кнопки скрывать меню.
-enum MenuAutoHide
+struct MenuAutoHide
 {
-    MenuAutoHide_None = 0,  // Никогда.
-    MenuAutoHide_5 = 5,     // Через 5 секунд.
-    MenuAutoHide_10 = 10,   // Через 10 секунд.
-    MenuAutoHide_15 = 15,   // Через 15 секунд.
-    MenuAutoHide_30 = 30,   // Через 30 секунд.
-    MenuAutoHide_60 = 60    // Через 60 секунд.
+    enum E
+    {
+        None = 0,  // Никогда.
+        _5 = 5,     // Через 5 секунд.
+        _10 = 10,   // Через 10 секунд.
+        _15 = 15,   // Через 15 секунд.
+        _30 = 30,   // Через 30 секунд.
+        _60 = 60    // Через 60 секунд.
+    };
 };
 
 // Тип привязки к смещению по вертикали
@@ -231,27 +234,29 @@ enum LinkingRShift
 // Настройки изображения
 struct SettingsDisplay
 {
-    int16               timeShowLevels;             // Время, в течение которого нужно показывать уровни смещения.
-    int16               shiftInMemory;              // Показывает смещение левого края сетки относительно нулевого байта памяти. Нужно для правильного отображения сигнала в окне.
-    int16               timeMessages;               // Время в секундах, на которое сообщение остаётся на экране.
-    int16               brightness;                 // Яркость дисплея.
-    int16               brightnessGrid;             // Яркость сетки от 0 до 100.
-    uint                colors[16];                 // Цвета.
-    ModeDrawSignal::E   modeDrawSignal;             // Режим отрисовки сигнала.
-    TypeGrid::E         typeGrid;                   // Тип сетки.
-    ENumAccumulation::E enumAccumulation;           // Перечисление накоплений сигнала на экране.
-    ENumAveraging::E    enumAve;                    // Перечисление усреднений сигнала.
-    ModeAveraging::E    modeAve;                    // Тип усреднений по измерениям.
-    ENumMinMax          enumMinMax;                 // Число измерений для определения минимумов и максимумов.
-    Smoothing::E        smoothing;                  // Число точек для скользящего фильтра.
-    ENumSignalsInSec::E enumSignalsInSec;           // Перечисление считываний сигнала в секунду.
-    Chan                lastAffectedChannel;        // Здесь хранится номер последнего канала, которым управляли ручками. Нужно для того, чтобы знать, какой сигнал рисовать наверху.
-    ModeAccumulation::E modeAccumulation;           // Задаёт режим накопления сигналов.
-    AltMarkers::E       altMarkers;                 // Режим отображения дополнительных боковых маркеров смещений.
-    MenuAutoHide        menuAutoHide;               // Через сколько времени после последнего нажатия клавиши прятать меню.
-    bool                showFullMemoryWindow;       // Показывать ли окно памяти вверху экрана. \todo Не используется.
-    bool                showStringNavigation;       // Показывать ли строку текущего состояния меню..
-    LinkingRShift       linkingRShift;              // Тип привязки смещения по вертикали.
+    int16               timeShowLevels;         // Время, в течение которого нужно показывать уровни смещения.
+    int16               shiftInMemory;          // Показывает смещение левого края сетки относительно нулевого
+                                                // байта памяти. Нужно для правильного отображения сигнала в окне.
+    int16               timeMessages;           // Время в секундах, на которое сообщение остаётся на экране.
+    int16               brightness;             // Яркость дисплея.
+    int16               brightnessGrid;         // Яркость сетки от 0 до 100.
+    uint                colors[16];             // Цвета.
+    ModeDrawSignal::E   modeDrawSignal;         // Режим отрисовки сигнала.
+    TypeGrid::E         typeGrid;               // Тип сетки.
+    ENumAccumulation::E enumAccumulation;       // Перечисление накоплений сигнала на экране.
+    ENumAveraging::E    enumAve;                // Перечисление усреднений сигнала.
+    ModeAveraging::E    modeAve;                // Тип усреднений по измерениям.
+    ENumMinMax          enumMinMax;             // Число измерений для определения минимумов и максимумов.
+    Smoothing::E        smoothing;              // Число точек для скользящего фильтра.
+    ENumSignalsInSec::E enumSignalsInSec;       // Перечисление считываний сигнала в секунду.
+    Chan                lastAffectedChannel;    // Здесь хранится номер последнего канала, которым управляли ручками.
+                                                // Нужно для того, чтобы знать, какой сигнал рисовать наверху.
+    ModeAccumulation::E modeAccumulation;       // Задаёт режим накопления сигналов.
+    AltMarkers::E       altMarkers;             // Режим отображения дополнительных боковых маркеров смещений.
+    MenuAutoHide::E     menuAutoHide;           // Через сколько времени после последнего нажатия клавиши прятать меню.
+    bool                showFullMemoryWindow;   // Показывать ли окно памяти вверху экрана. \todo Не используется.
+    bool                showStringNavigation;   // Показывать ли строку текущего состояния меню..
+    LinkingRShift       linkingRShift;          // Тип привязки смещения по вертикали.
 
     // Возвращает index первой и последней точки на экране.
     static BitSet32 PointsOnDisplay();

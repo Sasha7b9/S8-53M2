@@ -59,7 +59,7 @@ static const Settings defaultSettings =
         Chan::A,                    // lastAffectedChannel
         ModeAccumulation::NoReset,  // modeAccumulation
         AltMarkers::Show,           // altMarkers
-        MenuAutoHide_None,          // menuAutoHide
+        MenuAutoHide::None,         // menuAutoHide
         true,                       // showFullMemoryWindow
         false,                      // showStringNavigation
         LinkingRShift_Position      // linkingRShift
