@@ -1238,27 +1238,7 @@ void Processing::Process(DataStruct &in)
 
 void Processing::Process(const DataFrame &in)
 {
-    TimeMeterUS meter;
+    DataStruct dataStruct(in);
 
-    BitSet32 points = SettingsDisplay::PointsOnDisplay();
-
-    firstP = points.half_iword[0];
-
-    lastP = points.half_iword[1];
-    numP = lastP - firstP;
-
-    int length = in.ds->BytesInChannel();
-
-    Processing::out.Data(ChA).Realloc(length, ValueFPGA::NONE);
-    Processing::out.Data(ChB).Realloc(length, ValueFPGA::NONE);
-
-    Math::CalculateFiltrArray(in.DataBegin(ChA), Processing::out.Data(ChA).Data(), length, Smoothing::ToPoints());
-
-    Math::CalculateFiltrArray(in.DataBegin(ChB), Processing::out.Data(ChB).Data(), length, Smoothing::ToPoints());
-
-    CountedToCurrentSettings(*in.ds, in.DataBegin(ChA), in.DataBegin(ChB));
-
-    uint last_us = meter.ElapsedUS();
-
-    LOG_WRITE("%d us", last_us);
+    Process(dataStruct);
 }
