@@ -120,6 +120,9 @@ struct DataStruct
     // В режиме поточечного вывода - сбросить точки
     void PrepareForNewCycle();
 
+    // Подготовить данные поточечного режима к выводу в поточечном режиме
+    void PrepareForNormalDrawP2P();
+
     void Log(pchar point);
 };
 

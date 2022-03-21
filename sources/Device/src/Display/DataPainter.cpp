@@ -87,37 +87,21 @@ void DataPainter::DrawInModeDirect()
 
         if (START_MODE_IS_AUTO)
         {
-            if (last_ds && last_ds->Equal(Storage::current.ds) && Storage::time_meter.ElapsedTime() < 1000)
-            {
-                Processing::Process(Storage::GetData(0, frame));
-            }
-            else
-            {
-                Processing::Process(Storage::current);
-            }
+            if (last_ds && last_ds->Equal(Storage::current.ds) && Storage::time_meter.ElapsedTime() < 1000)  { Processing::Process(Storage::GetData(0, frame)); }
+            else                                                                                             { Processing::Process(Storage::current);           }
         }
         else if (START_MODE_IS_WAIT)
         {
-            if (last_ds && last_ds->Equal(Storage::current.ds))
-            {
-                Processing::Process(Storage::GetData(0, frame));
-            }
-            else
-            {
-                Processing::Process(Storage::current);
-            }
+            if (last_ds && last_ds->Equal(Storage::current.ds)) { Processing::Process(Storage::GetData(0, frame)); }
+            else                                                { Processing::Process(Storage::current);           }
         }
         else
         {
-            if (Storage::current.Valid())
-            {
-                Processing::Process(Storage::current);
-            }
-            else
-            {
-                Processing::Process(Storage::GetData(0, frame));
-            }
+            if (Storage::current.Valid()) { Processing::Process(Storage::current);           }
+            else                          { Processing::Process(Storage::GetData(0, frame)); }
         }
+
+        Processing::out.PrepareForNormalDrawP2P();
 
         DrawDataNormal();
     }
