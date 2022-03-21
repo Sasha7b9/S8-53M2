@@ -234,10 +234,6 @@ DRESULT USBH_ioctl(BYTE lun, BYTE cmd, void *buff)
             *(DWORD *)buff = info.capacity.block_nbr;
             res = RES_OK;
         }
-        else
-        {
-            res = RES_ERROR;
-        }
         break;
 
         /* Get R/W sector size (WORD) */
@@ -246,10 +242,6 @@ DRESULT USBH_ioctl(BYTE lun, BYTE cmd, void *buff)
         {
             *(DWORD *)buff = info.capacity.block_size;
             res = RES_OK;
-        }
-        else
-        {
-            res = RES_ERROR;
         }
         break;
 
@@ -260,10 +252,6 @@ DRESULT USBH_ioctl(BYTE lun, BYTE cmd, void *buff)
         {
             *(DWORD *)buff = info.capacity.block_size;
             res = RES_OK;
-        }
-        else
-        {
-            res = RES_ERROR;
         }
         break;
 
