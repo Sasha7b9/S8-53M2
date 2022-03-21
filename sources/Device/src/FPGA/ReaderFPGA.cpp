@@ -143,8 +143,6 @@ void FPGA::Reader::ReadPointsP2P()
         BitSet16 dataA = Reader::ReadA();
         BitSet16 dataB = Reader::ReadB();
 
-        LOG_WRITE("%x %x", dataA.half_word, dataB.half_word);
-
         Storage::working.AppendPoints(dataA, dataB);
     }
 }
