@@ -53,8 +53,6 @@ namespace FPGA
 
     void ProcessingData();
 
-    void ReadPointP2P();
-
     // Прочитать данные.
     void DataRead();
 
@@ -129,7 +127,7 @@ void FPGA::Update()
 
     if (SET_SELFRECORDER)
     {
-        ReadPointP2P();
+        Reader::ReadPointsP2P();
     }
 
     int num_cycles = TBase::StretchRand();
@@ -218,7 +216,11 @@ void FPGA::Start()
 
     if (TBase::InModeP2P())
     {
-
+        Timer::Enable(TypeTimer::P2P, 1, Reader::ReadPointsP2P);
+    }
+    else
+    {
+        Timer::Disable(TypeTimer::P2P);
     }
 
     HAL_FMC::Write(WR_PRED, FPGA::Launch::PredForWrite());
@@ -240,7 +242,9 @@ bool FPGA::IsRunning()
 void FPGA::Stop(bool pause)
 {
     Timer::Disable(TypeTimer::P2P);
+
     HAL_FMC::Write(WR_STOP, 1);
+
     StateWorkFPGA::SetCurrent(pause ? StateWorkFPGA::Pause : StateWorkFPGA::Stop);
 }
 
@@ -583,20 +587,6 @@ void FPGA::ClearData()
 
     Storage::working.A.Fill(ValueFPGA::NONE);
     Storage::working.B.Fill(ValueFPGA::NONE);
-}
-
-
-void FPGA::ReadPointP2P()
-{
-    flag.Read();
-
-    if (_GET_BIT(flag.value, FL_POINT))
-    {
-        BitSet16 dataA(*RD_ADC_A);
-        BitSet16 dataB(*RD_ADC_B);
-
-        Storage::working.AppendPoints(dataA, dataB);
-    }
 }
 
 

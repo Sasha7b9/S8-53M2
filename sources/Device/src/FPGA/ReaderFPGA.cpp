@@ -4,6 +4,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Settings/Settings.h"
 #include "Hardware/Timer.h"
+#include "Data/Storage.h"
 
 
 namespace FPGA
@@ -130,4 +131,20 @@ void FPGA::Reader::Read1024Points(uint8 buffer[1024], Chan ch)
     FPGA::Stop(false);
 
     FPGA::Reader::ReadPoints(ch, buffer, &buffer[0] + 1024);
+}
+
+
+void FPGA::Reader::ReadPointsP2P()
+{
+    flag.Read();
+
+    if (_GET_BIT(flag.value, FL_POINT))
+    {
+        BitSet16 dataA = Reader::ReadA();
+        BitSet16 dataB = Reader::ReadB();
+
+        LOG_WRITE("%x %x", dataA.half_word, dataB.half_word);
+
+        Storage::working.AppendPoints(dataA, dataB);
+    }
 }

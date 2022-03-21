@@ -66,6 +66,9 @@ namespace FPGA
         void ReadPoints(Chan);
 
         void Read1024Points(uint8 buffer[1024], Chan);
+
+        // Читать одиночные точки поточечного режима
+        void ReadPointsP2P();
     }
 
     namespace Launch
