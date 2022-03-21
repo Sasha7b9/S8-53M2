@@ -30,12 +30,6 @@ namespace Storage
     // Адрес последнего байта памяти для хранения
     uint8 *endPool = &(pool[SIZE_POOL - 1]);
 
-    // Максимальные значения каналов
-    uint8 lim_up[Chan::Count][FPGA::MAX_POINTS * 2];
-
-    // Минимальные значения каналов
-    uint8 lim_down[Chan::Count][FPGA::MAX_POINTS * 2];
-
     // Указатель на первые сохранённые данные
     DataSettings *first_ds = nullptr;
 
@@ -60,11 +54,6 @@ namespace Storage
     // Возвращает true, если настройки измерений с индексами elemFromEnd0 и elemFromEnd1 совпадают, и false в ином случае.
     bool SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1);
 
-    // Очистка значений мин, макс и сумм
-    void ClearLimitsAndSums();
-
-    void CalculateLimits(const DataSettings *, const uint8 *dataA, const uint8 *dataB);
-
     // Копирует данные канала chan из, определяемые ds, в одну из двух строк массива dataImportRel
     void CopyData(DataSettings *, Chan ch, BufferFPGA &);
 
@@ -84,16 +73,8 @@ void Storage::Clear()
     first_ds = nullptr;
     last_ds = (DataSettings *)beginPool;
     last_ds->next = last_ds->prev = nullptr;
-    ClearLimitsAndSums();
-}
 
-
-void Storage::ClearLimitsAndSums()
-{
-    std::memset(lim_up[0], 0, FPGA::MAX_POINTS * 2);
-    std::memset(lim_up[1], 0, FPGA::MAX_POINTS * 2);
-    std::memset(lim_down[0], 0xff, FPGA::MAX_POINTS * 2);
-    std::memset(lim_down[1], 0xff, FPGA::MAX_POINTS * 2);
+    Limitator::ClearLimits();
 }
 
 
@@ -101,7 +82,7 @@ void Storage::AddData(DataStruct &data)
 {
     data.ds.time = HAL_RTC::GetPackedTime();
 
-    CalculateLimits(&data.ds, data.A.Data(), data.B.Data());
+    Limitator::CalculateLimits(&data.ds, data.A.Data(), data.B.Data());
 
     DataSettings *ds = PrepareNewFrame(data.ds);
 
@@ -128,50 +109,6 @@ void DataFrame::GetDataChannelsFromStruct(DataStruct &data)
 int Storage::NumFrames()
 {
     return count_data;
-}
-
-
-void Storage::CalculateLimits(const DataSettings *dss, const uint8 *a, const uint8 *b)
-{
-    uint numElements = (uint)dss->PointsInChannel();
-
-    if (NumFrames() == 0 || NUM_MIN_MAX == 1 || (!GetDataSettings(0)->Equal(*dss)))
-    {
-        for (uint i = 0; i < numElements; i++)
-        {
-            lim_down[0][i] = lim_up[0][i] = a[i];
-            lim_down[1][i] = lim_up[1][i] = b[i];
-        }
-    }
-    else
-    {
-        int allDatas = NumFramesWithSameSettings();
-        LIMITATION(allDatas, allDatas, 1, NUM_MIN_MAX);
-
-        if (NumFramesWithSameSettings() >= NUM_MIN_MAX)
-        {
-            for (uint i = 0; i < numElements; i++)
-            {
-                lim_down[0][i] = lim_up[0][i] = a[i];
-                lim_down[1][i] = lim_up[1][i] = b[i];
-            }
-            allDatas--;
-        }
-
-        for (int numData = 0; numData < allDatas; numData++)
-        {
-            const uint8 *dA = GetData(Chan::A, numData);
-            const uint8 *dB = GetData(Chan::B, numData);
-
-            for (uint i = 0; i < numElements; i++)
-            {
-                if (dA[i] < lim_down[0][i]) lim_down[0][i] = dA[i];
-                if (dA[i] > lim_up[0][i])   lim_up[0][i] = dA[i];
-                if (dB[i] < lim_down[1][i]) lim_down[1][i] = dB[i];
-                if (dB[i] > lim_up[1][i])   lim_up[1][i] = dB[i];
-            }
-        }
-    }
 }
 
 
@@ -255,27 +192,6 @@ void Storage::CopyData(DataSettings *ds, Chan ch, BufferFPGA &data)
     }
 
     data.FromBuffer(address, (int)length);
-}
-
-
-DataStruct &Storage::GetLimitation(Chan ch, int direction, DataStruct &data)
-{
-    uint8 *buffer = 0;
-
-    if (direction == 0)
-    {
-        buffer = &(lim_down[ch][0]);
-    }
-    else if (direction == 1)
-    {
-        buffer = &(lim_up[ch][0]);
-    }
-
-    data.ds.Set(Data::out.ds);
-
-    data.Data(ch).FromBuffer(buffer, data.ds.BytesInChannel());
-
-    return data;
 }
 
 

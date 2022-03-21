@@ -20,6 +20,16 @@ namespace Averager
 }
 
 
+namespace Limitator
+{
+    // Максимальные значения каналов
+    uint8 lim_up[Chan::Count][FPGA::MAX_POINTS * 2];
+
+    // Минимальные значения каналов
+    uint8 lim_down[Chan::Count][FPGA::MAX_POINTS * 2];
+}
+
+
 void Averager::Reset()
 {
     if (ModeAveraging::GetNumber() < 2)
@@ -170,5 +180,79 @@ void Averager::GetDataAround(DataStruct &data)
     {
         a[i] = (uint8)ave_a[i];
         b[i] = (uint8)ave_b[i];
+    }
+}
+
+
+DataStruct &Limitator::GetLimitation(Chan ch, int direction, DataStruct &data)
+{
+    uint8 *buffer = 0;
+
+    if (direction == 0)
+    {
+        buffer = &(lim_down[ch][0]);
+    }
+    else if (direction == 1)
+    {
+        buffer = &(lim_up[ch][0]);
+    }
+
+    data.ds.Set(Data::out.ds);
+
+    data.Data(ch).FromBuffer(buffer, data.ds.BytesInChannel());
+
+    return data;
+}
+
+
+void Limitator::ClearLimits()
+{
+    std::memset(lim_up[0], 0, FPGA::MAX_POINTS * 2);
+    std::memset(lim_up[1], 0, FPGA::MAX_POINTS * 2);
+    std::memset(lim_down[0], 0xff, FPGA::MAX_POINTS * 2);
+    std::memset(lim_down[1], 0xff, FPGA::MAX_POINTS * 2);
+}
+
+
+void Limitator::CalculateLimits(const DataSettings *dss, const uint8 *a, const uint8 *b)
+{
+    uint numElements = (uint)dss->PointsInChannel();
+
+    if (Storage::NumFrames() == 0 || NUM_MIN_MAX == 1 || (!Storage::GetDataSettings(0)->Equal(*dss)))
+    {
+        for (uint i = 0; i < numElements; i++)
+        {
+            lim_down[0][i] = lim_up[0][i] = a[i];
+            lim_down[1][i] = lim_up[1][i] = b[i];
+        }
+    }
+    else
+    {
+        int allDatas = Storage::NumFramesWithSameSettings();
+        LIMITATION(allDatas, allDatas, 1, NUM_MIN_MAX);
+
+        if (Storage::NumFramesWithSameSettings() >= NUM_MIN_MAX)
+        {
+            for (uint i = 0; i < numElements; i++)
+            {
+                lim_down[0][i] = lim_up[0][i] = a[i];
+                lim_down[1][i] = lim_up[1][i] = b[i];
+            }
+            allDatas--;
+        }
+
+        for (int numData = 0; numData < allDatas; numData++)
+        {
+            const uint8 *dA = Storage::GetData(Chan::A, numData);
+            const uint8 *dB = Storage::GetData(Chan::B, numData);
+
+            for (uint i = 0; i < numElements; i++)
+            {
+                if (dA[i] < lim_down[0][i]) lim_down[0][i] = dA[i];
+                if (dA[i] > lim_up[0][i])   lim_up[0][i] = dA[i];
+                if (dB[i] < lim_down[1][i]) lim_down[1][i] = dB[i];
+                if (dB[i] > lim_up[1][i])   lim_up[1][i] = dB[i];
+            }
+        }
     }
 }

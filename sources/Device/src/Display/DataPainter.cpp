@@ -7,6 +7,7 @@
 #include "Data/Processing.h"
 #include "Utils/Math.h"
 #include "Display/Symbols.h"
+#include "Data/DataExtensions.h"
 #include <climits>
 
 
@@ -368,17 +369,17 @@ void DataPainter::DrawDataMinMax()
 
     if (LAST_AFFECTED_CHANNEL_IS_B)
     {
-        DrawDataChannel(Storage::GetLimitation(ChA, 0, limit), ChA, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(ChA, 1, limit), ChA, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(ChB, 0, limit), ChB, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(ChB, 1, limit), ChB, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Limitator::GetLimitation(ChA, 0, limit), ChA, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Limitator::GetLimitation(ChA, 1, limit), ChA, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Limitator::GetLimitation(ChB, 0, limit), ChB, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Limitator::GetLimitation(ChB, 1, limit), ChB, GRID_TOP, Grid::ChannelBottom());
     }
     else
     {
-        DrawDataChannel(Storage::GetLimitation(ChB, 0, limit), ChB, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(ChB, 1, limit), ChB, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(ChA, 0, limit), ChA, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Storage::GetLimitation(ChA, 1, limit), ChA, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Limitator::GetLimitation(ChB, 0, limit), ChB, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Limitator::GetLimitation(ChB, 1, limit), ChB, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Limitator::GetLimitation(ChA, 0, limit), ChA, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(Limitator::GetLimitation(ChA, 1, limit), ChA, GRID_TOP, Grid::ChannelBottom());
     }
 
     MODE_DRAW_SIGNAL = modeDrawSignalOld;

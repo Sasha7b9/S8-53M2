@@ -34,8 +34,5 @@ namespace Storage
 
     uint8* GetData(Chan, int fromEnd);
 
-    // Получить ограничивающую линию сигнала 0 - снизу, 1 - сверху.
-    DataStruct &GetLimitation(Chan, int direction, DataStruct &);
-
     int NumberAvailableEntries();
 };
