@@ -29,8 +29,8 @@ void Timer::PauseOnTime(uint timeMS)
 
 void Timer::PauseOnTicks(uint numTicks)
 {
-    uint startTicks = TIME_TICKS;
-    while (TIME_TICKS - startTicks < numTicks) {};
+    uint startTicks = TIM2->CNT;
+    while (TIM2->CNT - startTicks < numTicks) {};
 }
 
 
@@ -56,15 +56,15 @@ void Timer::StartMultiMeasurement()
 
 void Timer::StartLogging()
 {
-    timeStartLogging = TIME_TICKS;
+    timeStartLogging = TIM2->CNT;
     timePrevPoint = timeStartLogging;
 }
 
 
 uint Timer::LogPointUS(char *name)
 {
-    uint interval = TIME_TICKS - timePrevPoint;
-    timePrevPoint = TIME_TICKS;
+    uint interval = TIM2->CNT - timePrevPoint;
+    timePrevPoint = TIM2->CNT;
     LOG_WRITE("%s %.2f us", name, interval / (float)TICKS_IN_US);
     return interval;
 }
@@ -72,8 +72,8 @@ uint Timer::LogPointUS(char *name)
 
 uint Timer::LogPointMS(char *name)
 {
-    uint interval = TIME_TICKS - timePrevPoint;
-    timePrevPoint = TIME_TICKS;
+    uint interval = TIM2->CNT - timePrevPoint;
+    timePrevPoint = TIM2->CNT;
     LOG_WRITE("%s %.2f ms", name, interval / 120e3);
     return interval;
 }
@@ -163,4 +163,25 @@ void Waiter::Reset()
 uint Waiter::ElapsedTime()
 {
     return TIME_MS - time_start;
+}
+
+
+TimeMeterUS::TimeMeterUS() : ticks_reset(TIM2->CNT) { }
+
+
+void TimeMeterUS::Reset()
+{
+    ticks_reset = TIM2->CNT;
+}
+
+
+uint TimeMeterUS::ElapsedUS()
+{
+    return (TIM2->CNT - ticks_reset) / TICKS_IN_US;
+}
+
+
+uint TimeMeterUS::ElapsedTicks()
+{
+    return (TIM2->CNT - ticks_reset);
 }

@@ -78,6 +78,23 @@ namespace Timer
 };
 
 
+// Измеритель отрезков времени
+struct TimeMeterUS
+{
+    TimeMeterUS();
+
+    void Reset();
+
+    uint ElapsedUS();
+
+    uint ElapsedTicks();
+
+private:
+
+    uint ticks_reset;
+};
+
+
 // Структура для отсчёта времени
 struct Waiter
 {
