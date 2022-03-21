@@ -1235,6 +1235,8 @@ void Processing::Process(DataStruct &in)
     in.B.FillFromBuffer(out.Data(ChB).Data(), length);
 
     CountedToCurrentSettings(in.ds, in.A.Data(), in.B.Data());
+
+    out.ds.valid = 1;
 }
 
 
