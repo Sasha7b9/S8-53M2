@@ -54,8 +54,8 @@ void DataPainter::DrawData()
     {
         if (Storage::NumFrames())
         {
-            Storage::GetData(0, Data::in);
-            Processing::Process(Data::in);
+            DataFrame frame;
+            Processing::Process(Storage::GetData(0, frame));
             DrawDataNormal();
         }
     }
@@ -372,8 +372,6 @@ void DataPainter::DrawDataMinMax()
 
 void DataPainter::DrawDataNormal()
 {
-    static void *prevAddr = 0;
-
     int16 numSignals = (int16)Storage::NumFramesWithSameSettings();
     LIMITATION(numSignals, numSignals, 1, NUM_ACCUM);
 
@@ -381,18 +379,14 @@ void DataPainter::DrawDataNormal()
     {
         DrawBothChannels(Processing::out);
 
-        if (prevAddr == 0 || prevAddr != Data::in.ds->prev)
-        {
-            Display::numDrawingSignals++;
-            prevAddr = Data::in.ds->prev;
-        }
+        Display::numDrawingSignals++;
     }
     else
     {
         for (int i = 0; i < numSignals; i++)
         {
-            Storage::GetData(i, Data::in);
-            Processing::Process(Data::in);
+            DataFrame frame;
+            Processing::Process(Storage::GetData(i, frame));
 
             DrawBothChannels(Processing::out);
         }

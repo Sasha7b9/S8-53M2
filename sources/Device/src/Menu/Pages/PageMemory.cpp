@@ -523,10 +523,10 @@ static void SaveSignalToIntMemory()
     }
     else                                // Иначе сохраняем текущий сигнал
     {
-        if (Processing::out.Valid())
+        if (Storage::NumFrames())
         {
-            HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Data::in);
-            HAL_ROM::GetData(PageMemory::Internal::currentSignal, Data::ins);
+            DataFrame frame;
+            HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Storage::GetData(0, frame));
             Display::ShowWarningGood(Warning::SignalIsSaved);
         }
     }

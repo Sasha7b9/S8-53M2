@@ -83,7 +83,7 @@ namespace Processing
     // прохождении из "-" в "+".
     float FindIntersectionWithHorLine(Chan::E, int numIntersection, bool downToUp, uint8 yLine);
 
-    void CountedToCurrentSettings();
+    void CountedToCurrentSettings(const DataFrame &);
 
     typedef float (*pFuncFCh)(Chan::E);
 
@@ -1151,11 +1151,11 @@ int Processing::GetMarkerVertical(Chan ch, int numMarker)
 }
 
 
-void Processing::CountedToCurrentSettings()
+void Processing::CountedToCurrentSettings(const DataFrame &in)
 {
-    int numPoints = Data::in.ds->BytesInChannel();
+    int numPoints = in.ds->BytesInChannel();
 
-    out.ds.Set(*Data::in.ds);
+    out.ds.Set(*in.ds);
     out.A.Realloc(out.ds.BytesInChannel());
     out.A.Fill(ValueFPGA::NONE);
     out.B.Realloc(out.ds.BytesInChannel());
@@ -1167,8 +1167,8 @@ void Processing::CountedToCurrentSettings()
 
     int16 dTShift = curTShift - dataTShift;
 
-    const uint8 *in_a = Data::in.DataBegin(ChA);
-    const uint8 *in_b = Data::in.DataBegin(ChB);
+    const uint8 *in_a = in.DataBegin(ChA);
+    const uint8 *in_b = in.DataBegin(ChB);
 
     for (int i = 0; i < numPoints; i++)
     {
@@ -1216,8 +1216,6 @@ void Processing::CountedToCurrentSettings()
 
 void Processing::Process(const DataFrame &in)
 {
-    Data::in = in;
-
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
     firstP = points.half_iword[0];
@@ -1225,14 +1223,14 @@ void Processing::Process(const DataFrame &in)
     lastP = points.half_iword[1];
     numP = lastP - firstP;
 
-    int length = Data::in.ds->BytesInChannel();
+    int length = in.ds->BytesInChannel();
 
     Processing::out.Data(ChA).Realloc(length, ValueFPGA::NONE);
     Processing::out.Data(ChB).Realloc(length, ValueFPGA::NONE);
 
-    Math::CalculateFiltrArray(Data::in.DataBegin(ChA), Processing::out.Data(ChA).Data(), length, Smoothing::ToPoints());
+    Math::CalculateFiltrArray(in.DataBegin(ChA), Processing::out.Data(ChA).Data(), length, Smoothing::ToPoints());
 
-    Math::CalculateFiltrArray(Data::in.DataBegin(ChB), Processing::out.Data(ChB).Data(), length, Smoothing::ToPoints());
+    Math::CalculateFiltrArray(in.DataBegin(ChB), Processing::out.Data(ChB).Data(), length, Smoothing::ToPoints());
 
-    CountedToCurrentSettings();
+    CountedToCurrentSettings(in);
 }

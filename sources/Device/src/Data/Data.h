@@ -121,9 +121,6 @@ struct DataStruct
 
 namespace Data
 {
-    extern DataFrame in;        // Здесь хранятся исходные данные для обработки и отрисовки - последние из Storage,
-                                //произовльные из Storage, из ПЗУ или математические
-
     extern DataFrame last;      // Здесь сигнал из ПАМЯТЬ-Последние, если нужно для отображения
     extern DataFrame ins;       // Здесь сигнал из ППЗУ, если нужно для отображения 
 }

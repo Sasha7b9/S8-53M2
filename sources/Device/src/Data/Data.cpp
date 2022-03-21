@@ -7,8 +7,6 @@
 
 namespace Data
 {
-    DataFrame  in;
-    DataStruct out;
     DataFrame  last;
     DataFrame  ins;
 }
