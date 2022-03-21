@@ -58,7 +58,7 @@ static const Settings defaultSettings =
         ENumSignalsInSec::_25,      // num signals in one second
         Chan::A,                    // lastAffectedChannel
         ModeAccumulation::NoReset,  // modeAccumulation
-        AM_Show,                    // altMarkers
+        AltMarkers::Show,           // altMarkers
         MenuAutoHide_None,          // menuAutoHide
         true,                       // showFullMemoryWindow
         false,                      // showStringNavigation

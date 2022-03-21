@@ -52,7 +52,7 @@
 #define MODE_ACCUM_IS_NORESET       (MODE_ACCUM == ModeAccumulation::NoReset)
 
 #define ALT_MARKERS                 (set.display.altMarkers)
-#define ALT_MARKERS_HIDE            (ALT_MARKERS == AM_Hide)
+#define ALT_MARKERS_HIDE            (ALT_MARKERS == AltMarkers::Hide)
 
 #define MENU_AUTO_HIDE              (set.display.menuAutoHide)
 
@@ -198,11 +198,14 @@ struct ModeAccumulation
 };
 
 // Режим отображения дополнительных боковых маркеров смещения по напряжению.
-enum AltMarkers
+struct AltMarkers
 {
-    AM_Hide,        // Никода не выводить.
-    AM_Show,        // Всегда выводить.
-    AM_AutoHide     // Выводить и прятать через timeShowLevels.
+    enum E
+    {
+        Hide,        // Никода не выводить.
+        Show,        // Всегда выводить.
+        AutoHide     // Выводить и прятать через timeShowLevels.
+    };
 };
 
 // Через какое время после последнего нажатия кнопки скрывать меню.
@@ -244,7 +247,7 @@ struct SettingsDisplay
     ENumSignalsInSec::E enumSignalsInSec;           // Перечисление считываний сигнала в секунду.
     Chan                lastAffectedChannel;        // Здесь хранится номер последнего канала, которым управляли ручками. Нужно для того, чтобы знать, какой сигнал рисовать наверху.
     ModeAccumulation::E modeAccumulation;           // Задаёт режим накопления сигналов.
-    AltMarkers          altMarkers;                 // Режим отображения дополнительных боковых маркеров смещений.
+    AltMarkers::E       altMarkers;                 // Режим отображения дополнительных боковых маркеров смещений.
     MenuAutoHide        menuAutoHide;               // Через сколько времени после последнего нажатия клавиши прятать меню.
     bool                showFullMemoryWindow;       // Показывать ли окно памяти вверху экрана. \todo Не используется.
     bool                showStringNavigation;       // Показывать ли строку текущего состояния меню..
