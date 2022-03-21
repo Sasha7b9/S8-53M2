@@ -142,12 +142,3 @@ enum Language
     Russian,    // Русский
     English     // Английский
 };
-
-
-// Тип дополнительного смещения
-enum RShiftADCtype
-{
-    RShiftADC_Disable,
-    RShiftADC_Settings,
-    RShiftADC_Hand
-};
