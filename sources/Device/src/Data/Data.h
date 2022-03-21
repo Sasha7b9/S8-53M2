@@ -41,7 +41,7 @@ struct DataSettings
     uint                valid               : 1;
     PackedTime          time;
 
-    DataSettings() { valid = 0; };
+    DataSettings() { valid = 0; }; //-V730
 
     void Set(const DataSettings &ds) { *this = ds; valid = 1; }
 

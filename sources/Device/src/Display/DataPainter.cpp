@@ -50,37 +50,22 @@ namespace DataPainter
 
 void DataPainter::DrawData()
 {
-    if (Storage::NumFrames())
+    if (MODE_WORK_IS_DIRECT)
     {
-        if (MODE_WORK_IS_MEMINT)
+        if (Storage::NumFrames())
         {
-            if (!MODE_SHOW_MEMINT_IS_DIRECT)
-            {
-                DrawDataInModeWorkLatestMemInt();
-            }
-            if (!MODE_SHOW_MEMINT_IS_SAVED)
-            {
-                DrawDataNormal();
-            }
-        }
-        else if (MODE_WORK_IS_LATEST)
-        {
-            DrawDataInModeWorkLatestMemInt();
-        }
-        else
-        {
-            if (PageMemory::Internal::showAlways)
-            {
-                DrawDataInModeWorkLatestMemInt();
-            }
-
+            Storage::GetData(0, Data::in);
+            Processing::Process(Data::in);
             DrawDataNormal();
         }
+    }
+    else if (MODE_WORK_IS_LATEST)
+    {
 
-        if (NUM_MIN_MAX != 1)
-        {
-            DrawDataMinMax();
-        }
+    }
+    else if (MODE_WORK_IS_MEMINT)
+    {
+
     }
 
     Painter::DrawRectangle(Grid::Left(), GRID_TOP, Grid::Width(), Grid::FullHeight(), COLOR_FILL);
@@ -97,7 +82,6 @@ void DataPainter::DrawDataInModeWorkLatestMemInt()
 }
 
 
-// Если data == 0, то данные брать из GetData
 void DataPainter::DrawDataChannel(DataStruct &data, Chan ch, int minY, int maxY)
 {
     bool calculateFiltr = true;

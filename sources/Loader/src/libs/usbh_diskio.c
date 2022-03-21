@@ -225,14 +225,14 @@ DRESULT USBH_ioctl(BYTE lun, BYTE cmd, void *buff)
     case GET_SECTOR_COUNT:
         if (USBH_MSC_GetLUNInfo(&HOST_HANDLE, lun, &info) == USBH_OK)
         {
-            *(DWORD *)buff = info.capacity.block_nbr;
+            *(DWORD *)buff = info.capacity.block_nbr; //-V525
             res = RES_OK;
         }
         break;
 
         /* Get R/W sector size (WORD) */
     case GET_SECTOR_SIZE:
-        if (USBH_MSC_GetLUNInfo(&HOST_HANDLE, lun, &info) == USBH_OK)
+        if (USBH_MSC_GetLUNInfo(&HOST_HANDLE, lun, &info) == USBH_OK) //-V1037
         {
             *(DWORD *)buff = info.capacity.block_size;
             res = RES_OK;
