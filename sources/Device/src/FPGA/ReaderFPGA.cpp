@@ -143,6 +143,6 @@ void FPGA::Reader::ReadPointsP2P()
         BitSet16 dataA = Reader::ReadA();
         BitSet16 dataB = Reader::ReadB();
 
-        Storage::working.AppendPoints(dataA, dataB);
+        Storage::current.AppendPoints(dataA, dataB);
     }
 }

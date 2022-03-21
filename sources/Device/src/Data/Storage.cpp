@@ -16,7 +16,7 @@
 
 namespace Storage
 {
-    DataStruct working;
+    DataStruct current;
 
     TimeMeterMS time_meter;
 

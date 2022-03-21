@@ -9,7 +9,7 @@
 
 namespace Storage
 {
-    extern DataStruct working;          // Сюда считываем непосредственно из FPGA. Рандомизатор, точки там. Чтобы потом
+    extern DataStruct current;          // Сюда считываем непосредственно из FPGA. Рандомизатор, точки там. Чтобы потом
                                         // переложит в хранилище
     extern TimeMeterMS time_meter;      // Для засекания времени последнего сохранения данных
 

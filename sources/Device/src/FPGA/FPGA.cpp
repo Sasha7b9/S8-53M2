@@ -215,7 +215,7 @@ void FPGA::PrepareForCycle()
         ClearData();
     }
 
-    Storage::working.PrepareForNewCycle();
+    Storage::current.PrepareForNewCycle();
 
     if (TBase::InModeP2P())
     {
@@ -342,11 +342,11 @@ void FPGA::DataRead()
 
     if (!TBase::InModeRandomizer())
     {
-        if (SET_INVERSE_A) Storage::working.A.InverseData();
-        if (SET_INVERSE_B) Storage::working.B.InverseData();
+        if (SET_INVERSE_A) Storage::current.A.InverseData();
+        if (SET_INVERSE_B) Storage::current.B.InverseData();
     }
 
-    Storage::AddData(Storage::working);
+    Storage::AddData(Storage::current);
 
     if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)
     {
@@ -371,7 +371,7 @@ void FPGA::Reader::ReadPoints(Chan ch)
     HAL_FMC::Write(WR_PRED, address);
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
-    BufferFPGA &buffer = ch.IsA() ? Storage::working.A : Storage::working.B;
+    BufferFPGA &buffer = ch.IsA() ? Storage::current.A : Storage::current.B;
 
     uint8 *dat = buffer.Data();
     const uint8 *const end = buffer.Last();
@@ -591,11 +591,11 @@ void FPGA::ClearData()
 {
     int num_bytes = ENUM_POINTS_FPGA::ToNumBytes();
 
-    Storage::working.A.Realloc(num_bytes);
-    Storage::working.B.Realloc(num_bytes);
+    Storage::current.A.Realloc(num_bytes);
+    Storage::current.B.Realloc(num_bytes);
 
-    Storage::working.A.Fill(ValueFPGA::NONE);
-    Storage::working.B.Fill(ValueFPGA::NONE);
+    Storage::current.A.Fill(ValueFPGA::NONE);
+    Storage::current.B.Fill(ValueFPGA::NONE);
 }
 
 
