@@ -59,7 +59,7 @@
 #define SHOW_STRING_NAVIGATION      (set.display.showStringNavigation)
 
 #define LINKING_RSHIFT              (set.display.linkingRShift)
-#define LINKING_RSHIFT_IS_VOLTAGE   (LINKING_RSHIFT == LinkingRShift_Voltage)
+#define LINKING_RSHIFT_IS_VOLTAGE   (LINKING_RSHIFT == LinkingRShift::Voltage)
 
 
 
@@ -223,10 +223,13 @@ struct MenuAutoHide
 };
 
 // Тип привязки к смещению по вертикали
-enum LinkingRShift
+struct LinkingRShift
 {
-    LinkingRShift_Voltage,      // Смещение привязано к напряжению
-    LinkingRShift_Position      // Смещение привязаоно к позиции на экране
+    enum E
+    {
+        Voltage,      // Смещение привязано к напряжению
+        Position      // Смещение привязаоно к позиции на экране
+    };
 };
 
 
@@ -256,7 +259,7 @@ struct SettingsDisplay
     MenuAutoHide::E     menuAutoHide;           // Через сколько времени после последнего нажатия клавиши прятать меню.
     bool                showFullMemoryWindow;   // Показывать ли окно памяти вверху экрана. \todo Не используется.
     bool                showStringNavigation;   // Показывать ли строку текущего состояния меню..
-    LinkingRShift       linkingRShift;          // Тип привязки смещения по вертикали.
+    LinkingRShift::E    linkingRShift;          // Тип привязки смещения по вертикали.
 
     // Возвращает index первой и последней точки на экране.
     static BitSet32 PointsOnDisplay();
