@@ -1240,6 +1240,8 @@ void Processing::Process(DataStruct &in)
     CountedToCurrentSettings(in.ds, in.A.Data(), in.B.Data());
 
     out.ds.valid = 1;
+    out.rec_points = in.rec_points;
+    out.all_points = in.all_points;
 }
 
 

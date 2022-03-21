@@ -52,7 +52,7 @@ void DataStruct::PrepareForNewCycle()
     }
     else if (TBase::InModeP2P())
     {
-        rec_point = 0;
+        rec_points = 0;
         all_points = 0;
     }
 }
@@ -65,31 +65,31 @@ void DataStruct::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
     uint8 *a = A.Data();
     uint8 *b = B.Data();
 
-    if (rec_point == max_bytes - 1)
+    if (rec_points == max_bytes - 1)
     {
         std::memmove(a, a + 1, (uint)(max_bytes - 1));
         std::memmove(b, b + 1, (uint)(max_bytes - 1));
-        rec_point = max_bytes - 2;
+        rec_points = max_bytes - 2;
     }
-    else if (rec_point == max_bytes)
+    else if (rec_points == max_bytes)
     {
         std::memmove(a, a + 2, (uint)(max_bytes - 2));
         std::memmove(b, b + 2, (uint)(max_bytes - 2));
-        rec_point = max_bytes - 2;
+        rec_points = max_bytes - 2;
     }
 
-    a[rec_point] = pointsA.byte0;
-    a[rec_point + 1] = pointsA.byte1;
+    a[rec_points] = pointsA.byte0;
+    a[rec_points + 1] = pointsA.byte1;
 
-    b[rec_point] = pointsB.byte0;
-    b[rec_point + 1] = pointsB.byte1;
+    b[rec_points] = pointsB.byte0;
+    b[rec_points + 1] = pointsB.byte1;
 
-    rec_point += 2;
+    rec_points += 2;
     all_points += 2;
 }
 
 
-DataStruct::DataStruct(const DataFrame &frame) : rec_point(-1), all_points(0)
+DataStruct::DataStruct(const DataFrame &frame) : rec_points(-1), all_points(0)
 {
     ds.Set(*frame.ds);
 

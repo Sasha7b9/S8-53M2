@@ -102,10 +102,10 @@ struct DataStruct
     BufferFPGA   B;
     DataSettings ds;
 
-    int rec_point;
-    int all_points;
+    int rec_points;         // Эти точки сейчас будут записываться
+    int all_points;         // Всего считано точек
 
-    DataStruct() : rec_point(0), all_points(0) { }
+    DataStruct() : rec_points(0), all_points(0) { }
 
     DataStruct(const DataFrame &);
 
