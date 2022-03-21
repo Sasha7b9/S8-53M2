@@ -1231,8 +1231,8 @@ void Processing::Process(DataStruct &in)
     Math::CalculateFiltrArray(in.A.Data(), out.Data(ChA).Data(), length, Smoothing::ToPoints());
     Math::CalculateFiltrArray(in.B.Data(), out.Data(ChB).Data(), length, Smoothing::ToPoints());
 
-    in.A.Fill(out.Data(ChA).Data(), length);
-    in.B.Fill(out.Data(ChB).Data(), length);
+    in.A.FillFromBuffer(out.Data(ChA).Data(), length);
+    in.B.FillFromBuffer(out.Data(ChB).Data(), length);
 
     CountedToCurrentSettings(in.ds, in.A.Data(), in.B.Data());
 }

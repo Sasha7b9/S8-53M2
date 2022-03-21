@@ -105,7 +105,7 @@ void Buffer<T>::ReallocFromBuffer(const T *buffer, int _size)
 
 
 template<class T>
-void Buffer<T>::Fill(const T *buffer, int _size)
+void Buffer<T>::FillFromBuffer(const T *buffer, int _size)
 {
     if (size < _size)
     {
