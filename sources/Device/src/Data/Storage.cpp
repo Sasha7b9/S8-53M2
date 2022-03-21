@@ -145,23 +145,22 @@ int Storage::NumFramesWithCurrentSettings()
 }
 
 
-bool Storage::GetData(int fromEnd, DataFrame &data)
+DataFrame &Storage::GetData(int fromEnd, DataFrame &data)
 {
-    static DataSettings ds_empty;
-
     DataSettings *dp = GetDataSettings(fromEnd);
 
-    if (dp == nullptr)
+    if (dp)
     {
-        data.ds = &ds_empty;
+        data.ds = dp;
+    }
+    else
+    {
+        static DataSettings ds_empty;
         ds_empty.valid = 0;
-
-        return false;
+        data.ds = &ds_empty;
     }
 
-    data.ds = dp;
-
-    return true;
+    return data;
 }
 
 
