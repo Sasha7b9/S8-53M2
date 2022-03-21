@@ -1225,8 +1225,8 @@ void Processing::Process(DataStruct &in)
 
     int length = in.ds.BytesInChannel();
 
-    out.Data(ChA).Realloc(length, ValueFPGA::NONE);   // Подготавливаем место для рассчитанных сглаженных точек
-    out.Data(ChB).Realloc(length, ValueFPGA::NONE);
+    out.Data(ChA).ReallocAndFill(length, ValueFPGA::NONE);   // Подготавливаем место для рассчитанных сглаженных точек
+    out.Data(ChB).ReallocAndFill(length, ValueFPGA::NONE);
 
     Math::CalculateFiltrArray(in.A.Data(), out.Data(ChA).Data(), length, Smoothing::ToPoints());
     Math::CalculateFiltrArray(in.B.Data(), out.Data(ChB).Data(), length, Smoothing::ToPoints());

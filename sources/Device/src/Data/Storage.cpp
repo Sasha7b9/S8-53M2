@@ -358,8 +358,8 @@ void Storage::AppendFrameP2P(const DataSettings &ds)
 
     DataStruct data;
     data.ds.Set(ds);
-    data.A.Realloc(num_bytes, ValueFPGA::NONE);
-    data.A.Realloc(num_bytes, ValueFPGA::NONE);
+    data.A.ReallocAndFill(num_bytes, ValueFPGA::NONE);
+    data.A.ReallocAndFill(num_bytes, ValueFPGA::NONE);
 
     AddData(data);
 }

@@ -3,6 +3,7 @@
 #include "defines.h"
 #include "Data/Data.h"
 #include "Utils/Strings.h"
+#include "FPGA/TypesFPGA.h"
 
 
 namespace Data
@@ -35,6 +36,25 @@ const uint8 *DataFrame::DataBegin(Chan ch) const
 const uint8 *DataFrame::DataEnd(Chan ch)
 {
     return DataBegin(ch) + ds->BytesInChannel();
+}
+
+
+void DataStruct::PrepareForNewCycle()
+{
+    ds.FillFromCurrentSettings();
+
+    A.ReallocAndFill(ds.BytesInChannel(), ValueFPGA::NONE);
+    B.ReallocAndFill(ds.BytesInChannel(), ValueFPGA::NONE);
+
+    if (TBase::InModeRandomizer())
+    {
+
+    }
+    else if (TBase::InModeP2P())
+    {
+        rec_point = 0;
+        all_points = 0;
+    }
 }
 
 

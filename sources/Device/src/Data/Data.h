@@ -115,6 +115,11 @@ struct DataStruct
 
     void AppendPoints(BitSet16 pointsA, BitSet16 pointsB);
 
+    // Подготовить к новому циклу чтения.
+    // В режиме рандомизатора - переписать последние данные из Storage.
+    // В режиме поточечного вывода - сбросить точки
+    void PrepareForNewCycle();
+
     void Log(pchar point);
 };
 

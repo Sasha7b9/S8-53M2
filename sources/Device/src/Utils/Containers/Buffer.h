@@ -19,7 +19,7 @@ public:
     ~Buffer();
 
     void Realloc(int size);
-    void Realloc(int size, T value);
+    void ReallocAndFill(int size, T value);
     // Перевыделить память и заполнить её из buffer
     void ReallocFromBuffer(const T *buffer, int size);
 
