@@ -63,13 +63,13 @@ CursCntrl::E GetMeasuresCursCntrlActive()
 void RotateRegMeasureSetField(int angle)
 {
     CursCntrl::E cursCntrl = GetMeasuresCursCntrlActive();
-    CursActive cursActive = MEAS_CURS_ACTIVE;
+    CursActive::E cursActive = MEAS_CURS_ACTIVE;
 
     int sign = Math::Sign(angle);
 
     if (cursCntrl == CursCntrl::_1 || cursCntrl == CursCntrl::_1_2)
     {
-        if (cursActive == CursActive_T)
+        if (cursActive == CursActive::T)
         {
             LIMITATION(MEAS_POS_CUR_T0, MEAS_POS_CUR_T0 - sign, 0, ENUM_POINTS_FPGA::ToNumPoints() - 1);
         }
@@ -80,7 +80,7 @@ void RotateRegMeasureSetField(int angle)
     }
     if (cursCntrl == CursCntrl::_2 || cursCntrl == CursCntrl::_1_2)
     {
-        if (cursActive == CursActive_T)
+        if (cursActive == CursActive::T)
         {
             LIMITATION(MEAS_POS_CUR_T1, MEAS_POS_CUR_T1 - sign, 0, ENUM_POINTS_FPGA::ToNumPoints() - 1);
         }

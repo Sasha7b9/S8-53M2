@@ -97,18 +97,24 @@ struct CursCntrl
 
 
 // Дискретность перемещения курсоров.
-enum CursMovement
+struct CursMovement
 {
-    CursMovement_Points,    // по точкам.
-    CursMovement_Percents   // по процентам.
+    enum E
+    {
+        Points,    // по точкам.
+        Percents   // по процентам.
+    };
 };
 
 // Какие курсоры сейчас активны. Какие активны, те и будут перемещаться по вращению ручки УСТАНОВКА.
-enum CursActive
+struct CursActive
 {
-    CursActive_U,
-    CursActive_T,
-    CursActive_None
+    enum E
+    {
+        U,
+        T,
+        None
+    };
 };
 
 // Режим слежения курсоров.

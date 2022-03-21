@@ -423,7 +423,7 @@ static void PressSB_Cursors_U()
     {
         IncCursCntrlU(CURS_SOURCE);
     }
-    CURS_ACTIVE = CursActive_U;
+    CURS_ACTIVE = CursActive::U;
 }
 
 
@@ -531,7 +531,7 @@ static void PressSB_Cursors_T()
     {
         IncCursCntrlT(CURS_SOURCE);
     }
-    CURS_ACTIVE = CursActive_T;
+    CURS_ACTIVE = CursActive::T;
 }
 
 

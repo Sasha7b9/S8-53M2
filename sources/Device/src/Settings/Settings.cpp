@@ -142,18 +142,18 @@ static const Settings defaultSettings =
     },
     // cursors
     {
-        { CursCntrl::Disable, CursCntrl::Disable },   // CursCntrl U
-        { CursCntrl::Disable, CursCntrl::Disable },   // CursCntrl T
-        Chan::A,                                    // source
-        { 60.0f,  140.0f, 60.0f, 140.0f },          // posCur U
-        { 80.0f,  200.0f, 80.0f, 200.0f },          // posCur T
-        { 80.0f,  80.0f },                          // расстояние между курсорами напряжения для 100%
-        { 120.0f, 120.0f },                         // расстояние между курсорами времени для 100%
-        CursMovement_Points,                        // CursMovement
-        CursActive_None,                            // CursActive
-        { CursLookMode_None, CursLookMode_None },   // Режим слежения курсоров.
-        false,                                      // showFreq
-        false                                       // showCursors
+        { CursCntrl::Disable, CursCntrl::Disable },     // CursCntrl U
+        { CursCntrl::Disable, CursCntrl::Disable },     // CursCntrl T
+        Chan::A,                                        // source
+        { 60.0f,  140.0f, 60.0f, 140.0f },              // posCur U
+        { 80.0f,  200.0f, 80.0f, 200.0f },              // posCur T
+        { 80.0f,  80.0f },                              // расстояние между курсорами напряжения для 100%
+        { 120.0f, 120.0f },                             // расстояние между курсорами времени для 100%
+        CursMovement::Points,                           // CursMovement
+        CursActive::None,                               // CursActive
+        { CursLookMode_None, CursLookMode_None },       // Режим слежения курсоров.
+        false,                                          // showFreq
+        false                                           // showCursors
     },
     // memory
     {
@@ -187,10 +187,10 @@ static const Settings defaultSettings =
         //{372, 652},               // начальные значения курсоров времени для зоны измерений
         {50, 150},                  // начальные значения курсоров напряжения для зоны измерений
         {422, 602},                 // начальные значения курсоров времени для зоны измерений
-        CursCntrl::_1,                // Управляем первым курсором напряжения
-        CursCntrl::_1,                // Управляем первым курсором времени
-        CursActive_T,               // Активны курсоры времени.
-        Measure::None                // marked Measure
+        CursCntrl::_1,              // Управляем первым курсором напряжения
+        CursCntrl::_1,              // Управляем первым курсором времени
+        CursActive::T,              // Активны курсоры времени.
+        Measure::None               // marked Measure
     },
     // math
     {
