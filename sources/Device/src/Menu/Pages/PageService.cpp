@@ -895,17 +895,15 @@ static const arrayItems itemsInformation =
 
 static void Information_Draw()
 {
-    Language lang = LANG;
-
     Painter::BeginScene(Color::BLACK);
     int x = 100;
     int dY = 20;
     int y = 20;
     Painter::DrawRectangle(0, 0, 319, 239, COLOR_FILL);
     y += dY;
-    PText::Draw(x, y, lang == Russian ? "ИНФОРМАЦИЯ" : "INFORMATION");
+    PText::Draw(x, y, LANG_RU ? "ИНФОРМАЦИЯ" : "INFORMATION");
     y += dY;
-    PText::Draw(x, y, lang == Russian ? "Модель : С8-53/1" : "Model : S8-53/1");
+    PText::Draw(x, y, LANG_RU ? "Модель : С8-53/1" : "Model : S8-53/1");
     y += dY;
 
     char buffer[100];
@@ -918,9 +916,9 @@ static void Information_Draw()
     }
     */
 
-    PText::Draw(x, y, lang == Russian ? "Программное обеспечение:" : "Software:");
+    PText::Draw(x, y, LANG_RU ? "Программное обеспечение:" : "Software:");
     y += dY;
-    std::sprintf(buffer, (pchar)((lang == Russian) ? "версия %s" : "version %s"), NUM_VER);
+    std::sprintf(buffer, (pchar)(LANG_RU ? "версия %s" : "version %s"), NUM_VER);
     PText::Draw(x, y, buffer);
     y += dY;
 

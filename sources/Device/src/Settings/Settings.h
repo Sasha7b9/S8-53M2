@@ -74,8 +74,8 @@ struct SettingsEthernet
 
 
 #define LANG            (set.common.lang)       // SettingsCommon.lang
-#define LANG_RU         (LANG == Russian)
-#define LANG_EN         (LANG == English)
+#define LANG_RU         (LANG == Lang::Ru)
+#define LANG_EN         (LANG == Lang::En)
                                     
 struct SettingsCommon
 {
@@ -83,7 +83,7 @@ struct SettingsCommon
     int     countErasedFlashData;       // —колько раз стиралс€ первый сектор с ресурсами.
     int     countErasedFlashSettings;   // —колько раз стиралс€ сектор с настройкаи.
     int     workingTimeInSecs;          // ¬рем€ работы в секундах.
-    Language lang;                      // язык меню.
+    Lang::E lang;                      // язык меню.
 };
 
 

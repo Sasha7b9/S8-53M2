@@ -94,7 +94,7 @@ static void DrawHintItem(int x, int y, int width)
     };
 
     TypeItem::E type = Hint::item->GetType();
-    Language lang = LANG;
+    Lang::E lang = LANG;
     Page *item = (Page*)Hint::item;
 
     const int SIZE = 100;

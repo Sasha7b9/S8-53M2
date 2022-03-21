@@ -109,7 +109,7 @@ pchar TBase::ToString(TBase::E tBase)
 
 pchar TBase::ToStringEN(TBase::E tBase)
 {
-    return Tables::tBases[tBase].name[English];
+    return Tables::tBases[tBase].name[Lang::En];
 }
 
 

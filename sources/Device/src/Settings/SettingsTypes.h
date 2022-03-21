@@ -2,19 +2,6 @@
 #pragma once
 
 
-// SDisplay
-
-
-// Режим отображения пропущенных сигналов при ограничении частоты кадров.
-enum MissedSignals
-{
-    Missed_Hide,    // Не выводить на экран
-    Missed_Show,    // Выводить на экран
-    Missed_Average  // Устреднять и выводить на экран
-};
-
-
-
 // ChannelX
 struct Chan 
 { 
@@ -133,12 +120,11 @@ struct CursLookMode
 };
 
 
-// Service
-
-
-// Язык меню
-enum Language
+struct Lang
 {
-    Russian,    // Русский
-    English     // Английский
+    enum E
+    {
+        Ru,    // Русский
+        En     // Английский
+    };
 };
