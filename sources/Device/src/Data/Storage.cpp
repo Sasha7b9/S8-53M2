@@ -130,7 +130,7 @@ int Storage::NumFramesWithSameSettings()
 int Storage::NumFramesWithCurrentSettings()
 {
     DataSettings dp;
-    dp.Init();
+    dp.FillFromCurrentSettings();
     int retValue = 0;
     int numElements = NumFrames();
 

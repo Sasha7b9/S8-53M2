@@ -215,7 +215,7 @@ void FPGA::PrepareForCycle()
         ClearData();
     }
 
-    Storage::working.ds.Init();
+    Storage::working.ds.FillFromCurrentSettings();
 
     if (TBase::InModeP2P())
     {

@@ -53,7 +53,7 @@ struct DataSettings
     int SizeFrame();
 
     // Заполнение полей текущими настройками
-    void Init();
+    void FillFromCurrentSettings();
 
     int BytesInChannel() const;
 

@@ -679,7 +679,7 @@ int RShift::ToRel(float rShiftAbs, Range::E range)
 };
 
 
-void DataSettings::Init()
+void DataSettings::FillFromCurrentSettings()
 {
     inv_a = SET_INVERSE_A ? 1U : 0U;
     inv_b = SET_INVERSE_B ? 1U : 0U;
