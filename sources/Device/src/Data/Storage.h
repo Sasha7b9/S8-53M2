@@ -4,12 +4,14 @@
 #include "FPGA/FPGA.h"
 #include "Settings/SettingsTypes.h"
 #include "Utils/Containers/Buffer.h"
+#include "Hardware/Timer.h"
 
 
 namespace Storage
 {
-    // Сюда считываем непосредственно из FPGA. Рандомизатор, точки там. Чтобы потом переложит в хранилище
-    extern DataStruct working;
+    extern DataStruct working;          // Сюда считываем непосредственно из FPGA. Рандомизатор, точки там. Чтобы потом
+                                        // переложит в хранилище
+    extern TimeMeterMS time_meter;      // Для засекания времени последнего сохранения данных
 
     // Удаление всех сохранённых измерений
     void Clear();

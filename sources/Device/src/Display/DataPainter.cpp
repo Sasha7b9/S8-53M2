@@ -78,17 +78,38 @@ void DataPainter::DrawData()
 
 void DataPainter::DrawInModeDirect()
 {
-    if (Storage::NumFrames())
+    DataFrame frame;
+
+    if (TBase::InModeP2P())
     {
-        if (TBase::InModeP2P())
+        if (START_MODE_IS_AUTO)
         {
-            Processing::Process(Storage::working);
+            DataSettings *last_ds = Storage::GetDataSettings(0);
+
+            if (last_ds && last_ds->Equal(Storage::working.ds) && Storage::time_meter.ElapsedTime() < 1000)
+            {
+                Processing::Process(Storage::GetData(0, frame));
+            }
+            else
+            {
+                Processing::Process(Storage::working);
+            }
 
             DrawDataNormal();
         }
+        else if (START_MODE_IS_WAIT)
+        {
+
+        }
         else
         {
-            DataFrame frame;
+
+        }
+    }
+    else
+    {
+        if (Storage::NumFrames())
+        {
             Processing::Process(Storage::GetData(0, frame));
             DrawDataNormal();
         }

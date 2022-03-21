@@ -18,6 +18,8 @@ namespace Storage
 {
     DataStruct working;
 
+    TimeMeterMS time_meter;
+
     // Количество отведённой для измерений памяти.
     const int SIZE_POOL = (30 * 1024);
 
@@ -88,6 +90,8 @@ void Storage::AddData(DataStruct &data)
     frame.GetDataChannelsFromStruct(data);
 
     Averager::Append(ds);
+
+    time_meter.Reset();
 }
 
 

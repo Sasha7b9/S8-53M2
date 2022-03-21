@@ -7,6 +7,7 @@
 
 #define START_MODE                          (set.trig.startMode)
 #define START_MODE_IS_SINGLE                (START_MODE == StartMode::Single)
+#define START_MODE_IS_WAIT                  (START_MODE == StartMode::Wait)
 #define START_MODE_IS_AUTO                  (START_MODE == StartMode::Auto)
 
 #define TRIG_SOURCE                         (set.trig.source)
