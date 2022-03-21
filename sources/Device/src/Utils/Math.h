@@ -27,13 +27,38 @@ namespace Math
     void  CalculateFiltrArray(const uint8 *in, uint8 *out, int numPoints, int numSmoothing);
     int   MinFrom2Int(int val0, int val1);
     int   Sign(int vlaue);
-    // ¬ычисл€ет 10**pow.
-    int   Pow10(int pow);
-
     float VoltageCursor(float shiftCurU, Range::E, RShift);
     float TimeCursor(float shiftCurT, TBase::E);
-
+    void  DataExtrapolation(uint8 *data, uint8 *there, int size);
+    uint8 GetMinFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint);
+    uint8 GetMaxFromArray(const uint8 *data, int firstPoint, int lastPoint);
+    uint8 GetMinFromArray(const uint8 *data, int firstPoint, int lastPoint);
+    float MinFrom3float(float value1, float value2, float value3);
+    int   MinInt(int val1, int val2);
+    void  CalculateFFT(float *data, int numPoints, float *result, float *freq0, float *density0, float *freq1,
+        float *density1, int *y0, int *y1);
+    void  CalculateMathFunction(float *data0andResult, float *data1, int numPoints);
+    float RandFloat(float min, float max);
+    int8  AddInt8WithLimitation(int8 value, int8 delta, int8 min, int8 max);
+    uint8 CalculateFiltr(const uint8 *data, int x, int numPoints, int numSmoothing);
     uint8 GetMaxFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint);
+
+    // ¬озвращает координату x пересечени€ линии, проход€щей через (x0, y0), (x1, y1), с горизонтальной линией,
+    // проход€щей через точку с ординатой yHorLine.
+    float GetIntersectionWithHorizontalLine(int x0, int y0, int x1, int y1, int yHorLine);
+
+    // —равнивает два числа. ¬озвращает true, если числа отличаютс€ друг от друга не более, чем на epsilonPart. ѕри этом
+    // дл€ расчЄта epsilonPart используетс€ большее в смысле модул€ число.
+    bool FloatsIsEquals(float value0, float value1, float epsilonPart);
+
+    // ¬ычисл€ет число разр€дов в целом типа int.
+    int  NumDigitsInNumber(int value);
+
+    // ¬озвращает модуль value.
+    int  FabsInt(int value);
+
+    // ¬ычисл€ет 10**pow.
+    int  Pow10(int pow);
 
     // —равнивает два числа. ¬озвращает true, если числа отличаютс€ друг от друга не более, чем на epsilonPart. ѕри
     // этом дл€ расчЄта epsilonPart используетс€ большее в смысле модул€ число.
@@ -81,29 +106,3 @@ namespace Math
         return val2;
     }
 }
-
-void    Math_DataExtrapolation(uint8 *data, uint8 *there, int size);
-uint8   Math_GetMinFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint);
-uint8   Math_GetMaxFromArray(const uint8 *data, int firstPoint, int lastPoint);
-uint8   Math_GetMinFromArray(const uint8 *data, int firstPoint, int lastPoint);
-float   Math_MinFrom3float(float value1, float value2, float value3);
-int     Math_MinInt(int val1, int val2);
-void    Math_CalculateFFT(float *data, int numPoints, float *result, float *freq0, float *density0, float *freq1, float *density1, int *y0, int *y1);
-void    Math_CalculateMathFunction(float *data0andResult, float *data1, int numPoints);
-float   Math_RandFloat(float min, float max);
-int8    Math_AddInt8WithLimitation(int8 value, int8 delta, int8 min, int8 max);
-uint8   Math_CalculateFiltr(const uint8 *data, int x, int numPoints, int numSmoothing);
-
-// ¬озвращает координату x пересечени€ линии, проход€щей через (x0, y0), (x1, y1), с горизонтальной линией, проход€щей
-// через точку с ординатой yHorLine.
-float   Math_GetIntersectionWithHorizontalLine(int x0, int y0, int x1, int y1, int yHorLine);
-
-// —равнивает два числа. ¬озвращает true, если числа отличаютс€ друг от друга не более, чем на epsilonPart. ѕри этом
-// дл€ расчЄта epsilonPart используетс€ большее в смысле модул€ число.
-bool    Math_FloatsIsEquals(float value0, float value1, float epsilonPart);
-
-// ¬ычисл€ет число разр€дов в целом типа int.
-int     Math_NumDigitsInNumber(int value);
-
-// ¬озвращает модуль value.
-int     Math_FabsInt(int value);
