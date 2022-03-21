@@ -81,8 +81,8 @@ void SCPI::DISPLAY::MAPPING(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (1 == value)         { MODE_DRAW_SIGNAL = ModeDrawSignal_Points; }
-        else if (2 == value)    { MODE_DRAW_SIGNAL = ModeDrawSignal_Lines; }
+        if (1 == value)         { MODE_DRAW_SIGNAL = ModeDrawSignal::Points; }
+        else if (2 == value)    { MODE_DRAW_SIGNAL = ModeDrawSignal::Lines; }
         else if (3 == value)    { SCPI_SEND(":DISPLAY:MAPPING %s", MODE_DRAW_IS_SIGNAL_LINES ? "LINES" : "POINTS"); }
     LEAVE_ANALYSIS
 }
