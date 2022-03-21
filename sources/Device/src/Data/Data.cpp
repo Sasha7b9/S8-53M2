@@ -62,8 +62,8 @@ void DataStruct::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
 {
     int max_bytes = ds.BytesInChannel();
 
-    uint8 *a = (uint8 *)this + max_bytes;
-    uint8 *b = a + max_bytes;
+    uint8 *a = A.Data();
+    uint8 *b = B.Data();
 
     if (rec_point == max_bytes - 1)
     {
@@ -86,11 +86,6 @@ void DataStruct::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
 
     rec_point += 2;
     all_points += 2;
-
-    if (all_points == 1024)
-    {
-        Log("1: ");
-    }
 }
 
 
