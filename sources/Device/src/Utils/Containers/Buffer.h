@@ -26,6 +26,8 @@ public:
     void Free();
 
     void Fill(T value);
+    // Записать в буфер size байт из buffer. Если памяти выделено меньше, заполнить только выделенную память
+    void Fill(const T *buffer, int size);
 
     inline int Size() const { return size; }
 

@@ -105,6 +105,18 @@ void Buffer<T>::ReallocFromBuffer(const T *buffer, int _size)
 
 
 template<class T>
+void Buffer<T>::Fill(const T *buffer, int _size)
+{
+    if (size < _size)
+    {
+        _size = size;
+    }
+
+    std::memcpy(data, buffer, (uint)_size);
+}
+
+
+template<class T>
 void Buffer<T>::Free()
 {
     std::free(data);
