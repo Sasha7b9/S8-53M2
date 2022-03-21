@@ -563,6 +563,8 @@ void Math::CalculateFiltrArray(const uint8 *in, uint8 *out, int numPoints, int n
     }
     else
     {
+        LOG_WRITE("num smoothing = %d", numSmoothing);
+
         bool addCalculation = (numSmoothing % 2) == 1;
         int endDelta = numSmoothing / 2;
         int startDelta = 1;

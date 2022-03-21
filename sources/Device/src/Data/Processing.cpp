@@ -1225,11 +1225,10 @@ void Processing::Process(DataStruct &in)
 
     int length = in.ds.BytesInChannel();
 
-    Processing::out.Data(ChA).Realloc(length, ValueFPGA::NONE);
+    Processing::out.Data(ChA).Realloc(length, ValueFPGA::NONE);   // Подготавливаем место для рассчитанных сглаженных точек
     Processing::out.Data(ChB).Realloc(length, ValueFPGA::NONE);
 
     Math::CalculateFiltrArray(in.A.Data(), Processing::out.Data(ChA).Data(), length, Smoothing::ToPoints());
-
     Math::CalculateFiltrArray(in.B.Data(), Processing::out.Data(ChB).Data(), length, Smoothing::ToPoints());
 
     CountedToCurrentSettings(in.ds, in.A.Data(), in.B.Data());
