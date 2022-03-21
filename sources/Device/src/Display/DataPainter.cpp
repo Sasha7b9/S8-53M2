@@ -84,8 +84,6 @@ void DataPainter::DrawInModeDirect()
         {
             Processing::Process(Storage::working);
 
-            Processing::out.Log("1: ");
-
             DrawDataNormal();
         }
         else
