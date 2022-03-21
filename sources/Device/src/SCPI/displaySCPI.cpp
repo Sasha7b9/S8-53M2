@@ -129,7 +129,7 @@ void SCPI::DISPLAY::ACCUM_MODE(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value <= 1) { MODE_ACCUM = (ModeAccumulation)value; }
+        if (value <= 1) { MODE_ACCUM = (ModeAccumulation::E)value; }
         else if (2 == value)
         {
             SCPI_SEND(":DISPLAY:ACCUMULATION:MODE %s", map[MODE_ACCUM].key);

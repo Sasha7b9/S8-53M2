@@ -57,7 +57,7 @@ static const Settings defaultSettings =
         Smoothing::Disable,         // smoothing
         ENumSignalsInSec::_25,      // num signals in one second
         Chan::A,                    // lastAffectedChannel
-        ModeAccumulation_NoReset,   // modeAccumulation
+        ModeAccumulation::NoReset,  // modeAccumulation
         AM_Show,                    // altMarkers
         MenuAutoHide_None,          // menuAutoHide
         true,                       // showFullMemoryWindow

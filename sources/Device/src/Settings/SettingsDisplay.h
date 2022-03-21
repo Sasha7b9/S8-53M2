@@ -48,8 +48,8 @@
 #define LAST_AFFECTED_CHANNEL_IS_B  (LAST_AFFECTED_CHANNEL == Chan::B)
 
 #define MODE_ACCUM                  (set.display.modeAccumulation)
-#define MODE_ACCUM_IS_RESET         (MODE_ACCUM == ModeAccumulation_Reset)
-#define MODE_ACCUM_IS_NORESET       (MODE_ACCUM == ModeAccumulation_NoReset)
+#define MODE_ACCUM_IS_RESET         (MODE_ACCUM == ModeAccumulation::Reset)
+#define MODE_ACCUM_IS_NORESET       (MODE_ACCUM == ModeAccumulation::NoReset)
 
 #define ALT_MARKERS                 (set.display.altMarkers)
 #define ALT_MARKERS_HIDE            (ALT_MARKERS == AM_Hide)
@@ -188,10 +188,13 @@ struct ENumSignalsInSec
 };
 
 // Режим накопления.
-enum ModeAccumulation
+struct ModeAccumulation
 {
-    ModeAccumulation_NoReset,   // В этом режиме показываются строго N последних измерений.
-    ModeAccumulation_Reset      // В этом режиме набираются N последних измерений и потом сбрасываются.
+    enum E
+    {
+        NoReset,   // В этом режиме показываются строго N последних измерений.
+        Reset      // В этом режиме набираются N последних измерений и потом сбрасываются.
+    };
 };
 
 // Режим отображения дополнительных боковых маркеров смещения по напряжению.
@@ -240,7 +243,7 @@ struct SettingsDisplay
     Smoothing::E        smoothing;                  // Число точек для скользящего фильтра.
     ENumSignalsInSec::E enumSignalsInSec;           // Перечисление считываний сигнала в секунду.
     Chan                lastAffectedChannel;        // Здесь хранится номер последнего канала, которым управляли ручками. Нужно для того, чтобы знать, какой сигнал рисовать наверху.
-    ModeAccumulation    modeAccumulation;           // Задаёт режим накопления сигналов.
+    ModeAccumulation::E modeAccumulation;           // Задаёт режим накопления сигналов.
     AltMarkers          altMarkers;                 // Режим отображения дополнительных боковых маркеров смещений.
     MenuAutoHide        menuAutoHide;               // Через сколько времени после последнего нажатия клавиши прятать меню.
     bool                showFullMemoryWindow;       // Показывать ли окно памяти вверху экрана. \todo Не используется.
