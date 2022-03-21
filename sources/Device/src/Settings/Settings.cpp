@@ -159,7 +159,7 @@ static const Settings defaultSettings =
     {
         ENUM_POINTS_FPGA::_1024,
         ModeWork::Direct,
-        FileNamingMode_Mask,
+        FileNamingMode::Mask,
         "Signal_\x07\x03",      // \x07 - означает, что здесь должен быть очередной номер, \x03 - минимум на три знакоместа
         "Signal01",
         0,

@@ -13,8 +13,8 @@
 #define MODE_WORK_IS_MEMINT         (MODE_WORK == ModeWork::MemInt)
 
 #define FILE_NAMING_MODE            (set.memory.fileNamingMode)
-#define FILE_NAMING_MODE_IS_MASK    (FILE_NAMING_MODE == FileNamingMode_Mask)
-#define FILE_NAMING_MODE_IS_HAND    (FILE_NAMING_MODE == FileNamingMode_Manually)
+#define FILE_NAMING_MODE_IS_MASK    (FILE_NAMING_MODE == FileNamingMode::Mask)
+#define FILE_NAMING_MODE_IS_HAND    (FILE_NAMING_MODE == FileNamingMode::Manually)
 
 #define FILE_NAME_MASK              (set.memory.fileNameMask)
 
@@ -48,10 +48,13 @@ struct ModeWork
 
 
 // Режим наименования файлов.
-enum FileNamingMode
+struct FileNamingMode
 {
-    FileNamingMode_Mask,        // Именовать по маске.
-    FileNamingMode_Manually     // Именовать вручную.
+    enum E
+    {
+        Mask,        // Именовать по маске.
+        Manually     // Именовать вручную.
+    };
 };
 
 // Что показывать в режиме Внутр ЗУ - считанный или записанный сигнал.
@@ -90,7 +93,7 @@ struct SettingsMemory
 #define MAX_SYMBOLS_IN_FILE_NAME 35
     ENUM_POINTS_FPGA::E fpgaENumPoints;                         // Число точек.
     ModeWork::E         modeWork;                               // Режим работы.
-    FileNamingMode      fileNamingMode;                         // Режим именования файлов.
+    FileNamingMode::E   fileNamingMode;                         // Режим именования файлов.
     char                fileNameMask[MAX_SYMBOLS_IN_FILE_NAME]; // Здесь маска для автоматического именования файлов\n
          // Правила именования.\n
          // %y('\x42') - год, %m('\x43') - месяц, %d('\x44') - день, %H('\x45') - часы, %M('\x46') - минуты, %S('\x47') - секунды\n
