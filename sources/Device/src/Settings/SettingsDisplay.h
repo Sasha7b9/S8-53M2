@@ -5,61 +5,61 @@
 #include "Display/Colors.h"
 
 
-#define TIME_SHOW_LEVELS            (set.display.timeShowLevels)                // SettingsDisplay.timeShowLevels
+#define TIME_SHOW_LEVELS            (set.display.timeShowLevels)
 
-#define SHIFT_IN_MEMORY             (set.display.shiftInMemory)                 // SettingsDisplay.shiftInMemory
+#define SHIFT_IN_MEMORY             (set.display.shiftInMemory)
 
-#define TIME_MESSAGES               (set.display.timeMessages)                  // SettingsDisplay.timeMessages
+#define TIME_MESSAGES               (set.display.timeMessages)
 
-#define BRIGHTNESS                  (set.display.brightness)                    // SettingsDisplay.brightness
+#define BRIGHTNESS                  (set.display.brightness)
 
-#define BRIGHTNESS_GRID             (set.display.brightnessGrid)                // SettingsDisplay.brightnessGrid
+#define BRIGHTNESS_GRID             (set.display.brightnessGrid)
 
-#define DISPLAY_COLOR(num)          (set.display.colors[num])                   // SettingsDisplay.colors
+#define DISPLAY_COLOR(num)          (set.display.colors[num])
 
-#define MODE_DRAW_SIGNAL            (set.display.modeDrawSignal)                // SettingsDisplay.modeDrawSignal
-#define MODE_DRAW_IS_SIGNAL_LINES   (MODE_DRAW_SIGNAL == ModeDrawSignal::Lines) // \c true, если сигнал выводится линиями.
+#define MODE_DRAW_SIGNAL            (set.display.modeDrawSignal)
+#define MODE_DRAW_IS_SIGNAL_LINES   (MODE_DRAW_SIGNAL == ModeDrawSignal::Lines)
 
-#define TYPE_GRID                   (set.display.typeGrid)                      // SettingsDisplay.typeGrid
-#define TYPE_GRID_IS_1              (TYPE_GRID == TypeGrid_1)                   // Установлен тип сетки TypeGrid_1.
-#define TYPE_GRID_IS_2              (TYPE_GRID == TypeGrid_2)                   // Установлен тип сетки TypeGrid_2.
-#define TYPE_GRID_IS_3              (TYPE_GRID == TypeGrid_3)                   // Установлен тип сетки TypeGrid_3.
+#define TYPE_GRID                   (set.display.typeGrid)
+#define TYPE_GRID_IS_1              (TYPE_GRID == TypeGrid::_1)
+#define TYPE_GRID_IS_2              (TYPE_GRID == TypeGrid::_2)
+#define TYPE_GRID_IS_3              (TYPE_GRID == TypeGrid::_3)
 
-#define ENUM_ACCUM                  (set.display.enumAccumulation)              // SettingsDisplay.numAccumulation
-#define ENUM_ACCUM_IS_NONE          (ENUM_ACCUM == NumAccumulation_1)           // \c true, если накопление выключено.
-#define ENUM_ACCUM_IS_INFINITY      (ENUM_ACCUM == NumAccumulation_Infinity)    // \c true, если установлено бесконечное число накоплений.
-#define NUM_ACCUM                   (1 << (int)set.display.enumAccumulation)    // Количество накоплений.
+#define ENUM_ACCUM                  (set.display.enumAccumulation)
+#define ENUM_ACCUM_IS_NONE          (ENUM_ACCUM == NumAccumulation_1)
+#define ENUM_ACCUM_IS_INFINITY      (ENUM_ACCUM == NumAccumulation_Infinity)
+#define NUM_ACCUM                   (1 << (int)set.display.enumAccumulation)
 
 #define ENUM_AVE                    (set.display.enumAve)
-#define NUM_AVE                     (1 << ENUM_AVE)                             // Количество усреднений.
+#define NUM_AVE                     (1 << ENUM_AVE)
 
 #define MODE_AVE                    (set.display.modeAve)
 
-#define ENUM_MIN_MAX                (set.display.enumMinMax)                    // SettingsDisplay.enumMinMax
-#define NUM_MIN_MAX                 (1 << ENUM_MIN_MAX)                         // Количество измерений сигналов для расчёта минимумов и максимумов.
+#define ENUM_MIN_MAX                (set.display.enumMinMax)
+#define NUM_MIN_MAX                 (1 << ENUM_MIN_MAX)
 
-#define SMOOTHING                   (set.display.smoothing)                     // SettingsDisplay.smoothing
-#define SMOOTHING_IS_DISABLE        (SMOOTHING == Smoothing::Disable)           // \c true, если скользящий фильтр выключен.
+#define SMOOTHING                   (set.display.smoothing)
+#define SMOOTHING_IS_DISABLE        (SMOOTHING == Smoothing::Disable)
 
-#define ENUM_SIGNALS_IN_SEC         (set.display.enumSignalsInSec)              // SettingsDisplay.enumSignalsInSec
+#define ENUM_SIGNALS_IN_SEC         (set.display.enumSignalsInSec)
 
-#define LAST_AFFECTED_CHANNEL       (set.display.lastAffectedChannel)           // SettingsDisplay.lastAffectedChannel
-#define LAST_AFFECTED_CHANNEL_IS_A  (LAST_AFFECTED_CHANNEL == Chan::A)          // \c true, если последний канал, которым управляли - 1.
-#define LAST_AFFECTED_CHANNEL_IS_B  (LAST_AFFECTED_CHANNEL == Chan::B)          // \c true, если последний канал, которым управляли - 2.
+#define LAST_AFFECTED_CHANNEL       (set.display.lastAffectedChannel)
+#define LAST_AFFECTED_CHANNEL_IS_A  (LAST_AFFECTED_CHANNEL == Chan::A)
+#define LAST_AFFECTED_CHANNEL_IS_B  (LAST_AFFECTED_CHANNEL == Chan::B)
 
-#define MODE_ACCUM                  (set.display.modeAccumulation)              // SettingsDisplay.modeAccumulation
-#define MODE_ACCUM_IS_RESET         (MODE_ACCUM == ModeAccumulation_Reset)      // \c true, если накопление со сбросом.
-#define MODE_ACCUM_IS_NORESET       (MODE_ACCUM == ModeAccumulation_NoReset)    // \c true, если накопление без сброса.
+#define MODE_ACCUM                  (set.display.modeAccumulation)
+#define MODE_ACCUM_IS_RESET         (MODE_ACCUM == ModeAccumulation_Reset)
+#define MODE_ACCUM_IS_NORESET       (MODE_ACCUM == ModeAccumulation_NoReset)
 
-#define ALT_MARKERS                 (set.display.altMarkers)                    // SettingsDisplay.altMarkers
-#define ALT_MARKERS_HIDE            (ALT_MARKERS == AM_Hide)                    // \c true, если дополнительные маркеры никогда не надо показывать.
+#define ALT_MARKERS                 (set.display.altMarkers)
+#define ALT_MARKERS_HIDE            (ALT_MARKERS == AM_Hide)
 
-#define MENU_AUTO_HIDE              (set.display.menuAutoHide)                  // SettingsDisplay.menuAutoHide
+#define MENU_AUTO_HIDE              (set.display.menuAutoHide)
 
-#define SHOW_STRING_NAVIGATION      (set.display.showStringNavigation)          // SettingsDisplay.showStringNavigation
+#define SHOW_STRING_NAVIGATION      (set.display.showStringNavigation)
 
-#define LINKING_RSHIFT              (set.display.linkingRShift)                 // SettingsDisplay.linkingRShift
-#define LINKING_RSHIFT_IS_VOLTAGE   (LINKING_RSHIFT == LinkingRShift_Voltage)   // \c true, если привязка к абсолютному напряжению.
+#define LINKING_RSHIFT              (set.display.linkingRShift)
+#define LINKING_RSHIFT_IS_VOLTAGE   (LINKING_RSHIFT == LinkingRShift_Voltage)
 
 
 
@@ -74,13 +74,16 @@ struct ModeDrawSignal
 };
 
 // Тип сетки на экране.
-enum TypeGrid
+struct TypeGrid
 {
-    TypeGrid_1,
-    TypeGrid_2,
-    TypeGrid_3,
-    TypeGrid_4,
-    TG_Size
+    enum E
+    {
+        _1,
+        _2,
+        _3,
+        _4,
+        Count
+    };
 };
 
 // Перечисление накоплений.
@@ -226,7 +229,7 @@ struct SettingsDisplay
     int16               brightnessGrid;             // Яркость сетки от 0 до 100.
     uint                colors[16];                 // Цвета.
     ModeDrawSignal::E   modeDrawSignal;             // Режим отрисовки сигнала.
-    TypeGrid            typeGrid;                   // Тип сетки.
+    TypeGrid::E         typeGrid;                   // Тип сетки.
     ENumAccumulation    enumAccumulation;           // Перечисление накоплений сигнала на экране.
     ENumAveraging::E    enumAve;                    // Перечисление усреднений сигнала.
     ModeAveraging::E    modeAve;                    // Тип усреднений по измерениям.

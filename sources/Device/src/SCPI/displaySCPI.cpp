@@ -345,7 +345,7 @@ void SCPI::DISPLAY::GRID_TYPE(uint8 *buffer)
     };
 
     ENTER_ANALYSIS
-        if (value <= 3) { TYPE_GRID = (TypeGrid)value; }
+        if (value <= 3) { TYPE_GRID = (TypeGrid::E)value; }
         else if (4 == value)
         {
             SCPI_SEND(":DISPLAY:GRID:TYPE %s", map[TYPE_GRID].key);
