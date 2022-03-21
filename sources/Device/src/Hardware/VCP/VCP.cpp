@@ -101,7 +101,7 @@ void VCP::SendFormatTrace(pchar module, pchar func, int line, char *format, ...)
 
     char message[SIZE_BUFFER];
 
-    std::sprintf(message, "%s                             %s:%s:%d", buffer, module, func, line);
+    std::snprintf(message, SIZE_BUFFER, "%s                             %s:%s:%d", buffer, module, func, line);
 
     Send((uint8 *)message, (int)std::strlen(message) + 1);
 }
