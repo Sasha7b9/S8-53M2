@@ -175,7 +175,7 @@ static const Settings defaultSettings =
     {
         MeasuresNumber::_1,                       // measures number
         Chan::A_B,                  // source
-        ModeViewSignals_AsIs,       // mode view signal
+        ModeViewSignals::AsIs,       // mode view signal
         {
             Measure::VoltageMax,     Measure::VoltageMin,  Measure::VoltagePic,      Measure::VoltageMaxSteady,  Measure::VoltageMinSteady,
             Measure::VoltageAverage, Measure::VoltageAmpl, Measure::VoltageRMS,      Measure::VoltageVybrosPlus, Measure::VoltageVybrosMinus,

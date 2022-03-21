@@ -17,7 +17,7 @@
 #define MEAS_SOURCE_IS_A_B              (MEAS_SOURCE == Chan::A_B)
 
 #define MODE_VIEW_SIGNALS               (set.measures.modeViewSignals)
-#define MODE_VIEW_SIGNALS_IS_COMPRESS   (MODE_VIEW_SIGNALS == ModeViewSignals_Compress)
+#define MODE_VIEW_SIGNALS_IS_COMPRESS   (MODE_VIEW_SIGNALS == ModeViewSignals::Compress)
 
 #define MEAS_MARKED                     (set.measures.markedMeasure)
 #define MEAS_MARKED_IS_NONE             (MEAS_MARKED == Measure::None)
@@ -79,16 +79,16 @@ struct MeasuresField
 // Настройки меню ИЗМЕРЕНИЯ
 struct SettingsMeasures
 {
-    MeasuresNumber::E number;          // Сколько измерений выводить.
-    Chan::E           source;          // Для каких каналов выводить измерения.
-    ModeViewSignals   modeViewSignals; // Сжимать ли сигналы при выводе измерений.
-    Measure::E        measures[15];    // Выбранные для индикации измерения.
-    bool              show;            // Показывать ли измерения.
-    MeasuresField::E  field;           // Задаёт область, из которой берутся значения для расчёта измерений.
-    int16             posCurU[2];      // Позиции курсоров, которые задают область, из которой берутся значения для расчёта измерений при field == MeasuresField_Hand.
-    int16             posCurT[2];      // Позиции курсоров, которые задают область, из которой берутся значения для расчёта измерений при field == MeasuresField_Hand.
-    CursCntrl::E      cntrlU;          // Активные курсоры напряжения.
-    CursCntrl::E      cntrlT;          // Активные курсоры времени.
-    CursActive::E     cursActive;      // Какие курсоры активны - по времени или напряжению.
-    Measure::E        markedMeasure;   // Измерение, на которое нужно выводить маркеры.
+    MeasuresNumber::E  number;          // Сколько измерений выводить.
+    Chan::E            source;          // Для каких каналов выводить измерения.
+    ModeViewSignals::E modeViewSignals; // Сжимать ли сигналы при выводе измерений.
+    Measure::E         measures[15];    // Выбранные для индикации измерения.
+    bool               show;            // Показывать ли измерения.
+    MeasuresField::E   field;           // Задаёт область, из которой берутся значения для расчёта измерений.
+    int16              posCurU[2];      // Позиции курсоров, которые задают область, из которой берутся значения для расчёта измерений при field == MeasuresField_Hand.
+    int16              posCurT[2];      // Позиции курсоров, которые задают область, из которой берутся значения для расчёта измерений при field == MeasuresField_Hand.
+    CursCntrl::E       cntrlU;          // Активные курсоры напряжения.
+    CursCntrl::E       cntrlT;          // Активные курсоры времени.
+    CursActive::E      cursActive;      // Какие курсоры активны - по времени или напряжению.
+    Measure::E         markedMeasure;   // Измерение, на которое нужно выводить маркеры.
 };

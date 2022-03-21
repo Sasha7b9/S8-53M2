@@ -63,10 +63,13 @@ struct Divider
 
 
 // Сжимать ли сигналы при выводе измерений.
-enum ModeViewSignals
+struct ModeViewSignals
 {
-    ModeViewSignals_AsIs,       // Показывать сигналы как есть
-    ModeViewSignals_Compress    // Сжимать сетку с сигналами
+    enum E
+    {
+        AsIs,       // Показывать сигналы как есть
+        Compress    // Сжимать сетку с сигналами
+    };
 };
 
 
