@@ -86,6 +86,11 @@ void DataStruct::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
 
     rec_point += 2;
     all_points += 2;
+
+    if (all_points == 1024)
+    {
+        Log("1: ");
+    }
 }
 
 
