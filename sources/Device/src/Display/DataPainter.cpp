@@ -42,7 +42,7 @@ namespace DataPainter
     void DrawSignalLined(const uint8 *data, const DataSettings *ds, int startPoint, int endPoint, int minY, int maxY,
         float scaleY, float scaleX);
 
-    void DrawSignalPointed(const uint8 *data, const DataSettings *ds, int startPoint, int endPoint, int minY, int maxY,
+    void DrawSignalPointed(const uint8 *data, const DataSettings &, int startPoint, int endPoint, int minY, int maxY,
         float scaleY, float scaleX);
 
     void DrawBothChannels(DataStruct &);
@@ -155,7 +155,7 @@ void DataPainter::DrawDataChannel(DataStruct &data, Chan ch, int minY, int maxY)
     }
     else
     {
-        DrawSignalPointed(data.Data(ch).Data(), &ds, first, last, minY, maxY, scaleY, scaleX);
+        DrawSignalPointed(data.Data(ch).Data(), ds, first, last, minY, maxY, scaleY, scaleX);
     }
 }
 
@@ -272,14 +272,14 @@ void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings *ds, int
 }
 
 
-void DataPainter::DrawSignalPointed(const uint8 *in, const DataSettings *ds, int start, int end, int minY,
+void DataPainter::DrawSignalPointed(const uint8 *in, const DataSettings &ds, int start, int end, int minY,
     int maxY, float scaleY, float scaleX)
 {
     uint8 out[281];
 
     if (scaleX == 1.0f)
     {
-        if (ds->peak_det == 0)
+        if (ds.peak_det == 0)
         {
             for (int i = start; i < end; i++)
             {
