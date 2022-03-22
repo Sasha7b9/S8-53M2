@@ -6,8 +6,11 @@ namespace DataPainter
 {
     void DrawData();
 
-    // Нарисовать окно памяти
-    void DrawMemoryWindow();
-
     void DrawMath();
+
+    namespace MemoryWindow
+    {
+        // Нарисовать окно памяти
+        void Draw();
+    }
 }

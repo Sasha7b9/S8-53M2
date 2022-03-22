@@ -636,7 +636,7 @@ void Display::Update(bool endScene)
     if (needClear)
     {
         Painter::BeginScene(COLOR_BACK);
-        DataPainter::DrawMemoryWindow();
+        DataPainter::MemoryWindow::Draw();
         DrawFullGrid();
     }
 

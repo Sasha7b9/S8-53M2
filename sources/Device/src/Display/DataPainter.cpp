@@ -49,15 +49,18 @@ namespace DataPainter
 
     // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена
     // иниформация о максимумах.
-    void DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI,
-        const uint8 *data, int rightX, Chan::E ch, int shiftForPeakDet);
-
-    // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена
-    // иниформация о максимумах.
     void DrawDataInRect(int x, int width, const uint8 *data, int numElems, Chan::E ch, int shiftForPeakDet);
 
     // modeLines - true - точками, false - точками
     void DrawSignal(const int x, const uint8 data[281], bool modeLines);
+
+    namespace MemoryWindow
+    {
+        // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена
+        // иниформация о максимумах.
+        void DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI,
+            const uint8 *data, int rightX, Chan::E ch, int shiftForPeakDet);
+    }
 }
 
 
@@ -429,7 +432,7 @@ void DataPainter::DrawDataNormal()
 }
 
 
-void DataPainter::DrawMemoryWindow()
+void DataPainter::MemoryWindow::Draw()
 {
     Processing::SetDataForProcessing(true);
 
@@ -538,8 +541,8 @@ void DataPainter::DrawMemoryWindow()
 }
 
 
-void DataPainter::DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI,
-    const uint8 *data, int rightX, Chan::E ch, int shiftForPeakDet)
+void DataPainter::MemoryWindow::DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int xVert1, int startI,
+    int endI, const uint8 *data, int rightX, Chan::E ch, int shiftForPeakDet)
 {
     DrawDataInRect(1, xVert0 - 1, &(data[0]), startI, ch, shiftForPeakDet);
 
