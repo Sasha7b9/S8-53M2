@@ -53,13 +53,9 @@ namespace Display
 
     int topMeasures = GRID_BOTTOM;
 
+    static const int DELTA = 5;
+
     void ShowWarn(pchar  message);
-
-    // Нарисовать сетку.
-    void DrawGrid(int left, int top, int width, int height);
-
-    // Нарисовать полную сетку.
-    void DrawFullGrid();
 
     void DrawCursorsWindow();
 
@@ -95,13 +91,9 @@ namespace Display
     // Написать предупреждения.
     void DrawWarnings();
 
-    int CalculateCountV();
-
     int CalculateFreeSize();
 
     void DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan);
-
-    void DrawGridSpectrum();
 
     void DrawScaleLine(int x, bool forTrigLev);
 
@@ -127,9 +119,6 @@ namespace Display
 
     void WriteStringAndNumber(pchar text, int x, int y, int number);
 
-    void DrawGridType3(int left, int top, int right, int bottom, int centerX, int centerY, int deltaX, int deltaY,
-        int stepX, int stepY);
-
     void DrawTimeForFrame(uint timeMS);
 
     void DeleteFirstString();
@@ -148,13 +137,6 @@ namespace Display
     void WriteValueTrigLevel();
 
     void AddString(pchar  string);
-
-    int CalculateCountH();
-
-    void DrawGridType1(int left, int top, int right, int bottom, float centerX, float centerY, float deltaX,
-        float deltaY, float stepX, float stepY);
-
-    void DrawGridType2(int left, int top, int right, int bottom, int deltaX, int deltaY, int stepX, int stepY);
 }
 
 
@@ -630,7 +612,7 @@ void Display::Update(bool endScene)
     {
         Painter::BeginScene(COLOR_BACK);
         DataPainter::MemoryWindow::Draw();
-        DrawFullGrid();
+        Grid::Draw();
     }
 
     DataPainter::DrawData();
@@ -719,248 +701,6 @@ void Display::WriteValueTrigLevel()
         PText::Draw(x + 2, y + 1, buffer, COLOR_FILL);
     }
 }
-
-
-void Display::DrawGridSpectrum()
-{
-    if (SCALE_FFT_IS_LOG)
-    {
-        static const int nums[] = {4, 6, 8};
-        static pchar strs[] = {"0", "-10", "-20", "-30", "-40", "-50", "-60", "-70"};
-        int numParts = nums[FFT_MAX_DB];
-        float scale = (float)Grid::MathHeight() / numParts;
-        for (int i = 1; i < numParts; i++)
-        {
-            int y = (int)(Grid::MathTop() + i * scale);
-            Painter::DrawHLine(y, Grid::Left(), Grid::Left() + 256, ColorGrid());
-            if (!Menu::IsMinimize())
-            {
-                Color::SetCurrent(COLOR_FILL);
-                PText::Draw(3, y - 4, strs[i]);
-            }
-        }
-        if (!Menu::IsMinimize())
-        {
-            Color::SetCurrent(COLOR_FILL);
-            PText::Draw(5, Grid::MathTop() + 1, "дБ");
-        }
-    }
-    else if (SCALE_FFT_IS_LINEAR)
-    {
-        static pchar strs[] = {"1.0", "0.8", "0.6", "0.4", "0.2"};
-        float scale = (float)Grid::MathHeight() / 5;
-        for (int i = 1; i < 5; i++)
-        {
-            int y = (int)(Grid::MathTop() + i * scale);
-            Painter::DrawHLine(y, Grid::Left(), Grid::Left() + 256, ColorGrid());
-            if (!Menu::IsMinimize())
-            {
-                PText::Draw(5, y - 4, strs[i], COLOR_FILL);
-            }
-        }
-    }
-    Painter::DrawVLine(Grid::Left() + 256, Grid::MathTop(), Grid::MathBottom(), COLOR_FILL);
-}
-
-
-
-void Display::DrawFullGrid()
-{
-    if (SettingsDisplay::IsSeparate())
-    {
-        DrawGrid(Grid::Left(), GRID_TOP, Grid::Width(), Grid::FullHeight() / 2);
-
-        if (ENABLED_FFT)
-        {
-            DrawGridSpectrum();
-        }
-
-        if (!DISABLED_DRAW_MATH)
-        {
-            DrawGrid(Grid::Left(), GRID_TOP + Grid::FullHeight() / 2, Grid::Width(), Grid::FullHeight() / 2);
-        }
-
-        Painter::DrawHLine(GRID_TOP + Grid::FullHeight() / 2, Grid::Left(), Grid::Left() + Grid::Width(), COLOR_FILL);
-    }
-    else
-    {
-        DrawGrid(Grid::Left(), GRID_TOP, Grid::Width(), Grid::FullHeight());
-    }
-}
-
-
-
-int Display::CalculateCountV()
-{
-    if (MODE_VIEW_SIGNALS_IS_COMPRESS)
-    {
-        if (MEAS_NUM_IS_1_5)
-        {
-            return MEAS_SOURCE_IS_A_B ? 42 : 44;
-        }
-        if (MEAS_NUM_IS_2_5)
-        {
-            return MEAS_SOURCE_IS_A_B ? 69 : 39;
-        }
-        if (MEAS_NUM_IS_3_5)
-        {
-            return MEAS_SOURCE_IS_A_B ? 54 : 68;
-        }
-    }
-
-    return 49;
-}
-
-
-
-int Display::CalculateCountH()
-{
-    if (MODE_VIEW_SIGNALS_IS_COMPRESS)
-    {
-        if (MEAS_NUM_IS_6_1)
-        {
-            return 73;
-        }
-        if (MEAS_NUM_IS_6_2)
-        {
-            return 83;
-        }
-    }
-    return 69;
-}
-
-
-
-void Display::DrawGridType1(int left, int top, int right, int bottom, float centerX, float centerY, float deltaX,
-    float deltaY, float stepX, float stepY)
-{
-    uint16 masX[17];
-    masX[0] = (uint16)(left + 1);
-
-    for (int i = 1; i < 7; i++)
-    {
-        masX[i] = (uint16)(left + deltaX * i);
-    }
-    for (int i = 7; i < 10; i++)
-    {
-        masX[i] = (uint16)(centerX - 8 + i);
-    }
-    for (int i = 10; i < 16; i++)
-    {
-        masX[i] = (uint16)(centerX + deltaX * (i - 9));
-    }
-
-    masX[16] = (uint16)(right - 1);
-
-    Painter::DrawMultiVPointLine(17, (int)(top + stepY), masX, (int)stepY, CalculateCountV(), ColorGrid());
-
-    uint8 mas[13];
-    mas[0] = (uint8)(top + 1);
-
-    for (int i = 1; i < 5; i++)
-    {
-        mas[i] = (uint8)(top + deltaY * i);
-    }
-    for (int i = 5; i < 8; i++)
-    {
-        mas[i] = (uint8)(centerY - 6 + i);
-    }
-    for (int i = 8; i < 12; i++)
-    {
-        mas[i] = (uint8)(centerY + deltaY * (i - 7));
-    }
-
-    mas[12] = (uint8)(bottom - 1);
-
-    Painter::DrawMultiHPointLine(13, (int)(left + stepX), mas, (int)stepX, CalculateCountH(), ColorGrid());
-}
-
-
-
-void Display::DrawGridType2(int left, int top, int right, int bottom, int deltaX, int deltaY, int stepX, int stepY)
-{ 
-    uint16 masX[15];
-    masX[0] = (uint16)(left + 1);
-    for (int i = 1; i < 14; i++)
-    {
-        masX[i] = (uint16)(left + deltaX * i);
-    }
-    masX[14] = (uint16)(right - 1);
-    Painter::DrawMultiVPointLine(15, top + stepY, masX, stepY, CalculateCountV(), ColorGrid());
-
-    uint8 mas[11];
-    mas[0] = (uint8)(top + 1);
-    for (int i = 1; i < 10; i++)
-    {
-        mas[i] = (uint8)(top + deltaY * i);
-    }
-    mas[10] = (uint8)(bottom - 1);
-    Painter::DrawMultiHPointLine(11, left + stepX, mas, stepX, CalculateCountH(), ColorGrid());
-}
-
-
-
-void Display::DrawGridType3(int left, int top, int right, int bottom, int centerX, int centerY, int deltaX, int deltaY,
-    int stepX, int stepY)
-{
-    Painter::DrawHPointLine(centerY, left + stepX, right, stepX);
-    uint8 masY[6] = {(uint8)(top + 1), (uint8)(top + 2), (uint8)(centerY - 1), (uint8)(centerY + 1),
-        (uint8)(bottom - 2), (uint8)(bottom - 1)};
-    Painter::DrawMultiHPointLine(6, left + deltaX, masY, deltaX, (right - top) / deltaX, ColorGrid());
-    Painter::DrawVPointLine(centerX, top + stepY, bottom, (float)stepY, ColorGrid());
-    uint16 masX[6] = {(uint16)(left + 1), (uint16)(left + 2), (uint16)(centerX - 1), (uint16)(centerX + 1),
-        (uint16)(right - 2), (uint16)(right - 1)};
-    Painter::DrawMultiVPointLine(6, top + deltaY, masX, deltaY, (bottom - top) / deltaY, ColorGrid());
-}
-
-
-
-void Display::DrawGrid(int left, int top, int width, int height)
-{
-    int right = left + width;
-    int bottom = top + height;
-
-    Color::SetCurrent(COLOR_FILL);
-
-    if (top == GRID_TOP)
-    {
-        Painter::DrawHLine(top, 1, left - 2);
-        Painter::DrawHLine(top, right + 2, SCREEN_WIDTH - 2);
-
-        if (!Menu::IsMinimize() || !Menu::IsShown())
-        {
-            Painter::DrawVLine(1, top + 2, bottom - 2);
-            Painter::DrawVLine(318, top + 2, bottom - 2);
-        }
-    }
-
-    float deltaX = Grid::DeltaX() *(float)width / width;
-    float deltaY = Grid::DeltaY() * (float)height / height;
-    float stepX = deltaX / 5;
-    float stepY = deltaY / 5;
-    
-    int centerX = left + width / 2;
-    int centerY = top + height / 2;
-
-    Color::SetCurrent(ColorGrid());
-
-    if (TYPE_GRID_IS_1)
-    {
-        DrawGridType1(left, top, right, bottom, (float)centerX, (float)centerY, deltaX, deltaY, stepX, stepY);
-    }
-    else if (TYPE_GRID_IS_2)
-    {
-        DrawGridType2(left, top, right, bottom, (int)deltaX, (int)deltaY, (int)stepX, (int)stepY);
-    }
-    else if (TYPE_GRID_IS_3)
-    {
-        DrawGridType3(left, top, right, bottom, centerX, centerY, (int)deltaX, (int)deltaY, (int)stepX, (int)stepY);
-    }
-}
-
-
-
-#define  DELTA 5
 
 
 void Display::DrawScaleLine(int x, bool forTrigLev)

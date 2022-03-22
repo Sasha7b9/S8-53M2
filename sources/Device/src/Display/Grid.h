@@ -25,4 +25,7 @@ namespace Grid
     int MathTop();
 
     int BottomMessages();
+
+    // Нарисовать полную сетку.
+    void Draw();
 };
