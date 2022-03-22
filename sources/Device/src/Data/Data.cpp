@@ -78,12 +78,13 @@ int DataStruct::PrepareForNormalDrawP2P()
     int first = points.half_iword[0];           // Позиция первой выводимой точки
     int last = points.half_iword[1];            // Позиция последней выводимой точки
 
-    int bytes_on_screen = last - first;        // Столько точек всего помещается на экран
-
-    if (ds.peak_det == 1)
+    if (ds.peak_det)
     {
-        bytes_on_screen *= 2;
+        first *= 2;
+        last *= 2;
     }
+
+    int bytes_on_screen = last - first;        // Столько точек всего помещается на экран
 
     int drawing_points = all_points;            // Здесь будет храниться количество точек, которе нужно вывести на экране
 
