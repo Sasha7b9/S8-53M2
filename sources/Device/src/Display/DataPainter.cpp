@@ -99,6 +99,7 @@ void DataPainter::SetDataForProcessingP2P()
         if (last_ds && last_ds->Equal(*Storage::current.frame.ds))
         {
             Processing::Process(Storage::GetData(0));
+            Processing::out.rec_points = -1;
         }
         else
         {
