@@ -228,8 +228,6 @@ void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings *ds, int
     }
     else
     {
-        int shift = 1;
-
         int yMinNext = -1;
         int yMaxNext = -1;
 
@@ -243,7 +241,7 @@ void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings *ds, int
 
                 if (yMin == -1)
                 {
-                    CONVERT_DATA_TO_DISPLAY(yMin, data[i + shift]);
+                    CONVERT_DATA_TO_DISPLAY(yMin, data[i + 1]);
                 }
 
                 int yMax = yMaxNext;
@@ -260,7 +258,7 @@ void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings *ds, int
                     yMin = yMaxNext + 1;
                 }
 
-                CONVERT_DATA_TO_DISPLAY(yMinNext, data[i + shift + 1]);
+                CONVERT_DATA_TO_DISPLAY(yMinNext, data[i + 2]);
 
                 if (yMinNext > yMax)
                 {
