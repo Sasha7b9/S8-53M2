@@ -61,6 +61,20 @@ void DataCurrent::PrepareForNewCycle()
     std::memset((uint8 *)frame.DataBegin(ChA), ValueFPGA::NONE, (uint)bytes_for_channel);
     std::memset((uint8 *)frame.DataBegin(ChB), ValueFPGA::NONE, (uint)bytes_for_channel);
 
+    if (TBase::InModeRandomizer())
+    {
+        DataSettings *last_ds = Storage::GetDataSettings(0);
+
+        if (last_ds->Equal(*frame.ds))
+        {
+
+        }
+    }
+    else if (TBase::InModeP2P())
+    {
+
+    }
+
     frame.rec_points = 0;
     frame.all_points = 0;
 }
