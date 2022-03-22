@@ -228,14 +228,17 @@ void DataPainter::DrawSignalLined(const uint8 *in, const DataSettings &ds, int s
     }
     else
     {
+        start *= 2;
+        end *= 2;
+
         int yMinNext = -1;
         int yMaxNext = -1;
 
-        for (int i = start; i < end; i++)
+        for (int i = start; i < end; i += 2)
         {
             float x = gridLeft + (i - start) * scaleX;
 
-            if (x >= gridLeft && x <= gridRight)
+            if (x >= gridLeft && x <= gridRight * 2)
             {
                 int yMin = yMinNext;
 
@@ -265,7 +268,7 @@ void DataPainter::DrawSignalLined(const uint8 *in, const DataSettings &ds, int s
                     yMax = yMinNext - 1;
                 }
 
-                Painter::DrawVLine((int)x, yMin, yMax);
+                Painter::DrawVLine((int)(x / 2.0f) + gridLeft / 2, yMin, yMax);
             }
         }
     }
