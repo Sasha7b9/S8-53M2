@@ -10,6 +10,8 @@ class Page;
 struct PageMain
 {
     static const Page *self;
+
+    static void EnablePageDebug();
 };
 
 

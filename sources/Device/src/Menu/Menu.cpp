@@ -24,7 +24,7 @@
 
 namespace Menu
 {
-    bool showDebugMenu = true;
+    bool showDebugMenu = false;
     bool needClosePageSB = true;
 
 

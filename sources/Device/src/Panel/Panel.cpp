@@ -15,6 +15,7 @@
 #include "common/Panel/Controls.h"
 #include "FDrive/FDrive.h"
 #include "Menu/Pages/Definition.h"
+#include "Utils/PasswordResolver.h"
 
 
 namespace Panel
@@ -936,7 +937,11 @@ void Panel::Update()
 
     while (!input_buffer.Empty())
     {
-        ProcessEvent(input_buffer.Back());
+        KeyboardEvent event = input_buffer.Back();
+
+        PasswordResolver::ProcessEvent(event);
+
+        ProcessEvent(event);
     }
 
     input_buffer.mutex.Unlock();

@@ -1748,14 +1748,19 @@
           <GroupName>Utils</GroupName>
           <Files>
             <File>
-              <FileName>Strings.h</FileName>
+              <FileName>CreateTables.py</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Utils\Strings.h</FilePath>
+              <FilePath>.\src\Utils\CreateTables.py</FilePath>
             </File>
             <File>
-              <FileName>Map.h</FileName>
+              <FileName>Debug.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Utils\Map.h</FilePath>
+              <FilePath>.\src\Utils\Debug.h</FilePath>
+            </File>
+            <File>
+              <FileName>Debug.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Debug.cpp</FilePath>
             </File>
             <File>
               <FileName>Generator.h</FileName>
@@ -1763,9 +1768,29 @@
               <FilePath>.\src\Utils\Generator.h</FilePath>
             </File>
             <File>
+              <FileName>Generator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Generator.cpp</FilePath>
+            </File>
+            <File>
               <FileName>GlobalFunctions.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\GlobalFunctions.h</FilePath>
+            </File>
+            <File>
+              <FileName>GlobalFunctions.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\GlobalFunctions.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Map.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Map.h</FilePath>
+            </File>
+            <File>
+              <FileName>Map.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Map.cpp</FilePath>
             </File>
             <File>
               <FileName>Math.h</FileName>
@@ -1773,9 +1798,34 @@
               <FilePath>.\src\Utils\Math.h</FilePath>
             </File>
             <File>
-              <FileName>CreateTables.py</FileName>
+              <FileName>Math.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Math.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Mutex.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Utils\CreateTables.py</FilePath>
+              <FilePath>.\src\Utils\Mutex.h</FilePath>
+            </File>
+            <File>
+              <FileName>PasswordResolver.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\PasswordResolver.h</FilePath>
+            </File>
+            <File>
+              <FileName>PasswordResolver.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\PasswordResolver.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Strings.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Strings.h</FilePath>
+            </File>
+            <File>
+              <FileName>Strings.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Strings.cpp</FilePath>
             </File>
             <File>
               <FileName>TablesLog.h</FileName>
@@ -1786,41 +1836,6 @@
               <FileName>TablesWindow.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\TablesWindow.h</FilePath>
-            </File>
-            <File>
-              <FileName>Generator.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Generator.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>GlobalFunctions.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\GlobalFunctions.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Map.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Map.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Math.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Math.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Strings.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Strings.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Debug.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Debug.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Debug.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\Debug.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3703,14 +3718,19 @@
           <GroupName>Utils</GroupName>
           <Files>
             <File>
-              <FileName>Strings.h</FileName>
+              <FileName>CreateTables.py</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Utils\Strings.h</FilePath>
+              <FilePath>.\src\Utils\CreateTables.py</FilePath>
             </File>
             <File>
-              <FileName>Map.h</FileName>
+              <FileName>Debug.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Utils\Map.h</FilePath>
+              <FilePath>.\src\Utils\Debug.h</FilePath>
+            </File>
+            <File>
+              <FileName>Debug.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Debug.cpp</FilePath>
             </File>
             <File>
               <FileName>Generator.h</FileName>
@@ -3718,9 +3738,29 @@
               <FilePath>.\src\Utils\Generator.h</FilePath>
             </File>
             <File>
+              <FileName>Generator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Generator.cpp</FilePath>
+            </File>
+            <File>
               <FileName>GlobalFunctions.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\GlobalFunctions.h</FilePath>
+            </File>
+            <File>
+              <FileName>GlobalFunctions.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\GlobalFunctions.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Map.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Map.h</FilePath>
+            </File>
+            <File>
+              <FileName>Map.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Map.cpp</FilePath>
             </File>
             <File>
               <FileName>Math.h</FileName>
@@ -3728,9 +3768,34 @@
               <FilePath>.\src\Utils\Math.h</FilePath>
             </File>
             <File>
-              <FileName>CreateTables.py</FileName>
+              <FileName>Math.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Math.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Mutex.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Utils\CreateTables.py</FilePath>
+              <FilePath>.\src\Utils\Mutex.h</FilePath>
+            </File>
+            <File>
+              <FileName>PasswordResolver.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\PasswordResolver.h</FilePath>
+            </File>
+            <File>
+              <FileName>PasswordResolver.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\PasswordResolver.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Strings.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Strings.h</FilePath>
+            </File>
+            <File>
+              <FileName>Strings.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Strings.cpp</FilePath>
             </File>
             <File>
               <FileName>TablesLog.h</FileName>
@@ -3741,41 +3806,6 @@
               <FileName>TablesWindow.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\TablesWindow.h</FilePath>
-            </File>
-            <File>
-              <FileName>Generator.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Generator.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>GlobalFunctions.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\GlobalFunctions.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Map.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Map.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Math.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Math.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Strings.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Strings.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Debug.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Debug.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Debug.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\Debug.h</FilePath>
             </File>
           </Files>
         </Group>

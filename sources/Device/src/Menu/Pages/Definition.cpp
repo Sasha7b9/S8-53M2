@@ -8,6 +8,7 @@
 #include "Settings/SettingsTypes.h"
 #include "Panel/Panel.h"
 #include "Menu/Pages/Definition.h"
+#include "Menu/Menu.h"
 
 
 int16 PageMemory::Latest::current = 0;
@@ -52,10 +53,12 @@ void DrawMenuCursTime(int x, int y, bool left, bool right)
     y -= 16;
     int x0 = x, x1 = x, y0 = y, y1 = y;
     CalculateXY(&x0, &x1, &y0, &y1);
+
     for(int i = 0; i < (left ? 3 : 1); i++)
     {
         Painter::DrawVLine(x0 + i, y0, y1);
     }
+
     for(int i = 0; i < (right ? 3 : 1); i++)
     {
         Painter::DrawVLine(x1 - i, y0, y1);
@@ -91,7 +94,7 @@ void DrawSB_Exit(int x, int y)
 #include "PageHelp.cpp"
 
 
-static const arrayItems itemsMainPage =
+static arrayItems itemsMainPage =
 {
     (void *)PageDisplay::self,
     (void *)PageChannelA::self,
@@ -117,6 +120,14 @@ static const Page mainPage
 
 
 const Page *PageMain::self = &mainPage;
+
+
+void PageMain::EnablePageDebug()
+{
+    Display::ShowWarningGood(Warning::MenuDebugEnabled);
+
+    Menu::showDebugMenu = true;
+}
 
 
 bool IsMainPage(void *item)
