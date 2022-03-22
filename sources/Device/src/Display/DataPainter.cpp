@@ -58,7 +58,7 @@ namespace DataPainter
     {
         // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена
         // иниформация о максимумах.
-        void DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI,
+        void DrawChannel(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI,
             const uint8 *data, int rightX, Chan::E ch, int shiftForPeakDet);
     }
 }
@@ -478,13 +478,13 @@ void DataPainter::MemoryWindow::Draw()
 
             if (SET_ENABLED(chanFirst))
             {
-                DrawChannelInWindowMemory(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataFirst, rightX,
+                DrawChannel(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataFirst, rightX,
                     chanFirst, shiftForPeakDet);
             }
 
             if (SET_ENABLED(chanSecond))
             {
-                DrawChannelInWindowMemory(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataSecond, rightX,
+                DrawChannel(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataSecond, rightX,
                     chanSecond, shiftForPeakDet);
             }
         }
@@ -541,7 +541,7 @@ void DataPainter::MemoryWindow::Draw()
 }
 
 
-void DataPainter::MemoryWindow::DrawChannelInWindowMemory(int timeWindowRectWidth, int xVert0, int xVert1, int startI,
+void DataPainter::MemoryWindow::DrawChannel(int timeWindowRectWidth, int xVert0, int xVert1, int startI,
     int endI, const uint8 *data, int rightX, Chan::E ch, int shiftForPeakDet)
 {
     DrawDataInRect(1, xVert0 - 1, &(data[0]), startI, ch, shiftForPeakDet);
