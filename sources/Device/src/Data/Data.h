@@ -119,6 +119,8 @@ struct DataStruct
 
     bool Valid() const { return ds.Valid(); }
 
+    bool IsFrameP2P() const { return rec_points >= 0; }
+
     // ѕодготовить данные поточечного режима к выводу в поточечном режиме
     void PrepareForNormalDrawP2P();
 

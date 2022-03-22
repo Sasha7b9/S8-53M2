@@ -58,16 +58,21 @@ void DataCurrent::PrepareForNewCycle()
 
     ((DataSettings *)frame.ds)->FillFromCurrentSettings();
 
-    frame.rec_points = 0;
-    frame.all_points = 0;
-
     std::memset((uint8 *)frame.DataBegin(ChA), ValueFPGA::NONE, (uint)bytes_for_channel);
     std::memset((uint8 *)frame.DataBegin(ChB), ValueFPGA::NONE, (uint)bytes_for_channel);
+
+    frame.rec_points = 0;
+    frame.all_points = 0;
 }
 
 
 void DataStruct::PrepareForNormalDrawP2P()
 {
+    if (!IsFrameP2P())
+    {
+        return;
+    }
+
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
     int first = points.half_iword[0];           // Позиция первой выводимой точки
@@ -81,7 +86,7 @@ void DataStruct::PrepareForNormalDrawP2P()
 
     int pos = 0;
 
-    while (drawing_points++ > rec_points)
+    while (drawing_points-- > rec_points)
     {
         pos++;
 

@@ -79,6 +79,9 @@ void Storage::Clear()
 
 void Storage::AddData(DataFrame &data)
 {
+    data.all_points = -1;
+    data.rec_points = -1;
+
     DataSettings new_ds = *data.ds;
     new_ds.time = HAL_RTC::GetPackedTime();
 
