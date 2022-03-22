@@ -68,7 +68,7 @@ void DataCurrent::PrepareForNewCycle()
 
 int DataStruct::PrepareForNormalDrawP2P()
 {
-    if (!IsFrameP2P())
+    if (!mode_p2p)
     {
         return 0;
     }
@@ -156,7 +156,7 @@ void DataCurrent::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
 }
 
 
-DataStruct::DataStruct(const DataFrame &frame) : rec_points(-1), all_points(0)
+DataStruct::DataStruct(const DataFrame &frame) : rec_points(-1), all_points(0), mode_p2p(false)
 {
     ds.Set(*frame.ds);
 

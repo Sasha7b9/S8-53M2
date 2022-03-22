@@ -110,16 +110,15 @@ struct DataStruct
 
     int rec_points;         // Ёти точки сейчас будут записыватьс€. Ќе может быть больше количества байт в канале
     int all_points;         // ¬сего считано точек
+    bool mode_p2p;          // ¬ыводить ли его как поточечный фрейм
 
-    DataStruct() : rec_points(0), all_points(0) { }
+    DataStruct() : rec_points(0), all_points(0), mode_p2p(false) { }
 
     DataStruct(const DataFrame &);
 
     BufferFPGA &Data(Chan ch) { return ch.IsA() ? A : B; }
 
     bool Valid() const { return ds.Valid(); }
-
-    bool IsFrameP2P() const { return rec_points >= 0; }
 
     // ѕодготовить данные поточечного режима к выводу в поточечном режиме
     // ¬озвращает позицию точки (начина€ с левой границы сетки), в которой нужно выводить вертикальную линию
