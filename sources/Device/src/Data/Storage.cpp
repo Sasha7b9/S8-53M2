@@ -16,7 +16,7 @@
 
 namespace Storage
 {
-    DataCurrent current;
+    FrameImitation current;
 
     TimeMeterMS time_meter;
 

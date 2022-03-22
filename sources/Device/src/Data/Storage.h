@@ -7,7 +7,7 @@
 #include "Hardware/Timer.h"
 
 
-struct DataCurrent
+struct FrameImitation
 {
     DataFrame     frame;
     Buffer<uint8> buffer;       // Здесь, как в Storage, будет храниться сначала DataSettings, а затем последовательно
@@ -29,7 +29,7 @@ struct DataCurrent
 
 namespace Storage
 {
-    extern DataCurrent current;     // Сюда считываем непосредственно из FPGA. Рандомизатор, точки там. Чтобы потом
+    extern FrameImitation current;     // Сюда считываем непосредственно из FPGA. Рандомизатор, точки там. Чтобы потом
                                     // переложит в хранилище
     extern TimeMeterMS time_meter;  // Для засекания времени последнего сохранения данных
 

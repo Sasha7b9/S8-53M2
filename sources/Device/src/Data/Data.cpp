@@ -46,7 +46,7 @@ const uint8 *DataFrame::DataEnd(Chan ch)
 }
 
 
-void DataCurrent::CreateForCurrent()
+void FrameImitation::CreateForCurrent()
 {
     int bytes_for_channel = ENUM_POINTS_FPGA::ToNumBytes();
 
@@ -66,7 +66,7 @@ void DataCurrent::CreateForCurrent()
 }
 
 
-void DataCurrent::PrepareForNewCycle()
+void FrameImitation::PrepareForNewCycle()
 {
     if (TBase::InModeRandomizer())
     {
@@ -154,7 +154,7 @@ int DataStruct::PrepareForNormalDrawP2P()
 }
 
 
-void DataCurrent::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
+void FrameImitation::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
 {
     const DataSettings &ds = *frame.ds;
 
@@ -214,7 +214,7 @@ void DataFrame::FillDataChannelsFromFrame(DataFrame &frame)
 }
 
 
-void DataCurrent::Inverse(Chan ch)
+void FrameImitation::Inverse(Chan ch)
 {
     int num_bytes = frame.ds->BytesInChannel();
 
