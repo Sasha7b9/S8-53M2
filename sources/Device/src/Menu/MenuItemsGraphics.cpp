@@ -615,7 +615,7 @@ static void GovernorIpCommon_DrawOpened(Item *item, int x, int y, int dWidth)
 void Governor::DrawOpened(int x, int y)
 {
     GovernorIpCommon_DrawOpened(this, x, y, 0);
-    DrawGovernorValue(x, y + 22, this);
+//    DrawGovernorValue(x, y + 22, this);
 }
 
 void IPaddress::DrawOpened(int x, int y)
