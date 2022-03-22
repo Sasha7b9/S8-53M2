@@ -188,7 +188,7 @@ void DataPainter::DrawMarkersForMeasure(float scale, Chan ch)
 }
 
 
-void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings &ds, int startPoint, int endPoint, int minY,
+void DataPainter::DrawSignalLined(const uint8 *in, const DataSettings &ds, int startPoint, int endPoint, int minY,
     int maxY, float scaleY, float scaleX)
 {
     if (endPoint < startPoint)
@@ -196,7 +196,7 @@ void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings &ds, int
         return;
     }
 
-    uint8 dataCD[281];
+    uint8 out[281];
 
     int gridLeft = Grid::Left();
     int gridRight = Grid::Right();
@@ -209,7 +209,7 @@ void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings &ds, int
             if (x0 >= gridLeft && x0 <= gridRight)
             {
                 int index = i - startPoint;
-                CONVERT_DATA_TO_DISPLAY(dataCD[index], data[i]);
+                CONVERT_DATA_TO_DISPLAY(out[index], in[i]);
             }
         }
 
@@ -219,12 +219,12 @@ void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings &ds, int
             for (int i = 0; i < _numPoints; i++)
             {
                 int index = endPoint - startPoint + i;
-                CONVERT_DATA_TO_DISPLAY(dataCD[index], ValueFPGA::MIN);
+                CONVERT_DATA_TO_DISPLAY(out[index], ValueFPGA::MIN);
             }
         }
 
-        CONVERT_DATA_TO_DISPLAY(dataCD[280], data[endPoint]);
-        DrawSignal(Grid::Left(), dataCD, true);
+        CONVERT_DATA_TO_DISPLAY(out[280], in[endPoint]);
+        DrawSignal(Grid::Left(), out, true);
     }
     else
     {
@@ -241,24 +241,24 @@ void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings &ds, int
 
                 if (yMin == -1)
                 {
-                    CONVERT_DATA_TO_DISPLAY(yMin, data[i + 1]);
+                    CONVERT_DATA_TO_DISPLAY(yMin, in[i + 1]);
                 }
 
                 int yMax = yMaxNext;
 
                 if (yMax == -1)
                 {
-                    CONVERT_DATA_TO_DISPLAY(yMax, data[i]);
+                    CONVERT_DATA_TO_DISPLAY(yMax, in[i]);
                 }
 
-                CONVERT_DATA_TO_DISPLAY(yMaxNext, data[i + 1]);
+                CONVERT_DATA_TO_DISPLAY(yMaxNext, in[i + 1]);
 
                 if (yMaxNext < yMin)
                 {
                     yMin = yMaxNext + 1;
                 }
 
-                CONVERT_DATA_TO_DISPLAY(yMinNext, data[i + 2]);
+                CONVERT_DATA_TO_DISPLAY(yMinNext, in[i + 2]);
 
                 if (yMinNext > yMax)
                 {
