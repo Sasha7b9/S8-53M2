@@ -56,9 +56,6 @@ namespace FPGA
 
     void ProcessingData();
 
-    // Прочитать данные.
-    void DataRead();
-
     // Смещение с АЦП рандомизатора
     int ShiftRandomizerADC();
 
@@ -168,7 +165,7 @@ void FPGA::ProcessingData()
 
         Stop(true);
 
-        DataRead();
+        Reader::DataRead();
 
         if (!START_MODE_IS_SINGLE)
         {
@@ -342,34 +339,6 @@ void BUS_FPGA::WriteAnalog(TypeWriteAnalog::E, uint data)
     {
         FPGA::Start();
     }
-}
-
-
-void FPGA::DataRead()
-{
-    Panel::EnableLEDTrig(false);
-
-    IN_PROCESS_READ = true;
-
-    Reader::ReadPoints(ChA);
-    Reader::ReadPoints(ChB);
-
-    if (!TBase::InModeRandomizer())
-    {
-        if (SET_INVERSE_A) Storage::current.Inverse(ChA);
-        if (SET_INVERSE_B) Storage::current.Inverse(ChB);
-    }
-
-    Storage::AppendNewFrame(Storage::current.frame);
-
-    if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)
-    {
-        FPGA::FindAndSetTrigLevel();
-
-        TRIG_AUTO_FIND = false;
-    }
-
-    IN_PROCESS_READ = false;
 }
 
 

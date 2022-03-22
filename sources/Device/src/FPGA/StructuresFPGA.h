@@ -60,6 +60,9 @@ namespace FPGA
         // Возвращаемое значение на 1 меньше реального. Т.е. первое чтение нужно отбросить - что-то с альтерой
         uint16 CalculateAddressRead();
 
+        // Чтение данных в основном цикле
+        void DataRead();
+
         // Читать массив точек от first до last
         void ReadPoints(Chan, uint8 *first, const uint8 *last);
 

@@ -6,10 +6,14 @@
 #include "Hardware/Timer.h"
 #include "Data/Storage.h"
 #include "Utils/Containers/Queue.h"
+#include "Panel/Panel.h"
 
 
 namespace FPGA
 {
+    extern bool IN_PROCESS_READ;
+    extern bool TRIG_AUTO_FIND;
+
     namespace Reader
     {
         Mutex mutex_read;
@@ -177,4 +181,32 @@ void FPGA::Reader::P2P::SavePoints()
     }
 
     mutex.Unlock();
+}
+
+
+void FPGA::Reader::DataRead()
+{
+    Panel::EnableLEDTrig(false);
+
+    IN_PROCESS_READ = true;
+
+    Reader::ReadPoints(ChA);
+    Reader::ReadPoints(ChB);
+
+    if (!TBase::InModeRandomizer())
+    {
+        if (SET_INVERSE_A) Storage::current.Inverse(ChA);
+        if (SET_INVERSE_B) Storage::current.Inverse(ChB);
+    }
+
+    Storage::AppendNewFrame(Storage::current.frame);
+
+    if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)
+    {
+        FPGA::FindAndSetTrigLevel();
+
+        TRIG_AUTO_FIND = false;
+    }
+
+    IN_PROCESS_READ = false;
 }
