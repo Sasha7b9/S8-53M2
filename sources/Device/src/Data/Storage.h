@@ -21,6 +21,9 @@ struct DataCurrent
     void Inverse(Chan);
 
     void AppendPoints(BitSet16, BitSet16);
+
+    // Создать для хранения данных при текущих настройках
+    void CreateForCurrent();
 };
 
 

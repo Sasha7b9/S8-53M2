@@ -46,13 +46,16 @@ const uint8 *DataFrame::DataEnd(Chan ch)
 }
 
 
-void DataCurrent::PrepareForNewCycle()
+void DataCurrent::CreateForCurrent()
 {
     int bytes_for_channel = ENUM_POINTS_FPGA::ToNumBytes();
 
     int size_buffer = (int)sizeof(DataSettings) + 2 * bytes_for_channel;
 
-    buffer.Realloc(size_buffer);
+    if (size_buffer != buffer.Size())
+    {
+        buffer.Realloc(size_buffer);
+    }
 
     frame.ds = (DataSettings *)buffer.Data();
 
@@ -60,19 +63,27 @@ void DataCurrent::PrepareForNewCycle()
 
     std::memset((uint8 *)frame.DataBegin(ChA), ValueFPGA::NONE, (uint)bytes_for_channel);
     std::memset((uint8 *)frame.DataBegin(ChB), ValueFPGA::NONE, (uint)bytes_for_channel);
+}
 
+
+void DataCurrent::PrepareForNewCycle()
+{
     if (TBase::InModeRandomizer())
     {
         DataSettings *last_ds = Storage::GetDataSettings(0);
 
-        if (last_ds->Equal(*frame.ds))
+        if (!last_ds || !last_ds->Equal(*frame.ds))
         {
-
+            CreateForCurrent();
+        }
+        else
+        {
+            LOG_WRITE("Будем использовать предыдущие данные");
         }
     }
-    else if (TBase::InModeP2P())
+    else
     {
-
+        CreateForCurrent();
     }
 
     frame.rec_points = 0;
