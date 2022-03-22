@@ -275,24 +275,26 @@ void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings *ds, int
 void DataPainter::DrawSignalPointed(const uint8 *data, const DataSettings *ds, int startPoint, int endPoint, int minY,
     int maxY, float scaleY, float scaleX)
 {
-    int numPoints = ENUM_POINTS_FPGA::ToNumPoints();
-
     uint8 dataCD[281];
 
-    if (scaleX == 1.0f) //-V550
+    if (scaleX == 1.0f)
     {
-        for (int i = startPoint; i < endPoint; i++)
+        LOG_WRITE("1");
+
+        if (ds->peak_det == 0)
         {
-            int index = i - startPoint;
-            CONVERT_DATA_TO_DISPLAY(dataCD[index], data[i]);
+            for (int i = startPoint; i < endPoint; i++)
+            {
+                int index = i - startPoint;
+                CONVERT_DATA_TO_DISPLAY(dataCD[index], data[i]);
+            }
+
+            DrawSignal(Grid::Left(), dataCD, false);
         }
-
-        DrawSignal(Grid::Left(), dataCD, false);
-
-        if (ds->peak_det)
+        else
         {
             int size = endPoint - startPoint;
-            startPoint += numPoints;
+            startPoint += ds->PointsInChannel();
             endPoint = startPoint + size;;
 
             for (int i = startPoint; i < endPoint; i++)
@@ -306,6 +308,8 @@ void DataPainter::DrawSignalPointed(const uint8 *data, const DataSettings *ds, i
     }
     else
     {
+        LOG_WRITE("         2");
+
         for (int i = startPoint; i < endPoint; i++)
         {
             int index = i - startPoint;
