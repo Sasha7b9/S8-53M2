@@ -268,7 +268,7 @@ void Formula_DrawClosed(Formula *formula, int x, int y)
     DrawGovernorChoiceColorFormulaHiPart((Item *)formula, x, y, pressed, shade, false); //-V1027
 }
 
-static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits, int selPos, bool hLine, bool fillNull) // Если selPos == -1, подсвечивать не нужно
+static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits, int selPos, bool hLine) // Если selPos == -1, подсвечивать не нужно
 {
     int firstValue = value;
     int height = hLine ? 9 : 8;
@@ -276,49 +276,27 @@ static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits
     {
         int rest = value % 10;
         value /= 10;
+
         if (selPos == i)
         {
             Painter::FillRegion(x - 1, y, 5, height, COLOR_FILL);
         }
+
         if (!(rest == 0 && value == 0) || (firstValue == 0 && i == 0))
         {
             PText::DrawChar(x - 20, y - 20, rest + 48, (selPos == i) ? COLOR_BACK : COLOR_FILL);
         }
-        else if (fillNull)
+        else
         {
             PText::DrawChar(x, y, '0', selPos == i ? COLOR_BACK : COLOR_FILL);
         }
+
         if (hLine)
         {
             Painter::DrawLine(x, y + 9, x + 3, y + 9, COLOR_FILL);
         }
+
         x -= 6;
-    }
-}
-
-static void DrawGovernorValue(int x, int y, const Governor *governor)
-{
-    char buffer[20];
-
-    int startX = x + 40;
-    int16 value = *governor->cell;
-    int signGovernor = *governor->cell < 0 ? -1 : 1;
-    if(signGovernor == -1)
-    {
-        value = -value;
-    }
-
-    Font::Set(TypeFont::_5);
-    bool sign = governor->minValue < 0;
-    PText::Draw(x + 55, y - 10, Int2String(governor->maxValue, sign, 1, buffer), COLOR_FILL);
-    PText::Draw(x + 55, y - 3,  Int2String(governor->minValue, sign, 1, buffer));
-    Font::Set(TypeFont::_8);
-
-    DrawValueWithSelectedPosition(startX, y, value, governor->NumDigits(), Governor::cur_digit, true, true);
-
-    if(sign)
-    {
-       PText::DrawChar(startX - 1, y, signGovernor < 0 ? '\x9b' : '\x9a');
     }
 }
 
@@ -342,7 +320,7 @@ static void DrawIPvalue(int x, int y, IPaddress *ip)
 
     for (int i = 0; i < 4; i++)
     {
-        DrawValueWithSelectedPosition(x, y, bytes[i], 3, numIP == i ? selPos : -1, false, true);
+        DrawValueWithSelectedPosition(x, y, bytes[i], 3, numIP == i ? selPos : -1, false);
         if (i != 3)
         {
             PText::DrawChar(x + 5, y, '.', COLOR_FILL);
@@ -353,7 +331,7 @@ static void DrawIPvalue(int x, int y, IPaddress *ip)
     if (ip->port != 0)
     {
         PText::DrawChar(x - 13, y, ':', COLOR_FILL);
-        DrawValueWithSelectedPosition(x + 14, y, *ip->port, 5, numIP == 4 ? selPos : -1, false, true);
+        DrawValueWithSelectedPosition(x + 14, y, *ip->port, 5, numIP == 4 ? selPos : -1, false);
     }
 }
 
@@ -615,7 +593,30 @@ static void GovernorIpCommon_DrawOpened(Item *item, int x, int y, int dWidth)
 void Governor::DrawOpened(int x, int y)
 {
     GovernorIpCommon_DrawOpened(this, x, y, 0);
-//    DrawGovernorValue(x, y + 22, this);
+
+    char buffer[20];
+
+    y += 22;
+    int16 value = *cell;
+    int signGovernor = *cell < 0 ? -1 : 1;
+
+    if (signGovernor == -1)
+    {
+        value = -value;
+    }
+
+    Font::Set(TypeFont::_5);
+    bool sign = minValue < 0;
+    PText::Draw(x + 55, y - 10, Int2String(maxValue, sign, 1, buffer), COLOR_FILL);
+    PText::Draw(x + 55, y - 3, Int2String(minValue, sign, 1, buffer));
+    Font::Set(TypeFont::_8);
+
+    DrawValueWithSelectedPosition(x + 40, y, value, NumDigits(), Governor::cur_digit, true);
+
+    if (sign)
+    {
+        PText::DrawChar(x + 39, y, signGovernor < 0 ? '\x9b' : '\x9a');
+    }
 }
 
 void IPaddress::DrawOpened(int x, int y)
