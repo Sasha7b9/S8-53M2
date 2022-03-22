@@ -52,22 +52,22 @@ void Averager::Reset()
 }
 
 
-void Averager::Append(DataSettings *ds)
+void Averager::Append(DataFrame &frame)
 {
     if (ModeAveraging::Current() == ModeAveraging::Accurately)
     {
         return;
     }
 
-    int size = ds->BytesInChannel();
+    int size = frame.ds->BytesInChannel();
 
     if (ave_a.Size() != size || ModeAveraging::GetNumber() != number_averaging)
     {
         Reset();
     }
 
-    const uint8 *a = DataFrame(ds).DataBegin(ChA);
-    const uint8 *b = DataFrame(ds).DataBegin(ChB);
+    const uint8 *a = frame.DataBegin(ChA);
+    const uint8 *b = frame.DataBegin(ChB);
 
     if (added_datas == 0)
     {

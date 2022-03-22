@@ -6,7 +6,7 @@
 namespace Averager
 {
     // Добавить новые данные для усреднения
-    void Append(DataSettings *ds);
+    void Append(DataFrame &);
 
     // Получить усреднённые данные по нескольким измерениям.
     void GetData(DataStruct &);

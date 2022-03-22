@@ -90,7 +90,7 @@ void Storage::AppendNewFrame(DataFrame &data)
 
     frame.FillDataChannelsFromFrame(data);
 
-    Averager::Append(ds);
+    Averager::Append(frame);
 
     time_meter.Reset();
 }
