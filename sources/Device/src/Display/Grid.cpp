@@ -342,7 +342,7 @@ void Grid::DrawType2(int left, int top, int right, int bottom, int deltaX, int d
 void Grid::DrawType3(int left, int top, int right, int bottom, int centerX, int centerY, int deltaX, int deltaY,
     int stepX, int stepY)
 {
-    Painter::DrawHPointLine(centerY, left + stepX, right, (float)stepX);
+    Painter::DrawHPointLineF(centerY, left + stepX, right, (float)stepX);
     Painter::DrawVPointLine(centerX, top + stepY, bottom, (float)stepY, ColorGrid());
 
     uint8 masY[6] = {(uint8)(top + 1), (uint8)(top + 2), (uint8)(centerY - 1), (uint8)(centerY + 1),

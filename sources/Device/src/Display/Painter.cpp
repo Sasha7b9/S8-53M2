@@ -273,11 +273,21 @@ void Painter::DrawVPointLine(int x, int y0, int y1, float delta, Color::E color)
 }
 
 
-void Painter::DrawHPointLine(int y, int x0, int x1, float delta)
+void Painter::DrawHPointLineF(int y, int x0, int x1, float delta)
 {
     for (int x = x0; x <= x1; x += (int)delta)
     {
         SetPoint(x, y);
+    }
+}
+
+
+void Painter::DrawHPointLineI(int x, int y, int count, int delta)
+{
+    for (int i = 0; i < count; i++)
+    {
+        SetPoint(x, y);
+        x += delta;
     }
 }
 
@@ -376,7 +386,7 @@ void Painter::DrawMultiHPointLine(int numLines, int x, const uint8 y[], int delt
 
     for (int i = 0; i < numLines; i++)
     {
-        DrawHPointLine(x, y[i], count, delta);
+        DrawHPointLineI(x, y[i], count, delta);
     }
 
     if (InterCom::TransmitGUIinProcess())
@@ -402,16 +412,6 @@ void Painter::DrawMultiHPointLine(int numLines, int x, const uint8 y[], int delt
         }
 
         command.Transmit(1 + 1 + 2 + 1 + 1 + numLines);
-    }
-}
-
-
-void Painter::DrawHPointLine(int x, int y, int count, int delta)
-{
-    for (int i = 0; i < count; i++)
-    {
-        SetPoint(x, y);
-        x += delta;
     }
 }
 
