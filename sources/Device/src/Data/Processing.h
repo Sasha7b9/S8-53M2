@@ -10,7 +10,8 @@ namespace Processing
     extern DataStruct out;      // Здесь хранятся данные, готовые для вывода - преобразованные из in
 
     // Установить данные для обработки в соотетствии с текущими настройками и состоянием
-    void SetDataForProcessing();
+    // Если for_windows_memory - установить данные для окна памяти
+    void SetDataForProcessing(bool for_window_memory);
 
     // Получить позицию курсора напряжения, соответствующю заданной позиции курсора posCurT.
     float GetCursU(Chan, float posCurT);
@@ -34,5 +35,6 @@ namespace Processing
     int GetMarkerVertical(Chan, int numMarker);
 
     // Обработать сигнал из in. Результат сохранён в Data::out
-    void SetData(const DataFrame &in);
+    // Если mode_p2p == true, то будет установлен признак поточечного фрейма
+    void SetData(const DataFrame &in, bool mode_p2p = false);
 };

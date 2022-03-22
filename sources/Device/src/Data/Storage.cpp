@@ -79,8 +79,6 @@ void Storage::Clear()
 
 void Storage::AppendNewFrame(DataFrame &data)
 {
-    data.mode_p2p = false;
-
     DataSettings new_ds = *data.ds;
     new_ds.time = HAL_RTC::GetPackedTime();
 

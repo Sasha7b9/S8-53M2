@@ -79,7 +79,6 @@ struct DataFrame
 
     static int rec_points;
     static int all_points;
-    static bool mode_p2p;
 
     DataFrame(DataSettings *_ds = nullptr) : ds(_ds) { };
 

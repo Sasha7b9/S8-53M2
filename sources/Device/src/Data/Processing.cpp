@@ -1215,7 +1215,7 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
 }
 
 
-void Processing::SetData(const DataFrame &in)
+void Processing::SetData(const DataFrame &in, bool mode_p2p)
 {
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
@@ -1240,11 +1240,11 @@ void Processing::SetData(const DataFrame &in)
     out.ds.valid = 1;
     out.rec_points = in.rec_points;
     out.all_points = in.all_points;
-    out.mode_p2p = in.mode_p2p;
+    out.mode_p2p = mode_p2p;
 }
 
 
-void Processing::SetDataForProcessing()
+void Processing::SetDataForProcessing(bool for_window_memory)
 {
     DataSettings *last_ds = Storage::GetDataSettings(0);
 
@@ -1255,30 +1255,28 @@ void Processing::SetDataForProcessing()
             if (last_ds && last_ds->Equal(*Storage::current.frame.ds) && Storage::time_meter.ElapsedTime() < 1000)
             {
                 SetData(Storage::GetData(0));
-                out.mode_p2p = false;
             }
             else
             {
-                SetData(Storage::current.frame);
+                SetData(Storage::current.frame, true);
             }
         }
         else if (START_MODE_IS_WAIT)
         {
-            if (last_ds && last_ds->Equal(*Storage::current.frame.ds))
+            if (last_ds && last_ds->Equal(*Storage::current.frame.ds) && !for_window_memory)
             {
                 SetData(Storage::GetData(0));
-                out.mode_p2p = false;
             }
             else
             {
-                SetData(Storage::current.frame);
+                SetData(Storage::current.frame, true);
             }
         }
         else
         {
             if (Storage::current.frame.Valid())
             {
-                SetData(Storage::current.frame);
+                SetData(Storage::current.frame, true);
             }
             else
             {

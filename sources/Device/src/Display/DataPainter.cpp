@@ -81,7 +81,7 @@ void DataPainter::DrawInModeDirect()
     DataFrame frame;
     Processing::out.ds.valid = 0;
 
-    Processing::SetDataForProcessing();
+    Processing::SetDataForProcessing(false);
 
     if (TBase::InModeP2P())
     {
@@ -431,7 +431,7 @@ void DataPainter::DrawDataNormal()
 
 void DataPainter::DrawMemoryWindow()
 {
-    Processing::SetDataForProcessing();
+    Processing::SetDataForProcessing(true);
 
     DataStruct *dat = &Processing::out;
 
