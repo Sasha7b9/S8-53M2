@@ -299,6 +299,10 @@ void FPGA::SetNumberMeasuresForGates(int number)
 
 void BUS_FPGA::WriteDAC(TypeWriteDAC::E, uint16 data)
 {
+    bool running = FPGA::IsRunning();
+
+    FPGA::Stop(false);
+
     Pin::SPI4_CS1.Reset();
 
     for (int i = 15; i >= 0; i--)
@@ -309,6 +313,11 @@ void BUS_FPGA::WriteDAC(TypeWriteDAC::E, uint16 data)
     }
 
     Pin::SPI4_CS1.Set();
+
+    if (running)
+    {
+        FPGA::Start();
+    }
 }
 
 
