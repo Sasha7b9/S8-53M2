@@ -210,8 +210,8 @@ void Display::RotateRShift(Chan ch)
     {
         (ch == Chan::A) ? (RShift::showLevelA = true) : (RShift::showLevelB = true);
         Timer::Enable((ch == Chan::A) ?
-            TypeTimer::ShowLevelRShift0 :
-            TypeTimer::ShowLevelRShift1, TIME_SHOW_LEVELS  * 1000,
+            TypeTimer::ShowLevelRShiftA :
+            TypeTimer::ShowLevelRShiftB, TIME_SHOW_LEVELS  * 1000,
             (ch == Chan::A) ?
             FuncOnTimerDisableShowLevelRShiftA :
             FuncOnTimerDisableShowLevelRShiftB);
@@ -1630,14 +1630,14 @@ void Display::DrawTimeForFrame(uint timeTicks)
 void Display::DisableShowLevelRShiftA()
 {
     RShift::showLevelA = false;
-    Timer::Disable(TypeTimer::ShowLevelRShift0);
+    Timer::Disable(TypeTimer::ShowLevelRShiftA);
 }
 
 
 void Display::DisableShowLevelRShiftB()
 {
     RShift::showLevelB = false;
-    Timer::Disable(TypeTimer::ShowLevelRShift1);
+    Timer::Disable(TypeTimer::ShowLevelRShiftB);
 }
 
 
