@@ -304,6 +304,9 @@ struct RShift
 
     static void ChangedMarkers();
 
+    // Отключить вспомогательную линию маркера смещения по напряжению
+    static void DisableShowLevel(Chan);
+
     float ToAbs(Range::E);
 
     pchar ToString(Range::E, Divider::E, char buffer[20]);
@@ -316,8 +319,7 @@ struct RShift
 
     static const float absStep[Range::Count];
 
-    static bool showLevelA;     // Нужно ли рисовать горизонтальную линию уровня смещения первого канала
-    static bool showLevelB;
+    static bool showLevel[2];               // Нужно ли рисовать горизонтальную линию уровня смещения первого канала
     static bool drawMarkers;
 };
 

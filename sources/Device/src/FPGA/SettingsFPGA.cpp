@@ -34,24 +34,23 @@ const float TShift::absStep[TBase::Count] =
 
 const float Range::voltsInPoint[Range::Count] =
 {
-    2e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 2mV
-    5e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 5mV
-    10e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 10mV
-    20e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 20mV
-    50e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 50mV
+    2e-3f   * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 2mV
+    5e-3f   * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 5mV
+    10e-3f  * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 10mV
+    20e-3f  * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 20mV
+    50e-3f  * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 50mV
     100e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 100mV
     200e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 200mV
     500e-3f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 500mV
-    1.0f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 1V
-    2.0f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 2V
-    5.0f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 5V
-    10.0f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 10V
-    20.0f * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN)   // 20V
+    1.0f    * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 1V
+    2.0f    * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 2V
+    5.0f    * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 5V
+    10.0f   * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN),  // 10V
+    20.0f   * 10.0f / (float)(ValueFPGA::MAX - ValueFPGA::MIN)   // 20V
 };
 
 
-bool RShift::showLevelA = false;
-bool RShift::showLevelB = false;
+bool RShift::showLevel[2] = {false, false};
 bool RShift::drawMarkers = false;
 
 const float RShift::absStep[Range::Count] =

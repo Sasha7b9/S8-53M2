@@ -49,12 +49,6 @@ namespace Display
 
     // После отрисовки очередного экрана эта функция будет вызвана один раз.
     void RunAfterDraw(pFuncVV func);
-
-    // Отключить вспомогательную линию маркера смещения по напряжению первого канала.
-    void DisableShowLevelRShiftA();
-
-    // Отключить вспомогательную линию маркера смещения по напряжению второго канала.
-    void DisableShowLevelRShiftB();
     
     void DisableShowLevelTrigLev();
 
