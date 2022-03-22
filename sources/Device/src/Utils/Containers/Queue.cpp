@@ -19,6 +19,7 @@ template uint8                 Queue<uint8>::Front();
 template KeyboardEvent Queue<KeyboardEvent>::Back();
 template BitSet16           Queue<BitSet16>::Back();
 template KeyboardEvent Queue<KeyboardEvent>::Front();
+template BitSet16           Queue<BitSet16>::Front();
 template bool                 Queue<uint16>::Empty() const;
 template bool               Queue<BitSet16>::Empty() const;
 template bool          Queue<KeyboardEvent>::Empty() const;

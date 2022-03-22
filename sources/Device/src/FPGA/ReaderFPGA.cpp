@@ -22,8 +22,9 @@ namespace FPGA
 
         namespace P2P
         {
-            static Queue<BitSet16> queueA;
-            static Queue<BitSet16> queueB;
+            BitSet16 bufferA[10];
+            BitSet16 bufferB[10];
+            int pointer = 0;
 
             Mutex mutex;
         }
@@ -150,8 +151,9 @@ void FPGA::Reader::P2P::ReadPoints()
 
         if (_GET_BIT(flag.value, FL_POINT))
         {
-            queueA.Push(Reader::ReadA());
-            queueB.Push(Reader::ReadB());
+            bufferA[pointer] = Reader::ReadA();
+            bufferB[pointer] = Reader::ReadB();
+            pointer++;
         }
     }
 }
@@ -161,9 +163,17 @@ void FPGA::Reader::P2P::SavePoints()
 {
     mutex.Lock();
 
-    while (!queueA.Empty())
+    if (pointer > 0)
     {
-        Storage::current.AppendPoints(queueA.Back(), queueB.Back());
+        int index = 0;
+
+        while (index < pointer)
+        {
+            Storage::current.AppendPoints(bufferA[index], bufferB[index]);
+            index++;
+        }
+
+        pointer = 0;
     }
 
     mutex.Unlock();
