@@ -471,7 +471,7 @@ static const Choice mcSettings_ShowStringNavigation =
 
 static void OnChanged_Settings_ShowAltMarkers(bool)
 {
-    Display::ChangedRShiftMarkers();
+    RShift::ChangedMarkers();
 }
 
 

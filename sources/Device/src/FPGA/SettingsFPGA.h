@@ -300,11 +300,13 @@ struct RShift
     // Загрузка смещения по напряжению в аппаратную часть.
     static void Load(Chan);
 
-    pchar ToString(Range::E, Divider::E, char buffer[20]);
-
     static int ToRel(float rShiftAbs, Range::E);
 
+    static void ChangedMarkers();
+
     float ToAbs(Range::E);
+
+    pchar ToString(Range::E, Divider::E, char buffer[20]);
 
     operator int16() const { return value; }
 

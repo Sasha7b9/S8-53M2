@@ -338,7 +338,7 @@ void RShift::Set(Chan ch, int16 rShift)
         return;
     }
 
-    Display::ChangedRShiftMarkers();
+    RShift::ChangedMarkers();
 
     if (rShift > RShift::MAX || rShift < RShift::MIN)
     {
@@ -400,7 +400,7 @@ void TrigLev::Set(Chan ch, int16 lev)
 
 void TrigLev::Set(TrigSource::E ch, int16 trigLev)
 {
-    Display::ChangedRShiftMarkers();
+    RShift::ChangedMarkers();
 
     if (trigLev < TrigLev::MIN || trigLev > TrigLev::MAX)
     {

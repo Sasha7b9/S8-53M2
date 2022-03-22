@@ -115,8 +115,6 @@ namespace Display
 
     void FuncOnTimerDisableShowLevelTrigLev();
 
-    void FuncOnTimerRShiftMarkersAutoHide();
-
     void OnTimerShowWarning();
 
     void DrawSpectrumChannel(const float* spectrum, Color::E);
@@ -1695,15 +1693,10 @@ void Display::ShiftScreen(int delta)
 }
 
 
-void Display::ChangedRShiftMarkers()
+void RShift::ChangedMarkers()
 {
-    RShift::drawMarkers = !ALT_MARKERS_HIDE;
-    Timer::Enable(TypeTimer::RShiftMarkersAutoHide, 5000, FuncOnTimerRShiftMarkersAutoHide);
-}
-
-void Display::FuncOnTimerRShiftMarkersAutoHide()
-{
-    Display::OnRShiftMarkersAutoHide();
+    drawMarkers = !ALT_MARKERS_HIDE;
+    Timer::Enable(TypeTimer::RShiftMarkersAutoHide, 5000, Display::OnRShiftMarkersAutoHide);
 }
 
 

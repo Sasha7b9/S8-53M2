@@ -45,8 +45,6 @@ namespace Display
 
     void ShiftScreen(int delta);
 
-    void ChangedRShiftMarkers();
-
     void AddStringToIndicating(pchar string);
 
     // После отрисовки очередного экрана эта функция будет вызвана один раз.

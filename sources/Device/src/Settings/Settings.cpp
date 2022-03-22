@@ -342,7 +342,7 @@ void Settings::RunAfterLoad()
     Panel::EnableLEDChannelA(SET_ENABLED_A);
     Panel::EnableLEDChannelB(SET_ENABLED_B);
     Menu::SetAutoHide(true);
-    Display::ChangedRShiftMarkers();
+    RShift::ChangedMarkers();
 
     isLoaded = true;
 }
