@@ -80,7 +80,7 @@ void DataCurrent::PrepareForNewCycle()
     frame.all_points = 0;
 
     std::memset((uint8 *)frame.DataBegin(ChA), ValueFPGA::NONE, (uint)bytes_for_channel);
-    std::memcmp((uint8 *)frame.DataBegin(ChB), ValueFPGA::NONE, (uint)bytes_for_channel);
+    std::memset((uint8 *)frame.DataBegin(ChB), ValueFPGA::NONE, (uint)bytes_for_channel);
 }
 
 
