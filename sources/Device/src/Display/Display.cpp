@@ -1691,13 +1691,13 @@ void Display::ShiftScreen(int delta)
 void RShift::ChangedMarkers()
 {
     drawMarkers = !ALT_MARKERS_HIDE;
-    Timer::Enable(TypeTimer::RShiftMarkersAutoHide, 5000, Display::OnRShiftMarkersAutoHide);
+    Timer::Enable(TypeTimer::RShiftMarkersAutoHide, 5000, RShift::OnMarkersAutoHide);
 }
 
 
-void Display::OnRShiftMarkersAutoHide()
+void RShift::OnMarkersAutoHide()
 {
-    RShift::drawMarkers = false;
+    drawMarkers = false;
     Timer::Disable(TypeTimer::RShiftMarkersAutoHide);
 }
 

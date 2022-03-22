@@ -307,6 +307,8 @@ struct RShift
     // Отключить вспомогательную линию маркера смещения по напряжению
     static void DisableShowLevel(Chan);
 
+    static void OnMarkersAutoHide();
+
     float ToAbs(Range::E);
 
     pchar ToString(Range::E, Divider::E, char buffer[20]);
