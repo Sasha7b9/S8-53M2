@@ -212,6 +212,19 @@ void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings *ds, int
                 CONVERT_DATA_TO_DISPLAY(dataCD[index], data[i]);
             }
         }
+
+        if (endPoint - startPoint < 281)
+        {
+            int _numPoints = 281 - (endPoint - startPoint);
+            for (int i = 0; i < _numPoints; i++)
+            {
+                int index = endPoint - startPoint + i;
+                CONVERT_DATA_TO_DISPLAY(dataCD[index], ValueFPGA::MIN);
+            }
+        }
+
+        CONVERT_DATA_TO_DISPLAY(dataCD[280], data[endPoint]);
+        DrawSignal(Grid::Left(), dataCD, true);
     }
     else
     {
@@ -257,22 +270,6 @@ void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings *ds, int
                 Painter::DrawVLine((int)x, yMin, yMax);
             }
         }
-    }
-
-    if (endPoint - startPoint < 281)
-    {
-        int _numPoints = 281 - (endPoint - startPoint);
-        for (int i = 0; i < _numPoints; i++)
-        {
-            int index = endPoint - startPoint + i;
-            CONVERT_DATA_TO_DISPLAY(dataCD[index], ValueFPGA::MIN);
-        }
-    }
-
-    if (ds->peak_det == 0)
-    {
-        CONVERT_DATA_TO_DISPLAY(dataCD[280], data[endPoint]);
-        DrawSignal(Grid::Left(), dataCD, true);
     }
 }
 
