@@ -49,8 +49,6 @@ namespace Display
 
     // После отрисовки очередного экрана эта функция будет вызвана один раз.
     void RunAfterDraw(pFuncVV func);
-    
-    void DisableShowLevelTrigLev();
 
     // Написать сообщения отладочной консоли.
     void DrawConsole();

@@ -341,6 +341,8 @@ struct TrigLev
     // Загрузка уровня синхронизации в аппаратную часть.
     static void Load();
 
+    static void DisableShowLevel();
+
     float ToAbs(Range::E);
 
     operator int16() const { return value; }

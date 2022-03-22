@@ -248,7 +248,7 @@ void Display::RotateTrigLev()
 
 void Display::FuncOnTimerDisableShowLevelTrigLev()
 {
-    Display::DisableShowLevelTrigLev();
+    TrigLev::DisableShowLevel();
 }
 
 
@@ -1636,7 +1636,7 @@ void RShift::DisableShowLevel(Chan ch)
 }
 
 
-void Display::DisableShowLevelTrigLev()
+void TrigLev::DisableShowLevel()
 {
     TrigLev::showLevel = false;
     Timer::Disable(TypeTimer::ShowLevelTrigLev);
