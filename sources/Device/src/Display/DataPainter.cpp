@@ -272,10 +272,10 @@ void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings *ds, int
 }
 
 
-void DataPainter::DrawSignalPointed(const uint8 *data, const DataSettings *ds, int start, int end, int minY,
+void DataPainter::DrawSignalPointed(const uint8 *in, const DataSettings *ds, int start, int end, int minY,
     int maxY, float scaleY, float scaleX)
 {
-    uint8 dataCD[281];
+    uint8 out[281];
 
     if (scaleX == 1.0f)
     {
@@ -284,10 +284,10 @@ void DataPainter::DrawSignalPointed(const uint8 *data, const DataSettings *ds, i
             for (int i = start; i < end; i++)
             {
                 int index = i - start;
-                CONVERT_DATA_TO_DISPLAY(dataCD[index], data[i]);
+                CONVERT_DATA_TO_DISPLAY(out[index], in[i]);
             }
 
-            DrawSignal(Grid::Left(), dataCD, false);
+            DrawSignal(Grid::Left(), out, false);
         }
         else
         {
@@ -297,18 +297,18 @@ void DataPainter::DrawSignalPointed(const uint8 *data, const DataSettings *ds, i
             for (int i = start; i < end; i += 2)
             {
                 int index = (i - start) / 2;
-                CONVERT_DATA_TO_DISPLAY(dataCD[index], data[i]);
+                CONVERT_DATA_TO_DISPLAY(out[index], in[i]);
             }
 
-            DrawSignal(Grid::Left(), dataCD, false);
+            DrawSignal(Grid::Left(), out, false);
 
             for (int i = start + 1; i < end + 1; i += 2)
             {
                 int index = (i - start - 1) / 2;
-                CONVERT_DATA_TO_DISPLAY(dataCD[index], data[i]);
+                CONVERT_DATA_TO_DISPLAY(out[index], in[i]);
             }
 
-            DrawSignal(Grid::Left(), dataCD, false);
+            DrawSignal(Grid::Left(), out, false);
         }
     }
     else
@@ -317,7 +317,7 @@ void DataPainter::DrawSignalPointed(const uint8 *data, const DataSettings *ds, i
         {
             int index = i - start;
             int dat = 0;
-            CONVERT_DATA_TO_DISPLAY(dat, data[i]);
+            CONVERT_DATA_TO_DISPLAY(dat, in[i]);
             Painter::SetPoint((int)(Grid::Left() + index * scaleX), dat);
         }
     }
