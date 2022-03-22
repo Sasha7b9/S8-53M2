@@ -481,19 +481,6 @@ void FPGA::Reader::ReadPoints(Chan ch)
 }
 
 
-void DataCurrent::Inverse(Chan ch)
-{
-    int num_bytes = frame.ds->BytesInChannel();
-
-    uint8 *data = frame.DataBegin(ch);
-
-    for (int i = 0; i < num_bytes; i++)
-    {
-        data[i] = (uint8)((int)(2 * ValueFPGA::AVE) - Math::Limitation<uint8>(data[i], ValueFPGA::MIN, ValueFPGA::MAX));
-    }
-}
-
-
 int FPGA::ShiftRandomizerADC()
 {
     if (TBase::InModeRandomizer())
