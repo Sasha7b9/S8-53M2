@@ -45,20 +45,6 @@ const uint8 *DataFrame::DataEnd(Chan ch)
 }
 
 
-void DataCurrent::PrepareForNewCycle()
-{
-    int bytes_for_channel = ENUM_POINTS_FPGA::ToNumBytes();
-
-    int size_buffer = (int)sizeof(DataSettings) + 2 * bytes_for_channel;
-
-    buffer.Realloc(size_buffer);
-
-    frame.ds = (DataSettings *)buffer.Data();
-
-    ((DataSettings *)frame.ds)->FillFromCurrentSettings();
-}
-
-
 void DataStruct::PrepareForNewCycle()
 {
     ds.FillFromCurrentSettings();
@@ -75,6 +61,26 @@ void DataStruct::PrepareForNewCycle()
         rec_points = 0;
         all_points = 0;
     }
+}
+
+
+void DataCurrent::PrepareForNewCycle()
+{
+    int bytes_for_channel = ENUM_POINTS_FPGA::ToNumBytes();
+
+    int size_buffer = (int)sizeof(DataSettings) + 2 * bytes_for_channel;
+
+    buffer.Realloc(size_buffer);
+
+    frame.ds = (DataSettings *)buffer.Data();
+
+    ((DataSettings *)frame.ds)->FillFromCurrentSettings();
+
+    frame.rec_points = 0;
+    frame.all_points = 0;
+
+    std::memset((uint8 *)frame.DataBegin(ChA), ValueFPGA::NONE, (uint)bytes_for_channel);
+    std::memcmp((uint8 *)frame.DataBegin(ChB), ValueFPGA::NONE, (uint)bytes_for_channel);
 }
 
 
