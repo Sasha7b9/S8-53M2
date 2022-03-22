@@ -26,7 +26,7 @@ void DataStruct::Log(pchar point)
 }
 
 
-const uint8 *DataFrame::DataBegin(Chan ch) const
+uint8 *DataFrame::DataBegin(Chan ch) const
 {
     uint8 *address = (uint8 *)ds + sizeof(DataSettings);
 
@@ -42,25 +42,6 @@ const uint8 *DataFrame::DataBegin(Chan ch) const
 const uint8 *DataFrame::DataEnd(Chan ch)
 {
     return DataBegin(ch) + ds->BytesInChannel();
-}
-
-
-void DataStruct::PrepareForNewCycle()
-{
-    ds.FillFromCurrentSettings();
-
-    A.ReallocAndFill(ds.BytesInChannel(), ValueFPGA::NONE);
-    B.ReallocAndFill(ds.BytesInChannel(), ValueFPGA::NONE);
-
-    if (TBase::InModeRandomizer())
-    {
-
-    }
-    else if (TBase::InModeP2P())
-    {
-        rec_points = 0;
-        all_points = 0;
-    }
 }
 
 
@@ -81,12 +62,6 @@ void DataCurrent::PrepareForNewCycle()
 
     std::memset((uint8 *)frame.DataBegin(ChA), ValueFPGA::NONE, (uint)bytes_for_channel);
     std::memset((uint8 *)frame.DataBegin(ChB), ValueFPGA::NONE, (uint)bytes_for_channel);
-}
-
-
-void DataCurrent::Inverse(Chan)
-{
-
 }
 
 

@@ -12,8 +12,14 @@ struct DataCurrent
     DataFrame     frame;
     Buffer<uint8> buffer;       // «десь, как в Storage, будет хранитьс€ сначала DataSettings, а затем последовательно
                                 // данные первого и второго каналов
+
+    // ѕодготовить к новому циклу чтени€.
+    // ¬ режиме рандомизатора - переписать последние данные из Storage.
+    // ¬ режиме поточечного вывода - сбросить точки
     void PrepareForNewCycle();
+
     void Inverse(Chan);
+
     void AppendPoints(BitSet16, BitSet16);
 };
 

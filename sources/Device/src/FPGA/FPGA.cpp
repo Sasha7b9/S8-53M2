@@ -481,9 +481,11 @@ void FPGA::Reader::ReadPoints(Chan ch)
 }
 
 
-void BufferFPGA::InverseData()
+void DataCurrent::Inverse(Chan ch)
 {
-    int num_bytes = Size();
+    int num_bytes = frame.ds->BytesInChannel();
+
+    uint8 *data = frame.DataBegin(ch);
 
     for (int i = 0; i < num_bytes; i++)
     {

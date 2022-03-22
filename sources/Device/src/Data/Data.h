@@ -68,9 +68,6 @@ struct DataSettings
 struct BufferFPGA : public Buffer<uint8>
 {
     BufferFPGA(int size = 0) : Buffer<uint8>(size) { }
-
-    // Инвертирует данные.
-    void InverseData();
 };
 
 
@@ -86,7 +83,7 @@ struct DataFrame
     DataFrame(DataSettings *_ds = nullptr) : ds(_ds) { };
 
     // Начало данных канала
-    const uint8 *DataBegin(Chan) const;
+    uint8 *DataBegin(Chan) const;
 
     // Конец данных канала
     const uint8 *DataEnd(Chan);
@@ -121,11 +118,6 @@ struct DataStruct
     BufferFPGA &Data(Chan ch) { return ch.IsA() ? A : B; }
 
     bool Valid() const { return ds.Valid(); }
-
-    // Подготовить к новому циклу чтения.
-    // В режиме рандомизатора - переписать последние данные из Storage.
-    // В режиме поточечного вывода - сбросить точки
-    void PrepareForNewCycle();
 
     // Подготовить данные поточечного режима к выводу в поточечном режиме
     void PrepareForNormalDrawP2P();
