@@ -17,7 +17,7 @@ void PasswordResolver::ProcessEvent(KeyboardEvent &event)
 
     static int pointer = 0;
 
-    if (Menu::IsShown())
+    if (!Menu::IsShown())
     {
         if (event.IsUp())
         {
