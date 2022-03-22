@@ -129,7 +129,7 @@ void FPGA::Update()
 
     if (SET_SELFRECORDER)
     {
-        Reader::ReadPointsP2P();
+        Reader::P2P::ReadPoints();
     }
 
     int num_cycles = TBase::StretchRand();
@@ -213,7 +213,7 @@ void FPGA::PrepareForCycle()
 
     if (TBase::InModeP2P())
     {
-        Timer::Enable(TypeTimer::P2P, 1, Reader::ReadPointsP2P);
+        Timer::Enable(TypeTimer::P2P, 1, Reader::P2P::ReadPoints);
     }
     else
     {

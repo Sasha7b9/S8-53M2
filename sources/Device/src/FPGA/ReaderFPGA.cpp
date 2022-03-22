@@ -134,7 +134,7 @@ void FPGA::Reader::Read1024Points(uint8 buffer[1024], Chan ch)
 }
 
 
-void FPGA::Reader::ReadPointsP2P()
+void FPGA::Reader::P2P::ReadPoints()
 {
     flag.Read();
 
