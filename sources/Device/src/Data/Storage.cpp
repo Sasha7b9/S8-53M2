@@ -171,6 +171,12 @@ DataFrame Storage::GetData(int fromEnd)
 }
 
 
+DataFrame Storage::GetLast()
+{
+    return GetData(0);
+}
+
+
 uint8 *Storage::GetData(Chan ch, int fromEnd)
 {
     DataSettings *ds = GetDataSettings(fromEnd);

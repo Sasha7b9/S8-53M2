@@ -1254,7 +1254,7 @@ void Processing::SetDataForProcessing(bool for_window_memory)
         {
             if (last_ds && last_ds->Equal(*Storage::current.frame.ds) && Storage::time_meter.ElapsedTime() < 1000)
             {
-                SetData(Storage::GetData(0));
+                SetData(Storage::GetLast());
             }
             else
             {
@@ -1265,7 +1265,7 @@ void Processing::SetDataForProcessing(bool for_window_memory)
         {
             if (last_ds && last_ds->Equal(*Storage::current.frame.ds) && !for_window_memory)
             {
-                SetData(Storage::GetData(0));
+                SetData(Storage::GetLast());
             }
             else
             {
@@ -1280,7 +1280,7 @@ void Processing::SetDataForProcessing(bool for_window_memory)
             }
             else
             {
-                SetData(Storage::GetData(0));
+                SetData(Storage::GetLast());
             }
         }
     }
@@ -1288,7 +1288,7 @@ void Processing::SetDataForProcessing(bool for_window_memory)
     {
         if (Storage::NumFrames())
         {
-            SetData(Storage::GetData(0));
+            SetData(Storage::GetLast());
         }
     }
 }
