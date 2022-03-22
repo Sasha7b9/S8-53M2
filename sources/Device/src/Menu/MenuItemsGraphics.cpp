@@ -270,8 +270,11 @@ void Formula_DrawClosed(Formula *formula, int x, int y)
 
 static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits, int selPos, bool hLine) // Если selPos == -1, подсвечивать не нужно
 {
+    LOG_WRITE("");
+
     int firstValue = value;
     int height = hLine ? 9 : 8;
+
     for (int i = 0; i < numDigits; i++)
     {
         int rest = value % 10;
