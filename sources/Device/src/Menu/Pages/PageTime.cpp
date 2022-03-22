@@ -54,13 +54,13 @@ void OnChanged_PeakDet(bool active)
         PeackDetMode::Set(SET_PEAKDET);
         TBase::Set(SET_TBASE);
 
-        if (SET_PEAKDET_IS_DISABLE)
+        if (SET_PEAKDET_IS_DISABLED)
         {
             int centerX = SHIFT_IN_MEMORY + Grid::Width() / 2;
             SHIFT_IN_MEMORY = centerX * 2 - Grid::Width() / 2;
             PageMemory::OnChanged_NumPoints(true);
         }
-        else if (SET_PEAKDET_IS_ENABLE)
+        else if (SET_PEAKDET_IS_ENABLED)
         {
             int centerX = SHIFT_IN_MEMORY + Grid::Width() / 2;
             LIMITATION(SHIFT_IN_MEMORY, centerX / 2 - Grid::Width() / 2, 0, ENUM_POINTS_FPGA::ToNumPoints() - Grid::Width());

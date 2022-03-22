@@ -925,7 +925,7 @@ extern const Page pMemory;
 
 static bool FuncActiveMemoryNumPoinst()
 {
-    return SET_PEAKDET_IS_DISABLE;
+    return SET_PEAKDET_IS_DISABLED;
 }
 
 

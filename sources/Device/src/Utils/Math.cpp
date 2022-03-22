@@ -257,7 +257,7 @@ void Math::CalculateFFT(float *dataR, int numPoints, float *result, float *freq0
 
     *freq0 = scale * FFT_POS_CURSOR_0 * K;
     *freq1 = scale * FFT_POS_CURSOR_1 * K;
-    if (SET_PEAKDET_IS_ENABLE)
+    if (SET_PEAKDET_IS_ENABLED)
     {
         *freq0 *= 2;
         *freq1 *= 2;

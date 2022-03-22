@@ -98,7 +98,7 @@ void FPGA::Launch::Calculate()
 
     pred = post = values[SET_TPOS];
 
-    int tShift = SET_TSHIFT * (SET_PEAKDET_IS_ENABLE ? 2 : 1);
+    int tShift = SET_TSHIFT * (SET_PEAKDET_IS_ENABLED ? 2 : 1);
 
     pred = Math::Limitation(pred - tShift, 0, 65535);
 

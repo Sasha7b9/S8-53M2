@@ -395,9 +395,10 @@ void FPGA::Reader::ReadPoints(Chan ch)
     pFuncRead funcRead = ch.IsA() ? Reader::ReadA : Reader::ReadB;
 
     funcRead();         // Ёто лишнее чтение сделано потому, что перва€ считанна€ точка бракованна€.
-                        // ƒл€ компенсации этого эффекта лишн€€ точка получаетс€ уменьшением адреса на один в FPGA::Reader::CalculateAddressRead()
+                        // ƒл€ компенсации этого эффекта лишн€€ точка получаетс€ уменьшением адреса на один в
+                        // FPGA::Reader::CalculateAddressRead()
 
-    if (SET_PEAKDET_IS_ENABLE)
+    if (SET_PEAKDET_IS_ENABLED)
     {
         uint8 *p_min = dat;
         uint8 *p_max = p_min + ENUM_POINTS_FPGA::ToNumPoints();

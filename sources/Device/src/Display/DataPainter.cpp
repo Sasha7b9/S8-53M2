@@ -55,11 +55,12 @@ namespace DataPainter
         // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена
         // иниформация о максимумах.
         void DrawChannel(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI,
-            const uint8 *data, int rightX, Chan::E ch, int shiftForPeakDet);
+            const uint8 *data, int rightX, Chan::E, int shiftForPeakDet, DataSettings &);
 
         // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена
         // иниформация о максимумах.
-        void DrawDataInRect(int x, int width, const uint8 *data, int numElems, Chan::E ch, int shiftForPeakDet);
+        void DrawDataInRect(int x, int width, const uint8 *data, int numElems, Chan::E ch, int shiftForPeakDet,
+            DataSettings &);
     }
 }
 
@@ -436,8 +437,6 @@ void DataPainter::MemoryWindow::Draw()
 {
     Processing::SetDataForProcessing(true);
 
-    DataStruct *dat = &Processing::out;
-
     int leftX = 3;
     int top = 1;
     int height = GRID_TOP - 3;
@@ -466,6 +465,8 @@ void DataPainter::MemoryWindow::Draw()
 
     if (showFull)
     {
+        DataStruct *dat = &Processing::out;
+
         if (dat->A.Size() || dat->B.Size())
         {
             Chan::E chanFirst = LAST_AFFECTED_CHANNEL_IS_A ? ChB : ChA;
@@ -479,13 +480,13 @@ void DataPainter::MemoryWindow::Draw()
             if (SET_ENABLED(chanFirst))
             {
                 DrawChannel(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataFirst, rightX,
-                    chanFirst, shiftForPeakDet);
+                    chanFirst, shiftForPeakDet, dat->ds);
             }
 
             if (SET_ENABLED(chanSecond))
             {
                 DrawChannel(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataSecond, rightX,
-                    chanSecond, shiftForPeakDet);
+                    chanSecond, shiftForPeakDet, dat->ds);
             }
         }
     }
@@ -542,18 +543,18 @@ void DataPainter::MemoryWindow::Draw()
 
 
 void DataPainter::MemoryWindow::DrawChannel(int timeWindowRectWidth, int xVert0, int xVert1, int startI,
-    int endI, const uint8 *data, int rightX, Chan::E ch, int shiftForPeakDet)
+    int endI, const uint8 *data, int rightX, Chan::E ch, int shiftForPeakDet, DataSettings &ds)
 {
-    DrawDataInRect(1, xVert0 - 1, &(data[0]), startI, ch, shiftForPeakDet);
+    DrawDataInRect(1, xVert0 - 1, &(data[0]), startI, ch, shiftForPeakDet, ds);
 
-    DrawDataInRect(xVert0 + 2, timeWindowRectWidth - 2, &(data[startI]), 281, ch, shiftForPeakDet);
+    DrawDataInRect(xVert0 + 2, timeWindowRectWidth - 2, &(data[startI]), 281, ch, shiftForPeakDet, ds);
     DrawDataInRect(xVert1 + 2, rightX - xVert1 + 2, &(data[endI + 1]), ENUM_POINTS_FPGA::ToNumPoints() - endI, ch,
-        shiftForPeakDet);
+        shiftForPeakDet, ds);
 }
 
 
 void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *data, int numElems, Chan::E ch,
-    int shiftForPeakDet)
+    int shiftForPeakDet, DataSettings &ds)
 {
     if (numElems == 0)
     {
@@ -569,7 +570,7 @@ void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *da
     std::memset(min, 255, 300);
     std::memset(max, 0, 300);
 
-    if (SET_TBASE >= TBase::_20ms && SET_PEAKDET_IS_ENABLE)
+    if (ds.tBase >= TBase::_20ms && ds.peak_det)
     {
         for (int col = 0; col < width; col++)
         {

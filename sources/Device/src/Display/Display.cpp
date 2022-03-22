@@ -1573,7 +1573,7 @@ void Display::DrawLowPart()
     
     Color::SetCurrent(COLOR_FILL);
 
-    if(!SET_PEAKDET_IS_DISABLE)
+    if(!SET_PEAKDET_IS_DISABLED)
     {
        PText::DrawChar(x + 38, GRID_BOTTOM + 11, '\x12');
        PText::DrawChar(x + 46, GRID_BOTTOM + 11, '\x13');

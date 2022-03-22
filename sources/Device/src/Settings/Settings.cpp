@@ -445,7 +445,7 @@ int ENUM_POINTS_FPGA::ToNumPoints()
 
 int ENUM_POINTS_FPGA::ToNumBytes()
 {
-    int mul = SET_PEAKDET_IS_ENABLE ? 2 : 1;
+    int mul = SET_PEAKDET_IS_ENABLED ? 2 : 1;
 
     return ToNumPoints() * mul;
 }
