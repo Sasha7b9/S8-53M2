@@ -76,10 +76,6 @@ void DataCurrent::PrepareForNewCycle()
         {
             CreateForCurrent();
         }
-        else
-        {
-            LOG_WRITE("Будем использовать предыдущие данные");
-        }
     }
     else
     {

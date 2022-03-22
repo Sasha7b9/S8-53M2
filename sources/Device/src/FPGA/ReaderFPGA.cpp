@@ -226,10 +226,10 @@ void FPGA::Reader::ReadPoints(Chan ch)
     HAL_FMC::Write(WR_PRED, address);
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
-    BufferFPGA buffer(Storage::current.frame.ds->BytesInChannel());
+    uint8 *const begin = Storage::current.frame.DataBegin(ch);
+    const uint8 *const end = Storage::current.frame.DataEnd(ch);
 
-    uint8 *dat = buffer.Data();
-    const uint8 *const end = buffer.Last();
+    uint8 *dat = begin;
 
     typedef BitSet16(*pFuncRead)();
 
@@ -269,7 +269,7 @@ void FPGA::Reader::ReadPoints(Chan ch)
             {
                 dat += TShift::ShiftForRandomizer();
 
-                while (dat < buffer.Data())
+                while (dat < begin)
                 {
                     dat += stretch;
                     funcRead();
@@ -337,6 +337,4 @@ void FPGA::Reader::ReadPoints(Chan ch)
             }
         }
     }
-
-    Storage::current.frame.FillDataChannelFromBuffer(ch, buffer);
 }
