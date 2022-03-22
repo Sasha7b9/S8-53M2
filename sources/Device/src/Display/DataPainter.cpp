@@ -47,10 +47,6 @@ namespace DataPainter
 
     void DrawBothChannels(DataStruct &);
 
-    // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена
-    // иниформация о максимумах.
-    void DrawDataInRect(int x, int width, const uint8 *data, int numElems, Chan::E ch, int shiftForPeakDet);
-
     // modeLines - true - точками, false - точками
     void DrawSignal(const int x, const uint8 data[281], bool modeLines);
 
@@ -60,6 +56,10 @@ namespace DataPainter
         // иниформация о максимумах.
         void DrawChannel(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI,
             const uint8 *data, int rightX, Chan::E ch, int shiftForPeakDet);
+
+        // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена
+        // иниформация о максимумах.
+        void DrawDataInRect(int x, int width, const uint8 *data, int numElems, Chan::E ch, int shiftForPeakDet);
     }
 }
 
@@ -552,7 +552,8 @@ void DataPainter::MemoryWindow::DrawChannel(int timeWindowRectWidth, int xVert0,
 }
 
 
-void DataPainter::DrawDataInRect(int x, int width, const uint8 *data, int numElems, Chan::E ch, int shiftForPeakDet)
+void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *data, int numElems, Chan::E ch,
+    int shiftForPeakDet)
 {
     if (numElems == 0)
     {
