@@ -156,13 +156,13 @@ TimeMeterMS::TimeMeterMS()
 
 void TimeMeterMS::Reset()
 {
-    time_start = TIME_MS;
+    time_reset = TIME_MS;
 }
 
 
 uint TimeMeterMS::ElapsedTime()
 {
-    return TIME_MS - time_start;
+    return TIME_MS - time_reset;
 }
 
 

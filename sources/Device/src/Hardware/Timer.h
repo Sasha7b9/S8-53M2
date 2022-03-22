@@ -108,5 +108,5 @@ struct TimeMeterMS
 
 private:
 
-    uint time_start;
+    uint time_reset;
 };
