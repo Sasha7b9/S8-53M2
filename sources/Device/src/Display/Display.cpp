@@ -874,7 +874,7 @@ void TShift::Draw()
     int lastPoint = points.half_iword[1];
 
     // Рисуем TPos
-    int shiftTPos = TPos::InPoints(Processing::out.ds.e_points_in_channel, SET_TPOS) - SHIFT_IN_MEMORY;
+    int shiftTPos = TPos::InPoints(SET_ENUM_POINTS, SET_TPOS) - SHIFT_IN_MEMORY;
     float scale = (float)(lastPoint - firstPoint) / Grid::Width();
     int gridLeft = Grid::Left();
     int x = (int)(gridLeft + shiftTPos * scale - 3);
@@ -885,7 +885,7 @@ void TShift::Draw()
     };
 
     // Рисуем tShift
-    int shiftTShift = TPos::InPoints(Processing::out.ds.e_points_in_channel, SET_TPOS) - SET_TSHIFT * 2;
+    int shiftTShift = TPos::InPoints(SET_ENUM_POINTS, SET_TPOS) - SET_TSHIFT * 2;
 
     if(IntInRange(shiftTShift, firstPoint, lastPoint))
     {
