@@ -519,7 +519,7 @@ void DataPainter::MemoryWindow::Draw()
     float scale = (float)(rightX - leftX + 1) / ((float)ENUM_POINTS_FPGA::ToNumPoints() -
         (ENUM_POINTS_FPGA::ToNumPoints() == 281 ? 1 : 0));
 
-    float xShift = 1 + (TPos::InPoints(Processing::out.ds.e_points_in_channel, SET_TPOS) - Processing::out.ds.tShift * 2) * scale;
+    float xShift = 1 + (TPos::InPoints(SET_ENUM_POINTS, SET_TPOS) - SET_TSHIFT * 2) * scale;
 
     if (xShift < leftX - 2)
     {
