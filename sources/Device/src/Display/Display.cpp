@@ -113,8 +113,6 @@ namespace Display
 
     void FuncOnTimerDisableShowLevelRShiftB();
 
-    void FuncOnTimerDisableShowLevelTrigLev();
-
     void OnTimerShowWarning();
 
     void DrawSpectrumChannel(const float* spectrum, Color::E);
@@ -239,16 +237,10 @@ void Display::RotateTrigLev()
     if (TIME_SHOW_LEVELS)
     {
         TrigLev::showLevel = true;
-        Timer::Enable(TypeTimer::ShowLevelTrigLev, TIME_SHOW_LEVELS * 1000, FuncOnTimerDisableShowLevelTrigLev);
+        Timer::Enable(TypeTimer::ShowLevelTrigLev, TIME_SHOW_LEVELS * 1000, TrigLev::DisableShowLevel);
     }
 
     Flags::needFinishDraw = true;
-}
-
-
-void Display::FuncOnTimerDisableShowLevelTrigLev()
-{
-    TrigLev::DisableShowLevel();
 }
 
 
@@ -276,6 +268,7 @@ void Display::WriteParametersFFT(Chan ch, float freq0, float density0, float fre
     PText::Draw(x, y, Freq2String(freq0, false, buffer));
     y += dY;
     PText::Draw(x, y, Freq2String(freq1, false, buffer));
+
     if (ch == Chan::A)
     {
         y += dY + 2;
@@ -284,6 +277,7 @@ void Display::WriteParametersFFT(Chan ch, float freq0, float density0, float fre
     {
         y += dY * 3 + 4;
     }
+
     Color::SetCurrent(ColorChannel(ch));
     PText::Draw(x, y, SCALE_FFT_IS_LOG ? Float2Db(density0, 4, buffer) : Float2String(density0, false, 7, buffer));
     y += dY;
