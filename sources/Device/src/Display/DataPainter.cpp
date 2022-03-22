@@ -417,6 +417,11 @@ void DataPainter::DrawDataMinMax()
 
 void DataPainter::DrawDataNormal()
 {
+    if (Storage::NumFrames() == 0)
+    {
+        return;
+    }
+
     int16 numSignals = (int16)Storage::NumFramesWithSameSettings();
     LIMITATION(numSignals, numSignals, 1, NUM_ACCUM);
 
