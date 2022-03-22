@@ -1255,6 +1255,7 @@ void Processing::SetDataForProcessing()
             if (last_ds && last_ds->Equal(*Storage::current.frame.ds) && Storage::time_meter.ElapsedTime() < 1000)
             {
                 SetData(Storage::GetData(0));
+                out.mode_p2p = false;
             }
             else
             {

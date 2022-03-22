@@ -77,7 +77,7 @@ void Storage::Clear()
 }
 
 
-void Storage::AddData(DataFrame &data)
+void Storage::AppendNewFrame(DataFrame &data)
 {
     data.mode_p2p = false;
 

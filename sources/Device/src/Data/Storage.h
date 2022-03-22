@@ -34,7 +34,7 @@ namespace Storage
     void Clear();
 
     // Добавить считанные данные. При этом настройками считаются текущие настройки прибора.
-    void AddData(DataFrame &);
+    void AppendNewFrame(DataFrame &);
 
     // Сколько всего измерений сохранено в памяти.
     int NumFrames();
