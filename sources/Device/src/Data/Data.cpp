@@ -68,8 +68,6 @@ void DataCurrent::PrepareForNewCycle()
 
 void DataStruct::PrepareForNormalDrawP2P()
 {
-    return;
-
     if (!IsFrameP2P())
     {
         return;
