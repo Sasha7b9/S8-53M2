@@ -88,23 +88,23 @@ void DataPainter::DrawInModeDirect()
         if (START_MODE_IS_AUTO)
         {
             if (last_ds && last_ds->Equal(*Storage::current.frame.ds) && Storage::time_meter.ElapsedTime() < 1000)
-                { Processing::Process(Storage::GetData(0, frame)); }
+                { Processing::Process(Storage::GetData(0));    }
             else
-                { Processing::Process(Storage::current.frame);     }
+                { Processing::Process(Storage::current.frame); }
         }
         else if (START_MODE_IS_WAIT)
         {
             if (last_ds && last_ds->Equal(*Storage::current.frame.ds))
-                { Processing::Process(Storage::GetData(0, frame)); }
+                { Processing::Process(Storage::GetData(0));    }
             else
-                { Processing::Process(Storage::current.frame);     }
+                { Processing::Process(Storage::current.frame); }
         }
         else
         {
             if (Storage::current.frame.Valid())
-                { Processing::Process(Storage::current.frame);     }
+                { Processing::Process(Storage::current.frame); }
             else
-                { Processing::Process(Storage::GetData(0, frame)); }
+                { Processing::Process(Storage::GetData(0));    }
         }
 
         Processing::out.PrepareForNormalDrawP2P();
@@ -115,7 +115,7 @@ void DataPainter::DrawInModeDirect()
     {
         if (Storage::NumFrames())
         {
-            Processing::Process(Storage::GetData(0, frame));
+            Processing::Process(Storage::GetData(0));
             DrawDataNormal();
         }
     }
@@ -442,8 +442,7 @@ void DataPainter::DrawDataNormal()
     {
         for (int i = 0; i < numSignals; i++)
         {
-            DataFrame frame;
-            Processing::Process(Storage::GetData(i, frame));
+            Processing::Process(Storage::GetData(i));
 
             DrawBothChannels(Processing::out);
         }

@@ -40,7 +40,7 @@ namespace Storage
     int NumFramesWithCurrentSettings();
 
     // Получить указатель на данные
-    DataFrame &GetData(int fromEnd, DataFrame &);
+    DataFrame GetData(int fromEnd);
 
     // Возвращает указатель на данные, отстоящие на fromEnd oт последнего сохранённого
     DataSettings *GetDataSettings(int fromEnd);

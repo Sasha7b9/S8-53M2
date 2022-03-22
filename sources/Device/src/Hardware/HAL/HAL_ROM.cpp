@@ -336,7 +336,7 @@ void HAL_ROM::CompactMemory()
 }
 
 
-void HAL_ROM::SaveData(int num, DataFrame &_data)
+void HAL_ROM::SaveData(int num, const DataFrame &_data)
 {
     DataStruct data(_data);
 

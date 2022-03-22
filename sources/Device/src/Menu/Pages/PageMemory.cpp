@@ -525,8 +525,7 @@ static void SaveSignalToIntMemory()
     {
         if (Storage::NumFrames())
         {
-            DataFrame frame;
-            HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Storage::GetData(0, frame));
+            HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Storage::GetData(0));
             Display::ShowWarningGood(Warning::SignalIsSaved);
         }
     }

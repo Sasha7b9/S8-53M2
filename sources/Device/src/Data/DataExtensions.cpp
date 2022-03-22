@@ -141,9 +141,7 @@ void Averager::GetDataAccurately(DataStruct &out)
 
     for (int d = 0; d < num_datas; d++)
     {
-        DataFrame data;
-
-        Storage::GetData(d, data);
+        DataFrame data = Storage::GetData(d);
 
         const uint8 *in_a = data.DataBegin(ChA);
         const uint8 *in_b = data.DataBegin(ChB);
