@@ -54,12 +54,13 @@ namespace DataPainter
     {
         // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена
         // иниформация о максимумах.
+        // указатель data передаётся на первую точку, startI, endI измеряются в точках для пикового детектора и нет
         void DrawChannel(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI,
-            const uint8 *data, int rightX, Chan::E, DataSettings &);
+            const uint8 *data, int rightX, Chan, DataSettings &);
 
         // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена
         // иниформация о максимумах.
-        void DrawDataInRect(int x, int width, const uint8 *data, int numElems, Chan::E ch, DataSettings &);
+        void DrawDataInRect(int x, int width, const uint8 *data, int numElems, Chan ch, DataSettings &);
     }
 }
 
@@ -545,22 +546,29 @@ void DataPainter::MemoryWindow::Draw()
 
 
 void DataPainter::MemoryWindow::DrawChannel(int timeWindowRectWidth, int xVert0, int xVert1, int startI,
-    int endI, const uint8 *data, int rightX, Chan::E ch, DataSettings &ds)
+    int endI, const uint8 *data, int rightX, Chan ch, DataSettings &ds)
 {
-    DrawDataInRect(1, xVert0 - 1, &(data[0]), startI, ch, ds);
+    int k = ds.peak_det ? 2 : 1;
 
-    DrawDataInRect(xVert0 + 2, timeWindowRectWidth - 2, &(data[startI]), 281, ch, ds);
+    DrawDataInRect(1, xVert0 - 1, &(data[0 * k]), startI, ch, ds);
 
-    DrawDataInRect(xVert1 + 2, rightX - xVert1 + 2, &(data[endI + 1]), ENUM_POINTS_FPGA::ToNumPoints() - endI, ch, ds);
+    DrawDataInRect(xVert0 + 2, timeWindowRectWidth - 2, &(data[startI * k]), 281, ch, ds);
+
+    DrawDataInRect(xVert1 + 2, rightX - xVert1 + 2, &(data[endI * k + 1]), ds.PointsInChannel() - endI, ch, ds);
 }
 
 
-void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *data, int numElems, Chan::E ch,
+void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *in, int numElems, Chan ch,
     DataSettings &ds)
 {
     if (numElems == 0)
     {
         return;
+    }
+
+    if (ds.peak_det)
+    {
+        numElems *= 2;
     }
 
     width--;
@@ -581,12 +589,14 @@ void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *da
         {
             int firstElem = (int)(col * elemsInColumn);
             int lastElem = (int)(firstElem + elemsInColumn - 1);
-            *iMin = data[firstElem];
-            *iMax = data[firstElem];
+
+            *iMin = in[firstElem];
+            *iMax = in[firstElem];
+
             for (int elem = firstElem + 1; elem <= lastElem; elem++)
             {
-                SET_MIN_IF_LESS(data[elem], *iMin);
-                SET_MAX_IF_LARGER(data[elem], *iMax);
+                SET_MIN_IF_LESS(in[elem], *iMin);
+                SET_MAX_IF_LARGER(in[elem], *iMax);
             }
         }
     }
@@ -594,15 +604,16 @@ void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *da
     {
         for (int col = 0; col < width; col++)
         {
-            float firstElem = col * elemsInColumn;
-            float lastElem = firstElem + elemsInColumn - 1;
-            min[col] = data[(int)firstElem];
-            max[col] = data[(int)firstElem + ds.PointsInChannel()];
+            float first = col * elemsInColumn;
+            float last = first + elemsInColumn - 1;
 
-            for (int elem = (int)(firstElem + 1); elem <= lastElem; elem++)
+            max[col] = in[(int)first];
+            min[col] = in[(int)first + 1];
+
+            for (int elem = (int)(first + 2); elem < last; elem += 2)
             {
-                SET_MIN_IF_LESS(data[elem], min[col]);
-                SET_MAX_IF_LARGER(data[elem + ds.PointsInChannel()], max[col]);
+                SET_MAX_IF_LARGER(in[elem], max[col]);
+                SET_MIN_IF_LESS(in[elem + 1], max[col]);
             }
         }
     }
