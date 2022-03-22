@@ -188,10 +188,10 @@ void DataPainter::DrawMarkersForMeasure(float scale, Chan ch)
 }
 
 
-void DataPainter::DrawSignalLined(const uint8 *in, const DataSettings &ds, int startPoint, int endPoint, int minY,
+void DataPainter::DrawSignalLined(const uint8 *in, const DataSettings &ds, int start, int end, int minY,
     int maxY, float scaleY, float scaleX)
 {
-    if (endPoint < startPoint)
+    if (end < start)
     {
         return;
     }
@@ -203,27 +203,27 @@ void DataPainter::DrawSignalLined(const uint8 *in, const DataSettings &ds, int s
 
     if (ds.peak_det == 0)
     {
-        for (int i = startPoint; i < endPoint; i++)
+        for (int i = start; i < end; i++)
         {
-            float x0 = gridLeft + (i - startPoint) * scaleX;
+            float x0 = gridLeft + (i - start) * scaleX;
             if (x0 >= gridLeft && x0 <= gridRight)
             {
-                int index = i - startPoint;
+                int index = i - start;
                 CONVERT_DATA_TO_DISPLAY(out[index], in[i]);
             }
         }
 
-        if (endPoint - startPoint < 281)
+        if (end - start < 281)
         {
-            int _numPoints = 281 - (endPoint - startPoint);
+            int _numPoints = 281 - (end - start);
             for (int i = 0; i < _numPoints; i++)
             {
-                int index = endPoint - startPoint + i;
+                int index = end - start + i;
                 CONVERT_DATA_TO_DISPLAY(out[index], ValueFPGA::MIN);
             }
         }
 
-        CONVERT_DATA_TO_DISPLAY(out[280], in[endPoint]);
+        CONVERT_DATA_TO_DISPLAY(out[280], in[end]);
         DrawSignal(Grid::Left(), out, true);
     }
     else
@@ -231,9 +231,9 @@ void DataPainter::DrawSignalLined(const uint8 *in, const DataSettings &ds, int s
         int yMinNext = -1;
         int yMaxNext = -1;
 
-        for (int i = startPoint; i < endPoint; i++)
+        for (int i = start; i < end; i++)
         {
-            float x = gridLeft + (i - startPoint) * scaleX;
+            float x = gridLeft + (i - start) * scaleX;
 
             if (x >= gridLeft && x <= gridRight)
             {
