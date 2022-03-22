@@ -124,6 +124,11 @@ int DataStruct::PrepareForNormalDrawP2P()
         B[i] = *b++;
     }
 
+    if (ds.peak_det)
+    {
+        pos /= 2;
+    }
+
     return pos - 1;
 }
 
