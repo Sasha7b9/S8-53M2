@@ -74,10 +74,43 @@ void DataStruct::PrepareForNormalDrawP2P()
     int last = points.half_iword[1];            // Позиция последней выводимой точки
 
     int points_on_screen = last - first;        // Столько точек всего помещается на экран
-//    int drawing_points = all_points;            // Здесь будет храниться количество точек, которе нужно вывести на экране
+    int drawing_points = all_points;            // Здесь будет храниться количество точек, которе нужно вывести на экране
 
-    BufferFPGA tempA(points_on_screen);
-    BufferFPGA tempB(points_on_screen);
+    BufferFPGA screenA(points_on_screen);       // Здесь точки канала 1, выводимые на экран
+    BufferFPGA screenB(points_on_screen);       // Здесь точки канала 2, выводимые на экран
+
+    int pos = 0;
+
+    while (drawing_points++ > rec_points)
+    {
+        pos++;
+
+        if (pos == points_on_screen)
+        {
+            pos = 0;
+        }
+    }
+
+    for (int i = 0; i < rec_points; i++)
+    {
+        screenA[pos] = A[i];
+        screenB[pos] = B[i];
+        pos++;
+
+        if (pos == points_on_screen)
+        {
+            pos = 0;
+        }
+    }
+
+    uint8 *a = screenA.Data();
+    uint8 *b = screenB.Data();
+
+    for (int i = first; i <= last; i++)
+    {
+        A[i] = *a++;
+        B[i] = *b++;
+    }
 }
 
 
