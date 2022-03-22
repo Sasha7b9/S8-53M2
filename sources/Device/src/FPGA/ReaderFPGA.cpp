@@ -14,6 +14,8 @@ namespace FPGA
     extern bool IN_PROCESS_READ;
     extern bool TRIG_AUTO_FIND;
 
+    extern int ShiftRandomizerADC();
+
     namespace Reader
     {
         Mutex mutex_read;
@@ -190,8 +192,8 @@ void FPGA::Reader::DataRead()
 
     IN_PROCESS_READ = true;
 
-    Reader::ReadPoints(ChA);
-    Reader::ReadPoints(ChB);
+    ReadPoints(ChA);
+    ReadPoints(ChB);
 
     if (!TBase::InModeRandomizer())
     {
@@ -209,4 +211,132 @@ void FPGA::Reader::DataRead()
     }
 
     IN_PROCESS_READ = false;
+}
+
+
+void FPGA::Reader::ReadPoints(Chan ch)
+{
+    static uint16 address = 0;
+
+    if (ch.IsA())
+    {
+        address = Reader::CalculateAddressRead();
+    }
+
+    HAL_FMC::Write(WR_PRED, address);
+    HAL_FMC::Write(WR_ADDR_READ, 0xffff);
+
+    BufferFPGA buffer(Storage::current.frame.ds->BytesInChannel());
+
+    uint8 *dat = buffer.Data();
+    const uint8 *const end = buffer.Last();
+
+    typedef BitSet16(*pFuncRead)();
+
+    pFuncRead funcRead = ch.IsA() ? Reader::ReadA : Reader::ReadB;
+
+    funcRead();         // Ёто лишнее чтение сделано потому, что перва€ считанна€ точка бракованна€.
+                        // ƒл€ компенсации этого эффекта лишн€€ точка получаетс€ уменьшением адреса на один в
+                        // FPGA::Reader::CalculateAddressRead()
+
+    if (SET_PEAKDET_IS_ENABLED)
+    {
+        uint8 *p = dat;
+
+        while (p < end && IN_PROCESS_READ)
+        {
+            BitSet16 bytes = funcRead();            // ƒанные в режиме пикового детектора хран€тс€ по очереди:
+            *p++ = bytes.byte0;                     // максимальное значение
+            *p++ = bytes.byte1;                     // минимальное значение
+        }
+    }
+    else
+    {
+        const int stretch = TBase::StretchRand();
+
+        const int shift_rand = ShiftRandomizerADC();
+
+        if (shift_rand == TShift::ERROR)
+        {
+            return;
+        }
+
+        dat += shift_rand;
+
+        if (Compactor::Koeff() == 1)             // Ѕез уплотнени€
+        {
+            if (TBase::InModeRandomizer())
+            {
+                dat += TShift::ShiftForRandomizer();
+
+                while (dat < buffer.Data())
+                {
+                    dat += stretch;
+                    funcRead();
+                }
+
+                while (dat < end && IN_PROCESS_READ)
+                {
+                    BitSet16 bytes = funcRead();
+
+                    *dat = bytes.byte0;
+                    dat += stretch;
+                }
+            }
+            else
+            {
+                if (!flag.FirstByte())
+                {
+                    BitSet16 bytes = funcRead();
+                    *dat = bytes.byte1;
+                    dat += stretch;
+                }
+
+                while (dat < end && IN_PROCESS_READ)
+                {
+                    BitSet16 bytes = funcRead();
+
+                    *dat = bytes.byte0;
+                    dat += stretch;
+                    *dat = bytes.byte1;
+                    dat += stretch;
+                }
+            }
+
+        }
+        else if (Compactor::Koeff() == 4)       // ¬ыкидываютс€ 3 байта из 4 (уплотнение в 4 раза)
+        {
+            while (dat < end && IN_PROCESS_READ)
+            {
+                BitSet16 data1 = funcRead();
+
+                *dat = data1.byte0;
+                dat += stretch;
+
+                funcRead();
+            }
+        }
+        else if (Compactor::Koeff() == 5)       // ¬ыкидываютс€ 4 байта зи 5 (уплотнение в 5 раз)
+        {
+            while (dat < end && IN_PROCESS_READ)
+            {
+                BitSet16 data1 = funcRead();
+                BitSet16 data2 = funcRead();
+                BitSet16 data3 = funcRead(); //-V821
+                BitSet16 data4 = funcRead();
+                BitSet16 data5 = funcRead();
+
+                *dat = data1.byte0;
+                dat += stretch;
+
+                if (dat < end)
+                {
+                    *dat = data3.byte1;
+                    dat += stretch;
+                }
+            }
+        }
+    }
+
+    Storage::current.frame.GetDataChannelFromBuffer(ch, buffer);
 }
