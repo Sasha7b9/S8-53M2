@@ -215,7 +215,7 @@ void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings *ds, int
     }
     else
     {
-        int shift = (int)ds->PointsInChannel();
+        int shift = 1;
 
         int yMinNext = -1;
         int yMaxNext = -1;
