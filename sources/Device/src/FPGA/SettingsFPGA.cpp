@@ -694,7 +694,7 @@ void DataSettings::FillFromCurrentSettings()
     e_points_in_channel = SET_ENUM_POINTS;
     trigLevA = (uint)TRIG_LEVEL_A;
     trigLevB = (uint)TRIG_LEVEL_B;
-    peakDet = (uint)SET_PEAKDET;
+    peak_det = (uint)SET_PEAKDET;
     div_a = SET_DIVIDER_A;
     div_b = SET_DIVIDER_B;
 }
@@ -716,7 +716,7 @@ int DataSettings::BytesInChannel() const
 {
     int result = PointsInChannel();
 
-    if (peakDet != 0)
+    if (peak_det)
     {
         result *= 2;
     }
@@ -812,7 +812,7 @@ bool DataSettings::Equal(const DataSettings &ds)
            (trigLevB == ds.trigLevB) &&
            (div_a    == ds.div_a) &&
            (div_b    == ds.div_b) &&
-           (peakDet  == ds.peakDet);
+           (peak_det == ds.peak_det);
 }
 
 

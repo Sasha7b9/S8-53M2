@@ -78,11 +78,17 @@ int DataStruct::PrepareForNormalDrawP2P()
     int first = points.half_iword[0];           // Позиция первой выводимой точки
     int last = points.half_iword[1];            // Позиция последней выводимой точки
 
-    int points_on_screen = last - first;        // Столько точек всего помещается на экран
+    int bytes_on_screen = last - first;        // Столько точек всего помещается на экран
+
+    if (ds.peak_det == 1)
+    {
+        bytes_on_screen *= 2;
+    }
+
     int drawing_points = all_points;            // Здесь будет храниться количество точек, которе нужно вывести на экране
 
-    BufferFPGA screenA(points_on_screen);       // Здесь точки канала 1, выводимые на экран
-    BufferFPGA screenB(points_on_screen);       // Здесь точки канала 2, выводимые на экран
+    BufferFPGA screenA(bytes_on_screen);       // Здесь точки канала 1, выводимые на экран
+    BufferFPGA screenB(bytes_on_screen);       // Здесь точки канала 2, выводимые на экран
 
     int pos = 0;
 
@@ -90,7 +96,7 @@ int DataStruct::PrepareForNormalDrawP2P()
     {
         pos++;
 
-        if (pos == points_on_screen)
+        if (pos == bytes_on_screen)
         {
             pos = 0;
         }
@@ -102,7 +108,7 @@ int DataStruct::PrepareForNormalDrawP2P()
         screenB[pos] = B[i];
         pos++;
 
-        if (pos == points_on_screen)
+        if (pos == bytes_on_screen)
         {
             pos = 0;
         }

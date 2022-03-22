@@ -1274,9 +1274,9 @@ void Processing::SetDataForProcessing(bool for_window_memory)
         }
         else
         {
-            if (Storage::current.frame.Valid())
+            if (Storage::current.frame.Valid() || for_window_memory)
             {
-                SetData(Storage::current.frame, true);
+                SetData(Storage::current.frame, for_window_memory);
             }
             else
             {

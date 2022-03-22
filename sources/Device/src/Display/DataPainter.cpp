@@ -198,7 +198,7 @@ void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings *ds, int
     int gridLeft = Grid::Left();
     int gridRight = Grid::Right();
 
-    if (ds->peakDet == PeackDetMode::Disable)
+    if (ds->peak_det == 0)
     {
         for (int i = startPoint; i < endPoint; i++)
         {
@@ -266,7 +266,7 @@ void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings *ds, int
         }
     }
 
-    if (ds->peakDet == PeackDetMode::Disable)
+    if (ds->peak_det == 0)
     {
         CONVERT_DATA_TO_DISPLAY(dataCD[280], data[endPoint]);
         DrawSignal(Grid::Left(), dataCD, true);
@@ -291,7 +291,7 @@ void DataPainter::DrawSignalPointed(const uint8 *data, const DataSettings *ds, i
 
         DrawSignal(Grid::Left(), dataCD, false);
 
-        if (ds->peakDet)
+        if (ds->peak_det)
         {
             int size = endPoint - startPoint;
             startPoint += numPoints;
@@ -471,7 +471,7 @@ void DataPainter::DrawMemoryWindow()
             const uint8 *dataFirst = LAST_AFFECTED_CHANNEL_IS_A ? dat->B.Data() : dat->A.Data();
             const uint8 *dataSecond = LAST_AFFECTED_CHANNEL_IS_A ? dat->A.Data() : dat->B.Data();
 
-            int shiftForPeakDet = (dat->ds.peakDet == PeackDetMode::Disable) ? 0 : dat->ds.PointsInChannel();
+            int shiftForPeakDet = (dat->ds.peak_det == PeackDetMode::Disable) ? 0 : dat->ds.PointsInChannel();
 
             if (SET_ENABLED(chanFirst))
             {
