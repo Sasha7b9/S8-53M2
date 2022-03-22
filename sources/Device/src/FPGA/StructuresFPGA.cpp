@@ -24,7 +24,7 @@ namespace FPGA
 
 void FPGA::Launch::Load()
 {
-    if (!FPGA::Reader::mutex_read.IsLocked())
+    if (!FPGA::Reader::mutex_read.Locked())
     {
         Calculate();
 

@@ -24,6 +24,8 @@ namespace FPGA
         {
             static Queue<BitSet16> queueA;
             static Queue<BitSet16> queueB;
+
+            Mutex mutex;
         }
     }
 }
@@ -142,20 +144,27 @@ void FPGA::Reader::Read1024Points(uint8 buffer[1024], Chan ch)
 
 void FPGA::Reader::P2P::ReadPoints()
 {
-    flag.Read();
-
-    if (_GET_BIT(flag.value, FL_POINT))
+    if (!mutex.Locked())
     {
-        queueA.Push(Reader::ReadA());
-        queueB.Push(Reader::ReadB());
+        flag.Read();
+
+        if (_GET_BIT(flag.value, FL_POINT))
+        {
+            queueA.Push(Reader::ReadA());
+            queueB.Push(Reader::ReadB());
+        }
     }
 }
 
 
 void FPGA::Reader::P2P::SavePoints()
 {
+    mutex.Lock();
+
     while (!queueA.Empty())
     {
         Storage::current.AppendPoints(queueA.Back(), queueB.Back());
     }
+
+    mutex.Unlock();
 }

@@ -905,7 +905,7 @@ void Panel::Callback::OnReceiveSPI5(const uint8 *data, uint)
 
     if (event.key != Key::None)
     {
-        if (input_buffer.mutex.IsLocked())
+        if (input_buffer.mutex.Locked())
         {
             aux_buffer.Push(event);
         }

@@ -22,7 +22,7 @@ public:
     };
 
     // Здесь прерывание может проверить, занят ли мьютекс
-    bool IsLocked() const
+    bool Locked() const
     {
         return locked;
     };
