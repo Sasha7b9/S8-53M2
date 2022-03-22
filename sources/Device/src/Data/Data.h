@@ -122,7 +122,8 @@ struct DataStruct
     bool IsFrameP2P() const { return rec_points >= 0; }
 
     // Подготовить данные поточечного режима к выводу в поточечном режиме
-    void PrepareForNormalDrawP2P();
+    // Возвращает позицию точки (начиная с левой границы сетки), в которой нужно выводить вертикальную линию
+    int PrepareForNormalDrawP2P();
 
     void Log(pchar point);
 };

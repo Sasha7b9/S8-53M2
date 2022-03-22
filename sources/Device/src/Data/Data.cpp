@@ -66,11 +66,11 @@ void DataCurrent::PrepareForNewCycle()
 }
 
 
-void DataStruct::PrepareForNormalDrawP2P()
+int DataStruct::PrepareForNormalDrawP2P()
 {
     if (!IsFrameP2P())
     {
-        return;
+        return 0;
     }
 
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
@@ -116,6 +116,8 @@ void DataStruct::PrepareForNormalDrawP2P()
         A[i] = *a++;
         B[i] = *b++;
     }
+
+    return pos - 1;
 }
 
 

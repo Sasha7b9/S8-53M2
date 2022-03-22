@@ -107,9 +107,14 @@ void DataPainter::DrawInModeDirect()
                 { Processing::Process(Storage::GetData(0));    }
         }
 
-        Processing::out.PrepareForNormalDrawP2P();
+        int x = Processing::out.PrepareForNormalDrawP2P();
 
         DrawDataNormal();
+
+        if (x != 0)
+        {
+            Painter::DrawVLine(Grid::Left() + x, GRID_TOP, Grid::ChannelBottom(), Color::GRID);
+        }
     }
     else
     {
