@@ -567,23 +567,7 @@ void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *da
     std::memset(min, 255, 300);
     std::memset(max, 0, 300);
 
-    if (ds.tBase >= TBase::_20ms && ds.peak_det)
-    {
-        for (int col = 0; col < width; col++)
-        {
-            float firstElem = col * elemsInColumn;
-            float lastElem = firstElem + elemsInColumn - 1;
-            min[col] = data[(int)firstElem];
-            max[col] = data[(int)firstElem + 1];
-
-            for (int elem = (int)(firstElem + 2); elem <= lastElem; elem += 2)
-            {
-                SET_MIN_IF_LESS(data[elem], min[col]);
-                SET_MAX_IF_LARGER(data[elem + 1], max[col]);
-            }
-        }
-    }
-    else if (ds.peak_det == 0)
+    if (ds.peak_det == 0)
     {
         uint8 *iMin = &min[0];
         uint8 *iMax = &max[0];
@@ -601,7 +585,7 @@ void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *da
             }
         }
     }
-    else        // А здесь будет, если пик. дет. включен
+    else
     {
         for (int col = 0; col < width; col++)
         {
