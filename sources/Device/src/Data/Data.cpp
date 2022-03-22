@@ -56,7 +56,7 @@ void DataCurrent::PrepareForNewCycle()
 
     frame.ds = (DataSettings *)buffer.Data();
 
-    ((DataSettings *)frame.ds)->FillFromCurrentSettings();
+    frame.ds->FillFromCurrentSettings();
 
     std::memset((uint8 *)frame.DataBegin(ChA), ValueFPGA::NONE, (uint)bytes_for_channel);
     std::memset((uint8 *)frame.DataBegin(ChB), ValueFPGA::NONE, (uint)bytes_for_channel);
@@ -193,7 +193,7 @@ DataStruct::DataStruct(const DataFrame &frame) :
 }
 
 
-void DataFrame::GetDataChannelsFromFrame(DataFrame &frame)
+void DataFrame::FillDataChannelsFromFrame(DataFrame &frame)
 {
     int num_bytes = ds->BytesInChannel();
 

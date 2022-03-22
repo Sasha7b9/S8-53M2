@@ -75,7 +75,7 @@ struct BufferFPGA : public Buffer<uint8>
 // Это такая обёртка
 struct DataFrame
 {
-    const DataSettings *ds;
+    DataSettings *ds;
 
     static int rec_points;
     static int all_points;
@@ -89,13 +89,13 @@ struct DataFrame
     const uint8 *DataEnd(Chan);
 
     // Взять данные канала из BufferFPGA
-    void GetDataChannelFromBuffer(Chan, BufferFPGA &);
+    void FillDataChannelFromBuffer(Chan, BufferFPGA &);
 
     // Заполнить фрейм ds из DataStruct
-    void GetDataChannelsFromStruct(DataStruct &);
+    void FillDataChannelsFromStruct(DataStruct &);
 
     // Заполнить фрейм данными из фрейма
-    void GetDataChannelsFromFrame(DataFrame &);
+    void FillDataChannelsFromFrame(DataFrame &);
 
     bool Valid() const { return (ds->valid == 1); }
 };

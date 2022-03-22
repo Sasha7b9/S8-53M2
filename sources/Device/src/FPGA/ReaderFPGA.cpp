@@ -338,5 +338,5 @@ void FPGA::Reader::ReadPoints(Chan ch)
         }
     }
 
-    Storage::current.frame.GetDataChannelFromBuffer(ch, buffer);
+    Storage::current.frame.FillDataChannelFromBuffer(ch, buffer);
 }

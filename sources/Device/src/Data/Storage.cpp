@@ -88,7 +88,7 @@ void Storage::AppendNewFrame(DataFrame &data)
 
     DataFrame frame(ds);
 
-    frame.GetDataChannelsFromFrame(data);
+    frame.FillDataChannelsFromFrame(data);
 
     Averager::Append(ds);
 
@@ -96,7 +96,7 @@ void Storage::AppendNewFrame(DataFrame &data)
 }
 
 
-void DataFrame::GetDataChannelFromBuffer(Chan ch, BufferFPGA &buffer)
+void DataFrame::FillDataChannelFromBuffer(Chan ch, BufferFPGA &buffer)
 {
     uint8 *data = (uint8 *)DataBegin(ch);
 
@@ -104,7 +104,7 @@ void DataFrame::GetDataChannelFromBuffer(Chan ch, BufferFPGA &buffer)
 }
 
 
-void DataFrame::GetDataChannelsFromStruct(DataStruct &data)
+void DataFrame::FillDataChannelsFromStruct(DataStruct &data)
 {
     uint8 *address = (uint8 *)ds + sizeof(*ds);
 
