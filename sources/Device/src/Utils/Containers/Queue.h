@@ -46,7 +46,7 @@ public:
         return (iBack - iFront);
     }
 
-    bool IsEmpty() const;
+    bool Empty() const;
 
     T &operator[](int n);
 

@@ -34,7 +34,7 @@ namespace Panel
     {
         void Clear() { buffer.Clear(); }
         void Push(KeyboardEvent event) { buffer.Push(event); }
-        bool IsEmpty() const { return buffer.IsEmpty(); }
+        bool Empty() const { return buffer.Empty(); }
         KeyboardEvent Back() { return buffer.Back(); }
 
         Mutex mutex;
@@ -929,12 +929,12 @@ void Panel::Update()
 {
     input_buffer.mutex.Lock();
 
-    while (!aux_buffer.IsEmpty())
+    while (!aux_buffer.Empty())
     {
         input_buffer.Push(aux_buffer.Back());
     }
 
-    while (!input_buffer.IsEmpty())
+    while (!input_buffer.Empty())
     {
         ProcessEvent(input_buffer.Back());
     }

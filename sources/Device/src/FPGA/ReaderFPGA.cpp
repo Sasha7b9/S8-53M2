@@ -5,6 +5,7 @@
 #include "Settings/Settings.h"
 #include "Hardware/Timer.h"
 #include "Data/Storage.h"
+#include "Utils/Containers/Queue.h"
 
 
 namespace FPGA
@@ -19,6 +20,11 @@ namespace FPGA
         // Чтение двух байт канала 2 (с калибровочными коэффициентами, само собой)
         BitSet16 ReadB();
 
+        namespace P2P
+        {
+            static Queue<BitSet16> queueA;
+            static Queue<BitSet16> queueB;
+        }
     }
 }
 
@@ -140,9 +146,16 @@ void FPGA::Reader::P2P::ReadPoints()
 
     if (_GET_BIT(flag.value, FL_POINT))
     {
-        BitSet16 dataA = Reader::ReadA();
-        BitSet16 dataB = Reader::ReadB();
+        queueA.Push(Reader::ReadA());
+        queueB.Push(Reader::ReadB());
+    }
+}
 
-        Storage::current.AppendPoints(dataA, dataB);
+
+void FPGA::Reader::P2P::SavePoints()
+{
+    while (!queueA.Empty())
+    {
+        Storage::current.AppendPoints(queueA.Back(), queueB.Back());
     }
 }

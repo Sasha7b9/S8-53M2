@@ -11,12 +11,12 @@ struct Buffer
     static void AppendEvent(Key, Action);
     static KeyboardEvent commands[10];
     static int pointer;
-    static bool IsEmpty() { return (pointer == 0); }
+    static bool Empty() { return (pointer == 0); }
     static KeyboardEvent GetNextEvent()
     {
         KeyboardEvent event;
     
-        if (IsEmpty())
+        if (Empty())
         {
             event.key = Key::None;
         }
@@ -119,7 +119,7 @@ void Keyboard::Init()
         Update();
         Buffer::GetNextEvent();
 
-    } while (!Buffer::IsEmpty());
+    } while (!Buffer::Empty());
 
     LED::DisableAll();
 }
@@ -291,9 +291,9 @@ void Buffer::AppendEvent(Key key, Action action)
 }
 
 
-bool Keyboard::Buffer::IsEmpty()
+bool Keyboard::Buffer::Empty()
 {
-    return ::Buffer::IsEmpty();
+    return ::Buffer::Empty();
 }
 
 

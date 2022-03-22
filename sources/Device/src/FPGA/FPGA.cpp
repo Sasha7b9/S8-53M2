@@ -106,6 +106,8 @@ void FPGA::Update()
 {
     flag.Read();
 
+    FPGA::Reader::P2P::SavePoints();
+
     if (state.needCalibration)              // Если вошли в режим калибровки -
     {
         FPGA::Calibrator::RunCalibrate();       // выполняем её.

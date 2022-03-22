@@ -12,7 +12,7 @@ namespace Keyboard
     namespace Buffer
     {
         // Возвращает true, если буфер пуст
-        bool IsEmpty();
+        bool Empty();
 
         int NumEvents();
 

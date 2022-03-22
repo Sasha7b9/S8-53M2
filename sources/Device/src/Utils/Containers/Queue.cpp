@@ -4,20 +4,24 @@
 #include "common/Panel/Controls.h"
 
 
+template Queue<BitSet16>::Queue();
 template Queue<uint16>::Queue();
 template Queue<uint8>::Queue();
 template Queue<float>::Queue();
 template Queue<KeyboardEvent>::Queue();
 template Queue<uint16>::~Queue();
+template Queue<BitSet16>::~Queue();
 template Queue<uint8>::~Queue();
 template Queue<float>::~Queue();
 template Queue<KeyboardEvent>::~Queue();
 template uint16 Queue<uint16>::Front();
 template uint8 Queue<uint8>::Front();
 template KeyboardEvent Queue<KeyboardEvent>::Back();
+template BitSet16 Queue<BitSet16>::Back();
 template KeyboardEvent Queue<KeyboardEvent>::Front();
-template bool Queue<uint16>::IsEmpty() const;
-template bool Queue<KeyboardEvent>::IsEmpty() const;
+template bool Queue<uint16>::Empty() const;
+template bool Queue<BitSet16>::Empty() const;
+template bool Queue<KeyboardEvent>::Empty() const;
 template void Queue<uint16>::Clear();
 template float &Queue<float>::operator[](int);
 template void Queue<KeyboardEvent>::Clear();
@@ -89,7 +93,7 @@ T Queue<T>::Back()
 
 
 template<typename T>
-bool Queue<T>::IsEmpty() const
+bool Queue<T>::Empty() const
 {
     return (Size() == 0);
 }
@@ -123,7 +127,7 @@ T *Queue<T>::Data()
 template<typename T>
 void Queue<T>::Clear()
 {
-    while (!IsEmpty())
+    while (!Empty())
     {
         Front();
     }
