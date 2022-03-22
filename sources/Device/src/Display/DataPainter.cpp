@@ -39,7 +39,7 @@ namespace DataPainter
 
     void DrawMarkersForMeasure(float scale, Chan);
 
-    void DrawSignalLined(const uint8 *data, const DataSettings *ds, int startPoint, int endPoint, int minY, int maxY,
+    void DrawSignalLined(const uint8 *data, const DataSettings &, int startPoint, int endPoint, int minY, int maxY,
         float scaleY, float scaleX);
 
     void DrawSignalPointed(const uint8 *data, const DataSettings &, int startPoint, int endPoint, int minY, int maxY,
@@ -151,7 +151,7 @@ void DataPainter::DrawDataChannel(DataStruct &data, Chan ch, int minY, int maxY)
 
     if (MODE_DRAW_IS_SIGNAL_LINES)
     {
-        DrawSignalLined(data.Data(ch).Data(), &ds, first, last, minY, maxY, scaleY, scaleX);
+        DrawSignalLined(data.Data(ch).Data(), ds, first, last, minY, maxY, scaleY, scaleX);
     }
     else
     {
@@ -188,7 +188,7 @@ void DataPainter::DrawMarkersForMeasure(float scale, Chan ch)
 }
 
 
-void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings *ds, int startPoint, int endPoint, int minY,
+void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings &ds, int startPoint, int endPoint, int minY,
     int maxY, float scaleY, float scaleX)
 {
     if (endPoint < startPoint)
@@ -201,7 +201,7 @@ void DataPainter::DrawSignalLined(const uint8 *data, const DataSettings *ds, int
     int gridLeft = Grid::Left();
     int gridRight = Grid::Right();
 
-    if (ds->peak_det == 0)
+    if (ds.peak_det == 0)
     {
         for (int i = startPoint; i < endPoint; i++)
         {
