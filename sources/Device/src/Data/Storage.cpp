@@ -16,7 +16,7 @@
 
 namespace Storage
 {
-    DataStruct current;
+    DataCurrent current;
 
     TimeMeterMS time_meter;
 
@@ -77,21 +77,30 @@ void Storage::Clear()
 }
 
 
-void Storage::AddData(DataStruct &data)
+void Storage::AddData(DataFrame &data)
 {
-    data.ds.time = HAL_RTC::GetPackedTime();
+    DataSettings new_ds = *data.ds;
+    new_ds.time = HAL_RTC::GetPackedTime();
 
-    Limitator::CalculateLimits(&data.ds, data.A.Data(), data.B.Data());
+    Limitator::CalculateLimits(data.ds, data.DataBegin(ChA), data.DataBegin(ChB));
 
-    DataSettings *ds = PrepareNewFrame(data.ds);
+    DataSettings *ds = PrepareNewFrame(new_ds);
 
     DataFrame frame(ds);
 
-    frame.GetDataChannelsFromStruct(data);
+    frame.GetDataChannelsFromFrame(data);
 
     Averager::Append(ds);
 
     time_meter.Reset();
+}
+
+
+void DataFrame::GetDataChannelFromBuffer(Chan ch, BufferFPGA &buffer)
+{
+    uint8 *data = (uint8 *)DataBegin(ch);
+
+    std::memcpy(data, buffer.Data(), (uint)buffer.Size());
 }
 
 

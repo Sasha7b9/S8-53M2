@@ -5,6 +5,11 @@
 #include "Utils/Strings.h"
 #include "FPGA/TypesFPGA.h"
 #include "Settings/SettingsDisplay.h"
+#include "Data/Storage.h"
+
+
+int DataFrame::all_points = 0;
+int DataFrame::rec_points = 0;
 
 
 namespace Data
@@ -40,6 +45,20 @@ const uint8 *DataFrame::DataEnd(Chan ch)
 }
 
 
+void DataCurrent::PrepareForNewCycle()
+{
+    int bytes_for_channel = ENUM_POINTS_FPGA::ToNumBytes();
+
+    int size_buffer = (int)sizeof(DataSettings) + 2 * bytes_for_channel;
+
+    buffer.Realloc(size_buffer);
+
+    frame.ds = (DataSettings *)buffer.Data();
+
+    ((DataSettings *)frame.ds)->FillFromCurrentSettings();
+}
+
+
 void DataStruct::PrepareForNewCycle()
 {
     ds.FillFromCurrentSettings();
@@ -59,6 +78,12 @@ void DataStruct::PrepareForNewCycle()
 }
 
 
+void DataCurrent::Inverse(Chan)
+{
+
+}
+
+
 void DataStruct::PrepareForNormalDrawP2P()
 {
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
@@ -67,19 +92,23 @@ void DataStruct::PrepareForNormalDrawP2P()
     int last = points.half_iword[1];            // Позиция последней выводимой точки
 
     int points_on_screen = last - first;        // Столько точек всего помещается на экран
-    int drawing_points = all_points;            // Здесь будет храниться количество точек, которе нужно вывести на экране
+//    int drawing_points = all_points;            // Здесь будет храниться количество точек, которе нужно вывести на экране
 
     BufferFPGA tempA(points_on_screen);
     BufferFPGA tempB(points_on_screen);
 }
 
 
-void DataStruct::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
+void DataCurrent::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
 {
+    const DataSettings &ds = *frame.ds;
+
     int max_bytes = ds.BytesInChannel();
 
-    uint8 *a = A.Data();
-    uint8 *b = B.Data();
+    uint8 *a = (uint8 *)frame.DataBegin(ChA);
+    uint8 *b = (uint8 *)frame.DataBegin(ChB);
+
+    int &rec_points = frame.rec_points;
 
     if (rec_points == max_bytes - 1)
     {
@@ -101,7 +130,7 @@ void DataStruct::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
     b[rec_points + 1] = pointsB.byte1;
 
     rec_points += 2;
-    all_points += 2;
+    frame.all_points += 2;
 }
 
 
@@ -113,3 +142,20 @@ DataStruct::DataStruct(const DataFrame &frame) : rec_points(-1), all_points(0)
 
     B.ReallocFromBuffer(frame.DataBegin(ChB), ds.BytesInChannel());
 }
+
+
+void DataFrame::GetDataChannelsFromFrame(DataFrame &frame)
+{
+    int num_bytes = ds->BytesInChannel();
+
+    uint8 *address = (uint8 *)ds + sizeof(*ds);
+
+    std::memcpy(address, frame.DataBegin(ChA), (uint)num_bytes);
+
+    address += num_bytes;
+
+    std::memcpy(address, frame.DataBegin(ChB), (uint)num_bytes);
+}
+
+
+

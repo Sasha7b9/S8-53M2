@@ -80,6 +80,9 @@ struct DataFrame
 {
     const DataSettings *ds;
 
+    static int rec_points;
+    static int all_points;
+
     DataFrame(DataSettings *_ds = nullptr) : ds(_ds) { };
 
     // Начало данных канала
@@ -88,8 +91,14 @@ struct DataFrame
     // Конец данных канала
     const uint8 *DataEnd(Chan);
 
+    // Взять данные канала из BufferFPGA
+    void GetDataChannelFromBuffer(Chan, BufferFPGA &);
+
     // Заполнить фрейм ds из DataStruct
     void GetDataChannelsFromStruct(DataStruct &);
+
+    // Заполнить фрейм данными из фрейма
+    void GetDataChannelsFromFrame(DataFrame &);
 
     bool Valid() const { return (ds->valid == 1); }
 };
@@ -112,8 +121,6 @@ struct DataStruct
     BufferFPGA &Data(Chan ch) { return ch.IsA() ? A : B; }
 
     bool Valid() const { return ds.Valid(); }
-
-    void AppendPoints(BitSet16 pointsA, BitSet16 pointsB);
 
     // Подготовить к новому циклу чтения.
     // В режиме рандомизатора - переписать последние данные из Storage.

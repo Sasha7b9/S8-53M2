@@ -94,7 +94,6 @@ namespace FPGA
 
 void FPGA::Init()
 {
-    ClearData();
     Storage::Clear();
     FPGA::LoadSettings();
     FPGA::SetNumSignalsInSec(ENumSignalsInSec::ToNum(ENUM_SIGNALS_IN_SEC));
@@ -210,11 +209,6 @@ void FPGA::SwitchingTrig()
 
 void FPGA::PrepareForCycle()
 {
-    if (!TBase::InModeRandomizer())
-    {
-        ClearData();
-    }
-
     Storage::current.PrepareForNewCycle();
 
     if (TBase::InModeP2P())
@@ -342,11 +336,11 @@ void FPGA::DataRead()
 
     if (!TBase::InModeRandomizer())
     {
-        if (SET_INVERSE_A) Storage::current.A.InverseData();
-        if (SET_INVERSE_B) Storage::current.B.InverseData();
+        if (SET_INVERSE_A) Storage::current.Inverse(ChA);
+        if (SET_INVERSE_B) Storage::current.Inverse(ChB);
     }
 
-    Storage::AddData(Storage::current);
+    Storage::AddData(Storage::current.frame);
 
     if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)
     {
@@ -371,7 +365,7 @@ void FPGA::Reader::ReadPoints(Chan ch)
     HAL_FMC::Write(WR_PRED, address);
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
-    BufferFPGA &buffer = ch.IsA() ? Storage::current.A : Storage::current.B;
+    BufferFPGA buffer(Storage::current.frame.ds->BytesInChannel());
 
     uint8 *dat = buffer.Data();
     const uint8 *const end = buffer.Last();
@@ -482,6 +476,8 @@ void FPGA::Reader::ReadPoints(Chan ch)
             }
         }
     }
+
+    Storage::current.frame.GetDataChannelFromBuffer(ch, buffer);
 }
 
 
@@ -584,18 +580,6 @@ bool FPGA::CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
     *eMax = (uint16)maxGate; //-V519
 
     return true;
-}
-
-
-void FPGA::ClearData()
-{
-    int num_bytes = ENUM_POINTS_FPGA::ToNumBytes();
-
-    Storage::current.A.Realloc(num_bytes);
-    Storage::current.B.Realloc(num_bytes);
-
-    Storage::current.A.Fill(ValueFPGA::NONE);
-    Storage::current.B.Fill(ValueFPGA::NONE);
 }
 
 

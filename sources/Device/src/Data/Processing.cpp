@@ -1214,7 +1214,7 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
 }
 
 
-void Processing::Process(DataStruct &in)
+void Processing::Process(const DataFrame &in)
 {
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
@@ -1223,31 +1223,20 @@ void Processing::Process(DataStruct &in)
     lastP = points.half_iword[1];
     numP = lastP - firstP;
 
-    int length = in.ds.BytesInChannel();
+    int length = in.ds->BytesInChannel();
 
-    BufferFPGA &A = out.Data(ChA);
-    BufferFPGA &B = out.Data(ChB);
+    BufferFPGA A(length);
+    BufferFPGA B(length);
 
     A.ReallocAndFill(length, ValueFPGA::NONE);   // Подготавливаем место для рассчитанных сглаженных точек
     B.ReallocAndFill(length, ValueFPGA::NONE);
 
-    Math::CalculateFiltrArray(in.A.Data(), A.Data(), length, Smoothing::ToPoints());
-    Math::CalculateFiltrArray(in.B.Data(), B.Data(), length, Smoothing::ToPoints());
+    Math::CalculateFiltrArray(in.DataBegin(ChA), A.Data(), length, Smoothing::ToPoints());
+    Math::CalculateFiltrArray(in.DataBegin(ChB), B.Data(), length, Smoothing::ToPoints());
 
-    in.A.FillFromBuffer(out.Data(ChA).Data(), length);
-    in.B.FillFromBuffer(out.Data(ChB).Data(), length);
-
-    CountedToCurrentSettings(in.ds, in.A.Data(), in.B.Data());
+    CountedToCurrentSettings(*in.ds, A.Data(), B.Data());
 
     out.ds.valid = 1;
     out.rec_points = in.rec_points;
     out.all_points = in.all_points;
-}
-
-
-void Processing::Process(const DataFrame &in)
-{
-    DataStruct dataStruct(in);
-
-    Process(dataStruct);
 }

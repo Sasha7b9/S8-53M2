@@ -7,17 +7,28 @@
 #include "Hardware/Timer.h"
 
 
+struct DataCurrent
+{
+    DataFrame     frame;
+    Buffer<uint8> buffer;       // Здесь, как в Storage, будет храниться сначала DataSettings, а затем последовательно
+                                // данные первого и второго каналов
+    void PrepareForNewCycle();
+    void Inverse(Chan);
+    void AppendPoints(BitSet16, BitSet16);
+};
+
+
 namespace Storage
 {
-    extern DataStruct current;          // Сюда считываем непосредственно из FPGA. Рандомизатор, точки там. Чтобы потом
-                                        // переложит в хранилище
-    extern TimeMeterMS time_meter;      // Для засекания времени последнего сохранения данных
+    extern DataCurrent current;     // Сюда считываем непосредственно из FPGA. Рандомизатор, точки там. Чтобы потом
+                                    // переложит в хранилище
+    extern TimeMeterMS time_meter;  // Для засекания времени последнего сохранения данных
 
     // Удаление всех сохранённых измерений
     void Clear();
 
     // Добавить считанные данные. При этом настройками считаются текущие настройки прибора.
-    void AddData(DataStruct &);
+    void AddData(DataFrame &);
 
     // Сколько всего измерений сохранено в памяти.
     int NumFrames();
