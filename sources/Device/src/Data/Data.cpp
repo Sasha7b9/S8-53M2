@@ -11,6 +11,7 @@
 
 int DataFrame::all_points = 0;
 int DataFrame::rec_points = 0;
+bool DataFrame::mode_p2p = false;
 
 
 namespace Data
@@ -63,6 +64,7 @@ void DataCurrent::PrepareForNewCycle()
 
     frame.rec_points = 0;
     frame.all_points = 0;
+    frame.mode_p2p = true;
 }
 
 
@@ -156,7 +158,8 @@ void DataCurrent::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
 }
 
 
-DataStruct::DataStruct(const DataFrame &frame) : rec_points(-1), all_points(0), mode_p2p(false)
+DataStruct::DataStruct(const DataFrame &frame) :
+    rec_points(frame.rec_points), all_points(frame.all_points), mode_p2p(frame.mode_p2p)
 {
     ds.Set(*frame.ds);
 

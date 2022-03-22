@@ -1239,4 +1239,5 @@ void Processing::Process(const DataFrame &in)
     out.ds.valid = 1;
     out.rec_points = in.rec_points;
     out.all_points = in.all_points;
+    out.mode_p2p = in.mode_p2p;
 }
