@@ -20,6 +20,9 @@
 
 namespace DataPainter
 {
+    // ”становить данные дл€ обработки в поточечном режиме
+    void SetDataForProcessingP2P();
+
     // Ќарисовать данные в обычном режиме работы
     void DrawInModeDirect();
 
@@ -76,6 +79,46 @@ void DataPainter::DrawData()
 }
 
 
+void DataPainter::SetDataForProcessingP2P()
+{
+    DataSettings *last_ds = Storage::GetDataSettings(0);
+
+    if (START_MODE_IS_AUTO)
+    {
+        if (last_ds && last_ds->Equal(*Storage::current.frame.ds) && Storage::time_meter.ElapsedTime() < 1000)
+        {
+            Processing::Process(Storage::GetData(0));
+        }
+        else
+        {
+            Processing::Process(Storage::current.frame);
+        }
+    }
+    else if (START_MODE_IS_WAIT)
+    {
+        if (last_ds && last_ds->Equal(*Storage::current.frame.ds))
+        {
+            Processing::Process(Storage::GetData(0));
+        }
+        else
+        {
+            Processing::Process(Storage::current.frame);
+        }
+    }
+    else
+    {
+        if (Storage::current.frame.Valid())
+        {
+            Processing::Process(Storage::current.frame);
+        }
+        else
+        {
+            Processing::Process(Storage::GetData(0));
+        }
+    }
+}
+
+
 void DataPainter::DrawInModeDirect()
 {
     DataFrame frame;
@@ -83,29 +126,7 @@ void DataPainter::DrawInModeDirect()
 
     if (TBase::InModeP2P())
     {
-        DataSettings *last_ds = Storage::GetDataSettings(0);
-
-        if (START_MODE_IS_AUTO)
-        {
-            if (last_ds && last_ds->Equal(*Storage::current.frame.ds) && Storage::time_meter.ElapsedTime() < 1000)
-                { Processing::Process(Storage::GetData(0));    }
-            else
-                { Processing::Process(Storage::current.frame); }
-        }
-        else if (START_MODE_IS_WAIT)
-        {
-            if (last_ds && last_ds->Equal(*Storage::current.frame.ds))
-                { Processing::Process(Storage::GetData(0));    }
-            else
-                { Processing::Process(Storage::current.frame); }
-        }
-        else
-        {
-            if (Storage::current.frame.Valid())
-                { Processing::Process(Storage::current.frame); }
-            else
-                { Processing::Process(Storage::GetData(0));    }
-        }
+        SetDataForProcessingP2P();
 
         int x = Processing::out.PrepareForNormalDrawP2P();
 
@@ -457,6 +478,8 @@ void DataPainter::DrawDataNormal()
 
 void DataPainter::DrawMemoryWindow()
 {
+    SetDataForProcessingP2P();
+
     DataStruct *dat = &Processing::out;
 
     int leftX = 3;
