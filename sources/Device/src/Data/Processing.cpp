@@ -6,6 +6,7 @@
 #include "Log.h"
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"
+#include "Data/Storage.h"
 #include <cmath>
 #include <cstring>
 #include <cstdio>
@@ -1214,7 +1215,7 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
 }
 
 
-void Processing::Process(const DataFrame &in)
+void Processing::SetData(const DataFrame &in)
 {
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
@@ -1240,4 +1241,55 @@ void Processing::Process(const DataFrame &in)
     out.rec_points = in.rec_points;
     out.all_points = in.all_points;
     out.mode_p2p = in.mode_p2p;
+}
+
+
+void Processing::SetDataForProcessing()
+{
+    DataSettings *last_ds = Storage::GetDataSettings(0);
+
+    if (TBase::InModeP2P())
+    {
+        if (START_MODE_IS_AUTO)
+        {
+            if (last_ds && last_ds->Equal(*Storage::current.frame.ds) && Storage::time_meter.ElapsedTime() < 1000)
+            {
+                SetData(Storage::GetData(0));
+            }
+            else
+            {
+                SetData(Storage::current.frame);
+            }
+        }
+        else if (START_MODE_IS_WAIT)
+        {
+            if (last_ds && last_ds->Equal(*Storage::current.frame.ds))
+            {
+                SetData(Storage::GetData(0));
+                out.mode_p2p = false;
+            }
+            else
+            {
+                SetData(Storage::current.frame);
+            }
+        }
+        else
+        {
+            if (Storage::current.frame.Valid())
+            {
+                SetData(Storage::current.frame);
+            }
+            else
+            {
+                SetData(Storage::GetData(0));
+            }
+        }
+    }
+    else
+    {
+        if (Storage::NumFrames())
+        {
+            SetData(Storage::GetData(0));
+        }
+    }
 }

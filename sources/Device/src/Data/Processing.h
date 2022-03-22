@@ -9,8 +9,8 @@ namespace Processing
 {
     extern DataStruct out;      // Здесь хранятся данные, готовые для вывода - преобразованные из in
 
-    // Обработать сигнал из in. Результат сохранён в Data::out
-    void Process(const DataFrame &in);
+    // Установить данные для обработки в соотетствии с текущими настройками и состоянием
+    void SetDataForProcessing();
 
     // Получить позицию курсора напряжения, соответствующю заданной позиции курсора posCurT.
     float GetCursU(Chan, float posCurT);
@@ -32,4 +32,7 @@ namespace Processing
 
     // Возвращает значение вертикального маркера. Если ERROR_VALUE_INT - маркер рисовать не нужно.
     int GetMarkerVertical(Chan, int numMarker);
+
+    // Обработать сигнал из in. Результат сохранён в Data::out
+    void SetData(const DataFrame &in);
 };

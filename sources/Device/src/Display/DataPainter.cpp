@@ -20,9 +20,6 @@
 
 namespace DataPainter
 {
-    // ”становить данные дл€ обработки в поточечном режиме
-    void SetDataForProcessingP2P();
-
     // Ќарисовать данные в обычном режиме работы
     void DrawInModeDirect();
 
@@ -79,56 +76,15 @@ void DataPainter::DrawData()
 }
 
 
-void DataPainter::SetDataForProcessingP2P()
-{
-    DataSettings *last_ds = Storage::GetDataSettings(0);
-
-    if (START_MODE_IS_AUTO)
-    {
-        if (last_ds && last_ds->Equal(*Storage::current.frame.ds) && Storage::time_meter.ElapsedTime() < 1000)
-        {
-            Processing::Process(Storage::GetData(0));
-        }
-        else
-        {
-            Processing::Process(Storage::current.frame);
-        }
-    }
-    else if (START_MODE_IS_WAIT)
-    {
-        if (last_ds && last_ds->Equal(*Storage::current.frame.ds))
-        {
-            Processing::Process(Storage::GetData(0));
-            Processing::out.mode_p2p = false;
-        }
-        else
-        {
-            Processing::Process(Storage::current.frame);
-        }
-    }
-    else
-    {
-        if (Storage::current.frame.Valid())
-        {
-            Processing::Process(Storage::current.frame);
-        }
-        else
-        {
-            Processing::Process(Storage::GetData(0));
-        }
-    }
-}
-
-
 void DataPainter::DrawInModeDirect()
 {
     DataFrame frame;
     Processing::out.ds.valid = 0;
 
+    Processing::SetDataForProcessing();
+
     if (TBase::InModeP2P())
     {
-        SetDataForProcessingP2P();
-
         int x = Processing::out.PrepareForNormalDrawP2P();
 
         DrawDataNormal();
@@ -140,11 +96,7 @@ void DataPainter::DrawInModeDirect()
     }
     else
     {
-        if (Storage::NumFrames())
-        {
-            Processing::Process(Storage::GetData(0));
-            DrawDataNormal();
-        }
+        DrawDataNormal();
     }
 }
 
@@ -469,7 +421,7 @@ void DataPainter::DrawDataNormal()
     {
         for (int i = 0; i < numSignals; i++)
         {
-            Processing::Process(Storage::GetData(i));
+            Processing::SetData(Storage::GetData(i));
 
             DrawBothChannels(Processing::out);
         }
@@ -479,7 +431,7 @@ void DataPainter::DrawDataNormal()
 
 void DataPainter::DrawMemoryWindow()
 {
-    SetDataForProcessingP2P();
+    Processing::SetDataForProcessing();
 
     DataStruct *dat = &Processing::out;
 
