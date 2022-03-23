@@ -239,19 +239,6 @@ int PText::DrawChar(int x, int y, char symbol, Color::E color)
 }
 
 
-int PText::DrawOnBackground(int x, int y, pchar text, Color::E colorBackground)
-{
-    int width = Font::GetLengthText(text);
-    int height = Font::GetSize();
-
-    Color::E colorText = Color::GetCurrent();
-    Painter::FillRegion(x - 1, y, width, height, colorBackground);
-    Color::SetCurrent(colorText);
-
-    return String(text).Draw(x, y);
-}
-
-
 int PText::DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int limitY, int limitWidth, int limitHeight)
 {
     int8 width = (int8)Font::font->symbol[symbol].width;

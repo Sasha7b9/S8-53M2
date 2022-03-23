@@ -40,6 +40,8 @@ public:
 
     int Draw(int x, int y, Color::E = Color::Count);
     int DrawInCenterRect(int x, int y, int width, int height, Color::E = Color::Count);
+    // Выводит текст на прямоугольнике цвета colorBackgound
+    int DrawOnBackground(int x, int y, Color::E colorBackground);
 
 private:
 

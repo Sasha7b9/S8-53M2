@@ -6,6 +6,7 @@
 #include "Utils/Containers/Buffer.h"
 #include "Hardware/InterCom.h"
 #include "Display/Text.h"
+#include "Display/Painter.h"
 #include <cstring>
 #include <cstdio>
 #include <cstdlib>
@@ -325,6 +326,19 @@ int String::DrawInCenterRect(int eX, int eY, int width, int eHeight, Color::E co
     int height = Font::GetHeightSymbol(buffer[0]);
     int x = eX + (width - lenght) / 2;
     int y = eY + (eHeight - height) / 2;
+
+    return Draw(x, y);
+}
+
+
+int String::DrawOnBackground(int x, int y, Color::E colorBackground)
+{
+    int width = Font::GetLengthText(buffer);
+    int height = Font::GetSize();
+
+    Color::E colorText = Color::GetCurrent();
+    Painter::FillRegion(x - 1, y, width, height, colorBackground);
+    Color::SetCurrent(colorText);
 
     return Draw(x, y);
 }

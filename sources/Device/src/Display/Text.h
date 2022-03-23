@@ -6,9 +6,6 @@ namespace PText
 {
     int DrawChar(int x, int y, char symbol, Color::E = Color::Count);
 
-    // Выводит текст на прямоугольнике цвета colorBackgound
-    int DrawOnBackground(int x, int y, pchar text, Color::E colorBackground);
-
     int DrawWithLimitation(int x, int y, pchar  text, Color::E color, int limitX, int limitY, int limitWidth,
         int limitHeight);
 
