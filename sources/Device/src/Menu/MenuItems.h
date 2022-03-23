@@ -376,7 +376,7 @@ public:
     String NameCurrentSubItem();
 
     // Возвращает имя следующего варианта выбора элемента choice, как оно записано в исходном коде программы.
-    pchar NameNextSubItem();
+    String NameNextSubItem();
 
     pchar NamePrevSubItem();
 
