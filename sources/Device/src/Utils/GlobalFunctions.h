@@ -1,10 +1,17 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-
-
 #include "defines.h"
 
-                                                
+
+namespace GF
+{
+    char *Bin2String(uint8 value);
+
+    char *Bin2String16(uint16 value);
+}
+
+
+
 char*   FloatFract2String(float value, bool alwaysSign, char bufferOut[20]);
 
 char*   Float2String                            //  Преобразует value типа float в текстовую строку.
@@ -15,14 +22,7 @@ char*   Float2String                            //  Преобразует value типа float
                     int numDigits,              //  число разрядов мантиссы.
                     char bufferOut[20]
                     );                         
-char*   Bin2String                              //  Преобразует value в текстовую строку. При этом выводятся все 8 разрядов.
-                                                //  @attention Строка будет храниться до следующего вызова функции. Если результат нужен большее количество времени, то его нужно скопировать себе.
-                    (uint8 value,
-                    char buffer[9]);
-char*   Bin2String16                            // Преобразует value в текстовую строку
-                                                // @attention Строка будте храниться до следующего вызова функции. Если рузультат нужен большее количество времени, то его нужно скопировать себе.
-                    (uint16 value,
-                    char buffer[19]);
+
 char*   Hex8toString                            // Преобразует value в текстовую строку в шестнадцатиричном виде.
                                                 // @attention Строка будет храниться до следующего вызова функции. Если результат нужен большее количество времени, то его нужно скопировать себе.
                     (uint8 value,
