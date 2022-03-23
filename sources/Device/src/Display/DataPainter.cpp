@@ -237,7 +237,7 @@ void DataPainter::DrawSignalLined(const uint8 *in, const DataSettings &ds, int s
 
         for (int i = start; i < end; i += 2)
         {
-            float x = gridLeft + (i - start) / 2 * scaleX;
+            float x = gridLeft + (i - start) / 2.0f * scaleX;
 
             if (x >= gridLeft && x <= gridRight)
             {
