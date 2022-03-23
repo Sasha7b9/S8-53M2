@@ -2,6 +2,7 @@
 #pragma once
 #include "Menu/MenuItems.h"
 #include "common/Panel/Controls.h"
+#include "Display/String.h"
 
 
 // Здесь хранятся итемы, соответстующие фанкцинональным кнопкам
@@ -32,7 +33,7 @@ namespace Menu
     void SetAutoHide(bool active);
 
     // Возвращает путь к текущему пункту меню в текстовом виде, готовом к выводу на экран.
-    char *StringNavigation(char buffer[100]);
+    String StringNavigation();
 
     void ChangeStateFlashDrive();
 

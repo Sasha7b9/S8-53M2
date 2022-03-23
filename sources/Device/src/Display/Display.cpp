@@ -94,12 +94,11 @@ void Display::Init()
 
 void Display::DrawStringNavigation() 
 {
-    char buffer[100];
-    char *string = Menu::StringNavigation(buffer);
+    String string = Menu::StringNavigation();
 
-    if(string) 
+    if(string.Size()) 
     {
-        int length = Font::GetLengthText(string);
+        int length = Font::GetLengthText(string.c_str());
         int height = 10;
         Painter::DrawRectangle(Grid::Left(), GRID_TOP, length + 2, height, COLOR_FILL);
         Painter::FillRegion(Grid::Left() + 1, GRID_TOP + 1, length, height - 2, COLOR_BACK);

@@ -222,18 +222,19 @@ void Menu::SetAutoHide(bool)
 }
 
 
-char* Menu::StringNavigation(char buffer[100])
+String Menu::StringNavigation()
 {
     if(SHOW_STRING_NAVIGATION && IsShown())
     {
-        buffer[0] = 0;
+        String result;
+
         pchar titles[10] = {0};
         int numTitle = 0;
         Item *item = Item::Opened();
 
         if(IsMainPage(item))
         {
-            return 0;
+            return String("");
         }
 
         while(!IsMainPage(item))
@@ -246,18 +247,19 @@ char* Menu::StringNavigation(char buffer[100])
         {
             if(titles[i])
             {
-                std::strcat(buffer, titles[i]);
+                result.Append(titles[i]);
 
                 if(i != 0)
                 {
-                    std::strcat(buffer, " - ");
+                    result.Append(" - ");
                 }
             }
         }
 
-        return buffer;
+        return result;
     }
-    return 0;
+
+    return String("");
 }
 
 
