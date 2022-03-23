@@ -22,7 +22,7 @@ static const int WIDTH = 295;
 static void DrawPageContent()
 {
     int y = 50;
-    String(TITLE(currentPage)).DrawStringInCenterRect(0, y, WIDTH, 10);
+    String(TITLE(currentPage)).DrawInCenterRect(0, y, WIDTH, 10);
 
     int numPage = 0;
 
@@ -38,7 +38,7 @@ static void DrawPageContent()
         }
         else
         {
-            String(title).DrawStringInCenterRect(0, y, WIDTH, 10, COLOR_FILL);
+            String(title).DrawInCenterRect(0, y, WIDTH, 10, COLOR_FILL);
         }
         y += 16;
         numPage++;
@@ -47,7 +47,7 @@ static void DrawPageContent()
 
 static void DrawPageDescription()
 {
-    String(TITLE(currentPage)).DrawStringInCenterRect(0, 3, WIDTH, 10);
+    String(TITLE(currentPage)).DrawInCenterRect(0, 3, WIDTH, 10);
     PText::DrawInRectWithTransfers(2, 15, WIDTH - 5, 240, HINT(currentPage));
 }
 

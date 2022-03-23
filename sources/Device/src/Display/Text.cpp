@@ -656,11 +656,11 @@ void PText::DrawStringInCenterRectOnBackground(int x, int y, int width, int heig
     int widthBorder, Color::E colorBackground)
 {
     int lenght = Font::GetLengthText(text);
-    int eX = String(text).DrawStringInCenterRect(x, y, width, height, colorBackground);
+    int eX = String(text).DrawInCenterRect(x, y, width, height, colorBackground);
     int w = lenght + widthBorder * 2 - 2;
     int h = 7 + widthBorder * 2 - 1;
     Painter::FillRegion(eX - lenght - widthBorder, y - widthBorder + 1, w, h);
-    String(text).DrawStringInCenterRect(x, y, width, height, colorText);
+    String(text).DrawInCenterRect(x, y, width, height, colorText);
 }
 
 
@@ -670,7 +670,7 @@ int PText::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height,
     Painter::DrawRectangle(x, y, width, height, colorFill);
     Painter::FillRegion(x + 1, y + 1, width - 2, height - 2, colorBackground);
     Color::SetCurrent(colorFill);
-    return String(text).DrawStringInCenterRect(x, y, width, height);
+    return String(text).DrawInCenterRect(x, y, width, height);
 }
 
 

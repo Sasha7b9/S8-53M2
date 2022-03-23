@@ -926,9 +926,9 @@ static void Information_Draw()
     String("CRC32 : %X", HAL::CalculateCRC32()).Draw(x, y, COLOR_FILL);
 
     dY = -10;
-    String("Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ").DrawStringInCenterRect(0, 190 + dY, 320, 20);
-    String("Отдел маркетинга: тел./факс. 8-017-270-02-00").DrawStringInCenterRect(0, 205 + dY, 320, 20);
-    String("Разработчики: e-mail: mnipi-24(@)tut.by, тел. 8-017-270-02-23").DrawStringInCenterRect(0, 220 + dY, 320, 20);
+    String("Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ").DrawInCenterRect(0, 190 + dY, 320, 20);
+    String("Отдел маркетинга: тел./факс. 8-017-270-02-00").DrawInCenterRect(0, 205 + dY, 320, 20);
+    String("Разработчики: e-mail: mnipi-24(@)tut.by, тел. 8-017-270-02-23").DrawInCenterRect(0, 220 + dY, 320, 20);
 
     Menu::Draw();
     Painter::EndScene();

@@ -135,7 +135,7 @@ void HiPart::DrawHiRightPart()
         Painter::DrawVLine(x, 1, GRID_TOP - 2, COLOR_FILL);
         x += 2;
         String(LANG_RU ? "режим" : "mode").Draw(LANG_RU ? x : x + 3, -1);
-        String(strings_[MODE_WORK][LANG]).DrawStringInCenterRect(x + 1, 9, 25, 8);
+        String(strings_[MODE_WORK][LANG]).DrawInCenterRect(x + 1, 9, 25, 8);
     }
     else
     {

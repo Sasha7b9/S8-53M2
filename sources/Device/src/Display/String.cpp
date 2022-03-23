@@ -317,7 +317,7 @@ int String::Draw(int x, int y, Color::E color)
 }
 
 
-int String::DrawStringInCenterRect(int eX, int eY, int width, int eHeight, Color::E color)
+int String::DrawInCenterRect(int eX, int eY, int width, int eHeight, Color::E color)
 {
     Color::SetCurrent(color);
 

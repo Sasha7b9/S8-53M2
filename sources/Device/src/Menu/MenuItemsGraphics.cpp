@@ -465,7 +465,7 @@ void GovernorColor::DrawOpened(int x, int y)
 
     Painter::DrawHLine(y + Item::HEIGHT / 2 + 2, x, x + MI_WIDTH + delta, ColorMenuTitle(false));
 
-    ((Item *)this)->Title().DrawStringInCenterRect(x + (((Item *)this)->IsPressed() ? 2 : 1), y + (((Item *)this)->IsPressed() ? 2 : 1),
+    ((Item *)this)->Title().DrawInCenterRect(x + (((Item *)this)->IsPressed() ? 2 : 1), y + (((Item *)this)->IsPressed() ? 2 : 1),
         MI_WIDTH + delta, Item::HEIGHT / 2 + 2, Color::WHITE);
 
     DrawValue(x + 1, y + 19, delta);
@@ -742,7 +742,7 @@ void Button::Draw(int x, int y)
 
     int delta = (pressed && (!shade)) ? 2 : 1;
 
-    Title().DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, Item::HEIGHT, color);
+    Title().DrawInCenterRect(x + delta, y + delta, MI_WIDTH, Item::HEIGHT, color);
 }
 
 
@@ -794,5 +794,5 @@ void Page::Draw(int x, int y)
         delta = 1;
     }
 
-    Title().DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, Item::HEIGHT, colorText);
+    Title().DrawInCenterRect(x + delta, y + delta, MI_WIDTH, Item::HEIGHT, colorText);
 }
