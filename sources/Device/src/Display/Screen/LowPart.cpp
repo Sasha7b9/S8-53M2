@@ -67,8 +67,7 @@ void LowPart::Draw()
     String(buffer).Draw(x, y0);
 
     buffer[0] = 0;
-    char bufForVal[20];
-    std::sprintf(buffer, "\xa5%s", TShift::ToString(tShift, bufForVal));
+    std::sprintf(buffer, "\xa5%s", TShift::ToString(tShift).c_str());
     String(buffer).Draw(x + 35, y0);
 
     buffer[0] = 0;

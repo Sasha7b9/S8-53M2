@@ -1,6 +1,7 @@
 #pragma once
 #include "Display/DisplayTypes.h"
 #include "Settings/SettingsTypes.h"
+#include "Display/String.h"
 
 
 // Число точек сигнала, с которым идёт работа.
@@ -214,7 +215,7 @@ struct TShift
     static void Set(int);
 
     // Возвращает установленное смещение по времени в текстовом виде, пригодном для вывода на экран.
-    static pchar ToString(int tShiftRel, char buffer[20]);
+    static String ToString(int tShiftRel);
 
     // Смещение по времени, соответствующее позиции TPos.
     static int Zero();
