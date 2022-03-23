@@ -317,7 +317,7 @@ struct RShift
 
     float ToAbs(Range::E);
 
-    pchar ToString(Range::E, Divider::E, char buffer[20]);
+    String ToString(Range::E, Divider::E);
 
     operator int16() const { return value; }
 

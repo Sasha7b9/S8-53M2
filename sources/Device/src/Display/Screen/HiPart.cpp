@@ -54,8 +54,8 @@ void HiPart::WriteCursors()
             String("1:").Draw(x, y1, colorText);
             String("2:").Draw(x, y2);
             x += 7;
-            String(PageCursors::GetCursVoltage(source, 0, buffer)).Draw(x, y1);
-            String(PageCursors::GetCursVoltage(source, 1, buffer)).Draw(x, y2);
+            PageCursors::GetCursVoltage(source, 0).Draw(x, y1);
+            PageCursors::GetCursVoltage(source, 1).Draw(x, y2);
             x = startX + 49;
             float pos0 = Math::VoltageCursor(PageCursors::GetCursPosU(source, 0), SET_RANGE(source), SET_RSHIFT(source));
             float pos1 = Math::VoltageCursor(PageCursors::GetCursPosU(source, 1), SET_RANGE(source), SET_RSHIFT(source));

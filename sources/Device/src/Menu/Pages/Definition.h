@@ -2,6 +2,7 @@
 #pragma once
 #include "defines.h"
 #include "Settings/SettingsCursors.h"
+#include "Display/String.h"
 
 
 class Page;
@@ -40,7 +41,7 @@ struct PageCursors
     static bool NecessaryDrawCursors();
 
     // Получить строку курсора напряжения.
-    static pchar GetCursVoltage(Chan, int numCur, char buffer[20]);
+    static String GetCursVoltage(Chan, int numCur);
 
     // Получить строку курсора времени.
     static pchar GetCursorTime(Chan, int numCur, char buffer[20]);

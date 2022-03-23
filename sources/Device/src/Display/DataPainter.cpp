@@ -377,9 +377,7 @@ void DataPainter::DrawMath()
 
     String(":").Draw(Grid::Left() + 25, Grid::MathTop() + 1 + delta);
 
-    char buffer[20];
-
-    String(SET_RSHIFT_MATH.ToString(SET_RANGE_MATH, multiplier, buffer)).Draw(Grid::Left() + 27, Grid::MathTop() + 1 + delta);
+    SET_RSHIFT_MATH.ToString(SET_RANGE_MATH, multiplier).Draw(Grid::Left() + 27, Grid::MathTop() + 1 + delta);
 }
 
 

@@ -300,8 +300,7 @@ void LowPart::WriteTextVoltage(Chan ch, int x, int y)
 
         String(buffer).Draw(x + 1, y, colorDraw);
 
-        char bufferTemp[20];
-        std::sprintf(buffer, "\xa5%s", rShift.ToString(range, multiplier, bufferTemp));
+        std::sprintf(buffer, "\xa5%s", rShift.ToString(range, multiplier).c_str());
         String(buffer).Draw(x + 46, y);
     }
 }

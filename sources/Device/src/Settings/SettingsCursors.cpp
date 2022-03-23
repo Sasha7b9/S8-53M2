@@ -24,10 +24,12 @@ bool PageCursors::NecessaryDrawCursors()
 }
 
 
-pchar  PageCursors::GetCursVoltage(Chan source, int numCur, char buffer[20])
+String PageCursors::GetCursVoltage(Chan source, int numCur)
 {
+    char buffer[20];
+
     float voltage = Math::VoltageCursor(PageCursors::GetCursPosU(source, numCur), SET_RANGE(source), SET_RSHIFT(source));
-    return Voltage2String(voltage, true, buffer);
+    return String(Voltage2String(voltage, true, buffer));
 }
 
 
