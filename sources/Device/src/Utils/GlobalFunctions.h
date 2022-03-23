@@ -4,12 +4,6 @@
 #include "Display/Text.h"
 
 
-bool    IntInRange                              // Возвращает true, если value входит в диапазон [min; max].
-                   (int value,                  // проверяемое значение.
-                   int min,                     // нижняя граница диапазона.
-                   int max                      // верхняя граница диапазона.
-                   );
-
 float   CircleAddFloat(float *val, float delta, float min, float max);  // Увелечивает значение по адресу val на delta. Затем, если результат больше max, приравнивает его min.
 float   CircleSubFloat(float *val, float delta, float min, float max);  // Уменьшает значение по адресу val на delta. Затем, елси результат меньше min, приравнивает его masx.
 void    SwapInt(int *value0, int *value1);                      // Обменивает местами содержимое памяти по адресам value0 и value1.

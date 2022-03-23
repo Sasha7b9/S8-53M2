@@ -992,7 +992,7 @@ void TShift::Draw()
     int gridLeft = Grid::Left();
     int x = (int)(gridLeft + shiftTPos * scale - 3);
 
-    if (IntInRange(x + 3, gridLeft, Grid::Right() + 1))
+    if (Math::InRange(x + 3, gridLeft, Grid::Right() + 1))
     {
         PText::Draw2Symbols(x, GRID_TOP - 1, SYMBOL_TPOS_2, SYMBOL_TPOS_3, COLOR_BACK, COLOR_FILL);
     };
@@ -1000,7 +1000,7 @@ void TShift::Draw()
     // Рисуем tShift
     int shiftTShift = TPos::InPoints(SET_ENUM_POINTS, SET_TPOS) - SET_TSHIFT * 2;
 
-    if (IntInRange(shiftTShift, firstPoint, lastPoint))
+    if (Math::InRange(shiftTShift, firstPoint, lastPoint))
     {
         x = gridLeft + shiftTShift - firstPoint - 3;
         PText::Draw2Symbols(x, GRID_TOP - 1, SYMBOL_TSHIFT_NORM_1, SYMBOL_TSHIFT_NORM_2, COLOR_BACK, COLOR_FILL);

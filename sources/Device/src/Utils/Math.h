@@ -75,6 +75,10 @@ namespace Math
     // Возвращает максимальное значение из трёх.
     template<class T> T Max(T val1, T val2, T val3);
 
+    // Возвращает true, если value входит в диапазон [min; max].
+    template<class T>
+    bool InRange(T value, T min, T max);
+
     template<class T> T Limitation(T value, T min, T max)
     {
         if (value < min)      { return min; }

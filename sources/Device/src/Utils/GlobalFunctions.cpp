@@ -12,13 +12,6 @@
 #include <cstdlib>
 
 
-
-bool IntInRange(int value, int min, int max)
-{
-    return (value >= min) && (value <= max);
-}
-
-
 float CircleAddFloat(float *val, float delta, float min, float max)
 {
     *val += delta;
