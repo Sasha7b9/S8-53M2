@@ -339,7 +339,7 @@
               <MiscControls>--cpp</MiscControls>
               <Define>USE_HAL_DRIVER, STM32F429xx, __cplusplus,DEBUG,DEVICE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\STM32Cube_FW_F4\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Src;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\system;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\ipv4;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\drivers;.\src;.\src\libs;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\lwip;..\STM32Cube_FW_F4\Drivers\CMSIS\Include;..\..\sources;.\src\Hardware\VCP;.\src\Hardware\LAN;.\src\Hardware\FDrive</IncludePath>
+              <IncludePath>..\STM32Cube_FW_F4\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Src;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\system;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\ipv4;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\drivers;.\src;.\src\Hardware\HAL;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\lwip;..\STM32Cube_FW_F4\Drivers\CMSIS\Include;..\..\sources;.\src\Hardware\VCP;.\src\Hardware\LAN;.\src\Hardware\FDrive</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -747,26 +747,6 @@
               <FileName>ethernet.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\netif\ethernet.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>libs</GroupName>
-          <Files>
-            <File>
-              <FileName>stm32f4xx_hal_conf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\libs\stm32f4xx_hal_conf.h</FilePath>
-            </File>
-            <File>
-              <FileName>startup_stm32f429xx.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\src\libs\startup_stm32f429xx.s</FilePath>
-            </File>
-            <File>
-              <FileName>system_stm32f4xx.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\libs\system_stm32f4xx.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1380,6 +1360,21 @@
               <FileName>HAL_PCD.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_PCD.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>startup_stm32f429xx.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\src\Hardware\HAL\startup_stm32f429xx.s</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_hal_conf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\stm32f4xx_hal_conf.h</FilePath>
+            </File>
+            <File>
+              <FileName>system_stm32f4xx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\HAL\system_stm32f4xx.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2349,7 +2344,7 @@
               <MiscControls>--cpp --diag_suppress 4487</MiscControls>
               <Define>USE_HAL_DRIVER, STM32F429xx, __cplusplus,DEVICE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\STM32Cube_FW_F4\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Src;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\system;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\ipv4;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\drivers;.\src;.\src\libs;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\lwip;..\STM32Cube_FW_F4\Drivers\CMSIS\Include;..\..\sources;.\src\Hardware\VCP;.\src\Hardware\LAN;.\src\Hardware\FDrive</IncludePath>
+              <IncludePath>..\STM32Cube_FW_F4\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Src;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\system;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\ipv4;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\drivers;.\src;.\src\Hardware\HAL;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\lwip;..\STM32Cube_FW_F4\Drivers\CMSIS\Include;..\..\sources;.\src\Hardware\VCP;.\src\Hardware\LAN;.\src\Hardware\FDrive</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2757,26 +2752,6 @@
               <FileName>ethernet.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\netif\ethernet.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>libs</GroupName>
-          <Files>
-            <File>
-              <FileName>stm32f4xx_hal_conf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\libs\stm32f4xx_hal_conf.h</FilePath>
-            </File>
-            <File>
-              <FileName>startup_stm32f429xx.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\src\libs\startup_stm32f429xx.s</FilePath>
-            </File>
-            <File>
-              <FileName>system_stm32f4xx.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\libs\system_stm32f4xx.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3390,6 +3365,21 @@
               <FileName>HAL_PCD.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_PCD.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>startup_stm32f429xx.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\src\Hardware\HAL\startup_stm32f429xx.s</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_hal_conf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\stm32f4xx_hal_conf.h</FilePath>
+            </File>
+            <File>
+              <FileName>system_stm32f4xx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\HAL\system_stm32f4xx.c</FilePath>
             </File>
           </Files>
         </Group>

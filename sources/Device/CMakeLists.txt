@@ -17,7 +17,8 @@ include_directories(../common/_VS_KEIL/ARMCLANG
                     ../STM32Cube_FW_F4/Middlewares/Third_Party/LwIP/src/include
                     ../STM32Cube_FW_F4/Middlewares/Third_Party/LwIP/system
                     src
-                    src/libs
+                    src/Hardware/HAL
+                    src/Hardware/FDrive
                     ..)
 
 add_definitions(-DSTM32F429xx -DUSE_HAL_DRIVER -DDEVICE)
@@ -62,7 +63,6 @@ else()
 endif()
 
 file(GLOB SRC                 src/*.cpp src/*.h)
-file(GLOB LIBS                src/libs/*.*)
 file(GLOB DATA                src/Data/*.*)
 file(GLOB DISPLAY             src/Display/*.*)
 file(GLOB DISPLAY_FONT        src/Display/Font/*.*)
@@ -83,7 +83,6 @@ file(GLOB UTILS_CONTAINERS    src/Utils/Containers/*.*)
 file(GLOB SCPI                src/SCPI/*.*)
 
 source_group(src              FILES ${SRC})
-source_group(libs             FILES ${LIBS})
 source_group(Data             FILES ${DATA})
 source_group(Display          FILES ${DISPLAY})
 source_group(Display/Font     FILES ${DISPLAY_FONT})
@@ -107,7 +106,7 @@ set_source_files_properties(src/Hardware/LAN/ethernetif.cpp
                             src/Panel/PanelFunctions.cpp
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
-add_library(${PROJECT_NAME} ${SRC} ${LIBS} ${DISPLAY}
+add_library(${PROJECT_NAME} ${SRC} ${DISPLAY}
                             ${DISPLAY_FONT} ${DISPLAY_SCREEN}
                             ${HARDWARE_LAN}
                             ${DATA}
