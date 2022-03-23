@@ -3,7 +3,6 @@
 #include "globals.h"
 #include "FlashDrive/FlashDrive.h"
 #include "Hardware/Hardware.h"
-#include "Settings/Settings.h"
 #include "Display/Painter.h"
 #include "Display/Display.h"
 #include "Hardware/Timer.h"
@@ -34,8 +33,6 @@ int main()
     ms->percentUpdate = 0.0f;
 
     Hardware_Init();
-
-    Settings_Load();
 
     Timer_PauseOnTime(250);
 

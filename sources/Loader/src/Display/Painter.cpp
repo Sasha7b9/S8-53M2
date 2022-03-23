@@ -2,7 +2,6 @@
 #include "Painter.h"
 #include "Hardware/Timer.h"
 #include "Hardware/FSMC.h"
-#include "Settings/Settings.h"
 #include "Utils/Math.h"
 
 

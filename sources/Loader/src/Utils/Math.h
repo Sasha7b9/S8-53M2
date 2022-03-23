@@ -3,7 +3,6 @@
 
 
 #include "defines.h"
-#include "Settings/SettingsTypes.h"
 
 
 #define LIMIT_BELOW(x, min)         if(x < min) { x = min; }

@@ -61,7 +61,6 @@ file(GLOB FLASHDRIVE       src/FlashDrive/*.*)
 file(GLOB HARDWARE         src/Hardware/*.*)
 file(GLOB LIBS             src/libs/*.*)
 file(GLOB PANEL            src/Panel/*.*)
-file(GLOB SETTINGS         src/Settings/*.*)
 
 source_group(src           FILES ${SRC})
 source_group(Display       FILES ${DISPLAY})
@@ -70,7 +69,6 @@ source_group(FlashDrive    FILES ${FLASHDRIVE})
 source_group(Hardware      FILES ${HARDWARE})
 source_group(libs          FILES ${LIBS})
 source_group(Panel         FILES ${PANEL})
-source_group(Settings      FILES ${SETTINGS})
 source_group(Utils         FILES ${UTILS})
 
 add_library(${PROJECT_NAME} ${SRC} ${DISPLAY} ${DISPLAY_FONTS} ${FLASHDRIVE} ${HARDWARE} ${LIBS}
