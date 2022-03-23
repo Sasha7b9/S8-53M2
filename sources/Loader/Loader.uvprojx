@@ -804,16 +804,6 @@
           <GroupName>Utils</GroupName>
           <Files>
             <File>
-              <FileName>GlobalFunctions.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Utils\GlobalFunctions.c</FilePath>
-            </File>
-            <File>
-              <FileName>GlobalFunctions.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\GlobalFunctions.h</FilePath>
-            </File>
-            <File>
               <FileName>Math.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\Utils\Math.c</FilePath>
@@ -1679,16 +1669,6 @@
         <Group>
           <GroupName>Utils</GroupName>
           <Files>
-            <File>
-              <FileName>GlobalFunctions.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Utils\GlobalFunctions.c</FilePath>
-            </File>
-            <File>
-              <FileName>GlobalFunctions.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\GlobalFunctions.h</FilePath>
-            </File>
             <File>
               <FileName>Math.c</FileName>
               <FileType>1</FileType>

@@ -55,14 +55,6 @@ void Display_Init()
     gColorBack = Color::BLACK;
     gColorFill = Color::WHITE;
 
-    for (int i = 0; i < 14; i++)
-    {
-        float red = i / 14.0f * 31.0f + 0.5f;
-        float green = i / 14.0f * 63.0f + 0.5f;
-        float blue = i / 14.0f * 31.0f + 0.5f;
-        set.display.colors[i + 2] = (uint16)MAKE_COLOR((int)red, (int)green, (int)blue);
-    }
-
     Painter_ResetFlash();
 
     InitHardware();

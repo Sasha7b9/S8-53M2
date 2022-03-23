@@ -242,6 +242,6 @@ typedef struct
     int temp;
 } Settings;
 
-extern Settings set;
+extern Settings __set__;
 
 void    Settings_Load();    // Загрузить настройки

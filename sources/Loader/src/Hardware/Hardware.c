@@ -8,7 +8,6 @@
 #include "Hardware.h"
 #include "FLASH.h"
 #include "FSMC.h"
-#include "Utils/GlobalFunctions.h"
 #include "Hardware/Timer.h"
 #include "Display/Display.h"
 #include "FlashDrive/FlashDrive.h"
