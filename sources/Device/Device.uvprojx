@@ -1116,6 +1116,16 @@
               <FileType>5</FileType>
               <FilePath>.\src\Display\Screen\Grid.h</FilePath>
             </File>
+            <File>
+              <FileName>LowPart.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Screen\LowPart.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>LowPart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Screen\LowPart.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3120,6 +3130,16 @@
               <FileName>Grid.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Screen\Grid.h</FilePath>
+            </File>
+            <File>
+              <FileName>LowPart.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Screen\LowPart.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>LowPart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Screen\LowPart.h</FilePath>
             </File>
           </Files>
         </Group>
