@@ -4,7 +4,6 @@
 #include "SCPI.h"
 #include "Hardware/VCP/VCP.h"
 #include "Settings/Settings.h"
-#include "Utils/GlobalFunctions.h"
 #include "Utils/Map.h"
 
 

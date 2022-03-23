@@ -2,7 +2,6 @@
 #include "defines.h"
 #include "Data/Processing.h"
 #include "Utils/Math.h"
-#include "Utils/GlobalFunctions.h"
 #include "Log.h"
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"

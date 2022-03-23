@@ -3,7 +3,6 @@
 #include "Hardware/Sound.h"
 #include "Settings/Settings.h"
 #include "Hardware/Timer.h"
-#include "Utils/GlobalFunctions.h"
 #include "Log.h"
 #include "Hardware/HAL/HAL.h"
 #include "Utils/Strings.h"

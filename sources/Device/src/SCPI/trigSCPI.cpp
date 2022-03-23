@@ -4,7 +4,6 @@
 #include "Log.h"
 #include "Settings/Settings.h"
 #include "Utils/Map.h"
-#include "Utils/GlobalFunctions.h"
 #include "Hardware/VCP/VCP.h"
 #include "FPGA/FPGA.h"
 

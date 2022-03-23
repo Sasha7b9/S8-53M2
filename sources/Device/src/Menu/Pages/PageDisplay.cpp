@@ -7,7 +7,6 @@
 #include "FPGA/FPGA.h"
 #include "Settings/SettingsTypes.h"
 #include "Settings/Settings.h"
-#include "Utils/GlobalFunctions.h"
 #include "Hardware/HAL/HAL.h"
 #include "Menu/Pages/Definition.h"
 #include "Data/DataExtensions.h"

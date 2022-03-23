@@ -9,7 +9,6 @@
 #include "Settings/Settings.h"
 #include "Data/Data.h"
 #include "FPGA/FPGA.h"
-#include "Utils/GlobalFunctions.h"
 #include "Hardware/FDrive/FDrive.h"
 #include "Display/Symbols.h"
 #include "Hardware/LAN/LAN.h"

@@ -4,7 +4,6 @@
 #include "Utils/Math.h"
 #include "Definition.h"
 #include "Menu/MenuItems.h"
-#include "Utils/GlobalFunctions.h"
 #include "Settings/SettingsTypes.h"
 #include "Settings/Settings.h"
 #include "Display/Colors.h"

@@ -5,7 +5,6 @@
 #include "FPGA/FPGA.h"
 #include "Log.h"
 #include "Display/Display.h"
-#include "Utils/GlobalFunctions.h"
 #include "Utils/Math.h"
 #include "Display/Screen/Grid.h"
 #include "Hardware/HAL/HAL.h"

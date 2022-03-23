@@ -5,7 +5,6 @@
 #include "Menu/Menu.h"
 #include "Settings/SettingsCursors.h"
 #include "Utils/Math.h"
-#include "Utils/GlobalFunctions.h"
 #include "Menu/Pages/Definition.h"
 #include "Utils/Strings.h"
 #include <cmath>

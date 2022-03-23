@@ -1,7 +1,6 @@
 // 2022/02/11 17:52:01 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once 
 #include "defines.h"
-#include "Utils/GlobalFunctions.h"
 
 
 #define TIME_MS     Timer::GetMS()

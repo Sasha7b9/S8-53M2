@@ -7,7 +7,6 @@
 #include "Display/Screen/Grid.h"
 #include "Utils/Math.h"
 #include "Data/Processing.h"
-#include "Utils/GlobalFunctions.h"
 #include "Hardware/Sound.h"
 #include "Log.h"
 #include "Display/Painter.h"

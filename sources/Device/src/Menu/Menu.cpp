@@ -7,7 +7,6 @@
 #include "MenuItems.h"
 #include "Display/Tables.h"
 #include "Display/Display.h"
-#include "Utils/GlobalFunctions.h"
 #include "Data/Measures.h"
 #include "Utils/Math.h"
 #include "Settings/Settings.h"

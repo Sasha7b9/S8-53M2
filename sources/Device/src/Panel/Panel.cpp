@@ -3,7 +3,6 @@
 #include "Panel.h"
 #include "FPGA/FPGA.h"
 #include "Utils/Math.h"
-#include "Utils/GlobalFunctions.h"
 #include "Menu/Menu.h"
 #include "Settings/Settings.h"
 #include "Display/Display.h"

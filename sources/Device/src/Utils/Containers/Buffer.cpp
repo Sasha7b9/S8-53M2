@@ -2,7 +2,6 @@
 #include "defines.h"
 #include "Log.h"
 #include "Utils/Containers/Buffer.h"
-#include "Utils/GlobalFunctions.h"
 #include "Utils/Strings.h"
 #include <cstdlib>
 #include <cstring>

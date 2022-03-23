@@ -4,7 +4,6 @@
 #include "Settings/Settings.h"
 #include "Log.h"
 #include "Tables.h"
-#include "Utils/GlobalFunctions.h"
 #include "Display/font/Font.h"
 
 

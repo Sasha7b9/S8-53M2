@@ -8,7 +8,7 @@ include_directories(../common/_VS_KEIL/ARMCLANG
                     ../common/_VS_KEIL/CMSIS
                     ../common/_VS_KEIL/FatFS
                     ../STM32Cube_FW_F4/Drivers/STM32F4xx_HAL_Driver/Inc
-                    ../STM32Cube_FW_F4/Drivers/CMSIS/Device/ST/STM32F4xx/Include
+                    ../STM32Cube_FW_F4/Drivers/CMSIS/Device/ST/STM32F4xx/Include 
                     ../STM32Cube_FW_F4/Middlewares/ST/STM32_USB_Device_Library/Core/Inc
                     ../STM32Cube_FW_F4/Middlewares/ST/STM32_USB_Host_Library/Core/Inc
                     ../STM32Cube_FW_F4/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc

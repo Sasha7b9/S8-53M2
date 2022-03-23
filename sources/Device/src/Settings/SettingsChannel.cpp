@@ -3,7 +3,6 @@
 #include "SettingsChannel.h"
 #include "FPGA/FPGA.h"
 #include "Utils/Math.h"
-#include "Utils/GlobalFunctions.h"
 #include "Utils/Strings.h"
 
 

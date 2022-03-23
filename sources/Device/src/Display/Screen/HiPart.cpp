@@ -4,7 +4,6 @@
 #include "Settings/Settings.h"
 #include "Menu/Pages/Definition.h"
 #include "Utils/Math.h"
-#include "Utils/GlobalFunctions.h"
 #include "Display/Screen/Grid.h"
 #include "FPGA/StructuresFPGA.h"
 #include "Display/Symbols.h"
