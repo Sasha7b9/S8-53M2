@@ -5,7 +5,7 @@
 #include "Menu/Menu.h"
 #include "Settings/SettingsTypes.h"
 #include "Data/Measures.h"
-#include "Tables.h"
+#include "Display/Tables.h"
 #include "Display/Display.h"
 #include "Settings/Settings.h"
 #include "Utils/Math.h"

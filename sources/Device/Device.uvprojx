@@ -824,9 +824,9 @@
           <GroupName>src</GroupName>
           <Files>
             <File>
-              <FileName>main.h</FileName>
+              <FileName>check.bat</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\main.h</FilePath>
+              <FilePath>.\src\check.bat</FilePath>
             </File>
             <File>
               <FileName>defines.h</FileName>
@@ -834,9 +834,54 @@
               <FilePath>.\src\defines.h</FilePath>
             </File>
             <File>
-              <FileName>Tables.h</FileName>
+              <FileName>Device.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Device.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Device.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Tables.h</FilePath>
+              <FilePath>.\src\Device.h</FilePath>
+            </File>
+            <File>
+              <FileName>GlobalEvents.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\GlobalEvents.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>GlobalEvents.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\GlobalEvents.h</FilePath>
+            </File>
+            <File>
+              <FileName>globals.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\globals.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>globals.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\globals.h</FilePath>
+            </File>
+            <File>
+              <FileName>Log.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Log.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Log.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Log.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\main.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>main.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\main.h</FilePath>
             </File>
             <File>
               <FileName>main2.s</FileName>
@@ -880,56 +925,6 @@
                   </Aads>
                 </FileArmAds>
               </FileOption>
-            </File>
-            <File>
-              <FileName>Log.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Log.h</FilePath>
-            </File>
-            <File>
-              <FileName>main.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\main.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Tables.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Tables.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Log.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Log.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Device.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Device.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Device.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Device.h</FilePath>
-            </File>
-            <File>
-              <FileName>globals.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\globals.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>globals.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\globals.h</FilePath>
-            </File>
-            <File>
-              <FileName>GlobalEvents.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\GlobalEvents.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>GlobalEvents.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\GlobalEvents.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -992,104 +987,14 @@
           <GroupName>Display</GroupName>
           <Files>
             <File>
-              <FileName>Colors.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Colors.h</FilePath>
-            </File>
-            <File>
               <FileName>Colors.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Colors.cpp</FilePath>
             </File>
             <File>
-              <FileName>DataPainter.h</FileName>
+              <FileName>Colors.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Display\DataPainter.h</FilePath>
-            </File>
-            <File>
-              <FileName>DataPainter.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\DataPainter.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Display.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Display.h</FilePath>
-            </File>
-            <File>
-              <FileName>Display.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Display.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>DisplayPrimitives.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\DisplayPrimitives.h</FilePath>
-            </File>
-            <File>
-              <FileName>DisplayPrimitives.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\DisplayPrimitives.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>DisplayTypes.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\DisplayTypes.h</FilePath>
-            </File>
-            <File>
-              <FileName>Grid.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Grid.h</FilePath>
-            </File>
-            <File>
-              <FileName>Grid.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Grid.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Math3D.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Math3D.h</FilePath>
-            </File>
-            <File>
-              <FileName>Math3D.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Math3D.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Painter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Painter.h</FilePath>
-            </File>
-            <File>
-              <FileName>Painter.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Painter.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Symbols.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Symbols.h</FilePath>
-            </File>
-            <File>
-              <FileName>Text.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Text.h</FilePath>
-            </File>
-            <File>
-              <FileName>Text.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Text.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>WelcomeScreen.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\WelcomeScreen.h</FilePath>
-            </File>
-            <File>
-              <FileName>WelcomeScreen.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\WelcomeScreen.cpp</FilePath>
+              <FilePath>.\src\Display\Colors.h</FilePath>
             </File>
             <File>
               <FileName>Console.cpp</FileName>
@@ -1102,6 +1007,96 @@
               <FilePath>.\src\Display\Console.h</FilePath>
             </File>
             <File>
+              <FileName>DataPainter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\DataPainter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>DataPainter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\DataPainter.h</FilePath>
+            </File>
+            <File>
+              <FileName>Display.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Display.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Display.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Display.h</FilePath>
+            </File>
+            <File>
+              <FileName>DisplayPrimitives.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\DisplayPrimitives.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>DisplayPrimitives.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\DisplayPrimitives.h</FilePath>
+            </File>
+            <File>
+              <FileName>DisplayTypes.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\DisplayTypes.h</FilePath>
+            </File>
+            <File>
+              <FileName>Grid.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Grid.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Grid.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Grid.h</FilePath>
+            </File>
+            <File>
+              <FileName>Math3D.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Math3D.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Math3D.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Math3D.h</FilePath>
+            </File>
+            <File>
+              <FileName>Painter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Painter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Painter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Painter.h</FilePath>
+            </File>
+            <File>
+              <FileName>Symbols.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Symbols.h</FilePath>
+            </File>
+            <File>
+              <FileName>Tables.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Tables.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Tables.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Tables.h</FilePath>
+            </File>
+            <File>
+              <FileName>Text.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Text.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Text.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Text.h</FilePath>
+            </File>
+            <File>
               <FileName>Warnings.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Warnings.cpp</FilePath>
@@ -1110,6 +1105,16 @@
               <FileName>Warnings.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Warnings.h</FilePath>
+            </File>
+            <File>
+              <FileName>WelcomeScreen.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\WelcomeScreen.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>WelcomeScreen.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\WelcomeScreen.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2814,9 +2819,9 @@
           <GroupName>src</GroupName>
           <Files>
             <File>
-              <FileName>main.h</FileName>
+              <FileName>check.bat</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\main.h</FilePath>
+              <FilePath>.\src\check.bat</FilePath>
             </File>
             <File>
               <FileName>defines.h</FileName>
@@ -2824,9 +2829,54 @@
               <FilePath>.\src\defines.h</FilePath>
             </File>
             <File>
-              <FileName>Tables.h</FileName>
+              <FileName>Device.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Device.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Device.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Tables.h</FilePath>
+              <FilePath>.\src\Device.h</FilePath>
+            </File>
+            <File>
+              <FileName>GlobalEvents.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\GlobalEvents.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>GlobalEvents.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\GlobalEvents.h</FilePath>
+            </File>
+            <File>
+              <FileName>globals.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\globals.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>globals.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\globals.h</FilePath>
+            </File>
+            <File>
+              <FileName>Log.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Log.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Log.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Log.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\main.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>main.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\main.h</FilePath>
             </File>
             <File>
               <FileName>main2.s</FileName>
@@ -2870,56 +2920,6 @@
                   </Aads>
                 </FileArmAds>
               </FileOption>
-            </File>
-            <File>
-              <FileName>Log.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Log.h</FilePath>
-            </File>
-            <File>
-              <FileName>main.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\main.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Tables.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Tables.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Log.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Log.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Device.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Device.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Device.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Device.h</FilePath>
-            </File>
-            <File>
-              <FileName>globals.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\globals.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>globals.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\globals.h</FilePath>
-            </File>
-            <File>
-              <FileName>GlobalEvents.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\GlobalEvents.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>GlobalEvents.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\GlobalEvents.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2982,104 +2982,14 @@
           <GroupName>Display</GroupName>
           <Files>
             <File>
-              <FileName>Colors.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Colors.h</FilePath>
-            </File>
-            <File>
               <FileName>Colors.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Colors.cpp</FilePath>
             </File>
             <File>
-              <FileName>DataPainter.h</FileName>
+              <FileName>Colors.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Display\DataPainter.h</FilePath>
-            </File>
-            <File>
-              <FileName>DataPainter.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\DataPainter.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Display.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Display.h</FilePath>
-            </File>
-            <File>
-              <FileName>Display.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Display.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>DisplayPrimitives.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\DisplayPrimitives.h</FilePath>
-            </File>
-            <File>
-              <FileName>DisplayPrimitives.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\DisplayPrimitives.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>DisplayTypes.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\DisplayTypes.h</FilePath>
-            </File>
-            <File>
-              <FileName>Grid.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Grid.h</FilePath>
-            </File>
-            <File>
-              <FileName>Grid.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Grid.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Math3D.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Math3D.h</FilePath>
-            </File>
-            <File>
-              <FileName>Math3D.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Math3D.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Painter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Painter.h</FilePath>
-            </File>
-            <File>
-              <FileName>Painter.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Painter.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Symbols.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Symbols.h</FilePath>
-            </File>
-            <File>
-              <FileName>Text.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Text.h</FilePath>
-            </File>
-            <File>
-              <FileName>Text.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Text.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>WelcomeScreen.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\WelcomeScreen.h</FilePath>
-            </File>
-            <File>
-              <FileName>WelcomeScreen.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\WelcomeScreen.cpp</FilePath>
+              <FilePath>.\src\Display\Colors.h</FilePath>
             </File>
             <File>
               <FileName>Console.cpp</FileName>
@@ -3092,6 +3002,96 @@
               <FilePath>.\src\Display\Console.h</FilePath>
             </File>
             <File>
+              <FileName>DataPainter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\DataPainter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>DataPainter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\DataPainter.h</FilePath>
+            </File>
+            <File>
+              <FileName>Display.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Display.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Display.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Display.h</FilePath>
+            </File>
+            <File>
+              <FileName>DisplayPrimitives.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\DisplayPrimitives.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>DisplayPrimitives.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\DisplayPrimitives.h</FilePath>
+            </File>
+            <File>
+              <FileName>DisplayTypes.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\DisplayTypes.h</FilePath>
+            </File>
+            <File>
+              <FileName>Grid.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Grid.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Grid.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Grid.h</FilePath>
+            </File>
+            <File>
+              <FileName>Math3D.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Math3D.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Math3D.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Math3D.h</FilePath>
+            </File>
+            <File>
+              <FileName>Painter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Painter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Painter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Painter.h</FilePath>
+            </File>
+            <File>
+              <FileName>Symbols.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Symbols.h</FilePath>
+            </File>
+            <File>
+              <FileName>Tables.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Tables.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Tables.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Tables.h</FilePath>
+            </File>
+            <File>
+              <FileName>Text.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Text.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Text.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Text.h</FilePath>
+            </File>
+            <File>
               <FileName>Warnings.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Warnings.cpp</FilePath>
@@ -3100,6 +3100,16 @@
               <FileName>Warnings.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Warnings.h</FilePath>
+            </File>
+            <File>
+              <FileName>WelcomeScreen.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\WelcomeScreen.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>WelcomeScreen.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\WelcomeScreen.h</FilePath>
             </File>
           </Files>
         </Group>

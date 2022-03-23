@@ -5,7 +5,7 @@
 #include "Pages/Definition.h"
 #include "Display/DisplayTypes.h"
 #include "MenuItems.h"
-#include "Tables.h"
+#include "Display/Tables.h"
 #include "Display/Display.h"
 #include "Utils/GlobalFunctions.h"
 #include "Data/Measures.h"

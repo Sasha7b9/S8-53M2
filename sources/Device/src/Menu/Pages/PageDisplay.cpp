@@ -2,7 +2,7 @@
 #include "defines.h"
 #include "Menu/MenuItems.h"
 #include "Menu/Menu.h"
-#include "Tables.h"
+#include "Display/Tables.h"
 #include "Display/Painter.h"
 #include "FPGA/FPGA.h"
 #include "Settings/SettingsTypes.h"

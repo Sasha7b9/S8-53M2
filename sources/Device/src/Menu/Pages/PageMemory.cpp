@@ -18,7 +18,7 @@
 #include "FDrive/FDrive.h"
 #include "Hardware/Sound.h"
 #include "Log.h"
-#include "Tables.h"
+#include "Display/Tables.h"
 #include "Hardware/HAL/HAL.h"
 #include "Data/Data.h"
 #include "Data/DataExtensions.h"
