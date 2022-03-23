@@ -97,7 +97,7 @@ Color::E LightShadingTextColor()
 
 
 
-void Color_Log(Color::E color)
+void Color::Log(Color::E color)
 {
     uint colorValue = COLOR(color);
 

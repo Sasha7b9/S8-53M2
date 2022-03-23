@@ -44,14 +44,14 @@ struct ColorType
     Color::E color;
     int8     currentField;
     bool     alreadyUsed;
+
+    void BrightnessChange(int delta);
 };
 
 // Вывести в лог значение цвета.
 void Color_Log(Color::E color);
 
 struct ColorType;
-
-void Color_BrightnessChange(ColorType *colorType, int delta);
 
 void Color_SetBrightness(ColorType *colorType, float brightness);
 // Если forced == false, то инициализация происходит только при первом вызове функции

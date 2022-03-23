@@ -32,10 +32,11 @@ struct Color
         SET_INVERSE
     } value;
 
-    static void ResetFlash();
-    static void SetCurrent(Color::E);
+    static void     ResetFlash();
+    static void     SetCurrent(Color::E);
     static Color::E GetCurrent();
-    static uint Make(uint8 r, uint8 g, uint8 b);
+    static uint     Make(uint8 r, uint8 g, uint8 b);
+    static void     Log(Color::E color);
 private:
     static void CalculateColor();
     static void OnTimerFlashDisplay();
@@ -95,8 +96,6 @@ private:
     void CalcSteps();
     void SetColor();
 };
-
-void Color_Log(Color::E color);           // Вывести в лог значение цвета.
 
 
 pchar  NameColorFromValue(uint16 colorValue);
