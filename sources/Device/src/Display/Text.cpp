@@ -652,28 +652,15 @@ int PText::DrawInBoundedRectWithTransfers(int x, int y, int width, pchar text, C
 }
 
 
-int PText::DrawStringInCenterRect(int eX, int eY, int width, int eHeight, pchar text, Color::E color)
-{
-    Color::SetCurrent(color);
-
-    int lenght = Font::GetLengthText(text);
-    int height = Font::GetHeightSymbol(text[0]);
-    int x = eX + (width - lenght) / 2;
-    int y = eY + (eHeight - height) / 2;
-
-    return String(text).Draw(x, y);
-}
-
-
 void PText::DrawStringInCenterRectOnBackground(int x, int y, int width, int height, pchar text, Color::E colorText,
     int widthBorder, Color::E colorBackground)
 {
     int lenght = Font::GetLengthText(text);
-    int eX = DrawStringInCenterRect(x, y, width, height, text, colorBackground);
+    int eX = String(text).DrawStringInCenterRect(x, y, width, height, colorBackground);
     int w = lenght + widthBorder * 2 - 2;
     int h = 7 + widthBorder * 2 - 1;
     Painter::FillRegion(eX - lenght - widthBorder, y - widthBorder + 1, w, h);
-    DrawStringInCenterRect(x, y, width, height, text, colorText);
+    String(text).DrawStringInCenterRect(x, y, width, height, colorText);
 }
 
 
@@ -683,7 +670,7 @@ int PText::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height,
     Painter::DrawRectangle(x, y, width, height, colorFill);
     Painter::FillRegion(x + 1, y + 1, width - 2, height - 2, colorBackground);
     Color::SetCurrent(colorFill);
-    return DrawStringInCenterRect(x, y, width, height, text);
+    return String(text).DrawStringInCenterRect(x, y, width, height);
 }
 
 

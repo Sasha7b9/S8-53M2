@@ -315,3 +315,16 @@ int String::Draw(int x, int y, Color::E color)
 
     return x;
 }
+
+
+int String::DrawStringInCenterRect(int eX, int eY, int width, int eHeight, Color::E color)
+{
+    Color::SetCurrent(color);
+
+    int lenght = Font::GetLengthText(buffer);
+    int height = Font::GetHeightSymbol(buffer[0]);
+    int x = eX + (width - lenght) / 2;
+    int y = eY + (eHeight - height) / 2;
+
+    return Draw(x, y);
+}

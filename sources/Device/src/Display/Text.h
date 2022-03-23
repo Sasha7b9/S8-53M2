@@ -4,8 +4,6 @@
 
 namespace PText
 {
-    int DrawStringInCenterRect(int x, int y, int width, int height, pchar text, Color::E = Color::Count);
-
     int DrawChar(int x, int y, char symbol, Color::E = Color::Count);
 
     // Выводит текст на прямоугольнике цвета colorBackgound

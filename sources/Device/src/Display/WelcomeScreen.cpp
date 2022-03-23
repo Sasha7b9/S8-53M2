@@ -119,9 +119,9 @@ bool WelcomeScreen::Run()
 
     PText::DrawBig(45, (int)y0, 8, "МНИПИ");
 
-    PText::DrawStringInCenterRect(0, 190, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");
-    PText::DrawStringInCenterRect(0, 205, 320, 20, "Отдел маркетинга: тел./факс. 8-017-262-57-50");
-    PText::DrawStringInCenterRect(0, 220, 320, 20, "Разработчики: e-mail: mnipi-24(@)tut.by, тел. 8-017-262-57-51");
+    String("Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ").DrawStringInCenterRect(0, 190, 320, 20);
+    String("Отдел маркетинга: тел./факс. 8-017-262-57-50").DrawStringInCenterRect(0, 205, 320, 20);
+    String("Разработчики: e-mail: mnipi-24(@)tut.by, тел. 8-017-262-57-51").DrawStringInCenterRect(0, 220, 320, 20);
 
     Painter::EndScene();
 
