@@ -1189,21 +1189,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>FDrive</GroupName>
-          <Files>
-            <File>
-              <FileName>FDrive.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FDrive\FDrive.h</FilePath>
-            </File>
-            <File>
-              <FileName>FDrive.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\FDrive\FDrive.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>FPGA</GroupName>
           <Files>
             <File>
@@ -1295,6 +1280,21 @@
               <FileName>InterCom.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\InterCom.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Hardware/FDrive</GroupName>
+          <Files>
+            <File>
+              <FileName>FDrive.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\FDrive\FDrive.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FDrive.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\FDrive\FDrive.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3199,21 +3199,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>FDrive</GroupName>
-          <Files>
-            <File>
-              <FileName>FDrive.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FDrive\FDrive.h</FilePath>
-            </File>
-            <File>
-              <FileName>FDrive.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\FDrive\FDrive.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>FPGA</GroupName>
           <Files>
             <File>
@@ -3305,6 +3290,21 @@
               <FileName>InterCom.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\InterCom.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Hardware/FDrive</GroupName>
+          <Files>
+            <File>
+              <FileName>FDrive.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\FDrive\FDrive.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FDrive.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\FDrive\FDrive.h</FilePath>
             </File>
           </Files>
         </Group>

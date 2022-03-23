@@ -16,7 +16,7 @@
 #include "FPGA/FPGA.h"
 #include "Hardware/Sound.h"
 #include "Panel/Panel.h"
-#include "FDrive/FDrive.h"
+#include "Hardware/FDrive/FDrive.h"
 #include "Menu/FileManager.h"
 #include <cstring>
 

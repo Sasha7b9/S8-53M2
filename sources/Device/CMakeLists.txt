@@ -67,9 +67,9 @@ file(GLOB DATA                src/Data/*.*)
 file(GLOB DISPLAY             src/Display/*.*)
 file(GLOB DISPLAY_FONT        src/Display/Font/*.*)
 file(GLOB DISPLAY_SCREEN      src/Display/Screen/*.*)
-file(GLOB FDRIVE              src/FDrive/*.*)
 file(GLOB FPGA                src/FPGA/*.*)
 file(GLOB HARDWARE            src/Hardware/*.*)
+file(GLOB HARDWARE_FDRIVE     src/Hardware/FDrive/*.*)
 file(GLOB HARDWARE_HAL        src/Hardware/HAL/*.*)
 file(GLOB HARDWARE_LAN        src/Hardware/LAN/*.*)
 file(GLOB HARDWARE_VCP        src/Hardware/VCP/*.*)
@@ -88,9 +88,9 @@ source_group(Data             FILES ${DATA})
 source_group(Display          FILES ${DISPLAY})
 source_group(Display/Font     FILES ${DISPLAY_FONT})
 source_group(Display/Screen   FILES ${DISPLAY_SCREEN})
-source_group(FDrive           FILES ${FDRIVE})
 source_group(FPGA             FILES ${FPGA})
 source_group(Hardware         FILES ${HARDWARE})
+source_group(Hardware/FDrive  FILES ${HARDWARE_FDRIVE})
 source_group(Hardware/HAL     FILES ${HARDWARE_HAL})
 source_group(Hardware/LAN     FILES ${HARDWARE_LAN})
 source_group(Hardware/VCP     FILES ${HARDWARE_VCP})
@@ -115,7 +115,7 @@ add_library(${PROJECT_NAME} ${SRC} ${LIBS} ${DISPLAY}
                             ${DISPLAY_FONT} ${DISPLAY_SCREEN}
                             ${HARDWARE_LAN}
                             ${DATA}
-                            ${FDRIVE} ${FPGA} ${HARDWARE}
+                            ${HARDWARE_FDRIVE} ${FPGA} ${HARDWARE}
                             ${HARDWARE_HAL} ${HARDWARE_VCP}
                             ${MENU} ${MENU_PAGES}
                             ${PANEL} ${SETTINGS}
