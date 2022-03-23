@@ -82,10 +82,9 @@ void HiPart::WriteCursors()
             float pos1 = Math::TimeCursor(CURS_POS_T1(source), SET_TBASE);
             float delta = std::fabsf(pos1 - pos0);
             String(":dT=").Draw(x, y1);
-            char buf[20];
             Time2String(delta, false).Draw(x + 17, y1);
             String(":").Draw(x, y2);
-            String(PageCursors::GetCursorPercentsT(source, buf)).Draw(x + 8, y2);
+            PageCursors::GetCursorPercentsT(source).Draw(x + 8, y2);
 
             if (CURSORS_SHOW_FREQ)
             {

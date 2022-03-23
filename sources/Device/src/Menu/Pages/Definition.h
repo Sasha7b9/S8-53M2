@@ -50,7 +50,7 @@ struct PageCursors
     static String GetCursorPercentsU(Chan);
 
     // Получить строку процентов курсоров времени.
-    static pchar GetCursorPercentsT(Chan, char buffer[20]);
+    static String GetCursorPercentsT(Chan);
 
     static void DrawMenuCursVoltage(int x, int y, bool top, bool bottom);
 
