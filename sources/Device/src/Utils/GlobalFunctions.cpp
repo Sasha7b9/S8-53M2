@@ -34,13 +34,7 @@ void EmptyFuncVV() { }
 
 void EmptyFuncVI(int) { }
 
-void EmptyFuncVpV(void *) { }
-
 void EmptyFuncpVII(void *, int, int) { }
-
-void EmptyFuncVI16(int16) {}
-
-void EmptyFuncVB(bool) {}
 
 bool EmptyFuncBV()
 {
