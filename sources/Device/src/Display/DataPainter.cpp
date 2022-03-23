@@ -51,11 +51,14 @@ namespace DataPainter
     // modeLines - true - точками, false - точками
     void DrawSignal(const int x, const uint8 data[281], bool modeLines);
 
-    void DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan);
+    namespace Spectrum
+    {
+        void DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan);
 
-    void DrawSpectrumChannel(const float *spectrum, Color::E);
+        void DrawSpectrumChannel(const float *spectrum, Color::E);
 
-    void WriteParametersFFT(Chan, float freq0, float density0, float freq1, float density1);
+        void WriteParametersFFT(Chan, float freq0, float density0, float freq1, float density1);
+    }
 
     namespace MemoryWindow
     {
@@ -716,7 +719,7 @@ void DataPainter::DrawSignal(const int _x, const uint8 data[281], bool modeLines
 }
 
 
-void DataPainter::DrawSpectrum()
+void DataPainter::Spectrum::Draw()
 {
     if (!ENABLED_FFT)
     {
@@ -761,7 +764,7 @@ void DataPainter::DrawSpectrum()
 }
 
 
-void DataPainter::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan ch)
+void DataPainter::Spectrum::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan ch)
 {
     if (!ch.Enabled())
     {
@@ -799,7 +802,7 @@ void DataPainter::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan ch)
 }
 
 
-void DataPainter::DrawSpectrumChannel(const float *spectrum, Color::E color)
+void DataPainter::Spectrum::DrawSpectrumChannel(const float *spectrum, Color::E color)
 {
     Color::SetCurrent(color);
     int gridLeft = Grid::Left();
@@ -813,7 +816,7 @@ void DataPainter::DrawSpectrumChannel(const float *spectrum, Color::E color)
 }
 
 
-void DataPainter::WriteParametersFFT(Chan ch, float freq0, float density0, float freq1, float density1)
+void DataPainter::Spectrum::WriteParametersFFT(Chan ch, float freq0, float density0, float freq1, float density1)
 {
     int x = Grid::Left() + 259;
     int y = Grid::ChannelBottom() + 5;

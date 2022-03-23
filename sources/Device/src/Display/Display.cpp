@@ -435,7 +435,7 @@ void Display::Update(bool endScene)
     if (needClear)
     {
         DataPainter::DrawMath();
-        DataPainter::DrawSpectrum();
+        DataPainter::Spectrum::Draw();
         DrawCursors();
         DrawHiPart();
         DrawLowPart();

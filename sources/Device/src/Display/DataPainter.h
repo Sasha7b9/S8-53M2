@@ -8,7 +8,10 @@ namespace DataPainter
 
     void DrawMath();
 
-    void DrawSpectrum();
+    namespace Spectrum
+    {
+        void Draw();
+    }
 
     namespace MemoryWindow
     {
