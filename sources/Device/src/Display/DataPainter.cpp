@@ -10,6 +10,7 @@
 #include "Data/DataExtensions.h"
 #include "Hardware/InterCom.h"
 #include "Menu/Menu.h"
+#include "Display/String.h"
 #include <climits>
 
 
@@ -372,10 +373,9 @@ void DataPainter::DrawMath()
     Painter::FillRegion(Grid::Left() + 1, Grid::MathTop() + 1 + delta, width - 2, height - 2, COLOR_BACK);
     Divider::E multiplier = MATH_MULTIPLIER;
 
-    PText::Draw(Grid::Left() + 2, Grid::MathTop() + 1 + delta, Range::ToString(SET_RANGE_MATH, multiplier),
-        COLOR_FILL);
+    String(Range::ToString(SET_RANGE_MATH, multiplier)).Draw(Grid::Left() + 2, Grid::MathTop() + 1 + delta, COLOR_FILL);
 
-    PText::Draw(Grid::Left() + 25, Grid::MathTop() + 1 + delta, ":");
+    String(":").Draw(Grid::Left() + 25, Grid::MathTop() + 1 + delta);
 
     char buffer[20];
 

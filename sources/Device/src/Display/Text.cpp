@@ -8,6 +8,7 @@
 #include "Menu/MenuItems.h"
 #include "Settings/Settings.h"
 #include "Hardware/InterCom.h"
+#include "Display/String.h"
 #include <cstdarg>
 #include <cstring>
 #include <cstdio>
@@ -238,62 +239,6 @@ int PText::DrawChar(int x, int y, char symbol, Color::E color)
 }
 
 
-int PText::Draw(int x, int y, pchar const _text, Color::E color)
-{
-    Color::SetCurrent(color);
-
-    if (*_text == 0)
-    {
-        return x;
-    }
-
-    y += (8 - Font::GetSize());
-
-    pchar text = _text;
-
-    if (InterCom::TransmitGUIinProcess())
-    {
-        const int SIZE_BUFFER = 100;
-
-        CommandBuffer command(SIZE_BUFFER, DRAW_TEXT);
-        command.PushHalfWord(x);
-        command.PushByte(y + 1);
-        command.PushByte(0);
-
-        uint8 length = 0;
-
-        int counter = 0;
-        while (*text && length < (SIZE_BUFFER - 7))
-        {
-            command.PushByte(*text);
-            text++;
-            length++;
-            counter++;
-        }
-
-        if (*text != 0)
-        {
-            LOG_WRITE("big string - %s", text);
-        }
-
-        command.PushByte(0);
-        *command.GetByte(4) = length;
-
-        command.Transmit(1 + 2 + 1 + 1 + length);
-    }
-
-    text = _text;
-
-    while (*text != '\0')
-    {
-        x = DrawChar(x, y, *text) + 1;
-        text++;
-    }
-
-    return x;
-}
-
-
 int PText::DrawOnBackground(int x, int y, pchar text, Color::E colorBackground)
 {
     int width = Font::GetLengthText(text);
@@ -303,7 +248,7 @@ int PText::DrawOnBackground(int x, int y, pchar text, Color::E colorBackground)
     Painter::FillRegion(x - 1, y, width, height, colorBackground);
     Color::SetCurrent(colorText);
 
-    return Draw(x, y, text);
+    return String(text).Draw(x, y);
 }
 
 
@@ -566,7 +511,7 @@ int PText::DrawPartWord(char *word, int x, int y, int xRight, bool draw)
         {
             if (draw)
             {
-                Draw(x, y, subString);
+                String(subString).Draw(x, y);
             }
 
             return (int)std::strlen(subString) - 1;
@@ -628,7 +573,7 @@ int PText::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, pcha
                 else
                 {
                     curSymbol += length;
-                    x = Draw(x, y, word);
+                    x = String(word).Draw(x, y);
                 }
             }
         }
@@ -720,7 +665,7 @@ int PText::DrawFormat(int x, int y, Color::E color, char *text, ...)
     vsprintf(buffer, text, args);
     va_end(args);
 
-    return Draw(x, y, buffer, color);
+    return String(buffer).Draw(x, y, color);
 }
 
 
@@ -733,7 +678,7 @@ int PText::DrawStringInCenterRect(int eX, int eY, int width, int eHeight, pchar 
     int x = eX + (width - lenght) / 2;
     int y = eY + (eHeight - height) / 2;
 
-    return Draw(x, y, text);
+    return String(text).Draw(x, y);
 }
 
 
@@ -856,7 +801,7 @@ void PText::DrawRelativelyRight(int xRight, int y, pchar text, Color::E color)
     Color::SetCurrent(color);
 
     int lenght = Font::GetLengthText(text);
-    Draw(xRight - lenght, y, text);
+    String(text).Draw(xRight - lenght, y);
 }
 
 

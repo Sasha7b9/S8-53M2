@@ -6,6 +6,7 @@
 #include "Tables.h"
 #include "Utils/GlobalFunctions.h"
 #include "Display/font/Font.h"
+#include "Display/String.h"
 
 
 namespace Tables
@@ -108,5 +109,5 @@ void Tables::DrawStr(int index, int x, int y)
         Painter::FillRegion(x - 1, y, Font::GetLengthText(str), 9, Color::FLASH_10);
     }
 
-    PText::Draw(x, y, symbolsAlphaBet[index], index == INDEX_SYMBOL ? Color::FLASH_01 : COLOR_FILL);
+    String(symbolsAlphaBet[index]).Draw(x, y, index == INDEX_SYMBOL ? Color::FLASH_01 : COLOR_FILL);
 }

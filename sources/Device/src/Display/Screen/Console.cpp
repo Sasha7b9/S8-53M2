@@ -4,6 +4,7 @@
 #include "Display/font/Font.h"
 #include "Settings/Settings.h"
 #include "Display/Screen/Grid.h"
+#include "Display/String.h"
 #include <cstring>
 #include <cstdio>
 
@@ -58,7 +59,7 @@ void Console::Draw()
 
         Painter::FillRegion(Grid::Left() + 1, y, width, 5, COLOR_BACK);
 
-        PText::Draw(Grid::Left() + 2, y - 10, strings[numString], COLOR_FILL);
+        String(strings[numString]).Draw(Grid::Left() + 2, y - 10, COLOR_FILL);
 
         y += height + 1;
     }

@@ -16,6 +16,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/InterCom.h"
 #include "Display/Screen/Grid.h"
+#include "Display/String.h"
 #include <cstring>
 
 
@@ -569,7 +570,7 @@ void Painter::EndScene(bool endScene)
 
 #ifdef DEBUG
 
-    PText::Draw(262, 207, "Отладка", COLOR_FILL);
+    String("Отладка").Draw(262, 207, COLOR_FILL);
 
 #endif
 

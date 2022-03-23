@@ -3,6 +3,7 @@
 #include "Grid.h"
 #include "Settings/Settings.h"
 #include "Menu/Menu.h"
+#include "Display/String.h"
 
 
 namespace Grid
@@ -194,14 +195,14 @@ void Grid::DrawGridSpectrum()
             if (!Menu::IsMinimize())
             {
                 Color::SetCurrent(COLOR_FILL);
-                PText::Draw(3, y - 4, strs[i]);
+                String(strs[i]).Draw(3, y - 4);
             }
         }
 
         if (!Menu::IsMinimize())
         {
             Color::SetCurrent(COLOR_FILL);
-            PText::Draw(5, Grid::MathTop() + 1, "Да");
+            String(LANG_RU ? "Да" : "dB").Draw(5, Grid::MathTop() + 1);
         }
     }
     else if (SCALE_FFT_IS_LINEAR)
@@ -216,7 +217,7 @@ void Grid::DrawGridSpectrum()
 
             if (!Menu::IsMinimize())
             {
-                PText::Draw(5, y - 4, strs[i], COLOR_FILL);
+                String(strs[i]).Draw(5, y - 4, COLOR_FILL);
             }
         }
     }

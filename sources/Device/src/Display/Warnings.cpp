@@ -7,6 +7,7 @@
 #include "Settings/Settings.h"
 #include "Display/Screen/Grid.h"
 #include "Tables.h"
+#include "Display/String.h"
 
 
 namespace Warning
@@ -127,7 +128,7 @@ void Warning::DrawStringInRectangle(int, int y, char const *text)
     Painter::DrawRectangle(Grid::Left(), y, width + 4, height + 4, COLOR_FILL);
     Painter::DrawRectangle(Grid::Left() + 1, y + 1, width + 2, height + 2, COLOR_BACK);
     Painter::FillRegion(Grid::Left() + 2, y + 2, width, height, Color::FLASH_10);
-    PText::Draw(Grid::Left() + 3, y + 2, text, Color::FLASH_01);
+    String(text).Draw(Grid::Left() + 3, y + 2, Color::FLASH_01);
 }
 
 

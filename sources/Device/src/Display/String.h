@@ -37,6 +37,8 @@ public:
 
     String &operator=(const String &);
 
+    int Draw(int x, int y, Color::E = Color::Count);
+
 private:
 
     bool Allocate(int size);

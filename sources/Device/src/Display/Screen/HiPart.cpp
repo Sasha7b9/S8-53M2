@@ -8,6 +8,7 @@
 #include "Display/Screen/Grid.h"
 #include "FPGA/StructuresFPGA.h"
 #include "Display/Symbols.h"
+#include "Display/String.h"
 #include <cmath>
 
 
@@ -50,19 +51,19 @@ void HiPart::WriteCursors()
 
         if (!CURS_CNTRL_U_IS_DISABLE(source))
         {
-            PText::Draw(x, y1, "1:", colorText);
-            PText::Draw(x, y2, "2:");
+            String("1:").Draw(x, y1, colorText);
+            String("2:").Draw(x, y2);
             x += 7;
-            PText::Draw(x, y1, PageCursors::GetCursVoltage(source, 0, buffer));
-            PText::Draw(x, y2, PageCursors::GetCursVoltage(source, 1, buffer));
+            String(PageCursors::GetCursVoltage(source, 0, buffer)).Draw(x, y1);
+            String(PageCursors::GetCursVoltage(source, 1, buffer)).Draw(x, y2);
             x = startX + 49;
             float pos0 = Math::VoltageCursor(PageCursors::GetCursPosU(source, 0), SET_RANGE(source), SET_RSHIFT(source));
             float pos1 = Math::VoltageCursor(PageCursors::GetCursPosU(source, 1), SET_RANGE(source), SET_RSHIFT(source));
             float delta = std::fabsf(pos1 - pos0);
-            PText::Draw(x, y1, ":dU=");
-            PText::Draw(x + 17, y1, Voltage2String(delta, false, buffer));
-            PText::Draw(x, y2, ":");
-            PText::Draw(x + 10, y2, PageCursors::GetCursorPercentsU(source, buffer));
+            String(":dU=").Draw(x, y1);
+            String(Voltage2String(delta, false, buffer)).Draw(x + 17, y1);
+            String(":").Draw(x, y2);
+            String(PageCursors::GetCursorPercentsU(source, buffer)).Draw(x + 10, y2);
         }
 
         x = startX + 101;

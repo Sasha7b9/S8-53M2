@@ -18,6 +18,7 @@
 #include "Hardware/VCP/VCP.h"
 #include "Data/Storage.h"
 #include "Display/Screen/LowPart.h"
+#include "Display/String.h"
 #include <cstdio>
 
 
@@ -102,7 +103,7 @@ void Display::DrawStringNavigation()
         int height = 10;
         Painter::DrawRectangle(Grid::Left(), GRID_TOP, length + 2, height, COLOR_FILL);
         Painter::FillRegion(Grid::Left() + 1, GRID_TOP + 1, length, height - 2, COLOR_BACK);
-        PText::Draw(Grid::Left() + 2, GRID_TOP + 1, string, COLOR_FILL);
+        String(string).Draw(Grid::Left() + 2, GRID_TOP + 1, COLOR_FILL);
     }
 }
 
@@ -278,7 +279,8 @@ void Display::WriteValueTrigLevel()
         int y = Grid::BottomMessages() - 20;
         Painter::DrawRectangle(x, y, width, 10, COLOR_FILL);
         Painter::FillRegion(x + 1, y + 1, width - 2, 8, COLOR_BACK);
-        PText::Draw(x + 2, y + 1, buffer, COLOR_FILL);
+
+        String(buffer).Draw(x + 2, y + 1, COLOR_FILL);
     }
 }
 
@@ -424,26 +426,28 @@ void Display::DrawMeasures()
             if(meas != Measure::None)
             {
                 char buffer[20];
-                PText::Draw(x + 4, y + 2, Measures::Name(str, elem), color);
+
+                String(Measures::Name(str, elem)).Draw(x + 4, y + 2, color);
 
                 if(meas == MEAS_MARKED)
                 {
                     Painter::FillRegion(x + 1, y + 1, dX - 2, 9, active ? COLOR_BACK : COLOR_FILL);
-                    PText::Draw(x + 4, y + 2, Measures::Name(str, elem), active ? COLOR_FILL : COLOR_BACK);
+
+                    String(Measures::Name(str, elem)).Draw(x + 4, y + 2, active ? COLOR_FILL : COLOR_BACK);
                 }
 
                 if(MEAS_SOURCE_IS_A)
                 {
-                    PText::Draw(x + 2, y + 11, Processing::GetStringMeasure(meas, Chan::A, buffer), ColorChannel(Chan::A));
+                    String(Processing::GetStringMeasure(meas, Chan::A, buffer)).Draw(x + 2, y + 11, ColorChannel(Chan::A));
                 }
                 else if(MEAS_SOURCE_IS_B)
                 {
-                    PText::Draw(x + 2, y + 11, Processing::GetStringMeasure(meas, Chan::B, buffer), ColorChannel(Chan::B));
+                    String(Processing::GetStringMeasure(meas, Chan::B, buffer)).Draw(x + 2, y + 11, ColorChannel(Chan::B));
                 }
                 else
                 {
-                    PText::Draw(x + 2, y + 11, Processing::GetStringMeasure(meas, Chan::A, buffer), ColorChannel(Chan::A));
-                    PText::Draw(x + 2, y + 20, Processing::GetStringMeasure(meas, Chan::B, buffer), ColorChannel(Chan::B));
+                    String(Processing::GetStringMeasure(meas, Chan::A, buffer)).Draw(x + 2, y + 11, ColorChannel(Chan::A));
+                    String(Processing::GetStringMeasure(meas, Chan::B, buffer)).Draw(x + 2, y + 20, ColorChannel(Chan::B));
                 }
             }
         }
@@ -488,7 +492,7 @@ void Display::DrawTimeForFrame(uint timeTicks)
 
     Painter::DrawRectangle(Grid::Left(), Grid::FullBottom() - 10, 84, 10, COLOR_FILL);
     Painter::FillRegion(Grid::Left() + 1, Grid::FullBottom() - 9, 82, 8, COLOR_BACK);
-    PText::Draw(Grid::Left() + 2, Grid::FullBottom() - 9, buffer, COLOR_FILL);
+    String(buffer).Draw(Grid::Left() + 2, Grid::FullBottom() - 9, COLOR_FILL);
 
     char message[20] = {0};
     std::sprintf(message, "%d", Storage::NumFramesWithSameSettings());
@@ -496,7 +500,7 @@ void Display::DrawTimeForFrame(uint timeTicks)
     char numAvail[10] = {0};
     std::sprintf(numAvail, "%d", Storage::NumberAvailableEntries());
     std::strcat(message, numAvail);
-    PText::Draw(Grid::Left() + 50, Grid::FullBottom() - 9, message);
+    String(message).Draw(Grid::Left() + 50, Grid::FullBottom() - 9);
 }
 
 
