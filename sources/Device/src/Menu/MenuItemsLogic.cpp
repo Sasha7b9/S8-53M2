@@ -264,15 +264,17 @@ void Time::DecCurrentPosition() const
 
 void GovernorColor::ChangeValue(int delta)
 {
-    ColorType *ct = colorType;
+    
 
-    if (ct->currentField == 0)
+    ColorType &ct = *colorType;
+
+    if (ct.currentField == 0)
     {
-        ct->BrightnessChange(delta);
+        ct.BrightnessChange(delta);
     }
     else
     {
-        ct->ComponentChange(delta);
+        ct.ComponentChange(delta);
     }
 
     HAL_LTDC::LoadPalette();
