@@ -44,6 +44,7 @@ public:
     int DrawWithLimitation(int x, int y, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight);
     int DrawInRectWithTransfers(int x, int y, int width, int height, Color::E = Color::Count);
     int DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, Color::E colorBackground, Color::E colorFill);
+    void DrawRelativelyRight(int xRight, int y, Color::E = Color::Count);
     // Выводит текст на прямоугольнике цвета colorBackgound
     int DrawOnBackground(int x, int y, Color::E colorBackground);
     // Возвращает нижнюю координату прямоугольника.

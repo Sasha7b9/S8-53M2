@@ -4,8 +4,6 @@
 
 namespace PText
 {
-    void DrawRelativelyRight(int xRight, int y, pchar text, Color::E = Color::Count);
-
     void Draw2Symbols(int x, int y, char symbol1, char symbol2, Color::E color1, Color::E color2);
 
     void Draw4SymbolsInRect(int x, int y, char eChar, Color::E = Color::Count);

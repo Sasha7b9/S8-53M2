@@ -317,5 +317,5 @@ void LowPart::WriteStringAndNumber(pchar text, int x, int y, int number)
         std::sprintf(buffer, "%d", number);
     }
 
-    PText::DrawRelativelyRight(x + 41, y, buffer);
+    String(buffer).DrawRelativelyRight(x + 41, y);
 }

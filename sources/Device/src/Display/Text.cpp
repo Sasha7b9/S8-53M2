@@ -681,12 +681,12 @@ void Painter::DrawHintsForSmallButton(int x, int y, int width, void *smallButton
 }
 
 
-void PText::DrawRelativelyRight(int xRight, int y, pchar text, Color::E color)
+void String::DrawRelativelyRight(int xRight, int y, Color::E color)
 {
     Color::SetCurrent(color);
 
-    int lenght = Font::GetLengthText(text);
-    String(text).Draw(xRight - lenght, y);
+    int lenght = Font::GetLengthText(buffer);
+    Draw(xRight - lenght, y);
 }
 
 
