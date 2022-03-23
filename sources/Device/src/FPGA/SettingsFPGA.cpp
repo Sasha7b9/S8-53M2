@@ -977,3 +977,41 @@ void TrigLev::Draw()
         Font::Set(TypeFont::_8);
     }
 }
+
+
+void TShift::Draw()
+{
+    BitSet32 points = SettingsDisplay::PointsOnDisplay();
+    int firstPoint = points.half_iword[0];
+    int lastPoint = points.half_iword[1];
+
+    // Рисуем TPos
+    int shiftTPos = TPos::InPoints(SET_ENUM_POINTS, SET_TPOS) - SHIFT_IN_MEMORY;
+    float scale = (float)(lastPoint - firstPoint) / Grid::Width();
+    int gridLeft = Grid::Left();
+    int x = (int)(gridLeft + shiftTPos * scale - 3);
+
+    if (IntInRange(x + 3, gridLeft, Grid::Right() + 1))
+    {
+        PText::Draw2Symbols(x, GRID_TOP - 1, SYMBOL_TPOS_2, SYMBOL_TPOS_3, COLOR_BACK, COLOR_FILL);
+    };
+
+    // Рисуем tShift
+    int shiftTShift = TPos::InPoints(SET_ENUM_POINTS, SET_TPOS) - SET_TSHIFT * 2;
+
+    if (IntInRange(shiftTShift, firstPoint, lastPoint))
+    {
+        x = gridLeft + shiftTShift - firstPoint - 3;
+        PText::Draw2Symbols(x, GRID_TOP - 1, SYMBOL_TSHIFT_NORM_1, SYMBOL_TSHIFT_NORM_2, COLOR_BACK, COLOR_FILL);
+    }
+    else if (shiftTShift < firstPoint)
+    {
+        PText::Draw2Symbols(gridLeft + 1, GRID_TOP, SYMBOL_TSHIFT_LEFT_1, SYMBOL_TSHIFT_LEFT_2, COLOR_BACK, COLOR_FILL);
+        Painter::DrawLine(Grid::Left() + 9, GRID_TOP + 1, Grid::Left() + 9, GRID_TOP + 7, COLOR_BACK);
+    }
+    else if (shiftTShift > lastPoint)
+    {
+        PText::Draw2Symbols(Grid::Right() - 8, GRID_TOP, SYMBOL_TSHIFT_RIGHT_1, SYMBOL_TSHIFT_RIGHT_2, COLOR_BACK, COLOR_FILL);
+        Painter::DrawLine(Grid::Right() - 9, GRID_TOP + 1, Grid::Right() - 9, GRID_TOP + 7, COLOR_BACK);
+    }
+}
