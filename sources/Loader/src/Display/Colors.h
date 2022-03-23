@@ -32,37 +32,6 @@ Color::E LightShadingTextColor();
 #define DarkShadingTextColor()      Color::MENU_TITLE_DARK
 
 
-struct ColorType
-{
-    float    red;
-    float    green;
-    float    blue;
-    float    stepRed;
-    float    stepGreen;
-    float    stepBlue;
-    float    brightness;
-    Color::E color;
-    int8     currentField;
-    bool     alreadyUsed;
-
-    void BrightnessChange(int delta);
-};
-
-// Вывести в лог значение цвета.
-void Color_Log(Color::E color);
-
-struct ColorType;
-
-void Color_SetBrightness(ColorType *colorType, float brightness);
-// Если forced == false, то инициализация происходит только при первом вызове функции
-void Color_Init(ColorType *colorType, bool forced);
-
-void Color_ComponentChange(ColorType *colorType, int delta);
-
-pchar  NameColorFromValue(uint16 colorValue);
-
-pchar  NameColor(Color::E color);
-
 #define MAKE_COLOR(r, g, b) (((b) & 0x1f) + (((g) & 0x3f) << 5) + (((r) & 0x1f) << 11))
 #define R_FROM_COLOR(color) (((uint16)(color) >> 11) & (uint16)0x1f)
 #define G_FROM_COLOR(color) (((uint16)(color) >> 5) & (uint16)0x3f)
