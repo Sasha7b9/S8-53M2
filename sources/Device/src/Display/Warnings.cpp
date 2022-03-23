@@ -125,8 +125,8 @@ void Warning::DrawStringInRectangle(int, int y, char const *text)
 {
     int width = Font::GetLengthText(text);
     int height = 8;
-    Painter::DrawRectangle(Grid::Left(), y, width + 4, height + 4, COLOR_FILL);
-    Painter::DrawRectangle(Grid::Left() + 1, y + 1, width + 2, height + 2, COLOR_BACK);
+    Rectangle(width + 4, height + 4).Draw(Grid::Left(), y, COLOR_FILL);
+    Rectangle(width + 2, height + 2).Draw(Grid::Left() + 1, y + 1, COLOR_BACK);
     Painter::FillRegion(Grid::Left() + 2, y + 2, width, height, Color::FLASH_10);
     String(text).Draw(Grid::Left() + 3, y + 2, Color::FLASH_01);
 }

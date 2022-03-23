@@ -457,8 +457,8 @@ void GovernorColor::DrawOpened(int x, int y)
     x -= delta;
     colorType->Init();
 
-    Painter::DrawRectangle(x - 1, y - 1, MI_WIDTH + delta + 2, Item::HEIGHT + 2, Color::BLACK);
-    Painter::DrawRectangle(x, y, MI_WIDTH + delta, Item::HEIGHT, ColorMenuTitle(false));
+    Rectangle(MI_WIDTH + delta + 2, Item::HEIGHT + 2).Draw(x - 1, y - 1, Color::BLACK);
+    Rectangle(MI_WIDTH + delta, Item::HEIGHT).Draw(x, y, ColorMenuTitle(false));
 
     Painter::DrawVolumeButton(x + 1, y + 1, MI_WIDTH_VALUE + 2 + delta, MI_HEIGHT_VALUE + 3, 2, ColorMenuItem(false), 
         ColorMenuItemBrighter(), ColorMenuItemLessBright(), ((Item *)this)->IsPressed(), ((Item *)this)->IsShade());
@@ -497,10 +497,10 @@ void Choice::DrawOpened(int x, int y)
 {
     int height = ((Item *)this)->HeightOpened();
 
-    Painter::DrawRectangle(x - 1, y - 1, MP_TITLE_WIDTH + 2, height + 3, COLOR_BACK);
+    Rectangle(MP_TITLE_WIDTH + 2, height + 3).Draw(x - 1, y - 1, COLOR_BACK);
     
     DrawGovernorChoiceColorFormulaHiPart((Item *)this, x - 1, y - 1, ((Item *)this)->IsPressed(), false, true);
-    Painter::DrawRectangle(x - 1, y, MP_TITLE_WIDTH + 1, height + 1, ColorMenuTitle(false));
+    Rectangle(MP_TITLE_WIDTH + 1, height + 1).Draw(x - 1, y, ColorMenuTitle(false));
  
     Painter::DrawHLine(y + MOI_HEIGHT_TITLE - 1, x, x + MOI_WIDTH);
     Painter::DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1, height - MOI_HEIGHT_TITLE, 1, Color::BLACK, ColorMenuTitleBrighter(),
@@ -525,10 +525,10 @@ void Time::DrawOpened(int x, int y)
 {
     int width = MI_WIDTH_VALUE + 3;
     int height = 61;
-    Painter::DrawRectangle(x - 1, y - 1, width + 2, height + 3, COLOR_BACK);
+    Rectangle(width + 2, height + 3).Draw(x - 1, y - 1, COLOR_BACK);
     DrawGovernorChoiceColorFormulaHiPart((Item *)this, x - 1, y - 1, ((Item *)this)->IsPressed(), false, true);
 
-    Painter::DrawRectangle(x - 1, y, width + 1, height + 1, ColorMenuTitle(false));
+    Rectangle(width + 1, height + 1).Draw(x - 1, y, ColorMenuTitle(false));
 
     Painter::DrawHLine(y + MOI_HEIGHT_TITLE - 1, x, x + MOI_WIDTH);
     Painter::DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1, height - MOI_HEIGHT_TITLE, 1, Color::BLACK, ColorMenuTitleBrighter(),
@@ -586,8 +586,8 @@ void Time::DrawOpened(int x, int y)
 static void GovernorIpCommon_DrawOpened(Item *item, int x, int y, int dWidth)
 {
     int height = 34;
-    Painter::DrawRectangle(x - 1, y - 1, MP_TITLE_WIDTH + 2 + dWidth, height + 3, COLOR_BACK);
-    Painter::DrawRectangle(x - 1, y, MP_TITLE_WIDTH + 1 + dWidth, height + 1, ColorMenuTitle(false));
+    Rectangle(MP_TITLE_WIDTH + 2 + dWidth, height + 3).Draw(x - 1, y - 1, COLOR_BACK);
+    Rectangle(MP_TITLE_WIDTH + 1 + dWidth, height + 1).Draw(x - 1, y, ColorMenuTitle(false));
     Painter::DrawHLine(y + MOI_HEIGHT_TITLE - 1, x, x + MOI_WIDTH + dWidth);
     DrawGovernorChoiceColorFormulaHiPart((Item *)item, x - 1, y - 1, item->IsPressed(), false, true);
     Painter::DrawVolumeButton(x, y + MOI_HEIGHT_TITLE, MOI_WIDTH - 1 + dWidth, height - MOI_HEIGHT_TITLE, 1, Color::BLACK, ColorMenuTitleBrighter(),
@@ -760,14 +760,14 @@ void SmallButton::Draw(int x, int y)
         }
         else
         {
-            Painter::DrawRectangle(x, y, WIDTH_SB, WIDTH_SB, COLOR_FILL);
+            Rectangle(WIDTH_SB, WIDTH_SB).Draw(x, y, COLOR_FILL);
             Color::SetCurrent(COLOR_FILL);
         }
         funcOnDraw(x, y);
     }
     else
     {
-        Painter::DrawRectangle(x, y, WIDTH_SB, WIDTH_SB, COLOR_FILL);
+        Rectangle(WIDTH_SB, WIDTH_SB).Draw(x, y, COLOR_FILL);
     }
 }
 

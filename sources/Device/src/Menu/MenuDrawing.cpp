@@ -172,7 +172,7 @@ void Page::DrawTitle(int yTop)
     int height = HeightOpened();
     bool shade = CurrentItemIsOpened();
     Painter::FillRegion(x - 1, yTop, MP_TITLE_WIDTH + 2, height + 2, COLOR_BACK);
-    Painter::DrawRectangle(x, yTop, MP_TITLE_WIDTH + 1, height + 1, ColorBorderMenu(shade));
+    Rectangle(MP_TITLE_WIDTH + 1, height + 1).Draw(x, yTop, ColorBorderMenu(shade));
 
     if (shade)
     {
@@ -225,7 +225,7 @@ void Page::DrawUGO(int right, int bottom)
         }
         else
         {
-            Painter::DrawRectangle(x, top, size, size);
+            Rectangle(size, size).Draw(x, top);
         }
     }
 }

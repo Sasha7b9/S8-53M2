@@ -100,7 +100,7 @@ void Display::DrawStringNavigation()
     {
         int length = Font::GetLengthText(string.c_str());
         int height = 10;
-        Painter::DrawRectangle(Grid::Left(), GRID_TOP, length + 2, height, COLOR_FILL);
+        Rectangle(length + 2, height).Draw(Grid::Left(), GRID_TOP, COLOR_FILL);
         Painter::FillRegion(Grid::Left() + 1, GRID_TOP + 1, length, height - 2, COLOR_BACK);
         String(string).Draw(Grid::Left() + 2, GRID_TOP + 1, COLOR_FILL);
     }
@@ -272,7 +272,7 @@ void Display::WriteValueTrigLevel()
         int width = 96;
         int x = (Grid::Width() - width) / 2 + Grid::Left();
         int y = Grid::BottomMessages() - 20;
-        Painter::DrawRectangle(x, y, width, 10, COLOR_FILL);
+        Rectangle(width, 10).Draw(x, y, COLOR_FILL);
         Painter::FillRegion(x + 1, y + 1, width - 2, 8, COLOR_BACK);
 
         String string(LANG_RU ? "Óð ñèíõð = " : "Trig lvl = ");
@@ -303,8 +303,8 @@ void Display::DrawHorizontalCursor(int y, int xTearing)
         Painter::DrawDashedHLine(y, Grid::Left() + 2, xTearing - 2, 1, 1, 0);
         Painter::DrawDashedHLine(y, xTearing + 2, Grid::Right() - 1, 1, 1, 0);
     }
-    Painter::DrawRectangle(Grid::Left() - 1, y - 1, 2, 2);
-    Painter::DrawRectangle(Grid::Right() - 1, y - 1, 2, 2);
+    Rectangle(2, 2).Draw(Grid::Left() - 1, y - 1);
+    Rectangle(2, 2).Draw(Grid::Right() - 1, y - 1);
 }
 
 
@@ -320,8 +320,9 @@ void Display::DrawVerticalCursor(int x, int yTearing)
         Painter::DrawDashedVLine(x, GRID_TOP + 2, yTearing - 2, 1, 1, 0);
         Painter::DrawDashedVLine(x, yTearing + 2, Grid::ChannelBottom() - 1, 1, 1, 0);
     }
-    Painter::DrawRectangle(x - 1, GRID_TOP - 1, 2, 2);
-    Painter::DrawRectangle(x - 1, Grid::ChannelBottom() - 1, 2, 2);
+
+    Rectangle(2, 2).Draw(x - 1, GRID_TOP - 1);
+    Rectangle(2, 2).Draw(x - 1, Grid::ChannelBottom() - 1);
 }
 
 
@@ -346,8 +347,8 @@ void Display::DrawCursors()
             y0 = (int)(GRID_TOP + PageCursors::GetCursPosU(source, 0));
             y1 = (int)(GRID_TOP + PageCursors::GetCursPosU(source, 1));
 
-            Painter::DrawRectangle(x0 - 2, y0 - 2, 4, 4);
-            Painter::DrawRectangle(x1 - 2, y1 - 2, 4, 4);
+            Rectangle(4, 4).Draw(x0 - 2, y0 - 2);
+            Rectangle(4, 4).Draw(x1 - 2, y1 - 2);
         }
 
         CursCntrl::E cntrl = CURS_CNTRL_T(source);
@@ -387,7 +388,7 @@ void Display::DrawMeasures()
         int y1 = MEAS_POS_CUR_U1 + GRID_TOP;
         SortInt(&x0, &x1);
         SortInt(&y0, &y1);
-        Painter::DrawRectangle(x0, y0, x1 - x0, y1 - y0, COLOR_FILL);
+        Rectangle(x1 - x0, y1 - y0).Draw(x0, y0, COLOR_FILL);
     }
 
     int x0 = Grid::Left() - Measures::GetDeltaGridLeft();
@@ -411,7 +412,7 @@ void Display::DrawMeasures()
             if(meas != Measure::None)
             {
                 Painter::FillRegion(x, y, dX, dY, COLOR_BACK);
-                Painter::DrawRectangle(x, y, dX, dY, COLOR_FILL);
+                Rectangle(dX, dY).Draw(x, y, COLOR_FILL);
                 topMeasures = Math::MinFrom2Int(topMeasures, y);
             }
 
@@ -486,7 +487,7 @@ void Display::DrawTimeForFrame(uint timeTicks)
         numFrames = 0;
     }
 
-    Painter::DrawRectangle(Grid::Left(), Grid::FullBottom() - 10, 84, 10, COLOR_FILL);
+    Rectangle(84, 10).Draw(Grid::Left(), Grid::FullBottom() - 10, COLOR_FILL);
     Painter::FillRegion(Grid::Left() + 1, Grid::FullBottom() - 9, 82, 8, COLOR_BACK);
     buffer.Draw(Grid::Left() + 2, Grid::FullBottom() - 9, COLOR_FILL);
 

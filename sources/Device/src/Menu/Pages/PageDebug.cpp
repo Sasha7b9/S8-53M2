@@ -713,7 +713,7 @@ static void Draw_EnterSerialNumber()
     int width = Grid::Width() - 80;
     int height = 160;
 
-    Painter::DrawRectangle(x0, y0, width, height, COLOR_FILL);
+    Rectangle(width, height).Draw(x0, y0, COLOR_FILL);
     Painter::FillRegion(x0 + 1, y0 + 1, width - 2, height - 2, COLOR_BACK);
 
     int deltaX = 10;

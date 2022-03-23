@@ -88,7 +88,7 @@ bool WelcomeScreen::Run()
 
     Painter::BeginScene(Color::BLACK);
 
-    Painter::DrawRectangle(0, 0, 319, 239, COLOR_FILL);
+    Rectangle(319, 239).Draw(0, 0, COLOR_FILL);
 
     static float y0 = 0.0f;
 

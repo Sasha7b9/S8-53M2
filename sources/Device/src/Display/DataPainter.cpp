@@ -87,7 +87,7 @@ void DataPainter::DrawData()
 
     functions[MODE_WORK]();
 
-    Painter::DrawRectangle(Grid::Left(), GRID_TOP, Grid::Width(), Grid::FullHeight(), COLOR_FILL);
+    Rectangle(Grid::Width(), Grid::FullHeight()).Draw(Grid::Left(), GRID_TOP, COLOR_FILL);
 }
 
 
@@ -369,7 +369,7 @@ void DataPainter::DrawMath()
     static const int width = 71;
     static const int height = 10;
     int delta = (SHOW_STRING_NAVIGATION && MODE_DRAW_MATH_IS_TOGETHER) ? 10 : 0;
-    Painter::DrawRectangle(Grid::Left(), Grid::MathTop() + delta, width, height, COLOR_FILL);
+    Rectangle(width, height).Draw(Grid::Left(), Grid::MathTop() + delta, COLOR_FILL);
     Painter::FillRegion(Grid::Left() + 1, Grid::MathTop() + 1 + delta, width - 2, height - 2, COLOR_BACK);
     Divider::E multiplier = MATH_MULTIPLIER;
 
@@ -477,8 +477,7 @@ void DataPainter::MemoryWindow::Draw()
     const int xVert1 = (int)(leftX + SHIFT_IN_MEMORY * scaleX + timeWindowRectWidth);
     bool showFull = set.display.showFullMemoryWindow;
 
-    Painter::DrawRectangle(xVert0, top + (showFull ? 0 : 1), xVert1 - xVert0, bottom - top - (showFull ? 0 : 2),
-        COLOR_FILL);
+    Rectangle(xVert1 - xVert0, bottom - top - (showFull ? 0 : 2)).Draw(xVert0, top + (showFull ? 0 : 1), COLOR_FILL);
 
     if (showFull)
     {
@@ -790,8 +789,8 @@ void DataPainter::Spectrum::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan
     {
         Color::E color = COLOR_FILL;
         WriteParameters(ch, freq0, density0, freq1, density1);
-        Painter::DrawRectangle(FFT_POS_CURSOR_0 + Grid::Left() - s, y0 - s, s * 2, s * 2, color);
-        Painter::DrawRectangle(FFT_POS_CURSOR_1 + Grid::Left() - s, y1 - s, s * 2, s * 2);
+        Rectangle(s * 2, s * 2).Draw(FFT_POS_CURSOR_0 + Grid::Left() - s, y0 - s, color);
+        Rectangle(s * 2, s * 2).Draw(FFT_POS_CURSOR_1 + Grid::Left() - s, y1 - s);
 
         Painter::DrawVLine(Grid::Left() + FFT_POS_CURSOR_0, Grid::MathBottom(), y0 + s);
         Painter::DrawVLine(Grid::Left() + FFT_POS_CURSOR_1, Grid::MathBottom(), y1 + s);

@@ -90,7 +90,7 @@ static void FuncDrawingAdditionSPageMemoryLast()
     int width = 40;
     int height = 10;
     Painter::FillRegion(Grid::Right() - width, GRID_TOP, width, height, COLOR_BACK);
-    Painter::DrawRectangle(Grid::Right() - width, GRID_TOP, width, height, COLOR_FILL);
+    Rectangle(width, height).Draw(Grid::Right() - width, GRID_TOP, COLOR_FILL);
     Int2String(PageMemory::Latest::current + 1, false, 3).Draw(Grid::Right() - width + 2, GRID_TOP + 1);
     String("/").Draw(Grid::Right() - width + 17, GRID_TOP + 1);
     Int2String(Storage::NumFrames(), false, 3).Draw(Grid::Right() - width + 23, GRID_TOP + 1);
@@ -552,7 +552,7 @@ static void DrawMemoryWave(int num, bool exist)
     int y = Grid::FullBottom() - 10;
     int width = 12;
     Painter::FillRegion(x, y, width, 10, (num == PageMemory::Internal::currentSignal) ? Color::FLASH_10 : COLOR_BACK);
-    Painter::DrawRectangle(x, y, width, 10, COLOR_FILL);
+    Rectangle(width, 10).Draw(x, y, COLOR_FILL);
     Color::SetCurrent(num == PageMemory::Internal::currentSignal ? Color::FLASH_01 : COLOR_FILL);
     if (exist)
     {
@@ -670,9 +670,9 @@ static void DrawSB_MemInt_ModeShow_Both(int x, int y)
 {
     ++y;
 
-    Painter::DrawRectangle(x + 2, y + 5, 4, 7);
+    Rectangle(4, 7).Draw(x + 2, y + 5);
 
-    Painter::DrawRectangle(x + 8, y + 8, 4, 4);
+    Rectangle(4, 4).Draw(x + 8, y + 8);
     Painter::DrawVLine(x + 8, y + 8, y + 5);
     Painter::DrawHLine(y + 5, x + 8, x + 12);
 
@@ -848,7 +848,7 @@ void DrawSetMask()
     int width = Grid::Width() - 80;
     int height = 160;
 
-    Painter::DrawRectangle(x0, y0, width, height, COLOR_FILL);
+    Rectangle(width, height).Draw(x0, y0, COLOR_FILL);
     Painter::FillRegion(x0 + 1, y0 + 1, width - 2, height - 2, COLOR_BACK);
 
     int index = 0;
@@ -1060,7 +1060,7 @@ void DrawSetName()
     int width = Grid::Width() - 80;
     int height = 80;
 
-    Painter::DrawRectangle(x0, y0, width, height, COLOR_FILL);
+    Rectangle(width, height).Draw(x0, y0, COLOR_FILL);
     Painter::FillRegion(x0 + 1, y0 + 1, width - 2, height - 2, COLOR_BACK);
 
     int index = 0;
