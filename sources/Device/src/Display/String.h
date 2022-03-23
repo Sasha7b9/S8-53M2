@@ -62,3 +62,13 @@ private:
 
     int DrawSpaces(int x, int y, char *text, int *numSymbols);
 };
+
+
+class Char
+{
+public:
+    Char(char s) : symbol(s) {}
+    int Draw(int x, int y, Color::E = Color::Count);
+private:
+    char symbol;
+};

@@ -310,7 +310,7 @@ int String::Draw(int x, int y, Color::E color)
 
     while (*text != '\0')
     {
-        x = PText::DrawChar(x, y, *text) + 1;
+        x = Char(*text).Draw(x, y) + 1;
         text++;
     }
 
@@ -393,7 +393,7 @@ int String::DrawSubString(int x, int y, char *text)
 
     while (((*text) != ' ') && ((*text) != '\0'))
     {
-        x = PText::DrawChar(x, y, *text);
+        x = Char(*text).Draw(x, y);
         numSymbols++;
         text++;
         x++;

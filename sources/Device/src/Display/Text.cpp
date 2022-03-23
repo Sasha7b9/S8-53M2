@@ -212,21 +212,21 @@ int PText::DrawCharHard(int eX, int eY, char symbol)
 }
 
 
-int PText::DrawChar(int x, int y, char symbol, Color::E color)
+int Char::Draw(int x, int y, Color::E color)
 {
     Color::SetCurrent(color);
 
     if (Font::GetSize() == 5)
     {
-        DrawCharHard(x, y + 3, symbol);
+        PText::DrawCharHard(x, y + 3, symbol);
     }
     else if (Font::GetSize() == 8)
     {
-        DrawCharHard(x, y, symbol);
+        PText::DrawCharHard(x, y, symbol);
     }
     else
     {
-        DrawCharInColorDisplay(x, y, (uint8)symbol);
+        PText::DrawCharInColorDisplay(x, y, (uint8)symbol);
     }
 
     return x + Font::GetLengthSymbol((uint8)symbol);
@@ -537,7 +537,7 @@ int PText::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, pcha
                 {
                     continue;
                 }
-                x = DrawChar(x, y, symbol);
+                x = Char(symbol).Draw(x, y);
             }
             else                                            // ј здесь найдено по крайней мере два буквенных символа, т.е. найдено слово
             {
@@ -686,8 +686,8 @@ void PText::DrawRelativelyRight(int xRight, int y, pchar text, Color::E color)
 
 void PText::Draw2Symbols(int x, int y, char symbol1, char symbol2, Color::E color1, Color::E color2)
 {
-    DrawChar(x, y, symbol1, color1);
-    DrawChar(x, y, symbol2, color2);
+    Char(symbol1).Draw(x, y, color1);
+    Char(symbol2).Draw(x, y, color2);
 }
 
 
@@ -697,8 +697,8 @@ void PText::Draw4SymbolsInRect(int x, int y, char eChar, Color::E color)
 
     for (int i = 0; i < 2; i++)
     {
-        DrawChar(x + 8 * i, y, (char)(eChar + i));
-        DrawChar(x + 8 * i, y + 8, (char)(eChar + i + 16));
+        Char((char)(eChar + i)).Draw(x + 8 * i, y);
+        Char((char)(eChar + i + 16)).Draw(x + 8 * i, y + 8);
     }
 }
 
@@ -707,8 +707,8 @@ void PText::Draw10SymbolsInRect(int x, int y, char eChar)
 {
     for (int i = 0; i < 5; i++)
     {
-        DrawChar(x + 8 * i, y, (char)(eChar + i));
-        DrawChar(x + 8 * i, y + 8, (char)(eChar + i + 16));
+        Char((char)(eChar + i)).Draw(x + 8 * i, y);
+        Char((char)(eChar + i + 16)).Draw(x + 8 * i, y + 8);
     }
 }
 

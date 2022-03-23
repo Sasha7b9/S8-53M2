@@ -4,8 +4,6 @@
 
 namespace PText
 {
-    int DrawChar(int x, int y, char symbol, Color::E = Color::Count);
-
     int DrawWithLimitation(int x, int y, pchar  text, Color::E color, int limitX, int limitY, int limitWidth,
         int limitHeight);
 
