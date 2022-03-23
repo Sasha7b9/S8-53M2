@@ -19,13 +19,8 @@ String Float2String(float value, bool alwaysSign, int numDigits);
 
 String Hex8toString(uint8 value);
 
-char*   Int2String                              // ѕреобразует value в текстовую строку.
-                                                // @attention —трока будет хранитьс€ до следующего вызова функции. ≈сли результат нужен большее количество времени, то его нужно скопировать себе.
-                    (int value,                 // значение.
-                    bool alwaysSign,            // если установлен в true, знак будет выводитьс€ всегда.
-                    int numMinFields,           // минимальное число занимаемых знакомест. ≈сли дл€ вывода числа столько не требуетс€, лишние заполн€ютс€ нул€ми.
-                    char buffer[20]
-                    );
+String Int2String(int value, bool alwaysSign, int numMinFields);
+
 bool    String2Int(char *str, int *value);
 String Voltage2String(float voltage, bool alwaysSign);
 String Time2String(float time, bool alwaysSign);

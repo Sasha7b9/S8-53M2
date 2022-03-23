@@ -87,15 +87,13 @@ static void RotateSB_MemLast(int angle)
 
 static void FuncDrawingAdditionSPageMemoryLast()
 {
-    char buffer[20];
-    
     int width = 40;
     int height = 10;
     Painter::FillRegion(Grid::Right() - width, GRID_TOP, width, height, COLOR_BACK);
     Painter::DrawRectangle(Grid::Right() - width, GRID_TOP, width, height, COLOR_FILL);
-    String(Int2String(PageMemory::Latest::current + 1, false, 3, buffer)).Draw(Grid::Right() - width + 2, GRID_TOP + 1);
+    Int2String(PageMemory::Latest::current + 1, false, 3).Draw(Grid::Right() - width + 2, GRID_TOP + 1);
     String("/").Draw(Grid::Right() - width + 17, GRID_TOP + 1);
-    String(Int2String(Storage::NumFrames(), false, 3, buffer)).Draw(Grid::Right() - width + 23, GRID_TOP + 1);
+    Int2String(Storage::NumFrames(), false, 3).Draw(Grid::Right() - width + 23, GRID_TOP + 1);
 }
 
 void DrawSB_MemLast_IntEnter(int x, int y)
@@ -550,8 +548,6 @@ void DrawSB_MemInt_SaveToFlashDrive(int x, int y) //-V524
 
 static void DrawMemoryWave(int num, bool exist)
 {
-    char buffer[20];
-    
     int x = Grid::Left() + 2 + num * 12;
     int y = Grid::FullBottom() - 10;
     int width = 12;
@@ -560,7 +556,7 @@ static void DrawMemoryWave(int num, bool exist)
     Color::SetCurrent(num == PageMemory::Internal::currentSignal ? Color::FLASH_01 : COLOR_FILL);
     if (exist)
     {
-        String(Int2String(num + 1, false, 2, buffer)).Draw(x + 2, y + 1);
+        Int2String(num + 1, false, 2).Draw(x + 2, y + 1);
     }
     else
     {

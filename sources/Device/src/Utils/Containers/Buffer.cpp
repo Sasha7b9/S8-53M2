@@ -194,13 +194,12 @@ template<class T>
 void Buffer<T>::Log() const
 {
     char buffer[1024];
-    char buffer_number[20];
 
     buffer[0] = '\0';
 
     for (int i = 0; i < Size(); i++)
     {
-        std::strcat(buffer, Int2String(data[i], false, 1, buffer_number));
+        std::strcat(buffer, Int2String(data[i], false, 1).c_str());
         std::strcat(buffer, " ");
     }
 

@@ -110,8 +110,11 @@ String Float2String(float value, bool alwaysSign, int numDigits)
     return String(bufferOut);
 }
 
-char* Int2String(int value, bool alwaysSign, int numMinFields, char buffer[20])
+
+String Int2String(int value, bool alwaysSign, int numMinFields)
 {
+    char buffer[20];
+
     char format[20] = "%";
     std::sprintf(&(format[1]), "0%d", numMinFields);
     std::strcat(format, "d");
@@ -126,8 +129,9 @@ char* Int2String(int value, bool alwaysSign, int numMinFields, char buffer[20])
         std::sprintf(buffer, format, value);
     }
 
-    return buffer;
+    return String(buffer);
 }
+
 
 bool String2Int(char *str, int *value)  
 {

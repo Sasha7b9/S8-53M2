@@ -212,8 +212,6 @@ void LowPart::DrawTime(int x, int y)
 
     PackedTime time = HAL_RTC::GetPackedTime();
 
-    char buffer[20];
-
     Color::SetCurrent(COLOR_FILL);
 
     if (MODE_WORK_IS_MEMINT || MODE_WORK_IS_LATEST)
@@ -229,11 +227,11 @@ void LowPart::DrawTime(int x, int y)
             time.seconds = ds.time.seconds;
             time.month = ds.time.month;
             time.year = ds.time.year;
-            String(Int2String((int)time.day, false, 2, buffer)).Draw(x, y);
+            Int2String((int)time.day, false, 2).Draw(x, y);
             String(":").Draw(x + dField, y);
-            String(Int2String((int)time.month, false, 2, buffer)).Draw(x + dField + dSeparator, y);
+            Int2String((int)time.month, false, 2).Draw(x + dField + dSeparator, y);
             String(":").Draw(x + 2 * dField + dSeparator, y);
-            String(Int2String((int)time.year + 2000, false, 4, buffer)).Draw(x + 2 * dField + 2 * dSeparator, y);
+            Int2String((int)time.year + 2000, false, 4).Draw(x + 2 * dField + 2 * dSeparator, y);
             y += 9;
         }
         else
@@ -242,11 +240,11 @@ void LowPart::DrawTime(int x, int y)
         }
     }
 
-    String(Int2String((int)time.hours, false, 2, buffer)).Draw(x, y);
+    Int2String((int)time.hours, false, 2).Draw(x, y);
     String(":").Draw(x + dField, y);
-    String(Int2String((int)time.minutes, false, 2, buffer)).Draw(x + dField + dSeparator, y);
+    Int2String((int)time.minutes, false, 2).Draw(x + dField + dSeparator, y);
     String(":").Draw(x + 2 * dField + dSeparator, y);
-    String(Int2String((int)time.seconds, false, 2, buffer)).Draw(x + 2 * dField + 2 * dSeparator, y);
+    Int2String((int)time.seconds, false, 2).Draw(x + 2 * dField + 2 * dSeparator, y);
 }
 
 
