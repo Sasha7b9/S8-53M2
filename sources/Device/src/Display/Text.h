@@ -4,11 +4,6 @@
 
 namespace PText
 {
-    // Пишет строку текста в центре области(x, y, width, height)цветом ColorText на прямоугольнике с шириной бордюра
-    // widthBorder цвета colorBackground.
-    void DrawStringInCenterRectOnBackground(int x, int y, int width, int height, pchar text, Color::E colorText,
-        int widthBorder, Color::E colorBackground);
-
     int DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, pchar text, Color::E colorBackground,
         Color::E colorFill);
 

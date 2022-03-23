@@ -639,15 +639,15 @@ int String::DrawInBoundedRectWithTransfers(int x, int y, int width, Color::E col
 }
 
 
-void PText::DrawStringInCenterRectOnBackground(int x, int y, int width, int height, pchar text, Color::E colorText,
+void String::DrawStringInCenterRectOnBackground(int x, int y, int width, int height, Color::E colorText,
     int widthBorder, Color::E colorBackground)
 {
-    int lenght = Font::GetLengthText(text);
-    int eX = String(text).DrawInCenterRect(x, y, width, height, colorBackground);
+    int lenght = Font::GetLengthText(buffer);
+    int eX = DrawInCenterRect(x, y, width, height, colorBackground);
     int w = lenght + widthBorder * 2 - 2;
     int h = 7 + widthBorder * 2 - 1;
     Region(w, h).Fill(eX - lenght - widthBorder, y - widthBorder + 1);
-    String(text).DrawInCenterRect(x, y, width, height, colorText);
+    DrawInCenterRect(x, y, width, height, colorText);
 }
 
 

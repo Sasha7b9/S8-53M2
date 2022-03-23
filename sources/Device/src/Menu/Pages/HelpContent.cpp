@@ -34,7 +34,7 @@ static void DrawPageContent()
         pchar title = TITLE(page);
         if(currentParagraph == numPage)
         {
-            PText::DrawStringInCenterRectOnBackground(0, y, WIDTH, 10, title, COLOR_BACK, 2, COLOR_FILL);
+            String(title).DrawStringInCenterRectOnBackground(0, y, WIDTH, 10, COLOR_BACK, 2, COLOR_FILL);
         }
         else
         {
