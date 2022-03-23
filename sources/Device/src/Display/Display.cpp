@@ -119,7 +119,7 @@ namespace Display
 
     void WriteStringAndNumber(pchar text, int x, int y, int number);
 
-    void DrawTimeForFrame(uint timeMS);
+    void DrawTimeForFrame(uint timeTicks);
 
     void DeleteFirstString();
 
@@ -598,9 +598,7 @@ bool Display::NeedForClearScreen()
 
 void Display::Update(bool endScene)
 {
-    DEBUG_POINT_0;
-
-    uint timeStart = TIME_TICKS;
+    TimeMeterUS timeMeter;
 
     if (funcOnHand != 0)
     {
@@ -608,28 +606,16 @@ void Display::Update(bool endScene)
         return;
     }
 
-    DEBUG_POINT_0;
-
     bool needClear = NeedForClearScreen();
-
-    DEBUG_POINT_0;
 
     if (needClear)
     {
-        DEBUG_POINT_0;
         Painter::BeginScene(COLOR_BACK);
-        DEBUG_POINT_0;
         DataPainter::MemoryWindow::Draw();
-        DEBUG_POINT_0;
         Grid::Draw();
-        DEBUG_POINT_0;
     }
 
-    DEBUG_POINT_0;
-
     DataPainter::DrawData();
-
-    DEBUG_POINT_0;
 
     if (needClear)
     {
@@ -665,9 +651,7 @@ void Display::Update(bool endScene)
         WriteValueTrigLevel();
     }
 
-    DEBUG_POINT_0;
-
-    DrawTimeForFrame(TIME_TICKS - timeStart);
+    DrawTimeForFrame(timeMeter.ElapsedTicks());
 
     Color::SetCurrent(COLOR_FILL);
 
@@ -687,8 +671,6 @@ void Display::Update(bool endScene)
         funcAfterDraw();
         funcAfterDraw = 0;
     }
-
-    DEBUG_POINT_0;
 }
 
 
@@ -1346,17 +1328,20 @@ void Display::DrawTimeForFrame(uint timeTicks)
     {
         return;
     }
+
     static char buffer[10];
     static bool first = true;
     static uint timeMSstartCalculation = 0;
     static int numFrames = 0;
     static float numMS = 0.0f;
+
     if(first)
     {
         timeMSstartCalculation = TIME_MS;
         first = false;
     }
-    numMS += timeTicks / 120000.0f;
+
+    numMS += timeTicks / TICKS_IN_US / 1e3f;
     numFrames++;
     
     if((TIME_MS - timeMSstartCalculation) >= 500)

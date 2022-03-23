@@ -27,16 +27,10 @@ extern "C" {
         volatile int line = Debug::line[0];
         volatile pchar file = Debug::file[0];
 
-        volatile int line_call = Debug::line_call;
-        volatile pchar file_call = Debug::file_call;
-
         while (1) //-V776
         {
             line = line;
             file = file;
-
-            line_call = line_call;
-            file_call = file_call;
         }
     }
 

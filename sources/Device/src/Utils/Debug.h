@@ -29,7 +29,4 @@ namespace Debug
     extern pchar file[10];
 
     extern int posItem;
-
-    extern pchar file_call;
-    extern int line_call;
 };

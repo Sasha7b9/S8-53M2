@@ -225,3 +225,9 @@ void FrameImitation::Inverse(Chan ch)
         data[i] = (uint8)((int)(2 * ValueFPGA::AVE) - Math::Limitation<uint8>(data[i], ValueFPGA::MIN, ValueFPGA::MAX));
     }
 }
+
+
+void DataSettings::Set(const DataSettings &ds)
+{
+    *this = ds;
+}
