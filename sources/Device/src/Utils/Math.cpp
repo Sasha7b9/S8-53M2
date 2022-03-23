@@ -11,6 +11,8 @@
 #include <cstring>
 
 
+template void Math::AddLimitation<float>(float *, float, float, float);
+
 
 // Столько вольт в одной точке экрана
 const float voltsInPixel[Range::Count] =
