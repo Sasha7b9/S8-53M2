@@ -55,9 +55,9 @@ namespace DataPainter
     {
         void DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan);
 
-        void DrawSpectrumChannel(const float *spectrum, Color::E);
+        void DrawChannel(const float *spectrum, Color::E);
 
-        void WriteParametersFFT(Chan, float freq0, float density0, float freq1, float density1);
+        void WriteParameters(Chan, float freq0, float density0, float freq1, float density1);
     }
 
     namespace MemoryWindow
@@ -787,12 +787,12 @@ void DataPainter::Spectrum::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan
         (int16)Processing::out.ds.rShiftB, dataR);
 
     Math::CalculateFFT(dataR, numPoints, spectrum, &freq0, &density0, &freq1, &density1, &y0, &y1);
-    DrawSpectrumChannel(spectrum, ColorChannel(ch));
+    DrawChannel(spectrum, ColorChannel(ch));
 
     if (!Menu::IsShown() || Menu::IsMinimize())
     {
         Color::E color = COLOR_FILL;
-        WriteParametersFFT(ch, freq0, density0, freq1, density1);
+        WriteParameters(ch, freq0, density0, freq1, density1);
         Painter::DrawRectangle(FFT_POS_CURSOR_0 + Grid::Left() - s, y0 - s, s * 2, s * 2, color);
         Painter::DrawRectangle(FFT_POS_CURSOR_1 + Grid::Left() - s, y1 - s, s * 2, s * 2);
 
@@ -802,7 +802,7 @@ void DataPainter::Spectrum::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan
 }
 
 
-void DataPainter::Spectrum::DrawSpectrumChannel(const float *spectrum, Color::E color)
+void DataPainter::Spectrum::DrawChannel(const float *spectrum, Color::E color)
 {
     Color::SetCurrent(color);
     int gridLeft = Grid::Left();
@@ -816,7 +816,7 @@ void DataPainter::Spectrum::DrawSpectrumChannel(const float *spectrum, Color::E 
 }
 
 
-void DataPainter::Spectrum::WriteParametersFFT(Chan ch, float freq0, float density0, float freq1, float density1)
+void DataPainter::Spectrum::WriteParameters(Chan ch, float freq0, float density0, float freq1, float density1)
 {
     int x = Grid::Left() + 259;
     int y = Grid::ChannelBottom() + 5;
