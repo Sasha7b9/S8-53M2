@@ -639,7 +639,7 @@ int String::DrawInBoundedRectWithTransfers(int x, int y, int width, Color::E col
 }
 
 
-void String::DrawStringInCenterRectOnBackground(int x, int y, int width, int height, Color::E colorText,
+void String::DrawInCenterRectOnBackground(int x, int y, int width, int height, Color::E colorText,
     int widthBorder, Color::E colorBackground)
 {
     int lenght = Font::GetLengthText(buffer);

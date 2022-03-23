@@ -34,7 +34,7 @@ static void DrawPageContent()
         pchar title = TITLE(page);
         if(currentParagraph == numPage)
         {
-            String(title).DrawStringInCenterRectOnBackground(0, y, WIDTH, 10, COLOR_BACK, 2, COLOR_FILL);
+            String(title).DrawInCenterRectOnBackground(0, y, WIDTH, 10, COLOR_BACK, 2, COLOR_FILL);
         }
         else
         {

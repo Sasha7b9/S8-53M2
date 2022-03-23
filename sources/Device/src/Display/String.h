@@ -49,7 +49,7 @@ public:
     int DrawInBoundedRectWithTransfers(int x, int y, int width, Color::E colorBackground, Color::E colorFill);
     // Пишет строку текста в центре области(x, y, width, height)цветом ColorText на прямоугольнике с шириной бордюра
     // widthBorder цвета colorBackground.
-    void DrawStringInCenterRectOnBackground(int x, int y, int width, int height, Color::E colorText, int widthBorder, Color::E colorBackground);
+    void DrawInCenterRectOnBackground(int x, int y, int width, int height, Color::E colorText, int widthBorder, Color::E colorBackground);
 
 private:
 
