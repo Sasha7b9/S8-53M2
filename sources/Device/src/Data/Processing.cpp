@@ -1109,19 +1109,18 @@ void Processing::InterpolationSinX_X(uint8 data[FPGA::MAX_POINTS * 2], TBase::E 
     }
 }
 
-char* Processing::GetStringMeasure(Measure::E measure, Chan ch, char buffer[20])
+String Processing::GetStringMeasure(Measure::E measure, Chan ch)
 {
     if (!SET_ENABLED(ch))
     {
-        return "";
+        return String("");
     }
 
-    buffer[0] = '\0';
-    std::sprintf(buffer, (ch == Chan::A) ? "1: " : "2: ");
+    String result(ch.IsA() ? "1: " : "2: ");
 
     if(!out.ds.Valid())
     {
-        std::strcat(buffer, "-.-");
+        result.Append("-.-");
     }
     else if(!SET_ENABLED(ch))
     {
@@ -1132,14 +1131,14 @@ char* Processing::GetStringMeasure(Measure::E measure, Chan ch, char buffer[20])
         pFuncCFBC func = measures[measure].FucnConvertate;
         float value = values[measure].value[ch];
         char *text = func(value, measures[measure].showSign, bufferForFunc);
-        std::strcat(buffer, text);
+        result.Append(text);
     }
     else
     {
-        return buffer;
+        return result;
     }
 
-    return buffer;
+    return result;
 }
 
 int Processing::GetMarkerHorizontal(Chan ch, int numMarker)

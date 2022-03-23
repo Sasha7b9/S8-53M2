@@ -425,8 +425,6 @@ void Display::DrawMeasures()
 
             if(meas != Measure::None)
             {
-                char buffer[20];
-
                 String(Measures::Name(str, elem)).Draw(x + 4, y + 2, color);
 
                 if(meas == MEAS_MARKED)
@@ -438,16 +436,16 @@ void Display::DrawMeasures()
 
                 if(MEAS_SOURCE_IS_A)
                 {
-                    String(Processing::GetStringMeasure(meas, Chan::A, buffer)).Draw(x + 2, y + 11, ColorChannel(Chan::A));
+                    Processing::GetStringMeasure(meas, Chan::A).Draw(x + 2, y + 11, ColorChannel(Chan::A));
                 }
                 else if(MEAS_SOURCE_IS_B)
                 {
-                    String(Processing::GetStringMeasure(meas, Chan::B, buffer)).Draw(x + 2, y + 11, ColorChannel(Chan::B));
+                    Processing::GetStringMeasure(meas, Chan::B).Draw(x + 2, y + 11, ColorChannel(Chan::B));
                 }
                 else
                 {
-                    String(Processing::GetStringMeasure(meas, Chan::A, buffer)).Draw(x + 2, y + 11, ColorChannel(Chan::A));
-                    String(Processing::GetStringMeasure(meas, Chan::B, buffer)).Draw(x + 2, y + 20, ColorChannel(Chan::B));
+                    Processing::GetStringMeasure(meas, Chan::A).Draw(x + 2, y + 11, ColorChannel(Chan::A));
+                    Processing::GetStringMeasure(meas, Chan::B).Draw(x + 2, y + 20, ColorChannel(Chan::B));
                 }
             }
         }

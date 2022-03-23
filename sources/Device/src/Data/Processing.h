@@ -3,6 +3,7 @@
 #include "Measures.h"
 #include "defines.h"
 #include "FPGA/FPGA.h"
+#include "Display/String.h"
 
 
 namespace Processing
@@ -23,7 +24,7 @@ namespace Processing
     void InterpolationSinX_X(uint8 data[FPGA::MAX_POINTS * 2], TBase::E tBase);
 
     // Возвращает строку автоматического измерения.
-    char* GetStringMeasure(Measure::E measure, Chan, char buffer[20]);
+    String GetStringMeasure(Measure::E measure, Chan);
 
     // Расчитать все измерения.
     void CalculateMeasures();
