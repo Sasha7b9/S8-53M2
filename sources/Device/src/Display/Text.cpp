@@ -42,7 +42,7 @@ namespace PText
 
     bool IsLetter(char symbol);
 
-    char *GetWord(pchar firstSymbol, int *length, char buffer[20]);
+    String GetWord(pchar firstSymbol, int *length);
 
     int GetLenghtSubString(char *text);
 
@@ -323,21 +323,20 @@ bool PText::IsLetter(char symbol)
 }
 
 
-char *PText::GetWord(pchar firstSymbol, int *length, char buffer[20])
+String PText::GetWord(pchar firstSymbol, int *length)
 {
-    int pointer = 0;
     *length = 0;
+
+    String result;
 
     while (IsLetter(*firstSymbol))
     {
-        buffer[pointer] = *firstSymbol;
-        pointer++;
+        result.Append(*firstSymbol);
         firstSymbol++;
         (*length)++;
     }
-    buffer[pointer] = '\0';
 
-    return buffer;
+    return result;
 }
 
 
@@ -531,7 +530,6 @@ int PText::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, pcha
     int right = eX + eWidth;
     int bottom = eY + eHeight;
 
-    char buffer[20];
     int numSymb = (int)std::strlen(text);
 
     int y = top - 1;
@@ -544,7 +542,7 @@ int PText::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, pcha
         while (x < right - 1 && curSymbol < numSymb)
         {
             int length = 0;
-            char *word = GetWord(text + curSymbol, &length, buffer);
+            String word = GetWord(text + curSymbol, &length);
 
             if (length <= 1)                            // Нет буквенных символов или один, т.е. слово не найдено
             {
@@ -562,10 +560,10 @@ int PText::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, pcha
             }
             else                                            // А здесь найдено по крайней мере два буквенных символа, т.е. найдено слово
             {
-                int lengthString = Font::GetLengthText(word);
+                int lengthString = Font::GetLengthText(word.c_str());
                 if (x + lengthString > right + 5)
                 {
-                    int numSymbols = DrawPartWord(word, x, y, right, true);
+                    int numSymbols = DrawPartWord(word.c_str(), x, y, right, true);
                     x = right;
                     curSymbol += numSymbols;
                     continue;
@@ -587,7 +585,6 @@ int PText::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, pcha
 
 bool PText::GetHeightTextWithTransfers(int left, int top, int right, pchar text, int *height)
 {
-    char buffer[20];
     int numSymb = (int)std::strlen(text);
 
     int y = top - 1;
@@ -600,7 +597,7 @@ bool PText::GetHeightTextWithTransfers(int left, int top, int right, pchar text,
         while (x < right - 1 && curSymbol < numSymb)
         {
             int length = 0;
-            char *word = GetWord(text + curSymbol, &length, buffer);
+            String word = GetWord(text + curSymbol, &length);
 
             if (length <= 1)                            // Нет буквенных символов или один, т.е. слово не найдено
             {
@@ -618,10 +615,10 @@ bool PText::GetHeightTextWithTransfers(int left, int top, int right, pchar text,
             }
             else                                            // А здесь найдено по крайней мере два буквенных символа, т.е. найдено слово
             {
-                int lengthString = Font::GetLengthText(word);
+                int lengthString = Font::GetLengthText(word.c_str());
                 if (x + lengthString > right + 5)
                 {
-                    int numSymbols = DrawPartWord(word, x, y, right, false);
+                    int numSymbols = DrawPartWord(word.c_str(), x, y, right, false);
                     x = right;
                     curSymbol += numSymbols;
                     continue;
@@ -629,7 +626,7 @@ bool PText::GetHeightTextWithTransfers(int left, int top, int right, pchar text,
                 else
                 {
                     curSymbol += length;
-                    x += Font::GetLengthText(word);
+                    x += Font::GetLengthText(word.c_str());
                 }
             }
         }
