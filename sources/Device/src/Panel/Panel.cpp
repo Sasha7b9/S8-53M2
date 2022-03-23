@@ -703,6 +703,7 @@ namespace Panel
                                 Flags::needFinishDraw = true;
                                 item->Change(angle);
                                 Sound::RegulatorSwitchRotate();
+                                angle = 0;
                             }
                             else if (type == TypeItem::Time)
                             {
