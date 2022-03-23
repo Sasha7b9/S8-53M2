@@ -444,5 +444,5 @@ void FPGA::Calibrator::ShowCalibrationInfo(const int y0, Chan ch)
         }
     }
 
-    PText::DrawFormat(x0, y0 + dY * ModeCouple::Count, COLOR_FILL, "%f", CAL_STRETCH(ch));
+    String("%f", CAL_STRETCH(ch)).Draw(x0, y0 + dY * ModeCouple::Count, COLOR_FILL);
 }

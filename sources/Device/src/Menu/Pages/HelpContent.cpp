@@ -9,6 +9,7 @@
 #include "Utils/Math.h"
 #include "Settings/Settings.h"
 #include "Hardware/Timer.h"
+#include "Display/String.h"
 
 
 int currentParagraph = 0;   // ≈сли TypePage(currentPage) == TypePage_Content, то указывает не текущий раздел оглавлени€
@@ -80,7 +81,8 @@ void HelpContent::Draw()
     {
         DrawPageDescription();
     }
-    PText::DrawFormat(2, 230, COLOR_FILL, "%d", TIME_MS - startTime);
+
+    String("%d", TIME_MS - startTime).Draw(2, 230, COLOR_FILL);
 }
 
 static int NumParagraphs(const PageHelp *page)

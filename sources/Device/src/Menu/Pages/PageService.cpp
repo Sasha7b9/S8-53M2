@@ -923,7 +923,7 @@ static void Information_Draw()
     String(buffer).Draw(x, y);
     y += dY;
 
-    PText::DrawFormat(x, y, COLOR_FILL, "CRC32 : %X", HAL::CalculateCRC32());
+    String("CRC32 : %X", HAL::CalculateCRC32()).Draw(x, y, COLOR_FILL);
 
     dY = -10;
     PText::DrawStringInCenterRect(0, 190 + dY, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");

@@ -13,6 +13,7 @@
 #include "Menu/Menu.h"
 #include "Log.h"
 #include "Hardware/HAL/HAL.h"
+#include "Display/String.h"
 #include <cstdio>
 #include <cstring>
 
@@ -101,7 +102,7 @@ static const Page mpConsole
 
 static void OnDraw_SizeSettings(int x, int y)
 {
-    PText::DrawFormat(x + 5, y + 21, Color::BLACK, "Размер %d", sizeof(Settings));
+    String("Размер %d", sizeof(Settings)).Draw(x + 5, y + 21, Color::BLACK);
 }
 
 
@@ -202,7 +203,7 @@ static const Button bResetShift
 
 static void OnDraw_ShiftADCA(int x, int y)
 {
-    PText::DrawFormat(x + 5, y + 21, Color::BLACK, "%d", set.chan[ChA].cal_rshift[Range::_2mV][ModeCouple::DC]);
+    String("%d", set.chan[ChA].cal_rshift[Range::_2mV][ModeCouple::DC]).Draw(x + 5, y + 21, Color::BLACK);
 }
 
 
@@ -224,7 +225,7 @@ static const Choice mcShiftADCA =
 
 static void OnDraw_ShiftADCB(int x, int y)
 {
-    PText::DrawFormat(x + 5, y + 21, Color::BLACK, "%d", set.chan[ChB].cal_rshift[Range::_2mV][ModeCouple::DC]);
+    String("%d", set.chan[ChB].cal_rshift[Range::_2mV][ModeCouple::DC]).Draw(x + 5, y + 21, Color::BLACK);
 }
 
 
@@ -374,7 +375,7 @@ static const Button bResetStretch
 
 static void OnDraw_StretchADCA(int x, int y)
 {
-    PText::DrawFormat(x + 5, y + 21, Color::BLACK, "%f", CAL_STRETCH_A);
+    String("%f", CAL_STRETCH_A).Draw(x + 5, y + 21, Color::BLACK);
 }
 
 
@@ -396,7 +397,7 @@ static const Choice mcStretchADCA =
 
 static void OnDraw_StretchADCB(int x, int y)
 {
-    PText::DrawFormat(x + 5, y + 21, Color::BLACK, "%f", CAL_STRETCH_B);
+    String("%f", CAL_STRETCH_B).Draw(x + 5, y + 21, Color::BLACK);
 }
 
 
@@ -754,9 +755,9 @@ static void Draw_EnterSerialNumber()
 
     int allShots = OTP::GetSerialNumber(buffer);
 
-    PText::DrawFormat(x0 + deltaX, y0 + 130, COLOR_FILL, "Текущий сохранённый номер %s", buffer[0] == 0 ? "-- ----" : buffer);
+    String("Текущий сохранённый номер %s", buffer[0] == 0 ? "-- ----" : buffer).Draw(x0 + deltaX, y0 + 130, COLOR_FILL);
 
-    PText::DrawFormat(x0 + deltaX, y0 + 100, COLOR_FILL, "Осталось места для %d попыток", allShots);
+    String("Осталось места для %d попыток", allShots).Draw(x0 + deltaX, y0 + 100, COLOR_FILL);
 }
 
 

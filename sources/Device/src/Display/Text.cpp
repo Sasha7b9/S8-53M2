@@ -655,20 +655,6 @@ int PText::DrawInBoundedRectWithTransfers(int x, int y, int width, pchar text, C
 }
 
 
-int PText::DrawFormat(int x, int y, Color::E color, char *text, ...)
-{
-    static int const SIZE_BUFFER = 200;
-    char buffer[SIZE_BUFFER];
-
-    std::va_list args;
-    va_start(args, text);
-    vsprintf(buffer, text, args);
-    va_end(args);
-
-    return String(buffer).Draw(x, y, color);
-}
-
-
 int PText::DrawStringInCenterRect(int eX, int eY, int width, int eHeight, pchar text, Color::E color)
 {
     Color::SetCurrent(color);

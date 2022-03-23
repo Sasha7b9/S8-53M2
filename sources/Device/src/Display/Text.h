@@ -20,8 +20,6 @@ namespace PText
     int DrawInBoundedRectWithTransfers(int x, int y, int width, pchar text, Color::E colorBackground,
         Color::E colorFill);
 
-    int DrawFormat(int x, int y, Color::E color, char *text, ...);
-
     // Пишет строку текста в центре области(x, y, width, height)цветом ColorText на прямоугольнике с шириной бордюра
     // widthBorder цвета colorBackground.
     void DrawStringInCenterRectOnBackground(int x, int y, int width, int height, pchar text, Color::E colorText,
