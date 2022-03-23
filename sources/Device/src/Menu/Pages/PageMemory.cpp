@@ -70,7 +70,7 @@ void PressSB_MemLast_Next()
 
 void PressSB_MemLast_Prev()
 {
-    CircleDecreaseInt16(&PageMemory::Latest::current, 0, Storage::NumFrames() - 1);
+    Math::CircleDecrease<int16>(&PageMemory::Latest::current, 0, Storage::NumFrames() - 1);
 }
 
 static void RotateSB_MemLast(int angle)
@@ -357,8 +357,8 @@ void OnMemExtSetMaskNameRegSet(int angle, int maxIndex)
 {
     int8(*func[3])(int8 *, int8, int8) =
     {
-        CircleDecreaseInt8,
-        CircleDecreaseInt8,
+        Math::CircleDecrease<int8>,
+        Math::CircleDecrease<int8>,
         Math::CircleIncrease<int8>
     };
 
@@ -588,7 +588,7 @@ static void FuncOnRegSetMemInt(int delta)
 {
     if (delta < 0)
     {
-        CircleDecreaseInt8(&PageMemory::Internal::currentSignal, 0, MAX_NUM_SAVED_WAVES - 1);
+        Math::CircleDecrease<int8>(&PageMemory::Internal::currentSignal, 0, MAX_NUM_SAVED_WAVES - 1);
     }
     else if (delta > 0)
     {

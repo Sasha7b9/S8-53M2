@@ -69,6 +69,10 @@ namespace Math
     // Увеличивает значение по адресу val на 1. Затем, если результат превышает max, приравинвает его к min.
     template<class T> T CircleIncrease(T *val, T min, T max);
 
+    // Умеьшает значение по адресу val на 1. Затем, если результат меньше min, приравнивает его max.
+    template<class T> T CircleDecrease(T *val, T min, T max);
+
+
     template<class T> T Limitation(T value, T min, T max)
     {
         if (value < min)      { return min; }

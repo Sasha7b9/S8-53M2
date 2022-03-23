@@ -106,7 +106,7 @@ void HelpContent::PrevParagraph()
 {
     if(currentPage->type == TypePage_Content)
     {
-        CircleDecreaseInt(&currentParagraph, 0, NumParagraphs(currentPage) - 1);
+        Math::CircleDecrease<int>(&currentParagraph, 0, NumParagraphs(currentPage) - 1);
     }
 }
 

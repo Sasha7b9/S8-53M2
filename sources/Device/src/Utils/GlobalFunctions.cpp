@@ -32,65 +32,6 @@ float MaxFloat(float val1, float val2, float val3)
     return retValue;
 }
 
-int8 CircleIncreaseInt8(int8 *val, int8 min, int8 max)
-{
-    (*val)++;
-    if((*val) > max)
-    {
-        (*val) = min;
-    }
-    return (*val);
-}
-
-int16 CircleIncreaseInt16(int16 *val, int16 min, int16 max)
-{
-    (*val)++;
-    if((*val) > max)
-    {
-        (*val) = min;
-    }
-    return (*val);
-}
-
-int CircleIncreaseInt(int *val, int min, int max)
-{
-    (*val)++;
-    if((*val) > max)
-    {
-        (*val) = min;
-    }
-    return (*val);
-}
-
-int8 CircleDecreaseInt8(int8 *val, int8 min, int8 max)
-{
-    (*val)--;
-    if((*val) < min)
-    {
-        (*val) = max;
-    }
-    return *val;
-}
-
-int16 CircleDecreaseInt16(int16 *val, int16 min, int16 max)
-{
-    (*val)--;
-    if((*val) < min)
-    {
-        (*val) = max;
-    }
-    return (*val);
-}
-
-int CircleDecreaseInt(int *val, int min, int max)
-{
-    (*val)--;
-    if((*val) < min)
-    {
-        (*val) = max;
-    }
-    return (*val);
-}
 
 float CircleAddFloat(float *val, float delta, float min, float max)
 {

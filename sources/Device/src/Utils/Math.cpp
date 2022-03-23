@@ -11,7 +11,13 @@
 #include <cstring>
 
 
-template void Math::AddLimitation<float>(float *, float, float, float);
+template void  Math::AddLimitation<float>(float *, float, float, float);
+template int8  Math::CircleIncrease<int8>(int8 *, int8, int8);
+template int16 Math::CircleIncrease<int16>(int16 *, int16, int16);
+template int   Math::CircleIncrease<int>(int *, int, int);
+template int8  Math::CircleDecrease<int8>(int8 *, int8, int8);
+template int16 Math::CircleDecrease<int16>(int16 *, int16, int16);
+template int   Math::CircleDecrease<int>(int *, int, int);
 
 
 // Столько вольт в одной точке экрана
@@ -687,4 +693,32 @@ void Math::AddLimitation(T *val, T delta, T min, T max)
     {
         *val = sum;
     }
+}
+
+
+template<class T>
+T Math::CircleIncrease(T *val, T min, T max)
+{
+    (*val)++;
+
+    if ((*val) > max)
+    {
+        (*val) = min;
+    }
+
+    return (*val);
+}
+
+
+template<class T>
+T Math::CircleDecrease(T *val, T min, T max)
+{
+    (*val)--;
+
+    if ((*val) < min)
+    {
+        (*val) = max;
+    }
+
+    return *val;
 }

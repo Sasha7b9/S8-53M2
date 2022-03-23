@@ -776,7 +776,7 @@ static void OnRegSet_SerialNumber(int angle)
 {
     typedef int(*pFunc)(int *, int, int);
 
-    pFunc p = angle > 0 ? Math::CircleIncrease<int> : CircleDecreaseInt;
+    pFunc p = angle > 0 ? Math::CircleIncrease<int> : Math::CircleDecrease<int>;
 
     if (structSN.curDigt == 0)
     {

@@ -235,7 +235,7 @@ float Choice::Step()
             {
                 return delta;
             }
-            CircleDecreaseInt8(cell, 0, NumSubItems() - 1);
+            Math::CircleDecrease<int8>(cell, 0, NumSubItems() - 1);
         }
 
         tsChoice.choice = 0;
