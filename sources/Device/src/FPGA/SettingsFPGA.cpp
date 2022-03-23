@@ -1015,3 +1015,17 @@ void TShift::Draw()
         Painter::DrawLine(Grid::Right() - 9, GRID_TOP + 1, Grid::Right() - 9, GRID_TOP + 7, COLOR_BACK);
     }
 }
+
+
+void RShift::ChangedMarkers()
+{
+    drawMarkers = !ALT_MARKERS_HIDE;
+    Timer::Enable(TypeTimer::RShiftMarkersAutoHide, 5000, RShift::OnMarkersAutoHide);
+}
+
+
+void RShift::OnMarkersAutoHide()
+{
+    drawMarkers = false;
+    Timer::Disable(TypeTimer::RShiftMarkersAutoHide);
+}

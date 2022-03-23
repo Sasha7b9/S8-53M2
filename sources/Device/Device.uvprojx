@@ -1999,6 +1999,21 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>Display/Screen</GroupName>
+          <Files>
+            <File>
+              <FileName>HiPart.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Screen\HiPart.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HiPart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Screen\HiPart.h</FilePath>
+            </File>
+          </Files>
+        </Group>
       </Groups>
     </Target>
     <Target>
@@ -3991,6 +4006,21 @@
               <FileName>usbd_ctlreq.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_ctlreq.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Display/Screen</GroupName>
+          <Files>
+            <File>
+              <FileName>HiPart.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Screen\HiPart.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HiPart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Screen\HiPart.h</FilePath>
             </File>
           </Files>
         </Group>
