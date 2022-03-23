@@ -23,8 +23,6 @@ namespace PText
     int DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, pchar text, Color::E colorBackground,
         Color::E colorFill);
 
-    void DrawInRect(int x, int y, int width, int height, char *text, int dy = 0);
-
     void DrawRelativelyRight(int xRight, int y, pchar text, Color::E = Color::Count);
 
     void Draw2Symbols(int x, int y, char symbol1, char symbol2, Color::E color1, Color::E color2);

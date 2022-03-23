@@ -28,10 +28,6 @@ namespace PText
     // bool == false, то текст не влезет на экран 
     bool GetHeightTextWithTransfers(int left, int top, int right, pchar text, int *height);
 
-    int DrawSubString(int x, int y, char *text);
-
-    int DrawSpaces(int x, int y, char *text, int *numSymbols);
-
     bool ByteFontNotEmpty(int eChar, int byte);
 
     bool BitInFontIsExist(int eChar, int numByte, int bit);
@@ -43,8 +39,6 @@ namespace PText
     bool IsLetter(char symbol);
 
     String GetWord(pchar firstSymbol, int *length);
-
-    int GetLenghtSubString(char *text);
 
     bool IsConsonant(char symbol);
 
@@ -677,78 +671,6 @@ void Painter::DrawHintsForSmallButton(int x, int y, int width, void *smallButton
         int yNew = PText::DrawInRectWithTransfers(x + 23, y + 1, width - 30, 20, structHelp->helpUGO[LANG]);
         y = ((yNew - y) < 22) ? (y + 22) : yNew;
         structHelp++;
-    }
-}
-
-
-int PText::GetLenghtSubString(char *text)
-{
-    int result = 0;
-
-    while (((*text) != ' ') && ((*text) != '\0'))
-    {
-        result += Font::GetLengthSymbol((uint8)*text);
-        text++;
-        result++;
-    }
-
-    return result;
-}
-
-
-int PText::DrawSubString(int x, int y, char *text)
-{
-    int numSymbols = 0;
-
-    while (((*text) != ' ') && ((*text) != '\0'))
-    {
-        x = DrawChar(x, y, *text);
-        numSymbols++;
-        text++;
-        x++;
-    }
-
-    return numSymbols;
-}
-
-
-int PText::DrawSpaces(int x, int y, char *text, int *numSymbols)
-{
-    *numSymbols = 0;
-
-    while (*text == ' ')
-    {
-        x = DrawChar(x, y, *text);
-        text++;
-        (*numSymbols)++;
-    }
-
-    return x;
-}
-
-
-void PText::DrawInRect(int x, int y, int width, int, char *text, int dy)
-{
-    int xStart = x;
-    int xEnd = xStart + width;
-
-    while (*text != 0)
-    {
-        int length = GetLenghtSubString(text);
-
-        if (length + x > xEnd)
-        {
-            x = xStart;
-            y += Font::GetHeightSymbol(*text);
-            y += dy;
-        }
-
-        int numSymbols = 0;
-        numSymbols = DrawSubString(x, y, text);
-        text += numSymbols;
-        x += length;
-        x = DrawSpaces(x, y, text, &numSymbols);
-        text += numSymbols;
     }
 }
 

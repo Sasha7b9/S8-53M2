@@ -342,3 +342,77 @@ int String::DrawOnBackground(int x, int y, Color::E colorBackground)
 
     return Draw(x, y);
 }
+
+
+void String::DrawInRect(int x, int y, int width, int, int dy)
+{
+    int xStart = x;
+    int xEnd = xStart + width;
+
+    char *text = buffer;
+
+    while (*text != 0)
+    {
+        int length = GetLenghtSubString(text);
+
+        if (length + x > xEnd)
+        {
+            x = xStart;
+            y += Font::GetHeightSymbol(*text);
+            y += dy;
+        }
+
+        int numSymbols = 0;
+        numSymbols = DrawSubString(x, y, text);
+        text += numSymbols;
+        x += length;
+        x = DrawSpaces(x, y, text, &numSymbols);
+        text += numSymbols;
+    }
+}
+
+
+int String::GetLenghtSubString(char *text)
+{
+    int result = 0;
+
+    while (((*text) != ' ') && ((*text) != '\0'))
+    {
+        result += Font::GetLengthSymbol((uint8)*text);
+        text++;
+        result++;
+    }
+
+    return result;
+}
+
+
+int String::DrawSubString(int x, int y, char *text)
+{
+    int numSymbols = 0;
+
+    while (((*text) != ' ') && ((*text) != '\0'))
+    {
+        x = PText::DrawChar(x, y, *text);
+        numSymbols++;
+        text++;
+        x++;
+    }
+
+    return numSymbols;
+}
+
+
+int String::DrawSpaces(int x, int y, char *text, int *numSymbols)
+{
+    *numSymbols = 0;
+
+    while (*text == ' ')
+    {
+        x = PText::DrawChar(x, y, *text);
+        text++;
+        (*numSymbols)++;
+    }
+
+    return x;
+}

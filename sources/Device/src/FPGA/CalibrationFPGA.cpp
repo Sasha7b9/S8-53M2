@@ -178,11 +178,10 @@ static void FPGA::Calibrator::FunctionDraw()
     case StateCalibration::WaitA:
     case StateCalibration::WaitB:
         {
-            String message(LANG_RU ? "Подключите ко входу канала %d выход калибратора и нажмите кнопку ПУСК/СТОП. Если вы не хотите калибровать первый канала, нажмите любую другую кнопку." :
+            String(LANG_RU ? "Подключите ко входу канала %d выход калибратора и нажмите кнопку ПУСК/СТОП. Если вы не хотите калибровать первый канала, нажмите любую другую кнопку." :
                 "Connect the output of the calibrator to channel %d input and press the START/STOP button. If you do not want to calibrate the first channel, press any other button.",
-                (state == StateCalibration::WaitA) ? 1 : 2);
-
-            PText::DrawInRect(50, 80, SCREEN_WIDTH - 100, SCREEN_HEIGHT, message.c_str(), 2);
+                (state == StateCalibration::WaitA) ? 1 : 2)
+                .DrawInRect(50, 80, SCREEN_WIDTH - 100, SCREEN_HEIGHT, 2);
         }
         break;
 
