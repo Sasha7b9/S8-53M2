@@ -462,7 +462,6 @@ void Display::DrawTimeForFrame(uint timeTicks)
         return;
     }
 
-    static char buffer[10];
     static bool first = true;
     static uint timeMSstartCalculation = 0;
     static int numFrames = 0;
@@ -476,10 +475,12 @@ void Display::DrawTimeForFrame(uint timeTicks)
 
     numMS += timeTicks / TICKS_IN_US / 1e3f;
     numFrames++;
+
+    String buffer;
     
     if((TIME_MS - timeMSstartCalculation) >= 500)
     {
-        std::sprintf(buffer, "%.1fms/%d", numMS / numFrames, numFrames * 2);
+        buffer.SetFormat("%.1fms/%d", numMS / numFrames, numFrames * 2);
         timeMSstartCalculation = TIME_MS;
         numMS = 0.0f;
         numFrames = 0;
@@ -487,7 +488,7 @@ void Display::DrawTimeForFrame(uint timeTicks)
 
     Painter::DrawRectangle(Grid::Left(), Grid::FullBottom() - 10, 84, 10, COLOR_FILL);
     Painter::FillRegion(Grid::Left() + 1, Grid::FullBottom() - 9, 82, 8, COLOR_BACK);
-    String(buffer).Draw(Grid::Left() + 2, Grid::FullBottom() - 9, COLOR_FILL);
+    buffer.Draw(Grid::Left() + 2, Grid::FullBottom() - 9, COLOR_FILL);
 
     char message[20] = {0};
     std::sprintf(message, "%d", Storage::NumFramesWithSameSettings());
