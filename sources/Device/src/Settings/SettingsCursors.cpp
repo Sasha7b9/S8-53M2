@@ -38,15 +38,15 @@ String PageCursors::GetCursorTime(Chan source, int numCur)
 }
 
 
-pchar PageCursors::GetCursorPercentsU(Chan source, char buffer[20])
+String PageCursors::GetCursorPercentsU(Chan source)
 {
-    buffer[0] = 0;
     float dPerc = DELTA_U100(source);
     float dValue = std::fabs(PageCursors::GetCursPosU(source, 0) - PageCursors::GetCursPosU(source, 1));
-    String percents = Float2String(dValue / dPerc * 100.0f, false, 5);
-    std::strcat(buffer, percents.c_str());
-    std::strcat(buffer, "%");
-    return buffer;
+
+    String result = Float2String(dValue / dPerc * 100.0f, false, 5);
+    result.Append("%");
+
+    return result;
 }
 
 

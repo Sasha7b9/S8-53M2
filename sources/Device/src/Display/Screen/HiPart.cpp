@@ -30,7 +30,6 @@ void HiPart::Draw()
 
 void HiPart::WriteCursors()
 {
-    char buffer[20];
     int startX = 43;
 
     if (MODE_WORK_IS_DIRECT)
@@ -63,7 +62,7 @@ void HiPart::WriteCursors()
             String(":dU=").Draw(x, y1);
             Voltage2String(delta, false).Draw(x + 17, y1);
             String(":").Draw(x, y2);
-            String(PageCursors::GetCursorPercentsU(source, buffer)).Draw(x + 10, y2);
+            PageCursors::GetCursorPercentsU(source).Draw(x + 10, y2);
         }
 
         x = startX + 101;
