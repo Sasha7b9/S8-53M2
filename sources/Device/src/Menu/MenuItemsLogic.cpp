@@ -264,9 +264,15 @@ void Time::DecCurrentPosition() const
 
 void GovernorColor::ChangeValue(int delta)
 {
-    
+    Math::Limitation(&delta, -1, 1);
+
+    LOG_WRITE("");
+    LOG_WRITE("change on %d", delta);
 
     ColorType &ct = *colorType;
+
+    LOG_WRITE("before %x", COLOR(ct.color));
+
 
     if (ct.currentField == 0)
     {
@@ -276,6 +282,8 @@ void GovernorColor::ChangeValue(int delta)
     {
         ct.ComponentChange(delta);
     }
+
+    LOG_WRITE("after %x", COLOR(ct.color));
 
     HAL_LTDC::LoadPalette();
 }
