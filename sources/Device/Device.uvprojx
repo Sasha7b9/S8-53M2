@@ -947,16 +947,6 @@
               <FilePath>.\src\Display\Display.h</FilePath>
             </File>
             <File>
-              <FileName>DisplayPrimitives.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\DisplayPrimitives.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>DisplayPrimitives.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\DisplayPrimitives.h</FilePath>
-            </File>
-            <File>
               <FileName>DisplayTypes.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\DisplayTypes.h</FilePath>
@@ -2930,16 +2920,6 @@
               <FileName>Display.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Display.h</FilePath>
-            </File>
-            <File>
-              <FileName>DisplayPrimitives.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\DisplayPrimitives.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>DisplayPrimitives.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\DisplayPrimitives.h</FilePath>
             </File>
             <File>
               <FileName>DisplayTypes.h</FileName>
