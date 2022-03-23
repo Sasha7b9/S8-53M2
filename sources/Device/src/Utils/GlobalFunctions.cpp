@@ -233,15 +233,13 @@ char* Voltage2String(float voltage, bool alwaysSign, char buffer[20])
     return buffer;
 }
 
-char* Time2String(float time, bool alwaysSign, char buffer[20])
+String Time2String(float time, bool alwaysSign)
 {
-    buffer[0] = 0;
     char *suffix = 0;
 
     if(time == ERROR_VALUE_FLOAT)
     {
-        std::strcat(buffer, ERROR_STRING_VALUE);
-        return buffer;
+        return String(ERROR_STRING_VALUE);
     }
     else if(std::fabs(time) + 0.5e-10f < 1e-6f)
     {
@@ -263,10 +261,10 @@ char* Time2String(float time, bool alwaysSign, char buffer[20])
         suffix = LANG_RU ? "ñ" : "s";
     }
 
-    char bufferOut[20];
-    std::strcat(buffer, Float2String(time, alwaysSign, 4, bufferOut));
-    std::strcat(buffer, suffix);
-    return buffer;
+    String result = Float2String(time, alwaysSign, 4);
+    result.Append(suffix);
+
+    return result;
 }
 
 char* Phase2String(float phase, bool, char bufferOut[20])
