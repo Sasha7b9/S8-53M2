@@ -150,16 +150,6 @@ void Painter_SendToDisplay(uint8 *bytes, int numBytes)
 }
 
 
-void Painter_SetPalette(Color::E color)
-{
-    uint8 command[4];
-    command[0] = SET_PALETTE;
-    *(command + 1) = (uint8)color;
-    *((uint16*)(command + 2)) = set.display.colors[color];
-    Painter_SendToDisplay(command, 4);
-}
-
-
 void Painter_SetColor(Color::E color)
 {
     if (color != currentColor)
@@ -424,21 +414,6 @@ void Painter_DrawSignal(int x, uint8 data[281], bool modeLines)
 }
 
 
-void Painter_LoadPalette(int num)
-{
-    int min[] = {0, 5, 10};
-    int max[] = {4, 9, 15};
-
-    int i = min[num];
-    int a = max[num];
-
-    for (; i <= a; i++)
-    {
-        Painter_SetPalette((Color::E)i);
-    }
-}
-
-
 void Painter_BeginScene(Color::E color)
 {
     if (stateTransmit == StateTransmit_NeedForTransmitFirst || stateTransmit == StateTransmit_NeedForTransmitSecond)
@@ -447,9 +422,6 @@ void Painter_BeginScene(Color::E color)
         stateTransmit = StateTransmit_InProcess;
         if(needForLoadFontsAndPalette) 
         {
-            Painter_LoadPalette(0);
-            Painter_LoadPalette(1);
-            Painter_LoadPalette(2);
             Painter_LoadFont(TypeFont_5);
             Painter_LoadFont(TypeFont_8);
             Painter_LoadFont(TypeFont_UGO);

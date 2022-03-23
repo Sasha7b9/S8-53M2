@@ -67,10 +67,6 @@ void Display_Init()
 
     InitHardware();
 
-    Painter_LoadPalette(0);
-    Painter_LoadPalette(1);
-    Painter_LoadPalette(2);
-
     Painter_SetFont(TypeFont_8);
     
     InitPoints();

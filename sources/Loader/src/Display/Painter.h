@@ -18,10 +18,6 @@ void Painter_ResetFlash();
 
 void Painter_SetColor(Color::E color);
 
-void Painter_LoadPalette(int num);
-
-void Painter_SetPalette(Color::E color);
-
 void Painter_SetPoint(int x, int y);
 
 void Painter_DrawHLine(int y, int x0, int x1);
