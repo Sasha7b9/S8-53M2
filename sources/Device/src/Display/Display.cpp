@@ -58,8 +58,6 @@ namespace Display
 
     void DrawHiRightPart();
 
-    void DrawSpectrum();
-
     // Вывести текущее время.
     void DrawTime(int x, int y);
 
@@ -72,19 +70,13 @@ namespace Display
     // Вывести значения автоматических измерений.
     void DrawMeasures();
 
-    void DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan);
-
     void DrawScaleLine(int x, bool forTrigLev);
-
-    void WriteParametersFFT(Chan, float freq0, float density0, float freq1, float density1);
 
     void WriteTextVoltage(Chan, int x, int y);
 
     void FuncOnTimerDisableShowLevelRShiftA();
 
     void FuncOnTimerDisableShowLevelRShiftB();
-
-    void DrawSpectrumChannel(const float* spectrum, Color::E);
 
     void DrawStringNavigation();
 
@@ -192,131 +184,6 @@ void Display::RotateTrigLev()
     }
 
     Flags::needFinishDraw = true;
-}
-
-
-void Display::DrawSpectrumChannel(const float *spectrum, Color::E color)
-{
-    Color::SetCurrent(color);
-    int gridLeft = Grid::Left();
-    int gridBottom = Grid::MathBottom();
-    int gridHeight = Grid::MathHeight();
-    for (int i = 0; i < 256; i++)
-    {
-        Painter::DrawVLine(gridLeft + i, gridBottom, (int)(gridBottom - gridHeight * spectrum[i]));
-    }
-}
-
-
-void Display::WriteParametersFFT(Chan ch, float freq0, float density0, float freq1, float density1)
-{
-    int x = Grid::Left() + 259;
-    int y = Grid::ChannelBottom() + 5;
-    int dY = 10;
-
-    char buffer[20];
-    Color::SetCurrent(COLOR_FILL);
-    PText::Draw(x, y, Freq2String(freq0, false, buffer));
-    y += dY;
-    PText::Draw(x, y, Freq2String(freq1, false, buffer));
-
-    if (ch == Chan::A)
-    {
-        y += dY + 2;
-    }
-    else
-    {
-        y += dY * 3 + 4;
-    }
-
-    Color::SetCurrent(ColorChannel(ch));
-    PText::Draw(x, y, SCALE_FFT_IS_LOG ? Float2Db(density0, 4, buffer) : Float2String(density0, false, 7, buffer));
-    y += dY;
-    PText::Draw(x, y, SCALE_FFT_IS_LOG ? Float2Db(density1, 4, buffer) : Float2String(density1, false, 7, buffer));
-}
-
-
-
-void Display::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan ch)
-{
-    if (!ch.Enabled())
-    {
-        return;
-    }
-
-    float dataR[FPGA::MAX_POINTS * 2];
-    float spectrum[FPGA::MAX_POINTS * 2];
-
-    float freq0 = 0.0f;
-    float freq1 = 0.0f;
-    float density0 = 0.0f;
-    float density1 = 0.0f;
-    int y0 = 0;
-    int y1 = 0;
-    int s = 2;
-
-    ValueFPGA::ToVoltage(data, numPoints, Processing::out.ds.range[ch], (ch == Chan::A) ?
-        (int16)Processing::out.ds.rShiftA :
-        (int16)Processing::out.ds.rShiftB, dataR);
-
-    Math::CalculateFFT(dataR, numPoints, spectrum, &freq0, &density0, &freq1, &density1, &y0, &y1);
-    DrawSpectrumChannel(spectrum, ColorChannel(ch));
-
-    if (!Menu::IsShown() || Menu::IsMinimize())
-    {
-        Color::E color = COLOR_FILL;
-        WriteParametersFFT(ch, freq0, density0, freq1, density1);
-        Painter::DrawRectangle(FFT_POS_CURSOR_0 + Grid::Left() - s, y0 - s, s * 2, s * 2, color);
-        Painter::DrawRectangle(FFT_POS_CURSOR_1 + Grid::Left() - s, y1 - s, s * 2, s * 2);
-
-        Painter::DrawVLine(Grid::Left() + FFT_POS_CURSOR_0, Grid::MathBottom(), y0 + s);
-        Painter::DrawVLine(Grid::Left() + FFT_POS_CURSOR_1, Grid::MathBottom(), y1 + s);
-    }
-}
-
-
-void Display::DrawSpectrum()
-{
-    if (!ENABLED_FFT)
-    {
-        return;
-    }
-
-    Painter::DrawVLine(Grid::Right(), Grid::ChannelBottom() + 1, Grid::MathBottom() - 1, COLOR_BACK);
-
-    if (MODE_WORK_IS_DIRECT)
-    {
-        int numPoints = ENUM_POINTS_FPGA::ToNumPoints();
-        if (numPoints < 512)
-        {
-            numPoints = 256;
-        }
-
-        if (SOURCE_FFT_IS_A)
-        {
-            DRAW_SPECTRUM(Processing::out.A.Data(), numPoints, Chan::A);
-        }
-        else if (SOURCE_FFT_IS_B)
-        {
-            DRAW_SPECTRUM(Processing::out.B.Data(), numPoints, Chan::B);
-        }
-        else
-        {
-            if (LAST_AFFECTED_CHANNEL_IS_A)
-            {
-                DRAW_SPECTRUM(Processing::out.B.Data(), numPoints, Chan::B);
-                DRAW_SPECTRUM(Processing::out.A.Data(), numPoints, Chan::A);
-            }
-            else
-            {
-                DRAW_SPECTRUM(Processing::out.A.Data(), numPoints, Chan::A);
-                DRAW_SPECTRUM(Processing::out.B.Data(), numPoints, Chan::B);
-            }
-        }
-    }
-
-    Painter::DrawHLine(Grid::ChannelBottom(), Grid::Left(), Grid::Right(), COLOR_FILL);
-    Painter::DrawHLine(Grid::MathBottom(), Grid::Left(), Grid::Right());
 }
 
 
@@ -568,7 +435,7 @@ void Display::Update(bool endScene)
     if (needClear)
     {
         DataPainter::DrawMath();
-        DrawSpectrum();
+        DataPainter::DrawSpectrum();
         DrawCursors();
         DrawHiPart();
         DrawLowPart();

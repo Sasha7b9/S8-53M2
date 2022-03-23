@@ -8,6 +8,8 @@ namespace DataPainter
 
     void DrawMath();
 
+    void DrawSpectrum();
+
     namespace MemoryWindow
     {
         // Нарисовать окно памяти
