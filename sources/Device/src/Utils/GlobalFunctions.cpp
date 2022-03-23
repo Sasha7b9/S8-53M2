@@ -46,15 +46,15 @@ static int NumDigitsInIntPart(float value)
     return numDigitsInInt;
 }
 
-char* Float2String(float value, bool alwaysSign, int numDigits, char bufferOut[20])
+
+String Float2String(float value, bool alwaysSign, int numDigits)
 {
-    bufferOut[0] = 0;
+    char bufferOut[20];
     char *pBuffer = bufferOut;
 
     if(value == ERROR_VALUE_FLOAT)
     {
-        std::strcat(bufferOut, ERROR_STRING_VALUE);
-        return bufferOut;
+        return String(ERROR_STRING_VALUE);
     }
 
     if(!alwaysSign)
@@ -107,7 +107,7 @@ char* Float2String(float value, bool alwaysSign, int numDigits, char bufferOut[2
         std::strcat(bufferOut, "0");
     }
 
-    return bufferOut;
+    return String(bufferOut);
 }
 
 char* Int2String(int value, bool alwaysSign, int numMinFields, char buffer[20])
@@ -195,15 +195,13 @@ char* Hex8toString(uint8 value, char buffer[3])
     return buffer;
 }
 
-char* Voltage2String(float voltage, bool alwaysSign, char buffer[20])
+String Voltage2String(float voltage, bool alwaysSign)
 {
-    buffer[0] = 0;
     char *suffix;
 
     if(voltage == ERROR_VALUE_FLOAT)
     {
-        std::strcat(buffer, ERROR_STRING_VALUE);
-        return buffer;
+        return String(ERROR_STRING_VALUE);
     }
     else if(std::fabs(voltage) + 0.5e-4f < 1e-3f)
     {
@@ -225,12 +223,10 @@ char* Voltage2String(float voltage, bool alwaysSign, char buffer[20])
         voltage *= 1e-3f;
     }
 
-    char bufferOut[20];
+    String result = Float2String(voltage, alwaysSign, 4);
+    result.Append(suffix);
 
-    Float2String(voltage, alwaysSign, 4, bufferOut);
-    std::strcat(buffer, bufferOut);
-    std::strcat(buffer, suffix);
-    return buffer;
+    return result;
 }
 
 String Time2String(float time, bool alwaysSign)
@@ -267,11 +263,11 @@ String Time2String(float time, bool alwaysSign)
     return result;
 }
 
-char* Phase2String(float phase, bool, char bufferOut[20])
+String Phase2String(float phase, bool)
 {
-    char buffer[20];
-    std::sprintf(bufferOut, "%s\xa8", Float2String(phase, false, 4, buffer));
-    return bufferOut;
+    String result = Float2String(phase, false, 4);
+    result.Append("\xa8");
+    return result;
 }
 
 String Freq2String(float freq, bool)
@@ -310,9 +306,8 @@ String Freq2String(float freq, bool)
 char* Float2Db(float value, int numDigits, char bufferOut[20])
 {
     bufferOut[0] = 0;
-    char buffer[20];
-    std::strcat(bufferOut, Float2String(value, false, numDigits, buffer));
-    std::strcat(bufferOut, "Да");
+    std::strcat(bufferOut, Float2String(value, false, numDigits).c_str());
+    std::strcat(bufferOut, LANG_RU ? "Да" : "dB");
     return bufferOut;
 }
 

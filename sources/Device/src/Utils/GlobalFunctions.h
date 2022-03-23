@@ -29,11 +29,7 @@ char*   Int2String                              // Преобразует value в текстовую
                     char buffer[20]
                     );
 bool    String2Int(char *str, int *value);
-String Voltage2String                          // Преобразует voltage вольт в текстовую строку.
-                                                // @attention Страка будет храниться до следующего вызова функции. Если результат нужен большее количество времени, то его нужно скопитровать себе.
-                        (float voltage,         // значение напряжения в вольтах.
-                        bool alwaysSign        // если установлено в true, знак выводится всегда.
-                        );                      
+String Voltage2String(float voltage, bool alwaysSign);
 String Time2String(float time, bool alwaysSign);
 String Freq2String(float freq, bool alwaysSign);
 String Phase2String(float phase, bool alwaysSign);
