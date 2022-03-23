@@ -263,17 +263,20 @@ int PText::DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int 
 }
 
 
-int PText::DrawWithLimitation(int x, int y, pchar  text, Color::E color, int limitX, int limitY, int limitWidth,
-    int limitHeight)
+int String::DrawWithLimitation(int x, int y, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight)
 {
     Color::SetCurrent(color);
     int retValue = x;
+
+    char *text = buffer;
+
     while (*text)
     {
-        x = DrawCharWithLimitation(x, y, (uint8)*text, limitX, limitY, limitWidth, limitHeight);
+        x = PText::DrawCharWithLimitation(x, y, (uint8)*text, limitX, limitY, limitWidth, limitHeight);
         retValue += Font::GetLengthSymbol((uint8)*text);
         text++;
     }
+
     return retValue + 1;
 }
 

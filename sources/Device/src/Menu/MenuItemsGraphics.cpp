@@ -110,18 +110,14 @@ void Governor::DrawLowPart(int x, int y, bool, bool shade)
 
             if(delta > 0.0f)
             {
-                x = PText::DrawWithLimitation(drawX, y + 21 - delta, Int2String(*cell, false, 1).c_str(),
-                                            COLOR_BACK, limX, limY, limWidth, limHeight);
-                PText::DrawWithLimitation(drawX, y + 21 + 10 - delta, Int2String(NextValue(), false, 1).c_str(),
-                                            COLOR_BACK, limX, limY, limWidth, limHeight);
+                x = Int2String(*cell, false, 1).DrawWithLimitation(drawX, y + 21 - delta, COLOR_BACK, limX, limY, limWidth, limHeight);
+                Int2String(NextValue(), false, 1).DrawWithLimitation(drawX, y + 21 + 10 - delta, COLOR_BACK, limX, limY, limWidth, limHeight);
             }
 
             if(delta < 0.0f)
             {
-                x = PText::DrawWithLimitation(drawX, y + 21 - delta, Int2String(*cell, false, 1).c_str(),
-                                            COLOR_BACK, limX, limY, limWidth, limHeight);
-                PText::DrawWithLimitation(drawX, y + 21 - 10 - delta, Int2String(PrevValue(), false, 1).c_str(),
-                    COLOR_BACK, limX, limY, limWidth, limHeight);
+                x = Int2String(*cell, false, 1).DrawWithLimitation(drawX, y + 21 - delta, COLOR_BACK, limX, limY, limWidth, limHeight);
+                Int2String(PrevValue(), false, 1).DrawWithLimitation(drawX, y + 21 - 10 - delta, COLOR_BACK, limX, limY, limWidth, limHeight);
             }
         }
     }
@@ -657,11 +653,10 @@ void Choice::DrawClosed(int x, int y)
     }
     else
     {
-        PText::DrawWithLimitation(x + 4, y + 21 - deltaY, NameCurrentSubItem().c_str(),
-            colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
+        NameCurrentSubItem().DrawWithLimitation(x + 4, y + 21 - deltaY, colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
         Painter::DrawHLine(y + (deltaY > 0 ? 31 : 19) - deltaY, x + 3, x + MI_WIDTH_VALUE + 1, Color::BLACK);
-        PText::DrawWithLimitation(x + 4, y + (deltaY > 0 ? 33 : 9) - deltaY,
-            deltaY > 0 ? NameNextSubItem().c_str() : NamePrevSubItem().c_str(), colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
+        String((deltaY > 0) ? NameNextSubItem() : NamePrevSubItem()).
+            DrawWithLimitation(x + 4, y + (deltaY > 0 ? 33 : 9) - deltaY, colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
     }
     Painter::DrawHLine(y + Item::HEIGHT + 1, x, x + MI_WIDTH, ColorBorderMenu(false));
 
