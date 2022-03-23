@@ -15,6 +15,7 @@
 #include "Menu/FileManager.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/InterCom.h"
+#include "Display/Grid.h"
 #include <cstring>
 
 
@@ -718,4 +719,30 @@ bool Painter::SaveScreenToFlashDrive() {
     FDrive::CloseFile(&structForWrite);
     
     return true;
+}
+
+
+void Painter::DrawScaleLine(int x, bool forTrigLev)
+{
+    if (ALT_MARKERS_HIDE)
+    {
+        return;
+    }
+    int width = 6;
+    int topY = GRID_TOP + Display::DELTA;
+    int x2 = width + x + 2;
+    int bottomY = Grid::ChannelBottom() - Display::DELTA;
+    int centerY = (Grid::ChannelBottom() + GRID_TOP) / 2;
+    int levels[] =
+    {
+        topY,
+        bottomY,
+        centerY,
+        centerY - (bottomY - topY) / (forTrigLev ? 8 : 4),
+        centerY + (bottomY - topY) / (forTrigLev ? 8 : 4)
+    };
+    for (int i = 0; i < 5; i++)
+    {
+        Painter::DrawLine(x + 1, levels[i], x2 - 1, levels[i], COLOR_FILL);
+    }
 }

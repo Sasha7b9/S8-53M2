@@ -59,4 +59,6 @@ namespace Painter
     bool SaveScreenToFlashDrive();
 
     void DrawHintsForSmallButton(int x, int y, int width, void *smallButton);
+
+    void DrawScaleLine(int x, bool forTrigLev);
 };

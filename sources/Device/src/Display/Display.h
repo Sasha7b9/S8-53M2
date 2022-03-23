@@ -11,6 +11,8 @@ namespace Display
     const int WIDTH = 320;
     const int HEIGHT = 240;
 
+    static const int DELTA = 5;
+
     extern uint8 *const back_buffer;
 
     extern bool framesElapsed;

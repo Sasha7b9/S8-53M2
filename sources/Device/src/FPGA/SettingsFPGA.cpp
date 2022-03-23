@@ -914,3 +914,66 @@ void RShift::Draw(Chan ch)
     PText::DrawChar((int)(x - 7), (int)(y - 9 + dY), ch == Chan::A ? '1' : '2', COLOR_BACK);
     Font::Set(TypeFont::_8);
 }
+
+
+void TrigLev::Draw()
+{
+    TrigSource::E ch = TRIG_SOURCE;
+
+    if (ch == TrigSource::Ext)
+    {
+        return;
+    }
+
+    int trigLev = TRIG_LEVEL(ch) + (SET_RSHIFT(ch) - RShift::ZERO);
+
+    float scale = 1.0f / ((TrigLev::MAX - TrigLev::MIN) / 2.0f / Grid::ChannelHeight());
+    int y0 = (int)((GRID_TOP + Grid::ChannelBottom()) / 2 + scale * (TrigLev::ZERO - TrigLev::MIN));
+    int y = (int)(y0 - scale * (trigLev - TrigLev::MIN));
+
+    y = (y - Grid::ChannelCenterHeight()) + Grid::ChannelCenterHeight();
+
+    int x = Grid::Right();
+    Color::SetCurrent(ColorTrig());
+    if (y > Grid::ChannelBottom())
+    {
+        PText::DrawChar(x + 3, Grid::ChannelBottom() - 11, SYMBOL_TRIG_LEV_LOWER);
+        Painter::SetPoint(x + 5, Grid::ChannelBottom() - 2);
+        y = Grid::ChannelBottom() - 7;
+        x--;
+    }
+    else if (y < GRID_TOP)
+    {
+        PText::DrawChar(x + 3, GRID_TOP + 2, SYMBOL_TRIG_LEV_ABOVE);
+        Painter::SetPoint(x + 5, GRID_TOP + 2);
+        y = GRID_TOP + 7;
+        x--;
+    }
+    else
+    {
+        PText::DrawChar(x + 1, y - 4, SYMBOL_TRIG_LEV_NORMAL);
+    }
+    Font::Set(TypeFont::_5);
+
+    const char simbols[3] = {'1', '2', 'Â'};
+    int dY = 0;
+
+    PText::DrawChar(x + 5, y - 9 + dY, simbols[TRIG_SOURCE], COLOR_BACK);
+    Font::Set(TypeFont::_8);
+
+    if (RShift::drawMarkers && !Menu::IsMinimize())
+    {
+        Painter::DrawScaleLine(SCREEN_WIDTH - 11, true);
+        int left = Grid::Right() + 9;
+        int height = Grid::ChannelHeight() - 2 * Display::DELTA;
+        int shiftFullMin = RShift::MIN + TrigLev::MIN;
+        int shiftFullMax = RShift::MAX + TrigLev::MAX;
+        scale = (float)height / (shiftFullMax - shiftFullMin);
+        int shiftFull = TRIG_LEVEL_SOURCE.value + (TRIG_SOURCE_IS_EXT ? 0 : (int16)SET_RSHIFT(ch));
+        int yFull = (int)(GRID_TOP + Display::DELTA + height - scale * (shiftFull - RShift::MIN - TrigLev::MIN) - 4);
+        Painter::FillRegion(left + 2, yFull + 1, 4, 6, ColorTrig());
+        Font::Set(TypeFont::_5);
+        PText::DrawChar(left + 3, yFull - 5 + dY, simbols[TRIG_SOURCE], COLOR_BACK);
+        Font::Set(TypeFont::_8);
+    }
+}

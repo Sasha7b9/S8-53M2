@@ -348,6 +348,9 @@ struct TrigLev
 
     static void DisableShowLevel();
 
+    // Нарисовать маркер уровня синхронизации.
+    static void Draw();
+
     float ToAbs(Range::E);
 
     operator int16() const { return value; }

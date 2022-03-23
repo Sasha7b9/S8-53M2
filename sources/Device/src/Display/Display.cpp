@@ -44,12 +44,7 @@ namespace Display
 
     int topMeasures = GRID_BOTTOM;
 
-    static const int DELTA = 5;
-
     void DrawCursorsWindow();
-
-    // Нарисовать маркер уровня синхронизации.
-    void DrawCursorTrigLevel();
 
     // Написать информацию под сеткой - в нижней части дисплея.
     void DrawLowPart();
@@ -69,8 +64,6 @@ namespace Display
 
     // Вывести значения автоматических измерений.
     void DrawMeasures();
-
-    void DrawScaleLine(int x, bool forTrigLev);
 
     void WriteTextVoltage(Chan, int x, int y);
 
@@ -441,7 +434,7 @@ void Display::Update(bool endScene)
         DrawLowPart();
         DrawCursorsWindow();
         TShift::Draw();
-        DrawCursorTrigLevel();
+        TrigLev::Draw();
         RShift::Draw();
         DrawMeasures();
         DrawStringNavigation();
@@ -518,100 +511,11 @@ void Display::WriteValueTrigLevel()
 }
 
 
-void Display::DrawScaleLine(int x, bool forTrigLev)
-{
-    if(ALT_MARKERS_HIDE)
-    {
-        return;
-    }
-    int width = 6;
-    int topY = GRID_TOP + DELTA;
-    int x2 = width + x + 2;
-    int bottomY  = Grid::ChannelBottom() - DELTA;
-    int centerY = (Grid::ChannelBottom() + GRID_TOP) / 2;
-    int levels[] =
-    {
-        topY,
-        bottomY,
-        centerY,
-        centerY - (bottomY - topY) / (forTrigLev ? 8 : 4),
-        centerY + (bottomY - topY) / (forTrigLev ? 8 : 4)
-    };
-    for(int i = 0; i < 5; i++)
-    {
-        Painter::DrawLine(x + 1, levels[i], x2 - 1, levels[i], COLOR_FILL);
-    }
-}
-
-
 void Display::DrawCursorsWindow()
 {
     if((!Menu::IsMinimize() || !Menu::IsShown()) && RShift::drawMarkers)
     {
-        DrawScaleLine(2, false);
-    }
-}
-
-
-void Display::DrawCursorTrigLevel()
-{
-    TrigSource::E ch = TRIG_SOURCE;
-
-    if (ch == TrigSource::Ext)
-    {
-        return;
-    }
-
-    int trigLev = TRIG_LEVEL(ch) + (SET_RSHIFT(ch) - RShift::ZERO);
-
-    float scale = 1.0f / ((TrigLev::MAX - TrigLev::MIN) / 2.0f / Grid::ChannelHeight());
-    int y0 = (int)((GRID_TOP + Grid::ChannelBottom()) / 2 + scale * (TrigLev::ZERO - TrigLev::MIN));
-    int y = (int)(y0 - scale * (trigLev - TrigLev::MIN));
-
-    y = (y - Grid::ChannelCenterHeight()) + Grid::ChannelCenterHeight();
-
-    int x = Grid::Right();
-    Color::SetCurrent(ColorTrig());
-    if(y > Grid::ChannelBottom())
-    {
-        PText::DrawChar(x + 3, Grid::ChannelBottom() - 11, SYMBOL_TRIG_LEV_LOWER);
-        Painter::SetPoint(x + 5, Grid::ChannelBottom() - 2);
-        y = Grid::ChannelBottom() - 7;
-        x--;
-    }
-    else if(y < GRID_TOP)
-    {
-        PText::DrawChar(x + 3, GRID_TOP + 2, SYMBOL_TRIG_LEV_ABOVE);
-        Painter::SetPoint(x + 5, GRID_TOP + 2);
-        y = GRID_TOP + 7;
-        x--;
-    }
-    else
-    {
-        PText::DrawChar(x + 1, y - 4, SYMBOL_TRIG_LEV_NORMAL);
-    }
-    Font::Set(TypeFont::_5);
-
-    const char simbols[3] = {'1', '2', 'В'};
-    int dY = 0;
-    
-    PText::DrawChar(x + 5, y - 9 + dY, simbols[TRIG_SOURCE], COLOR_BACK);
-    Font::Set(TypeFont::_8);
-
-    if (RShift::drawMarkers && !Menu::IsMinimize())
-    {
-        DrawScaleLine(SCREEN_WIDTH - 11, true);
-        int left = Grid::Right() + 9;
-        int height = Grid::ChannelHeight() - 2 * DELTA;
-        int shiftFullMin = RShift::MIN + TrigLev::MIN;
-        int shiftFullMax = RShift::MAX + TrigLev::MAX;
-        scale = (float)height / (shiftFullMax - shiftFullMin);
-        int shiftFull = TRIG_LEVEL_SOURCE.value + (TRIG_SOURCE_IS_EXT ? 0 : (int16)SET_RSHIFT(ch));
-        int yFull =(int)(GRID_TOP + DELTA + height - scale * (shiftFull - RShift::MIN - TrigLev::MIN) - 4);
-        Painter::FillRegion(left + 2, yFull + 1, 4, 6, ColorTrig());
-        Font::Set(TypeFont::_5);
-        PText::DrawChar(left + 3, yFull - 5 + dY, simbols[TRIG_SOURCE], COLOR_BACK);
-        Font::Set(TypeFont::_8);
+        Painter::DrawScaleLine(2, false);
     }
 }
 
