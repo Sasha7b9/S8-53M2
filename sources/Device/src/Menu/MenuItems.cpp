@@ -123,18 +123,18 @@ String Choice::NameNextSubItem()
 }
 
 
-pchar Choice::NamePrevSubItem()
+String Choice::NamePrevSubItem()
 {
     if (cell == 0)
     {
-        return "";
+        return String("");
     }
     int index = *cell - 1;
     if (index < 0)
     {
         index = NumSubItems() - 1;
     }
-    return names[index][LANG];
+    return String(names[index][LANG]);
 }
 
 

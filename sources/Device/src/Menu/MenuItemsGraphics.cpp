@@ -661,7 +661,7 @@ void Choice::DrawClosed(int x, int y)
             colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
         Painter::DrawHLine(y + (deltaY > 0 ? 31 : 19) - deltaY, x + 3, x + MI_WIDTH_VALUE + 1, Color::BLACK);
         PText::DrawWithLimitation(x + 4, y + (deltaY > 0 ? 33 : 9) - deltaY,
-            deltaY > 0 ? NameNextSubItem().c_str() : NamePrevSubItem(), colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
+            deltaY > 0 ? NameNextSubItem().c_str() : NamePrevSubItem().c_str(), colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
     }
     Painter::DrawHLine(y + Item::HEIGHT + 1, x, x + MI_WIDTH, ColorBorderMenu(false));
 

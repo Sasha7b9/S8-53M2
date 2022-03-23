@@ -378,7 +378,7 @@ public:
     // Возвращает имя следующего варианта выбора элемента choice, как оно записано в исходном коде программы.
     String NameNextSubItem();
 
-    pchar NamePrevSubItem();
+    String NamePrevSubItem();
 
     // Возвращает количество вариантов выбора в элементе по адресу choice.
     int NumSubItems();
