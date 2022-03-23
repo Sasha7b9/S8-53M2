@@ -386,8 +386,8 @@ void Display::DrawMeasures()
         int y0 = MEAS_POS_CUR_U0 + GRID_TOP;
         int x1 = MEAS_POS_CUR_T1 - SHIFT_IN_MEMORY + Grid::Left();
         int y1 = MEAS_POS_CUR_U1 + GRID_TOP;
-        SortInt(&x0, &x1);
-        SortInt(&y0, &y1);
+        Math::Sort(&x0, &x1);
+        Math::Sort(&y0, &y1);
         Rectangle(x1 - x0, y1 - y0).Draw(x0, y0, COLOR_FILL);
     }
 

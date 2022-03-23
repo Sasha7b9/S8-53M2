@@ -750,3 +750,15 @@ bool Math::InRange(T value, T min, T max)
 {
     return (value >= min) && (value <= max);
 }
+
+
+template<class T>
+T Math::CircleAdd(T *val, T delta, T min, T max)
+{
+    *val += delta;
+    if (*val > max)
+    {
+        *val = min;
+    }
+    return *val;
+}
