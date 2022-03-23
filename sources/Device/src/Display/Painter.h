@@ -8,8 +8,6 @@
 
 namespace Painter 
 {
-    void SetPalette(Color::E);
-
     void BeginScene(Color::E color);
 
     void EndScene(bool endScene = true);

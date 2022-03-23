@@ -53,7 +53,6 @@ Color::E ColorMenuTitle                    // Цвет заголовка страницы.
                     );
 Color::E ColorMenuItem(bool inShade);      // Цвет элемента меню.
 Color::E ColorBorderMenu(bool inShade);    // Цвет окантовки меню.
-Color::E ColorContrast(Color::E color);       // Возвращает цвет, контрастный к color. Может быть белым или чёрным.
 Color::E LightShadingTextColor();      // Светлый цвет в тени.
 
 #define COLOR_BACK Color::BLACK

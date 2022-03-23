@@ -24,8 +24,7 @@ void Color::ResetFlash()
 
 void ColorType::SetColor()
 {
-    set.display.colors[color] = Color::Make((uint8)red, (uint8)green, (uint8)blue);
-    Painter::SetPalette(color);
+    COLOR(color) = Color::Make((uint8)red, (uint8)green, (uint8)blue);
 }
 
 
@@ -68,33 +67,16 @@ Color::E ColorMenuItem(bool inShade)
 }
 
 
-
 Color::E ColorBorderMenu(bool inShade)
 {
     return ColorMenuTitle(inShade);
 }
 
 
-
-Color::E ColorContrast(Color::E color)
-{
-    uint colorValue = COLOR(color);
-
-    if (R_FROM_COLOR(colorValue) > 128 || G_FROM_COLOR(colorValue) > 128 || B_FROM_COLOR(colorValue) > 128)    //-V112
-    {
-        return Color::BLACK;
-    }
-
-    return Color::WHITE;
-}
-
-
-
 Color::E LightShadingTextColor()
 {
     return ColorMenuTitle(false);
 }
-
 
 
 void Color::Log(Color::E color)
@@ -256,7 +238,7 @@ pchar  NameColorFromValue(uint16 colorValue)
 {
     for (int i = 0; i < Color::Count; i++)
     {
-        if (set.display.colors[(Color::E)i] == colorValue)
+        if (COLOR(i) == colorValue)
         {
             return colorNames[i];
         }

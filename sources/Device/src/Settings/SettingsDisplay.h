@@ -15,8 +15,6 @@
 
 #define BRIGHTNESS_GRID             (set.display.brightnessGrid)
 
-#define DISPLAY_COLOR(num)          (set.display.colors[num])
-
 #define MODE_DRAW_SIGNAL            (set.display.modeDrawSignal)
 #define MODE_DRAW_IS_SIGNAL_LINES   (MODE_DRAW_SIGNAL == ModeDrawSignal::Lines)
 

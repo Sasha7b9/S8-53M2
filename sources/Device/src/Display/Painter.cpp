@@ -690,10 +690,10 @@ bool Painter::SaveScreenToFlashDrive() {
 
     for(int i = 0; i < 16; i++)
     {
-        uint color = set.display.colors[i];
-        colorStruct.blue = (uint8)((float)B_FROM_COLOR(color));
-        colorStruct.green = (uint8)((float)G_FROM_COLOR(color));
-        colorStruct.red = (uint8)((float)R_FROM_COLOR(color));
+        uint color = COLOR(i);
+        colorStruct.blue = B_FROM_COLOR(color);
+        colorStruct.green = G_FROM_COLOR(color);
+        colorStruct.red = R_FROM_COLOR(color);
         colorStruct.rgbReserved = 0;
         ((RGBQUAD*)(buffer))[i] = colorStruct;
     }
@@ -718,10 +718,4 @@ bool Painter::SaveScreenToFlashDrive() {
     FDrive::CloseFile(&structForWrite);
     
     return true;
-}
-
-
-void Painter::SetPalette(Color::E)
-{
-
 }

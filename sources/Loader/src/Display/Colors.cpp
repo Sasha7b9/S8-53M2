@@ -34,17 +34,6 @@ Color::E ColorBorderMenu(bool inShade)
 }
 
 
-Color::E ColorContrast(Color::E color)
-{
-    uint16 colorValue = set.display.colors[color];
-    if (R_FROM_COLOR(colorValue) > 16 || G_FROM_COLOR(colorValue) > 32 || B_FROM_COLOR(colorValue) > 16)    //-V112
-    {
-        return Color::BLACK;
-    }
-    return Color::WHITE;
-}
-
-
 Color::E LightShadingTextColor()
 {
     return ColorMenuTitle(false);
