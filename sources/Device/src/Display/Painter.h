@@ -62,3 +62,6 @@ namespace Painter
 
     void DrawScaleLine(int x, bool forTrigLev);
 };
+
+
+
