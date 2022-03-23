@@ -4,7 +4,6 @@
 #include "Display/font/Font.h"
 #include "Settings/Settings.h"
 #include "Display/Screen/Grid.h"
-#include "Display/String.h"
 #include <cstring>
 #include <cstdio>
 

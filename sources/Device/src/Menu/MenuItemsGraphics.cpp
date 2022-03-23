@@ -10,7 +10,6 @@
 #include "Hardware/HAL/HAL.h"
 #include "Display/font/Font.h"
 #include "Menu/Pages/Definition.h"
-#include "Display/String.h"
 #include <cstring>
 #include <cstdio>
 

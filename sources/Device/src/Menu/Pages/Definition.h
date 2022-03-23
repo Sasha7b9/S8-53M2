@@ -2,7 +2,7 @@
 #pragma once
 #include "defines.h"
 #include "Settings/SettingsCursors.h"
-#include "Display/String.h"
+#include "Display/Text.h"
 
 
 class Page;

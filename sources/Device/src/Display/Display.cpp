@@ -18,7 +18,6 @@
 #include "Hardware/VCP/VCP.h"
 #include "Data/Storage.h"
 #include "Display/Screen/LowPart.h"
-#include "Display/String.h"
 #include <cstdio>
 
 

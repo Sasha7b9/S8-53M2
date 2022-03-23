@@ -12,7 +12,6 @@
 #include "Log.h"
 #include "Display/Painter.h"
 #include "Utils/Map.h"
-#include "Display/String.h"
 #include <cmath>
 #include <cstring>
 

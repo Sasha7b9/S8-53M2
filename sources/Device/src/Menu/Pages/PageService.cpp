@@ -10,7 +10,6 @@
 #include "Utils/Math.h"
 #include "Hardware/HAL/HAL.h"
 #include "Settings/Settings.h"
-#include "Display/String.h"
 #include <cstdio>
 
 

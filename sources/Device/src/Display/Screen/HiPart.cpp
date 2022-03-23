@@ -8,7 +8,6 @@
 #include "Display/Screen/Grid.h"
 #include "FPGA/StructuresFPGA.h"
 #include "Display/Symbols.h"
-#include "Display/String.h"
 #include <cmath>
 
 

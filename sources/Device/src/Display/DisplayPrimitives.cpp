@@ -3,7 +3,6 @@
 #include "Display/DisplayPrimitives.h"
 #include "Display/Colors.h"
 #include "Display/Painter.h"
-#include "Display/String.h"
 #include <cstdio> 
 
 

@@ -4,7 +4,6 @@
 #include "Display/Colors.h"
 #include "common/Panel/Controls.h"
 #include "defines.h"
-#include "Display/String.h"
 
 
 #define MAX_NUM_SUBITEMS_IN_CHOICE  12  // Максимальное количество вариантов выбора в элементе Choice.

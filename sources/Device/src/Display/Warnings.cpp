@@ -7,7 +7,6 @@
 #include "Settings/Settings.h"
 #include "Display/Screen/Grid.h"
 #include "Tables.h"
-#include "Display/String.h"
 
 
 namespace Warning

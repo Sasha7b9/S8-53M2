@@ -16,7 +16,6 @@
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/InterCom.h"
 #include "Display/Screen/Grid.h"
-#include "Display/String.h"
 #include <cstring>
 
 

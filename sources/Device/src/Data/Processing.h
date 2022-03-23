@@ -3,7 +3,6 @@
 #include "Measures.h"
 #include "defines.h"
 #include "FPGA/FPGA.h"
-#include "Display/String.h"
 
 
 namespace Processing

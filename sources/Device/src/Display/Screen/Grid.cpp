@@ -3,7 +3,6 @@
 #include "Grid.h"
 #include "Settings/Settings.h"
 #include "Menu/Menu.h"
-#include "Display/String.h"
 
 
 namespace Grid

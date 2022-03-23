@@ -13,7 +13,6 @@
 #include "Menu/Menu.h"
 #include "Log.h"
 #include "Hardware/HAL/HAL.h"
-#include "Display/String.h"
 #include <cstdio>
 #include <cstring>
 

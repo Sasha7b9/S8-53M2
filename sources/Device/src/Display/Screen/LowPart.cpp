@@ -16,7 +16,6 @@
 #include "Hardware/Timer.h"
 #include "Hardware/VCP/VCP.h"
 #include "Data/Processing.h"
-#include "Display/String.h"
 #include <cstdio>
 
 
