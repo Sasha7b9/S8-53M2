@@ -17,10 +17,8 @@ String FloatFract2String(float value, bool alwaysSign);
 
 String Float2String(float value, bool alwaysSign, int numDigits);                         
 
-char*   Hex8toString                            // Преобразует value в текстовую строку в шестнадцатиричном виде.
-                                                // @attention Строка будет храниться до следующего вызова функции. Если результат нужен большее количество времени, то его нужно скопировать себе.
-                    (uint8 value,
-                    char buffer[3]);
+String Hex8toString(uint8 value);
+
 char*   Int2String                              // Преобразует value в текстовую строку.
                                                 // @attention Строка будет храниться до следующего вызова функции. Если результат нужен большее количество времени, то его нужно скопировать себе.
                     (int value,                 // значение.

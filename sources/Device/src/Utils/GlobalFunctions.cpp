@@ -189,10 +189,11 @@ char *GF::Bin2String16(uint16 value)
     return buffer;
 }
 
-char* Hex8toString(uint8 value, char buffer[3])
+String Hex8toString(uint8 value)
 {
+    char buffer[3];
     std::sprintf(value < 16 ? (buffer[0] = '0', buffer + 1) :  (buffer), "%x", value);
-    return buffer;
+    return String(buffer);
 }
 
 String Voltage2String(float voltage, bool alwaysSign)
