@@ -505,7 +505,7 @@ int PText::DrawPartWord(char *word, int x, int y, int xRight, bool draw)
 }
 
 
-int PText::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, pchar text, Color::E color)
+int String::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, Color::E color)
 {
     Color::SetCurrent(color);
 
@@ -513,6 +513,8 @@ int PText::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, pcha
     int left = eX;
     int right = eX + eWidth;
     int bottom = eY + eHeight;
+
+    pchar text = buffer;
 
     int numSymb = (int)std::strlen(text);
 
@@ -526,7 +528,7 @@ int PText::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, pcha
         while (x < right - 1 && curSymbol < numSymb)
         {
             int length = 0;
-            String word = GetWord(text + curSymbol, &length);
+            String word = PText::GetWord(text + curSymbol, &length);
 
             if (length <= 1)                            // Нет буквенных символов или один, т.е. слово не найдено
             {
@@ -547,7 +549,7 @@ int PText::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, pcha
                 int lengthString = Font::GetLengthText(word.c_str());
                 if (x + lengthString > right + 5)
                 {
-                    int numSymbols = DrawPartWord(word.c_str(), x, y, right, true);
+                    int numSymbols = PText::DrawPartWord(word.c_str(), x, y, right, true);
                     x = right;
                     curSymbol += numSymbols;
                     continue;
@@ -631,7 +633,7 @@ int PText::DrawInBoundedRectWithTransfers(int x, int y, int width, pchar text, C
 
     Rectangle(width, height).Draw(x, y, colorFill);
     Region(width - 2, height - 2).Fill(x + 1, y + 1, colorBackground);
-    DrawInRectWithTransfers(x + 3, y + 3, width - 8, height, text, colorFill);
+    String(text).DrawInRectWithTransfers(x + 3, y + 3, width - 8, height, colorFill);
     return y + height;
 }
 
@@ -671,7 +673,7 @@ void Painter::DrawHintsForSmallButton(int x, int y, int width, void *smallButton
     {
         Rectangle(WIDTH_SB, WIDTH_SB).Draw(x, y);
         structHelp->funcDrawUGO(x, y);
-        int yNew = PText::DrawInRectWithTransfers(x + 23, y + 1, width - 30, 20, structHelp->helpUGO[LANG]);
+        int yNew = String(structHelp->helpUGO[LANG]).DrawInRectWithTransfers(x + 23, y + 1, width - 30, 20);
         y = ((yNew - y) < 22) ? (y + 22) : yNew;
         structHelp++;
     }

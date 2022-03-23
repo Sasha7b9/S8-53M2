@@ -48,7 +48,7 @@ static void DrawPageContent()
 static void DrawPageDescription()
 {
     String(TITLE(currentPage)).DrawInCenterRect(0, 3, WIDTH, 10);
-    PText::DrawInRectWithTransfers(2, 15, WIDTH - 5, 240, HINT(currentPage));
+    String(HINT(currentPage)).DrawInRectWithTransfers(2, 15, WIDTH - 5, 240);
 }
 
 

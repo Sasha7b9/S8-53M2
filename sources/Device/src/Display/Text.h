@@ -4,8 +4,6 @@
 
 namespace PText
 {
-    int DrawInRectWithTransfers(int x, int y, int width, int height, pchar text, Color::E = Color::Count);
-
     // Возвращает нижнюю координату прямоугольника.
     int DrawInBoundedRectWithTransfers(int x, int y, int width, pchar text, Color::E colorBackground,
         Color::E colorFill);
