@@ -1409,6 +1409,31 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>HardwareLAN</GroupName>
+          <Files>
+            <File>
+              <FileName>LAN.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\LAN\LAN.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>LAN.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\LAN\LAN.h</FilePath>
+            </File>
+            <File>
+              <FileName>SocketTCP.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\LAN\SocketTCP.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SocketTCP.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\LAN\SocketTCP.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Hardware/VCP</GroupName>
           <Files>
             <File>
@@ -1460,31 +1485,6 @@
               <FileName>VCP.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\VCP\VCP.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>LAN</GroupName>
-          <Files>
-            <File>
-              <FileName>LAN.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\LAN\LAN.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>LAN.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\LAN\LAN.h</FilePath>
-            </File>
-            <File>
-              <FileName>SocketTCP.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\LAN\SocketTCP.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SocketTCP.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\LAN\SocketTCP.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3419,6 +3419,31 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>HardwareLAN</GroupName>
+          <Files>
+            <File>
+              <FileName>LAN.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\LAN\LAN.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>LAN.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\LAN\LAN.h</FilePath>
+            </File>
+            <File>
+              <FileName>SocketTCP.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\LAN\SocketTCP.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SocketTCP.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\LAN\SocketTCP.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Hardware/VCP</GroupName>
           <Files>
             <File>
@@ -3470,31 +3495,6 @@
               <FileName>VCP.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\VCP\VCP.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>LAN</GroupName>
-          <Files>
-            <File>
-              <FileName>LAN.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\LAN\LAN.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>LAN.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\LAN\LAN.h</FilePath>
-            </File>
-            <File>
-              <FileName>SocketTCP.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\LAN\SocketTCP.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SocketTCP.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\LAN\SocketTCP.h</FilePath>
             </File>
           </Files>
         </Group>

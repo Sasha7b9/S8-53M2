@@ -1,8 +1,8 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "Hardware/VCP/VCP.h"
-#include "LAN/LAN.h"
-#include "LAN/SocketTCP.h"
+#include "Hardware/LAN/LAN.h"
+#include "Hardware/LAN/SocketTCP.h"
 
 
 #define ENTER_ANALYSIS                                  \

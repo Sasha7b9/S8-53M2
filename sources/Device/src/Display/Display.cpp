@@ -14,7 +14,7 @@
 #include "Data/Processing.h"
 #include "Utils/Math.h"
 #include "Display/Symbols.h"
-#include "LAN/LAN.h"
+#include "Hardware/LAN/LAN.h"
 #include "Hardware/VCP/VCP.h"
 #include "Data/Storage.h"
 #include <cstdio>

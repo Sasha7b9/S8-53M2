@@ -71,8 +71,8 @@ file(GLOB FDRIVE              src/FDrive/*.*)
 file(GLOB FPGA                src/FPGA/*.*)
 file(GLOB HARDWARE            src/Hardware/*.*)
 file(GLOB HARDWARE_HAL        src/Hardware/HAL/*.*)
+file(GLOB HARDWARE_LAN        src/Hardware/LAN/*.*)
 file(GLOB HARDWARE_VCP        src/Hardware/VCP/*.*)
-file(GLOB LAN                 src/LAN/*.*)
 file(GLOB MENU                src/Menu/*.*)
 file(GLOB MENU_PAGES          src/Menu/Pages/*.*)
 file(GLOB PANEL               src/Panel/*.*
@@ -88,11 +88,11 @@ source_group(Data             FILES ${DATA})
 source_group(Display          FILES ${DISPLAY})
 source_group(Display/Font     FILES ${DISPLAY_FONT})
 source_group(Display/Screen   FILES ${DISPLAY_SCREEN})
-source_group(LAN              FILES ${LAN})
 source_group(FDrive           FILES ${FDRIVE})
 source_group(FPGA             FILES ${FPGA})
 source_group(Hardware         FILES ${HARDWARE})
 source_group(Hardware/HAL     FILES ${HARDWARE_HAL})
+source_group(Hardware/LAN     FILES ${HARDWARE_LAN})
 source_group(Hardware/VCP     FILES ${HARDWARE_VCP})
 source_group(Menu             FILES ${MENU})
 source_group(Menu/Pages       FILES ${MENU_PAGES})
@@ -113,7 +113,7 @@ set_source_files_properties(src/libs/ethernetif.cpp
 
 add_library(${PROJECT_NAME} ${SRC} ${LIBS} ${DISPLAY}
                             ${DISPLAY_FONT} ${DISPLAY_SCREEN}
-                            ${LAN}
+                            ${HARDWARE_LAN}
                             ${DATA}
                             ${FDRIVE} ${FPGA} ${HARDWARE}
                             ${HARDWARE_HAL} ${HARDWARE_VCP}

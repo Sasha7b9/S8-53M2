@@ -1,7 +1,7 @@
 // 2022/02/11 17:48:06 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "LAN/LAN.h"
-#include "LAN/SocketTCP.h"
+#include "Hardware/LAN/LAN.h"
+#include "Hardware/LAN/SocketTCP.h"
 #include <lwip/tcp.h>
 #include <cstring>
 #include <cstdarg>
