@@ -2,9 +2,7 @@
 #include "defines.h"
 #include "Display/Colors.h"
 #include "Display/font/Font.h"
-//#include "Display/Painter/Primitives.h"
-//#include "Display/Painter/Text.h"
-#include "Utils/Containers/String.h"
+#include "Display/String.h"
 #include "Utils/Containers/Buffer.h"
 #include <cstring>
 #include <cstdio>

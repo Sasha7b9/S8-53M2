@@ -4,7 +4,7 @@
 #include "Panel/Panel.h"
 #include "Hardware/Timer.h"
 #include "Display/Text.h"
-#include "Utils/Containers/String.h"
+#include "Display/String.h"
 #include "Utils/Containers/Buffer.h"
 #include "Menu/Pages/Definition.h"
 #include "Hardware/HAL/HAL.h"
