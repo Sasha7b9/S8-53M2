@@ -4,7 +4,7 @@
 #include "Display/Display.h"
 #include "Settings/Settings.h"
 #include "Hardware/VCP/VCP.h"
-#include "Display/Console.h"
+#include "Display/Screen/Console.h"
 #include <cstdarg>
 #include <cstdio>
 #include <cstring>

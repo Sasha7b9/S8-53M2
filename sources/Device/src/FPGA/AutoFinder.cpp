@@ -4,7 +4,7 @@
 #include "Utils/Math.h"
 #include "Data/Storage.h"
 #include "Hardware/Timer.h"
-#include "Display/Console.h"
+#include "Display/Screen/Console.h"
 #include <stm32f4xx.h>
 #include <cstring>
 #include <climits>

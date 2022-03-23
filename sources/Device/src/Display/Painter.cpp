@@ -15,7 +15,7 @@
 #include "Menu/FileManager.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/InterCom.h"
-#include "Display/Grid.h"
+#include "Display/Screen/Grid.h"
 #include <cstring>
 
 

@@ -1,7 +1,7 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Settings/Settings.h"
-#include "Display/Grid.h"
+#include "Display/Screen/Grid.h"
 #include "Menu/Menu.h"
 #include "Settings/SettingsCursors.h"
 #include "Utils/Math.h"

@@ -9,7 +9,7 @@
 #include "Display/Display.h"
 #include "Display/font/Font.h"
 #include "Display/Painter.h"
-#include "Display/Grid.h"
+#include "Display/Screen/Grid.h"
 #include "Display/Symbols.h"
 #include "Menu/Menu.h"
 #include "Settings/Settings.h"

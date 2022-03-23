@@ -8,7 +8,7 @@
 #include "Display/Display.h"
 #include "Display/Colors.h"
 #include "Display/Painter.h"
-#include "Display/Grid.h"
+#include "Display/Screen/Grid.h"
 #include "Hardware/Sound.h"
 #include "Menu/Pages/Definition.h"
 #include <cstdio>

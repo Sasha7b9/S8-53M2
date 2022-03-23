@@ -5,7 +5,7 @@
 #include "Settings/SettingsTypes.h"
 #include "Settings/Settings.h"
 #include "Display/Display.h"
-#include "Display/Grid.h"
+#include "Display/Screen/Grid.h"
 #include "Display/Symbols.h"
 #include "Utils/GlobalFunctions.h"
 #include "FPGA/FPGA.h"

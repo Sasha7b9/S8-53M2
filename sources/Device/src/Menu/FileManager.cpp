@@ -6,7 +6,7 @@
 #include "Display/Colors.h"
 #include "Display/Display.h"
 #include "Display/font/Font.h"
-#include "Display/Grid.h"
+#include "Display/Screen/Grid.h"
 #include "Utils/GlobalFunctions.h"
 #include "Utils/Math.h"
 #include "Hardware/Sound.h"

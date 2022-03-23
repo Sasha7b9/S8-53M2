@@ -3,7 +3,7 @@
 #include "Utils/Math.h"
 #include "Settings/Settings.h"
 #include "Log.h"
-#include "Display/Grid.h"
+#include "Display/Screen/Grid.h"
 #include "Hardware/Timer.h"
 #include "FPGA/TypesFPGA.h"
 #include <cmath>

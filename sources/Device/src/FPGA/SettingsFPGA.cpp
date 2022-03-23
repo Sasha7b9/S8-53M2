@@ -11,7 +11,7 @@
 #include "Utils/Strings.h"
 #include "Menu/Pages/Definition.h"
 #include "GlobalEvents.h"
-#include "Display/Grid.h"
+#include "Display/Screen/Grid.h"
 #include "Display/Symbols.h"
 #include "Menu/Menu.h"
 #include <cstring>

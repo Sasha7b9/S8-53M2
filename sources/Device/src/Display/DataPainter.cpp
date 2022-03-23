@@ -3,7 +3,7 @@
 #include "Display/DataPainter.h"
 #include "Data/Storage.h"
 #include "Menu/Pages/Definition.h"
-#include "Display/Grid.h"
+#include "Display/Screen/Grid.h"
 #include "Data/Processing.h"
 #include "Utils/Math.h"
 #include "Display/Symbols.h"

@@ -5,7 +5,7 @@
 #include "Hardware/Sound.h"
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"
-#include "Display/Grid.h"
+#include "Display/Screen/Grid.h"
 #include "Tables.h"
 
 

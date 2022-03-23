@@ -7,7 +7,7 @@
 #include "Display/Display.h"
 #include "Utils/GlobalFunctions.h"
 #include "Utils/Math.h"
-#include "Display/Grid.h"
+#include "Display/Screen/Grid.h"
 #include "Hardware/HAL/HAL.h"
 #include "Menu/Pages/Definition.h"
 

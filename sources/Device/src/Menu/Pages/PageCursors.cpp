@@ -4,7 +4,7 @@
 #include "Settings/SettingsTypes.h"
 #include "Settings/Settings.h"
 #include "Display/Colors.h"
-#include "Display/Grid.h"
+#include "Display/Screen/Grid.h"
 #include "Utils/Math.h"
 #include "Data/Processing.h"
 #include "Utils/GlobalFunctions.h"

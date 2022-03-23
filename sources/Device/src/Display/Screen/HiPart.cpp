@@ -5,7 +5,7 @@
 #include "Menu/Pages/Definition.h"
 #include "Utils/Math.h"
 #include "Utils/GlobalFunctions.h"
-#include "Display/Grid.h"
+#include "Display/Screen/Grid.h"
 #include "FPGA/StructuresFPGA.h"
 #include "Display/Symbols.h"
 #include <cmath>
