@@ -370,10 +370,10 @@ public:
     pFuncVB	    funcOnChanged;                          // Функция должна вызываться после изменения значения элемента.
     pFuncVII    funcForDraw;                            // Функция вызывается после отрисовки элемента. 
 
-    pchar NameSubItem(int i);
+    String NameSubItem(int i);
 
     // Возвращает имя текущего варианта выбора элемента choice, как оно записано в исходном коде программы.
-    pchar NameCurrentSubItem();
+    String NameCurrentSubItem();
 
     // Возвращает имя следующего варианта выбора элемента choice, как оно записано в исходном коде программы.
     pchar NameNextSubItem();
