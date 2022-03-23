@@ -9,6 +9,7 @@
 #include "Hardware/Sound.h"
 #include "Utils/Math.h"
 #include "Hardware/HAL/HAL.h"
+#include "Display/Symbols.h"
 
 
 void Governor::StartChange(int delta)
@@ -284,4 +285,21 @@ void GovernorColor::ChangeValue(int delta)
 int8 Page::PosCurrentItem() const
 {
     return POS_ACT_ITEM(name) & 0x7f;
+}
+
+
+char Governor::GetSymbol(int value)
+{
+    static const char chars[] =
+    {
+        SYMBOL_GOVERNOR_SHIFT_0,
+        SYMBOL_GOVERNOR_SHIFT_1,
+        SYMBOL_GOVERNOR_SHIFT_2,
+        SYMBOL_GOVERNOR_SHIFT_3
+    };
+    while (value < 0)
+    {
+        value += 4;
+    }
+    return chars[value % 4];
 }

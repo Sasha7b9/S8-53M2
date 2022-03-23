@@ -351,6 +351,9 @@ public:
 
     void DrawClosed(int x, int y);
 
+    // Возвращает изображение регулятора, соответствующее его текущему положению.
+    static char GetSymbol(int value);
+
     static int8 cur_digit;
 
     static bool inMoveIncrease;

@@ -192,7 +192,7 @@ void Page::DrawTitle(int yTop)
     x = Title().DrawInCenterRect(x, yTop, MP_TITLE_WIDTH + 2 + delta, MP_TITLE_HEIGHT, colorText);
     if(condDrawRSet)
     {
-        PText::Draw4SymbolsInRect(x + 4, yTop + 11, GetSymbolForGovernor(NumCurrentSubPage()), colorText);
+        PText::Draw4SymbolsInRect(x + 4, yTop + 11, Governor::GetSymbol(NumCurrentSubPage()), colorText);
     }
 
     ItemsUnderKey::Set(GetFuncButtonFromY(yTop), this);

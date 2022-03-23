@@ -48,12 +48,12 @@ static void DrawGovernorChoiceColorFormulaHiPart(Item *item, int x, int y, bool 
 
         if (type == TypeItem::Governor)
         {
-            symbol = GetSymbolForGovernor(*((Governor*)item)->cell);
+            symbol = Governor::GetSymbol(*((Governor*)item)->cell);
             Governor::address = item;
         }
         else if (type == TypeItem::ChoiceReg || (item->IsOpened() && type == TypeItem::Choice))
         {
-            symbol = GetSymbolForGovernor(*((Choice*)item)->cell); //-V1027
+            symbol = Governor::GetSymbol(*((Choice*)item)->cell); //-V1027
         }
         else if (type == TypeItem::Time)
         {
@@ -70,7 +70,7 @@ static void DrawGovernorChoiceColorFormulaHiPart(Item *item, int x, int y, bool 
                     *time->minutes,
                     *time->seconds
                 };
-                symbol = GetSymbolForGovernor(values[*time->curField]);
+                symbol = Governor::GetSymbol(values[*time->curField]);
             }
         }
 
