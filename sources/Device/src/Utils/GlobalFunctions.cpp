@@ -30,14 +30,5 @@ char GetSymbolForGovernor(int value)
     return chars[value % 4];
 }
 
-void EmptyFuncVV() { }
 
-void EmptyFuncVI(int) { }
-
-void EmptyFuncpVII(void *, int, int) { }
-
-bool EmptyFuncBV()
-{
-    return true;
-}
 

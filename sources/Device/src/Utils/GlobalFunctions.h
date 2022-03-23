@@ -4,7 +4,7 @@
 #include "Display/Text.h"
 
 char    GetSymbolForGovernor(int value);                        // Возвращает изображение регулятора, соответствующее его текущему положению.
-void    EmptyFuncVV();                                      // Функция-заглушка. Ничего не делает.
-void    EmptyFuncVI(int);
-void    EmptyFuncpVII(void *, int, int);                        // Функция-заглушка. Ничего не делает.
-bool    EmptyFuncBV();
+//void    EmptyFuncVV();                                      // Функция-заглушка. Ничего не делает.
+//void    EmptyFuncVI(int);
+//void    EmptyFuncpVII(void *, int, int);                        // Функция-заглушка. Ничего не делает.
+//bool    EmptyFuncBV();

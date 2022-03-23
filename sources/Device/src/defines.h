@@ -113,6 +113,14 @@ struct StructRelAbs
 #define ERROR_STRING_VALUE  "--.--"
 #define M_PI                3.14159265358979323846
 
+inline void EmptyFuncVV() { }
+
+inline void EmptyFuncVI(int) { }
+
+inline void EmptyFuncpVII(void *, int, int) { }
+
+inline bool EmptyFuncBV() { return true; }
+
 #include "Log.h"
 #include "globals.h"
 //#include "Utils/Debug.h"
