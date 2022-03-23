@@ -11,37 +11,3 @@
 
 Color::E gColorBack;
 Color::E gColorFill;
-Color::E gColorGrid;
-Color::E gColorChan[4];
-
-
-
-Color::E ColorMenuTitle(bool inShade)
-{
-    return inShade ? Color::MENU_ITEM : Color::MENU_TITLE;
-}
-
-
-Color::E ColorMenuItem(bool inShade)
-{
-    return inShade ? Color::MENU_ITEM_DARK : Color::MENU_ITEM;
-}
-
-
-Color::E ColorBorderMenu(bool inShade)
-{
-    return ColorMenuTitle(inShade);
-}
-
-
-Color::E LightShadingTextColor()
-{
-    return ColorMenuTitle(false);
-}
-
-
-void Color_Log(Color::E)
-{
-}
-
-
