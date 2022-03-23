@@ -48,11 +48,6 @@ namespace Display
 
     void DrawCursorsWindow();
 
-    void DrawCursorsRShift();
-
-    // Нарисовать маркеры смещения по напряжению
-    void DrawCursorRShift(Chan);
-
     // Нарисовать маркер уровня синхронизации.
     void DrawCursorTrigLevel();
 
@@ -524,27 +519,6 @@ void Display::DrawHiRightPart()
 }
 
 
-
-void Display::DrawCursorsRShift()
-{
-    if (!DISABLED_DRAW_MATH)
-    {
-        DrawCursorRShift(Chan::Math);
-    }
-    if(LAST_AFFECTED_CHANNEL_IS_B)
-    {
-        DrawCursorRShift(Chan::A);
-        DrawCursorRShift(Chan::B);
-    }
-    else
-    {
-        DrawCursorRShift(Chan::B);
-        DrawCursorRShift(Chan::A);
-    }
-}
-
-
-
 bool Display::NeedForClearScreen()
 {
     int numAccum = NUM_ACCUM;
@@ -601,7 +575,7 @@ void Display::Update(bool endScene)
         DrawCursorsWindow();
         TShift::Draw();
         DrawCursorTrigLevel();
-        DrawCursorsRShift();
+        RShift::Draw();
         DrawMeasures();
         DrawStringNavigation();
     }
@@ -772,72 +746,6 @@ void Display::DrawCursorTrigLevel()
         PText::DrawChar(left + 3, yFull - 5 + dY, simbols[TRIG_SOURCE], COLOR_BACK);
         Font::Set(TypeFont::_8);
     }
-}
-
-
-void Display::DrawCursorRShift(Chan ch)
-{
-    float x = (float)(Grid::Right() - Grid::Width() - Measures::GetDeltaGridLeft());
-
-    if (ch == Chan::Math)
-    {
-        int rShift = SET_RSHIFT_MATH;
-        float scale = (float)Grid::MathHeight() / 960;
-        float y = (Grid::MathTop() + Grid::MathBottom()) / 2.0f - scale * (rShift - RShift::ZERO);
-        PText::DrawChar((int)(x - 9), (int)(y - 4), SYMBOL_RSHIFT_NORMAL, COLOR_FILL);
-        PText::DrawChar((int)(x - 8), (int)(y - 5), 'm', COLOR_BACK);
-        return;
-    }
-
-    if(!ch.Enabled())
-    {
-        return;
-    }
-
-    int rShift = SET_RSHIFT(ch);
- 
-    float scale = (float)Grid::ChannelHeight() / (RShift::STEP * 200);
-    float y = Grid::ChannelCenterHeight() - scale * (rShift - RShift::ZERO);
-
-    float scaleFull = (float)Grid::ChannelHeight() / (RShift::MAX - RShift::MIN) *
-        (PageService::Math::Enabled() ? 0.9f : 0.91f);
-
-    float yFull = Grid::ChannelCenterHeight() - scaleFull *(rShift - RShift::ZERO);
-
-    if(y > Grid::ChannelBottom())
-    {
-        PText::DrawChar((int)(x - 7), Grid::ChannelBottom() - 11, SYMBOL_RSHIFT_LOWER, ColorChannel(ch));
-        Painter::SetPoint((int)(x - 5), Grid::ChannelBottom() - 2);
-        y = (float)(Grid::ChannelBottom() - 7);
-        x++;
-    }
-    else if(y < GRID_TOP)
-    {
-        PText::DrawChar((int)(x - 7), GRID_TOP + 2, SYMBOL_RSHIFT_ABOVE, ColorChannel(ch));
-        Painter::SetPoint((int)(x - 5), GRID_TOP + 2);
-        y = GRID_TOP + 7;
-        x++;
-    }
-    else
-    {
-        PText::DrawChar((int)(x - 8), (int)(y - 4), SYMBOL_RSHIFT_NORMAL, ColorChannel(ch));
-
-        if(RShift::showLevel[ch] && MODE_WORK_IS_DIRECT)
-        {
-            Painter::DrawDashedHLine((int)y, Grid::Left(), Grid::Right(), 7, 3, 0);
-        }
-    }
-
-    Font::Set(TypeFont::_5);
-    int dY = 0;
-
-    if((!Menu::IsMinimize() || !Menu::IsShown()) && RShift::drawMarkers)
-    {
-        Painter::FillRegion(4, (int)(yFull - 3), 4, 6, ColorChannel(ch));
-        PText::DrawChar(5, (int)(yFull - 9 + dY), ch == Chan::A ? '1' : '2', COLOR_BACK);
-    }
-    PText::DrawChar((int)(x - 7), (int)(y - 9 + dY), ch == Chan::A ? '1' : '2', COLOR_BACK);
-    Font::Set(TypeFont::_8);
 }
 
 

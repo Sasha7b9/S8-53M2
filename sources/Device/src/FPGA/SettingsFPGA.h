@@ -309,6 +309,11 @@ struct RShift
 
     static void OnMarkersAutoHide();
 
+    static void Draw();
+
+    // Ќарисовать маркеры смещени€ по напр€жению
+    static void Draw(Chan);
+
     float ToAbs(Range::E);
 
     pchar ToString(Range::E, Divider::E, char buffer[20]);
