@@ -6,9 +6,9 @@
 
 namespace GF
 {
-    char *Bin2String(uint8 value);
+    String Bin2String(uint8 value);
 
-    char *Bin2String16(uint16 value);
+    String Bin2String16(uint16 value);
 }
 
 

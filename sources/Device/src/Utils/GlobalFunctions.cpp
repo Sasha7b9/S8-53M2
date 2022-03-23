@@ -171,26 +171,26 @@ bool String2Int(char *str, int *value)
     return true;
 }
 
-char *GF::Bin2String(uint8 value)
+String GF::Bin2String(uint8 value)
 {
-    static char buffer[9];
+    char buffer[9];
 
     for(int bit = 0; bit < 8; bit++)
     {
         buffer[7 - bit] = _GET_BIT(value, bit) ? '1' : '0';
     }
 
-    return buffer;
+    return String(buffer);
 }
 
-char *GF::Bin2String16(uint16 value)
+String GF::Bin2String16(uint16 value)
 {
-    static char buffer[19];
+    char buffer[19];
 
-    std::strcpy(buffer, Bin2String((uint8)(value >> 8)));
-    std::strcpy((buffer[8] = ' ', buffer + 9), Bin2String((uint8)value));
+    std::strcpy(buffer, Bin2String((uint8)(value >> 8)).c_str());
+    std::strcpy((buffer[8] = ' ', buffer + 9), Bin2String((uint8)value).c_str());
 
-    return buffer;
+    return String(buffer);
 }
 
 String Hex8toString(uint8 value)
