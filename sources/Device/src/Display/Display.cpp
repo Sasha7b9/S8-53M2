@@ -269,16 +269,15 @@ void Display::WriteValueTrigLevel()
             trigLev += rShiftAbs;
         }
 
-        char buffer[20];
-        std::strcpy(buffer, LANG_RU ? "Ур синхр = " : "Trig lvl = ");
-        std::strcat(buffer, Voltage2String(trigLev, true).c_str());
         int width = 96;
         int x = (Grid::Width() - width) / 2 + Grid::Left();
         int y = Grid::BottomMessages() - 20;
         Painter::DrawRectangle(x, y, width, 10, COLOR_FILL);
         Painter::FillRegion(x + 1, y + 1, width - 2, 8, COLOR_BACK);
 
-        String(buffer).Draw(x + 2, y + 1, COLOR_FILL);
+        String string(LANG_RU ? "Ур синхр = " : "Trig lvl = ");
+        string.Append(Voltage2String(trigLev, true));
+        string.Draw(x + 2, y + 1, COLOR_FILL);
     }
 }
 
