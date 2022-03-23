@@ -1,8 +1,10 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+#include "defines.h"
 #include "Log.h"
 #include "Display/Display.h"
 #include "Settings/Settings.h"
 #include "Hardware/VCP/VCP.h"
+#include "Display/Console.h"
 #include <cstdarg>
 #include <cstdio>
 #include <cstring>
@@ -22,7 +24,7 @@ void Log::Write(char *format, ...)
     vsprintf(buffer, format, args);
     va_end(args);
 
-    Display::AddStringToIndicating(buffer);
+    Console::Append(buffer);
 }
 
 
@@ -37,7 +39,7 @@ void Log::Error(char *format, ...)
     vsprintf(buffer + std::strlen(buffer), format, args);
     va_end(args);
 
-    Display::AddStringToIndicating(buffer);
+    Console::Append(buffer);
 }
 
 
@@ -57,6 +59,7 @@ void Log::ErrorTrace(pchar module, pchar func, int numLine, char *format, ...)
     std::strcat(message, " ");
     std::strcat(message, func);
     std::strcat(message, numBuffer);
-    Display::AddStringToIndicating(message);
-    Display::AddStringToIndicating(buffer);
+
+    Console::Append(message);
+    Console::Append(buffer);
 }

@@ -45,11 +45,6 @@ namespace Display
 
     void ShiftScreen(int delta);
 
-    void AddStringToIndicating(pchar string);
-
     // После отрисовки очередного экрана эта функция будет вызвана один раз.
     void RunAfterDraw(pFuncVV func);
-
-    // Написать сообщения отладочной консоли.
-    void DrawConsole();
 };

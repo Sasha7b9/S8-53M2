@@ -4,6 +4,7 @@
 #include "Utils/Math.h"
 #include "Data/Storage.h"
 #include "Hardware/Timer.h"
+#include "Display/Console.h"
 #include <stm32f4xx.h>
 #include <cstring>
 #include <climits>
@@ -322,7 +323,7 @@ static void FPGA::AutoFinder::FunctionDraw()
 
     PText::DrawStringInCenterRect(x, y + (height - 30), width, 20, buffer);
 
-    Display::DrawConsole();
+    Console::Draw();
 
     Painter::EndScene();
 }
