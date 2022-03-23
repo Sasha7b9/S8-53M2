@@ -3,7 +3,7 @@
 #include "SCPI.h"
 #include "Log.h"
 #include "Settings/Settings.h"
-#include "Utils/Map.h"
+#include "SCPI/Map.h"
 #include "Hardware/VCP/VCP.h"
 #include "FPGA/FPGA.h"
 

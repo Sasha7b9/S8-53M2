@@ -1788,16 +1788,6 @@
               <FilePath>.\src\Utils\Generator.cpp</FilePath>
             </File>
             <File>
-              <FileName>Map.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\Map.h</FilePath>
-            </File>
-            <File>
-              <FileName>Map.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Map.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Math.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\Math.h</FilePath>
@@ -1911,6 +1901,16 @@
               <FileName>trigSCPI.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\SCPI\trigSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Map.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\SCPI\Map.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Map.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\SCPI\Map.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3753,16 +3753,6 @@
               <FilePath>.\src\Utils\Generator.cpp</FilePath>
             </File>
             <File>
-              <FileName>Map.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\Map.h</FilePath>
-            </File>
-            <File>
-              <FileName>Map.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Map.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Math.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\Math.h</FilePath>
@@ -3876,6 +3866,16 @@
               <FileName>trigSCPI.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\SCPI\trigSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Map.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\SCPI\Map.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Map.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\SCPI\Map.h</FilePath>
             </File>
           </Files>
         </Group>
