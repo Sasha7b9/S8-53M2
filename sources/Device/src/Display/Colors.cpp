@@ -176,9 +176,9 @@ void ColorType::BrightnessChange(int delta)
 
     if (stepRed < 0.01f && stepGreen < 0.01f && stepBlue < 0.01f)
     {
-        stepRed = 0.31f;
-        stepGreen = 0.63f;
-        stepBlue = 0.31f;
+        stepRed = 2.55f;
+        stepGreen = 2.55f;
+        stepBlue = 2.55f;
     }
 }
 
