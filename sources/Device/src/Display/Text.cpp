@@ -651,13 +651,13 @@ void String::DrawInCenterRectOnBackground(int x, int y, int width, int height, C
 }
 
 
-int PText::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, pchar text, Color::E colorBackground,
+int String::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, Color::E colorBackground,
     Color::E colorFill)
 {
     Rectangle(width, height).Draw(x, y, colorFill);
     Region(width - 2, height - 2).Fill(x + 1, y + 1, colorBackground);
     Color::SetCurrent(colorFill);
-    return String(text).DrawInCenterRect(x, y, width, height);
+    return DrawInCenterRect(x, y, width, height);
 }
 
 

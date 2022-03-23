@@ -106,7 +106,7 @@ static void DrawHintItem(int x, int y, int width)
         y -= 9;
     }
 
-    PText::DrawStringInCenterRectAndBoundIt(x, y, width, 15, title, COLOR_BACK, COLOR_FILL);
+    String(title).DrawStringInCenterRectAndBoundIt(x, y, width, 15, COLOR_BACK, COLOR_FILL);
     y = String(HINT(item)).DrawInBoundedRectWithTransfers(x, y + 15, width, COLOR_BACK, COLOR_FILL);
 
     if (item->type == TypeItem::SmallButton)
