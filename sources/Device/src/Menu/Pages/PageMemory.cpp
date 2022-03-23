@@ -65,7 +65,7 @@ void PressSB_MemLastSelect()
 
 void PressSB_MemLast_Next()
 {
-    CircleIncreaseInt16(&PageMemory::Latest::current, 0, Storage::NumFrames() - 1);
+    Math::CircleIncrease<int16>(&PageMemory::Latest::current, 0, Storage::NumFrames() - 1);
 }
 
 void PressSB_MemLast_Prev()
@@ -359,7 +359,7 @@ void OnMemExtSetMaskNameRegSet(int angle, int maxIndex)
     {
         CircleDecreaseInt8,
         CircleDecreaseInt8,
-        CircleIncreaseInt8
+        Math::CircleIncrease<int8>
     };
 
     Color::ResetFlash();
@@ -592,7 +592,7 @@ static void FuncOnRegSetMemInt(int delta)
     }
     else if (delta > 0)
     {
-        CircleIncreaseInt8(&PageMemory::Internal::currentSignal, 0, MAX_NUM_SAVED_WAVES - 1);
+        Math::CircleIncrease<int8>(&PageMemory::Internal::currentSignal, 0, MAX_NUM_SAVED_WAVES - 1);
     }
 
     HAL_ROM::GetData(PageMemory::Internal::currentSignal, Data::ins);
@@ -702,7 +702,7 @@ static void DrawSB_MemInt_ModeShow(int x, int y)
 
 static void PressSB_MemInt_ModeShow()
 {
-    CircleIncreaseInt8((int8*)&MODE_SHOW_MEMINT, 0, 2);
+    Math::CircleIncrease<int8>((int8*)&MODE_SHOW_MEMINT, 0, 2);
 }
 
 static const arrayHints hintsMemIntModeShow =

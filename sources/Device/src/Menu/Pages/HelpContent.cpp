@@ -98,7 +98,7 @@ void HelpContent::NextParagraph()
 {
     if(currentPage->type == TypePage_Content)
     {
-        CircleIncreaseInt(&currentParagraph, 0, NumParagraphs(currentPage) - 1);
+        Math::CircleIncrease<int>(&currentParagraph, 0, NumParagraphs(currentPage) - 1);
     }
 }
 

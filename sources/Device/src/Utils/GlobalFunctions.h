@@ -10,12 +10,11 @@ bool    IntInRange                              // Возвращает true, если value в
                    int max                      // верхняя граница диапазона.
                    );
 float   MaxFloat(float val1, float val2, float val3);                   // Возвращает максимальное значение из трёх.
-int8    CircleIncreaseInt8(int8 *val, int8 min, int8 max);              // Увеличивает значение по адресу val на 1. Затем, если результат превышает max, приравинвает его к min.
-int16   CircleIncreaseInt16(int16 *val, int16 min, int16 max);
+
 int8    CircleDecreaseInt8(int8 *val, int8 min, int8 max);              // Умеьшает значение по адресу val на 1. Затем, если результат меньше min, приравнивает его max.
 int16   CircleDecreaseInt16(int16 *val, int16 min, int16 max);
-int     CircleIncreaseInt(int *val, int min, int max);
 int     CircleDecreaseInt(int *val, int min, int max);
+
 float   CircleAddFloat(float *val, float delta, float min, float max);  // Увелечивает значение по адресу val на delta. Затем, если результат больше max, приравнивает его min.
 float   CircleSubFloat(float *val, float delta, float min, float max);  // Уменьшает значение по адресу val на delta. Затем, елси результат меньше min, приравнивает его masx.
 void    SwapInt(int *value0, int *value1);                      // Обменивает местами содержимое памяти по адресам value0 и value1.

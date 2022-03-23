@@ -416,7 +416,7 @@ void Menu::ShortPress_MAC(Item *item)
 {
     if (Item::Opened() == item)
     {
-        CircleIncreaseInt8(&MACaddress::cur_digit, 0, 5);
+        Math::CircleIncrease<int8>(&MACaddress::cur_digit, 0, 5);
     }
 }
 
@@ -432,7 +432,7 @@ void Menu::ShortPress_GovernorColor(Item *governorColor)
 
     if(Item::Opened() == (Item *)governor) //-V1027
     {
-        CircleIncreaseInt8(&(governor->colorType->currentField), 0, 3);
+        Math::CircleIncrease<int8>(&(governor->colorType->currentField), 0, 3);
     }
     else
     {

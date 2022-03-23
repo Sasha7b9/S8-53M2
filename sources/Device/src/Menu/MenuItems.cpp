@@ -5,6 +5,7 @@
 #include "Hardware/Sound.h"
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"
+#include "Utils/Math.h"
 
 
 int8 MACaddress::cur_digit = 0;
@@ -224,7 +225,7 @@ float Choice::Step()
             {
                 return delta;
             }
-            CircleIncreaseInt8(cell, 0, NumSubItems() - 1);
+            Math::CircleIncrease<int8>(cell, 0, NumSubItems() - 1);
         }
         else if (tsChoice.inMoveDecrease == 1)
         {

@@ -197,7 +197,7 @@ static void OnPress_Math_Function_ModeDraw()
     }
     else
     {
-        CircleIncreaseInt8((int8 *)&MODE_DRAW_MATH, 0, 2);
+        Math::CircleIncrease<int8>((int8 *)&MODE_DRAW_MATH, 0, 2);
     }
 }
 
@@ -228,7 +228,7 @@ static const SmallButton sbMath_Function_ModeDraw
 
 static void OnPress_Math_Function_Type()
 {
-    CircleIncreaseInt8((int8 *)&MATH_FUNC, 0, 1);
+    Math::CircleIncrease<int8>((int8 *)&MATH_FUNC, 0, 1);
 }
 
 
@@ -275,7 +275,7 @@ static const SmallButton sbMath_Function_Type
 
 static void OnPress_Math_Function_ModeRegSet()
 {
-    CircleIncreaseInt8((int8 *)&MATH_MODE_REG_SET, 0, 1);
+    Math::CircleIncrease<int8>((int8 *)&MATH_MODE_REG_SET, 0, 1);
 }
 
 

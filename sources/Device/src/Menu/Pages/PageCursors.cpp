@@ -38,13 +38,13 @@ void SetCursSource(Chan::E ch)
 
 void IncCursCntrlU(Chan::E ch)
 {
-    CircleIncreaseInt8((int8*)&CURsU_CNTRL_CH(ch), 0, 3);
+    Math::CircleIncrease<int8>((int8*)&CURsU_CNTRL_CH(ch), 0, 3);
 }
 
 
 void IncCursCntrlT(Chan::E ch)
 {
-    CircleIncreaseInt8((int8*)&CURS_CNTRL_T(ch), 0, 3);
+    Math::CircleIncrease<int8>((int8*)&CURS_CNTRL_T(ch), 0, 3);
 }
 
 
@@ -641,7 +641,7 @@ static const arrayHints hintsSetPointsPercents =
 
 static void PressSB_Cursors_PointsPercents()
 {
-    CircleIncreaseInt8((int8 *)&CURS_MOVEMENT, 0, 1);
+    Math::CircleIncrease<int8>((int8 *)&CURS_MOVEMENT, 0, 1);
 }
 
 

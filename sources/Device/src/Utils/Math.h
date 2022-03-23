@@ -66,6 +66,9 @@ namespace Math
     // Прибавить к значению по адресу val delta. Если результат не вписывается в диапазон [min; max], ограничить.
     template<class T> void AddLimitation(T *val, T delta, T min, T max);
 
+    // Увеличивает значение по адресу val на 1. Затем, если результат превышает max, приравинвает его к min.
+    template<class T> T CircleIncrease(T *val, T min, T max);
+
     template<class T> T Limitation(T value, T min, T max)
     {
         if (value < min)      { return min; }

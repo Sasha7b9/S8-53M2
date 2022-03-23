@@ -181,7 +181,7 @@ void Governor::NextPosition()
 {
     if (Opened() == this)
     {
-        CircleIncreaseInt8(&Governor::cur_digit, 0, NumDigits() - 1);
+        Math::CircleIncrease<int8>(&Governor::cur_digit, 0, NumDigits() - 1);
     }
 }
 
@@ -198,7 +198,7 @@ int Governor::NumDigits() const
 
 void IPaddress::NextPosition() const
 {
-    CircleIncreaseInt8(&IPaddress::cur_digit, 0, port == 0 ? 11 : 16);
+    Math::CircleIncrease<int8>(&IPaddress::cur_digit, 0, port == 0 ? 11 : 16);
 }
 
 void Time::SetOpened()
@@ -219,7 +219,7 @@ void Time::SetNewTime() const
 
 void Time::SelectNextPosition()
 {
-    CircleIncreaseInt8(curField, 0, 7);
+    Math::CircleIncrease<int8>(curField, 0, 7);
     Color::ResetFlash();
 }
 

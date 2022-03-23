@@ -13,6 +13,7 @@
 #include "Menu/Menu.h"
 #include "Log.h"
 #include "Hardware/HAL/HAL.h"
+#include "Utils/Math.h"
 #include <cstdio>
 #include <cstring>
 
@@ -775,7 +776,7 @@ static void OnRegSet_SerialNumber(int angle)
 {
     typedef int(*pFunc)(int *, int, int);
 
-    pFunc p = angle > 0 ? CircleIncreaseInt : CircleDecreaseInt;
+    pFunc p = angle > 0 ? Math::CircleIncrease<int> : CircleDecreaseInt;
 
     if (structSN.curDigt == 0)
     {
