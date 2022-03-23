@@ -193,7 +193,7 @@ static void OnPress_Math_Function_ModeDraw()
 {
     if (ENABLED_FFT)
     {
-        Display::ShowWarningBad(Warning::ImpossibleEnableMathFunction);
+        Warning::ShowBad(Warning::ImpossibleEnableMathFunction);
     }
     else
     {
@@ -386,7 +386,7 @@ static void OnPress_Math_Function()
 {
     if (ENABLED_FFT)
     {
-        Display::ShowWarningBad(Warning::ImpossibleEnableMathFunction);
+        Warning::ShowBad(Warning::ImpossibleEnableMathFunction);
     }
 }
 
@@ -586,7 +586,7 @@ static void OnPress_Math_FFT()
 {
     if (!IsActive_Math_FFT())
     {
-        Display::ShowWarningBad(Warning::ImpossibleEnableFFT);
+        Warning::ShowBad(Warning::ImpossibleEnableFFT);
     }
 }
 
@@ -677,8 +677,8 @@ const Page *PageService::Math::FFT::Cursors::self = &ppppMath_FFT_Cursors;
 
 static void OnChanged_Ethernet_Enable(bool)
 {
-    Display::ShowWarningGood(Warning::NeedRebootDevice2);
-    Display::ShowWarningGood(Warning::NeedRebootDevice1);
+    Warning::ShowGood(Warning::NeedRebootDevice2);
+    Warning::ShowGood(Warning::NeedRebootDevice1);
 }
 
 

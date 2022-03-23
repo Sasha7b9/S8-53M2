@@ -29,12 +29,6 @@ namespace Display
 
     void EnableTrigLabel(bool enable);
 
-    void ShowWarningBad(Warning::E warning);
-
-    void ShowWarningGood(Warning::E warning);
-
-    void ClearFromWarnings();
-
     void SetDrawMode(DrawMode::E, pFuncVV = nullptr);
 
     void SetAddDrawFunction(pFuncVV func);

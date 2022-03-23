@@ -69,7 +69,7 @@ void OnChanged_PeakDet(bool active)
     }
     else
     {
-        Display::ShowWarningBad(Warning::TooSmallSweepForPeakDet);
+        Warning::ShowBad(Warning::TooSmallSweepForPeakDet);
     }
 }
 

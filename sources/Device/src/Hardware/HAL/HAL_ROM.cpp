@@ -299,8 +299,8 @@ int HAL_ROM::FreeMemory()
 
 void HAL_ROM::CompactMemory()
 {
-    Display::ClearFromWarnings();
-    Display::ShowWarningGood(Warning::MovingData);
+    Warning::Clear();
+    Warning::ShowGood(Warning::MovingData);
     Display::Update();
     uint dataInfoRel = FindActualDataInfo() - ADDR_SECTOR_DATA_MAIN;
 
@@ -332,7 +332,8 @@ void HAL_ROM::CompactMemory()
             HAL_ROM::SaveData(i, data);
         }
     }
-    Display::ClearFromWarnings();
+
+    Warning::Clear();
 }
 
 

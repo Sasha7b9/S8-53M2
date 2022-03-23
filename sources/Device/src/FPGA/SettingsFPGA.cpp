@@ -194,7 +194,7 @@ void Range::Set(Chan ch, Range::E range)
     }
     else
     {
-        Display::ShowWarningBad(ch == Chan::A ? Warning::LimitChan1_Volts : Warning::LimitChan2_Volts);
+        Warning::ShowBad(ch == Chan::A ? Warning::LimitChan1_Volts : Warning::LimitChan2_Volts);
     }
 };
 
@@ -228,7 +228,7 @@ void TBase::Set(TBase::E tBase)
     }
     else
     {
-        Display::ShowWarningBad(Warning::LimitSweep_Time);
+        Warning::ShowBad(Warning::LimitSweep_Time);
     }
 };
 
@@ -292,8 +292,8 @@ void TBase::Decrease()
 {
     if (SET_PEAKDET_IS_ENABLED && (SET_TBASE <= TBase::MIN_PEC_DEAT))
     {
-        Display::ShowWarningBad(Warning::LimitSweep_Time);
-        Display::ShowWarningBad(Warning::EnabledPeakDet);
+        Warning::ShowBad(Warning::LimitSweep_Time);
+        Warning::ShowBad(Warning::EnabledPeakDet);
         return;
     }
 
@@ -301,7 +301,7 @@ void TBase::Decrease()
     {
         if (SET_SELFRECORDER && SET_TBASE == TBase::MIN_P2P)
         {
-            Display::ShowWarningBad(Warning::TooFastScanForSelfRecorder);
+            Warning::ShowBad(Warning::TooFastScanForSelfRecorder);
         }
         else
         {
@@ -311,7 +311,7 @@ void TBase::Decrease()
     }
     else
     {
-        Display::ShowWarningBad(Warning::LimitSweep_Time);
+        Warning::ShowBad(Warning::LimitSweep_Time);
     }
 }
 
@@ -325,7 +325,7 @@ void TBase::Increase()
     }
     else
     {
-        Display::ShowWarningBad(Warning::LimitSweep_Time);
+        Warning::ShowBad(Warning::LimitSweep_Time);
     }
 }
 
@@ -341,7 +341,7 @@ void RShift::Set(Chan ch, int16 rShift)
 
     if (rShift > RShift::MAX || rShift < RShift::MIN)
     {
-        Display::ShowWarningBad(ch == Chan::A ? Warning::LimitChan1_RShift : Warning::LimitChan2_RShift);
+        Warning::ShowBad(ch == Chan::A ? Warning::LimitChan1_RShift : Warning::LimitChan2_RShift);
     }
 
     LIMITATION(rShift, rShift, RShift::MIN, RShift::MAX);
@@ -403,7 +403,7 @@ void TrigLev::Set(TrigSource::E ch, int16 trigLev)
 
     if (trigLev < TrigLev::MIN || trigLev > TrigLev::MAX)
     {
-        Display::ShowWarningBad(Warning::LimitSweep_Level);
+        Warning::ShowBad(Warning::LimitSweep_Level);
     }
 
     LIMITATION(trigLev, trigLev, TrigLev::MIN, TrigLev::MAX);
@@ -447,7 +447,7 @@ void TShift::Set(int tshift)
     {
         Math::Limitation<int>(&tshift, TShift::Min(), TShift::MAX);
 
-        Display::ShowWarningBad(Warning::LimitSweep_TShift);
+        Warning::ShowBad(Warning::LimitSweep_TShift);
     }
 
     SET_TSHIFT = (int16)tshift;
@@ -518,7 +518,7 @@ bool Range::Increase(Chan ch)
     }
     else
     {
-       Display::ShowWarningBad(ch == Chan::A ? Warning::LimitChan1_Volts : Warning::LimitChan2_Volts);
+       Warning::ShowBad(ch == Chan::A ? Warning::LimitChan1_Volts : Warning::LimitChan2_Volts);
     }
 
     Flags::needFinishDraw = true;
@@ -538,7 +538,7 @@ bool Range::Decrease(Chan ch)
     }
     else
     {
-        Display::ShowWarningBad(ch == Chan::A ? Warning::LimitChan1_Volts : Warning::LimitChan2_Volts);
+        Warning::ShowBad(ch == Chan::A ? Warning::LimitChan1_Volts : Warning::LimitChan2_Volts);
     }
 
     Flags::needFinishDraw = true;

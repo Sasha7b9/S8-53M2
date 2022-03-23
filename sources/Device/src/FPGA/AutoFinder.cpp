@@ -86,7 +86,7 @@ void FPGA::AutoFinder::FindSignal()
     {
         if (!FindWave(ChB))
         {
-            Display::ShowWarningBad(Warning::SignalNotFound);
+            Warning::ShowBad(Warning::SignalNotFound);
             set = old;
             set.RunAfterLoad();
             FPGA::Init();

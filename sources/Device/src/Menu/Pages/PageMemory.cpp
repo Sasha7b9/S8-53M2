@@ -518,7 +518,7 @@ static void SaveSignalToIntMemory()
         {                               // то сохраняем сигнал из последних
             HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Data::last);
             HAL_ROM::GetData(PageMemory::Internal::currentSignal, Data::ins);
-            Display::ShowWarningGood(Warning::SignalIsSaved);
+            Warning::ShowGood(Warning::SignalIsSaved);
         }
     }
     else                                // Иначе сохраняем текущий сигнал
@@ -526,7 +526,7 @@ static void SaveSignalToIntMemory()
         if (Storage::NumFrames())
         {
             HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Storage::GetData(0));
-            Display::ShowWarningGood(Warning::SignalIsSaved);
+            Warning::ShowGood(Warning::SignalIsSaved);
         }
     }
 }

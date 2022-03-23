@@ -124,7 +124,7 @@ const Page *PageMain::self = &mainPage;
 
 void PageMain::EnablePageDebug()
 {
-    Display::ShowWarningGood(Warning::MenuDebugEnabled);
+    Warning::ShowGood(Warning::MenuDebugEnabled);
 
     Menu::showDebugMenu = true;
 }

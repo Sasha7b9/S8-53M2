@@ -148,7 +148,7 @@ static void OnPress_SaveFirmware()
 
     FDrive::CloseFile(&structForWrite);
 
-    Display::ShowWarningGood(Warning::FirmwareSaved);
+    Warning::ShowGood(Warning::FirmwareSaved);
 }
 
 
@@ -670,7 +670,7 @@ static void OnPress_SerialNumber_Save()
 
     if (!OTP::SaveSerialNumber(stringSN))
     {
-        Display::ShowWarningBad(Warning::FullyCompletedOTP);
+        Warning::ShowBad(Warning::FullyCompletedOTP);
     }
 }
 

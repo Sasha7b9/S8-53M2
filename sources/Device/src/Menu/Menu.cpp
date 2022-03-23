@@ -539,7 +539,7 @@ extern const Page pService;
 
 void Time::Open()
 {
-    Display::ShowWarningGood(Warning::TimeNotSet);
+    Warning::ShowGood(Warning::TimeNotSet);
     Panel::ProcessEvent(KeyboardEvent(Key::Service, Action::Up));
     Display::Update();
 

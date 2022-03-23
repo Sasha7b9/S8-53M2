@@ -1101,6 +1101,16 @@
               <FileType>5</FileType>
               <FilePath>.\src\Display\Console.h</FilePath>
             </File>
+            <File>
+              <FileName>Warnings.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Warnings.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Warnings.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Warnings.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3080,6 +3090,16 @@
               <FileName>Console.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Console.h</FilePath>
+            </File>
+            <File>
+              <FileName>Warnings.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Warnings.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Warnings.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Warnings.h</FilePath>
             </File>
           </Files>
         </Group>
