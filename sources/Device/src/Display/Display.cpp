@@ -490,13 +490,8 @@ void Display::DrawTimeForFrame(uint timeTicks)
     Painter::FillRegion(Grid::Left() + 1, Grid::FullBottom() - 9, 82, 8, COLOR_BACK);
     buffer.Draw(Grid::Left() + 2, Grid::FullBottom() - 9, COLOR_FILL);
 
-    char message[20] = {0};
-    std::sprintf(message, "%d", Storage::NumFramesWithSameSettings());
-    std::strcat(message, "/");
-    char numAvail[10] = {0};
-    std::sprintf(numAvail, "%d", Storage::NumberAvailableEntries());
-    std::strcat(message, numAvail);
-    String(message).Draw(Grid::Left() + 50, Grid::FullBottom() - 9);
+    String("%d/%d", Storage::NumFramesWithSameSettings(), Storage::NumberAvailableEntries()).
+        Draw(Grid::Left() + 50, Grid::FullBottom() - 9);
 }
 
 
