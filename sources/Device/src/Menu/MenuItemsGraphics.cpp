@@ -440,7 +440,9 @@ void GovernorColor::DrawValue(int x, int y, int delta)
 
     int vals[4] = {(int)(ct->brightness * 100), blue, green, red};
 
-    Painter::FillRegion(x, y, MI_WIDTH + delta - 2, MI_HEIGHT / 2 - 3, Color::BLACK);
+    LOG_WRITE("%f %d %d %d", ct->brightness, blue, green, red);
+
+    Painter::FillRegion(x, y, MI_WIDTH + delta - 2, Item::HEIGHT / 2 - 3, Color::BLACK);
     x += 92;
     
     for(int i = 0; i < 4; i++)
@@ -460,21 +462,28 @@ void GovernorColor::DrawOpened(int x, int y)
     static const int delta = 43;
     x -= delta;
     colorType->Init();
-    Painter::DrawRectangle(x - 1, y - 1, MI_WIDTH + delta + 2, MI_HEIGHT + 2, Color::BLACK);
-    Painter::DrawRectangle(x, y, MI_WIDTH + delta, MI_HEIGHT, ColorMenuTitle(false));
+
+    Painter::DrawRectangle(x - 1, y - 1, MI_WIDTH + delta + 2, Item::HEIGHT + 2, Color::BLACK);
+    Painter::DrawRectangle(x, y, MI_WIDTH + delta, Item::HEIGHT, ColorMenuTitle(false));
+
     Painter::DrawVolumeButton(x + 1, y + 1, MI_WIDTH_VALUE + 2 + delta, MI_HEIGHT_VALUE + 3, 2, ColorMenuItem(false), 
         ColorMenuItemBrighter(), ColorMenuItemLessBright(), ((Item *)this)->IsPressed(), ((Item *)this)->IsShade());
-    Painter::DrawHLine(y + MI_HEIGHT / 2 + 2, x, x + MI_WIDTH + delta, ColorMenuTitle(false));
+
+    Painter::DrawHLine(y + Item::HEIGHT / 2 + 2, x, x + MI_WIDTH + delta, ColorMenuTitle(false));
+
     PText::DrawStringInCenterRect(x + (((Item *)this)->IsPressed() ? 2 : 1), y + (((Item *)this)->IsPressed() ? 2 : 1),
-        MI_WIDTH + delta, MI_HEIGHT / 2 + 2, ((Item *)this)->Title(), Color::WHITE);
+        MI_WIDTH + delta, Item::HEIGHT / 2 + 2, ((Item *)this)->Title(), Color::WHITE);
+
     DrawValue(x + 1, y + 19, delta);
 }
 
 void GovernorColor::DrawClosed(int x, int y)
 {
     colorType->Init();
+
     DrawGovernorChoiceColorFormulaHiPart((Item *)this, x, y, ((Item *)this)->IsPressed(), ((Item *)this)->IsShade() ||
         !((Item *)this)->IsActive(), true);
+
     Painter::FillRegion(x + 2, y + 20, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1, colorType->color);
 }
 
@@ -661,7 +670,7 @@ void Choice::DrawClosed(int x, int y)
         Painter::DrawHLine(y + (deltaY > 0 ? 31 : 19) - deltaY, x + 3, x + MI_WIDTH_VALUE + 1, Color::BLACK);
         PText::DrawWithLimitation(x + 4, y + (deltaY > 0 ? 33 : 9) - deltaY, deltaY > 0 ? NameNextSubItem() : NamePrevSubItem(), colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
     }
-    Painter::DrawHLine(y + MI_HEIGHT + 1, x, x + MI_WIDTH, ColorBorderMenu(false));
+    Painter::DrawHLine(y + Item::HEIGHT + 1, x, x + MI_WIDTH, ColorBorderMenu(false));
 
     DrawGovernorChoiceColorFormulaHiPart((Item *)this, x, y, pressed, shade, false);
 
@@ -739,13 +748,13 @@ void Button::Draw(int x, int y)
 
     Painter::DrawHLine(y + 1, x, x + MI_WIDTH, ColorMenuTitle(shade));
     Color::E color = shade ? Color::MENU_SHADOW : Color::WHITE;
-    Painter::FillRegion(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, ColorMenuItem(false));
-    Painter::DrawVolumeButton(x + 4, y + 5, MI_WIDTH - 8, MI_HEIGHT - 8, 3, ColorMenuItem(false), ColorMenuItemBrighter(), 
+    Painter::FillRegion(x + 1, y + 2, MI_WIDTH - 2, Item::HEIGHT - 2, ColorMenuItem(false));
+    Painter::DrawVolumeButton(x + 4, y + 5, MI_WIDTH - 8, Item::HEIGHT - 8, 3, ColorMenuItem(false), ColorMenuItemBrighter(),
                             ColorMenuItemLessBright(), pressed, shade);
 
     int delta = (pressed && (!shade)) ? 2 : 1;
     
-    PText::DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, Title(), color);
+    PText::DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, Item::HEIGHT, Title(), color);
 }
 
 
@@ -780,11 +789,11 @@ void Page::Draw(int x, int y)
 
     if (isShade)
     {
-        Painter::FillRegion(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, ColorMenuTitleLessBright());
+        Painter::FillRegion(x + 1, y + 2, MI_WIDTH - 2, Item::HEIGHT - 2, ColorMenuTitleLessBright());
     }
     else
     {
-        Painter::DrawVolumeButton(x + 1, y + 2, MI_WIDTH - 2, MI_HEIGHT - 2, 2, ColorMenuItem(isShade),
+        Painter::DrawVolumeButton(x + 1, y + 2, MI_WIDTH - 2, Item::HEIGHT - 2, 2, ColorMenuItem(isShade),
             ColorMenuItemBrighter(), ColorMenuItemLessBright(), isPressed, isShade);
     }
 
@@ -797,5 +806,5 @@ void Page::Draw(int x, int y)
         delta = 1;
     }
 
-    PText::DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, MI_HEIGHT, Title(), colorText);
+    PText::DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, Item::HEIGHT, Title(), colorText);
 }

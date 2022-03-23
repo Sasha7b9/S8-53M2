@@ -183,6 +183,8 @@ public:
 
     // Закрыть открытый элемент меню.
     static void CloseOpened();
+
+    static const int HEIGHT = 33;
 };
 
 

@@ -24,7 +24,6 @@
 #define MP_TITLE_WIDTH          79
 #define MP_X                    ((GRID_RIGHT) - (MP_TITLE_WIDTH) - 1)
 #define MP_TITLE_HEIGHT         34
-#define MI_HEIGHT               33
 #define MI_WIDTH                ((MP_TITLE_WIDTH) + 1)
 #define MI_HEIGHT_VALUE         13
 #define MI_WIDTH_VALUE          ((MI_WIDTH) - 4)

@@ -318,7 +318,7 @@ void Page::DrawItems(int yTop)
     for(int posItem = posFirstItem; posItem <= posLastItem; posItem++)
     {
         Item *item = GetItem(posItem);
-        int top = yTop + MI_HEIGHT * count;
+        int top = yTop + Item::HEIGHT * count;
         funcOfDraw[item->GetType()](item, MP_X, top);
         count++;
 
@@ -395,7 +395,7 @@ int Menu::ItemOpenedPosY(const Item *item)
 {
     Page *page = item->Keeper();
     int8 posCurItem = page->PosCurrentItem();
-    int y = GRID_TOP + (posCurItem % MENU_ITEMS_ON_DISPLAY) * MI_HEIGHT + MP_TITLE_HEIGHT;
+    int y = GRID_TOP + (posCurItem % MENU_ITEMS_ON_DISPLAY) * Item::HEIGHT + MP_TITLE_HEIGHT;
 
     if(y + item->HeightOpened() > GRID_BOTTOM)
     {

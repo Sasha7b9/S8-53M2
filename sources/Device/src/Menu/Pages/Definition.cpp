@@ -28,7 +28,7 @@ void CalculateConditions(int16 pos0, int16 pos1, CursCntrl::E cursCntrl, bool *c
 
 int CalculateYforCurs(int y, bool top)
 {
-    return top ? y + MI_HEIGHT / 2 + 4 : y + MI_HEIGHT - 2;
+    return top ? y + Item::HEIGHT / 2 + 4 : y + Item::HEIGHT - 2;
 }
 
 
