@@ -103,9 +103,6 @@ source_group(Utils/Containers FILES ${UTILS_CONTAINERS})
 source_group(SCPI             FILES ${SCPI})
 
 set_source_files_properties(src/Hardware/LAN/ethernetif.cpp
-                            src/libs/usbd_desc.cpp
-                            src/libs/usbd_cdc_interface.cpp
-                            src/libs/usbd_conf.c
                             src/Menu/Pages/PageHelp.cpp
                             src/Panel/PanelFunctions.cpp
                             PROPERTIES HEADER_FILE_ONLY TRUE)
