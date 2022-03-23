@@ -348,3 +348,11 @@ String SU::Int2String(int value, bool alwaysSign, int numMinFields)
 
     return String(buffer);
 }
+
+
+String SU::Hex8toString(uint8 value)
+{
+    char buffer[3];
+    std::sprintf(value < 16 ? (buffer[0] = '0', buffer + 1) : (buffer), "%x", value);
+    return String(buffer);
+}

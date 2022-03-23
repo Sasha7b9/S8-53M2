@@ -51,13 +51,6 @@ bool String2Int(char *str, int *value)
 }
 
 
-String Hex8toString(uint8 value)
-{
-    char buffer[3];
-    std::sprintf(value < 16 ? (buffer[0] = '0', buffer + 1) :  (buffer), "%x", value);
-    return String(buffer);
-}
-
 String Voltage2String(float voltage, bool alwaysSign)
 {
     char *suffix;
