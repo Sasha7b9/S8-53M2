@@ -9,11 +9,15 @@
 #include "Tables.h"
 
 
-static const int  NUM_WARNINGS = 10;
-static const char *warnings[NUM_WARNINGS] = {0};       // Здесь предупреждающие сообщения.
-static uint       timeWarnings[NUM_WARNINGS] = {0};   // Здесь время, когда предупреждающее сообщение поступило на экран.
-static void OnTimerShowWarning();
-static void DrawStringInRectangle(int x, int y, char const *text);
+namespace Warning
+{
+    static const int  NUM_WARNINGS = 10;
+    static const char *warnings[NUM_WARNINGS] = {0};       // Здесь предупреждающие сообщения.
+    static uint       timeWarnings[NUM_WARNINGS] = {0};   // Здесь время, когда предупреждающее сообщение поступило на экран.
+    static void OnTimerShowWarning();
+    static void DrawStringInRectangle(int x, int y, char const *text);
+    static void ShowWarn(pchar);
+}
 
 
 void Warning::ShowBad(Warning::E warning)
@@ -50,7 +54,7 @@ void Warning::ShowWarn(pchar message)
 }
 
 
-static void OnTimerShowWarning()
+void Warning::OnTimerShowWarning()
 {
     uint time = TIME_MS;
 
@@ -115,7 +119,7 @@ void Warning::DrawWarnings()
 }
 
 
-static void DrawStringInRectangle(int, int y, char const *text)
+void Warning::DrawStringInRectangle(int, int y, char const *text)
 {
     int width = Font::GetLengthText(text);
     int height = 8;

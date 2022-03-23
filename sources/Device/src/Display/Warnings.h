@@ -2,7 +2,7 @@
 #pragma once
 
 
-struct Warning
+namespace Warning
 {
     enum E
     {
@@ -37,15 +37,11 @@ struct Warning
     };
 
     // Написать предупреждения.
-    static void DrawWarnings();
+    void DrawWarnings();
 
-    static void ShowBad(E warning);
+    void ShowBad(E warning);
 
-    static void ShowGood(E warning);
+    void ShowGood(E warning);
 
-    static void Clear();
-
-private:
-
-    static void ShowWarn(pchar);
+    void Clear();
 };
