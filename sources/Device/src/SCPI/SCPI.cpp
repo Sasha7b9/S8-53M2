@@ -157,7 +157,7 @@ bool SCPI::FirstIsInt(uint8 *buffer, int *value, int min, int max)
         Buffer<char> data(param.numSymbols + 1);
         std::memcpy(data.Data(), param.address, (uint)param.numSymbols);
         data.Data()[param.numSymbols] = '\0';
-        return String2Int(data.Data(), value) && (*value >= min) && (*value <= max);
+        return SU::String2Int(data.Data(), value) && (*value >= min) && (*value <= max);
     }
 
     return false;

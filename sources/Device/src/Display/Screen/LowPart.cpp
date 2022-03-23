@@ -160,7 +160,7 @@ void LowPart::Draw()
         }
         else
         {
-            std::strcat(mesFreq, Freq2String(freq, false).c_str());
+            std::strcat(mesFreq, SU::Freq2String(freq, false).c_str());
         }
         String(mesFreq).Draw(x + 3, GRID_BOTTOM + 2);
     }

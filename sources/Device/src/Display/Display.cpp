@@ -18,6 +18,7 @@
 #include "Hardware/VCP/VCP.h"
 #include "Data/Storage.h"
 #include "Display/Screen/LowPart.h"
+#include "Utils/Strings.h"
 #include <cstdio>
 
 
@@ -275,7 +276,7 @@ void Display::WriteValueTrigLevel()
         Region(width - 2, 8).Fill(x + 1, y + 1, COLOR_BACK);
 
         String string(LANG_RU ? "Ур синхр = " : "Trig lvl = ");
-        string.Append(Voltage2String(trigLev, true));
+        string.Append(SU::Voltage2String(trigLev, true));
         string.Draw(x + 2, y + 1, COLOR_FILL);
     }
 }

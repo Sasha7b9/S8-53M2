@@ -2,6 +2,7 @@
 #include "defines.h"
 #include "Strings.h"
 #include "Utils/GlobalFunctions.h"
+#include "Settings/Settings.h"
 #include <cctype>
 #include <cstring>
 #include <cmath>
@@ -9,54 +10,56 @@
 #include <cstdlib>
 
 
-static bool ChooseSymbols(const uint8 **string);    // Возвращает false, если выбор невозможен - строка кончилась.
-static bool ChooseSpaces(const uint8 **string);     // Возвращает false, если выбор невозможен - строка кончилась.
-
-
 namespace SU
 {
-    static int NumDigitsInIntPart(float value)
-    {
-        float fabsValue = std::fabs(value);
+    static bool ChooseSymbols(const uint8 **string);    // Возвращает false, если выбор невозможен - строка кончилась.
+    static bool ChooseSpaces(const uint8 **string);     // Возвращает false, если выбор невозможен - строка кончилась.
 
-        int numDigitsInInt = 0;
-
-        if (fabsValue >= 10000)
-        {
-            numDigitsInInt = 5;
-        }
-        else if (fabsValue >= 1000)
-        {
-            numDigitsInInt = 4;
-        }
-        else if (fabsValue >= 100)
-        {
-            numDigitsInInt = 3;
-        }
-        else if (fabsValue >= 10)
-        {
-            numDigitsInInt = 2;
-        }
-        else
-        {
-            numDigitsInInt = 1;
-        }
-
-        return numDigitsInInt;
-    }
+    static int NumDigitsInIntPart(float value);
 }
+
+
+static int SU::NumDigitsInIntPart(float value)
+{
+    float fabsValue = std::fabs(value);
+
+    int numDigitsInInt = 0;
+
+    if (fabsValue >= 10000)
+    {
+        numDigitsInInt = 5;
+    }
+    else if (fabsValue >= 1000)
+    {
+        numDigitsInInt = 4;
+    }
+    else if (fabsValue >= 100)
+    {
+        numDigitsInInt = 3;
+    }
+    else if (fabsValue >= 10)
+    {
+        numDigitsInInt = 2;
+    }
+    else
+    {
+        numDigitsInInt = 1;
+    }
+
+    return numDigitsInInt;
+}
+
 
 
 int GetNumWordsInString(const uint8 *string)
 {
-
-    ChooseSpaces(&string);
+    SU::ChooseSpaces(&string);
 
     while (true)
     {
         int numWords = 0;
         
-        if (ChooseSymbols(&string))
+        if (SU::ChooseSymbols(&string))
         {
             numWords++;
         }
@@ -64,13 +67,13 @@ int GetNumWordsInString(const uint8 *string)
         {
             return numWords;
         }
-        ChooseSpaces(&string);
+        SU::ChooseSpaces(&string);
     }
 }
 
 bool GetWord(const uint8 *string, Word *word, const int numWord)
 {
-    ChooseSpaces(&string);
+    SU::ChooseSpaces(&string);
 
     int currentWord = 0;
 
@@ -79,7 +82,7 @@ bool GetWord(const uint8 *string, Word *word, const int numWord)
         if (currentWord == numWord)
         {
             word->address = (uint8*)string;
-            ChooseSymbols(&string);
+            SU::ChooseSymbols(&string);
             word->numSymbols = string - word->address;
             
             uint8 *pointer = word->address;
@@ -91,7 +94,7 @@ bool GetWord(const uint8 *string, Word *word, const int numWord)
             }
             return true;
         }
-        if (ChooseSymbols(&string))
+        if (SU::ChooseSymbols(&string))
         {
             currentWord++;
         }
@@ -99,7 +102,7 @@ bool GetWord(const uint8 *string, Word *word, const int numWord)
         {
             return false;
         }
-        ChooseSpaces(&string);
+        SU::ChooseSpaces(&string);
     }
 }
 
@@ -121,7 +124,7 @@ bool WordEqualZeroString(Word *word, char* string)
 
 #define  SYMBOL(x) (*(*(x)))
 
-bool ChooseSymbols(const uint8 **string)
+bool SU::ChooseSymbols(const uint8 **string)
 {
     if (SYMBOL(string) == 0x0d && SYMBOL(string + 1) == 0x0a)
     {
@@ -136,7 +139,7 @@ bool ChooseSymbols(const uint8 **string)
     return true;
 }
 
-bool ChooseSpaces(const uint8 **string)
+bool SU::ChooseSpaces(const uint8 **string)
 {
     if (SYMBOL(string) == 0x0d && SYMBOL(string + 1) == 0x0a)
     {
@@ -355,4 +358,165 @@ String SU::Hex8toString(uint8 value)
     char buffer[3];
     std::sprintf(value < 16 ? (buffer[0] = '0', buffer + 1) : (buffer), "%x", value);
     return String(buffer);
+}
+
+
+bool SU::String2Int(char *str, int *value)
+{
+    int sign = str[0] == '-' ? -1 : 1;
+
+    if (str[0] < '0' || str[0] > '9')
+    {
+        str++;
+    }
+
+    int length = (int)std::strlen(str);
+
+    if (length == 0)
+    {
+        return false;
+    }
+
+    *value = 0;
+    int pow = 1;
+
+    for (int i = length - 1; i >= 0; i--)
+    {
+        int val = str[i] & (~(0x30));
+        if (val < 0 || val > 9)
+        {
+            return false;
+        }
+        *value += val * pow;
+        pow *= 10;
+    }
+
+    if (sign == -1)
+    {
+        *value *= -1;
+    }
+
+    return true;
+}
+
+
+String SU::Voltage2String(float voltage, bool alwaysSign)
+{
+    char *suffix;
+
+    if (voltage == ERROR_VALUE_FLOAT)
+    {
+        return String(ERROR_STRING_VALUE);
+    }
+    else if (std::fabs(voltage) + 0.5e-4f < 1e-3f)
+    {
+        suffix = LANG_RU ? "\x10мкВ" : "\x10uV";
+        voltage *= 1e6f;
+    }
+    else if (std::fabs(voltage) + 0.5e-4f < 1)
+    {
+        suffix = LANG_RU ? "\x10мВ" : "\x10mV";
+        voltage *= 1e3f;
+    }
+    else if (std::fabs(voltage) + 0.5e-4f < 1000)
+    {
+        suffix = LANG_RU ? "\x10В" : "\x10V";
+    }
+    else
+    {
+        suffix = LANG_RU ? "\x10кВ" : "\x10kV";
+        voltage *= 1e-3f;
+    }
+
+    String result = SU::Float2String(voltage, alwaysSign, 4);
+    result.Append(suffix);
+
+    return result;
+}
+
+
+String SU::Time2String(float time, bool alwaysSign)
+{
+    char *suffix = 0;
+
+    if (time == ERROR_VALUE_FLOAT)
+    {
+        return String(ERROR_STRING_VALUE);
+    }
+    else if (std::fabs(time) + 0.5e-10f < 1e-6f)
+    {
+        suffix = LANG_RU ? "нс" : "ns";
+        time *= 1e9f;
+    }
+    else if (std::fabs(time) + 0.5e-7f < 1e-3f)
+    {
+        suffix = LANG_RU ? "мкс" : "us";
+        time *= 1e6f;
+    }
+    else if (std::fabs(time) + 0.5e-3f < 1)
+    {
+        suffix = LANG_RU ? "мс" : "ms";
+        time *= 1e3f;
+    }
+    else
+    {
+        suffix = LANG_RU ? "с" : "s";
+    }
+
+    String result = SU::Float2String(time, alwaysSign, 4);
+    result.Append(suffix);
+
+    return result;
+}
+
+
+String SU::Freq2String(float freq, bool)
+{
+    String result;
+
+    char *suffix = 0;
+
+    if (freq == ERROR_VALUE_FLOAT)
+    {
+        result.Append(ERROR_STRING_VALUE);
+        return result;
+    }
+
+    if (freq >= 1e6f)
+    {
+        suffix = LANG_RU ? "МГц" : "MHz";
+        freq /= 1e6f;
+    }
+    else if (freq >= 1e3f)
+    {
+        suffix = LANG_RU ? "кГц" : "kHz";
+        freq /= 1e3f;
+    }
+    else
+    {
+        suffix = LANG_RU ? "Гц" : "Hz";
+    }
+
+    result.Append(SU::Float2String(freq, false, 4));
+    result.Append(suffix);
+
+    return result;
+}
+
+
+String SU::Phase2String(float phase, bool)
+{
+    String result = SU::Float2String(phase, false, 4);
+    result.Append("\xa8");
+    return result;
+}
+
+
+String SU::Float2Db(float value, int numDigits)
+{
+    String result = SU::Float2String(value, false, numDigits);
+
+    result.Append(LANG_RU ? "дБ" : "dB");
+
+    return result;
 }

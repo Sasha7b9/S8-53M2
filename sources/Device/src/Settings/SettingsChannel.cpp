@@ -4,6 +4,7 @@
 #include "FPGA/FPGA.h"
 #include "Utils/Math.h"
 #include "Utils/GlobalFunctions.h"
+#include "Utils/Strings.h"
 
 
 // Структура для описания диапазона масштаба по напряжению.
@@ -69,5 +70,5 @@ String RShift::ToString(Range::E range, Divider::E multiplier)
 {
     float rShiftVal = ToAbs(range) * Divider::ToAbs(multiplier);
 
-    return Voltage2String(rShiftVal, true);
+    return SU::Voltage2String(rShiftVal, true);
 };

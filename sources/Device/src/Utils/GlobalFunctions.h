@@ -4,12 +4,6 @@
 #include "Display/Text.h"
 
 
-bool    String2Int(char *str, int *value);
-String Voltage2String(float voltage, bool alwaysSign);
-String Time2String(float time, bool alwaysSign);
-String Freq2String(float freq, bool alwaysSign);
-String Phase2String(float phase, bool alwaysSign);
-String Float2Db(float value, int numDigits);
 bool    IntInRange                              // Возвращает true, если value входит в диапазон [min; max].
                    (int value,                  // проверяемое значение.
                    int min,                     // нижняя граница диапазона.

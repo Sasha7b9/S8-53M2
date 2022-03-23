@@ -8,6 +8,7 @@
 #include "Display/Screen/Grid.h"
 #include "FPGA/StructuresFPGA.h"
 #include "Display/Symbols.h"
+#include "Utils/Strings.h"
 #include <cmath>
 
 
@@ -59,7 +60,7 @@ void HiPart::WriteCursors()
             float pos1 = Math::VoltageCursor(PageCursors::GetCursPosU(source, 1), SET_RANGE(source), SET_RSHIFT(source));
             float delta = std::fabsf(pos1 - pos0);
             String(":dU=").Draw(x, y1);
-            Voltage2String(delta, false).Draw(x + 17, y1);
+            SU::Voltage2String(delta, false).Draw(x + 17, y1);
             String(":").Draw(x, y2);
             PageCursors::GetCursorPercentsU(source).Draw(x + 10, y2);
         }
@@ -81,7 +82,7 @@ void HiPart::WriteCursors()
             float pos1 = Math::TimeCursor(CURS_POS_T1(source), SET_TBASE);
             float delta = std::fabsf(pos1 - pos0);
             String(":dT=").Draw(x, y1);
-            Time2String(delta, false).Draw(x + 17, y1);
+            SU::Time2String(delta, false).Draw(x + 17, y1);
             String(":").Draw(x, y2);
             PageCursors::GetCursorPercentsT(source).Draw(x + 8, y2);
 
@@ -92,7 +93,7 @@ void HiPart::WriteCursors()
                 Rectangle(width, 12).Draw(x0, GRID_TOP, COLOR_FILL);
                 Region(width - 2, 10).Fill(x0 + 1, GRID_TOP + 1, COLOR_BACK);
                 String("1/dT=").Draw(x0 + 1, GRID_TOP + 2, colorText);
-                Freq2String(1.0f / delta, false).Draw(x0 + 25, GRID_TOP + 2);
+                SU::Freq2String(1.0f / delta, false).Draw(x0 + 25, GRID_TOP + 2);
             }
         }
     }

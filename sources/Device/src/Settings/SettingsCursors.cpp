@@ -28,14 +28,14 @@ bool PageCursors::NecessaryDrawCursors()
 String PageCursors::GetCursVoltage(Chan source, int numCur)
 {
     float voltage = Math::VoltageCursor(PageCursors::GetCursPosU(source, numCur), SET_RANGE(source), SET_RSHIFT(source));
-    return Voltage2String(voltage, true);
+    return SU::Voltage2String(voltage, true);
 }
 
 
 String PageCursors::GetCursorTime(Chan source, int numCur)
 {
     float time = Math::TimeCursor(CURS_POS_T(source, numCur), SET_TBASE);
-    return Time2String(time, true);
+    return SU::Time2String(time, true);
 }
 
 

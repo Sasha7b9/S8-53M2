@@ -31,6 +31,14 @@ namespace SU
 
     String Int2String(int value, bool alwaysSign, int numMinFields);
 
+    String Voltage2String(float voltage, bool alwaysSign);
+    String Time2String(float time, bool alwaysSign);
+    String Freq2String(float freq, bool alwaysSign);
+    String Phase2String(float phase, bool alwaysSign);
+    String Float2Db(float value, int numDigits);
+
+    bool   String2Int(char *str, int *value);
+
     void LogBufferU8(const uint8 *data, int num);
     void LogBufferU8(pchar label, const uint8 *data, int num);
     void LogBufferF(pchar label, const float *data, int num);

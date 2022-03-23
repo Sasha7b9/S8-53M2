@@ -819,9 +819,9 @@ void DataPainter::Spectrum::WriteParameters(Chan ch, float freq0, float density0
     int dY = 10;
 
     Color::SetCurrent(COLOR_FILL);
-    Freq2String(freq0, false).Draw(x, y);
+    SU::Freq2String(freq0, false).Draw(x, y);
     y += dY;
-    Freq2String(freq1, false).Draw(x, y);
+    SU::Freq2String(freq1, false).Draw(x, y);
 
     if (ch == Chan::A)
     {
@@ -833,7 +833,7 @@ void DataPainter::Spectrum::WriteParameters(Chan ch, float freq0, float density0
     }
 
     Color::SetCurrent(ColorChannel(ch));
-    String(SCALE_FFT_IS_LOG ? Float2Db(density0, 4).c_str() : SU::Float2String(density0, false, 7).c_str()).Draw(x, y);
+    String(SCALE_FFT_IS_LOG ? SU::Float2Db(density0, 4).c_str() : SU::Float2String(density0, false, 7).c_str()).Draw(x, y);
     y += dY;
-    String(SCALE_FFT_IS_LOG ? Float2Db(density1, 4).c_str() : SU::Float2String(density1, false, 7).c_str()).Draw(x, y);
+    String(SCALE_FFT_IS_LOG ? SU::Float2Db(density1, 4).c_str() : SU::Float2String(density1, false, 7).c_str()).Draw(x, y);
 }

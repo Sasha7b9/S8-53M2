@@ -507,7 +507,7 @@ String TShift::ToString(int tShiftRel)
 {
     float tShiftVal = TShift::ToAbs(tShiftRel, SET_TBASE);
 
-    return Time2String(tShiftVal, true);
+    return SU::Time2String(tShiftVal, true);
 }
 
 
