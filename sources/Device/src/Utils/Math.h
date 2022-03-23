@@ -72,6 +72,8 @@ namespace Math
     // Умеьшает значение по адресу val на 1. Затем, если результат меньше min, приравнивает его max.
     template<class T> T CircleDecrease(T *val, T min, T max);
 
+    // Возвращает максимальное значение из трёх.
+    template<class T> T Max(T val1, T val2, T val3);
 
     template<class T> T Limitation(T value, T min, T max)
     {

@@ -18,6 +18,7 @@ template int   Math::CircleIncrease<int>(int *, int, int);
 template int8  Math::CircleDecrease<int8>(int8 *, int8, int8);
 template int16 Math::CircleDecrease<int16>(int16 *, int16, int16);
 template int   Math::CircleDecrease<int>(int *, int, int);
+template float Math::Max<float>(float, float, float);
 
 
 // Столько вольт в одной точке экрана
@@ -721,4 +722,23 @@ T Math::CircleDecrease(T *val, T min, T max)
     }
 
     return *val;
+}
+
+
+template<class T>
+T Math::Max(T val1, T val2, T val3)
+{
+    float result = val1;
+
+    if (val2 > result)
+    {
+        result = val2;
+    }
+
+    if (val3 > result)
+    {
+        result = val3;
+    }
+
+    return result;
 }

@@ -104,7 +104,7 @@ void ColorType::CalcSteps()
 
 void ColorType::SetBrightness()
 {
-    brightness = MaxFloat(red / 255.0f, green / 255.0f, blue / 255.0f);
+    brightness = Math::Max<float>(red / 255.0f, green / 255.0f, blue / 255.0f);
 
     CalcSteps();
 }
