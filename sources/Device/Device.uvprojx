@@ -962,16 +962,6 @@
               <FilePath>.\src\Display\DisplayTypes.h</FilePath>
             </File>
             <File>
-              <FileName>Math3D.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Math3D.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Math3D.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Math3D.h</FilePath>
-            </File>
-            <File>
               <FileName>Painter.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Painter.cpp</FilePath>
@@ -1015,16 +1005,6 @@
               <FileName>Warnings.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Warnings.h</FilePath>
-            </File>
-            <File>
-              <FileName>WelcomeScreen.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\WelcomeScreen.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>WelcomeScreen.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\WelcomeScreen.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2967,16 +2947,6 @@
               <FilePath>.\src\Display\DisplayTypes.h</FilePath>
             </File>
             <File>
-              <FileName>Math3D.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Math3D.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Math3D.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Math3D.h</FilePath>
-            </File>
-            <File>
               <FileName>Painter.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Painter.cpp</FilePath>
@@ -3020,16 +2990,6 @@
               <FileName>Warnings.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Warnings.h</FilePath>
-            </File>
-            <File>
-              <FileName>WelcomeScreen.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\WelcomeScreen.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>WelcomeScreen.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\WelcomeScreen.h</FilePath>
             </File>
           </Files>
         </Group>
