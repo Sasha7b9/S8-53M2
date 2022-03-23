@@ -5,6 +5,7 @@
 #include "Utils/GlobalFunctions.h"
 #include "Utils/Math.h"
 #include "Hardware/Timer.h"
+#include "Hardware/HAL/HAL.h"
 #include <cmath>
 
 
@@ -222,6 +223,8 @@ void ColorType::ComponentChange(int delta)
     SetColor();
 
     SetBrightness();
+
+    HAL_LTDC::LoadPalette();
 }
 
 
