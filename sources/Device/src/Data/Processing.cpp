@@ -87,13 +87,14 @@ namespace Processing
     // Привести к текущим настройкам данные, из inA, inB. Данные сохраняются в Processing::out
     void CountedToCurrentSettings(const DataSettings &, const uint8 *inA, const uint8 *inB);
 
-    typedef float (*pFuncFCh)(Chan::E);
+    typedef float  (*pFuncFCh)(Chan::E);
+    typedef String (*pFuncConvert)(float, bool);
 
     struct MeasureCalculate
     {
         char *name;
-        pFuncFCh    FuncCalculate;
-        pFuncCFBC   FucnConvertate;
+        pFuncFCh     FuncCalculate;
+        pFuncConvert FucnConvertate;
         // Если true, нужно показывать знак.
         bool        showSign;
     };
@@ -1127,11 +1128,10 @@ String Processing::GetStringMeasure(Measure::E measure, Chan ch)
     }
     else if(measures[measure].FuncCalculate)
     {
-        char bufferForFunc[20];
-        pFuncCFBC func = measures[measure].FucnConvertate;
+        pFuncConvert func = measures[measure].FucnConvertate;
         float value = values[measure].value[ch];
-        char *text = func(value, measures[measure].showSign, bufferForFunc);
-        result.Append(text);
+        String text = func(value, measures[measure].showSign);
+        result.Append(text.c_str());
     }
     else
     {

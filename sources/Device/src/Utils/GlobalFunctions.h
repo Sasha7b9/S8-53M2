@@ -1,6 +1,7 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "defines.h"
+#include "Display/String.h"
 
 
 namespace GF
@@ -12,7 +13,7 @@ namespace GF
 
 
 
-char*   FloatFract2String(float value, bool alwaysSign, char bufferOut[20]);
+String FloatFract2String(float value, bool alwaysSign);
 
 char*   Float2String                            //  Преобразует value типа float в текстовую строку.
                                                 //  @attention Строка будет храниться до следующего вызова функции. Если результат нужен большее количество времени, то его нужно скопироавать себе.
@@ -35,19 +36,14 @@ char*   Int2String                              // Преобразует value в текстовую
                     char buffer[20]
                     );
 bool    String2Int(char *str, int *value);
-char*   Voltage2String                          // Преобразует voltage вольт в текстовую строку.
+String Voltage2String                          // Преобразует voltage вольт в текстовую строку.
                                                 // @attention Страка будет храниться до следующего вызова функции. Если результат нужен большее количество времени, то его нужно скопитровать себе.
                         (float voltage,         // значение напряжения в вольтах.
-                        bool alwaysSign,        // если установлено в true, знак выводится всегда.
-                        char buffer[20]
+                        bool alwaysSign        // если установлено в true, знак выводится всегда.
                         );                      
-char*   Time2String                             // Преобразует time секунд в текстовую строку.
-                    (float time,                // время в секундах. Может быть отрицательным.
-                    bool alwaysSign,            // если установлен в true, знак отображается всегда.
-                    char buffer[20]
-                    );
-char*   Freq2String(float freq, bool, char bufferOut[20]);      // Преобразует freq герц в текстовую строку.
-char*   Phase2String(float phase, bool, char bufferOut[20]);    // Преобразует градусы в строку.
+String Time2String(float time, bool alwaysSign);
+String Freq2String(float freq, bool alwaysSign);
+String Phase2String(float phase, bool alwaysSign);
 char*   Float2Db(float value, int numDigits, char bufferOut[20]);   // Преобразует децибелы в текстовую строку.
 bool    IntInRange                              // Возвращает true, если value входит в диапазон [min; max].
                    (int value,                  // проверяемое значение.

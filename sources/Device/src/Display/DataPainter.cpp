@@ -821,9 +821,9 @@ void DataPainter::Spectrum::WriteParameters(Chan ch, float freq0, float density0
 
     char buffer[20];
     Color::SetCurrent(COLOR_FILL);
-    String(Freq2String(freq0, false, buffer)).Draw(x, y);
+    Freq2String(freq0, false).Draw(x, y);
     y += dY;
-    String(Freq2String(freq1, false, buffer)).Draw(x, y);
+    Freq2String(freq1, false).Draw(x, y);
 
     if (ch == Chan::A)
     {

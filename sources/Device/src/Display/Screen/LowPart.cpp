@@ -153,7 +153,6 @@ void LowPart::Draw()
     if (MODE_WORK_IS_DIRECT)
     {
         char mesFreq[20] = "\x7c=";
-        char buf[20];
         float freq = FPGA::FreqMeter::GetFreq();
         if (freq == -1.0f) //-V550
         {
@@ -161,7 +160,7 @@ void LowPart::Draw()
         }
         else
         {
-            std::strcat(mesFreq, Freq2String(freq, false, buf));
+            std::strcat(mesFreq, Freq2String(freq, false).c_str());
         }
         String(mesFreq).Draw(x + 3, GRID_BOTTOM + 2);
     }

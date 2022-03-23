@@ -272,8 +272,7 @@ void Display::WriteValueTrigLevel()
 
         char buffer[20];
         std::strcpy(buffer, LANG_RU ? "Ур синхр = " : "Trig lvl = ");
-        char bufForVolt[20];
-        std::strcat(buffer, Voltage2String(trigLev, true, bufForVolt));
+        std::strcat(buffer, Voltage2String(trigLev, true).c_str());
         int width = 96;
         int x = (Grid::Width() - width) / 2 + Grid::Left();
         int y = Grid::BottomMessages() - 20;

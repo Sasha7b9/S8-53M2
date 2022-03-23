@@ -505,11 +505,9 @@ void FPGA::LoadRegUPR()
 
 String TShift::ToString(int tShiftRel)
 {
-    char buffer[20];
-
     float tShiftVal = TShift::ToAbs(tShiftRel, SET_TBASE);
 
-    return String(Time2String(tShiftVal, true, buffer));
+    return Time2String(tShiftVal, true);
 }
 
 

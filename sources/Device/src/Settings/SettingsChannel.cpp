@@ -67,9 +67,7 @@ pchar Range::ToString(Range::E range, Divider::E multiplier)
 
 String RShift::ToString(Range::E range, Divider::E multiplier)
 {
-    char buffer[20];
-
     float rShiftVal = ToAbs(range) * Divider::ToAbs(multiplier);
 
-    return String(Voltage2String(rShiftVal, true, buffer));
+    return Voltage2String(rShiftVal, true);
 };

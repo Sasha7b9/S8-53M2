@@ -61,7 +61,7 @@ void HiPart::WriteCursors()
             float pos1 = Math::VoltageCursor(PageCursors::GetCursPosU(source, 1), SET_RANGE(source), SET_RSHIFT(source));
             float delta = std::fabsf(pos1 - pos0);
             String(":dU=").Draw(x, y1);
-            String(Voltage2String(delta, false, buffer)).Draw(x + 17, y1);
+            Voltage2String(delta, false).Draw(x + 17, y1);
             String(":").Draw(x, y2);
             String(PageCursors::GetCursorPercentsU(source, buffer)).Draw(x + 10, y2);
         }
@@ -84,7 +84,7 @@ void HiPart::WriteCursors()
             float delta = std::fabsf(pos1 - pos0);
             String(":dT=").Draw(x, y1);
             char buf[20];
-            String(Time2String(delta, false, buf)).Draw(x + 17, y1);
+            Time2String(delta, false).Draw(x + 17, y1);
             String(":").Draw(x, y2);
             String(PageCursors::GetCursorPercentsT(source, buf)).Draw(x + 8, y2);
 
@@ -95,8 +95,7 @@ void HiPart::WriteCursors()
                 Painter::DrawRectangle(x0, GRID_TOP, width, 12, COLOR_FILL);
                 Painter::FillRegion(x0 + 1, GRID_TOP + 1, width - 2, 10, COLOR_BACK);
                 String("1/dT=").Draw(x0 + 1, GRID_TOP + 2, colorText);
-                char buff[20];
-                String(Freq2String(1.0f / delta, false, buff)).Draw(x0 + 25, GRID_TOP + 2);
+                Freq2String(1.0f / delta, false).Draw(x0 + 25, GRID_TOP + 2);
             }
         }
     }
