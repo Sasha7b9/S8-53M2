@@ -20,6 +20,10 @@ int   Debug::line[10] = { 0 };
 int Debug::posItem = -1;
 
 
+pchar Debug::file_call = nullptr;
+int Debug::line_call = -1;
+
+
 void Debug::StartProfilingMS()
 {
     timeStartMS = TIME_MS;

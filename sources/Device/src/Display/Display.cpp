@@ -598,6 +598,8 @@ bool Display::NeedForClearScreen()
 
 void Display::Update(bool endScene)
 {
+    DEBUG_POINT_0;
+
     uint timeStart = TIME_TICKS;
 
     if (funcOnHand != 0)
@@ -606,16 +608,28 @@ void Display::Update(bool endScene)
         return;
     }
 
+    DEBUG_POINT_0;
+
     bool needClear = NeedForClearScreen();
+
+    DEBUG_POINT_0;
 
     if (needClear)
     {
+        DEBUG_POINT_0;
         Painter::BeginScene(COLOR_BACK);
+        DEBUG_POINT_0;
         DataPainter::MemoryWindow::Draw();
+        DEBUG_POINT_0;
         Grid::Draw();
+        DEBUG_POINT_0;
     }
 
+    DEBUG_POINT_0;
+
     DataPainter::DrawData();
+
+    DEBUG_POINT_0;
 
     if (needClear)
     {
@@ -651,6 +665,8 @@ void Display::Update(bool endScene)
         WriteValueTrigLevel();
     }
 
+    DEBUG_POINT_0;
+
     DrawTimeForFrame(TIME_TICKS - timeStart);
 
     Color::SetCurrent(COLOR_FILL);
@@ -671,6 +687,8 @@ void Display::Update(bool endScene)
         funcAfterDraw();
         funcAfterDraw = 0;
     }
+
+    DEBUG_POINT_0;
 }
 
 

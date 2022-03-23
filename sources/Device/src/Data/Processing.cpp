@@ -1155,6 +1155,8 @@ int Processing::GetMarkerVertical(Chan ch, int numMarker)
 
 void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *dA, const uint8 *dB)
 {
+    DEBUG_POINT_0;
+
     int num_bytes = ds.BytesInChannel();
 
     out.ds.Set(ds);
@@ -1217,6 +1219,8 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
 
 void Processing::SetData(const DataFrame &in, bool mode_p2p)
 {
+    DEBUG_POINT_0;
+
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
     firstP = points.half_iword[0];
@@ -1229,23 +1233,35 @@ void Processing::SetData(const DataFrame &in, bool mode_p2p)
     BufferFPGA A(length);
     BufferFPGA B(length);
 
+    DEBUG_POINT_0;
+
     A.ReallocAndFill(length, ValueFPGA::NONE);   // Подготавливаем место для рассчитанных сглаженных точек
     B.ReallocAndFill(length, ValueFPGA::NONE);
+
+    DEBUG_POINT_0;
 
     Math::CalculateFiltrArray(in.DataBegin(ChA), A.Data(), length, Smoothing::ToPoints());
     Math::CalculateFiltrArray(in.DataBegin(ChB), B.Data(), length, Smoothing::ToPoints());
 
+    DEBUG_POINT_0;
+
     CountedToCurrentSettings(*in.ds, A.Data(), B.Data());
+
+    DEBUG_POINT_0;
 
     out.ds.valid = 1;
     out.rec_points = in.rec_points;
     out.all_points = in.all_points;
     out.mode_p2p = mode_p2p;
+
+    DEBUG_POINT_0;
 }
 
 
 void Processing::SetDataForProcessing(bool for_window_memory)
 {
+    DEBUG_POINT_0;
+
     DataSettings *last_ds = Storage::GetDataSettings(0);
 
     if (TBase::InModeP2P())
@@ -1254,7 +1270,7 @@ void Processing::SetDataForProcessing(bool for_window_memory)
         {
             if (last_ds && last_ds->Equal(*Storage::current.frame.ds) && Storage::time_meter.ElapsedTime() < 1000)
             {
-                SetData(Storage::GetLast());
+                SetData(Storage::GetLatest());
             }
             else
             {
@@ -1265,7 +1281,7 @@ void Processing::SetDataForProcessing(bool for_window_memory)
         {
             if (last_ds && last_ds->Equal(*Storage::current.frame.ds) && !for_window_memory)
             {
-                SetData(Storage::GetLast());
+                SetData(Storage::GetLatest());
             }
             else
             {
@@ -1280,15 +1296,21 @@ void Processing::SetDataForProcessing(bool for_window_memory)
             }
             else
             {
-                SetData(Storage::GetLast());
+                SetData(Storage::GetLatest());
             }
         }
     }
     else
     {
+        DEBUG_POINT_0;
         if (Storage::NumFrames())
         {
-            SetData(Storage::GetLast());
+            DEBUG_POINT_0;
+            SetData(Storage::GetLatest());
+            DEBUG_POINT_0;
         }
+        DEBUG_POINT_0;
     }
+
+    DEBUG_POINT_0;
 }

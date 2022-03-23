@@ -52,7 +52,7 @@ namespace Storage
     DataFrame GetData(int fromEnd);
 
     // Данные, которые нужно выводить в обычном режиме. Они всегда хранятся в конце Storage
-    DataFrame GetLast();
+    DataFrame GetLatest();
 
     // Возвращает указатель на данные, отстоящие на fromEnd oт последнего сохранённого
     DataSettings *GetDataSettings(int fromEnd);

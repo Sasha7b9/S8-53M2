@@ -157,21 +157,30 @@ int Storage::NumFramesWithCurrentSettings()
 
 DataFrame Storage::GetData(int fromEnd)
 {
+    DEBUG_POINT_0;
     DataSettings *dp = GetDataSettings(fromEnd);
 
     if (dp)
     {
-        return DataFrame(dp);
+        DEBUG_POINT_0;
+
+        DataFrame result(dp);
+
+        DEBUG_POINT_0;
+
+        return result;
     }
 
     static DataSettings ds_empty;
     ds_empty.valid = 0;
 
+    DEBUG_POINT_0;
+
     return DataFrame(&ds_empty);
 }
 
 
-DataFrame Storage::GetLast()
+DataFrame Storage::GetLatest()
 {
     return GetData(0);
 }

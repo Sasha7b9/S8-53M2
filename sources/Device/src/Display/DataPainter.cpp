@@ -445,7 +445,9 @@ void DataPainter::DrawDataNormal()
 
 void DataPainter::MemoryWindow::Draw()
 {
+    DEBUG_POINT_0;
     Processing::SetDataForProcessing(true);
+    DEBUG_POINT_0;
 
     int leftX = 3;
     int top = 1;
