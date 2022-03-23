@@ -11,9 +11,9 @@
 #include <cstdlib>
 
 
-char* FloatFract2String(float value, bool alwaysSign, char bufferOut[20])
+String FloatFract2String(float value, bool alwaysSign)
 {
-    return Float2String(value, alwaysSign, 4, bufferOut);
+    return Float2String(value, alwaysSign, 4);
 }
 
 static int NumDigitsInIntPart(float value)
@@ -276,15 +276,16 @@ char* Phase2String(float phase, bool, char bufferOut[20])
     return bufferOut;
 }
 
-char *  Freq2String(float freq, bool, char bufferOut[20])
+String Freq2String(float freq, bool)
 {
-    bufferOut[0] = 0;
+    String result;
+
     char *suffix = 0;
 
     if(freq == ERROR_VALUE_FLOAT)
     {
-        std::strcat(bufferOut, ERROR_STRING_VALUE);
-        return bufferOut;
+        result.Append(ERROR_STRING_VALUE);
+        return result;
     }
 
     if(freq >= 1e6f)
@@ -302,10 +303,10 @@ char *  Freq2String(float freq, bool, char bufferOut[20])
         suffix = LANG_RU ? "Ãö" : "Hz";
     }
 
-    char buffer[20];
-    std::strcat(bufferOut, Float2String(freq, false, 4, buffer));
-    std::strcat(bufferOut, suffix);
-    return bufferOut;
+    result.Append(Float2String(freq, false, 4));
+    result.Append(suffix);
+
+    return result;
 }
 
 char* Float2Db(float value, int numDigits, char bufferOut[20])

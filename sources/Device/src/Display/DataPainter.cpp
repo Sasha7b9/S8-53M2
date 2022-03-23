@@ -835,7 +835,7 @@ void DataPainter::Spectrum::WriteParameters(Chan ch, float freq0, float density0
     }
 
     Color::SetCurrent(ColorChannel(ch));
-    String(SCALE_FFT_IS_LOG ? Float2Db(density0, 4, buffer) : Float2String(density0, false, 7, buffer)).Draw(x, y);
+    String(SCALE_FFT_IS_LOG ? Float2Db(density0, 4, buffer) : Float2String(density0, false, 7).c_str()).Draw(x, y);
     y += dY;
-    String(SCALE_FFT_IS_LOG ? Float2Db(density1, 4, buffer) : Float2String(density1, false, 7, buffer)).Draw(x, y);
+    String(SCALE_FFT_IS_LOG ? Float2Db(density1, 4, buffer) : Float2String(density1, false, 7).c_str()).Draw(x, y);
 }

@@ -15,14 +15,7 @@ namespace GF
 
 String FloatFract2String(float value, bool alwaysSign);
 
-char*   Float2String                            //  ѕреобразует value типа float в текстовую строку.
-                                                //  @attention —трока будет хранитьс€ до следующего вызова функции. ≈сли результат нужен большее количество времени, то его нужно скопироавать себе.
-                                                //  @retval указатель на строку с числом.
-                    (float value,               //  значение.
-                    bool alwaysSign,            //  если установлен в true, перед числом всегда будет знак, если установлен в false, только если число отрицательное.
-                    int numDigits,              //  число разр€дов мантиссы.
-                    char bufferOut[20]
-                    );                         
+String Float2String(float value, bool alwaysSign, int numDigits);                         
 
 char*   Hex8toString                            // ѕреобразует value в текстовую строку в шестнадцатиричном виде.
                                                 // @attention —трока будет хранитьс€ до следующего вызова функции. ≈сли результат нужен большее количество времени, то его нужно скопировать себе.
