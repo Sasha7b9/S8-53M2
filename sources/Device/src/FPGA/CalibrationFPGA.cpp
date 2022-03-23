@@ -189,9 +189,8 @@ static void FPGA::Calibrator::FunctionDraw()
     case StateCalibration::RShiftA:
     case StateCalibration::RShiftB:
         {
-            String message(LANG_RU ? "Калибрую параметр 1 канала %d" : "Calibrate parameter 1 channel %d", (state == StateCalibration::RShiftA) ? 1 : 2);
-
-            PText::Draw(85, 50, message.c_str());
+            String(LANG_RU ? "Калибрую параметр 1 канала %d" : "Calibrate parameter 1 channel %d",
+                (state == StateCalibration::RShiftA) ? 1 : 2).Draw(85, 50);
 
             progress.Draw(100);
         }
@@ -200,9 +199,8 @@ static void FPGA::Calibrator::FunctionDraw()
     case StateCalibration::StretchA:
     case StateCalibration::StretchB:
         {
-            String message(LANG_RU ? "Калибрую параметр 2 канала %d" : "Calibrate parameter 2 channel %d", (state == StateCalibration::StretchA) ? 1 : 2);
-
-            PText::Draw(85, 50, message.c_str());
+            String(LANG_RU ? "Калибрую параметр 2 канала %d" : "Calibrate parameter 2 channel %d",
+                (state == StateCalibration::StretchA) ? 1 : 2).Draw(85, 50);
 
             progress.Draw(100);
         }
@@ -213,8 +211,8 @@ static void FPGA::Calibrator::FunctionDraw()
             int y1 = 70;
             int y2 = 100;
 
-            PText::Draw(80, y1, LANG_RU ? "Канал 1 :" : "Channel 1 :");
-            PText::Draw(80, y2, LANG_RU ? "Канал 2 :" : "Channel 2 :");
+            String(LANG_RU ? "Канал 1 :" : "Channel 1 :").Draw(80, y1);
+            String(LANG_RU ? "Канал 2 :" : "Channel 2 :").Draw(80, y2);
 
             int x = 125;
 
@@ -369,7 +367,7 @@ static void FPGA::Calibrator::DrawResultCalibration(int x, int y, Chan ch)
         }
     }
 
-    PText::Draw(x, y, message.c_str());
+    message.Draw(x, y);
 }
 
 
@@ -442,8 +440,7 @@ void FPGA::Calibrator::ShowCalibrationInfo(const int y0, Chan ch)
     {
         for (int range = 0; range < Range::Count; range++)
         {
-            String message("%d", set.chan[ch].cal_rshift[range][couple]);
-            PText::Draw(x0 + range * dX, y0 + couple * dY, message.c_str());
+            String("%d", set.chan[ch].cal_rshift[range][couple]).Draw(x0 + range * dX, y0 + couple * dY);
         }
     }
 

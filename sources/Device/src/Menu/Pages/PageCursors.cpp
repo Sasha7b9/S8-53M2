@@ -12,6 +12,7 @@
 #include "Log.h"
 #include "Display/Painter.h"
 #include "Utils/Map.h"
+#include "Display/String.h"
 #include <cmath>
 #include <cstring>
 
@@ -225,13 +226,13 @@ static void PressSB_Cursors_Source()
 
 static void DrawSB_Cursors_SourceA(int x, int y)
 {
-    PText::Draw(x + 7, y + 5, "1");
+    String("1").Draw(x + 7, y + 5);
 }
 
 
 static void DrawSB_Cursors_SourceB(int x, int y)
 {
-    PText::Draw(x + 7, y + 5, "2");
+    String("2").Draw(x + 7, y + 5);
 }
 
 
@@ -374,7 +375,7 @@ static const Page mspSet
 
 static void DrawSB_Cursors_U_Disable(int x, int y)
 {
-    PText::Draw(x + 7, y + 5, "U");
+    String("U").Draw(x + 7, y + 5);
 }
 
 
@@ -486,7 +487,7 @@ static const SmallButton sbSetU
 
 static void DrawSB_Cursors_T_Disable(int x, int y)
 {
-    PText::Draw(x + 7, y + 5, "T");
+    String("T").Draw(x + 7, y + 5);
 }
 
 static void DrawSB_Cursors_T_Both_Disable(int x, int y)
@@ -600,7 +601,7 @@ static void PressSB_Cursors_100()
 static void DrawSB_Cursors_100(int x, int y)
 {
     Font::Set(TypeFont::_5);
-    PText::Draw(x + 2, y - 3, "100%");
+    String("100%").Draw(x + 2, y - 3);
     Font::Set(TypeFont::_8);
 }
 
@@ -618,14 +619,14 @@ static const SmallButton sbSet100
 
 static void DrawSB_Cursors_PointsPercents_Percents(int x, int y)
 {
-    PText::Draw(x + 6, y + 5, "\x83");
+    String("\x83").Draw(x + 6, y + 5);
 }
 
 
 static void DrawSB_Cursors_PointsPercents_Points(int x, int y)
 {
     Font::Set(TypeFont::_5);
-    PText::Draw(x + 4, y - 3, "ò÷ê");
+    String(LANG_RU ? "ò÷ê" : "pnt").Draw(x + 4, y - 3);
     Font::Set(TypeFont::_8);
 }
 

@@ -73,20 +73,20 @@ void HiPart::WriteCursors()
         if (!CURS_CNTRL_T_IS_DISABLE(source))
         {
             Color::SetCurrent(colorText);
-            PText::Draw(x, y1, "1:");
-            PText::Draw(x, y2, "2:");
+            String("1:").Draw(x, y1);
+            String("2:").Draw(x, y2);
             x += 7;
-            PText::Draw(x, y1, PageCursors::GetCursorTime(source, 0, buffer));
-            PText::Draw(x, y2, PageCursors::GetCursorTime(source, 1, buffer));
+            String(PageCursors::GetCursorTime(source, 0, buffer)).Draw(x, y1);
+            String(PageCursors::GetCursorTime(source, 1, buffer)).Draw(x, y2);
             x = startX + 153;
             float pos0 = Math::TimeCursor(CURS_POS_T0(source), SET_TBASE);
             float pos1 = Math::TimeCursor(CURS_POS_T1(source), SET_TBASE);
             float delta = std::fabsf(pos1 - pos0);
-            PText::Draw(x, y1, ":dT=");
+            String(":dT=").Draw(x, y1);
             char buf[20];
-            PText::Draw(x + 17, y1, Time2String(delta, false, buf));
-            PText::Draw(x, y2, ":");
-            PText::Draw(x + 8, y2, PageCursors::GetCursorPercentsT(source, buf));
+            String(Time2String(delta, false, buf)).Draw(x + 17, y1);
+            String(":").Draw(x, y2);
+            String(PageCursors::GetCursorPercentsT(source, buf)).Draw(x + 8, y2);
 
             if (CURSORS_SHOW_FREQ)
             {
@@ -94,9 +94,9 @@ void HiPart::WriteCursors()
                 int x0 = Grid::Right() - width;
                 Painter::DrawRectangle(x0, GRID_TOP, width, 12, COLOR_FILL);
                 Painter::FillRegion(x0 + 1, GRID_TOP + 1, width - 2, 10, COLOR_BACK);
-                PText::Draw(x0 + 1, GRID_TOP + 2, "1/dT=", colorText);
+                String("1/dT=").Draw(x0 + 1, GRID_TOP + 2, colorText);
                 char buff[20];
-                PText::Draw(x0 + 25, GRID_TOP + 2, Freq2String(1.0f / delta, false, buff));
+                String(Freq2String(1.0f / delta, false, buff)).Draw(x0 + 25, GRID_TOP + 2);
             }
         }
     }
@@ -120,7 +120,7 @@ void HiPart::DrawHiRightPart()
         if (TrigLev::fireLED)
         {
             Painter::FillRegion(x, 1 + y, GRID_TOP - 3, GRID_TOP - 7);
-            PText::Draw(x + 3, 3 + y, LANG_RU ? "СИ" : "Tr", COLOR_BACK);
+            String(LANG_RU ? "СИ" : "Tr").Draw(x + 3, 3 + y, COLOR_BACK);
         }
     }
 
@@ -137,7 +137,7 @@ void HiPart::DrawHiRightPart()
         x += 18;
         Painter::DrawVLine(x, 1, GRID_TOP - 2, COLOR_FILL);
         x += 2;
-        PText::Draw(LANG_RU ? x : x + 3, -1, LANG_RU ? "режим" : "mode");
+        String(LANG_RU ? "режим" : "mode").Draw(LANG_RU ? x : x + 3, -1);
         PText::DrawStringInCenterRect(x + 1, 9, 25, 8, strings_[MODE_WORK][LANG]);
     }
     else

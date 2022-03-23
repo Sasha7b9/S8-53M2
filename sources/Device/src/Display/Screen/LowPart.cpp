@@ -16,6 +16,7 @@
 #include "Hardware/Timer.h"
 #include "Hardware/VCP/VCP.h"
 #include "Data/Processing.h"
+#include "Display/String.h"
 #include <cstdio>
 
 
@@ -63,12 +64,12 @@ void LowPart::Draw()
     }
 
     std::sprintf(buffer, "ð\xa5%s", TBase::ToString(tBase));
-    PText::Draw(x, y0, buffer);
+    String(buffer).Draw(x, y0);
 
     buffer[0] = 0;
     char bufForVal[20];
     std::sprintf(buffer, "\xa5%s", TShift::ToString(tShift, bufForVal));
-    PText::Draw(x + 35, y0, buffer);
+    String(buffer).Draw(x + 35, y0);
 
     buffer[0] = 0;
 
@@ -78,7 +79,7 @@ void LowPart::Draw()
         std::sprintf(buffer, "ñ\xa5\x10%s", source[TRIG_SOURCE]);
     }
 
-    PText::Draw(x, y1, buffer, ColorTrig());
+    String(buffer).Draw(x, y1, ColorTrig());
 
     buffer[0] = 0;
 
@@ -107,7 +108,7 @@ void LowPart::Draw()
     if (MODE_WORK_IS_DIRECT)
     {
         std::sprintf(buffer, "\xa5\x10%s\x10\xa5\x10%s\x10\xa5\x10", couple[TRIG_INPUT], polar[TRIG_POLARITY]);
-        PText::Draw(x + 18, y1, buffer);
+        String(buffer).Draw(x + 18, y1);
         PText::DrawChar(x + 45, y1, filtr[TRIG_INPUT][0]);
         PText::DrawChar(x + 53, y1, filtr[TRIG_INPUT][1]);
     }
@@ -123,7 +124,7 @@ void LowPart::Draw()
     if (MODE_WORK_IS_DIRECT)
     {
         std::sprintf(buffer, "\xa5\x10%c", mode[START_MODE]);
-        PText::Draw(x + 63, y1, buffer);
+        String(buffer).Draw(x + 63, y1);
     }
 
     Painter::DrawVLine(x + 79, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, COLOR_FILL);
@@ -163,7 +164,7 @@ void LowPart::Draw()
         {
             std::strcat(mesFreq, Freq2String(freq, false, buf));
         }
-        PText::Draw(x + 3, GRID_BOTTOM + 2, mesFreq);
+        String(mesFreq).Draw(x + 3, GRID_BOTTOM + 2);
     }
 
     DrawTime(x + 3, GRID_BOTTOM + 11);
@@ -230,11 +231,11 @@ void LowPart::DrawTime(int x, int y)
             time.seconds = ds.time.seconds;
             time.month = ds.time.month;
             time.year = ds.time.year;
-            PText::Draw(x, y, Int2String((int)time.day, false, 2, buffer));
-            PText::Draw(x + dField, y, ":");
-            PText::Draw(x + dField + dSeparator, y, Int2String((int)time.month, false, 2, buffer));
-            PText::Draw(x + 2 * dField + dSeparator, y, ":");
-            PText::Draw(x + 2 * dField + 2 * dSeparator, y, Int2String((int)time.year + 2000, false, 4, buffer));
+            String(Int2String((int)time.day, false, 2, buffer)).Draw(x, y);
+            String(":").Draw(x + dField, y);
+            String(Int2String((int)time.month, false, 2, buffer)).Draw(x + dField + dSeparator, y);
+            String(":").Draw(x + 2 * dField + dSeparator, y);
+            String(Int2String((int)time.year + 2000, false, 4, buffer)).Draw(x + 2 * dField + 2 * dSeparator, y);
             y += 9;
         }
         else
@@ -243,12 +244,11 @@ void LowPart::DrawTime(int x, int y)
         }
     }
 
-
-    PText::Draw(x, y, Int2String((int)time.hours, false, 2, buffer));
-    PText::Draw(x + dField, y, ":");
-    PText::Draw(x + dField + dSeparator, y, Int2String((int)time.minutes, false, 2, buffer));
-    PText::Draw(x + 2 * dField + dSeparator, y, ":");
-    PText::Draw(x + 2 * dField + 2 * dSeparator, y, Int2String((int)time.seconds, false, 2, buffer));
+    String(Int2String((int)time.hours, false, 2, buffer)).Draw(x, y);
+    String(":").Draw(x + dField, y);
+    String(Int2String((int)time.minutes, false, 2, buffer)).Draw(x + dField + dSeparator, y);
+    String(":").Draw(x + 2 * dField + dSeparator, y);
+    String(Int2String((int)time.seconds, false, 2, buffer)).Draw(x + 2 * dField + 2 * dSeparator, y);
 }
 
 
@@ -299,11 +299,11 @@ void LowPart::WriteTextVoltage(Chan ch, int x, int y)
         std::sprintf(buffer, "%s\xa5%s\xa5%s", (ch == Chan::A) ? (LANG_RU ? "1ê" : "1c") : (LANG_RU ? "2ê" : "2c"),
             couple[modeCouple], Range::ToString(range, multiplier));
 
-        PText::Draw(x + 1, y, buffer, colorDraw);
+        String(buffer).Draw(x + 1, y, colorDraw);
 
         char bufferTemp[20];
         std::sprintf(buffer, "\xa5%s", rShift.ToString(range, multiplier, bufferTemp));
-        PText::Draw(x + 46, y, buffer);
+        String(buffer).Draw(x + 46, y);
     }
 }
 
@@ -311,7 +311,7 @@ void LowPart::WriteTextVoltage(Chan ch, int x, int y)
 void LowPart::WriteStringAndNumber(pchar text, int x, int y, int number)
 {
     char buffer[100];
-    PText::Draw(x, y, text, COLOR_FILL);
+    String(text).Draw(x, y, COLOR_FILL);
 
     if (number == 0)
     {

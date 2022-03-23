@@ -379,8 +379,7 @@ void DataPainter::DrawMath()
 
     char buffer[20];
 
-    PText::Draw(Grid::Left() + 27, Grid::MathTop() + 1 + delta, SET_RSHIFT_MATH.ToString(SET_RANGE_MATH, multiplier,
-        buffer));
+    String(SET_RSHIFT_MATH.ToString(SET_RANGE_MATH, multiplier, buffer)).Draw(Grid::Left() + 27, Grid::MathTop() + 1 + delta);
 }
 
 
@@ -824,9 +823,9 @@ void DataPainter::Spectrum::WriteParameters(Chan ch, float freq0, float density0
 
     char buffer[20];
     Color::SetCurrent(COLOR_FILL);
-    PText::Draw(x, y, Freq2String(freq0, false, buffer));
+    String(Freq2String(freq0, false, buffer)).Draw(x, y);
     y += dY;
-    PText::Draw(x, y, Freq2String(freq1, false, buffer));
+    String(Freq2String(freq1, false, buffer)).Draw(x, y);
 
     if (ch == Chan::A)
     {
@@ -838,7 +837,7 @@ void DataPainter::Spectrum::WriteParameters(Chan ch, float freq0, float density0
     }
 
     Color::SetCurrent(ColorChannel(ch));
-    PText::Draw(x, y, SCALE_FFT_IS_LOG ? Float2Db(density0, 4, buffer) : Float2String(density0, false, 7, buffer));
+    String(SCALE_FFT_IS_LOG ? Float2Db(density0, 4, buffer) : Float2String(density0, false, 7, buffer)).Draw(x, y);
     y += dY;
-    PText::Draw(x, y, SCALE_FFT_IS_LOG ? Float2Db(density1, 4, buffer) : Float2String(density1, false, 7, buffer));
+    String(SCALE_FFT_IS_LOG ? Float2Db(density1, 4, buffer) : Float2String(density1, false, 7, buffer)).Draw(x, y);
 }

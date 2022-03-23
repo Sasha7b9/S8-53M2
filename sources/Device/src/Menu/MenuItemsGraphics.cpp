@@ -10,6 +10,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Display/font/Font.h"
 #include "Menu/Pages/Definition.h"
+#include "Display/String.h"
 #include <cstring>
 #include <cstdio>
 
@@ -37,7 +38,7 @@ static void DrawGovernorChoiceColorFormulaHiPart(Item *item, int x, int y, bool 
             ColorMenuItemBrighter(), ColorMenuItemLessBright(), pressed, shade);
     }
 
-    PText::Draw(x + 6 + delta, y + 6 + delta, item->Title(), color);
+    String(item->Title()).Draw(x + 6 + delta, y + 6 + delta, color);
     
     TypeItem::E type = item->GetType();
 
@@ -91,7 +92,7 @@ void Governor::DrawLowPart(int x, int y, bool, bool shade)
         colorTextDown = ColorMenuItem(false);
     }
 
-    x = PText::Draw(x + 4, y + 21, "\x80", colorTextDown);
+    x = String("\x80").Draw(x + 4, y + 21, colorTextDown);
 
     if(Item::Opened() != this)
     {
@@ -99,7 +100,7 @@ void Governor::DrawLowPart(int x, int y, bool, bool shade)
 
         if(delta == 0.0f)
         {
-            x = PText::Draw(x + 1, y + 21, Int2String(*cell, false, 1, buffer));
+            x = String(Int2String(*cell, false, 1, buffer)).Draw(x + 1, y + 21);
         }
         else
         {
@@ -128,10 +129,10 @@ void Governor::DrawLowPart(int x, int y, bool, bool shade)
     }
     else
     {
-        x = PText::Draw(x + 1, y + 21, Int2String(*cell, false, 1, buffer), COLOR_FILL);
+        x = String(Int2String(*cell, false, 1, buffer)).Draw(x + 1, y + 21, COLOR_FILL);
     }
 
-    PText::Draw(x + 1, y + 21, "\x81", colorTextDown);
+    String("\x81").Draw(x + 1, y + 21, colorTextDown);
 }
 
 void IPaddress::DrawLowPart(int x, int y, bool, bool shade)
@@ -151,12 +152,11 @@ void IPaddress::DrawLowPart(int x, int y, bool, bool shade)
 
     if (Item::Opened() != this)
     {
-        
-        PText::Draw(x + 4, y + 21, buffer, colorTextDown);
+        String(buffer).Draw(x + 4, y + 21, colorTextDown);
     }
     else
     {
-        PText::Draw(x + 4, y + 21, buffer, COLOR_FILL);
+        String(buffer).Draw(x + 4, y + 21, COLOR_FILL);
     }
 }
 
@@ -178,11 +178,11 @@ static void DrawMACaddressLowPart(MACaddress *mac, int x, int y, bool, bool shad
     if (Item::Opened() != (Item *)mac)
     {
 
-        PText::Draw(x + 4, y + 21, buffer, colorTextDown);
+        String(buffer).Draw(x + 4, y + 21, colorTextDown);
     }
     else
     {
-        PText::Draw(x + 4, y + 21, buffer, COLOR_FILL);
+        String(buffer).Draw(x + 4, y + 21, COLOR_FILL);
     }
 }
 
@@ -205,7 +205,7 @@ void Formula::WriteText(int x, int y, bool)
 
     PText::DrawChar(x + 5, y, (char)(koeff1 + 0x30));
     PText::DrawChar(x + 10, y, '*');
-    PText::Draw(x + 14, y, "K1");
+    String("K1").Draw(x + 14, y);
     PText::DrawChar(x + 27, y, funcIsMul ? '*' : '+');
 
     if (koeff2 != 0)
@@ -215,7 +215,7 @@ void Formula::WriteText(int x, int y, bool)
 
     PText::DrawChar(x + 39, y, (char)(koeff2 + 0x30));
     PText::DrawChar(x + 44, y, '*');
-    PText::Draw(x + 48, y, "K2");
+    String("K2").Draw(x + 48, y);
 }
 
 
@@ -361,7 +361,7 @@ void MACaddress::DrawValue(int x, int y)
 
         char buffer[20];
         std::sprintf(buffer, "%02X", value);
-        PText::Draw(x, y, buffer, (MACaddress::cur_digit == num) ? COLOR_BACK : COLOR_FILL);
+        String(buffer).Draw(x, y, (MACaddress::cur_digit == num) ? COLOR_BACK : COLOR_FILL);
         x -= 12;
     }
 }
@@ -448,8 +448,8 @@ void GovernorColor::DrawValue(int x, int y, int delta)
         Color::E colorBack = (field == i) ? Color::WHITE : Color::BLACK;
         Color::E colorDraw = (field == i) ? Color::BLACK : Color::WHITE;
         Painter::FillRegion(x - 1, y + 1, 29, 10, colorBack);
-        PText::Draw(x, y + 2, texts[i], colorDraw);
-        PText::Draw(x + 14, y + 2, Int2String(vals[i], false, 1, buffer));
+        String(texts[i]).Draw(x, y + 2, colorDraw);
+        String(Int2String(vals[i], false, 1, buffer)).Draw(x + 14, y + 2);
         x -= 30;
     }
     
@@ -521,7 +521,7 @@ void Choice::DrawOpened(int x, int y)
                 ColorMenuTitleLessBright(), pressed, false);
         }
 
-        PText::Draw(x + 4, yItem + 2, NameSubItem(i), pressed ? Color::BLACK : ColorMenuField());
+        String(NameSubItem(i)).Draw(x + 4, yItem + 2, pressed ? Color::BLACK : ColorMenuField());
     }
 }
 
@@ -576,8 +576,8 @@ void Time::DrawOpened(int x, int y)
     std::strcpy(strI[iSEC],      Int2String(*seconds,  false, 2, buffer));
     std::strcpy(strI[iSET],      "—охранить");
 
-    PText::Draw(x + 3, y + y0, "д м г - ", COLOR_FILL);
-    PText::Draw(x + 3, y + y1, "ч м с - ");
+    String("д м г - ").Draw(x + 3, y + y0, COLOR_FILL);
+    String("ч м с - ").Draw(x + 3, y + y1);
 
     for (int i = 0; i < 8; i++)
     {
@@ -585,7 +585,7 @@ void Time::DrawOpened(int x, int y)
         {
             Painter::FillRegion(x + strPaint[i].x - 1, y + strPaint[i].y, strPaint[i].width, 8, Color::FLASH_10);
         }
-        PText::Draw(x + strPaint[i].x, y + strPaint[i].y, strI[i], *curField == i ? Color::FLASH_01 : COLOR_FILL);
+        String(strI[i]).Draw(x + strPaint[i].x, y + strPaint[i].y, *curField == i ? Color::FLASH_01 : COLOR_FILL);
     }
 }
 
@@ -617,8 +617,8 @@ void Governor::DrawOpened(int x, int y)
 
     Font::Set(TypeFont::_5);
     bool sign = minValue < 0;
-    PText::Draw(x + 55, y - 10, Int2String(maxValue, sign, 1, buffer), COLOR_FILL);
-    PText::Draw(x + 55, y - 3, Int2String(minValue, sign, 1, buffer));
+    String(Int2String(maxValue, sign, 1, buffer)).Draw(x + 55, y - 10, COLOR_FILL);
+    String(Int2String(minValue, sign, 1, buffer)).Draw(x + 55, y - 3);
     Font::Set(TypeFont::_8);
 
     DrawValueWithSelectedPosition(x + 40, y, value, NumDigits(), Governor::cur_digit, true);
@@ -660,7 +660,7 @@ void Choice::DrawClosed(int x, int y)
     Color::SetCurrent(colorText);
     if(deltaY == 0.0f)
     {
-        PText::Draw(x + 4, y + 21, NameCurrentSubItem());
+        String(NameCurrentSubItem()).Draw(x + 4, y + 21);
     }
     else
     {
@@ -712,18 +712,18 @@ void Time::DrawClosed(int x, int y)
     int startX = 3;
     y += 21;
     PackedTime time = HAL_RTC::GetPackedTime();
-    PText::Draw(x + startX, y, Int2String((int)time.hours, false, 2, buffer), COLOR_BACK);
-    PText::Draw(x + startX + deltaField, y, ":");
-    PText::Draw(x + startX + deltaField + deltaSeparator, y, Int2String((int)time.minutes, false, 2, buffer));
-    PText::Draw(x + startX + 2 * deltaField + deltaSeparator, y, ":");
-    PText::Draw(x + startX + 2 * deltaField + 2 * deltaSeparator, y, Int2String((int)time.seconds, false, 2, buffer));
+    String(Int2String((int)time.hours, false, 2, buffer)).Draw(x + startX, y, COLOR_BACK);
+    String(":").Draw(x + startX + deltaField, y);
+    String(Int2String((int)time.minutes, false, 2, buffer)).Draw(x + startX + deltaField + deltaSeparator, y);
+    String(":").Draw(x + startX + 2 * deltaField + deltaSeparator, y);
+    String(Int2String((int)time.seconds, false, 2, buffer)).Draw(x + startX + 2 * deltaField + 2 * deltaSeparator, y);
 
     startX = 44;
-    PText::Draw(x + startX, y, Int2String((int)time.day, false, 2, buffer));
-    PText::Draw(x + startX + deltaField, y, ":");
-    PText::Draw(x + startX + deltaField + deltaSeparator, y, Int2String((int)time.month, false, 2, buffer));
-    PText::Draw(x + startX + 2 * deltaField + deltaSeparator, y, ":");
-    PText::Draw(x + startX + 2 * deltaField + 2 * deltaSeparator, y, Int2String((int)time.year, false, 2, buffer));
+    String(Int2String((int)time.day, false, 2, buffer)).Draw(x + startX, y);
+    String(":").Draw(x + startX + deltaField, y);
+    String(Int2String((int)time.month, false, 2, buffer)).Draw(x + startX + deltaField + deltaSeparator, y);
+    String(":").Draw(x + startX + 2 * deltaField + deltaSeparator, y);
+    String(Int2String((int)time.year, false, 2, buffer)).Draw(x + startX + 2 * deltaField + 2 * deltaSeparator, y);
 }
 
 void Time::Draw(int x, int y, bool opened)

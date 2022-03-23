@@ -15,6 +15,7 @@
 #include "Log.h"
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
+#include "Display/String.h"
 #include <cstring>
 
 
@@ -78,12 +79,12 @@ void FM::DrawLongString(int x, int y, char *string, bool hightlight)
 
     if (length <= WIDTH_COL)
     {
-        PText::Draw(x, y, string, color);
+        String(string).Draw(x, y, color);
     }
     else
     {
         PText::DrawWithLimitation(x, y, string, color, x, y, WIDTH_COL, 10);
-        PText::Draw(x + WIDTH_COL + 3, y, "...");
+        String("...").Draw(x + WIDTH_COL + 3, y);
     }
 }
 
@@ -164,7 +165,7 @@ void FM::DrawNameCurrentDir(int left, int top)
     int length = Font::GetLengthText(currentDir);
     if (length < 277)
     {
-        PText::Draw(left + 1, top + 1, currentDir);
+        String(currentDir).Draw(left + 1, top + 1);
     }
     else
     {
@@ -181,7 +182,7 @@ void FM::DrawNameCurrentDir(int left, int top)
             }
             length = Font::GetLengthText(++pointer);
         }
-        PText::Draw(left + 1, top + 1, pointer);
+        String(pointer).Draw(left + 1, top + 1);
     }
 }
 
