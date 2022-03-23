@@ -65,42 +65,6 @@ namespace Tables
 }
 
 
-pchar Tables::GetWarning(Warning::E warning)
-{
-    static pchar warnings[Warning::Count][2] =
-    {
-        {"опедек йюмюк 1 - бнкэр/дек",      "LIMIT CHANNEL 1 - VOLTS/DIV"},
-        {"опедек йюмюк 2 - бнкэр/дек",      "LIMIT CHANNEL 2 - VOLTS/DIV"},
-        {"опедек пюгбепрйю - бпелъ/дек",    "LIMIT SWEEP - TIME/DIV"},
-        {"бйкчвем охйнбши дерейрнп",        "SET_ENABLED PEAK. DET."},
-        {"опедек йюмюк 1 - \x0d",           "LIMIT CHANNEL 1 - \x0d"},
-        {"опедек йюмюк 2 - \x0d",           "LIMIT CHANNEL 2 - \x0d"},
-        {"опедек пюгбепрйю - спнбемэ",      "LIMIT SWEEP - LEVEL"},
-        {"опедек пюгбепрйю - \x97",         "LIMIT SWEEP - \x97"},
-        {"охй. дер. ме пюанрюер мю пюгбепрйюу лемее 0.5ЛЙЯ/ДЕК", "PEAK. DET. NOT WORK ON SWEETS LESS THAN 0.5us/div"},
-        {"яюлнохяеж ме лнфер пюанрюрэ мю ашярпшу пюгб╗прйюу", "SELF-RECORDER DOES NOT WORK FAST SCANS"},
-        {"тюик янупюмем",                   "FILE IS SAVED"},
-        {"яхцмюк янупюмем",                 "SIGNAL IS SAVED"},
-        {"яхцмкю сдюкем",                   "SIGNAL IS DELETED"},
-        {"лемч нркюдйю бйкчвемн",           "MENU DEBUG IS SET_ENABLED"},
-        {"онднфдхре меяйнкэйн яейсмд, хдер оепелеыемхе дюммшу", "WAIT A FEW SECONDS, GOES A MOVEMENT DATA"},
-        {"бпелъ ме сярюмнбкемн. лнфере сярюмнбхрэ ецн яеивюя", "TIME IS NOT SET. YOU CAN INSTALL IT NOW"},
-        {"яхцмюк ме мюидем",                "SIGNAL IS NOT FOUND"},
-        {"мю пюгбепрйюу ледкеммее 10ЛЯ/ДЕК фекюрекэмн сярюмюб-", "AT SCANNER SLOWLY 10ms/div DESIRABLY SET \"SCAN - \x7b\" IN"},
-        {"кхбюрэ \"пюгбепрйю - \x7b\" б онкнфемхе \"кЕБН\" дкъ сяйнпе-", "SWITCH \"Left\" FOR TO ACCELERATE THE OUTPUT SIGNAL"},
-        {"мхъ бшбндю яхцмюкю",              ""},
-        {"нвемэ люкн хглепемхи",            "VERY SMALL MEASURES"},
-        {"дкъ бярсокемхъ хглемемхи б яхкс", "FOR THE INTRODUCTION OF CHANGES"},
-        {"бшйкчвхре опханп",                "IN FORCE SWITCH OFF THE DEVICE"},
-        {"нрйкчвхре бшвхякемхе аот",        "DISCONNECT CALCULATION OF FFT"},
-        {"нрйкчвхре люрелюрхвеяйсч тсмйжхч", "DISCONNECT MATHEMATICAL FUNCTION"},
-        {"опньхбйю янупюмемю",              "FIRMWARE SAVED"},
-        {"оЮЛЪРЭ OTP ОНКМНЯРЭЧ ГЮОНКЕМЮ",   "OPT memory fully completed"}
-    };
-    return warnings[warning][LANG];
-}
-
-
 pchar TBase::ToString(TBase::E tBase)
 {
     return Tables::tBases[tBase].name[LANG];

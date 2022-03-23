@@ -6,8 +6,6 @@
 
 namespace Tables
 {
-    pchar GetWarning(Warning::E);
-
     // Выводит строку из таблицы symbolsAlphaBet
     void DrawStr(int index, int x, int y);
 
