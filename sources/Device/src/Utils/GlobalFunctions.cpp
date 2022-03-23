@@ -411,22 +411,6 @@ float CircleSubFloat(float *val, float delta, float min, float max)
     return *val;
 }
 
-void AddLimitationFloat(float *val, float delta, float min, float max)
-{
-    float sum = *val + delta;
-    if(sum < min)
-    {
-        *val = min;
-    }
-    else if(sum > max)
-    {
-        *val = max;
-    }
-    else
-    {
-        *val = sum;
-    }
-}
 
 void SwapInt(int *value0, int *value1)
 {

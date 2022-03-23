@@ -217,7 +217,7 @@ void ColorType::ComponentChange(int delta)
     if (index >= 1 && index <= 3)
     {
         float *pointers[4] = {0, &blue, &green, &red};
-        AddLimitationFloat(pointers[index], (float)Math::Sign(delta), 0.0f, maxs[index]);
+        Math::AddLimitation<float>(pointers[index], (float)Math::Sign(delta), 0.0f, maxs[index]);
     }
 
     SetColor();

@@ -440,8 +440,6 @@ void GovernorColor::DrawValue(int x, int y, int delta)
 
     int vals[4] = {(int)(ct->brightness * 100), blue, green, red};
 
-    LOG_WRITE("%f %d %d %d", ct->brightness, blue, green, red);
-
     Painter::FillRegion(x, y, MI_WIDTH + delta - 2, Item::HEIGHT / 2 - 3, Color::BLACK);
     x += 92;
     

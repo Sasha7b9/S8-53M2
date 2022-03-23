@@ -63,6 +63,9 @@ namespace Math
     // этом для расчёта epsilonPart используется большее в смысле модуля число.
     bool FloatsIsEquals(float value0, float value1, float epsilonPart);
 
+    // Прибавить к значению по адресу val delta. Если результат не вписывается в диапазон [min; max], ограничить.
+    template<class T> void AddLimitation(T *val, T delta, T min, T max);
+
     template<class T> T Limitation(T value, T min, T max)
     {
         if (value < min)      { return min; }

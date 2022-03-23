@@ -63,12 +63,6 @@ int     CircleIncreaseInt(int *val, int min, int max);
 int     CircleDecreaseInt(int *val, int min, int max);
 float   CircleAddFloat(float *val, float delta, float min, float max);  // ”велечивает значение по адресу val на delta. «атем, если результат больше max, приравнивает его min.
 float   CircleSubFloat(float *val, float delta, float min, float max);  // ”меньшает значение по адресу val на delta. «атем, елси результат меньше min, приравнивает его masx.
-void    AddLimitationFloat                                              // ѕрибавить к значению по адресу val delta. ≈сли результат не вписываетс€ в диапазон [min; max], ограничить.
-                            (float *val,                                // по этому адресу хранитс€ значение.
-                            float delta,                                // а это дельта.
-                            float min,                                  // нижн€€ граница диапазона.
-                            float max                                   // верхн€€ граница диапазона.
-                            );
 void    SwapInt(int *value0, int *value1);                      // ќбменивает местами содержимое пам€ти по адресам value0 и value1.
 void    SortInt(int *value0, int *value1);                      // –азмещает переменные value0 и value1 в пор€дке возрастани€.
 char    GetSymbolForGovernor(int value);                        // ¬озвращает изображение регул€тора, соответствующее его текущему положению.

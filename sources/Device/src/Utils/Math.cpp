@@ -667,3 +667,22 @@ float TrigLev::ToAbs(Range::E range)
 {
     return RShift(value).ToAbs(range);
 }
+
+
+template<class T>
+void Math::AddLimitation(T *val, T delta, T min, T max)
+{
+    float sum = *val + delta;
+    if (sum < min)
+    {
+        *val = min;
+    }
+    else if (sum > max)
+    {
+        *val = max;
+    }
+    else
+    {
+        *val = sum;
+    }
+}
