@@ -33,11 +33,13 @@ String PageCursors::GetCursVoltage(Chan source, int numCur)
 }
 
 
-pchar PageCursors::GetCursorTime(Chan source, int numCur, char buffer[20])
+String PageCursors::GetCursorTime(Chan source, int numCur)
 {
+    char buffer[20];
+
     float time = Math::TimeCursor(CURS_POS_T(source, numCur), SET_TBASE);
         
-    return Time2String(time, true, buffer);
+    return String(Time2String(time, true, buffer));
 }
 
 

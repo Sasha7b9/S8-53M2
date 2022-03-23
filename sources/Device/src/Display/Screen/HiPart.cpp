@@ -76,8 +76,8 @@ void HiPart::WriteCursors()
             String("1:").Draw(x, y1);
             String("2:").Draw(x, y2);
             x += 7;
-            String(PageCursors::GetCursorTime(source, 0, buffer)).Draw(x, y1);
-            String(PageCursors::GetCursorTime(source, 1, buffer)).Draw(x, y2);
+            PageCursors::GetCursorTime(source, 0).Draw(x, y1);
+            PageCursors::GetCursorTime(source, 1).Draw(x, y2);
             x = startX + 153;
             float pos0 = Math::TimeCursor(CURS_POS_T0(source), SET_TBASE);
             float pos1 = Math::TimeCursor(CURS_POS_T1(source), SET_TBASE);

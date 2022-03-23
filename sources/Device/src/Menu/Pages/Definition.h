@@ -44,7 +44,7 @@ struct PageCursors
     static String GetCursVoltage(Chan, int numCur);
 
     // Получить строку курсора времени.
-    static pchar GetCursorTime(Chan, int numCur, char buffer[20]);
+    static String GetCursorTime(Chan, int numCur);
 
     // Получить строку процентов курсоров напряжения.
     static pchar GetCursorPercentsU(Chan, char buffer[20]);
