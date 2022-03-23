@@ -102,9 +102,8 @@ source_group(Utils            FILES ${UTILS})
 source_group(Utils/Containers FILES ${UTILS_CONTAINERS})
 source_group(SCPI             FILES ${SCPI})
 
-set_source_files_properties(src/libs/ethernetif.cpp
+set_source_files_properties(src/Hardware/LAN/ethernetif.cpp
                             src/libs/usbd_desc.cpp
-                            src/libs/app_ethernet.cpp
                             src/libs/usbd_cdc_interface.cpp
                             src/libs/usbd_conf.c
                             src/Menu/Pages/PageHelp.cpp

@@ -339,7 +339,7 @@
               <MiscControls>--cpp</MiscControls>
               <Define>USE_HAL_DRIVER, STM32F429xx, __cplusplus,DEBUG,DEVICE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\STM32Cube_FW_F4\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Src;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\system;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\ipv4;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\drivers;.\src;.\src\libs;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\lwip;..\STM32Cube_FW_F4\Drivers\CMSIS\Include;..\..\sources;.\src\Hardware\VCP</IncludePath>
+              <IncludePath>..\STM32Cube_FW_F4\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Src;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\system;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\ipv4;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\drivers;.\src;.\src\libs;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\lwip;..\STM32Cube_FW_F4\Drivers\CMSIS\Include;..\..\sources;.\src\Hardware\VCP;.\src\Hardware\LAN</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -762,31 +762,6 @@
               <FileName>ffconf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\libs\ffconf.h</FilePath>
-            </File>
-            <File>
-              <FileName>app_ethernet.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\libs\app_ethernet.h</FilePath>
-            </File>
-            <File>
-              <FileName>ethernetif.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\libs\ethernetif.h</FilePath>
-            </File>
-            <File>
-              <FileName>lwipopts.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\libs\lwipopts.h</FilePath>
-            </File>
-            <File>
-              <FileName>app_ethernet.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\libs\app_ethernet.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>ethernetif.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\libs\ethernetif.cpp</FilePath>
             </File>
             <File>
               <FileName>usbh_conf.cpp</FileName>
@@ -1409,7 +1384,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>HardwareLAN</GroupName>
+          <GroupName>Hardware/LAN</GroupName>
           <Files>
             <File>
               <FileName>LAN.cpp</FileName>
@@ -1430,6 +1405,31 @@
               <FileName>SocketTCP.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\LAN\SocketTCP.h</FilePath>
+            </File>
+            <File>
+              <FileName>app_ethernet.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\LAN\app_ethernet.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>app_ethernet.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\LAN\app_ethernet.h</FilePath>
+            </File>
+            <File>
+              <FileName>ethernetif.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\LAN\ethernetif.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ethernetif.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\LAN\ethernetif.h</FilePath>
+            </File>
+            <File>
+              <FileName>lwipopts.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\LAN\lwipopts.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2349,7 +2349,7 @@
               <MiscControls>--cpp --diag_suppress 4487</MiscControls>
               <Define>USE_HAL_DRIVER, STM32F429xx, __cplusplus,DEVICE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\STM32Cube_FW_F4\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Src;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\system;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\ipv4;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\drivers;.\src;.\src\libs;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\lwip;..\STM32Cube_FW_F4\Drivers\CMSIS\Include;..\..\sources;.\src\Hardware\VCP</IncludePath>
+              <IncludePath>..\STM32Cube_FW_F4\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Src;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\system;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\ipv4;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\drivers;.\src;.\src\libs;..\STM32Cube_FW_F4\Middlewares\Third_Party\LwIP\src\include\lwip;..\STM32Cube_FW_F4\Drivers\CMSIS\Include;..\..\sources;.\src\Hardware\VCP;.\src\Hardware\LAN</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2772,31 +2772,6 @@
               <FileName>ffconf.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\libs\ffconf.h</FilePath>
-            </File>
-            <File>
-              <FileName>app_ethernet.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\libs\app_ethernet.h</FilePath>
-            </File>
-            <File>
-              <FileName>ethernetif.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\libs\ethernetif.h</FilePath>
-            </File>
-            <File>
-              <FileName>lwipopts.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\libs\lwipopts.h</FilePath>
-            </File>
-            <File>
-              <FileName>app_ethernet.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\libs\app_ethernet.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>ethernetif.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\libs\ethernetif.cpp</FilePath>
             </File>
             <File>
               <FileName>usbh_conf.cpp</FileName>
@@ -3419,7 +3394,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>HardwareLAN</GroupName>
+          <GroupName>Hardware/LAN</GroupName>
           <Files>
             <File>
               <FileName>LAN.cpp</FileName>
@@ -3440,6 +3415,31 @@
               <FileName>SocketTCP.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\LAN\SocketTCP.h</FilePath>
+            </File>
+            <File>
+              <FileName>app_ethernet.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\LAN\app_ethernet.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>app_ethernet.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\LAN\app_ethernet.h</FilePath>
+            </File>
+            <File>
+              <FileName>ethernetif.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\LAN\ethernetif.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ethernetif.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\LAN\ethernetif.h</FilePath>
+            </File>
+            <File>
+              <FileName>lwipopts.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\LAN\lwipopts.h</FilePath>
             </File>
           </Files>
         </Group>
