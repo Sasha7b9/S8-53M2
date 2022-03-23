@@ -26,7 +26,7 @@ String Voltage2String(float voltage, bool alwaysSign);
 String Time2String(float time, bool alwaysSign);
 String Freq2String(float freq, bool alwaysSign);
 String Phase2String(float phase, bool alwaysSign);
-char*   Float2Db(float value, int numDigits, char bufferOut[20]);   // ѕреобразует децибелы в текстовую строку.
+String Float2Db(float value, int numDigits);
 bool    IntInRange                              // ¬озвращает true, если value входит в диапазон [min; max].
                    (int value,                  // провер€емое значение.
                    int min,                     // нижн€€ граница диапазона.

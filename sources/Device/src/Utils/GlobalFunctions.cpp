@@ -308,12 +308,13 @@ String Freq2String(float freq, bool)
     return result;
 }
 
-char* Float2Db(float value, int numDigits, char bufferOut[20])
+String Float2Db(float value, int numDigits)
 {
-    bufferOut[0] = 0;
-    std::strcat(bufferOut, Float2String(value, false, numDigits).c_str());
-    std::strcat(bufferOut, LANG_RU ? "Да" : "dB");
-    return bufferOut;
+    String result = Float2String(value, false, numDigits);
+
+    result.Append(LANG_RU ? "Да" : "dB");
+
+    return result;
 }
 
 bool IntInRange(int value, int min, int max)
