@@ -91,7 +91,7 @@ void HiPart::WriteCursors()
                 int width = 65;
                 int x0 = Grid::Right() - width;
                 Rectangle(width, 12).Draw(x0, GRID_TOP, COLOR_FILL);
-                Painter::FillRegion(x0 + 1, GRID_TOP + 1, width - 2, 10, COLOR_BACK);
+                Region(width - 2, 10).Fill(x0 + 1, GRID_TOP + 1, COLOR_BACK);
                 String("1/dT=").Draw(x0 + 1, GRID_TOP + 2, colorText);
                 Freq2String(1.0f / delta, false).Draw(x0 + 25, GRID_TOP + 2);
             }
@@ -116,7 +116,7 @@ void HiPart::DrawHiRightPart()
 
         if (TrigLev::fireLED)
         {
-            Painter::FillRegion(x, 1 + y, GRID_TOP - 3, GRID_TOP - 7);
+            Region(GRID_TOP - 3, GRID_TOP - 7).Fill(x, 1 + y);
             String(LANG_RU ? "ях" : "Tr").Draw(x + 3, 3 + y, COLOR_BACK);
         }
     }
@@ -156,7 +156,7 @@ void HiPart::DrawHiRightPart()
         }
         else if (StateWorkFPGA::GetCurrent() == StateWorkFPGA::Stop)
         {
-            Painter::FillRegion(x + 3, y + 3, 10, 10);
+            Region(10, 10).Fill(x + 3, y + 3);
         }
         else if (StateWorkFPGA::GetCurrent() == StateWorkFPGA::Wait)
         {
@@ -164,8 +164,8 @@ void HiPart::DrawHiRightPart()
             int h = 14;
             int delta = 4;
             x = x + 2;
-            Painter::FillRegion(x, y + 1, w, h);
-            Painter::FillRegion(x + w + delta, y + 1, w, h);
+            Region(w, h).Fill(x, y + 1);
+            Region(w, h).Fill(x + w + delta, y + 1);
         }
     }
 }

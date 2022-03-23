@@ -909,7 +909,7 @@ void RShift::Draw(Chan ch)
 
     if ((!Menu::IsMinimize() || !Menu::IsShown()) && RShift::drawMarkers)
     {
-        Painter::FillRegion(4, (int)(yFull - 3), 4, 6, ColorChannel(ch));
+        Region(4, 6).Fill(4, (int)(yFull - 3), ColorChannel(ch));
         PText::DrawChar(5, (int)(yFull - 9 + dY), ch == Chan::A ? '1' : '2', COLOR_BACK);
     }
     PText::DrawChar((int)(x - 7), (int)(y - 9 + dY), ch == Chan::A ? '1' : '2', COLOR_BACK);
@@ -972,7 +972,7 @@ void TrigLev::Draw()
         scale = (float)height / (shiftFullMax - shiftFullMin);
         int shiftFull = TRIG_LEVEL_SOURCE.value + (TRIG_SOURCE_IS_EXT ? 0 : (int16)SET_RSHIFT(ch));
         int yFull = (int)(GRID_TOP + Display::DELTA + height - scale * (shiftFull - RShift::MIN - TrigLev::MIN) - 4);
-        Painter::FillRegion(left + 2, yFull + 1, 4, 6, ColorTrig());
+        Region(4, 6).Fill(left + 2, yFull + 1, ColorTrig());
         Font::Set(TypeFont::_5);
         PText::DrawChar(left + 3, yFull - 5 + dY, simbols[TRIG_SOURCE], COLOR_BACK);
         Font::Set(TypeFont::_8);

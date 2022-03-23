@@ -57,7 +57,7 @@ void Console::Draw()
     {
         int width = Font::GetLengthText(strings[numString]);
 
-        Painter::FillRegion(Grid::Left() + 1, y, width, 5, COLOR_BACK);
+        Region(width, 5).Fill(Grid::Left() + 1, y, COLOR_BACK);
 
         String(strings[numString]).Draw(Grid::Left() + 2, y - 10, COLOR_FILL);
 

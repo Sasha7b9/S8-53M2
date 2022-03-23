@@ -337,7 +337,7 @@ int String::DrawOnBackground(int x, int y, Color::E colorBackground)
     int height = Font::GetSize();
 
     Color::E colorText = Color::GetCurrent();
-    Painter::FillRegion(x - 1, y, width, height, colorBackground);
+    Region(width, height).Fill(x - 1, y, colorBackground);
     Color::SetCurrent(colorText);
 
     return Draw(x, y);

@@ -55,9 +55,9 @@ static void DrawPageDescription()
 void HelpContent::Draw()
 {
     uint startTime = TIME_MS;
-    Painter::FillRegion(Grid::Right(), 0, 319 - Grid::Right(), 20, COLOR_BACK);
-    Painter::FillRegion(Grid::Right(), 219, 319 - Grid::Right(), 21);
-    Painter::FillRegion(1, 1, WIDTH, 237);
+    Region(319 - Grid::Right(), 20).Fill(Grid::Right(), 0, COLOR_BACK);
+    Region(319 - Grid::Right(), 21).Fill(Grid::Right(), 219);
+    Region(WIDTH, 237).Fill(1, 1);
     Rectangle(WIDTH + 2, 239).Draw(0, 0, COLOR_FILL);
 
     /*

@@ -171,13 +171,13 @@ void Page::DrawTitle(int yTop)
 
     int height = HeightOpened();
     bool shade = CurrentItemIsOpened();
-    Painter::FillRegion(x - 1, yTop, MP_TITLE_WIDTH + 2, height + 2, COLOR_BACK);
+    Region(MP_TITLE_WIDTH + 2, height + 2).Fill(x - 1, yTop, COLOR_BACK);
     Rectangle(MP_TITLE_WIDTH + 1, height + 1).Draw(x, yTop, ColorBorderMenu(shade));
 
     if (shade)
     {
-        Painter::FillRegion(x + 1, yTop + 1, MP_TITLE_WIDTH - 1, MP_TITLE_HEIGHT - 1, ColorMenuTitleLessBright());
-        Painter::FillRegion(x + 4, yTop + 4, MP_TITLE_WIDTH - 7, MP_TITLE_HEIGHT - 7, Color::MENU_TITLE_DARK);
+        Region(MP_TITLE_WIDTH - 1, MP_TITLE_HEIGHT - 1).Fill(x + 1, yTop + 1, ColorMenuTitleLessBright());
+        Region(MP_TITLE_WIDTH - 7, MP_TITLE_HEIGHT - 7).Fill(x + 4, yTop + 4, Color::MENU_TITLE_DARK);
     }
     else
     {
@@ -221,7 +221,7 @@ void Page::DrawUGO(int right, int bottom)
         int x = left + p * (size + 2);
         if(p == currentPage)
         {
-            Painter::FillRegion(x, top, size, size);
+            Region(size, size).Fill(x, top);
         }
         else
         {

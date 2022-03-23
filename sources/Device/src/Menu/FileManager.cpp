@@ -73,7 +73,7 @@ void FM::DrawLongString(int x, int y, char *string, bool hightlight)
     Color::E color = COLOR_FILL;
     if (hightlight)
     {
-        Painter::FillRegion(x - 1, y, WIDTH_COL + 9, 8, color);
+        Region(WIDTH_COL + 9, 8).Fill(x - 1, y, color);
         color = COLOR_BACK;
     }
 
@@ -91,7 +91,7 @@ void FM::DrawLongString(int x, int y, char *string, bool hightlight)
 
 void FM::DrawHat(int x, int y, char *string, int num1, int num2)
 {
-    Painter::FillRegion(x - 1, y, WIDTH_COL + 9, RECS_ON_PAGE * 9 + 11, COLOR_BACK);
+    Region(WIDTH_COL + 9, RECS_ON_PAGE * 9 + 11).Fill(x - 1, y, COLOR_BACK);
     String(string, num1, num2).Draw(x + 60, y, COLOR_FILL);
     Painter::DrawHLine(y + 10, x + 2, x + 140);
 }

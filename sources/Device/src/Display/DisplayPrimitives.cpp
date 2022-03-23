@@ -16,7 +16,7 @@ void ProgressBar_Draw(const ProgressBar *bar)
     std::sprintf(buffer, "Завершено %.1f %%", passedPercents);
     String(buffer).DrawInCenterRect(x, y - 15, bar->width, bar->height, COLOR_FILL);
     Rectangle(bar->width, bar->height).Draw(bar->x, bar->y);
-    Painter::FillRegion(bar->x, bar->y, (int)(((float)bar->width * passedPercents) / 100.0f), bar->height);
+    Region((int)(((float)bar->width * passedPercents) / 100.0f), bar->height).Fill(bar->x, bar->y);
     buffer[0] = 0;
     std::sprintf(buffer, "Осталось %.1f с", (bar->fullTime - bar->passedTime) / 1000.0f);
     String(buffer).DrawInCenterRect(x, y + bar->height, bar->width, bar->height);

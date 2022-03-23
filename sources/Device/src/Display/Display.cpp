@@ -101,7 +101,7 @@ void Display::DrawStringNavigation()
         int length = Font::GetLengthText(string.c_str());
         int height = 10;
         Rectangle(length + 2, height).Draw(Grid::Left(), GRID_TOP, COLOR_FILL);
-        Painter::FillRegion(Grid::Left() + 1, GRID_TOP + 1, length, height - 2, COLOR_BACK);
+        Region(length, height - 2).Fill(Grid::Left() + 1, GRID_TOP + 1, COLOR_BACK);
         String(string).Draw(Grid::Left() + 2, GRID_TOP + 1, COLOR_FILL);
     }
 }
@@ -273,7 +273,7 @@ void Display::WriteValueTrigLevel()
         int x = (Grid::Width() - width) / 2 + Grid::Left();
         int y = Grid::BottomMessages() - 20;
         Rectangle(width, 10).Draw(x, y, COLOR_FILL);
-        Painter::FillRegion(x + 1, y + 1, width - 2, 8, COLOR_BACK);
+        Region(width - 2, 8).Fill(x + 1, y + 1, COLOR_BACK);
 
         String string(LANG_RU ? "Óð ñèíõð = " : "Trig lvl = ");
         string.Append(Voltage2String(trigLev, true));
@@ -411,14 +411,14 @@ void Display::DrawMeasures()
 
             if(meas != Measure::None)
             {
-                Painter::FillRegion(x, y, dX, dY, COLOR_BACK);
+                Region(dX, dY).Fill(x, y, COLOR_BACK);
                 Rectangle(dX, dY).Draw(x, y, COLOR_FILL);
                 topMeasures = Math::MinFrom2Int(topMeasures, y);
             }
 
             if(active)
             {
-                Painter::FillRegion(x + 2, y + 2, dX - 4, dY - 4, COLOR_FILL);
+                Region(dX - 4, dY - 4).Fill(x + 2, y + 2, COLOR_FILL);
             }
 
             if(meas != Measure::None)
@@ -427,7 +427,7 @@ void Display::DrawMeasures()
 
                 if(meas == MEAS_MARKED)
                 {
-                    Painter::FillRegion(x + 1, y + 1, dX - 2, 9, active ? COLOR_BACK : COLOR_FILL);
+                    Region(dX - 2, 9).Fill(x + 1, y + 1, active ? COLOR_BACK : COLOR_FILL);
 
                     String(Measures::Name(str, elem)).Draw(x + 4, y + 2, active ? COLOR_FILL : COLOR_BACK);
                 }
@@ -488,7 +488,7 @@ void Display::DrawTimeForFrame(uint timeTicks)
     }
 
     Rectangle(84, 10).Draw(Grid::Left(), Grid::FullBottom() - 10, COLOR_FILL);
-    Painter::FillRegion(Grid::Left() + 1, Grid::FullBottom() - 9, 82, 8, COLOR_BACK);
+    Region(82, 8).Fill(Grid::Left() + 1, Grid::FullBottom() - 9, COLOR_BACK);
     buffer.Draw(Grid::Left() + 2, Grid::FullBottom() - 9, COLOR_FILL);
 
     String("%d/%d", Storage::NumFramesWithSameSettings(), Storage::NumberAvailableEntries()).
@@ -545,7 +545,7 @@ void Display::RemoveAddDrawFunction()
 
 void Display::Clear()
 {
-    Painter::FillRegion(0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 2, COLOR_BACK);
+    Region(SCREEN_WIDTH - 1, SCREEN_HEIGHT - 2).Fill(0, 0, COLOR_BACK);
 }
 
 

@@ -40,7 +40,7 @@ namespace FPGA
                 int x = (SCREEN_WIDTH - width) / 2;
 
                 Rectangle(width, height).Draw(x, y, COLOR_FILL);
-                Painter::FillRegion(x, y, width * value / max, height);
+                Region(width * value / max, height).Fill(x, y);
             }
         };
 

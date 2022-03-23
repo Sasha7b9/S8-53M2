@@ -89,7 +89,7 @@ static void FuncDrawingAdditionSPageMemoryLast()
 {
     int width = 40;
     int height = 10;
-    Painter::FillRegion(Grid::Right() - width, GRID_TOP, width, height, COLOR_BACK);
+    Region(width, height).Fill(Grid::Right() - width, GRID_TOP, COLOR_BACK);
     Rectangle(width, height).Draw(Grid::Right() - width, GRID_TOP, COLOR_FILL);
     Int2String(PageMemory::Latest::current + 1, false, 3).Draw(Grid::Right() - width + 2, GRID_TOP + 1);
     String("/").Draw(Grid::Right() - width + 17, GRID_TOP + 1);
@@ -551,7 +551,7 @@ static void DrawMemoryWave(int num, bool exist)
     int x = Grid::Left() + 2 + num * 12;
     int y = Grid::FullBottom() - 10;
     int width = 12;
-    Painter::FillRegion(x, y, width, 10, (num == PageMemory::Internal::currentSignal) ? Color::FLASH_10 : COLOR_BACK);
+    Region(width, 10).Fill(x, y, (num == PageMemory::Internal::currentSignal) ? Color::FLASH_10 : COLOR_BACK);
     Rectangle(width, 10).Draw(x, y, COLOR_FILL);
     Color::SetCurrent(num == PageMemory::Internal::currentSignal ? Color::FLASH_01 : COLOR_FILL);
     if (exist)
@@ -836,7 +836,7 @@ static void DrawFileMask(int x, int y)
         }
         ch++;
     }
-    Painter::FillRegion(x, y, 5, 8, Color::FLASH_10);
+    Region(5, 8).Fill(x, y, Color::FLASH_10);
 }
 
 
@@ -849,7 +849,7 @@ void DrawSetMask()
     int height = 160;
 
     Rectangle(width, height).Draw(x0, y0, COLOR_FILL);
-    Painter::FillRegion(x0 + 1, y0 + 1, width - 2, height - 2, COLOR_BACK);
+    Region(width - 2, height - 2).Fill(x0 + 1, y0 + 1, COLOR_BACK);
 
     int index = 0;
     int position = 0;
@@ -1061,7 +1061,7 @@ void DrawSetName()
     int height = 80;
 
     Rectangle(width, height).Draw(x0, y0, COLOR_FILL);
-    Painter::FillRegion(x0 + 1, y0 + 1, width - 2, height - 2, COLOR_BACK);
+    Region(width - 2, height - 2).Fill(x0 + 1, y0 + 1, COLOR_BACK);
 
     int index = 0;
     int position = 0;
@@ -1096,7 +1096,7 @@ void DrawSetName()
     }
 
     int x = String(FILE_NAME).Draw(x0 + deltaX, y0 + 65, COLOR_FILL);
-    Painter::FillRegion(x, y0 + 65, 5, 8, Color::FLASH_10);
+    Region(5, 8).Fill(x, y0 + 65, Color::FLASH_10);
 }
 
 

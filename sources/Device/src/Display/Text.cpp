@@ -627,7 +627,7 @@ int PText::DrawInBoundedRectWithTransfers(int x, int y, int width, pchar text, C
     GetHeightTextWithTransfers(x + 3, y + 3, x + width - 8, text, &height);
 
     Rectangle(width, height).Draw(x, y, colorFill);
-    Painter::FillRegion(x + 1, y + 1, width - 2, height - 2, colorBackground);
+    Region(width - 2, height - 2).Fill(x + 1, y + 1, colorBackground);
     DrawInRectWithTransfers(x + 3, y + 3, width - 8, height, text, colorFill);
     return y + height;
 }
@@ -640,7 +640,7 @@ void PText::DrawStringInCenterRectOnBackground(int x, int y, int width, int heig
     int eX = String(text).DrawInCenterRect(x, y, width, height, colorBackground);
     int w = lenght + widthBorder * 2 - 2;
     int h = 7 + widthBorder * 2 - 1;
-    Painter::FillRegion(eX - lenght - widthBorder, y - widthBorder + 1, w, h);
+    Region(w, h).Fill(eX - lenght - widthBorder, y - widthBorder + 1);
     String(text).DrawInCenterRect(x, y, width, height, colorText);
 }
 
@@ -649,7 +649,7 @@ int PText::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height,
     Color::E colorFill)
 {
     Rectangle(width, height).Draw(x, y, colorFill);
-    Painter::FillRegion(x + 1, y + 1, width - 2, height - 2, colorBackground);
+    Region(width - 2, height - 2).Fill(x + 1, y + 1, colorBackground);
     Color::SetCurrent(colorFill);
     return String(text).DrawInCenterRect(x, y, width, height);
 }
@@ -658,7 +658,7 @@ int PText::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height,
 void Painter::DrawHintsForSmallButton(int x, int y, int width, void *smallButton)
 {
     SmallButton *sb = (SmallButton*)smallButton;
-    FillRegion(x, y, width, 239 - y, COLOR_BACK);
+    Region(width, 239 - y).Fill(x, y, COLOR_BACK);
     Rectangle(width, 239 - y).Draw(x, y, COLOR_FILL);
     const StructHelpSmallButton *structHelp = &(*sb->hintUGO)[0];
     x += 3;

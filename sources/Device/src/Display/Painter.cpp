@@ -433,7 +433,7 @@ void Painter::DrawLine(int x0, int y0, int x1, int y1, Color::E color)
 }
 
 
-void Painter::FillRegion(int x, int y, int width, int height, Color::E color)
+void Region::Fill(int x, int y, Color::E color)
 {
     Color::SetCurrent(color);
 
@@ -444,7 +444,7 @@ void Painter::FillRegion(int x, int y, int width, int height, Color::E color)
 
     for (int i = y; i <= y + height; i++)
     {
-        DrawHLine(i, x, x + width);
+        Painter::DrawHLine(i, x, x + width);
     }
 
     if (InterCom::TransmitGUIinProcess())
@@ -466,7 +466,9 @@ void Painter::DrawVolumeButton(int x, int y, int width, int height, int thicknes
     {
         thickness = 1;
     }
-    FillRegion(x + thickness, y + thickness, width - thickness * 2, height - thickness * 2, normal);
+
+    Region(width - thickness * 2, height - thickness * 2).Fill(x + thickness, y + thickness, normal);
+
     if (isPressed || inShade)
     {
         for (int i = 0; i < thickness; i++)
@@ -556,7 +558,7 @@ void Painter::BeginScene(Color::E color)
         }
     }
 
-    FillRegion(0, 0, 319, 239, color);
+    Region(319, 239).Fill(0, 0, color);
 }
 
 

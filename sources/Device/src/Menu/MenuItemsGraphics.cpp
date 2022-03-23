@@ -30,7 +30,7 @@ static void DrawGovernorChoiceColorFormulaHiPart(Item *item, int x, int y, bool 
 
     if (shade)
     {
-        Painter::FillRegion(x + 1, y + 2, width + 2, MI_HEIGHT_VALUE + 3, ColorMenuItem(false));
+        Region(width + 2, MI_HEIGHT_VALUE + 3).Fill(x + 1, y + 2, ColorMenuItem(false));
     }
     else
     {
@@ -280,7 +280,7 @@ static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits
 
         if (selPos == i)
         {
-            Painter::FillRegion(x - 1, y, 5, height, COLOR_FILL);
+            Region(5, height).Fill(x - 1, y, COLOR_FILL);
         }
 
         if (!(rest == 0 && value == 0) || (firstValue == 0 && i == 0))
@@ -354,7 +354,7 @@ void MACaddress::DrawValue(int x, int y)
 
         if (MACaddress::cur_digit == num)
         {
-            Painter::FillRegion(x - 1, y, 10, 8, COLOR_FILL);
+            Region(10, 8).Fill(x - 1, y, COLOR_FILL);
         }
 
         char buffer[20];
@@ -436,14 +436,14 @@ void GovernorColor::DrawValue(int x, int y, int delta)
 
     int vals[4] = {(int)(ct->brightness * 100), blue, green, red};
 
-    Painter::FillRegion(x, y, MI_WIDTH + delta - 2, Item::HEIGHT / 2 - 3, Color::BLACK);
+    Region(MI_WIDTH + delta - 2, Item::HEIGHT / 2 - 3).Fill(x, y, Color::BLACK);
     x += 92;
     
     for(int i = 0; i < 4; i++)
     {
         Color::E colorBack = (field == i) ? Color::WHITE : Color::BLACK;
         Color::E colorDraw = (field == i) ? Color::BLACK : Color::WHITE;
-        Painter::FillRegion(x - 1, y + 1, 29, 10, colorBack);
+        Region(29, 10).Fill(x - 1, y + 1, colorBack);
         String(texts[i]).Draw(x, y + 2, colorDraw);
         Int2String(vals[i], false, 1).Draw(x + 14, y + 2);
         x -= 30;
@@ -478,7 +478,7 @@ void GovernorColor::DrawClosed(int x, int y)
     DrawGovernorChoiceColorFormulaHiPart((Item *)this, x, y, ((Item *)this)->IsPressed(), ((Item *)this)->IsShade() ||
         !((Item *)this)->IsActive(), true);
 
-    Painter::FillRegion(x + 2, y + 20, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1, colorType->color);
+    Region(MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1).Fill(x + 2, y + 20, colorType->color);
 }
 
 void GovernorColor::Draw(int x, int y, bool opened)
@@ -577,7 +577,7 @@ void Time::DrawOpened(int x, int y)
     {
         if (*curField == i)
         {
-            Painter::FillRegion(x + strPaint[i].x - 1, y + strPaint[i].y, strPaint[i].width, 8, Color::FLASH_10);
+            Region(strPaint[i].width, 8).Fill(x + strPaint[i].x - 1, y + strPaint[i].y, Color::FLASH_10);
         }
         String(strI[i]).Draw(x + strPaint[i].x, y + strPaint[i].y, *curField == i ? Color::FLASH_01 : COLOR_FILL);
     }
@@ -640,7 +640,7 @@ void Choice::DrawClosed(int x, int y)
         
     if (shade)
     {
-        Painter::FillRegion(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, ColorMenuTitleLessBright());
+        Region(MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3).Fill(x + 1, y + 17, ColorMenuTitleLessBright());
     }
     else
     {
@@ -739,7 +739,7 @@ void Button::Draw(int x, int y)
 
     Painter::DrawHLine(y + 1, x, x + MI_WIDTH, ColorMenuTitle(shade));
     Color::E color = shade ? Color::MENU_SHADOW : Color::WHITE;
-    Painter::FillRegion(x + 1, y + 2, MI_WIDTH - 2, Item::HEIGHT - 2, ColorMenuItem(false));
+    Region(MI_WIDTH - 2, Item::HEIGHT - 2).Fill(x + 1, y + 2, ColorMenuItem(false));
     Painter::DrawVolumeButton(x + 4, y + 5, MI_WIDTH - 8, Item::HEIGHT - 8, 3, ColorMenuItem(false), ColorMenuItemBrighter(),
         ColorMenuItemLessBright(), pressed, shade);
 
@@ -755,7 +755,7 @@ void SmallButton::Draw(int x, int y)
     {
         if (IsPressed())
         {
-            Painter::FillRegion(x, y, WIDTH_SB, WIDTH_SB, COLOR_FILL);
+            Region(WIDTH_SB, WIDTH_SB).Fill(x, y, COLOR_FILL);
             Color::SetCurrent(COLOR_BACK);
         }
         else
@@ -780,7 +780,7 @@ void Page::Draw(int x, int y)
 
     if (isShade)
     {
-        Painter::FillRegion(x + 1, y + 2, MI_WIDTH - 2, Item::HEIGHT - 2, ColorMenuTitleLessBright());
+        Region(MI_WIDTH - 2, Item::HEIGHT - 2).Fill(x + 1, y + 2, ColorMenuTitleLessBright());
     }
     else
     {

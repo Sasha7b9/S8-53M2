@@ -309,7 +309,7 @@ static void FPGA::AutoFinder::FunctionDraw()
     int height = 60;
     int x = 160 - width / 2;
     int y = 120 - height / 2;
-    Painter::FillRegion(x, y, width, height, COLOR_BACK);
+    Region(width, height).Fill(x, y, COLOR_BACK);
     Rectangle(width, height).Draw(x, y, COLOR_FILL);
     String("Идёт поиск сигнала. Подождите").DrawInCenterRect(x, y, width, height - 20);
 

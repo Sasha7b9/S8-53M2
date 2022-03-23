@@ -287,7 +287,7 @@ void LowPart::WriteTextVoltage(Chan ch, int x, int y)
         Color::E colorDraw = inverse ? Color::WHITE : color;
         if (inverse)
         {
-            Painter::FillRegion(x, y, widthField, heightField, color);
+            Region(widthField, heightField).Fill(x, y, color);
         }
 
         char buffer[100] = {0};

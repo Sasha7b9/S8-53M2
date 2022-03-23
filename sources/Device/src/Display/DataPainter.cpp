@@ -370,7 +370,7 @@ void DataPainter::DrawMath()
     static const int height = 10;
     int delta = (SHOW_STRING_NAVIGATION && MODE_DRAW_MATH_IS_TOGETHER) ? 10 : 0;
     Rectangle(width, height).Draw(Grid::Left(), Grid::MathTop() + delta, COLOR_FILL);
-    Painter::FillRegion(Grid::Left() + 1, Grid::MathTop() + 1 + delta, width - 2, height - 2, COLOR_BACK);
+    Region(width - 2, height - 2).Fill(Grid::Left() + 1, Grid::MathTop() + 1 + delta, COLOR_BACK);
     Divider::E multiplier = MATH_MULTIPLIER;
 
     String(Range::ToString(SET_RANGE_MATH, multiplier)).Draw(Grid::Left() + 2, Grid::MathTop() + 1 + delta, COLOR_FILL);
@@ -518,7 +518,7 @@ void DataPainter::MemoryWindow::Draw()
     int x0 = x[SET_TPOS];
 
     // Маркер TPos
-    Painter::FillRegion(x0 - 3, 9, 6, 6, COLOR_BACK);
+    Region(6, 6).Fill(x0 - 3, 9, COLOR_BACK);
     PText::DrawChar(x0 - 3, 9, SYMBOL_TPOS_1, COLOR_FILL);
 
     // Маркер tShift
@@ -532,8 +532,8 @@ void DataPainter::MemoryWindow::Draw()
         xShift = (float)(leftX - 2);
     }
 
-    Painter::FillRegion((int)(xShift - 1), 3, 6, 6, COLOR_BACK);
-    Painter::FillRegion((int)(xShift), 4, 4, 4, COLOR_FILL);
+    Region(6, 6).Fill((int)(xShift - 1), 3, COLOR_BACK);
+    Region(4, 4).Fill((int)(xShift), 4, COLOR_FILL);
     Color::SetCurrent(COLOR_BACK);
 
     if (xShift == leftX - 2)
