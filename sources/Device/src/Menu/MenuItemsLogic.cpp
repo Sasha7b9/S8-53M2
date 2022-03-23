@@ -274,6 +274,8 @@ void GovernorColor::ChangeValue(int delta)
     {
         ct->ComponentChange(delta);
     }
+
+    HAL_LTDC::LoadPalette();
 }
 
 

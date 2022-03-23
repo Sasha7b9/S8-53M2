@@ -507,7 +507,7 @@ class  GovernorColor
 {
 public:
     COMMON_PART_MENU_ITEM
-    ColorType*      colorType;                  // Структура для описания цвета.
+    ColorType* colorType;                  // Структура для описания цвета.
 
     void Draw(int x, int y, bool opened);
 

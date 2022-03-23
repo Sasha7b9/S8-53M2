@@ -93,7 +93,6 @@ struct ColorType
 private:
     void SetBrightness();
     void CalcSteps();
-    void SetColor();
 };
 
 

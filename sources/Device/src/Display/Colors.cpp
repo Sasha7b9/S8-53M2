@@ -22,12 +22,6 @@ void Color::ResetFlash()
 }
 
 
-void ColorType::SetColor()
-{
-    COLOR(color) = Color::Make((uint8)red, (uint8)green, (uint8)blue);
-}
-
-
 Color::E ColorChannel(Chan ch)
 {
     static const Color::E colors[4] = {Color::DATA_A, Color::DATA_B, Color::WHITE, Color::WHITE};
@@ -154,7 +148,7 @@ void ColorType::BrightnessChange(int delta)
     green += (float)sign * stepGreen;
     blue += (float)sign * stepBlue;
 
-    SetColor();
+    COLOR(color) = Color::Make((uint8)red, (uint8)green, (uint8)blue);
 
     if (stepRed < 0.01f && stepGreen < 0.01f && stepBlue < 0.01f)
     {
@@ -202,11 +196,9 @@ void ColorType::ComponentChange(int delta)
         Math::AddLimitation<float>(pointers[index], (float)Math::Sign(delta), 0.0f, maxs[index]);
     }
 
-    SetColor();
+    COLOR(color) = Color::Make((uint8)red, (uint8)green, (uint8)blue);
 
     SetBrightness();
-
-    HAL_LTDC::LoadPalette();
 }
 
 
