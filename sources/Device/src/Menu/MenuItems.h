@@ -4,8 +4,9 @@
 #include "Display/Colors.h"
 #include "common/Panel/Controls.h"
 #include "defines.h"
+#include "Display/String.h"
 
-                                            
+
 #define MAX_NUM_SUBITEMS_IN_CHOICE  12  // Максимальное количество вариантов выбора в элементе Choice.
 #define MAX_NUM_ITEMS_IN_PAGE       15  // Максимальное количество пунктов на странице.
 #define MENU_ITEMS_ON_DISPLAY       5   // Сколько пунктов меню помещается на экране по вертикали.
@@ -124,7 +125,7 @@ public:
     Item(TypeItem::E, const Page* keeper_, pFuncBV funcOfActive_, pchar tileRU, pchar titleEN, pchar hintRU, pchar hintEN);
     
     // Возвращает название элемента по адресу item, как оно выглядит на дисплее прибора.
-    pchar Title();
+    String Title();
 
     // Открыть/закрыть элемент меню по адрему item.
     void Open(bool open) const;

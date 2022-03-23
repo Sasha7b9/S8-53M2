@@ -38,8 +38,8 @@ static void DrawGovernorChoiceColorFormulaHiPart(Item *item, int x, int y, bool 
             ColorMenuItemBrighter(), ColorMenuItemLessBright(), pressed, shade);
     }
 
-    String(item->Title()).Draw(x + 6 + delta, y + 6 + delta, color);
-    
+    item->Title().Draw(x + 6 + delta, y + 6 + delta, color);
+
     TypeItem::E type = item->GetType();
 
     if(Item::Current() == item)
@@ -465,7 +465,7 @@ void GovernorColor::DrawOpened(int x, int y)
 
     Painter::DrawHLine(y + Item::HEIGHT / 2 + 2, x, x + MI_WIDTH + delta, ColorMenuTitle(false));
 
-    String(((Item *)this)->Title()).DrawStringInCenterRect(x + (((Item *)this)->IsPressed() ? 2 : 1), y + (((Item *)this)->IsPressed() ? 2 : 1),
+    ((Item *)this)->Title().DrawStringInCenterRect(x + (((Item *)this)->IsPressed() ? 2 : 1), y + (((Item *)this)->IsPressed() ? 2 : 1),
         MI_WIDTH + delta, Item::HEIGHT / 2 + 2, Color::WHITE);
 
     DrawValue(x + 1, y + 19, delta);
@@ -738,11 +738,11 @@ void Button::Draw(int x, int y)
     Color::E color = shade ? Color::MENU_SHADOW : Color::WHITE;
     Painter::FillRegion(x + 1, y + 2, MI_WIDTH - 2, Item::HEIGHT - 2, ColorMenuItem(false));
     Painter::DrawVolumeButton(x + 4, y + 5, MI_WIDTH - 8, Item::HEIGHT - 8, 3, ColorMenuItem(false), ColorMenuItemBrighter(),
-                            ColorMenuItemLessBright(), pressed, shade);
+        ColorMenuItemLessBright(), pressed, shade);
 
     int delta = (pressed && (!shade)) ? 2 : 1;
-    
-    String(Title()).DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, Item::HEIGHT, color);
+
+    Title().DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, Item::HEIGHT, color);
 }
 
 
@@ -794,5 +794,5 @@ void Page::Draw(int x, int y)
         delta = 1;
     }
 
-    String(Title()).DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, Item::HEIGHT, colorText);
+    Title().DrawStringInCenterRect(x + delta, y + delta, MI_WIDTH, Item::HEIGHT, colorText);
 }

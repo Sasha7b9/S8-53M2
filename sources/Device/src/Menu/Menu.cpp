@@ -239,7 +239,7 @@ String Menu::StringNavigation()
 
         while(!IsMainPage(item))
         {
-            titles[numTitle++] = item->Title();
+            titles[numTitle++] = item->Title().c_str();
             item = item->Keeper();
         }
 
