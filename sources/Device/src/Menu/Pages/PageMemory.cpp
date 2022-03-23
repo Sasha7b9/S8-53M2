@@ -818,15 +818,15 @@ static void DrawFileMask(int x, int y)
     {
         if (*ch >= 32)
         {
-            x = PText::DrawChar(x, y, *ch);
+            x = Char(*ch).Draw(x, y);
         }
         else
         {
             if (*ch == 0x07)
             {
-                x = PText::DrawChar(x, y, '%');
-                x = PText::DrawChar(x, y, (char)(0x30 | *(ch + 1)));
-                x = PText::DrawChar(x, y, 'N');
+                x = Char('%').Draw(x, y);
+                x = Char((char)(0x30 | *(ch + 1))).Draw(x, y);
+                x = Char('N').Draw(x, y);
                 ch++;
             }
             else

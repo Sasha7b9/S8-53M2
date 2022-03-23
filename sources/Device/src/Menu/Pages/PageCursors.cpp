@@ -465,7 +465,7 @@ static void DrawSB_Cursors_U(int x, int y)
             set.cursors.lookMode[1] == CursLookMode_Voltage || set.cursors.lookMode[1] == CursLookMode_Both)
         {
             Font::Set(TypeFont::_5);
-            PText::DrawChar(x + 10, y, 'c');
+            Char().Draw(x + 10, y, 'c');
             Font::Set(TypeFont::_8);
         }
         */

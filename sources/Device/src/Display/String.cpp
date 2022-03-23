@@ -409,7 +409,7 @@ int String::DrawSpaces(int x, int y, char *text, int *numSymbols)
 
     while (*text == ' ')
     {
-        x = PText::DrawChar(x, y, *text);
+        x = Char(*text).Draw(x, y);
         text++;
         (*numSymbols)++;
     }

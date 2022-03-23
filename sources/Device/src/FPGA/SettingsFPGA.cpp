@@ -860,8 +860,8 @@ void RShift::Draw(Chan ch)
         int rShift = SET_RSHIFT_MATH;
         float scale = (float)Grid::MathHeight() / 960;
         float y = (Grid::MathTop() + Grid::MathBottom()) / 2.0f - scale * (rShift - RShift::ZERO);
-        PText::DrawChar((int)(x - 9), (int)(y - 4), SYMBOL_RSHIFT_NORMAL, COLOR_FILL);
-        PText::DrawChar((int)(x - 8), (int)(y - 5), 'm', COLOR_BACK);
+        Char(SYMBOL_RSHIFT_NORMAL).Draw((int)(x - 9), (int)(y - 4), COLOR_FILL);
+        Char('m').Draw((int)(x - 8), (int)(y - 5), COLOR_BACK);
         return;
     }
 
@@ -882,21 +882,21 @@ void RShift::Draw(Chan ch)
 
     if (y > Grid::ChannelBottom())
     {
-        PText::DrawChar((int)(x - 7), Grid::ChannelBottom() - 11, SYMBOL_RSHIFT_LOWER, ColorChannel(ch));
+        Char(SYMBOL_RSHIFT_LOWER).Draw((int)(x - 7), Grid::ChannelBottom() - 11, ColorChannel(ch));
         Point().Set((int)(x - 5), Grid::ChannelBottom() - 2);
         y = (float)(Grid::ChannelBottom() - 7);
         x++;
     }
     else if (y < GRID_TOP)
     {
-        PText::DrawChar((int)(x - 7), GRID_TOP + 2, SYMBOL_RSHIFT_ABOVE, ColorChannel(ch));
+        Char(SYMBOL_RSHIFT_ABOVE).Draw((int)(x - 7), GRID_TOP + 2, ColorChannel(ch));
         Point().Set((int)(x - 5), GRID_TOP + 2);
         y = GRID_TOP + 7;
         x++;
     }
     else
     {
-        PText::DrawChar((int)(x - 8), (int)(y - 4), SYMBOL_RSHIFT_NORMAL, ColorChannel(ch));
+        Char(SYMBOL_RSHIFT_NORMAL).Draw((int)(x - 8), (int)(y - 4), ColorChannel(ch));
 
         if (RShift::showLevel[ch] && MODE_WORK_IS_DIRECT)
         {
@@ -910,9 +910,9 @@ void RShift::Draw(Chan ch)
     if ((!Menu::IsMinimize() || !Menu::IsShown()) && RShift::drawMarkers)
     {
         Region(4, 6).Fill(4, (int)(yFull - 3), ColorChannel(ch));
-        PText::DrawChar(5, (int)(yFull - 9 + dY), ch == Chan::A ? '1' : '2', COLOR_BACK);
+        Char(ch.IsA() ? '1' : '2').Draw(5, (int)(yFull - 9 + dY), COLOR_BACK);
     }
-    PText::DrawChar((int)(x - 7), (int)(y - 9 + dY), ch == Chan::A ? '1' : '2', COLOR_BACK);
+    Char(ch.IsA() ? '1' : '2').Draw((int)(x - 7), (int)(y - 9 + dY), COLOR_BACK);
     Font::Set(TypeFont::_8);
 }
 
@@ -938,28 +938,28 @@ void TrigLev::Draw()
     Color::SetCurrent(ColorTrig());
     if (y > Grid::ChannelBottom())
     {
-        PText::DrawChar(x + 3, Grid::ChannelBottom() - 11, SYMBOL_TRIG_LEV_LOWER);
+        Char(SYMBOL_TRIG_LEV_LOWER).Draw(x + 3, Grid::ChannelBottom() - 11);
         Point().Set(x + 5, Grid::ChannelBottom() - 2);
         y = Grid::ChannelBottom() - 7;
         x--;
     }
     else if (y < GRID_TOP)
     {
-        PText::DrawChar(x + 3, GRID_TOP + 2, SYMBOL_TRIG_LEV_ABOVE);
+        Char(SYMBOL_TRIG_LEV_ABOVE).Draw(x + 3, GRID_TOP + 2);
         Point().Set(x + 5, GRID_TOP + 2);
         y = GRID_TOP + 7;
         x--;
     }
     else
     {
-        PText::DrawChar(x + 1, y - 4, SYMBOL_TRIG_LEV_NORMAL);
+        Char(SYMBOL_TRIG_LEV_NORMAL).Draw(x + 1, y - 4);
     }
     Font::Set(TypeFont::_5);
 
     const char simbols[3] = {'1', '2', 'Â'};
     int dY = 0;
 
-    PText::DrawChar(x + 5, y - 9 + dY, simbols[TRIG_SOURCE], COLOR_BACK);
+    Char(simbols[TRIG_SOURCE]).Draw(x + 5, y - 9 + dY, COLOR_BACK);
     Font::Set(TypeFont::_8);
 
     if (RShift::drawMarkers && !Menu::IsMinimize())
@@ -974,7 +974,7 @@ void TrigLev::Draw()
         int yFull = (int)(GRID_TOP + Display::DELTA + height - scale * (shiftFull - RShift::MIN - TrigLev::MIN) - 4);
         Region(4, 6).Fill(left + 2, yFull + 1, ColorTrig());
         Font::Set(TypeFont::_5);
-        PText::DrawChar(left + 3, yFull - 5 + dY, simbols[TRIG_SOURCE], COLOR_BACK);
+        Char(simbols[TRIG_SOURCE]).Draw(left + 3, yFull - 5 + dY, COLOR_BACK);
         Font::Set(TypeFont::_8);
     }
 }

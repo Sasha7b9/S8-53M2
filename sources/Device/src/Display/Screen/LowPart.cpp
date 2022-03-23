@@ -108,8 +108,8 @@ void LowPart::Draw()
     {
         std::sprintf(buffer, "\xa5\x10%s\x10\xa5\x10%s\x10\xa5\x10", couple[TRIG_INPUT], polar[TRIG_POLARITY]);
         String(buffer).Draw(x + 18, y1);
-        PText::DrawChar(x + 45, y1, filtr[TRIG_INPUT][0]);
-        PText::DrawChar(x + 53, y1, filtr[TRIG_INPUT][1]);
+        Char(filtr[TRIG_INPUT][0]).Draw(x + 45, y1);
+        Char(filtr[TRIG_INPUT][1]).Draw(x + 53, y1);
     }
 
     buffer[0] = '\0';
@@ -192,8 +192,8 @@ void LowPart::Draw()
 
     if (!SET_PEAKDET_IS_DISABLED)
     {
-        PText::DrawChar(x + 38, GRID_BOTTOM + 11, '\x12');
-        PText::DrawChar(x + 46, GRID_BOTTOM + 11, '\x13');
+        Char('\x12').Draw(x + 38, GRID_BOTTOM + 11);
+        Char('\x13').Draw(x + 46, GRID_BOTTOM + 11);
     }
 
     if (MODE_WORK_IS_DIRECT)
