@@ -8,7 +8,7 @@
 #define ENTER_ANALYSIS                                  \
     Word parameter;                                     \
     if (GetWord(buffer, &parameter, 0)) {               \
-        uint8 value = GetValueFromMap(map, &parameter); \
+        uint8 value = map[0].GetValue(&parameter);      \
         if (value < 255) {
 
 #define LEAVE_ANALYSIS   }                              \

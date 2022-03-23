@@ -5,18 +5,20 @@
 
 
 
-uint8 GetValueFromMap(const MapElement *map, Word *eKey)
+uint8 MapElement::GetValue(Word *eKey) const
 {
     int numKey = 0;
-    char *key = map[numKey].key;
-    while (key != 0)
+    char *_key = this[numKey].key;
+
+    while (_key != 0)
     {
         if (WordEqualZeroString(eKey, key))
         {
-            return map[numKey].value;
+            return this[numKey].value;
         }
         numKey++;
-        key = map[numKey].key;
+        _key = this[numKey].key;
     }
+
     return 255;
 }
