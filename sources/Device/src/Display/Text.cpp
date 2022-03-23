@@ -143,7 +143,7 @@ void PText::DrawCharInColorDisplay(int eX, int eY, uchar symbol)
             {
                 if (BitInFontIsExist(symbol, b, bit))
                 {
-                    Painter::SetPoint(x, y);
+                    Point().Set(x, y);
                 }
                 x++;
             }
@@ -172,7 +172,7 @@ int PText::DrawBigChar(int eX, int eY, int size, char symbol)
                     {
                         for (int j = 0; j < size; j++)
                         {
-                            Painter::SetPoint(x + i, y + j);
+                            Point().Set(x + i, y + j);
                         }
                     }
                 }
@@ -201,7 +201,7 @@ int PText::DrawCharHard(int eX, int eY, char symbol)
             {
                 if (BitInFontIsExist(symbol, b, bit))
                 {
-                    Painter::SetPoint(x, y);
+                    Point().Set(x, y);
                 }
                 x++;
             }
@@ -251,7 +251,7 @@ int PText::DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int 
                 {
                     if ((x >= limitX) && (x <= (limitX + limitWidth)) && (y >= limitY) && (y <= limitY + limitHeight))
                     {
-                        Painter::SetPoint(x, y);
+                        Point().Set(x, y);
                     }
                 }
                 x++;

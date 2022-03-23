@@ -12,7 +12,7 @@
 namespace WelcomeScreen
 {
 
-    static Point points[8] =
+    static Point3D points[8] =
     {
         {-1.0,  1.0, -1.0},
         { 1.0,  1.0, -1.0},
@@ -132,10 +132,10 @@ bool WelcomeScreen::Run()
 void WelcomeScreen::Update() {
     Painter::BeginScene(Color::WHITE);
     for(int num = 0; num < 12; num++) {
-        Point p0 = mesh.points[mesh.edges[num].numPoint0];
-        Point p1 = mesh.points[mesh.edges[num].numPoint1];
-        Point p0out = p0;
-        Point p1out = p1;
+        Point3D p0 = mesh.points[mesh.edges[num].numPoint0];
+        Point3D p1 = mesh.points[mesh.edges[num].numPoint1];
+        Point3D p0out = p0;
+        Point3D p1out = p1;
 
         
         Mat4x4 matScale = {0};
@@ -148,8 +148,8 @@ void WelcomeScreen::Update() {
         Mat4x4 matRotate = {0};
         FillMatriceRotation(&matRotate, angleX, angleY, angleZ);
 
-        Point p0out2 = p0out;
-        Point p1out2 = p1out;
+        Point3D p0out2 = p0out;
+        Point3D p1out2 = p1out;
 
         TransformPoint(&matRotate, &p0out, &p0out2);
         TransformPoint(&matRotate, &p1out, &p1out2);
@@ -158,8 +158,8 @@ void WelcomeScreen::Update() {
         Mat4x4 matMove = {0};
         FillMatriceMov(&matMove, x, y, z);
 
-        Point p0out3 = p0out2;
-        Point p1out3 = p1out2;
+        Point3D p0out3 = p0out2;
+        Point3D p1out3 = p1out2;
 
         TransformPoint(&matMove, &p1out2, &p0out3);
         TransformPoint(&matMove, &p1out2, &p1out3);

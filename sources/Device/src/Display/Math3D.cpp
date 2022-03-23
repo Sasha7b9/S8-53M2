@@ -69,7 +69,7 @@ void SetMatriceTransform(Mat4x4 *matTransform, Mat4x4 *matScale, Mat4x4 *matRota
 }
 
 
-void TransformPoint(const Mat4x4 *mat, const Point *pointIn, Point *pointOut)
+void TransformPoint(const Mat4x4 *mat, const Point3D *pointIn, Point3D *pointOut)
 {
     pointOut->x = pointIn->x * mat->n[0][0] + pointIn->y * mat->n[1][0] + pointIn->z * mat->n[2][0] + mat->n[3][0]; //-V525
     pointOut->y = pointIn->x * mat->n[0][1] + pointIn->y * mat->n[1][1] + pointIn->z * mat->n[2][1] + mat->n[3][1];
@@ -77,7 +77,7 @@ void TransformPoint(const Mat4x4 *mat, const Point *pointIn, Point *pointOut)
 }
 
 
-void PresentPointToScreen(const Point *point, float *x, float *y)
+void PresentPointToScreen(const Point3D *point, float *x, float *y)
 {
     *x = point->x * (500.0f / point->z);
     *y = point->y * (500.0f / point->z);

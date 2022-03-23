@@ -333,7 +333,7 @@ void DataPainter::DrawSignalPointed(const uint8 *in, const DataSettings &ds, int
             int index = i - start;
             int dat = 0;
             CONVERT_DATA_TO_DISPLAY(dat, in[i]);
-            Painter::SetPoint((int)(Grid::Left() + index * scaleX), dat);
+            Point().Set((int)(Grid::Left() + index * scaleX), dat);
         }
     }
 }
@@ -677,7 +677,7 @@ void DataPainter::DrawSignal(const int _x, const uint8 data[281], bool modeLines
 
             if (y == y_prev)
             {
-                Painter::SetPoint(x, y);
+                Point().Set(x, y);
             }
             else if (y > y_prev)
             {
@@ -696,7 +696,7 @@ void DataPainter::DrawSignal(const int _x, const uint8 data[281], bool modeLines
     {
         for (int i = 0; i < 281; i++)
         {
-            Painter::SetPoint(x++, data[i]);
+            Point().Set(x++, data[i]);
         }
     }
 

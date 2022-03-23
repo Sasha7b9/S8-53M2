@@ -883,14 +883,14 @@ void RShift::Draw(Chan ch)
     if (y > Grid::ChannelBottom())
     {
         PText::DrawChar((int)(x - 7), Grid::ChannelBottom() - 11, SYMBOL_RSHIFT_LOWER, ColorChannel(ch));
-        Painter::SetPoint((int)(x - 5), Grid::ChannelBottom() - 2);
+        Point().Set((int)(x - 5), Grid::ChannelBottom() - 2);
         y = (float)(Grid::ChannelBottom() - 7);
         x++;
     }
     else if (y < GRID_TOP)
     {
         PText::DrawChar((int)(x - 7), GRID_TOP + 2, SYMBOL_RSHIFT_ABOVE, ColorChannel(ch));
-        Painter::SetPoint((int)(x - 5), GRID_TOP + 2);
+        Point().Set((int)(x - 5), GRID_TOP + 2);
         y = GRID_TOP + 7;
         x++;
     }
@@ -939,14 +939,14 @@ void TrigLev::Draw()
     if (y > Grid::ChannelBottom())
     {
         PText::DrawChar(x + 3, Grid::ChannelBottom() - 11, SYMBOL_TRIG_LEV_LOWER);
-        Painter::SetPoint(x + 5, Grid::ChannelBottom() - 2);
+        Point().Set(x + 5, Grid::ChannelBottom() - 2);
         y = Grid::ChannelBottom() - 7;
         x--;
     }
     else if (y < GRID_TOP)
     {
         PText::DrawChar(x + 3, GRID_TOP + 2, SYMBOL_TRIG_LEV_ABOVE);
-        Painter::SetPoint(x + 5, GRID_TOP + 2);
+        Point().Set(x + 5, GRID_TOP + 2);
         y = GRID_TOP + 7;
         x--;
     }

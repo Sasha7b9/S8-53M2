@@ -15,8 +15,6 @@ namespace Painter
     // По умолчанию запрашиваем первый фрейм с шрифтами
     void SendFrame(bool first, bool noFonts = false);
 
-    void SetPoint(int x, int y);
-
     void DrawHLine(int y, int x0, int x1, Color::E = Color::Count);
 
     void DrawVLine(int x, int y0, int y1, Color::E = Color::Count);
@@ -79,4 +77,10 @@ struct Region
     Region(int w, int h) : width(w), height(h) {}
 
     void Fill(int x, int y, Color::E = Color::Count);
+};
+
+
+struct Point
+{
+    void Set(int x, int y);
 };
