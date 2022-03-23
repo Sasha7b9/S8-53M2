@@ -4,10 +4,47 @@
 #include "Utils/GlobalFunctions.h"
 #include <cctype>
 #include <cstring>
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
 
 
 static bool ChooseSymbols(const uint8 **string);    // Возвращает false, если выбор невозможен - строка кончилась.
 static bool ChooseSpaces(const uint8 **string);     // Возвращает false, если выбор невозможен - строка кончилась.
+
+
+namespace SU
+{
+    static int NumDigitsInIntPart(float value)
+    {
+        float fabsValue = std::fabs(value);
+
+        int numDigitsInInt = 0;
+
+        if (fabsValue >= 10000)
+        {
+            numDigitsInInt = 5;
+        }
+        else if (fabsValue >= 1000)
+        {
+            numDigitsInInt = 4;
+        }
+        else if (fabsValue >= 100)
+        {
+            numDigitsInInt = 3;
+        }
+        else if (fabsValue >= 10)
+        {
+            numDigitsInInt = 2;
+        }
+        else
+        {
+            numDigitsInInt = 1;
+        }
+
+        return numDigitsInInt;
+    }
+}
 
 
 int GetNumWordsInString(const uint8 *string)
@@ -151,7 +188,7 @@ void SU::LogBufferU8(const uint8 *data, int num)
 
     for (int i = 0; i < num; i++)
     {
-        std::strcat(buffer, Int2String(data[i], false, 1).c_str());
+        std::strcat(buffer, SU::Int2String(data[i], false, 1).c_str());
         std::strcat(buffer, " ");
     }
 
@@ -170,7 +207,7 @@ void SU::LogBufferU8(pchar label, const uint8 *data, int num)
 
     for (int i = 0; i < num; i++)
     {
-        std::strcat(buffer, Int2String(data[i], false, 1).c_str());
+        std::strcat(buffer, SU::Int2String(data[i], false, 1).c_str());
         std::strcat(buffer, " ");
     }
 
@@ -189,9 +226,125 @@ void SU::LogBufferF(pchar label, const float *data, int num)
 
     for (int i = 0; i < num; i++)
     {
-        std::strcat(buffer, Float2String(data[i], false, 1).c_str());
+        std::strcat(buffer, SU::Float2String(data[i], false, 1).c_str());
         std::strcat(buffer, " ");
     }
 
     LOG_WRITE(buffer);
+}
+
+
+String SU::FloatFract2String(float value, bool alwaysSign)
+{
+    return Float2String(value, alwaysSign, 4);
+}
+
+
+String SU::Bin2String(uint8 value)
+{
+    char buffer[9];
+
+    for (int bit = 0; bit < 8; bit++)
+    {
+        buffer[7 - bit] = _GET_BIT(value, bit) ? '1' : '0';
+    }
+
+    return String(buffer);
+}
+
+
+String SU::Bin2String16(uint16 value)
+{
+    char buffer[19];
+
+    std::strcpy(buffer, Bin2String((uint8)(value >> 8)).c_str());
+    std::strcpy((buffer[8] = ' ', buffer + 9), Bin2String((uint8)value).c_str());
+
+    return String(buffer);
+}
+
+
+String SU::Float2String(float value, bool alwaysSign, int numDigits)
+{
+    char bufferOut[20];
+    char *pBuffer = bufferOut;
+
+    if (value == ERROR_VALUE_FLOAT)
+    {
+        return String(ERROR_STRING_VALUE);
+    }
+
+    if (!alwaysSign)
+    {
+        if (value < 0)
+        {
+            *pBuffer = '-';
+            pBuffer++;
+        }
+    }
+    else
+    {
+        *pBuffer = value < 0 ? '-' : '+';
+        pBuffer++;
+    }
+
+    char format[] = "%4.2f\0\0";
+
+    format[1] = (char)numDigits + 0x30;
+
+    int numDigitsInInt = NumDigitsInIntPart(value);
+
+    format[3] = (numDigits - numDigitsInInt) + 0x30;
+    if (numDigits == numDigitsInInt)
+    {
+        format[5] = '.';
+    }
+
+    std::snprintf(pBuffer, 19, format, std::fabs(value));
+
+    float val = std::atof(pBuffer);
+
+    if (NumDigitsInIntPart(val) != numDigitsInInt)
+    {
+        numDigitsInInt = NumDigitsInIntPart(val);
+        format[3] = (numDigits - numDigitsInInt) + 0x30;
+
+        if (numDigits == numDigitsInInt)
+        {
+            format[5] = '.';
+        }
+
+        std::sprintf(pBuffer, format, value);
+    }
+
+    bool signExist = alwaysSign || value < 0;
+
+    while ((int)std::strlen(bufferOut) < numDigits + (signExist ? 2 : 1))
+    {
+        std::strcat(bufferOut, "0");
+    }
+
+    return String(bufferOut);
+}
+
+
+String SU::Int2String(int value, bool alwaysSign, int numMinFields)
+{
+    char buffer[20];
+
+    char format[20] = "%";
+    std::sprintf(&(format[1]), "0%d", numMinFields);
+    std::strcat(format, "d");
+
+    if (alwaysSign && value >= 0)
+    {
+        buffer[0] = '+';
+        std::sprintf(buffer + 1, format, value);
+    }
+    else
+    {
+        std::sprintf(buffer, format, value);
+    }
+
+    return String(buffer);
 }

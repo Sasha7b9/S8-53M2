@@ -10,6 +10,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Display/font/Font.h"
 #include "Menu/Pages/Definition.h"
+#include "Utils/Strings.h"
 #include <cstring>
 #include <cstdio>
 
@@ -97,7 +98,7 @@ void Governor::DrawLowPart(int x, int y, bool, bool shade)
 
         if(delta == 0.0f)
         {
-            x = Int2String(*cell, false, 1).Draw(x + 1, y + 21);
+            x = SU::Int2String(*cell, false, 1).Draw(x + 1, y + 21);
         }
         else
         {
@@ -109,20 +110,20 @@ void Governor::DrawLowPart(int x, int y, bool, bool shade)
 
             if(delta > 0.0f)
             {
-                x = Int2String(*cell, false, 1).DrawWithLimitation(drawX, y + 21 - delta, COLOR_BACK, limX, limY, limWidth, limHeight);
-                Int2String(NextValue(), false, 1).DrawWithLimitation(drawX, y + 21 + 10 - delta, COLOR_BACK, limX, limY, limWidth, limHeight);
+                x = SU::Int2String(*cell, false, 1).DrawWithLimitation(drawX, y + 21 - delta, COLOR_BACK, limX, limY, limWidth, limHeight);
+                SU::Int2String(NextValue(), false, 1).DrawWithLimitation(drawX, y + 21 + 10 - delta, COLOR_BACK, limX, limY, limWidth, limHeight);
             }
 
             if(delta < 0.0f)
             {
-                x = Int2String(*cell, false, 1).DrawWithLimitation(drawX, y + 21 - delta, COLOR_BACK, limX, limY, limWidth, limHeight);
-                Int2String(PrevValue(), false, 1).DrawWithLimitation(drawX, y + 21 - 10 - delta, COLOR_BACK, limX, limY, limWidth, limHeight);
+                x = SU::Int2String(*cell, false, 1).DrawWithLimitation(drawX, y + 21 - delta, COLOR_BACK, limX, limY, limWidth, limHeight);
+                SU::Int2String(PrevValue(), false, 1).DrawWithLimitation(drawX, y + 21 - 10 - delta, COLOR_BACK, limX, limY, limWidth, limHeight);
             }
         }
     }
     else
     {
-        x = Int2String(*cell, false, 1).Draw(x + 1, y + 21, COLOR_FILL);
+        x = SU::Int2String(*cell, false, 1).Draw(x + 1, y + 21, COLOR_FILL);
     }
 
     String("\x81").Draw(x + 1, y + 21, colorTextDown);
@@ -440,7 +441,7 @@ void GovernorColor::DrawValue(int x, int y, int delta)
         Color::E colorDraw = (field == i) ? Color::BLACK : Color::WHITE;
         Region(29, 10).Fill(x - 1, y + 1, colorBack);
         String(texts[i]).Draw(x, y + 2, colorDraw);
-        Int2String(vals[i], false, 1).Draw(x + 14, y + 2);
+        SU::Int2String(vals[i], false, 1).Draw(x + 14, y + 2);
         x -= 30;
     }
     
@@ -557,12 +558,12 @@ void Time::DrawOpened(int x, int y)
 
     char strI[8][20];
     std::strcpy(strI[iEXIT],     "Не сохранять");
-    std::strcpy(strI[iDAY],      Int2String(*day,      false, 2).c_str());
-    std::strcpy(strI[iMONTH],    Int2String(*month,    false, 2).c_str());
-    std::strcpy(strI[iYEAR],     Int2String(*year,     false, 2).c_str());
-    std::strcpy(strI[iHOURS],    Int2String(*hours,    false, 2).c_str());
-    std::strcpy(strI[iMIN],      Int2String(*minutes,  false, 2).c_str());
-    std::strcpy(strI[iSEC],      Int2String(*seconds,  false, 2).c_str());
+    std::strcpy(strI[iDAY],      SU::Int2String(*day,      false, 2).c_str());
+    std::strcpy(strI[iMONTH],    SU::Int2String(*month,    false, 2).c_str());
+    std::strcpy(strI[iYEAR],     SU::Int2String(*year,     false, 2).c_str());
+    std::strcpy(strI[iHOURS],    SU::Int2String(*hours,    false, 2).c_str());
+    std::strcpy(strI[iMIN],      SU::Int2String(*minutes,  false, 2).c_str());
+    std::strcpy(strI[iSEC],      SU::Int2String(*seconds,  false, 2).c_str());
     std::strcpy(strI[iSET],      "Сохранить");
 
     String("д м г - ").Draw(x + 3, y + y0, COLOR_FILL);
@@ -604,8 +605,8 @@ void Governor::DrawOpened(int x, int y)
 
     Font::Set(TypeFont::_5);
     bool sign = minValue < 0;
-    Int2String(maxValue, sign, 1).Draw(x + 55, y - 10, COLOR_FILL);
-    Int2String(minValue, sign, 1).Draw(x + 55, y - 3);
+    SU::Int2String(maxValue, sign, 1).Draw(x + 55, y - 10, COLOR_FILL);
+    SU::Int2String(minValue, sign, 1).Draw(x + 55, y - 3);
     Font::Set(TypeFont::_8);
 
     DrawValueWithSelectedPosition(x + 40, y, value, NumDigits(), Governor::cur_digit, true);
@@ -699,18 +700,18 @@ void Time::DrawClosed(int x, int y)
     int startX = 3;
     y += 21;
     PackedTime time = HAL_RTC::GetPackedTime();
-    Int2String((int)time.hours, false, 2).Draw(x + startX, y, COLOR_BACK);
+    SU::Int2String((int)time.hours, false, 2).Draw(x + startX, y, COLOR_BACK);
     String(":").Draw(x + startX + deltaField, y);
-    Int2String((int)time.minutes, false, 2).Draw(x + startX + deltaField + deltaSeparator, y);
+    SU::Int2String((int)time.minutes, false, 2).Draw(x + startX + deltaField + deltaSeparator, y);
     String(":").Draw(x + startX + 2 * deltaField + deltaSeparator, y);
-    Int2String((int)time.seconds, false, 2).Draw(x + startX + 2 * deltaField + 2 * deltaSeparator, y);
+    SU::Int2String((int)time.seconds, false, 2).Draw(x + startX + 2 * deltaField + 2 * deltaSeparator, y);
 
     startX = 44;
-    Int2String((int)time.day, false, 2).Draw(x + startX, y);
+    SU::Int2String((int)time.day, false, 2).Draw(x + startX, y);
     String(":").Draw(x + startX + deltaField, y);
-    Int2String((int)time.month, false, 2).Draw(x + startX + deltaField + deltaSeparator, y);
+    SU::Int2String((int)time.month, false, 2).Draw(x + startX + deltaField + deltaSeparator, y);
     String(":").Draw(x + startX + 2 * deltaField + deltaSeparator, y);
-    Int2String((int)time.year, false, 2).Draw(x + startX + 2 * deltaField + 2 * deltaSeparator, y);
+    SU::Int2String((int)time.year, false, 2).Draw(x + startX + 2 * deltaField + 2 * deltaSeparator, y);
 }
 
 void Time::Draw(int x, int y, bool opened)

@@ -23,6 +23,7 @@
 #include "Data/Data.h"
 #include "Data/DataExtensions.h"
 #include "Data/Processing.h"
+#include "Utils/Strings.h"
 #include <cstring>
 #include <cstdio>
 
@@ -90,9 +91,9 @@ static void FuncDrawingAdditionSPageMemoryLast()
     int height = 10;
     Region(width, height).Fill(Grid::Right() - width, GRID_TOP, COLOR_BACK);
     Rectangle(width, height).Draw(Grid::Right() - width, GRID_TOP, COLOR_FILL);
-    Int2String(PageMemory::Latest::current + 1, false, 3).Draw(Grid::Right() - width + 2, GRID_TOP + 1);
+    SU::Int2String(PageMemory::Latest::current + 1, false, 3).Draw(Grid::Right() - width + 2, GRID_TOP + 1);
     String("/").Draw(Grid::Right() - width + 17, GRID_TOP + 1);
-    Int2String(Storage::NumFrames(), false, 3).Draw(Grid::Right() - width + 23, GRID_TOP + 1);
+    SU::Int2String(Storage::NumFrames(), false, 3).Draw(Grid::Right() - width + 23, GRID_TOP + 1);
 }
 
 void DrawSB_MemLast_IntEnter(int x, int y)
@@ -555,7 +556,7 @@ static void DrawMemoryWave(int num, bool exist)
     Color::SetCurrent(num == PageMemory::Internal::currentSignal ? Color::FLASH_01 : COLOR_FILL);
     if (exist)
     {
-        Int2String(num + 1, false, 2).Draw(x + 2, y + 1);
+        SU::Int2String(num + 1, false, 2).Draw(x + 2, y + 1);
     }
     else
     {

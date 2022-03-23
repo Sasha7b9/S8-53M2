@@ -3,6 +3,7 @@
 #include "Log.h"
 #include "Utils/Containers/Buffer.h"
 #include "Utils/GlobalFunctions.h"
+#include "Utils/Strings.h"
 #include <cstdlib>
 #include <cstring>
 
@@ -199,7 +200,7 @@ void Buffer<T>::Log() const
 
     for (int i = 0; i < Size(); i++)
     {
-        std::strcat(buffer, Int2String(data[i], false, 1).c_str());
+        std::strcat(buffer, SU::Int2String(data[i], false, 1).c_str());
         std::strcat(buffer, " ");
     }
 

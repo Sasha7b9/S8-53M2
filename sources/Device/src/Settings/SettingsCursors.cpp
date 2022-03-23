@@ -7,6 +7,7 @@
 #include "Utils/Math.h"
 #include "Utils/GlobalFunctions.h"
 #include "Menu/Pages/Definition.h"
+#include "Utils/Strings.h"
 #include <cmath>
 #include <cstring>
 
@@ -43,7 +44,7 @@ String PageCursors::GetCursorPercentsU(Chan source)
     float dPerc = DELTA_U100(source);
     float dValue = std::fabs(PageCursors::GetCursPosU(source, 0) - PageCursors::GetCursPosU(source, 1));
 
-    String result = Float2String(dValue / dPerc * 100.0f, false, 5);
+    String result = SU::Float2String(dValue / dPerc * 100.0f, false, 5);
     result.Append("%");
 
     return result;
@@ -55,7 +56,7 @@ String PageCursors::GetCursorPercentsT(Chan source)
     float dPerc = DELTA_T100(source);
     float dValue = std::fabs(CURS_POS_T0(source) - CURS_POS_T1(source));
 
-    String result = Float2String(dValue / dPerc * 100.0f, false, 6);
+    String result = SU::Float2String(dValue / dPerc * 100.0f, false, 6);
     result.Append("%d");
 
     return result;

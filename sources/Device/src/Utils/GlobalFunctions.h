@@ -4,23 +4,6 @@
 #include "Display/Text.h"
 
 
-namespace GF
-{
-    String Bin2String(uint8 value);
-
-    String Bin2String16(uint16 value);
-}
-
-
-
-String FloatFract2String(float value, bool alwaysSign);
-
-String Float2String(float value, bool alwaysSign, int numDigits);                         
-
-String Hex8toString(uint8 value);
-
-String Int2String(int value, bool alwaysSign, int numMinFields);
-
 bool    String2Int(char *str, int *value);
 String Voltage2String(float voltage, bool alwaysSign);
 String Time2String(float time, bool alwaysSign);

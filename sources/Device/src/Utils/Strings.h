@@ -1,5 +1,6 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
+#include "Display/Text.h"
 
 
 struct Word
@@ -18,6 +19,18 @@ bool EqualsZeroStrings(char *str1, char *str2);
 
 namespace SU
 {
+    String Bin2String(uint8 value);
+
+    String Bin2String16(uint16 value);
+
+    String FloatFract2String(float value, bool alwaysSign);
+
+    String Float2String(float value, bool alwaysSign, int numDigits);
+
+    String Hex8toString(uint8 value);
+
+    String Int2String(int value, bool alwaysSign, int numMinFields);
+
     void LogBufferU8(const uint8 *data, int num);
     void LogBufferU8(pchar label, const uint8 *data, int num);
     void LogBufferF(pchar label, const float *data, int num);
