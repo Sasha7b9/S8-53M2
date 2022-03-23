@@ -4,12 +4,6 @@
 #include "Display/Warnings.h"
 
 
-enum WarningWithNumber
-{
-    ExcessValues        // Превышение значения количества сигналов в "НАКОПЛЕНИЕ", "УСРЕДНЕНИЕ", "Мин Макс"
-};
-
-
 namespace Tables
 {
     pchar GetWarning(Warning::E);
