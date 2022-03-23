@@ -107,7 +107,7 @@ static void DrawHintItem(int x, int y, int width)
     }
 
     PText::DrawStringInCenterRectAndBoundIt(x, y, width, 15, title, COLOR_BACK, COLOR_FILL);
-    y = PText::DrawInBoundedRectWithTransfers(x, y + 15, width, HINT(item), COLOR_BACK, COLOR_FILL);
+    y = String(HINT(item)).DrawInBoundedRectWithTransfers(x, y + 15, width, COLOR_BACK, COLOR_FILL);
 
     if (item->type == TypeItem::SmallButton)
     {
@@ -139,17 +139,16 @@ void Menu::Draw()
         const int x = 0;
         int y = 0;
         int width = IsMinimize() ? 289 : 220;
-        PText::DrawInBoundedRectWithTransfers(x + 1, y, width - 1, //-V2007
-            LANG_RU ?    "Включён режим подсказок. В этом режиме при нажатии на кнопку на экран выводится информация о её назначении. "
-                                                "Чтобы выключить этот режим, нажмите кнопку ПОМОЩЬ и удерживайте её в течение 0.5с." : 
-                                                "Mode is activated hints. In this mode, pressing the button displays the information on its purpose. "
-                                                "To disable this mode, press the button HELP and hold it for 0.5s.",
-                                                COLOR_BACK, COLOR_FILL);
+        String(LANG_RU ? "Включён режим подсказок. В этом режиме при нажатии на кнопку на экран выводится информация о её назначении. "
+            "Чтобы выключить этот режим, нажмите кнопку ПОМОЩЬ и удерживайте её в течение 0.5с." :
+            "Mode is activated hints. In this mode, pressing the button displays the information on its purpose. "
+            "To disable this mode, press the button HELP and hold it for 0.5s.").DrawInBoundedRectWithTransfers(x + 1, y, width - 1, COLOR_BACK, COLOR_FILL);
+
         y += LANG_RU ? 49 : 40;
 
         if (Hint::string)
         {
-            PText::DrawInBoundedRectWithTransfers(x + 1, y, width - 1, Hint::string, COLOR_BACK, COLOR_FILL); //-V2007
+            String(Hint::string).DrawInBoundedRectWithTransfers(x + 1, y, width - 1, COLOR_BACK, COLOR_FILL); //-V2007
         }
         else if (Hint::item)
         {

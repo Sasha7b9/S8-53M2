@@ -626,14 +626,15 @@ bool PText::GetHeightTextWithTransfers(int left, int top, int right, pchar text,
 }
 
 
-int PText::DrawInBoundedRectWithTransfers(int x, int y, int width, pchar text, Color::E colorBackground, Color::E colorFill)
+int String::DrawInBoundedRectWithTransfers(int x, int y, int width, Color::E colorBackground, Color::E colorFill)
 {
     int height = 0;
-    GetHeightTextWithTransfers(x + 3, y + 3, x + width - 8, text, &height);
+
+    PText::GetHeightTextWithTransfers(x + 3, y + 3, x + width - 8, buffer, &height);
 
     Rectangle(width, height).Draw(x, y, colorFill);
     Region(width - 2, height - 2).Fill(x + 1, y + 1, colorBackground);
-    String(text).DrawInRectWithTransfers(x + 3, y + 3, width - 8, height, colorFill);
+    DrawInRectWithTransfers(x + 3, y + 3, width - 8, height, colorFill);
     return y + height;
 }
 

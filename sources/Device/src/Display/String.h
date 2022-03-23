@@ -45,6 +45,8 @@ public:
     int DrawInRectWithTransfers(int x, int y, int width, int height, Color::E = Color::Count);
     // Выводит текст на прямоугольнике цвета colorBackgound
     int DrawOnBackground(int x, int y, Color::E colorBackground);
+    // Возвращает нижнюю координату прямоугольника.
+    int DrawInBoundedRectWithTransfers(int x, int y, int width, Color::E colorBackground, Color::E colorFill);
 
 private:
 
