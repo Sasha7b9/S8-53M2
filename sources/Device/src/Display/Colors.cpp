@@ -128,7 +128,7 @@ void ColorType::CalcSteps()
 
 void ColorType::SetBrightness()
 {
-    brightness = MaxFloat(red / 31.0f, green / 63.0f, blue / 31.0f);
+    brightness = MaxFloat(red / 255.0f, green / 255.0f, blue / 255.0f);
 
     CalcSteps();
 }
@@ -200,9 +200,9 @@ void ColorType::Init()
 
         if (red == 0.0f && green == 0.0f && blue == 0.0f)
         {
-            stepRed = 0.31f;
-            stepGreen = 0.63f;
-            stepBlue = 0.31f;
+            stepRed = 2.55f;
+            stepGreen = 2.55f;
+            stepBlue = 2.55f;
         }
     }
 }
@@ -211,7 +211,7 @@ void ColorType::Init()
 
 void ColorType::ComponentChange(int delta)
 {
-    static const float maxs[4] = {0.0f, 31.0f, 63.0f, 31.0f};
+    static const float maxs[4] = {0.0f, 255.0f, 255.0f, 255.0f};
     int8 index = currentField;
 
     if (index >= 1 && index <= 3)

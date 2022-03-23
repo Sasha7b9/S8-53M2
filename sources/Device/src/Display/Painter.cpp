@@ -691,9 +691,9 @@ bool Painter::SaveScreenToFlashDrive() {
     for(int i = 0; i < 16; i++)
     {
         uint color = set.display.colors[i];
-        colorStruct.blue = (uint8)((float)B_FROM_COLOR(color) / 31.0f * 255.0f);
-        colorStruct.green = (uint8)((float)G_FROM_COLOR(color) / 63.0f * 255.0f);
-        colorStruct.red = (uint8)((float)R_FROM_COLOR(color) / 31.0f * 255.0f);
+        colorStruct.blue = (uint8)((float)B_FROM_COLOR(color));
+        colorStruct.green = (uint8)((float)G_FROM_COLOR(color));
+        colorStruct.red = (uint8)((float)R_FROM_COLOR(color));
         colorStruct.rgbReserved = 0;
         ((RGBQUAD*)(buffer))[i] = colorStruct;
     }
