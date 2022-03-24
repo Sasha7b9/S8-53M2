@@ -52,7 +52,7 @@ static void DrawGovernorChoiceColorFormulaHiPart(Item *item, int x, int y, bool 
         }
         else if (type == TypeItem::ChoiceReg || (item->IsOpened() && type == TypeItem::Choice))
         {
-            symbol = Regulator::GetSymbol(*((Choice*)item)->cell);
+            symbol = Regulator::GetSymbol();
         }
         else if (type == TypeItem::Time)
         {
