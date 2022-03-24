@@ -822,7 +822,7 @@ void StartMode::Set(StartMode::E mode)
 {
     START_MODE = mode;
 
-    FPGA::Stop(false);
+    FPGA::Stop();
 
     if (!START_MODE_IS_SINGLE)
     {

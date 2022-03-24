@@ -83,7 +83,7 @@ namespace FPGA
     void Start();
 
     // Прерывает процесс сбора информации.
-    void Stop(bool pause);
+    void Stop();
 
     // Возвращает true, если прибор находится не в процессе сбора информации.
     bool IsRunning();

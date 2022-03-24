@@ -143,7 +143,7 @@ void FPGA::Reader::Read1024Points(uint8 buffer[1024], Chan ch)
 
     while (_GET_BIT(fl, FL_DATA) == 0) { fl = HAL_FMC::Read(RD_FL); }
 
-    FPGA::Stop(false);
+    FPGA::Stop();
 
     FPGA::Reader::ReadPoints(ch, buffer, &buffer[0] + 1024);
 }

@@ -102,7 +102,7 @@ void FPGA::Calibrator::RunCalibrate()
 {
     bool isRunning = FPGA::IsRunning();
 
-    FPGA::Stop(false);
+    FPGA::Stop();
 
     Display::SetDrawMode(DrawMode::Hand, FunctionDraw);
 

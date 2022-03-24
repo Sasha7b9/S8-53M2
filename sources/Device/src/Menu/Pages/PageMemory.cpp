@@ -927,6 +927,11 @@ static bool FuncActiveMemoryNumPoinst()
 
 void PageMemory::OnChanged_NumPoints(bool)
 {
+    bool running = FPGA::IsRunning();
+    FPGA::Stop();
+
+    Storage::Clear();
+
     Averager::Reset();
 
     if (ENUM_POINTS_FPGA::ToNumPoints() == 281)
@@ -950,6 +955,11 @@ void PageMemory::OnChanged_NumPoints(bool)
     }
 
     TShift::Set(SET_TSHIFT);
+
+    if (running)
+    {
+        FPGA::Start();
+    }
 }
 
 
@@ -1137,7 +1147,7 @@ void OnPressMemoryLatest()
 {
     PageMemory::Latest::current = 0;
     FPGA::runningBeforeSmallButtons = FPGA::IsRunning();
-    FPGA::Stop(false);
+    FPGA::Stop();
     MODE_WORK = ModeWork::Latest;
 }
 

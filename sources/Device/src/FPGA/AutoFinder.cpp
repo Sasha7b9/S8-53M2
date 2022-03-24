@@ -80,7 +80,7 @@ void FPGA::AutoFinder::FindSignal()
 
     Settings old = set;
 
-    FPGA::Stop(false);
+    FPGA::Stop();
 
     if (!FindWave(ChA))
     {
@@ -129,7 +129,7 @@ static bool FPGA::AutoFinder::FindRange(Chan ch)
     PeackDetMode::E peackDet = SET_PEAKDET;
     Range::E range = SET_RANGE(ch);
 
-    FPGA::Stop(false);
+    FPGA::Stop();
 
     PeackDetMode::Set(PeackDetMode::Enable);
 
@@ -177,7 +177,7 @@ bool FPGA::AutoFinder::DataFinder::ReadDataWithSynchronization(Chan ch, uint tim
     {
         if (waiter.ElapsedTime() > time_wait)
         {
-            FPGA::Stop(false);
+            FPGA::Stop();
 
             return false;
         }
@@ -245,7 +245,7 @@ bool FPGA::AutoFinder::FindTBase()
 
     while (_GET_BIT(FPGA::flag.Read(), FL_FREQ) == 0) { };
 
-    Stop(false);
+    Stop();
     float freq = FreqMeter::GetFreq();
 
     TrigInput::Set(freq < 1e6f ? TrigInput::LPF : TrigInput::Full);
@@ -254,7 +254,7 @@ bool FPGA::AutoFinder::FindTBase()
 
     while (_GET_BIT(FPGA::flag.Read(), FL_FREQ) == 0) { };
 
-    Stop(false);
+    Stop();
     freq = FreqMeter::GetFreq();
 
     if (freq >= 50.0f)

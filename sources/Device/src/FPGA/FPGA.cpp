@@ -163,7 +163,7 @@ void FPGA::ProcessingData()
     {
         Panel::EnableLEDTrig(true);
 
-        Stop(true);
+        Stop();
 
         Reader::DataRead();
 
@@ -174,7 +174,7 @@ void FPGA::ProcessingData()
         }
         else
         {
-            Stop(false);
+            Stop();
         }
     }
     else
@@ -241,13 +241,16 @@ bool FPGA::IsRunning()
 }
 
 
-void FPGA::Stop(bool pause)
+void FPGA::Stop()
 {
-    Timer::Disable(TypeTimer::P2P);
+    if (FPGA::IsRunning())
+    {
+        Timer::Disable(TypeTimer::P2P);
 
-    HAL_FMC::Write(WR_STOP, 1);
+        HAL_FMC::Write(WR_STOP, 1);
 
-    StateWorkFPGA::SetCurrent(pause ? StateWorkFPGA::Pause : StateWorkFPGA::Stop);
+        StateWorkFPGA::SetCurrent(StateWorkFPGA::Stop);
+    }
 }
 
 
@@ -259,7 +262,7 @@ void FPGA::OnPressStartStop()
     }
     else
     {
-        FPGA::Stop(false);
+        FPGA::Stop();
     }
 }
 
@@ -298,7 +301,7 @@ void BUS_FPGA::WriteDAC(TypeWriteDAC::E, uint16 data)
 {
     bool running = FPGA::IsRunning();
 
-    FPGA::Stop(false);
+    FPGA::Stop();
 
     Pin::SPI4_CS1.Reset();
 
@@ -322,7 +325,7 @@ void BUS_FPGA::WriteAnalog(TypeWriteAnalog::E, uint data)
 {
     bool running = FPGA::IsRunning();
 
-    FPGA::Stop(false);
+    FPGA::Stop();
 
     Pin::SPI4_CS2.Reset();
 
@@ -439,7 +442,7 @@ void BUS_FPGA::Write(uint16 *address, uint16 data, bool restart)
 
     if (restart)
     {
-        FPGA::Stop(false);
+        FPGA::Stop();
     }
 
     HAL_FMC::Write(address, data);
