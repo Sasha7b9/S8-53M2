@@ -578,6 +578,10 @@ struct Hint
 
 struct Regulator
 {
+    static char GetSymbol();
+
+    static int angle;
+
     // Возвращает изображение регулятора, соответствующее его текущему положению.
     static char GetSymbol(int value);
 };

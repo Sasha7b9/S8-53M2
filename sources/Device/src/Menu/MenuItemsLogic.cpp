@@ -303,3 +303,9 @@ char Regulator::GetSymbol(int value)
     }
     return chars[value % 4];
 }
+
+
+char Regulator::GetSymbol()
+{
+    return GetSymbol(angle);
+}

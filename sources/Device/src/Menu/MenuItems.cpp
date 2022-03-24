@@ -8,6 +8,8 @@
 #include "Utils/Math.h"
 
 
+int Regulator::angle = 0;
+
 int8 MACaddress::cur_digit = 0;
 int8 IPaddress::cur_digit = 0;
 int8 Governor::cur_digit = 0;
