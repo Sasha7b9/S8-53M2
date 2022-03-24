@@ -28,7 +28,7 @@ namespace Processing
 
     MeasureValue values[Measure::Count] = {{0.0f, 0.0f}};
 
-    int markerHor[Chan::Count][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
+    int markerVolt[Chan::Count][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
     int markerVert[Chan::Count][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
 
     bool max_ready[2] = {false, false};
@@ -154,7 +154,7 @@ void Processing::CalculateMeasures()
                 if(meas == MEAS_MARKED || MEAS_MARKED_IS_NONE)
                 {
                     markerVert[Chan::A][0] = markerVert[Chan::A][1] = markerVert[Chan::B][0] = markerVert[Chan::B][1] = ERROR_VALUE_INT;
-                    markerHor[Chan::A][0] = markerHor[Chan::A][1] = markerHor[Chan::B][0] = markerHor[Chan::B][1] = ERROR_VALUE_INT;
+                    markerVolt[Chan::A][0] = markerVolt[Chan::A][1] = markerVolt[Chan::B][0] = markerVolt[Chan::B][1] = ERROR_VALUE_INT;
                 }
                 if(MEAS_SOURCE_IS_A || MEAS_SOURCE_IS_A_B)
                 {
@@ -177,7 +177,7 @@ float Processing::CalculateVoltageMax(Chan::E ch)
 
     if(MEAS_MARKED == Measure::VoltageMax)
     {
-        markerHor[ch][0] = max;                           // Здесь не округляем, потому что max может быть только целым
+        markerVolt[ch][0] = max;                           // Здесь не округляем, потому что max может быть только целым
     }
 
     return ValueFPGA::ToVoltage(max, out.ds.range[ch], out.ds.GetRShift(ch)) * SET_DIVIDER_ABS(ch);
@@ -190,7 +190,7 @@ float Processing::CalculateVoltageMin(Chan::E ch)
 
     if(MEAS_MARKED == Measure::VoltageMin)
     {
-        markerHor[ch][0] = min;                           // Здесь не округляем, потому что min может быть только целым
+        markerVolt[ch][0] = min;                           // Здесь не округляем, потому что min может быть только целым
     }
 
     return ValueFPGA::ToVoltage(min, out.ds.range[ch], out.ds.GetRShift(ch)) * SET_DIVIDER_ABS(ch);
@@ -205,8 +205,8 @@ float Processing::CalculateVoltagePic(Chan::E ch)
 
     if(MEAS_MARKED == Measure::VoltagePic)
     {
-        markerHor[ch][0] = CalculateMaxRel(ch);
-        markerHor[ch][1] = CalculateMinRel(ch);
+        markerVolt[ch][0] = CalculateMaxRel(ch);
+        markerVolt[ch][1] = CalculateMinRel(ch);
     }
     return max - min;
 }
@@ -218,7 +218,7 @@ float Processing::CalculateVoltageMinSteady(Chan::E ch)
 
     if(MEAS_MARKED == Measure::VoltageMinSteady)
     {
-        markerHor[ch][0] = ROUND(min);
+        markerVolt[ch][0] = ROUND(min);
     }
 
     return ValueFPGA::ToVoltage(min, out.ds.range[ch], out.ds.GetRShift(ch)) * SET_DIVIDER_ABS(ch);
@@ -232,7 +232,7 @@ float Processing::CalculateVoltageMaxSteady(Chan::E ch)
 
     if(MEAS_MARKED == Measure::VoltageMaxSteady)
     {
-        markerHor[ch][0] = max;
+        markerVolt[ch][0] = max;
     }
 
     Range::E range = out.ds.range[ch];
@@ -249,8 +249,8 @@ float Processing::CalculateVoltageVybrosPlus(Chan::E ch)
 
     if (MEAS_MARKED == Measure::VoltageVybrosPlus)
     {
-        markerHor[ch][0] = max;
-        markerHor[ch][1] = maxSteady;
+        markerVolt[ch][0] = max;
+        markerVolt[ch][1] = maxSteady;
     }
 
     int16 rShift = out.ds.GetRShift(ch);
@@ -267,8 +267,8 @@ float Processing::CalculateVoltageVybrosMinus(Chan::E ch)
 
     if (MEAS_MARKED == Measure::VoltageVybrosMinus)
     {
-        markerHor[ch][0] = min;
-        markerHor[ch][1] = minSteady;
+        markerVolt[ch][0] = min;
+        markerVolt[ch][1] = minSteady;
     }
 
     int16 rShift = out.ds.GetRShift(ch);
@@ -286,8 +286,8 @@ float Processing::CalculateVoltageAmpl(Chan::E ch)
 
     if(MEAS_MARKED == Measure::VoltageAmpl)
     {
-        markerHor[ch][0] = CalculateMaxSteadyRel(ch);
-        markerHor[ch][1] = CalculateMinSteadyRel(ch);
+        markerVolt[ch][0] = CalculateMaxSteadyRel(ch);
+        markerVolt[ch][1] = CalculateMinSteadyRel(ch);
     }
     return max - min;
 }
@@ -310,7 +310,7 @@ float Processing::CalculateVoltageAverage(Chan::E ch)
 
     if(MEAS_MARKED == Measure::VoltageAverage)
     {
-        markerHor[ch][0] = aveRel;
+        markerVolt[ch][0] = aveRel;
     }
 
     return ValueFPGA::ToVoltage(aveRel, out.ds.range[ch], out.ds.GetRShift(ch)) * SET_DIVIDER_ABS(ch);
@@ -333,7 +333,7 @@ float Processing::CalculateVoltageRMS(Chan::E ch)
 
     if(MEAS_MARKED == Measure::VoltageRMS)
     {
-        markerHor[ch][0] = ValueFPGA::FromVoltage(std::sqrt(rms / period), out.ds.range[ch], rShift);
+        markerVolt[ch][0] = ValueFPGA::FromVoltage(std::sqrt(rms / period), out.ds.range[ch], rShift);
     }
 
     return std::sqrt(rms / period) * SET_DIVIDER_ABS(ch);
@@ -573,8 +573,8 @@ float Processing::CalculateTimeNarastaniya(Chan::E ch)                    // WAR
 
     if (MEAS_MARKED == Measure::TimeNarastaniya)
     {
-        markerHor[ch][0] = max09;
-        markerHor[ch][1] = min01;
+        markerVolt[ch][0] = max09;
+        markerVolt[ch][1] = min01;
         markerVert[ch][0] = firstIntersection - SHIFT_IN_MEMORY;
         markerVert[ch][1] = secondIntersection - SHIFT_IN_MEMORY;
     }
@@ -609,8 +609,8 @@ float Processing::CalculateTimeSpada(Chan::E ch)                          // WAR
 
     if (MEAS_MARKED == Measure::TimeSpada)
     {
-        markerHor[ch][0] = max09;
-        markerHor[ch][1] = min01;
+        markerVolt[ch][0] = max09;
+        markerVolt[ch][1] = min01;
         markerVert[ch][0] = firstIntersection - SHIFT_IN_MEMORY;
         markerVert[ch][1] = secondIntersection - SHIFT_IN_MEMORY;
     }
@@ -1141,9 +1141,9 @@ String Processing::GetStringMeasure(Measure::E measure, Chan ch)
     return result;
 }
 
-int Processing::GetMarkerHorizontal(Chan ch, int numMarker)
+int Processing::GetMarkerVoltage(Chan ch, int numMarker)
 {
-    return markerHor[ch][numMarker] - ValueFPGA::MIN;
+    return markerVolt[ch][numMarker] - ValueFPGA::MIN;
 }
 
 int Processing::GetMarkerVertical(Chan ch, int numMarker)

@@ -182,7 +182,7 @@ void DataPainter::DrawMarkersForMeasure(float scale, Chan ch)
 
     for (int numMarker = 0; numMarker < 2; numMarker++)
     {
-        int pos = Processing::GetMarkerHorizontal(ch, numMarker);
+        int pos = Processing::GetMarkerVoltage(ch, numMarker);
 
         if (pos != ERROR_VALUE_INT && pos > 0 && pos < 200)
         {

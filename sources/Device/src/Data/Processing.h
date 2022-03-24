@@ -29,7 +29,7 @@ namespace Processing
     void CalculateMeasures();
 
     // ¬озвращает значение горизонтального маркера. ≈сли ERROR_VALUE_INT - маркер рисовать не нужно.
-    int GetMarkerHorizontal(Chan, int numMarker);
+    int GetMarkerVoltage(Chan, int numMarker);
 
     // ¬озвращает значение вертикального маркера. ≈сли ERROR_VALUE_INT - маркер рисовать не нужно.
     int GetMarkerVertical(Chan, int numMarker);
