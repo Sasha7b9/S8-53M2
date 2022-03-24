@@ -321,18 +321,6 @@ void Menu::ShortPress_ChoiceReg(Item *choice)
     {
         ((Choice *)choice)->ChangeValue(-1);
     }
-
-
-    /*
-    if(!choice->IsActive()) 
-    {
-        ((Choice *)choice)->FuncOnChanged(false);
-    } 
-    else if(Item::Opened() != choice)
-    {
-        choice->SetCurrent(Item::Current() != choice);
-    }
-    */
 }
 
 
