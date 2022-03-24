@@ -118,10 +118,9 @@ void Governor::DrawLowPart(int x, int y, bool, bool shade)
     String("\x81").Draw(x + 1, y + 21, colorTextDown);
 }
 
+
 void IPaddress::DrawLowPart(int x, int y, bool, bool shade)
 {
-    char buffer[20];
-
     Color::E colorTextDown = COLOR_BACK;
 
     Painter::DrawVolumeButton(x + 1, y + 17, MI_WIDTH_VALUE + 2, MI_HEIGHT_VALUE + 3, 2, ColorMenuField(),
@@ -131,17 +130,9 @@ void IPaddress::DrawLowPart(int x, int y, bool, bool shade)
         colorTextDown = ColorMenuItem(false);
     }
 
-    std::sprintf(buffer, "%03d.%03d.%03d.%03d", *ip0, *ip1, *ip2, *ip3);
-
-    if (Item::Opened() != this)
-    {
-        String(buffer).Draw(x + 4, y + 21, colorTextDown);
-    }
-    else
-    {
-        String(buffer).Draw(x + 4, y + 21, COLOR_FILL);
-    }
+    String("%03d.%03d.%03d.%03d", *ip0, *ip1, *ip2, *ip3).Draw(x + 4, y + 21, (Item::Opened() != this) ? colorTextDown : COLOR_FILL);
 }
+
 
 static void DrawMACaddressLowPart(MACaddress *mac, int x, int y, bool, bool shade)
 {
