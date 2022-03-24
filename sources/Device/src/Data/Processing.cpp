@@ -352,17 +352,20 @@ float Processing::CalculatePeriod(Chan::E ch)
         }
         else
         {
-            float intersectionDownToTop = FindIntersectionWithHorLine(ch, 1, true, aveValue);
-            float intersectionTopToDown = FindIntersectionWithHorLine(ch, 1, false, aveValue);
+            const float intersectionDownToTop = FindIntersectionWithHorLine(ch, 1, true, aveValue);
+            const float intersectionTopToDown = FindIntersectionWithHorLine(ch, 1, false, aveValue);
 
             EXIT_IF_ERRORS_FLOAT(intersectionDownToTop, intersectionTopToDown);
 
-            float firstIntersection = intersectionDownToTop < intersectionTopToDown ? intersectionDownToTop : intersectionTopToDown;
-            float secondIntersection = FindIntersectionWithHorLine(ch, 2, intersectionDownToTop < intersectionTopToDown, aveValue);
+            float firstIntersection = (intersectionDownToTop < intersectionTopToDown) ? intersectionDownToTop : intersectionTopToDown;
+            float secondIntersection = FindIntersectionWithHorLine(ch, 2, (intersectionDownToTop < intersectionTopToDown), aveValue);
 
             EXIT_IF_ERRORS_FLOAT(firstIntersection, secondIntersection);
 
             float per = TShift::ToAbs((secondIntersection - firstIntersection) / 2.0f, out.ds.tBase);
+
+            markerTime[ch][0] = firstIntersection - SHIFT_IN_MEMORY;
+            markerTime[ch][1] = secondIntersection - SHIFT_IN_MEMORY;
 
             period[ch] = per;
             period_ready[ch] = true;
@@ -372,9 +375,9 @@ float Processing::CalculatePeriod(Chan::E ch)
     return period[ch];
 }
 
-#define EXIT_FROM_PERIOD_ACCURACY               \
-    period[ch] = ERROR_VALUE_INT;             \
-    periodAccurate_ready[ch] = true;   \
+#define EXIT_FROM_PERIOD_ACCURACY       \
+    period[ch] = ERROR_VALUE_INT;       \
+    periodAccurate_ready[ch] = true;    \
     return period[ch];
 
 int Processing::CalculatePeriodAccurately(Chan::E ch)

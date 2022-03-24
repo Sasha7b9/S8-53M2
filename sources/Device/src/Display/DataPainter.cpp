@@ -39,7 +39,7 @@ namespace DataPainter
 
     void DrawDataChannel(DataStruct &, Chan, int minY, int maxY);
 
-    void DrawMarkersForMeasure(float scale, Chan);
+    void DrawMarkersForMeasure(float scaleY, Chan);
 
     void DrawSignalLined(const uint8 *data, const DataSettings &, int startPoint, int endPoint, int minY, int maxY,
         float scaleY, float scaleX);
@@ -171,7 +171,7 @@ void DataPainter::DrawDataChannel(DataStruct &data, Chan ch, int minY, int maxY)
 }
 
 
-void DataPainter::DrawMarkersForMeasure(float scale, Chan ch)
+void DataPainter::DrawMarkersForMeasure(float scaleY, Chan ch)
 {
     if (ch == Chan::Math)
     {
@@ -186,14 +186,14 @@ void DataPainter::DrawMarkersForMeasure(float scale, Chan ch)
 
         if (pos != ERROR_VALUE_INT && pos > 0 && pos < 200)
         {
-            Painter::DrawDashedHLine((int)(Grid::FullBottom() - pos * scale), Grid::Left(), Grid::Right(), 3, 2, 0);
+            Painter::DrawDashedHLine((int)(Grid::FullBottom() - pos * scaleY), Grid::Left(), Grid::Right(), 3, 2, 0);
         }
 
         pos = Processing::GetMarkerTime(ch, numMarker);
 
-        if (pos != ERROR_VALUE_INT && pos > 0 && pos < Grid::Right())
+        if (pos != ERROR_VALUE_INT && pos > 0 && pos < Grid::Width())
         {
-            Painter::DrawDashedVLine((int)(Grid::Left() + pos * scale), GRID_TOP, Grid::FullBottom(), 3, 2, 0);
+            Painter::DrawDashedVLine((int)(Grid::Left() + pos), GRID_TOP, Grid::FullBottom(), 3, 2, 0);
         }
     }
 }
