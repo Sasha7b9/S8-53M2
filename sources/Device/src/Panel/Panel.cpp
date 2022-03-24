@@ -30,45 +30,8 @@ namespace Panel
 
     Queue<uint8> data_for_send;                     // Здесь данные для пересылки в панель
 
-    struct EventBuffer
-    {
-        EventBuffer() : pointer(0) { }
-        void Clear() { pointer = 0; }
-        void Push(KeyboardEvent event)
-        {
-            if (pointer < MAX_EVENT)
-            {
-                buffer[pointer++] = event;
-            }
-        }
-        bool Empty() const { return (pointer == 0); }
-        KeyboardEvent Back()
-        {
-            if (pointer == 0)
-            {
-                return KeyboardEvent();
-            }
-
-            KeyboardEvent result = buffer[0];
-
-            std::memmove(&buffer[0], &buffer[1], sizeof(KeyboardEvent) * pointer);
-
-            pointer--;
-
-            return result;
-        }
-
-        Mutex mutex;
-
-    private:
-
-        static const int MAX_EVENT = 10;
-        KeyboardEvent buffer[MAX_EVENT];
-        int pointer;                        // Здесь позиция элемента, в который будет производиться сохранение
-    };
-
-    EventBuffer input_buffer;   // Основной буфер событий
-    EventBuffer aux_buffer;     // Вспомогательный буфер - сюда помещаются события, если во время прерывания идёт
+    StaticQueue<KeyboardEvent> input_buffer(10);   // Основной буфер событий
+    StaticQueue<KeyboardEvent> aux_buffer(10);     // Вспомогательный буфер - сюда помещаются события, если во время прерывания идёт
                                 // работа с основным буфером input_buffer
     bool isRunning = true;
 

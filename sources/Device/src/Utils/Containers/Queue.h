@@ -1,5 +1,8 @@
 // (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
+#include "Utils/Mutex.h"
+#include <cstdlib>
+#include <cstring>
 
 
 template<typename T>
@@ -59,4 +62,55 @@ private:
     T *pointer;         // Указатель на массив элементов
     int iFront;         // Индекс первого элемента
     int iBack;          // Индекс элемента за последним
+};
+
+
+// Очередь с фиксированым размером, который задаётся при создании объекта
+template<typename T>
+struct StaticQueue
+{
+    StaticQueue(int _size) : size(_size), pointer(0)
+    {
+        buffer = (T *)std::malloc(sizeof(T) * size);
+    }
+    ~StaticQueue()
+    {
+        std::free(buffer);
+    }
+
+    void Clear() { pointer = 0; }
+
+    void Push(T elem)
+    {
+        if (pointer < size)
+        {
+            buffer[pointer++] = elem;
+        }
+    }
+
+    bool Empty() const { return (pointer == 0); }
+
+    T Back()
+    {
+        if (pointer == 0)
+        {
+            return T();
+        }
+
+        T result = buffer[0];
+
+        std::memmove(&buffer[0], &buffer[1], sizeof(T) * pointer);
+
+        pointer--;
+
+        return result;
+    }
+
+    Mutex mutex;
+
+private:
+
+    const int size;
+    T *buffer;
+    int pointer;                        // Здесь позиция элемента, в который будет производиться сохранение
 };
