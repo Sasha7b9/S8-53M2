@@ -254,9 +254,6 @@ public:
 
     void OpenAndSetCurrent() const;
 
-    // Устанавливает номер текущей подстраницы в странице namePage.
-    void SetCurrentSubPage(int8 posSubPage) const;
-
     // Вызывает функцию короткого нажатия кнопки над итемом numItem страницы page;
     void ShortPressOnItem(int numItem) const;
 

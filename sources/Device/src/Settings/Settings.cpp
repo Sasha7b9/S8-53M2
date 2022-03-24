@@ -377,15 +377,12 @@ int Page::NumCurrentSubPage() const
     return set.menu.currentSubPage[name];
 }
 
-void Page::SetCurrentSubPage(int8 posSubPage) const
-{
-    set.menu.currentSubPage[name] = posSubPage;
-}
 
 bool Menu::IsShown()
 {
     return set.menu.isShown;
 }
+
 
 void Menu::Show(bool show)
 {

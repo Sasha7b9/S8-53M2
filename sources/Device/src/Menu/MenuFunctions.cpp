@@ -174,13 +174,21 @@ int Page::PosItemOnTop()
 
 void Page::ChangeSubPage(int delta) const
 {
-    if (delta > 0 && NumCurrentSubPage() < NumSubPages() - 1)
+    if (delta > 0)
     {
-        SetCurrentSubPage(NumCurrentSubPage() + 1);
+        if (set.menu.currentSubPage[name] < NumSubPages() - 1)
+        {
+            set.menu.currentSubPage[name]++;
+            Regulator::angle++;
+        }
     }
-    else if (delta < 0 && NumCurrentSubPage() > 0)
+    else if (delta < 0)
     {
-        SetCurrentSubPage(NumCurrentSubPage() - 1);
+        if (set.menu.currentSubPage[name] > 0)
+        {
+            set.menu.currentSubPage[name]--;
+            Regulator::angle--;
+        }
     }
 }
 
