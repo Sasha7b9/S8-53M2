@@ -53,9 +53,9 @@ struct DataSettings
     void PrintElement();
 
     // ¬ычисл€ет, сколько пам€ти трубуетс€, чтобы сохранить измерени€ с настройками dp
-    int SizeFrame();
+    int SizeFrame() const;
 
-    int BytesInChannel() const;
+    int BytesInChan() const;
 
     int PointsInChannel() const;
 

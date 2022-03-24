@@ -1157,13 +1157,39 @@ int Processing::GetMarkerTime(Chan ch, int numMarker)
 
 void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *dA, const uint8 *dB)
 {
-    int num_bytes = ds.BytesInChannel();
+    DEBUG_POINT_0;
 
-    out.ds.Set(ds);
+    int num_bytes = ds.BytesInChan();
+
+    Debug::counter++;
+
+    DEBUG_POINT_0;
+
+    DataSettings *ds_out = &out.ds;
+    volatile const DataSettings *ds_in = &ds;
+
+    ds_out = ds_out;
+    ds_in = ds_in;
+
+    volatile int size_frame = ds.SizeFrame();
+    size_frame = size_frame;
+
+    if (Debug::counter == 6)
+    {
+        int i = 0;
+    }
+
+    out.ds = ds;
+    DEBUG_POINT_0;
     out.A.Realloc(num_bytes);
+    DEBUG_POINT_0;
     out.A.Fill(ValueFPGA::NONE);
+    DEBUG_POINT_0;
     out.B.Realloc(num_bytes);
+    DEBUG_POINT_0;
     out.B.Fill(ValueFPGA::NONE);
+
+    DEBUG_POINT_0;
 
     int dataTShift = out.ds.tShift;
     int curTShift = SET_TSHIFT;
@@ -1247,7 +1273,7 @@ void Processing::SetData(const DataFrame &in, bool mode_p2p)
     lastP = points.half_iword[1];
     numP = lastP - firstP;
 
-    int length = in.ds->BytesInChannel();
+    int length = in.ds->BytesInChan();
 
     DEBUG_POINT_0;
 

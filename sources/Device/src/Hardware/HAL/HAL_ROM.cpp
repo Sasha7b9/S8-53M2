@@ -286,7 +286,7 @@ void HAL_ROM::EraseData()
 
 int HAL_ROM::CalculateSizeData(DataSettings *ds)
 {
-    return (int)sizeof(DataSettings) + 2 * ds->BytesInChannel();
+    return (int)sizeof(DataSettings) + 2 * ds->BytesInChan();
 }
 
 
@@ -323,10 +323,10 @@ void HAL_ROM::CompactMemory()
 
             addrDataNew += sizeof(DataSettings);
 
-            data.A.ReallocFromBuffer((uint8 *)addrDataNew, data.ds.BytesInChannel());
-            addrDataNew += data.ds.BytesInChannel();
+            data.A.ReallocFromBuffer((uint8 *)addrDataNew, data.ds.BytesInChan());
+            addrDataNew += data.ds.BytesInChan();
 
-            data.B.ReallocFromBuffer((uint8 *)addrDataNew, data.ds.BytesInChannel());
+            data.B.ReallocFromBuffer((uint8 *)addrDataNew, data.ds.BytesInChan());
 
             HAL_ROM::SaveData(i, data);
         }
@@ -394,11 +394,11 @@ void HAL_ROM::SaveData(int num, DataStruct &data)
     WriteBufferBytes(address, (uint8 *)&data.ds, sizeof(DataSettings));            // Сохраняем настройки сигнала
     address += sizeof(DataSettings);
 
-    WriteBufferBytes(address, (uint8 *)data.A.Data(), data.ds.BytesInChannel());     // Сохраняем первый канал
-    address += data.ds.BytesInChannel();
+    WriteBufferBytes(address, (uint8 *)data.A.Data(), data.ds.BytesInChan());     // Сохраняем первый канал
+    address += data.ds.BytesInChan();
 
-    WriteBufferBytes(address, (uint8 *)data.B.Data(), data.ds.BytesInChannel());     // Сохраняем второй канал
-    address += data.ds.BytesInChannel();
+    WriteBufferBytes(address, (uint8 *)data.B.Data(), data.ds.BytesInChan());     // Сохраняем второй канал
+    address += data.ds.BytesInChan();
 
     // 6
     for (int i = 0; i < MAX_NUM_SAVED_WAVES; i++)

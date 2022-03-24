@@ -715,7 +715,7 @@ int TBase::StretchRand()
 }
 
 
-int DataSettings::BytesInChannel() const
+int DataSettings::BytesInChan() const
 {
     int result = PointsInChannel();
 
