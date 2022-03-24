@@ -59,7 +59,7 @@ void Averager::Append(DataFrame &frame)
         return;
     }
 
-    int size = frame.ds->BytesInChan();
+    int size = frame.ds->BytesInChanStored();
 
     if (ave_a.Size() != size || ModeAveraging::GetNumber() != number_averaging)
     {
@@ -131,7 +131,7 @@ void Averager::GetDataAccurately(DataStruct &out)
 
     DataSettings &ds = *Storage::GetDataSettings(0);
 
-    int num_bytes = ds.BytesInChan();
+    int num_bytes = ds.BytesInChanStored();
 
     Buffer<uint> sum_a(num_bytes);
     sum_a.Fill(0);
@@ -170,7 +170,7 @@ void Averager::GetDataAccurately(DataStruct &out)
 
 void Averager::GetDataAround(DataStruct &data)
 {
-    int num_bytes = data.ds.BytesInChan();
+    int num_bytes = data.ds.BytesInChanStored();
 
     uint8 *a = data.Data(ChA).Data();
     uint8 *b = data.Data(ChB).Data();
@@ -198,7 +198,7 @@ DataStruct &Limitator::GetLimitation(Chan ch, int direction, DataStruct &data)
 
     data.ds.Set(Processing::out.ds);
 
-    data.Data(ch).ReallocFromBuffer(buffer, data.ds.BytesInChan());
+    data.Data(ch).ReallocFromBuffer(buffer, data.ds.BytesInChanStored());
 
     return data;
 }

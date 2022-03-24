@@ -1159,25 +1159,11 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
 {
     DEBUG_POINT_0;
 
-    int num_bytes = ds.BytesInChan();
+    int num_bytes = ds.BytesInChanStored();
 
     Debug::counter++;
 
     DEBUG_POINT_0;
-
-    DataSettings *ds_out = &out.ds;
-    volatile const DataSettings *ds_in = &ds;
-
-    ds_out = ds_out;
-    ds_in = ds_in;
-
-    volatile int size_frame = ds.SizeFrame();
-    size_frame = size_frame;
-
-    if (Debug::counter == 6)
-    {
-        int i = 0;
-    }
 
     out.ds = ds;
     DEBUG_POINT_0;
@@ -1273,7 +1259,7 @@ void Processing::SetData(const DataFrame &in, bool mode_p2p)
     lastP = points.half_iword[1];
     numP = lastP - firstP;
 
-    int length = in.ds->BytesInChan();
+    int length = in.ds->BytesInChanStored();
 
     DEBUG_POINT_0;
 

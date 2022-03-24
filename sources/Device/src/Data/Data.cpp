@@ -33,7 +33,7 @@ uint8 *DataFrame::DataBegin(Chan ch) const
 
     if (ch.IsB())
     {
-        address += ds->BytesInChan();
+        address += ds->BytesInChanStored();
     }
 
     return address;
@@ -42,7 +42,7 @@ uint8 *DataFrame::DataBegin(Chan ch) const
 
 const uint8 *DataFrame::DataEnd(Chan ch)
 {
-    return DataBegin(ch) + ds->BytesInChan();
+    return DataBegin(ch) + ds->BytesInChanStored();
 }
 
 
@@ -54,7 +54,7 @@ uint8 *DataFrame::BeginFrame()
 
 uint8 *DataFrame::EndFrame()
 {
-    return BeginFrame() + 2 * ds->BytesInChan();
+    return BeginFrame() + 2 * ds->BytesInChanStored();
 }
 
 
@@ -171,7 +171,7 @@ void FrameImitation::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
 {
     DataSettings &ds = *frame.ds;
 
-    int max_bytes = ds.BytesInChan();
+    int max_bytes = ds.BytesInChanReal();
 
     uint8 *a = (uint8 *)frame.DataBegin(ChA);
     uint8 *b = (uint8 *)frame.DataBegin(ChB);
@@ -208,15 +208,15 @@ DataStruct::DataStruct(const DataFrame &frame) :
 {
     ds.Set(*frame.ds);
 
-    A.ReallocFromBuffer(frame.DataBegin(ChA), ds.BytesInChan());
+    A.ReallocFromBuffer(frame.DataBegin(ChA), ds.BytesInChanStored());
 
-    B.ReallocFromBuffer(frame.DataBegin(ChB), ds.BytesInChan());
+    B.ReallocFromBuffer(frame.DataBegin(ChB), ds.BytesInChanStored());
 }
 
 
 void DataFrame::FillDataChannelsFromFrame(DataFrame &frame)
 {
-    int num_bytes = ds->BytesInChan();
+    int num_bytes = ds->BytesInChanStored();
 
     uint8 *address = (uint8 *)ds + sizeof(*ds);
 
@@ -230,7 +230,7 @@ void DataFrame::FillDataChannelsFromFrame(DataFrame &frame)
 
 void FrameImitation::Inverse(Chan ch)
 {
-    int num_bytes = frame.ds->BytesInChan();
+    int num_bytes = frame.ds->BytesInChanReal();
 
     uint8 *data = frame.DataBegin(ch);
 

@@ -116,11 +116,11 @@ void DataFrame::FillDataChannelsFromStruct(DataStruct &data)
 {
     uint8 *address = (uint8 *)ds + sizeof(*ds);
 
-    std::memcpy(address, data.A.Data(), (uint)ds->BytesInChan());
+    std::memcpy(address, data.A.Data(), (uint)ds->BytesInChanStored());
 
-    address += ds->BytesInChan();
+    address += ds->BytesInChanStored();
 
-    std::memcpy(address, data.B.Data(), (uint)ds->BytesInChan());
+    std::memcpy(address, data.B.Data(), (uint)ds->BytesInChanStored());
 }
 
 
@@ -199,7 +199,7 @@ uint8 *Storage::GetData(Chan ch, int fromEnd)
 
     uint8 *address = (uint8 *)ds + sizeof(DataSettings);
 
-    return ch.IsA() ? address : (address + ds->BytesInChan());
+    return ch.IsA() ? address : (address + ds->BytesInChanStored());
 }
 
 
@@ -207,7 +207,7 @@ void Storage::CopyData(DataSettings *ds, Chan ch, BufferFPGA &data)
 {
     uint8 *address = ((uint8 *)ds + sizeof(DataSettings));
 
-    uint length = (uint)ds->BytesInChan();
+    uint length = (uint)ds->BytesInChanStored();
 
     if (ch.IsB())
     {
@@ -302,7 +302,7 @@ int Storage::MemoryFree()
 
 int DataSettings::SizeFrame() const
 {
-    return (int)sizeof(DataSettings) + 2 * BytesInChan();
+    return (int)sizeof(DataSettings) + 2 * BytesInChanStored();
 }
 
 

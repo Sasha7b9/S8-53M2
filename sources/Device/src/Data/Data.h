@@ -55,7 +55,11 @@ struct DataSettings
     // Вычисляет, сколько памяти трубуется, чтобы сохранить измерения с настройками dp
     int SizeFrame() const;
 
-    int BytesInChan() const;
+    // Реальное количество байт на канал.
+    int BytesInChanReal() const;
+
+    // Количество байт, каторое занимает каждый канал при хранении в Storage. Оно должно быть кратным четырём.
+    int BytesInChanStored() const;
 
     int PointsInChannel() const;
 

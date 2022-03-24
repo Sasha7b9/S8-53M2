@@ -352,16 +352,16 @@ void DataPainter::DrawMath()
     BufferFPGA   &dataB = Processing::out.B;
     DataSettings &ds = Processing::out.ds;
 
-    ValueFPGA::ToVoltage(dataA.Data(), ds.BytesInChan(), ds.range[Chan::A], (int16)ds.rShiftA, dataAbs0);
-    ValueFPGA::ToVoltage(dataB.Data(), ds.BytesInChan(), ds.range[Chan::B], (int16)ds.rShiftB, dataAbs1);
+    ValueFPGA::ToVoltage(dataA.Data(), ds.BytesInChanReal(), ds.range[Chan::A], (int16)ds.rShiftA, dataAbs0);
+    ValueFPGA::ToVoltage(dataB.Data(), ds.BytesInChanReal(), ds.range[Chan::B], (int16)ds.rShiftB, dataAbs1);
 
-    Math::CalculateMathFunction(dataAbs0, dataAbs1, ds.BytesInChan());
+    Math::CalculateMathFunction(dataAbs0, dataAbs1, ds.BytesInChanReal());
 
     DataStruct data;
     data.ds.Set(ds);
-    data.Data(ChA).Realloc(ds.BytesInChan());
+    data.Data(ChA).Realloc(ds.BytesInChanReal());
 
-    ValueFPGA::FromVoltage(dataAbs0, ds.BytesInChan(), SET_RANGE_MATH, SET_RSHIFT_MATH, data.Data(ChA).Data());
+    ValueFPGA::FromVoltage(dataAbs0, ds.BytesInChanReal(), SET_RANGE_MATH, SET_RSHIFT_MATH, data.Data(ChA).Data());
 
     DrawDataChannel(data, Chan::Math, Grid::MathTop(), Grid::MathBottom());
 

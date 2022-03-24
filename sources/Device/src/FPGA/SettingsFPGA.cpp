@@ -715,7 +715,7 @@ int TBase::StretchRand()
 }
 
 
-int DataSettings::BytesInChan() const
+int DataSettings::BytesInChanReal() const
 {
     int result = PointsInChannel();
 
@@ -725,6 +725,12 @@ int DataSettings::BytesInChan() const
     }
 
     return result;
+}
+
+
+int DataSettings::BytesInChanStored() const
+{
+    return (e_points_in_channel == ENUM_POINTS_FPGA::_281) ? 284 : BytesInChanReal();
 }
 
 
