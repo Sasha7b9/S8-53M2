@@ -303,32 +303,32 @@ namespace Panel
         }
     }
 
-    static void FuncF1(Action action)
+    static void BFuncF1(Action action)
     {
         OnFunctionalKey(action, Key::F1);
     }
 
-    static void FuncF2(Action action)
+    static void BFuncF2(Action action)
     {
         OnFunctionalKey(action, Key::F2);
     }
 
-    static void FuncF3(Action action)
+    static void BFuncF3(Action action)
     {
         OnFunctionalKey(action, Key::F3);
     }
 
-    static void FuncF4(Action action)
+    static void BFuncF4(Action action)
     {
         OnFunctionalKey(action, Key::F4);
     }
 
-    static void FuncF5(Action action)
+    static void BFuncF5(Action action)
     {
         OnFunctionalKey(action, Key::F5);
     }
 
-    static void FuncChannelA(Action action)
+    static void BFuncChannelA(Action action)
     {
         if (action.IsUp())
         {
@@ -353,7 +353,7 @@ namespace Panel
         }
     }
 
-    static void FuncChannelB(Action action)
+    static void BFuncChannelB(Action action)
     {
         if (action.IsUp())
         {
@@ -378,7 +378,7 @@ namespace Panel
         }
     }
 
-    static void FuncTime(Action action)
+    static void BFuncTime(Action action)
     {
         if (action.IsUp())
         {
@@ -395,7 +395,7 @@ namespace Panel
         }
     }
 
-    static void FuncTrig(Action action)
+    static void BFuncTrig(Action action)
     {
         if (action.IsUp())
         {
@@ -419,7 +419,7 @@ namespace Panel
         }
     }
 
-    static void FuncCursors(Action action)
+    static void BFuncCursors(Action action)
     {
         if (action.IsUp())
         {
@@ -429,7 +429,7 @@ namespace Panel
         }
     }
 
-    static void FuncMeasures(Action action)
+    static void BFuncMeasures(Action action)
     {
         if (action.IsUp())
         {
@@ -439,7 +439,7 @@ namespace Panel
         }
     }
 
-    static void FuncDisplay(Action action)
+    static void BFuncDisplay(Action action)
     {
         if (action.IsUp())
         {
@@ -450,7 +450,7 @@ namespace Panel
 
     }
 
-    static void FuncHelp(Action action)
+    static void BFuncHelp(Action action)
     {
 //        Hint::show = !Hint::show;
 //        Hint::string = nullptr;
@@ -471,7 +471,7 @@ namespace Panel
         }
     }
 
-    static void FuncStart(Action action)
+    static void BFuncStart(Action action)
     {
         if (action.IsDown())
         {
@@ -482,7 +482,7 @@ namespace Panel
         }
     }
 
-    static void FuncMemory(Action action)
+    static void BFuncMemory(Action action)
     {
         if (action.IsUp())
         {
@@ -500,7 +500,7 @@ namespace Panel
         }
     }
 
-    static void FuncService(Action action)
+    static void BFuncService(Action action)
     {
         if (action.IsUp())
         {
@@ -510,7 +510,7 @@ namespace Panel
         }
     }
 
-    static void FuncMenu(Action action)
+    static void BFuncMenu(Action action)
     {
         if (action.IsUp())
         {
@@ -532,7 +532,7 @@ namespace Panel
         }
     }
 
-    static void FuncPower(Action action)
+    static void BFuncPower(Action action)
     {
         if (action.IsDown())
         {
@@ -546,11 +546,11 @@ namespace Panel
         }
     }
 
-    static void FuncRangeA(Action action)
+    static void RFuncRangeA(Action action)
     {
         if (action.IsActionButton())
         {
-            FuncChannelA(action);
+            BFuncChannelA(action);
         }
         else if (action.IsLeft())
         {
@@ -562,11 +562,11 @@ namespace Panel
         }
     }
 
-    static void FuncRangeB(Action action)
+    static void RFuncRangeB(Action action)
     {
         if (action.IsActionButton())
         {
-            FuncChannelB(action);
+            BFuncChannelB(action);
         }
         else if (action.IsLeft())
         {
@@ -578,11 +578,11 @@ namespace Panel
         }
     }
 
-    static void FuncRShiftA(Action action)
+    static void RFuncRShiftA(Action action)
     {
         if (action.IsActionButton())
         {
-            FuncChannelA(action);
+            BFuncChannelA(action);
         }
         else if (action.IsLeft())
         {
@@ -596,11 +596,11 @@ namespace Panel
         }
     }
 
-    static void FuncRShiftB(Action action)
+    static void RFuncRShiftB(Action action)
     {
         if (action.IsActionButton())
         {
-            FuncChannelB(action);
+            BFuncChannelB(action);
         }
         else if (action.IsLeft())
         {
@@ -614,11 +614,11 @@ namespace Panel
         }
     }
 
-    static void FuncTShift(Action action)
+    static void RFuncTShift(Action action)
     {
         if (action.IsActionButton())
         {
-            FuncTime(action);
+            BFuncTime(action);
         }
         else if (action.IsLeft())
         {
@@ -630,11 +630,11 @@ namespace Panel
         }
     }
 
-    static void FuncTBase(Action action)
+    static void RFuncTBase(Action action)
     {
         if (action.IsActionButton())
         {
-            FuncTShift(action);
+            RFuncTShift(action);
         }
         else
         {
@@ -651,11 +651,11 @@ namespace Panel
         }
     }
 
-    static void FuncTrigLev(Action action)
+    static void RFuncTrigLev(Action action)
     {
         if (action.IsActionButton())
         {
-            FuncTrig(action);
+            BFuncTrig(action);
         }
         else if (action.IsLeft())
         {
@@ -669,7 +669,7 @@ namespace Panel
         }
     }
 
-    static void FuncSetting(Action action)
+    static void RFuncSetting(Action action)
     { 
         static const int step = 3;
         static int angle = 0;
@@ -678,7 +678,7 @@ namespace Panel
         {
             if (action.IsActionButton())
             {
-                FuncMenu(action);
+                BFuncMenu(action);
             }
             else if (action.IsLeft() || action.IsRight())
             {
@@ -747,33 +747,33 @@ namespace Panel
     static void (* const funcOnKey[Key::Count])(Action) =
     {
         FuncNone,
-        FuncF1,
-        FuncF2,
-        FuncF3,
-        FuncF4,
-        FuncF5,
-        FuncChannelA,
-        FuncChannelB,
-        FuncTime,
-        FuncTrig,
-        FuncCursors,
-        FuncMeasures,
-        FuncDisplay,
-        FuncHelp,
-        FuncStart,
-        FuncMemory,
-        FuncService,
-        FuncMenu,
-        FuncPower,
+        BFuncF1,
+        BFuncF2,
+        BFuncF3,
+        BFuncF4,
+        BFuncF5,
+        BFuncChannelA,
+        BFuncChannelB,
+        BFuncTime,
+        BFuncTrig,
+        BFuncCursors,
+        BFuncMeasures,
+        BFuncDisplay,
+        BFuncHelp,
+        BFuncStart,
+        BFuncMemory,
+        BFuncService,
+        BFuncMenu,
+        BFuncPower,
 
-        FuncRangeA,
-        FuncRangeB,
-        FuncRShiftA,
-        FuncRShiftB,
-        FuncTBase,
-        FuncTShift,
-        FuncTrigLev,
-        FuncSetting
+        RFuncRangeA,
+        RFuncRangeB,
+        RFuncRShiftA,
+        RFuncRShiftB,
+        RFuncTBase,
+        RFuncTShift,
+        RFuncTrigLev,
+        RFuncSetting
     };
 }
 
