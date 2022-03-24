@@ -11,6 +11,7 @@ template                Buffer<uint8>::Buffer(int);
 template                Buffer<char>::Buffer(int);
 template                Buffer<float>::Buffer(int);
 template                Buffer<uint>::Buffer(int);
+template                Buffer<uint8>::Buffer(int, uint8);
 template                Buffer<uint8>::~Buffer();
 template                Buffer<char>::~Buffer();
 template                Buffer<float>::~Buffer();
@@ -37,6 +38,15 @@ template<class T>
 Buffer<T>::Buffer(int _size) : data(nullptr)
 {
     Malloc(_size);
+}
+
+
+template<class T>
+Buffer<T>::Buffer(int _size, T value) : data(nullptr)
+{
+    Malloc(_size);
+
+    Fill(value);
 }
 
 

@@ -14,6 +14,8 @@ public:
 
     Buffer(int size = 0U);
 
+    Buffer(int size, T value);
+
     Buffer(const Buffer<T> &);
 
     ~Buffer();

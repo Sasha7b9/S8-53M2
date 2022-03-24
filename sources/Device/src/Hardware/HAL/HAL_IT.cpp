@@ -15,8 +15,6 @@
 extern "C" {
 #endif
 
-
-
     void NMI_Handler()
     {
     }
@@ -26,11 +24,13 @@ extern "C" {
     {
         volatile int line = Debug::line[0];
         volatile pchar file = Debug::file[0];
+        volatile int counter = Debug::counter;
 
         while (1) //-V776
         {
             line = line;
             file = file;
+            counter = counter;
         }
     }
 

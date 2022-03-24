@@ -178,6 +178,8 @@ bool Display::NeedForClearScreen()
 
 void Display::Update(bool endScene)
 {
+    DEBUG_POINT_0;
+
     TimeMeterUS timeMeter;
 
     if (funcOnHand != 0)
@@ -191,11 +193,21 @@ void Display::Update(bool endScene)
     if (needClear)
     {
         Painter::BeginScene(COLOR_BACK);
+
+        DEBUG_POINT_0;
+
         DataPainter::MemoryWindow::Draw();
+
+        DEBUG_POINT_0;
+
         Grid::Draw();
     }
 
+    DEBUG_POINT_0;
+
     DataPainter::DrawData();
+
+    DEBUG_POINT_0;
 
     if (needClear)
     {

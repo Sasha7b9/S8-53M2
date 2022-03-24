@@ -451,7 +451,11 @@ void DataPainter::DrawDataNormal()
 
 void DataPainter::MemoryWindow::Draw()
 {
+    DEBUG_POINT_0;
+
     Processing::SetDataForProcessing(true);
+
+    DEBUG_POINT_0;
 
     int leftX = 3;
     int top = 1;
@@ -492,14 +496,18 @@ void DataPainter::MemoryWindow::Draw()
 
             if (SET_ENABLED(chanFirst))
             {
+                DEBUG_POINT_0;
                 DrawChannel(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataFirst, rightX,
                     chanFirst, dat->ds);
+                DEBUG_POINT_0;
             }
 
             if (SET_ENABLED(chanSecond))
             {
+                DEBUG_POINT_0;
                 DrawChannel(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataSecond, rightX,
                     chanSecond, dat->ds);
+                DEBUG_POINT_0;
             }
         }
     }
@@ -560,17 +568,27 @@ void DataPainter::MemoryWindow::DrawChannel(int timeWindowRectWidth, int xVert0,
 {
     int k = ds.peak_det ? 2 : 1;
 
+    DEBUG_POINT_0;
+
     DrawDataInRect(1, xVert0 - 1, &(data[0 * k]), startI, ch, ds);
+
+    DEBUG_POINT_0;
 
     DrawDataInRect(xVert0 + 2, timeWindowRectWidth - 2, &(data[startI * k]), 281, ch, ds);
 
+    DEBUG_POINT_0;
+
     DrawDataInRect(xVert1 + 2, rightX - xVert1 + 2, &(data[endI * k + 1]), ds.PointsInChannel() - endI, ch, ds);
+
+    DEBUG_POINT_0;
 }
 
 
 void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *in, int numElems, Chan ch,
     DataSettings &ds)
 {
+    DEBUG_POINT_0;
+
     if (numElems == 0)
     {
         return;
@@ -584,11 +602,8 @@ void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *in
     width--;
     float elemsInColumn = (float)numElems / (float)width;
 
-    uint8 min[300];
-    uint8 max[300];
-
-    std::memset(min, 255, 300);
-    std::memset(max, 0, 300);
+    Buffer<uint8> min(width + 1, 255);
+    Buffer<uint8> max(width + 1, 0);
 
     if (ds.peak_det == 0)
     {
@@ -634,8 +649,7 @@ void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *in
 
 #define ORDINATE(x) (uint8)(bottom - scale * Math::Limitation<int>((x) - ValueFPGA::MIN, 0, 200))
 
-    static const int NUM_POINTS = (300 * 2);
-    uint8 points[NUM_POINTS];
+    Buffer<uint8> points(min.Size() * 2);
 
     points[0] = ORDINATE(max[0]);
     points[1] = ORDINATE(min[0]);
@@ -650,15 +664,21 @@ void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *in
 
     uint8 transparency = ORDINATE(ValueFPGA::NONE);
 
+    DEBUG_POINT_0;
+
     if (width < 256)
     {
-        Painter::DrawVLineArray(x, width, points, ColorChannel(ch), transparency);
+        Painter::DrawVLineArray(x, width, points.Data(), ColorChannel(ch), transparency);
     }
     else
     {
-        Painter::DrawVLineArray(x, 255, points, ColorChannel(ch), transparency);
-        Painter::DrawVLineArray(x + 255, width - 255, points + 255 * 2, ColorChannel(ch), transparency);
+        Painter::DrawVLineArray(x, 255, points.Data(), ColorChannel(ch), transparency);
+        Painter::DrawVLineArray(x + 255, width - 255, points.Data() + 255 * 2, ColorChannel(ch), transparency);
     }
+
+    Debug::counter++;
+
+    DEBUG_POINT_0;
 }
 
 

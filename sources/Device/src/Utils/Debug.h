@@ -29,4 +29,6 @@ namespace Debug
     extern pchar file[10];
 
     extern int posItem;
+
+    extern int counter;
 };
