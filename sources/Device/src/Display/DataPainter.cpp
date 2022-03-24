@@ -94,7 +94,6 @@ void DataPainter::DrawData()
 void DataPainter::DrawInModeDirect()
 {
     DataFrame frame;
-    Processing::out.ds.valid = 0;
 
     Processing::SetDataForProcessing(false);
 

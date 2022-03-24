@@ -1217,11 +1217,12 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
 
 void Processing::SetData(const DataFrame &in, bool mode_p2p)
 {
-//    if (in.ds->valid == 0)
-//    {
-//        out.ds.valid = 0;
-//        return;
-//    }
+    out.ds.valid = 0;
+
+    if (!in.ds->valid)
+    {
+        return;
+    }
 
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
 

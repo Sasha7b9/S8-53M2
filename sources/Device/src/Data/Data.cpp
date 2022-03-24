@@ -84,6 +84,7 @@ void FrameImitation::PrepareForNewCycle()
 
     frame.rec_points = 0;
     frame.all_points = 0;
+    frame.ds->valid = 0;
 }
 
 
@@ -156,7 +157,7 @@ int DataStruct::PrepareForNormalDrawP2P()
 
 void FrameImitation::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
 {
-    const DataSettings &ds = *frame.ds;
+    DataSettings &ds = *frame.ds;
 
     int max_bytes = ds.BytesInChannel();
 
@@ -186,6 +187,7 @@ void FrameImitation::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
 
     rec_points += 2;
     frame.all_points += 2;
+    ds.valid = 1;
 }
 
 

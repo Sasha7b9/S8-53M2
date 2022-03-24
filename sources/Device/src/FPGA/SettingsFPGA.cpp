@@ -699,6 +699,7 @@ void DataSettings::FillFromCurrentSettings()
     peak_det = (uint)SET_PEAKDET;
     div_a = SET_DIVIDER_A;
     div_b = SET_DIVIDER_B;
+    valid = 0;
 }
 
 

@@ -95,6 +95,8 @@ void Storage::AppendNewFrame(DataFrame &data)
 
     Averager::Append(frame);
 
+    frame.ds->valid = 1;
+
     time_meter.Reset();
 }
 
@@ -165,7 +167,6 @@ DataFrame Storage::GetData(int fromEnd)
     if (dp)
     {
         DataFrame result(dp);
-
         return result;
     }
 
