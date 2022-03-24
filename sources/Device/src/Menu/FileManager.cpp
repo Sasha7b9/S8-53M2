@@ -385,7 +385,6 @@ void FM::RotateRegSet(int angle)
 
 bool FM::GetNameForNewFile(char name[255])
 {
-    char buffer[20];
     int number = 1;
 
 LabelNextNumber:
@@ -432,16 +431,20 @@ LabelNextNumber:
             {
                 if (*ch == 0x07)    // ≈сли здесь надо записать пор€дковый номер
                 {
-                    std::strcpy(wr, SU::Int2String(number, false, *(ch + 1)).c_str());
-                    wr += std::strlen(buffer);
+                    String number_str = SU::Int2String(number, false, *(ch + 1));
+
+                    std::strcpy(wr, number_str.c_str());
+                    wr += number_str.Size();
                     ch++;
                 }
                 else
                 {
                     if (*ch >= 0x01 && *ch <= 0x06)
                     {
-                        std::strcpy(wr, SU::Int2String((int)values[*ch], false, 2).c_str());
-                        wr += std::strlen(buffer);
+                        String value_str = SU::Int2String((int)values[*ch], false, 2);
+
+                        std::strcpy(wr, value_str.c_str());
+                        wr += value_str.Size();
                     }
                 }
             }
