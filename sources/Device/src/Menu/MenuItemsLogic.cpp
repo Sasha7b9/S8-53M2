@@ -312,3 +312,14 @@ char Regulator::GetSymbol()
 {
     return GetSymbol(angle);
 }
+
+
+void Regulator::RotateRight()
+{
+    angle++;
+}
+
+void Regulator::RotateLeft()
+{
+    angle--;
+}

@@ -577,10 +577,16 @@ struct Regulator
 {
     static char GetSymbol();
 
-    static int angle;
+    // ѕовернуть по часовой стрелке
+    static void RotateRight();
+
+    // ѕовернуть против часовой стрелки
+    static void RotateLeft();
 
 private:
 
     // ¬озвращает изображение регул€тора, соответствующее его текущему положению.
     static char GetSymbol(int value);
+
+    static int angle;
 };
