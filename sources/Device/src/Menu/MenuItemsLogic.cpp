@@ -248,6 +248,7 @@ void Time::IncCurrentPosition() const
 
         int8* value[] = { 0, day, month, year, hours, minutes, seconds };
         *(value[position]) = (*(value[position]))++; //-V567
+        Regulator::RotateRight();
 
         if (*value[position] > max[position])
         {
@@ -267,6 +268,7 @@ void Time::DecCurrentPosition() const
     {
         int8* value[] = { 0, day, month, year, hours, minutes, seconds };
         (*(value[position]))--;
+        Regulator::RotateLeft();
 
         if (*value[position] < min[position])
         {

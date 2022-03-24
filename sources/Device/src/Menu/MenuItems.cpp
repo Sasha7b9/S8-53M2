@@ -259,10 +259,12 @@ void Choice::ChangeValue(int delta)
     if (delta < 0)
     {
         Math::CircleIncrease<int8>(cell, 0, NumSubItems() - 1);
+        Regulator::RotateLeft();
     }
     else
     {
         Math::CircleDecrease<int8>(cell, 0, NumSubItems() - 1);
+        Regulator::RotateRight();
     }
 
     FuncOnChanged(((Item *)this)->IsActive());
