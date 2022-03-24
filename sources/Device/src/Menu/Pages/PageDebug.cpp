@@ -719,9 +719,6 @@ static void Draw_EnterSerialNumber()
 
     bool selNumber = (structSN.curDigt == 0);
 
-    char buffer[20];
-    std::snprintf(buffer, 19, "%02d", structSN.number);
-
     Color::E colorText = COLOR_FILL;
     Color::E colorBackground = COLOR_BACK;
 
@@ -734,7 +731,7 @@ static void Draw_EnterSerialNumber()
     int y = y0 + 50;
 
     Color::SetCurrent(colorText);
-    int x = String(buffer).DrawOnBackground(x0 + deltaX, y, colorBackground);
+    int x = String("%02d", structSN.number).DrawOnBackground(x0 + deltaX, y, colorBackground);
 
     colorText = Color::FLASH_01;
     colorBackground = Color::FLASH_10;
@@ -745,12 +742,12 @@ static void Draw_EnterSerialNumber()
         colorBackground = COLOR_BACK;
     }
 
-    std::snprintf(buffer, 19, "%04d", structSN.year);
-
     Color::SetCurrent(colorText);
-    String(buffer).DrawOnBackground(x + 5, y, colorBackground);
+    String("%04d", structSN.year).DrawOnBackground(x + 5, y, colorBackground);
 
     // Теперь выведем информацию об оставшемся месте в OTP-памяти для записи
+
+    char buffer[20];
 
     int allShots = OTP::GetSerialNumber(buffer);
 
