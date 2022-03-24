@@ -932,8 +932,6 @@ void PageMemory::OnChanged_NumPoints(bool)
 
     Storage::Clear();
 
-    Averager::Reset();
-
     if (ENUM_POINTS_FPGA::ToNumPoints() == 281)
     {
         SHIFT_IN_MEMORY = 0;
