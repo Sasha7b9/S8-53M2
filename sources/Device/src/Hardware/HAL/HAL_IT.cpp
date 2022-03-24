@@ -32,7 +32,7 @@ extern "C" {
             line = line;
             file = file;
             counter = counter;
-            pushed = pushed;
+             pushed = pushed;
         }
     }
 

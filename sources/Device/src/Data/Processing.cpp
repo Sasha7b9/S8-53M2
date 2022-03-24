@@ -1234,7 +1234,11 @@ void Processing::SetData(const DataFrame &in, bool mode_p2p)
         return;
     }
 
+    DEBUG_POINT_0;
+
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
+
+    DEBUG_POINT_0;
 
     firstP = points.half_iword[0];
     lastP = points.half_iword[1];
@@ -1242,7 +1246,12 @@ void Processing::SetData(const DataFrame &in, bool mode_p2p)
 
     int length = in.ds->BytesInChannel();
 
+    DEBUG_POINT_0;
+
     BufferFPGA A(length);
+
+    DEBUG_POINT_0;
+
     BufferFPGA B(length);
 
     DEBUG_POINT_0;

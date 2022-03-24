@@ -32,16 +32,39 @@ namespace Panel
 
     struct EventBuffer
     {
-        void Clear() { buffer.Clear(); }
-        void Push(KeyboardEvent event) { buffer.Push(event); }
-        bool Empty() const { return buffer.Empty(); }
-        KeyboardEvent Back() { return buffer.Back(); }
+        EventBuffer() : pointer(0) { }
+        void Clear() { pointer = 0; }
+        void Push(KeyboardEvent event)
+        {
+            if (pointer < MAX_EVENT)
+            {
+                buffer[pointer++] = event;
+            }
+        }
+        bool Empty() const { return (pointer == 0); }
+        KeyboardEvent Back()
+        {
+            if (pointer == 0)
+            {
+                return KeyboardEvent();
+            }
+
+            KeyboardEvent result = buffer[0];
+
+            std::memmove(&buffer[0], &buffer[1], sizeof(KeyboardEvent) * pointer);
+
+            pointer--;
+
+            return result;
+        }
 
         Mutex mutex;
 
     private:
 
-        Queue<KeyboardEvent> buffer;
+        static const int MAX_EVENT = 10;
+        KeyboardEvent buffer[MAX_EVENT];
+        int pointer;                        // Здесь позиция элемента, в который будет производиться сохранение
     };
 
     EventBuffer input_buffer;   // Основной буфер событий
@@ -155,7 +178,7 @@ namespace Panel
         void ChangeTShift(TimeMeterMS *tMeter, void(*f)(int), int16 relStep)
         {
             int count = CalculateCount(tMeter);
-            int tShiftOld = SET_TSHIFT;
+            int tshift_old = SET_TSHIFT;
             float step = relStep * count;
 
             if (step < 0)
@@ -173,14 +196,14 @@ namespace Panel
                 }
             }
 
-            int16 tShift = SET_TSHIFT + step;
-            if (((tShiftOld > 0) && (tShift < 0)) || (tShiftOld < 0 && tShift > 0))
+            int16 tshift = SET_TSHIFT + step;
+            if (((tshift_old > 0) && (tshift < 0)) || (tshift_old < 0 && tshift > 0))
             {
-                tShift = 0;
+                tshift = 0;
             }
-            if (CanChangeTShift(tShift))
+            if (CanChangeTShift(tshift))
             {
-                f(tShift);
+                f(tshift);
             }
         }
 
@@ -203,6 +226,8 @@ namespace Panel
             }
 
             f(step);
+
+            LOG_WRITE("%d", SHIFT_IN_MEMORY);
         }
 
         static void SetRShift(Chan::E ch, int16 rShift)
@@ -757,6 +782,8 @@ namespace Panel
 
 void Panel::ProcessEvent(KeyboardEvent event)
 {
+    DEBUG_POINT_0;
+
     if (!isRunning)
     {
         if (event.IsDown())
@@ -767,11 +794,19 @@ void Panel::ProcessEvent(KeyboardEvent event)
         return;
     }
 
+    DEBUG_POINT_0;
+
     OnKeyboardEvent(event);
+
+    DEBUG_POINT_0;
 
     funcOnKey[event.key](event.action);
 
+    DEBUG_POINT_0;
+
     Flags::needFinishDraw = true;
+
+    DEBUG_POINT_0;
 }
 
 
@@ -933,21 +968,41 @@ uint Panel::TimePassedAfterLastEvent()
 
 void Panel::Update()
 {
+    DEBUG_POINT_0;
+
     input_buffer.mutex.Lock();
+
+    DEBUG_POINT_0;
 
     while (!aux_buffer.Empty())
     {
+        DEBUG_POINT_0;
+
         input_buffer.Push(aux_buffer.Back());
+
+        DEBUG_POINT_0;
     }
+
+    DEBUG_POINT_0;
 
     while (!input_buffer.Empty())
     {
+        DEBUG_POINT_0;
+
         KeyboardEvent event = input_buffer.Back();
+
+        DEBUG_POINT_0;
 
         PasswordResolver::ProcessEvent(event);
 
+        DEBUG_POINT_0;
+
         ProcessEvent(event);
+
+        DEBUG_POINT_0;
     }
+
+    DEBUG_POINT_0;
 
     input_buffer.mutex.Unlock();
 }
