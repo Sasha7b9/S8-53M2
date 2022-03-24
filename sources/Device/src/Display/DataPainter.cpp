@@ -453,18 +453,13 @@ void DataPainter::MemoryWindow::Draw()
 {
     Processing::SetDataForProcessing(true);
 
-    if (!Processing::out.ds.valid)
-    {
-        return;
-    }
-
     int leftX = 3;
+    static const int rightXses[3] = {276, 285, 247};
+    int rightX = rightXses[MODE_WORK];
+
     int top = 1;
     int height = GRID_TOP - 3;
     int bottom = top + height;
-
-    static const int rightXses[3] = {276, 285, 247};
-    int rightX = rightXses[MODE_WORK];
 
     if (PageCursors::NecessaryDrawCursors())
     {
@@ -483,39 +478,42 @@ void DataPainter::MemoryWindow::Draw()
 
     Rectangle(xVert1 - xVert0, bottom - top - (showFull ? 0 : 2)).Draw(xVert0, top + (showFull ? 0 : 1), COLOR_FILL);
 
-    if (showFull)
+    if (Processing::out.ds.valid)
     {
-        DataStruct *dat = &Processing::out;
-
-        if (dat->A.Size() || dat->B.Size())
+        if (showFull)
         {
-            Chan::E chanFirst = LAST_AFFECTED_CHANNEL_IS_A ? ChB : ChA;
-            Chan::E chanSecond = LAST_AFFECTED_CHANNEL_IS_A ? ChA : ChB;
+            DataStruct *dat = &Processing::out;
 
-            const uint8 *dataFirst = LAST_AFFECTED_CHANNEL_IS_A ? dat->B.Data() : dat->A.Data();
-            const uint8 *dataSecond = LAST_AFFECTED_CHANNEL_IS_A ? dat->A.Data() : dat->B.Data();
-
-            if (SET_ENABLED(chanFirst))
+            if (dat->A.Size() || dat->B.Size())
             {
-                DrawChannel(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataFirst, rightX,
-                    chanFirst, dat->ds);
-            }
+                Chan::E chanFirst = LAST_AFFECTED_CHANNEL_IS_A ? ChB : ChA;
+                Chan::E chanSecond = LAST_AFFECTED_CHANNEL_IS_A ? ChA : ChB;
 
-            if (SET_ENABLED(chanSecond))
-            {
-                DrawChannel(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataSecond, rightX,
-                    chanSecond, dat->ds);
+                const uint8 *dataFirst = LAST_AFFECTED_CHANNEL_IS_A ? dat->B.Data() : dat->A.Data();
+                const uint8 *dataSecond = LAST_AFFECTED_CHANNEL_IS_A ? dat->A.Data() : dat->B.Data();
+
+                if (SET_ENABLED(chanFirst))
+                {
+                    DrawChannel(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataFirst, rightX,
+                        chanFirst, dat->ds);
+                }
+
+                if (SET_ENABLED(chanSecond))
+                {
+                    DrawChannel(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataSecond, rightX,
+                        chanSecond, dat->ds);
+                }
             }
         }
-    }
-    else
-    {
-        Painter::DrawVLine(leftX - 2, top, bottom, COLOR_FILL);
-        Painter::DrawVLine(rightX + 2, top, bottom);
-        Painter::DrawHLine((bottom + top) / 2 - 3, leftX, xVert0 - 2);
-        Painter::DrawHLine((bottom + top) / 2 + 3, leftX, xVert0 - 2);
-        Painter::DrawHLine((bottom + top) / 2 + 3, xVert1 + 2, rightX);
-        Painter::DrawHLine((bottom + top) / 2 - 3, xVert1 + 2, rightX);
+        else
+        {
+            Painter::DrawVLine(leftX - 2, top, bottom, COLOR_FILL);
+            Painter::DrawVLine(rightX + 2, top, bottom);
+            Painter::DrawHLine((bottom + top) / 2 - 3, leftX, xVert0 - 2);
+            Painter::DrawHLine((bottom + top) / 2 + 3, leftX, xVert0 - 2);
+            Painter::DrawHLine((bottom + top) / 2 + 3, xVert1 + 2, rightX);
+            Painter::DrawHLine((bottom + top) / 2 - 3, xVert1 + 2, rightX);
+        }
     }
 
     int x[] = {leftX, (rightX - leftX) / 2 + leftX + 1, rightX};
