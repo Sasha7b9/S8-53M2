@@ -379,6 +379,7 @@ ColorType colorTypeGrid = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, Color::GRID
 void OnChanged_Grid_Brightness()
 {
     colorTypeGrid.SetBrightness(BRIGHTNESS_GRID / 1e2f);
+    HAL_LTDC::LoadPalette();
 }
 
 

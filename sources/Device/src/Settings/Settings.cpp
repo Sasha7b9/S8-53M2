@@ -28,7 +28,7 @@ static const Settings defaultSettings =
         512 - 140,                  // shiftInMemory
         5,                          // timeMessages
         100,                        // brightness
-        20,                         // brightnessGrid
+        48,                         // brightnessGrid
         {
             Color::Make(0x00, 0x00, 0x00),   // Color::BLACK = 0x00,
             Color::Make(0xFF, 0xFF, 0xFF),   // Color::WHITE = 0x01,

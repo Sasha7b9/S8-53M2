@@ -189,8 +189,6 @@ namespace Panel
             }
 
             f(step);
-
-            LOG_WRITE("%d", SHIFT_IN_MEMORY);
         }
 
         static void SetRShift(Chan::E ch, int16 rShift)
