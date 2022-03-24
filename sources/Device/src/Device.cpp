@@ -24,7 +24,7 @@ void Device::Init()
 
     Sound::Init();
 
-    Settings::Load();
+    Settings::Reset();
 
     FPGA::Init();
 

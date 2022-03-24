@@ -1223,6 +1223,16 @@ void Processing::SetData(const DataFrame &in, bool mode_p2p)
     {
         return;
     }
+    
+    if(SET_ENUM_POINTS_IS_281)
+    {
+        int i = 0;
+    }
+
+    if (in.ds->e_points_in_channel == ENUM_POINTS_FPGA::_1024)
+    {
+        int i = 0;
+    }
 
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
