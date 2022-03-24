@@ -84,8 +84,6 @@ void Storage::Clear()
 
 void Storage::AppendNewFrame(DataFrame &data)
 {
-    Debug::pushed++;
-
     DataSettings new_ds = *data.ds;
     new_ds.time = HAL_RTC::GetPackedTime();
 

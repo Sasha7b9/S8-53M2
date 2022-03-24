@@ -780,8 +780,6 @@ namespace Panel
 
 void Panel::ProcessEvent(KeyboardEvent event)
 {
-    DEBUG_POINT_0;
-
     if (!isRunning)
     {
         if (event.IsDown())
@@ -792,19 +790,11 @@ void Panel::ProcessEvent(KeyboardEvent event)
         return;
     }
 
-    DEBUG_POINT_0;
-
     OnKeyboardEvent(event);
-
-    DEBUG_POINT_0;
 
     funcOnKey[event.key](event.action);
 
-    DEBUG_POINT_0;
-
     Flags::needFinishDraw = true;
-
-    DEBUG_POINT_0;
 }
 
 
@@ -966,41 +956,21 @@ uint Panel::TimePassedAfterLastEvent()
 
 void Panel::Update()
 {
-    DEBUG_POINT_0;
-
     input_buffer.mutex.Lock();
-
-    DEBUG_POINT_0;
 
     while (!aux_buffer.Empty())
     {
-        DEBUG_POINT_0;
-
         input_buffer.Push(aux_buffer.Back());
-
-        DEBUG_POINT_0;
     }
-
-    DEBUG_POINT_0;
 
     while (!input_buffer.Empty())
     {
-        DEBUG_POINT_0;
-
         KeyboardEvent event = input_buffer.Back();
-
-        DEBUG_POINT_0;
 
         PasswordResolver::ProcessEvent(event);
 
-        DEBUG_POINT_0;
-
         ProcessEvent(event);
-
-        DEBUG_POINT_0;
     }
-
-    DEBUG_POINT_0;
 
     input_buffer.mutex.Unlock();
 }

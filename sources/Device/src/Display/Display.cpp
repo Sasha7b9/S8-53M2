@@ -178,8 +178,6 @@ bool Display::NeedForClearScreen()
 
 void Display::Update(bool endScene)
 {
-    DEBUG_POINT_0;
-
     TimeMeterUS timeMeter;
 
     if (funcOnHand != 0)
@@ -194,49 +192,27 @@ void Display::Update(bool endScene)
     {
         Painter::BeginScene(COLOR_BACK);
 
-        DEBUG_POINT_0;
-
         DataPainter::MemoryWindow::Draw();
-
-        DEBUG_POINT_0;
 
         Grid::Draw();
     }
 
-    DEBUG_POINT_0;
-
     DataPainter::DrawData();
-
-    DEBUG_POINT_0;
 
     if (needClear)
     {
-        DEBUG_POINT_0;
         DataPainter::DrawMath();
-        DEBUG_POINT_0;
         DataPainter::Spectrum::Draw();
-        DEBUG_POINT_0;
         DrawCursors();
-        DEBUG_POINT_0;
         HiPart::Draw();
-        DEBUG_POINT_0;
         LowPart::Draw();
-        DEBUG_POINT_0;
         DrawCursorsWindow();
-        DEBUG_POINT_0;
         TShift::Draw();
-        DEBUG_POINT_0;
         TrigLev::Draw();
-        DEBUG_POINT_0;
         RShift::Draw();
-        DEBUG_POINT_0;
         DrawMeasures();
-        DEBUG_POINT_0;
         DrawStringNavigation();
-        DEBUG_POINT_0;
     }
-
-    DEBUG_POINT_0;
 
     Menu::Draw();
 
