@@ -319,9 +319,7 @@ void MACaddress::DrawValue(int x, int y)
             Region(10, 8).Fill(x - 1, y, COLOR_FILL);
         }
 
-        char buffer[20];
-        std::sprintf(buffer, "%02X", value);
-        String(buffer).Draw(x, y, (MACaddress::cur_digit == num) ? COLOR_BACK : COLOR_FILL);
+        String("%02X", value).Draw(x, y, (MACaddress::cur_digit == num) ? COLOR_BACK : COLOR_FILL);
         x -= 12;
     }
 }
