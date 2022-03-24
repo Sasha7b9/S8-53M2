@@ -21,7 +21,7 @@ namespace Storage
     TimeMeterMS time_meter;
 
     // Количество отведённой для измерений памяти.
-    const int SIZE_POOL = (30 * 1024);
+    const int SIZE_POOL = (90 * 1024);
 
     // Здесь хранятся данные.
     uint8 pool[SIZE_POOL] = {0};
