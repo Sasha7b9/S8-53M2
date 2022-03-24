@@ -164,9 +164,9 @@ void Choice::StartChange(int delta)
 
     if (Hint::show)
     {
-        Hint::SetItem((Item *)this); //-V1027
+        Hint::SetItem((Item *)this);
     }
-    else if (!((Item *)this)->IsActive()) //-V1027
+    else if (!((Item *)this)->IsActive())
     {
         FuncOnChanged(false);
     }
@@ -239,7 +239,7 @@ float Choice::Step()
         }
 
         tsChoice.choice = 0;
-        FuncOnChanged(((Item *)this)->IsActive()); //-V1027
+        FuncOnChanged(((Item *)this)->IsActive());
         Flags::needFinishDraw = true;
         tsChoice.inMoveDecrease = tsChoice.inMoveIncrease = 0;
 
@@ -254,13 +254,11 @@ void Choice::ChangeValue(int delta)
 {
     if (delta < 0)
     {
-        int8 value = (*cell == NumSubItems() - 1) ? 0 : (*cell + 1);
-        *cell = value;
+        Math::CircleIncrease<int8>(cell, 0, NumSubItems() - 1);
     }
     else
     {
-        int8 value = (*cell == 0) ? (NumSubItems() - 1) : (*cell - 1);
-        *cell = value;
+        Math::CircleDecrease<int8>(cell, 0, NumSubItems() - 1);
     }
 
     FuncOnChanged(((Item *)this)->IsActive());

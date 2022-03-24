@@ -342,7 +342,7 @@ void Page::DrawOpened(int yTop)
 
         if (item->IsChoice() || item->IsChoiceReg())
         {
-            ((Choice *)item)->DrawOpened(MP_X, Menu::ItemOpenedPosY(item)); //-V1027
+            ((Choice *)item)->DrawOpened(MP_X, Menu::ItemOpenedPosY(item));
         }
         else if (item->IsGovernor())
         {
@@ -350,11 +350,11 @@ void Page::DrawOpened(int yTop)
         }
         else if (item->IsGovernorColor())
         {
-            ((GovernorColor *)item)->DrawOpened(MP_X, Menu::ItemOpenedPosY(item)); //-V1027
+            ((GovernorColor *)item)->DrawOpened(MP_X, Menu::ItemOpenedPosY(item));
         }
         else if (item->IsTime())
         {
-            ((Time *)item)->DrawOpened(MP_X, Menu::ItemOpenedPosY(item)); //-V1027
+            ((Time *)item)->DrawOpened(MP_X, Menu::ItemOpenedPosY(item));
         }
         else if (item->IsIP())
         {
@@ -362,7 +362,7 @@ void Page::DrawOpened(int yTop)
         }
         else if (item->IsMAC())
         {
-            ((MACaddress *)item)->DrawOpened(MP_X, Menu::ItemOpenedPosY(item)); //-V1027
+            ((MACaddress *)item)->DrawOpened(MP_X, Menu::ItemOpenedPosY(item));
         }
     }
     else

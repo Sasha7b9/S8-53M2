@@ -52,11 +52,11 @@ static void DrawGovernorChoiceColorFormulaHiPart(Item *item, int x, int y, bool 
         }
         else if (type == TypeItem::ChoiceReg || (item->IsOpened() && type == TypeItem::Choice))
         {
-            symbol = Governor::GetSymbol(*((Choice*)item)->cell); //-V1027
+            symbol = Governor::GetSymbol(*((Choice*)item)->cell);
         }
         else if (type == TypeItem::Time)
         {
-            Time *time = (Time*)item; //-V1027
+            Time *time = (Time*)item;
             if ((Item::Opened() == item) && (*time->curField != iEXIT) && (*time->curField != iSET))
             {
                 int8 values[7] =
@@ -255,10 +255,10 @@ static void ItemMACaddress_DrawClosed(MACaddress *mac, int x, int y)
 
 void Formula_DrawClosed(Formula *formula, int x, int y)
 {
-    bool pressed = ((Item *)formula)->IsPressed(); //-V1027
-    bool shade = ((Item *)formula)->IsShade() || !((Item *)formula)->IsActive(); //-V1027
+    bool pressed = ((Item *)formula)->IsPressed();
+    bool shade = ((Item *)formula)->IsShade() || !((Item *)formula)->IsActive();
     formula->DrawLowPart(x, y, pressed, shade);
-    DrawGovernorChoiceColorFormulaHiPart((Item *)formula, x, y, pressed, shade, false); //-V1027
+    DrawGovernorChoiceColorFormulaHiPart((Item *)formula, x, y, pressed, shade, false);
 }
 
 static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits, int selPos, bool hLine) // Если selPos == -1, подсвечивать не нужно
