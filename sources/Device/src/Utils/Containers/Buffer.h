@@ -33,13 +33,15 @@ public:
     void FillFromBuffer(const T *buffer, int size);
 
     // Возвращает количество элементов в буфере
-    inline int Size() const { return block.Size(); }
+    inline int Size() const { return block.Size() / (int)sizeof(T); }
 
-    inline char *DataChar() { return (char *)data; }
+    inline char *DataChar() { return (char *)Data(); }
 
-    inline uint8 *DataU8() { return (uint8 *)data; }
+    inline uint8 *DataU8() { return (uint8 *)Data(); }
 
-    inline T *Data() { return block.Buffer(); }
+    inline T *Data() { return (T *)block.Begin(); }
+
+    inline const T *DataConst() const { return (const T *)(block.BeginConst()); }
 
     inline T *Last() { return Data() + Size(); }
 
@@ -52,11 +54,9 @@ public:
     T &operator[](uint i);
     T &operator[](int i);
 
-    void Log() const;
-
 private:
 
-    MemoryBlock<T> block;
+    MemoryBlock block;
 
     void Malloc(int size);
 };

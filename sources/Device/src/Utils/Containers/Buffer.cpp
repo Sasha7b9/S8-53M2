@@ -30,7 +30,6 @@ template uint8         &Buffer<uint8>::operator[](uint);
 template float         &Buffer<float>::operator[](int);
 template uint          &Buffer<uint>::operator[](int);
 template Buffer<uint8> &Buffer<uint8>::operator=(const Buffer<uint8> &);
-template void           Buffer<uint8>::Log() const;
 template float          Buffer<uint8>::Sum(uint8 *, uint);
 
 
@@ -51,7 +50,7 @@ Buffer<T>::Buffer(int _size, T value) : block(32)
 
 
 template<class T>
-Buffer<T>::Buffer(const Buffer<T> &rhs) : data(nullptr)
+Buffer<T>::Buffer(const Buffer<T> &rhs) : block(32)
 {
     *this = rhs;
 }
@@ -83,25 +82,9 @@ void Buffer<T>::ReallocAndFill(int _size, T value)
 template<class T>
 void Buffer<T>::Fill(T value)
 {
-    if (size)
+    for (int i = 0; i < Size(); i++)
     {
-#ifdef WIN32
-#pragma warning(push, 0)
-#endif
-        if (sizeof(data[0]) == 1)
-#ifdef WIN32
-#pragma warning(pop)
-#endif
-        {
-            std::memset(data, (int)value, (uint)size);
-        }
-        else
-        {
-            for (int i = 0; i < size; i++)
-            {
-                data[i] = value;
-            }
-        }
+        (*this)[i] = value;
     }
 }
 
@@ -109,49 +92,34 @@ void Buffer<T>::Fill(T value)
 template<class T>
 void Buffer<T>::ReallocFromBuffer(const T *buffer, int size)
 {
-    block.ReallocFromBuffer(buffer, size);
+    block.SetSize(size * (int)sizeof(T));
+    block.CopyData(buffer, (int)sizeof(T) * size);
 }
 
 
 template<class T>
-void Buffer<T>::FillFromBuffer(const T *buffer, int _size)
+void Buffer<T>::FillFromBuffer(const T *buffer, int size)
 {
-    if (size < _size)
+    if (Size() < size)
     {
-        _size = size;
+        size = Size();
     }
 
-    std::memcpy(data, buffer, (uint)_size);
+    block.CopyData(buffer, (int)sizeof(T) * size);
 }
 
 
 template<class T>
 void Buffer<T>::Free()
 {
-    std::free(data);
-    data = nullptr;
-    size = 0U;
+    block.Free();
 }
 
 
 template<class T>
-void Buffer<T>::Malloc(int s)
+void Buffer<T>::Malloc(int size)
 {
-    if (s > 0)
-    {
-        data = (T *)(std::malloc((uint)(s) * sizeof(T)));
-        size = (data) ? s : 0;
-
-        if(!data)
-        {
-            LOG_WRITE("Нет памяти");
-        }
-    }
-    else
-    {
-        data = nullptr;
-        size = 0U;
-    }
+    block.SetSize(size * (int)sizeof(T));
 }
 
 
@@ -160,7 +128,7 @@ T &Buffer<T>::operator[](uint i)
 {
     if ((int)i < Size())
     {
-        return data[i];
+        return Data()[i];
     }
 
     static T empty(0);
@@ -174,7 +142,7 @@ T &Buffer<T>::operator[](int i)
 {
     if (i >= 0 && i < (int)Size())
     {
-        return data[i];
+        return Data()[i];
     }
 
     static T empty(0);
@@ -199,28 +167,11 @@ float Buffer<T>::Sum(T *data, uint number)
 
 
 template<class T>
-void Buffer<T>::Log() const
-{
-    char buffer[1024];
-
-    buffer[0] = '\0';
-
-    for (int i = 0; i < Size(); i++)
-    {
-        std::strcat(buffer, SU::Int2String(data[i], false, 1).c_str());
-        std::strcat(buffer, " ");
-    }
-
-    LOG_WRITE(buffer);
-}
-
-
-template<class T>
 Buffer<T> &Buffer<T>::operator=(const Buffer<T> &rhs)
 {
     Realloc(rhs.Size());
 
-    std::memcpy(data, rhs.data, (uint)Size());
+    block.CopyData(rhs.DataConst(), Size() * (int)sizeof(T));
 
     return *this;
 }
