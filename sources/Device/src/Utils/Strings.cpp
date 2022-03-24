@@ -185,16 +185,15 @@ bool EqualsZeroStrings(char *str1, char *str2)
 
 void SU::LogBufferU8(const uint8 *data, int num)
 {
-    char buffer[1024];
-    buffer[0] = '\0';
+    String result;
 
     for (int i = 0; i < num; i++)
     {
-        std::strcat(buffer, SU::Int2String(data[i], false, 1).c_str());
-        std::strcat(buffer, " ");
+        result.Append(SU::Int2String(data[i], false, 1));
+        result.Append(" ");
     }
 
-    LOG_WRITE(buffer);
+    LOG_WRITE(result.c_str());
 }
 
 
