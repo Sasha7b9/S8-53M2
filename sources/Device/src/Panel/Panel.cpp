@@ -710,6 +710,7 @@ namespace Panel
                                 Flags::needFinishDraw = true;
                                 Page::RotateRegSetSB(angle);
                                 Sound::RegulatorSwitchRotate();
+                                angle = 0;
                             }
                             else if (type == TypeItem::Page || type == TypeItem::IP || type == TypeItem::MAC ||
                                 type == TypeItem::Choice || type == TypeItem::ChoiceReg || type == TypeItem::Governor)
@@ -734,6 +735,7 @@ namespace Panel
                                 Flags::needFinishDraw = true;
                                 (angle > 0) ? ((Time *)item)->IncCurrentPosition() : ((Time *)item)->DecCurrentPosition();
                                 Sound::RegulatorSwitchRotate();
+                                angle = 0;
                             }
                         }
                     }

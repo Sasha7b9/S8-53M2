@@ -49,8 +49,8 @@ namespace Measures
     };
 
 
-    int8 posActive = 0;                  // ѕозици€ активного измерени€ (на котором курсор)
-    int8 posOnPageChoice = 0;            // ѕозици€ курсора на странице выбора измерени€
+    int posActive = 0;                  // ѕозици€ активного измерени€ (на котором курсор)
+    int posOnPageChoice = 0;            // ѕозици€ курсора на странице выбора измерени€
 
     void GetActive(int *row, int *col);
     void SetActive(int row, int col);
@@ -172,16 +172,11 @@ int Measures::GetDeltaGridBottom()
 
 void Measures::RotateRegSet(int angle)
 {
-    static const int8 step = 3;
-    static int8 currentAngle = 0;
-    currentAngle += (int8)angle;
-    if (currentAngle < step && currentAngle > -step)
-    {
-        return;
-    }
+    Math::Limitation<int>(&angle, -1, 1);
+
     if (PageMeasures::choiceMeasuresIsActive)
     {
-        posOnPageChoice += (int8)Math::Sign(currentAngle);
+        posOnPageChoice += angle;
 
         if (posOnPageChoice < 0)
         {
@@ -200,7 +195,7 @@ void Measures::RotateRegSet(int angle)
         int row = 0;
         int col = 0;
         GetActive(&row, &col);
-        col += Math::Sign(currentAngle);
+        col += angle;
 
         if (col < 0)
         {
@@ -223,7 +218,6 @@ void Measures::RotateRegSet(int angle)
 
         SetActive(row, col);
     }
-    currentAngle = 0;
 }
 
 
