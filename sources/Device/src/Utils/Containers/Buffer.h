@@ -13,7 +13,10 @@ class Buffer
 {
 public:
 
-    Buffer(int size = 0U);
+    Buffer(int size = 0U) : block(32)
+    {
+        Malloc(size);
+    }
 
     Buffer(int size, T value);
 
@@ -58,5 +61,8 @@ private:
 
     MemoryBlock block;
 
-    void Malloc(int size);
+    void Malloc(int size)
+    {
+        block.SetSize(size * (int)sizeof(T));
+    }
 };

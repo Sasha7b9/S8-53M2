@@ -26,11 +26,14 @@ public:
             Free();
         }
 
-        capacity = CalculateNeedSize(size);
+        if (size)
+        {
+            capacity = CalculateNeedSize(size);
 
-        buffer = (uint8 *)std::malloc((uint)capacity);
+            buffer = (uint8 *)std::malloc((uint)capacity);
 
-        num_elems = size;
+            num_elems = size;
+        }
     }
 
     void Free()

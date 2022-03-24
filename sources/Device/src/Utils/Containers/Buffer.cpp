@@ -7,7 +7,6 @@
 #include <cstring>
 
 
-template                Buffer<uint8>::Buffer(int);
 template                Buffer<char>::Buffer(int);
 template                Buffer<float>::Buffer(int);
 template                Buffer<uint>::Buffer(int);
@@ -31,13 +30,6 @@ template float         &Buffer<float>::operator[](int);
 template uint          &Buffer<uint>::operator[](int);
 template Buffer<uint8> &Buffer<uint8>::operator=(const Buffer<uint8> &);
 template float          Buffer<uint8>::Sum(uint8 *, uint);
-
-
-template<class T>
-Buffer<T>::Buffer(int _size) : block(32)
-{
-    Malloc(_size);
-}
 
 
 template<class T>
@@ -113,13 +105,6 @@ template<class T>
 void Buffer<T>::Free()
 {
     block.Free();
-}
-
-
-template<class T>
-void Buffer<T>::Malloc(int size)
-{
-    block.SetSize(size * (int)sizeof(T));
 }
 
 
