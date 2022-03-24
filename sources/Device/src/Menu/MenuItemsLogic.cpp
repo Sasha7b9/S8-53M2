@@ -288,7 +288,7 @@ int8 Page::PosCurrentItem() const
 }
 
 
-char Governor::GetSymbol(int value)
+char Regulator::GetSymbol(int value)
 {
     static const char chars[] =
     {

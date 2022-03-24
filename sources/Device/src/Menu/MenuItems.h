@@ -351,9 +351,6 @@ public:
 
     void DrawClosed(int x, int y);
 
-    // Возвращает изображение регулятора, соответствующее его текущему положению.
-    static char GetSymbol(int value);
-
     static int8 cur_digit;
 
     static bool inMoveIncrease;
@@ -576,4 +573,11 @@ struct Hint
     static pchar string;    // Строка подсказки, которую надо выводить в случае включённого режима подсказок.
 
     static bool show;       // Если true, то при нажатии кнопки вместо выполнения её фунции выводится подсказка о её назначении
+};
+
+
+struct Regulator
+{
+    // Возвращает изображение регулятора, соответствующее его текущему положению.
+    static char GetSymbol(int value);
 };
