@@ -370,7 +370,7 @@ int FPGA::ShiftRandomizerADC()
         return shift;
     }
 
-    return 0;
+    return 1;       // Единичка потому, что если ноль, то сигнал от калибратора смещён влево на одну точку
 }
 
 
