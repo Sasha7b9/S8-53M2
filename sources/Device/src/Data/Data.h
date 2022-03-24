@@ -80,6 +80,10 @@ struct DataFrame
 
     DataFrame(DataSettings *_ds = nullptr) : ds(_ds) { };
 
+    uint8 *BeginFrame();
+
+    uint8 *EndFrame();
+
     // Начало данных канала
     uint8 *DataBegin(Chan) const;
 

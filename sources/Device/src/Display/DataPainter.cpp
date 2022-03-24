@@ -676,8 +676,6 @@ void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *in
         Painter::DrawVLineArray(x + 255, width - 255, points.Data() + 255 * 2, ColorChannel(ch), transparency);
     }
 
-    Debug::counter++;
-
     DEBUG_POINT_0;
 }
 

@@ -46,6 +46,18 @@ const uint8 *DataFrame::DataEnd(Chan ch)
 }
 
 
+uint8 *DataFrame::BeginFrame()
+{
+    return (uint8 *)ds;
+}
+
+
+uint8 *DataFrame::EndFrame()
+{
+    return BeginFrame() + 2 * ds->BytesInChannel();
+}
+
+
 void FrameImitation::CreateForCurrent()
 {
     int bytes_for_channel = ENUM_POINTS_FPGA::ToNumBytes();

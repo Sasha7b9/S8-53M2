@@ -31,4 +31,5 @@ namespace Debug
     extern int posItem;
 
     extern int counter;
+    extern int pushed;
 };

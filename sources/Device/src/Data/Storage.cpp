@@ -82,6 +82,8 @@ void Storage::Clear()
 
 void Storage::AppendNewFrame(DataFrame &data)
 {
+    Debug::pushed++;
+
     DataSettings new_ds = *data.ds;
     new_ds.time = HAL_RTC::GetPackedTime();
 
@@ -156,6 +158,7 @@ int Storage::NumFramesWithCurrentSettings()
             break;
         }
     }
+
     return retValue;
 }
 
@@ -167,6 +170,7 @@ DataFrame Storage::GetData(int fromEnd)
     if (dp)
     {
         DataFrame result(dp);
+
         return result;
     }
 

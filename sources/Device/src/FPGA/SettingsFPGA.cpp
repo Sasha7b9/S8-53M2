@@ -801,21 +801,22 @@ float Range::MaxOnScreen(Range::E range)
 
 bool DataSettings::Equal(const DataSettings &ds)
 {
-    return (inv_a    == ds.inv_a) &&
-           (inv_b    == ds.inv_b) &&
-           (range[0] == ds.range[0]) &&
-           (range[1] == ds.range[1]) &&
-           (rShiftA  == ds.rShiftA) &&
-           (rShiftB  == ds.rShiftB) &&
-           (tBase    == ds.tBase) &&
-           (tShift   == ds.tShift) &&
-           (coupleA  == ds.coupleA) &&
-           (coupleB  == ds.coupleB) &&
-           (trigLevA == ds.trigLevA) &&
-           (trigLevB == ds.trigLevB) &&
-           (div_a    == ds.div_a) &&
-           (div_b    == ds.div_b) &&
-           (peak_det == ds.peak_det);
+    return  (inv_a    == ds.inv_a) &&
+            (inv_b    == ds.inv_b) &&
+            (range[0] == ds.range[0]) &&
+            (range[1] == ds.range[1]) &&
+            (rShiftA  == ds.rShiftA) &&
+            (rShiftB  == ds.rShiftB) &&
+            (tBase    == ds.tBase) &&
+            (tShift   == ds.tShift) &&
+            (coupleA  == ds.coupleA) &&
+            (coupleB  == ds.coupleB) &&
+            (trigLevA == ds.trigLevA) &&
+            (trigLevB == ds.trigLevB) &&
+            (div_a    == ds.div_a) &&
+            (div_b    == ds.div_b) &&
+            (peak_det == ds.peak_det) &&
+            (e_points_in_channel == ds.e_points_in_channel);
 }
 
 

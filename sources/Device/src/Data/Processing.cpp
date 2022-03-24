@@ -1170,6 +1170,8 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
     const uint8 *in_a = dA;
     const uint8 *in_b = dB;
 
+    DEBUG_POINT_0;
+
     for (int i = 0; i < num_bytes; i++)
     {
         int index = i - dTShift;
@@ -1180,6 +1182,8 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
             out.B[index] = in_b[i];
         }
     }
+
+    DEBUG_POINT_0;
  
     if ((out.ds.range[0] != SET_RANGE_A || out.ds.rShiftA != (uint)SET_RSHIFT_A))
     {
@@ -1197,6 +1201,8 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
         }
     }
 
+    DEBUG_POINT_0;
+
     if ((out.ds.range[1] != SET_RANGE_B || out.ds.rShiftB != (uint)SET_RSHIFT_B))
     {
         Range::E range = SET_RANGE_B;
@@ -1212,11 +1218,15 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
             else                                 { out.B[i] = (uint8)relValue; }
         }
     }
+
+    DEBUG_POINT_0;
 }
 
 
 void Processing::SetData(const DataFrame &in, bool mode_p2p)
 {
+    DEBUG_POINT_0;
+
     out.ds.valid = 0;
 
     if (!in.ds->valid)
@@ -1235,24 +1245,38 @@ void Processing::SetData(const DataFrame &in, bool mode_p2p)
     BufferFPGA A(length);
     BufferFPGA B(length);
 
+    DEBUG_POINT_0;
+
     A.ReallocAndFill(length, ValueFPGA::NONE);   // Подготавливаем место для рассчитанных сглаженных точек
     B.ReallocAndFill(length, ValueFPGA::NONE);
+
+    DEBUG_POINT_0;
 
     Math::CalculateFiltrArray(in.DataBegin(ChA), A.Data(), length, Smoothing::ToPoints());
     Math::CalculateFiltrArray(in.DataBegin(ChB), B.Data(), length, Smoothing::ToPoints());
 
+    DEBUG_POINT_0;
+
     CountedToCurrentSettings(*in.ds, A.Data(), B.Data());
+
+    DEBUG_POINT_0;
 
     out.ds.valid = 1;
     out.rec_points = in.rec_points;
     out.all_points = in.all_points;
     out.mode_p2p = mode_p2p;
+
+    DEBUG_POINT_0;
 }
 
 
 void Processing::SetDataForProcessing(bool for_window_memory)
 {
+    DEBUG_POINT_0;
+
     DataSettings *last_ds = Storage::GetDataSettings(0);
+
+    DEBUG_POINT_0;
 
     if (TBase::InModeP2P())
     {
@@ -1292,9 +1316,19 @@ void Processing::SetDataForProcessing(bool for_window_memory)
     }
     else
     {
+        DEBUG_POINT_0;
+
         if (Storage::NumFrames())
         {
+            DEBUG_POINT_0;
+
             SetData(Storage::GetLatest());
+
+            DEBUG_POINT_0;
         }
+
+        DEBUG_POINT_0;
     }
+
+    DEBUG_POINT_0;
 }
