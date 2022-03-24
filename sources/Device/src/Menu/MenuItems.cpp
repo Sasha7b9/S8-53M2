@@ -229,6 +229,7 @@ float Choice::Step()
             }
 
             Math::CircleIncrease<int8>(cell, 0, NumSubItems() - 1);
+            Regulator::RotateRight();
         }
         else if (tsChoice.inMoveDecrease == 1)
         {
@@ -240,6 +241,7 @@ float Choice::Step()
             }
 
             Math::CircleDecrease<int8>(cell, 0, NumSubItems() - 1);
+            Regulator::RotateLeft();
         }
 
         tsChoice.choice = 0;
