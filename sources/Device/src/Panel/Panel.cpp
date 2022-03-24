@@ -56,13 +56,12 @@ namespace Panel
         static const uint MIN_TIME = 500;
 
 
-        static void ChangeRShift(int *prevTime, void(*f)(Chan::E, int16), Chan::E ch, int16 relStep);
+        static void ChangeRShift(TimeMeterMS *tMeter, void(*f)(Chan::E, int16), Chan::E ch, int16 relStep);
 
-        int CalculateCount(int *prevTime)
+        int CalculateCount(TimeMeterMS *tMeter)
         {
-            uint time = TIME_MS;
-            uint delta = time - *prevTime;
-            *prevTime = (int)time;
+            uint delta = tMeter->ElapsedTime();
+            tMeter->Reset();
 
             if (delta > 75)
             {
@@ -119,13 +118,13 @@ namespace Panel
             return false;
         }
 
-        void ChangeRShift(int *prevTime, void(*f)(Chan::E, int16), Chan::E ch, int16 relStep)
+        void ChangeRShift(TimeMeterMS *tMeter, void(*f)(Chan::E, int16), Chan::E ch, int16 relStep)
         {
             if (ENUM_ACCUM_IS_NONE)
             {
                 FPGA::TemporaryPause();
             }
-            int count = CalculateCount(prevTime);
+            int count = CalculateCount(tMeter);
             int rShiftOld = SET_RSHIFT(ch);
             int rShift = SET_RSHIFT(ch) + relStep * count;
             if ((rShiftOld > RShift::ZERO && rShift < RShift::ZERO) || (rShiftOld < RShift::ZERO && rShift > RShift::ZERO))
@@ -138,9 +137,9 @@ namespace Panel
             }
         }
 
-        void ChangeTrigLev(int *prevTime, void(*f)(TrigSource::E, int16), TrigSource::E trigSource, int16 relStep)
+        void ChangeTrigLev(TimeMeterMS *tMeter, void(*f)(TrigSource::E, int16), TrigSource::E trigSource, int16 relStep)
         {
-            int count = CalculateCount(prevTime);
+            int count = CalculateCount(tMeter);
             int trigLevOld = TRIG_LEVEL(trigSource);
             int trigLev = TRIG_LEVEL(trigSource) + relStep * count;
             if ((trigLevOld > TrigLev::ZERO && trigLev < TrigLev::ZERO) || (trigLevOld < TrigLev::ZERO && trigLev > TrigLev::ZERO))
@@ -153,11 +152,12 @@ namespace Panel
             }
         }
 
-        void ChangeTShift(int *prevTime, void(*f)(int), int16 relStep)
+        void ChangeTShift(TimeMeterMS *tMeter, void(*f)(int), int16 relStep)
         {
-            int count = CalculateCount(prevTime);
+            int count = CalculateCount(tMeter);
             int tShiftOld = SET_TSHIFT;
             float step = relStep * count;
+
             if (step < 0)
             {
                 if (step > -1)
@@ -184,10 +184,12 @@ namespace Panel
             }
         }
 
-        void ChangeShiftScreen(int *prevTime, void(*f)(int), int16 relStep)
+        void ChangeShiftScreen(TimeMeterMS *tMeter, void(*f)(int), int16 relStep)
         {
-            int count = CalculateCount(prevTime);
+            int count = CalculateCount(tMeter);
+
             float step = relStep * count;
+
             if (step < 0)
             {
                 if (step > -1)
@@ -199,6 +201,7 @@ namespace Panel
             {
                 step = 1;
             }
+
             f(step);
         }
 
@@ -227,17 +230,18 @@ namespace Panel
 
         void XShift(int delta)
         {
-            static int prevTime = 0;
+            static TimeMeterMS tMeter;
+
             if (!FPGA::IsRunning() || SET_TIME_DIV_XPOS_IS_SHIFT_IN_MEMORY)
             {
                 if (!SET_ENUM_POINTS_IS_281)
                 {
-                    ChangeShiftScreen(&prevTime, ShiftScreen, 2 * delta);
+                    ChangeShiftScreen(&tMeter, ShiftScreen, 2 * delta);
                 }
             }
             else
             {
-                ChangeTShift(&prevTime, SetTShift, (int16)delta);
+                ChangeTShift(&tMeter, SetTShift, (int16)delta);
             }
         }
     }
@@ -582,13 +586,13 @@ namespace Panel
     {
         if (action.IsLeft())
         {
-            static int prevTime = 0;
-            Processing::ChangeRShift(&prevTime, Processing::SetRShift, Chan::A, -RShift::STEP);
+            static TimeMeterMS tMeter;
+            Processing::ChangeRShift(&tMeter, Processing::SetRShift, Chan::A, -RShift::STEP);
         }
         else if (action.IsRight())
         {
-            static int prevTime = 0;
-            Processing::ChangeRShift(&prevTime, Processing::SetRShift, Chan::A, +RShift::STEP);
+            static TimeMeterMS tMeter;
+            Processing::ChangeRShift(&tMeter, Processing::SetRShift, Chan::A, +RShift::STEP);
         }
     }
 
@@ -596,13 +600,13 @@ namespace Panel
     {
         if (action.IsLeft())
         {
-            static int prevTime = 0;
-            Processing::ChangeRShift(&prevTime, Processing::SetRShift, Chan::B, -RShift::STEP);
+            static TimeMeterMS tMeter;
+            Processing::ChangeRShift(&tMeter, Processing::SetRShift, Chan::B, -RShift::STEP);
         }
         else if (action.IsRight())
         {
-            static int prevTime = 0;
-            Processing::ChangeRShift(&prevTime, Processing::SetRShift, Chan::B, +RShift::STEP);
+            static TimeMeterMS tMeter;
+            Processing::ChangeRShift(&tMeter, Processing::SetRShift, Chan::B, +RShift::STEP);
         }
     }
 
@@ -636,13 +640,13 @@ namespace Panel
     {
         if (action.IsLeft())
         {
-            static int prevTime = 0;
-            Processing::ChangeTrigLev(&prevTime, Processing::SetTrigLev, TRIG_SOURCE, -RShift::STEP);
+            static TimeMeterMS tMeter;
+            Processing::ChangeTrigLev(&tMeter, Processing::SetTrigLev, TRIG_SOURCE, -RShift::STEP);
         }
         else if (action.IsRight())
         {
-            static int prevTime = 0;
-            Processing::ChangeTrigLev(&prevTime, Processing::SetTrigLev, TRIG_SOURCE, +RShift::STEP);
+            static TimeMeterMS tMeter;
+            Processing::ChangeTrigLev(&tMeter, Processing::SetTrigLev, TRIG_SOURCE, +RShift::STEP);
         }
     }
 
