@@ -1,5 +1,6 @@
 // (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
+#include "Utils/Containers/MemoryBlock.h"
 #include <cstring>
 
 
@@ -31,17 +32,18 @@ public:
     // Записать в буфер size байт из buffer. Если памяти выделено меньше, заполнить только выделенную память
     void FillFromBuffer(const T *buffer, int size);
 
-    inline int Size() const { return size; }
+    // Возвращает количество элементов в буфере
+    inline int Size() const { return block.Size(); }
 
     inline char *DataChar() { return (char *)data; }
 
     inline uint8 *DataU8() { return (uint8 *)data; }
 
-    inline T *Data() { return data; }
+    inline T *Data() { return block.Buffer(); }
 
-    inline T *Last() { return data + Size(); }
+    inline T *Last() { return Data() + Size(); }
 
-    inline T *Pointer(int index) { return data + index; }
+    inline T *Pointer(int index) { return Data() + index; }
 
     static float Sum(T *data, uint number);
 
@@ -52,13 +54,9 @@ public:
 
     void Log() const;
 
-protected:
-
-    T *data;
-
 private:
 
-    int size;
+    MemoryBlock<T> block;
 
     void Malloc(int size);
 };

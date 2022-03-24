@@ -35,14 +35,14 @@ template float          Buffer<uint8>::Sum(uint8 *, uint);
 
 
 template<class T>
-Buffer<T>::Buffer(int _size) : data(nullptr)
+Buffer<T>::Buffer(int _size) : block(32)
 {
     Malloc(_size);
 }
 
 
 template<class T>
-Buffer<T>::Buffer(int _size, T value) : data(nullptr)
+Buffer<T>::Buffer(int _size, T value) : block(32)
 {
     Malloc(_size);
 
@@ -107,11 +107,9 @@ void Buffer<T>::Fill(T value)
 
 
 template<class T>
-void Buffer<T>::ReallocFromBuffer(const T *buffer, int _size)
+void Buffer<T>::ReallocFromBuffer(const T *buffer, int size)
 {
-    Realloc(_size);
-
-    std::memcpy(data, buffer, (uint)_size);
+    block.ReallocFromBuffer(buffer, size);
 }
 
 
