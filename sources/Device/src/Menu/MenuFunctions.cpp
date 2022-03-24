@@ -179,7 +179,6 @@ void Page::ChangeSubPage(int delta) const
         if (set.menu.currentSubPage[name] < NumSubPages() - 1)
         {
             set.menu.currentSubPage[name]++;
-            Regulator::angle++;
         }
     }
     else if (delta < 0)
@@ -187,7 +186,6 @@ void Page::ChangeSubPage(int delta) const
         if (set.menu.currentSubPage[name] > 0)
         {
             set.menu.currentSubPage[name]--;
-            Regulator::angle--;
         }
     }
 }

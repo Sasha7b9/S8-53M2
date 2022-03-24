@@ -228,11 +228,7 @@ float Choice::Step()
                 return delta;
             }
 
-            int8 prev = *cell;
-            if (Math::CircleIncrease<int8>(cell, 0, NumSubItems() - 1) != prev)
-            {
-                Regulator::angle--;
-            }
+            Math::CircleIncrease<int8>(cell, 0, NumSubItems() - 1);
         }
         else if (tsChoice.inMoveDecrease == 1)
         {
@@ -243,11 +239,7 @@ float Choice::Step()
                 return delta;
             }
 
-            int8 prev = *cell;
-            if (Math::CircleDecrease<int8>(cell, 0, NumSubItems() - 1) != prev)
-            {
-                Regulator::angle++;
-            }
+            Math::CircleDecrease<int8>(cell, 0, NumSubItems() - 1);
         }
 
         tsChoice.choice = 0;
@@ -266,19 +258,11 @@ void Choice::ChangeValue(int delta)
 {
     if (delta < 0)
     {
-        int8 prev = *cell;
-        if (Math::CircleIncrease<int8>(cell, 0, NumSubItems() - 1) != prev)
-        {
-            Regulator::angle--;
-        }
+        Math::CircleIncrease<int8>(cell, 0, NumSubItems() - 1);
     }
     else
     {
-        int8 prev = *cell;
-        if (Math::CircleDecrease<int8>(cell, 0, NumSubItems() - 1) != prev)
-        {
-            Regulator::angle++;
-        }
+        Math::CircleDecrease<int8>(cell, 0, NumSubItems() - 1);
     }
 
     FuncOnChanged(((Item *)this)->IsActive());

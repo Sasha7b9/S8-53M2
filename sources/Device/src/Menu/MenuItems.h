@@ -579,6 +579,8 @@ struct Regulator
 
     static int angle;
 
+private:
+
     // Возвращает изображение регулятора, соответствующее его текущему положению.
     static char GetSymbol(int value);
 };

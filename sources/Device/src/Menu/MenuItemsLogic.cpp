@@ -220,8 +220,11 @@ void Time::SetNewTime() const
 
 void Time::SelectNextPosition()
 {
-    Math::CircleIncrease<int8>(curField, 0, 7);
-    Color::ResetFlash();
+    int prev = *curField;
+    if (Math::CircleIncrease<int8>(curField, 0, 7) != prev)
+    {
+        Color::ResetFlash();
+    }
 }
 
 void Time::IncCurrentPosition() const
