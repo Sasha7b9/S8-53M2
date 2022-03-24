@@ -73,6 +73,7 @@ void Storage::Clear()
     first_ds = nullptr;
     last_ds = (DataSettings *)beginPool;
     last_ds->next = last_ds->prev = nullptr;
+    count_data = 0;
 
     Limitator::ClearLimits();
     Averager::Reset();
