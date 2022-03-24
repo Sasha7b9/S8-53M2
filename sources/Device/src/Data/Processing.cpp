@@ -1257,6 +1257,8 @@ void Processing::SetDataForProcessing(bool for_window_memory)
 {
     DataSettings *last_ds = Storage::GetDataSettings(0);
 
+    out.ds.valid = 0;
+
     if (TBase::InModeP2P())
     {
         if (START_MODE_IS_AUTO)
