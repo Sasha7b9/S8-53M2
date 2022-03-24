@@ -40,6 +40,15 @@ void Governor::ChangeValue(int delta)
 
     if (*cell != oldValue)
     {
+        if (delta > 0)
+        {
+            Regulator::RotateRight();
+        }
+        else if (delta < 0)
+        {
+            Regulator::RotateLeft();
+        }
+
         if (funcOfChanged)
         {
             funcOfChanged();
