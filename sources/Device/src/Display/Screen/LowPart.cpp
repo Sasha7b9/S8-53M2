@@ -46,7 +46,6 @@ void LowPart::Draw()
     Painter::DrawVLine(x + 95, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, COLOR_FILL);
 
     x += 98;
-    char buffer[100] = {0};
 
     TBase::E tBase = SET_TBASE;
     int tShift = SET_TSHIFT;
@@ -62,24 +61,15 @@ void LowPart::Draw()
         }
     }
 
-    std::sprintf(buffer, "ð\xa5%s", TBase::ToString(tBase));
-    String(buffer).Draw(x, y0);
+    String("ð\xa5%s", TBase::ToString(tBase)).Draw(x, y0);
 
-    buffer[0] = 0;
-    std::sprintf(buffer, "\xa5%s", TShift::ToString(tShift).c_str());
-    String(buffer).Draw(x + 35, y0);
-
-    buffer[0] = 0;
+    String("\xa5%s", TShift::ToString(tShift).c_str()).Draw(x + 35, y0);
 
     if (MODE_WORK_IS_DIRECT)
     {
         pchar source[3] = {"1", "2", "\x82"};
-        std::sprintf(buffer, "ñ\xa5\x10%s", source[TRIG_SOURCE]);
+        String("ñ\xa5\x10%s", source[TRIG_SOURCE]).Draw(x, y1, ColorTrig());
     }
-
-    String(buffer).Draw(x, y1, ColorTrig());
-
-    buffer[0] = 0;
 
     static pchar couple[] =
     {
@@ -105,13 +95,11 @@ void LowPart::Draw()
 
     if (MODE_WORK_IS_DIRECT)
     {
-        std::sprintf(buffer, "\xa5\x10%s\x10\xa5\x10%s\x10\xa5\x10", couple[TRIG_INPUT], polar[TRIG_POLARITY]);
-        String(buffer).Draw(x + 18, y1);
+        String("\xa5\x10%s\x10\xa5\x10%s\x10\xa5\x10", couple[TRIG_INPUT], polar[TRIG_POLARITY]).Draw(x + 18, y1);
         Char(filtr[TRIG_INPUT][0]).Draw(x + 45, y1);
         Char(filtr[TRIG_INPUT][1]).Draw(x + 53, y1);
     }
 
-    buffer[0] = '\0';
     const char mode[] =
     {
         '\xb7',
@@ -121,8 +109,7 @@ void LowPart::Draw()
 
     if (MODE_WORK_IS_DIRECT)
     {
-        std::sprintf(buffer, "\xa5\x10%c", mode[START_MODE]);
-        String(buffer).Draw(x + 63, y1);
+        String("\xa5\x10%c", mode[START_MODE]).Draw(x + 63, y1);
     }
 
     Painter::DrawVLine(x + 79, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, COLOR_FILL);
