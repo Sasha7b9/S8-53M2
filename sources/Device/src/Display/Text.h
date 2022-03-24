@@ -60,7 +60,7 @@ private:
 
     int capacity;
 
-    static const int SIZE_SEGMENT = 32;
+    static const int _SIZE_SEGMENT = 32;
 
     int GetLenghtSubString(char *text);
 
