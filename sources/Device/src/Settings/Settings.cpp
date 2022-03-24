@@ -10,6 +10,7 @@
 #include "Log.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
+#include "Menu/Pages/Definition.h"
 #include <cstring>
 
 
@@ -156,7 +157,7 @@ static const Settings defaultSettings =
     },
     // memory
     {
-        ENUM_POINTS_FPGA::_1024,
+        ENUM_POINTS_FPGA::_512,
         ModeWork::Direct,
         FileNamingMode::Mask,
         "Signal_\x07\x03",      // \x07 - означает, что здесь должен быть очередной номер, \x03 - минимум на три знакоместа
@@ -342,6 +343,8 @@ void Settings::RunAfterLoad()
     Panel::EnableLEDChannelB(SET_ENABLED_B);
     Menu::SetAutoHide(true);
     RShift::ChangedMarkers();
+
+    PageMemory::OnChanged_NumPoints();
 
     isLoaded = true;
 }
