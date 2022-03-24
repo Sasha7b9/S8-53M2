@@ -130,7 +130,7 @@ void DataPainter::DrawInModeInternal()
 
 void DataPainter::DrawDataInModeWorkLatestMemInt()
 {
-    if (Processing::out.Valid())
+    if (Processing::out.ds.valid)
     {
         DrawDataChannel(Processing::out, Chan::A, GRID_TOP, Grid::ChannelBottom());
         DrawDataChannel(Processing::out, Chan::B, GRID_TOP, Grid::ChannelBottom());

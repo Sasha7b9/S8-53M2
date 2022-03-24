@@ -60,8 +60,6 @@ struct DataSettings
     int PointsInChannel() const;
 
     int16 GetRShift(Chan) const;
-
-    bool Valid() const { return (valid == 1); };
 };
 
 
@@ -96,8 +94,6 @@ struct DataFrame
 
     // Заполнить фрейм данными из фрейма
     void FillDataChannelsFromFrame(DataFrame &);
-
-    bool Valid() const { return (ds->valid == 1); }
 };
 
 
@@ -117,8 +113,6 @@ struct DataStruct
     DataStruct(const DataFrame &);
 
     BufferFPGA &Data(Chan ch) { return ch.IsA() ? A : B; }
-
-    bool Valid() const { return ds.Valid(); }
 
     // Подготовить данные поточечного режима к выводу в поточечном режиме
     // Возвращает позицию точки (начиная с левой границы сетки), в которой нужно выводить вертикальную линию

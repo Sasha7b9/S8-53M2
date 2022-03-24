@@ -130,7 +130,7 @@ namespace Processing
 
 void Processing::CalculateMeasures()
 {
-    if(!SHOW_MEASURES || !Processing::out.Valid())
+    if(!SHOW_MEASURES || !Processing::out.ds.valid)
     {
         return;
     }
@@ -1119,7 +1119,7 @@ String Processing::GetStringMeasure(Measure::E measure, Chan ch)
 
     String result(ch.IsA() ? "1: " : "2: ");
 
-    if(!out.ds.Valid())
+    if(!out.ds.valid)
     {
         result.Append("-.-");
     }
@@ -1217,10 +1217,15 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
 
 void Processing::SetData(const DataFrame &in, bool mode_p2p)
 {
+//    if (in.ds->valid == 0)
+//    {
+//        out.ds.valid = 0;
+//        return;
+//    }
+
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
     firstP = points.half_iword[0];
-
     lastP = points.half_iword[1];
     numP = lastP - firstP;
 
@@ -1274,7 +1279,7 @@ void Processing::SetDataForProcessing(bool for_window_memory)
         }
         else
         {
-            if (Storage::current.frame.Valid() || for_window_memory)
+            if (Storage::current.frame.ds->valid || for_window_memory)
             {
                 SetData(Storage::current.frame, for_window_memory);
             }

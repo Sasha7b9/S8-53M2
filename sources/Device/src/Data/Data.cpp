@@ -22,7 +22,7 @@ namespace Data
 
 void DataStruct::Log(pchar point)
 {
-    LOG_WRITE("%s - data valid = %d", point, Valid());
+    LOG_WRITE("%s - data valid = %d", point, ds.valid);
     SU::LogBufferU8(Data(ChA).Data(), 10);
 }
 

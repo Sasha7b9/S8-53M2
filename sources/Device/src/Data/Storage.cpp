@@ -74,6 +74,9 @@ void Storage::Clear()
     last_ds->next = last_ds->prev = nullptr;
 
     Limitator::ClearLimits();
+    Averager::Reset();
+
+    current.frame.ds->valid = 0;
 }
 
 

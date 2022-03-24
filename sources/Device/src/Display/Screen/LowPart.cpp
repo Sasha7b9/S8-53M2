@@ -55,7 +55,7 @@ void LowPart::Draw()
     {
         const DataSettings &ds = MODE_WORK_IS_LATEST ? *Data::last.ds : *Data::ins.ds;
 
-        if (ds.Valid())
+        if (ds.valid)
         {
             tBase = ds.tBase;
             tShift = ds.tShift;
@@ -217,7 +217,7 @@ void LowPart::DrawTime(int x, int y)
     {
         const DataSettings &ds = MODE_WORK_IS_MEMINT ? *Data::ins.ds : *Data::last.ds;
 
-        if (ds.Valid())
+        if (ds.valid)
         {
             y -= 9;
             time.day = ds.time.day;
@@ -268,7 +268,7 @@ void LowPart::WriteTextVoltage(Chan ch, int x, int y)
     {
         const DataSettings &ds = MODE_WORK_IS_DIRECT ? Processing::out.ds : *Data::ins.ds;
 
-        if (ds.Valid())
+        if (ds.valid)
         {
             inverse = ch.IsA() ? ds.inv_a : ds.inv_b;
             modeCouple = ch.IsA() ? ds.coupleA : ds.coupleB;
