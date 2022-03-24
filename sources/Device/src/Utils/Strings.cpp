@@ -214,20 +214,16 @@ void SU::LogBufferU8(pchar label, const uint8 *data, int num)
 
 void SU::LogBufferF(pchar label, const float *data, int num)
 {
-    char buffer[1024];
-
-    buffer[0] = '\0';
-
-    std::strcat(buffer, label);
-    std::strcat(buffer, " ");
+    String string(label);
+    string.Append(" ");
 
     for (int i = 0; i < num; i++)
     {
-        std::strcat(buffer, SU::Float2String(data[i], false, 1).c_str());
-        std::strcat(buffer, " ");
+        string.Append(SU::Float2String(data[i], false, 1));
+        string.Append(" ");
     }
 
-    LOG_WRITE(buffer);
+    LOG_WRITE(string.c_str());
 }
 
 
