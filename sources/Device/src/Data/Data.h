@@ -41,7 +41,10 @@ struct DataSettings
     uint                valid               : 1;
     PackedTime          time;
 
-    DataSettings() { valid = 0; };
+    DataSettings() { FillFromCurrentSettings(); valid = 0; };
+
+    // Заполнение полей текущими настройками
+    void FillFromCurrentSettings();
 
     void Set(const DataSettings &);
 
@@ -51,9 +54,6 @@ struct DataSettings
 
     // Вычисляет, сколько памяти трубуется, чтобы сохранить измерения с настройками dp
     int SizeFrame();
-
-    // Заполнение полей текущими настройками
-    void FillFromCurrentSettings();
 
     int BytesInChannel() const;
 

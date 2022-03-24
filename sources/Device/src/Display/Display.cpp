@@ -474,7 +474,7 @@ void Display::DrawTimeForFrame(uint timeTicks)
         first = false;
     }
 
-    numMS += timeTicks / TICKS_IN_US / 1e3f;
+    numMS += (timeTicks / (float)TICKS_IN_US / 1e3f);
     numFrames++;
 
     String buffer;
