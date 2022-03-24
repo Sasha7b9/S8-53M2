@@ -548,7 +548,11 @@ namespace Panel
 
     static void FuncRangeA(Action action)
     {
-        if (action.IsLeft())
+        if (action.IsActionButton())
+        {
+            FuncChannelA(action);
+        }
+        else if (action.IsLeft())
         {
             Range::Increase(Chan::A);
         }
@@ -560,7 +564,11 @@ namespace Panel
 
     static void FuncRangeB(Action action)
     {
-        if (action.IsLeft())
+        if (action.IsActionButton())
+        {
+            FuncChannelB(action);
+        }
+        else if (action.IsLeft())
         {
             Range::Increase(Chan::B);
         }
@@ -572,7 +580,11 @@ namespace Panel
 
     static void FuncRShiftA(Action action)
     {
-        if (action.IsLeft())
+        if (action.IsActionButton())
+        {
+            FuncChannelA(action);
+        }
+        else if (action.IsLeft())
         {
             static TimeMeterMS tMeter;
             Processing::ChangeRShift(&tMeter, Processing::SetRShift, Chan::A, -RShift::STEP);
@@ -586,7 +598,11 @@ namespace Panel
 
     static void FuncRShiftB(Action action)
     {
-        if (action.IsLeft())
+        if (action.IsActionButton())
+        {
+            FuncChannelB(action);
+        }
+        else if (action.IsLeft())
         {
             static TimeMeterMS tMeter;
             Processing::ChangeRShift(&tMeter, Processing::SetRShift, Chan::B, -RShift::STEP);
@@ -598,23 +614,13 @@ namespace Panel
         }
     }
 
-    static void FuncTBase(Action action)
-    {
-        Sound::RegulatorSwitchRotate();
-
-        if (action.IsLeft())
-        {
-            TBase::Increase();
-        }
-        else if (action.IsRight())
-        {
-            TBase::Decrease();
-        }
-    }
-
     static void FuncTShift(Action action)
     {
-        if (action.IsLeft())
+        if (action.IsActionButton())
+        {
+            FuncTime(action);
+        }
+        else if (action.IsLeft())
         {
             Processing::XShift(-1);
         }
@@ -624,9 +630,34 @@ namespace Panel
         }
     }
 
+    static void FuncTBase(Action action)
+    {
+        if (action.IsActionButton())
+        {
+            FuncTShift(action);
+        }
+        else
+        {
+            Sound::RegulatorSwitchRotate();
+
+            if (action.IsLeft())
+            {
+                TBase::Increase();
+            }
+            else if (action.IsRight())
+            {
+                TBase::Decrease();
+            }
+        }
+    }
+
     static void FuncTrigLev(Action action)
     {
-        if (action.IsLeft())
+        if (action.IsActionButton())
+        {
+            FuncTrig(action);
+        }
+        else if (action.IsLeft())
         {
             static TimeMeterMS tMeter;
             Processing::ChangeTrigLev(&tMeter, Processing::SetTrigLev, TRIG_SOURCE, -RShift::STEP);
@@ -645,7 +676,11 @@ namespace Panel
 
         if (!Hint::show)
         {
-            if (action.IsLeft() || action.IsRight())
+            if (action.IsActionButton())
+            {
+                FuncMenu(action);
+            }
+            else if (action.IsLeft() || action.IsRight())
             {
                 angle = action.IsLeft() ? (angle - 1) : (angle + 1);
 

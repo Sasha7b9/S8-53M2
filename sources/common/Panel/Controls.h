@@ -81,6 +81,7 @@ struct Action { enum E {
     bool IsLong() const { return value == Long; }
     bool IsLeft() const { return value == Left; }
     bool IsRight() const { return value == Right; }
+    bool IsActionButton() const { return (value == Down) || (value == Up) || (value == Long); }
     pchar Name() const;
 };
 
