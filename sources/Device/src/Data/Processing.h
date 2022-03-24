@@ -32,7 +32,7 @@ namespace Processing
     int GetMarkerVoltage(Chan, int numMarker);
 
     // Возвращает значение вертикального маркера. Если ERROR_VALUE_INT - маркер рисовать не нужно.
-    int GetMarkerVertical(Chan, int numMarker);
+    int GetMarkerTime(Chan, int numMarker);
 
     // Обработать сигнал из in. Результат сохранён в Data::out
     // Если mode_p2p == true, то будет установлен признак поточечного фрейма

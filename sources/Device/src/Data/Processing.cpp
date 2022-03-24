@@ -29,7 +29,7 @@ namespace Processing
     MeasureValue values[Measure::Count] = {{0.0f, 0.0f}};
 
     int markerVolt[Chan::Count][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
-    int markerVert[Chan::Count][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
+    int markerTime[Chan::Count][2] = {{ERROR_VALUE_INT}, {ERROR_VALUE_INT}};
 
     bool max_ready[2] = {false, false};
     bool min_ready[2] = {false, false};
@@ -153,7 +153,7 @@ void Processing::CalculateMeasures()
             {
                 if(meas == MEAS_MARKED || MEAS_MARKED_IS_NONE)
                 {
-                    markerVert[Chan::A][0] = markerVert[Chan::A][1] = markerVert[Chan::B][0] = markerVert[Chan::B][1] = ERROR_VALUE_INT;
+                    markerTime[Chan::A][0] = markerTime[Chan::A][1] = markerTime[Chan::B][0] = markerTime[Chan::B][1] = ERROR_VALUE_INT;
                     markerVolt[Chan::A][0] = markerVolt[Chan::A][1] = markerVolt[Chan::B][0] = markerVolt[Chan::B][1] = ERROR_VALUE_INT;
                 }
                 if(MEAS_SOURCE_IS_A || MEAS_SOURCE_IS_A_B)
@@ -575,8 +575,8 @@ float Processing::CalculateTimeNarastaniya(Chan::E ch)                    // WAR
     {
         markerVolt[ch][0] = max09;
         markerVolt[ch][1] = min01;
-        markerVert[ch][0] = firstIntersection - SHIFT_IN_MEMORY;
-        markerVert[ch][1] = secondIntersection - SHIFT_IN_MEMORY;
+        markerTime[ch][0] = firstIntersection - SHIFT_IN_MEMORY;
+        markerTime[ch][1] = secondIntersection - SHIFT_IN_MEMORY;
     }
 
     return retValue;
@@ -611,8 +611,8 @@ float Processing::CalculateTimeSpada(Chan::E ch)                          // WAR
     {
         markerVolt[ch][0] = max09;
         markerVolt[ch][1] = min01;
-        markerVert[ch][0] = firstIntersection - SHIFT_IN_MEMORY;
-        markerVert[ch][1] = secondIntersection - SHIFT_IN_MEMORY;
+        markerTime[ch][0] = firstIntersection - SHIFT_IN_MEMORY;
+        markerTime[ch][1] = secondIntersection - SHIFT_IN_MEMORY;
     }
 
     return retValue;
@@ -1146,9 +1146,9 @@ int Processing::GetMarkerVoltage(Chan ch, int numMarker)
     return markerVolt[ch][numMarker] - ValueFPGA::MIN;
 }
 
-int Processing::GetMarkerVertical(Chan ch, int numMarker)
+int Processing::GetMarkerTime(Chan ch, int numMarker)
 {
-    return markerVert[ch][numMarker];
+    return markerTime[ch][numMarker];
 }
 
 

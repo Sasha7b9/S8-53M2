@@ -189,7 +189,7 @@ void DataPainter::DrawMarkersForMeasure(float scale, Chan ch)
             Painter::DrawDashedHLine((int)(Grid::FullBottom() - pos * scale), Grid::Left(), Grid::Right(), 3, 2, 0);
         }
 
-        pos = Processing::GetMarkerVertical(ch, numMarker);
+        pos = Processing::GetMarkerTime(ch, numMarker);
 
         if (pos != ERROR_VALUE_INT && pos > 0 && pos < Grid::Right())
         {
