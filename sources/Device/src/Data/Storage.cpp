@@ -20,18 +20,13 @@ namespace Storage
 
     TimeMeterMS time_meter;
 
-    // Количество отведённой для измерений памяти.
-    const int SIZE_POOL = (64 * 1024);
-
-    // Здесь хранятся данные.
-    
-    uint8 pool[SIZE_POOL] __attribute__ ((section("CCM_DATA")));
+    static const int SIZE_POOL = HAL_FMC::ADDR_RAM_DATA_END - HAL_FMC::ADDR_RAM_DATA;
 
     // Адрес начала памяти для хранения
-    uint8 *beginPool = &(pool[0]);
+    uint8 *beginPool = HAL_FMC::ADDR_RAM_DATA;
 
     // Адрес последнего байта памяти для хранения
-    uint8 *endPool = &(pool[SIZE_POOL - 1]);
+    uint8 *endPool = HAL_FMC::ADDR_RAM_DATA_END;
 
     // Указатель на первые сохранённые данные
     DataSettings *first_ds = nullptr;
