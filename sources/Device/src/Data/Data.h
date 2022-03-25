@@ -71,6 +71,7 @@ struct DataSettings
 struct BufferFPGA : public Buffer<uint8>
 {
     BufferFPGA(int size = 0) : Buffer<uint8>(size) { }
+    BufferFPGA(int size, uint8 value) : Buffer<uint8>(size, value) { }
 };
 
 

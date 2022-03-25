@@ -1235,11 +1235,8 @@ void Processing::SetData(const DataStruct &in, bool mode_p2p)
 
     int length = in.ds.BytesInChanStored();
 
-    BufferFPGA A(length);
-    BufferFPGA B(length);
-
-    A.ReallocAndFill(length, ValueFPGA::NONE);   // Подготавливаем место для рассчитанных сглаженных точек
-    B.ReallocAndFill(length, ValueFPGA::NONE);
+    BufferFPGA A(length, ValueFPGA::NONE);
+    BufferFPGA B(length, ValueFPGA::NONE);
 
     Math::CalculateFiltrArray(in.A.DataConst(), A.Data(), length, Smoothing::ToPoints());
     Math::CalculateFiltrArray(in.B.DataConst(), B.Data(), length, Smoothing::ToPoints());
