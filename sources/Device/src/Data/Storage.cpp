@@ -91,9 +91,12 @@ void Storage::Clear()
 
 void Storage::AppendNewFrame(DataStruct &data)
 {
+    static int id = 0;
+
     SameSettings::Calculate(data);
 
     data.ds.time = HAL_RTC::GetPackedTime();
+    data.ds.id = ++id;
 
     Limitator::CalculateLimits(&data.ds, data.A.Data(), data.B.Data());
 
@@ -213,13 +216,18 @@ DataStruct &Storage::GetData(int from_end)
         return result.data;
     }
 
-    result.data.ds = *dp;
-    result.data.ds.valid = 1;
+    DataSettings ds = *dp;
 
-    uint8 *address = (uint8 *)dp + sizeof(DataSettings);
+    if (ds.id != result.data.ds.id)
+    {
+        result.data.ds = ds;
+        result.data.ds.valid = 1;
 
-    result.data.A.ReallocFromBuffer(address, dp->BytesInChanStored());
-    result.data.B.ReallocFromBuffer(address + dp->BytesInChanStored(), dp->BytesInChanStored());
+        uint8 *address = (uint8 *)dp + sizeof(DataSettings);
+
+        result.data.A.ReallocFromBuffer(address, dp->BytesInChanStored());
+        result.data.B.ReallocFromBuffer(address + dp->BytesInChanStored(), dp->BytesInChanStored());
+    }
 
     return result.data;
 }

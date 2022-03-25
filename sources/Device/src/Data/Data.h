@@ -22,6 +22,7 @@ struct DataSettings
 {
     void                *next;                      // Адрес следующей записи.
     void                *prev;                      // Адрес предыдущей записи.
+    int                 id;                         // Уникальный id для каждого фрейма, сохраняемого в Storage;
     uint                rShiftA             : 10;   // Смещение по напряжению
     uint                rShiftB             : 10;
     uint                trigLevA            : 10;   // Уровень синхронизации
@@ -41,7 +42,7 @@ struct DataSettings
     uint                valid               : 1;
     PackedTime          time;
 
-    DataSettings() { FillFromCurrentSettings(); valid = 0; };
+    DataSettings() : next(nullptr), prev(nullptr), id(0) { FillFromCurrentSettings(); valid = 0; };
 
     // Заполнение полей текущими настройками
     void FillFromCurrentSettings();
