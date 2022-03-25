@@ -1243,9 +1243,7 @@ void Processing::SetData(const DataStruct &in, bool mode_p2p)
     Math::CalculateFiltrArray(a, A.Data(), length, Smoothing::ToPoints());
     Math::CalculateFiltrArray(b, B.Data(), length, Smoothing::ToPoints());
 
-    TimeMeterUS meter;
     CountedToCurrentSettings(in.ds, A.Data(), B.Data());
-    LOG_WRITE("%d ms", meter.ElapsedUS());
 
     out.ds.valid = 1;
     out.rec_points = in.rec_points;
