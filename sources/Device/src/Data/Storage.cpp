@@ -142,7 +142,7 @@ void DataFrame::FillDataChannelFromBuffer(Chan ch, BufferFPGA &buffer)
 
 void DataFrame::FillDataChannelsFromStruct(DataStruct &data)
 {
-    uint8 *address = (uint8 *)ds + sizeof(DataStruct);
+    uint8 *address = (uint8 *)ds + sizeof(DataSettings);
 
     uint num_bytes = (uint)data.ds.BytesInChanStored();
 

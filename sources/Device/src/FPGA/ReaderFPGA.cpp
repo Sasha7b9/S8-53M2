@@ -228,7 +228,7 @@ void FPGA::Reader::ReadPoints(Chan ch)
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
     uint8 *const begin = Storage::current.data.Data(ch).Data();
-    const uint8 *const end = Storage::current.data.Data(ch).Data();
+    const uint8 *const end = Storage::current.data.Data(ch).Last();
 
     uint8 *dat = begin;
 

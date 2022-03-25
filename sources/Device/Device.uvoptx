@@ -152,9 +152,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>88</LineNumber>
+          <LineNumber>666</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134435600</Address>
+          <Address>134430788</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -163,7 +163,55 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>&lt;2&gt;.\src\Display\DataPainter.cpp</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\S8_53\src/Display/DataPainter.cpp\88</Expression>
+          <Expression>\\S8_53\src/Display/DataPainter.cpp\666</Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>680</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134430828</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>&lt;2&gt;.\src\Display\DataPainter.cpp</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\S8_53\src/Display/DataPainter.cpp\680</Expression>
+        </Bp>
+        <Bp>
+          <Number>2</Number>
+          <Type>0</Type>
+          <LineNumber>684</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134430842</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>&lt;2&gt;.\src\Display\DataPainter.cpp</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\S8_53\src/Display/DataPainter.cpp\684</Expression>
+        </Bp>
+        <Bp>
+          <Number>3</Number>
+          <Type>0</Type>
+          <LineNumber>676</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134430812</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>&lt;2&gt;.\src\Display\DataPainter.cpp</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\S8_53\src/Display/DataPainter.cpp\676</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -191,6 +239,21 @@
           <count>4</count>
           <WinNumber>1</WinNumber>
           <ItemText>size_frame,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>5</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>out</ItemText>
+        </Ww>
+        <Ww>
+          <count>6</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>ds</ItemText>
+        </Ww>
+        <Ww>
+          <count>7</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>y,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>
