@@ -51,11 +51,9 @@ namespace HAL_FMC
 
     // Адрес записи в аппаратные регистры. 0x100000 - это смещение нужно для установки A19 на FPGA в 1. Хотя по расчёту
     // должно быть 0x80000 (потому что a18 работает на 0x40000)
-    uint16 *const ADDR_FPGA = (uint16 *)(ADDR_BANK + 0x00000000 + 0x100000); //-V566
+    uint16 * const ADDR_FPGA = (uint16 *)(ADDR_BANK + 0x00000000 + 0x100000); //-V566
 
-    uint8   *const ADDR_RAM_DISPLAY_FRONT = (uint8 *)(ADDR_RAM + 1024 * 1024 - 320 * 240); //-V566
-    uint8   *const ADDR_RAM_DISPLAY_BACK = ADDR_RAM_DISPLAY_FRONT - 320 * 240;
-    uint8   *const ADDR_RAM_DISPLAY_BACK_END = ADDR_RAM_DISPLAY_FRONT;
+    uint8 * const ADDR_RAM_DISPLAY_FRONT = (uint8 *)(ADDR_RAM + 1024 * 1024 - 320 * 240); //-V566
 
     static void InitRAM();
 

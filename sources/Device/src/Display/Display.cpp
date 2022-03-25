@@ -72,7 +72,7 @@ void Display::Init()
 
     Color::ResetFlash();
 
-    HAL_LTDC::Init(HAL_FMC::ADDR_RAM_DISPLAY_FRONT, HAL_FMC::ADDR_RAM_DISPLAY_BACK);
+    HAL_LTDC::Init(HAL_FMC::ADDR_RAM_DISPLAY_FRONT, Display::back_buffer);
 
     Painter::BeginScene(Color::BLACK);
 
@@ -560,93 +560,4 @@ void Display::ShiftScreen(int delta)
 void Display::RunAfterDraw(pFuncVV func)
 {
     funcAfterDraw = func;
-}
-
-
-DH::HLine::HLine(int _y) : y(_y)
-{
-    std::memcpy(line, Display::back_buffer + y * 320, 320);
-}
-
-
-DH::HLine::~HLine()
-{
-    std::memcpy(Display::back_buffer + y * 320, line, 320);
-}
-
-
-void DH::HLine::Fill(int x1, int x2, uint8 color)
-{
-    std::memset(&line[x1], color, (uint)(x2 - x1));
-}
-
-
-DH::VLine::VLine(int _x) : x(_x)
-{
-    uint16 *address = (uint16 *)(Display::back_buffer + (x & 0xFE));        // Читать можно только по чётным адресам.
-                                                      // Для x == 4 прочтём по 4-му и для x == 5 прочтём по четвёртом
-
-    for (int i = 0; i < 240; i++)
-    {
-        line[i] = *(address + i * (320 / 2));
-    }
-}
-
-
-DH::VLine::~VLine()
-{
-    uint16 *address = (uint16 *)(Display::back_buffer + (x & 0xFE));        // Читать можно только по чётным адресам.
-                                                      // Для x == 4 прочтём по 4-му и для x == 5 прочтём по четвёртом
-
-    for (int i = 0; i < 240; i++)
-    {
-        *(address + i * (320 / 2)) = line[i];
-    }
-}
-
-
-void DH::VLine::Fill(int y1, int y2, uint8 color)
-{
-    if ((x % 2) == 0)           // Для чётного x берём младший байт
-    {
-        for (int i = y1; i < y2; i++)
-        {
-            line[i] &= 0xFF00;
-            line[i] |= color;
-        }
-    }
-    else
-    {
-        uint16 col = (uint16)(color << 8);
-
-        for (int i = y1; i < y2; i++)
-        {
-            line[i] &= 0x00FF;
-            line[i] |= col;
-        }
-    }
-}
-
-
-DH::Point::Point(int, int)
-{
-
-}
-
-
-DH::Point::~Point()
-{
-
-}
-
-
-void DH::Point::Fill(uint8)
-{
-
-}
-
-
-uint8 DH::Point::Get()
-{
-    return 0;
 }
