@@ -13,7 +13,7 @@ namespace Display
 
     static const int DELTA = 5;
 
-    extern uint8 *const back_buffer;
+    extern uint8 *const _back_buffer;
 
     extern bool framesElapsed;
     extern int  numDrawingSignals;  // Число нарисованных сигналов для режима накопления
@@ -44,3 +44,44 @@ namespace Display
     // После отрисовки очередного экрана эта функция будет вызвана один раз.
     void RunAfterDraw(pFuncVV func);
 };
+
+
+// Display Hardware
+namespace DH
+{
+    class HLine
+    {
+    public:
+        HLine(int y);
+        ~HLine();
+        void Fill(int x1, int x2, uint8);
+    private:
+        int y;
+        uint8 line[320];
+    };
+
+    class VLine
+    {
+    public:
+        VLine(int x);
+        ~VLine();
+        void Fill(int y1, int y2, uint8);
+    private:
+        int x;
+        // Т.к. из памяти можно читать только по 16 бит за раз, сюда читаются сразу два столбика - чётный и нечётный
+        // Если x - чётное, то работаем с младшим байтом, если нечётное - со старшим байтом
+        uint16 line[240];
+    };
+
+    class Point
+    {
+    public:
+        Point(int x, int y);
+        ~Point();
+        void Fill(uint8);
+        uint8 Get();
+    private:
+        int x;
+        int y;
+    };
+}

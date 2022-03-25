@@ -24,8 +24,8 @@ Color::E Color::current = Color::Count;
 
 namespace Display
 {
-    uint8 *const back_buffer = HAL_FMC::ADDR_RAM_DISPLAY_BACK;
-    uint8 *const back_buffer_end = HAL_FMC::ADDR_RAM_DISPLAY_BACK_END;
+    uint8 *const _back_buffer = HAL_FMC::ADDR_RAM_DISPLAY_BACK;
+    uint8 *const _back_buffer_end = HAL_FMC::ADDR_RAM_DISPLAY_BACK_END;
 }
 
 
@@ -206,9 +206,7 @@ void Painter::DrawHLine(int y, int x0, int x1, Color::E color)
         Math::Swap(&x0, &x1);
     }
 
-    uint8 *start = Display::back_buffer + y * Display::WIDTH + x0;
-
-    std::memset(start, Color::GetCurrent(), (uint)(x1 - x0 + 1));
+    DH::HLine(y).Fill(x0, x1, Color::GetCurrent());
 
     if (InterCom::TransmitGUIinProcess())
     {
@@ -235,18 +233,7 @@ void Painter::DrawVLine(int x, int y0, int y1, Color::E color)
 
     Math::Sort(&y0, &y1);
 
-    uint8 *address = Display::back_buffer + Display::WIDTH * y0 + x;
-
-    int counter = y1 - y0 + 1;
-
-    uint8 value = (uint8)Color::GetCurrent();
-
-    do
-    {
-        *address = value;
-        address += Display::WIDTH;
-
-    } while (--counter > 0);
+    DH::VLine(x).Fill(y0, y1, Color::GetCurrent());
 
     if (InterCom::TransmitGUIinProcess())
     {
@@ -296,12 +283,7 @@ void Point::Set(int x, int y)
         return;
     }
 
-    uint8 *address = Display::back_buffer + Display::WIDTH * y + x;
-
-    if (address < Display::back_buffer_end)
-    {
-        *address = (uint8)Color::GetCurrent();
-    }
+    DH::Point(x, y).Fill(Color::GetCurrent());
 
     if (InterCom::TransmitGUIinProcess())
     {
@@ -320,14 +302,7 @@ Color::E Painter::GetColor(int x, int y)
         return COLOR_BACK;
     }
 
-    uint8 *address = Display::back_buffer + Display::WIDTH * y + x;
-
-    if (address < Display::back_buffer_end)
-    {
-        return (Color::E)*address;
-    }
-
-    return COLOR_BACK;
+    return (Color::E)DH::Point(x, y).Get();
 }
 
 
