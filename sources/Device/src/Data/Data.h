@@ -48,7 +48,7 @@ struct DataSettings
 
     void Set(const DataSettings &);
 
-    bool Equal(const DataSettings &);
+    bool Equal(const DataSettings &) const;
 
     void PrintElement();
 

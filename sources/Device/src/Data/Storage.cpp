@@ -59,7 +59,7 @@ namespace Storage
 
     namespace SameSettings
     {
-        static void Calculate(const DataFrame &);
+        static void Calculate(const DataStruct &);
 
         // Количество элементов с одинаковыми (относительно последнего элемента) настройками
         static int count = 0;
@@ -83,25 +83,25 @@ void Storage::Clear()
     Limitator::ClearLimits();
     Averager::Reset();
 
-    current.frame.ds->valid = 0;
+    current.data.ds.valid = 0;
 
     SameSettings::count = 0;
 }
 
 
-void Storage::AppendNewFrame(DataFrame &data)
+void Storage::AppendNewFrame(DataStruct &data)
 {
     SameSettings::Calculate(data);
 
-    data.ds->time = HAL_RTC::GetPackedTime();
+    data.ds.time = HAL_RTC::GetPackedTime();
 
-    Limitator::CalculateLimits(data.ds, data.DataBegin(ChA), data.DataBegin(ChB));
+    Limitator::CalculateLimits(&data.ds, data.A.Data(), data.B.Data());
 
-    DataSettings *ds = PrepareNewFrame(*data.ds);
+    DataSettings *ds = PrepareNewFrame(data.ds);
 
     DataFrame frame(ds);
 
-    frame.FillDataChannelsFromFrame(data);
+    frame.FillDataChannelsFromStruct(data);
 
     Averager::Append(frame);
 
@@ -111,11 +111,11 @@ void Storage::AppendNewFrame(DataFrame &data)
 }
 
 
-void Storage::SameSettings::Calculate(const DataFrame &frame)
+void Storage::SameSettings::Calculate(const DataStruct &data)
 {
     DataSettings ds = GetDataSettings(0);
 
-    if (ds.valid && frame.ds->Equal(ds))
+    if (ds.valid && data.ds.Equal(ds))
     {
         if (count < count_data)
         {
@@ -201,7 +201,7 @@ static DataSettings Storage::GetDataSettings(int indexFromEnd)
 }
 
 
-DataFrame &Storage::GetData(int from_end)
+DataStruct &Storage::GetData(int from_end)
 {
     static FrameImitation result;
 
@@ -209,25 +209,23 @@ DataFrame &Storage::GetData(int from_end)
 
     if (!dp)
     {
-        result.buffer.Realloc(sizeof(DataSettings));
-        result.frame.ds = (DataSettings *)result.buffer.Data();
-        result.frame.ds->valid = 0;
-        return result.frame;
+        result.data.ds.valid = 0;
+        return result.data;
     }
 
-    result.buffer.Realloc((int)sizeof(DataSettings) + 2 * dp->BytesInChanStored());
-    result.frame.ds = (DataSettings *)result.buffer.Data();
-    *result.frame.ds = *dp;
-    result.frame.ds->valid = 1;
+    result.data.ds = *dp;
+    result.data.ds.valid = 1;
 
-    std::memcpy(result.frame.DataBegin(ChA), (uint8 *)(dp) + sizeof(DataSettings), (uint)dp->BytesInChanStored());
-    std::memcpy(result.frame.DataBegin(ChB), (uint8 *)(dp)+sizeof(DataSettings) + dp->BytesInChanStored(), (uint)dp->BytesInChanStored());
+    uint8 *address = (uint8 *)dp + sizeof(DataSettings);
 
-    return result.frame;
+    result.data.A.ReallocFromBuffer(address, dp->BytesInChanStored());
+    result.data.B.ReallocFromBuffer(address + dp->BytesInChanStored(), dp->BytesInChanStored());
+
+    return result.data;
 }
 
 
-DataFrame &Storage::GetLatest()
+DataStruct &Storage::GetLatest()
 {
     return GetData(0);
 }
