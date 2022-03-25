@@ -49,7 +49,7 @@ namespace Display
 
     bool NeedForClearScreen();
 
-    void DrawTimeForFrame(uint timeTicks);
+    void DrawTimeForFrame();
 
     // Ќарисовать горизонтальный курсор курсорных измерений.
     // y - числовое значение курсора.
@@ -178,8 +178,6 @@ bool Display::NeedForClearScreen()
 
 void Display::Update(bool endScene)
 {
-    TimeMeterUS timeMeter;
-
     if (funcOnHand != 0)
     {
         funcOnHand();
@@ -233,7 +231,7 @@ void Display::Update(bool endScene)
         WriteValueTrigLevel();
     }
 
-    DrawTimeForFrame(timeMeter.ElapsedTicks());
+    DrawTimeForFrame();
 
     Color::SetCurrent(COLOR_FILL);
 
@@ -458,40 +456,32 @@ void Display::DrawMeasures()
 }
 
 
-void Display::DrawTimeForFrame(uint timeTicks)
+void Display::DrawTimeForFrame()
 {
     if(!SHOW_STATS)
     {
         return;
     }
 
-    static bool first = true;
-    static uint timeMSstartCalculation = 0;
-    static int numFrames = 0;
-    static float numMS = 0.0f;
+    static int fps;
+    static float duration;  // ƒлительность одной итарции главного цикла
 
-    if(first)
+    static TimeMeterMS meter;
+    static int num_frames = 0;
+    num_frames++;
+
+    if (meter.ElapsedTime() > 1000)
     {
-        timeMSstartCalculation = TIME_MS;
-        first = false;
+        fps = num_frames;
+        duration = (float)meter.ElapsedTime() / fps;
+        meter.Reset();
+        num_frames = 0;
     }
 
-    numMS += (timeTicks / (float)TICKS_IN_US / 1e3f);
-    numFrames++;
-
-    String buffer;
-    
-    if((TIME_MS - timeMSstartCalculation) >= 500)
-    {
-        buffer.SetFormat("%.1fms/%d", numMS / numFrames, numFrames * 2);
-        timeMSstartCalculation = TIME_MS;
-        numMS = 0.0f;
-        numFrames = 0;
-    }
 
     Rectangle(84, 10).Draw(Grid::Left(), Grid::FullBottom() - 10, COLOR_FILL);
     Region(82, 8).Fill(Grid::Left() + 1, Grid::FullBottom() - 9, COLOR_BACK);
-    buffer.Draw(Grid::Left() + 2, Grid::FullBottom() - 9, COLOR_FILL);
+    String("%.1fms/%d", duration, fps).Draw(Grid::Left() + 2, Grid::FullBottom() - 9, COLOR_FILL);
 
     String("%d/%d", Storage::SameSettings::GetCount(), Storage::NumberAvailableEntries()).
         Draw(Grid::Left() + 50, Grid::FullBottom() - 9);
