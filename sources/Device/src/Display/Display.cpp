@@ -190,7 +190,9 @@ void Display::Update(bool endScene)
     {
         Painter::BeginScene(COLOR_BACK);
 
+        TimeMeterMS meter;
         DataPainter::MemoryWindow::Draw();
+        LOG_WRITE("%d ms", meter.ElapsedTime());
 
         Grid::Draw();
     }
