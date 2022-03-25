@@ -1255,7 +1255,7 @@ void Processing::SetData(const DataFrame &in, bool mode_p2p)
 
 void Processing::SetDataForProcessing(bool for_window_memory)
 {
-    DataSettings *last_ds = Storage::GetDataSettings(0);
+    DataSettings last_ds = Storage::GetDataSettings(0);
 
     out.ds.valid = 0;
 
@@ -1263,7 +1263,7 @@ void Processing::SetDataForProcessing(bool for_window_memory)
     {
         if (START_MODE_IS_AUTO)
         {
-            if (last_ds && last_ds->Equal(*Storage::current.frame.ds) && Storage::time_meter.ElapsedTime() < 1000)
+            if (last_ds.valid && last_ds.Equal(*Storage::current.frame.ds) && Storage::time_meter.ElapsedTime() < 1000)
             {
                 SetData(Storage::GetLatest());
             }
@@ -1274,7 +1274,7 @@ void Processing::SetDataForProcessing(bool for_window_memory)
         }
         else if (START_MODE_IS_WAIT)
         {
-            if (last_ds && last_ds->Equal(*Storage::current.frame.ds) && !for_window_memory)
+            if (last_ds.valid && last_ds.Equal(*Storage::current.frame.ds) && !for_window_memory)
             {
                 SetData(Storage::GetLatest());
             }

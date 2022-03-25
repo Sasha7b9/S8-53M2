@@ -82,9 +82,9 @@ void FrameImitation::PrepareForNewCycle()
 {
     if (TBase::InModeRandomizer())
     {
-        DataSettings *last_ds = Storage::GetDataSettings(0);
+        DataSettings last_ds = Storage::GetDataSettings(0);
 
-        if (!last_ds || !last_ds->Equal(*frame.ds))
+        if (!last_ds.valid || !last_ds.Equal(*frame.ds))
         {
             CreateForCurrent();
         }

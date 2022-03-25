@@ -59,6 +59,8 @@ namespace Storage
 
     // Копирует данные канала chan из, определяемые ds, в одну из двух строк массива dataImportRel
     void CopyData(DataSettings *, Chan ch, BufferFPGA &);
+
+    DataSettings *GetDataSettingsPointer(int indexFromEnd);
 }
 
 
@@ -153,7 +155,7 @@ int Storage::NumFramesWithCurrentSettings()
 
     for (retValue = 0; retValue < numElements; retValue++)
     {
-        if (!GetDataSettings(retValue)->Equal(dp))
+        if (!GetDataSettings(retValue).Equal(dp))
         {
             break;
         }
@@ -163,25 +165,73 @@ int Storage::NumFramesWithCurrentSettings()
 }
 
 
-DataFrame Storage::GetData(int fromEnd)
+static DataSettings *Storage::GetDataSettingsPointer(int indexFromEnd)
 {
-    DataSettings *dp = GetDataSettings(fromEnd);
-
-    if (dp)
+    if (first_ds == nullptr)
     {
-        DataFrame result(dp);
-
-        return result;
+        return nullptr;
     }
 
-    static DataSettings ds_empty;
-    ds_empty.valid = 0;
+    int index = indexFromEnd;
+    DataSettings *ds = last_ds;
 
-    return DataFrame(&ds_empty);
+    while (index != 0 && ((ds = (DataSettings *)ds->prev) != 0))
+    {
+        index--;
+    }
+
+    if (index != 0)
+    {
+        //        LOG_ERROR("Неправильный индекс %d, всего данных %d", indexFromEnd, NumFrames());      // \todo После сброса настроек здесь срабатывает
+        return nullptr;
+    }
+
+    return ds;
 }
 
 
-DataFrame Storage::GetLatest()
+static DataSettings Storage::GetDataSettings(int indexFromEnd)
+{
+    DataSettings *dp = GetDataSettingsPointer(indexFromEnd);
+
+    if (!dp)
+    {
+        static DataSettings ds_null;
+        ds_null.valid = 0;
+        return ds_null;
+    }
+
+    return *dp;
+}
+
+
+DataFrame &Storage::GetData(int from_end)
+{
+    static FrameImitation result;
+
+    DataSettings *dp = GetDataSettingsPointer(from_end);
+
+    if (!dp)
+    {
+        result.buffer.Realloc(sizeof(DataSettings));
+        result.frame.ds = (DataSettings *)result.buffer.Data();
+        result.frame.ds->valid = 0;
+        return result.frame;
+    }
+
+    result.buffer.Realloc((int)sizeof(DataSettings) + 2 * dp->BytesInChanStored());
+    result.frame.ds = (DataSettings *)result.buffer.Data();
+    *result.frame.ds = *dp;
+    result.frame.ds->valid = 1;
+
+    std::memcpy(result.frame.DataBegin(ChA), (uint8 *)(dp) + sizeof(DataSettings), (uint)dp->BytesInChanStored());
+    std::memcpy(result.frame.DataBegin(ChB), (uint8 *)(dp)+sizeof(DataSettings) + dp->BytesInChanStored(), (uint)dp->BytesInChanStored());
+
+    return result.frame;
+}
+
+
+DataFrame &Storage::GetLatest()
 {
     return GetData(0);
 }
@@ -321,40 +371,15 @@ void Storage::RemoveLastFrame()
 }
 
 
-DataSettings *Storage::GetDataSettings(int indexFromEnd)
-{
-    if (first_ds == nullptr)
-    {
-        return nullptr;
-    }
-
-    int index = indexFromEnd;
-    DataSettings *ds = last_ds;
-
-    while (index != 0 && ((ds = (DataSettings *)ds->prev) != 0))
-    {
-        index--;
-    }
-
-    if (index != 0)
-    {
-//        LOG_ERROR("Неправильный индекс %d, всего данных %d", indexFromEnd, NumFrames());      // \todo После сброса настроек здесь срабатывает
-        return nullptr;
-    }
-
-    return ds;
-}
-
-
 bool Storage::SettingsIsIdentical(int elemFromEnd0, int elemFromEnd1)
 {
-    DataSettings *dp0 = GetDataSettings(elemFromEnd0);
-    DataSettings *dp1 = GetDataSettings(elemFromEnd1);
+    DataSettings dp0 = GetDataSettings(elemFromEnd0);
+    DataSettings dp1 = GetDataSettings(elemFromEnd1);
 
-    if (!dp0 || !dp1)
+    if (!dp0.valid || !dp1.valid)
     {
         return false;
     }
 
-    return dp0->Equal(*dp1);
+    return dp0.Equal(dp1);
 }

@@ -49,13 +49,13 @@ namespace Storage
     int NumFramesWithCurrentSettings();
 
     // Получить указатель на данные
-    DataFrame GetData(int fromEnd);
+    DataFrame &GetData(int fromEnd);
 
     // Данные, которые нужно выводить в обычном режиме. Они всегда хранятся в конце Storage
-    DataFrame GetLatest();
+    DataFrame &GetLatest();
 
     // Возвращает указатель на данные, отстоящие на fromEnd oт последнего сохранённого
-    DataSettings *GetDataSettings(int fromEnd);
+    DataSettings GetDataSettings(int fromEnd);
 
     int NumberAvailableEntries();
 };

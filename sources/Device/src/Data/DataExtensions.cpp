@@ -129,7 +129,7 @@ void Averager::GetDataAccurately(DataStruct &out)
 
     LIMIT_ABOVE(num_datas, Storage::NumFramesWithSameSettings());
 
-    DataSettings &ds = *Storage::GetDataSettings(0);
+    DataSettings ds = Storage::GetDataSettings(0);
 
     int num_bytes = ds.BytesInChanStored();
 
@@ -217,7 +217,7 @@ void Limitator::CalculateLimits(const DataSettings *dss, const uint8 *a, const u
 {
     uint numElements = (uint)dss->PointsInChannel();
 
-    if (Storage::NumFrames() == 0 || NUM_MIN_MAX == 1 || (!Storage::GetDataSettings(0)->Equal(*dss)))
+    if (Storage::NumFrames() == 0 || NUM_MIN_MAX == 1 || (!Storage::GetDataSettings(0).Equal(*dss)))
     {
         for (uint i = 0; i < numElements; i++)
         {
