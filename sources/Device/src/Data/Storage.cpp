@@ -223,10 +223,18 @@ DataStruct &Storage::GetData(int from_end)
         result.data.ds = ds;
         result.data.ds.valid = 1;
 
+        int num_bytes = ds.BytesInChanStored();
+
+        if (result.data.A.Size() != num_bytes)
+        {
+            result.data.A.Realloc(num_bytes);
+            result.data.B.Realloc(num_bytes);
+        }
+
         uint8 *address = (uint8 *)dp + sizeof(DataSettings);
 
-        result.data.A.ReallocFromBuffer(address, ds.BytesInChanStored());
-        result.data.B.ReallocFromBuffer(address + ds.BytesInChanStored(), ds.BytesInChanStored());
+        result.data.A.FillFromBuffer(address, num_bytes);
+        result.data.B.FillFromBuffer(address + num_bytes, num_bytes);
     }
 
     return result.data;
