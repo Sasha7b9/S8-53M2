@@ -1220,8 +1220,6 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
 
 void Processing::SetData(const DataStruct &in, bool mode_p2p)
 {
-    TimeMeterUS meter;
-
     out.ds.valid = 0;
 
     if (!in.ds.valid)
@@ -1237,20 +1235,22 @@ void Processing::SetData(const DataStruct &in, bool mode_p2p)
 
     int length = in.ds.BytesInChanStored();
 
-    BufferFPGA A(length, ValueFPGA::NONE);
-    BufferFPGA B(length, ValueFPGA::NONE);
+    BufferFPGA A(length);
+    BufferFPGA B(length);
 
-    Math::CalculateFiltrArray(in.A.DataConst(), A.Data(), length, Smoothing::ToPoints());
-    Math::CalculateFiltrArray(in.B.DataConst(), B.Data(), length, Smoothing::ToPoints());
+    const uint8 *a = in.A.DataConst();
+    const uint8 *b = in.B.DataConst();
+    Math::CalculateFiltrArray(a, A.Data(), length, Smoothing::ToPoints());
+    Math::CalculateFiltrArray(b, B.Data(), length, Smoothing::ToPoints());
 
+    TimeMeterUS meter;
     CountedToCurrentSettings(in.ds, A.Data(), B.Data());
+    LOG_WRITE("%d ms", meter.ElapsedUS());
 
     out.ds.valid = 1;
     out.rec_points = in.rec_points;
     out.all_points = in.all_points;
     out.mode_p2p = mode_p2p;
-
-    LOG_WRITE("%d ms", meter.ElapsedUS());
 }
 
 
