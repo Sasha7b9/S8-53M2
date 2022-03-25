@@ -59,7 +59,7 @@ namespace Storage
 
     namespace SameSettings
     {
-        void Calculate(const DataFrame &frame);
+        static void Calculate(const DataFrame &);
 
         // Количество элементов с одинаковыми (относительно последнего элемента) настройками
         static int count = 0;
@@ -117,7 +117,10 @@ void Storage::SameSettings::Calculate(const DataFrame &frame)
 
     if (ds.valid && frame.ds->Equal(ds))
     {
-        count++;
+        if (count < count_data)
+        {
+            count++;
+        }
     }
     else
     {
@@ -155,25 +158,6 @@ int Storage::NumFrames()
 int Storage::SameSettings::GetCount()
 {
     return count;
-}
-
-
-int Storage::NumFramesWithCurrentSettings()
-{
-    DataSettings dp;
-    dp.FillFromCurrentSettings();
-    int retValue = 0;
-    int numElements = NumFrames();
-
-    for (retValue = 0; retValue < numElements; retValue++)
-    {
-        if (!GetDataSettings(retValue).Equal(dp))
-        {
-            break;
-        }
-    }
-
-    return retValue;
 }
 
 

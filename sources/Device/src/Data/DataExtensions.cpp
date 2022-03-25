@@ -79,7 +79,7 @@ void Averager::Append(DataFrame &frame)
     }
     else
     {
-        int num_datas = Storage::NumFramesWithCurrentSettings();
+        int num_datas = Storage::SameSettings::GetCount();
 
         Math::Limitation<int>(num_datas, 0, ModeAveraging::GetNumber());
 

@@ -42,9 +42,6 @@ namespace Storage
     // —колько всего измерений сохранено в пам€ти.
     int NumFrames();
 
-    // ¬озвращает число непрерывных измерений, начина€ с последнего, с текущими настройками прибора
-    int NumFramesWithCurrentSettings();
-
     // ѕолучить указатель на данные
     DataFrame &GetData(int fromEnd);
 
