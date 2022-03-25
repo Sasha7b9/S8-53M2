@@ -127,7 +127,7 @@ void Averager::GetDataAccurately(DataStruct &out)
 {
     int num_datas = ModeAveraging::GetNumber();
 
-    LIMIT_ABOVE(num_datas, Storage::NumFramesWithSameSettings());
+    LIMIT_ABOVE(num_datas, Storage::SameSettings::GetCount());
 
     DataSettings ds = Storage::GetDataSettings(0);
 
@@ -227,10 +227,10 @@ void Limitator::CalculateLimits(const DataSettings *dss, const uint8 *a, const u
     }
     else
     {
-        int allDatas = Storage::NumFramesWithSameSettings();
+        int allDatas = Storage::SameSettings::GetCount();
         LIMITATION(allDatas, allDatas, 1, NUM_MIN_MAX);
 
-        if (Storage::NumFramesWithSameSettings() >= NUM_MIN_MAX)
+        if (Storage::SameSettings::GetCount() >= NUM_MIN_MAX)
         {
             for (uint i = 0; i < numElements; i++)
             {

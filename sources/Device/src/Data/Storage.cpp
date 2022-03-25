@@ -56,6 +56,14 @@ namespace Storage
     void CopyData(DataSettings *, Chan ch, BufferFPGA &);
 
     DataSettings *GetDataSettingsPointer(int indexFromEnd);
+
+    namespace SameSettings
+    {
+        void Calculate(const DataFrame &frame);
+
+        // Количество элементов с одинаковыми (относительно последнего элемента) настройками
+        static int count = 0;
+    }
 }
 
 
@@ -76,17 +84,20 @@ void Storage::Clear()
     Averager::Reset();
 
     current.frame.ds->valid = 0;
+
+    SameSettings::count = 0;
 }
 
 
 void Storage::AppendNewFrame(DataFrame &data)
 {
-    DataSettings new_ds = *data.ds;
-    new_ds.time = HAL_RTC::GetPackedTime();
+    SameSettings::Calculate(data);
+
+    data.ds->time = HAL_RTC::GetPackedTime();
 
     Limitator::CalculateLimits(data.ds, data.DataBegin(ChA), data.DataBegin(ChB));
 
-    DataSettings *ds = PrepareNewFrame(new_ds);
+    DataSettings *ds = PrepareNewFrame(*data.ds);
 
     DataFrame frame(ds);
 
@@ -97,6 +108,21 @@ void Storage::AppendNewFrame(DataFrame &data)
     frame.ds->valid = 1;
 
     time_meter.Reset();
+}
+
+
+void Storage::SameSettings::Calculate(const DataFrame &frame)
+{
+    DataSettings ds = GetDataSettings(0);
+
+    if (ds.valid && frame.ds->Equal(ds))
+    {
+        count++;
+    }
+    else
+    {
+        count = 1;
+    }
 }
 
 
@@ -126,18 +152,9 @@ int Storage::NumFrames()
 }
 
 
-int Storage::NumFramesWithSameSettings()
+int Storage::SameSettings::GetCount()
 {
-    int retValue = 0;
-    int numElements = NumFrames();
-    for (retValue = 1; retValue < numElements; retValue++)
-    {
-        if (!SettingsIsIdentical(retValue, retValue - 1))
-        {
-            break;
-        }
-    }
-    return retValue;
+    return count;
 }
 
 

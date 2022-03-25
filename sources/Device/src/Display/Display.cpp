@@ -493,7 +493,7 @@ void Display::DrawTimeForFrame(uint timeTicks)
     Region(82, 8).Fill(Grid::Left() + 1, Grid::FullBottom() - 9, COLOR_BACK);
     buffer.Draw(Grid::Left() + 2, Grid::FullBottom() - 9, COLOR_FILL);
 
-    String("%d/%d", Storage::NumFramesWithSameSettings(), Storage::NumberAvailableEntries()).
+    String("%d/%d", Storage::SameSettings::GetCount(), Storage::NumberAvailableEntries()).
         Draw(Grid::Left() + 50, Grid::FullBottom() - 9);
 }
 

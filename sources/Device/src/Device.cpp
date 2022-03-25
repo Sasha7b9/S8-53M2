@@ -42,6 +42,8 @@ void Device::Init()
 
 void Device::Update()
 {
+    TimeMeterMS meter;
+
     if (Settings::needReset)
     {
         Settings::Reset();
@@ -61,6 +63,8 @@ void Device::Update()
     Display::Update();                   // Рисуем экран.
 
     Settings::SaveIfNeed();
+
+    LOG_WRITE("%d same, %d ms", Storage::SameSettings::GetCount(), meter.ElapsedTime());
 
     // LAN::Update(0);
 }

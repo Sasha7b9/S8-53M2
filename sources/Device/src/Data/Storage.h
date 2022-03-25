@@ -42,9 +42,6 @@ namespace Storage
     // Сколько всего измерений сохранено в памяти.
     int NumFrames();
 
-    // Возвращает число непрерывных измерений, начиная с последнего, с такими же настройками, как у последнего.
-    int NumFramesWithSameSettings();
-
     // Возвращает число непрерывных измерений, начиная с последнего, с текущими настройками прибора
     int NumFramesWithCurrentSettings();
 
@@ -58,4 +55,10 @@ namespace Storage
     DataSettings GetDataSettings(int fromEnd);
 
     int NumberAvailableEntries();
+
+    namespace SameSettings
+    {
+        // Возвращает число непрерывных измерений, начиная с последнего, с такими же настройками, как у последнего.
+        int GetCount();
+    }
 };

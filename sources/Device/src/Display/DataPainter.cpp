@@ -428,7 +428,7 @@ void DataPainter::DrawDataNormal()
         return;
     }
 
-    int16 numSignals = (int16)Storage::NumFramesWithSameSettings();
+    int16 numSignals = (int16)Storage::SameSettings::GetCount();
     LIMITATION(numSignals, numSignals, 1, NUM_ACCUM);
 
     if (numSignals == 1 || ENUM_ACCUM_IS_INFINITY || MODE_ACCUM_IS_RESET || TBase::InModeRandomizer())
