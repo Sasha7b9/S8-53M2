@@ -142,13 +142,13 @@ void DataFrame::FillDataChannelFromBuffer(Chan ch, BufferFPGA &buffer)
 
 void DataFrame::FillDataChannelsFromStruct(DataStruct &data)
 {
-    uint8 *address = (uint8 *)ds + sizeof(*ds);
+    uint8 *address = (uint8 *)ds + sizeof(DataStruct);
 
-    std::memcpy(address, data.A.Data(), (uint)ds->BytesInChanStored());
+    uint num_bytes = (uint)data.ds.BytesInChanStored();
 
-    address += ds->BytesInChanStored();
+    std::memcpy(address, data.A.Data(), num_bytes);
 
-    std::memcpy(address, data.B.Data(), (uint)ds->BytesInChanStored());
+    std::memcpy(address + num_bytes, data.B.Data(), num_bytes);
 }
 
 
@@ -225,11 +225,9 @@ DataStruct &Storage::GetData(int from_end)
 
         uint8 *address = (uint8 *)dp + sizeof(DataSettings);
 
-        result.data.A.ReallocFromBuffer(address, dp->BytesInChanStored());
-        result.data.B.ReallocFromBuffer(address + dp->BytesInChanStored(), dp->BytesInChanStored());
+        result.data.A.ReallocFromBuffer(address, ds.BytesInChanStored());
+        result.data.B.ReallocFromBuffer(address + ds.BytesInChanStored(), ds.BytesInChanStored());
     }
-
-    LOG_WRITE("%d", sizeof(DataSettings));
 
     return result.data;
 }
