@@ -57,7 +57,5 @@ namespace Storage
     // Возвращает указатель на данные, отстоящие на fromEnd oт последнего сохранённого
     DataSettings *GetDataSettings(int fromEnd);
 
-    uint8* GetData(Chan, int fromEnd);
-
     int NumberAvailableEntries();
 };

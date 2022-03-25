@@ -187,21 +187,6 @@ DataFrame Storage::GetLatest()
 }
 
 
-uint8 *Storage::GetData(Chan ch, int fromEnd)
-{
-    DataSettings *ds = GetDataSettings(fromEnd);
-
-    if (ds == 0)
-    {
-        return nullptr;
-    }
-
-    uint8 *address = (uint8 *)ds + sizeof(DataSettings);
-
-    return ch.IsA() ? address : (address + ds->BytesInChanStored());
-}
-
-
 void Storage::CopyData(DataSettings *ds, Chan ch, BufferFPGA &data)
 {
     uint8 *address = ((uint8 *)ds + sizeof(DataSettings));

@@ -242,8 +242,10 @@ void Limitator::CalculateLimits(const DataSettings *dss, const uint8 *a, const u
 
         for (int numData = 0; numData < allDatas; numData++)
         {
-            const uint8 *dA = Storage::GetData(Chan::A, numData);
-            const uint8 *dB = Storage::GetData(Chan::B, numData);
+            DataFrame frame = Storage::GetData(numData);
+
+            const uint8 *dA = frame.DataBegin(ChA);
+            const uint8 *dB = frame.DataBegin(ChB);
 
             for (uint i = 0; i < numElements; i++)
             {

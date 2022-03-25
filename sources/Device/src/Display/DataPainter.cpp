@@ -340,7 +340,7 @@ void DataPainter::DrawSignalPointed(const uint8 *in, const DataSettings &ds, int
 
 void DataPainter::DrawMath()
 {
-    if (DISABLED_DRAW_MATH || Storage::GetData(Chan::A, 0) == 0 || Storage::GetData(Chan::B, 0) == 0)
+    if (DISABLED_DRAW_MATH)
     {
         return;
     }
