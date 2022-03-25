@@ -24,8 +24,7 @@ Color::E Color::current = Color::Count;
 
 namespace Display
 {
-    uint8 *const _back_buffer = HAL_FMC::ADDR_RAM_DISPLAY_BACK;
-    uint8 *const _back_buffer_end = HAL_FMC::ADDR_RAM_DISPLAY_BACK_END;
+    uint8 *const back_buffer = HAL_FMC::ADDR_RAM_DISPLAY_BACK;
 }
 
 

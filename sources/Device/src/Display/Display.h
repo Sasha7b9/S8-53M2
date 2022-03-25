@@ -13,7 +13,7 @@ namespace Display
 
     static const int DELTA = 5;
 
-    extern uint8 *const _back_buffer;
+    extern uint8 *const back_buffer;
 
     extern bool framesElapsed;
     extern int  numDrawingSignals;  // „исло нарисованных сигналов дл€ режима накоплени€
@@ -83,5 +83,6 @@ namespace DH
     private:
         int x;
         int y;
+        uint16 line;
     };
 }
