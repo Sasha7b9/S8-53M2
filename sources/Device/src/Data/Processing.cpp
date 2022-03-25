@@ -1220,6 +1220,8 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
 
 void Processing::SetData(const DataStruct &in, bool mode_p2p)
 {
+    TimeMeterUS meter;
+
     out.ds.valid = 0;
 
     if (!in.ds.valid)
@@ -1247,6 +1249,8 @@ void Processing::SetData(const DataStruct &in, bool mode_p2p)
     out.rec_points = in.rec_points;
     out.all_points = in.all_points;
     out.mode_p2p = mode_p2p;
+
+    LOG_WRITE("%d ms", meter.ElapsedUS());
 }
 
 

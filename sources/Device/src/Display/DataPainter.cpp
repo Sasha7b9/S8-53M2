@@ -449,9 +449,7 @@ void DataPainter::DrawDataNormal()
 
 void DataPainter::MemoryWindow::Draw()
 {
-    TimeMeterUS meter;
     Processing::SetDataForProcessing(true);
-    LOG_WRITE("%d ms", meter.ElapsedUS());
 
     int leftX = 3;
     static const int rightXses[3] = {276, 285, 247};
