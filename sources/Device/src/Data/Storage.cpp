@@ -229,6 +229,8 @@ DataStruct &Storage::GetData(int from_end)
         result.data.B.ReallocFromBuffer(address + dp->BytesInChanStored(), dp->BytesInChanStored());
     }
 
+    LOG_WRITE("%d", sizeof(DataSettings));
+
     return result.data;
 }
 
