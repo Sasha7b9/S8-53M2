@@ -24,7 +24,7 @@ namespace HAL_ROM
 
     bool LoadSettings();
 
-    void SaveSettings();
+    void SaveSettings(bool verifyLoaded = false);
 }
 
 
