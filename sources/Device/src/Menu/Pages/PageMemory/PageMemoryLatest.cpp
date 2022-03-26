@@ -24,7 +24,7 @@ static void PressSB_MemLast_Exit()
 }
 
 
-static const SmallButton sbExitMemLast
+static const SmallButton sbExitMemLatest
 (
     PageMemory::Latest::self,
     COMMON_BEGIN_SB_EXIT,
@@ -47,7 +47,7 @@ static void DrawSB_MemLast_Next(int x, int y)
 }
 
 
-static const SmallButton sbMemLastNext
+static const SmallButton sbMemLatestNext
 (
     PageMemory::Latest::self, 0,
     "Следующий", "Next",
@@ -72,7 +72,7 @@ static void DrawSB_MemLast_Prev(int x, int y)
 }
 
 
-static const SmallButton sbMemLastPrev
+static const SmallButton sbMemLatestPrev
 (
     PageMemory::Latest::self, 0,
     "Предыдущий", "Previous",
@@ -100,7 +100,7 @@ static void DrawSB_MemLast_IntEnter(int x, int y)
 }
 
 
-static const SmallButton sbMemLastIntEnter
+static const SmallButton sbMemLatestIntEnter
 (
     PageMemory::Latest::self, 0,
     "Внутр ЗУ", "Internal storage",
@@ -129,7 +129,7 @@ static void DrawSB_MemLast_SaveToFlash(int x, int y)
 }
 
 
-static const SmallButton sbMemLastSaveToFlash
+static const SmallButton sbMemLatestSaveToFlash
 (
     PageMemory::Latest::self, 0,
     "Сохранить", "Save",
@@ -176,12 +176,12 @@ static void RotateSB_MemLast(int angle)
 
 static const arrayItems itemsMemLatest =
 {
-    (void *)&sbExitMemLast,
+    (void *)&sbExitMemLatest,
     (void *)0,
-    (void *)&sbMemLastNext,
-    (void *)&sbMemLastPrev,
-    (void *)&sbMemLastIntEnter,
-    (void *)&sbMemLastSaveToFlash
+    (void *)&sbMemLatestNext,
+    (void *)&sbMemLatestPrev,
+    (void *)&sbMemLatestIntEnter,
+    (void *)&sbMemLatestSaveToFlash
 };
 
 
