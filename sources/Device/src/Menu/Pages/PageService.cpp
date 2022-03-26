@@ -13,7 +13,6 @@
 #include <cstdio>
 
 
-extern const Page pppMath_Function;
 extern const Page pppMath_FFT;
 extern const Page ppppMath_FFT_Cursors;
 extern const Page ppEthernet;
@@ -131,8 +130,8 @@ static const Page ppCalibrator
 
 static const arrayItems itemsMath =
 {
-    (void*)&pppMath_Function,
-    (void*)&pppMath_FFT
+    (void *)PageService::Math::Function::self,
+    (void *)&pppMath_FFT
 };
 
 
@@ -148,7 +147,7 @@ static const Page ppMath
 
 static const SmallButton sbMath_Function_Exit
 (
-    &pppMath_Function,
+    PageService::Math::Function::self,
     COMMON_BEGIN_SB_EXIT,
     EmptyFuncVV,
     DrawSB_Exit
@@ -213,7 +212,7 @@ static void Draw_Math_Function_ModeDraw(int x, int y)
 
 static const SmallButton sbMath_Function_ModeDraw
 (
-    &pppMath_Function, 0,
+    PageService::Math::Function::self, 0,
     "Экран", "Display",
     "Выбирает режим отображения математического сигнала",
     "Chooses the mode of display of a mathematical signal",
@@ -260,7 +259,7 @@ static const arrayHints hintsMath_Function_Type =
 
 static const SmallButton sbMath_Function_Type
 (
-    &pppMath_Function, 0,
+    PageService::Math::Function::self, 0,
     "Вид", "Type",
     "Выбор математической функции",
     "Choice of mathematical function",
@@ -304,7 +303,7 @@ static const arrayHints hintsMath_Function_ModeRegSet =
 
 static const SmallButton sbMath_Function_ModeRegSet
 (
-    &pppMath_Function, 0,
+    PageService::Math::Function::self, 0,
     "Режим ручки УСТАНОВКА", "Mode regulator SET",
     "Выбор режима ручки УСТАНОВКА - управление масштабом или смещением",
     "Choice mode regulcator УСТАНОВКА - management of scale or shift",
@@ -329,7 +328,7 @@ static void Draw_Math_Function_RangeA(int x, int y)
 
 static const SmallButton sbMath_Function_RangeA
 (
-    &pppMath_Function, 0,
+    PageService::Math::Function::self, 0,
     "Масштаб 1-го канала", "Scale of the 1st channel",
     "Берёт масштаб для математического сигнала из первого канала",
     "Takes scale for a mathematical signal from the first channel",
@@ -353,7 +352,7 @@ static void Draw_Math_Function_RangeB(int x, int y)
 
 static const SmallButton sbMath_Function_RangeB
 (
-    &pppMath_Function, 0,
+    PageService::Math::Function::self, 0,
     "Масштаб 2-го канала", "Scale of the 2nd channel",
     "Берёт масштаб для математического сигнала из второго канала",
     "Takes scale for a mathematical signal from the second channel",
