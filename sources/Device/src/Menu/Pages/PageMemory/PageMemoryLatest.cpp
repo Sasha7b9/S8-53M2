@@ -151,13 +151,13 @@ static void OnPressMemoryLatest()
 
 static void FuncDrawingAdditionSPageMemoryLast()
 {
-    int width = 40;
+    int width = 50;
     int height = 10;
     Region(width, height).Fill(Grid::Right() - width, GRID_TOP, COLOR_BACK);
     Rectangle(width, height).Draw(Grid::Right() - width, GRID_TOP, COLOR_FILL);
     SU::Int2String(PageMemory::Latest::current + 1, false, 3).Draw(Grid::Right() - width + 2, GRID_TOP + 1);
-    String("/").Draw(Grid::Right() - width + 17, GRID_TOP + 1);
-    SU::Int2String(Storage::NumFrames(), false, 3).Draw(Grid::Right() - width + 23, GRID_TOP + 1);
+    String("/").Draw(Grid::Right() - width + 22, GRID_TOP + 1);
+    SU::Int2String(Storage::NumFrames(), false, 3).Draw(Grid::Right() - width + 28, GRID_TOP + 1);
 }
 
 
