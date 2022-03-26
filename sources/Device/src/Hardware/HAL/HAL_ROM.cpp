@@ -12,9 +12,10 @@
 *   {
 *     uint addr   - адрес, по которому сохранён фрейм данных
 *     uint number - номер данных, как он представлен на экране ПАМЯТЬ-ВНУТР ЗУ
-*     uint size   - сколько места занимает фрейм данных (DataSettings + 2 * BytesInChannelStored())
+*     uint size   - сколько места занимает фрейм данных (DataSettings + 2 * BytesInChannelStored()). Если 0, то запись стёрта
 *   }
 *   Сами данные хранятся в секторах 21, 22, 23
+*   Все байты одного фрейма всегда принадлежать одному сектору
 */
 
 
@@ -23,34 +24,34 @@ __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | F
 
 
 // Программа и константные данные
-#define ADDR_SECTOR_0           ((uint)0x08000000)  //  0 16k
-#define ADDR_SECTOR_1           ((uint)0x08004000)  //  1 16k
-#define ADDR_SECTOR_2           ((uint)0x08008000)  //  2 16k
-#define ADDR_SECTOR_3           ((uint)0x0800C000)  //  3 16k
-#define ADDR_SECTOR_4           ((uint)0x08010000)  //  4 64k
-#define ADDR_FIRMWARE_1         ((uint)0x08020000)  //  5 128k \-
-#define ADDR_FIRMWARE_2         ((uint)0x08040000)  //  6 128k |- Основная прошивка
-#define ADDR_FIRMWARE_3         ((uint)0x08060000)  //  7 128k /-
-#define ADDR_SECTOR_8           ((uint)0x08080000)  //  8 128k
-#define ADDR_SECTOR_9           ((uint)0x080A0000)  //  9 128k
-#define ADDR_SECTOR_10          ((uint)0x080C0000)  // 10 128k
+#define ADDR_SECTOR_0               ((uint)0x08000000)  //  0 16k
+#define ADDR_SECTOR_1               ((uint)0x08004000)  //  1 16k
+#define ADDR_SECTOR_2               ((uint)0x08008000)  //  2 16k
+#define ADDR_SECTOR_3               ((uint)0x0800C000)  //  3 16k
+#define ADDR_SECTOR_4               ((uint)0x08010000)  //  4 64k
+#define ADDR_FIRMWARE_1             ((uint)0x08020000)  //  5 128k \-
+#define ADDR_FIRMWARE_2             ((uint)0x08040000)  //  6 128k |- Основная прошивка
+#define ADDR_FIRMWARE_3             ((uint)0x08060000)  //  7 128k /-
+#define ADDR_SECTOR_8               ((uint)0x08080000)  //  8 128k
+#define ADDR_SECTOR_9               ((uint)0x080A0000)  //  9 128k
+#define ADDR_SECTOR_10              ((uint)0x080C0000)  // 10 128k
 
 // Настройки
-#define ADDR_SECTOR_SETTINGS    ((uint)0x080E0000)  // 11 128k
-#define SIZE_SECTOR_SETTINGS    (128 * 1024)
+#define ADDR_SECTOR_SETTINGS        ((uint)0x080E0000)  // 11 128k
+#define SIZE_SECTOR_SETTINGS        (128 * 1024)
 
-#define ADDR_SECTOR_DATA_INFO   ((uint)0x08100000)  // 12 16k  Информация о сохранённых данных
-#define ADDR_SECTOR_13          ((uint)0x08104000)  // 13 16k
-#define ADDR_SECTOR_14          ((uint)0x08108000)  // 14 16k
-#define ADDR_SECTOR_15          ((uint)0x0810С000)  // 15 16k
-#define ADDR_SECTOR_16          ((uint)0x08110000)  // 16 64k
-#define ADDR_SECTOR_17          ((uint)0x08120000)  // 17 128k
-#define ADDR_SECTOR_18          ((uint)0x08140000)  // 18 128k
-#define ADDR_SECTOR_19          ((uint)0x08160000)  // 19 128k
-#define ADDR_SECTOR_20          ((uint)0x08180000)  // 20 128k
-#define ADDR_SECTOR_DATA_1      ((uint)0x081A0000)  // 21 128k
-#define ADDR_SECTOR_DATA_2      ((uint)0x081C0000)  // 22 128k
-#define ADDR_SECTOR_DATA_3      ((uint)0x081E0000)  // 23 128k
+#define ADDR_SECTOR_DATA_INFO       ((uint)0x08100000)  // 12 16k  Информация о сохранённых данных
+#define ADDR_SECTOR_13              ((uint)0x08104000)  // 13 16k
+#define ADDR_SECTOR_14              ((uint)0x08108000)  // 14 16k
+#define ADDR_SECTOR_15              ((uint)0x0810С000)  // 15 16k
+#define ADDR_SECTOR_16              ((uint)0x08110000)  // 16 64k
+#define ADDR_SECTOR_17              ((uint)0x08120000)  // 17 128k
+#define ADDR_SECTOR_18              ((uint)0x08140000)  // 18 128k
+#define ADDR_SECTOR_19              ((uint)0x08160000)  // 19 128k
+#define ADDR_SECTOR_20              ((uint)0x08180000)  // 20 128k
+#define ADDR_SECTOR_DATA_1          ((uint)0x081A0000)  // 21 128k
+#define ADDR_SECTOR_DATA_2          ((uint)0x081C0000)  // 22 128k
+#define ADDR_SECTOR_DATA_3          ((uint)0x081E0000)  // 23 128k
 
 
 #define READ_WORD(address) (*((volatile uint*)(address)))
@@ -74,7 +75,8 @@ namespace HAL_ROM
 
     void EraseSector(uint startAddress);
 
-    void WriteWord(uint address, uint word);
+    void WriteWord(uint address, uint);
+    void WriteWord(void *address, uint);
 
     uint GetSector(uint startAddress);
 
@@ -87,6 +89,66 @@ namespace HAL_ROM
         static RecordConfig *FirstEmpty();
         static RecordConfig *FirstRecord();
     };
+
+    namespace Data
+    {
+        struct StructInfo
+        {
+            uint address;   // По этому адресу сохранены данные фрейма
+            int number;     // Этот номер выводится на странице ПАМЯТЬ-ВНУТР ЗУ
+            uint size;      // Размер фрема данных (DataStruct + 2 * BytesInChannelStored()). Если 0, то запись стёрта
+
+            // Возвращает true, если структура существует и указывает на реальный объект (либо указывала, если объект был стёрт)
+            bool Exist() const
+            {
+                return (address != MAX_UINT);
+            }
+
+            // Возвращает true, если фрейм стёрт
+            bool Erased() const
+            {
+                return Exist() && (size == 0);
+            }
+
+            // Возвращает указатель на первый элемент DataStructROM. Первый элемент всегда находится в начале сектора ADDR_SECTOR_DATA_INFO
+            static StructInfo *First()
+            {
+                return (StructInfo *)ADDR_SECTOR_DATA_INFO;
+            }
+
+            // Последний элемент (конец сектора ADDR_SECTOR_DATA_INFO)
+            static StructInfo *Latest()
+            {
+                return (StructInfo *)(ADDR_SECTOR_DATA_INFO + 16 * 1024);
+            }
+
+            // Возвращает указатель на информацию о данных с номером num. Если отсутствует - nullptr
+            static StructInfo *Get(int num)
+            {
+                StructInfo *info = First();
+
+                while (info < Latest())
+                {
+                    if (!info->Exist())
+                    {
+                        return nullptr;
+                    }
+
+                    if (!info->Erased())
+                    {
+                        if (info->number == num)
+                        {
+                            return info;
+                        }
+                    }
+
+                    info++;
+                }
+
+                return nullptr;
+            }
+        };
+    }
 }
 
 
@@ -106,9 +168,14 @@ bool HAL_ROM::Data::Get(int, DataStruct &)
 }
 
 
-void HAL_ROM::Data::Delete(int)
+void HAL_ROM::Data::Delete(int num)
 {
+    StructInfo *info = StructInfo::Get(num);
 
+    if (info)
+    {
+        WriteWord(&info->size, 0);
+    }
 }
 
 // Если даннные есть, соответствующий элемент массива равен true/.
@@ -119,12 +186,6 @@ void HAL_ROM::Data::GetInfo(bool [MAX_NUM_SAVED_WAVES])
 
 
 void HAL_ROM::Data::Save(int, DataStruct &)
-{
-
-}
-
-
-void HAL_ROM::Data::Save(int, const DataFrame &)
 {
 
 }
@@ -284,12 +345,20 @@ void HAL_ROM::WriteWord(uint address, uint word)
 
     HAL_FLASH_Unlock();
 
+    while (Sound::isBeep) {};
+
     if (HAL_FLASH_Program(TYPEPROGRAM_WORD, address, (uint64_t)word) != HAL_OK)
     {
         LOG_ERROR_TRACE("Не могу записать в память");
     }
 
     HAL_FLASH_Lock();
+}
+
+
+void HAL_ROM::WriteWord(void *address, uint word)
+{
+    WriteWord((uint)address, word);
 }
 
 

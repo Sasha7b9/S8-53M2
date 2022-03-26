@@ -16,8 +16,6 @@ namespace HAL_ROM
 
         void Save(int num, DataStruct &);
 
-        void Save(int num, const DataFrame &);
-
         // Если даннные есть, соответствующий элемент массива равен true/.
         void GetInfo(bool existData[MAX_NUM_SAVED_WAVES]);
     }
