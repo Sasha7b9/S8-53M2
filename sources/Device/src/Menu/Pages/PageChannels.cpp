@@ -10,10 +10,6 @@
 #include "Menu/Pages/Definition.h"
 
 
-extern const Page pChanA;
-extern const Page pChanB;
-
-
 extern const char chanInputRu[] =   "1. \"Вкл\" - выводить сигнал на экран.\n"
                                     "2. \"Откл\" - не выводить сигнал на экран.";
 extern const char chanInputEn[] =   "1. \"Enable\" - signal output to the screen.\n"
@@ -46,7 +42,7 @@ void PageChannelB::OnChanged_Input(bool)
 
 static const Choice mcInputA =
 {
-    TypeItem::Choice, &pChanA, 0,
+    TypeItem::Choice, PageChannelA::self, 0,
     {
         "Вход", "Input",
         chanInputRu,
@@ -74,7 +70,7 @@ void OnChanged_CoupleA(bool)
 
 static const Choice mcCoupleA =
 {
-    TypeItem::Choice, &pChanA, 0,
+    TypeItem::Choice, PageChannelA::self, 0,
     {
         "Связь",   "Couple",
         chanCoupleRu,
@@ -97,7 +93,7 @@ void OnChanged_FiltrA(bool)
 
 static const Choice mcFiltrA =
 {
-    TypeItem::Choice, &pChanA, 0,
+    TypeItem::Choice, PageChannelA::self, 0,
     {
         "Фильтр", "Filtr",
         chanFiltrRu,
@@ -119,7 +115,7 @@ static void OnChanged_InverseA(bool)
 
 static const Choice mcInverseA =
 {
-    TypeItem::Choice, &pChanA, 0,
+    TypeItem::Choice, PageChannelA::self, 0,
     {
         "Инверсия",    "Inverse",
         chanInverseRu,
@@ -135,7 +131,7 @@ static const Choice mcInverseA =
 
 static const Choice mcMultiplierA =
 {
-    TypeItem::Choice, &pChanA, 0,
+    TypeItem::Choice, PageChannelA::self, 0,
     {
         "Множитель", "Divider",
         chanMultiplierRu,
@@ -151,7 +147,7 @@ static const Choice mcMultiplierA =
 
 static const Choice mcInputB =
 {
-    TypeItem::Choice, &pChanB, 0,
+    TypeItem::Choice, PageChannelB::self, 0,
     {
         "Вход", "Input",
         chanInputRu,
@@ -173,7 +169,7 @@ void OnChanged_CoupleB(bool)
 
 static const Choice mcCoupleB =
 {
-    TypeItem::Choice, &pChanB, 0,
+    TypeItem::Choice, PageChannelB::self, 0,
     {
         "Связь", "Couple",
         chanCoupleRu,
@@ -196,7 +192,7 @@ void OnChanged_FiltrB(bool)
 
 static const Choice mcFiltrB =
 {
-    TypeItem::Choice, &pChanB, 0,
+    TypeItem::Choice, PageChannelB::self, 0,
     {
         "Фильтр", "Filtr",
         chanFiltrRu,
@@ -218,7 +214,7 @@ static void OnChanged_InverseB(bool)
 
 static const Choice mcInverseB =
 {
-    TypeItem::Choice, &pChanB, 0,
+    TypeItem::Choice, PageChannelB::self, 0,
     {
         "Инверсия", "Inverse",
         chanInverseRu,
@@ -234,7 +230,7 @@ static const Choice mcInverseB =
 
 static const Choice mcMultiplierB =
 {
-    TypeItem::Choice, &pChanB, 0,
+    TypeItem::Choice, PageChannelB::self, 0,
     {
         "Множитель", "Divider",
         chanMultiplierRu,
