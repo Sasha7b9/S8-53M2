@@ -11,25 +11,34 @@ __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | F
 
 
 // Программа и константные данные
-#define ADDR_FLASH_SECTOR_0     ((uint)0x08000000)  // Base @ of Sector 0, 16 Kbytes
-#define ADDR_FLASH_SECTOR_1     ((uint)0x08004000)  // Base @ of Sector 1, 16 Kbytes
-#define ADDR_FLASH_SECTOR_2     ((uint)0x08008000)  // Base @ of Sector 2, 16 Kbytes
-#define ADDR_FLASH_SECTOR_3     ((uint)0x0800C000)  // Base @ of Sector 3, 16 Kbytes
-#define ADDR_FLASH_SECTOR_4     ((uint)0x08010000)  // Base @ of Sector 4, 64 Kbytes
-#define ADDR_FLASH_SECTOR_5     ((uint)0x08020000)  // Base @ of Sector 5, 128 Kbytes  |
-#define ADDR_FLASH_SECTOR_6     ((uint)0x08040000)  // Base @ of Sector 6, 128 Kbytes  | Основная прошивка
-#define ADDR_FLASH_SECTOR_7     ((uint)0x08060000)  // Base @ of Sector 7, 128 Kbytes  /
-
-// Сохранённые данные
-#define ADDR_SECTOR_DATA_MAIN   ((uint)0x08080000)  // Base @ of Sector 8, 128 Kbytes
-#define ADDR_SECTOR_DATA_HELP   ((uint)0x080A0000)  // Base @ of Sector 9, 128 Kbytes
-
-// Графические и звуковые ресурсы
-#define ADDR_SECTOR_RESOURCES   ((uint)0x080C0000)  // Base @ of Sector 10, 128 Kbytes
+#define ADDR_SECTOR_0           ((uint)0x08000000)  //  0 16k
+#define ADDR_SECTOR_1           ((uint)0x08004000)  //  1 16k
+#define ADDR_SECTOR_2           ((uint)0x08008000)  //  2 16k
+#define ADDR_SECTOR_3           ((uint)0x0800C000)  //  3 16k
+#define ADDR_SECTOR_4           ((uint)0x08010000)  //  4 64k
+#define ADDR_FIRMWARE_1         ((uint)0x08020000)  //  5 128k \-
+#define ADDR_FIRMWARE_2         ((uint)0x08040000)  //  6 128k |- Основная прошивка
+#define ADDR_FIRMWARE_3         ((uint)0x08060000)  //  7 128k /-
+#define ADDR_SECTOR_8           ((uint)0x08080000)  //  8 128k
+#define ADDR_SECTOR_9           ((uint)0x080A0000)  //  9 128k
+#define ADDR_SECTOR_10          ((uint)0x080C0000)  // 10 128k
 
 // Настройки
-#define ADDR_SECTOR_SETTINGS    ((uint)0x080E0000)  // Base @ of Sector 11, 128 Kbytes
+#define ADDR_SECTOR_SETTINGS    ((uint)0x080E0000)  // 11 128k
 #define SIZE_SECTOR_SETTINGS    (128 * 1024)
+
+#define ADDR_SECTOR_12          ((uint)0x08100000)  // 12 16k
+#define ADDR_SECTOR_13          ((uint)0x08104000)  // 13 16k
+#define ADDR_SECTOR_14          ((uint)0x08108000)  // 14 16k
+#define ADDR_SECTOR_15          ((uint)0x0810С000)  // 15 16k
+#define ADDR_SECTOR_16          ((uint)0x08110000)  // 16 64k
+#define ADDR_SECTOR_17          ((uint)0x08120000)  // 17 128k
+#define ADDR_SECTOR_18          ((uint)0x08140000)  // 18 128k
+#define ADDR_SECTOR_19          ((uint)0x08160000)  // 19 128k
+#define ADDR_SECTOR_20          ((uint)0x08180000)  // 20 128k
+#define ADDR_SECTOR_21          ((uint)0x081A0000)  // 21 128k
+#define ADDR_SECTOR_22          ((uint)0x081C0000)  // 22 128k
+#define ADDR_SECTOR_23          ((uint)0x081E0000)  // 23 128k
 
 
 #define READ_WORD(address) (*((volatile uint*)(address)))
@@ -46,13 +55,9 @@ static const uint MAX_UINT = 0xffffffff;
 
 namespace HAL_ROM
 {
-    static const uint startDataInfo = ADDR_SECTOR_DATA_MAIN;
-
     void WriteBufferBytes(uint address, uint8 *buffer, int size);
 
     bool TheFirstInclusion();
-
-    void PrepareSectorForData();
 
     void EraseSector(uint startAddress);
 
@@ -130,7 +135,6 @@ bool HAL_ROM::Settings::Load()
         set.common.countEnables = 0;
         set.common.countErasedFlashData = 0;
         set.common.workingTimeInSecs = 0;
-        PrepareSectorForData();
     }
 
     if (READ_WORD(ADDR_SECTOR_SETTINGS) == 0x12345)
@@ -205,17 +209,6 @@ bool HAL_ROM::TheFirstInclusion()
 }
 
 
-void HAL_ROM::PrepareSectorForData()
-{
-    EraseSector(ADDR_SECTOR_DATA_MAIN);
-
-    for (int i = 0; i < MAX_NUM_SAVED_WAVES; i++)
-    {
-        WriteWord(startDataInfo + i * 4, 0);
-    }
-}
-
-
 void HAL_ROM::EraseSector(uint startAddress)
 {
     __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR |
@@ -287,15 +280,6 @@ uint HAL_ROM::GetSector(uint startAddress)
 {
     switch (startAddress)
     {
-    case ADDR_SECTOR_DATA_MAIN:
-        return FLASH_SECTOR_8;
-
-    case ADDR_SECTOR_DATA_HELP:
-        return FLASH_SECTOR_9;
-
-    case ADDR_SECTOR_RESOURCES:
-        return FLASH_SECTOR_10;
-
     case ADDR_SECTOR_SETTINGS:
         return FLASH_SECTOR_11;
     }
