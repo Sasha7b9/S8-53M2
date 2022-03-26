@@ -218,12 +218,10 @@ void DrawSB_MemExtNewFolder(int x, int y)
 
 
 
-extern const Page mpSetName;
-
 // Кнопк для выхода из режима задания имени сохраняемому сигналу. Одновременно кнопка отказа от сохранения
 static const SmallButton sbExitSetName
 (
-    &mpSetName, 0,
+    PageMemory::SetName::self, 0,
     EXIT_RU, EXIT_EN,
     "Отказ от сохранения",
     "Failure to save",
@@ -240,9 +238,6 @@ static const SmallButton sbExitSetName
 
 
 
-
-
-extern const Page pMemory;
 
 
 static bool FuncActiveMemoryNumPoinst()
@@ -289,7 +284,7 @@ void PageMemory::OnChanged_NumPoints(bool)
 
 const Choice mcMemoryNumPoints =
 {
-    TypeItem::Choice, &pMemory, FuncActiveMemoryNumPoinst,
+    TypeItem::Choice, PageMemory::self, FuncActiveMemoryNumPoinst,
     {
         "Точки", "Points"
         ,
