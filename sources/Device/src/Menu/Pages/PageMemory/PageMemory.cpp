@@ -1,30 +1,12 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Settings/SettingsTypes.h"
+#include "Settings/Settings.h"
 #include "Menu/Pages/Definition.h"
-#include "Menu/FileManager.h"
 #include "FPGA/FPGA.h"
 #include "Data/Storage.h"
-#include "Display/Colors.h"
-#include "Display/Display.h"
-#include "Display/font/Font.h"
-#include "Display/Painter.h"
 #include "Display/Screen/Grid.h"
-#include "Display/Symbols.h"
-#include "Menu/Menu.h"
-#include "Settings/Settings.h"
-#include "Utils/Math.h"
 #include "Hardware/FDrive/FDrive.h"
-#include "Hardware/Sound.h"
-#include "Log.h"
-#include "Display/Tables.h"
-#include "Hardware/HAL/HAL.h"
-#include "Data/Data.h"
-#include "Data/DataExtensions.h"
-#include "Data/Processing.h"
-#include "Utils/Strings.h"
-#include <cstring>
-#include <cstdio>
+#include "Menu/FileManager.h"
 
 
 static bool FuncActiveMemoryNumPoinst()
@@ -90,17 +72,8 @@ const Choice mcMemoryNumPoints =
 };
 
 
-
-
-
-
-
-
-
-
-
 // Ёта функци€ рисует, когда нужно задать им€ файла дл€ сохранени€
-void DrawSetName()
+static void DrawSetName()
 {
     int x0 = Grid::Left() + 40;
     int y0 = GRID_TOP + 60;
@@ -168,17 +141,6 @@ void PageMemory::SaveSignalToFlashDrive()
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 void PageMemory::OnPressExtFileManager()
 {
     if(FDrive::isConnected)
@@ -190,27 +152,6 @@ void PageMemory::OnPressExtFileManager()
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 static const arrayItems itemsMemory =
 {
     (void *)&mcMemoryNumPoints,
@@ -220,7 +161,7 @@ static const arrayItems itemsMemory =
 };
 
 
-static const Page pMemory              // ѕјћя“№
+static const Page pMemory
 (
     PageMain::self, 0,
     "ѕјћя“№", "MEMORY",
@@ -231,4 +172,3 @@ static const Page pMemory              // ѕјћя“№
 
 
 const Page *PageMemory::self = &pMemory;
-
