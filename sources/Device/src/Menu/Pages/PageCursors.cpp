@@ -14,7 +14,6 @@
 #include <cstring>
 
 
-extern const Page pCursors;
 extern const Page mspSet;
 extern const SmallButton sbSetU;              // КУРСОРЫ - УСТАНОВИТЬ - Курсоры U . Выбор курсора напряжения - курсор 1, курсор 2, оба курсора или отключены.
 extern const SmallButton sbSetT;              // КУРСОРЫ - УСТАНОВИТЬ - Курсоры T . Выбор курсора времени - курсор 1, курсор 2, оба курсора или отключены.
@@ -109,7 +108,7 @@ void PageCursors::Cursors_Update()
 
 static const Choice mcShow =
 {
-    TypeItem::Choice, &pCursors, 0,
+    TypeItem::Choice, PageCursors::self, 0,
     {
         "Показывать", "Shown",
         "Включает/отключает курсоры.",
@@ -125,7 +124,7 @@ static const Choice mcShow =
 
 static const Choice mcTrackingT1U1 =
 {
-    TypeItem::Choice, &pCursors, 0,
+    TypeItem::Choice, PageCursors::self, 0,
     {
         "Слежение \x8e, \x9e",  "Tracking \x8e, \x9e"
         ,
@@ -153,7 +152,7 @@ static const Choice mcTrackingT1U1 =
 
 static const Choice mcTrackingT2U2 =
 {
-    TypeItem::Choice, &pCursors, 0,
+    TypeItem::Choice, PageCursors::self, 0,
     {
         "Слежение \x8f, \x9f", "Tracking \x8f, \x9f"
         ,
@@ -181,7 +180,7 @@ static const Choice mcTrackingT2U2 =
 
 static const Choice mcShowFreq =
 {
-    TypeItem::Choice, &pCursors, 0,
+    TypeItem::Choice, PageCursors::self, 0,
     {
         "1/dT", "1/dT"
         ,
@@ -362,7 +361,7 @@ static void OnRotate_RegSet_Set(int angle)
 
 static const Page mspSet
 (
-    &pCursors, 0,
+    PageCursors::self, 0,
     "УСТАНОВИТЬ", "SET",
     "Переход в режим курсорных измерений",
     "Switch to cursor measures",
