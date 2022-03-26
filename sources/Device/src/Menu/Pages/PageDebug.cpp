@@ -164,7 +164,7 @@ static const Button mbSaveFirmware
 
 static void OnPress_EraseData()
 {
-    HAL_ROM::Data::EraseData();
+    HAL_ROM::Data::EraseAll();
 }
 
 
