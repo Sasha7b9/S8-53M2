@@ -13,7 +13,6 @@
 #include <cstdio>
 
 
-extern const Page ppMath;
 extern const Page pppMath_Function;
 extern const Page pppMath_FFT;
 extern const Page ppppMath_FFT_Cursors;
