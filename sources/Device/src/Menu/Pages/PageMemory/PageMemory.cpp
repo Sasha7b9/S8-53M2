@@ -27,9 +27,6 @@
 #include <cstdio>
 
 
-extern const Page pMemory;
-
-
 bool IsActiveMemoryExtSetMask()
 {                       
     return FILE_NAMING_MODE_IS_MASK;
@@ -91,11 +88,9 @@ static void PressSB_MemExtSetNameSave()
     }
 }
 
-extern const Page mpSetName;
-
 static const SmallButton sbSetNameSave
 (
-    &mpSetName, 0,
+    PageMemory::SetName::self, 0,
     "Сохранить", "Save",
     "Сохранение на флеш под заданным именем",
     "Saving to flashdrive with the specified name",
@@ -256,11 +251,11 @@ static void OnMemExtSetMaskRegSet(int angle)
     OnMemExtSetMaskNameRegSet(angle, sizeof(Tables::symbolsAlphaBet) / 4);
 }
 
-extern const Page mspSetMask;
+
 
 const SmallButton sbSetMaskBackspace
 (
-    &mspSetMask, 0,
+    PageMemory::SetMask::self, 0,
     "Backspace", "Backspace",
     "Удаляет последний введённый символ",
     "Deletes the last entered symbol",
@@ -270,7 +265,7 @@ const SmallButton sbSetMaskBackspace
 
 const SmallButton sbSetMaskDelete
 (
-    &mspSetMask, 0,
+    PageMemory::SetMask::self, 0,
     "Удалить", "Delete",
     "Удаляет все введённые символы",
     "Deletes all entered symbols",
@@ -280,7 +275,7 @@ const SmallButton sbSetMaskDelete
 
 const SmallButton sbSetMaskInsert
 (
-    &mspSetMask, 0,
+    PageMemory::SetMask::self, 0,
     "Вставить", "Insert",
     "Вставляет выбранный символ",
     "Inserts the chosen symbol",
@@ -292,7 +287,7 @@ const SmallButton sbSetMaskInsert
 
 const SmallButton sbSetNameBackspace
 (
-    &mpSetName, 0,
+    PageMemory::SetName::self, 0,
     "Backspace", "Backspace",
     "Удаляет последний символ",
     "Delete the last character",
@@ -302,7 +297,7 @@ const SmallButton sbSetNameBackspace
 
 const SmallButton sbSetNameDelete
 (
-    &mpSetName, 0,
+    PageMemory::SetName::self, 0,
     "Удалить", "Delete",
     "Удаляет все введённые символы",
     "Deletes all entered characters",
@@ -312,7 +307,7 @@ const SmallButton sbSetNameDelete
 
 const SmallButton sbSetNameInsert
 (
-    &mpSetName, 0,
+    PageMemory::SetName::self, 0,
     "Вставить", "Insert",
     "Вводит очередной символ",
     "Print the next character",
@@ -379,62 +374,6 @@ const SmallButton sbFileManagerLevelUp
     FM::PressLevelUp,
     DrawSB_FM_LevelUp
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -627,82 +566,14 @@ const Choice mcMemoryNumPoints =
     (int8*)&SET_ENUM_POINTS, PageMemory::OnChanged_NumPoints
 };
 
-// ПАМЯТЬ - ВНЕШН ЗУ /////
-extern const Page mspMemoryExt;
-
-// ПАМЯТЬ - ВНЕШН ЗУ - Имя файла
-const Choice mcMemoryExtName =
-{
-    TypeItem::Choice, &mspMemoryExt, 0,
-    {
-        "Имя файла", "File name"
-        ,
-        "Задаёт режим наименования файлов при сохранении на внешний накопитель:\n"
-        "\"По маске\" - файлы именуются автоматически по заранее введённой маске (след. пункт меню),\n"
-        "\"Вручную\" - каждый раз имя файла нужно задавать вручную"
-        ,
-        "Sets the mode name when saving files to an external drive:\n"
-        "\"By mask\" - files are named automatically advance to the entered mask(seq.Menu),\n"
-        "\"Manual\" - each time the file name must be specified manually"
-    },
-    {   
-        {"По маске",    "Mask"},
-        {"Вручную",     "Manually"}
-    },
-    (int8*)&FILE_NAMING_MODE
-};
-    
-// ПАМЯТЬ - ВНЕШН ЗУ - Автоподключение
-const Choice mcMemoryExtAutoConnectFlash =
-{
-    TypeItem::Choice, &mspMemoryExt, 0,
-    {
-        "Автоподкл.", "AutoConnect",
-        "Eсли \"Вкл\", при подключении внешнего накопителя происходит автоматический переход на страницу ПАМЯТЬ - Внешн ЗУ",
-        "If \"Enable\", when you connect an external drive is automatically transferred to the page MEMORY - Ext.Storage"
-    },
-    {   
-        {DISABLE_RU,    DISABLE_EN},
-        {ENABLE_RU,     ENABLE_EN}
-    },
-    (int8*)&FLASH_AUTOCONNECT
-};
-
-// ПАМЯТЬ - ВНЕШН ЗУ - Реж кн ПАМЯТЬ
-const Choice mcMemoryExtModeBtnMemory =
-{
-    TypeItem::Choice, &mspMemoryExt, 0,
-    {
-        "Реж кн ПАМЯТЬ", "Mode btn MEMORY",
-        "",
-        ""
-    },
-    {
-        {"Меню",        "Menu"},
-        {"Сохранение",  "Save"}
-    },
-    (int8*)&MODE_BTN_MEMORY
-};
 
 
-const Choice mcMemoryExtModeSave =
-{
-    TypeItem::Choice, &mspMemoryExt, 0,
-    {
-        "Сохранять как", "Save as"
-        ,
-        "Если выбран вариант \"Изображение\", сигнал будет сохранён в текущем каталоге в графическом файле с расширением BMP\n"
-        "Если выбран вариант \"Текст\", сигнал будет сохранён в текущем каталоге в текстовом виде в файле с раширением TXT"
-        ,
-        "If you select \"Image\", the signal will be stored in the current directory in graphic file with the extension BMP\n"
-        "If you select \"Text\", the signal will be stored in the current directory as a text file with the extension TXT"
-    },
-    {
-        {"Изображение", "Image"},
-        {"Текст",       "Text"}
-    },
-    (int8*)&MODE_SAVE_SIGNAL
-};
+
+
+
+
+
+
 
 
 // Эта функция рисует, когда нужно задать имя файла для сохранения
@@ -781,7 +652,7 @@ static void PressSB_SetMask_Exit()
 
 static const SmallButton sbExitSetMask
 (
-    &mspSetMask,
+    PageMemory::SetMask::self,
     COMMON_BEGIN_SB_EXIT,
     PressSB_SetMask_Exit,
     DrawSB_Exit
@@ -801,7 +672,7 @@ static const arrayItems itemsSetMask =
 
 static const Page mspSetMask
 (
-    &mspMemoryExt, IsActiveMemoryExtSetMask,
+    PageMemory::External::self, IsActiveMemoryExtSetMask,
     "МАСКА", "MASK",
     "Режим ввода маски для автоматического именования файлов",
     "Input mode mask for automatic file naming",
@@ -854,40 +725,12 @@ const void *pMspFileManager = (const void *)&mspFileManager;
 
 static const Page mspFileManager
 (
-    &mspMemoryExt, FuncOfActiveExtMemFolder,
+    PageMemory::External::self, FuncOfActiveExtMemFolder,
     "КАТАЛОГ", "DIRECTORY",
     "Открывает доступ к файловой системе подключенного накопителя",
     "Provides access to the file system of the connected drive",
     NamePage::SB_FileManager, &itemsFileManager, PageMemory::OnPressExtFileManager, EmptyFuncVV, FM::RotateRegSet
 );
-
-// ПАМЯТЬ - ВНЕШН ЗУ /////////////////////////////////////////////////////////////////
-static const arrayItems itemsMemoryExt =
-{
-    (void*)&mspFileManager,
-    (void*)&mcMemoryExtName,
-    (void*)&mspSetMask,
-    (void*)&mcMemoryExtModeSave,
-    (void*)&mcMemoryExtModeBtnMemory,
-    (void*)&mcMemoryExtAutoConnectFlash
-};
-
-static const Page mspMemoryExt
-(
-    &pMemory, 0,
-    "ВНЕШН ЗУ", "EXT STORAGE",
-    "Работа с внешним запоминающим устройством.",
-    "Work with external storage device.",
-    NamePage::MemoryExt, &itemsMemoryExt
-);
-
-
-
-
-
-
-
-
 
 
 // Страница вызывается при выбранном ручном режиме задания имени файла перед сохранением на флешку ///////////////
@@ -925,7 +768,7 @@ static const arrayItems itemsMemory =
     (void *)&mcMemoryNumPoints,
     (void *)PageMemory::Latest::self,
     (void *)PageMemory::Internal::self,
-    (void *)&mspMemoryExt
+    (void *)PageMemory::External::self
 };
 
 

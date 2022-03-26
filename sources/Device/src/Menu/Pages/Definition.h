@@ -133,6 +133,11 @@ struct PageMemory
         static const Page *self;
     };
 
+    struct External
+    {
+        static const Page *self;
+    };
+
     struct SetMask
     {
         static const Page *self;
