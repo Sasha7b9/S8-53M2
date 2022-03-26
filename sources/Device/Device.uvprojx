@@ -1682,6 +1682,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\PageMemory\PageMemorySetName.cpp</FilePath>
             </File>
+            <File>
+              <FileName>loses.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\PageMemory\loses.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3681,6 +3686,11 @@
               <FileName>PageMemorySetName.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\PageMemory\PageMemorySetName.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>loses.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\PageMemory\loses.cpp</FilePath>
             </File>
           </Files>
         </Group>
