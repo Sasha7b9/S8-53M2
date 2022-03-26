@@ -7,13 +7,14 @@
 
 
 /*
-* Алгоритм хранения данных такой
-* В секторе 12 последовательно хранятся структуры такого вида:
-* {
-*   uint addr   - адрес, по которому сохранён фрейм данных
-*   uint number - номер данных, как он представлен на экране ПАМЯТЬ-ВНУТР ЗУ
-*   uint size   - сколько места занимает фрейм данных (DataSettings + 2 * BytesInChannelStored())
-* }
+*   Алгоритм хранения данных такой
+*   В секторе 12 последовательно хранятся структуры такого вида:
+*   {
+*     uint addr   - адрес, по которому сохранён фрейм данных
+*     uint number - номер данных, как он представлен на экране ПАМЯТЬ-ВНУТР ЗУ
+*     uint size   - сколько места занимает фрейм данных (DataSettings + 2 * BytesInChannelStored())
+*   }
+*   Сами данные хранятся в секторах 21, 22, 23
 */
 
 
@@ -68,6 +69,7 @@ namespace HAL_ROM
 {
     void WriteBufferBytes(uint address, uint8 *buffer, int size);
 
+    // Возвращает true, если это первое включение
     bool TheFirstInclusion();
 
     void EraseSector(uint startAddress);
@@ -90,7 +92,11 @@ namespace HAL_ROM
 
 void HAL_ROM::Data::EraseAll()
 {
+    EraseSector(ADDR_SECTOR_DATA_INFO);
 
+    EraseSector(ADDR_SECTOR_DATA_1);
+    EraseSector(ADDR_SECTOR_DATA_2);
+    EraseSector(ADDR_SECTOR_DATA_3);
 }
 
 
