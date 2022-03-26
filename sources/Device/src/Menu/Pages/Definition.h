@@ -191,6 +191,11 @@ struct PageService
         };
     };
 
+    struct LAN
+    {
+        static const Page *self;
+    };
+
     struct Information
     {
         static const Page *self;

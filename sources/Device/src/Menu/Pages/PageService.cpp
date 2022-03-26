@@ -13,7 +13,6 @@
 #include <cstdio>
 
 
-extern const Page ppEthernet;
 extern const Page ppInformation;
 
 
@@ -675,7 +674,7 @@ static void OnChanged_Ethernet_Enable(bool)
 
 static const Choice cEthernet_Enable =
 {
-    TypeItem::Choice, &ppEthernet, 0,
+    TypeItem::Choice, PageService::LAN::self, 0,
     {
         "Ethernet", "Ethernet"
         ,
@@ -695,7 +694,7 @@ static const Choice cEthernet_Enable =
 
 static const IPaddressStruct structIP =
 {
-    { TypeItem::IP, &ppEthernet, 0,
+    { TypeItem::IP, PageService::LAN::self, 0,
     {   "IP адрес", "IP-address",
         "Установка IP адреса",
         "Set of IP-address",  } },
@@ -713,7 +712,7 @@ static const IPaddress ipEthernet_IP
 
 static const IPaddressStruct structMask =
 {
-    { TypeItem::IP, &ppEthernet, 0,
+    { TypeItem::IP, PageService::LAN::self, 0,
     {   "Маска подсети", "Network mask",
         "Установка маски подсети",
         "Set of network mask",    } },
@@ -730,7 +729,7 @@ static const IPaddress ipEthernet_Mask
 
 static const IPaddressStruct structGateway =
 {
-    { TypeItem::IP, &ppEthernet, 0,
+    { TypeItem::IP, PageService::LAN::self, 0,
     {   "Шлюз", "Gateway",
         "Установка адреса основного шлюза",
         "Set of gateway address", } },
@@ -747,7 +746,7 @@ static const IPaddress ipEthernet_Gateway
 
 static const MACaddress macEthernet_MAC =
 {
-    TypeItem::MAC, &ppEthernet, 0,
+    TypeItem::MAC, PageService::LAN::self, 0,
     {
         "Физ адрес", "MAC-address",
         "Установка физического адреса",
@@ -940,9 +939,6 @@ static const Page ppInformation
 );
 
 
-const Page *PageService::Information::self = &ppInformation;
-
-
 static const arrayItems itemsService =
 {
     (void *)&bResetSettings,
@@ -972,3 +968,5 @@ const Page *PageService::self = &pService;
 const Page *PageService::Calibrator::self = &ppCalibrator;
 const Page *PageService::Math::FFT::self = &pppMath_FFT;
 const Page *PageService::Math::FFT::Cursors::self = &ppppMath_FFT_Cursors;
+const Page *PageService::LAN::self = &ppEthernet;
+const Page *PageService::Information::self = &ppInformation;
