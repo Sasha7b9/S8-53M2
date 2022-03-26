@@ -13,7 +13,6 @@
 #include <cstdio>
 
 
-extern const Page ppCalibrator;
 extern const Page ppMath;
 extern const Page pppMath_Function;
 extern const Page pppMath_FFT;
@@ -83,7 +82,7 @@ static void OnChanged_Calibrator_Mode(bool)
 
 static const Choice cCalibrator_Mode =
 {
-    TypeItem::Choice, &ppCalibrator, 0,
+    TypeItem::Choice, PageService::Calibrator::self, 0,
     {
         "Калибратор",  "Calibrator",
         "Режим работы калибратора",
@@ -106,7 +105,7 @@ static void OnPress_Calibrator_Calibrate()
 
 static const Button cCalibrator_Calibrate
 (
-    &ppCalibrator, 0,
+    PageService::Calibrator::self, 0,
     "Калибровать", "Calibrate",
     "Запуск процедуры калибровки",
     "Running the calibration procedure",
@@ -977,3 +976,4 @@ static const Page pService
 
 
 const Page *PageService::self = &pService;
+const Page *PageService::Calibrator::self = &ppCalibrator;

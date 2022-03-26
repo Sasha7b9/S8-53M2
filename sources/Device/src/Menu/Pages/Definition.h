@@ -193,6 +193,11 @@ struct PageService
     {
         static const Page *self;
     };
+
+    struct Calibrator
+    {
+        static const Page *self;
+    };
 };
 
 
