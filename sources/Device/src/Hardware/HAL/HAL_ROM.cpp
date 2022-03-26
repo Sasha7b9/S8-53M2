@@ -98,11 +98,13 @@ namespace HAL_ROM
             int number;     // Этот номер выводится на странице ПАМЯТЬ-ВНУТР ЗУ
             uint size;      // Размер фрема данных (DataStruct + 2 * BytesInChannelStored()). Если 0, то запись стёрта
 
+
             // Возвращает true, если структура существует и указывает на реальный объект (либо указывала, если объект был стёрт)
             bool Exist() const
             {
                 return (address != MAX_UINT);
             }
+
 
             // Возвращает true, если фрейм стёрт
             bool Erased() const
@@ -110,17 +112,20 @@ namespace HAL_ROM
                 return Exist() && (size == 0);
             }
 
+
             // Возвращает указатель на первый элемент DataStructROM. Первый элемент всегда находится в начале сектора ADDR_SECTOR_DATA_INFO
             static StructInfo *First()
             {
                 return (StructInfo *)ADDR_SECTOR_DATA_INFO;
             }
 
+
             // Последний элемент (конец сектора ADDR_SECTOR_DATA_INFO)
             static StructInfo *Latest()
             {
                 return (StructInfo *)(ADDR_SECTOR_DATA_INFO + 16 * 1024);
             }
+
 
             // Возвращает указатель на информацию о данных с номером num. Если отсутствует - nullptr
             static StructInfo *Get(int num)
@@ -147,6 +152,27 @@ namespace HAL_ROM
 
                 return nullptr;
             }
+
+
+            DataSettings *GetDataSettings()
+            {
+                return (DataSettings *)address;
+            }
+
+
+            uint8 *GetDataChannel(Chan ch)
+            {
+                DataSettings *ds = GetDataSettings();
+
+                uint8 *address_data = (uint8 *)ds + sizeof(DataSettings);
+
+                if (ch.IsB())
+                {
+                    address_data += ds->BytesInChanStored();
+                }
+
+                return address_data;
+            }
         };
     }
 }
@@ -162,8 +188,22 @@ void HAL_ROM::Data::EraseAll()
 }
 
 
-bool HAL_ROM::Data::Get(int, DataStruct &)
+bool HAL_ROM::Data::Get(int num, DataStruct &data)
 {
+    StructInfo *info = StructInfo::Get(num);
+
+    if (info)
+    {
+        data.ds = *info->GetDataSettings();
+
+        int num_bytes = data.ds.BytesInChanStored();
+
+        data.A.ReallocFromBuffer(info->GetDataChannel(ChA), num_bytes);
+        data.B.ReallocFromBuffer(info->GetDataChannel(ChB), num_bytes);
+
+        return true;
+    }
+
     return false;
 }
 
