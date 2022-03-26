@@ -100,7 +100,7 @@ void HAL_ROM::Data::EraseAll()
 }
 
 
-bool HAL_ROM::Data::Get(int, DataFrame &)
+bool HAL_ROM::Data::Get(int, DataStruct &)
 {
     return false;
 }

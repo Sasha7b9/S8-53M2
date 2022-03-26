@@ -133,10 +133,3 @@ struct DataStruct
 
     void Log(pchar point);
 };
-
-
-namespace Data
-{
-    extern DataFrame last;      // «десь сигнал из ѕјћя“№-ѕоследние, если нужно дл€ отображени€
-    extern DataFrame ins;       // «десь сигнал из ѕѕ«”, если нужно дл€ отображени€ 
-}

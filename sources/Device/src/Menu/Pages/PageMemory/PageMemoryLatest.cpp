@@ -87,7 +87,6 @@ static void PressSB_MemLast_IntEnter()
 {
     PageMemory::Internal::self->OpenAndSetCurrent();
     MODE_WORK = ModeWork::MemInt;
-    HAL_ROM::Data::Get(PageMemory::Internal::currentSignal, Data::ins);
     PageMemory::Internal::exitToLast = true;
 }
 

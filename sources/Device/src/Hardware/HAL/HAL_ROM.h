@@ -10,7 +10,7 @@ namespace HAL_ROM
     {
         void EraseAll();
 
-        bool Get(int num, DataFrame &);
+        bool Get(int num, DataStruct &);
 
         void Delete(int num);
 

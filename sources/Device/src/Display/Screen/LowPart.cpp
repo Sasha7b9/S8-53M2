@@ -52,12 +52,10 @@ void LowPart::Draw()
 
     if (!MODE_WORK_IS_DIRECT)
     {
-        const DataSettings &ds = MODE_WORK_IS_LATEST ? *Data::last.ds : *Data::ins.ds;
-
-        if (ds.valid)
+        if (Processing::out.ds.valid)
         {
-            tBase = ds.tBase;
-            tShift = ds.tShift;
+            tBase = Processing::out.ds.tBase;
+            tShift = Processing::out.ds.tShift;
         }
     }
 
@@ -202,7 +200,7 @@ void LowPart::DrawTime(int x, int y)
 
     if (MODE_WORK_IS_MEMINT || MODE_WORK_IS_LATEST)
     {
-        const DataSettings &ds = MODE_WORK_IS_MEMINT ? *Data::ins.ds : *Data::last.ds;
+        const DataSettings &ds = Processing::out.ds;
 
         if (ds.valid)
         {
@@ -253,7 +251,7 @@ void LowPart::WriteTextVoltage(Chan ch, int x, int y)
 
     if (!MODE_WORK_IS_DIRECT)
     {
-        const DataSettings &ds = MODE_WORK_IS_DIRECT ? Processing::out.ds : *Data::ins.ds;
+        const DataSettings &ds = Processing::out.ds;
 
         if (ds.valid)
         {
