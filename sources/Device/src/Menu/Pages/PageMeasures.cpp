@@ -11,9 +11,6 @@
 #include "Display/Painter.h"
 
 
-extern const Page mspMeasTune;
-
-
 bool PageMeasures::choiceMeasuresIsActive = false;
 
 
@@ -91,7 +88,7 @@ void RotateRegMeasureSetField(int angle)
 
 const SmallButton sbMeasTuneSettings        // Настройка измерений.
 (
-    &mspMeasTune, 0,
+    PageMeasures::Tune::self, 0,
     "Настройка", "Setup",
     "Позволяет выбрать необходимые измерения",
     "Allows to choose necessary measurements",
@@ -102,7 +99,7 @@ const SmallButton sbMeasTuneSettings        // Настройка измерений.
 
 const SmallButton sbMeasTuneMarkers        // Включение/отключение маркера для режима измерений.
 (
-    &mspMeasTune, 0,
+    PageMeasures::Tune::self, 0,
     "Маркер", "Marker",
     "Позволяет установить маркеры для визуального контроля измерений",
     "Allows to establish markers for visual control of measurements",
@@ -264,7 +261,7 @@ static void PressSB_MeasTune_Exit()
 
 static const SmallButton sbExitMeasTune
 (
-    &mspMeasTune,
+    PageMeasures::Tune::self,
     COMMON_BEGIN_SB_EXIT,
     PressSB_MeasTune_Exit,
     DrawSB_Exit
@@ -312,5 +309,4 @@ static const Page pMeasures
 
 
 const Page *PageMeasures::self = &pMeasures;
-
-void *PageMeasures::Tune::pointer = (void *)&mspMeasTune;
+const Page *PageMeasures::Tune::self = &mspMeasTune;

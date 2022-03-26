@@ -102,7 +102,7 @@ struct PageMeasures
 
     struct Tune
     {
-        static void *pointer;
+        static const Page *self;
     };
 
     // Если true, то активен выбор типа измерений для выбора на странице ИЗМЕРЕНИЯ-НАСТРОИТЬ
