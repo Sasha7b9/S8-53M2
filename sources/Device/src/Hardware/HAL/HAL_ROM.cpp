@@ -52,6 +52,7 @@ __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | F
 #define ADDR_SECTOR_DATA_1          ((uint)0x081A0000)  // 21 128k
 #define ADDR_SECTOR_DATA_2          ((uint)0x081C0000)  // 22 128k
 #define ADDR_SECTOR_DATA_3          ((uint)0x081E0000)  // 23 128k
+#define ADDR_SECTOR_DATA_END        (ADDR_SECTOR_DATA_3 + 128 * 1024)
 
 
 #define READ_WORD(address) (*((volatile uint*)(address)))
@@ -127,6 +128,20 @@ namespace HAL_ROM
             }
 
 
+            // Возвращает указатель на последнюю существующую структуру. nullptr, если структур не существует
+            static StructInfo *LatestExist()
+            {
+                StructInfo *info = First();
+
+                if (!info->Exist())
+                {
+                    return nullptr;
+                }
+
+                while()
+            }
+
+
             // Возвращает указатель на информацию о данных с номером num. Если отсутствует - nullptr
             static StructInfo *Get(int num)
             {
@@ -174,6 +189,12 @@ namespace HAL_ROM
                 return address_data;
             }
         };
+
+        // Возвращает true, если заполнены все информационные поля (сектор ADDR_SECTOR_DATA_INFO)
+        static bool SectorInfoFilled();
+
+        // true, если в области данных есть место для сохранения DataStruct
+        static bool ExistPlaceToSave(const DataStruct &);
     }
 }
 
@@ -185,26 +206,6 @@ void HAL_ROM::Data::EraseAll()
     EraseSector(ADDR_SECTOR_DATA_1);
     EraseSector(ADDR_SECTOR_DATA_2);
     EraseSector(ADDR_SECTOR_DATA_3);
-}
-
-
-bool HAL_ROM::Data::Get(int num, DataStruct &data)
-{
-    StructInfo *info = StructInfo::Get(num);
-
-    if (info)
-    {
-        data.ds = *info->GetDataSettings();
-
-        int num_bytes = data.ds.BytesInChanStored();
-
-        data.A.ReallocFromBuffer(info->GetDataChannel(ChA), num_bytes);
-        data.B.ReallocFromBuffer(info->GetDataChannel(ChB), num_bytes);
-
-        return true;
-    }
-
-    return false;
 }
 
 
@@ -228,9 +229,61 @@ void HAL_ROM::Data::GetInfo(bool info[MAX_DATAS])
 }
 
 
-void HAL_ROM::Data::Save(int, DataStruct &)
+void HAL_ROM::Data::Save(int num, DataStruct &data)
+{
+    Delete(num);
+
+    if (SectorInfoFilled())
+    {
+        EraseAll();
+    }
+
+
+}
+
+
+// Возвращает true, если заполнены все информационные поля (сектор ADDR_SECTOR_DATA_INFO)
+static bool HAL_ROM::Data::SectorInfoFilled()
+{
+    StructInfo *info = StructInfo::First();
+
+    while (info->Exist())
+    {
+        info++;
+
+        if (info == StructInfo::Latest())
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
+static bool HAL_ROM::Data::ExistPlaceToSave(const DataStruct &)
 {
 
+}
+
+
+bool HAL_ROM::Data::Get(int num, DataStruct &data)
+{
+    StructInfo *info = StructInfo::Get(num);
+
+    if (info)
+    {
+        data.ds = *info->GetDataSettings();
+
+        int num_bytes = data.ds.BytesInChanStored();
+
+        data.A.ReallocFromBuffer(info->GetDataChannel(ChA), num_bytes);
+        data.B.ReallocFromBuffer(info->GetDataChannel(ChB), num_bytes);
+
+        return true;
+    }
+
+    return false;
 }
 
 
