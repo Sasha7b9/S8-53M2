@@ -1537,11 +1537,6 @@
               <FilePath>.\src\Menu\Pages\HelpContentPages.h</FilePath>
             </File>
             <File>
-              <FileName>PageMemory.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\PageMemory.cpp</FilePath>
-            </File>
-            <File>
               <FileName>PageCursors.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\PageCursors.cpp</FilePath>
@@ -1646,6 +1641,16 @@
               <FileName>PageTrig.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\PageTrig.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Menu/Pages/PageMemory</GroupName>
+          <Files>
+            <File>
+              <FileName>PageMemory.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\PageMemory\PageMemory.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -3502,11 +3507,6 @@
               <FilePath>.\src\Menu\Pages\HelpContentPages.h</FilePath>
             </File>
             <File>
-              <FileName>PageMemory.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Menu\Pages\PageMemory.cpp</FilePath>
-            </File>
-            <File>
               <FileName>PageCursors.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\PageCursors.cpp</FilePath>
@@ -3611,6 +3611,16 @@
               <FileName>PageTrig.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\PageTrig.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Menu/Pages/PageMemory</GroupName>
+          <Files>
+            <File>
+              <FileName>PageMemory.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\PageMemory\PageMemory.cpp</FilePath>
             </File>
           </Files>
         </Group>
