@@ -1652,6 +1652,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\PageMemory\PageMemory.cpp</FilePath>
             </File>
+            <File>
+              <FileName>PageMemoryLatest.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\PageMemory\PageMemoryLatest.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3621,6 +3626,11 @@
               <FileName>PageMemory.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\PageMemory\PageMemory.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>PageMemoryLatest.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\PageMemory\PageMemoryLatest.cpp</FilePath>
             </File>
           </Files>
         </Group>
