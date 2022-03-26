@@ -13,7 +13,6 @@
 #include <cstdio>
 
 
-extern const Page ppppMath_FFT_Cursors;
 extern const Page ppEthernet;
 extern const Page ppInformation;
 
@@ -566,7 +565,7 @@ static const arrayItems itemsMath_FFT =
     (void*)&cMath_FFT_Scale,
     (void*)&cMath_FFT_Source,
     (void*)&cMath_FFT_Window,
-    (void*)&ppppMath_FFT_Cursors,
+    (void*)PageService::Math::FFT::Cursors::self,
     (void*)&cMath_FFT_Limit
 };
 
@@ -604,7 +603,7 @@ static void OnPress_Math_FFT_Cursors_Exit()
 
 static const SmallButton cMath_FFT_Cursors_Exit
 (
-    &ppppMath_FFT_Cursors,
+    PageService::Math::FFT::Cursors::self,
     COMMON_BEGIN_SB_EXIT,
     OnPress_Math_FFT_Cursors_Exit,
     DrawSB_Exit
@@ -625,7 +624,7 @@ static void Draw_Math_FFT_Cursors_Source(int x, int y)
 
 static const SmallButton cMath_FFT_Cursors_Source
 (
-    &ppppMath_FFT_Cursors, 0,
+    PageService::Math::FFT::Cursors::self, 0,
     "Источник", "Source",
     "Выбор источника для расчёта спектра",
     "Source choice for calculation of a range",
@@ -665,9 +664,6 @@ static const Page ppppMath_FFT_Cursors
     "Includes cursors to measure the parameters of the spectrum",
     NamePage::SB_MathCursorsFFT, &itemsMath_FFT_Cursors, EmptyFuncVV, EmptyFuncVV, OnRegSet_Math_FFT_Cursors
 );
-
-
-const Page *PageService::Math::FFT::Cursors::self = &ppppMath_FFT_Cursors;
 
 
 static void OnChanged_Ethernet_Enable(bool)
@@ -975,3 +971,4 @@ static const Page pService
 const Page *PageService::self = &pService;
 const Page *PageService::Calibrator::self = &ppCalibrator;
 const Page *PageService::Math::FFT::self = &pppMath_FFT;
+const Page *PageService::Math::FFT::Cursors::self = &ppppMath_FFT_Cursors;
