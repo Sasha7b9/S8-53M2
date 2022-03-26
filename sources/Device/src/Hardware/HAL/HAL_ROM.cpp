@@ -64,9 +64,9 @@ namespace HAL_ROM
     {
         uint addrData;  // Начиная с этого адреса записаны данные. Если addrData == MAX_UINT, то это пустая запись, сюда можно писать данные
         int  sizeData;  // Размер в байтах записанных данных
-    };
 
-    RecordConfig *RecordConfigForRead();
+        static RecordConfig *GetForRead();
+    };
 
     RecordConfig *FirstEmptyRecord();
 
@@ -141,7 +141,7 @@ bool HAL_ROM::Settings::Load()
     }
     else if (READ_WORD(ADDR_SECTOR_SETTINGS) == MARK_OF_FILLED)                             // Если старый алгоритм хранения настроек
     {
-        RecordConfig *record = RecordConfigForRead();
+        RecordConfig *record = RecordConfig::GetForRead();
         if (record->sizeData + record->addrData >= (ADDR_SECTOR_SETTINGS + SIZE_SECTOR_SETTINGS))   // Если последние сохранённые настройки выходят
         {                                                                                   // за пределы сектора (глюк предыдущей версии сохранения)
             --record;                                                                       // то воспользуемся предыдущими сохранёнными настройками
@@ -239,7 +239,7 @@ void HAL_ROM::EraseSector(uint startAddress)
 }
 
 
-HAL_ROM::RecordConfig *HAL_ROM::RecordConfigForRead()
+HAL_ROM::RecordConfig *HAL_ROM::RecordConfig::GetForRead()
 {
     if (!TheFirstInclusion())
     {
