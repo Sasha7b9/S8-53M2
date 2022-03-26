@@ -10,8 +10,6 @@
 #include "Utils/Strings.h"
 
 
-extern const Page mspMemLast;
-
 
 static void PressSB_MemLast_Exit()
 {
@@ -27,22 +25,22 @@ static void PressSB_MemLast_Exit()
 }
 
 
-const SmallButton sbExitMemLast
+static const SmallButton sbExitMemLast
 (
-    &mspMemLast,
+    PageMemory::Latest::self,
     COMMON_BEGIN_SB_EXIT,
     PressSB_MemLast_Exit,
     DrawSB_Exit
 );
 
 
-void PressSB_MemLast_Next()
+static void PressSB_MemLast_Next()
 {
     Math::CircleIncrease<int16>(&PageMemory::Latest::current, 0, Storage::NumFrames() - 1);
 }
 
 
-void DrawSB_MemLast_Next(int x, int y)
+static void DrawSB_MemLast_Next(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
     PText::Draw4SymbolsInRect(x + 2, y + 2, '\x64');
@@ -50,9 +48,9 @@ void DrawSB_MemLast_Next(int x, int y)
 }
 
 
-const SmallButton sbMemLastNext
+static const SmallButton sbMemLastNext
 (
-    &mspMemLast, 0,
+    PageMemory::Latest::self, 0,
     "Следующий", "Next",
     "Перейти к следующему сигналу",
     "Go to the next signal",
@@ -61,13 +59,13 @@ const SmallButton sbMemLastNext
 );
 
 
-void PressSB_MemLast_Prev()
+static void PressSB_MemLast_Prev()
 {
     Math::CircleDecrease<int16>(&PageMemory::Latest::current, 0, Storage::NumFrames() - 1);
 }
 
 
-void DrawSB_MemLast_Prev(int x, int y)
+static void DrawSB_MemLast_Prev(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
     PText::Draw4SymbolsInRect(x + 2, y + 2, '\x20');
@@ -75,9 +73,9 @@ void DrawSB_MemLast_Prev(int x, int y)
 }
 
 
-const SmallButton sbMemLastPrev
+static const SmallButton sbMemLastPrev
 (
-    &mspMemLast, 0,
+    PageMemory::Latest::self, 0,
     "Предыдущий", "Previous",
     "Перейти к предыдущему сигналу",
     "Go to the previous signal",
@@ -86,7 +84,7 @@ const SmallButton sbMemLastPrev
 );
 
 
-void PressSB_MemLast_IntEnter()
+static void PressSB_MemLast_IntEnter()
 {
     PageMemory::Internal::self->OpenAndSetCurrent();
     MODE_WORK = ModeWork::MemInt;
@@ -95,7 +93,7 @@ void PressSB_MemLast_IntEnter()
 }
 
 
-void DrawSB_MemLast_IntEnter(int x, int y)
+static void DrawSB_MemLast_IntEnter(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
     PText::Draw4SymbolsInRect(x + 2, y + 1, '\x40');
@@ -105,7 +103,7 @@ void DrawSB_MemLast_IntEnter(int x, int y)
 
 static const SmallButton sbMemLastIntEnter
 (
-    &mspMemLast, 0,
+    PageMemory::Latest::self, 0,
     "Внутр ЗУ", "Internal storage",
     "Нажмите эту кнопку, чтобы сохранить сигнал во внутреннем запоминающем устройстве",
     "Press this button to keep a signal in an internal memory",
@@ -121,7 +119,7 @@ static void PressSB_MemLast_SaveToFlash()
 }
 
 
-void DrawSB_MemLast_SaveToFlash(int x, int y)
+static void DrawSB_MemLast_SaveToFlash(int x, int y)
 {
     if (FDrive::isConnected)
     {
@@ -132,9 +130,9 @@ void DrawSB_MemLast_SaveToFlash(int x, int y)
 }
 
 
-const SmallButton sbMemLastSaveToFlash
+static const SmallButton sbMemLastSaveToFlash
 (
-    &mspMemLast, 0,
+    PageMemory::Latest::self, 0,
     "Сохранить", "Save",
     "Кнопка становится доступна при присоединённом внешнем ЗУ. Позволяет сохранить сигнал на внешем ЗУ",
     "Click this button to save the signal on the external FLASH",
@@ -143,7 +141,7 @@ const SmallButton sbMemLastSaveToFlash
 );
 
 
-void OnPressMemoryLatest()
+static void OnPressMemoryLatest()
 {
     PageMemory::Latest::current = 0;
     FPGA::runningBeforeSmallButtons = FPGA::IsRunning();
