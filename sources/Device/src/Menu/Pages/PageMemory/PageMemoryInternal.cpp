@@ -314,11 +314,11 @@ static void FuncAdditionDrawingSPageMemoryInt()
 {
     // Теперь нарисуем состояние памяти
 
-    bool exist[MAX_NUM_SAVED_WAVES] = {false};
+    bool exist[HAL_ROM::Data::MAX_DATAS] = {false};
 
     HAL_ROM::Data::GetInfo(exist);
 
-    for (int i = 0; i < MAX_NUM_SAVED_WAVES; i++)
+    for (int i = 0; i < HAL_ROM::Data::MAX_DATAS; i++)
     {
         DrawMemoryWave(i, exist[i]);
     }
@@ -329,11 +329,11 @@ static void FuncOnRegSetMemInt(int delta)
 {
     if (delta < 0)
     {
-        Math::CircleDecrease<int8>(&PageMemory::Internal::currentSignal, 0, MAX_NUM_SAVED_WAVES - 1);
+        Math::CircleDecrease<int8>(&PageMemory::Internal::currentSignal, 0, HAL_ROM::Data::MAX_DATAS - 1);
     }
     else if (delta > 0)
     {
-        Math::CircleIncrease<int8>(&PageMemory::Internal::currentSignal, 0, MAX_NUM_SAVED_WAVES - 1);
+        Math::CircleIncrease<int8>(&PageMemory::Internal::currentSignal, 0, HAL_ROM::Data::MAX_DATAS - 1);
     }
 
     Color::ResetFlash();

@@ -179,9 +179,12 @@ void HAL_ROM::Data::Delete(int num)
 }
 
 // Если даннные есть, соответствующий элемент массива равен true/.
-void HAL_ROM::Data::GetInfo(bool [MAX_NUM_SAVED_WAVES])
+void HAL_ROM::Data::GetInfo(bool info[MAX_DATAS])
 {
-
+    for (int i = 0; i < MAX_DATAS; i++)
+    {
+        info[i] = (StructInfo::Get(i) != nullptr);
+    }
 }
 
 
