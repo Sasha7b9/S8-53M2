@@ -6,6 +6,17 @@
 #include <stm32f4xx_hal.h>
 
 
+/*
+* Алгоритм хранения данных такой
+* В секторе 12 последовательно хранятся структуры такого вида:
+* {
+*   uint addr   - адрес, по которому сохранён фрейм данных
+*   uint number - номер данных, как он представлен на экране ПАМЯТЬ-ВНУТР ЗУ
+*   uint size   - сколько места занимает фрейм данных (DataSettings + 2 * BytesInChannelStored())
+* }
+*/
+
+
 #define CLEAR_FLAGS \
 __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR)
 
@@ -27,7 +38,7 @@ __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | F
 #define ADDR_SECTOR_SETTINGS    ((uint)0x080E0000)  // 11 128k
 #define SIZE_SECTOR_SETTINGS    (128 * 1024)
 
-#define ADDR_SECTOR_12          ((uint)0x08100000)  // 12 16k
+#define ADDR_SECTOR_DATA_INFO   ((uint)0x08100000)  // 12 16k  Информация о сохранённых данных
 #define ADDR_SECTOR_13          ((uint)0x08104000)  // 13 16k
 #define ADDR_SECTOR_14          ((uint)0x08108000)  // 14 16k
 #define ADDR_SECTOR_15          ((uint)0x0810С000)  // 15 16k
@@ -36,9 +47,9 @@ __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | F
 #define ADDR_SECTOR_18          ((uint)0x08140000)  // 18 128k
 #define ADDR_SECTOR_19          ((uint)0x08160000)  // 19 128k
 #define ADDR_SECTOR_20          ((uint)0x08180000)  // 20 128k
-#define ADDR_SECTOR_21          ((uint)0x081A0000)  // 21 128k
-#define ADDR_SECTOR_22          ((uint)0x081C0000)  // 22 128k
-#define ADDR_SECTOR_23          ((uint)0x081E0000)  // 23 128k
+#define ADDR_SECTOR_DATA_1      ((uint)0x081A0000)  // 21 128k
+#define ADDR_SECTOR_DATA_2      ((uint)0x081C0000)  // 22 128k
+#define ADDR_SECTOR_DATA_3      ((uint)0x081E0000)  // 23 128k
 
 
 #define READ_WORD(address) (*((volatile uint*)(address)))
@@ -280,8 +291,11 @@ uint HAL_ROM::GetSector(uint startAddress)
 {
     switch (startAddress)
     {
-    case ADDR_SECTOR_SETTINGS:
-        return FLASH_SECTOR_11;
+    case ADDR_SECTOR_SETTINGS:  return FLASH_SECTOR_11;
+    case ADDR_SECTOR_DATA_INFO: return FLASH_SECTOR_12;
+    case ADDR_SECTOR_DATA_1:    return FLASH_SECTOR_21;
+    case ADDR_SECTOR_DATA_2:    return FLASH_SECTOR_22;
+    case ADDR_SECTOR_DATA_3:    return FLASH_SECTOR_23;
     }
 
     LOG_ERROR_TRACE("Недопустимый сектор");
