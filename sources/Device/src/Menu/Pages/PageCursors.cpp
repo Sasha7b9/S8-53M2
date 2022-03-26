@@ -14,7 +14,6 @@
 #include <cstring>
 
 
-extern const Page mspSet;
 extern const SmallButton sbSetU;              // КУРСОРЫ - УСТАНОВИТЬ - Курсоры U . Выбор курсора напряжения - курсор 1, курсор 2, оба курсора или отключены.
 extern const SmallButton sbSetT;              // КУРСОРЫ - УСТАНОВИТЬ - Курсоры T . Выбор курсора времени - курсор 1, курсор 2, оба курсора или отключены.
 extern const SmallButton sbSet100;            // КУРСОРЫ - УСТАНОВИТЬ - 100% . Установка 100 процентов в текущие места курсоров.
@@ -23,8 +22,6 @@ extern const SmallButton sbSetPointsPercents; // КУРСОРЫ - УСТАНОВИТЬ - Перемеще
 
 static const int MAX_POS_U = 200;
 static const int MAX_POS_T = 280;
-
-void *PageCursors::PageSet::pointer = (void *)&mspSet;
 
 
 void SetCursSource(Chan::E ch)
@@ -206,7 +203,7 @@ static void PressSB_Cursors_Exit()
 
 static const SmallButton sbSetExit
 (
-    &mspSet,
+    PageCursors::PageSet::self,
     COMMON_BEGIN_SB_EXIT,
     PressSB_Cursors_Exit,
     DrawSB_Exit
@@ -246,7 +243,7 @@ static const arrayHints hintsSetSource =
 
 static const SmallButton sbSetSource
 (
-    &mspSet, 0,
+    PageCursors::PageSet::self, 0,
     "Источник", "Source",
     "Выбор канала для курсорных измерений",
     "Channel choice for measurements",
@@ -688,3 +685,4 @@ static const Page pCursors                // КУРСОРЫ
 
 
 const Page *PageCursors::self = &pCursors;
+const Page *PageCursors::PageSet::self = &mspSet;

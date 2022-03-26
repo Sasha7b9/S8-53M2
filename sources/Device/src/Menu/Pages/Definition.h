@@ -58,7 +58,7 @@ struct PageCursors
 
     struct PageSet
     {
-        static void *pointer;
+        static const Page *self;
     };
 
     static const Page *self;
