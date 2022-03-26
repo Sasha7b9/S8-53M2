@@ -10,7 +10,6 @@
 #include "Utils/Strings.h"
 
 
-
 static void PressSB_MemLast_Exit()
 {
     MODE_WORK = ModeWork::Direct;

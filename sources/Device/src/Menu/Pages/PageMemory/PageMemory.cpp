@@ -343,11 +343,9 @@ static void DrawSB_FM_Tab(int x, int y)
     Font::Set(TypeFont::_8);
 }
 
-extern const Page mspFileManager;
-
 const SmallButton sbFileManagerTab
 (
-    &mspFileManager, 0,
+    PageMemory::FileManager::self, 0,
     "Tab", "Tab",
     "Переход между каталогами и файлами",
     "The transition between the directories and files",
@@ -357,7 +355,7 @@ const SmallButton sbFileManagerTab
 
 const SmallButton sbFileManagerLevelDown
 (
-    &mspFileManager, 0,
+    PageMemory::FileManager::self, 0,
     "Войти", "Enter",
     "Переход в выбранный каталог",
     "Transition to the chosen catalog",
@@ -367,7 +365,7 @@ const SmallButton sbFileManagerLevelDown
 
 const SmallButton sbFileManagerLevelUp
 (
-    &mspFileManager, 0,
+    PageMemory::FileManager::self, 0,
     "Выйти", "Leave",
     "Переход в родительский каталог",
     "Transition to the parental catalog",
@@ -703,7 +701,7 @@ static void PressSB_FM_Exit()
 
 const SmallButton sbExitFileManager
 (
-    &mspFileManager, 0,
+    PageMemory::FileManager::self, 0,
     EXIT_RU, EXIT_EN,
     EXIT_ILLUSTRATION_RU,
     EXIT_ILLUSTRATION_EN,
@@ -721,7 +719,7 @@ static const arrayItems itemsFileManager =
     (void*)&sbFileManagerLevelDown
 };
 
-const void *pMspFileManager = (const void *)&mspFileManager;
+const void *pMspFileManager = (const void *)PageMemory::FileManager::self;
 
 static const Page mspFileManager
 (
