@@ -14,7 +14,7 @@
 
 static void PressSB_MemInt_Exit()
 {
-    HAL_ROM::GetData(PageMemory::Internal::currentSignal, Data::ins);
+    HAL_ROM::Data::GetData(PageMemory::Internal::currentSignal, Data::ins);
 
     if (PageMemory::Internal::exitToLast)
     {
@@ -176,7 +176,7 @@ static const SmallButton sbMemIntModeShow
 
 static void PressSB_MemInt_Delete()
 {
-    HAL_ROM::DeleteData(PageMemory::Internal::currentSignal);
+    HAL_ROM::Data::DeleteData(PageMemory::Internal::currentSignal);
 }
 
 
@@ -205,8 +205,8 @@ static void SaveSignalToIntMemory()
     {
         if (Data::last.ds->valid)
         {                               // то сохраняем сигнал из последних
-            HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Data::last);
-            HAL_ROM::GetData(PageMemory::Internal::currentSignal, Data::ins);
+            HAL_ROM::Data::SaveData(PageMemory::Internal::currentSignal, Data::last);
+            HAL_ROM::Data::GetData(PageMemory::Internal::currentSignal, Data::ins);
             Warning::ShowGood(Warning::SignalIsSaved);
         }
     }
@@ -214,7 +214,7 @@ static void SaveSignalToIntMemory()
     {
         if (Storage::NumFrames())
         {
-            HAL_ROM::SaveData(PageMemory::Internal::currentSignal, Storage::GetData(0));
+            HAL_ROM::Data::SaveData(PageMemory::Internal::currentSignal, Storage::GetData(0));
             Warning::ShowGood(Warning::SignalIsSaved);
         }
     }
@@ -291,7 +291,7 @@ static void OnPressMemoryInt()
     PageMemory::Internal::self->OpenAndSetCurrent();
     MODE_WORK = ModeWork::MemInt;
 
-    HAL_ROM::GetData(PageMemory::Internal::currentSignal, Data::ins);
+    HAL_ROM::Data::GetData(PageMemory::Internal::currentSignal, Data::ins);
 }
 
 
@@ -320,7 +320,7 @@ static void FuncAdditionDrawingSPageMemoryInt()
 
     bool exist[MAX_NUM_SAVED_WAVES] = {false};
 
-    HAL_ROM::GetDataInfo(exist);
+    HAL_ROM::Data::GetDataInfo(exist);
 
     for (int i = 0; i < MAX_NUM_SAVED_WAVES; i++)
     {
@@ -340,7 +340,7 @@ static void FuncOnRegSetMemInt(int delta)
         Math::CircleIncrease<int8>(&PageMemory::Internal::currentSignal, 0, MAX_NUM_SAVED_WAVES - 1);
     }
 
-    HAL_ROM::GetData(PageMemory::Internal::currentSignal, Data::ins);
+    HAL_ROM::Data::GetData(PageMemory::Internal::currentSignal, Data::ins);
     Color::ResetFlash();
 }
 

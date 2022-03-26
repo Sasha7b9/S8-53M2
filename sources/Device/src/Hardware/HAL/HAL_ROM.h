@@ -6,22 +6,25 @@
 
 namespace HAL_ROM
 {
-    void EraseData();
+    namespace Data
+    {
+        void EraseData();
 
-    bool GetData(int num, DataFrame &);
+        bool GetData(int num, DataFrame &);
+
+        void DeleteData(int num);
+
+        void SaveData(int num, DataStruct &);
+
+        void SaveData(int num, const DataFrame &);
+
+        // Если даннные есть, соответствующий элемент массива равен true/.
+        void GetDataInfo(bool existData[MAX_NUM_SAVED_WAVES]);
+    }
 
     bool LoadSettings();
 
     void SaveSettings();
-
-    void DeleteData(int num);
-
-    void SaveData(int num, DataStruct &);
-
-    void SaveData(int num, const DataFrame &);
-
-    // Если даннные есть, соответствующий элемент массива равен true/.
-    void GetDataInfo(bool existData[MAX_NUM_SAVED_WAVES]);
 }
 
 

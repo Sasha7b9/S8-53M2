@@ -10,37 +10,37 @@ namespace HAL_ROM
 }
 
 
-void HAL_ROM::EraseData()
+void HAL_ROM::Data::EraseData()
 {
 
 }
 
 
-bool HAL_ROM::GetData(int, DataFrame &)
+bool HAL_ROM::Data::GetData(int, DataFrame &)
 {
     return false;
 }
 
 
-void HAL_ROM::DeleteData(int)
+void HAL_ROM::Data::DeleteData(int)
 {
 
 }
 
 // Если даннные есть, соответствующий элемент массива равен true/.
-void HAL_ROM::GetDataInfo(bool [MAX_NUM_SAVED_WAVES])
+void HAL_ROM::Data::GetDataInfo(bool [MAX_NUM_SAVED_WAVES])
 {
 
 }
 
 
-void HAL_ROM::SaveData(int, DataStruct &)
+void HAL_ROM::Data::SaveData(int, DataStruct &)
 {
 
 }
 
 
-void HAL_ROM::SaveData(int, const DataFrame &)
+void HAL_ROM::Data::SaveData(int, const DataFrame &)
 {
 
 }
