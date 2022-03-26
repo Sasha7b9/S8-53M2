@@ -22,7 +22,6 @@ struct DataSettings
 {
     void                *next;                      // Адрес следующей записи.
     void                *prev;                      // Адрес предыдущей записи.
-    int                 id;                         // Уникальный id для каждого фрейма, сохраняемого в Storage;
     uint                rShiftA             : 10;   // Смещение по напряжению
     uint                rShiftB             : 10;
     uint                trigLevA            : 10;   // Уровень синхронизации
@@ -42,14 +41,14 @@ struct DataSettings
     uint                valid               : 1;
     PackedTime          time;
 
-    DataSettings() : next(nullptr), prev(nullptr), id(0) { FillFromCurrentSettings(); valid = 0; };
+    DataSettings() { FillFromCurrentSettings(); valid = 0; };
 
     // Заполнение полей текущими настройками
     void FillFromCurrentSettings();
 
     void Set(const DataSettings &);
 
-    bool Equal(const DataSettings &) const;
+    bool Equal(const DataSettings &);
 
     void PrintElement();
 
@@ -71,7 +70,6 @@ struct DataSettings
 struct BufferFPGA : public Buffer<uint8>
 {
     BufferFPGA(int size = 0) : Buffer<uint8>(size) { }
-    BufferFPGA(int size, uint8 value) : Buffer<uint8>(size, value) { }
 };
 
 

@@ -59,7 +59,7 @@ namespace Storage
 
     namespace SameSettings
     {
-        static void Calculate(const DataStruct &);
+        static void Calculate(const DataFrame &);
 
         // Количество элементов с одинаковыми (относительно последнего элемента) настройками
         static int count = 0;
@@ -83,28 +83,25 @@ void Storage::Clear()
     Limitator::ClearLimits();
     Averager::Reset();
 
-    current.data.ds.valid = 0;
+    current.frame.ds->valid = 0;
 
     SameSettings::count = 0;
 }
 
 
-void Storage::AppendNewFrame(DataStruct &data)
+void Storage::AppendNewFrame(DataFrame &data)
 {
-    static int id = 0;
-
     SameSettings::Calculate(data);
 
-    data.ds.time = HAL_RTC::GetPackedTime();
-    data.ds.id = ++id;
+    data.ds->time = HAL_RTC::GetPackedTime();
 
-    Limitator::CalculateLimits(&data.ds, data.A.Data(), data.B.Data());
+    Limitator::CalculateLimits(data.ds, data.DataBegin(ChA), data.DataBegin(ChB));
 
-    DataSettings *ds = PrepareNewFrame(data.ds);
+    DataSettings *ds = PrepareNewFrame(*data.ds);
 
     DataFrame frame(ds);
 
-    frame.FillDataChannelsFromStruct(data);
+    frame.FillDataChannelsFromFrame(data);
 
     Averager::Append(frame);
 
@@ -114,11 +111,11 @@ void Storage::AppendNewFrame(DataStruct &data)
 }
 
 
-void Storage::SameSettings::Calculate(const DataStruct &data)
+void Storage::SameSettings::Calculate(const DataFrame &frame)
 {
     DataSettings ds = GetDataSettings(0);
 
-    if (ds.valid && data.ds.Equal(ds))
+    if (ds.valid && frame.ds->Equal(ds))
     {
         if (count < count_data)
         {
@@ -142,13 +139,13 @@ void DataFrame::FillDataChannelFromBuffer(Chan ch, BufferFPGA &buffer)
 
 void DataFrame::FillDataChannelsFromStruct(DataStruct &data)
 {
-    uint8 *address = (uint8 *)ds + sizeof(DataSettings);
+    uint8 *address = (uint8 *)ds + sizeof(*ds);
 
-    uint num_bytes = (uint)data.ds.BytesInChanStored();
+    std::memcpy(address, data.A.Data(), (uint)ds->BytesInChanStored());
 
-    std::memcpy(address, data.A.Data(), num_bytes);
+    address += ds->BytesInChanStored();
 
-    std::memcpy(address + num_bytes, data.B.Data(), num_bytes);
+    std::memcpy(address, data.B.Data(), (uint)ds->BytesInChanStored());
 }
 
 
@@ -204,7 +201,7 @@ static DataSettings Storage::GetDataSettings(int indexFromEnd)
 }
 
 
-DataStruct &Storage::GetData(int from_end)
+DataFrame &Storage::GetData(int from_end)
 {
     static FrameImitation result;
 
@@ -212,36 +209,25 @@ DataStruct &Storage::GetData(int from_end)
 
     if (!dp)
     {
-        result.data.ds.valid = 0;
-        return result.data;
+        result.buffer.Realloc(sizeof(DataSettings));
+        result.frame.ds = (DataSettings *)result.buffer.Data();
+        result.frame.ds->valid = 0;
+        return result.frame;
     }
 
-    DataSettings ds = *dp;
+    result.buffer.Realloc((int)sizeof(DataSettings) + 2 * dp->BytesInChanStored());
+    result.frame.ds = (DataSettings *)result.buffer.Data();
+    *result.frame.ds = *dp;
+    result.frame.ds->valid = 1;
 
-    if (ds.id != result.data.ds.id)
-    {
-        result.data.ds = ds;
-        result.data.ds.valid = 1;
+    std::memcpy(result.frame.DataBegin(ChA), (uint8 *)(dp) + sizeof(DataSettings), (uint)dp->BytesInChanStored());
+    std::memcpy(result.frame.DataBegin(ChB), (uint8 *)(dp)+sizeof(DataSettings) + dp->BytesInChanStored(), (uint)dp->BytesInChanStored());
 
-        int num_bytes = ds.BytesInChanStored();
-
-        if (result.data.A.Size() != num_bytes)
-        {
-            result.data.A.Realloc(num_bytes);
-            result.data.B.Realloc(num_bytes);
-        }
-
-        uint8 *address = (uint8 *)dp + sizeof(DataSettings);
-
-        result.data.A.FillFromBuffer(address, num_bytes);
-        result.data.B.FillFromBuffer(address + num_bytes, num_bytes);
-    }
-
-    return result.data;
+    return result.frame;
 }
 
 
-DataStruct &Storage::GetLatest()
+DataFrame &Storage::GetLatest()
 {
     return GetData(0);
 }

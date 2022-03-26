@@ -202,7 +202,7 @@ void FPGA::Reader::DataRead()
         if (SET_INVERSE_B) Storage::current.Inverse(ChB);
     }
 
-    Storage::AppendNewFrame(Storage::current.data);
+    Storage::AppendNewFrame(Storage::current.frame);
 
     if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)
     {
@@ -227,8 +227,8 @@ void FPGA::Reader::ReadPoints(Chan ch)
     HAL_FMC::Write(WR_PRED, address);
     HAL_FMC::Write(WR_ADDR_READ, 0xffff);
 
-    uint8 *const begin = Storage::current.data.Data(ch).Data();
-    const uint8 *const end = Storage::current.data.Data(ch).Last();
+    uint8 *const begin = Storage::current.frame.DataBegin(ch);
+    const uint8 *const end = Storage::current.frame.DataEnd(ch);
 
     uint8 *dat = begin;
 

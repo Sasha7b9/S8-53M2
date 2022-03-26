@@ -141,10 +141,10 @@ void Averager::GetDataAccurately(DataStruct &out)
 
     for (int d = 0; d < num_datas; d++)
     {
-        DataStruct &data = Storage::GetData(d);
+        DataFrame data = Storage::GetData(d);
 
-        const uint8 *in_a = data.Data(ChA).Data();
-        const uint8 *in_b = data.Data(ChB).Data();
+        const uint8 *in_a = data.DataBegin(ChA);
+        const uint8 *in_b = data.DataBegin(ChB);
 
         for (int i = 0; i < num_bytes; i++)
         {
@@ -172,8 +172,8 @@ void Averager::GetDataAround(DataStruct &data)
 {
     int num_bytes = data.ds.BytesInChanStored();
 
-    uint8 *a = data.A.Data();
-    uint8 *b = data.B.Data();
+    uint8 *a = data.Data(ChA).Data();
+    uint8 *b = data.Data(ChB).Data();
 
     for (int i = 0; i < num_bytes; i++)
     {
@@ -242,10 +242,10 @@ void Limitator::CalculateLimits(const DataSettings *dss, const uint8 *a, const u
 
         for (int numData = 0; numData < allDatas; numData++)
         {
-            DataStruct &data = Storage::GetData(numData);
+            DataFrame frame = Storage::GetData(numData);
 
-            const uint8 *dA = data.A.Data();
-            const uint8 *dB = data.B.Data();
+            const uint8 *dA = frame.DataBegin(ChA);
+            const uint8 *dB = frame.DataBegin(ChB);
 
             for (uint i = 0; i < numElements; i++)
             {

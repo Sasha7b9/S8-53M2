@@ -36,5 +36,5 @@ namespace Processing
 
     // Обработать сигнал из in. Результат сохранён в Data::out
     // Если mode_p2p == true, то будет установлен признак поточечного фрейма
-    void SetData(const DataStruct &in, bool mode_p2p = false);
+    void SetData(const DataFrame &in, bool mode_p2p = false);
 };

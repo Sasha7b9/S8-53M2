@@ -93,6 +93,8 @@ void DataPainter::DrawData()
 
 void DataPainter::DrawInModeDirect()
 {
+    DataFrame frame;
+
     Processing::SetDataForProcessing(false);
 
     if (TBase::InModeP2P())
@@ -449,10 +451,7 @@ void DataPainter::DrawDataNormal()
 
 void DataPainter::MemoryWindow::Draw()
 {
-    TimeMeterMS meter;
     Processing::SetDataForProcessing(true);
-    uint elapsed = meter.ElapsedTime();
-    LOG_WRITE("%d", elapsed);
 
     int leftX = 3;
     static const int rightXses[3] = {276, 285, 247};

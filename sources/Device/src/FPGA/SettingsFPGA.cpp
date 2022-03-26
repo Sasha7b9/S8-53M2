@@ -805,7 +805,7 @@ float Range::MaxOnScreen(Range::E range)
 }
 
 
-bool DataSettings::Equal(const DataSettings &ds) const
+bool DataSettings::Equal(const DataSettings &ds)
 {
     return  (inv_a    == ds.inv_a) &&
             (inv_b    == ds.inv_b) &&

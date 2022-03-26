@@ -62,10 +62,19 @@ void FrameImitation::CreateForCurrent()
 {
     int bytes_for_channel = ENUM_POINTS_FPGA::ToNumBytes();
 
-    data.ds.FillFromCurrentSettings();
+    int size_buffer = (int)sizeof(DataSettings) + 2 * bytes_for_channel;
 
-    data.A.ReallocAndFill(bytes_for_channel, ValueFPGA::NONE);
-    data.B.ReallocAndFill(bytes_for_channel, ValueFPGA::NONE);
+    if (size_buffer != buffer.Size())
+    {
+        buffer.Realloc(size_buffer);
+    }
+
+    frame.ds = (DataSettings *)buffer.Data();
+
+    frame.ds->FillFromCurrentSettings();
+
+    std::memset((uint8 *)frame.DataBegin(ChA), ValueFPGA::NONE, (uint)bytes_for_channel);
+    std::memset((uint8 *)frame.DataBegin(ChB), ValueFPGA::NONE, (uint)bytes_for_channel);
 }
 
 
@@ -75,7 +84,7 @@ void FrameImitation::PrepareForNewCycle()
     {
         DataSettings last_ds = Storage::GetDataSettings(0);
 
-        if (!last_ds.valid || !last_ds.Equal(data.ds))
+        if (!last_ds.valid || !last_ds.Equal(*frame.ds))
         {
             CreateForCurrent();
         }
@@ -85,9 +94,9 @@ void FrameImitation::PrepareForNewCycle()
         CreateForCurrent();
     }
 
-    data.rec_points = 0;
-    data.all_points = 0;
-    data.ds.valid = 0;
+    frame.rec_points = 0;
+    frame.all_points = 0;
+    frame.ds->valid = 0;
 }
 
 
@@ -160,14 +169,14 @@ int DataStruct::PrepareForNormalDrawP2P()
 
 void FrameImitation::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
 {
-    DataSettings &ds = data.ds;
+    DataSettings &ds = *frame.ds;
 
     int max_bytes = ds.BytesInChanReal();
 
-    uint8 *a = data.A.Data();
-    uint8 *b = data.B.Data();
+    uint8 *a = (uint8 *)frame.DataBegin(ChA);
+    uint8 *b = (uint8 *)frame.DataBegin(ChB);
 
-    int &rec_points = data.rec_points;
+    int &rec_points = frame.rec_points;
 
     if (rec_points == max_bytes - 1)
     {
@@ -189,7 +198,7 @@ void FrameImitation::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
     b[rec_points + 1] = pointsB.byte1;
 
     rec_points += 2;
-    data.all_points += 2;
+    frame.all_points += 2;
     ds.valid = 1;
 }
 
@@ -221,13 +230,13 @@ void DataFrame::FillDataChannelsFromFrame(DataFrame &frame)
 
 void FrameImitation::Inverse(Chan ch)
 {
-    int num_bytes = data.ds.BytesInChanReal();
+    int num_bytes = frame.ds->BytesInChanReal();
 
-    uint8 *dat = data.Data(ch).Data();
+    uint8 *data = frame.DataBegin(ch);
 
     for (int i = 0; i < num_bytes; i++)
     {
-        dat[i] = (uint8)((int)(2 * ValueFPGA::AVE) - Math::Limitation<uint8>(dat[i], ValueFPGA::MIN, ValueFPGA::MAX));
+        data[i] = (uint8)((int)(2 * ValueFPGA::AVE) - Math::Limitation<uint8>(data[i], ValueFPGA::MIN, ValueFPGA::MAX));
     }
 }
 

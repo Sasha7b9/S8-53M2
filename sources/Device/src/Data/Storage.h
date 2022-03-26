@@ -9,7 +9,9 @@
 
 struct FrameImitation
 {
-    DataStruct    data;
+    DataFrame     frame;
+    Buffer<uint8> buffer;       // Здесь, как в Storage, будет храниться сначала DataSettings, а затем последовательно
+                                // данные первого и второго каналов
 
     // Подготовить к новому циклу чтения.
     // В режиме рандомизатора - переписать последние данные из Storage.
@@ -35,16 +37,16 @@ namespace Storage
     void Clear();
 
     // Добавить считанные данные. При этом настройками считаются текущие настройки прибора.
-    void AppendNewFrame(DataStruct &);
+    void AppendNewFrame(DataFrame &);
 
     // Сколько всего измерений сохранено в памяти.
     int NumFrames();
 
     // Получить указатель на данные
-    DataStruct &GetData(int fromEnd);
+    DataFrame &GetData(int fromEnd);
 
     // Данные, которые нужно выводить в обычном режиме. Они всегда хранятся в конце Storage
-    DataStruct &GetLatest();
+    DataFrame &GetLatest();
 
     // Возвращает указатель на данные, отстоящие на fromEnd oт последнего сохранённого
     DataSettings GetDataSettings(int fromEnd);
