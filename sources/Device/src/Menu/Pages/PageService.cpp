@@ -13,7 +13,6 @@
 #include <cstdio>
 
 
-extern const Page pppMath_FFT;
 extern const Page ppppMath_FFT_Cursors;
 extern const Page ppEthernet;
 extern const Page ppInformation;
@@ -131,7 +130,7 @@ static const Page ppCalibrator
 static const arrayItems itemsMath =
 {
     (void *)PageService::Math::Function::self,
-    (void *)&pppMath_FFT
+    (void *)PageService::Math::FFT::self
 };
 
 
@@ -473,7 +472,7 @@ const Page *PageService::Math::Function::self = &pppMath_Function;
 
 static const Choice cMath_FFT_Enable =
 {
-    TypeItem::Choice, &pppMath_FFT, 0,
+    TypeItem::Choice, PageService::Math::FFT::self, 0,
     {
         "Отображение", "Display",
         "Включает и выключает отображение спектра",
@@ -489,7 +488,7 @@ static const Choice cMath_FFT_Enable =
 
 static const Choice cMath_FFT_Scale =
 {
-    TypeItem::Choice, &pppMath_FFT, 0,
+    TypeItem::Choice, PageService::Math::FFT::self, 0,
     {
         "Шкала", "Scale",
         "Задаёт масштаб вывода спектра - линейный или логарифмический",
@@ -505,7 +504,7 @@ static const Choice cMath_FFT_Scale =
 
 static const Choice cMath_FFT_Source =
 {
-    TypeItem::Choice, &pppMath_FFT, 0,
+    TypeItem::Choice, PageService::Math::FFT::self, 0,
     {
         "Источник", "Source",
         "Выбор источника для расчёта спектра",
@@ -522,7 +521,7 @@ static const Choice cMath_FFT_Source =
 
 static const Choice cMath_FFT_Window =
 {
-    TypeItem::Choice, &pppMath_FFT, 0,
+    TypeItem::Choice, PageService::Math::FFT::self, 0,
     {
         "Окно", "Window",
         "Задаёт окно для расчёта спектра",
@@ -546,7 +545,7 @@ static bool IsActive_Math_FFT_Limit()
 
 static const Choice cMath_FFT_Limit =
 {
-    TypeItem::Choice, &pppMath_FFT,  IsActive_Math_FFT_Limit,
+    TypeItem::Choice, PageService::Math::FFT::self,  IsActive_Math_FFT_Limit,
     {
         "Диапазон", "Range",
         "Здесь можно задать предел наблюдения за мощностью спектра",
@@ -975,3 +974,4 @@ static const Page pService
 
 const Page *PageService::self = &pService;
 const Page *PageService::Calibrator::self = &ppCalibrator;
+const Page *PageService::Math::FFT::self = &pppMath_FFT;

@@ -186,6 +186,8 @@ struct PageService
             {
                 static const Page *self;
             };
+
+            static const Page *self;
         };
     };
 
