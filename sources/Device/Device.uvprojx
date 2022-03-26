@@ -1672,6 +1672,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\PageMemory\PageMemoryFIleManager.cpp</FilePath>
             </File>
+            <File>
+              <FileName>PageMemorySetMask.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\PageMemory\PageMemorySetMask.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3661,6 +3666,11 @@
               <FileName>PageMemoryFIleManager.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\PageMemory\PageMemoryFIleManager.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>PageMemorySetMask.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\PageMemory\PageMemorySetMask.cpp</FilePath>
             </File>
           </Files>
         </Group>
