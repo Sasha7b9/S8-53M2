@@ -65,9 +65,9 @@ namespace HAL_ROM
         uint addrData;  // Начиная с этого адреса записаны данные. Если addrData == MAX_UINT, то это пустая запись, сюда можно писать данные
         int  sizeData;  // Размер в байтах записанных данных
 
-        static RecordConfig *GetForRead();
-        static RecordConfig *GetFirstEmpty();
-        static RecordConfig *GetFirstRecord();
+        static RecordConfig *ForRead();
+        static RecordConfig *FirstEmpty();
+        static RecordConfig *FirstRecord();
     };
 }
 
@@ -139,7 +139,7 @@ bool HAL_ROM::Settings::Load()
     }
     else if (READ_WORD(ADDR_SECTOR_SETTINGS) == MARK_OF_FILLED)                             // Если старый алгоритм хранения настроек
     {
-        RecordConfig *record = RecordConfig::GetForRead();
+        RecordConfig *record = RecordConfig::ForRead();
         if (record->sizeData + record->addrData >= (ADDR_SECTOR_SETTINGS + SIZE_SECTOR_SETTINGS))   // Если последние сохранённые настройки выходят
         {                                                                                   // за пределы сектора (глюк предыдущей версии сохранения)
             --record;                                                                       // то воспользуемся предыдущими сохранёнными настройками
@@ -237,11 +237,11 @@ void HAL_ROM::EraseSector(uint startAddress)
 }
 
 
-HAL_ROM::RecordConfig *HAL_ROM::RecordConfig::GetForRead()
+HAL_ROM::RecordConfig *HAL_ROM::RecordConfig::ForRead()
 {
     if (!TheFirstInclusion())
     {
-        RecordConfig *record = GetFirstEmpty();
+        RecordConfig *record = FirstEmpty();
         return --record;
     }
 
@@ -249,9 +249,9 @@ HAL_ROM::RecordConfig *HAL_ROM::RecordConfig::GetForRead()
 }
 
 
-HAL_ROM::RecordConfig *HAL_ROM::RecordConfig::GetFirstEmpty()
+HAL_ROM::RecordConfig *HAL_ROM::RecordConfig::FirstEmpty()
 {
-    RecordConfig *record = GetFirstRecord();
+    RecordConfig *record = FirstRecord();
     int numRecord = 0;
 
     while (record->addrData != MAX_UINT)
@@ -306,7 +306,7 @@ uint HAL_ROM::GetSector(uint startAddress)
 }
 
 
-HAL_ROM::RecordConfig *HAL_ROM::RecordConfig::GetFirstRecord()
+HAL_ROM::RecordConfig *HAL_ROM::RecordConfig::FirstRecord()
 {
     return (RecordConfig *)ADDR_ARRAY_POINTERS;
 }
