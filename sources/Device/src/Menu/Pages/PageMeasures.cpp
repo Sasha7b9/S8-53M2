@@ -11,9 +11,7 @@
 #include "Display/Painter.h"
 
 
-extern const Page pMeasures;
 extern const Page mspMeasTune;
-extern const Page pMeasures;
 
 
 bool PageMeasures::choiceMeasuresIsActive = false;
@@ -151,7 +149,7 @@ bool IsActiveButtonMeasuresFieldSet()
 
 const Choice mcMeasuresNumber =
 {
-    TypeItem::Choice, &pMeasures, IsActiveChoiceMeasuresNumber,
+    TypeItem::Choice, PageMeasures::self, IsActiveChoiceMeasuresNumber,
     {
         "Количество", "Number"
         ,
@@ -188,7 +186,7 @@ const Choice mcMeasuresNumber =
 
 const Choice mcMeasuresChannels =
 {
-    TypeItem::Choice, &pMeasures, IsActiveChoiceMeasuresChannels,
+    TypeItem::Choice, PageMeasures::self, IsActiveChoiceMeasuresChannels,
     {
         "Каналы", "Channels",
         "По каким каналам выводить измерения",
@@ -205,7 +203,7 @@ const Choice mcMeasuresChannels =
 
 const Choice mcMeasuresIsShow =
 {
-    TypeItem::Choice, &pMeasures, 0,
+    TypeItem::Choice, PageMeasures::self, 0,
     {
         "Показывать", "Show",
         "Выводить или не выводить измерения на экран",
@@ -221,7 +219,7 @@ const Choice mcMeasuresIsShow =
 
 const Choice mcMeasuresSignal =
 {
-    TypeItem::Choice, &pMeasures, IsActiveChoiceMeasuresSignal,
+    TypeItem::Choice, PageMeasures::self, IsActiveChoiceMeasuresSignal,
     {
         "Вид", "View",
         "Уменьшать или нет зону вывода сигнала для исключения перекрытия его результами измерений",
@@ -286,7 +284,7 @@ static const arrayItems itemsMeasTune =
 
 static const Page mspMeasTune
 (
-    &pMeasures, IsActiveButtonMeasuresTune,
+    PageMeasures::self, IsActiveButtonMeasuresTune,
     "НАСТРОИТЬ", "CONFIGURE",
     "Переход в режми точной настройки количества и видов измерений",
     "Transition to rezhm of exact control of quantity and types of measurements",

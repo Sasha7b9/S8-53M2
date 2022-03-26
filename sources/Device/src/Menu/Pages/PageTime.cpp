@@ -11,9 +11,6 @@
 #include "Menu/Pages/Definition.h"
 
 
-extern const Page pTime;
-
-
 static bool IsActive_Sample()
 {
     return TBase::InModeRandomizer();
@@ -22,7 +19,7 @@ static bool IsActive_Sample()
 
 static const Choice mcSample =
 {
-    TypeItem::Choice, &pTime, IsActive_Sample,
+    TypeItem::Choice, PageTime::self, IsActive_Sample,
     {
         "Выборка", "Sampling"
         ,
@@ -75,7 +72,7 @@ void OnChanged_PeakDet(bool active)
 
 static const Choice mcPeakDet =
 {
-    TypeItem::Choice, &pTime, IsActive_PeakDet,
+    TypeItem::Choice, PageTime::self, IsActive_PeakDet,
     {
         "Пик дет", "Pic deat",
         "Включает/выключает пиковый детектор.",
@@ -97,7 +94,7 @@ void OnChanged_TPos(bool)
 
 static const Choice mcTPos =
 {
-    TypeItem::Choice, &pTime, 0,
+    TypeItem::Choice, PageTime::self, 0,
     {
         "\x7b", "\x7b",
         "Задаёт точку привязки нулевого смещения по времени к экрану - левый край, центр, правый край.",
@@ -120,7 +117,7 @@ static bool IsActive_SelfRecorder()
 
 static const Choice mcSelfRecorder =
 {
-    TypeItem::Choice, &pTime, IsActive_SelfRecorder,
+    TypeItem::Choice, PageTime::self, IsActive_SelfRecorder,
     {
         "Самописец", "Self-Recorder",
         "Включает/выключает режим самописца. Этот режим доступен на развёртках 20мс/дел и более медленных.",
@@ -136,7 +133,7 @@ static const Choice mcSelfRecorder =
 
 static const Choice mcDivRole =
 {
-    TypeItem::Choice, &pTime, 0,
+    TypeItem::Choice, PageTime::self, 0,
     {
         "Ф-ция ВР/ДЕЛ", "Func Time/DIV"
         ,
