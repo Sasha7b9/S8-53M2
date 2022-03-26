@@ -13,9 +13,6 @@
 #include <cstdio>
 
 
-extern const Page ppInformation;
-
-
 static void FuncDraw()
 {
     Painter::BeginScene(COLOR_BACK);
@@ -865,7 +862,7 @@ static void OnPress_Information_Exit()
 
 const SmallButton sbInformation_Exit
 (
-    &ppInformation,
+    PageService::Information::self,
     COMMON_BEGIN_SB_EXIT,
     OnPress_Information_Exit,
     DrawSB_Exit
