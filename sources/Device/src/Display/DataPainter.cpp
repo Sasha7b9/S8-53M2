@@ -93,8 +93,6 @@ void DataPainter::DrawData()
 
 void DataPainter::DrawInModeDirect()
 {
-    DataFrame frame;
-
     Processing::SetDataForProcessing(false);
 
     if (TBase::InModeP2P())

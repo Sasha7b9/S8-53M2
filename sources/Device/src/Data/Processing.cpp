@@ -1218,11 +1218,11 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
 }
 
 
-void Processing::SetData(const DataFrame &in, bool mode_p2p)
+void Processing::SetData(const DataStruct &in, bool mode_p2p)
 {
     out.ds.valid = 0;
 
-    if (!in.ds->valid)
+    if (!in.ds.valid)
     {
         return;
     }
@@ -1233,18 +1233,17 @@ void Processing::SetData(const DataFrame &in, bool mode_p2p)
     lastP = points.half_iword[1];
     numP = lastP - firstP;
 
-    int length = in.ds->BytesInChanStored();
+    int length = in.ds.BytesInChanStored();
 
     BufferFPGA A(length);
     BufferFPGA B(length);
 
-    A.ReallocAndFill(length, ValueFPGA::NONE);   // Подготавливаем место для рассчитанных сглаженных точек
-    B.ReallocAndFill(length, ValueFPGA::NONE);
+    const uint8 *a = in.A.DataConst();
+    const uint8 *b = in.B.DataConst();
+    Math::CalculateFiltrArray(a, A.Data(), length, Smoothing::ToPoints());
+    Math::CalculateFiltrArray(b, B.Data(), length, Smoothing::ToPoints());
 
-    Math::CalculateFiltrArray(in.DataBegin(ChA), A.Data(), length, Smoothing::ToPoints());
-    Math::CalculateFiltrArray(in.DataBegin(ChB), B.Data(), length, Smoothing::ToPoints());
-
-    CountedToCurrentSettings(*in.ds, A.Data(), B.Data());
+    CountedToCurrentSettings(in.ds, A.Data(), B.Data());
 
     out.ds.valid = 1;
     out.rec_points = in.rec_points;
@@ -1263,31 +1262,31 @@ void Processing::SetDataForProcessing(bool for_window_memory)
     {
         if (START_MODE_IS_AUTO)
         {
-            if (last_ds.valid && last_ds.Equal(*Storage::current.frame.ds) && Storage::time_meter.ElapsedTime() < 1000)
+            if (last_ds.valid && last_ds.Equal(Storage::current.data.ds) && Storage::time_meter.ElapsedTime() < 1000)
             {
                 SetData(Storage::GetLatest());
             }
             else
             {
-                SetData(Storage::current.frame, true);
+                SetData(Storage::current.data, true);
             }
         }
         else if (START_MODE_IS_WAIT)
         {
-            if (last_ds.valid && last_ds.Equal(*Storage::current.frame.ds) && !for_window_memory)
+            if (last_ds.valid && last_ds.Equal(Storage::current.data.ds) && !for_window_memory)
             {
                 SetData(Storage::GetLatest());
             }
             else
             {
-                SetData(Storage::current.frame, true);
+                SetData(Storage::current.data, true);
             }
         }
         else
         {
-            if (Storage::current.frame.ds->valid || for_window_memory)
+            if (Storage::current.data.ds.valid || for_window_memory)
             {
-                SetData(Storage::current.frame, for_window_memory);
+                SetData(Storage::current.data, for_window_memory);
             }
             else
             {
