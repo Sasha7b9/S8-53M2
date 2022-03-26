@@ -1258,47 +1258,58 @@ void Processing::SetDataForProcessing(bool for_window_memory)
 
     out.ds.valid = 0;
 
-    if (TBase::InModeP2P())
+    if (MODE_WORK_IS_DIRECT)                                                                    // Находимся в обычном режиме
     {
-        if (START_MODE_IS_AUTO)
+        if (TBase::InModeP2P())
         {
-            if (last_ds.valid && last_ds.Equal(Storage::current.data.ds) && Storage::time_meter.ElapsedTime() < 1000)
+            if (START_MODE_IS_AUTO)
             {
-                SetData(Storage::GetLatest());
+                if (last_ds.valid && last_ds.Equal(Storage::current.data.ds) && Storage::time_meter.ElapsedTime() < 1000)
+                {
+                    SetData(Storage::GetLatest());
+                }
+                else
+                {
+                    SetData(Storage::current.data, true);
+                }
+            }
+            else if (START_MODE_IS_WAIT)
+            {
+                if (last_ds.valid && last_ds.Equal(Storage::current.data.ds) && !for_window_memory)
+                {
+                    SetData(Storage::GetLatest());
+                }
+                else
+                {
+                    SetData(Storage::current.data, true);
+                }
             }
             else
             {
-                SetData(Storage::current.data, true);
-            }
-        }
-        else if (START_MODE_IS_WAIT)
-        {
-            if (last_ds.valid && last_ds.Equal(Storage::current.data.ds) && !for_window_memory)
-            {
-                SetData(Storage::GetLatest());
-            }
-            else
-            {
-                SetData(Storage::current.data, true);
+                if (Storage::current.data.ds.valid || for_window_memory)
+                {
+                    SetData(Storage::current.data, for_window_memory);
+                }
+                else
+                {
+                    SetData(Storage::GetLatest());
+                }
             }
         }
         else
         {
-            if (Storage::current.data.ds.valid || for_window_memory)
-            {
-                SetData(Storage::current.data, for_window_memory);
-            }
-            else
+            if (Storage::NumFrames())
             {
                 SetData(Storage::GetLatest());
             }
         }
     }
-    else
+    else if (MODE_WORK_IS_LATEST)                                                               // В режиме ПАМЯТЬ-ПОСЛЕДНИЕ
     {
-        if (Storage::NumFrames())
-        {
-            SetData(Storage::GetLatest());
-        }
+
+    }
+    else                                                                                        // В режиеме ПАМЯТЬ - ВНУТР ЗУ
+    {
+
     }
 }

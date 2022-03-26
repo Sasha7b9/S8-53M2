@@ -174,7 +174,7 @@ static void RotateSB_MemLast(int angle)
 }
 
 
-static const arrayItems itemsMemLast =
+static const arrayItems itemsMemLatest =
 {
     (void *)&sbExitMemLast,
     (void *)0,
@@ -185,14 +185,14 @@ static const arrayItems itemsMemLast =
 };
 
 
-static const Page mspMemLast
+static const Page mspMemLatest
 (
     PageMemory::self, 0,
     "ПОСЛЕДНИЕ", "LATEST",
     "Переход в режим работы с последними полученными сигналами",
     "Transition to an operating mode with the last received signals",
-    NamePage::SB_MemLatest, &itemsMemLast, OnPressMemoryLatest, FuncDrawingAdditionSPageMemoryLast, RotateSB_MemLast
+    NamePage::SB_MemLatest, &itemsMemLatest, OnPressMemoryLatest, FuncDrawingAdditionSPageMemoryLast, RotateSB_MemLast
 );
 
 
-const Page *PageMemory::Latest::self = &mspMemLast;
+const Page *PageMemory::Latest::self = &mspMemLatest;
