@@ -66,9 +66,8 @@ namespace HAL_ROM
         int  sizeData;  // Размер в байтах записанных данных
 
         static RecordConfig *GetForRead();
+        static RecordConfig *GetFirstEmpty();
     };
-
-    RecordConfig *FirstEmptyRecord();
 
     RecordConfig *FirstRecord();
 }
@@ -243,7 +242,7 @@ HAL_ROM::RecordConfig *HAL_ROM::RecordConfig::GetForRead()
 {
     if (!TheFirstInclusion())
     {
-        RecordConfig *record = FirstEmptyRecord();
+        RecordConfig *record = GetFirstEmpty();
         return --record;
     }
 
@@ -251,7 +250,7 @@ HAL_ROM::RecordConfig *HAL_ROM::RecordConfig::GetForRead()
 }
 
 
-HAL_ROM::RecordConfig *HAL_ROM::FirstEmptyRecord()
+HAL_ROM::RecordConfig *HAL_ROM::RecordConfig::GetFirstEmpty()
 {
     RecordConfig *record = FirstRecord();
     int numRecord = 0;
