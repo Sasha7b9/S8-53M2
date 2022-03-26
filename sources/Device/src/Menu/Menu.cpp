@@ -289,6 +289,34 @@ void Menu::ShortPress_Page(Item *item)
 }
 
 
+void Menu::FuncOnLongPressItem(Item *item)
+{
+    if (Item::Current() != item)
+    {
+        item->SetCurrent(true);
+    }
+
+    if (item->IsOpened())
+    {
+        item->Open(false);
+    }
+    else
+    {
+        item->Open(true);
+
+        if (item->IsPage())
+        {
+            Page *page = (Page *)item;
+
+            if (page->funcOnPress)
+            {
+                page->funcOnPress();
+            }
+        }
+    }
+}
+
+
 void Menu::ShortPress_Choice(Item *choice)
 {
     if (!choice->IsActive())
@@ -339,17 +367,6 @@ void Menu::ShortPress_Button(Item *button)
     
     button->SetCurrent(true);
     ((Button*)button)->funcOnPress();
-}
-
-
-void Menu::FuncOnLongPressItem(Item *item)
-{
-    if (Item::Current() != item)
-    {
-        item->SetCurrent(true);
-    }
-
-    item->Open(!item->IsOpened());
 }
 
 
