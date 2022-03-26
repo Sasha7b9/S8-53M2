@@ -106,6 +106,7 @@ source_group(SCPI                  FILES ${SCPI})
 set_source_files_properties(src/Hardware/LAN/ethernetif.cpp
                             src/Menu/Pages/PageHelp.cpp
                             src/Panel/PanelFunctions.cpp
+                            src/Hardware/HAL/_HAL_ROM.cpp
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
 add_library(${PROJECT_NAME} ${SRC} ${DISPLAY}
