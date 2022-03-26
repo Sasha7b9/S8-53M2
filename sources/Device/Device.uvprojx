@@ -1667,6 +1667,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\PageMemory\PageMemoryInternal.cpp</FilePath>
             </File>
+            <File>
+              <FileName>PageMemoryFIleManager.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\PageMemory\PageMemoryFIleManager.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3651,6 +3656,11 @@
               <FileName>PageMemoryInternal.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\PageMemory\PageMemoryInternal.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>PageMemoryFIleManager.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\PageMemory\PageMemoryFIleManager.cpp</FilePath>
             </File>
           </Files>
         </Group>
