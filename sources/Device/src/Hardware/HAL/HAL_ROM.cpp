@@ -67,9 +67,8 @@ namespace HAL_ROM
 
         static RecordConfig *GetForRead();
         static RecordConfig *GetFirstEmpty();
+        static RecordConfig *GetFirstRecord();
     };
-
-    RecordConfig *FirstRecord();
 }
 
 
@@ -252,7 +251,7 @@ HAL_ROM::RecordConfig *HAL_ROM::RecordConfig::GetForRead()
 
 HAL_ROM::RecordConfig *HAL_ROM::RecordConfig::GetFirstEmpty()
 {
-    RecordConfig *record = FirstRecord();
+    RecordConfig *record = GetFirstRecord();
     int numRecord = 0;
 
     while (record->addrData != MAX_UINT)
@@ -307,7 +306,7 @@ uint HAL_ROM::GetSector(uint startAddress)
 }
 
 
-HAL_ROM::RecordConfig *HAL_ROM::FirstRecord()
+HAL_ROM::RecordConfig *HAL_ROM::RecordConfig::GetFirstRecord()
 {
     return (RecordConfig *)ADDR_ARRAY_POINTERS;
 }
