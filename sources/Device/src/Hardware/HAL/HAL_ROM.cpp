@@ -110,7 +110,7 @@ void HAL_ROM::Data::SaveData(int, const DataFrame &)
 }
 
 
-bool HAL_ROM::LoadSettings()
+bool HAL_ROM::Settings::Load()
 {
     /*
         1. Проверка на первое включение. Выполняется тем, что в первом слове сектора настроек хранится MAX_UINT, если настройки ещё не сохранялись.
@@ -148,7 +148,7 @@ bool HAL_ROM::LoadSettings()
         }
         std::memcpy(&set, (const void *)(record->addrData - 4), (uint)record->sizeData);               // Считываем их
         EraseSector(ADDR_SECTOR_SETTINGS);                                                  // Стираем сектор настроек
-        HAL_ROM::SaveSettings(true);                                                           // И сохраняем настройки в новом формате
+        HAL_ROM::Settings::Save(true);                                                           // И сохраняем настройки в новом формате
     }
     else
     {
@@ -172,9 +172,9 @@ bool HAL_ROM::LoadSettings()
 }
 
 
-void HAL_ROM::SaveSettings(bool verifyLoadede)
+void HAL_ROM::Settings::Save(bool verifyLoadede)
 {
-    if (!verifyLoadede && !Settings::isLoaded)
+    if (!verifyLoadede && !::Settings::isLoaded)
     {
         return;
     }

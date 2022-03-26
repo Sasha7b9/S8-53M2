@@ -22,9 +22,12 @@ namespace HAL_ROM
         void GetDataInfo(bool existData[MAX_NUM_SAVED_WAVES]);
     }
 
-    bool LoadSettings();
+    namespace Settings
+    {
+        bool Load();
 
-    void SaveSettings(bool verifyLoaded = false);
+        void Save(bool verifyLoaded = false);
+    }
 }
 
 

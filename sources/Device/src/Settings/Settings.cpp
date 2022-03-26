@@ -254,7 +254,7 @@ Settings set;
 
 void Settings::Load()
 {
-    if (!HAL_ROM::LoadSettings())
+    if (!HAL_ROM::Settings::Load())
     {
         Reset();
     }
@@ -353,7 +353,7 @@ void Settings::SaveBeforePowerDown()
 {
     if (need_save)
     {
-        HAL_ROM::SaveSettings();
+        HAL_ROM::Settings::Save();
     }
 }
 
