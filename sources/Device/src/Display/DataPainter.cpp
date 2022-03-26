@@ -115,7 +115,9 @@ void DataPainter::DrawInModeDirect()
 
 void DataPainter::DrawInModeLatest()
 {
+    Processing::SetDataForProcessing(false);
 
+    DrawDataNormal();
 }
 
 

@@ -7,6 +7,7 @@
 #include "Settings/Settings.h"
 #include "Data/Storage.h"
 #include "Utils/Strings.h"
+#include "Menu/Pages/Definition.h"
 #include <cmath>
 #include <cstring>
 #include <cstdio>
@@ -1306,7 +1307,7 @@ void Processing::SetDataForProcessing(bool for_window_memory)
     }
     else if (MODE_WORK_IS_LATEST)                                                               // Â נוזטלו ÏÀÌ‗ÒÜ-ÏÎÑËÅÄÍÈÅ
     {
-
+        SetData(Storage::GetData(PageMemory::Latest::current));
     }
     else                                                                                        // Â נוזטולו ÏÀÌ‗ÒÜ - ÂÍÓÒÐ ÇÓ
     {
