@@ -13,7 +13,6 @@
 #include <cstdio>
 
 
-extern const Page pService;
 extern const Page ppCalibrator;
 extern const Page ppMath;
 extern const Page pppMath_Function;
@@ -52,7 +51,7 @@ static void OnPress_ResetSettings()
 
 const Button bResetSettings
 (
-    &pService, nullptr,
+    PageService::self, nullptr,
     "Сброс настроек", "Reset settings",
     "Сброс настроек на настройки по умолчанию",
     "Reset to default settings",
@@ -68,7 +67,7 @@ static void OnPress_AutoSearch()
 
 static const Button bAutoSearch
 (
-    &pService, 0,
+    PageService::self, 0,
     "Поиск сигнала", "Find signal",
     "Устанавливает оптимальные установки осциллографа для сигнала в канале 1",
     "Sets optimal settings for the oscilloscope signal on channel 1",
@@ -124,7 +123,7 @@ static const arrayItems itemsCalibrator =
 
 static const Page ppCalibrator
 (
-    &pService, 0,
+    PageService::self, 0,
     "КАЛИБРАТОР", "CALIBRATOR",
     "Управлением калибратором и калибровка осциллографа",
     "Item of the calibrator and calibration of an oscillograph",
@@ -141,7 +140,7 @@ static const arrayItems itemsMath =
 
 static const Page ppMath
 (
-    &pService, 0,
+    PageService::self, 0,
     "МАТЕМАТИКА", "MATH",
     "Математические функции и БПФ",
     "Mathematical functions and FFT",
@@ -779,7 +778,7 @@ static const arrayItems itemsEthernet =
 
 static const Page ppEthernet
 (
-    &pService, 0,
+    PageService::self, 0,
     "ETHERNET", "ETHERNET",
     "Настройки ethernet",
     "Settings of ethernet",
@@ -789,7 +788,7 @@ static const Page ppEthernet
 
 static const Choice cSound =
 {
-    TypeItem::Choice, &pService, 0,
+    TypeItem::Choice, PageService::self, 0,
     {
         "Звук", "Sound",
         "Включение/выключение звука",
@@ -805,7 +804,7 @@ static const Choice cSound =
 
 static const Choice cLang =
 {
-    TypeItem::Choice, &pService, 0,
+    TypeItem::Choice, PageService::self, 0,
     {
         "Язык", "Language",
         "Позволяет выбрать язык меню",
@@ -824,7 +823,7 @@ static int8 hours = 0, minutes = 0, secondes = 0, year = 0, month = 0, day = 0;
 
 static const Time tTime =
 {
-    TypeItem::Time, &pService, 0,
+    TypeItem::Time, PageService::self, 0,
     {
         "Время", "Time"
         ,
@@ -848,7 +847,7 @@ static const Time tTime =
 
 static const Choice cModeLongPressButtonTrig =
 {
-    TypeItem::Choice, &pService, 0,
+    TypeItem::Choice, PageService::self, 0,
     {
         "Реж длит СИНХР", "Mode long СИНХР"
         ,
@@ -941,7 +940,7 @@ static void OnPress_Information()
 
 static const Page ppInformation
 (
-    &pService, 0,
+    PageService::self, 0,
     "ИНФОРМАЦИЯ", "INFORMATION",
     "Выводит на экран идентификационные данные осциллографа",
     "Displays identification data of the oscilloscope",
