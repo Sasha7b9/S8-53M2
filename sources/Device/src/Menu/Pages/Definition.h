@@ -217,6 +217,11 @@ struct PageTime
 struct PageTrig
 {
     static const Page *self;
+
+    struct AutoFind
+    {
+        static const Page *self;
+    };
 };
 
 

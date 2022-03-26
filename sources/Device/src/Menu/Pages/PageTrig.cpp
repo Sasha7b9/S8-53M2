@@ -7,10 +7,6 @@
 #include "Menu/Pages/Definition.h"
 
 
-extern const Page pTrig;
-extern const Page mpAutoFind;
-
-
 static void OnPress_Mode(bool)
 {
     StartMode::Set(START_MODE);
@@ -19,7 +15,7 @@ static void OnPress_Mode(bool)
 
 static const Choice mcMode =
 {
-    TypeItem::Choice, &pTrig, 0,
+    TypeItem::Choice, PageTrig::self, 0,
     {
         "Режим", "Mode"
         ,
@@ -50,7 +46,7 @@ static void OnChanged_Source(bool)
 
 static const Choice mcSource =
 {
-    TypeItem::Choice, &pTrig, 0,
+    TypeItem::Choice, PageTrig::self, 0,
     {
         "Источник", "Source",
         "Выбор источника сигнала синхронизации.",
@@ -73,7 +69,7 @@ static void OnChanged_Polarity(bool)
 
 static const Choice mcPolarity =
 {
-    TypeItem::Choice, &pTrig, 0,
+    TypeItem::Choice, PageTrig::self, 0,
     {
         "Полярность", "Polarity"
         ,
@@ -99,7 +95,7 @@ static void OnChanged_Input(bool)
 
 static const Choice mcInput =
 {
-    TypeItem::Choice, &pTrig, 0,
+    TypeItem::Choice, PageTrig::self, 0,
     {
         "Вход", "Input"
         ,
@@ -127,7 +123,7 @@ static const Choice mcInput =
 
 static const Choice mcAutoFind_Mode =
 {
-    TypeItem::Choice, &mpAutoFind, 0,
+    TypeItem::Choice, PageTrig::AutoFind::self, 0,
     {
         "Режим", "Mode"
         ,
@@ -168,7 +164,7 @@ static void OnPress_AutoFind_Search()
 
 static const Button mbAutoFind_Search
 (
-    &mpAutoFind, IsActive_AutoFind_Search,
+    PageTrig::AutoFind::self, IsActive_AutoFind_Search,
     "Найти", "Search",
     "Производит поиск уровня синхронизации.",
     "Runs for search synchronization level.",
@@ -185,7 +181,7 @@ static const arrayItems itemsAutoFind =
 
 static const Page mpAutoFind
 (
-    &pTrig, 0,
+    PageTrig::self, 0,
     "ПОИСК", "SEARCH",
     "Управление автоматическим поиском уровня синхронизации.",
     "Office of the automatic search the trigger level.",
@@ -213,3 +209,4 @@ static const Page pTrig
 );
 
 const Page *PageTrig::self = &pTrig;
+const Page *PageTrig::AutoFind::self = &mpAutoFind;
