@@ -8,16 +8,16 @@ namespace HAL_ROM
     {
         static const int MAX_DATAS = 23;            // Пока ограничено количеством квадратиков, которые можно вывести в одну линию внизу сетки
 
-        void EraseAll();
+        void Save(int num, DataStruct &);
 
         bool Get(int num, DataStruct &);
 
-        void Delete(int num);
-
-        void Save(int num, DataStruct &);
-
         // Если даннные есть, соответствующий элемент массива равен true/.
         void GetInfo(bool existData[MAX_DATAS]);
+
+        void Delete(int num);
+
+        void EraseAll();
     }
 
     namespace Settings
