@@ -11,6 +11,11 @@
 #include "Display/Painter.h"
 
 
+extern const Page pMeasures;
+extern const Page mspMeasTune;
+extern const Page pMeasures;
+
+
 bool PageMeasures::choiceMeasuresIsActive = false;
 
 
@@ -88,7 +93,7 @@ void RotateRegMeasureSetField(int angle)
 
 const SmallButton sbMeasTuneSettings        // Настройка измерений.
 (
-    PageMeasures::Tune::self, 0,
+    &mspMeasTune, 0,
     "Настройка", "Setup",
     "Позволяет выбрать необходимые измерения",
     "Allows to choose necessary measurements",
@@ -99,7 +104,7 @@ const SmallButton sbMeasTuneSettings        // Настройка измерений.
 
 const SmallButton sbMeasTuneMarkers        // Включение/отключение маркера для режима измерений.
 (
-    PageMeasures::Tune::self, 0,
+    &mspMeasTune, 0,
     "Маркер", "Marker",
     "Позволяет установить маркеры для визуального контроля измерений",
     "Allows to establish markers for visual control of measurements",
@@ -146,7 +151,7 @@ bool IsActiveButtonMeasuresFieldSet()
 
 const Choice mcMeasuresNumber =
 {
-    TypeItem::Choice, PageMeasures::self, IsActiveChoiceMeasuresNumber,
+    TypeItem::Choice, &pMeasures, IsActiveChoiceMeasuresNumber,
     {
         "Количество", "Number"
         ,
@@ -183,7 +188,7 @@ const Choice mcMeasuresNumber =
 
 const Choice mcMeasuresChannels =
 {
-    TypeItem::Choice, PageMeasures::self, IsActiveChoiceMeasuresChannels,
+    TypeItem::Choice, &pMeasures, IsActiveChoiceMeasuresChannels,
     {
         "Каналы", "Channels",
         "По каким каналам выводить измерения",
@@ -200,7 +205,7 @@ const Choice mcMeasuresChannels =
 
 const Choice mcMeasuresIsShow =
 {
-    TypeItem::Choice, PageMeasures::self, 0,
+    TypeItem::Choice, &pMeasures, 0,
     {
         "Показывать", "Show",
         "Выводить или не выводить измерения на экран",
@@ -216,7 +221,7 @@ const Choice mcMeasuresIsShow =
 
 const Choice mcMeasuresSignal =
 {
-    TypeItem::Choice, PageMeasures::self, IsActiveChoiceMeasuresSignal,
+    TypeItem::Choice, &pMeasures, IsActiveChoiceMeasuresSignal,
     {
         "Вид", "View",
         "Уменьшать или нет зону вывода сигнала для исключения перекрытия его результами измерений",
@@ -261,7 +266,7 @@ static void PressSB_MeasTune_Exit()
 
 static const SmallButton sbExitMeasTune
 (
-    PageMeasures::Tune::self,
+    &mspMeasTune,
     COMMON_BEGIN_SB_EXIT,
     PressSB_MeasTune_Exit,
     DrawSB_Exit
@@ -281,7 +286,7 @@ static const arrayItems itemsMeasTune =
 
 static const Page mspMeasTune
 (
-    PageMeasures::self, IsActiveButtonMeasuresTune,
+    &pMeasures, IsActiveButtonMeasuresTune,
     "НАСТРОИТЬ", "CONFIGURE",
     "Переход в режми точной настройки количества и видов измерений",
     "Transition to rezhm of exact control of quantity and types of measurements",
@@ -309,4 +314,5 @@ static const Page pMeasures
 
 
 const Page *PageMeasures::self = &pMeasures;
-const Page *PageMeasures::Tune::self = &mspMeasTune;
+
+void *PageMeasures::Tune::pointer = (void *)&mspMeasTune;

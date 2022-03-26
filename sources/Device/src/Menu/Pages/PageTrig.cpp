@@ -7,9 +7,6 @@
 #include "Menu/Pages/Definition.h"
 
 
-extern const Page mpAutoFind;
-
-
 static void OnPress_Mode(bool)
 {
     StartMode::Set(START_MODE);
@@ -126,7 +123,7 @@ static const Choice mcInput =
 
 static const Choice mcAutoFind_Mode =
 {
-    TypeItem::Choice, &mpAutoFind, 0,
+    TypeItem::Choice, PageTrig::AutoFind::self, 0,
     {
         "Режим", "Mode"
         ,
@@ -167,7 +164,7 @@ static void OnPress_AutoFind_Search()
 
 static const Button mbAutoFind_Search
 (
-    &mpAutoFind, IsActive_AutoFind_Search,
+    PageTrig::AutoFind::self, IsActive_AutoFind_Search,
     "Найти", "Search",
     "Производит поиск уровня синхронизации.",
     "Runs for search synchronization level.",
@@ -212,3 +209,4 @@ static const Page pTrig
 );
 
 const Page *PageTrig::self = &pTrig;
+const Page *PageTrig::AutoFind::self = &mpAutoFind;

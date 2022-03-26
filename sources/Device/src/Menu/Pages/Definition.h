@@ -102,7 +102,7 @@ struct PageMeasures
 
     struct Tune
     {
-        static const Page *self;
+        static void *pointer;
     };
 
     // Если true, то активен выбор типа измерений для выбора на странице ИЗМЕРЕНИЯ-НАСТРОИТЬ
@@ -217,6 +217,11 @@ struct PageTime
 struct PageTrig
 {
     static const Page *self;
+
+    struct AutoFind
+    {
+        static const Page *self;
+    };
 };
 
 
