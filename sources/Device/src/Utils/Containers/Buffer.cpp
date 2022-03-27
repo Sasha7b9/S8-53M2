@@ -69,7 +69,11 @@ void Buffer<T>::Realloc(int _size)
 template<class T>
 void Buffer<T>::ReallocAndFill(int _size, T value)
 {
-    Realloc(_size);
+    if (_size != Size())
+    {
+        Realloc(_size);
+    }
+
     Fill(value);
 }
 
@@ -87,7 +91,7 @@ void Buffer<T>::Fill(T value)
 template<class T>
 void Buffer<T>::ReallocFromBuffer(const T *buffer, int size)
 {
-    if (size != block.Size())
+    if (size != Size())
     {
         block.SetSize(size * (int)sizeof(T));
     }
