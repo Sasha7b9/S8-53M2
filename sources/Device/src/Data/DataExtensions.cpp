@@ -96,21 +96,21 @@ void Averager::Around::Append(const DataFrame &frame)
         float ave_fless = (float)num_datas - 1.0f;
         float ave_inv = 1.0f / (float)num_datas;
 
-        float *d_a = ave_a.Data();
-        float *d_b = ave_b.Data();
+        float *out_a = ave_a.Data();
+        float *out_b = ave_b.Data();
 
-        const uint8 *d0 = a;
-        const uint8 *d1 = b;
+        const uint8 *in_a = a;
+        const uint8 *in_b = b;
 
         float *end = ave_a.Last();
 
-        while (d_a < end)
+        while (out_a < end)
         {
-            *d_a = ((*d_a) * ave_fless + (float)(*d0++)) * ave_inv;
-            d_a++;
+            *out_a = ((*out_a) * ave_fless + (float)(*in_a++)) * ave_inv;
+            out_a++;
 
-            *d_b = ((*d_b) * ave_fless + (float)(*d1++)) * ave_inv;
-            d_b++;
+            *out_b = ((*out_b) * ave_fless + (float)(*in_b++)) * ave_inv;
+            out_b++;
 
         };
     }
