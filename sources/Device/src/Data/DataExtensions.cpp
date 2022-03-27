@@ -54,7 +54,7 @@ void Averager::Reset()
 }
 
 
-void Averager::Append(DataFrame &frame)
+void Averager::Append(const DataFrame &frame)
 {
     if (MODE_AVE == ModeAveraging::Accurately)
     {

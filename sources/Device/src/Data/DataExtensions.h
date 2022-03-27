@@ -9,7 +9,7 @@ namespace Averager
     void Reset();
 
     // Добавить новые данные для усреднения
-    void Append(DataFrame &);
+    void Append(const DataFrame &);
 
     // Получить усреднённые данные по нескольким измерениям.
     const DataStruct &GetData();
