@@ -1158,13 +1158,14 @@ int Processing::GetMarkerTime(Chan ch, int numMarker)
 
 void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *dA, const uint8 *dB)
 {
+    TimeMeterUS meter;
+
     int num_bytes = ds.BytesInChanStored();
 
     out.ds = ds;
-    out.A.Realloc(num_bytes);
-    out.A.Fill(ValueFPGA::NONE);
-    out.B.Realloc(num_bytes);
-    out.B.Fill(ValueFPGA::NONE);
+
+    out.A.ReallocAndFill(num_bytes, ValueFPGA::NONE);
+    out.B.ReallocAndFill(num_bytes, ValueFPGA::NONE);
 
     int dataTShift = out.ds.tShift;
     int curTShift = SET_TSHIFT;
@@ -1222,6 +1223,8 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
             }
         }
     }
+
+    LOG_WRITE("%d us", meter.ElapsedUS());
 }
 
 
