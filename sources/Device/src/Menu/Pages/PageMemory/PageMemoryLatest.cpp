@@ -14,7 +14,7 @@ static const SmallButton sbExitMemLatest
 (
     PageMemory::Latest::self,
     COMMON_BEGIN_SB_EXIT,
-    PageMemory::Resolver::OnPress_ExitMemoryLatest,
+    PageMemory::Resolver::OnPress_MemoryLatestExit,
     DrawSB_Exit
 );
 
@@ -125,15 +125,6 @@ static const SmallButton sbMemLatestSaveToFlash
 );
 
 
-static void OnPressMemoryLatest()
-{
-    PageMemory::Latest::current = 0;
-    FPGA::runningBeforeSmallButtons = FPGA::IsRunning();
-    FPGA::Stop();
-    MODE_WORK = ModeWork::Latest;
-}
-
-
 static void FuncDrawingAdditionSPageMemoryLast()
 {
     int width = 50;
@@ -176,7 +167,7 @@ static const Page mspMemLatest
     "ПОСЛЕДНИЕ", "LATEST",
     "Переход в режим работы с последними полученными сигналами",
     "Transition to an operating mode with the last received signals",
-    NamePage::SB_MemLatest, &itemsMemLatest, OnPressMemoryLatest, FuncDrawingAdditionSPageMemoryLast, RotateSB_MemLast
+    NamePage::SB_MemLatest, &itemsMemLatest, PageMemory::Resolver::OnPress_MemoryLatestEnter, FuncDrawingAdditionSPageMemoryLast, RotateSB_MemLast
 );
 
 

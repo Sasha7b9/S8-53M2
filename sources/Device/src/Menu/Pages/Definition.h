@@ -166,7 +166,8 @@ struct PageMemory
     // Управляет состояниями при переключениях ПАМЯТЬ-ПОСЛЕДНИЕ, ПАМЯТЬ-ВНУТР ЗУ, ПАМЯЬ-НЕПОСР
     struct Resolver
     {
-        static void OnPress_ExitMemoryLatest();
+        static void OnPress_MemoryLatestEnter();
+        static void OnPress_MemoryLatestExit();
     };
 
     static const Page *self;
