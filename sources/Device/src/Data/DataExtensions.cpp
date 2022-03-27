@@ -10,9 +10,6 @@
 
 namespace Averager
 {
-    // Действия, которые необходимо произвести перед доабавлением новых дыннах
-    void ProcessBeforeAdding(const DataFrame &);
-
     namespace Accuracy
     {
         DataStruct &GetData();
@@ -21,12 +18,16 @@ namespace Averager
 
     namespace Around
     {
+        DataSettings     ave_ds;                            // \- Настройки усредняемых сейчас сигналов 
+        ENumAveraging::E enum_ave = ENumAveraging::Count;   // |-
+
         Buffer<float> ave_a;        // Здесь усреднённые значения,
         Buffer<float> ave_b;        // рассчитанные по приблизетильному алгоритму
-        DataSettings  ave_ds;       // А сюда запишем текущие настройки при сброосе
 
         int added_datas = 0;        // Столько данных учтено в измерениях
-        int number_averaging = 0;   // Текущее число усреднений
+
+        // Действия, которые необходимо произвести перед доабавлением новых дыннах
+        void ProcessBeforeAdding(const DataFrame &);
 
         void Append(const DataFrame &);
 
@@ -45,25 +46,29 @@ namespace Limitator
 }
 
 
-void Averager::ProcessBeforeAdding(const DataFrame &)
+void Averager::Around::ProcessBeforeAdding(const DataFrame &frame)
 {
     if (ModeAveraging::GetNumber() < 2)
     {
-        Around::ave_a.Free();
-        Around::ave_b.Free();
+        added_datas = 0;
+        ave_a.Free();
+        ave_b.Free();
     }
     else
     {
-        if (MODE_AVE == ModeAveraging::Around)
+        if (!ave_ds.Equal(*frame.ds) || enum_ave != ENUM_AVE)
         {
-            Around::ave_ds.FillFromCurrentSettings();
-            Around::ave_a.Realloc(Around::ave_ds.BytesInChanStored());
-            Around::ave_b.Realloc(Around::ave_ds.BytesInChanStored());
+            added_datas = 0;
+        }
+
+        if (added_datas == 0)
+        {
+            ave_ds.Set(*frame.ds);
+            enum_ave = ENUM_AVE;
+            ave_a.Realloc(ave_ds.BytesInChanStored());
+            ave_b.Realloc(ave_ds.BytesInChanStored());
         }
     }
-
-    Around::added_datas = 0;
-    Around::number_averaging = ModeAveraging::GetNumber();
 }
 
 
@@ -116,10 +121,10 @@ void Averager::Around::Append(const DataFrame &frame)
 
 void Averager::Append(const DataFrame &frame)
 {
-    ProcessBeforeAdding(frame);
-
     if (MODE_AVE == ModeAveraging::Around)
     {
+        Around::ProcessBeforeAdding(frame);
+
         Around::Append(frame);
     }
 }

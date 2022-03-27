@@ -115,7 +115,8 @@ struct ENumAveraging
         _64,
         _128,
         _256,
-        _512
+        _512,
+        Count
     };
 };
 
