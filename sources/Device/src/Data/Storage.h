@@ -41,7 +41,7 @@ namespace Storage
     int NumFrames();
 
     // ѕолучить указатель на данные
-    DataStruct &GetData(int fromEnd);
+    const DataStruct &GetData(int fromEnd);
 
     // ƒанные, которые нужно выводить в обычном режиме. ќни всегда хран€тс€ в конце Storage (GetData(0))
     // ≈сли включено усреднение (или режим рандомизатора, в котором всегда усреднение), то берутс€ данные из Averager

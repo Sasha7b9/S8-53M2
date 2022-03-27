@@ -149,10 +149,10 @@ DataStruct &Averager::GetDataAccurately()
 
     for (int d = 0; d < num_datas; d++)
     {
-        DataStruct &data = Storage::GetData(d);
+        const DataStruct &data = Storage::GetData(d);
 
-        const uint8 *in_a = data.Data(ChA).Data();
-        const uint8 *in_b = data.Data(ChB).Data();
+        const uint8 *in_a = data.DataConst(ChA).DataConst();
+        const uint8 *in_b = data.DataConst(ChB).DataConst();
 
         for (int i = 0; i < num_bytes; i++)
         {
@@ -264,10 +264,10 @@ void Limitator::CalculateLimits(const DataSettings *dss, const uint8 *a, const u
 
         for (int numData = 0; numData < allDatas; numData++)
         {
-            DataStruct &data = Storage::GetData(numData);
+            const DataStruct &data = Storage::GetData(numData);
 
-            const uint8 *dA = data.A.Data();
-            const uint8 *dB = data.B.Data();
+            const uint8 *dA = data.A.DataConst();
+            const uint8 *dB = data.B.DataConst();
 
             for (uint i = 0; i < numElements; i++)
             {

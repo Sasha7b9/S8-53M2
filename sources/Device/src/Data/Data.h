@@ -125,7 +125,8 @@ struct DataStruct
 
     DataStruct(const DataFrame &);
 
-    BufferFPGA &Data(Chan ch) { return ch.IsA() ? A : B; }
+    BufferFPGA &Data(Chan ch)                  { return ch.IsA() ? A : B; }
+    const BufferFPGA &DataConst(Chan ch) const { return ch.IsA() ? A : B; }
 
     // Подготовить данные поточечного режима к выводу в поточечном режиме
     // Возвращает позицию точки (начиная с левой границы сетки), в которой нужно выводить вертикальную линию

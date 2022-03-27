@@ -204,7 +204,7 @@ static DataSettings Storage::GetDataSettings(int indexFromEnd)
 }
 
 
-DataStruct &Storage::GetData(int from_end)
+const DataStruct &Storage::GetData(int from_end)
 {
     static FrameImitation result;
 
