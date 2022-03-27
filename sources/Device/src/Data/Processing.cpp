@@ -1158,8 +1158,6 @@ int Processing::GetMarkerTime(Chan ch, int numMarker)
 
 void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *dA, const uint8 *dB)
 {
-    TimeMeterUS meter;
-
     int num_bytes = ds.BytesInChanStored();
 
     out.ds = ds;
@@ -1175,14 +1173,17 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
     const uint8 *in_a = dA;
     const uint8 *in_b = dB;
 
+    uint8 *out_a = out.A.Data();
+    uint8 *out_b = out.B.Data();
+
     for (int i = 0; i < num_bytes; i++)
     {
         int index = i - dTShift;
 
         if (index >= 0 && index < num_bytes)
         {
-            out.A[index] = in_a[i];
-            out.B[index] = in_b[i];
+            out_a[index] = in_a[i];
+            out_b[index] = in_b[i];
         }
     }
  
@@ -1195,12 +1196,12 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
         {
             if(out.A[i] != ValueFPGA::NONE)
             {
-                float abs = ValueFPGA::ToVoltage(out.A[i], out.ds.range[0], (int16)out.ds.rshiftA);
+                float abs = ValueFPGA::ToVoltage(out_a[i], out.ds.range[0], (int16)out.ds.rshiftA);
                 int rel = (abs + Range::MaxOnScreen(range) + rshift.ToAbs(range)) / Range::voltsInPoint[range] + ValueFPGA::MIN;
 
-                if (rel < ValueFPGA::MIN)      { out.A[i] = ValueFPGA::MIN; }
-                else if (rel > ValueFPGA::MAX) { out.A[i] = ValueFPGA::MAX; }
-                else                           { out.A[i] = (uint8)rel; }
+                if (rel < ValueFPGA::MIN)      { out_a[i] = ValueFPGA::MIN; }
+                else if (rel > ValueFPGA::MAX) { out_a[i] = ValueFPGA::MAX; }
+                else                           { out_a[i] = (uint8)rel; }
             }
         }
     }
@@ -1214,17 +1215,15 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
         {
             if (out.B[i] != ValueFPGA::NONE)
             {
-                float abs = ValueFPGA::ToVoltage(out.B[i], out.ds.range[1], (int16)out.ds.rshiftB);
+                float abs = ValueFPGA::ToVoltage(out_b[i], out.ds.range[1], (int16)out.ds.rshiftB);
                 int rel = (abs + Range::MaxOnScreen(range) + rshift.ToAbs(range)) / Range::voltsInPoint[range] + ValueFPGA::MIN;
 
-                if (rel < ValueFPGA::MIN)      { out.B[i] = ValueFPGA::MIN; }
-                else if (rel > ValueFPGA::MAX) { out.B[i] = ValueFPGA::MAX; }
-                else                           { out.B[i] = (uint8)rel; }
+                if (rel < ValueFPGA::MIN)      { out_b[i] = ValueFPGA::MIN; }
+                else if (rel > ValueFPGA::MAX) { out_b[i] = ValueFPGA::MAX; }
+                else                           { out_b[i] = (uint8)rel; }
             }
         }
     }
-
-    LOG_WRITE("%d us", meter.ElapsedUS());
 }
 
 
