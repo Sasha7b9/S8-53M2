@@ -132,6 +132,8 @@ DataStruct &Averager::GetData()
 
 DataStruct &Averager::GetDataAccurately()
 {
+    static DataStruct result;
+
     int num_datas = ModeAveraging::GetNumber();
 
     LIMIT_ABOVE(num_datas, Storage::SameSettings::GetCount());
@@ -143,8 +145,8 @@ DataStruct &Averager::GetDataAccurately()
     Buffer<uint> sum_a(num_bytes, 0);
     Buffer<uint> sum_b(num_bytes, 0);
 
-    uint *out_a = sum_a.Data();
-    uint *out_b = sum_b.Data();
+    uint *psum_a = sum_a.Data();
+    uint *psum_b = sum_b.Data();
 
     for (int d = 0; d < num_datas; d++)
     {
@@ -155,27 +157,25 @@ DataStruct &Averager::GetDataAccurately()
 
         for (int i = 0; i < num_bytes; i++)
         {
-            out_a[i] += in_a[i];
-            out_b[i] += in_b[i];
+            psum_a[i] += in_a[i];
+            psum_b[i] += in_b[i];
         }
     }
 
-    static DataStruct out;
+    result.ds.Set(ds);
+    result.A.Realloc(num_bytes);
+    result.B.Realloc(num_bytes);
 
-    out.ds.Set(ds);
-    out.A.Realloc(num_bytes);
-    out.B.Realloc(num_bytes);
-
-    uint8 *out_a = out.A.Data();
-    uint8 *out_b = out.B.Data();
+    uint8 *out_a = result.A.Data();
+    uint8 *out_b = result.B.Data();
 
     for (int i = 0; i < num_bytes; i++)
     {
-        out_a[i] = out_a[i] / num_datas;
-        out_b[i] = out_b[i] / num_datas;
+        out_a[i] = (uint8)(out_a[i] / num_datas);
+        out_b[i] = (uint8)(out_b[i] / num_datas);
     }
 
-    return out;
+    return result;
 }
 
 
