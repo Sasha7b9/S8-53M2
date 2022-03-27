@@ -12,7 +12,7 @@ namespace Averager
     void Append(DataFrame &);
 
     // Получить усреднённые данные по нескольким измерениям.
-    DataStruct &GetData();
+    const DataStruct &GetData();
 }
 
 

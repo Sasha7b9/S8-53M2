@@ -241,7 +241,7 @@ DataStruct &Storage::GetData(int from_end)
 }
 
 
-DataStruct &Storage::GetLatest()
+const DataStruct &Storage::GetLatest()
 {
     if (TBase::InModeRandomizer() || ENUM_AVE != ENumAveraging::_1)
     {

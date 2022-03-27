@@ -45,7 +45,7 @@ namespace Storage
 
     // Данные, которые нужно выводить в обычном режиме. Они всегда хранятся в конце Storage (GetData(0))
     // Если включено усреднение (или режим рандомизатора, в котором всегда усреднение), то берутся данные из Averager
-    DataStruct &GetLatest();
+    const DataStruct &GetLatest();
 
     // Возвращает указатель на данные, отстоящие на fromEnd oт последнего сохранённого
     DataSettings GetDataSettings(int fromEnd);

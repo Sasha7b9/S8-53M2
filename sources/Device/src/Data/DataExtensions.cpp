@@ -111,7 +111,7 @@ void Averager::Append(DataFrame &frame)
 }
 
 
-DataStruct &Averager::GetData()
+const DataStruct &Averager::GetData()
 {
     if (MODE_AVE == ModeAveraging::Accurately)
     {
