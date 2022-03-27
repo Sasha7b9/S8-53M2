@@ -86,9 +86,6 @@ void Averager::Around::Append(const DataFrame &frame)
             ave_a[i] = a[i];
             ave_b[i] = b[i];
         }
-
-        SU::LogBufferU8("1: ", a, 10);
-        SU::LogBufferF("2: ", ave_a.Data(), 10);
     }
     else
     {
