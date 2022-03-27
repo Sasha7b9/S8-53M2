@@ -259,7 +259,7 @@ void LowPart::WriteTextVoltage(Chan ch, int x, int y)
             modeCouple = ch.IsA() ? ds.coupleA : ds.coupleB;
             multiplier = ch.IsA() ? ds.div_a : ds.div_b;
             range = ds.range[ch];
-            rShift.value = (int16)(ch.IsA() ? ds.rShiftA : ds.rShiftB);
+            rShift.value = (int16)(ch.IsA() ? ds.rshiftA : ds.rShiftB);
         }
     }
 

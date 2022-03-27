@@ -687,7 +687,7 @@ void DataSettings::FillFromCurrentSettings()
     inv_b = SET_INVERSE_B ? 1U : 0U;
     range[0] = SET_RANGE_A;
     range[1] = SET_RANGE_B;
-    rShiftA = (uint)SET_RSHIFT_A;
+    rshiftA = (uint)SET_RSHIFT_A;
     rShiftB = (uint)SET_RSHIFT_B;
     tBase = SET_TBASE;
     tShift = SET_TSHIFT;
@@ -747,7 +747,7 @@ int DataSettings::PointsInChannel() const
 
 int16 DataSettings::GetRShift(Chan ch) const
 {
-    return (int16)((ch == ChA) ? rShiftA : rShiftB);
+    return (int16)((ch == ChA) ? rshiftA : rShiftB);
 }
 
 
@@ -811,7 +811,7 @@ bool DataSettings::Equal(const DataSettings &ds) const
             (inv_b    == ds.inv_b) &&
             (range[0] == ds.range[0]) &&
             (range[1] == ds.range[1]) &&
-            (rShiftA  == ds.rShiftA) &&
+            (rshiftA  == ds.rshiftA) &&
             (rShiftB  == ds.rShiftB) &&
             (tBase    == ds.tBase) &&
             (tShift   == ds.tShift) &&

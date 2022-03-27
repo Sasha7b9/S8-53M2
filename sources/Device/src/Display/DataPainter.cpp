@@ -352,7 +352,7 @@ void DataPainter::DrawMath()
     BufferFPGA   &dataB = Processing::out.B;
     DataSettings &ds = Processing::out.ds;
 
-    ValueFPGA::ToVoltage(dataA.Data(), ds.BytesInChanReal(), ds.range[Chan::A], (int16)ds.rShiftA, dataAbs0);
+    ValueFPGA::ToVoltage(dataA.Data(), ds.BytesInChanReal(), ds.range[Chan::A], (int16)ds.rshiftA, dataAbs0);
     ValueFPGA::ToVoltage(dataB.Data(), ds.BytesInChanReal(), ds.range[Chan::B], (int16)ds.rShiftB, dataAbs1);
 
     Math::CalculateMathFunction(dataAbs0, dataAbs1, ds.BytesInChanReal());
@@ -777,7 +777,7 @@ void DataPainter::Spectrum::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan
     int s = 2;
 
     ValueFPGA::ToVoltage(data, numPoints, Processing::out.ds.range[ch], (ch == Chan::A) ?
-        (int16)Processing::out.ds.rShiftA :
+        (int16)Processing::out.ds.rshiftA :
         (int16)Processing::out.ds.rShiftB, dataR);
 
     Math::CalculateFFT(dataR, numPoints, spectrum, &freq0, &density0, &freq1, &density1, &y0, &y1);
