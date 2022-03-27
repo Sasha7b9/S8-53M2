@@ -127,7 +127,6 @@ struct PageMemory
     {
         static int8 currentSignal;          // Текущий номер сигнала, сохранённого в ППЗУ
         static bool showAlways;             // Если true, то показывать всегда выбранный в режиме "Внутр. ЗУ" сигнал
-        static bool exitToLast;             // Если true, то выходить из страницы внутренней памяти нужно не стандартно, а в меню последних
 
         static const Page *self;
     };

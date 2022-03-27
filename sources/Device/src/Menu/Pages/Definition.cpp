@@ -14,7 +14,6 @@
 int16 PageMemory::Latest::current = 0;
 int8  PageMemory::Internal::currentSignal = 0;
 bool  PageMemory::Internal::showAlways = false;
-bool  PageMemory::Internal::exitToLast = false;
 uint8 PageMemory::SetName::exitTo = RETURN_TO_MAIN_MENU;
 
 

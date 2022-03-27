@@ -14,9 +14,6 @@ namespace FPGA
 {
     static const int MAX_POINTS = 1024;
 
-    extern bool runningBeforeSmallButtons;      // Здесь сохраняется информация о том, работала ли ПЛИС перед переходом
-                                                // в режим работы с памятью
-
     extern StateFPGA state;
 
     namespace FreqMeter
