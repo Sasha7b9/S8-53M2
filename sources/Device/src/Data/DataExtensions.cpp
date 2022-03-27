@@ -41,7 +41,7 @@ void Averager::Reset()
     }
     else
     {
-        if (ModeAveraging::Current() == ModeAveraging::Around)
+        if (MODE_AVE == ModeAveraging::Around)
         {
             ave_ds.FillFromCurrentSettings();
             ave_a.Realloc(ave_ds.BytesInChanStored());
@@ -56,7 +56,7 @@ void Averager::Reset()
 
 void Averager::Append(DataFrame &frame)
 {
-    if (ModeAveraging::Current() == ModeAveraging::Accurately)
+    if (MODE_AVE == ModeAveraging::Accurately)
     {
         return;
     }
@@ -113,12 +113,11 @@ void Averager::Append(DataFrame &frame)
 
 DataStruct &Averager::GetData()
 {
-    if (ModeAveraging::Current() == ModeAveraging::Accurately)
+    if (MODE_AVE == ModeAveraging::Accurately)
     {
         return GetDataAccurately();
     }
-
-    if (ModeAveraging::Current() == ModeAveraging::Around)
+    else if(MODE_AVE == ModeAveraging::Around)
     {
         return GetDataAround();
     }
@@ -137,8 +136,6 @@ DataStruct &Averager::GetDataAccurately()
     int num_datas = ModeAveraging::GetNumber();
 
     LIMIT_ABOVE(num_datas, Storage::SameSettings::GetCount());
-
-    LOG_WRITE("%d datas", num_datas);
 
     DataSettings ds = Storage::GetDataSettings(0);
 

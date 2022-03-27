@@ -128,9 +128,6 @@ struct ModeAveraging
         Around        // Усреднять приблизительно.
     };
 
-    // Возвращает режим усреднения
-    static ModeAveraging::E Current();
-
     // Возвращает количество усреднений
     static int GetNumber();
 };

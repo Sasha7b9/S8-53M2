@@ -45,25 +45,16 @@ bool SettingsDisplay::IsSeparate()
 }
 
 
-ModeAveraging::E ModeAveraging::Current()
-{
-    if (TBase::InModeRandomizer())
-    {
-        return ModeAveraging::Around;
-    }
-
-    return MODE_AVE;
-}
-
-
 int ModeAveraging::GetNumber()
 {
-    if (TBase::InModeRandomizer() && (NUM_AVE_FOR_RAND >= NUM_AVE))
+    int num_ave = NUM_AVE;
+
+    if (TBase::InModeRandomizer() && NUM_AVE < NUM_AVE_FOR_RAND)
     {
-        return NUM_AVE_FOR_RAND;
+        num_ave = NUM_AVE_FOR_RAND;
     }
 
-    return NUM_AVE;
+    return num_ave;
 }
 
 
