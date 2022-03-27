@@ -12,28 +12,11 @@
 #include "Utils/Strings.h"
 
 
-static void PressSB_MemInt_Exit()
-{
-    if (PageMemory::Internal::exitToLast)
-    {
-        PageMemory::Latest::self->OpenAndSetCurrent();
-        MODE_WORK = ModeWork::Latest;
-        PageMemory::Internal::exitToLast = false;
-        Menu::needClosePageSB = false;
-    }
-    else
-    {
-        MODE_WORK = ModeWork::Direct;
-        Page::FromName(NamePage::SB_MemInt)->ShortPressOnItem(0);
-    }
-}
-
-
 static const SmallButton sbExitMemInt    // Кнопка для выхода из режима малых кнопок.
 (
     PageMemory::Internal::self,
     COMMON_BEGIN_SB_EXIT,
-    PressSB_MemInt_Exit,
+    PageMemory::Resolver::OnPress_MemoryInternalExit,
     DrawSB_Exit
 );
 
@@ -284,13 +267,6 @@ static const arrayItems itemsMemInt =
 };
 
 
-static void OnPressMemoryInt()
-{
-    PageMemory::Internal::self->OpenAndSetCurrent();
-    MODE_WORK = ModeWork::MemInt;
-}
-
-
 static void DrawMemoryWave(int num, bool exist)
 {
     int x = Grid::Left() + 2 + num * 12;
@@ -346,7 +322,7 @@ static const Page mspMemInt
     "ВНУТР ЗУ", "INT STORAGE",
     "Переход в режим работы с внутренней памятью",
     "Transition to an operating mode with internal memory",
-    NamePage::SB_MemInt, &itemsMemInt, OnPressMemoryInt, FuncAdditionDrawingSPageMemoryInt, FuncOnRegSetMemInt
+    NamePage::SB_MemInt, &itemsMemInt, PageMemory::Resolver::OnPress_MemoryInternalEnter, FuncAdditionDrawingSPageMemoryInt, FuncOnRegSetMemInt
 );
 
 
