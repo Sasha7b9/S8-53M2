@@ -1204,16 +1204,16 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
     if ((out.ds.range[1] != SET_RANGE_B || out.ds.rShiftB != (uint)SET_RSHIFT_B))
     {
         Range::E range = SET_RANGE_B;
-        RShift rShift = SET_RSHIFT_B;
+        RShift rshift = SET_RSHIFT_B;
 
         for (int i = 0; i < num_bytes; i++)
         {
-            float absValue = ValueFPGA::ToVoltage(out.B[i], out.ds.range[1], (int16)out.ds.rShiftB);
-            int relValue = (absValue + Range::MaxOnScreen(range) + rShift.ToAbs(range)) / Range::voltsInPoint[range] + ValueFPGA::MIN;
+            float abs = ValueFPGA::ToVoltage(out.B[i], out.ds.range[1], (int16)out.ds.rShiftB);
+            int rel = (abs + Range::MaxOnScreen(range) + rshift.ToAbs(range)) / Range::voltsInPoint[range] + ValueFPGA::MIN;
 
-            if (relValue < ValueFPGA::MIN)       { out.B[i] = ValueFPGA::MIN; }
-            else if (relValue > ValueFPGA::MAX)  { out.B[i] = ValueFPGA::MAX; }
-            else                                 { out.B[i] = (uint8)relValue; }
+            if (rel < ValueFPGA::MIN)       { out.B[i] = ValueFPGA::MIN; }
+            else if (rel > ValueFPGA::MAX)  { out.B[i] = ValueFPGA::MAX; }
+            else                            { out.B[i] = (uint8)rel; }
         }
     }
 }
