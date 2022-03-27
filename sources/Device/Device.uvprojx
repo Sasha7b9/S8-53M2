@@ -1687,6 +1687,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\PageMemory\loses.cpp</FilePath>
             </File>
+            <File>
+              <FileName>PageMemoryResolver.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\PageMemory\PageMemoryResolver.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3691,6 +3696,11 @@
               <FileName>loses.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Menu\Pages\PageMemory\loses.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>PageMemoryResolver.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Menu\Pages\PageMemory\PageMemoryResolver.cpp</FilePath>
             </File>
           </Files>
         </Group>

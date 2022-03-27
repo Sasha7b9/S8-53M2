@@ -10,25 +10,11 @@
 #include "Utils/Strings.h"
 
 
-static void PressSB_MemLast_Exit()
-{
-    MODE_WORK = ModeWork::Direct;
-
-    if (FPGA::runningBeforeSmallButtons)
-    {
-        FPGA::Start();
-        FPGA::runningBeforeSmallButtons = false;
-    }
-
-    Display::RemoveAddDrawFunction();
-}
-
-
 static const SmallButton sbExitMemLatest
 (
     PageMemory::Latest::self,
     COMMON_BEGIN_SB_EXIT,
-    PressSB_MemLast_Exit,
+    PageMemory::Resolver::OnPress_ExitMemoryLatest,
     DrawSB_Exit
 );
 
