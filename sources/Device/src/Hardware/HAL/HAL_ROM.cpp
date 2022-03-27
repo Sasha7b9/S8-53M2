@@ -49,10 +49,9 @@ __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | F
 #define ADDR_SECTOR_18              ((uint)0x08140000)  // 18 128k
 #define ADDR_SECTOR_19              ((uint)0x08160000)  // 19 128k
 #define ADDR_SECTOR_20              ((uint)0x08180000)  // 20 128k
-#define ADDR_SECTOR_DATA_1          ((uint)0x081A0000)  // 21 128k
+#define ADDR_SECTOR_DATA_FIRST      ((uint)0x081A0000)  // 21 128k
 #define ADDR_SECTOR_DATA_2          ((uint)0x081C0000)  // 22 128k
-#define ADDR_SECTOR_DATA_3          ((uint)0x081E0000)  // 23 128k
-#define ADDR_SECTOR_DATA_END        (ADDR_SECTOR_DATA_3 + 128 * 1024)
+#define ADDR_SECTOR_DATA_LATEST     ((uint)0x081E0000)  // 23 128k
 
 
 #define READ_WORD(address) (*((volatile uint*)(address)))
@@ -93,6 +92,35 @@ namespace HAL_ROM
 
     namespace Data
     {
+        namespace SectorInfo
+        {
+            // Возвращает true, если заполнены все информационные поля (сектор ADDR_SECTOR_DATA_INFO)
+            bool Filled();
+
+        }
+
+        namespace SectorData
+        {
+            // Возвращает начало свободного места для хранения данных
+            static uint StartFreeeSpace();
+
+            static uint Begin()
+            {
+                return ADDR_SECTOR_DATA_FIRST;
+            }
+
+            static uint End()
+            {
+                return (ADDR_SECTOR_DATA_LATEST + 128 * 1024);
+            }
+
+            // Возвращает true, если address принадлежит сектору
+            static bool BelongAddress(uint address)
+            {
+                return (address >= Begin()) && (address < End());
+            }
+        }
+
         struct StructInfo
         {
             uint address;   // По этому адресу сохранены данные фрейма
@@ -138,7 +166,34 @@ namespace HAL_ROM
                     return nullptr;
                 }
 
-                while()
+                while (info->Exist())
+                {
+                    if (info == Latest())
+                    {
+                        return info;
+                    }
+
+                    info++;
+                }
+
+                return info - 1;
+            }
+
+
+            // Первое свободное поле. Сюда будем сохранять следующие данные
+            static StructInfo *FirstEmpty()
+            {
+                if (!LatestExist())
+                {
+                    return StructInfo::First();
+                }
+
+                if (SectorInfo::Filled())
+                {
+                    return nullptr;
+                }
+
+                return LatestExist() + 1;
             }
 
 
@@ -188,13 +243,44 @@ namespace HAL_ROM
 
                 return address_data;
             }
-        };
 
-        // Возвращает true, если заполнены все информационные поля (сектор ADDR_SECTOR_DATA_INFO)
-        static bool SectorInfoFilled();
+
+            // Сохраняет данные в данную структуру. Она должна быть пустая
+            void SaveData(const DataStruct &data)
+            {
+                if (Exist())
+                {
+                    LOG_ERROR("Структура уже заполнена");
+                    return;
+                }
+
+                if ((uint)this < ADDR_SECTOR_DATA_INFO)
+                {
+                    LOG_ERROR_TRACE("StructInfo вне сектора записи");
+                    return;
+                }
+
+                if ((uint)this + sizeof(StructInfo) > (ADDR_SECTOR_DATA_INFO + 16 * 1024))
+                {
+                    LOG_ERROR_TRACE("StructInfo вне сектора записи");
+                    return;
+                }
+
+                uint address = SectorData::StartFreeeSpace();
+
+                if (!SectorData::BelongAddress(address) && !SectorData::BelongAddress(address + data.ds.SizeFrame() - 1))
+                {
+                    LOG_ERROR_TRACE("Данные вне сектора записи");
+                    return;
+                }
+
+
+            }
+        };
 
         // true, если в области данных есть место для сохранения DataStruct
         static bool ExistPlaceToSave(const DataStruct &);
+
     }
 }
 
@@ -203,9 +289,9 @@ void HAL_ROM::Data::EraseAll()
 {
     EraseSector(ADDR_SECTOR_DATA_INFO);
 
-    EraseSector(ADDR_SECTOR_DATA_1);
+    EraseSector(ADDR_SECTOR_DATA_FIRST);
     EraseSector(ADDR_SECTOR_DATA_2);
-    EraseSector(ADDR_SECTOR_DATA_3);
+    EraseSector(ADDR_SECTOR_DATA_LATEST);
 }
 
 
@@ -229,21 +315,8 @@ void HAL_ROM::Data::GetInfo(bool info[MAX_DATAS])
 }
 
 
-void HAL_ROM::Data::Save(int num, DataStruct &data)
-{
-    Delete(num);
-
-    if (SectorInfoFilled())
-    {
-        EraseAll();
-    }
-
-
-}
-
-
 // Возвращает true, если заполнены все информационные поля (сектор ADDR_SECTOR_DATA_INFO)
-static bool HAL_ROM::Data::SectorInfoFilled()
+static bool HAL_ROM::Data::SectorInfo::Filled()
 {
     StructInfo *info = StructInfo::First();
 
@@ -261,9 +334,29 @@ static bool HAL_ROM::Data::SectorInfoFilled()
 }
 
 
-static bool HAL_ROM::Data::ExistPlaceToSave(const DataStruct &)
+static bool HAL_ROM::Data::ExistPlaceToSave(const DataStruct &data)
 {
+    StructInfo *latest = StructInfo::LatestExist();
 
+    if (!latest)
+    {
+        return true;
+    }
+
+    return ((SectorData::StartFreeeSpace() + data.ds.SizeFrame()) < SectorData::End());
+}
+
+
+static uint HAL_ROM::Data::SectorData::StartFreeeSpace()
+{
+    StructInfo *info = StructInfo::LatestExist();
+
+    if (!info)
+    {
+        return Begin();
+    }
+
+    return info->address + info->GetDataSettings()->SizeFrame();
 }
 
 
@@ -284,6 +377,26 @@ bool HAL_ROM::Data::Get(int num, DataStruct &data)
     }
 
     return false;
+}
+
+
+void HAL_ROM::Data::Save(int num, DataStruct &data)
+{
+    Delete(num);
+
+    if (!StructInfo::FirstEmpty())
+    {
+        EraseAll();
+    }
+
+    if (!ExistPlaceToSave(data))
+    {
+        EraseAll();
+    }
+
+    StructInfo *info = StructInfo::FirstEmpty();
+
+    info->SaveData(data);
 }
 
 
@@ -462,11 +575,11 @@ uint HAL_ROM::GetSector(uint startAddress)
 {
     switch (startAddress)
     {
-    case ADDR_SECTOR_SETTINGS:  return FLASH_SECTOR_11;
-    case ADDR_SECTOR_DATA_INFO: return FLASH_SECTOR_12;
-    case ADDR_SECTOR_DATA_1:    return FLASH_SECTOR_21;
-    case ADDR_SECTOR_DATA_2:    return FLASH_SECTOR_22;
-    case ADDR_SECTOR_DATA_3:    return FLASH_SECTOR_23;
+    case ADDR_SECTOR_SETTINGS:      return FLASH_SECTOR_11;
+    case ADDR_SECTOR_DATA_INFO:     return FLASH_SECTOR_12;
+    case ADDR_SECTOR_DATA_FIRST:    return FLASH_SECTOR_21;
+    case ADDR_SECTOR_DATA_2:        return FLASH_SECTOR_22;
+    case ADDR_SECTOR_DATA_LATEST:   return FLASH_SECTOR_23;
     }
 
     LOG_ERROR_TRACE("Недопустимый сектор");
