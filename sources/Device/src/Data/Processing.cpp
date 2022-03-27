@@ -1192,12 +1192,15 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
 
         for (int i = 0; i < num_bytes; i++)
         {
-            float abs = ValueFPGA::ToVoltage(out.A[i], out.ds.range[0], (int16)out.ds.rshiftA);
-            int rel = (abs + Range::MaxOnScreen(range) + rshift.ToAbs(range)) / Range::voltsInPoint[range] + ValueFPGA::MIN;
+            if(out.A[i] != ValueFPGA::NONE)
+            {
+                float abs = ValueFPGA::ToVoltage(out.A[i], out.ds.range[0], (int16)out.ds.rshiftA);
+                int rel = (abs + Range::MaxOnScreen(range) + rshift.ToAbs(range)) / Range::voltsInPoint[range] + ValueFPGA::MIN;
 
-            if (rel < ValueFPGA::MIN)       { out.A[i] = ValueFPGA::MIN; }
-            else if (rel > ValueFPGA::MAX)  { out.A[i] = ValueFPGA::MAX; }
-            else                            { out.A[i] = (uint8)rel; }
+                if (rel < ValueFPGA::MIN)      { out.A[i] = ValueFPGA::MIN; }
+                else if (rel > ValueFPGA::MAX) { out.A[i] = ValueFPGA::MAX; }
+                else                           { out.A[i] = (uint8)rel; }
+            }
         }
     }
 
@@ -1208,12 +1211,15 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
 
         for (int i = 0; i < num_bytes; i++)
         {
-            float abs = ValueFPGA::ToVoltage(out.B[i], out.ds.range[1], (int16)out.ds.rshiftB);
-            int rel = (abs + Range::MaxOnScreen(range) + rshift.ToAbs(range)) / Range::voltsInPoint[range] + ValueFPGA::MIN;
+            if (out.B[i] != ValueFPGA::NONE)
+            {
+                float abs = ValueFPGA::ToVoltage(out.B[i], out.ds.range[1], (int16)out.ds.rshiftB);
+                int rel = (abs + Range::MaxOnScreen(range) + rshift.ToAbs(range)) / Range::voltsInPoint[range] + ValueFPGA::MIN;
 
-            if (rel < ValueFPGA::MIN)       { out.B[i] = ValueFPGA::MIN; }
-            else if (rel > ValueFPGA::MAX)  { out.B[i] = ValueFPGA::MAX; }
-            else                            { out.B[i] = (uint8)rel; }
+                if (rel < ValueFPGA::MIN)      { out.B[i] = ValueFPGA::MIN; }
+                else if (rel > ValueFPGA::MAX) { out.B[i] = ValueFPGA::MAX; }
+                else                           { out.B[i] = (uint8)rel; }
+            }
         }
     }
 }

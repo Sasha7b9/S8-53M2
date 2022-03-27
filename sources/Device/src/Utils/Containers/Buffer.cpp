@@ -58,8 +58,11 @@ Buffer<T>::~Buffer()
 template<class T>
 void Buffer<T>::Realloc(int _size)
 {
-    Free();
-    Malloc(_size);
+    if (_size != Size())
+    {
+        Free();
+        Malloc(_size);
+    }
 }
 
 
