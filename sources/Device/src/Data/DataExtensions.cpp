@@ -138,6 +138,8 @@ DataStruct &Averager::GetDataAccurately()
 
     LIMIT_ABOVE(num_datas, Storage::SameSettings::GetCount());
 
+    LOG_WRITE("%d datas", num_datas);
+
     DataSettings ds = Storage::GetDataSettings(0);
 
     int num_bytes = ds.BytesInChanStored();
@@ -171,8 +173,8 @@ DataStruct &Averager::GetDataAccurately()
 
     for (int i = 0; i < num_bytes; i++)
     {
-        out_a[i] = (uint8)(out_a[i] / num_datas);
-        out_b[i] = (uint8)(out_b[i] / num_datas);
+        out_a[i] = (uint8)(psum_a[i] / num_datas);
+        out_b[i] = (uint8)(psum_b[i] / num_datas);
     }
 
     return result;
