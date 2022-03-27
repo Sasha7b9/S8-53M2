@@ -106,12 +106,29 @@ void Averager::Around::Append(const DataFrame &frame)
 
         while (out_a < end)
         {
-            *out_a = ((*out_a) * ave_fless + (float)(*in_a++)) * ave_inv;
-            out_a++;
+            uint8 ia = *in_a;
+            uint8 oa = *out_b;
 
-            *out_b = ((*out_b) * ave_fless + (float)(*in_b++)) * ave_inv;
-            out_b++;
+            if (ia != ValueFPGA::NONE && oa != ValueFPGA::NONE)
+            {
+                *out_a = ((*out_a) * ave_fless + (float)(*in_a++)) * ave_inv;
+                out_a++;
 
+                *out_b = ((*out_b) * ave_fless + (float)(*in_b++)) * ave_inv;
+                out_b++;
+            }
+            else if (ia != ValueFPGA::NONE)
+            {
+                *out_a++ = *in_a++;
+                *out_b++ = *in_b++;
+            }
+            else
+            {
+                out_a++;
+                in_a++;
+                out_b++;
+                in_b++;
+            }
         };
     }
 
