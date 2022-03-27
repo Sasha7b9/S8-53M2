@@ -68,7 +68,7 @@ static const uint MAX_UINT = 0xffffffff;
 
 namespace HAL_ROM
 {
-    void WriteBufferBytes(uint address, uint8 *buffer, int size);
+    void WriteBufferBytes(uint address, const void *buffer, int size);
 
     // Возвращает true, если это первое включение
     bool TheFirstInclusion();
@@ -127,7 +127,7 @@ namespace HAL_ROM
         struct StructInfo
         {
             uint address;   // По этому адресу сохранены данные фрейма
-            int number;     // Этот номер выводится на странице ПАМЯТЬ-ВНУТР ЗУ
+            int  number;    // Этот номер выводится на странице ПАМЯТЬ-ВНУТР ЗУ
             uint size;      // Размер фрема данных (DataStruct + 2 * BytesInChannelStored()). Если 0, то запись стёрта
 
 
@@ -249,7 +249,7 @@ namespace HAL_ROM
 
 
             // Сохраняет данные в данную структуру. Она должна быть пустая
-            void SaveData(const DataStruct &data)
+            void SaveData(int num, const DataStruct &data)
             {
                 if (Exist())
                 {
@@ -269,15 +269,24 @@ namespace HAL_ROM
                     return;
                 }
 
-                uint address_start = SectorData::StartFreeeSpace();         // Начальный адрес записи
+                uint address_rec = SectorData::StartFreeeSpace();         // Начальный адрес записи
 
-                if (!SectorData::BelongAddress(address_start) && !SectorData::BelongAddress(address_start + data.ds.SizeFrame() - 1))
+                if (!SectorData::BelongAddress(address_rec) || !SectorData::BelongAddress(address_rec + data.ds.SizeFrame() - 1))
                 {
                     LOG_ERROR_TRACE("Данные вне сектора записи");
                     return;
                 }
 
+                WriteWord(&address, address_rec);
+                WriteWord(&number, (uint)num);
+                WriteWord(&size, (uint)data.ds.SizeFrame());
 
+                int num_bytes = data.ds.BytesInChanStored();
+
+                WriteBufferBytes(address_rec, &data.ds, sizeof(data.ds));
+                address_rec += sizeof(data.ds);
+                WriteBufferBytes(address_rec, data.A.DataConst(), num_bytes);
+                WriteBufferBytes(address_rec + num_bytes, data.B.DataConst(), num_bytes);
             }
         };
 
@@ -399,7 +408,7 @@ void HAL_ROM::Data::Save(int num, DataStruct &data)
 
     StructInfo *info = StructInfo::FirstEmpty();
 
-    info->SaveData(data);
+    info->SaveData(num, data);
 }
 
 
@@ -643,16 +652,22 @@ bool OTP::SaveSerialNumber(char *serialNumber)
 }
 
 
-void HAL_ROM::WriteBufferBytes(uint address, uint8 *buffer, int size)
+void HAL_ROM::WriteBufferBytes(uint address, const void *buffer, int size)
 {
+    uint8 *bufferU8 = (uint8 *)buffer;
+
     HAL_FLASH_Unlock();
+
+    while (Sound::isBeep) {};
+
     for (int i = 0; i < size; i++)
     {
-        if (HAL_FLASH_Program(TYPEPROGRAM_BYTE, address, (uint64_t)(buffer[i])) != HAL_OK)
+        if (HAL_FLASH_Program(TYPEPROGRAM_BYTE, address, (uint64_t)(bufferU8[i])) != HAL_OK)
         {
             ERROR_HANDLER();
         }
         address++;
     }
+
     HAL_FLASH_Lock();
 }
