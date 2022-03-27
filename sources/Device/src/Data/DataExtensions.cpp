@@ -10,15 +10,28 @@
 
 namespace Averager
 {
-    Buffer<float> ave_a;        // Здесь усреднённые значения,
-    Buffer<float> ave_b;        // рассчитанные по приблизетильному алгоритму
-    DataSettings  ave_ds;       // А сюда запишем текущие настройки при сброосе
+    // Действия, которые необходимо произвести перед доабавлением новых дыннах
+    void ProcessBeforeAdding(const DataFrame &);
 
-    DataStruct &GetDataAround();
-    DataStruct &GetDataAccurately();
+    namespace Accuracy
+    {
+        DataStruct &GetData();
 
-    int added_datas = 0;        // Столько данных учтено в измерениях
-    int number_averaging = 0;   // Текущее число усреднений
+    }
+
+    namespace Around
+    {
+        Buffer<float> ave_a;        // Здесь усреднённые значения,
+        Buffer<float> ave_b;        // рассчитанные по приблизетильному алгоритму
+        DataSettings  ave_ds;       // А сюда запишем текущие настройки при сброосе
+
+        int added_datas = 0;        // Столько данных учтено в измерениях
+        int number_averaging = 0;   // Текущее число усреднений
+
+        void Append(const DataFrame &);
+
+        DataStruct &GetData();
+    }
 }
 
 
@@ -32,41 +45,31 @@ namespace Limitator
 }
 
 
-void Averager::Reset()
+void Averager::ProcessBeforeAdding(const DataFrame &)
 {
     if (ModeAveraging::GetNumber() < 2)
     {
-        ave_a.Free();
-        ave_b.Free();
+        Around::ave_a.Free();
+        Around::ave_b.Free();
     }
     else
     {
         if (MODE_AVE == ModeAveraging::Around)
         {
-            ave_ds.FillFromCurrentSettings();
-            ave_a.Realloc(ave_ds.BytesInChanStored());
-            ave_b.Realloc(ave_ds.BytesInChanStored());
+            Around::ave_ds.FillFromCurrentSettings();
+            Around::ave_a.Realloc(Around::ave_ds.BytesInChanStored());
+            Around::ave_b.Realloc(Around::ave_ds.BytesInChanStored());
         }
     }
 
-    added_datas = 0;
-    number_averaging = ModeAveraging::GetNumber();
+    Around::added_datas = 0;
+    Around::number_averaging = ModeAveraging::GetNumber();
 }
 
 
-void Averager::Append(const DataFrame &frame)
+void Averager::Around::Append(const DataFrame &frame)
 {
-    if (MODE_AVE == ModeAveraging::Accurately)
-    {
-        return;
-    }
-
     int size = frame.ds->BytesInChanStored();
-
-    if (ave_a.Size() != size || ModeAveraging::GetNumber() != number_averaging)
-    {
-        Reset();
-    }
 
     const uint8 *a = frame.DataBegin(ChA);
     const uint8 *b = frame.DataBegin(ChB);
@@ -96,7 +99,7 @@ void Averager::Append(const DataFrame &frame)
 
         float *end = ave_a.Pointer(size);
 
-        while(d_a < end)
+        while (d_a < end)
         {
             *d_a = ((*d_a) * ave_fless + (float)(*d0++)) * ave_inv;
             d_a++;
@@ -111,15 +114,26 @@ void Averager::Append(const DataFrame &frame)
 }
 
 
+void Averager::Append(const DataFrame &frame)
+{
+    ProcessBeforeAdding(frame);
+
+    if (MODE_AVE == ModeAveraging::Around)
+    {
+        Around::Append(frame);
+    }
+}
+
+
 const DataStruct &Averager::GetData()
 {
     if (MODE_AVE == ModeAveraging::Accurately)
     {
-        return GetDataAccurately();
+        return Accuracy::GetData();
     }
     else if(MODE_AVE == ModeAveraging::Around)
     {
-        return GetDataAround();
+        return Around::GetData();
     }
 
     static DataStruct null_ds;
@@ -129,7 +143,7 @@ const DataStruct &Averager::GetData()
 }
 
 
-DataStruct &Averager::GetDataAccurately()
+DataStruct &Averager::Accuracy::GetData()
 {
     static DataStruct result;
 
@@ -178,7 +192,7 @@ DataStruct &Averager::GetDataAccurately()
 }
 
 
-DataStruct &Averager::GetDataAround()
+DataStruct &Averager::Around::GetData()
 {
     static DataStruct result;
 

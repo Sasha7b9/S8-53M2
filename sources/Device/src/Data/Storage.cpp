@@ -81,7 +81,6 @@ void Storage::Clear()
     count_data = 0;
 
     Limitator::ClearLimits();
-    Averager::Reset();
 
     current.data.ds.valid = 0;
 
