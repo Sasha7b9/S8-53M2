@@ -168,6 +168,7 @@ struct PageMemory
     {
         static void OnPress_MemoryLatestEnter();
         static void OnPress_MemoryLatestExit();
+        static void OnPress_MemoryLatestEnterToInternal();
 
         static void OnPress_MemoryInternalEnter();
         static void OnPress_MemoryInternalExit();

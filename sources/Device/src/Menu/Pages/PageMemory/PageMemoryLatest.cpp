@@ -69,14 +69,6 @@ static const SmallButton sbMemLatestPrev
 );
 
 
-static void PressSB_MemLast_IntEnter()
-{
-    PageMemory::Internal::self->OpenAndSetCurrent();
-    MODE_WORK = ModeWork::MemInt;
-    PageMemory::Internal::exitToLast = true;
-}
-
-
 static void DrawSB_MemLast_IntEnter(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
@@ -91,7 +83,7 @@ static const SmallButton sbMemLatestIntEnter
     "Внутр ЗУ", "Internal storage",
     "Нажмите эту кнопку, чтобы сохранить сигнал во внутреннем запоминающем устройстве",
     "Press this button to keep a signal in an internal memory",
-    PressSB_MemLast_IntEnter,
+    PageMemory::Resolver::OnPress_MemoryLatestEnterToInternal,
     DrawSB_MemLast_IntEnter
 );
 
