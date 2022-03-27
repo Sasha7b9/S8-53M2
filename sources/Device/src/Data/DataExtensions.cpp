@@ -10,11 +10,12 @@
 
 namespace Averager
 {
-    Buffer<float> ave_a;        // Здесь усреднённые значения, рассчитанные
-    Buffer<float> ave_b;        // по приблизетильному алгоритму
+    Buffer<float> ave_a;        // Здесь усреднённые значения,
+    Buffer<float> ave_b;        // рассчитанные по приблизетильному алгоритму
+    DataSettings  ave_ds;       // А сюда запишем текущие настройки при сброосе
 
-    void GetDataAround(DataStruct &);
-    void GetDataAccurately(DataStruct &);
+    DataStruct &GetDataAround();
+    DataStruct &GetDataAccurately();
 
     int added_datas = 0;        // Столько данных учтено в измерениях
     int number_averaging = 0;   // Текущее число усреднений
@@ -36,14 +37,15 @@ void Averager::Reset()
     if (ModeAveraging::GetNumber() < 2)
     {
         ave_a.Free();
-        ave_a.Free();
+        ave_b.Free();
     }
     else
     {
         if (ModeAveraging::Current() == ModeAveraging::Around)
         {
-            ave_a.Realloc(ENUM_POINTS_FPGA::ToNumBytes());
-            ave_b.Realloc(ENUM_POINTS_FPGA::ToNumBytes());
+            ave_ds.FillFromCurrentSettings();
+            ave_a.Realloc(ave_ds.BytesInChanStored());
+            ave_b.Realloc(ave_ds.BytesInChanStored());
         }
     }
 
@@ -109,21 +111,26 @@ void Averager::Append(DataFrame &frame)
 }
 
 
-void Averager::GetData(DataStruct &data)
+DataStruct &Averager::GetData()
 {
     if (ModeAveraging::Current() == ModeAveraging::Accurately)
     {
-        GetDataAccurately(data);
+        return GetDataAccurately();
     }
 
     if (ModeAveraging::Current() == ModeAveraging::Around)
     {
-        GetDataAround(data);
+        return GetDataAround();
     }
+
+    static DataStruct null_ds;
+    null_ds.ds.valid = 0;
+
+    return null_ds;
 }
 
 
-void Averager::GetDataAccurately(DataStruct &out)
+DataStruct &Averager::GetDataAccurately()
 {
     int num_datas = ModeAveraging::GetNumber();
 
@@ -133,11 +140,11 @@ void Averager::GetDataAccurately(DataStruct &out)
 
     int num_bytes = ds.BytesInChanStored();
 
-    Buffer<uint> sum_a(num_bytes);
-    sum_a.Fill(0);
+    Buffer<uint> sum_a(num_bytes, 0);
+    Buffer<uint> sum_b(num_bytes, 0);
 
-    Buffer<uint> sum_b(num_bytes);
-    sum_b.Fill(0);
+    uint *out_a = sum_a.Data();
+    uint *out_b = sum_b.Data();
 
     for (int d = 0; d < num_datas; d++)
     {
@@ -148,10 +155,12 @@ void Averager::GetDataAccurately(DataStruct &out)
 
         for (int i = 0; i < num_bytes; i++)
         {
-            sum_a[i] += in_a[i];
-            sum_b[i] += in_b[i];
+            out_a[i] += in_a[i];
+            out_b[i] += in_b[i];
         }
     }
+
+    static DataStruct out;
 
     out.ds.Set(ds);
     out.A.Realloc(num_bytes);
@@ -162,24 +171,38 @@ void Averager::GetDataAccurately(DataStruct &out)
 
     for (int i = 0; i < num_bytes; i++)
     {
-        out_a[i] = sum_a[i] / num_datas;
-        out_b[i] = sum_b[i] / num_datas;
+        out_a[i] = out_a[i] / num_datas;
+        out_b[i] = out_b[i] / num_datas;
     }
+
+    return out;
 }
 
 
-void Averager::GetDataAround(DataStruct &data)
+DataStruct &Averager::GetDataAround()
 {
-    int num_bytes = data.ds.BytesInChanStored();
+    static DataStruct result;
 
-    uint8 *a = data.A.Data();
-    uint8 *b = data.B.Data();
+    result.ds = ave_ds;
+
+    int num_bytes = ave_ds.BytesInChanStored();
+
+    result.A.Realloc(num_bytes);
+    result.B.Realloc(num_bytes);
+
+    uint8 *out_a = result.A.Data();
+    uint8 *out_b = result.B.Data();
+
+    float *in_a = ave_a.Data();
+    float *in_b = ave_b.Data();
 
     for (int i = 0; i < num_bytes; i++)
     {
-        a[i] = (uint8)ave_a[i];
-        b[i] = (uint8)ave_b[i];
+        out_a[i] = (uint8)in_a[i];
+        out_b[i] = (uint8)in_b[i];
     }
+
+    return result;
 }
 
 

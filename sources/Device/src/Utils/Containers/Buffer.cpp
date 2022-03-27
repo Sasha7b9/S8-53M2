@@ -11,6 +11,7 @@ template                Buffer<char>::Buffer(int);
 template                Buffer<float>::Buffer(int);
 template                Buffer<uint>::Buffer(int);
 template                Buffer<uint8>::Buffer(int, uint8);
+template                Buffer<uint>::Buffer(int, uint);
 template                Buffer<uint8>::~Buffer();
 template                Buffer<char>::~Buffer();
 template                Buffer<float>::~Buffer();
