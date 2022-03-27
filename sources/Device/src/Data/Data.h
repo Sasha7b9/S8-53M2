@@ -27,7 +27,7 @@ struct DataSettings
                                                     // (во фрейме хранения после собственно DataSettings идут данные первого канала (их количество возвращает
                                                     // BytesInChanStored()), а потом данные второго канала
     uint                rshiftA             : 10;   // Смещение по напряжению
-    uint                rShiftB             : 10;
+    uint                rshiftB             : 10;
     uint                trigLevA            : 10;   // Уровень синхронизации
     int                 tShift;                     // Смещение по времени
     ModeCouple::E       coupleB             : 2;
