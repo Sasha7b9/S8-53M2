@@ -1247,10 +1247,8 @@ void Processing::SetData(const DataStruct &in, bool mode_p2p)
     BufferFPGA A(length);
     BufferFPGA B(length);
 
-    const uint8 *a = in.A.DataConst();
-    const uint8 *b = in.B.DataConst();
-    Math::CalculateFiltrArray(a, A.Data(), length, Smoothing::ToPoints());
-    Math::CalculateFiltrArray(b, B.Data(), length, Smoothing::ToPoints());
+    Math::CalculateFiltrArray(in.A.DataConst(), A.Data(), length, Smoothing::ToPoints());
+    Math::CalculateFiltrArray(in.B.DataConst(), B.Data(), length, Smoothing::ToPoints());
 
     CountedToCurrentSettings(in.ds, A.Data(), B.Data());
 
