@@ -423,7 +423,7 @@ void DataPainter::DrawDataMinMax()
 
 void DataPainter::DrawDataNormal()
 {
-    if (Storage::NumFrames() == 0)
+    if(!Processing::out.ds.valid)
     {
         return;
     }

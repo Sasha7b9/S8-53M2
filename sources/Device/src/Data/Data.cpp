@@ -88,6 +88,7 @@ void FrameImitation::PrepareForNewCycle()
     data.rec_points = 0;
     data.all_points = 0;
     data.ds.valid = 0;
+    data.mode_p2p = TBase::InModeP2P();
 }
 
 
