@@ -86,6 +86,9 @@ void Averager::Around::Append(const DataFrame &frame)
             ave_a[i] = a[i];
             ave_b[i] = b[i];
         }
+
+        SU::LogBufferU8("1: ", a, 10);
+        SU::LogBufferF("2: ", ave_a.Data(), 10);
     }
     else
     {
@@ -96,13 +99,13 @@ void Averager::Around::Append(const DataFrame &frame)
         float ave_fless = (float)num_datas - 1.0f;
         float ave_inv = 1.0f / (float)num_datas;
 
-        float *d_a = ave_a.Pointer(0);
-        float *d_b = ave_b.Pointer(0);
+        float *d_a = ave_a.Data();
+        float *d_b = ave_b.Data();
 
         const uint8 *d0 = a;
         const uint8 *d1 = b;
 
-        float *end = ave_a.Pointer(size);
+        float *end = ave_a.Last();
 
         while (d_a < end)
         {
@@ -219,6 +222,8 @@ DataStruct &Averager::Around::GetData()
         out_a[i] = (uint8)in_a[i];
         out_b[i] = (uint8)in_b[i];
     }
+
+    result.ds.valid = 1;
 
     return result;
 }
