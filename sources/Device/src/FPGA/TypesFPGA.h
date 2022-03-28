@@ -120,5 +120,5 @@ struct ValueFPGA
     static float ToVoltage(uint8 value, Range::E, RShift);
     static uint8 FromVoltage(float voltage, Range::E, RShift);
     static void ToVoltageArray(const uint8 *points, int numPoints, Range::E, RShift, float *voltage);
-    static void FromVoltageArray(const float *voltage, int numPoints, Range::E, RShift, uint8 *points);
+    static void FromVoltageArray(const float *in, int numPoints, Range::E, RShift, uint8 *out);
 };
