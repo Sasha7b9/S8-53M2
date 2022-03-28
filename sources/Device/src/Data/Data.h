@@ -45,7 +45,7 @@ struct DataSettings
     uint                valid               : 1;
     PackedTime          time;
 
-    DataSettings() : next(nullptr), prev(nullptr), id(0) { FillFromCurrentSettings(); valid = 0; };
+    DataSettings() : next(nullptr), prev(nullptr), id(0), crc32(0) { FillFromCurrentSettings(); valid = 0; };
 
     // Заполнение полей текущими настройками
     void FillFromCurrentSettings();
