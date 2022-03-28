@@ -19,7 +19,7 @@ namespace Limitator
     // Очистка значений мин, макс и сумм
     void ClearLimits();
 
-    void CalculateLimits(const DataSettings *, const uint8 *dataA, const uint8 *dataB);
+    void Append(const DataSettings *, const uint8 *dataA, const uint8 *dataB);
 
     // Получить ограничивающую линию сигнала 0 - снизу, 1 - сверху.
     DataStruct &GetLimitation(Chan, int direction, DataStruct &);

@@ -97,7 +97,7 @@ void Storage::AppendNewFrame(DataStruct &data)
     data.ds.time = HAL_RTC::GetPackedTime();
     data.ds.id = ++id;
 
-    Limitator::CalculateLimits(&data.ds, data.A.Data(), data.B.Data());
+    Limitator::Append(&data.ds, data.A.Data(), data.B.Data());
 
     DataSettings *ds = PrepareNewFrame(data.ds);
 

@@ -275,7 +275,7 @@ void Limitator::ClearLimits()
 }
 
 
-void Limitator::CalculateLimits(const DataSettings *dss, const uint8 *a, const uint8 *b)
+void Limitator::Append(const DataSettings *dss, const uint8 *a, const uint8 *b)
 {
     uint numElements = (uint)dss->PointsInChannel();
 
