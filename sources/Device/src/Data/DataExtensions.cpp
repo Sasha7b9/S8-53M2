@@ -18,8 +18,9 @@ namespace Averager
 
     namespace Around
     {
-        DataSettings     ave_ds;                            // \- Настройки усредняемых сейчас сигналов 
-        ENumAveraging::E enum_ave = ENumAveraging::Count;   // |-
+        DataSettings     ave_ds;                            // \-
+        ENumAveraging::E enum_ave = ENumAveraging::Count;   // |- Настройки усредняемых сейчас сигналов 
+        ModeAveraging::E mode_ave = ModeAveraging::Count;   // /-
 
         Buffer<float> ave_a;        // Здесь усреднённые значения,
         Buffer<float> ave_b;        // рассчитанные по приблизетильному алгоритму
@@ -56,7 +57,7 @@ void Averager::Around::ProcessBeforeAdding(const DataFrame &frame)
     }
     else
     {
-        if (!ave_ds.Equal(*frame.ds) || enum_ave != ENUM_AVE)
+        if (!ave_ds.Equal(*frame.ds) || enum_ave != ENUM_AVE || mode_ave != MODE_AVE)
         {
             added_datas = 0;
         }
@@ -65,6 +66,7 @@ void Averager::Around::ProcessBeforeAdding(const DataFrame &frame)
         {
             ave_ds.Set(*frame.ds);
             enum_ave = ENUM_AVE;
+            mode_ave = MODE_AVE;
             ave_a.Realloc(ave_ds.BytesInChanStored());
             ave_b.Realloc(ave_ds.BytesInChanStored());
         }
@@ -130,6 +132,8 @@ void Averager::Around::Append(const DataFrame &frame)
                 in_b++;
             }
         };
+
+        SU::LogBufferF("1:", out_a, 10);
     }
 
     added_datas++;

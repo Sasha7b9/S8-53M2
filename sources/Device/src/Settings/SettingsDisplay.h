@@ -28,9 +28,6 @@
 #define ENUM_ACCUM_IS_INFINITY      (ENUM_ACCUM == ENumAccumulation::Infinity)
 #define NUM_ACCUM                   (1 << (int)set.display.enumAccumulation)
 
-#define ENUM_AVE                    (set.display.enumAve)
-#define NUM_AVE                     (1 << ENUM_AVE)
-
 #define MODE_AVE                    (set.display.modeAve)
 
 #define ENUM_MIN_MAX                (set.display.enumMinMax)
@@ -126,7 +123,8 @@ struct ModeAveraging
     enum E
     {
         Accurately,   // Усреднять точно.
-        Around        // Усреднять приблизительно.
+        Around,       // Усреднять приблизительно.
+        Count
     };
 
     // Возвращает количество усреднений
