@@ -29,7 +29,6 @@ namespace Display
     pFuncVV funcAfterDraw    = 0;
 
     bool framesElapsed = false;
-    int  numDrawingSignals = 0;
 
     int topMeasures = GRID_BOTTOM;
 
@@ -166,9 +165,9 @@ bool Display::NeedForClearScreen()
         return true;
     }
 
-    if (MODE_ACCUM_IS_RESET && Display::numDrawingSignals >= numAccum)
+    if (MODE_ACCUM_IS_RESET && !ENUM_ACCUM_IS_INFINITY && ENumAccumulation::number_drawing >= numAccum)
     {
-        Display::numDrawingSignals = 0;
+        ENumAccumulation::number_drawing = 0;
         return true;
     }
 

@@ -458,7 +458,7 @@ void DataPainter::DrawDataNormal()
     {
         DrawBothChannels(Processing::out);
 
-        Display::numDrawingSignals++;
+        ENumAccumulation::number_drawing++;
     }
     else
     {

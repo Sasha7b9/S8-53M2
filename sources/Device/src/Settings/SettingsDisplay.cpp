@@ -6,6 +6,9 @@
 #include "Hardware/HAL/HAL.h"
 
 
+int ENumAccumulation::number_drawing = 0;
+
+
 int Smoothing::ToPoints()
 {
     if (SMOOTHING_IS_DISABLE)

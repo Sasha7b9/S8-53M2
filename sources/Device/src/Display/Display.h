@@ -16,7 +16,6 @@ namespace Display
     extern uint8 *const back_buffer;
 
     extern bool framesElapsed;
-    extern int  numDrawingSignals;  // Число нарисованных сигналов для режима накопления
 
     extern int topMeasures;         // Верх таблицы вывода измерений. Это значение нужно для нормального вывода сообщений на экран - чтобы 
                                     // они ничего не перекрывали

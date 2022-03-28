@@ -96,6 +96,8 @@ struct ENumAccumulation
         _128,
         Infinity
     };
+
+    static int number_drawing;      // Число уже нарисованных сигналов
 };
 
 // Количество усреднений по измерениям.
