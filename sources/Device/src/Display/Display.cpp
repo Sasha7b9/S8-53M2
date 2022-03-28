@@ -162,6 +162,7 @@ bool Display::NeedForClearScreen()
     if (Flags::needFinishDraw)
     {
         Flags::needFinishDraw = false;
+        ENumAccumulation::number_drawing = 0;
         return true;
     }
 
@@ -170,7 +171,7 @@ bool Display::NeedForClearScreen()
         return false;
     }
 
-    if (ENumAccumulation::number_drawing >= numAccum)
+    if (MODE_ACCUM_IS_NORESET || ENumAccumulation::number_drawing > numAccum)
     {
         ENumAccumulation::number_drawing = 0;
         return true;

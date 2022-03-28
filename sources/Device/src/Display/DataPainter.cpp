@@ -455,7 +455,7 @@ void DataPainter::DrawDataNormal()
 
     if (ENUM_ACCUM > ENumAccumulation::_1)
     {
-        static int last_id;     // ID последнего нарисованного сигнала
+        static int last_id;     
 
         if (ENUM_ACCUM_IS_INFINITY)
         {
@@ -465,7 +465,7 @@ void DataPainter::DrawDataNormal()
         {
             if (MODE_ACCUM_IS_RESET)
             {
-                if (last_id != Processing::out.ds.id)
+                if (ENumAccumulation::number_drawing == 0 || last_id != Processing::out.ds.id)
                 {
                     last_id = Processing::out.ds.id;
 
@@ -476,8 +476,6 @@ void DataPainter::DrawDataNormal()
             }
             else
             {
-                LOG_WRITE("num signals = %d", num_signals);
-
                 for (int i = 0; i < num_signals; i++)
                 {
                     Processing::SetData(Storage::GetData(i));
