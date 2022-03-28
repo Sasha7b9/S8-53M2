@@ -85,7 +85,7 @@ static const Choice mcCoupleA =
 };
 
 
-void OnChanged_FiltrA(bool)
+void PageChannelA::OnChanged_Filtr(bool)
 {
     Filtr::Enable(Chan::A, SET_FILTR_A);
 }
@@ -103,7 +103,7 @@ static const Choice mcFiltrA =
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
     },
-    (int8*)&SET_FILTR_A, OnChanged_FiltrA
+    (int8*)&SET_FILTR_A, PageChannelA::OnChanged_Filtr
 };
 
 
@@ -184,7 +184,7 @@ static const Choice mcCoupleB =
 };
 
 
-void OnChanged_FiltrB(bool)
+void PageChannelB::OnChanged_Filtr(bool)
 {
     Filtr::Enable(Chan::B, SET_FILTR_B);
 }
@@ -202,7 +202,7 @@ static const Choice mcFiltrB =
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
     },
-    (int8 *)&SET_FILTR_B, OnChanged_FiltrB
+    (int8 *)&SET_FILTR_B, PageChannelB::OnChanged_Filtr
 };
 
 

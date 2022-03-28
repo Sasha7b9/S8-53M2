@@ -18,7 +18,8 @@ struct PageMain
 
 struct PageChannelA
 {
-    static void OnChanged_Input(bool active);
+    static void OnChanged_Input(bool);
+    static void OnChanged_Filtr(bool);
 
     static const Page *self;
 };
@@ -26,7 +27,8 @@ struct PageChannelA
 
 struct PageChannelB
 {
-    static void OnChanged_Input(bool active);
+    static void OnChanged_Input(bool);
+    static void OnChanged_Filtr(bool);
 
     static const Page *self;
 };

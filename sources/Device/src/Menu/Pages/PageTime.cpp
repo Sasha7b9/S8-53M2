@@ -118,6 +118,19 @@ static bool IsActive_SelfRecorder()
 }
 
 
+static void OnChanged_SelfRecorder(bool active)
+{
+    if (active)
+    {
+        FPGA::LoadRegUPR();
+    }
+    else
+    {
+        Warning::ShowBad(Warning::TooFastScanForSelfRecorder);
+    }
+}
+
+
 static const Choice mcSelfRecorder =
 {
     TypeItem::Choice, &pTime, IsActive_SelfRecorder,
@@ -130,7 +143,7 @@ static const Choice mcSelfRecorder =
         {DISABLE_RU,    DISABLE_EN},
         {ENABLE_RU,     ENABLE_EN}
     },
-    (int8*)&SET_SELFRECORDER
+    (int8*)&SET_SELFRECORDER, OnChanged_SelfRecorder
 };
 
 

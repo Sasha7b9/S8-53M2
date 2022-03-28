@@ -83,9 +83,6 @@ namespace FPGA
 
     // Загрузить все параметры напряжения каналов и синхронизации в аппаратную часть.
     void SetAttribChannelsAndTrig(TypeWriteAnalog::E type);
-
-    // Загрузить регистр WR_UPR (пиковый детектор и калибратор).
-    void LoadRegUPR();
 }
 
 
@@ -492,11 +489,16 @@ void FPGA::LoadRegUPR()
     {
         _SET_BIT(data, UPR_BIT_CALIBRATOR_AC_DC);
     }
-
     else if (CALIBRATOR_IS_DC)
     {
         _SET_BIT(data, UPR_BIT_CALIBRATOR_VOLTAGE);
     }
+
+    if (SET_SELFRECORDER)
+    {
+        _SET_BIT(data, UPR_BIT_RECORDER);
+    }
+
 
     BUS_FPGA::Write(WR_UPR, data, true);
 }

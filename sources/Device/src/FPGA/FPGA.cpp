@@ -110,6 +110,12 @@ void FPGA::Update()
         state.needCalibration = false;
     }
 
+    if (SET_SELFRECORDER)
+    {
+        Reader::P2P::ReadPoints();
+        return;
+    }
+
     if(!CAN_READ_DATA)
     {
         return;
@@ -120,14 +126,7 @@ void FPGA::Update()
         return;
     }
 
-    if (SET_SELFRECORDER)
-    {
-        Reader::P2P::ReadPoints();
-    }
-
-    int num_cycles = TBase::StretchRand();
-
-    for (int i = 0; i < num_cycles; i++)
+    for (int i = 0; i < TBase::StretchRand(); i++)
     {
         ProcessingData();
     }

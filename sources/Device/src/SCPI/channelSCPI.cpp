@@ -6,7 +6,7 @@
 #include "SCPI/Map.h"
 #include "Hardware/VCP/VCP.h"
 #include "FPGA/FPGA.h"
-
+#include "Menu/Pages/Definition.h"
 
 
 static Chan ch(Chan::A);
@@ -85,14 +85,9 @@ void SCPI::CHANNEL::COUPLE(uint8 *buffer)
 
 
 
-extern void OnChanged_FiltrA(bool activate);
-extern void OnChanged_FiltrB(bool activate);
-
-
-
 void SCPI::CHANNEL::FILTR(uint8 *buffer)
 {
-    static const pFuncVB func[2] = {OnChanged_FiltrA, OnChanged_FiltrB};
+    static const pFuncVB func[2] = { PageChannelA::OnChanged_Filtr, PageChannelB::OnChanged_Filtr };
 
     static const MapElement map[] =
     {
