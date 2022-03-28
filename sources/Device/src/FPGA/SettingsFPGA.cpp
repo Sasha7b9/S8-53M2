@@ -329,7 +329,7 @@ void TBase::Increase()
 }
 
 
-void RShift::Set(Chan ch, int16 rShift)
+void RShift::Set(Chan ch, int16 rshift)
 {
     if (!ch.Enabled())
     {
@@ -338,23 +338,23 @@ void RShift::Set(Chan ch, int16 rShift)
 
     RShift::ChangedMarkers();
 
-    if (rShift > RShift::MAX || rShift < RShift::MIN)
+    if (rshift > RShift::MAX || rshift < RShift::MIN)
     {
         Warning::ShowBad(ch == Chan::A ? Warning::LimitChan1_RShift : Warning::LimitChan2_RShift);
     }
 
-    LIMITATION(rShift, rShift, RShift::MIN, RShift::MAX);
+    LIMITATION(rshift, rshift, RShift::MIN, RShift::MAX);
 
-    if (rShift > RShift::ZERO)
+    if (rshift > RShift::ZERO)
     {
-        rShift &= 0xfffe;                                            // ƒелаем кратным двум, т.к. у нас 800 значений на 400 точек
+        rshift &= 0xfffe;                                            // ƒелаем кратным двум, т.к. у нас 800 значений на 400 точек
     }
-    else if (rShift < RShift::ZERO)
+    else if (rshift < RShift::ZERO)
     {
-        rShift = (rShift + 1) & 0xfffe;
+        rshift = (rshift + 1) & 0xfffe;
     }
 
-    SET_RSHIFT(ch) = rShift;
+    SET_RSHIFT(ch) = rshift;
     Load(ch.value);
 
     Display::RotateRShift(ch.value);
@@ -866,9 +866,9 @@ void RShift::Draw(Chan ch)
 
     if (ch == Chan::Math)
     {
-        int rShift = SET_RSHIFT_MATH;
+        int rshift = SET_RSHIFT_MATH;
         float scale = (float)Grid::MathHeight() / 960;
-        float y = (Grid::MathTop() + Grid::MathBottom()) / 2.0f - scale * (rShift - RShift::ZERO);
+        float y = (Grid::MathTop() + Grid::MathBottom()) / 2.0f - scale * (rshift - RShift::ZERO);
         Char(SYMBOL_RSHIFT_NORMAL).Draw((int)(x - 9), (int)(y - 4), COLOR_FILL);
         Char('m').Draw((int)(x - 8), (int)(y - 5), COLOR_BACK);
         return;
@@ -879,15 +879,15 @@ void RShift::Draw(Chan ch)
         return;
     }
 
-    int rShift = SET_RSHIFT(ch);
+    int rshift = SET_RSHIFT(ch);
 
     float scale = (float)Grid::ChannelHeight() / (RShift::STEP * 200);
-    float y = Grid::ChannelCenterHeight() - scale * (rShift - RShift::ZERO);
+    float y = Grid::ChannelCenterHeight() - scale * (rshift - RShift::ZERO);
 
     float scaleFull = (float)Grid::ChannelHeight() / (RShift::MAX - RShift::MIN) *
         (PageService::Math::Enabled() ? 0.9f : 0.91f);
 
-    float yFull = Grid::ChannelCenterHeight() - scaleFull * (rShift - RShift::ZERO);
+    float yFull = Grid::ChannelCenterHeight() - scaleFull * (rshift - RShift::ZERO);
 
     if (y > Grid::ChannelBottom())
     {

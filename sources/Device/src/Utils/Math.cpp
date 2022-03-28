@@ -69,9 +69,9 @@ int Math::MinFrom2Int(int val0, int val1)
 }
 
 
-float Math::VoltageCursor(float shiftCurU, Range::E range, RShift rShift)
+float Math::VoltageCursor(float shiftCurU, Range::E range, RShift rshift)
 {
-    return Range::MaxOnScreen(range) - shiftCurU * voltsInPixel[range] - rShift.ToAbs(range);
+    return Range::MaxOnScreen(range) - shiftCurU * voltsInPixel[range] - rshift.ToAbs(range);
 }
 
 
@@ -610,9 +610,9 @@ void Math::CalculateFiltrArray(const uint8 *in, uint8 *out, int numPoints, int n
 }
 
 
-float ValueFPGA::ToVoltage(uint8 value, Range::E range, RShift rShift)
+float ValueFPGA::ToVoltage(uint8 value, Range::E range, RShift rshift)
 {
-    return (((float)value - (float)ValueFPGA::MIN) * Range::voltsInPoint[range] - Range::MaxOnScreen(range) - rShift.ToAbs(range));
+    return (((float)value - (float)ValueFPGA::MIN) * Range::voltsInPoint[range] - Range::MaxOnScreen(range) - rshift.ToAbs(range));
 }
 
 

@@ -246,7 +246,7 @@ void LowPart::WriteTextVoltage(Chan ch, int x, int y)
     ModeCouple::E modeCouple = SET_COUPLE(ch);
     Divider::E multiplier = SET_DIVIDER(ch);
     Range::E range = SET_RANGE(ch);
-    RShift rShift = SET_RSHIFT(ch);
+    RShift rshift = SET_RSHIFT(ch);
     bool enable = SET_ENABLED(ch);
 
     if (!MODE_WORK_IS_DIRECT)
@@ -259,7 +259,7 @@ void LowPart::WriteTextVoltage(Chan ch, int x, int y)
             modeCouple = ch.IsA() ? ds.coupleA : ds.coupleB;
             multiplier = ch.IsA() ? ds.div_a : ds.div_b;
             range = ds.range[ch];
-            rShift.value = (int16)(ch.IsA() ? ds.rshiftA : ds.rshiftB);
+            rshift.value = (int16)(ch.IsA() ? ds.rshiftA : ds.rshiftB);
         }
     }
 
@@ -277,7 +277,7 @@ void LowPart::WriteTextVoltage(Chan ch, int x, int y)
         String("%s\xa5%s\xa5%s", (ch == Chan::A) ? (LANG_RU ? "1ê" : "1c") : (LANG_RU ? "2ê" : "2c"),
             couple[modeCouple], Range::ToString(range, multiplier)).Draw(x + 1, y, colorDraw);
 
-        String("\xa5%s", rShift.ToString(range, multiplier).c_str()).Draw(x + 46, y);
+        String("\xa5%s", rshift.ToString(range, multiplier).c_str()).Draw(x + 46, y);
     }
 }
 

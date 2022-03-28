@@ -267,8 +267,8 @@ void Display::WriteValueTrigLevel()
 
         if (TRIG_INPUT_IS_AC && trigSource <= TrigSource::ChannelB)
         {
-            RShift rShift = SET_RSHIFT((Chan::E)trigSource);
-            float rShiftAbs = rShift.ToAbs(SET_RANGE(trigSource));
+            RShift rshift = SET_RSHIFT((Chan::E)trigSource);
+            float rShiftAbs = rshift.ToAbs(SET_RANGE(trigSource));
             trigLev += rShiftAbs;
         }
 

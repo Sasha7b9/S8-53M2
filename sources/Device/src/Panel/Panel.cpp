@@ -84,10 +84,10 @@ namespace Panel
             return false;
         }
 
-        bool CanChangeRShiftOrTrigLev(TrigSource::E ch, int16 rShift)
+        bool CanChangeRShiftOrTrigLev(TrigSource::E ch, int16 rshift)
         {
             static uint time[3] = {0, 0, 0};
-            if (rShift == RShift::ZERO)
+            if (rshift == RShift::ZERO)
             {
                 time[ch] = TIME_MS;
                 return true;
@@ -112,14 +112,14 @@ namespace Panel
             }
             int count = CalculateCount(tMeter);
             int rShiftOld = SET_RSHIFT(ch);
-            int rShift = SET_RSHIFT(ch) + relStep * count;
-            if ((rShiftOld > RShift::ZERO && rShift < RShift::ZERO) || (rShiftOld < RShift::ZERO && rShift > RShift::ZERO))
+            int rshift = SET_RSHIFT(ch) + relStep * count;
+            if ((rShiftOld > RShift::ZERO && rshift < RShift::ZERO) || (rShiftOld < RShift::ZERO && rshift > RShift::ZERO))
             {
-                rShift = RShift::ZERO;
+                rshift = RShift::ZERO;
             }
-            if (CanChangeRShiftOrTrigLev((TrigSource::E)ch, (int16)rShift))
+            if (CanChangeRShiftOrTrigLev((TrigSource::E)ch, (int16)rshift))
             {
-                f(ch, (int16)rShift);
+                f(ch, (int16)rshift);
             }
         }
 
@@ -191,9 +191,9 @@ namespace Panel
             f(step);
         }
 
-        static void SetRShift(Chan::E ch, int16 rShift)
+        static void SetRShift(Chan::E ch, int16 rshift)
         {
-            RShift::Set(ch, rShift);
+            RShift::Set(ch, rshift);
         }
 
 

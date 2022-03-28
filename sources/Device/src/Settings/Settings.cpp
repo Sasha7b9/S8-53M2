@@ -208,7 +208,7 @@ static const Settings defaultSettings =
         ModeRegSet::Range,           // modeRegSet
         Range::_50mV,
         Divider::_1,
-        RShift::ZERO                  // rShift
+        RShift::ZERO                  // rshift
     },
     // service
     {

@@ -165,8 +165,8 @@ void SCPI::CHANNEL::OFFSET(uint8 *buffer)
     int intVal = 0;
     if (SCPI::FirstIsInt(buffer, &intVal, -240, 240))
     {
-        int rShift = RShift::ZERO + 2 * intVal;
-        RShift::Set(ch, (int16)rShift);
+        int rshift = RShift::ZERO + 2 * intVal;
+        RShift::Set(ch, (int16)rshift);
         return;
     }
     ENTER_ANALYSIS

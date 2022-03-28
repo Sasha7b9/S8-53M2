@@ -391,35 +391,35 @@ static void OnRegSet_Math_Function(int delta)
     if (MATH_MODE_REG_SET_IS_RSHIFT)
     {
         int16 prevRShift = SET_RSHIFT_MATH;
-        int16 rShift = prevRShift;
+        int16 rshift = prevRShift;
         if (delta > 0)
         {
-            if (rShift < RShift::MAX)
+            if (rshift < RShift::MAX)
             {
-                rShift += 4 * RShift::STEP;
-                LIMIT_ABOVE(rShift, RShift::MAX);
+                rshift += 4 * RShift::STEP;
+                LIMIT_ABOVE(rshift, RShift::MAX);
 
-                if (prevRShift < RShift::ZERO && rShift > RShift::ZERO)
+                if (prevRShift < RShift::ZERO && rshift > RShift::ZERO)
                 {
-                    rShift = RShift::ZERO;
+                    rshift = RShift::ZERO;
                 }
 
-                SET_RSHIFT_MATH = rShift;
+                SET_RSHIFT_MATH = rshift;
             }
         }
         else if (delta < 0)
         {
-            if (rShift > RShift::MIN)
+            if (rshift > RShift::MIN)
             {
-                rShift -= 4 * RShift::STEP;
-                LIMIT_BELOW(rShift, RShift::MIN);
+                rshift -= 4 * RShift::STEP;
+                LIMIT_BELOW(rshift, RShift::MIN);
 
-                if (prevRShift > RShift::ZERO && rShift < RShift::ZERO)
+                if (prevRShift > RShift::ZERO && rshift < RShift::ZERO)
                 {
-                    rShift = RShift::ZERO;
+                    rshift = RShift::ZERO;
                 }
 
-                SET_RSHIFT_MATH = rShift;
+                SET_RSHIFT_MATH = rshift;
             }
         }
     }

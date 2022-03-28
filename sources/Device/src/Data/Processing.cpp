@@ -251,10 +251,10 @@ float Processing::CalculateVoltageVybrosPlus(Chan::E ch)
         markerVolt[ch][1] = maxSteady;
     }
 
-    int16 rShift = out.ds.GetRShift(ch);
+    int16 rshift = out.ds.GetRShift(ch);
 
-    return std::fabsf(ValueFPGA::ToVoltage(maxSteady, out.ds.range[ch], rShift) -
-        ValueFPGA::ToVoltage(max, out.ds.range[ch], rShift)) * SET_DIVIDER_ABS(ch);
+    return std::fabsf(ValueFPGA::ToVoltage(maxSteady, out.ds.range[ch], rshift) -
+        ValueFPGA::ToVoltage(max, out.ds.range[ch], rshift)) * SET_DIVIDER_ABS(ch);
 }
 
 float Processing::CalculateVoltageVybrosMinus(Chan::E ch)
@@ -269,10 +269,10 @@ float Processing::CalculateVoltageVybrosMinus(Chan::E ch)
         markerVolt[ch][1] = minSteady;
     }
 
-    int16 rShift = out.ds.GetRShift(ch);
+    int16 rshift = out.ds.GetRShift(ch);
 
-    return std::fabsf(ValueFPGA::ToVoltage(minSteady, out.ds.range[ch], rShift) -
-        ValueFPGA::ToVoltage(min, out.ds.range[ch], rShift)) * SET_DIVIDER_ABS(ch);
+    return std::fabsf(ValueFPGA::ToVoltage(minSteady, out.ds.range[ch], rshift) -
+        ValueFPGA::ToVoltage(min, out.ds.range[ch], rshift)) * SET_DIVIDER_ABS(ch);
 }
 
 float Processing::CalculateVoltageAmpl(Chan::E ch)
@@ -321,17 +321,17 @@ float Processing::CalculateVoltageRMS(Chan::E ch)
     EXIT_IF_ERROR_INT(period);
 
     float rms = 0.0f;
-    int16 rShift = out.ds.GetRShift(ch);
+    int16 rshift = out.ds.GetRShift(ch);
 
     for(int i = firstP; i < firstP + period; i++)
     {
-        float volts = ValueFPGA::ToVoltage(out.Data(ch)[i], out.ds.range[ch], rShift);
+        float volts = ValueFPGA::ToVoltage(out.Data(ch)[i], out.ds.range[ch], rshift);
         rms +=  volts * volts;
     }
 
     if(MEAS_MARKED == Measure::VoltageRMS)
     {
-        markerVolt[ch][0] = ValueFPGA::FromVoltage(std::sqrt(rms / period), out.ds.range[ch], rShift);
+        markerVolt[ch][0] = ValueFPGA::FromVoltage(std::sqrt(rms / period), out.ds.range[ch], rshift);
     }
 
     return std::sqrt(rms / period) * SET_DIVIDER_ABS(ch);
