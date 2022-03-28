@@ -366,8 +366,12 @@ void DataPainter::DrawMath()
     Buffer<float> absA(ds.BytesInChanStored());
     Buffer<float> absB(ds.BytesInChanStored());
 
-    ValueFPGA::ToVoltage(dataA.Data(), ds.BytesInChanReal(), ds.range[Chan::A], (int16)ds.rshiftA, absA.Data());
-    ValueFPGA::ToVoltage(dataB.Data(), ds.BytesInChanReal(), ds.range[Chan::B], (int16)ds.rshiftB, absB.Data());
+    ValueFPGA::ToVoltageArray(dataA.Data(), ds.BytesInChanReal(), ds.range[Chan::A], (int16)ds.rshiftA, absA.Data());
+    ValueFPGA::ToVoltageArray(dataB.Data(), ds.BytesInChanReal(), ds.range[Chan::B], (int16)ds.rshiftB, absB.Data());
+
+    SU::LogBufferU8("in:  ", dataA.Data(), 10);
+    SU::LogBufferF("out: ", absA.Data(), 10);
+    LOG_WRITE("element 3 : %f", absA.Data()[3]);   
 
     Math::CalculateMathFunction(absA.Data(), absB.Data(), ds.BytesInChanReal());
 
@@ -849,7 +853,7 @@ void DataPainter::Spectrum::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan
     int y1 = 0;
     int s = 2;
 
-    ValueFPGA::ToVoltage(data, numPoints, Processing::out.ds.range[ch], (ch == Chan::A) ?
+    ValueFPGA::ToVoltageArray(data, numPoints, Processing::out.ds.range[ch], (ch == Chan::A) ?
         (int16)Processing::out.ds.rshiftA :
         (int16)Processing::out.ds.rshiftB, dataR);
 

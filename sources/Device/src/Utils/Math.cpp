@@ -614,7 +614,7 @@ float ValueFPGA::ToVoltage(uint8 value, Range::E range, RShift rShift)
 }
 
 
-void ValueFPGA::ToVoltage(const uint8 *points, int numPoints, Range::E range, RShift rShift, float *voltage)
+void ValueFPGA::ToVoltageArray(const uint8 *points, int numPoints, Range::E range, RShift rShift, float *voltage)
 {
     int voltInPixel = voltsInPixelInt[range];
     float maxVoltsOnScreen = Range::MaxOnScreen(range);
