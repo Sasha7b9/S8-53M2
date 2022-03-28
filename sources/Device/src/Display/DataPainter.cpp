@@ -459,7 +459,6 @@ void DataPainter::DrawDataNormal()
 
         if (ENUM_ACCUM_IS_INFINITY)
         {
-            LOG_WRITE("infinity");
             DrawBothChannels(Processing::out);
         }
         else
@@ -477,13 +476,15 @@ void DataPainter::DrawDataNormal()
             }
             else
             {
+                LOG_WRITE("num signals = %d", num_signals);
+
                 for (int i = 0; i < num_signals; i++)
                 {
                     Processing::SetData(Storage::GetData(i));
 
                     DrawBothChannels(Processing::out);
 
-                    ENumAccumulation::number_drawing = 0;
+                    ENumAccumulation::number_drawing = NUM_ACCUM + 1;
                 }
             }
         }

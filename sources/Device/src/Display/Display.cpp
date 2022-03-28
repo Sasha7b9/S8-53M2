@@ -170,7 +170,7 @@ bool Display::NeedForClearScreen()
         return false;
     }
 
-    if (MODE_ACCUM_IS_RESET && !ENUM_ACCUM_IS_INFINITY && ENumAccumulation::number_drawing >= numAccum)
+    if (ENumAccumulation::number_drawing >= numAccum)
     {
         ENumAccumulation::number_drawing = 0;
         return true;
