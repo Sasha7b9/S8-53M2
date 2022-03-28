@@ -117,9 +117,9 @@ int DataStruct::PrepareForNormalDrawP2P()
         last *= 2;
     }
 
-    int bytes_on_screen = last - first;        // Столько точек всего помещается на экран
+    int bytes_on_screen = last - first ;             // Столько точек всего помещается на экран
 
-    int drawing_points = all_points;            // Здесь будет храниться количество точек, которе нужно вывести на экране
+    int drawing_points = all_points;                // Здесь будет храниться количество точек, которе нужно вывести на экране
 
     BufferFPGA screenA(bytes_on_screen, ValueFPGA::NONE);       // Здесь точки канала 1, выводимые на экран
     BufferFPGA screenB(bytes_on_screen, ValueFPGA::NONE);       // Здесь точки канала 2, выводимые на экран

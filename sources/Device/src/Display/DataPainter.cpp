@@ -231,6 +231,7 @@ void DataPainter::DrawSignalLined(const uint8 *in, const DataSettings &ds, int s
         for (int i = start; i < end; i++)
         {
             float x0 = gridLeft + (i - start) * scaleX;
+
             if (x0 >= gridLeft && x0 <= gridRight)
             {
                 int index = i - start;
@@ -241,6 +242,7 @@ void DataPainter::DrawSignalLined(const uint8 *in, const DataSettings &ds, int s
         if (end - start < 281)
         {
             int _numPoints = 281 - (end - start);
+
             for (int i = 0; i < _numPoints; i++)
             {
                 int index = end - start + i;
@@ -746,7 +748,7 @@ void DataPainter::DrawSignal(const int _x, const uint8 data[281], bool modeLines
     {
         int y_prev = data[0];
 
-        for (int i = 1; i < 280; i++)
+        for (int i = 1; i < 281; i++)
         {
             int y = data[i];
 

@@ -4,6 +4,7 @@
 #include "Settings/SettingsDisplay.h"
 #include "Utils/Math.h"
 #include "Hardware/HAL/HAL.h"
+#include "Display/Screen/Grid.h"
 
 
 int ENumAccumulation::number_drawing = 0;
@@ -23,9 +24,8 @@ BitSet32 SettingsDisplay::PointsOnDisplay()
 {
     BitSet32 result;
 
-    int numPointsOnScreen = 281;
     result.half_iword[0] = SHIFT_IN_MEMORY;
-    result.half_iword[1] = SHIFT_IN_MEMORY + numPointsOnScreen - 1;
+    result.half_iword[1] = SHIFT_IN_MEMORY + Grid::Width() + 1;
 
     return result;
 }
