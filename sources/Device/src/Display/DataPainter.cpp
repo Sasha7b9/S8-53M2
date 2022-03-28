@@ -39,6 +39,9 @@ namespace DataPainter
 
     void DrawDataChannel(DataStruct &, Chan, int minY, int maxY);
 
+    // Нарисовать данные канала и мин-макс
+    void DrawDataChannelWithMinMax(DataStruct &, Chan, int minY, int maxY);
+
     void DrawMarkersForMeasure(float scaleY, Chan);
 
     void DrawSignalLined(const uint8 *data, const DataSettings &, int startPoint, int endPoint, int minY, int maxY,
@@ -47,7 +50,11 @@ namespace DataPainter
     void DrawSignalPointed(const uint8 *data, const DataSettings &, int startPoint, int endPoint, int minY, int maxY,
         float scaleY, float scaleX);
 
-    void DrawBothChannels(DataStruct &);
+    // Если (min_max == true), то рисуем draw_min_max
+    void DrawBothChannels(DataStruct &, bool draw_min_max);
+
+    // Нарисовать min/max
+    void DrawMinMax(Chan, DataStruct &, int minY, int maxY);
 
     // modeLines - true - точками, false - точками
     void DrawSignal(const int x, const uint8 data[281], bool modeLines);
@@ -380,8 +387,10 @@ void DataPainter::DrawMath()
 }
 
 
-void DataPainter::DrawBothChannels(DataStruct &data)
+void DataPainter::DrawBothChannels(DataStruct &data, bool draw_min_max)
 {
+    typedef void (*func)
+
     if (LAST_AFFECTED_CHANNEL_IS_B)
     {
         DrawDataChannel(data, Chan::A, GRID_TOP, Grid::ChannelBottom());
@@ -392,6 +401,12 @@ void DataPainter::DrawBothChannels(DataStruct &data)
         DrawDataChannel(data, Chan::B, GRID_TOP, Grid::ChannelBottom());
         DrawDataChannel(data, Chan::A, GRID_TOP, Grid::ChannelBottom());
     }
+}
+
+
+void DataPainter::DrawMinMax(Chan, DataStruct &)
+{
+
 }
 
 
@@ -433,7 +448,7 @@ void DataPainter::DrawDataNormal()
 
     if (numSignals == 1 || ENUM_ACCUM_IS_INFINITY || MODE_ACCUM_IS_RESET || TBase::InModeRandomizer())
     {
-        DrawBothChannels(Processing::out);
+        DrawBothChannels(Processing::out, NUM_MIN_MAX > 1);
 
         Display::numDrawingSignals++;
     }
@@ -443,7 +458,7 @@ void DataPainter::DrawDataNormal()
         {
             Processing::SetData(Storage::GetData(i));
 
-            DrawBothChannels(Processing::out);
+            DrawBothChannels(Processing::out, (NUM_MIN_MAX > 1) && (i == numSignals - 1));
         }
     }
 }
