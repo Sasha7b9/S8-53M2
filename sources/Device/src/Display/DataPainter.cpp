@@ -174,6 +174,11 @@ void DataPainter::DrawDataChannel(DataStruct &data, Chan ch, int minY, int maxY)
 
     Color::SetCurrent(ColorChannel(ch));
 
+    if (ch.IsMath())
+    {
+        ch = Chan::A;
+    }
+
     if (MODE_DRAW_IS_SIGNAL_LINES)
     {
         DrawSignalLined(data.Data(ch).Data(), ds, first, last, minY, maxY, scaleY, scaleX);
@@ -380,8 +385,6 @@ void DataPainter::DrawMath()
     ValueFPGA::FromVoltageArray(absA, ds.BytesInChanReal(), SET_RANGE_MATH, SET_RSHIFT_MATH, data.A.Data());
     data.ds.range[ChA] = SET_RANGE_MATH;
     data.ds.rshiftA = (uint)SET_RSHIFT_MATH;
-
-    SU::LogBufferU8("out: ", data.A.Data(), 3);
 
     DrawDataChannel(data, Chan::Math, Grid::MathTop(), Grid::MathBottom());
 

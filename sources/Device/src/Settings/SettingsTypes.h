@@ -23,8 +23,9 @@ struct Chan
     // Возвращает номер канала от 1 до 2
     int ToNumber() { return (value == Chan::A) ? 1 : 2; }
 
-    bool IsA() const { return value == A; }
-    bool IsB() const { return value == B; }
+    bool IsA()    const { return value == A; }
+    bool IsB()    const { return value == B; }
+    bool IsMath() const { return value == Math; }
 
     operator int() { return (int)value; }
 };
