@@ -401,7 +401,7 @@ void DataPainter::DrawBothChannels(DataStruct &data, bool draw_min_max)
         if (draw_min_max) { DrawMinMax(ChB, min, max); }
 
         DrawDataChannel(data, ChA, min, max);
-        if (draw_min_max) { DrawMinMax(ChA, min, max); }
+//        if (draw_min_max) { DrawMinMax(ChA, min, max); }
     }
 }
 
