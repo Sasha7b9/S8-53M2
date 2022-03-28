@@ -152,9 +152,7 @@ void Display::RotateTrigLev()
 
 bool Display::NeedForClearScreen()
 {
-    int numAccum = NUM_ACCUM;
-
-    if (TBase::InModeRandomizer() || numAccum == 1 || SET_SELFRECORDER)
+    if (TBase::InModeRandomizer() || (NUM_ACCUM == 1) || SET_SELFRECORDER)
     {
         return true;
     }
@@ -171,7 +169,7 @@ bool Display::NeedForClearScreen()
         return false;
     }
 
-    if (MODE_ACCUM_IS_NORESET || ENumAccumulation::number_drawing > numAccum)
+    if (MODE_ACCUM_IS_NORESET || ENumAccumulation::number_drawing > NUM_ACCUM)
     {
         ENumAccumulation::number_drawing = 0;
         return true;

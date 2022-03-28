@@ -42,20 +42,6 @@ static bool IsActive_MinMax() //-V524
 }
 
 
-static void OnChanged_MinMax(bool)
-{
-    /*
-    int maxMeasures = DS_NumberAvailableEntries();
-    int numMinMax = sDisplay_NumberMinMax();
-
-    if (maxMeasures < numMinMax)
-    {
-        Display::ShowWarningWithNumber(ExcessValues, maxMeasures);
-    }
-    */
-}
-
-
 static const Choice mcMinMax =
 {
     TypeItem::ChoiceReg, &pDisplay, IsActive_MinMax,
@@ -77,7 +63,7 @@ static const Choice mcMinMax =
         {"64",          "64"},
         {"128",         "128"}
     },
-    (int8 *)&ENUM_MIN_MAX, OnChanged_MinMax
+    (int8 *)&ENUM_MIN_MAX, nullptr
 };
 
 
