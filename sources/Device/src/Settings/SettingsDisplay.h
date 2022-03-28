@@ -131,16 +131,20 @@ struct ModeAveraging
 };
 
 // Количество измерений для расчёта минимального и максимального значений.
-enum ENumMinMax
+struct ENumMinMax
 {
-    NumMinMax_1,
-    NumMinMax_2,
-    NumMinMax_4,
-    NumMinMax_8,
-    NumMinMax_16,
-    NumMinMax_32,
-    NumMinMax_64,
-    NumMinMax_128
+    enum E
+    {
+        _1,
+        _2,
+        _4,
+        _8,
+        _16,
+        _32,
+        _64,
+        _128,
+        Count
+    };
 };
 
 // Количество точек для расчёта скользящего фильтра.
@@ -242,7 +246,7 @@ struct SettingsDisplay
     ENumAccumulation::E enumAccumulation;       // Перечисление накоплений сигнала на экране.
     ENumAveraging::E    enumAve;                // Перечисление усреднений сигнала.
     ModeAveraging::E    modeAve;                // Тип усреднений по измерениям.
-    ENumMinMax          enumMinMax;             // Число измерений для определения минимумов и максимумов.
+    ENumMinMax::E       enumMinMax;             // Число измерений для определения минимумов и максимумов.
     Smoothing::E        smoothing;              // Число точек для скользящего фильтра.
     ENumSignalsInSec::E enumSignalsInSec;       // Перечисление считываний сигнала в секунду.
     Chan                lastAffectedChannel;    // Здесь хранится номер последнего канала, которым управляли ручками.

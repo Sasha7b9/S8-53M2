@@ -209,8 +209,8 @@ void SCPI::DISPLAY::MINMAX(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value <= 7)         { ENUM_MIN_MAX = (ENumMinMax)value; }
-        else if (8 == value)    { ENUM_MIN_MAX = NumMinMax_1; }
+        if (value <= 7)         { ENUM_MIN_MAX = (ENumMinMax::E)value; }
+        else if (8 == value)    { ENUM_MIN_MAX = ENumMinMax::_1; }
         else if (9 == value)
         {
             SCPI_SEND(":DISPLAY:MINMAX %s", map[ENUM_MIN_MAX].key);
