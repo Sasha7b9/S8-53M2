@@ -639,7 +639,7 @@ void ValueFPGA::FromVoltageArray(const float *voltage, int numPoints, Range::E r
 {
     for (int i = 0; i < numPoints; i++)
     {
-        *points++ = FromVoltage(*voltage++, range, rshift);
+        points[i] = FromVoltage(voltage[i], range, rshift);
     }
 }
 
