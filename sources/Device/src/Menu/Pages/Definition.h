@@ -20,6 +20,7 @@ struct PageChannelA
 {
     static void OnChanged_Input(bool);
     static void OnChanged_Filtr(bool);
+    static void OnChanged_Couple(bool);
 
     static const Page *self;
 };
@@ -29,6 +30,7 @@ struct PageChannelB
 {
     static void OnChanged_Input(bool);
     static void OnChanged_Filtr(bool);
+    static void OnChanged_Couple(bool);
 
     static const Page *self;
 };

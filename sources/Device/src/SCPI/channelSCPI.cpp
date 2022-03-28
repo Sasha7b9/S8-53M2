@@ -55,14 +55,9 @@ void SCPI::CHANNEL::INPUT(uint8 *buffer)
 
 
 
-extern void OnChanged_CoupleA(bool);
-extern void OnChanged_CoupleB(bool);
-
-
-
 void SCPI::CHANNEL::COUPLE(uint8 *buffer)
 {
-    static const pFuncVB func[2] = {OnChanged_CoupleA, OnChanged_CoupleB};
+    static const pFuncVB func[2] = { PageChannelA::OnChanged_Couple, PageChannelB::OnChanged_Couple };
 
     static const MapElement map[] = 
     {

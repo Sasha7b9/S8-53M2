@@ -62,7 +62,7 @@ void PageChannelA::OnChanged_Input(bool)
 }
 
 
-void OnChanged_CoupleA(bool)
+void PageChannelA::OnChanged_Couple(bool)
 {
     ModeCouple::Set(Chan::A, SET_COUPLE_A);
 }
@@ -81,7 +81,7 @@ static const Choice mcCoupleA =
         {"Перем",   "DC"},
         {"Земля",   "Ground"}
     },
-    (int8*)&SET_COUPLE_A, OnChanged_CoupleA
+    (int8*)&SET_COUPLE_A, PageChannelA::OnChanged_Couple
 };
 
 
@@ -161,7 +161,7 @@ static const Choice mcInputB =
 };
 
 
-void OnChanged_CoupleB(bool)
+void PageChannelB::OnChanged_Couple(bool)
 {
     ModeCouple::Set(Chan::B, SET_COUPLE_B);
 }
@@ -180,7 +180,7 @@ static const Choice mcCoupleB =
         {"Перем",   "DC"},
         {"Земля",   "Ground"}
     },
-    (int8 *)&SET_COUPLE_B, OnChanged_CoupleB
+    (int8 *)&SET_COUPLE_B, PageChannelB::OnChanged_Couple
 };
 
 
