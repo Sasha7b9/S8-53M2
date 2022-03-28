@@ -41,22 +41,22 @@ const float voltsInPixel[Range::Count] =
 };
 
 
-//const int voltsInPixelInt[Range::Count] =   // Коэффициент 20000
-//{
-//    2,      // 2
-//    5,      // 5
-//    10,     // 10
-//    20,     // 20
-//    50,     // 50
-//    100,    // 100
-//    200,    // 200
-//    500,    // 500
-//    1000,   // 1
-//    2000,   // 2
-//    5000,   // 5
-//    1000,   // 10
-//    20000   // 20
-//};
+const int voltsInPixelInt[Range::Count] =   // Коэффициент 20000
+{
+    2,      // 2
+    5,      // 5
+    10,     // 10
+    20,     // 20
+    50,     // 50
+    100,    // 100
+    200,    // 200
+    500,    // 500
+    1000,   // 1
+    2000,   // 2
+    5000,   // 5
+    1000,   // 10
+    20000   // 20
+};
 
 
 int Math::MinFrom2Int(int val0, int val1)
@@ -627,7 +627,7 @@ void ValueFPGA::ToVoltageArray(const uint8 *points, int numPoints, Range::E rang
 
 uint8 ValueFPGA::FromVoltage(float voltage, Range::E range, RShift rshift)
 {
-    int result = (voltage + Range::MaxOnScreen(range) + rshift.ToAbs(range)) / voltsInPixel[range] + ValueFPGA::MIN;
+    int result = (voltage + Range::MaxOnScreen(range) + rshift.ToAbs(range)) / Range::voltsInPoint[range] + ValueFPGA::MIN;
 
     LIMITATION(result, result, 0, 255);
 

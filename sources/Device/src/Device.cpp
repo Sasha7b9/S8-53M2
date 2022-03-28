@@ -74,6 +74,10 @@ void Device::Update()
 
     Settings::SaveIfNeed();
 
+//    float voltage = 0.0f;
+//
+//    LOG_WRITE("%f V = %d", voltage, ValueFPGA::FromVoltage(voltage, Range::_1V, RShift::ZERO + 40));
+
     DEBUG_POINT_0;
 
     // LAN::Update(0);

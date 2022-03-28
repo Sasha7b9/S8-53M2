@@ -13,6 +13,7 @@
 namespace FPGA
 {
     static const int MAX_POINTS = 1024;
+    static const int MAX_BYTES = MAX_POINTS * 2;
 
     extern StateFPGA state;
 

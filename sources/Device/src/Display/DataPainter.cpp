@@ -365,19 +365,19 @@ void DataPainter::DrawMath()
     BufferFPGA   &dataB = Processing::out.B;
     DataSettings &ds = Processing::out.ds;
 
-    Buffer<float> absA(ds.BytesInChanStored());
-    Buffer<float> absB(ds.BytesInChanStored());
+    float absA[FPGA::MAX_BYTES];
+    float absB[FPGA::MAX_BYTES];
 
-    ValueFPGA::ToVoltageArray(dataA.Data(), ds.BytesInChanReal(), ds.range[Chan::A], (int16)ds.rshiftA, absA.Data());
-    ValueFPGA::ToVoltageArray(dataB.Data(), ds.BytesInChanReal(), ds.range[Chan::B], (int16)ds.rshiftB, absB.Data());
+    ValueFPGA::ToVoltageArray(dataA.Data(), ds.BytesInChanReal(), ds.range[Chan::A], (int16)ds.rshiftA, absA);
+    ValueFPGA::ToVoltageArray(dataB.Data(), ds.BytesInChanReal(), ds.range[Chan::B], (int16)ds.rshiftB, absB);
 
-    Math::CalculateMathFunction(absA.Data(), absB.Data(), ds.BytesInChanReal());
+    Math::CalculateMathFunction(absA, absB, ds.BytesInChanReal());
 
     DataStruct data;
     data.ds.Set(ds);
     data.A.Realloc(ds.BytesInChanReal());
 
-    ValueFPGA::FromVoltageArray(absA.Data(), ds.BytesInChanReal(), SET_RANGE_MATH, SET_RSHIFT_MATH, data.A.Data());
+    ValueFPGA::FromVoltageArray(absA, ds.BytesInChanReal(), SET_RANGE_MATH, SET_RSHIFT_MATH, data.A.Data());
     data.ds.range[ChA] = SET_RANGE_MATH;
     data.ds.rshiftA = (uint)SET_RSHIFT_MATH;
 
