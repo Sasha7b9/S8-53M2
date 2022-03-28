@@ -6,7 +6,6 @@
 #define SIZE_FONT_CONSOLE       (set.debug.sizeFont)
 #define NUM_MEAS_FOR_GATES      (set.debug.numMeasuresForGates)
 #define SHOW_STATS              (set.debug.showStats)
-#define NUM_AVE_FOR_RAND        (set.debug.numAveForRand)
 
 #define SET_BALANCE_ADC(ch)     (set.debug.balanceADC[ch])
 #define SET_BALANCE_ADC_A       (SET_BALANCE_ADC(ChA))

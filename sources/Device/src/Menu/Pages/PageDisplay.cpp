@@ -295,7 +295,7 @@ static const Choice mcAveraging_Number =
         {"256",         "256"},
         {"512",         "512"}
     },
-    (int8 *)&ENUM_AVE, nullptr, nullptr
+    (int8 *)&set.display.enumAve, nullptr, nullptr
 };
 
 

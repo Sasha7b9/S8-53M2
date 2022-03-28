@@ -242,7 +242,7 @@ const DataStruct &Storage::GetData(int from_end)
 
 const DataStruct &Storage::GetLatest()
 {
-    if (TBase::InModeRandomizer() || ENUM_AVE != ENumAveraging::_1)
+    if (ENumAveraging::ToNumber() > 1)
     {
         return Averager::GetData();
     }

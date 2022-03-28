@@ -45,19 +45,6 @@ bool SettingsDisplay::IsSeparate()
 }
 
 
-int ModeAveraging::GetNumber()
-{
-    int num_ave = NUM_AVE;
-
-    if (TBase::InModeRandomizer() && NUM_AVE < NUM_AVE_FOR_RAND)
-    {
-        num_ave = NUM_AVE_FOR_RAND;
-    }
-
-    return num_ave;
-}
-
-
 ENumSignalsInSec::E ENumSignalsInSec::FromNum(int num)
 {
     if (num == 1)
@@ -99,4 +86,20 @@ int ENumSignalsInSec::ToNum(ENumSignalsInSec::E enumSignalsInSec)
     LOG_ERROR_TRACE("Неправильный параметр %d", (int)enumSignalsInSec);
 
     return 1;
+}
+
+
+int ENumAveraging::ToNumber()
+{
+    int num_ave = (1 << set.display.enumAve);
+
+    if (TBase::InModeRandomizer())
+    {
+        if ((1 << set.display.enumAve) < set.debug.numAveForRand)
+        {
+            num_ave = set.debug.numAveForRand;
+        }
+    }
+
+    return num_ave;
 }

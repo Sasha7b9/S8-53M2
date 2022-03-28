@@ -19,7 +19,7 @@ namespace Averager
     namespace Around
     {
         DataSettings     ave_ds;                            // \-
-        ENumAveraging::E enum_ave = ENumAveraging::Count;   // |- Настройки усредняемых сейчас сигналов 
+        int              num_ave = -1;                      // |- Настройки усредняемых сейчас сигналов 
         ModeAveraging::E mode_ave = ModeAveraging::Count;   // /-
 
         Buffer<float> ave_a;        // Здесь усреднённые значения,
@@ -49,7 +49,7 @@ namespace Limitator
 
 void Averager::Around::ProcessBeforeAdding(const DataFrame &frame)
 {
-    if (ModeAveraging::GetNumber() < 2)
+    if (ENumAveraging::ToNumber() < 2)
     {
         added_datas = 0;
         ave_a.Free();
@@ -57,7 +57,7 @@ void Averager::Around::ProcessBeforeAdding(const DataFrame &frame)
     }
     else
     {
-        if (!ave_ds.Equal(*frame.ds) || enum_ave != ENUM_AVE || mode_ave != MODE_AVE)
+        if (!ave_ds.Equal(*frame.ds) || (num_ave != ENumAveraging::ToNumber()) || (mode_ave != MODE_AVE))
         {
             added_datas = 0;
         }
@@ -65,7 +65,7 @@ void Averager::Around::ProcessBeforeAdding(const DataFrame &frame)
         if (added_datas == 0)
         {
             ave_ds.Set(*frame.ds);
-            enum_ave = ENUM_AVE;
+            num_ave = ENumAveraging::ToNumber();
             mode_ave = MODE_AVE;
             ave_a.Realloc(ave_ds.BytesInChanStored());
             ave_b.Realloc(ave_ds.BytesInChanStored());
@@ -93,7 +93,7 @@ void Averager::Around::Append(const DataFrame &frame)
     {
         int num_datas = Storage::SameSettings::GetCount();
 
-        Math::Limitation<int>(num_datas, 0, ModeAveraging::GetNumber());
+        Math::Limitation<int>(num_datas, 0, ENumAveraging::ToNumber());
 
         float ave_fless = (float)num_datas - 1.0f;
         float ave_inv = 1.0f / (float)num_datas;
@@ -173,7 +173,7 @@ DataStruct &Averager::Accuracy::GetData()
 {
     static DataStruct result;
 
-    int num_datas = ModeAveraging::GetNumber();
+    int num_datas = ENumAveraging::ToNumber();
 
     LIMIT_ABOVE(num_datas, Storage::SameSettings::GetCount());
 
