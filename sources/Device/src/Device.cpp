@@ -34,7 +34,7 @@ void Device::Init()
 
     Panel::Init();
 
-    // FDrive::Init();
+     FDrive::Init();
     // LAN::Init();
     VCP::Init();
 }
