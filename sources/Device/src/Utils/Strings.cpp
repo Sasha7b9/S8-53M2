@@ -219,7 +219,7 @@ void SU::LogBufferF(pchar label, const float *data, int num)
 
     for (int i = 0; i < num; i++)
     {
-        string.Append(SU::Float2String(data[i], false, 1));
+        string.Append(SU::Float2String(data[i], false, 4));
         string.Append(" ");
     }
 

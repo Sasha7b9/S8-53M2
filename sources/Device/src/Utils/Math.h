@@ -37,7 +37,7 @@ namespace Math
     int   MinInt(int val1, int val2);
     void  CalculateFFT(float *data, int numPoints, float *result, float *freq0, float *density0, float *freq1,
         float *density1, int *y0, int *y1);
-    void  CalculateMathFunction(float *data0andResult, float *data1, int numPoints);
+    void  CalculateMathFunction(float *inAout, float *inB, int numPoints);
     float RandFloat(float min, float max);
     int8  AddInt8WithLimitation(int8 value, int8 delta, int8 min, int8 max);
     uint8 GetMaxFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint);

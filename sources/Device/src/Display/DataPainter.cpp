@@ -371,9 +371,7 @@ void DataPainter::DrawMath()
     ValueFPGA::ToVoltageArray(dataA.Data(), ds.BytesInChanReal(), ds.range[Chan::A], (int16)ds.rshiftA, absA.Data());
     ValueFPGA::ToVoltageArray(dataB.Data(), ds.BytesInChanReal(), ds.range[Chan::B], (int16)ds.rshiftB, absB.Data());
 
-    SU::LogBufferU8("in:  ", dataA.Data(), 10);
-    SU::LogBufferF("out: ", absA.Data(), 10);
-    LOG_WRITE("element 3 : %f", absA.Data()[3]);   
+    SU::LogBufferF("out: ", absA.Data(), 3);
 
     Math::CalculateMathFunction(absA.Data(), absB.Data(), ds.BytesInChanReal());
 
