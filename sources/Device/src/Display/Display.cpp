@@ -79,8 +79,7 @@ void Display::Init()
 
 #ifdef DEVICE
 
-//    PageDisplay::PageSettings::LoadBrightness();
-    HAL_DAC1::SetBrightness(100);
+    HAL_DAC1::SetBrightness(BRIGHTNESS);
 
 #else
 
