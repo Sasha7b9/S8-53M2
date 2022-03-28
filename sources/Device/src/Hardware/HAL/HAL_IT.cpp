@@ -81,13 +81,14 @@ extern "C" {
         HAL_IncTick();
     }
 
+    // Флешка
     void OTG_HS_IRQHandler(void)
     {
         HAL_HCD_IRQHandler((HCD_HandleTypeDef *)HAL_HCD::handle);
     }
 
 
-
+    // VCP
     void OTG_FS_IRQHandler()
     {
         HAL_PCD_IRQHandler((PCD_HandleTypeDef *)HAL_PCD::handle);

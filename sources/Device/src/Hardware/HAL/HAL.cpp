@@ -23,7 +23,7 @@ void HAL::Init()
 
     HAL_PINS::Init();
 
-//    HAL_HCD::Init();            // Для флешки
+    HAL_HCD::Init();            // Для флешки
 
     HAL_TIM6::Init();           // Миллисекунды
 

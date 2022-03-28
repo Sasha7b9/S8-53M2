@@ -13,6 +13,8 @@ namespace HAL_HCD
 
 void HAL_HCD::Init()
 {
+    LOG_TRACE();
+
     __GPIOB_CLK_ENABLE();
     __USB_OTG_HS_CLK_ENABLE();
     __SYSCFG_CLK_ENABLE();
