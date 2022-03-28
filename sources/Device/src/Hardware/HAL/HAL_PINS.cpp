@@ -246,12 +246,14 @@ void HAL_PINS::Init()
     PinLTDC(H, 11).Init();      // R5   88  +
     PinLTDC(H, 12).Init();      // R6   89  +
     PinLTDC(G, 6).Init();       // R7   110 +
+    
     PinLTDC(A, 6).Init();       // G2   52  +
     PinLTDC(H, 14).Init();      // G3   129 +
     PinLTDC(B, 10).Init();      // G4   79  +
     PinLTDC(I, 0).Init();       // G5   131 +
     PinLTDC(C, 7).Init();       // G6   116 +
     PinLTDC(D, 3).Init();       // G7   145 +
+
     PinLTDC(D, 6).Init();       // B2   150 +
     PinLTDC(G, 11).Init();      // B3   154 +
     PinLTDC(G, 12).Init();      // B4   155 +

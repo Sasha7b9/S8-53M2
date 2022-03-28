@@ -35,12 +35,7 @@ namespace DataPainter
 
     void DrawDataInModeWorkLatestMemInt();
 
-    void DrawDataMinMax();
-
     void DrawDataChannel(DataStruct &, Chan, int minY, int maxY);
-
-    // Нарисовать данные канала и мин-макс
-    void DrawDataChannelWithMinMax(DataStruct &, Chan, int minY, int maxY);
 
     void DrawMarkersForMeasure(float scaleY, Chan);
 
@@ -54,7 +49,7 @@ namespace DataPainter
     void DrawBothChannels(DataStruct &, bool draw_min_max);
 
     // Нарисовать min/max
-    void DrawMinMax(Chan, DataStruct &, int minY, int maxY);
+    void DrawMinMax(Chan, int minY, int maxY);
 
     // modeLines - true - точками, false - точками
     void DrawSignal(const int x, const uint8 data[281], bool modeLines);
@@ -389,50 +384,44 @@ void DataPainter::DrawMath()
 
 void DataPainter::DrawBothChannels(DataStruct &data, bool draw_min_max)
 {
-    typedef void (*func)
+    int min = GRID_TOP;
+    int max = Grid::ChannelBottom();
 
     if (LAST_AFFECTED_CHANNEL_IS_B)
     {
-        DrawDataChannel(data, Chan::A, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(data, Chan::B, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(data, ChA, min, max);
+        if (draw_min_max) { DrawMinMax(ChA, min, max); }
+
+        DrawDataChannel(data, ChB, min, max);
+        if (draw_min_max) { DrawMinMax(ChB, min, max); }
     }
     else
     {
-        DrawDataChannel(data, Chan::B, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(data, Chan::A, GRID_TOP, Grid::ChannelBottom());
+        DrawDataChannel(data, ChB, min, max);
+        if (draw_min_max) { DrawMinMax(ChB, min, max); }
+
+        DrawDataChannel(data, ChA, min, max);
+        if (draw_min_max) { DrawMinMax(ChA, min, max); }
     }
 }
 
 
-void DataPainter::DrawMinMax(Chan, DataStruct &)
+void DataPainter::DrawMinMax(Chan ch, int minY, int maxY)
 {
-
-}
-
-
-void DataPainter::DrawDataMinMax()
-{
-    ModeDrawSignal::E modeDrawSignalOld = MODE_DRAW_SIGNAL;
+    ModeDrawSignal::E modeOld = MODE_DRAW_SIGNAL;
     MODE_DRAW_SIGNAL = ModeDrawSignal::Lines;
 
-    DataStruct limit;
+    DataStruct data;
 
-    if (LAST_AFFECTED_CHANNEL_IS_B)
-    {
-        DrawDataChannel(Limitator::GetLimitation(ChA, 0, limit), ChA, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Limitator::GetLimitation(ChA, 1, limit), ChA, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Limitator::GetLimitation(ChB, 0, limit), ChB, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Limitator::GetLimitation(ChB, 1, limit), ChB, GRID_TOP, Grid::ChannelBottom());
-    }
-    else
-    {
-        DrawDataChannel(Limitator::GetLimitation(ChB, 0, limit), ChB, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Limitator::GetLimitation(ChB, 1, limit), ChB, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Limitator::GetLimitation(ChA, 0, limit), ChA, GRID_TOP, Grid::ChannelBottom());
-        DrawDataChannel(Limitator::GetLimitation(ChA, 1, limit), ChA, GRID_TOP, Grid::ChannelBottom());
-    }
+    Limitator::GetLimitation(ch, 0, data);
+    Processing::SetData(data);
+    DrawDataChannel(Processing::out, ch, minY, maxY);
 
-    MODE_DRAW_SIGNAL = modeDrawSignalOld;
+    Limitator::GetLimitation(ch, 1, data);
+    Processing::SetData(data);
+    DrawDataChannel(Processing::out, ch, minY, maxY);
+
+    MODE_DRAW_SIGNAL = modeOld;
 }
 
 

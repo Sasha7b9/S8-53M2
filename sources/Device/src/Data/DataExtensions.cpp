@@ -245,7 +245,7 @@ DataStruct &Averager::Around::GetData()
 }
 
 
-DataStruct &Limitator::GetLimitation(Chan ch, int direction, DataStruct &data)
+void Limitator::GetLimitation(Chan ch, int direction, DataStruct &data)
 {
     uint8 *buffer = 0;
 
@@ -261,8 +261,6 @@ DataStruct &Limitator::GetLimitation(Chan ch, int direction, DataStruct &data)
     data.ds.Set(Processing::out.ds);
 
     data.Data(ch).ReallocFromBuffer(buffer, data.ds.BytesInChanStored());
-
-    return data;
 }
 
 
