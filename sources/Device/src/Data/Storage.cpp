@@ -88,7 +88,7 @@ void Storage::Clear()
 }
 
 
-void Storage::AppendNewFrame(DataStruct &data)
+void Storage::Append(DataStruct &data)
 {
     static int id = 0;
 

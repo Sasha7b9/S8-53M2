@@ -451,23 +451,46 @@ void DataPainter::DrawDataNormal()
         return;
     }
 
-    int16 numSignals = (int16)Storage::SameSettings::GetCount();
-    LIMITATION(numSignals, numSignals, 1, NUM_ACCUM);
+    int num_signals = Math::Limitation(Storage::SameSettings::GetCount(), 1, NUM_ACCUM);
 
-    if (numSignals == 1 || ENUM_ACCUM_IS_INFINITY || MODE_ACCUM_IS_RESET || TBase::InModeRandomizer())
+    if (ENUM_ACCUM > ENumAccumulation::_1)
     {
-        DrawBothChannels(Processing::out);
+        static int last_id;     // ID последнего нарисованного сигнала
 
-        ENumAccumulation::number_drawing++;
+        if (ENUM_ACCUM_IS_INFINITY)
+        {
+            LOG_WRITE("infinity");
+            DrawBothChannels(Processing::out);
+        }
+        else
+        {
+            if (MODE_ACCUM_IS_RESET)
+            {
+                if (last_id != Processing::out.ds.id)
+                {
+                    last_id = Processing::out.ds.id;
+
+                    DrawBothChannels(Processing::out);
+
+                    ENumAccumulation::number_drawing++;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < num_signals; i++)
+                {
+                    Processing::SetData(Storage::GetData(i));
+
+                    DrawBothChannels(Processing::out);
+
+                    ENumAccumulation::number_drawing = 0;
+                }
+            }
+        }
     }
     else
     {
-        for (int i = 0; i < numSignals; i++)
-        {
-            Processing::SetData(Storage::GetData(i));
-
-            DrawBothChannels(Processing::out);
-        }
+        DrawBothChannels(Processing::out);
     }
 
     if (NUM_MIN_MAX > 1)

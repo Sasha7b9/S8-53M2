@@ -152,34 +152,18 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>294</LineNumber>
+          <LineNumber>35</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134434472</Address>
+          <Address>134376348</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;2&gt;.\src\Display\DataPainter.cpp</Filename>
+          <Filename>&lt;2&gt;.\src\Hardware\HAL\HAL_IT.cpp</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\S8_53\src/Display/DataPainter.cpp\294</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>141</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134505628</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;2&gt;.\src\Data\DataExtensions.cpp</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\S8_53\src/Data/DataExtensions.cpp\141</Expression>
+          <Expression>\\S8_53\src/Hardware/HAL/HAL_IT.cpp\35</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -1488,7 +1472,7 @@
 
   <Group>
     <GroupName>Data</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -2360,7 +2344,7 @@
 
   <Group>
     <GroupName>Hardware/HAL</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

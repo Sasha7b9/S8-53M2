@@ -154,7 +154,7 @@ bool Display::NeedForClearScreen()
 {
     int numAccum = NUM_ACCUM;
 
-    if (TBase::InModeRandomizer() || numAccum == 1 || MODE_ACCUM_IS_NORESET || SET_SELFRECORDER)
+    if (TBase::InModeRandomizer() || numAccum == 1 || SET_SELFRECORDER)
     {
         return true;
     }
@@ -163,6 +163,11 @@ bool Display::NeedForClearScreen()
     {
         Flags::needFinishDraw = false;
         return true;
+    }
+
+    if (ENUM_ACCUM_IS_INFINITY)
+    {
+        return false;
     }
 
     if (MODE_ACCUM_IS_RESET && !ENUM_ACCUM_IS_INFINITY && ENumAccumulation::number_drawing >= numAccum)

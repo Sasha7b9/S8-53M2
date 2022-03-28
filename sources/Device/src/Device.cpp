@@ -50,17 +50,31 @@ void Device::Update()
 
     Timer::StartMultiMeasurement();      // Сброс таймера для замера длительности временных интервалов в течение одной итерации цикла.
 
+    DEBUG_POINT_0;
+
     FDrive::Update();
+
+    DEBUG_POINT_0;
 
     FPGA::Update();                      // Обновляем аппаратную часть.
 
+    DEBUG_POINT_0;
+
     Panel::Update();
+
+    DEBUG_POINT_0;
 
     Menu::UpdateInput();                 // Обновляем состояние меню
 
+    DEBUG_POINT_0;
+
     Display::Update();                   // Рисуем экран.
 
+    DEBUG_POINT_0;
+
     Settings::SaveIfNeed();
+
+    DEBUG_POINT_0;
 
     // LAN::Update(0);
 }

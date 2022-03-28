@@ -202,7 +202,7 @@ void FPGA::Reader::DataRead()
         if (SET_INVERSE_B) Storage::current.Inverse(ChB);
     }
 
-    Storage::AppendNewFrame(Storage::current.data);
+    Storage::Append(Storage::current.data);
 
     if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)
     {
