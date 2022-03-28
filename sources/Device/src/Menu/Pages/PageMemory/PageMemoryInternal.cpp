@@ -322,7 +322,8 @@ static const Page mspMemInt
     "ВНУТР ЗУ", "INT STORAGE",
     "Переход в режим работы с внутренней памятью",
     "Transition to an operating mode with internal memory",
-    NamePage::SB_MemInt, &itemsMemInt, PageMemory::Resolver::OnPress_MemoryInternalEnter, FuncAdditionDrawingSPageMemoryInt, FuncOnRegSetMemInt
+    NamePage::SB_MemInt, &itemsMemInt, PageMemory::Resolver::OnPress_MemoryInternalEnter,
+    FuncAdditionDrawingSPageMemoryInt, FuncOnRegSetMemInt
 );
 
 

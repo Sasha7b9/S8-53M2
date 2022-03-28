@@ -511,7 +511,14 @@ void DataPainter::DrawDataNormal()
 
 void DataPainter::DrawDataInternal()
 {
+    DataStruct data;
 
+    if (HAL_ROM::Data::Get(PageMemory::Internal::currentSignal, data))
+    {
+        Processing::SetData(data);
+
+        DrawDataNormal();
+    }
 }
 
 
