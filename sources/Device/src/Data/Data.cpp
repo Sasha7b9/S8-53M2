@@ -7,6 +7,7 @@
 #include "Settings/SettingsDisplay.h"
 #include "Data/Storage.h"
 #include "Utils/Math.h"
+#include "Data/Processing.h"
 
 
 int DataFrame::all_points = 0;
@@ -75,9 +76,15 @@ void FrameImitation::PrepareForNewCycle()
     {
         DataSettings last_ds = Storage::GetDataSettings(0);
 
-        if (!last_ds.valid || !last_ds.Equal(DataSettings()))
+        if (!last_ds.valid)
         {
             CreateForCurrent();
+        }
+        else if (!last_ds.Equal(DataSettings()))
+        {
+            const DataStruct &last = Storage::GetData(0);
+            Processing::CountedToCurrentSettings(last.ds, last.A.DataConst(), last.B.DataConst(), data);
+            data.ds.FillFromCurrentSettings();
         }
     }
     else
