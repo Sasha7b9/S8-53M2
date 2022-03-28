@@ -1256,13 +1256,13 @@ void Processing::SetData(const DataStruct &in, bool mode_p2p)
 }
 
 
-void Processing::SetDataForProcessing(bool for_window_memory)
+void Processing::SetDataForProcessing(ModeWork::E mode, bool for_window_memory)
 {
     DataSettings last_ds = Storage::GetDataSettings(0);
 
     out.ds.valid = 0;
 
-    if (MODE_WORK_IS_DIRECT)                                                                    // Находимся в обычном режиме
+    if (mode == ModeWork::Direct)
     {
         if (TBase::InModeP2P())
         {
@@ -1308,11 +1308,11 @@ void Processing::SetDataForProcessing(bool for_window_memory)
             }
         }
     }
-    else if (MODE_WORK_IS_LATEST)                                                               // В режиме ПАМЯТЬ-ПОСЛЕДНИЕ
+    else if (mode == ModeWork::Latest)
     {
         SetData(Storage::GetData(PageMemory::Latest::current));
     }
-    else                                                                                        // В режиеме ПАМЯТЬ - ВНУТР ЗУ
+    else if(mode == ModeWork::Internal)
     {
 
     }

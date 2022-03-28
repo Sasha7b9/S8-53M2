@@ -99,7 +99,7 @@ void DataPainter::DrawData()
 
 void DataPainter::DrawInModeDirect()
 {
-    Processing::SetDataForProcessing(false);
+    Processing::SetDataForProcessing(ModeWork::Direct, false);
 
     if (TBase::InModeP2P())
     {
@@ -121,7 +121,7 @@ void DataPainter::DrawInModeDirect()
 
 void DataPainter::DrawInModeLatest()
 {
-    Processing::SetDataForProcessing(false);
+    Processing::SetDataForProcessing(ModeWork::Latest, false);
 
     DrawDataNormal();
 }
@@ -136,7 +136,7 @@ void DataPainter::DrawInModeInternal()
 
     if (MODE_SHOW_MEMINT_IS_SAVED || MODE_SHOW_MEMINT_IS_BOTH)
     {
-        DrawInModeInternal();
+        DrawDataInternal();
     }
 }
 
@@ -517,7 +517,7 @@ void DataPainter::DrawDataInternal()
 
 void DataPainter::MemoryWindow::Draw()
 {
-    Processing::SetDataForProcessing(true);
+    Processing::SetDataForProcessing(MODE_WORK, true);
 
     int leftX = 3;
     static const int rightXses[3] = {276, 285, 247};

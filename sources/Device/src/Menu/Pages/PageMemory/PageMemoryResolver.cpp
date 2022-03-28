@@ -36,7 +36,7 @@ void PageMemory::Resolver::OnPress_MemoryLatestExit()
 void PageMemory::Resolver::OnPress_MemoryLatestEnterToInternal()
 {
     PageMemory::Internal::self->OpenAndSetCurrent();
-    MODE_WORK = ModeWork::MemInt;
+    MODE_WORK = ModeWork::Internal;
     exitFromIntToLast = true;
 }
 
@@ -44,7 +44,7 @@ void PageMemory::Resolver::OnPress_MemoryLatestEnterToInternal()
 void PageMemory::Resolver::OnPress_MemoryInternalEnter()
 {
     PageMemory::Internal::self->OpenAndSetCurrent();
-    MODE_WORK = ModeWork::MemInt;
+    MODE_WORK = ModeWork::Internal;
 }
 
 

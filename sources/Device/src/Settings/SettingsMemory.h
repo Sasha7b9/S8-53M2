@@ -10,7 +10,7 @@
 #define MODE_WORK                   (set.memory.modeWork)
 #define MODE_WORK_IS_DIRECT         (MODE_WORK == ModeWork::Direct)
 #define MODE_WORK_IS_LATEST         (MODE_WORK == ModeWork::Latest)
-#define MODE_WORK_IS_MEMINT         (MODE_WORK == ModeWork::MemInt)
+#define MODE_WORK_IS_MEMINT         (MODE_WORK == ModeWork::Internal)
 
 #define FILE_NAMING_MODE            (set.memory.fileNamingMode)
 #define FILE_NAMING_MODE_IS_MASK    (FILE_NAMING_MODE == FileNamingMode::Mask)
@@ -41,9 +41,9 @@ struct ModeWork
 {
     enum E
     {
-        Direct,   // Основной режим.
-        Latest,   // В этом режиме можно просмотреть последние сохранённые измерения.
-        MemInt,   // В этом режиме можно сохранять во flash-памяти измерения просматривать ранее сохранённые.
+        Direct,     // Основной режим.
+        Latest,     // В этом режиме можно просмотреть последние сохранённые измерения.
+        Internal,   // В этом режиме можно сохранять во flash-памяти измерения просматривать ранее сохранённые.
         Count
     };
 };

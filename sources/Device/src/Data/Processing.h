@@ -11,7 +11,7 @@ namespace Processing
 
     // ”становить данные дл€ обработки в соотетствии с текущими настройками и состо€нием
     // ≈сли for_windows_memory - установить данные дл€ окна пам€ти
-    void SetDataForProcessing(bool for_window_memory);
+    void SetDataForProcessing(ModeWork::E, bool for_window_memory);
 
     // ѕолучить позицию курсора напр€жени€, соответствующю заданной позиции курсора posCurT.
     float GetCursU(Chan, float posCurT);
