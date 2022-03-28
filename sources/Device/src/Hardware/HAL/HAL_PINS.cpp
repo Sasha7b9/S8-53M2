@@ -240,24 +240,24 @@ void HAL_PINS::Init()
     PinLTDC(G, 7).Init();       // CLK      111
     PinLTDC(F, 10).Init();      // DE       28
 
-    PinLTDC(H, 8).Init();       // R2
-    PinLTDC(B, 0).Init();       // R3
-    PinLTDC(H, 10).Init();      // R4
-    PinLTDC(H, 11).Init();      // R5
-    PinLTDC(H, 12).Init();      // R6
-    PinLTDC(G, 6).Init();       // R7
-    PinLTDC(A, 6).Init();       // G2
-    PinLTDC(E, 11).Init();      // G3
-    PinLTDC(H, 14).Init();      // G4
-    PinLTDC(I, 0).Init();       // G5
-    PinLTDC(C, 7).Init();       // G6
-    PinLTDC(D, 3).Init();       // G7
-    PinLTDC(D, 6).Init();       // B2
-    PinLTDC(G, 11).Init();      // B3
-    PinLTDC(G, 12).Init();      // B4
-    PinLTDC(B, 9).Init();       // B7
-    PinLTDC(I, 6).Init();       // B6
-    PinLTDC(B, 9).Init();       // B5
+    PinLTDC(H, 8).Init();       // R2   85  +
+    PinLTDC(B, 0).Init();       // R3   56  +
+    PinLTDC(H, 10).Init();      // R4   87  +
+    PinLTDC(H, 11).Init();      // R5   88  +
+    PinLTDC(H, 12).Init();      // R6   89  +
+    PinLTDC(G, 6).Init();       // R7   110 +
+    PinLTDC(A, 6).Init();       // G2   52  +
+    PinLTDC(H, 14).Init();      // G3   129 +
+    PinLTDC(B, 10).Init();      // G4   79  +
+    PinLTDC(I, 0).Init();       // G5   131 +
+    PinLTDC(C, 7).Init();       // G6   116 +
+    PinLTDC(D, 3).Init();       // G7   145 +
+    PinLTDC(D, 6).Init();       // B2   150 +
+    PinLTDC(G, 11).Init();      // B3   154 +
+    PinLTDC(G, 12).Init();      // B4   155 +
+    PinLTDC(A, 3).Init();       // B5   47  +
+    PinLTDC(I, 6).Init();       // B6   175 +
+    PinLTDC(B, 9).Init();       // B7   168 +
 }
 
 
