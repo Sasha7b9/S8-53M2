@@ -85,9 +85,6 @@ namespace Processing
     // прохождении из "-" в "+".
     float FindIntersectionWithHorLine(Chan::E, int numIntersection, bool downToUp, uint8 yLine);
 
-    // Привести к текущим настройкам данные, из inA, inB. Данные сохраняются в Processing::out
-    void CountedToCurrentSettings(const DataSettings &, const uint8 *inA, const uint8 *inB);
-
     typedef float  (*pFuncFCh)(Chan::E);
     typedef String (*pFuncConvert)(float, bool);
 
@@ -1156,16 +1153,16 @@ int Processing::GetMarkerTime(Chan ch, int numMarker)
 }
 
 
-void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *dA, const uint8 *dB)
+void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *dA, const uint8 *dB, DataStruct &out_struct)
 {
     int num_bytes = ds.BytesInChanStored();
 
-    out.ds = ds;
+    out_struct.ds = ds;
 
-    out.A.ReallocAndFill(num_bytes, ValueFPGA::NONE);
-    out.B.ReallocAndFill(num_bytes, ValueFPGA::NONE);
+    out_struct.A.ReallocAndFill(num_bytes, ValueFPGA::NONE);
+    out_struct.B.ReallocAndFill(num_bytes, ValueFPGA::NONE);
 
-    int dataTShift = out.ds.tShift;
+    int dataTShift = out_struct.ds.tShift;
     int curTShift = SET_TSHIFT;
 
     int16 dTShift = curTShift - dataTShift;
@@ -1173,8 +1170,8 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
     const uint8 *in_a = dA;
     const uint8 *in_b = dB;
 
-    uint8 *out_a = out.A.Data();
-    uint8 *out_b = out.B.Data();
+    uint8 *out_a = out_struct.A.Data();
+    uint8 *out_b = out_struct.B.Data();
 
     for (int i = 0; i < num_bytes; i++)
     {
@@ -1187,16 +1184,16 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
         }
     }
  
-    if ((out.ds.range[0] != SET_RANGE_A || out.ds.rshiftA != (uint)SET_RSHIFT_A))
+    if ((out_struct.ds.range[0] != SET_RANGE_A || out_struct.ds.rshiftA != (uint)SET_RSHIFT_A))
     {
         Range::E range = SET_RANGE_A;
         RShift rshift = SET_RSHIFT_A;
 
         for (int i = 0; i < num_bytes; i++)
         {
-            if(out.A[i] != ValueFPGA::NONE)
+            if(out_struct.A[i] != ValueFPGA::NONE)
             {
-                float abs = ValueFPGA::ToVoltage(out_a[i], out.ds.range[0], (int16)out.ds.rshiftA);
+                float abs = ValueFPGA::ToVoltage(out_a[i], out_struct.ds.range[0], (int16)out_struct.ds.rshiftA);
                 int rel = (abs + Range::MaxOnScreen(range) + rshift.ToAbs(range)) / Range::voltsInPoint[range] + ValueFPGA::MIN;
 
                 if (rel < ValueFPGA::MIN)      { out_a[i] = ValueFPGA::MIN; }
@@ -1206,16 +1203,16 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
         }
     }
 
-    if ((out.ds.range[1] != SET_RANGE_B || out.ds.rshiftB != (uint)SET_RSHIFT_B))
+    if ((out_struct.ds.range[1] != SET_RANGE_B || out_struct.ds.rshiftB != (uint)SET_RSHIFT_B))
     {
         Range::E range = SET_RANGE_B;
         RShift rshift = SET_RSHIFT_B;
 
         for (int i = 0; i < num_bytes; i++)
         {
-            if (out.B[i] != ValueFPGA::NONE)
+            if (out_struct.B[i] != ValueFPGA::NONE)
             {
-                float abs = ValueFPGA::ToVoltage(out_b[i], out.ds.range[1], (int16)out.ds.rshiftB);
+                float abs = ValueFPGA::ToVoltage(out_b[i], out_struct.ds.range[1], (int16)out_struct.ds.rshiftB);
                 int rel = (abs + Range::MaxOnScreen(range) + rshift.ToAbs(range)) / Range::voltsInPoint[range] + ValueFPGA::MIN;
 
                 if (rel < ValueFPGA::MIN)      { out_b[i] = ValueFPGA::MIN; }
@@ -1250,7 +1247,7 @@ void Processing::SetData(const DataStruct &in, bool mode_p2p)
     Math::CalculateFiltrArray(in.A.DataConst(), A.Data(), length, Smoothing::ToPoints());
     Math::CalculateFiltrArray(in.B.DataConst(), B.Data(), length, Smoothing::ToPoints());
 
-    CountedToCurrentSettings(in.ds, A.Data(), B.Data());
+    CountedToCurrentSettings(in.ds, A.Data(), B.Data(), out);
 
     out.ds.valid = 1;
     out.rec_points = in.rec_points;

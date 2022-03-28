@@ -37,4 +37,7 @@ namespace Processing
     // Обработать сигнал из in. Результат сохранён в Data::out
     // Если mode_p2p == true, то будет установлен признак поточечного фрейма
     void SetData(const DataStruct &in, bool mode_p2p = false);
+
+    // Привести к текущим настройкам данные, из inA, inB. Данные сохраняются в out
+    void CountedToCurrentSettings(const DataSettings &, const uint8 *inA, const uint8 *inB, DataStruct &out);
 };
