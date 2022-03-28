@@ -132,8 +132,6 @@ void Averager::Around::Append(const DataFrame &frame)
                 in_b++;
             }
         };
-
-        SU::LogBufferF("1:", out_a, 10);
     }
 
     added_datas++;
