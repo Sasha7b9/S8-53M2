@@ -692,7 +692,7 @@ void DataSettings::FillFromCurrentSettings()
     rshiftA = (uint)SET_RSHIFT_A;
     rshiftB = (uint)SET_RSHIFT_B;
     tBase = SET_TBASE;
-    tShift = SET_TSHIFT;
+    tshift = SET_TSHIFT;
     coupleA = SET_COUPLE_A;
     coupleB = SET_COUPLE_B;
     e_points_in_channel = SET_ENUM_POINTS;
@@ -816,7 +816,7 @@ bool DataSettings::Equal(const DataSettings &ds) const
             (rshiftA  == ds.rshiftA) &&
             (rshiftB  == ds.rshiftB) &&
             (tBase    == ds.tBase) &&
-            (tShift   == ds.tShift) &&
+            (tshift   == ds.tshift) &&
             (coupleA  == ds.coupleA) &&
             (coupleB  == ds.coupleB) &&
             (trigLevA == ds.trigLevA) &&
@@ -1006,7 +1006,7 @@ void TShift::Draw()
         PText::Draw2Symbols(x, GRID_TOP - 1, SYMBOL_TPOS_2, SYMBOL_TPOS_3, COLOR_BACK, COLOR_FILL);
     };
 
-    // Рисуем tShift
+    // Рисуем tshift
     int shiftTShift = TPos::InPoints(SET_ENUM_POINTS, SET_TPOS) - SET_TSHIFT * 2;
 
     if (Math::InRange(shiftTShift, firstPoint, lastPoint))

@@ -64,10 +64,10 @@ namespace Panel
             return 4;
         }
 
-        bool CanChangeTShift(int16 tShift)
+        bool CanChangeTShift(int16 tshift)
         {
             static uint time = 0;
-            if (tShift == 0)
+            if (tshift == 0)
             {
                 time = TIME_MS;
                 return true;
@@ -209,9 +209,9 @@ namespace Panel
             Display::ShiftScreen(shift);
         }
 
-        static void SetTShift(int tShift)
+        static void SetTShift(int tshift)
         {
-            TShift::Set(tShift);
+            TShift::Set(tshift);
         }
 
         void XShift(int delta)

@@ -82,8 +82,8 @@ void SCPI::TBASE::OFFSET(uint8 *buffer)
     int intVal = 0;
     if (SCPI::FirstIsInt(buffer, &intVal, -1024, 15000))
     {
-        int tShift = intVal + 1024;
-        TShift::Set(tShift);
+        int tshift = intVal + 1024;
+        TShift::Set(tshift);
         return;
     }
 

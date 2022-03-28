@@ -602,7 +602,7 @@ void DataPainter::MemoryWindow::Draw()
     Region(6, 6).Fill(x0 - 3, 9, COLOR_BACK);
     Char(SYMBOL_TPOS_1).Draw(x0 - 3, 9, COLOR_FILL);
 
-    // Маркер tShift
+    // Маркер tshift
     float scale = (float)(rightX - leftX + 1) / ((float)ENUM_POINTS_FPGA::ToNumPoints() -
         (ENUM_POINTS_FPGA::ToNumPoints() == 281 ? 1 : 0));
 

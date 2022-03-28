@@ -1162,7 +1162,7 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
     out_struct.A.ReallocAndFill(num_bytes, ValueFPGA::NONE);
     out_struct.B.ReallocAndFill(num_bytes, ValueFPGA::NONE);
 
-    int dataTShift = out_struct.ds.tShift;
+    int dataTShift = out_struct.ds.tshift;
     int curTShift = SET_TSHIFT;
 
     int16 dTShift = curTShift - dataTShift;
