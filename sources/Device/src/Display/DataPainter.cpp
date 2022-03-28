@@ -46,10 +46,12 @@ namespace DataPainter
         float scaleY, float scaleX);
 
     // Если (min_max == true), то рисуем draw_min_max
-    void DrawBothChannels(DataStruct &, bool draw_min_max);
+    void DrawBothChannels(DataStruct &);
 
     // Нарисовать min/max
-    void DrawMinMax(Chan, int minY, int maxY);
+    void DrawMinMax();
+
+    void DrawMinMax(Chan ch);
 
     // modeLines - true - точками, false - точками
     void DrawSignal(const int x, const uint8 data[281], bool modeLines);
@@ -141,7 +143,7 @@ void DataPainter::DrawDataInModeWorkLatestMemInt()
 
 void DataPainter::DrawDataChannel(DataStruct &data, Chan ch, int minY, int maxY)
 {
-    if (!SET_ENABLED(ch))
+    if (!ch.Enabled())
     {
         return;
     }
@@ -382,7 +384,7 @@ void DataPainter::DrawMath()
 }
 
 
-void DataPainter::DrawBothChannels(DataStruct &data, bool draw_min_max)
+void DataPainter::DrawBothChannels(DataStruct &data)
 {
     int min = GRID_TOP;
     int max = Grid::ChannelBottom();
@@ -390,26 +392,25 @@ void DataPainter::DrawBothChannels(DataStruct &data, bool draw_min_max)
     if (LAST_AFFECTED_CHANNEL_IS_B)
     {
         DrawDataChannel(data, ChA, min, max);
-        if (draw_min_max) { DrawMinMax(ChA, min, max); }
-
         DrawDataChannel(data, ChB, min, max);
-        if (draw_min_max) { DrawMinMax(ChB, min, max); }
     }
     else
     {
         DrawDataChannel(data, ChB, min, max);
-        if (draw_min_max) { DrawMinMax(ChB, min, max); }
-
         DrawDataChannel(data, ChA, min, max);
-//        if (draw_min_max) { DrawMinMax(ChA, min, max); }
     }
 }
 
 
-void DataPainter::DrawMinMax(Chan ch, int minY, int maxY)
+void DataPainter::DrawMinMax(Chan ch)
 {
-    ModeDrawSignal::E modeOld = MODE_DRAW_SIGNAL;
-    MODE_DRAW_SIGNAL = ModeDrawSignal::Lines;
+    if (!ch.Enabled())
+    {
+        return;
+    }
+
+    int minY = GRID_TOP;
+    int maxY = Grid::ChannelBottom();
 
     DataStruct data;
 
@@ -420,6 +421,24 @@ void DataPainter::DrawMinMax(Chan ch, int minY, int maxY)
     Limitator::GetLimitation(ch, 1, data);
     Processing::SetData(data);
     DrawDataChannel(Processing::out, ch, minY, maxY);
+}
+
+
+void DataPainter::DrawMinMax()
+{
+    ModeDrawSignal::E modeOld = MODE_DRAW_SIGNAL;
+    MODE_DRAW_SIGNAL = ModeDrawSignal::Lines;
+
+    if (LAST_AFFECTED_CHANNEL_IS_B)
+    {
+        DrawMinMax(ChA);
+        DrawMinMax(ChB);
+    }
+    else
+    {
+        DrawMinMax(ChB);
+        DrawMinMax(ChA);
+    }
 
     MODE_DRAW_SIGNAL = modeOld;
 }
@@ -437,7 +456,7 @@ void DataPainter::DrawDataNormal()
 
     if (numSignals == 1 || ENUM_ACCUM_IS_INFINITY || MODE_ACCUM_IS_RESET || TBase::InModeRandomizer())
     {
-        DrawBothChannels(Processing::out, NUM_MIN_MAX > 1);
+        DrawBothChannels(Processing::out);
 
         Display::numDrawingSignals++;
     }
@@ -447,8 +466,13 @@ void DataPainter::DrawDataNormal()
         {
             Processing::SetData(Storage::GetData(i));
 
-            DrawBothChannels(Processing::out, (NUM_MIN_MAX > 1) && (i == numSignals - 1));
+            DrawBothChannels(Processing::out);
         }
+    }
+
+    if (NUM_MIN_MAX > 1)
+    {
+        DrawMinMax();
     }
 }
 
