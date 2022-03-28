@@ -275,11 +275,14 @@ void Limitator::ClearLimits()
 }
 
 
-void Limitator::Append(const DataSettings *dss, const uint8 *a, const uint8 *b)
+void Limitator::Append(const DataStruct &in)
 {
-    uint numElements = (uint)dss->PointsInChannel();
+    uint numElements = (uint)in.ds.PointsInChannel();
 
-    if (Storage::NumFrames() == 0 || NUM_MIN_MAX == 1 || (!Storage::GetDataSettings(0).Equal(*dss)))
+    const uint8 *a = in.A.DataConst();
+    const uint8 *b = in.B.DataConst();
+
+    if (Storage::NumFrames() == 0 || NUM_MIN_MAX == 1 || (!Storage::GetDataSettings(0).Equal(in.ds)))
     {
         for (uint i = 0; i < numElements; i++)
         {
