@@ -25,6 +25,7 @@
 #define MODE_SHOW_MEMINT            (set.memory.modeShowIntMem)
 #define MODE_SHOW_MEMINT_IS_SAVED   (MODE_SHOW_MEMINT == ModeShowIntMem::Saved)
 #define MODE_SHOW_MEMINT_IS_DIRECT  (MODE_SHOW_MEMINT == ModeShowIntMem::Direct)
+#define MODE_SHOW_MEMINT_IS_BOTH    (MODE_SHOW_MEMINT == ModeShowIntMem::Both)
 
 #define FLASH_AUTOCONNECT           (set.memory.flashAutoConnect)
 
