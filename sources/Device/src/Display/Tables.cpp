@@ -64,15 +64,15 @@ namespace Tables
 }
 
 
-pchar TBase::ToString(TBase::E tBase)
+pchar TBase::ToString(TBase::E tbase)
 {
-    return Tables::tBases[tBase].name[LANG];
+    return Tables::tBases[tbase].name[LANG];
 }
 
 
-pchar TBase::ToStringEN(TBase::E tBase)
+pchar TBase::ToStringEN(TBase::E tbase)
 {
-    return Tables::tBases[tBase].name[Lang::En];
+    return Tables::tBases[tbase].name[Lang::En];
 }
 
 

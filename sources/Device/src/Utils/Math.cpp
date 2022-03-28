@@ -75,9 +75,9 @@ float Math::VoltageCursor(float shiftCurU, Range::E range, RShift rshift)
 }
 
 
-float Math::TimeCursor(float shiftCurT, TBase::E tBase)
+float Math::TimeCursor(float shiftCurT, TBase::E tbase)
 {
-    return shiftCurT * TShift::absStep[tBase];
+    return shiftCurT * TShift::absStep[tbase];
 }
 
 

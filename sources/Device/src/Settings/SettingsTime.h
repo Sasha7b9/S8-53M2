@@ -5,7 +5,7 @@
 #include "FPGA/SettingsFPGA.h"
 
 
-#define SET_TBASE                            (set.time.tBase)
+#define SET_TBASE                            (set.time.tbase)
 
 #define SET_TSHIFT                           (set.time.tshift_points)
 
@@ -55,7 +55,7 @@ struct SampleType
 // Настройки оси X.
 struct SettingsTime
 { //-V802
-    TBase::E            tBase;          // Масштаб по времени.
+    TBase::E            tbase;          // Масштаб по времени.
     int                 tshift_points;  // Смещение по времени в точках
     FunctionTime::E     timeDivXPos;
     TPos::E             tPos;           // Привязка синхронизации к памяти.

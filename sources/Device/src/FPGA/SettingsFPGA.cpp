@@ -210,17 +210,17 @@ void Range::Load(Chan ch)
 }
 
 
-void TBase::Set(TBase::E tBase)
+void TBase::Set(TBase::E tbase)
 {
     if (!SET_ENABLED_A && !SET_ENABLED_B)
     {
         return;
     }
 
-    if (tBase < TBase::Count && (int)tBase >= 0)
+    if (tbase < TBase::Count && (int)tbase >= 0)
     {
         float tShiftAbsOld = TShift::ToAbs(SET_TSHIFT, SET_TBASE);
-        SET_TBASE = tBase;
+        SET_TBASE = tbase;
         Load();
         TShift::Set(TShift::ToRel(tShiftAbsOld, SET_TBASE));
         Flags::needFinishDraw = true;
@@ -274,14 +274,14 @@ void TBase::Load()
         {BINARY_U8(01111111), BINARY_U8(01011111)}      // 10s
     };
 
-    int tBase = SET_TBASE;
+    int tbase = SET_TBASE;
 
     if (FPGA::Compactor::Enabled())
     {
-        tBase = Math::Limitation<int>(tBase - 2, 0, tBase);
+        tbase = Math::Limitation<int>(tbase - 2, 0, tbase);
     }
 
-    uint8 mask = SET_PEAKDET_IS_ENABLED ? masksTBase[tBase].maskPeackDet : masksTBase[tBase].maskNorm;
+    uint8 mask = SET_PEAKDET_IS_ENABLED ? masksTBase[tbase].maskPeackDet : masksTBase[tbase].maskNorm;
 
     BUS_FPGA::Write(WR_RAZV, mask, true);
 }
@@ -691,7 +691,7 @@ void DataSettings::FillFromCurrentSettings()
     range[1] = SET_RANGE_B;
     rshiftA = (uint)SET_RSHIFT_A;
     rshiftB = (uint)SET_RSHIFT_B;
-    tBase = SET_TBASE;
+    tbase = SET_TBASE;
     tshift = SET_TSHIFT;
     coupleA = SET_COUPLE_A;
     coupleB = SET_COUPLE_B;
@@ -815,7 +815,7 @@ bool DataSettings::Equal(const DataSettings &ds) const
             (range[1] == ds.range[1]) &&
             (rshiftA  == ds.rshiftA) &&
             (rshiftB  == ds.rshiftB) &&
-            (tBase    == ds.tBase) &&
+            (tbase    == ds.tbase) &&
             (tshift   == ds.tshift) &&
             (coupleA  == ds.coupleA) &&
             (coupleB  == ds.coupleB) &&

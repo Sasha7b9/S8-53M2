@@ -360,7 +360,7 @@ float Processing::CalculatePeriod(Chan::E ch)
 
             EXIT_IF_ERRORS_FLOAT(firstIntersection, secondIntersection);
 
-            float per = TShift::ToAbs((secondIntersection - firstIntersection) / 2.0f, out.ds.tBase);
+            float per = TShift::ToAbs((secondIntersection - firstIntersection) / 2.0f, out.ds.tbase);
 
             markerTime[ch][0] = firstIntersection - SHIFT_IN_MEMORY;
             markerTime[ch][1] = secondIntersection - SHIFT_IN_MEMORY;
@@ -524,7 +524,7 @@ float Processing::CalculateDurationPlus(Chan::E ch)
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    return TShift::ToAbs((secondIntersection - firstIntersection) / 2.0f, out.ds.tBase);
+    return TShift::ToAbs((secondIntersection - firstIntersection) / 2.0f, out.ds.tbase);
 }
 
 float Processing::CalculateDurationMinus(Chan::E ch)
@@ -544,7 +544,7 @@ float Processing::CalculateDurationMinus(Chan::E ch)
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    return TShift::ToAbs((secondIntersection - firstIntersection) / 2.0f, out.ds.tBase);
+    return TShift::ToAbs((secondIntersection - firstIntersection) / 2.0f, out.ds.tbase);
 }
 
 float Processing::CalculateTimeNarastaniya(Chan::E ch)                    // WARN Здесь, возможно, нужно увеличить точность - брать не целые значени расстояний между отсчётами по времени, а рассчитывать пересечения линий
@@ -570,7 +570,7 @@ float Processing::CalculateTimeNarastaniya(Chan::E ch)                    // WAR
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    float retValue = TShift::ToAbs((secondIntersection - firstIntersection) / 2.0f, out.ds.tBase);
+    float retValue = TShift::ToAbs((secondIntersection - firstIntersection) / 2.0f, out.ds.tbase);
 
     if (MEAS_MARKED == Measure::TimeNarastaniya)
     {
@@ -606,7 +606,7 @@ float Processing::CalculateTimeSpada(Chan::E ch)                          // WAR
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    float retValue = TShift::ToAbs((secondIntersection - firstIntersection) / 2.0f, out.ds.tBase);
+    float retValue = TShift::ToAbs((secondIntersection - firstIntersection) / 2.0f, out.ds.tbase);
 
     if (MEAS_MARKED == Measure::TimeSpada)
     {
@@ -882,7 +882,7 @@ float Processing::CalculateDelayPlus(Chan::E ch)
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    return TShift::ToAbs((secondIntersection - firstIntersection) / 2.0f, out.ds.tBase);
+    return TShift::ToAbs((secondIntersection - firstIntersection) / 2.0f, out.ds.tbase);
 }
 
 float Processing::CalculateDelayMinus(Chan::E ch)
@@ -921,7 +921,7 @@ float Processing::CalculateDelayMinus(Chan::E ch)
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
 
-    return TShift::ToAbs((secondIntersection - firstIntersection) / 2.0f, out.ds.tBase);
+    return TShift::ToAbs((secondIntersection - firstIntersection) / 2.0f, out.ds.tbase);
 }
 
 float Processing::CalculatePhazaPlus(Chan::E ch)
@@ -1013,7 +1013,7 @@ float Processing::GetCursT(Chan ch, float posCurU, int numCur)
     return 0;
 }
 
-void Processing::InterpolationSinX_X(uint8 data[FPGA::MAX_POINTS * 2], TBase::E tBase)
+void Processing::InterpolationSinX_X(uint8 data[FPGA::MAX_POINTS * 2], TBase::E tbase)
 {
 /*
      Последовательности x в sin(x)
@@ -1029,7 +1029,7 @@ void Processing::InterpolationSinX_X(uint8 data[FPGA::MAX_POINTS * 2], TBase::E 
 #define KOEFF   (MUL / MUL_SIN)
 
     int deltas[5] = {50, 20, 10, 5, 2};
-    int delta = deltas[tBase];
+    int delta = deltas[tbase];
 
     uint8 signedData[FPGA::MAX_POINTS / 2];
     int numSignedPoints = 0;
@@ -1073,7 +1073,7 @@ void Processing::InterpolationSinX_X(uint8 data[FPGA::MAX_POINTS * 2], TBase::E 
             num++;
             float sinX = (part < delta - 1) ? std::sin(PI / delta * (part + 1)) : std::sin(PI / delta * (part - (delta - 1) * 2));
 
-            if (tBase > TBase::_5ns)                 // Здесь используем более быструю, но более неправильную арифметику целвых чисел
+            if (tbase > TBase::_5ns)                 // Здесь используем более быструю, но более неправильную арифметику целвых чисел
             {
                 int sinXint = (int)(sinX * MUL_SIN);
                 int value = 0;

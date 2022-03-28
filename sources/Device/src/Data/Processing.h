@@ -20,7 +20,7 @@ namespace Processing
     float GetCursT(Chan, float posCurU, int numCur);
 
     // Аппроксимировать единичное измерение режима рандомизатора функцией sinX/X.
-    void InterpolationSinX_X(uint8 data[FPGA::MAX_POINTS * 2], TBase::E tBase);
+    void InterpolationSinX_X(uint8 data[FPGA::MAX_POINTS * 2], TBase::E tbase);
 
     // Возвращает строку автоматического измерения.
     String GetStringMeasure(Measure::E measure, Chan);

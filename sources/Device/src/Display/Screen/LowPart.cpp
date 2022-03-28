@@ -47,19 +47,19 @@ void LowPart::Draw()
 
     x += 98;
 
-    TBase::E tBase = SET_TBASE;
+    TBase::E tbase = SET_TBASE;
     int tshift = SET_TSHIFT;
 
     if (!MODE_WORK_IS_DIRECT)
     {
         if (Processing::out.ds.valid)
         {
-            tBase = Processing::out.ds.tBase;
+            tbase = Processing::out.ds.tbase;
             tshift = Processing::out.ds.tshift;
         }
     }
 
-    String("ð\xa5%s", TBase::ToString(tBase)).Draw(x, y0);
+    String("ð\xa5%s", TBase::ToString(tbase)).Draw(x, y0);
 
     String("\xa5%s", TShift::ToString(tshift).c_str()).Draw(x + 35, y0);
 
