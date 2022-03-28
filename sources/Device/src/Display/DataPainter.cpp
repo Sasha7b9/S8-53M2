@@ -379,7 +379,7 @@ void DataPainter::DrawMath()
     data.ds.Set(ds);
     data.Data(ChA).Realloc(ds.BytesInChanReal());
 
-    ValueFPGA::FromVoltage(absA.Data(), ds.BytesInChanReal(), SET_RANGE_MATH, SET_RSHIFT_MATH, data.Data(ChA).Data());
+    ValueFPGA::FromVoltageArray(absA.Data(), ds.BytesInChanReal(), SET_RANGE_MATH, SET_RSHIFT_MATH, data.Data(ChA).Data());
 
     DrawDataChannel(data, Chan::Math, Grid::MathTop(), Grid::MathBottom());
 

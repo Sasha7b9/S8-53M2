@@ -639,7 +639,7 @@ uint8 ValueFPGA::FromVoltage(float voltage, Range::E range, RShift rshift)
 }
 
 
-void ValueFPGA::FromVoltage(const float *voltage, int numPoints, Range::E range, RShift rShift, uint8 *points)
+void ValueFPGA::FromVoltageArray(const float *voltage, int numPoints, Range::E range, RShift rShift, uint8 *points)
 {
     float maxVoltOnScreen = Range::MaxOnScreen(range);
     float rShiftAbs = rShift.ToAbs(range);
