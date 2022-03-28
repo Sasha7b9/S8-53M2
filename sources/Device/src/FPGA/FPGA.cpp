@@ -42,7 +42,6 @@ namespace FPGA
     bool TRIG_AUTO_FIND = false;    // ”становленное в 1 значение означает, что нужно производить автоматический поиск
                                     // синхронизации, если  выбрана соответствующа€ настройка.
     bool runningBeforeSmallButtons = false;
-    bool TEMPORARY_PAUSE = false;
     bool CAN_READ_DATA = false;
     bool NEED_AUTO_TRIG = false;    // ≈сли true, нужно делать автозапуск (автоматический режим запуска и отсутсвует
                                     // синхроимпульс
@@ -111,11 +110,6 @@ void FPGA::Update()
         state.needCalibration = false;
     }
 
-    if (TEMPORARY_PAUSE)
-    {
-        return;
-    }
-  
     if(!CAN_READ_DATA)
     {
         return;
