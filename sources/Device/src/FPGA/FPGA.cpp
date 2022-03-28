@@ -100,20 +100,19 @@ void FPGA::Init()
 
 void FPGA::Update()
 {
-    flag.Read();
-
     FPGA::Reader::P2P::SavePoints();
+
+    if (SET_SELFRECORDER)
+    {
+        return;
+    }
+
+    flag.Read();
 
     if (state.needCalibration)              // Если вошли в режим калибровки -
     {
         FPGA::Calibrator::RunCalibrate();       // выполняем её.
         state.needCalibration = false;
-    }
-
-    if (SET_SELFRECORDER)
-    {
-        Reader::P2P::ReadPoints();
-        return;
     }
 
     if(!CAN_READ_DATA)
@@ -203,7 +202,7 @@ void FPGA::PrepareForCycle()
 {
     Storage::current.PrepareForNewCycle();
 
-    if (TBase::InModeP2P())
+    if (TBase::InModeP2P() || SET_SELFRECORDER)
     {
         Timer::Enable(TypeTimer::P2P, 1, Reader::P2P::ReadPoints);
     }

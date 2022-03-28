@@ -161,6 +161,11 @@ void FPGA::Reader::P2P::ReadPoints()
             bufferA[pointer] = Reader::ReadA();
             bufferB[pointer] = Reader::ReadB();
             pointer++;
+
+            if (SET_SELFRECORDER)
+            {
+                HAL_FMC::Write(WR_START, 1);
+            }
         }
     }
 }
