@@ -937,7 +937,7 @@ void TrigLev::Draw()
 
     int trigLev = TRIG_LEVEL(ch) + (SET_RSHIFT(ch) - RShift::ZERO);
 
-    float scale = 1.0f / ((TrigLev::MAX - TrigLev::MIN) / 2.0f / Grid::ChannelHeight());
+    float scale = 1.0f / ((TrigLev::MAX - TrigLev::MIN) / 2.39f / Grid::ChannelHeight());
     int y0 = (int)((GRID_TOP + Grid::ChannelBottom()) / 2 + scale * (TrigLev::ZERO - TrigLev::MIN));
     int y = (int)(y0 - scale * (trigLev - TrigLev::MIN));
 
