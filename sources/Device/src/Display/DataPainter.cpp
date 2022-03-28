@@ -359,23 +359,23 @@ void DataPainter::DrawMath()
         return;
     }
 
-    float absA[FPGA::MAX_POINTS * 2];
-    float absB[FPGA::MAX_POINTS * 2];
-
     BufferFPGA   &dataA = Processing::out.A;
     BufferFPGA   &dataB = Processing::out.B;
     DataSettings &ds = Processing::out.ds;
 
-    ValueFPGA::ToVoltage(dataA.Data(), ds.BytesInChanReal(), ds.range[Chan::A], (int16)ds.rshiftA, absA);
-    ValueFPGA::ToVoltage(dataB.Data(), ds.BytesInChanReal(), ds.range[Chan::B], (int16)ds.rshiftB, absB);
+    Buffer<float> absA(ds.BytesInChanStored());
+    Buffer<float> absB(ds.BytesInChanStored());
 
-    Math::CalculateMathFunction(absA, absB, ds.BytesInChanReal());
+    ValueFPGA::ToVoltage(dataA.Data(), ds.BytesInChanReal(), ds.range[Chan::A], (int16)ds.rshiftA, absA.Data());
+    ValueFPGA::ToVoltage(dataB.Data(), ds.BytesInChanReal(), ds.range[Chan::B], (int16)ds.rshiftB, absB.Data());
+
+    Math::CalculateMathFunction(absA.Data(), absB.Data(), ds.BytesInChanReal());
 
     DataStruct data;
     data.ds.Set(ds);
     data.Data(ChA).Realloc(ds.BytesInChanReal());
 
-    ValueFPGA::FromVoltage(absA, ds.BytesInChanReal(), SET_RANGE_MATH, SET_RSHIFT_MATH, data.Data(ChA).Data());
+    ValueFPGA::FromVoltage(absA.Data(), ds.BytesInChanReal(), SET_RANGE_MATH, SET_RSHIFT_MATH, data.Data(ChA).Data());
 
     DrawDataChannel(data, Chan::Math, Grid::MathTop(), Grid::MathBottom());
 
