@@ -182,23 +182,24 @@ static const SmallButton sbMemIntDelete
 
 static void SaveSignalToIntMemory()
 {
-//    if (PageMemory::Internal::exitToLast)          // Если перешли во ВНУТР ЗУ из ПОСЛЕДНИЕ
-//    {
-//        if (Data::last.ds->valid)
-//        {                               // то сохраняем сигнал из последних
-//            HAL_ROM::Data::Save(PageMemory::Internal::currentSignal, Data::last);
-//            HAL_ROM::Data::Get(PageMemory::Internal::currentSignal, Data::ins);
-//            Warning::ShowGood(Warning::SignalIsSaved);
-//        }
-//    }
-//    else                                // Иначе сохраняем текущий сигнал
-//    {
-//        if (Storage::NumFrames())
-//        {
-//            HAL_ROM::Data::Save(PageMemory::Internal::currentSignal, Storage::GetData(0));
-//            Warning::ShowGood(Warning::SignalIsSaved);
-//        }
-//    }
+    if (PageMemory::Resolver::exitFromIntToLast)
+    {
+        const DataStruct &data = Storage::GetData(PageMemory::Latest::current);
+
+        if (data.ds.valid)
+        {
+            HAL_ROM::Data::Save(PageMemory::Internal::currentSignal, data);
+            Warning::ShowGood(Warning::SignalIsSaved);
+        }
+    }
+    else
+    {
+        if (Storage::NumFrames())
+        {
+            HAL_ROM::Data::Save(PageMemory::Internal::currentSignal, Storage::GetData(0));
+            Warning::ShowGood(Warning::SignalIsSaved);
+        }
+    }
 }
 
 

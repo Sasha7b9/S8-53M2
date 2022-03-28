@@ -5,9 +5,10 @@
 #include "Menu/Menu.h"
 
 
-static bool exitFromIntToLast;          // Если true, то выходить из страницы внутренней памяти нужно не стандартно, а в меню последних
 static bool runningFPGAbeforeOpen;      // Здесь сохраняется информация о том, работала ли ПЛИС перед переходом
                                         // в режим работы с памятью
+
+bool PageMemory::Resolver::exitFromIntToLast = false;
 
 
 void PageMemory::Resolver::OnPress_MemoryLatestEnter()

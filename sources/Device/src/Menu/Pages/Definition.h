@@ -165,6 +165,8 @@ struct PageMemory
     // ”правл€ет состо€ни€ми при переключени€х ѕјћя“№-ѕќ—Ћ≈ƒЌ»≈, ѕјћя“№-¬Ќ”“– «”, ѕјћя№-Ќ≈ѕќ—–
     struct Resolver
     {
+        static bool exitFromIntToLast;          // ≈сли true, то выходить из страницы внутренней пам€ти нужно не стандартно, а в меню последних
+
         static void OnPress_MemoryLatestEnter();
         static void OnPress_MemoryLatestExit();
         static void OnPress_MemoryLatestEnterToInternal();

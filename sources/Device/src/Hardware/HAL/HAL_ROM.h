@@ -8,7 +8,7 @@ namespace HAL_ROM
     {
         static const int MAX_DATAS = 23;            // Пока ограничено количеством квадратиков, которые можно вывести в одну линию внизу сетки
 
-        void Save(int num, DataStruct &);
+        void Save(int num, const DataStruct &);
 
         bool Get(int num, DataStruct &);
 

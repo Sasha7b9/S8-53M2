@@ -392,7 +392,7 @@ bool HAL_ROM::Data::Get(int num, DataStruct &data)
 }
 
 
-void HAL_ROM::Data::Save(int num, DataStruct &data)
+void HAL_ROM::Data::Save(int num, const DataStruct &data)
 {
     Delete(num);
 
