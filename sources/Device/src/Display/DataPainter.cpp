@@ -742,7 +742,7 @@ void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *in
 
 void DataPainter::DrawSignal(const int _x, const uint8 data[281], bool modeLines)
 {
-    int x = _x;
+    int x = _x + 1;
 
     if (modeLines)
     {
