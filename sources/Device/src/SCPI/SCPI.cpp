@@ -4,6 +4,7 @@
 #include "SCPI.h"
 #include "Utils/Strings.h"
 #include "Utils/Containers/BufferHeap.h"
+#include "Utils/Containers/Buffer.h"
 #include <cctype>
 #include <cstring>
 #include <cstdlib>
@@ -160,7 +161,7 @@ bool SCPI::FirstIsInt(uint8 *buffer, int *value, int min, int max)
 
     if (GetWord(buffer, &param, 0))
     {
-        BufferHeap<char> data(param.numSymbols + 1);
+        Buffer<char, 512> data(param.numSymbols + 1);
         std::memcpy(data.Data(), param.address, (uint)param.numSymbols);
         data.Data()[param.numSymbols] = '\0';
         return SU::String2Int(data.Data(), value) && (*value >= min) && (*value <= max);
