@@ -75,6 +75,7 @@ struct DataSettings
 struct BufferFPGA : public Buffer2048<uint8>
 {
     BufferFPGA() : Buffer2048<uint8>() { }
+    BufferFPGA(int size) : Buffer2048<uint8>(size) { }
     BufferFPGA(int size, uint8 value) : Buffer2048<uint8>(size, value) { }
 };
 

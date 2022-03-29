@@ -1912,6 +1912,16 @@
               <FileType>5</FileType>
               <FilePath>.\src\Utils\Containers\MemoryBlock.h</FilePath>
             </File>
+            <File>
+              <FileName>Buffer.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Containers\Buffer.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Buffer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Containers\Buffer.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3931,6 +3941,16 @@
               <FileName>MemoryBlock.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\Containers\MemoryBlock.h</FilePath>
+            </File>
+            <File>
+              <FileName>Buffer.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Containers\Buffer.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Buffer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Containers\Buffer.h</FilePath>
             </File>
           </Files>
         </Group>

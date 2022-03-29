@@ -13,7 +13,7 @@ LR_IROM1 0x08020000 0x200000  {    ; load region size_region
     }
     RW_IRAM2 0x10000000 0x00010000  {  ; CCM data
 ;    .ANY (CCM_DATA)                     ;FOO ccmFoo[1024] __attribute__ ((section("CCM_DATA")));
-;    startup_stm32f429xx.o (STACK)
+    startup_stm32f429xx.o (STACK)
     startup_stm32f429xx.o (HEAP)    
   }
 }
