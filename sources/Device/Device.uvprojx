@@ -1893,26 +1893,6 @@
               <FilePath>.\src\Utils\Containers\Queue.h</FilePath>
             </File>
             <File>
-              <FileName>BufferHeap.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Containers\BufferHeap.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>BufferHeap.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\Containers\BufferHeap.h</FilePath>
-            </File>
-            <File>
-              <FileName>MemoryBlock.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Containers\MemoryBlock.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>MemoryBlock.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\Containers\MemoryBlock.h</FilePath>
-            </File>
-            <File>
               <FileName>Buffer.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Utils\Containers\Buffer.cpp</FilePath>
@@ -3921,26 +3901,6 @@
               <FileName>Queue.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\Containers\Queue.h</FilePath>
-            </File>
-            <File>
-              <FileName>BufferHeap.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Containers\BufferHeap.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>BufferHeap.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\Containers\BufferHeap.h</FilePath>
-            </File>
-            <File>
-              <FileName>MemoryBlock.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Containers\MemoryBlock.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>MemoryBlock.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\Containers\MemoryBlock.h</FilePath>
             </File>
             <File>
               <FileName>Buffer.cpp</FileName>
