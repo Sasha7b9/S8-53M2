@@ -35,7 +35,7 @@ void Device::Init()
     Panel::Init();
 
     FDrive::Init();
-    // LAN::Init();
+
     VCP::Init();
 }
 
@@ -61,6 +61,4 @@ void Device::Update()
     Display::Update();                   // Рисуем экран.
 
     Settings::SaveIfNeed();
-
-    // LAN::Update(0);
 }

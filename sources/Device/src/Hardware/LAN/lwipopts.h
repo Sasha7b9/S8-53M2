@@ -1,8 +1,23 @@
-// 2022/2/11 19:25:31 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
-#pragma once
-#ifdef WIN32
-#define __attribute__(x)
-#endif
+/**
+  ******************************************************************************
+  * @file    LwIP/LwIP_TCP_Echo_Server/Inc/lwipopts.h
+  * @author  MCD Application Team
+  * @brief   lwIP Options Configuration.
+  ******************************************************************************
+  * @attention
+  *
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by ST under Ultimate Liberty license
+  * SLA0044, the "License"; You may not use this file except in compliance with
+  * the License. You may obtain a copy of the License at:
+  *                             www.st.com/SLA0044
+  *
+  ******************************************************************************
+  */
+#ifndef __LWIPOPTS_H__
+#define __LWIPOPTS_H__
 
 /**
  * NO_SYS==1: Provides VERY minimal functionality. Otherwise,
@@ -25,7 +40,7 @@
 
 /* MEM_SIZE: the size of the heap memory. If the application will send
 a lot of data that needs to be copied, this should be set high. */
-#define MEM_SIZE                (10 * 1024)
+#define MEM_SIZE                (10*1024)
 
 /* MEMP_NUM_PBUF: the number of memp struct pbufs. If the application
    sends a lot of data out of ROM (or other static memory), this
@@ -39,10 +54,10 @@ a lot of data that needs to be copied, this should be set high. */
 #define MEMP_NUM_TCP_PCB        10
 /* MEMP_NUM_TCP_PCB_LISTEN: the number of listening TCP
    connections. */
-#define MEMP_NUM_TCP_PCB_LISTEN 6
+#define MEMP_NUM_TCP_PCB_LISTEN 5
 /* MEMP_NUM_TCP_SEG: the number of simultaneously queued TCP
    segments. */
-#define MEMP_NUM_TCP_SEG        12
+#define MEMP_NUM_TCP_SEG        8
 /* MEMP_NUM_SYS_TIMEOUT: the number of simulateously active
    timeouts. */
 #define MEMP_NUM_SYS_TIMEOUT    10
@@ -50,10 +65,13 @@ a lot of data that needs to be copied, this should be set high. */
 
 /* ---------- Pbuf options ---------- */
 /* PBUF_POOL_SIZE: the number of buffers in the pbuf pool. */
-#define PBUF_POOL_SIZE          12
+#define PBUF_POOL_SIZE          8
 
 /* PBUF_POOL_BUFSIZE: the size of each pbuf in the pbuf pool. */
 #define PBUF_POOL_BUFSIZE       512
+
+/* ---------- IPv4 options ---------- */
+#define LWIP_IPV4                1
 
 /* ---------- TCP options ---------- */
 #define LWIP_TCP                1
@@ -107,7 +125,7 @@ a lot of data that needs to be copied, this should be set high. */
 */
 
 /* 
-The STM32F2x7 allows computing and verifying the IP, UDP, TCP and ICMP checksums by hardware:
+The STM32F7xxallows computing and verifying the IP, UDP, TCP and ICMP checksums by hardware:
  - To use this feature let the following define uncommented.
  - To disable it and process by CPU comment the  the checksum.
 */
@@ -166,3 +184,7 @@ The STM32F2x7 allows computing and verifying the IP, UDP, TCP and ICMP checksums
  * LWIP_SOCKET==1: Enable Socket API (require to use sockets.c)
  */
 #define LWIP_SOCKET                     0
+
+#endif /* __LWIPOPTS_H__ */
+
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

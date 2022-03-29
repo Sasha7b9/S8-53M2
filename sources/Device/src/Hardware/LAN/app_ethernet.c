@@ -20,6 +20,7 @@
 #include "main.h"
 #include "lwip/dhcp.h"
 #include "app_ethernet.h"
+#include <stm32f4xx_hal.h>
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/

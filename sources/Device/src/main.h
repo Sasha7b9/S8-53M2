@@ -56,7 +56,7 @@
 
 #include "Settings/Settings.h"
 
-#define USE_DHCP
+//#define USE_DHCP
 
 /* MAC ADDRESS: MAC_ADDR0:MAC_ADDR1:MAC_ADDR2:MAC_ADDR3:MAC_ADDR4:MAC_ADDR5 */
 // 00 13 8f af 2e 8b

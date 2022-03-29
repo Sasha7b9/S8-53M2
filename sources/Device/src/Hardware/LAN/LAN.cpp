@@ -64,7 +64,7 @@ void LAN::Update(uint timeMS)
 
     do 
     {
-        LAN::cableIsConnected = TIME_MS - gEthTimeLastEthifInput <= 1500;
+//        LAN::cableIsConnected = TIME_MS - gEthTimeLastEthifInput <= 1500;
 
         ethernetif_input(&gnetif);
         sys_check_timeouts();
