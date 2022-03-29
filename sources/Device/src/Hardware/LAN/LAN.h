@@ -11,6 +11,6 @@ namespace LAN
 
     void Update();
 
-    void Send(pchar buffer, uint length);
+    void SendBuffer(pchar buffer, int length);
     void SendFormat(char *format, ...);
 }

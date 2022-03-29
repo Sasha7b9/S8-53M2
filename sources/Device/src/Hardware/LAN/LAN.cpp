@@ -9,6 +9,8 @@
 #include <lwip/netif.h>
 #include <lwip/timeouts.h>
 #include <netif/etharp.h>
+#include <cstring>
+#include <cstdarg>
 
 
 namespace LAN
@@ -79,13 +81,16 @@ void LAN::Update()
 }
 
 
-void LAN::Send(pchar, uint)
+void LAN::SendFormat(char *format, ...)
 {
+    const int SIZE_BUFFER = 256;
 
-}
+    static char buffer[SIZE_BUFFER];
+    std::va_list args;
+    va_start(args, format);
+    vsprintf(buffer, format, args);
+    va_end(args);
+    std::strcat(buffer, "\r\n");
 
-
-void LAN::SendFormat(char *, ...)
-{
-
+    SendBuffer(buffer, (int)std::strlen(buffer));
 }

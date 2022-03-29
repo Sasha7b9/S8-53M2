@@ -4,9 +4,18 @@
 #include "Settings/Settings.h"
 #include "SCPI/SCPI.h"
 
+
 #if LWIP_TCP
 
 static struct tcp_pcb *tcp_echoserver_pcb;
+
+static tcp_pcb *client = nullptr;
+
+struct State
+{
+    struct pbuf *p;     // pbuf (chain) to recycle
+    uchar state;
+};
 
 /* ECHO protocol states */
 enum tcp_echoserver_states
@@ -108,6 +117,8 @@ static err_t tcp_echoserver_accept(void *arg, struct tcp_pcb *newpcb, err_t err)
 
         /* initialize lwip tcp_poll callback function for newpcb */
         tcp_poll(newpcb, tcp_echoserver_poll, 0);
+
+        client = newpcb;
 
         ret_err = ERR_OK;
     }
@@ -408,3 +419,65 @@ static void tcp_echoserver_connection_close(struct tcp_pcb *tpcb, struct tcp_ech
 }
 
 #endif /* LWIP_TCP */
+
+
+void Send(struct tcp_pcb *_tpcb, struct State *_ss)
+{
+    struct pbuf *ptr;
+    err_t wr_err = ERR_OK;
+
+    while ((wr_err == ERR_OK) && (_ss->p != NULL) && (_ss->p->len <= tcp_sndbuf(_tpcb)))
+    {
+        ptr = _ss->p;
+        // enqueue data for transmittion
+        wr_err = tcp_write(_tpcb, ptr->payload, ptr->len, 1);
+        tcp_output(_tpcb);
+        if (wr_err == ERR_OK)
+        {
+            u16_t plen;
+            u8_t freed;
+
+            plen = ptr->len;
+            // continue with new pbuf in chain (if any) 
+            _ss->p = ptr->next;
+            if (_ss->p != NULL)
+            {
+                // new reference!
+                pbuf_ref(_ss->p);
+            }
+            // chop first pbuf from chain
+            do
+            {
+                // try hard to free pbuf 
+                freed = pbuf_free(ptr);
+            } while (freed == 0);
+            // we can read more data now
+            tcp_recved(_tpcb, plen);
+        }
+        else if (wr_err == ERR_MEM)
+        {
+            // we are low on memory, try later / harder, defer to poll
+            _ss->p = ptr;
+        }
+        else
+        {
+            // other probler
+            volatile err_t err_ = wr_err;
+            err_ = err_;
+        }
+    }
+}
+
+
+
+void LAN::SendBuffer(pchar buffer, int length)
+{
+    struct pbuf *tcpBuffer = pbuf_alloc(PBUF_RAW, (uint16)length, PBUF_POOL);
+
+    tcpBuffer->flags = 1;
+    pbuf_take(tcpBuffer, buffer, (uint16)length);
+    struct State *ss = (struct State *)mem_malloc(sizeof(struct State));
+    ss->p = tcpBuffer;
+    Send(client, ss);
+    mem_free(ss);
+}
