@@ -133,6 +133,8 @@ template<class T>
 class Buffer1024 : public Buffer<T, 1024>
 {
 public:
+    Buffer1024() : Buffer<T, 1024>() { };
+    Buffer1024(int size, T value) : Buffer<T, 1024>(size, value) { };
 };
 
 

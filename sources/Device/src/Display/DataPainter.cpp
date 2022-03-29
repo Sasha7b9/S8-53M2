@@ -669,8 +669,8 @@ void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *in
     width--;
     float elemsInColumn = (float)numElems / (float)width;
 
-    BufferHeap<uint8> min(width + 1, 255);
-    BufferHeap<uint8> max(width + 1, 0);
+    Buffer1024<uint8> min(width + 1, 255);
+    Buffer1024<uint8> max(width + 1, 0);
 
     if (ds.peak_det == 0)
     {
