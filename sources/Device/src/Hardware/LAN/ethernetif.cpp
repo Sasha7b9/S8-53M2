@@ -393,7 +393,7 @@ static struct pbuf * low_level_input(struct netif *netif)
   /* Clear Segment_Count */
   EthHandle.RxFrameInfos.SegCount =0;
   
-  /* When Rx BufferHeap unavailable flag is set: clear it and resume reception */
+  /* When Rx Buffer unavailable flag is set: clear it and resume reception */
   if ((EthHandle.Instance->DMASR & ETH_DMASR_RBUS) != (uint32_t)RESET)  
   {
     /* Clear RBUS ETHERNET DMA flag */
