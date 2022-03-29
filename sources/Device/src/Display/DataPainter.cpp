@@ -716,7 +716,7 @@ void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *in
 
 #define ORDINATE(x) (uint8)(bottom - scale * Math::Limitation<int>((x) - ValueFPGA::MIN, 0, 200))
 
-    BufferHeap<uint8> points(min.Size() * 2);
+    Buffer1024<uint8> points(min.Size() * 2);
 
     points[0] = ORDINATE(max[0]);
     points[1] = ORDINATE(min[0]);
