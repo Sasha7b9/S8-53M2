@@ -22,8 +22,8 @@ namespace Averager
         int              num_ave = -1;                      // |- Настройки усредняемых сейчас сигналов 
         ModeAveraging::E mode_ave = ModeAveraging::Count;   // /-
 
-        BufferHeap<float> ave_a;        // Здесь усреднённые значения,
-        BufferHeap<float> ave_b;        // рассчитанные по приблизетильному алгоритму
+        Buffer2048<float> ave_a;        // Здесь усреднённые значения,
+        Buffer2048<float> ave_b;        // рассчитанные по приблизетильному алгоритму
 
         int added_datas = 0;        // Столько данных учтено в измерениях
 
@@ -52,8 +52,6 @@ void Averager::Around::ProcessBeforeAdding(const DataFrame &frame)
     if (ENumAveraging::ToNumber() < 2)
     {
         added_datas = 0;
-        ave_a.Free();
-        ave_b.Free();
     }
     else
     {
