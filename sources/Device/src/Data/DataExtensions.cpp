@@ -22,8 +22,8 @@ namespace Averager
         int              num_ave = -1;                      // |- Настройки усредняемых сейчас сигналов 
         ModeAveraging::E mode_ave = ModeAveraging::Count;   // /-
 
-        Buffer<float> ave_a;        // Здесь усреднённые значения,
-        Buffer<float> ave_b;        // рассчитанные по приблизетильному алгоритму
+        BufferHeap<float> ave_a;        // Здесь усреднённые значения,
+        BufferHeap<float> ave_b;        // рассчитанные по приблизетильному алгоритму
 
         int added_datas = 0;        // Столько данных учтено в измерениях
 
@@ -179,8 +179,8 @@ DataStruct &Averager::Accuracy::GetData()
 
     int num_bytes = ds.BytesInChanStored();
 
-    Buffer<uint> sum_a(num_bytes, 0);
-    Buffer<uint> sum_b(num_bytes, 0);
+    BufferHeap<uint> sum_a(num_bytes, 0);
+    BufferHeap<uint> sum_b(num_bytes, 0);
 
     uint *psum_a = sum_a.Data();
     uint *psum_b = sum_b.Data();

@@ -3,7 +3,7 @@
 #include "Log.h"
 #include "SCPI.h"
 #include "Utils/Strings.h"
-#include "Utils/Containers/Buffer.h"
+#include "Utils/Containers/BufferHeap.h"
 #include <cctype>
 #include <cstring>
 #include <cstdlib>
@@ -27,12 +27,12 @@ static int pointer = 0;
 
 void SCPI::AddNewData(uint8 *data, uint length)
 {
-    Buffer<char> message;
-    message.ReallocFromBuffer((char *)data, (int)length + 1);
-    message.Data()[message.Size() - 2] = '\0';
-    LOG_WRITE(message.DataChar());
-
-    return;
+//    BufferHeap<char> message;
+//    message.ReallocFromBuffer((char *)data, (int)length + 1);
+//    message.Data()[message.Size() - 2] = '\0';
+//    LOG_WRITE(message.DataChar());
+//
+//    return;
 
     std::memcpy(&bufData[pointer], data, length);
     pointer += length;
@@ -160,7 +160,7 @@ bool SCPI::FirstIsInt(uint8 *buffer, int *value, int min, int max)
 
     if (GetWord(buffer, &param, 0))
     {
-        Buffer<char> data(param.numSymbols + 1);
+        BufferHeap<char> data(param.numSymbols + 1);
         std::memcpy(data.Data(), param.address, (uint)param.numSymbols);
         data.Data()[param.numSymbols] = '\0';
         return SU::String2Int(data.Data(), value) && (*value >= min) && (*value <= max);

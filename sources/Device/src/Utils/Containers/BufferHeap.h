@@ -9,20 +9,20 @@
 */
 
 template<class T>
-class Buffer
+class BufferHeap
 {
 public:
 
-    Buffer(int size = 0U) : block(32)
+    BufferHeap(int size = 0U) : block(32)
     {
         Malloc(size);
     }
 
-    Buffer(int size, T value);
+    BufferHeap(int size, T value);
 
-    Buffer(const Buffer<T> &);
+    BufferHeap(const BufferHeap<T> &);
 
-    ~Buffer();
+    ~BufferHeap();
 
     void Realloc(int size);
     void ReallocAndFill(int size, T value);
@@ -52,7 +52,7 @@ public:
 
     static float Sum(T *data, uint number);
 
-    Buffer<T> &operator=(const Buffer<T> &);
+    BufferHeap<T> &operator=(const BufferHeap<T> &);
 
     T &operator[](uint i);
     T &operator[](int i);

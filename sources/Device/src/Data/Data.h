@@ -1,7 +1,7 @@
 // 2022/03/16 08:24:46 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "FPGA/SettingsFPGA.h"
-#include "Utils/Containers/Buffer.h"
+#include "Utils/Containers/BufferHeap.h"
 
 
 struct DataStruct;
@@ -71,10 +71,10 @@ struct DataSettings
 };
 
 
-struct BufferFPGA : public Buffer<uint8>
+struct BufferFPGA : public BufferHeap<uint8>
 {
-    BufferFPGA(int size = 0) : Buffer<uint8>(size) { }
-    BufferFPGA(int size, uint8 value) : Buffer<uint8>(size, value) { }
+    BufferFPGA(int size = 0) : BufferHeap<uint8>(size) { }
+    BufferFPGA(int size, uint8 value) : BufferHeap<uint8>(size, value) { }
 };
 
 

@@ -27,12 +27,12 @@ __ALIGN_BEGIN ETH_DMADescTypeDef  DMATxDscrTab[ETH_TXBUFNB] __ALIGN_END;/* Ether
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
   #pragma data_alignment=4   
 #endif
-__ALIGN_BEGIN uint8_t Rx_Buff[ETH_RXBUFNB][ETH_RX_BUF_SIZE] __ALIGN_END; /* Ethernet Receive Buffer */
+__ALIGN_BEGIN uint8_t Rx_Buff[ETH_RXBUFNB][ETH_RX_BUF_SIZE] __ALIGN_END; /* Ethernet Receive BufferHeap */
 
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
   #pragma data_alignment=4   
 #endif
-__ALIGN_BEGIN uint8_t Tx_Buff[ETH_TXBUFNB][ETH_TX_BUF_SIZE] __ALIGN_END; /* Ethernet Transmit Buffer */
+__ALIGN_BEGIN uint8_t Tx_Buff[ETH_TXBUFNB][ETH_TX_BUF_SIZE] __ALIGN_END; /* Ethernet Transmit BufferHeap */
 
 ETH_HandleTypeDef EthHandle;
 
@@ -393,7 +393,7 @@ static struct pbuf * low_level_input(struct netif *netif)
   /* Clear Segment_Count */
   EthHandle.RxFrameInfos.SegCount =0;
   
-  /* When Rx Buffer unavailable flag is set: clear it and resume reception */
+  /* When Rx BufferHeap unavailable flag is set: clear it and resume reception */
   if ((EthHandle.Instance->DMASR & ETH_DMASR_RBUS) != (uint32_t)RESET)  
   {
     /* Clear RBUS ETHERNET DMA flag */

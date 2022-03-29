@@ -9,7 +9,7 @@
 #include "Settings/Settings.h"
 #include "Hardware/HAL/HAL.h"
 #include "Utils/Strings.h"
-#include "Utils/Containers/Buffer.h"
+#include "Utils/Containers/BufferHeap.h"
 #include "Data/DataExtensions.h"
 #include <cstring>
 

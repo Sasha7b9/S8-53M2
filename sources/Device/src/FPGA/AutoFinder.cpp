@@ -14,10 +14,10 @@ namespace FPGA
 {
     namespace AutoFinder
     {
-        class DataFinder : public Buffer<uint8>
+        class DataFinder : public BufferHeap<uint8>
         {
         public:
-            DataFinder() : Buffer<uint8>(1024) { }
+            DataFinder() : BufferHeap<uint8>(1024) { }
 
             // Читать данные с ожиданием импульса синхронизации
             bool ReadDataWithSynchronization(Chan, uint timeWait);

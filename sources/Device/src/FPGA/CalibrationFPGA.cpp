@@ -4,7 +4,7 @@
 #include "Panel/Panel.h"
 #include "Hardware/Timer.h"
 #include "Display/Text.h"
-#include "Utils/Containers/Buffer.h"
+#include "Utils/Containers/BufferHeap.h"
 #include "Menu/Pages/Definition.h"
 #include "Hardware/HAL/HAL.h"
 #include "Utils/Containers/Queue.h"
@@ -375,7 +375,7 @@ float FPGA::Calibrator::Read1024PointsAve(Chan ch)
 
     Reader::Read1024Points(buffer, ch);
 
-    return Buffer<uint8>::Sum(buffer, 1024) / 1024;
+    return BufferHeap<uint8>::Sum(buffer, 1024) / 1024;
 }
 
 

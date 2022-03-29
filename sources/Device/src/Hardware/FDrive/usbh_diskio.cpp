@@ -209,7 +209,7 @@ DRESULT USBH_write(BYTE lun, const BYTE *buff, DWORD sector, UINT count)
   * @brief  I/O control operation
   * @param  lun : lun id
   * @param  cmd: Item code
-  * @param  *buff: Buffer to send/receive control data
+  * @param  *buff: BufferHeap to send/receive control data
   * @retval DRESULT: Operation result
   */
 #if _USE_IOCTL == 1
