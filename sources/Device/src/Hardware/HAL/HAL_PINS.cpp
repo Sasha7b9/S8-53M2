@@ -203,23 +203,23 @@ void HAL_PINS::Init()
     PinOTG_FS(A, 11).Init();    // DM
     PinOTG_FS(A, 9).Init();     // VBUS
 
-    PinETH(H, 2).Init();        // CRS
     PinETH(A, 2).Init();        // MDIO
-    PinETH(H, 3).Init();        // COL
-    PinETH(A, 7).Init();        // RX_DV
+    PinETH(C, 1).Init();        // MDC
     PinETH(H, 6).Init();        // RXD2
     PinETH(B, 1).Init();        // RXD3
-    PinETH(B, 8).Init();        // TXD3
-    PinETH(I, 10).Init();       // RX_ER
-    PinETH(B, 11).Init();       // TX_EN
-    PinETH(C, 1).Init();        // MDC
-    PinETH(C, 2).Init();        // TXD2
     PinETH(C, 3).Init();        // TX_CLK
+    PinETH(C, 2).Init();        // TXD2
+    PinETH(B, 8).Init();        // TXD3
     PinETH(A, 1).Init();        // RX_CLK
+    PinETH(A, 7).Init();        // RX_DV
     PinETH(C, 4).Init();        // RXD0
     PinETH(C, 5).Init();        // RXD1
+    PinETH(B, 11).Init();       // TX_EN
     PinETH(B, 12).Init();       // TXD0
     PinETH(G, 14).Init();       // TXD1
+    PinETH(I, 10).Init();       // RX_ER
+    PinETH(H, 2).Init();        // CRS
+    PinETH(H, 3).Init();        // COL
 
     Pin(PinMode::_DAC1, PinPort::_A, PinPin::_4).Init();        // PWM для дисплея
 
@@ -292,6 +292,7 @@ void Pin::Init()
     }
     else if (mode == PinMode::_ETH)
     {
+        isGPIO.Pull = GPIO_PULLUP;
         isGPIO.Mode = GPIO_MODE_AF_PP;
         isGPIO.Speed = GPIO_SPEED_HIGH;
         isGPIO.Alternate = GPIO_AF11_ETH;
