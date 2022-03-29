@@ -129,6 +129,12 @@ protected:
 };
 
 
+template<class T>
+class Buffer1024 : public Buffer<T, 1024>
+{
+public:
+};
+
 
 template<class T>
 class Buffer2048 : public Buffer<T, 2048>
@@ -137,5 +143,4 @@ public:
     Buffer2048() : Buffer<T, 2048>() { };
     Buffer2048(int size) : Buffer<T, 2048>(size) { };
     Buffer2048(int size, T value) : Buffer<T, 2048>(size, value) { };
-private:
 };
