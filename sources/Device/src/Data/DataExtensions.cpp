@@ -6,6 +6,7 @@
 #include "Utils/Math.h"
 #include "Utils/Strings.h"
 #include "Data/Processing.h"
+#include <cstring>
 
 
 namespace Averager
