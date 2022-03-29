@@ -30,8 +30,8 @@ namespace Panel
 
     Queue<uint8> data_for_send;                     // Здесь данные для пересылки в панель
 
-    StaticQueue<KeyboardEvent> input_buffer(10);   // Основной буфер событий
-    StaticQueue<KeyboardEvent> aux_buffer(10);     // Вспомогательный буфер - сюда помещаются события, если во время прерывания идёт
+    StaticQueue<KeyboardEvent, 10> input_buffer;   // Основной буфер событий
+    StaticQueue<KeyboardEvent, 10> aux_buffer;     // Вспомогательный буфер - сюда помещаются события, если во время прерывания идёт
                                 // работа с основным буфером input_buffer
     bool isRunning = true;
 

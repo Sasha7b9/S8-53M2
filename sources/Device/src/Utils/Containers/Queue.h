@@ -66,17 +66,10 @@ private:
 
 
 // Очередь с фиксированым размером, который задаётся при создании объекта
-template<typename T>
+template<typename T, int size>
 struct StaticQueue
 {
-    StaticQueue(int _size) : size(_size), pointer(0)
-    {
-        buffer = (T *)std::malloc(sizeof(T) * size);
-    }
-    ~StaticQueue()
-    {
-        std::free(buffer);
-    }
+    StaticQueue() : SIZE(size), pointer(0) { }
 
     void Clear() { pointer = 0; }
 
@@ -110,7 +103,7 @@ struct StaticQueue
 
 private:
 
-    const int size;
-    T *buffer;
+    const int SIZE;
+    T buffer[size];
     int pointer;                        // Здесь позиция элемента, в который будет производиться сохранение
 };
