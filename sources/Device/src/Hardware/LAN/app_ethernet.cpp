@@ -22,48 +22,13 @@
 #include "app_ethernet.h"
 #include <stm32f4xx_hal.h>
 
-/* Private typedef -----------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
-#ifdef USE_DHCP
-#define MAX_DHCP_TRIES  4
-uint32_t DHCPfineTimer = 0;
-__IO uint8_t DHCP_state = DHCP_OFF;
-#endif
 
-/* Private function prototypes -----------------------------------------------*/
-/* Private functions ---------------------------------------------------------*/
-/**
-  * @brief  Notify the User about the nework interface config status 
-  * @param  netif: the network interface
-  * @retval None
-  */
 void User_notification(struct netif *netif) 
 {
-  if (netif_is_up(netif))
- {
-#ifdef USE_DHCP
-    /* Update DHCP state machine */
-    DHCP_state = DHCP_START;
-#else
-#ifdef USE_LCD
-    uint8_t iptxt[20];
-    sprintf((char *)iptxt, "%s", ip4addr_ntoa((const ip4_addr_t *)&netif->ip_addr));
-    LCD_UsrLog ("Static IP address: %s\n", iptxt);
-#else    
-    /* Turn On LED 1 to indicate ETH and LwIP init success*/
-//    BSP_LED_On(LED1);
-#endif /* USE_LCD */
-#endif /* USE_DHCP */
- }
- else
-  {  
-#ifdef USE_DHCP
-    /* Update DHCP state machine */
-    DHCP_state = DHCP_LINK_DOWN;
-#endif  /* USE_DHCP */
-  } 
+    if (netif_is_up(netif))
+    {
+        LOG_WRITE(ip4addr_ntoa((const ip4_addr_t *)&netif->ip_addr));
+    }
 }
 
 /**
