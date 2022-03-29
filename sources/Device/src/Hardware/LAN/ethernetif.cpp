@@ -1,22 +1,3 @@
-/**
-  ******************************************************************************
-  * @file    LwIP/LwIP_TCP_Echo_Server/Src/ethernetif.c
-  * @author  MCD Application Team
-  * @brief   This file implements Ethernet network interface drivers for lwIP
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                             www.st.com/SLA0044
-  *
-  ******************************************************************************
-  */
-/* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 #include "lwip/timeouts.h"
 #include "lwip/tcpip.h"
@@ -641,4 +622,3 @@ __weak void ethernetif_notify_conn_changed(struct netif *netif)
             when the callback is needed,
   */  
 }
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
