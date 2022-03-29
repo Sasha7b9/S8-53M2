@@ -2,7 +2,6 @@
 #pragma once
 #include "Display/Display.h"
 #include "Display/Colors.h"
-#include "common/Panel/Controls.h"
 #include "defines.h"
 
 
