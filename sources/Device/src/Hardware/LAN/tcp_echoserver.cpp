@@ -2,6 +2,7 @@
 #include "lwip/stats.h"
 #include "lwip/tcp.h"
 #include "Settings/Settings.h"
+#include "SCPI/SCPI.h"
 
 #if LWIP_TCP
 
@@ -181,6 +182,8 @@ static err_t tcp_echoserver_recv(void *arg, struct tcp_pcb *tpcb, struct pbuf *p
         /* initialize LwIP tcp_sent callback function */
         tcp_sent(tpcb, tcp_echoserver_sent);
 
+        SCPI::AddNewData((uint8 *)p->payload, p->len);
+
         /* send back the received data (echo) */
         tcp_echoserver_send(tpcb, es);
 
@@ -192,6 +195,8 @@ static err_t tcp_echoserver_recv(void *arg, struct tcp_pcb *tpcb, struct pbuf *p
         if (es->p == NULL)
         {
             es->p = p;
+
+            SCPI::AddNewData((uint8 *)p->payload, p->len);
 
             /* send back received data */
             tcp_echoserver_send(tpcb, es);

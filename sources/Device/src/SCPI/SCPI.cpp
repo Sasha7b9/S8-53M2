@@ -27,6 +27,13 @@ static int pointer = 0;
 
 void SCPI::AddNewData(uint8 *data, uint length)
 {
+    Buffer<char> message;
+    message.ReallocFromBuffer((char *)data, (int)length + 1);
+    message.Data()[message.Size() - 2] = '\0';
+    LOG_WRITE(message.DataChar());
+
+    return;
+
     std::memcpy(&bufData[pointer], data, length);
     pointer += length;
 
