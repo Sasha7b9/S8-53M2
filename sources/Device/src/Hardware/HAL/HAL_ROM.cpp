@@ -4,6 +4,7 @@
 #include "Settings/Settings.h"
 #include "Hardware/Sound.h"
 #include <stm32f4xx_hal.h>
+#include <cstring>
 
 
 /*

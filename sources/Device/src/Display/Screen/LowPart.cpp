@@ -17,6 +17,7 @@
 #include "Data/Processing.h"
 #include "Utils/Strings.h"
 #include <cstdio>
+#include <cstring>
 
 
 namespace LowPart
