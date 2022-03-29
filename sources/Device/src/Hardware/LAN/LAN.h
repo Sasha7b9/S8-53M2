@@ -7,6 +7,10 @@ namespace LAN
     extern bool cableIsConnected;
     extern bool clientIsConnected;
 
+    void Init();
+
+    void Update();
+
     void Send(pchar buffer, uint length);
     void SendFormat(char *format, ...);
 }
