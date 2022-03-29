@@ -2,7 +2,6 @@
 #pragma once
 #include "Hardware/VCP/VCP.h"
 #include "Hardware/LAN/LAN.h"
-#include "Hardware/LAN/SocketTCP.h"
 
 
 #define ENTER_ANALYSIS                                  \
@@ -23,7 +22,7 @@
     }                                                   \
     if (LAN::clientIsConnected)                         \
     {                                                   \
-        SocketTCP::SendFormatString(__VA_ARGS__);       \
+        LAN::SendFormat(__VA_ARGS__);                   \
     }
 
 #define ENTER_PARSE_FUNC(funcName)                      \

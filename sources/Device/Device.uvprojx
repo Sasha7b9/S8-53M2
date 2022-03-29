@@ -1392,16 +1392,6 @@
               <FilePath>.\src\Hardware\LAN\LAN.h</FilePath>
             </File>
             <File>
-              <FileName>SocketTCP.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\LAN\SocketTCP.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SocketTCP.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\LAN\SocketTCP.h</FilePath>
-            </File>
-            <File>
               <FileName>app_ethernet.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\LAN\app_ethernet.cpp</FilePath>
@@ -3410,16 +3400,6 @@
               <FileName>LAN.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\LAN\LAN.h</FilePath>
-            </File>
-            <File>
-              <FileName>SocketTCP.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\LAN\SocketTCP.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SocketTCP.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\LAN\SocketTCP.h</FilePath>
             </File>
             <File>
               <FileName>app_ethernet.cpp</FileName>

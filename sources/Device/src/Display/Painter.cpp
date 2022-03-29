@@ -5,7 +5,6 @@
 #include "Display/font/Font.h"
 #include "Log.h"
 #include "Hardware/LAN/LAN.h"
-#include "Hardware/LAN/SocketTCP.h"
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"
 #include "Hardware/VCP/VCP.h"
@@ -155,7 +154,7 @@ void Painter::DrawDashedHLine(int y, int x0, int x1, int deltaFill, int deltaEmp
 void InterCom::Send(const uint8 *pointer, int size)
 {
     VCP::Send(pointer, size);
-    SocketTCP::Send((pchar )pointer, (uint)size);
+    LAN::Send((pchar )pointer, (uint)size);
 }
 
 
