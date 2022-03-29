@@ -196,7 +196,7 @@ static err_t tcp_echoserver_recv(void *arg, struct tcp_pcb *tpcb, struct pbuf *p
         SCPI::AddNewData((uint8 *)p->payload, p->len);
 
         /* send back the received data (echo) */
-        tcp_echoserver_send(tpcb, es);
+//        tcp_echoserver_send(tpcb, es);
 
         ret_err = ERR_OK;
     }
@@ -210,7 +210,7 @@ static err_t tcp_echoserver_recv(void *arg, struct tcp_pcb *tpcb, struct pbuf *p
             SCPI::AddNewData((uint8 *)p->payload, p->len);
 
             /* send back received data */
-            tcp_echoserver_send(tpcb, es);
+//            tcp_echoserver_send(tpcb, es);
         }
         else
         {
