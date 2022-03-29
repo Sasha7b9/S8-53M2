@@ -31,7 +31,6 @@ template uint8         &BufferHeap<uint8>::operator[](uint);
 template float         &BufferHeap<float>::operator[](int);
 template uint          &BufferHeap<uint>::operator[](int);
 template BufferHeap<uint8> &BufferHeap<uint8>::operator=(const BufferHeap<uint8> &);
-template float          BufferHeap<uint8>::Sum(uint8 *, uint);
 
 
 template<class T>
@@ -146,21 +145,6 @@ T &BufferHeap<T>::operator[](int i)
     static T empty(0);
 
     return empty;
-}
-
-
-template<class T>
-float BufferHeap<T>::Sum(T *data, uint number)
-{
-    float result = 0.0F;
-
-    for (uint i = 0; i < number; i++)
-    {
-        result += *data;
-        data++;
-    }
-
-    return result;
 }
 
 

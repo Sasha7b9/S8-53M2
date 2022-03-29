@@ -50,8 +50,6 @@ public:
 
     inline T *Pointer(int index) { return Data() + index; }
 
-    static float Sum(T *data, uint number);
-
     BufferHeap<T> &operator=(const BufferHeap<T> &);
 
     T &operator[](uint i);

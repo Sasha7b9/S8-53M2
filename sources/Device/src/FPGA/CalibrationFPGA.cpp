@@ -374,7 +374,14 @@ float FPGA::Calibrator::Read1024PointsAve(Chan ch)
 
     Reader::Read1024Points(buffer, ch);
 
-    return BufferHeap<uint8>::Sum(buffer, 1024) / 1024;
+    float sum = 0.0f;
+
+    for (int i = 0; i < 1024; i++)
+    {
+        sum += (float)buffer[i];
+    }
+
+    return sum / 1024.0f;
 }
 
 
