@@ -177,7 +177,7 @@ void Color::SetCurrent(Color::E color)
 
         if (InterCom::TransmitGUIinProcess())
         {
-            CommandBuffer command(4, SET_COLOR);
+            CommandBuffer<4> command(SET_COLOR);
             command.PushByte(color);
             command.Transmit(2);
         }
@@ -214,7 +214,7 @@ void Painter::DrawHLine(int y, int x0, int x1, Color::E color)
 
     if (InterCom::TransmitGUIinProcess())
     {
-        CommandBuffer command(8, DRAW_HLINE);
+        CommandBuffer<8> command(DRAW_HLINE);
         command.PushByte(y);
         command.PushHalfWord(x0);
         command.PushHalfWord(x1);
@@ -252,7 +252,7 @@ void Painter::DrawVLine(int x, int y0, int y1, Color::E color)
 
     if (InterCom::TransmitGUIinProcess())
     {
-        CommandBuffer command(8, DRAW_VLINE);
+        CommandBuffer<8> command(DRAW_VLINE);
         command.PushHalfWord(x);
         command.PushByte(y0);
         command.PushByte(y1);
@@ -307,7 +307,7 @@ void Point::Set(int x, int y)
 
     if (InterCom::TransmitGUIinProcess())
     {
-        CommandBuffer command(4, SET_POINT);
+        CommandBuffer<4> command(SET_POINT);
         command.PushHalfWord(x);
         command.PushByte(y);
         command.Transmit(4);
@@ -346,7 +346,7 @@ void Painter::DrawMultiVPointLine(int numLines, const int y, const uint16 x[], i
 
     if (InterCom::TransmitGUIinProcess())
     {
-        CommandBuffer command(60, DRAW_MULTI_VPOINT_LINES);
+        CommandBuffer<60> command(DRAW_MULTI_VPOINT_LINES);
         command.PushByte(numLines);
         command.PushByte(y);
         command.PushByte(count);
@@ -390,7 +390,7 @@ void Painter::DrawMultiHPointLine(int numLines, int x, const uint8 y[], int delt
 
     if (InterCom::TransmitGUIinProcess())
     {
-        CommandBuffer command(30, DRAW_MULTI_HPOINT_LINES_2);
+        CommandBuffer<30> command(DRAW_MULTI_HPOINT_LINES_2);
         command.PushByte(numLines);
         command.PushHalfWord(x);
         command.PushByte(count);
@@ -446,7 +446,7 @@ void Region::Fill(int x, int y, Color::E color)
 
     if (InterCom::TransmitGUIinProcess())
     {
-        CommandBuffer command(8, FILL_REGION);
+        CommandBuffer<8> command(FILL_REGION);
         command.PushHalfWord(x);
         command.PushByte(y);
         command.PushHalfWord(width);
@@ -495,7 +495,7 @@ void Painter::DrawVLineArray(int x, int num_lines, uint8 *y0y1, Color::E color, 
 
     if (InterCom::TransmitGUIinProcess())
     {
-        CommandBuffer command(255 * 2 + 4 + 4, DRAW_VLINES_ARRAY);
+        CommandBuffer< 255 * 2 + 4 + 4> command(DRAW_VLINES_ARRAY);
         command.PushHalfWord(x);
 
         if (num_lines > 255)
@@ -579,7 +579,7 @@ void Painter::EndScene(bool endScene)
     {
         if (InterCom::TransmitGUIinProcess())
         {
-            CommandBuffer command(4, END_SCENE);
+            CommandBuffer<4> command(END_SCENE);
             command.Transmit(1);
         }
     }

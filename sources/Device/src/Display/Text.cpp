@@ -69,7 +69,7 @@ void Font::Set(TypeFont::E typeFont)
 
     if (InterCom::TransmitGUIinProcess())
     {
-        CommandBuffer command(4, SET_FONT);
+        CommandBuffer<4> command(SET_FONT);
         command.PushByte(typeFont);
         command.Transmit(2);
     }
@@ -82,7 +82,7 @@ void Font::Load(TypeFont::E typeFont)
     {
         uint8 *pFont = (uint8 *)Font::fonts[typeFont];
 
-        CommandBuffer command(2 + 4, LOAD_FONT);
+        CommandBuffer<2 + 4> command(LOAD_FONT);
         command.PushByte(typeFont);
         command.PushWord(Font::fonts[typeFont]->height);
 
@@ -999,7 +999,7 @@ int String::Draw(int x, int y, Color::E color)
     {
         const int SIZE_BUFFER = 100;
 
-        CommandBuffer command(SIZE_BUFFER, DRAW_TEXT);
+        CommandBuffer<SIZE_BUFFER> command(DRAW_TEXT);
         command.PushHalfWord(x);
         command.PushByte(y + 1);
         command.PushByte(0);

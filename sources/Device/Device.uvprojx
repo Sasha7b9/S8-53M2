@@ -1182,11 +1182,6 @@
               <FilePath>.\src\Hardware\Timer.cpp</FilePath>
             </File>
             <File>
-              <FileName>InterCom.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\InterCom.cpp</FilePath>
-            </File>
-            <File>
               <FileName>InterCom.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\InterCom.h</FilePath>
@@ -1891,11 +1886,6 @@
               <FileName>Queue.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\Containers\Queue.h</FilePath>
-            </File>
-            <File>
-              <FileName>Buffer.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Containers\Buffer.cpp</FilePath>
             </File>
             <File>
               <FileName>Buffer.h</FileName>
@@ -3192,11 +3182,6 @@
               <FilePath>.\src\Hardware\Timer.cpp</FilePath>
             </File>
             <File>
-              <FileName>InterCom.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\InterCom.cpp</FilePath>
-            </File>
-            <File>
               <FileName>InterCom.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\InterCom.h</FilePath>
@@ -3901,11 +3886,6 @@
               <FileName>Queue.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\Containers\Queue.h</FilePath>
-            </File>
-            <File>
-              <FileName>Buffer.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Containers\Buffer.cpp</FilePath>
             </File>
             <File>
               <FileName>Buffer.h</FileName>

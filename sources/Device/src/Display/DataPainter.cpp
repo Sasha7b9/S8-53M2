@@ -782,7 +782,7 @@ void DataPainter::DrawSignal(const int _x, const uint8 data[281], bool modeLines
 
     if (InterCom::TransmitGUIinProcess())
     {
-        CommandBuffer command(284, (uint8)(modeLines ? DRAW_SIGNAL_LINES : DRAW_SIGNAL_POINTS));
+        CommandBuffer<284> command((uint8)(modeLines ? DRAW_SIGNAL_LINES : DRAW_SIGNAL_POINTS));
         command.PushHalfWord(_x);
 
         for (int i = 0; i < 281; i++)
