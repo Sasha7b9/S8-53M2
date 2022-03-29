@@ -1377,21 +1377,6 @@
               <FilePath>.\src\Hardware\LAN\lwipopts.h</FilePath>
             </File>
             <File>
-              <FileName>app_ethernet.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\LAN\app_ethernet.c</FilePath>
-            </File>
-            <File>
-              <FileName>ethernetif.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\LAN\ethernetif.c</FilePath>
-            </File>
-            <File>
-              <FileName>tcp_echoserver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\LAN\tcp_echoserver.c</FilePath>
-            </File>
-            <File>
               <FileName>tcp_echoserver.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\LAN\tcp_echoserver.h</FilePath>
@@ -1415,6 +1400,21 @@
               <FileName>SocketTCP.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\LAN\SocketTCP.h</FilePath>
+            </File>
+            <File>
+              <FileName>app_ethernet.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\LAN\app_ethernet.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ethernetif.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\LAN\ethernetif.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>tcp_echoserver.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\LAN\tcp_echoserver.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -2209,7 +2209,7 @@
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>0</useUlib>
+            <useUlib>1</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
@@ -3397,21 +3397,6 @@
               <FilePath>.\src\Hardware\LAN\lwipopts.h</FilePath>
             </File>
             <File>
-              <FileName>app_ethernet.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\LAN\app_ethernet.c</FilePath>
-            </File>
-            <File>
-              <FileName>ethernetif.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\LAN\ethernetif.c</FilePath>
-            </File>
-            <File>
-              <FileName>tcp_echoserver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\LAN\tcp_echoserver.c</FilePath>
-            </File>
-            <File>
               <FileName>tcp_echoserver.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\LAN\tcp_echoserver.h</FilePath>
@@ -3435,6 +3420,21 @@
               <FileName>SocketTCP.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\LAN\SocketTCP.h</FilePath>
+            </File>
+            <File>
+              <FileName>app_ethernet.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\LAN\app_ethernet.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ethernetif.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\LAN\ethernetif.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>tcp_echoserver.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\LAN\tcp_echoserver.cpp</FilePath>
             </File>
           </Files>
         </Group>
