@@ -11,23 +11,23 @@
 #include <cstdlib>
 
 
-template      String<(int)32>::String(pchar, ...);
-template int  String<(int)32>::Draw(int, int, Color::E);
-template void String<(int)32>::Append(pchar);
-template int  String<(int)32>::DrawInCenterRect(int x, int y, int width, int height, Color::E);
-template int  String<(int)32>::DrawWithLimitation(int x, int y, Color::E color, int limitX, int limitY, int limitWidth,
+template      String<(int)256>::String(pchar, ...);
+template int  String<(int)256>::Draw(int, int, Color::E);
+template void String<(int)256>::Append(pchar);
+template int  String<(int)256>::DrawInCenterRect(int x, int y, int width, int height, Color::E);
+template int  String<(int)256>::DrawWithLimitation(int x, int y, Color::E color, int limitX, int limitY, int limitWidth,
     int limitHeight);
-template void String<(int)32>::DrawRelativelyRight(int xRight, int y, Color::E);
-template int  String<(int)32>::DrawOnBackground(int x, int y, Color::E colorBackground);
-template void String<(int)32>::DrawInRect(int x, int y, int width, int height, int dy);
-template void String<(int)32>::SetFormat(pchar format, ...);
-template int  String<(int)32>::DrawInBoundedRectWithTransfers(int x, int y, int width, Color::E colorBackground,
+template void String<(int)256>::DrawRelativelyRight(int xRight, int y, Color::E);
+template int  String<(int)256>::DrawOnBackground(int x, int y, Color::E colorBackground);
+template void String<(int)256>::DrawInRect(int x, int y, int width, int height, int dy);
+template void String<(int)256>::SetFormat(pchar format, ...);
+template int  String<(int)256>::DrawInBoundedRectWithTransfers(int x, int y, int width, Color::E colorBackground,
     Color::E colorFill);
-template int  String<(int)32>::DrawInRectWithTransfers(int x, int y, int width, int height, Color::E);
-template int  String<(int)32>::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height,
+template int  String<(int)256>::DrawInRectWithTransfers(int x, int y, int width, int height, Color::E);
+template int  String<(int)256>::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height,
     Color::E colorBackground, Color::E colorFill);
-template void String<(int)32>::Append(char);
-template void String<(int)32>::DrawInCenterRectOnBackground(int x, int y, int width, int height, Color::E colorText,
+template void String<(int)256>::Append(char);
+template void String<(int)256>::DrawInCenterRectOnBackground(int x, int y, int width, int height, Color::E colorText,
     int widthBorder, Color::E colorBackground);
 
 
@@ -91,7 +91,7 @@ int String<capa>::Draw(int x, int y, Color::E color)
 template<int capacity>
 String<capacity>::String(pchar format, ...)
 {
-    char temp_buffer[capacity];
+    char temp_buffer[1024];
 
     std::va_list args;
     va_start(args, format);
@@ -101,9 +101,17 @@ String<capacity>::String(pchar format, ...)
     if (capacity < num_symbols - 1)
     {
         LOG_ERROR_TRACE("Very small string buffer %d, need %d", capacity, num_symbols);
-    }
 
-    std::strcpy(buffer, temp_buffer);
+        for (int i = 0; i < capacity - 1; i++)
+        {
+            buffer[i] = temp_buffer[i];
+            buffer[capacity - 1] = '\0';
+        }
+    }
+    else
+    {
+        std::strcpy(buffer, temp_buffer);
+    }
 }
 
 

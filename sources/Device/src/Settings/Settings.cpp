@@ -331,7 +331,17 @@ void Settings::CopyCalibrationSettings(Chan ch, Settings &dest, Settings &src)
         }
     }
 
-    dest.debug = src.debug;
+    dest.debug.numStrings = src.debug.numStrings;
+    dest.debug.sizeFont = src.debug.sizeFont;
+    dest.debug.numMeasuresForGates = src.debug.numAveForRand;
+    dest.debug.showStats = src.debug.showStats;
+    dest.debug.numAveForRand = src.debug.numAveForRand;
+    dest.debug.balanceADC[0] = src.debug.balanceADC[0];
+    dest.debug.balanceADC[1] = src.debug.balanceADC[1];
+    dest.debug.fpga_compact = src.debug.fpga_compact;
+    dest.debug.fpga_gates_min = src.debug.fpga_gates_min;
+    dest.debug.fpga_gates_max = src.debug.fpga_gates_max;
+    dest.debug.first_byte = src.debug.first_byte;
 }
 
 
@@ -353,7 +363,6 @@ void Settings::SaveBeforePowerDown()
 {
     if (need_save)
     {
-        LOG_WRITE("Settings saved");
         HAL_ROM::Settings::Save();
     }
 }

@@ -13,7 +13,7 @@
 
 #define SET_FPGA_COMPACT        set.debug.fpga_compact
 #define FPGA_GATES_MIN          set.debug.fpga_gates_min
-#define FPGA_GATES_MAX          set.debug.fpag_gates_max
+#define FPGA_GATES_MAX          set.debug.fpga_gates_max
 
 #define RSHIFT_HAND(ch, range, couple) set.debug.hand_rshift[ch][range][couple]
 
@@ -30,7 +30,7 @@ struct SettingsNRST
     int16   balanceADC[2];          // Баланс АЦП (смещение первой точки относительно второй) для обоих каналов
     bool    fpga_compact;           // Если true - уплотнять сигнал (FPGA::Compactor)
     int16   fpga_gates_min;         // \ Минимальные и максимальные значения, за пределами которых нужно отбрасывать
-    int16   fpag_gates_max;         // /
+    int16   fpga_gates_max;         // /
 
     int16   first_byte;
 

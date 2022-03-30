@@ -4,7 +4,7 @@
 #include <cstring>
 
 
-template<int capacity = 32>
+template<int capacity = 256>
 class String
 {
 public:

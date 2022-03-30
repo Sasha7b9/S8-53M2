@@ -12,6 +12,7 @@
 #include "Utils/Text/Warnings.h"
 #include "Utils/Text/Text.h"
 #include "Utils/Text/Symbols.h"
+#include "Display/Screen/Console.h"
 #include <cstdio>
 
 
@@ -21,6 +22,8 @@ static void FuncDraw()
 
     String<>("Подтвердите сброс настроек нажатием кнопки ПУСК/СТОП.\nНажмите любую другую кнопку, если сброс не нужен.")
         .DrawInRectWithTransfers(30, 110, 300, 200, COLOR_FILL);
+
+    Console::Draw();
 
     Painter::EndScene();
 }
