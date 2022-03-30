@@ -648,7 +648,7 @@ bool Painter::SaveScreenToFlashDrive() {
         14 + 40 + 1024
     };
 
-    File structForWrite;
+    File file;
     char fileName[255];
     
     if(!FM::GetNameForNewFile(fileName))
@@ -656,9 +656,9 @@ bool Painter::SaveScreenToFlashDrive() {
         return false;
     }
     
-    FDrive::OpenNewFileForWrite(fileName, &structForWrite);
+    file.OpenNewForWrite(fileName);
 
-    FDrive::WriteToFile((uint8*)(&bmFH), 14, &structForWrite);
+    FDrive::WriteToFile((uint8*)(&bmFH), 14, &file);
 
     BITMAPINFOHEADER bmIH =
     {
@@ -675,7 +675,7 @@ bool Painter::SaveScreenToFlashDrive() {
         0   // clrImportant;
     };  
 
-    FDrive::WriteToFile((uint8*)(&bmIH), 40, &structForWrite);
+    FDrive::WriteToFile((uint8*)(&bmIH), 40, &file);
 
     uint8 buffer[320 * 3] = {0};
     
@@ -702,7 +702,7 @@ bool Painter::SaveScreenToFlashDrive() {
 
     for(int i = 0; i < 4; i++)
     {
-        FDrive::WriteToFile(buffer, 256, &structForWrite);
+        FDrive::WriteToFile(buffer, 256, &file);
     }
 
     for(int y = 239; y >= 0; y--)
@@ -713,10 +713,10 @@ bool Painter::SaveScreenToFlashDrive() {
 
             buffer[x / 2] = (uint8)(((color & 0x0f) << 4) + (color >> 4));
         }
-        FDrive::WriteToFile(buffer, 160, &structForWrite);
+        FDrive::WriteToFile(buffer, 160, &file);
     }
     
-    FDrive::CloseFile(&structForWrite);
+    FDrive::CloseFile(&file);
     
     return true;
 }

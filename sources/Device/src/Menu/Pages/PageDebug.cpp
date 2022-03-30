@@ -118,9 +118,9 @@ static bool IsActive_SaveFirmware()
 
 static void OnPress_SaveFirmware()
 {
-    File structForWrite;
+    File file;
 
-    FDrive::OpenNewFileForWrite("S8-53.bin", &structForWrite);
+    file.OpenNewForWrite("S8-53.bin");
 
     const uint ADDR_START_FIRMWARE = 0x08020000;
 
@@ -131,11 +131,11 @@ static void OnPress_SaveFirmware()
 
     while (address < endAddress)
     {
-        FDrive::WriteToFile(address, sizeBlock, &structForWrite);
+        FDrive::WriteToFile(address, sizeBlock, &file);
         address += sizeBlock;
     }
 
-    FDrive::CloseFile(&structForWrite);
+    FDrive::CloseFile(&file);
 
     Warning::ShowGood(Warning::FirmwareSaved);
 }

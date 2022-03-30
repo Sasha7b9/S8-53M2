@@ -323,14 +323,15 @@ bool Directory::GetNextNameFile(char *nameFileOut)
 }
 
 
-bool FDrive::OpenNewFileForWrite(pchar  fullPathToFile, File *structForWrite)
+bool File::OpenNewForWrite(pchar  fullPathToFile)
 {
-    if (f_open(&structForWrite->fileObj, fullPathToFile, FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
+    if (f_open(&fileObj, fullPathToFile, FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
     {
         return false;
     }
-    strcpy(structForWrite->name, fullPathToFile);
-    structForWrite->sizeData = 0;
+
+    strcpy(name, fullPathToFile);
+    sizeData = 0;
     return true;
 }
 
