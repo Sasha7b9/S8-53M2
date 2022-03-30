@@ -3,6 +3,7 @@
 #include "Settings/SettingsTypes.h"
 #include "Display/Text.h"
 #include "Display/Colors.h"
+#include "Display/String.h"
 
 
 // Число точек сигнала, с которым идёт работа.
@@ -216,7 +217,7 @@ struct TShift
     static void Set(int);
 
     // Возвращает установленное смещение по времени в текстовом виде, пригодном для вывода на экран.
-    static DString ToString(int tShiftRel);
+    static String<> ToString(int tShiftRel);
 
     // Смещение по времени, соответствующее позиции TPos.
     static int Zero();
@@ -318,7 +319,7 @@ struct RShift
 
     float ToAbs(Range::E);
 
-    DString ToString(Range::E, Divider::E);
+    String<> ToString(Range::E, Divider::E);
 
     operator int16() const { return value; }
 

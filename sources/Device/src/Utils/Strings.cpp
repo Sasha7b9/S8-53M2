@@ -185,7 +185,7 @@ bool EqualsZeroStrings(char *str1, char *str2)
 
 void SU::LogBufferU8(const uint8 *data, int num)
 {
-    DString result;
+    String<> result;
 
     for (int i = 0; i < num; i++)
     {
@@ -199,7 +199,7 @@ void SU::LogBufferU8(const uint8 *data, int num)
 
 void SU::LogBufferU8(pchar label, const uint8 *data, int num)
 {
-    DString result(label);
+    String<> result(label);
     result.Append(" ");
 
     for (int i = 0; i < num; i++)
@@ -227,13 +227,13 @@ void SU::LogBufferF(pchar label, const float *data, int num)
 }
 
 
-DString SU::FloatFract2String(float value, bool alwaysSign)
+String<> SU::FloatFract2String(float value, bool alwaysSign)
 {
-    return DString(Float2String(value, alwaysSign, 4).c_str());
+    return String<>(Float2String(value, alwaysSign, 4).c_str());
 }
 
 
-DString SU::Bin2String(uint8 value)
+String<> SU::Bin2String(uint8 value)
 {
     char buffer[9];
 
@@ -242,18 +242,18 @@ DString SU::Bin2String(uint8 value)
         buffer[7 - bit] = _GET_BIT(value, bit) ? '1' : '0';
     }
 
-    return DString(buffer);
+    return String<>(buffer);
 }
 
 
-DString SU::Bin2String16(uint16 value)
+String<> SU::Bin2String16(uint16 value)
 {
     char buffer[19];
 
     std::strcpy(buffer, Bin2String((uint8)(value >> 8)).c_str());
     std::strcpy((buffer[8] = ' ', buffer + 9), Bin2String((uint8)value).c_str());
 
-    return DString(buffer);
+    return String<>(buffer);
 }
 
 
@@ -321,7 +321,7 @@ String<> SU::Float2String(float value, bool alwaysSign, int numDigits)
 }
 
 
-DString SU::Int2String(int value, bool alwaysSign, int numMinFields)
+String<> SU::Int2String(int value, bool alwaysSign, int numMinFields)
 {
     char buffer[20];
 
@@ -339,15 +339,15 @@ DString SU::Int2String(int value, bool alwaysSign, int numMinFields)
         std::sprintf(buffer, format, value);
     }
 
-    return DString(buffer);
+    return String<>(buffer);
 }
 
 
-DString SU::Hex8toString(uint8 value)
+String<> SU::Hex8toString(uint8 value)
 {
     char buffer[3];
     std::sprintf(value < 16 ? (buffer[0] = '0', buffer + 1) : (buffer), "%x", value);
-    return DString(buffer);
+    return String<>(buffer);
 }
 
 
@@ -390,13 +390,13 @@ bool SU::String2Int(char *str, int *value)
 }
 
 
-DString SU::Voltage2String(float voltage, bool alwaysSign)
+String<> SU::Voltage2String(float voltage, bool alwaysSign)
 {
     char *suffix;
 
     if (voltage == ERROR_VALUE_FLOAT)
     {
-        return DString(ERROR_STRING_VALUE);
+        return String<>(ERROR_STRING_VALUE);
     }
     else if (std::fabs(voltage) + 0.5e-4f < 1e-3f)
     {
@@ -418,20 +418,20 @@ DString SU::Voltage2String(float voltage, bool alwaysSign)
         voltage *= 1e-3f;
     }
 
-    DString result = DString(SU::Float2String(voltage, alwaysSign, 4).c_str());
+    String<> result = String<>(SU::Float2String(voltage, alwaysSign, 4).c_str());
     result.Append(suffix);
 
     return result;
 }
 
 
-DString SU::Time2String(float time, bool alwaysSign)
+String<> SU::Time2String(float time, bool alwaysSign)
 {
     char *suffix = 0;
 
     if (time == ERROR_VALUE_FLOAT)
     {
-        return DString(ERROR_STRING_VALUE);
+        return String<>(ERROR_STRING_VALUE);
     }
     else if (std::fabs(time) + 0.5e-10f < 1e-6f)
     {
@@ -453,16 +453,16 @@ DString SU::Time2String(float time, bool alwaysSign)
         suffix = LANG_RU ? "Я" : "s";
     }
 
-    DString result = DString(SU::Float2String(time, alwaysSign, 4).c_str());
+    String<> result = String<>(SU::Float2String(time, alwaysSign, 4).c_str());
     result.Append(suffix);
 
     return result;
 }
 
 
-DString SU::Freq2String(float freq, bool)
+String<> SU::Freq2String(float freq, bool)
 {
-    DString result;
+    String<> result;
 
     char *suffix = 0;
 
@@ -494,17 +494,17 @@ DString SU::Freq2String(float freq, bool)
 }
 
 
-DString SU::Phase2String(float phase, bool)
+String<> SU::Phase2String(float phase, bool)
 {
-    DString result(SU::Float2String(phase, false, 4).c_str());
+    String<> result(SU::Float2String(phase, false, 4).c_str());
     result.Append("\xa8");
     return result;
 }
 
 
-DString SU::Float2Db(float value, int numDigits)
+String<> SU::Float2Db(float value, int numDigits)
 {
-    DString result(SU::Float2String(value, false, numDigits).c_str());
+    String<> result(SU::Float2String(value, false, numDigits).c_str());
 
     result.Append(LANG_RU ? "Да" : "dB");
 

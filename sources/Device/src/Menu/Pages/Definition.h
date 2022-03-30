@@ -3,6 +3,7 @@
 #include "defines.h"
 #include "Settings/SettingsCursors.h"
 #include "Display/Text.h"
+#include "Display/String.h"
 
 
 class Page;
@@ -45,16 +46,16 @@ struct PageCursors
     static bool NecessaryDrawCursors();
 
     // Получить строку курсора напряжения.
-    static DString GetCursVoltage(Chan, int numCur);
+    static String<> GetCursVoltage(Chan, int numCur);
 
     // Получить строку курсора времени.
-    static DString GetCursorTime(Chan, int numCur);
+    static String<> GetCursorTime(Chan, int numCur);
 
     // Получить строку процентов курсоров напряжения.
-    static DString GetCursorPercentsU(Chan);
+    static String<> GetCursorPercentsU(Chan);
 
     // Получить строку процентов курсоров времени.
-    static DString GetCursorPercentsT(Chan);
+    static String<> GetCursorPercentsT(Chan);
 
     static void DrawMenuCursVoltage(int x, int y, bool top, bool bottom);
 

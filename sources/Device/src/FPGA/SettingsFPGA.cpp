@@ -504,7 +504,7 @@ void FPGA::LoadRegUPR()
 }
 
 
-DString TShift::ToString(int tShiftRel)
+String<> TShift::ToString(int tShiftRel)
 {
     float tShiftVal = TShift::ToAbs(tShiftRel, SET_TBASE);
 

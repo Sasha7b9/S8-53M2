@@ -85,8 +85,8 @@ namespace Processing
     // прохождении из "-" в "+".
     float FindIntersectionWithHorLine(Chan::E, int numIntersection, bool downToUp, uint8 yLine);
 
-    typedef float  (*pFuncFCh)(Chan::E);
-    typedef DString (*pFuncConvert)(float, bool);
+    typedef float    (*pFuncFCh)(Chan::E);
+    typedef String<> (*pFuncConvert)(float, bool);
 
     struct MeasureCalculate
     {
@@ -1131,7 +1131,7 @@ String<> Processing::GetStringMeasure(Measure::E measure, Chan ch)
     {
         pFuncConvert func = measures[measure].FucnConvertate;
         float value = values[measure].value[ch];
-        DString text = func(value, measures[measure].showSign);
+        String<> text = func(value, measures[measure].showSign);
         result.Append(text.c_str());
     }
     else

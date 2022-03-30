@@ -277,7 +277,7 @@ void Display::WriteValueTrigLevel()
         Rectangle(width, 10).Draw(x, y, COLOR_FILL);
         Region(width - 2, 8).Fill(x + 1, y + 1, COLOR_BACK);
 
-        DString string(LANG_RU ? "Ур синхр = " : "Trig lvl = ");
+        String<> string(LANG_RU ? "Ур синхр = " : "Trig lvl = ");
         string.Append(SU::Voltage2String(trigLev, true));
         string.Draw(x + 2, y + 1, COLOR_FILL);
     }

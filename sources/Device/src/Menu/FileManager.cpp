@@ -431,7 +431,7 @@ LabelNextNumber:
             {
                 if (*ch == 0x07)    // ≈сли здесь надо записать пор€дковый номер
                 {
-                    DString number_str = SU::Int2String(number, false, *(ch + 1));
+                    String<> number_str = SU::Int2String(number, false, *(ch + 1));
 
                     std::strcpy(wr, number_str.c_str());
                     wr += number_str.Size();
@@ -441,7 +441,7 @@ LabelNextNumber:
                 {
                     if (*ch >= 0x01 && *ch <= 0x06)
                     {
-                        DString value_str = SU::Int2String((int)values[*ch], false, 2);
+                        String<> value_str = SU::Int2String((int)values[*ch], false, 2);
 
                         std::strcpy(wr, value_str.c_str());
                         wr += value_str.Size();

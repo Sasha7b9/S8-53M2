@@ -20,23 +20,23 @@ bool EqualsZeroStrings(char *str1, char *str2);
 
 namespace SU
 {
-    DString Bin2String(uint8 value);
+    String<> Bin2String(uint8 value);
 
-    DString Bin2String16(uint16 value);
+    String<> Bin2String16(uint16 value);
 
-    DString FloatFract2String(float value, bool alwaysSign);
+    String<> FloatFract2String(float value, bool alwaysSign);
 
     String<> Float2String(float value, bool alwaysSign, int numDigits);
 
-    DString Hex8toString(uint8 value);
+    String<> Hex8toString(uint8 value);
 
-    DString Int2String(int value, bool alwaysSign, int numMinFields);
+    String<> Int2String(int value, bool alwaysSign, int numMinFields);
 
-    DString Voltage2String(float voltage, bool alwaysSign);
-    DString Time2String(float time, bool alwaysSign);
-    DString Freq2String(float freq, bool alwaysSign);
-    DString Phase2String(float phase, bool alwaysSign);
-    DString Float2Db(float value, int numDigits);
+    String<> Voltage2String(float voltage, bool alwaysSign);
+    String<> Time2String(float time, bool alwaysSign);
+    String<> Freq2String(float freq, bool alwaysSign);
+    String<> Phase2String(float phase, bool alwaysSign);
+    String<> Float2Db(float value, int numDigits);
 
     bool   String2Int(char *str, int *value);
 
