@@ -135,7 +135,7 @@ static void OnPress_SaveFirmware()
         address += sizeBlock;
     }
 
-    FDrive::CloseFile(&file);
+    file.Close();
 
     Warning::ShowGood(Warning::FirmwareSaved);
 }

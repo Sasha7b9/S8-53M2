@@ -24,6 +24,8 @@ struct File
     bool OpenNewForWrite(pchar  fullPathToFile);
 
     bool Write(uint8 *data, int sizeData);
+
+    bool Close();
 };
 
 struct Directory
@@ -54,8 +56,6 @@ namespace FDrive
     void Update();
 
     void GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles);
-
-    bool CloseFile(File *structForWrite);
 
     bool AppendStringToFile(pchar  string);
 };

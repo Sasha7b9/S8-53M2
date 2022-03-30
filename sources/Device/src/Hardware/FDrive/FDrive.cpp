@@ -367,24 +367,26 @@ bool File::Write(uint8* data, int size)
 }
 
 
-bool FDrive::CloseFile(File *structForWrite)
+bool File::Close()
 {
-    if (structForWrite->sizeData != 0)
+    if (sizeData != 0)
     {
         uint wr = 0;
-        if (f_write(&structForWrite->fileObj, structForWrite->tempBuffer, (uint)structForWrite->sizeData, &wr) != FR_OK || (uint)structForWrite->sizeData != wr)
+
+        if (f_write(&fileObj, tempBuffer, (uint)sizeData, &wr) != FR_OK || (uint)sizeData != wr)
         {
-            f_close(&structForWrite->fileObj);
+            f_close(&fileObj);
             return false;
         }
     }
-    f_close(&structForWrite->fileObj);
+
+    f_close(&fileObj);
 
     FILINFO fno;
     PackedTime time = HAL_RTC::GetPackedTime();
     fno.fdate = (WORD)(((time.year + 20) * 512) | (time.month * 32) | time.day);
     fno.ftime = (WORD)((time.hours * 2048) | (time.minutes * 32) | (time.seconds / 2));
-    f_utime(structForWrite->name, &fno);
+    f_utime(name, &fno);
 
     return true;
 }
