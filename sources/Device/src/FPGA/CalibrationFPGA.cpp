@@ -3,7 +3,6 @@
 #include "FPGA/FPGA.h"
 #include "Panel/Panel.h"
 #include "Hardware/Timer.h"
-#include "Display/Text.h"
 #include "Menu/Pages/Definition.h"
 #include "Hardware/HAL/HAL.h"
 #include "Utils/Containers/Queue.h"

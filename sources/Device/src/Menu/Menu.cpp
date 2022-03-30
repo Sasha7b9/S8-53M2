@@ -5,7 +5,6 @@
 #include "Pages/Definition.h"
 #include "Display/DisplayTypes.h"
 #include "MenuItems.h"
-#include "Display/Tables.h"
 #include "Display/Display.h"
 #include "Data/Measures.h"
 #include "Utils/Math.h"
@@ -17,6 +16,7 @@
 #include "Panel/Panel.h"
 #include "Hardware/FDrive/FDrive.h"
 #include "Menu/FileManager.h"
+#include "Utils/Text/Warnings.h"
 #include <cstring>
 
 

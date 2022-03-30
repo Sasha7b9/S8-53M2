@@ -5,6 +5,7 @@
 #include "Data/Storage.h"
 #include "Hardware/Timer.h"
 #include "Display/Screen/Console.h"
+#include "Utils/Text/Warnings.h"
 #include <stm32f4xx.h>
 #include <cstring>
 #include <climits>

@@ -2,12 +2,12 @@
 #pragma once
 #include "defines.h"
 #include "Data/Data.h"
-#include "Utils/Strings.h"
 #include "FPGA/TypesFPGA.h"
 #include "Settings/SettingsDisplay.h"
 #include "Data/Storage.h"
 #include "Utils/Math.h"
 #include "Data/Processing.h"
+#include "Utils/Text/Strings.h"
 #include <cstring>
 
 

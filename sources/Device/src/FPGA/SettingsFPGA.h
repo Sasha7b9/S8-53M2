@@ -1,9 +1,8 @@
 #pragma once
 #include "Display/DisplayTypes.h"
 #include "Settings/SettingsTypes.h"
-#include "Display/Text.h"
 #include "Display/Colors.h"
-#include "Display/String.h"
+#include "Utils/Text/String.h"
 
 
 // Число точек сигнала, с которым идёт работа.

@@ -10,6 +10,7 @@
 #include "Display/Screen/Grid.h"
 #include "Hardware/Sound.h"
 #include "Menu/Pages/Definition.h"
+#include "Utils/Text/Text.h"
 #include <cstdio>
 
 

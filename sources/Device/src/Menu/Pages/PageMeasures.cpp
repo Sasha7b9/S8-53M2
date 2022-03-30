@@ -9,6 +9,7 @@
 #include "Display/Colors.h"
 #include "defines.h"
 #include "Display/Painter.h"
+#include "Utils/Text/Text.h"
 
 
 extern const Page pMeasures;

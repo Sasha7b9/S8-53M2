@@ -10,12 +10,13 @@
 #include "Data/Data.h"
 #include "FPGA/FPGA.h"
 #include "Hardware/FDrive/FDrive.h"
-#include "Display/Symbols.h"
 #include "Hardware/LAN/LAN.h"
 #include "Hardware/Timer.h"
 #include "Hardware/VCP/VCP.h"
 #include "Data/Processing.h"
-#include "Utils/Strings.h"
+#include "Utils/Text/Text.h"
+#include "Utils/Text/Strings.h"
+#include "Utils/Text/Symbols.h"
 #include <cstdio>
 #include <cstring>
 

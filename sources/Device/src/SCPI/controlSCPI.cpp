@@ -3,7 +3,6 @@
 #include "Log.h"
 #include "SCPI/SCPI.h"
 #include "Panel/Panel.h"
-#include "Utils/Strings.h"
 #include "SCPI/Map.h"
 
 

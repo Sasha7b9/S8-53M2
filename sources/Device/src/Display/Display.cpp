@@ -13,12 +13,12 @@
 #include "Menu/Pages/Definition.h"
 #include "Data/Processing.h"
 #include "Utils/Math.h"
-#include "Display/Symbols.h"
 #include "Hardware/LAN/LAN.h"
 #include "Hardware/VCP/VCP.h"
 #include "Data/Storage.h"
 #include "Display/Screen/LowPart.h"
-#include "Utils/Strings.h"
+#include "Utils/Text/Warnings.h"
+#include "Utils/Text/Strings.h"
 #include <cstdio>
 
 

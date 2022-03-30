@@ -7,12 +7,14 @@
 #include "Log.h"
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
-#include "Utils/Strings.h"
 #include "Menu/Pages/Definition.h"
 #include "GlobalEvents.h"
 #include "Display/Screen/Grid.h"
-#include "Display/Symbols.h"
 #include "Menu/Menu.h"
+#include "Utils/Text/Warnings.h"
+#include "Utils/Text/Strings.h"
+#include "Utils/Text/Symbols.h"
+#include "Utils/Text/Text.h"
 #include <cstring>
 
 

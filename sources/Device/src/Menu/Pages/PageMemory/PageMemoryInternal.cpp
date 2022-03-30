@@ -5,11 +5,13 @@
 #include "Settings/Settings.h"
 #include "Menu/Menu.h"
 #include "Utils/Math.h"
-#include "Display/Symbols.h"
 #include "Data/Storage.h"
 #include "Hardware/FDrive/FDrive.h"
 #include "Display/Screen/Grid.h"
-#include "Utils/Strings.h"
+#include "Utils/Text/Text.h"
+#include "Utils/Text/Symbols.h"
+#include "Utils/Text/Warnings.h"
+#include "Utils/Text/Strings.h"
 
 
 static const SmallButton sbExitMemInt    //  нопка дл€ выхода из режима малых кнопок.

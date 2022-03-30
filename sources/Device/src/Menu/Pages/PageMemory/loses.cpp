@@ -1,7 +1,7 @@
 #include "defines.h"
 #include "Display/Font/Font.h"
-#include "Display/Text.h"
 #include "Settings/Settings.h"
+#include "Utils/Text/Text.h"
 
 
 // Здесь "лишние" функции - те, которые были в оригинале, но ссылки на них исчезли

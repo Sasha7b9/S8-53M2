@@ -1,13 +1,13 @@
 // 2022/02/11 17:45:27 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Log.h"
-#include "Painter.h"
-#include "Font/font.h"
+#include "Display/Painter.h"
 #include "Hardware/Timer.h"
 #include "Utils/Math.h"
 #include "Menu/MenuItems.h"
 #include "Settings/Settings.h"
 #include "Hardware/InterCom.h"
+#include "Utils/Text/Text.h"
 #include <cstdarg>
 #include <cstring>
 #include <cstdio>

@@ -2,8 +2,9 @@
 #include "Menu/Pages/Definition.h"
 #include "Hardware/FDrive/FDrive.h"
 #include "Menu/MenuItems.h"
-#include "Display/Symbols.h"
 #include "Menu/FileManager.h"
+#include "Utils/Text/Symbols.h"
+#include "Utils/Text/Text.h"
 
 
 static bool FuncOfActiveExtMemFolder()

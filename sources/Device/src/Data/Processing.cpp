@@ -6,8 +6,8 @@
 #include "Hardware/Timer.h"
 #include "Settings/Settings.h"
 #include "Data/Storage.h"
-#include "Utils/Strings.h"
 #include "Menu/Pages/Definition.h"
+#include "Utils/Text/Strings.h"
 #include <cmath>
 #include <cstring>
 #include <cstdio>

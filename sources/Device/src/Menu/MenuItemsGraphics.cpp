@@ -9,7 +9,8 @@
 #include "Hardware/HAL/HAL.h"
 #include "Display/font/Font.h"
 #include "Menu/Pages/Definition.h"
-#include "Utils/Strings.h"
+#include "Utils/Text/Text.h"
+#include "Utils/Text/Strings.h"
 #include <cstring>
 #include <cstdio>
 

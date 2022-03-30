@@ -2,7 +2,7 @@
 #pragma once
 #include "Display/Display.h"
 #include "Display/Colors.h"
-#include "Display/String.h"
+#include "Utils/Text/String.h"
 
 
 #define MAX_NUM_SUBITEMS_IN_CHOICE  12  // Максимальное количество вариантов выбора в элементе Choice.

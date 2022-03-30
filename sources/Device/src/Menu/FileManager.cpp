@@ -14,7 +14,7 @@
 #include "Log.h"
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
-#include "Utils/Strings.h"
+#include "Utils/Text/Strings.h"
 #include <cstring>
 
 

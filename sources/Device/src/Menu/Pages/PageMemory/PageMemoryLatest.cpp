@@ -7,7 +7,8 @@
 #include "Data/Storage.h"
 #include "Hardware/FDrive/FDrive.h"
 #include "Display/Screen/Grid.h"
-#include "Utils/Strings.h"
+#include "Utils/Text/Text.h"
+#include "Utils/Text/Strings.h"
 
 
 static const SmallButton sbExitMemLatest

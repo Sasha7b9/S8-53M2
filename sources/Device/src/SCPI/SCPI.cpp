@@ -2,8 +2,8 @@
 #include "defines.h"
 #include "Log.h"
 #include "SCPI.h"
-#include "Utils/Strings.h"
 #include "Utils/Containers/Buffer.h"
+#include "Utils/Text/Strings.h"
 #include <cctype>
 #include <cstring>
 #include <cstdlib>

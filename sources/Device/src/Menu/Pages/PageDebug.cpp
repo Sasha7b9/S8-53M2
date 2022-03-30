@@ -6,13 +6,16 @@
 #include "Settings/Settings.h"
 #include "Display/Display.h"
 #include "Display/Screen/Grid.h"
-#include "Display/Symbols.h"
 #include "FPGA/FPGA.h"
 #include "Hardware/Sound.h"
 #include "Menu/Menu.h"
 #include "Log.h"
 #include "Hardware/HAL/HAL.h"
 #include "Utils/Math.h"
+#include "Utils/Text/Warnings.h"
+#include "Utils/Text/Text.h"
+#include "Utils/Text/Warnings.h"
+#include "Utils/Text/Symbols.h"
 #include <cstdio>
 #include <cstring>
 

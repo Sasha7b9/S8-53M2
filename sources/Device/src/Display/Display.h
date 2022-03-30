@@ -3,7 +3,6 @@
 #include "DisplayTypes.h"
 #include "Settings/SettingsTypes.h"
 #include "Painter.h"
-#include "Tables.h"
 
 
 namespace Display

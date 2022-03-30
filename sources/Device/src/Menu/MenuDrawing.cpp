@@ -2,7 +2,6 @@
 #include "defines.h"
 #include "Settings/SettingsTypes.h"
 #include "Data/Measures.h"
-#include "Display/Tables.h"
 #include "Panel/Panel.h"
 #include "Menu/Menu.h"
 #include "Display/Display.h"
@@ -15,6 +14,7 @@
 #include "Data/Measures.h"
 #include "Hardware/Timer.h"
 #include "Menu/Pages/Definition.h"
+#include "Utils/Text/Text.h"
 #include <cstdio>
 
 

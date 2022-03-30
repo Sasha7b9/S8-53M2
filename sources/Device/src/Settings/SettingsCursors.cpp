@@ -6,7 +6,7 @@
 #include "Settings/SettingsCursors.h"
 #include "Utils/Math.h"
 #include "Menu/Pages/Definition.h"
-#include "Utils/Strings.h"
+#include "Utils/Text/Strings.h"
 #include <cmath>
 #include <cstring>
 

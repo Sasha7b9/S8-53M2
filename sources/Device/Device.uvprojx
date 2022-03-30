@@ -961,51 +961,6 @@
               <FileType>5</FileType>
               <FilePath>.\src\Display\Painter.h</FilePath>
             </File>
-            <File>
-              <FileName>Symbols.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Symbols.h</FilePath>
-            </File>
-            <File>
-              <FileName>Tables.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Tables.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Tables.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Tables.h</FilePath>
-            </File>
-            <File>
-              <FileName>Text.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Text.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Text.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Text.h</FilePath>
-            </File>
-            <File>
-              <FileName>Warnings.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Warnings.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Warnings.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Warnings.h</FilePath>
-            </File>
-            <File>
-              <FileName>String.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\String.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>String.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\String.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -1863,16 +1818,6 @@
               <FilePath>.\src\Utils\PasswordResolver.cpp</FilePath>
             </File>
             <File>
-              <FileName>Strings.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\Strings.h</FilePath>
-            </File>
-            <File>
-              <FileName>Strings.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Strings.cpp</FilePath>
-            </File>
-            <File>
               <FileName>TablesLog.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\TablesLog.h</FilePath>
@@ -2011,6 +1956,66 @@
               <FileName>usbd_ctlreq.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_ctlreq.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Utils/Text</GroupName>
+          <Files>
+            <File>
+              <FileName>String.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Text\String.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>String.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Text\String.h</FilePath>
+            </File>
+            <File>
+              <FileName>Strings.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Text\Strings.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Strings.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Text\Strings.h</FilePath>
+            </File>
+            <File>
+              <FileName>Symbols.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Text\Symbols.h</FilePath>
+            </File>
+            <File>
+              <FileName>Tables.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Text\Tables.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Tables.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Text\Tables.h</FilePath>
+            </File>
+            <File>
+              <FileName>Text.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Text\Text.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Text.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Text\Text.h</FilePath>
+            </File>
+            <File>
+              <FileName>Warnings.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Text\Warnings.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Warnings.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Text\Warnings.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2971,51 +2976,6 @@
               <FileType>5</FileType>
               <FilePath>.\src\Display\Painter.h</FilePath>
             </File>
-            <File>
-              <FileName>Symbols.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Symbols.h</FilePath>
-            </File>
-            <File>
-              <FileName>Tables.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Tables.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Tables.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Tables.h</FilePath>
-            </File>
-            <File>
-              <FileName>Text.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Text.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Text.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Text.h</FilePath>
-            </File>
-            <File>
-              <FileName>Warnings.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Warnings.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Warnings.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Warnings.h</FilePath>
-            </File>
-            <File>
-              <FileName>String.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\String.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>String.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\String.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -3873,16 +3833,6 @@
               <FilePath>.\src\Utils\PasswordResolver.cpp</FilePath>
             </File>
             <File>
-              <FileName>Strings.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\Strings.h</FilePath>
-            </File>
-            <File>
-              <FileName>Strings.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Strings.cpp</FilePath>
-            </File>
-            <File>
               <FileName>TablesLog.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\TablesLog.h</FilePath>
@@ -4021,6 +3971,66 @@
               <FileName>usbd_ctlreq.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_ctlreq.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Utils/Text</GroupName>
+          <Files>
+            <File>
+              <FileName>String.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Text\String.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>String.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Text\String.h</FilePath>
+            </File>
+            <File>
+              <FileName>Strings.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Text\Strings.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Strings.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Text\Strings.h</FilePath>
+            </File>
+            <File>
+              <FileName>Symbols.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Text\Symbols.h</FilePath>
+            </File>
+            <File>
+              <FileName>Tables.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Text\Tables.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Tables.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Text\Tables.h</FilePath>
+            </File>
+            <File>
+              <FileName>Text.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Text\Text.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Text.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Text\Text.h</FilePath>
+            </File>
+            <File>
+              <FileName>Warnings.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Text\Warnings.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Warnings.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Text\Warnings.h</FilePath>
             </File>
           </Files>
         </Group>

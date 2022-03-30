@@ -9,6 +9,7 @@
 #include "Display/Screen/Grid.h"
 #include "Hardware/HAL/HAL.h"
 #include "Menu/Pages/Definition.h"
+#include "Utils/Text/Warnings.h"
 
 
 extern const Page pTime;

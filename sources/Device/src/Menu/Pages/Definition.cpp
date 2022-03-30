@@ -9,6 +9,8 @@
 #include "Panel/Panel.h"
 #include "Menu/Pages/Definition.h"
 #include "Menu/Menu.h"
+#include "Utils/Text/Text.h"
+#include "Utils/Text/Warnings.h"
 
 
 int16 PageMemory::Latest::current = 0;

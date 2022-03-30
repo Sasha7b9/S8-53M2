@@ -13,7 +13,6 @@
 #include "Hardware/Sound.h"
 #include "Panel/Panel.h"
 #include "Menu/Pages/Definition.h"
-#include "Utils/Strings.h"
 #include "Data/Data.h"
 #include "Data/DataExtensions.h"
 #include "Hardware/LAN/LAN.h"

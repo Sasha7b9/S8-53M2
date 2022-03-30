@@ -3,7 +3,6 @@
 #include "Display/Colors.h"
 #include "Display/DisplayTypes.h"
 #include "Display/font/Font.h"
-#include "Display/Text.h"
 
 
 namespace Painter 

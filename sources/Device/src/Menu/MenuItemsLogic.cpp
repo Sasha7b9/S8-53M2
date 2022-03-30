@@ -9,7 +9,8 @@
 #include "Hardware/Sound.h"
 #include "Utils/Math.h"
 #include "Hardware/HAL/HAL.h"
-#include "Display/Symbols.h"
+#include "Utils/Text/Warnings.h"
+#include "Utils/Text/Symbols.h"
 
 
 void Governor::StartChange(int delta)

@@ -6,8 +6,9 @@
 #include "Utils/Math.h"
 #include "Display/Screen/Grid.h"
 #include "FPGA/StructuresFPGA.h"
-#include "Display/Symbols.h"
-#include "Utils/Strings.h"
+#include "Utils/Text/Strings.h"
+#include "Utils/Text/Text.h"
+#include "Utils/Text/Symbols.h"
 #include <cmath>
 
 

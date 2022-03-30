@@ -1,9 +1,11 @@
 #include "defines.h"
 #include "Menu/MenuItems.h"
 #include "Menu/Pages/Definition.h"
-#include "Display/Symbols.h"
 #include "Settings/Settings.h"
 #include "Hardware/FDrive/FDrive.h"
+#include "Utils/Text/Symbols.h"
+#include "Utils/Text/Text.h"
+#include "Utils/Text/Tables.h"
 #include <cstring>
 
 

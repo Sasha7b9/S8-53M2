@@ -1,7 +1,6 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Definition.h"
-#include "Display/Symbols.h"
 #include "FPGA/FPGA.h"
 #include "Menu/Menu.h"
 #include "Panel/Panel.h"
@@ -10,6 +9,9 @@
 #include "Utils/Math.h"
 #include "Hardware/HAL/HAL.h"
 #include "Settings/Settings.h"
+#include "Utils/Text/Warnings.h"
+#include "Utils/Text/Text.h"
+#include "Utils/Text/Symbols.h"
 #include <cstdio>
 
 

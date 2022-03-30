@@ -7,6 +7,7 @@
 #include "Display/Screen/Grid.h"
 #include "Hardware/FDrive/FDrive.h"
 #include "Menu/FileManager.h"
+#include "Utils/Text/Tables.h"
 
 
 static bool FuncActiveMemoryNumPoinst()

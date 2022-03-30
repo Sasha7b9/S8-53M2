@@ -6,11 +6,12 @@
 #include "Display/Screen/Grid.h"
 #include "Data/Processing.h"
 #include "Utils/Math.h"
-#include "Display/Symbols.h"
 #include "Data/DataExtensions.h"
 #include "Hardware/InterCom.h"
 #include "Menu/Menu.h"
-#include "Utils/Strings.h"
+#include "Utils/Text/Symbols.h"
+#include "Utils/Text/Text.h"
+#include "Utils/Text/Strings.h"
 #include <climits>
 
 

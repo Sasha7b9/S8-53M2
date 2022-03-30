@@ -81,6 +81,7 @@ file(GLOB PANEL                    src/Panel/*.*
 file(GLOB SETTINGS                 src/Settings/*.*)
 file(GLOB UTILS                    src/Utils/*.*)
 file(GLOB UTILS_CONTAINERS         src/Utils/Containers/*.*)
+file(GLOB UTILS_TEXT               src/Utils/Text/*.*)
 file(GLOB SCPI                     src/SCPI/*.*)
 
 source_group(src                   FILES ${SRC})
@@ -101,6 +102,7 @@ source_group(Panel                 FILES ${PANEL})
 source_group(Settings              FILES ${SETTINGS})
 source_group(Utils                 FILES ${UTILS})
 source_group(Utils/Containers      FILES ${UTILS_CONTAINERS})
+source_group(Utils/Text            FILES ${UTILS_TEXT})
 source_group(SCPI                  FILES ${SCPI})
 
 set_source_files_properties(src/Hardware/LAN/ethernetif.cpp
@@ -116,5 +118,5 @@ add_library(${PROJECT_NAME} ${SRC} ${DISPLAY}
                             ${HARDWARE_HAL} ${HARDWARE_VCP}
                             ${MENU} ${MENU_PAGES} ${MENU_PAGES_MEMORY}
                             ${PANEL} ${SETTINGS}
-                            ${UTILS} ${UTILS_CONTAINERS}
+                            ${UTILS} ${UTILS_CONTAINERS} ${UTILS_TEXT}
                             ${SCPI})
