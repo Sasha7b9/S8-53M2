@@ -20,9 +20,6 @@
 #include <cstring>
 
 
-extern const Page  mpADC_AltRShift;
-
-
 // ¬ этой структуре будут хранитьс€ данные серийного номера при открытой странице ppSerialNumer
 static struct StructForSN
 {
@@ -290,7 +287,7 @@ static const arrayItems itemsADC =
     (void *)PageDebug::ADC::Balance::self,
     (void *)PageDebug::ADC::Stretch::self,
     (void *)&mpADC_Shift,
-    (void *)&mpADC_AltRShift,
+    (void *)PageDebug::ADC::AltShift::self,
     (void *)&mcADC_Compact,
     (void *)&mgADC_FirstByte
 };
@@ -445,7 +442,7 @@ static void OnPress_ADC_AltRShift_Reset()
 
 static const Button mbADC_AltRShift_Reset
 (
-    &mpADC_AltRShift, 0,
+    PageDebug::ADC::AltShift::self, 0,
     "—брос", "Reset",
     "", "",
     OnPress_ADC_AltRShift_Reset
@@ -460,7 +457,7 @@ static void OnChanged_ADC_AltRShift_A()
 
 static const Governor mbADC_AltRShift_2mV_DC_A
 (
-    &mpADC_AltRShift, 0,
+    PageDebug::ADC::AltShift::self, 0,
     "—м 1к 2м¬ пост", "Shift 1ch 2mV DC",
     "",
     "",
@@ -476,7 +473,7 @@ static void OnChanged_ADC_AltRShift_B()
 
 static const Governor mbADC_AltRShift_2mV_DC_B
 (
-    &mpADC_AltRShift, 0,
+    PageDebug::ADC::AltShift::self, 0,
     "—м 2к 2м¬ пост", "Shift 2ch 2mV DC",
     "",
     "",
@@ -486,7 +483,7 @@ static const Governor mbADC_AltRShift_2mV_DC_B
 
 static const Governor mbADC_AltRShift_5mV_DC_A
 (
-    &mpADC_AltRShift, 0,
+    PageDebug::ADC::AltShift::self, 0,
     "—м 1к 5м¬ пост", "Shift 1ch 5mV DC",
     "",
     "",
@@ -496,7 +493,7 @@ static const Governor mbADC_AltRShift_5mV_DC_A
 
 static const Governor mbADC_AltRShift_5mV_DC_B
 (
-    &mpADC_AltRShift, 0,
+    PageDebug::ADC::AltShift::self, 0,
     "—м 2к 5м¬ пост", "Shift 2ch 5mV DC",
     "",
     "",
@@ -506,7 +503,7 @@ static const Governor mbADC_AltRShift_5mV_DC_B
 
 static const Governor mbADC_AltRShift_10mV_DC_A
 (
-    &mpADC_AltRShift, 0,
+    PageDebug::ADC::AltShift::self, 0,
     "—м 1к 10м¬ пост", "Shift 1ch 10mV DC",
     "",
     "",
@@ -516,7 +513,7 @@ static const Governor mbADC_AltRShift_10mV_DC_A
 
 static const Governor mbADC_AltRShift_10mV_DC_B
 (
-    &mpADC_AltRShift, 0,
+    PageDebug::ADC::AltShift::self, 0,
     "—м 2к 10м¬ пост", "Shift 2ch 10mV DC",
     "",
     "",
@@ -816,5 +813,6 @@ const Page *PageDebug::ADC::self = &mpADC;
 const Page *PageDebug::ADC::Balance::self = &mpADC_Balance;
 const Page *PageDebug::ADC::Stretch::self = &mpADC_Stretch;
 const Page *PageDebug::ADC::Shift::self = &mpADC_Shift;
+const Page *PageDebug::ADC::AltShift::self = &mpADC_AltRShift;
 const Page *PageDebug::SerialNumber::self = &ppSerialNumber;
 const Page *PageDebug::Randomizer::self = &mpRandomizer;
