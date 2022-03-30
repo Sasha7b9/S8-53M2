@@ -27,6 +27,8 @@ template int  String<(int)32>::DrawInRectWithTransfers(int x, int y, int width, 
 template int  String<(int)32>::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height,
     Color::E colorBackground, Color::E colorFill);
 template void String<(int)32>::Append(char);
+template void String<(int)32>::DrawInCenterRectOnBackground(int x, int y, int width, int height, Color::E colorText,
+    int widthBorder, Color::E colorBackground);
 
 
 template<int capa>
@@ -385,4 +387,17 @@ int String<capacity>::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eH
     }
 
     return y;
+}
+
+
+template<int capacity>
+void String<capacity>::DrawInCenterRectOnBackground(int x, int y, int width, int height, Color::E colorText,
+    int widthBorder, Color::E colorBackground)
+{
+    int lenght = Font::GetLengthText(buffer);
+    int eX = DrawInCenterRect(x, y, width, height, colorBackground);
+    int w = lenght + widthBorder * 2 - 2;
+    int h = 7 + widthBorder * 2 - 1;
+    Region(w, h).Fill(eX - lenght - widthBorder, y - widthBorder + 1);
+    DrawInCenterRect(x, y, width, height, colorText);
 }

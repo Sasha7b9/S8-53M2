@@ -107,5 +107,5 @@ void Tables::DrawStr(int index, int x, int y)
         Region(Font::GetLengthText(str), 9).Fill(x - 1, y, Color::FLASH_10);
     }
 
-    DString(symbolsAlphaBet[index]).Draw(x, y, index == INDEX_SYMBOL ? Color::FLASH_01 : COLOR_FILL);
+    String<>(symbolsAlphaBet[index]).Draw(x, y, index == INDEX_SYMBOL ? Color::FLASH_01 : COLOR_FILL);
 }

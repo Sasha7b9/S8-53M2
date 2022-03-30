@@ -127,7 +127,7 @@ void Warning::DrawStringInRectangle(int, int y, char const *text)
     Rectangle(width + 4, height + 4).Draw(Grid::Left(), y, COLOR_FILL);
     Rectangle(width + 2, height + 2).Draw(Grid::Left() + 1, y + 1, COLOR_BACK);
     Region(width, height).Fill(Grid::Left() + 2, y + 2, Color::FLASH_10);
-    DString(text).Draw(Grid::Left() + 3, y + 2, Color::FLASH_01);
+    String<>(text).Draw(Grid::Left() + 3, y + 2, Color::FLASH_01);
 }
 
 
