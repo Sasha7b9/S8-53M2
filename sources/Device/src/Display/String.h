@@ -27,6 +27,10 @@ public:
 
     int Draw(int x, int y, Color::E = Color::Count);
 
+    int DrawInCenterRect(int x, int y, int width, int height, Color::E = Color::Count);
+
+    int DrawWithLimitation(int x, int y, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight);
+
 private:
 
     char buffer[capacity];

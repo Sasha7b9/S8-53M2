@@ -99,15 +99,15 @@ IPaddress::IPaddress(const IPaddressStruct *str) :
 }
 
 
-DString Choice::NameSubItem(int i)
+String<> Choice::NameSubItem(int i)
 {
-    return DString(names[i][LANG]);
+    return String<>(names[i][LANG]);
 }
 
 
-DString Choice::NameCurrentSubItem()
+String<> Choice::NameCurrentSubItem()
 {
-    return (cell == 0) ? DString("") : DString(names[*cell][LANG]);
+    return (cell == 0) ? String<>("") : String<>(names[*cell][LANG]);
 }
 
 

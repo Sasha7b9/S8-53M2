@@ -2,7 +2,7 @@
 #pragma once
 #include "Display/Display.h"
 #include "Display/Colors.h"
-#include "defines.h"
+#include "Display/String.h"
 
 
 #define MAX_NUM_SUBITEMS_IN_CHOICE  12  // Максимальное количество вариантов выбора в элементе Choice.
@@ -123,7 +123,7 @@ public:
     Item(TypeItem::E, const Page* keeper_, pFuncBV funcOfActive_, pchar tileRU, pchar titleEN, pchar hintRU, pchar hintEN);
     
     // Возвращает название элемента по адресу item, как оно выглядит на дисплее прибора.
-    DString Title();
+    String<> Title();
 
     // Открыть/закрыть элемент меню по адрему item.
     void Open(bool open) const;
@@ -365,10 +365,10 @@ public:
     pFuncVB	    funcOnChanged;                          // Функция должна вызываться после изменения значения элемента.
     pFuncVII    funcForDraw;                            // Функция вызывается после отрисовки элемента. 
 
-    DString NameSubItem(int i);
+    String<> NameSubItem(int i);
 
     // Возвращает имя текущего варианта выбора элемента choice, как оно записано в исходном коде программы.
-    DString NameCurrentSubItem();
+    String<> NameCurrentSubItem();
 
     // Возвращает имя следующего варианта выбора элемента choice, как оно записано в исходном коде программы.
     pchar NameNextSubItem();

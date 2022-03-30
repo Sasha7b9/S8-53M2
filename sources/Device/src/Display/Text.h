@@ -82,6 +82,8 @@ private:
 
 namespace PText
 {
+    int DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int limitY, int limitWidth, int limitHeight);
+
     void Draw2Symbols(int x, int y, char symbol1, char symbol2, Color::E color1, Color::E color2);
 
     void Draw4SymbolsInRect(int x, int y, char eChar, Color::E = Color::Count);

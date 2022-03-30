@@ -477,7 +477,7 @@ void Choice::DrawOpened(int x, int y)
                 ColorMenuTitleLessBright(), pressed, false);
         }
 
-        DString(NameSubItem(i)).Draw(x + 4, yItem + 2, pressed ? Color::BLACK : ColorMenuField());
+        DString(NameSubItem(i).c_str()).Draw(x + 4, yItem + 2, pressed ? Color::BLACK : ColorMenuField());
     }
 }
 
@@ -613,7 +613,7 @@ void Choice::DrawClosed(int x, int y)
     Color::SetCurrent(colorText);
     if(deltaY == 0.0f)
     {
-        DString(NameCurrentSubItem()).Draw(x + 4, y + 21);
+        NameCurrentSubItem().Draw(x + 4, y + 21);
     }
     else
     {

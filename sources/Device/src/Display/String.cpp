@@ -13,6 +13,8 @@
 template      String<(int)32>::String(pchar, ...);
 template int  String<(int)32>::Draw(int, int, Color::E);
 template void String<(int)32>::Append(pchar);
+template int  String<(int)32>::DrawInCenterRect(int x, int y, int width, int height, Color::E);
+template int  String<(int)32>::DrawWithLimitation(int x, int y, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight);
 
 
 template<int capa>
@@ -129,4 +131,37 @@ void String<capacity>::Append(char symbol)
     {
         LOG_ERROR_TRACE("buffer is full");
     }
+}
+
+
+template<int capacity>
+int String<capacity>::DrawInCenterRect(int eX, int eY, int width, int eHeight, Color::E color)
+{
+    Color::SetCurrent(color);
+
+    int lenght = Font::GetLengthText(buffer);
+    int height = Font::GetHeightSymbol(buffer[0]);
+    int x = eX + (width - lenght) / 2;
+    int y = eY + (eHeight - height) / 2;
+
+    return Draw(x, y);
+}
+
+
+template<int capacity>
+int String<capacity>::DrawWithLimitation(int x, int y, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight)
+{
+    Color::SetCurrent(color);
+    int retValue = x;
+
+    char *text = buffer;
+
+    while (*text)
+    {
+        x = PText::DrawCharWithLimitation(x, y, (uint8)*text, limitX, limitY, limitWidth, limitHeight);
+        retValue += Font::GetLengthSymbol((uint8)*text);
+        text++;
+    }
+
+    return retValue + 1;
 }
