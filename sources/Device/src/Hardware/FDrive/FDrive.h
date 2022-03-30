@@ -12,7 +12,7 @@
 #define _WIN32
 #endif
 
-struct StructForWrite
+struct File
 {
     static const int SIZE_FLASH_TEMP_BUFFER = 512;
     uint8 tempBuffer[SIZE_FLASH_TEMP_BUFFER];
@@ -51,11 +51,11 @@ namespace FDrive
     bool GetNextNameFile(char *nameFileOut, Directory *sfrd);
 
     // Функция создаст файл для записи. Если такой файл уже существует, сотрёт его, заменит новым нулевой длины и откроет его
-    bool OpenNewFileForWrite(pchar  fullPathToFile, StructForWrite *structForWrite);
+    bool OpenNewFileForWrite(pchar  fullPathToFile, File *structForWrite);
 
-    bool WriteToFile(uint8* data, int sizeData, StructForWrite *structForWrite);
+    bool WriteToFile(uint8* data, int sizeData, File *structForWrite);
 
-    bool CloseFile(StructForWrite *structForWrite);
+    bool CloseFile(File *structForWrite);
 
     bool AppendStringToFile(pchar  string);
 };

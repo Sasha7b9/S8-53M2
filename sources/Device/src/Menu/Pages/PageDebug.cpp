@@ -118,7 +118,7 @@ static bool IsActive_SaveFirmware()
 
 static void OnPress_SaveFirmware()
 {
-    StructForWrite structForWrite;
+    File structForWrite;
 
     FDrive::OpenNewFileForWrite("S8-53.bin", &structForWrite);
 
