@@ -131,7 +131,7 @@ static void OnPress_SaveFirmware()
 
     while (address < endAddress)
     {
-        FDrive::WriteToFile(address, sizeBlock, &file);
+        file.Write(address, sizeBlock);
         address += sizeBlock;
     }
 

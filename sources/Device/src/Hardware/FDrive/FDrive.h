@@ -22,6 +22,8 @@ struct File
 
     // Функция создаст файл для записи. Если такой файл уже существует, сотрёт его, заменит новым нулевой длины и откроет его
     bool OpenNewForWrite(pchar  fullPathToFile);
+
+    bool Write(uint8 *data, int sizeData);
 };
 
 struct Directory
@@ -52,8 +54,6 @@ namespace FDrive
     void Update();
 
     void GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles);
-
-    bool WriteToFile(uint8* data, int sizeData, File *structForWrite);
 
     bool CloseFile(File *structForWrite);
 

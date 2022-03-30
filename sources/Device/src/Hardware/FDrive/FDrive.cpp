@@ -336,27 +336,30 @@ bool File::OpenNewForWrite(pchar  fullPathToFile)
 }
 
 
-bool FDrive::WriteToFile(uint8* data, int sizeData, File *structForWrite)
+bool File::Write(uint8* data, int size)
 {
-    while (sizeData > 0)
+    while (size > 0)
     {
-        int dataToCopy = sizeData;
-        if (sizeData + structForWrite->sizeData > File::SIZE_FLASH_TEMP_BUFFER)
+        int dataToCopy = size;
+
+        if (size + sizeData > SIZE_FLASH_TEMP_BUFFER)
         {
-            dataToCopy = File::SIZE_FLASH_TEMP_BUFFER - structForWrite->sizeData;
+            dataToCopy = SIZE_FLASH_TEMP_BUFFER - sizeData;
         }
-        sizeData -= dataToCopy;
-        memcpy(structForWrite->tempBuffer + structForWrite->sizeData, data, (uint)dataToCopy);
+
+        size -= dataToCopy;
+        memcpy(tempBuffer + sizeData, data, (uint)dataToCopy);
         data += dataToCopy;
-        structForWrite->sizeData += dataToCopy;
-        if (structForWrite->sizeData == File::SIZE_FLASH_TEMP_BUFFER)
+        sizeData += dataToCopy;
+
+        if (sizeData == SIZE_FLASH_TEMP_BUFFER)
         {
             uint wr = 0;
-            if (f_write(&structForWrite->fileObj, structForWrite->tempBuffer, (uint)structForWrite->sizeData, &wr) != FR_OK || (uint)structForWrite->sizeData != wr)
+            if (f_write(&fileObj, tempBuffer, (uint)sizeData, &wr) != FR_OK || (uint)sizeData != wr)
             {
                 return false;
             }
-            structForWrite->sizeData = 0;
+            sizeData = 0;
         }
     }
 
