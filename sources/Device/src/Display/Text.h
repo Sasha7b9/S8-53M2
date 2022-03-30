@@ -4,6 +4,7 @@
 #include "Display/String.h"
 
 
+/*
 class DString
 {
 public:
@@ -67,6 +68,7 @@ private:
 
     int DrawSpaces(int x, int y, char *text, int *numSymbols);
 };
+*/
 
 
 class Char
