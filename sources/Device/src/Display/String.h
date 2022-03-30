@@ -31,6 +31,8 @@ public:
 
     int DrawWithLimitation(int x, int y, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight);
 
+    void DrawRelativelyRight(int xRight, int y, Color::E = Color::Count);
+
 private:
 
     char buffer[capacity];

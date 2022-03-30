@@ -275,10 +275,10 @@ void LowPart::WriteTextVoltage(Chan ch, int x, int y)
             Region(widthField, heightField).Fill(x, y, color);
         }
 
-        DString("%s\xa5%s\xa5%s", (ch == Chan::A) ? (LANG_RU ? "1ê" : "1c") : (LANG_RU ? "2ê" : "2c"),
+        String<>("%s\xa5%s\xa5%s", (ch == Chan::A) ? (LANG_RU ? "1ê" : "1c") : (LANG_RU ? "2ê" : "2c"),
             couple[modeCouple], Range::ToString(range, multiplier)).Draw(x + 1, y, colorDraw);
 
-        DString("\xa5%s", rshift.ToString(range, multiplier).c_str()).Draw(x + 46, y);
+        String<>("\xa5%s", rshift.ToString(range, multiplier).c_str()).Draw(x + 46, y);
     }
 }
 
@@ -286,7 +286,7 @@ void LowPart::WriteTextVoltage(Chan ch, int x, int y)
 void LowPart::WriteStringAndNumber(pchar text, int x, int y, int number)
 {
     char buffer[100];
-    DString(text).Draw(x, y, COLOR_FILL);
+    String<>(text).Draw(x, y, COLOR_FILL);
 
     if (number == 0)
     {
@@ -297,5 +297,5 @@ void LowPart::WriteStringAndNumber(pchar text, int x, int y, int number)
         std::sprintf(buffer, "%d", number);
     }
 
-    DString(buffer).DrawRelativelyRight(x + 41, y);
+    String<>(buffer).DrawRelativelyRight(x + 41, y);
 }

@@ -15,6 +15,7 @@ template int  String<(int)32>::Draw(int, int, Color::E);
 template void String<(int)32>::Append(pchar);
 template int  String<(int)32>::DrawInCenterRect(int x, int y, int width, int height, Color::E);
 template int  String<(int)32>::DrawWithLimitation(int x, int y, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight);
+template void String<(int)32>::DrawRelativelyRight(int xRight, int y, Color::E);
 
 
 template<int capa>
@@ -164,4 +165,14 @@ int String<capacity>::DrawWithLimitation(int x, int y, Color::E color, int limit
     }
 
     return retValue + 1;
+}
+
+
+template<int capacity>
+void String<capacity>::DrawRelativelyRight(int xRight, int y, Color::E color)
+{
+    Color::SetCurrent(color);
+
+    int lenght = Font::GetLengthText(buffer);
+    Draw(xRight - lenght, y);
 }
