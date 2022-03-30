@@ -256,13 +256,13 @@ void FM::PressLevelDown()
     }
 
     char nameDir[100];
-    Directory dir;
+    Directory directory;
 
-    if (dir.GetName(currentDir, numCurDir, nameDir))
+    if (directory.GetName(currentDir, numCurDir, nameDir))
     {
         if (std::strlen(currentDir) + std::strlen(nameDir) < 250)
         {
-            FDrive::CloseCurrentDir(&dir);
+            directory.CloseCurrent();
             std::strcat(currentDir, "\\");
             std::strcat(currentDir, nameDir);
             numFirstDir = numFirstFile = numCurDir = numCurFile = 0;
@@ -270,7 +270,7 @@ void FM::PressLevelDown()
 
     }
 
-    FDrive::CloseCurrentDir(&dir);
+    directory.CloseCurrent();
 }
 
 

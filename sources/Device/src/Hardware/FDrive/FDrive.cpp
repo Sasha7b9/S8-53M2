@@ -233,9 +233,9 @@ bool Directory::GetNextName(char *nameDirOut)
 }
 
 
-void FDrive::CloseCurrentDir(Directory *s)
+void Directory::CloseCurrent()
 {
-    f_closedir(&s->dir);
+    f_closedir(&dir);
 }
 
 
