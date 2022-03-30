@@ -122,15 +122,15 @@ void FM::DrawFiles(int x, int y)
 {
     DrawHat(x, y, "Τΰιλ : %d/%d", numCurFile + ((numFiles == 0) ? 0 : 1), numFiles);
     char nameFile[255];
-    Directory sfrd;
+    Directory directory;
     y += 12;
 
-    if (FDrive::GetNameFile(currentDir, numFirstFile, nameFile, &sfrd))
+    if (directory.GetNameFile(currentDir, numFirstFile, nameFile))
     {
         int drawingFiles = 0;
         DrawLongString(x, y, nameFile, !cursorInDirs && (numFirstFile + drawingFiles == numCurFile));
 
-        while (drawingFiles < (RECS_ON_PAGE - 1) && FDrive::GetNextNameFile(nameFile, &sfrd))
+        while (drawingFiles < (RECS_ON_PAGE - 1) && FDrive::GetNextNameFile(nameFile, &directory))
         {
             drawingFiles++;
             DrawLongString(x, y + drawingFiles * 9, nameFile, !cursorInDirs && (numFirstFile + drawingFiles == numCurFile));
@@ -143,10 +143,11 @@ bool FM::FileIsExist(char name[255])
 {
     char nameFile[255];
     FDrive::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
-    Directory sfrd;
-    if(FDrive::GetNameFile(currentDir, 0, nameFile, &sfrd))
+    Directory directory;
+
+    if(directory.GetNameFile(currentDir, 0, nameFile))
     {
-        while(FDrive::GetNextNameFile(nameFile, &sfrd))
+        while(FDrive::GetNextNameFile(nameFile, &directory))
         {
             if(std::strcmp(name + 2, nameFile) == 0)
             {

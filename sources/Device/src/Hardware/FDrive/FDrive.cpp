@@ -239,17 +239,18 @@ void Directory::CloseCurrent()
 }
 
 
-bool FDrive::GetNameFile(pchar fullPath, int numFile, char *nameFileOut, Directory *s)
+bool Directory::GetNameFile(pchar fullPath, int numFile, char *nameFileOut)
 {
-    memcpy(s->nameDir, fullPath, strlen(fullPath));
-    s->nameDir[strlen(fullPath)] = '\0';
+    memcpy(nameDir, fullPath, strlen(fullPath));
+    nameDir[strlen(fullPath)] = '\0';
 
-    strcpy(s->fno.fname, s->lfn);
-    s->fno.fsize = sizeof(s->lfn);
+    strcpy(fno.fname, lfn);
+    fno.fsize = sizeof(lfn);
 
-    DIR *pDir = &s->dir;
-    FILINFO *pFNO = &s->fno;
-    if (f_opendir(pDir, s->nameDir) == FR_OK)
+    DIR *pDir = &dir;
+    FILINFO *pFNO = &fno;
+
+    if (f_opendir(pDir, nameDir) == FR_OK)
     {
         int numFiles = 0;
         bool alreadyNull = false;

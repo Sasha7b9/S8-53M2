@@ -32,6 +32,8 @@ struct Directory
 
     bool GetNextName(char *nameDirOut);
 
+    bool GetNameFile(pchar fullPath, int numFile, char *nameFileOut);
+
     void CloseCurrent();
 };
 
@@ -45,8 +47,6 @@ namespace FDrive
     void Update();
 
     void GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles);
-
-    bool GetNameFile(pchar fullPath, int numFile, char *nameFileOut, Directory *sfrd);
 
     bool GetNextNameFile(char *nameFileOut, Directory *sfrd);
 
