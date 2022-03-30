@@ -80,6 +80,10 @@ private:
 
 namespace PText
 {
+    // Возвращает высоту экрана, которую займёт текст text, при выводе от left до right в переменной height. Если
+    // bool == false, то текст не влезет на экран 
+    bool GetHeightTextWithTransfers(int left, int top, int right, pchar text, int *height);
+
     int DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int limitY, int limitWidth, int limitHeight);
 
     void Draw2Symbols(int x, int y, char symbol1, char symbol2, Color::E color1, Color::E color2);

@@ -15,11 +15,16 @@ template      String<(int)32>::String(pchar, ...);
 template int  String<(int)32>::Draw(int, int, Color::E);
 template void String<(int)32>::Append(pchar);
 template int  String<(int)32>::DrawInCenterRect(int x, int y, int width, int height, Color::E);
-template int  String<(int)32>::DrawWithLimitation(int x, int y, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight);
+template int  String<(int)32>::DrawWithLimitation(int x, int y, Color::E color, int limitX, int limitY, int limitWidth,
+    int limitHeight);
 template void String<(int)32>::DrawRelativelyRight(int xRight, int y, Color::E);
 template int  String<(int)32>::DrawOnBackground(int x, int y, Color::E colorBackground);
 template void String<(int)32>::DrawInRect(int x, int y, int width, int height, int dy);
 template void String<(int)32>::SetFormat(pchar format, ...);
+template int  String<(int)32>::DrawInBoundedRectWithTransfers(int x, int y, int width, Color::E colorBackground,
+    Color::E colorFill);
+//template int  String<(int)32>::DrawInRectWithTransfers(int x, int y, int width, int height, Color::E);
+template int  String<(int)32>::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, Color::E colorBackground, Color::E colorFill);
 
 
 template<int capa>
@@ -288,4 +293,29 @@ int String<capacity>::DrawSpaces(int x, int y, char *text, int *numSymbols)
     }
 
     return x;
+}
+
+
+template<int capacity>
+int String<capacity>::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, Color::E colorBackground,
+    Color::E colorFill)
+{
+    Rectangle(width, height).Draw(x, y, colorFill);
+    Region(width - 2, height - 2).Fill(x + 1, y + 1, colorBackground);
+    Color::SetCurrent(colorFill);
+    return DrawInCenterRect(x, y, width, height);
+}
+
+
+template<int capacity>
+int String<capacity>::DrawInBoundedRectWithTransfers(int x, int y, int width, Color::E colorBackground, Color::E colorFill)
+{
+    int height = 0;
+
+    PText::GetHeightTextWithTransfers(x + 3, y + 3, x + width - 8, buffer, &height);
+
+    Rectangle(width, height).Draw(x, y, colorFill);
+    Region(width - 2, height - 2).Fill(x + 1, y + 1, colorBackground);
+    DrawInRectWithTransfers(x + 3, y + 3, width - 8, height, colorFill);
+    return y + height;
 }

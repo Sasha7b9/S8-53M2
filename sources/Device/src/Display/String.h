@@ -40,6 +40,13 @@ public:
     // Выводит текст на прямоугольнике цвета colorBackgound
     int DrawOnBackground(int x, int y, Color::E colorBackground);
 
+    int DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, Color::E colorBackground, Color::E colorFill);
+
+    // Возвращает нижнюю координату прямоугольника.
+    int DrawInBoundedRectWithTransfers(int x, int y, int width, Color::E colorBackground, Color::E colorFill);
+
+    int DrawInRectWithTransfers(int x, int y, int width, int height, Color::E = Color::Count);
+
 private:
 
     char buffer[capacity];
