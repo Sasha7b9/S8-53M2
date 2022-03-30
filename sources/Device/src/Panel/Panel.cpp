@@ -450,7 +450,6 @@ namespace Panel
 
     static void BFuncHelp(Action action)
     {
-        return;
 
 //        Hint::show = !Hint::show;
 //        Hint::string = nullptr;

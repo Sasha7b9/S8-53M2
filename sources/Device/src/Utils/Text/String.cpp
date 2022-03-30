@@ -11,24 +11,27 @@
 #include <cstdlib>
 
 
-template      String<(int)256>::String(pchar, ...);
-template int  String<(int)256>::Draw(int, int, Color::E);
-template void String<(int)256>::Append(pchar);
-template int  String<(int)256>::DrawInCenterRect(int x, int y, int width, int height, Color::E);
-template int  String<(int)256>::DrawWithLimitation(int x, int y, Color::E color, int limitX, int limitY, int limitWidth,
+template      String<(int)DEFAULT_SIZE_STRING>::String(pchar, ...);
+template int  String<(int)DEFAULT_SIZE_STRING>::Draw(int, int, Color::E);
+template void String<(int)DEFAULT_SIZE_STRING>::Append(pchar);
+template int  String<(int)DEFAULT_SIZE_STRING>::DrawInCenterRect(int x, int y, int width, int height, Color::E);
+template int  String<(int)DEFAULT_SIZE_STRING>::DrawWithLimitation(int x, int y, Color::E color, int limitX, int limitY, int limitWidth,
     int limitHeight);
-template void String<(int)256>::DrawRelativelyRight(int xRight, int y, Color::E);
-template int  String<(int)256>::DrawOnBackground(int x, int y, Color::E colorBackground);
-template void String<(int)256>::DrawInRect(int x, int y, int width, int height, int dy);
-template void String<(int)256>::SetFormat(pchar format, ...);
-template int  String<(int)256>::DrawInBoundedRectWithTransfers(int x, int y, int width, Color::E colorBackground,
+template void String<(int)DEFAULT_SIZE_STRING>::DrawRelativelyRight(int xRight, int y, Color::E);
+template int  String<(int)DEFAULT_SIZE_STRING>::DrawOnBackground(int x, int y, Color::E colorBackground);
+template void String<(int)DEFAULT_SIZE_STRING>::DrawInRect(int x, int y, int width, int height, int dy);
+template void String<(int)DEFAULT_SIZE_STRING>::SetFormat(pchar format, ...);
+template int  String<(int)DEFAULT_SIZE_STRING>::DrawInBoundedRectWithTransfers(int x, int y, int width, Color::E colorBackground,
     Color::E colorFill);
-template int  String<(int)256>::DrawInRectWithTransfers(int x, int y, int width, int height, Color::E);
-template int  String<(int)256>::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height,
+template int  String<(int)DEFAULT_SIZE_STRING>::DrawInRectWithTransfers(int x, int y, int width, int height, Color::E);
+template int  String<(int)DEFAULT_SIZE_STRING>::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height,
     Color::E colorBackground, Color::E colorFill);
-template void String<(int)256>::Append(char);
-template void String<(int)256>::DrawInCenterRectOnBackground(int x, int y, int width, int height, Color::E colorText,
+template void String<(int)DEFAULT_SIZE_STRING>::Append(char);
+template void String<(int)DEFAULT_SIZE_STRING>::DrawInCenterRectOnBackground(int x, int y, int width, int height, Color::E colorText,
     int widthBorder, Color::E colorBackground);
+
+template      String<(int)1024>::String(pchar, ...);
+template int  String<(int)1024>::Draw(int, int, Color::E);
 
 
 template<int capa>

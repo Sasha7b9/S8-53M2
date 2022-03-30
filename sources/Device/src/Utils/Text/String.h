@@ -4,7 +4,9 @@
 #include <cstring>
 
 
-template<int capacity = 256>
+#define DEFAULT_SIZE_STRING 32
+
+template<int capacity = DEFAULT_SIZE_STRING>
 class String
 {
 public:
