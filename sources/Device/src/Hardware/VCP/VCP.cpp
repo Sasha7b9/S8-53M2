@@ -75,7 +75,7 @@ void VCP::Send(const uint8 *buffer, int size)
 
 void VCP::SendFormat(char *format, ...)
 {
-    static const int SIZE_BUFFER = 200;
+    static const int SIZE_BUFFER = 1024;
     static char buffer[SIZE_BUFFER];
 
     std::va_list args;

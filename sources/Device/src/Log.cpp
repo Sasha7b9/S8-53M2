@@ -12,7 +12,7 @@
 
 namespace Log
 {
-    const int SIZE_BUFFER_LOG = 200;
+    const int SIZE_BUFFER_LOG = 1024;
 }
 
 

@@ -83,7 +83,7 @@ void LAN::Update()
 
 void LAN::SendFormat(char *format, ...)
 {
-    const int SIZE_BUFFER = 256;
+    const int SIZE_BUFFER = 1024;
 
     static char buffer[SIZE_BUFFER];
     std::va_list args;

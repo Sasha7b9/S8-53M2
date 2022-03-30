@@ -103,18 +103,13 @@ String<capacity>::String(pchar format, ...)
 
     if (capacity < num_symbols - 1)
     {
-        LOG_ERROR_TRACE("Very small string buffer %d, need %d", capacity, num_symbols);
+        LOG_ERROR_TRACE("Very small string buffer %d, need %d:", capacity, num_symbols);
+        LOG_WRITE(temp_buffer);
 
-        for (int i = 0; i < capacity - 1; i++)
-        {
-            buffer[i] = temp_buffer[i];
-            buffer[capacity - 1] = '\0';
-        }
+        temp_buffer[1023] = '\0';
     }
-    else
-    {
-        std::strcpy(buffer, temp_buffer);
-    }
+
+    std::strcpy(buffer, temp_buffer);
 }
 
 
@@ -130,7 +125,10 @@ void String<capacity>::SetFormat(pchar format, ...)
 
     if (capacity < num_symbols - 1)
     {
-        LOG_ERROR_TRACE("Very small string buffer %d, need %d", capacity, num_symbols);
+        LOG_ERROR_TRACE("Very small string buffer %d, need %d:", capacity, num_symbols);
+        LOG_WRITE(temp_buffer);
+
+        temp_buffer[1023] = '\0';
     }
 
     std::strcpy(buffer, temp_buffer);
@@ -144,7 +142,7 @@ void String<capacity>::Append(pchar str)
 
     if (need_size > capacity)
     {
-        LOG_ERROR_TRACE("Very small string buffer %d, need %d", capacity, need_size);
+        LOG_ERROR_TRACE("Very small string buffer %d, need %d:", capacity, need_size);
 
         int pointer = 0;
 
@@ -152,6 +150,8 @@ void String<capacity>::Append(pchar str)
         {
             Append(str[pointer++]);
         }
+
+        LOG_WRITE(buffer);
     }
     else
     {
