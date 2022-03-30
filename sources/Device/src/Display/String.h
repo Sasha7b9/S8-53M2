@@ -33,6 +33,8 @@ public:
 
     void DrawRelativelyRight(int xRight, int y, Color::E = Color::Count);
 
+    int DrawOnBackground(int x, int y, Color::E colorBackground);
+
 private:
 
     char buffer[capacity];

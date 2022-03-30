@@ -4,6 +4,7 @@
 #include "Display/font/Font.h"
 #include "Hardware/InterCom.h"
 #include "Display/Text.h"
+#include "Display/Painter.h"
 #include <cstdarg>
 #include <cstring>
 #include <cstdio>
@@ -16,6 +17,7 @@ template void String<(int)32>::Append(pchar);
 template int  String<(int)32>::DrawInCenterRect(int x, int y, int width, int height, Color::E);
 template int  String<(int)32>::DrawWithLimitation(int x, int y, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight);
 template void String<(int)32>::DrawRelativelyRight(int xRight, int y, Color::E);
+template int  String<(int)32>::DrawOnBackground(int x, int y, Color::E colorBackground);
 
 
 template<int capa>
@@ -175,4 +177,18 @@ void String<capacity>::DrawRelativelyRight(int xRight, int y, Color::E color)
 
     int lenght = Font::GetLengthText(buffer);
     Draw(xRight - lenght, y);
+}
+
+
+template<int capacity>
+int String<capacity>::DrawOnBackground(int x, int y, Color::E colorBackground)
+{
+    int width = Font::GetLengthText(buffer);
+    int height = Font::GetSize();
+
+    Color::E colorText = Color::GetCurrent();
+    Region(width, height).Fill(x - 1, y, colorBackground);
+    Color::SetCurrent(colorText);
+
+    return Draw(x, y);
 }
