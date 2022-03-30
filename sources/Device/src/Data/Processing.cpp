@@ -86,7 +86,7 @@ namespace Processing
     float FindIntersectionWithHorLine(Chan::E, int numIntersection, bool downToUp, uint8 yLine);
 
     typedef float  (*pFuncFCh)(Chan::E);
-    typedef String (*pFuncConvert)(float, bool);
+    typedef DString (*pFuncConvert)(float, bool);
 
     struct MeasureCalculate
     {
@@ -1111,14 +1111,14 @@ void Processing::InterpolationSinX_X(uint8 data[FPGA::MAX_POINTS * 2], TBase::E 
     }
 }
 
-String Processing::GetStringMeasure(Measure::E measure, Chan ch)
+DString Processing::GetStringMeasure(Measure::E measure, Chan ch)
 {
     if (!SET_ENABLED(ch))
     {
-        return String("");
+        return DString("");
     }
 
-    String result(ch.IsA() ? "1: " : "2: ");
+    DString result(ch.IsA() ? "1: " : "2: ");
 
     if(!out.ds.valid)
     {
@@ -1131,7 +1131,7 @@ String Processing::GetStringMeasure(Measure::E measure, Chan ch)
     {
         pFuncConvert func = measures[measure].FucnConvertate;
         float value = values[measure].value[ch];
-        String text = func(value, measures[measure].showSign);
+        DString text = func(value, measures[measure].showSign);
         result.Append(text.c_str());
     }
     else

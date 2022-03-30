@@ -221,11 +221,11 @@ void Menu::SetAutoHide(bool)
 }
 
 
-String Menu::StringNavigation()
+DString Menu::StringNavigation()
 {
     if(SHOW_STRING_NAVIGATION && IsShown())
     {
-        String result;
+        DString result;
 
         pchar titles[10] = {0};
         int numTitle = 0;
@@ -233,7 +233,7 @@ String Menu::StringNavigation()
 
         if(IsMainPage(item))
         {
-            return String("");
+            return DString("");
         }
 
         while(!IsMainPage(item))
@@ -258,7 +258,7 @@ String Menu::StringNavigation()
         return result;
     }
 
-    return String("");
+    return DString("");
 }
 
 

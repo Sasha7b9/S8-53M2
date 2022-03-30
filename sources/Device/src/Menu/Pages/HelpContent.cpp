@@ -20,7 +20,7 @@ static const int WIDTH = 295;
 static void DrawPageContent()
 {
     int y = 50;
-    String(TITLE(currentPage)).DrawInCenterRect(0, y, WIDTH, 10);
+    DString(TITLE(currentPage)).DrawInCenterRect(0, y, WIDTH, 10);
 
     int numPage = 0;
 
@@ -32,11 +32,11 @@ static void DrawPageContent()
         pchar title = TITLE(page);
         if(currentParagraph == numPage)
         {
-            String(title).DrawInCenterRectOnBackground(0, y, WIDTH, 10, COLOR_BACK, 2, COLOR_FILL);
+            DString(title).DrawInCenterRectOnBackground(0, y, WIDTH, 10, COLOR_BACK, 2, COLOR_FILL);
         }
         else
         {
-            String(title).DrawInCenterRect(0, y, WIDTH, 10, COLOR_FILL);
+            DString(title).DrawInCenterRect(0, y, WIDTH, 10, COLOR_FILL);
         }
         y += 16;
         numPage++;
@@ -45,8 +45,8 @@ static void DrawPageContent()
 
 static void DrawPageDescription()
 {
-    String(TITLE(currentPage)).DrawInCenterRect(0, 3, WIDTH, 10);
-    String(HINT(currentPage)).DrawInRectWithTransfers(2, 15, WIDTH - 5, 240);
+    DString(TITLE(currentPage)).DrawInCenterRect(0, 3, WIDTH, 10);
+    DString(HINT(currentPage)).DrawInRectWithTransfers(2, 15, WIDTH - 5, 240);
 }
 
 
@@ -80,7 +80,7 @@ void HelpContent::Draw()
         DrawPageDescription();
     }
 
-    String("%d", TIME_MS - startTime).Draw(2, 230, COLOR_FILL);
+    DString("%d", TIME_MS - startTime).Draw(2, 230, COLOR_FILL);
 }
 
 static int NumParagraphs(const PageHelp *page)

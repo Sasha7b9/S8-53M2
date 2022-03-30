@@ -123,7 +123,7 @@ public:
     Item(TypeItem::E, const Page* keeper_, pFuncBV funcOfActive_, pchar tileRU, pchar titleEN, pchar hintRU, pchar hintEN);
     
     // Возвращает название элемента по адресу item, как оно выглядит на дисплее прибора.
-    String Title();
+    DString Title();
 
     // Открыть/закрыть элемент меню по адрему item.
     void Open(bool open) const;
@@ -365,10 +365,10 @@ public:
     pFuncVB	    funcOnChanged;                          // Функция должна вызываться после изменения значения элемента.
     pFuncVII    funcForDraw;                            // Функция вызывается после отрисовки элемента. 
 
-    String NameSubItem(int i);
+    DString NameSubItem(int i);
 
     // Возвращает имя текущего варианта выбора элемента choice, как оно записано в исходном коде программы.
-    String NameCurrentSubItem();
+    DString NameCurrentSubItem();
 
     // Возвращает имя следующего варианта выбора элемента choice, как оно записано в исходном коде программы.
     pchar NameNextSubItem();

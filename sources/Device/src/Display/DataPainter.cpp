@@ -395,9 +395,9 @@ void DataPainter::DrawMath()
     Region(width - 2, height - 2).Fill(Grid::Left() + 1, Grid::MathTop() + 1 + delta, COLOR_BACK);
     Divider::E multiplier = MATH_MULTIPLIER;
 
-    String(Range::ToString(SET_RANGE_MATH, multiplier)).Draw(Grid::Left() + 2, Grid::MathTop() + 1 + delta, COLOR_FILL);
+    DString(Range::ToString(SET_RANGE_MATH, multiplier)).Draw(Grid::Left() + 2, Grid::MathTop() + 1 + delta, COLOR_FILL);
 
-    String(":").Draw(Grid::Left() + 25, Grid::MathTop() + 1 + delta);
+    DString(":").Draw(Grid::Left() + 25, Grid::MathTop() + 1 + delta);
 
     SET_RSHIFT_MATH.ToString(SET_RANGE_MATH, multiplier).Draw(Grid::Left() + 27, Grid::MathTop() + 1 + delta);
 }
@@ -913,7 +913,7 @@ void DataPainter::Spectrum::WriteParameters(Chan ch, float freq0, float density0
     }
 
     Color::SetCurrent(ColorChannel(ch));
-    String(SCALE_FFT_IS_LOG ? SU::Float2Db(density0, 4).c_str() : SU::Float2String(density0, false, 7).c_str()).Draw(x, y);
+    DString(SCALE_FFT_IS_LOG ? SU::Float2Db(density0, 4).c_str() : SU::Float2String(density0, false, 7).c_str()).Draw(x, y);
     y += dY;
-    String(SCALE_FFT_IS_LOG ? SU::Float2Db(density1, 4).c_str() : SU::Float2String(density1, false, 7).c_str()).Draw(x, y);
+    DString(SCALE_FFT_IS_LOG ? SU::Float2Db(density1, 4).c_str() : SU::Float2String(density1, false, 7).c_str()).Draw(x, y);
 }

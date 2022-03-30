@@ -194,14 +194,14 @@ void Grid::DrawGridSpectrum()
             if (!Menu::IsMinimize())
             {
                 Color::SetCurrent(COLOR_FILL);
-                String(strs[i]).Draw(3, y - 4);
+                DString(strs[i]).Draw(3, y - 4);
             }
         }
 
         if (!Menu::IsMinimize())
         {
             Color::SetCurrent(COLOR_FILL);
-            String(LANG_RU ? "Да" : "dB").Draw(5, Grid::MathTop() + 1);
+            DString(LANG_RU ? "Да" : "dB").Draw(5, Grid::MathTop() + 1);
         }
     }
     else if (SCALE_FFT_IS_LINEAR)
@@ -216,7 +216,7 @@ void Grid::DrawGridSpectrum()
 
             if (!Menu::IsMinimize())
             {
-                String(strs[i]).Draw(5, y - 4, COLOR_FILL);
+                DString(strs[i]).Draw(5, y - 4, COLOR_FILL);
             }
         }
     }

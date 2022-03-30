@@ -14,7 +14,7 @@
 #include <cstdlib>
 
 
-pchar const String::_ERROR = "---.---";
+pchar const DString::_ERROR = "---.---";
 
 
 namespace PText
@@ -41,7 +41,7 @@ namespace PText
 
     bool IsLetter(char symbol);
 
-    String GetWord(pchar firstSymbol, int *length);
+    DString GetWord(pchar firstSymbol, int *length);
 
     bool IsConsonant(char symbol);
 
@@ -266,7 +266,7 @@ int PText::DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int 
 }
 
 
-int String::DrawWithLimitation(int x, int y, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight)
+int DString::DrawWithLimitation(int x, int y, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight)
 {
     Color::SetCurrent(color);
     int retValue = x;
@@ -310,11 +310,11 @@ bool PText::IsLetter(char symbol)
 }
 
 
-String PText::GetWord(pchar firstSymbol, int *length)
+DString PText::GetWord(pchar firstSymbol, int *length)
 {
     *length = 0;
 
-    String result;
+    DString result;
 
     while (IsLetter(*firstSymbol))
     {
@@ -497,7 +497,7 @@ int PText::DrawPartWord(char *word, int x, int y, int xRight, bool draw)
         {
             if (draw)
             {
-                String(subString).Draw(x, y);
+                DString(subString).Draw(x, y);
             }
 
             return (int)std::strlen(subString) - 1;
@@ -508,7 +508,7 @@ int PText::DrawPartWord(char *word, int x, int y, int xRight, bool draw)
 }
 
 
-int String::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, Color::E color)
+int DString::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, Color::E color)
 {
     Color::SetCurrent(color);
 
@@ -531,7 +531,7 @@ int String::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, Col
         while (x < right - 1 && curSymbol < numSymb)
         {
             int length = 0;
-            String word = PText::GetWord(text + curSymbol, &length);
+            DString word = PText::GetWord(text + curSymbol, &length);
 
             if (length <= 1)                            // Нет буквенных символов или один, т.е. слово не найдено
             {
@@ -560,7 +560,7 @@ int String::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, Col
                 else
                 {
                     curSymbol += length;
-                    x = String(word).Draw(x, y);
+                    x = DString(word).Draw(x, y);
                 }
             }
         }
@@ -586,7 +586,7 @@ bool PText::GetHeightTextWithTransfers(int left, int top, int right, pchar text,
         while (x < right - 1 && curSymbol < numSymb)
         {
             int length = 0;
-            String word = GetWord(text + curSymbol, &length);
+            DString word = GetWord(text + curSymbol, &length);
 
             if (length <= 1)                            // Нет буквенных символов или один, т.е. слово не найдено
             {
@@ -629,7 +629,7 @@ bool PText::GetHeightTextWithTransfers(int left, int top, int right, pchar text,
 }
 
 
-int String::DrawInBoundedRectWithTransfers(int x, int y, int width, Color::E colorBackground, Color::E colorFill)
+int DString::DrawInBoundedRectWithTransfers(int x, int y, int width, Color::E colorBackground, Color::E colorFill)
 {
     int height = 0;
 
@@ -642,7 +642,7 @@ int String::DrawInBoundedRectWithTransfers(int x, int y, int width, Color::E col
 }
 
 
-void String::DrawInCenterRectOnBackground(int x, int y, int width, int height, Color::E colorText,
+void DString::DrawInCenterRectOnBackground(int x, int y, int width, int height, Color::E colorText,
     int widthBorder, Color::E colorBackground)
 {
     int lenght = Font::GetLengthText(buffer);
@@ -654,7 +654,7 @@ void String::DrawInCenterRectOnBackground(int x, int y, int width, int height, C
 }
 
 
-int String::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, Color::E colorBackground,
+int DString::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, Color::E colorBackground,
     Color::E colorFill)
 {
     Rectangle(width, height).Draw(x, y, colorFill);
@@ -677,14 +677,14 @@ void Painter::DrawHintsForSmallButton(int x, int y, int width, void *smallButton
     {
         Rectangle(WIDTH_SB, WIDTH_SB).Draw(x, y);
         structHelp->funcDrawUGO(x, y);
-        int yNew = String(structHelp->helpUGO[LANG]).DrawInRectWithTransfers(x + 23, y + 1, width - 30, 20);
+        int yNew = DString(structHelp->helpUGO[LANG]).DrawInRectWithTransfers(x + 23, y + 1, width - 30, 20);
         y = ((yNew - y) < 22) ? (y + 22) : yNew;
         structHelp++;
     }
 }
 
 
-void String::DrawRelativelyRight(int xRight, int y, Color::E color)
+void DString::DrawRelativelyRight(int xRight, int y, Color::E color)
 {
     Color::SetCurrent(color);
 
@@ -736,19 +736,19 @@ void PText::DrawBig(int eX, int eY, int size, pchar text)
 }
 
 
-String::String() : buffer(nullptr), capacity(0)
+DString::DString() : buffer(nullptr), capacity(0)
 {
     SetString("");
 }
 
 
-String::String(const String &rhs) : buffer(nullptr), capacity(0)
+DString::DString(const DString &rhs) : buffer(nullptr), capacity(0)
 {
     SetString(rhs);
 }
 
 
-String::String(char symbol) : buffer(nullptr), capacity(0)
+DString::DString(char symbol) : buffer(nullptr), capacity(0)
 {
     if (Allocate(2))
     {
@@ -758,7 +758,7 @@ String::String(char symbol) : buffer(nullptr), capacity(0)
 }
 
 
-String::String(pchar format, ...) : buffer(nullptr), capacity(0)
+DString::DString(pchar format, ...) : buffer(nullptr), capacity(0)
 {
     char temp_buffer[1024];
 
@@ -779,7 +779,7 @@ String::String(pchar format, ...) : buffer(nullptr), capacity(0)
 }
 
 
-void String::SetFormat(pchar format, ...)
+void DString::SetFormat(pchar format, ...)
 {
     char temp_buffer[1024];
 
@@ -805,7 +805,7 @@ void String::SetFormat(pchar format, ...)
 }
 
 
-void String::SetString(pchar string)
+void DString::SetString(pchar string)
 {
     Allocate((int)std::strlen(string) + 1);
 
@@ -813,25 +813,25 @@ void String::SetString(pchar string)
 }
 
 
-void String::SetString(const String &str)
+void DString::SetString(const DString &str)
 {
     SetString(str.c_str());
 }
 
 
-void String::Append(pchar str)
+void DString::Append(pchar str)
 {
     Append(str, (int)std::strlen(str));
 }
 
 
-void String::Append(const String &str)
+void DString::Append(const DString &str)
 {
     Append(str.c_str());
 }
 
 
-void String::Append(pchar str, int num_symbols)
+void DString::Append(pchar str, int num_symbols)
 {
     if (!str || *str == '\0')
     {
@@ -842,7 +842,7 @@ void String::Append(pchar str, int num_symbols)
 
     if (capacity < need_size)
     {
-        String old(*this);
+        DString old(*this);
         Allocate(need_size);
         std::strcpy(buffer, old.c_str());
     }
@@ -852,20 +852,20 @@ void String::Append(pchar str, int num_symbols)
 }
 
 
-void String::Append(char symbol)
+void DString::Append(char symbol)
 {
     char b[2] = {symbol, '\0'};
     Append(b);
 }
 
 
-String::~String()
+DString::~DString()
 {
     Free();
 }
 
 
-void String::Free()
+void DString::Free()
 {
     if (buffer)
     {
@@ -876,7 +876,7 @@ void String::Free()
 }
 
 
-bool String::Allocate(int size)
+bool DString::Allocate(int size)
 {
     std::free(buffer);
 
@@ -895,7 +895,7 @@ bool String::Allocate(int size)
 }
 
 
-int String::NeedMemory(int size)
+int DString::NeedMemory(int size)
 {
     if (size % SIZE_SEGMENT == 0)
     {
@@ -908,7 +908,7 @@ int String::NeedMemory(int size)
 }
 
 
-int String::Size() const
+int DString::Size() const
 {
     if (buffer == nullptr)
     {
@@ -919,7 +919,7 @@ int String::Size() const
 }
 
 
-char &String::operator[](int i) const
+char &DString::operator[](int i) const
 {
     static char result = 0;
 
@@ -932,7 +932,7 @@ char &String::operator[](int i) const
 }
 
 
-bool String::ToInt(int *out)
+bool DString::ToInt(int *out)
 {
     char *str = buffer;
 
@@ -974,7 +974,7 @@ bool String::ToInt(int *out)
 }
 
 
-String &String::operator=(const String &rhs)
+DString &DString::operator=(const DString &rhs)
 {
     SetString(rhs);
 
@@ -982,7 +982,7 @@ String &String::operator=(const String &rhs)
 }
 
 
-int String::Draw(int x, int y, Color::E color)
+int DString::Draw(int x, int y, Color::E color)
 {
     Color::SetCurrent(color);
 
@@ -1038,7 +1038,7 @@ int String::Draw(int x, int y, Color::E color)
 }
 
 
-int String::DrawInCenterRect(int eX, int eY, int width, int eHeight, Color::E color)
+int DString::DrawInCenterRect(int eX, int eY, int width, int eHeight, Color::E color)
 {
     Color::SetCurrent(color);
 
@@ -1051,7 +1051,7 @@ int String::DrawInCenterRect(int eX, int eY, int width, int eHeight, Color::E co
 }
 
 
-int String::DrawOnBackground(int x, int y, Color::E colorBackground)
+int DString::DrawOnBackground(int x, int y, Color::E colorBackground)
 {
     int width = Font::GetLengthText(buffer);
     int height = Font::GetSize();
@@ -1064,7 +1064,7 @@ int String::DrawOnBackground(int x, int y, Color::E colorBackground)
 }
 
 
-void String::DrawInRect(int x, int y, int width, int, int dy)
+void DString::DrawInRect(int x, int y, int width, int, int dy)
 {
     int xStart = x;
     int xEnd = xStart + width;
@@ -1092,7 +1092,7 @@ void String::DrawInRect(int x, int y, int width, int, int dy)
 }
 
 
-int String::GetLenghtSubString(char *text)
+int DString::GetLenghtSubString(char *text)
 {
     int result = 0;
 
@@ -1107,7 +1107,7 @@ int String::GetLenghtSubString(char *text)
 }
 
 
-int String::DrawSubString(int x, int y, char *text)
+int DString::DrawSubString(int x, int y, char *text)
 {
     int numSymbols = 0;
 
@@ -1123,7 +1123,7 @@ int String::DrawSubString(int x, int y, char *text)
 }
 
 
-int String::DrawSpaces(int x, int y, char *text, int *numSymbols)
+int DString::DrawSpaces(int x, int y, char *text, int *numSymbols)
 {
     *numSymbols = 0;
 

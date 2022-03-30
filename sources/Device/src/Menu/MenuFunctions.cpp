@@ -160,9 +160,9 @@ int Item::HeightOpened() const
 }
 
 
-String Item::Title() 
+DString Item::Title() 
 {
-    return String(TITLE((Page*)this));
+    return DString(TITLE((Page*)this));
 }
 
 

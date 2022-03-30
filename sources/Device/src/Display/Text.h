@@ -3,17 +3,17 @@
 #include "Display/Colors.h"
 
 
-class String
+class DString
 {
 public:
-    explicit String();
-    String(const String &);
-    explicit String(char t);
-    explicit String(pchar, ...);
-    virtual ~String();
+    explicit DString();
+    DString(const DString &);
+    explicit DString(char t);
+    explicit DString(pchar, ...);
+    virtual ~DString();
 
     void SetFormat(pchar format, ...);
-    void SetString(const String &);
+    void SetString(const DString &);
     void SetString(pchar);
 
     char *c_str() const { return buffer; }
@@ -25,7 +25,7 @@ public:
     void Append(pchar str);
     void Append(pchar str, int numSymbols);
     void Append(char);
-    void Append(const String &);
+    void Append(const DString &);
 
     int Size() const;
 
@@ -33,7 +33,7 @@ public:
 
     char &operator[](int i) const;
 
-    String &operator=(const String &);
+    DString &operator=(const DString &);
 
     int Draw(int x, int y, Color::E = Color::Count);
     int DrawInCenterRect(int x, int y, int width, int height, Color::E = Color::Count);

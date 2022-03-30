@@ -79,7 +79,7 @@ void Governor::DrawLowPart(int x, int y, bool, bool shade)
         colorTextDown = ColorMenuItem(false);
     }
 
-    x = String("\x80").Draw(x + 4, y + 21, colorTextDown);
+    x = DString("\x80").Draw(x + 4, y + 21, colorTextDown);
 
     if(Item::Opened() != this)
     {
@@ -115,7 +115,7 @@ void Governor::DrawLowPart(int x, int y, bool, bool shade)
         x = SU::Int2String(*cell, false, 1).Draw(x + 1, y + 21, COLOR_FILL);
     }
 
-    String("\x81").Draw(x + 1, y + 21, colorTextDown);
+    DString("\x81").Draw(x + 1, y + 21, colorTextDown);
 }
 
 
@@ -130,7 +130,7 @@ void IPaddress::DrawLowPart(int x, int y, bool, bool shade)
         colorTextDown = ColorMenuItem(false);
     }
 
-    String("%03d.%03d.%03d.%03d", *ip0, *ip1, *ip2, *ip3).Draw(x + 4, y + 21, (Item::Opened() != this) ? colorTextDown : COLOR_FILL);
+    DString("%03d.%03d.%03d.%03d", *ip0, *ip1, *ip2, *ip3).Draw(x + 4, y + 21, (Item::Opened() != this) ? colorTextDown : COLOR_FILL);
 }
 
 
@@ -145,7 +145,7 @@ static void DrawMACaddressLowPart(MACaddress *mac, int x, int y, bool, bool shad
         colorTextDown = ColorMenuItem(false);
     }
 
-    String("%02X.%02X.%02X.%02X.%02X.%02X", *mac->mac0, *mac->mac1, *mac->mac2, *mac->mac3, *mac->mac4, *mac->mac5).Draw(x + 4, y + 21, (Item::Opened() != (Item *)mac) ? colorTextDown : COLOR_FILL);
+    DString("%02X.%02X.%02X.%02X.%02X.%02X", *mac->mac0, *mac->mac1, *mac->mac2, *mac->mac3, *mac->mac4, *mac->mac5).Draw(x + 4, y + 21, (Item::Opened() != (Item *)mac) ? colorTextDown : COLOR_FILL);
 }
 
 
@@ -167,7 +167,7 @@ void Formula::WriteText(int x, int y, bool)
 
     Char((char)(koeff1 + 0x30)).Draw(x + 5, y);
     Char('*').Draw(x + 10, y);
-    String("K1").Draw(x + 14, y);
+    DString("K1").Draw(x + 14, y);
     Char(funcIsMul ? '*' : '+').Draw(x + 27, y);
 
     if (koeff2 != 0)
@@ -177,7 +177,7 @@ void Formula::WriteText(int x, int y, bool)
 
     Char((char)(koeff2 + 0x30)).Draw(x + 39, y);
     Char('*').Draw(x + 44, y);
-    String("K2").Draw(x + 48, y);
+    DString("K2").Draw(x + 48, y);
 }
 
 
@@ -319,7 +319,7 @@ void MACaddress::DrawValue(int x, int y)
             Region(10, 8).Fill(x - 1, y, COLOR_FILL);
         }
 
-        String("%02X", value).Draw(x, y, (MACaddress::cur_digit == num) ? COLOR_BACK : COLOR_FILL);
+        DString("%02X", value).Draw(x, y, (MACaddress::cur_digit == num) ? COLOR_BACK : COLOR_FILL);
         x -= 12;
     }
 }
@@ -404,7 +404,7 @@ void GovernorColor::DrawValue(int x, int y, int delta)
         Color::E colorBack = (field == i) ? Color::WHITE : Color::BLACK;
         Color::E colorDraw = (field == i) ? Color::BLACK : Color::WHITE;
         Region(29, 10).Fill(x - 1, y + 1, colorBack);
-        String(texts[i]).Draw(x, y + 2, colorDraw);
+        DString(texts[i]).Draw(x, y + 2, colorDraw);
         SU::Int2String(vals[i], false, 1).Draw(x + 14, y + 2);
         x -= 30;
     }
@@ -477,7 +477,7 @@ void Choice::DrawOpened(int x, int y)
                 ColorMenuTitleLessBright(), pressed, false);
         }
 
-        String(NameSubItem(i)).Draw(x + 4, yItem + 2, pressed ? Color::BLACK : ColorMenuField());
+        DString(NameSubItem(i)).Draw(x + 4, yItem + 2, pressed ? Color::BLACK : ColorMenuField());
     }
 }
 
@@ -530,8 +530,8 @@ void Time::DrawOpened(int x, int y)
     std::strcpy(strI[iSEC],      SU::Int2String(*seconds,  false, 2).c_str());
     std::strcpy(strI[iSET],      "—охранить");
 
-    String("д м г - ").Draw(x + 3, y + y0, COLOR_FILL);
-    String("ч м с - ").Draw(x + 3, y + y1);
+    DString("д м г - ").Draw(x + 3, y + y0, COLOR_FILL);
+    DString("ч м с - ").Draw(x + 3, y + y1);
 
     for (int i = 0; i < 8; i++)
     {
@@ -539,7 +539,7 @@ void Time::DrawOpened(int x, int y)
         {
             Region(strPaint[i].width, 8).Fill(x + strPaint[i].x - 1, y + strPaint[i].y, Color::FLASH_10);
         }
-        String(strI[i]).Draw(x + strPaint[i].x, y + strPaint[i].y, *curField == i ? Color::FLASH_01 : COLOR_FILL);
+        DString(strI[i]).Draw(x + strPaint[i].x, y + strPaint[i].y, *curField == i ? Color::FLASH_01 : COLOR_FILL);
     }
 }
 
@@ -613,13 +613,13 @@ void Choice::DrawClosed(int x, int y)
     Color::SetCurrent(colorText);
     if(deltaY == 0.0f)
     {
-        String(NameCurrentSubItem()).Draw(x + 4, y + 21);
+        DString(NameCurrentSubItem()).Draw(x + 4, y + 21);
     }
     else
     {
         NameCurrentSubItem().DrawWithLimitation(x + 4, y + 21 - deltaY, colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
         Painter::DrawHLine(y + (deltaY > 0 ? 31 : 19) - deltaY, x + 3, x + MI_WIDTH_VALUE + 1, Color::BLACK);
-        String((deltaY > 0) ? NameNextSubItem() : NamePrevSubItem()).
+        DString((deltaY > 0) ? NameNextSubItem() : NamePrevSubItem()).
             DrawWithLimitation(x + 4, y + (deltaY > 0 ? 33 : 9) - deltaY, colorText, x, y + 19, MI_WIDTH_VALUE, MI_HEIGHT_VALUE - 1);
     }
     Painter::DrawHLine(y + Item::HEIGHT + 1, x, x + MI_WIDTH, ColorBorderMenu(false));
@@ -665,16 +665,16 @@ void Time::DrawClosed(int x, int y)
     y += 21;
     PackedTime time = HAL_RTC::GetPackedTime();
     SU::Int2String((int)time.hours, false, 2).Draw(x + startX, y, COLOR_BACK);
-    String(":").Draw(x + startX + deltaField, y);
+    DString(":").Draw(x + startX + deltaField, y);
     SU::Int2String((int)time.minutes, false, 2).Draw(x + startX + deltaField + deltaSeparator, y);
-    String(":").Draw(x + startX + 2 * deltaField + deltaSeparator, y);
+    DString(":").Draw(x + startX + 2 * deltaField + deltaSeparator, y);
     SU::Int2String((int)time.seconds, false, 2).Draw(x + startX + 2 * deltaField + 2 * deltaSeparator, y);
 
     startX = 44;
     SU::Int2String((int)time.day, false, 2).Draw(x + startX, y);
-    String(":").Draw(x + startX + deltaField, y);
+    DString(":").Draw(x + startX + deltaField, y);
     SU::Int2String((int)time.month, false, 2).Draw(x + startX + deltaField + deltaSeparator, y);
-    String(":").Draw(x + startX + 2 * deltaField + deltaSeparator, y);
+    DString(":").Draw(x + startX + 2 * deltaField + deltaSeparator, y);
     SU::Int2String((int)time.year, false, 2).Draw(x + startX + 2 * deltaField + 2 * deltaSeparator, y);
 }
 

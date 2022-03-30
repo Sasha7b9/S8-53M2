@@ -78,12 +78,12 @@ void FM::DrawLongString(int x, int y, char *string, bool hightlight)
 
     if (length <= WIDTH_COL)
     {
-        String(string).Draw(x, y, color);
+        DString(string).Draw(x, y, color);
     }
     else
     {
-        String(string).DrawWithLimitation(x, y, color, x, y, WIDTH_COL, 10);
-        String("...").Draw(x + WIDTH_COL + 3, y);
+        DString(string).DrawWithLimitation(x, y, color, x, y, WIDTH_COL, 10);
+        DString("...").Draw(x + WIDTH_COL + 3, y);
     }
 }
 
@@ -91,7 +91,7 @@ void FM::DrawLongString(int x, int y, char *string, bool hightlight)
 void FM::DrawHat(int x, int y, char *string, int num1, int num2)
 {
     Region(WIDTH_COL + 9, RECS_ON_PAGE * 9 + 11).Fill(x - 1, y, COLOR_BACK);
-    String(string, num1, num2).Draw(x + 60, y, COLOR_FILL);
+    DString(string, num1, num2).Draw(x + 60, y, COLOR_FILL);
     Painter::DrawHLine(y + 10, x + 2, x + 140);
 }
 
@@ -164,7 +164,7 @@ void FM::DrawNameCurrentDir(int left, int top)
     int length = Font::GetLengthText(currentDir);
     if (length < 277)
     {
-        String(currentDir).Draw(left + 1, top + 1);
+        DString(currentDir).Draw(left + 1, top + 1);
     }
     else
     {
@@ -181,7 +181,7 @@ void FM::DrawNameCurrentDir(int left, int top)
             }
             length = Font::GetLengthText(++pointer);
         }
-        String(pointer).Draw(left + 1, top + 1);
+        DString(pointer).Draw(left + 1, top + 1);
     }
 }
 
@@ -431,7 +431,7 @@ LabelNextNumber:
             {
                 if (*ch == 0x07)    // ≈сли здесь надо записать пор€дковый номер
                 {
-                    String number_str = SU::Int2String(number, false, *(ch + 1));
+                    DString number_str = SU::Int2String(number, false, *(ch + 1));
 
                     std::strcpy(wr, number_str.c_str());
                     wr += number_str.Size();
@@ -441,7 +441,7 @@ LabelNextNumber:
                 {
                     if (*ch >= 0x01 && *ch <= 0x06)
                     {
-                        String value_str = SU::Int2String((int)values[*ch], false, 2);
+                        DString value_str = SU::Int2String((int)values[*ch], false, 2);
 
                         std::strcpy(wr, value_str.c_str());
                         wr += value_str.Size();

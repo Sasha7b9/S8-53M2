@@ -45,16 +45,16 @@ struct PageCursors
     static bool NecessaryDrawCursors();
 
     // Получить строку курсора напряжения.
-    static String GetCursVoltage(Chan, int numCur);
+    static DString GetCursVoltage(Chan, int numCur);
 
     // Получить строку курсора времени.
-    static String GetCursorTime(Chan, int numCur);
+    static DString GetCursorTime(Chan, int numCur);
 
     // Получить строку процентов курсоров напряжения.
-    static String GetCursorPercentsU(Chan);
+    static DString GetCursorPercentsU(Chan);
 
     // Получить строку процентов курсоров времени.
-    static String GetCursorPercentsT(Chan);
+    static DString GetCursorPercentsT(Chan);
 
     static void DrawMenuCursVoltage(int x, int y, bool top, bool bottom);
 

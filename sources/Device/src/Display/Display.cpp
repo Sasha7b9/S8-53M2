@@ -92,7 +92,7 @@ void Display::Init()
 
 void Display::DrawStringNavigation() 
 {
-    String string = Menu::StringNavigation();
+    DString string = Menu::StringNavigation();
 
     if(string.Size()) 
     {
@@ -100,7 +100,7 @@ void Display::DrawStringNavigation()
         int height = 10;
         Rectangle(length + 2, height).Draw(Grid::Left(), GRID_TOP, COLOR_FILL);
         Region(length, height - 2).Fill(Grid::Left() + 1, GRID_TOP + 1, COLOR_BACK);
-        String(string).Draw(Grid::Left() + 2, GRID_TOP + 1, COLOR_FILL);
+        DString(string).Draw(Grid::Left() + 2, GRID_TOP + 1, COLOR_FILL);
     }
 }
 
@@ -277,7 +277,7 @@ void Display::WriteValueTrigLevel()
         Rectangle(width, 10).Draw(x, y, COLOR_FILL);
         Region(width - 2, 8).Fill(x + 1, y + 1, COLOR_BACK);
 
-        String string(LANG_RU ? "Ур синхр = " : "Trig lvl = ");
+        DString string(LANG_RU ? "Ур синхр = " : "Trig lvl = ");
         string.Append(SU::Voltage2String(trigLev, true));
         string.Draw(x + 2, y + 1, COLOR_FILL);
     }
@@ -425,13 +425,13 @@ void Display::DrawMeasures()
 
             if(meas != Measure::None)
             {
-                String(Measures::Name(str, elem)).Draw(x + 4, y + 2, color);
+                DString(Measures::Name(str, elem)).Draw(x + 4, y + 2, color);
 
                 if(meas == MEAS_MARKED)
                 {
                     Region(dX - 2, 9).Fill(x + 1, y + 1, active ? COLOR_BACK : COLOR_FILL);
 
-                    String(Measures::Name(str, elem)).Draw(x + 4, y + 2, active ? COLOR_FILL : COLOR_BACK);
+                    DString(Measures::Name(str, elem)).Draw(x + 4, y + 2, active ? COLOR_FILL : COLOR_BACK);
                 }
 
                 if(MEAS_SOURCE_IS_A)
@@ -483,9 +483,9 @@ void Display::DrawTimeForFrame()
 
     Rectangle(84, 10).Draw(Grid::Left(), Grid::FullBottom() - 10, COLOR_FILL);
     Region(82, 8).Fill(Grid::Left() + 1, Grid::FullBottom() - 9, COLOR_BACK);
-    String("%.1fms/%d", duration, fps).Draw(Grid::Left() + 2, Grid::FullBottom() - 9, COLOR_FILL);
+    DString("%.1fms/%d", duration, fps).Draw(Grid::Left() + 2, Grid::FullBottom() - 9, COLOR_FILL);
 
-    String("%d/%d", Storage::SameSettings::GetCount(), Storage::NumberAvailableEntries()).
+    DString("%d/%d", Storage::SameSettings::GetCount(), Storage::NumberAvailableEntries()).
         Draw(Grid::Left() + 50, Grid::FullBottom() - 9);
 }
 

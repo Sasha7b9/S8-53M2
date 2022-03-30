@@ -176,7 +176,7 @@ static void FPGA::Calibrator::FunctionDraw()
     case StateCalibration::WaitA:
     case StateCalibration::WaitB:
         {
-            String(LANG_RU ? "Подключите ко входу канала %d выход калибратора и нажмите кнопку ПУСК/СТОП. Если вы не хотите калибровать первый канала, нажмите любую другую кнопку." :
+            DString(LANG_RU ? "Подключите ко входу канала %d выход калибратора и нажмите кнопку ПУСК/СТОП. Если вы не хотите калибровать первый канала, нажмите любую другую кнопку." :
                 "Connect the output of the calibrator to channel %d input and press the START/STOP button. If you do not want to calibrate the first channel, press any other button.",
                 (state == StateCalibration::WaitA) ? 1 : 2)
                 .DrawInRect(50, 80, SCREEN_WIDTH - 100, SCREEN_HEIGHT, 2);
@@ -186,7 +186,7 @@ static void FPGA::Calibrator::FunctionDraw()
     case StateCalibration::RShiftA:
     case StateCalibration::RShiftB:
         {
-            String(LANG_RU ? "Калибрую параметр 1 канала %d" : "Calibrate parameter 1 channel %d",
+            DString(LANG_RU ? "Калибрую параметр 1 канала %d" : "Calibrate parameter 1 channel %d",
                 (state == StateCalibration::RShiftA) ? 1 : 2).Draw(85, 50);
 
             progress.Draw(100);
@@ -196,7 +196,7 @@ static void FPGA::Calibrator::FunctionDraw()
     case StateCalibration::StretchA:
     case StateCalibration::StretchB:
         {
-            String(LANG_RU ? "Калибрую параметр 2 канала %d" : "Calibrate parameter 2 channel %d",
+            DString(LANG_RU ? "Калибрую параметр 2 канала %d" : "Calibrate parameter 2 channel %d",
                 (state == StateCalibration::StretchA) ? 1 : 2).Draw(85, 50);
 
             progress.Draw(100);
@@ -208,8 +208,8 @@ static void FPGA::Calibrator::FunctionDraw()
             int y1 = 70;
             int y2 = 100;
 
-            String(LANG_RU ? "Канал 1 :" : "Channel 1 :").Draw(80, y1);
-            String(LANG_RU ? "Канал 2 :" : "Channel 2 :").Draw(80, y2);
+            DString(LANG_RU ? "Канал 1 :" : "Channel 1 :").Draw(80, y1);
+            DString(LANG_RU ? "Канал 2 :" : "Channel 2 :").Draw(80, y2);
 
             int x = 125;
 
@@ -344,7 +344,7 @@ static void FPGA::Calibrator::DrawResultCalibration(int x, int y, Chan ch)
 {
     Color::SetCurrent(COLOR_FILL);
 
-    String message;
+    DString message;
 
     if (!carriedOut[ch])
     {
@@ -444,9 +444,9 @@ void FPGA::Calibrator::ShowCalibrationInfo(const int y0, Chan ch)
     {
         for (int range = 0; range < Range::Count; range++)
         {
-            String("%d", set.chan[ch].cal_rshift[range][couple]).Draw(x0 + range * dX, y0 + couple * dY);
+            DString("%d", set.chan[ch].cal_rshift[range][couple]).Draw(x0 + range * dX, y0 + couple * dY);
         }
     }
 
-    String("%f", CAL_STRETCH(ch)).Draw(x0, y0 + dY * ModeCouple::Count, COLOR_FILL);
+    DString("%f", CAL_STRETCH(ch)).Draw(x0, y0 + dY * ModeCouple::Count, COLOR_FILL);
 }

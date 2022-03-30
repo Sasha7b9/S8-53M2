@@ -216,7 +216,7 @@ struct TShift
     static void Set(int);
 
     // ¬озвращает установленное смещение по времени в текстовом виде, пригодном дл€ вывода на экран.
-    static String ToString(int tShiftRel);
+    static DString ToString(int tShiftRel);
 
     // —мещение по времени, соответствующее позиции TPos.
     static int Zero();
@@ -318,7 +318,7 @@ struct RShift
 
     float ToAbs(Range::E);
 
-    String ToString(Range::E, Divider::E);
+    DString ToString(Range::E, Divider::E);
 
     operator int16() const { return value; }
 

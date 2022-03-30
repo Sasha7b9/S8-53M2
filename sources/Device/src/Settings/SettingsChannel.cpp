@@ -65,7 +65,7 @@ pchar Range::ToString(Range::E range, Divider::E multiplier)
 }
 
 
-String RShift::ToString(Range::E range, Divider::E multiplier)
+DString RShift::ToString(Range::E range, Divider::E multiplier)
 {
     float rShiftVal = ToAbs(range) * Divider::ToAbs(multiplier);
 

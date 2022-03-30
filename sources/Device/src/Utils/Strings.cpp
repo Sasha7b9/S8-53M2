@@ -185,7 +185,7 @@ bool EqualsZeroStrings(char *str1, char *str2)
 
 void SU::LogBufferU8(const uint8 *data, int num)
 {
-    String result;
+    DString result;
 
     for (int i = 0; i < num; i++)
     {
@@ -199,7 +199,7 @@ void SU::LogBufferU8(const uint8 *data, int num)
 
 void SU::LogBufferU8(pchar label, const uint8 *data, int num)
 {
-    String result(label);
+    DString result(label);
     result.Append(" ");
 
     for (int i = 0; i < num; i++)
@@ -214,7 +214,7 @@ void SU::LogBufferU8(pchar label, const uint8 *data, int num)
 
 void SU::LogBufferF(pchar label, const float *data, int num)
 {
-    String string(label);
+    DString string(label);
     string.Append(" ");
 
     for (int i = 0; i < num; i++)
@@ -227,13 +227,13 @@ void SU::LogBufferF(pchar label, const float *data, int num)
 }
 
 
-String SU::FloatFract2String(float value, bool alwaysSign)
+DString SU::FloatFract2String(float value, bool alwaysSign)
 {
     return Float2String(value, alwaysSign, 4);
 }
 
 
-String SU::Bin2String(uint8 value)
+DString SU::Bin2String(uint8 value)
 {
     char buffer[9];
 
@@ -242,29 +242,29 @@ String SU::Bin2String(uint8 value)
         buffer[7 - bit] = _GET_BIT(value, bit) ? '1' : '0';
     }
 
-    return String(buffer);
+    return DString(buffer);
 }
 
 
-String SU::Bin2String16(uint16 value)
+DString SU::Bin2String16(uint16 value)
 {
     char buffer[19];
 
     std::strcpy(buffer, Bin2String((uint8)(value >> 8)).c_str());
     std::strcpy((buffer[8] = ' ', buffer + 9), Bin2String((uint8)value).c_str());
 
-    return String(buffer);
+    return DString(buffer);
 }
 
 
-String SU::Float2String(float value, bool alwaysSign, int numDigits)
+DString SU::Float2String(float value, bool alwaysSign, int numDigits)
 {
     char bufferOut[20];
     char *pBuffer = bufferOut;
 
     if (value == ERROR_VALUE_FLOAT)
     {
-        return String(ERROR_STRING_VALUE);
+        return DString(ERROR_STRING_VALUE);
     }
 
     if (!alwaysSign)
@@ -317,11 +317,11 @@ String SU::Float2String(float value, bool alwaysSign, int numDigits)
         std::strcat(bufferOut, "0");
     }
 
-    return String(bufferOut);
+    return DString(bufferOut);
 }
 
 
-String SU::Int2String(int value, bool alwaysSign, int numMinFields)
+DString SU::Int2String(int value, bool alwaysSign, int numMinFields)
 {
     char buffer[20];
 
@@ -339,15 +339,15 @@ String SU::Int2String(int value, bool alwaysSign, int numMinFields)
         std::sprintf(buffer, format, value);
     }
 
-    return String(buffer);
+    return DString(buffer);
 }
 
 
-String SU::Hex8toString(uint8 value)
+DString SU::Hex8toString(uint8 value)
 {
     char buffer[3];
     std::sprintf(value < 16 ? (buffer[0] = '0', buffer + 1) : (buffer), "%x", value);
-    return String(buffer);
+    return DString(buffer);
 }
 
 
@@ -390,13 +390,13 @@ bool SU::String2Int(char *str, int *value)
 }
 
 
-String SU::Voltage2String(float voltage, bool alwaysSign)
+DString SU::Voltage2String(float voltage, bool alwaysSign)
 {
     char *suffix;
 
     if (voltage == ERROR_VALUE_FLOAT)
     {
-        return String(ERROR_STRING_VALUE);
+        return DString(ERROR_STRING_VALUE);
     }
     else if (std::fabs(voltage) + 0.5e-4f < 1e-3f)
     {
@@ -418,20 +418,20 @@ String SU::Voltage2String(float voltage, bool alwaysSign)
         voltage *= 1e-3f;
     }
 
-    String result = SU::Float2String(voltage, alwaysSign, 4);
+    DString result = SU::Float2String(voltage, alwaysSign, 4);
     result.Append(suffix);
 
     return result;
 }
 
 
-String SU::Time2String(float time, bool alwaysSign)
+DString SU::Time2String(float time, bool alwaysSign)
 {
     char *suffix = 0;
 
     if (time == ERROR_VALUE_FLOAT)
     {
-        return String(ERROR_STRING_VALUE);
+        return DString(ERROR_STRING_VALUE);
     }
     else if (std::fabs(time) + 0.5e-10f < 1e-6f)
     {
@@ -453,16 +453,16 @@ String SU::Time2String(float time, bool alwaysSign)
         suffix = LANG_RU ? "Я" : "s";
     }
 
-    String result = SU::Float2String(time, alwaysSign, 4);
+    DString result = SU::Float2String(time, alwaysSign, 4);
     result.Append(suffix);
 
     return result;
 }
 
 
-String SU::Freq2String(float freq, bool)
+DString SU::Freq2String(float freq, bool)
 {
-    String result;
+    DString result;
 
     char *suffix = 0;
 
@@ -494,17 +494,17 @@ String SU::Freq2String(float freq, bool)
 }
 
 
-String SU::Phase2String(float phase, bool)
+DString SU::Phase2String(float phase, bool)
 {
-    String result = SU::Float2String(phase, false, 4);
+    DString result = SU::Float2String(phase, false, 4);
     result.Append("\xa8");
     return result;
 }
 
 
-String SU::Float2Db(float value, int numDigits)
+DString SU::Float2Db(float value, int numDigits)
 {
-    String result = SU::Float2String(value, false, numDigits);
+    DString result = SU::Float2String(value, false, numDigits);
 
     result.Append(LANG_RU ? "Да" : "dB");
 

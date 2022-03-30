@@ -32,7 +32,7 @@ namespace Menu
     void SetAutoHide(bool active);
 
     // ¬озвращает путь к текущему пункту меню в текстовом виде, готовом к выводу на экран.
-    String StringNavigation();
+    DString StringNavigation();
 
     void ChangeStateFlashDrive();
 

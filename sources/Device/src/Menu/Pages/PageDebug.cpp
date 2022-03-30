@@ -101,7 +101,7 @@ static const Page mpConsole
 
 static void OnDraw_SizeSettings(int x, int y)
 {
-    String("Размер %d", sizeof(Settings)).Draw(x + 5, y + 21, Color::BLACK);
+    DString("Размер %d", sizeof(Settings)).Draw(x + 5, y + 21, Color::BLACK);
 }
 
 
@@ -202,7 +202,7 @@ static const Button bResetShift
 
 static void OnDraw_ShiftADCA(int x, int y)
 {
-    String("%d", set.chan[ChA].cal_rshift[Range::_2mV][ModeCouple::DC]).Draw(x + 5, y + 21, Color::BLACK);
+    DString("%d", set.chan[ChA].cal_rshift[Range::_2mV][ModeCouple::DC]).Draw(x + 5, y + 21, Color::BLACK);
 }
 
 
@@ -224,7 +224,7 @@ static const Choice mcShiftADCA =
 
 static void OnDraw_ShiftADCB(int x, int y)
 {
-    String("%d", set.chan[ChB].cal_rshift[Range::_2mV][ModeCouple::DC]).Draw(x + 5, y + 21, Color::BLACK);
+    DString("%d", set.chan[ChB].cal_rshift[Range::_2mV][ModeCouple::DC]).Draw(x + 5, y + 21, Color::BLACK);
 }
 
 
@@ -374,7 +374,7 @@ static const Button bResetStretch
 
 static void OnDraw_StretchADCA(int x, int y)
 {
-    String("%f", CAL_STRETCH_A).Draw(x + 5, y + 21, Color::BLACK);
+    DString("%f", CAL_STRETCH_A).Draw(x + 5, y + 21, Color::BLACK);
 }
 
 
@@ -396,7 +396,7 @@ static const Choice mcStretchADCA =
 
 static void OnDraw_StretchADCB(int x, int y)
 {
-    String("%f", CAL_STRETCH_B).Draw(x + 5, y + 21, Color::BLACK);
+    DString("%f", CAL_STRETCH_B).Draw(x + 5, y + 21, Color::BLACK);
 }
 
 
@@ -731,7 +731,7 @@ static void Draw_EnterSerialNumber()
     int y = y0 + 50;
 
     Color::SetCurrent(colorText);
-    int x = String("%02d", structSN.number).DrawOnBackground(x0 + deltaX, y, colorBackground);
+    int x = DString("%02d", structSN.number).DrawOnBackground(x0 + deltaX, y, colorBackground);
 
     colorText = Color::FLASH_01;
     colorBackground = Color::FLASH_10;
@@ -743,7 +743,7 @@ static void Draw_EnterSerialNumber()
     }
 
     Color::SetCurrent(colorText);
-    String("%04d", structSN.year).DrawOnBackground(x + 5, y, colorBackground);
+    DString("%04d", structSN.year).DrawOnBackground(x + 5, y, colorBackground);
 
     // Теперь выведем информацию об оставшемся месте в OTP-памяти для записи
 
@@ -751,9 +751,9 @@ static void Draw_EnterSerialNumber()
 
     int allShots = OTP::GetSerialNumber(buffer);
 
-    String("Текущий сохранённый номер %s", buffer[0] == 0 ? "-- ----" : buffer).Draw(x0 + deltaX, y0 + 130, COLOR_FILL);
+    DString("Текущий сохранённый номер %s", buffer[0] == 0 ? "-- ----" : buffer).Draw(x0 + deltaX, y0 + 130, COLOR_FILL);
 
-    String("Осталось места для %d попыток", allShots).Draw(x0 + deltaX, y0 + 100, COLOR_FILL);
+    DString("Осталось места для %d попыток", allShots).Draw(x0 + deltaX, y0 + 100, COLOR_FILL);
 }
 
 

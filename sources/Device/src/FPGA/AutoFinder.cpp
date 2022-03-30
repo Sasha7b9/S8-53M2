@@ -311,7 +311,7 @@ static void FPGA::AutoFinder::FunctionDraw()
     int y = 120 - height / 2;
     Region(width, height).Fill(x, y, COLOR_BACK);
     Rectangle(width, height).Draw(x, y, COLOR_FILL);
-    String("Идёт поиск сигнала. Подождите").DrawInCenterRect(x, y, width, height - 20);
+    DString("Идёт поиск сигнала. Подождите").DrawInCenterRect(x, y, width, height - 20);
 
     char buffer[101] = "";
     uint progress = (waiter.ElapsedTime() / 50) % 80;
@@ -321,7 +321,7 @@ static void FPGA::AutoFinder::FunctionDraw()
         std::strcat(buffer, ".");
     }
 
-    String(buffer).DrawInCenterRect(x, y + (height - 30), width, 20);
+    DString(buffer).DrawInCenterRect(x, y + (height - 30), width, 20);
 
     Console::Draw();
 
