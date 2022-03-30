@@ -23,7 +23,6 @@
 extern const Page  mpADC_Stretch;
 extern const Page  mpADC_Shift;
 extern const Page  mpADC_AltRShift;
-extern const Page  mpRandomizer;
 
 
 // В этой структуре будут храниться данные серийного номера при открытой странице ppSerialNumer
@@ -557,7 +556,7 @@ static void OnChanged_Randomizer_SamplesForGates()
 
 static const Governor mgRandomizer_SamplesForGates
 (
-    &mpRandomizer, 0,
+    PageDebug::Randomizer::self, 0,
     "Выб-к/ворота", "Samples/gates",
     "",
     "",
@@ -567,7 +566,7 @@ static const Governor mgRandomizer_SamplesForGates
 
 static const Governor mgRandomizer_Average
 (
-    &mpRandomizer, 0,
+    PageDebug::Randomizer::self, 0,
     "Усредн.", "Average",
     "",
     "",
@@ -577,7 +576,7 @@ static const Governor mgRandomizer_Average
 
 static const Governor mgGatesMin
 (
-    &mpRandomizer, nullptr,
+    PageDebug::Randomizer::self, nullptr,
     "Ворота мин", "Gates min",
     "",
     "",
@@ -587,7 +586,7 @@ static const Governor mgGatesMin
 
 static const Governor mgGatesMax
 (
-    &mpRandomizer, nullptr,
+    PageDebug::Randomizer::self, nullptr,
     "Ворота макс", "Gates max",
     "",
     "",
@@ -818,4 +817,4 @@ const Page *PageDebug::Console::self = &mpConsole;
 const Page *PageDebug::ADC::self = &mpADC;
 const Page *PageDebug::ADC::Balance::self = &mpADC_Balance;
 const Page *PageDebug::SerialNumber::self = &ppSerialNumber;
-
+const Page *PageDebug::Randomizer::self = &mpRandomizer;
