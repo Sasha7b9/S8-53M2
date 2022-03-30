@@ -69,7 +69,7 @@ private:
 template<typename T, int size>
 struct StaticQueue
 {
-    StaticQueue() : SIZE(size), pointer(0) { }
+    StaticQueue() : pointer(0) { }
 
     void Clear() { pointer = 0; }
 
@@ -103,7 +103,6 @@ struct StaticQueue
 
 private:
 
-    const int SIZE;
     T buffer[size];
     int pointer;                        // Здесь позиция элемента, в который будет производиться сохранение
 };
