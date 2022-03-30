@@ -89,7 +89,7 @@ void WriteToFile(FIL *file, char *string)
 }
 
 
-void FDrive::GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles)
+void Directory::GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles)
 {
     FILINFO fno;
     DIR dir;

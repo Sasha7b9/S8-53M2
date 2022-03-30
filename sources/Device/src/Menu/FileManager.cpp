@@ -98,7 +98,7 @@ void FM::DrawHat(int x, int y, char *string, int num1, int num2)
 
 void FM::DrawDirs(int x, int y)
 {
-    FDrive::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
+    Directory::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
     DrawHat(x, y, "Каталог : %d/%d", numCurDir + ((numDirs == 0) ? 0 : 1), numDirs);
     char nameDir[255];
     Directory directory;
@@ -142,7 +142,7 @@ void FM::DrawFiles(int x, int y)
 bool FM::FileIsExist(char name[255])
 {
     char nameFile[255];
-    FDrive::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
+    Directory::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
     Directory directory;
 
     if(directory.GetNameFile(currentDir, 0, nameFile))
@@ -204,7 +204,7 @@ void FM::Draw()
         Painter::BeginScene(COLOR_BACK);
         Menu::Draw();
         Rectangle(width, 239).Draw(1, 0, COLOR_FILL);
-        FDrive::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
+        Directory::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
         DrawNameCurrentDir(left + 1, top + 2);
         Painter::DrawVLine(left2col, top + 16, 239, COLOR_FILL);
         Painter::DrawHLine(top + 15, 0, width);
