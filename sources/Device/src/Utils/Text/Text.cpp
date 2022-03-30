@@ -16,6 +16,9 @@
 #include <cctype>
 
 
+#define  SYMBOL(x) (*(*(x)))
+
+
 namespace SU
 {
     static bool ChooseSymbols(const uint8 **string);    // Возвращает false, если выбор невозможен - строка кончилась.
@@ -720,7 +723,8 @@ bool GetWord(const uint8 *string, Word *word, const int numWord)
     }
 }
 
-bool WordEqualZeroString(Word *word, char *string)
+
+bool SU::WordEqualZeroString(Word *word, char *string)
 {
     char *ch = string;
     char *w = (char *)(word->address);
@@ -736,7 +740,6 @@ bool WordEqualZeroString(Word *word, char *string)
     return (ch - string) == word->numSymbols;
 }
 
-#define  SYMBOL(x) (*(*(x)))
 
 bool SU::ChooseSymbols(const uint8 **string)
 {
@@ -753,6 +756,7 @@ bool SU::ChooseSymbols(const uint8 **string)
     return true;
 }
 
+
 bool SU::ChooseSpaces(const uint8 **string)
 {
     if (SYMBOL(string) == 0x0d && SYMBOL(string + 1) == 0x0a)
@@ -768,9 +772,8 @@ bool SU::ChooseSpaces(const uint8 **string)
     return true;
 }
 
-#undef SYMBOL
 
-bool EqualsStrings(char *str1, char *str2, int size)
+bool SU::EqualsStrings(char *str1, char *str2, int size)
 {
     for (int i = 0; i < size; i++)
     {
@@ -783,7 +786,7 @@ bool EqualsStrings(char *str1, char *str2, int size)
 }
 
 
-bool EqualsZeroStrings(char *str1, char *str2)
+bool SU::EqualsZeroStrings(char *str1, char *str2)
 {
     while ((*str1) == (*str2))
     {
@@ -1125,3 +1128,5 @@ String<> SU::Float2Db(float value, int numDigits)
 
     return result;
 }
+
+#undef SYMBOL

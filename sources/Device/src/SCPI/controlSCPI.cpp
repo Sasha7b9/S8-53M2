@@ -47,10 +47,10 @@ void SCPI::CONTROL::KEY(uint8 *buffer)
         char *name = keys[numKey].key;
         while (name != 0)
         {
-            if (WordEqualZeroString(&command, name))
+            if (SU::WordEqualZeroString(&command, name))
             {
                 uint16 code = keys[numKey].value;
-                if (WordEqualZeroString(&parameter, "DOWN"))
+                if (SU::WordEqualZeroString(&parameter, "DOWN"))
                 {
                     code += 128;
                 }
@@ -87,10 +87,10 @@ void SCPI::CONTROL::GOVERNOR(uint8 *buffer)
         int numGov = 0;
         char *name = governors[numGov].key;
         while (name != 0) {
-            if (WordEqualZeroString(&command, name))
+            if (SU::WordEqualZeroString(&command, name))
             {
                 uint16 code = governors[numGov].value;
-                if (WordEqualZeroString(&parameter, "RIGHT"))
+                if (SU::WordEqualZeroString(&parameter, "RIGHT"))
                 {
                     code += 128;
                 }

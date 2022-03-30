@@ -121,7 +121,7 @@ void SCPI::ProcessingCommand(const StructCommand *commands, uint8 *buffer)
     {
         numCommand++;   
         name = commands[numCommand].name;
-    } while (name != 0 && (!EqualsStrings((char*)buffer, name, sizeNameCommand)));
+    } while (name != 0 && (!SU::EqualsStrings((char*)buffer, name, sizeNameCommand)));
 
     if (name != 0) 
     {

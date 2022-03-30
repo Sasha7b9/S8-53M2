@@ -11,7 +11,7 @@ uint8 MapElement::GetValue(Word *eKey) const
 
     while (_key != 0)
     {
-        if (WordEqualZeroString(eKey, key))
+        if (SU::WordEqualZeroString(eKey, key))
         {
             return this[numKey].value;
         }

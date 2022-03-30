@@ -25,9 +25,7 @@ struct Word
 int GetNumWordsInString(const uint8 *string);
 // Эта команда сразу преобразует к верхенму регистру слово.
 bool GetWord(const uint8 *string, Word *word, const int numWord);
-bool WordEqualZeroString(Word *word, char *string);
-bool EqualsStrings(char *str1, char *str2, int size);
-bool EqualsZeroStrings(char *str1, char *str2);
+
 
 
 namespace Text
@@ -74,6 +72,10 @@ namespace SU
     String<> Float2Db(float value, int numDigits);
 
     bool   String2Int(char *str, int *value);
+
+    bool WordEqualZeroString(Word *word, char *string);
+    bool EqualsStrings(char *str1, char *str2, int size);
+    bool EqualsZeroStrings(char *str1, char *str2);
 
     void LogBufferU8(const uint8 *data, int num);
     void LogBufferU8(pchar label, const uint8 *data, int num);
