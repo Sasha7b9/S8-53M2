@@ -33,6 +33,7 @@ public:
 
     void DrawRelativelyRight(int xRight, int y, Color::E = Color::Count);
 
+    // Выводит текст на прямоугольнике цвета colorBackgound
     int DrawOnBackground(int x, int y, Color::E colorBackground);
 
 private:
