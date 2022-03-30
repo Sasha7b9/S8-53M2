@@ -21,7 +21,7 @@ struct StructForWrite
     char name[255];
 };
 
-struct StructForReadDir
+struct Directory
 {
     char nameDir[_MAX_LFN + 1];
     char lfn[(_MAX_LFN + 1)];
@@ -40,15 +40,15 @@ namespace FDrive
 
     void GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles);
 
-    bool GetNameDir(pchar  fuulPath, int numDir, char *nameDirOut, StructForReadDir *sfrd);
+    bool GetNameDir(pchar  fuulPath, int numDir, char *nameDirOut, Directory *sfrd);
 
-    bool GetNextNameDir(char *nameDirOut, StructForReadDir *sfrd);
+    bool GetNextNameDir(char *nameDirOut, Directory *sfrd);
 
-    void CloseCurrentDir(StructForReadDir *sfrd);
+    void CloseCurrentDir(Directory *sfrd);
 
-    bool GetNameFile(pchar fullPath, int numFile, char *nameFileOut, StructForReadDir *sfrd);
+    bool GetNameFile(pchar fullPath, int numFile, char *nameFileOut, Directory *sfrd);
 
-    bool GetNextNameFile(char *nameFileOut, StructForReadDir *sfrd);
+    bool GetNextNameFile(char *nameFileOut, Directory *sfrd);
 
     // Функция создаст файл для записи. Если такой файл уже существует, сотрёт его, заменит новым нулевой длины и откроет его
     bool OpenNewFileForWrite(pchar  fullPathToFile, StructForWrite *structForWrite);

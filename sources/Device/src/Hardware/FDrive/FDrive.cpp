@@ -149,7 +149,7 @@ void FDrive::GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles)
 }
 
 
-bool FDrive::GetNameDir(pchar fullPath, int numDir, char *nameDirOut, StructForReadDir *s)
+bool FDrive::GetNameDir(pchar fullPath, int numDir, char *nameDirOut, Directory *s)
 {
     memcpy(s->nameDir, fullPath, strlen(fullPath));
     s->nameDir[strlen(fullPath)] = '\0';
@@ -197,7 +197,7 @@ bool FDrive::GetNameDir(pchar fullPath, int numDir, char *nameDirOut, StructForR
 }
 
 
-bool FDrive::GetNextNameDir(char *nameDirOut, StructForReadDir *s)
+bool FDrive::GetNextNameDir(char *nameDirOut, Directory *s)
 {
     DIR *pDir = &s->dir;
     FILINFO *pFNO = &s->fno;
@@ -233,13 +233,13 @@ bool FDrive::GetNextNameDir(char *nameDirOut, StructForReadDir *s)
 }
 
 
-void FDrive::CloseCurrentDir(StructForReadDir *s)
+void FDrive::CloseCurrentDir(Directory *s)
 {
     f_closedir(&s->dir);
 }
 
 
-bool FDrive::GetNameFile(pchar fullPath, int numFile, char *nameFileOut, StructForReadDir *s)
+bool FDrive::GetNameFile(pchar fullPath, int numFile, char *nameFileOut, Directory *s)
 {
     memcpy(s->nameDir, fullPath, strlen(fullPath));
     s->nameDir[strlen(fullPath)] = '\0';
@@ -287,7 +287,7 @@ bool FDrive::GetNameFile(pchar fullPath, int numFile, char *nameFileOut, StructF
 }
 
 
-bool FDrive::GetNextNameFile(char *nameFileOut, StructForReadDir *s)
+bool FDrive::GetNextNameFile(char *nameFileOut, Directory *s)
 {
     FILINFO *pFNO = &s->fno;
     bool alreadyNull = false;

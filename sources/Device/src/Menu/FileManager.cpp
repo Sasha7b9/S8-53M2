@@ -101,7 +101,7 @@ void FM::DrawDirs(int x, int y)
     FDrive::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
     DrawHat(x, y, "Каталог : %d/%d", numCurDir + ((numDirs == 0) ? 0 : 1), numDirs);
     char nameDir[255];
-    StructForReadDir sfrd;
+    Directory sfrd;
     y += 12;
 
     if (FDrive::GetNameDir(currentDir, numFirstDir, nameDir, &sfrd))
@@ -122,7 +122,7 @@ void FM::DrawFiles(int x, int y)
 {
     DrawHat(x, y, "Файл : %d/%d", numCurFile + ((numFiles == 0) ? 0 : 1), numFiles);
     char nameFile[255];
-    StructForReadDir sfrd;
+    Directory sfrd;
     y += 12;
 
     if (FDrive::GetNameFile(currentDir, numFirstFile, nameFile, &sfrd))
@@ -143,7 +143,7 @@ bool FM::FileIsExist(char name[255])
 {
     char nameFile[255];
     FDrive::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
-    StructForReadDir sfrd;
+    Directory sfrd;
     if(FDrive::GetNameFile(currentDir, 0, nameFile, &sfrd))
     {
         while(FDrive::GetNextNameFile(nameFile, &sfrd))
@@ -256,7 +256,7 @@ void FM::PressLevelDown()
     }
 
     char nameDir[100];
-    StructForReadDir sfrd;
+    Directory sfrd;
 
     if (FDrive::GetNameDir(currentDir, numCurDir, nameDir, &sfrd))
     {
