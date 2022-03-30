@@ -996,6 +996,16 @@
               <FileType>5</FileType>
               <FilePath>.\src\Display\Warnings.h</FilePath>
             </File>
+            <File>
+              <FileName>String.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\String.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>String.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\String.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2995,6 +3005,16 @@
               <FileName>Warnings.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Warnings.h</FilePath>
+            </File>
+            <File>
+              <FileName>String.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\String.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>String.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\String.h</FilePath>
             </File>
           </Files>
         </Group>
