@@ -1,6 +1,7 @@
 // 2022/02/15 09:14:29 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "Display/Colors.h"
+#include "Display/String.h"
 
 
 class DString
@@ -94,7 +95,7 @@ namespace PText
 
     void DrawBig(int x, int y, int size, pchar text);
 
-    DString GetWord(pchar firstSymbol, int *length);
+    String<> GetWord(pchar firstSymbol, int *length);
 
     // Если draw == false, то рисовать символ не надо, фунция используется только для вычислений
     int DrawPartWord(char *word, int x, int y, int xRight, bool draw);

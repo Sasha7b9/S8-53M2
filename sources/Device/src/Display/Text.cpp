@@ -305,11 +305,11 @@ bool PText::IsLetter(char symbol)
 }
 
 
-DString PText::GetWord(pchar firstSymbol, int *length)
+String<> PText::GetWord(pchar firstSymbol, int *length)
 {
     *length = 0;
 
-    DString result;
+    String<> result;
 
     while (IsLetter(*firstSymbol))
     {
@@ -526,7 +526,7 @@ int DString::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, Co
         while (x < right - 1 && curSymbol < numSymb)
         {
             int length = 0;
-            DString word = PText::GetWord(text + curSymbol, &length);
+            String<> word = PText::GetWord(text + curSymbol, &length);
 
             if (length <= 1)                            // Нет буквенных символов или один, т.е. слово не найдено
             {
@@ -555,7 +555,7 @@ int DString::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, Co
                 else
                 {
                     curSymbol += length;
-                    x = DString(word).Draw(x, y);
+                    x = String<>(word).Draw(x, y);
                 }
             }
         }
@@ -581,7 +581,7 @@ bool PText::GetHeightTextWithTransfers(int left, int top, int right, pchar text,
         while (x < right - 1 && curSymbol < numSymb)
         {
             int length = 0;
-            DString word = GetWord(text + curSymbol, &length);
+            String<> word = GetWord(text + curSymbol, &length);
 
             if (length <= 1)                            // Нет буквенных символов или один, т.е. слово не найдено
             {

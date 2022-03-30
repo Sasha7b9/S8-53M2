@@ -24,7 +24,9 @@ template void String<(int)32>::SetFormat(pchar format, ...);
 template int  String<(int)32>::DrawInBoundedRectWithTransfers(int x, int y, int width, Color::E colorBackground,
     Color::E colorFill);
 template int  String<(int)32>::DrawInRectWithTransfers(int x, int y, int width, int height, Color::E);
-template int  String<(int)32>::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, Color::E colorBackground, Color::E colorFill);
+template int  String<(int)32>::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height,
+    Color::E colorBackground, Color::E colorFill);
+template void String<(int)32>::Append(char);
 
 
 template<int capa>
@@ -345,7 +347,7 @@ int String<capacity>::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eH
         while (x < right - 1 && curSymbol < numSymb)
         {
             int length = 0;
-            DString word = PText::GetWord(text + curSymbol, &length);
+            String<> word = PText::GetWord(text + curSymbol, &length);
 
             if (length <= 1)                            // Нет буквенных символов или один, т.е. слово не найдено
             {
@@ -374,7 +376,7 @@ int String<capacity>::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eH
                 else
                 {
                     curSymbol += length;
-                    x = DString(word).Draw(x, y);
+                    x = String<>(word).Draw(x, y);
                 }
             }
         }
