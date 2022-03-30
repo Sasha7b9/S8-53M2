@@ -101,6 +101,11 @@ struct PageDebug
         {
             static const Page *self;
         };
+
+        struct Shift
+        {
+            static const Page *self;
+        };
     };
 
     struct Randomizer

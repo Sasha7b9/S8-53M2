@@ -20,7 +20,6 @@
 #include <cstring>
 
 
-extern const Page  mpADC_Shift;
 extern const Page  mpADC_AltRShift;
 
 
@@ -201,7 +200,7 @@ static void OnDraw_ShiftADCA(int x, int y)
 
 static const Choice mcShiftADCA =
 {
-    TypeItem::Choice, &mpADC_Shift, nullptr,
+    TypeItem::Choice, PageDebug::ADC::Shift::self, nullptr,
     {
         "Смещение к1", "Shift ch1",
         "Смещение первого канала",
@@ -223,7 +222,7 @@ static void OnDraw_ShiftADCB(int x, int y)
 
 static const Choice mcShiftADCB =
 {
-    TypeItem::Choice, &mpADC_Shift, nullptr,
+    TypeItem::Choice, PageDebug::ADC::Shift::self, nullptr,
     {
         "Смещение к1", "Shift ch1",
         "Смещение первого канала",
@@ -816,5 +815,6 @@ const Page *PageDebug::Console::self = &mpConsole;
 const Page *PageDebug::ADC::self = &mpADC;
 const Page *PageDebug::ADC::Balance::self = &mpADC_Balance;
 const Page *PageDebug::ADC::Stretch::self = &mpADC_Stretch;
+const Page *PageDebug::ADC::Shift::self = &mpADC_Shift;
 const Page *PageDebug::SerialNumber::self = &ppSerialNumber;
 const Page *PageDebug::Randomizer::self = &mpRandomizer;
