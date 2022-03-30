@@ -14,6 +14,8 @@ public:
 
     char *c_str() const;
 
+    int Size() const;
+
     void Append(pchar str);
 
     void Append(const String<capa> &);
