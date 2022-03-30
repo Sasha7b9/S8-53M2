@@ -358,7 +358,7 @@ void Page::DrawOpened(int yTop)
         }
         else if (item->IsIP())
         {
-            ((IPaddress *)item)->DrawOpened(MP_X, Menu::ItemOpenedPosY(item));
+            ((IPaddress *)item)->Draw(MP_X, Menu::ItemOpenedPosY(item), true);
         }
         else if (item->IsMAC())
         {

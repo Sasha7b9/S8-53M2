@@ -435,11 +435,12 @@ public:
     // Возвращает номер текущего байта (4 - номер порта) и номер текущей позиции в байте.
     void GetNumPosIPvalue(int *numIP, int *selPos);
 
-    void DrawOpened(int x, int y);
-
     void DrawLowPart(int x, int y, bool pressed, bool shade);
 
     static int8 cur_digit;
+private:
+
+    void DrawOpened(int x, int y);
 };
 
 
