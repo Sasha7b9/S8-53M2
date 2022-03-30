@@ -18,13 +18,14 @@ struct Word
 {
     uint8 *address;
     int8   numSymbols;
+
+    // Эта команда сразу преобразует к верхенму регистру слово.
+    bool GetWord(const uint8 *string, const int numWord);
 };
 
 
 // Возвращает количество слов в строке. Разделители - пробелы. Строка заканчивается байтами 0x0d, 0x0a.
 int GetNumWordsInString(const uint8 *string);
-// Эта команда сразу преобразует к верхенму регистру слово.
-bool GetWord(const uint8 *string, Word *word, const int numWord);
 
 
 

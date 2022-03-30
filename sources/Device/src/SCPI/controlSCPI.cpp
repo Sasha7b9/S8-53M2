@@ -41,7 +41,7 @@ void SCPI::CONTROL::KEY(uint8 *buffer)
     Word command;
     Word parameter;
 
-    if (GetWord(buffer, &command, 0) && GetWord(buffer, &parameter, 1))
+    if (command.GetWord(buffer, 0) && parameter.GetWord(buffer, 1))
     {
         int numKey = 0;
         char *name = keys[numKey].key;
@@ -82,7 +82,7 @@ void SCPI::CONTROL::GOVERNOR(uint8 *buffer)
     Word command;
     Word parameter;
 
-    if (GetWord(buffer, &command, 0) && GetWord(buffer, &parameter, 1))
+    if (command.GetWord(buffer, 0) && parameter.GetWord(buffer, 1))
     {
         int numGov = 0;
         char *name = governors[numGov].key;

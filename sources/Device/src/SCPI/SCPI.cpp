@@ -151,7 +151,7 @@ bool SCPI::FirstIsInt(uint8 *buffer, int *value, int min, int max)
 {
     Word param;
 
-    if (GetWord(buffer, &param, 0))
+    if (param.GetWord(buffer, 0))
     {
         Buffer<char, 512> data(param.numSymbols + 1);
         std::memcpy(data.Data(), param.address, (uint)param.numSymbols);

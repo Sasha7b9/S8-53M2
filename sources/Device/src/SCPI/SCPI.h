@@ -6,7 +6,7 @@
 
 #define ENTER_ANALYSIS                                  \
     Word parameter;                                     \
-    if (GetWord(buffer, &parameter, 0)) {               \
+    if (parameter.GetWord(buffer, 0)) {                 \
         uint8 value = map[0].GetValue(&parameter);      \
         if (value < 255) {
 
