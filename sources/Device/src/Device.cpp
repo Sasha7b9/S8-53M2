@@ -39,8 +39,6 @@ void Device::Init()
     VCP::Init();
 
     LAN::Init();
-
-    LOG_WRITE("%d", SET_BALANCE_ADC_A);
 }
 
 
