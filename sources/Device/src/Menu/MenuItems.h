@@ -341,11 +341,7 @@ public:
     // Возвращает число знакомест в поле для ввода элемента governor. Зависит от максимального значения, которое может принимать governor.
     int NumDigits() const;
 
-    void DrawOpened(int x, int y);
-
     void DrawLowPart(int x, int y, bool pressed, bool shade);
-
-    void DrawClosed(int x, int y);
 
     static int8 cur_digit;
 
@@ -353,6 +349,12 @@ public:
     static bool inMoveDecrease;
     static void *address;
     static uint timeStart;
+
+private:
+
+    void DrawOpened(int x, int y);
+
+    void DrawClosed(int x, int y);
 };
 
 
@@ -393,6 +395,8 @@ public:
     void Draw(int x, int y);
 
     void Draw(int x, int y, bool opened);
+
+private:
 
     void DrawClosed(int x, int y);
 
@@ -438,6 +442,7 @@ public:
     void DrawLowPart(int x, int y, bool pressed, bool shade);
 
     static int8 cur_digit;
+
 private:
 
     void DrawOpened(int x, int y);
@@ -460,11 +465,13 @@ public:
 
     void ChangeValue(int delta);
 
-    void DrawOpened(int x, int y);
-
     void DrawValue(int x, int y);
 
     static int8 cur_digit;
+
+private:
+
+    void DrawOpened(int x, int y);
 };
 
 
@@ -511,9 +518,11 @@ public:
     // Изменить яркость цвета в governor
     void ChangeValue(int delta);
 
-    void DrawOpened(int x, int y);
-
     void DrawValue(int x, int y, int delta);
+
+private:
+
+    void DrawOpened(int x, int y);
 
     void DrawClosed(int x, int y);
 };
@@ -552,11 +561,13 @@ struct Time
 
     void DecCurrentPosition() const;
 
-    void DrawClosed(int x, int y);
+    static void Open();
+
+private:
 
     void DrawOpened(int x, int y);
 
-    static void Open();
+    void DrawClosed(int x, int y);
 };
 
 
