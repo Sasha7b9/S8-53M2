@@ -303,13 +303,19 @@ static const Page mpADC
 );
 
 
+static void OnChangedBalanceA()
+{
+    LOG_WRITE("%d", SET_BALANCE_ADC_A);
+}
+
+
 static const Governor mgADC_Balance_ShiftA
 (
     PageDebug::ADC::Balance::self, nullptr,
     "Смещение 1", "Offset 1",
     "",
     "",
-    &SET_BALANCE_ADC_A, -125, 125, nullptr
+    &SET_BALANCE_ADC_A, -125, 125, OnChangedBalanceA
 );
 
 

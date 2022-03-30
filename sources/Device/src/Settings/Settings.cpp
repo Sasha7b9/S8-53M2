@@ -353,6 +353,7 @@ void Settings::SaveBeforePowerDown()
 {
     if (need_save)
     {
+        LOG_WRITE("Settings saved");
         HAL_ROM::Settings::Save();
     }
 }
