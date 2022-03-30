@@ -4,9 +4,15 @@
 #include "Display/font/Font.h"
 #include "Hardware/InterCom.h"
 #include "Display/Text.h"
+#include <cstdarg>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
 
 
-template int String<(int)32>::Draw(int, int, Color::E);
+template      String<(int)32>::String(pchar, ...);
+template int  String<(int)32>::Draw(int, int, Color::E);
+template void String<(int)32>::Append(pchar);
 
 
 template<int capa>
@@ -63,4 +69,64 @@ int String<capa>::Draw(int x, int y, Color::E color)
     }
 
     return x;
+}
+
+
+template<int capa>
+String<capa>::String(pchar format, ...)
+{
+    buffer[0] = '\0';
+
+    char temp_buffer[capa];
+
+    std::va_list args;
+    va_start(args, format);
+    int num_symbols = std::vsprintf(temp_buffer, format, args);
+    va_end(args);
+
+    if (capa < num_symbols - 1)
+    {
+        LOG_ERROR_TRACE("Very small string buffer %d, need %d", capa, num_symbols);
+    }
+
+    std::strcpy(buffer, temp_buffer);
+}
+
+
+template<int capacity>
+void String<capacity>::Append(pchar str)
+{
+    int need_size = Size() + (int)std::strlen(str) + 1;
+
+    if (need_size > capacity)
+    {
+        LOG_ERROR_TRACE("Very small string buffer %d, need %d", capacity, need_size);
+
+        int pointer = 0;
+
+        while (!Filled())
+        {
+            Append(str[pointer++]);
+        }
+    }
+    else
+    {
+        std::strcat(buffer, str);
+    }
+}
+
+
+template<int capacity>
+void String<capacity>::Append(char symbol)
+{
+    if (!Filled())
+    {
+        int pos = (int)std::strlen(buffer);
+        buffer[pos] = symbol;
+        buffer[pos + 1] = '\0';
+    }
+    else
+    {
+        LOG_ERROR_TRACE("buffer is full");
+    }
 }
