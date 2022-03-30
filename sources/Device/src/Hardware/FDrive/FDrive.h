@@ -56,6 +56,4 @@ namespace FDrive
     void Update();
 
     void GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles);
-
-    bool AppendStringToFile(pchar  string);
 };

@@ -79,12 +79,6 @@ void USBH_UserProcess(USBH_HandleTypeDef *, uint8 id)
 }
 
 
-bool FDrive::AppendStringToFile(pchar)
-{
-    return false;
-}
-
-
 void WriteToFile(FIL *file, char *string)
 {
     //    uint bytesWritten;
