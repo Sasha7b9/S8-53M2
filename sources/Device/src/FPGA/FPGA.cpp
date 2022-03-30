@@ -34,6 +34,8 @@ namespace FPGA
 
     uint timeStart = 0;
 
+    TimeMeterUS meterStart;
+
     volatile static int numberMeasuresForGates = 1000;
 
     bool IN_PROCESS_READ = false;
@@ -43,8 +45,6 @@ namespace FPGA
     bool CAN_READ_DATA = false;
     bool NEED_AUTO_TRIG = false;    // Если true, нужно делать автозапуск (автоматический режим запуска и отсутсвует
                                     // синхроимпульс
-    bool FIRST_AFTER_WRITE = false; // Используется в режиме рандомизатора. После записи любого параметра в альтеру
-                    // нужно не использовать первое считанное данное с АЦП, потому что оно завышено и портит ворота
 
     Flag flag;
 
@@ -215,6 +215,13 @@ void FPGA::Start()
 {
     PrepareForCycle();
 
+    if (SET_TBASE == TBase::_2ns)
+    {
+        while (meterStart.ElapsedUS() < 220) {}
+
+        meterStart.Reset();
+    }
+
     HAL_FMC::Write(WR_PRED, FPGA::Launch::PredForWrite());
     HAL_FMC::Write(WR_START, 1);
 
@@ -381,12 +388,6 @@ int FPGA::ShiftRandomizerADC()
 
 bool FPGA::CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
 {
-    if (FIRST_AFTER_WRITE)
-    {
-        FIRST_AFTER_WRITE = false;
-        return false;
-    }
-
     if (rand < 500 || rand > 3500)
     {
         return false;
@@ -429,7 +430,7 @@ bool FPGA::CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
     {
         minGate = 0.9f * minGate + 0.1f * min;
         maxGate = 0.9f * maxGate + 0.1f * max;
-        LOG_WRITE("вор %.0F ... %.0F, min = %u, max = %u", minGate, maxGate, min, max);
+//        LOG_WRITE("вор %.0F ... %.0F, min = %u, max = %u", minGate, maxGate, min, max);
         numElements = 0;
         min = 0xffff;
         max = 0;

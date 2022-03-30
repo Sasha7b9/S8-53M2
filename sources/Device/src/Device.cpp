@@ -4,6 +4,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Settings/Settings.h"
 #include "Data/Storage.h"
+#include "FPGA/FPGA.h"
 #include "FPGA/SettingsFPGA.h"
 #include "Data/Processing.h"
 #include "Hardware/VCP/VCP.h"
@@ -51,6 +52,8 @@ void Device::Update()
     }
 
     Timer::StartMultiMeasurement();      // —брос таймера дл€ замера длительности временных интервалов в течение одной итерации цикла.
+
+    FPGA::meterStart.Reset();
 
     FDrive::Update();
 

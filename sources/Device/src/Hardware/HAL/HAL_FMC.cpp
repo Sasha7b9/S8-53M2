@@ -126,10 +126,5 @@ void HAL_FMC::InitRAM()
 
 void HAL_FMC::Write(uint16 * const address, uint16 value)
 {
-//    if (address != WR_ADDR_READ)
-//    {
-//        FPGA::FIRST_AFTER_WRITE = true;
-//    }
-
     *address = value;
 }

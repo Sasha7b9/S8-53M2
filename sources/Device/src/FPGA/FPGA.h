@@ -8,6 +8,7 @@
 #include "FPGA/StructuresFPGA.h"
 #include "Settings/Settings.h"
 #include "Hardware/HAL/HAL.h"
+#include "Hardware/Timer.h"
 
 
 namespace FPGA
@@ -15,9 +16,9 @@ namespace FPGA
     static const int MAX_POINTS = 1024;
     static const int MAX_BYTES = MAX_POINTS * 2;
 
-    extern bool FIRST_AFTER_WRITE;
-
     extern StateFPGA state;
+
+    extern TimeMeterUS meterStart;
 
     namespace FreqMeter
     {
