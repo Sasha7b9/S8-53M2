@@ -73,6 +73,11 @@ struct PageDebug
 {
     static const Page *self;
 
+    struct Console
+    {
+        static const Page *self;
+    };
+
     struct SerialNumber
     {
         static const Page *self;

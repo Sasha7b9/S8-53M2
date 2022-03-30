@@ -20,7 +20,6 @@
 #include <cstring>
 
 
-extern const Page  mpConsole;
 extern const Page  mpADC;
 extern const Page  mpADC_Stretch;
 extern const Page  mpADC_Shift;
@@ -55,7 +54,7 @@ static const Choice mcStats =
 
 static const Governor mgConsole_NumStrings
 (
-    &mpConsole, 0,
+    PageDebug::Console::self, 0,
     "Число строк", "Number strings",
     "",
     "",
@@ -65,7 +64,7 @@ static const Governor mgConsole_NumStrings
 
 static const Choice mcConsole_SizeFont =
 {
-    TypeItem::Choice, &mpConsole, 0,
+    TypeItem::Choice, PageDebug::Console::self, 0,
     {
         "Размер шрифта", "Size font",
         "",
@@ -816,6 +815,7 @@ static const Page pDebug
 
 
 const Page *PageDebug::self = &pDebug;
+const Page *PageDebug::Console::self = &mpConsole;
 const Page *PageDebug::ADC::Balance::self = &mpADC_Balance;
 const Page *PageDebug::SerialNumber::self = &ppSerialNumber;
 
