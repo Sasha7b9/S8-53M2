@@ -1,6 +1,7 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "Display/Text.h"
+#include "Display/String.h"
 
 
 struct Word
@@ -25,7 +26,7 @@ namespace SU
 
     DString FloatFract2String(float value, bool alwaysSign);
 
-    DString Float2String(float value, bool alwaysSign, int numDigits);
+    String<> Float2String(float value, bool alwaysSign, int numDigits);
 
     DString Hex8toString(uint8 value);
 

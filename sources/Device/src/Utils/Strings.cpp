@@ -214,7 +214,7 @@ void SU::LogBufferU8(pchar label, const uint8 *data, int num)
 
 void SU::LogBufferF(pchar label, const float *data, int num)
 {
-    DString string(label);
+    String<> string(label);
     string.Append(" ");
 
     for (int i = 0; i < num; i++)
@@ -229,7 +229,7 @@ void SU::LogBufferF(pchar label, const float *data, int num)
 
 DString SU::FloatFract2String(float value, bool alwaysSign)
 {
-    return Float2String(value, alwaysSign, 4);
+    return DString(Float2String(value, alwaysSign, 4).c_str());
 }
 
 
@@ -257,14 +257,14 @@ DString SU::Bin2String16(uint16 value)
 }
 
 
-DString SU::Float2String(float value, bool alwaysSign, int numDigits)
+String<> SU::Float2String(float value, bool alwaysSign, int numDigits)
 {
     char bufferOut[20];
     char *pBuffer = bufferOut;
 
     if (value == ERROR_VALUE_FLOAT)
     {
-        return DString(ERROR_STRING_VALUE);
+        return String<>(ERROR_STRING_VALUE);
     }
 
     if (!alwaysSign)
@@ -317,7 +317,7 @@ DString SU::Float2String(float value, bool alwaysSign, int numDigits)
         std::strcat(bufferOut, "0");
     }
 
-    return DString(bufferOut);
+    return String<>(bufferOut);
 }
 
 
@@ -418,7 +418,7 @@ DString SU::Voltage2String(float voltage, bool alwaysSign)
         voltage *= 1e-3f;
     }
 
-    DString result = SU::Float2String(voltage, alwaysSign, 4);
+    DString result = DString(SU::Float2String(voltage, alwaysSign, 4).c_str());
     result.Append(suffix);
 
     return result;
@@ -453,7 +453,7 @@ DString SU::Time2String(float time, bool alwaysSign)
         suffix = LANG_RU ? "๑" : "s";
     }
 
-    DString result = SU::Float2String(time, alwaysSign, 4);
+    DString result = DString(SU::Float2String(time, alwaysSign, 4).c_str());
     result.Append(suffix);
 
     return result;
@@ -487,7 +487,7 @@ DString SU::Freq2String(float freq, bool)
         suffix = LANG_RU ? "ร๖" : "Hz";
     }
 
-    result.Append(SU::Float2String(freq, false, 4));
+    result.Append(SU::Float2String(freq, false, 4).c_str());
     result.Append(suffix);
 
     return result;
@@ -496,7 +496,7 @@ DString SU::Freq2String(float freq, bool)
 
 DString SU::Phase2String(float phase, bool)
 {
-    DString result = SU::Float2String(phase, false, 4);
+    DString result(SU::Float2String(phase, false, 4).c_str());
     result.Append("\xa8");
     return result;
 }
@@ -504,7 +504,7 @@ DString SU::Phase2String(float phase, bool)
 
 DString SU::Float2Db(float value, int numDigits)
 {
-    DString result = SU::Float2String(value, false, numDigits);
+    DString result(SU::Float2String(value, false, numDigits).c_str());
 
     result.Append(LANG_RU ? "ไม" : "dB");
 
