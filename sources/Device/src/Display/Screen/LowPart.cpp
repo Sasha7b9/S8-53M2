@@ -60,14 +60,14 @@ void LowPart::Draw()
         }
     }
 
-    DString("ð\xa5%s", TBase::ToString(tbase)).Draw(x, y0);
+    String<>("ð\xa5%s", TBase::ToString(tbase)).Draw(x, y0);
 
-    DString("\xa5%s", TShift::ToString(tshift).c_str()).Draw(x + 35, y0);
+    String<>("\xa5%s", TShift::ToString(tshift).c_str()).Draw(x + 35, y0);
 
     if (MODE_WORK_IS_DIRECT)
     {
         pchar source[3] = {"1", "2", "\x82"};
-        DString("ñ\xa5\x10%s", source[TRIG_SOURCE]).Draw(x, y1, ColorTrig());
+        String<>("ñ\xa5\x10%s", source[TRIG_SOURCE]).Draw(x, y1, ColorTrig());
     }
 
     static pchar couple[] =
@@ -94,7 +94,7 @@ void LowPart::Draw()
 
     if (MODE_WORK_IS_DIRECT)
     {
-        DString("\xa5\x10%s\x10\xa5\x10%s\x10\xa5\x10", couple[TRIG_INPUT], polar[TRIG_POLARITY]).Draw(x + 18, y1);
+        String<>("\xa5\x10%s\x10\xa5\x10%s\x10\xa5\x10", couple[TRIG_INPUT], polar[TRIG_POLARITY]).Draw(x + 18, y1);
         Char(filtr[TRIG_INPUT][0]).Draw(x + 45, y1);
         Char(filtr[TRIG_INPUT][1]).Draw(x + 53, y1);
     }
@@ -108,7 +108,7 @@ void LowPart::Draw()
 
     if (MODE_WORK_IS_DIRECT)
     {
-        DString("\xa5\x10%c", mode[START_MODE]).Draw(x + 63, y1);
+        String<>("\xa5\x10%c", mode[START_MODE]).Draw(x + 63, y1);
     }
 
     Painter::DrawVLine(x + 79, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, COLOR_FILL);
@@ -147,7 +147,7 @@ void LowPart::Draw()
         {
             std::strcat(mesFreq, SU::Freq2String(freq, false).c_str());
         }
-        DString(mesFreq).Draw(x + 3, GRID_BOTTOM + 2);
+        String<>(mesFreq).Draw(x + 3, GRID_BOTTOM + 2);
     }
 
     DrawTime(x + 3, GRID_BOTTOM + 11);
@@ -213,9 +213,9 @@ void LowPart::DrawTime(int x, int y)
             time.month = ds.time.month;
             time.year = ds.time.year;
             SU::Int2String((int)time.day, false, 2).Draw(x, y);
-            DString(":").Draw(x + dField, y);
+            String<>(":").Draw(x + dField, y);
             SU::Int2String((int)time.month, false, 2).Draw(x + dField + dSeparator, y);
-            DString(":").Draw(x + 2 * dField + dSeparator, y);
+            String<>(":").Draw(x + 2 * dField + dSeparator, y);
             SU::Int2String((int)time.year + 2000, false, 4).Draw(x + 2 * dField + 2 * dSeparator, y);
             y += 9;
         }
@@ -226,9 +226,9 @@ void LowPart::DrawTime(int x, int y)
     }
 
     SU::Int2String((int)time.hours, false, 2).Draw(x, y);
-    DString(":").Draw(x + dField, y);
+    String<>(":").Draw(x + dField, y);
     SU::Int2String((int)time.minutes, false, 2).Draw(x + dField + dSeparator, y);
-    DString(":").Draw(x + 2 * dField + dSeparator, y);
+    String<>(":").Draw(x + 2 * dField + dSeparator, y);
     SU::Int2String((int)time.seconds, false, 2).Draw(x + 2 * dField + 2 * dSeparator, y);
 }
 
