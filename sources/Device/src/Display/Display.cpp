@@ -425,13 +425,13 @@ void Display::DrawMeasures()
 
             if(meas != Measure::None)
             {
-                DString(Measures::Name(str, elem)).Draw(x + 4, y + 2, color);
+                String<>(Measures::Name(str, elem)).Draw(x + 4, y + 2, color);
 
                 if(meas == MEAS_MARKED)
                 {
                     Region(dX - 2, 9).Fill(x + 1, y + 1, active ? COLOR_BACK : COLOR_FILL);
 
-                    DString(Measures::Name(str, elem)).Draw(x + 4, y + 2, active ? COLOR_FILL : COLOR_BACK);
+                    String<>(Measures::Name(str, elem)).Draw(x + 4, y + 2, active ? COLOR_FILL : COLOR_BACK);
                 }
 
                 if(MEAS_SOURCE_IS_A)
@@ -483,9 +483,9 @@ void Display::DrawTimeForFrame()
 
     Rectangle(84, 10).Draw(Grid::Left(), Grid::FullBottom() - 10, COLOR_FILL);
     Region(82, 8).Fill(Grid::Left() + 1, Grid::FullBottom() - 9, COLOR_BACK);
-    DString("%.1fms/%d", duration, fps).Draw(Grid::Left() + 2, Grid::FullBottom() - 9, COLOR_FILL);
+    String<>("%.1fms/%d", duration, fps).Draw(Grid::Left() + 2, Grid::FullBottom() - 9, COLOR_FILL);
 
-    DString("%d/%d", Storage::SameSettings::GetCount(), Storage::NumberAvailableEntries()).
+    String<>("%d/%d", Storage::SameSettings::GetCount(), Storage::NumberAvailableEntries()).
         Draw(Grid::Left() + 50, Grid::FullBottom() - 9);
 }
 
