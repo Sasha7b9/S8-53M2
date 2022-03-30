@@ -1252,11 +1252,6 @@
               <FilePath>.\src\Hardware\HAL\HAL_LTDC.cpp</FilePath>
             </File>
             <File>
-              <FileName>HAL_HCD.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_HCD.cpp</FilePath>
-            </File>
-            <File>
               <FileName>HAL_ROM.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_ROM.cpp</FilePath>
@@ -1290,16 +1285,6 @@
               <FileName>HAL_TIM7.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_TIM7.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_USBH.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_USBH.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_PCD.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_PCD.cpp</FilePath>
             </File>
             <File>
               <FileName>startup_stm32f429xx.s</FileName>
@@ -3257,11 +3242,6 @@
               <FilePath>.\src\Hardware\HAL\HAL_LTDC.cpp</FilePath>
             </File>
             <File>
-              <FileName>HAL_HCD.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_HCD.cpp</FilePath>
-            </File>
-            <File>
               <FileName>HAL_ROM.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_ROM.cpp</FilePath>
@@ -3295,16 +3275,6 @@
               <FileName>HAL_TIM7.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_TIM7.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_USBH.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_USBH.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_PCD.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_PCD.cpp</FilePath>
             </File>
             <File>
               <FileName>startup_stm32f429xx.s</FileName>

@@ -2,6 +2,11 @@
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
 #include <stm32f4xx_hal.h>
+#include <usbh_def.h>
+
+
+static PCD_HandleTypeDef handlePCD;
+void *HAL_PCD::handle = &handlePCD;
 
 
 namespace HAL
@@ -9,6 +14,23 @@ namespace HAL
     void SystemClock_Config();
     void EnablePeripherals();
 }
+
+
+namespace HAL_HCD
+{
+    static HCD_HandleTypeDef handleHCD;
+
+    void *handle = &handleHCD;
+}
+
+
+namespace HAL_USBH
+{
+    USBH_HandleTypeDef handleUSBH;
+
+    void *handle = &handleUSBH;
+}
+
 
 
 void HAL::Init()
@@ -149,6 +171,17 @@ void HAL::EnablePeripherals()
 
     __USB_OTG_FS_CLK_ENABLE();
     __USB_OTG_HS_CLK_ENABLE();
+}
+
+
+void HAL_HCD::Init()
+{
+    /* Set USBHS Interrupt to the lowest priority */
+    HAL_NVIC_SetPriority(OTG_HS_IRQn, 15, 0);
+
+    /* Enable USBHS Interrupt */
+    HAL_NVIC_EnableIRQ(OTG_HS_IRQn);
+
 }
 
 
