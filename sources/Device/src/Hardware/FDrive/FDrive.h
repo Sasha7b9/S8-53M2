@@ -34,6 +34,8 @@ struct Directory
 
     bool GetNameFile(pchar fullPath, int numFile, char *nameFileOut);
 
+    bool GetNextNameFile(char *nameFileOut);
+
     void CloseCurrent();
 };
 
@@ -47,8 +49,6 @@ namespace FDrive
     void Update();
 
     void GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles);
-
-    bool GetNextNameFile(char *nameFileOut, Directory *sfrd);
 
     // Функция создаст файл для записи. Если такой файл уже существует, сотрёт его, заменит новым нулевой длины и откроет его
     bool OpenNewFileForWrite(pchar  fullPathToFile, File *structForWrite);

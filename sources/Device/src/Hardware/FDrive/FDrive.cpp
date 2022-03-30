@@ -288,24 +288,25 @@ bool Directory::GetNameFile(pchar fullPath, int numFile, char *nameFileOut)
 }
 
 
-bool FDrive::GetNextNameFile(char *nameFileOut, Directory *s)
+bool Directory::GetNextNameFile(char *nameFileOut)
 {
-    FILINFO *pFNO = &s->fno;
+    FILINFO *pFNO = &fno;
     bool alreadyNull = false;
+
     while (true)
     {
-        if (f_readdir(&s->dir, &s->fno) != FR_OK)
+        if (f_readdir(&dir, &fno) != FR_OK)
         {
             *nameFileOut = '\0';
-            f_closedir(&s->dir);
+            f_closedir(&dir);
             return false;
         }
-        if (s->fno.fname[0] == 0)
+        if (fno.fname[0] == 0)
         {
             if (alreadyNull)
             {
                 *nameFileOut = '\0';
-                f_closedir(&s->dir);
+                f_closedir(&dir);
                 return false;
             }
             alreadyNull = true;
