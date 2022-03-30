@@ -1,45 +1,41 @@
-// 2022/2/11 19:33:28 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+// 2021/06/24 14:59:27 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
+#include "ff_gen_drv.h"
+#include "usbh_diskio.h"
 #include "Hardware/HAL/HAL.h"
-#include <cstring>
+#include <stm32f4xx_hal.h>
 #include <usbh_def.h>
 #include <usbh_msc.h>
-#include "ff_gen_drv.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
+
+#define USB_DEFAULT_BLOCK_SIZE 512
+
 /* Private variables ---------------------------------------------------------*/
-//extern USBH_HandleTypeDef  HOST_HANDLE;
-
-
-#define _USE_BUFF_WO_ALIGNMENT 0
-
-#if _USE_BUFF_WO_ALIGNMENT == 0
-/* Local buffer use to handle buffer not aligned 32bits*/
 static DWORD scratch[_MAX_SS / 4];
-#endif
 
 /* Private function prototypes -----------------------------------------------*/
-DSTATUS USBH_initialize (BYTE);
-DSTATUS USBH_status (BYTE);
-DRESULT USBH_read (BYTE, BYTE*, DWORD, UINT);
+DSTATUS USBH_initialize(BYTE);
+DSTATUS USBH_status(BYTE);
+DRESULT USBH_read(BYTE, BYTE *, DWORD, UINT);
 
 #if _USE_WRITE == 1
-  DRESULT USBH_write (BYTE, const BYTE*, DWORD, UINT);
+DRESULT USBH_write(BYTE, const BYTE *, DWORD, UINT);
 #endif /* _USE_WRITE == 1 */
 
 #if _USE_IOCTL == 1
-  DRESULT USBH_ioctl (BYTE, BYTE, void*);
+DRESULT USBH_ioctl(BYTE, BYTE, void *);
 #endif /* _USE_IOCTL == 1 */
-  
+
 Diskio_drvTypeDef  USBH_Driver =
 {
   USBH_initialize,
   USBH_status,
-  USBH_read, 
+  USBH_read,
 #if  _USE_WRITE == 1
   USBH_write,
-#endif /* _USE_WRITE == 1 */  
+#endif /* _USE_WRITE == 1 */
 #if  _USE_IOCTL == 1
   USBH_ioctl,
 #endif /* _USE_IOCTL == 1 */
@@ -54,7 +50,9 @@ Diskio_drvTypeDef  USBH_Driver =
   */
 DSTATUS USBH_initialize(BYTE)
 {
-  return RES_OK;
+    /* CAUTION : USB Host library has to be initialized in the application */
+
+    return RES_OK;
 }
 
 /**
@@ -70,12 +68,15 @@ DSTATUS USBH_status(BYTE lun)
     {
         res = RES_OK;
     }
+    else
+    {
+        res = RES_ERROR; //-V1048
+    }
 
     return (DSTATUS)res;
 }
-
 /**
-  * @brief  Reads Sector(s) 
+  * @brief  Reads Sector(s)
   * @param  lun : lun id
   * @param  *buff: Data buffer to store read data
   * @param  sector: Sector address (LBA)
@@ -88,12 +89,12 @@ DRESULT USBH_read(BYTE lun, BYTE *buff, DWORD sector, UINT count)
     MSC_LUNTypeDef info;
     USBH_StatusTypeDef  status = USBH_OK;
 
-    if ((DWORD)buff & 3) /* DMA Alignment issue, do single up to aligned buffer */
+    if (((DWORD)buff & 3) && (((HCD_HandleTypeDef *)((USBH_HandleTypeDef *)HAL_USBH::handle)->pData)->Init.dma_enable))
     {
-#if _USE_BUFF_WO_ALIGNMENT == 0
         while ((count--) && (status == USBH_OK))
         {
             status = USBH_MSC_Read((USBH_HandleTypeDef *)HAL_USBH::handle, lun, sector + count, (uint8_t *)scratch, 1);
+
             if (status == USBH_OK)
             {
                 memcpy(&buff[count * _MAX_SS], scratch, _MAX_SS);
@@ -103,9 +104,6 @@ DRESULT USBH_read(BYTE lun, BYTE *buff, DWORD sector, UINT count)
                 break;
             }
         }
-#else
-        return res;
-#endif
     }
     else
     {
@@ -130,6 +128,7 @@ DRESULT USBH_read(BYTE lun, BYTE *buff, DWORD sector, UINT count)
             break;
 
         default:
+            res = RES_ERROR; //-V1048
             break;
         }
     }
@@ -139,7 +138,7 @@ DRESULT USBH_read(BYTE lun, BYTE *buff, DWORD sector, UINT count)
 
 /**
   * @brief  Writes Sector(s)
-  * @param  lun : lun id 
+  * @param  lun : lun id
   * @param  *buff: Data to be written
   * @param  sector: Sector address (LBA)
   * @param  count: Number of sectors to write (1..128)
@@ -152,9 +151,11 @@ DRESULT USBH_write(BYTE lun, const BYTE *buff, DWORD sector, UINT count)
     MSC_LUNTypeDef info;
     USBH_StatusTypeDef  status = USBH_OK;
 
-    if ((DWORD)buff & 3) /* DMA Alignment issue, do single up to aligned buffer */
+    USBH_HandleTypeDef *handle = (USBH_HandleTypeDef *)HAL_USBH::handle;
+
+    if (((DWORD)buff & 3) && (((HCD_HandleTypeDef *)handle->pData)->Init.dma_enable))
     {
-#if _USE_BUFF_WO_ALIGNMENT == 0
+
         while (count--)
         {
             memcpy(scratch, &buff[count * _MAX_SS], _MAX_SS);
@@ -165,9 +166,6 @@ DRESULT USBH_write(BYTE lun, const BYTE *buff, DWORD sector, UINT count)
                 break;
             }
         }
-#else
-        return res;
-#endif
     }
     else
     {
@@ -197,6 +195,7 @@ DRESULT USBH_write(BYTE lun, const BYTE *buff, DWORD sector, UINT count)
             break;
 
         default:
+            res = RES_ERROR; //-V1048
             break;
         }
     }
@@ -208,7 +207,7 @@ DRESULT USBH_write(BYTE lun, const BYTE *buff, DWORD sector, UINT count)
 /**
   * @brief  I/O control operation
   * @param  lun : lun id
-  * @param  cmd: Item code
+  * @param  cmd: Control code
   * @param  *buff: Buffer to send/receive control data
   * @retval DRESULT: Operation result
   */
@@ -229,17 +228,25 @@ DRESULT USBH_ioctl(BYTE lun, BYTE cmd, void *buff)
     case GET_SECTOR_COUNT:
         if (USBH_MSC_GetLUNInfo((USBH_HandleTypeDef *)HAL_USBH::handle, lun, &info) == USBH_OK)
         {
-            *(DWORD *)buff = info.capacity.block_nbr; //-V525
+            *(DWORD *)buff = info.capacity.block_nbr;
             res = RES_OK;
+        }
+        else
+        {
+            res = RES_ERROR; //-V1048
         }
         break;
 
         /* Get R/W sector size (WORD) */
     case GET_SECTOR_SIZE:
-        if (USBH_MSC_GetLUNInfo((USBH_HandleTypeDef *)HAL_USBH::handle, lun, &info) == USBH_OK) //-V1037
+        if (USBH_MSC_GetLUNInfo((USBH_HandleTypeDef *)HAL_USBH::handle, lun, &info) == USBH_OK)
         {
             *(DWORD *)buff = info.capacity.block_size;
             res = RES_OK;
+        }
+        else
+        {
+            res = RES_ERROR; //-V1048
         }
         break;
 
@@ -248,8 +255,12 @@ DRESULT USBH_ioctl(BYTE lun, BYTE cmd, void *buff)
 
         if (USBH_MSC_GetLUNInfo((USBH_HandleTypeDef *)HAL_USBH::handle, lun, &info) == USBH_OK)
         {
-            *(DWORD *)buff = info.capacity.block_size;
+            *(DWORD *)buff = (DWORD)(info.capacity.block_size / USB_DEFAULT_BLOCK_SIZE);
             res = RES_OK;
+        }
+        else
+        {
+            res = RES_ERROR; //-V1048
         }
         break;
 
@@ -260,6 +271,3 @@ DRESULT USBH_ioctl(BYTE lun, BYTE cmd, void *buff)
     return res;
 }
 #endif /* _USE_IOCTL == 1 */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-

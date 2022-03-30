@@ -1,5 +1,6 @@
 // 2022/2/11 19:33:20 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
+#include "Log.h"
 #include <stm32f4xx.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,7 +32,7 @@
 #define USBH_UsrLog(...)   printf(__VA_ARGS__);\
                            printf("\n");
 #else
-#define USBH_UsrLog(...)   
+#define USBH_UsrLog(...)
 #endif 
                             
                             

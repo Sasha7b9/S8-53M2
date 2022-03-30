@@ -38,7 +38,7 @@
 #define USBH_UsrLog(...)   printf(__VA_ARGS__);\
                            printf("\n");
 #else
-#define USBH_UsrLog(...)   
+#define USBH_UsrLog(...)
 #endif 
                             
                             
