@@ -101,15 +101,15 @@ void FM::DrawDirs(int x, int y)
     FDrive::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
     DrawHat(x, y, "Каталог : %d/%d", numCurDir + ((numDirs == 0) ? 0 : 1), numDirs);
     char nameDir[255];
-    Directory sfrd;
+    Directory directory;
     y += 12;
 
-    if (sfrd.GetName(currentDir, numFirstDir, nameDir))
+    if (directory.GetName(currentDir, numFirstDir, nameDir))
     {
         int  drawingDirs = 0;
         DrawLongString(x, y, nameDir, cursorInDirs && ( numFirstDir + drawingDirs == numCurDir));
 
-        while (drawingDirs < (RECS_ON_PAGE - 1) && FDrive::GetNextNameDir(nameDir, &sfrd))
+        while (drawingDirs < (RECS_ON_PAGE - 1) && directory.GetNextName(nameDir))
         {
             drawingDirs++;
             DrawLongString(x, y + drawingDirs * 9, nameDir, cursorInDirs && ( numFirstDir + drawingDirs == numCurDir));

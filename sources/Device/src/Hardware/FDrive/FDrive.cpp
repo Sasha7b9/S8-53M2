@@ -197,10 +197,10 @@ bool Directory::GetName(pchar fullPath, int numDir, char *nameDirOut)
 }
 
 
-bool FDrive::GetNextNameDir(char *nameDirOut, Directory *s)
+bool Directory::GetNextName(char *nameDirOut)
 {
-    DIR *pDir = &s->dir;
-    FILINFO *pFNO = &s->fno;
+    DIR *pDir = &dir;
+    FILINFO *pFNO = &fno;
     bool alreadyNull = false;
     while (true)
     {
