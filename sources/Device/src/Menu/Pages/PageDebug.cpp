@@ -20,7 +20,6 @@
 #include <cstring>
 
 
-extern const Page  mpADC_Stretch;
 extern const Page  mpADC_Shift;
 extern const Page  mpADC_AltRShift;
 
@@ -187,7 +186,7 @@ static void OnPress_RestRShift()
 
 static const Button bResetShift
 (
-    &mpADC_Stretch, nullptr,
+    PageDebug::ADC::Stretch::self, nullptr,
     "Сброс", "Reset",
     "Сброс коэффициента растяжки в 1", "Сброс коэффициента растяжки в 1",
     OnPress_RestRShift
@@ -290,7 +289,7 @@ static const Governor mgADC_FirstByte
 static const arrayItems itemsADC =
 {
     (void *)PageDebug::ADC::Balance::self,
-    (void *)&mpADC_Stretch,
+    (void *)PageDebug::ADC::Stretch::self,
     (void *)&mpADC_Shift,
     (void *)&mpADC_AltRShift,
     (void *)&mcADC_Compact,
@@ -359,7 +358,7 @@ static void OnPress_ResetStretch()
 
 static const Button bResetStretch
 (
-    &mpADC_Stretch, nullptr,
+    PageDebug::ADC::Stretch::self, nullptr,
     "Сброс", "Reset",
     "Сброс коэффициента растяжки в 1", "Сброс коэффициента растяжки в 1",
     OnPress_ResetStretch
@@ -374,7 +373,7 @@ static void OnDraw_StretchADCA(int x, int y)
 
 static const Choice mcStretchADCA =
 {
-    TypeItem::Choice, &mpADC_Stretch, nullptr,
+    TypeItem::Choice, PageDebug::ADC::Stretch::self, nullptr,
     {
         "Растяжка к1", "Stretch ch1",
         "Растяжка первого канала",
@@ -396,7 +395,7 @@ static void OnDraw_StretchADCB(int x, int y)
 
 static const Choice mcStretchADCB =
 {
-    TypeItem::Choice, &mpADC_Stretch, nullptr,
+    TypeItem::Choice, PageDebug::ADC::Stretch::self, nullptr,
     {
         "Растяжка к2", "Stretch ch2",
         "Растяжка первого канала",
@@ -816,5 +815,6 @@ const Page *PageDebug::self = &pDebug;
 const Page *PageDebug::Console::self = &mpConsole;
 const Page *PageDebug::ADC::self = &mpADC;
 const Page *PageDebug::ADC::Balance::self = &mpADC_Balance;
+const Page *PageDebug::ADC::Stretch::self = &mpADC_Stretch;
 const Page *PageDebug::SerialNumber::self = &ppSerialNumber;
 const Page *PageDebug::Randomizer::self = &mpRandomizer;
