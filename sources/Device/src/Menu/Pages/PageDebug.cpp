@@ -20,7 +20,6 @@
 #include <cstring>
 
 
-extern const Page  mpADC;
 extern const Page  mpADC_Stretch;
 extern const Page  mpADC_Shift;
 extern const Page  mpADC_AltRShift;
@@ -250,7 +249,7 @@ static const arrayItems itemsADC_Shift =
 
 static const Page mpADC_Shift
 (
-    &mpADC, 0,
+    PageDebug::ADC::self, 0,
     "СМЕЩЕНИЕ", "SHIFT",
     "",
     "",
@@ -266,7 +265,7 @@ void OnChanged_Compact(bool)
 
 static const Choice mcADC_Compact =
 {
-    TypeItem::Choice, &mpADC, nullptr,
+    TypeItem::Choice, PageDebug::ADC::self, nullptr,
     {
         "Уплотнение", "Compress",
         "При включении считывается больше точек",
@@ -282,7 +281,7 @@ static const Choice mcADC_Compact =
 
 static const Governor mgADC_FirstByte
 (
-    &mpADC, nullptr,
+    PageDebug::ADC::self, nullptr,
     "Первый байт", "First byte",
     "", "",
     &set.debug.first_byte, -5, 5, nullptr, nullptr
@@ -816,6 +815,7 @@ static const Page pDebug
 
 const Page *PageDebug::self = &pDebug;
 const Page *PageDebug::Console::self = &mpConsole;
+const Page *PageDebug::ADC::self = &mpADC;
 const Page *PageDebug::ADC::Balance::self = &mpADC_Balance;
 const Page *PageDebug::SerialNumber::self = &ppSerialNumber;
 

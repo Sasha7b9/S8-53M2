@@ -90,6 +90,8 @@ struct PageDebug
 
         static void ResetCalStretch(Chan);
 
+        static const Page *self;
+
         struct Balance
         {
             static const Page *self;
