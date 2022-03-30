@@ -20,7 +20,6 @@
 #include <cstring>
 
 
-extern const Page  pDebug;
 extern const Page  mpConsole;
 extern const Page  mpADC;
 extern const Page  mpADC_Stretch;
@@ -40,7 +39,7 @@ static struct StructForSN
 
 static const Choice mcStats =
 {
-    TypeItem::Choice, &pDebug, 0,
+    TypeItem::Choice, PageDebug::self, 0,
     {
         "Статистика", "Statistics",
         "Показывать/не показывать время/кадр, кадров в секунду, количество сигналов с последними настройками в памяти/количество сохраняемых в памяти сигналов",
@@ -89,7 +88,7 @@ static const arrayItems itemsConsole =
 
 static const Page mpConsole
 (
-    &pDebug, 0,
+    PageDebug::self, 0,
     "КОНСОЛЬ", "CONSOLE",
     "",
     "",
@@ -105,7 +104,7 @@ static void OnDraw_SizeSettings(int x, int y)
 
 static const Choice mcSizeSettings =
 {
-    TypeItem::Choice, &pDebug, 0,
+    TypeItem::Choice, PageDebug::self, 0,
     {
         "Размер настроек", "Size settings",
         "Вывод размера структуры Settings",
@@ -152,7 +151,7 @@ static void OnPress_SaveFirmware()
 
 static const Button mbSaveFirmware
 (
-    &pDebug, IsActive_SaveFirmware,
+    PageDebug::self, IsActive_SaveFirmware,
     "Сохр. прошивку", "Save firmware",
     "Сохранение прошивки - секторов 5, 6, 7 общим объёмом 3 х 128 кБ, где хранится программа",
     "Saving firmware - sectors 5, 6, 7 with a total size of 3 x 128 kB, where the program is stored",
@@ -168,7 +167,7 @@ static void OnPress_EraseData()
 
 static const Button bEraseData
 (
-    &pDebug, EmptyFuncBV,
+    PageDebug::self, EmptyFuncBV,
     "Стереть данные", "Erase data",
     "Стирает сектора с данными",
     "Erases data sectors",
@@ -304,7 +303,7 @@ static const arrayItems itemsADC =
 
 static const Page mpADC
 (
-    &pDebug, 0,
+    PageDebug::self, 0,
     "АЦП", "ADC",
     "",
     "",
@@ -609,7 +608,7 @@ static const arrayItems itemsRandomizer =
 
 static const Page mpRandomizer
 (
-    &pDebug, 0,
+    PageDebug::self, 0,
     "РАНД-ТОР", "RANDOMIZER",
     "",
     "",
@@ -786,7 +785,7 @@ static void OnRegSet_SerialNumber(int angle)
 
 static const Page ppSerialNumber
 (
-    &pDebug, 0,
+    PageDebug::self, 0,
     "С/Н", "S/N",
     "Запись серийного номера в OTP-память. ВНИМАНИЕ!!! ОТP-память - память с однократной записью.",
     "Serial number recording in OTP-memory. ATTENTION!!! OTP memory is a one-time programming memory.",
