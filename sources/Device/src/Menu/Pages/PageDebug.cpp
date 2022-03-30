@@ -27,7 +27,6 @@ extern const Page  mpADC_Stretch;
 extern const Page  mpADC_Shift;
 extern const Page  mpADC_AltRShift;
 extern const Page  mpRandomizer;
-extern const Page  ppSerialNumber;
 
 
 // В этой структуре будут храниться данные серийного номера при открытой странице ppSerialNumer
@@ -626,7 +625,7 @@ static void OnPress_SerialNumber_Exit()
 
 static const SmallButton bSerialNumber_Exit
 (
-    &ppSerialNumber,
+    PageDebug::SerialNumber::self,
     COMMON_BEGIN_SB_EXIT,
     OnPress_SerialNumber_Exit,
     DrawSB_Exit
@@ -652,7 +651,7 @@ static void Draw_SerialNumber_Change(int x, int y)
 
 static const SmallButton bSerialNumber_Change
 (
-    &ppSerialNumber, 0,
+    PageDebug::SerialNumber::self, 0,
     "Вставить", "Insert",
     "Вставляет выбраный символ",
     "Inserts the chosen symbol",
@@ -684,7 +683,7 @@ static void Draw_SerialNumber_Save(int x, int y)
 
 static const SmallButton bSerialNumber_Save
 (
-    &ppSerialNumber, 0,
+    PageDebug::SerialNumber::self, 0,
     "Сохранить", "Save",
     "Записывает серийный номер в OTP",
     "Records the serial number in OTP",
