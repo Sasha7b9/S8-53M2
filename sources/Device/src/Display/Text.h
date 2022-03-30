@@ -93,4 +93,9 @@ namespace PText
     void Draw10SymbolsInRect(int x, int y, char eChar);
 
     void DrawBig(int x, int y, int size, pchar text);
+
+    DString GetWord(pchar firstSymbol, int *length);
+
+    // Если draw == false, то рисовать символ не надо, фунция используется только для вычислений
+    int DrawPartWord(char *word, int x, int y, int xRight, bool draw);
 }

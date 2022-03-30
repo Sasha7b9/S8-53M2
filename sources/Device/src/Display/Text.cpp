@@ -24,9 +24,6 @@ namespace PText
 
     int DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int limitY, int limitWidth, int limitHeight);
 
-    // Если draw == false, то рисовать символ не надо, фунция используется только для вычислений
-    int DrawPartWord(char *word, int x, int y, int xRight, bool draw);
-
     // Возвращает высоту экрана, которую займёт текст text, при выводе от left до right в переменной height. Если
     // bool == false, то текст не влезет на экран 
     bool GetHeightTextWithTransfers(int left, int top, int right, pchar text, int *height);
@@ -40,8 +37,6 @@ namespace PText
     int DrawBigChar(int eX, int eY, int size, char symbol);
 
     bool IsLetter(char symbol);
-
-    DString GetWord(pchar firstSymbol, int *length);
 
     bool IsConsonant(char symbol);
 

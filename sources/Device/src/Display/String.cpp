@@ -23,7 +23,7 @@ template void String<(int)32>::DrawInRect(int x, int y, int width, int height, i
 template void String<(int)32>::SetFormat(pchar format, ...);
 template int  String<(int)32>::DrawInBoundedRectWithTransfers(int x, int y, int width, Color::E colorBackground,
     Color::E colorFill);
-//template int  String<(int)32>::DrawInRectWithTransfers(int x, int y, int width, int height, Color::E);
+template int  String<(int)32>::DrawInRectWithTransfers(int x, int y, int width, int height, Color::E);
 template int  String<(int)32>::DrawStringInCenterRectAndBoundIt(int x, int y, int width, int height, Color::E colorBackground, Color::E colorFill);
 
 
@@ -318,4 +318,69 @@ int String<capacity>::DrawInBoundedRectWithTransfers(int x, int y, int width, Co
     Region(width - 2, height - 2).Fill(x + 1, y + 1, colorBackground);
     DrawInRectWithTransfers(x + 3, y + 3, width - 8, height, colorFill);
     return y + height;
+}
+
+
+template<int capacity>
+int String<capacity>::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eHeight, Color::E color)
+{
+    Color::SetCurrent(color);
+
+    int top = eY;
+    int left = eX;
+    int right = eX + eWidth;
+    int bottom = eY + eHeight;
+
+    pchar text = buffer;
+
+    int numSymb = (int)std::strlen(text);
+
+    int y = top - 1;
+    int x = left;
+
+    int curSymbol = 0;
+
+    while (y < bottom && curSymbol < numSymb)
+    {
+        while (x < right - 1 && curSymbol < numSymb)
+        {
+            int length = 0;
+            DString word = PText::GetWord(text + curSymbol, &length);
+
+            if (length <= 1)                            // Нет буквенных символов или один, т.е. слово не найдено
+            {
+                char symbol = text[curSymbol++];
+                if (symbol == '\n')
+                {
+                    x = right;
+                    continue;
+                }
+                if (symbol == ' ' && x == left)
+                {
+                    continue;
+                }
+                x = Char(symbol).Draw(x, y);
+            }
+            else                                            // А здесь найдено по крайней мере два буквенных символа, т.е. найдено слово
+            {
+                int lengthString = Font::GetLengthText(word.c_str());
+                if (x + lengthString > right + 5)
+                {
+                    int numSymbols = PText::DrawPartWord(word.c_str(), x, y, right, true);
+                    x = right;
+                    curSymbol += numSymbols;
+                    continue;
+                }
+                else
+                {
+                    curSymbol += length;
+                    x = DString(word).Draw(x, y);
+                }
+            }
+        }
+        x = left;
+        y += 9;
+    }
+
+    return y;
 }
