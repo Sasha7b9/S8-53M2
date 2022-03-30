@@ -1111,14 +1111,14 @@ void Processing::InterpolationSinX_X(uint8 data[FPGA::MAX_POINTS * 2], TBase::E 
     }
 }
 
-DString Processing::GetStringMeasure(Measure::E measure, Chan ch)
+String<> Processing::GetStringMeasure(Measure::E measure, Chan ch)
 {
     if (!SET_ENABLED(ch))
     {
-        return DString("");
+        return String<>("");
     }
 
-    DString result(ch.IsA() ? "1: " : "2: ");
+    String<> result(ch.IsA() ? "1: " : "2: ");
 
     if(!out.ds.valid)
     {

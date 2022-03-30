@@ -23,7 +23,7 @@ namespace Processing
     void InterpolationSinX_X(uint8 data[FPGA::MAX_POINTS * 2], TBase::E tbase);
 
     // Возвращает строку автоматического измерения.
-    DString GetStringMeasure(Measure::E measure, Chan);
+    String<> GetStringMeasure(Measure::E measure, Chan);
 
     // Расчитать все измерения.
     void CalculateMeasures();
