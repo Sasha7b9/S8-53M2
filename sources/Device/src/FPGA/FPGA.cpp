@@ -341,6 +341,11 @@ int FPGA::ShiftRandomizerADC()
     {
         uint16 rand = HAL_ADC1::GetValue();
 
+        if (rand == 0xFFFF)
+        {
+            return TShift::ERROR;
+        }
+
         uint16 min = 0;
         uint16 max = 0;
 
@@ -350,6 +355,16 @@ int FPGA::ShiftRandomizerADC()
         }
 
         if (!CalculateGate(rand, &min, &max))
+        {
+            return TShift::ERROR;
+        }
+
+        if (rand > max - set.debug.fpga_gates_max)
+        {
+            return TShift::ERROR;
+        }
+
+        if (rand < min + set.debug.fpga_gates_min)
         {
             return TShift::ERROR;
         }
@@ -414,6 +429,7 @@ bool FPGA::CalculateGate(uint16 rand, uint16 *eMin, uint16 *eMax)
     {
         minGate = 0.9f * minGate + 0.1f * min;
         maxGate = 0.9f * maxGate + 0.1f * max;
+        LOG_WRITE("вор %.0F ... %.0F, min = %u, max = %u", minGate, maxGate, min, max);
         numElements = 0;
         min = 0xffff;
         max = 0;

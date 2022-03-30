@@ -15,6 +15,8 @@ namespace FPGA
     static const int MAX_POINTS = 1024;
     static const int MAX_BYTES = MAX_POINTS * 2;
 
+    extern bool FIRST_AFTER_WRITE;
+
     extern StateFPGA state;
 
     namespace FreqMeter
