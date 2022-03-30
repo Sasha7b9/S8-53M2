@@ -667,7 +667,7 @@ static int SU::NumDigitsInIntPart(float value)
 }
 
 
-int GetNumWordsInString(const uint8 *string)
+int SU::GetNumWordsInString(const uint8 *string)
 {
     SU::ChooseSpaces(&string);
 

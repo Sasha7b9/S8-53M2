@@ -24,11 +24,6 @@ struct Word
 };
 
 
-// Возвращает количество слов в строке. Разделители - пробелы. Строка заканчивается байтами 0x0d, 0x0a.
-int GetNumWordsInString(const uint8 *string);
-
-
-
 namespace Text
 {
     // Возвращает высоту экрана, которую займёт текст text, при выводе от left до right в переменной height. Если
@@ -77,6 +72,9 @@ namespace SU
     bool WordEqualZeroString(Word *word, char *string);
     bool EqualsStrings(char *str1, char *str2, int size);
     bool EqualsZeroStrings(char *str1, char *str2);
+
+    // Возвращает количество слов в строке. Разделители - пробелы. Строка заканчивается байтами 0x0d, 0x0a.
+    int GetNumWordsInString(const uint8 *string);
 
     void LogBufferU8(const uint8 *data, int num);
     void LogBufferU8(pchar label, const uint8 *data, int num);
