@@ -13,6 +13,8 @@ public:
 
     explicit String(pchar, ...);
 
+    void SetFormat(pchar format, ...);
+
     char *c_str() const { return (char *)&buffer[0]; }
 
     int Size() const { return (int)std::strlen(buffer); }
@@ -27,6 +29,8 @@ public:
 
     int Draw(int x, int y, Color::E = Color::Count);
 
+    void DrawInRect(int x, int y, int width, int height, int dy = 0);
+
     int DrawInCenterRect(int x, int y, int width, int height, Color::E = Color::Count);
 
     int DrawWithLimitation(int x, int y, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight);
@@ -39,4 +43,10 @@ public:
 private:
 
     char buffer[capacity];
+
+    int GetLenghtSubString(char *text);
+
+    int DrawSubString(int x, int y, char *text);
+
+    int DrawSpaces(int x, int y, char *text, int *numSymbols);
 };

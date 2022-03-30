@@ -18,6 +18,8 @@ template int  String<(int)32>::DrawInCenterRect(int x, int y, int width, int hei
 template int  String<(int)32>::DrawWithLimitation(int x, int y, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight);
 template void String<(int)32>::DrawRelativelyRight(int xRight, int y, Color::E);
 template int  String<(int)32>::DrawOnBackground(int x, int y, Color::E colorBackground);
+template void String<(int)32>::DrawInRect(int x, int y, int width, int height, int dy);
+template void String<(int)32>::SetFormat(pchar format, ...);
 
 
 template<int capa>
@@ -77,21 +79,38 @@ int String<capa>::Draw(int x, int y, Color::E color)
 }
 
 
-template<int capa>
-String<capa>::String(pchar format, ...)
+template<int capacity>
+String<capacity>::String(pchar format, ...)
 {
-    buffer[0] = '\0';
-
-    char temp_buffer[capa];
+    char temp_buffer[capacity];
 
     std::va_list args;
     va_start(args, format);
     int num_symbols = std::vsprintf(temp_buffer, format, args);
     va_end(args);
 
-    if (capa < num_symbols - 1)
+    if (capacity < num_symbols - 1)
     {
-        LOG_ERROR_TRACE("Very small string buffer %d, need %d", capa, num_symbols);
+        LOG_ERROR_TRACE("Very small string buffer %d, need %d", capacity, num_symbols);
+    }
+
+    std::strcpy(buffer, temp_buffer);
+}
+
+
+template<int capacity>
+void String<capacity>::SetFormat(pchar format, ...)
+{
+    char temp_buffer[1024];
+
+    std::va_list args;
+    va_start(args, format);
+    int num_symbols = std::vsprintf(temp_buffer, format, args);
+    va_end(args);
+
+    if (capacity < num_symbols - 1)
+    {
+        LOG_ERROR_TRACE("Very small string buffer %d, need %d", capacity, num_symbols);
     }
 
     std::strcpy(buffer, temp_buffer);
@@ -191,4 +210,82 @@ int String<capacity>::DrawOnBackground(int x, int y, Color::E colorBackground)
     Color::SetCurrent(colorText);
 
     return Draw(x, y);
+}
+
+
+template<int capacity>
+void String<capacity>::DrawInRect(int x, int y, int width, int, int dy)
+{
+    int xStart = x;
+    int xEnd = xStart + width;
+
+    char *text = buffer;
+
+    while (*text != 0)
+    {
+        int length = GetLenghtSubString(text);
+
+        if (length + x > xEnd)
+        {
+            x = xStart;
+            y += Font::GetHeightSymbol(*text);
+            y += dy;
+        }
+
+        int numSymbols = 0;
+        numSymbols = DrawSubString(x, y, text);
+        text += numSymbols;
+        x += length;
+        x = DrawSpaces(x, y, text, &numSymbols);
+        text += numSymbols;
+    }
+}
+
+
+template<int capacity>
+int String<capacity>::GetLenghtSubString(char *text)
+{
+    int result = 0;
+
+    while (((*text) != ' ') && ((*text) != '\0'))
+    {
+        result += Font::GetLengthSymbol((uint8)*text);
+        text++;
+        result++;
+    }
+
+    return result;
+}
+
+
+template<int capacity>
+int String<capacity>::DrawSubString(int x, int y, char *text)
+{
+    int numSymbols = 0;
+
+    while (((*text) != ' ') && ((*text) != '\0'))
+    {
+        x = Char(*text).Draw(x, y);
+        numSymbols++;
+        text++;
+        x++;
+    }
+
+    return numSymbols;
+}
+
+
+template<int capacity>
+int String<capacity>::DrawSpaces(int x, int y, char *text, int *numSymbols)
+{
+    *numSymbols = 0;
+
+    while (*text == ' ')
+    {
+        x = Char(*text).Draw(x, y);
+        text++;
+        (*numSymbols)++;
+    }
+
+    return x;
 }
