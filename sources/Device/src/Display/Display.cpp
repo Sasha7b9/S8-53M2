@@ -92,7 +92,7 @@ void Display::Init()
 
 void Display::DrawStringNavigation() 
 {
-    DString string = Menu::StringNavigation();
+    String<> string = Menu::StringNavigation();
 
     if(string.Size()) 
     {
@@ -100,7 +100,7 @@ void Display::DrawStringNavigation()
         int height = 10;
         Rectangle(length + 2, height).Draw(Grid::Left(), GRID_TOP, COLOR_FILL);
         Region(length, height - 2).Fill(Grid::Left() + 1, GRID_TOP + 1, COLOR_BACK);
-        DString(string).Draw(Grid::Left() + 2, GRID_TOP + 1, COLOR_FILL);
+        string.Draw(Grid::Left() + 2, GRID_TOP + 1, COLOR_FILL);
     }
 }
 
