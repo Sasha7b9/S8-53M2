@@ -27,6 +27,8 @@ struct Directory
     char lfn[(_MAX_LFN + 1)];
     FILINFO fno;
     DIR dir;
+
+    bool GetName(pchar fuulPath, int numDir, char *nameDirOut);
 };
 
 namespace FDrive
@@ -39,8 +41,6 @@ namespace FDrive
     void Update();
 
     void GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles);
-
-    bool GetNameDir(pchar  fuulPath, int numDir, char *nameDirOut, Directory *sfrd);
 
     bool GetNextNameDir(char *nameDirOut, Directory *sfrd);
 

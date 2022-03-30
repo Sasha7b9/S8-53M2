@@ -149,19 +149,19 @@ void FDrive::GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles)
 }
 
 
-bool FDrive::GetNameDir(pchar fullPath, int numDir, char *nameDirOut, Directory *s)
+bool Directory::GetName(pchar fullPath, int numDir, char *nameDirOut)
 {
-    memcpy(s->nameDir, fullPath, strlen(fullPath));
-    s->nameDir[strlen(fullPath)] = '\0';
+    memcpy(nameDir, fullPath, strlen(fullPath));
+    nameDir[strlen(fullPath)] = '\0';
 
-    strcpy(s->fno.fname, s->lfn);
-    s->fno.fsize = sizeof(s->lfn);
+    strcpy(fno.fname, lfn);
+    fno.fsize = sizeof(lfn);
 
-    DIR *pDir = &s->dir;
-    if (f_opendir(pDir, s->nameDir) == FR_OK)
+    DIR *pDir = &dir;
+    if (f_opendir(pDir, nameDir) == FR_OK)
     {
         int numDirs = 0;
-        FILINFO *pFNO = &s->fno;
+        FILINFO *pFNO = &fno;
         bool alreadyNull = false;
         while (true)
         {

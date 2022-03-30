@@ -104,7 +104,7 @@ void FM::DrawDirs(int x, int y)
     Directory sfrd;
     y += 12;
 
-    if (FDrive::GetNameDir(currentDir, numFirstDir, nameDir, &sfrd))
+    if (sfrd.GetName(currentDir, numFirstDir, nameDir))
     {
         int  drawingDirs = 0;
         DrawLongString(x, y, nameDir, cursorInDirs && ( numFirstDir + drawingDirs == numCurDir));
@@ -256,13 +256,13 @@ void FM::PressLevelDown()
     }
 
     char nameDir[100];
-    Directory sfrd;
+    Directory dir;
 
-    if (FDrive::GetNameDir(currentDir, numCurDir, nameDir, &sfrd))
+    if (dir.GetName(currentDir, numCurDir, nameDir))
     {
         if (std::strlen(currentDir) + std::strlen(nameDir) < 250)
         {
-            FDrive::CloseCurrentDir(&sfrd);
+            FDrive::CloseCurrentDir(&dir);
             std::strcat(currentDir, "\\");
             std::strcat(currentDir, nameDir);
             numFirstDir = numFirstFile = numCurDir = numCurFile = 0;
@@ -270,7 +270,7 @@ void FM::PressLevelDown()
 
     }
 
-    FDrive::CloseCurrentDir(&sfrd);
+    FDrive::CloseCurrentDir(&dir);
 }
 
 
