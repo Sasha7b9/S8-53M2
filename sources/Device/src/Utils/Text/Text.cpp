@@ -14,7 +14,7 @@
 #include <cstdlib>
 
 
-namespace PText
+namespace Text
 {
     // Отрисовка непосредственно символа
     int DrawCharHard(int x, int y, char symbol);
@@ -92,7 +92,7 @@ void Font::Load(TypeFont::E typeFont)
 }
 
 
-bool PText::ByteFontNotEmpty(int eChar, int byte)
+bool Text::ByteFontNotEmpty(int eChar, int byte)
 {
     static const uint8 *bytes = 0;
     static int prevChar = -1;
@@ -107,7 +107,7 @@ bool PText::ByteFontNotEmpty(int eChar, int byte)
 }
 
 
-bool PText::BitInFontIsExist(int eChar, int numByte, int bit)
+bool Text::BitInFontIsExist(int eChar, int numByte, int bit)
 {
     static uint8 prevByte = 0;      // WARN здесь точно статики нужны?
     static int prevChar = -1;
@@ -122,7 +122,7 @@ bool PText::BitInFontIsExist(int eChar, int numByte, int bit)
 }
 
 
-void PText::DrawCharInColorDisplay(int eX, int eY, uchar symbol)
+void Text::DrawCharInColorDisplay(int eX, int eY, uchar symbol)
 {
     int8 width = (int8)Font::font->symbol[symbol].width;
     int8 height = (int8)Font::font->height;
@@ -147,7 +147,7 @@ void PText::DrawCharInColorDisplay(int eX, int eY, uchar symbol)
 }
 
 
-int PText::DrawBigChar(int eX, int eY, int size, char symbol)
+int Text::DrawBigChar(int eX, int eY, int size, char symbol)
 {
     int8 width = (int8)Font::font->symbol[symbol].width;
     int8 height = (int8)Font::font->height;
@@ -180,7 +180,7 @@ int PText::DrawBigChar(int eX, int eY, int size, char symbol)
 }
 
 
-int PText::DrawCharHard(int eX, int eY, char symbol)
+int Text::DrawCharHard(int eX, int eY, char symbol)
 {
     int8 width = (int8)Font::font->symbol[(uint8)symbol].width;
     int8 height = (int8)Font::font->height;
@@ -213,22 +213,22 @@ int Char::Draw(int x, int y, Color::E color)
 
     if (Font::GetSize() == 5)
     {
-        PText::DrawCharHard(x, y + 3, symbol);
+        Text::DrawCharHard(x, y + 3, symbol);
     }
     else if (Font::GetSize() == 8)
     {
-        PText::DrawCharHard(x, y, symbol);
+        Text::DrawCharHard(x, y, symbol);
     }
     else
     {
-        PText::DrawCharInColorDisplay(x, y, (uint8)symbol);
+        Text::DrawCharInColorDisplay(x, y, (uint8)symbol);
     }
 
     return x + Font::GetLengthSymbol((uint8)symbol);
 }
 
 
-int PText::DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int limitY, int limitWidth, int limitHeight)
+int Text::DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int limitY, int limitWidth, int limitHeight)
 {
     int8 width = (int8)Font::font->symbol[symbol].width;
     int8 height = (int8)Font::font->height;
@@ -267,7 +267,7 @@ int PText::DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int 
 //
 //    while (*text)
 //    {
-//        x = PText::DrawCharWithLimitation(x, y, (uint8)*text, limitX, limitY, limitWidth, limitHeight);
+//        x = Text::DrawCharWithLimitation(x, y, (uint8)*text, limitX, limitY, limitWidth, limitHeight);
 //        retValue += Font::GetLengthSymbol((uint8)*text);
 //        text++;
 //    }
@@ -276,7 +276,7 @@ int PText::DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int 
 //}
 
 
-bool PText::IsLetter(char symbol)
+bool Text::IsLetter(char symbol)
 {
     static const bool isLetter[256] =
     {
@@ -302,7 +302,7 @@ bool PText::IsLetter(char symbol)
 }
 
 
-String<> PText::GetWord(pchar firstSymbol, int *length)
+String<> Text::GetWord(pchar firstSymbol, int *length)
 {
     *length = 0;
 
@@ -319,7 +319,7 @@ String<> PText::GetWord(pchar firstSymbol, int *length)
 }
 
 
-bool PText::IsConsonant(char symbol)
+bool Text::IsConsonant(char symbol)
 {
     static const bool isConsonat[256] =
     {
@@ -345,7 +345,7 @@ bool PText::IsConsonant(char symbol)
 }
 
 
-bool PText::CompareArrays(const bool *array1, const bool *array2, int numElems)
+bool Text::CompareArrays(const bool *array1, const bool *array2, int numElems)
 {
     for (int i = 0; i < numElems; i++)
     {
@@ -358,7 +358,7 @@ bool PText::CompareArrays(const bool *array1, const bool *array2, int numElems)
 }
 
 
-bool PText::FindNextTransfer(char *letters, int8 *lettersInSyllable)
+bool Text::FindNextTransfer(char *letters, int8 *lettersInSyllable)
 {
 
 #define VOWEL       0   // Гласная
@@ -426,7 +426,7 @@ bool PText::FindNextTransfer(char *letters, int8 *lettersInSyllable)
 }
 
 
-int8* PText::BreakWord(char *word)
+int8* Text::BreakWord(char *word)
 {
     int num = 0;
     static int8 lengthSyllables[10];
@@ -451,7 +451,7 @@ int8* PText::BreakWord(char *word)
 }
 
 
-char* PText::PartWordForTransfer(char *word, int8* lengthSyllables, int, int numSyllable, char buffer[30])
+char* Text::PartWordForTransfer(char *word, int8* lengthSyllables, int, int numSyllable, char buffer[30])
 {
     int length = 0;
 
@@ -467,7 +467,7 @@ char* PText::PartWordForTransfer(char *word, int8* lengthSyllables, int, int num
 }
 
 
-int PText::DrawPartWord(char *word, int x, int y, int xRight, bool draw)
+int Text::DrawPartWord(char *word, int x, int y, int xRight, bool draw)
 {
     int8 *lengthSyllables = BreakWord(word);
     int numSyllabels = 0;
@@ -500,7 +500,7 @@ int PText::DrawPartWord(char *word, int x, int y, int xRight, bool draw)
 }
 
 
-bool PText::GetHeightTextWithTransfers(int left, int top, int right, pchar text, int *height)
+bool Text::GetHeightTextWithTransfers(int left, int top, int right, pchar text, int *height)
 {
     int numSymb = (int)std::strlen(text);
 
@@ -578,14 +578,14 @@ void Painter::DrawHintsForSmallButton(int x, int y, int width, void *smallButton
 }
 
 
-void PText::Draw2Symbols(int x, int y, char symbol1, char symbol2, Color::E color1, Color::E color2)
+void Text::Draw2Symbols(int x, int y, char symbol1, char symbol2, Color::E color1, Color::E color2)
 {
     Char(symbol1).Draw(x, y, color1);
     Char(symbol2).Draw(x, y, color2);
 }
 
 
-void PText::Draw4SymbolsInRect(int x, int y, char eChar, Color::E color)
+void Text::Draw4SymbolsInRect(int x, int y, char eChar, Color::E color)
 {
     Color::SetCurrent(color);
 
@@ -597,7 +597,7 @@ void PText::Draw4SymbolsInRect(int x, int y, char eChar, Color::E color)
 }
 
 
-void PText::Draw10SymbolsInRect(int x, int y, char eChar)
+void Text::Draw10SymbolsInRect(int x, int y, char eChar)
 {
     for (int i = 0; i < 5; i++)
     {
@@ -607,7 +607,7 @@ void PText::Draw10SymbolsInRect(int x, int y, char eChar)
 }
 
 
-void PText::DrawBig(int eX, int eY, int size, pchar text)
+void Text::DrawBig(int eX, int eY, int size, pchar text)
 {
     int numSymbols = (int)std::strlen(text);
 

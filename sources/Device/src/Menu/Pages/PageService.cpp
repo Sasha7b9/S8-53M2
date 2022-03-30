@@ -234,7 +234,7 @@ static void Draw_Math_Function_Type_Sum(int x, int y)
 static void Draw_Math_Function_Type_Mul(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 4, y + 3, SYMBOL_MATH_FUNC_MUL);
+    Text::Draw4SymbolsInRect(x + 4, y + 3, SYMBOL_MATH_FUNC_MUL);
     Font::Set(TypeFont::_8);
 }
 
@@ -899,7 +899,7 @@ static void Information_Draw()
     OTP_GetSerialNumber(buffer);
     if (buffer[0])
     {
-        PText::DrawFormat(x, y, COLOR_FILL, lang == Russian ? "C/Í : %s" : "S/N : %s", buffer);
+        Text::DrawFormat(x, y, COLOR_FILL, lang == Russian ? "C/Í : %s" : "S/N : %s", buffer);
         y += dY;
     }
     */

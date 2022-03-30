@@ -13,7 +13,7 @@ private:
 };
 
 
-namespace PText
+namespace Text
 {
     // Возвращает высоту экрана, которую займёт текст text, при выводе от left до right в переменной height. Если
     // bool == false, то текст не влезет на экран 

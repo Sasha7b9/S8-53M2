@@ -649,7 +649,7 @@ static void OnPress_SerialNumber_Change()
 static void Draw_SerialNumber_Change(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 2, y + 2, SYMBOL_TAB);
+    Text::Draw4SymbolsInRect(x + 2, y + 2, SYMBOL_TAB);
     Font::Set(TypeFont::_8);
 }
 
@@ -681,7 +681,7 @@ static void OnPress_SerialNumber_Save()
 static void Draw_SerialNumber_Save(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_SAVE_TO_MEM);
+    Text::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_SAVE_TO_MEM);
     Font::Set(TypeFont::_8);
 }
 

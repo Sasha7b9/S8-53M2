@@ -87,7 +87,7 @@ void PageCursors::DrawMenuCursVoltage(int x, int y, bool top, bool bottom)
 void DrawSB_Exit(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 2, y + 1, '\x2e');
+    Text::Draw4SymbolsInRect(x + 2, y + 1, '\x2e');
     Font::Set(TypeFont::_8);
 }
 

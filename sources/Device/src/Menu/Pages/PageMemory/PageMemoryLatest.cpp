@@ -29,7 +29,7 @@ static void PressSB_MemLast_Next()
 static void DrawSB_MemLast_Next(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 2, y + 2, '\x64');
+    Text::Draw4SymbolsInRect(x + 2, y + 2, '\x64');
     Font::Set(TypeFont::_8);
 }
 
@@ -54,7 +54,7 @@ static void PressSB_MemLast_Prev()
 static void DrawSB_MemLast_Prev(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 2, y + 2, '\x20');
+    Text::Draw4SymbolsInRect(x + 2, y + 2, '\x20');
     Font::Set(TypeFont::_8);
 }
 
@@ -73,7 +73,7 @@ static const SmallButton sbMemLatestPrev
 static void DrawSB_MemLast_IntEnter(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 2, y + 1, '\x40');
+    Text::Draw4SymbolsInRect(x + 2, y + 1, '\x40');
     Font::Set(TypeFont::_8);
 }
 
@@ -101,7 +101,7 @@ static void DrawSB_MemLast_SaveToFlash(int x, int y)
     if (FDrive::isConnected)
     {
         Font::Set(TypeFont::UGO2);
-        PText::Draw4SymbolsInRect(x + 2, y + 1, '\x42');
+        Text::Draw4SymbolsInRect(x + 2, y + 1, '\x42');
         Font::Set(TypeFont::_8);
     }
 }

@@ -33,7 +33,7 @@ static void PressSB_SetMask_Delete()
 static void DrawSB_SetMask_Delete(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_DELETE);
+    Text::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_DELETE);
     Font::Set(TypeFont::_8);
 }
 
@@ -71,7 +71,7 @@ static void PressSB_SetMask_Backspace()
 static void DrawSB_SetMask_Backspace(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_BACKSPACE);
+    Text::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_BACKSPACE);
     Font::Set(TypeFont::_8);
 }
 
@@ -129,7 +129,7 @@ static void PressSB_SetMask_Insert()
 static void DrawSB_SetMask_Insert(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 2, y + 2, SYMBOL_INSERT);
+    Text::Draw4SymbolsInRect(x + 2, y + 2, SYMBOL_INSERT);
     Font::Set(TypeFont::_8);
 }
 

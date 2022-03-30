@@ -152,7 +152,7 @@ void HiPart::DrawHiRightPart()
         y = 1;
         if (StateWorkFPGA::GetCurrent() == StateWorkFPGA::Work)
         {
-            PText::Draw4SymbolsInRect(x, 1, SYMBOL_PLAY);
+            Text::Draw4SymbolsInRect(x, 1, SYMBOL_PLAY);
         }
         else if (StateWorkFPGA::GetCurrent() == StateWorkFPGA::Stop)
         {

@@ -51,7 +51,7 @@ static void PressSB_SetName_Delete()
 static void DrawSB_SetName_Delete(int x, int y) //-V524
 {
     Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_DELETE);
+    Text::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_DELETE);
     Font::Set(TypeFont::_8);
 }
 
@@ -80,7 +80,7 @@ static void PressSB_SetName_Backspace()
 static void DrawSB_SetName_Backspace(int x, int y) //-V524
 {
     Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_BACKSPACE);
+    Text::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_BACKSPACE);
     Font::Set(TypeFont::_8);
 }
 
@@ -111,7 +111,7 @@ static void PressSB_SetName_Insert()
 static void DrawSB_SetName_Insert(int x, int y) //-V524
 {
     Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 2, y + 2, '\x26');
+    Text::Draw4SymbolsInRect(x + 2, y + 2, '\x26');
     Font::Set(TypeFont::_8);
 }
 
@@ -142,7 +142,7 @@ static void DrawSB_MemExtSetNameSave(int x, int y)
     if (FDrive::isConnected)
     {
         Font::Set(TypeFont::UGO2);
-        PText::Draw4SymbolsInRect(x + 2, y + 1, '\x42');
+        Text::Draw4SymbolsInRect(x + 2, y + 1, '\x42');
         Font::Set(TypeFont::_8);
     }
 }

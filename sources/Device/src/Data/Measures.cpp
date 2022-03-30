@@ -279,7 +279,7 @@ void Measures::DrawPageChoice()
             Rectangle(dX, dY).Draw(x0, y0, COLOR_FILL);
             Region(dX - 2, dY - 2).Fill(x0 + 1, y0 + 1, active ? Color::FLASH_10 : COLOR_BACK);
             Color::SetCurrent(active ? Color::FLASH_01 : COLOR_FILL);
-            PText::Draw10SymbolsInRect(x0 + 2, y0 + 1, GetChar(meas));
+            Text::Draw10SymbolsInRect(x0 + 2, y0 + 1, GetChar(meas));
             Font::Set(TypeFont::_5);
             String<>(measures[meas].name).DrawRelativelyRight(x0 + dX, y0 + 6, active ? Color::FLASH_01 : COLOR_FILL);
             Font::Set(TypeFont::UGO);

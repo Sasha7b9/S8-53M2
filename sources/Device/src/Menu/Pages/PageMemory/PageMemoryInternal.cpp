@@ -32,7 +32,7 @@ static void PressSB_MemInt_ShowSignalAlways()
 static void DrawSB_MemInt_ShowSignalAllways_No(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 2, y + 1, '\x68');
+    Text::Draw4SymbolsInRect(x + 2, y + 1, '\x68');
     Font::Set(TypeFont::_8);
 }
 
@@ -40,7 +40,7 @@ static void DrawSB_MemInt_ShowSignalAllways_No(int x, int y)
 static void DrawSB_MemInt_ShowSignalAllways_Yes(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 2, y + 1, '\x66');
+    Text::Draw4SymbolsInRect(x + 2, y + 1, '\x66');
     Font::Set(TypeFont::_8);
 }
 
@@ -88,7 +88,7 @@ static void PressSB_MemInt_ModeShow()
 static void DrawSB_MemInt_ModeShow_Direct(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_MEM_INT_SHOW_DIRECT);
+    Text::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_MEM_INT_SHOW_DIRECT);
     Font::Set(TypeFont::_8);
 }
 
@@ -96,7 +96,7 @@ static void DrawSB_MemInt_ModeShow_Direct(int x, int y)
 static void DrawSB_MemInt_ModeShow_Saved(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_MEM_INT_SHOW_SAVED);
+    Text::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_MEM_INT_SHOW_SAVED);
     Font::Set(TypeFont::_8);
 }
 
@@ -166,7 +166,7 @@ static void PressSB_MemInt_Delete()
 static void DrawSB_MemInt_Delete(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_DELETE);
+    Text::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_DELETE);
     Font::Set(TypeFont::_8);
 }
 
@@ -214,7 +214,7 @@ static void PressSB_MemInt_SaveToIntMemory()
 static void DrawSB_MemInt_SaveToIntMemory(int x, int y)
 {
     Font::Set(TypeFont::UGO2);
-    PText::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_SAVE_TO_MEM);
+    Text::Draw4SymbolsInRect(x + 2, y + 1, SYMBOL_SAVE_TO_MEM);
     Font::Set(TypeFont::_8);
 }
 
@@ -242,7 +242,7 @@ static void DrawSB_MemInt_SaveToFlashDrive(int x, int y) //-V524
     if (FDrive::isConnected)
     {
         Font::Set(TypeFont::UGO2);
-        PText::Draw4SymbolsInRect(x + 2, y + 1, '\x42');
+        Text::Draw4SymbolsInRect(x + 2, y + 1, '\x42');
         Font::Set(TypeFont::_8);
     }
 }

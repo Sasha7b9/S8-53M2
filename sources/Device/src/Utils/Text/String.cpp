@@ -189,7 +189,7 @@ int String<capacity>::DrawWithLimitation(int x, int y, Color::E color, int limit
 
     while (*text)
     {
-        x = PText::DrawCharWithLimitation(x, y, (uint8)*text, limitX, limitY, limitWidth, limitHeight);
+        x = Text::DrawCharWithLimitation(x, y, (uint8)*text, limitX, limitY, limitWidth, limitHeight);
         retValue += Font::GetLengthSymbol((uint8)*text);
         text++;
     }
@@ -316,7 +316,7 @@ int String<capacity>::DrawInBoundedRectWithTransfers(int x, int y, int width, Co
 {
     int height = 0;
 
-    PText::GetHeightTextWithTransfers(x + 3, y + 3, x + width - 8, buffer, &height);
+    Text::GetHeightTextWithTransfers(x + 3, y + 3, x + width - 8, buffer, &height);
 
     Rectangle(width, height).Draw(x, y, colorFill);
     Region(width - 2, height - 2).Fill(x + 1, y + 1, colorBackground);
@@ -349,7 +349,7 @@ int String<capacity>::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eH
         while (x < right - 1 && curSymbol < numSymb)
         {
             int length = 0;
-            String<> word = PText::GetWord(text + curSymbol, &length);
+            String<> word = Text::GetWord(text + curSymbol, &length);
 
             if (length <= 1)                            // Нет буквенных символов или один, т.е. слово не найдено
             {
@@ -370,7 +370,7 @@ int String<capacity>::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eH
                 int lengthString = Font::GetLengthText(word.c_str());
                 if (x + lengthString > right + 5)
                 {
-                    int numSymbols = PText::DrawPartWord(word.c_str(), x, y, right, true);
+                    int numSymbols = Text::DrawPartWord(word.c_str(), x, y, right, true);
                     x = right;
                     curSymbol += numSymbols;
                     continue;
