@@ -14,7 +14,7 @@
 #include <cstdlib>
 
 
-pchar const DString::_ERROR = "---.---";
+//pchar const DString::_ERROR = "---.---";
 
 
 namespace PText
