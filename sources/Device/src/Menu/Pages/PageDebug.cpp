@@ -177,7 +177,7 @@ static const Button bEraseData
 );
 
 
-void PageDebug::PageADC::ResetCalRShift(Chan ch)
+void PageDebug::ADC::ResetCalRShift(Chan ch)
 {
     std::memset(&set.chan[ch].cal_rshift[0][0], 0, sizeof(int8) * Range::Count * ModeCouple::Count);
 }
@@ -185,8 +185,8 @@ void PageDebug::PageADC::ResetCalRShift(Chan ch)
 
 static void OnPress_RestRShift()
 {
-    PageDebug::PageADC::ResetCalRShift(ChA);
-    PageDebug::PageADC::ResetCalRShift(ChB);
+    PageDebug::ADC::ResetCalRShift(ChA);
+    PageDebug::ADC::ResetCalRShift(ChB);
 }
 
 
@@ -294,7 +294,7 @@ static const Governor mgADC_FirstByte
 
 static const arrayItems itemsADC =
 {
-    (void *)PageDebug::PageADC::Balance::self,
+    (void *)PageDebug::ADC::Balance::self,
     (void *)&mpADC_Stretch,
     (void *)&mpADC_Shift,
     (void *)&mpADC_AltRShift,
@@ -315,7 +315,7 @@ static const Page mpADC
 
 static const Governor mgADC_Balance_ShiftA
 (
-    PageDebug::PageADC::Balance::self, nullptr,
+    PageDebug::ADC::Balance::self, nullptr,
     "Смещение 1", "Offset 1",
     "",
     "",
@@ -325,7 +325,7 @@ static const Governor mgADC_Balance_ShiftA
 
 static const Governor mgADC_Balance_ShiftB
 (
-    PageDebug::PageADC::Balance::self, nullptr,
+    PageDebug::ADC::Balance::self, nullptr,
     "Смещение 2", "Offset 2",
     "",
     "",
@@ -349,7 +349,7 @@ static const Page mpADC_Balance
 );
 
 
-void PageDebug::PageADC::ResetCalStretch(Chan ch)
+void PageDebug::ADC::ResetCalStretch(Chan ch)
 {
     CAL_STRETCH(ch) = 1.0f;
 }
@@ -357,8 +357,8 @@ void PageDebug::PageADC::ResetCalStretch(Chan ch)
 
 static void OnPress_ResetStretch()
 {
-    PageDebug::PageADC::ResetCalStretch(ChA);
-    PageDebug::PageADC::ResetCalStretch(ChB);
+    PageDebug::ADC::ResetCalStretch(ChA);
+    PageDebug::ADC::ResetCalStretch(ChB);
 }
 
 
@@ -818,6 +818,6 @@ static const Page pDebug
 
 
 const Page *PageDebug::self = &pDebug;
-const Page *PageDebug::PageADC::Balance::self = &mpADC_Balance;
+const Page *PageDebug::ADC::Balance::self = &mpADC_Balance;
 const Page *PageDebug::SerialNumber::self = &ppSerialNumber;
 

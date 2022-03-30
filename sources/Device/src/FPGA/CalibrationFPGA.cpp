@@ -247,9 +247,9 @@ static bool FPGA::Calibrator::CalibrateRShift(Chan ch)
 
     progress.Reset(Range::Count * ModeCouple::Count);
 
-    PageDebug::PageADC::ResetCalRShift(ch);
+    PageDebug::ADC::ResetCalRShift(ch);
 
-    PageDebug::PageADC::ResetCalStretch(ch);
+    PageDebug::ADC::ResetCalStretch(ch);
 
     RShift::Set(ch, RShift::ZERO);
     TBase::Set(TBase::_200us);
@@ -295,7 +295,7 @@ static bool FPGA::Calibrator::CalibrateStretch(Chan ch)
 
     progress.Reset(1);
 
-    PageDebug::PageADC::ResetCalStretch(ch);
+    PageDebug::ADC::ResetCalStretch(ch);
 
     ModeCouple::Set(ch, ModeCouple::AC);
     Range::Set(ch, Range::_500mV);
