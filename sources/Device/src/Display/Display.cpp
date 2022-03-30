@@ -18,7 +18,7 @@
 #include "Data/Storage.h"
 #include "Display/Screen/LowPart.h"
 #include "Utils/Text/Warnings.h"
-#include "Utils/Text/Strings.h"
+#include "Utils/Text/Text.h"
 #include <cstdio>
 
 

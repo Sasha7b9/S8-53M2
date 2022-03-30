@@ -12,7 +12,6 @@
 #include "Display/Screen/Grid.h"
 #include "Menu/Menu.h"
 #include "Utils/Text/Warnings.h"
-#include "Utils/Text/Strings.h"
 #include "Utils/Text/Symbols.h"
 #include "Utils/Text/Text.h"
 #include <cstring>

@@ -15,7 +15,6 @@
 #include "Hardware/VCP/VCP.h"
 #include "Data/Processing.h"
 #include "Utils/Text/Text.h"
-#include "Utils/Text/Strings.h"
 #include "Utils/Text/Symbols.h"
 #include <cstdio>
 #include <cstring>

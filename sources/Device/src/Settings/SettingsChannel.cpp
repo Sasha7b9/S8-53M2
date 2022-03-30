@@ -3,7 +3,7 @@
 #include "SettingsChannel.h"
 #include "FPGA/FPGA.h"
 #include "Utils/Math.h"
-#include "Utils/Text/Strings.h"
+#include "Utils/Text/Text.h"
 
 
 // Структура для описания диапазона масштаба по напряжению.

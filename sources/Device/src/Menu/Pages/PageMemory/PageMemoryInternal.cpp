@@ -11,7 +11,6 @@
 #include "Utils/Text/Text.h"
 #include "Utils/Text/Symbols.h"
 #include "Utils/Text/Warnings.h"
-#include "Utils/Text/Strings.h"
 
 
 static const SmallButton sbExitMemInt    //  нопка дл€ выхода из режима малых кнопок.

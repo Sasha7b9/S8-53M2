@@ -3,7 +3,7 @@
 #include "Log.h"
 #include "SCPI.h"
 #include "Utils/Containers/Buffer.h"
-#include "Utils/Text/Strings.h"
+#include "Utils/Text/Text.h"
 #include <cctype>
 #include <cstring>
 #include <cstdlib>

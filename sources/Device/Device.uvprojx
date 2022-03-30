@@ -1973,16 +1973,6 @@
               <FilePath>.\src\Utils\Text\String.h</FilePath>
             </File>
             <File>
-              <FileName>Strings.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Text\Strings.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Strings.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\Text\Strings.h</FilePath>
-            </File>
-            <File>
               <FileName>Symbols.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\Text\Symbols.h</FilePath>
@@ -3986,16 +3976,6 @@
               <FileName>String.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Utils\Text\String.h</FilePath>
-            </File>
-            <File>
-              <FileName>Strings.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Text\Strings.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Strings.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\Text\Strings.h</FilePath>
             </File>
             <File>
               <FileName>Symbols.h</FileName>

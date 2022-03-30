@@ -7,7 +7,7 @@
 #include "Settings/Settings.h"
 #include "Data/Storage.h"
 #include "Menu/Pages/Definition.h"
-#include "Utils/Text/Strings.h"
+#include "Utils/Text/Text.h"
 #include <cmath>
 #include <cstring>
 #include <cstdio>

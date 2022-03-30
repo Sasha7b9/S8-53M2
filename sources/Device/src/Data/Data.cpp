@@ -7,7 +7,7 @@
 #include "Data/Storage.h"
 #include "Utils/Math.h"
 #include "Data/Processing.h"
-#include "Utils/Text/Strings.h"
+#include "Utils/Text/Text.h"
 #include <cstring>
 
 
