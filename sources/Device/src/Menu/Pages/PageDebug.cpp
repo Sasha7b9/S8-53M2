@@ -22,13 +22,12 @@
 
 extern const Page  pDebug;
 extern const Page  mpConsole;
-extern const Page  mpADC;                              // ОТЛАДКА - АЦП
-extern const Page  mpADC_Balance;                      // ОТЛАДКА - АЦП - БАЛАНС
-extern const Page  mpADC_Stretch;                      // ОТЛАДКА - АЦП - РАСТЯЖКА
+extern const Page  mpADC;
+extern const Page  mpADC_Stretch;
 extern const Page  mpADC_Shift;
-extern const Page  mpADC_AltRShift;                    // ОТЛАДКА - АЦП - ДОП СМЕЩ
-extern const Page  mpRandomizer;                       // ОТЛАДКА - РАНД-ТОР
-extern const Page  ppSerialNumber;                     // ОТЛАДКА - С/Н
+extern const Page  mpADC_AltRShift;
+extern const Page  mpRandomizer;
+extern const Page  ppSerialNumber;
 
 
 // В этой структуре будут храниться данные серийного номера при открытой странице ppSerialNumer
@@ -38,9 +37,6 @@ static struct StructForSN
     int year;       // Соответственно, год.
     int curDigt;    // Соответственно, номером (0) или годом (1) управляет ручка УСТАНОВКА.
 } structSN;
-
-
-const Page *PageDebug::SerialNumber::self = &ppSerialNumber;
 
 
 static const Choice mcStats =
@@ -298,7 +294,7 @@ static const Governor mgADC_FirstByte
 
 static const arrayItems itemsADC =
 {
-    (void *)&mpADC_Balance,
+    (void *)PageDebug::PageADC::Balance::self,
     (void *)&mpADC_Stretch,
     (void *)&mpADC_Shift,
     (void *)&mpADC_AltRShift,
@@ -319,7 +315,7 @@ static const Page mpADC
 
 static const Governor mgADC_Balance_ShiftA
 (
-    &mpADC_Balance, nullptr,
+    PageDebug::PageADC::Balance::self, nullptr,
     "Смещение 1", "Offset 1",
     "",
     "",
@@ -329,7 +325,7 @@ static const Governor mgADC_Balance_ShiftA
 
 static const Governor mgADC_Balance_ShiftB
 (
-    &mpADC_Balance, nullptr,
+    PageDebug::PageADC::Balance::self, nullptr,
     "Смещение 2", "Offset 2",
     "",
     "",
@@ -822,3 +818,6 @@ static const Page pDebug
 
 
 const Page *PageDebug::self = &pDebug;
+const Page *PageDebug::PageADC::Balance::self = &mpADC_Balance;
+const Page *PageDebug::SerialNumber::self = &ppSerialNumber;
+

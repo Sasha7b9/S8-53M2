@@ -84,6 +84,11 @@ struct PageDebug
         static void ResetCalRShift(Chan);
 
         static void ResetCalStretch(Chan);
+
+        struct Balance
+        {
+            static const Page *self;
+        };
     };
 };
 
