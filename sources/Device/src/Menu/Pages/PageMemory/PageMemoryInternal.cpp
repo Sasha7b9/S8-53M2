@@ -282,7 +282,7 @@ static void DrawMemoryWave(int num, bool exist)
     }
     else
     {
-        DString("\x88").Draw(x + 3, y + 1);
+        String<>("\x88").Draw(x + 3, y + 1);
     }
 }
 

@@ -182,7 +182,7 @@ static void DrawFileMask(int x, int y)
             }
             else
             {
-                x = DString(Tables::symbolsAlphaBet[*ch + 0x40]).Draw(x, y);
+                x = String<>(Tables::symbolsAlphaBet[*ch + 0x40]).Draw(x, y);
             }
         }
         ch++;
@@ -257,7 +257,7 @@ static void DrawSetMask()
     Color::SetCurrent(COLOR_FILL);
     for (int i = 0; i < sizeof(strings) / 4; i++)
     {
-        DString(strings[i]).Draw(x0 + deltaX, y0 + 100 + deltaY * i);
+        String<>(strings[i]).Draw(x0 + deltaX, y0 + 100 + deltaY * i);
     }
 }
 

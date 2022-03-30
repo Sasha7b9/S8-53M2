@@ -115,7 +115,7 @@ static void DrawSetName()
         position++;
     }
 
-    int x = DString(FILE_NAME).Draw(x0 + deltaX, y0 + 65, COLOR_FILL);
+    int x = String<>(FILE_NAME).Draw(x0 + deltaX, y0 + 65, COLOR_FILL);
     Region(5, 8).Fill(x, y0 + 65, Color::FLASH_10);
 }
 
