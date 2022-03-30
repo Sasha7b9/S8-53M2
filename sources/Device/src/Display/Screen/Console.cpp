@@ -58,7 +58,7 @@ void Console::Draw()
 
         Region(width, 5).Fill(Grid::Left() + 1, y, COLOR_BACK);
 
-        DString(strings[numString]).Draw(Grid::Left() + 2, y - 10, COLOR_FILL);
+        String<>(strings[numString]).Draw(Grid::Left() + 2, y - 10, COLOR_FILL);
 
         y += height + 1;
     }

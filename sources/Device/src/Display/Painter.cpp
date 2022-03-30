@@ -569,7 +569,7 @@ void Painter::EndScene(bool endScene)
 
 #ifdef DEBUG
 
-    DString("Отладка").Draw(262, 207, COLOR_FILL);
+    String<>("Отладка").Draw(262, 207, COLOR_FILL);
 
 #endif
 
