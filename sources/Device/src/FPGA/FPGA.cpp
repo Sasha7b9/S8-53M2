@@ -215,12 +215,9 @@ void FPGA::Start()
 {
     PrepareForCycle();
 
-    if (SET_TBASE == TBase::_2ns)
-    {
-        while (meterStart.ElapsedUS() < 220) {}
+    while (meterStart.ElapsedUS() < 220) {}
 
-        meterStart.Reset();
-    }
+    meterStart.Reset();
 
     HAL_FMC::Write(WR_PRED, FPGA::Launch::PredForWrite());
     HAL_FMC::Write(WR_START, 1);
