@@ -182,7 +182,6 @@ void Display::Update(bool endScene)
 {
     if (funcOnHand != 0)
     {
-        funcOnHand();
         return;
     }
 
