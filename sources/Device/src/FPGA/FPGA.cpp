@@ -356,7 +356,7 @@ int FPGA::ShiftRandomizerADC()
         uint16 min = 0;
         uint16 max = 0;
 
-        if (Panel::TimePassedAfterLastEvent() < 20)
+        if (SOUND_ENABLED && Panel::TimePassedAfterLastEvent() < 100)
         {
             return TShift::ERROR;
         }
