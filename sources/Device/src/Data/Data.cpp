@@ -132,31 +132,29 @@ int DataStruct::PrepareForNormalDrawP2P()
 
     int pos = 0;
 
-//    if (SET_SELFRECORDER)
-//    {
-//        if (rec_points > 0)
-//        {
-//            if (rec_points <= bytes_on_screen)
-//            {
-//                for (int i = 0; i < rec_points; i++)
-//                {
-//                    screenA[pos] = A[i];
-//                    screenB[pos] = B[i];
-//                    pos++;
-//                }
-//            }
-//            else
-//            {
-//                for (int i = rec_points - bytes_on_screen; i < rec_points; i++)
-//                {
-//                    screenA[pos] = A[i];
-//                    screenB[pos] = B[i];
-//                }
-//            }
-//        }
-//  }
-//  else
-//  {
+    if (SET_SELFRECORDER)
+    {
+        if (rec_points < bytes_on_screen)
+        {
+            for (int i = 0; i < rec_points; i++)
+            {
+                screenA[pos] = A[i];
+                screenB[pos] = B[i];
+                pos++;
+            }
+        }
+        else
+        {
+            for (int i = rec_points - bytes_on_screen; i < rec_points; i++)
+            {
+                screenA[pos] = A[i];
+                screenB[pos] = B[i];
+                pos++;
+            }
+        }
+    }
+    else
+    {
         while (drawing_points-- > rec_points)
         {
             pos++;
@@ -178,7 +176,7 @@ int DataStruct::PrepareForNormalDrawP2P()
                 pos = 0;
             }
         }
-//    }
+    }
 
     uint8 *a = screenA.Data();
     uint8 *b = screenB.Data();
