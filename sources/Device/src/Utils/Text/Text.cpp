@@ -935,6 +935,11 @@ String<> SU::Float2String(float value, bool alwaysSign, int numDigits)
         result.Append("0");
     }
 
+    if (result.Size() > numDigits + 2)
+    {
+        LOG_ERROR("Неправильное значение: %s", result.c_str());
+    }
+
     return result;
 }
 
