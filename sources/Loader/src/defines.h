@@ -1,6 +1,6 @@
 // (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-#include "common/defines_.h"
+#include "defines_.h"
 
 
 #ifndef __cplusplus
@@ -24,4 +24,4 @@ typedef unsigned char bool;
 #define WR_RAZV  0
 
 
-#include "common/Log_.h"
+#include "Log.h"

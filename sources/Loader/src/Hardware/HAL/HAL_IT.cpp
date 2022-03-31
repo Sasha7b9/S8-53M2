@@ -1,7 +1,7 @@
 // (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "main.h"
-#include "common/Hardware/HAL/HAL_.h"
+#include "Hardware/HAL/HAL.h"
 #include <stm32f4xx_hal.h>
 
 

@@ -1,6 +1,6 @@
 // (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-#include "common/Settings/SettingsTypes_.h"
+#include "Settings/SettingsTypes.h"
 
 
 #define SOUND_ENABLED       (set.service.soundEnabled)          // SettingsService.soundEnabled
