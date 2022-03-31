@@ -848,7 +848,7 @@ void SU::LogBufferF(pchar label, const float *data, int num)
 
 String<> SU::FloatFract2String(float value, bool alwaysSign)
 {
-    return String<>(Float2String(value, alwaysSign, 4).c_str());
+    return String<>(Float2String(value, alwaysSign, 4));
 }
 
 
@@ -1046,7 +1046,7 @@ String<> SU::Voltage2String(float voltage, bool alwaysSign)
         voltage *= 1e-3f;
     }
 
-    String<> result = String<>(SU::Float2String(voltage, alwaysSign, 4).c_str());
+    String<> result = SU::Float2String(voltage, alwaysSign, 4);
     result.Append(suffix);
 
     return result;
@@ -1139,7 +1139,7 @@ String<> SU::Freq2String(float freq, bool log)
 
 String<> SU::Phase2String(float phase, bool)
 {
-    String<> result(SU::Float2String(phase, false, 4).c_str());
+    String<> result = SU::Float2String(phase, false, 4);
     result.Append("\xa8");
     return result;
 }
@@ -1147,7 +1147,7 @@ String<> SU::Phase2String(float phase, bool)
 
 String<> SU::Float2Db(float value, int numDigits)
 {
-    String<> result(SU::Float2String(value, false, numDigits).c_str());
+    String<> result = SU::Float2String(value, false, numDigits);
 
     result.Append(LANG_RU ? "Да" : "dB");
 
