@@ -915,7 +915,7 @@ String<> SU::Float2String(float value, bool alwaysSign, int numDigits)
 
     std::snprintf(pBuffer, 19, format, std::fabs(value));
     
-    if(std::strlen(pBuffer) > numDigits + 1)        // Это затычка на то, что число -9.99999 выводится как -10.000, хотя должно быть четыре цифры - 2 цифры после запятой
+    if((int)std::strlen(pBuffer) > numDigits + 1)        // Это затычка на то, что число -9.99999 выводится как -10.000, хотя должно быть четыре цифры - 2 цифры после запятой
     {
         pBuffer[numDigits + 1] = '\0';
     }
