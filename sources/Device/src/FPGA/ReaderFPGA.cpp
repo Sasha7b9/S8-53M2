@@ -248,13 +248,19 @@ void FPGA::Reader::ReadPoints(Chan ch)
     if (SET_PEAKDET_IS_ENABLED)
     {
         uint8 *p = dat;
+        p++;                                        // ѕробуем сдвигать дл€ пикового детектора
 
         while (p < end && IN_PROCESS_READ)
         {
             BitSet16 bytes = funcRead();            // ƒанные в режиме пикового детектора хран€тс€ по очереди:
             *p++ = bytes.byte0;                     // максимальное значение
-            *p++ = bytes.byte1;                     // минимальное значение
+            if (p < end)
+            {
+                *p++ = bytes.byte1;                 // минимальное значение
+            }
         }
+
+        *dat = *(dat + 1);                          // “упо первый байт мухлюем
     }
     else
     {
