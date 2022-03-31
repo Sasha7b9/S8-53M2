@@ -993,6 +993,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\Panel\Panel.cpp</FilePath>
             </File>
+            <File>
+              <FileName>Controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Panel\Controls.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2058,6 +2063,11 @@
               <FileName>Panel.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Panel\Panel.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Controls.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Panel\Controls.h</FilePath>
             </File>
           </Files>
         </Group>
