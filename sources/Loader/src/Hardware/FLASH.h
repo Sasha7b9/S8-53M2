@@ -1,6 +1,5 @@
-// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+// (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-#include "defines.h"
 
 
 // Программа и константные данные
@@ -17,8 +16,3 @@
 #define ADDR_FLASH_SECTOR_10    ((uint)0x080C0000)  // Base @ of Sector 10, 128 Kbytes
 #define ADDR_FLASH_SECTOR_11    ((uint)0x080E0000)  // Base @ of Sector 11, 128 Kbytes
 
-
-// Ощищает место для последующей заливки прошивки
-void FLASH_Prepare();
-
-void FLASH_WriteData(uint address, uint8 *data, int size);

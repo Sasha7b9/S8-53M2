@@ -1,12 +1,20 @@
-// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+// 2021/06/30 15:45:16 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-#include "defines.h"
+#include "common/Display/Colors_.h"
 
 
-void Display_Init();
+namespace Display
+{
+    static const int WIDTH = 320;
+    static const int HEIGHT = 240;
 
-void Display_Update();
+    void Init();
 
-void Display_Update1();
+    void BeginFrame(const Color &color);
 
-bool Display_IsRun();
+    void EndFrame();
+
+    void Update();
+
+    bool IsRunning();
+};

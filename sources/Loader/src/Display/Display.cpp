@@ -1,210 +1,139 @@
-// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
-#include "Display.h"
-#include "Painter.h"
-#include "Hardware/Timer.h"
+// 2021/06/30 15:45:23 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+#include "defines.h"
 #include "main.h"
-#include "Utils/Math.h"
-#include <math.h>
+#include "common/Display/Painter/Animated_.h"
+#include "common/Display/Painter/Primitives_.h"
+#include "common/Display/Painter/Text_.h"
+#include "common/Hardware/HAL/HAL_.h"
+#include "common/Utils/Math_.h"
+#include "common/Utils/Containers/Buffer_.h"
+#include "Display/Display.h"
+#include <cmath>
+#include <cstring>
 
 
-
-typedef struct
+namespace Display
 {
-    uint16 x;
-    uint8 y;
-} Vector;
+    static void DrawMessage(pchar message1, pchar message2 = nullptr);
 
+    static void DrawProgressBar();
 
-int numPoints = 0;
-#define SIZE_ARRAY 7000
-Vector array[SIZE_ARRAY];
+    static void DrawBigMNIPI();
 
-
-
-static void DrawProgressBar(uint dT);
-static void DrawBigMNIPI();
-static void InitPoints();
-//static void DrawSeconds();
-//static void DrawFrames();
-
-
-
-void InitHardware()
-{
-    GPIO_InitTypeDef isGPIO_ =
+    struct Vector
     {
-        GPIO_PIN_11,
-        GPIO_MODE_INPUT,
-        GPIO_NOPULL,
-        GPIO_SPEED_HIGH,
-        GPIO_AF0_MCO,
+        uint16 x;
+        uint8 y;
     };
-    // Сигнал готовности дисплея  к приёму команды
-    HAL_GPIO_Init(GPIOG, &isGPIO_);
+
+
+    static int numPoints = 0;
+    static const int SIZE_ARRAY = 7000;
+    static Vector array[SIZE_ARRAY];
+
+    static bool running = false;
+
+    static ABorder border1(Display::WIDTH - 4, Display::HEIGHT - 4, DirectionRotate::Right);
+
+    static void InitPoints();
 }
 
 
-void Display_Init()
+void Display::Update()
 {
-    ms->display.value = 0.0f;
-    ms->display.isRun = false;
-    ms->display.timePrev = 0;
-    ms->display.direction = 10.0f;
+    if (running)
+    {
+        return;
+    }
 
-    gColorBack = Color::BLACK;
-    gColorFill = Color::WHITE;
+    running = true;
 
-    Painter_ResetFlash();
+    static bool first = true;
 
-    InitHardware();
+    if (first)
+    {
+        first = false;
 
-    Painter_SetFont(TypeFont_8);
-    
-    InitPoints();
+        InitPoints();
+    }
+
+    BeginFrame(Color::BLACK);
+
+    if (MainStruct::state != State::NoDrive)
+    {
+        Text("%d сек", TIMER_MS / 1000).Draw(20, 20, Color::WHITE);
+    }
+
+    Rectangle(Display::WIDTH, Display::HEIGHT).Draw(0, 0, Color::WHITE);
+    border1.Draw(2, 2);
+    Rectangle(Display::WIDTH - 8, Display::HEIGHT - 8).Draw(4, 4);
+//    border2.Draw(6, 6);
+//    Rectangle(Display::WIDTH - 16, Display::HEIGHT - 16).Draw(8, 8);
+
+    if (MainStruct::state == State::NoDrive)
+    {
+        Text("МНИПИ").DrawBig(30, 80, 9);
+//        DrawBigMNIPI();
+    }
+    else if (MainStruct::state == State::DriveDetected)
+    {
+        DrawMessage("Обнаружен диск. Попытка подключения...");
+    }
+    else if (MainStruct::state == State::EraseSectors)
+    {
+        DrawMessage("Стираю сектора...");
+
+        DrawProgressBar();
+    }
+    else if (MainStruct::state == State::UpdateInProgress)
+    {
+        DrawMessage("Подождите завершения", "установки программного обеспечения");
+
+        DrawProgressBar();
+
+        Text("%d/%d кБайт, %d кБайт/сек, осталось %d сек", MainStruct::sizeUpdated / 1024,
+            MainStruct::sizeFirmware / 1024, MainStruct::speed / 1024, MainStruct::timeLeft).Draw(60, 200);
+    }
+    else if (MainStruct::state == State::UpdateIsFinished)
+    {
+        DrawMessage("Обновление завершено");
+    }
+
+    EndFrame();
+
+    running = false;
 }
 
 
-void DrawButton(int x, int y, char *text)
+void Display::DrawProgressBar()
 {
-    int width = 25;
-    int height = 20;
-    Painter_DrawRectangle(x, y, width, height);
-    Painter_DrawStringInCenterRect(x, y, width + 2, height - 1, text);
+    int height = 30;
+    int fullWidth = 280;
+    int width = (int)((float)(fullWidth)*MainStruct::percentUpdate);
+
+    Region(width, height).Fill(20, 130);
+    Rectangle(fullWidth, height).Draw(20, 130);
 }
 
 
-void Display_Update1()
+bool Display::IsRunning()
 {
-    static uint min = 1000;
-    static uint max = 0;
-    static uint current = 0;
-
-    uint time = HAL_GetTick();
-
-    Painter_BeginScene(Color::BLACK);
-
-    Painter_DrawTextFormatting(5, 200, Color::WHITE, "%f секунд", HAL_GetTick() / 1000.0f);
-
-//    Painter_DrawTextFormatting(5, 210, Color::WHITE, "%d frames", numFrames);
-
-    Painter_DrawTextFormatting(5, 220, Color::WHITE, "min = %d max = %d, current = %d", min , max, current);
-
-    Painter_EndScene();
-
-    current = HAL_GetTick() - time;
-
-    if (current < min)
-    {
-        min = current;
-    }
-    if (current > max)
-    {
-        max = current;
-    }
+    return running;
 }
 
 
-void Display_Update()
+void Display::DrawMessage(pchar message1, pchar message2)
 {
-    ms->display.isRun = true;
+    Text(message1).DrawInCenterRect(0, 0, Display::WIDTH, 100);
 
-    uint dT = HAL_GetTick() - ms->display.timePrev;
-    ms->display.timePrev = HAL_GetTick();
-
-    Painter_BeginScene(Color::BLACK);
-
-    Painter_SetColor(Color::WHITE);
-
-    if (ms->state == State_Start || ms->state == State_Ok)
+    if (message2)
     {
-        Painter_BeginScene(gColorBack);
-        Painter_SetColor(gColorFill);
-        Painter_DrawRectangle(0, 0, 319, 239);
-        DrawBigMNIPI();
-        Painter_SetColor(Color::WHITE);
-        Painter_DrawStringInCenterRect(0, 180, 320, 20, "Для получения помощи нажмите и удерживайте кнопку ПОМОЩЬ");
-        Painter_DrawStringInCenterRect(0, 205, 320, 20, "Отдел маркетинга: тел./факс. 8-017-270-02-00");
-        Painter_DrawStringInCenterRect(0, 220, 320, 20, "Разработчики: e-mail: mnipi-24(@)tut.by, тел. 8-017-270-02-23");
+        Text(message2).DrawInCenterRect(0, 0, Display::WIDTH, 120);
     }
-    else if (ms->state == State_Mount)
-    {
-        DrawProgressBar(dT);
-    }
-    else if (ms->state == State_WrongFlash)
-    {
-        Painter_DrawStringInCenterRectC(0, 0, 320, 200, "НЕ УДАЛОСЬ ПРОЧИТАТЬ ДИСК", Color::FLASH_10);
-        Painter_DrawStringInCenterRectC(0, 20, 320, 200, "УБЕДИТЕСЬ, ЧТО ФАЙЛОВАЯ СИСТЕМА FAT32", Color::WHITE);
-    }
-    else if (ms->state == State_RequestAction)
-    {
-        Painter_DrawStringInCenterRect(0, 0, 320, 200, "Обнаружено программное обеспечение");
-        Painter_DrawStringInCenterRect(0, 20, 320, 200, "Установить его?");
-
-        DrawButton(290, 55, "ДА");
-        DrawButton(290, 195, "НЕТ");
-    }
-    else if (ms->state == State_Upgrade)
-    {
-        Painter_DrawStringInCenterRect(0, 0, 320, 190, "Подождите завершения");
-        Painter_DrawStringInCenterRect(0, 0, 320, 220, "установки программного обеспечения");
-
-        int height = 30;
-        int fullWidth = 280;
-        int width = (int)(fullWidth * ms->percentUpdate);
-
-        Painter_FillRegion(20, 130, width, height);
-        Painter_DrawRectangle(20, 130, fullWidth, height);
-    }
-
-    //DrawFrames();
-    //DrawSeconds();
-
-    Painter_EndScene();
-    ms->display.isRun = false;
 }
 
 
-void DrawProgressBar(uint dT)
-{
-    const int WIDTH = 300;
-    const int HEIGHT = 20;
-    const int X = 10;
-    const int Y = 200;
-
-    float step = dT / ms->display.direction;
-
-    ms->display.value += step;
-
-    if (ms->display.direction > 0.0f && ms->display.value > WIDTH)
-    {
-        ms->display.direction = -ms->display.direction;
-        ms->display.value -= step;
-    }
-    else if (ms->display.direction < 0.0f && ms->display.value < 0)
-    {
-        ms->display.direction = -ms->display.direction;
-        ms->display.value -= step;
-    }
-
-    int dH = 15;
-    int y0 = 50;
-
-    Painter_DrawStringInCenterRectC(X, y0, WIDTH, 10, "Обнаружен USB-диск.", Color::WHITE);
-    Painter_DrawStringInCenterRect(X, y0 + dH, WIDTH, 10, "Идёт поиск программного обеспечения");
-    Painter_DrawStringInCenterRect(X, y0 + 2 * dH, WIDTH, 10, "Подождите...");
-
-    Painter_DrawRectangle(X, Y, WIDTH, HEIGHT);
-    Painter_FillRegion(X, Y, (int)ms->display.value, HEIGHT);
-}
-
-
-bool Display_IsRun()
-{
-    return ms->display.isRun;
-}
-
-
-static void DrawBigMNIPI()
+void Display::DrawBigMNIPI()
 {
     static uint startTime = 0;
     static bool first = true;
@@ -212,52 +141,53 @@ static void DrawBigMNIPI()
     if (first)
     {
         first = false;
-        startTime = HAL_GetTick();
+        startTime = TIMER_MS;
     }
 
-    uint time = HAL_GetTick() - startTime;
+    uint time = TIMER_MS - startTime;
 
-    int numColor = 0;
-    LIMITATION(numColor, (int)(time / (float)TIME_WAIT * 13.0f), 0, 13);
-    Painter_SetColor((Color::E)(numColor + 2));
+    int numColor = (int)(time / (float)TIME_WAIT * 13.0f);
+    Math::Limitation<int>(&numColor, 0, 13);
+
+    Color((uint8)(numColor + 2)).SetAsCurrent();
 
     float amplitude = 3.0f - (time / (TIME_WAIT / 2.0f)) * 3;
-    LIMIT_BELOW(amplitude, 0.0f);
+    Math::LimitBelow(&amplitude, 0.0f);
     float frequency = 0.05f;
 
     float radius = 5000.0f * (TIME_WAIT) / 3000.0f / time;
-    LIMIT_BELOW(radius, 0);
+    Math::LimitBelow(&radius, 0.0f);
 
     float shift[240];
 
     for (int i = 0; i < 240; i++)
     {
-        shift[i] = amplitude * sin(frequency * time + i / 5.0f);
+        shift[i] = amplitude * std::sin(frequency * time + i / 5.0f);
     }
 
     for (int i = 0; i < numPoints; i++)
     {
-        int x = (int)(array[i].x + shift[array[i].y]);
+        int x = (int)(array[i].x + shift[array[i].y]); //-V537
         int y = array[i].y;
         if (x > 0 && x < 319 && y > 0 && y < 239)
         {
-            Painter_SetPoint(x, y);
+            Point().Draw(x, y);
         }
     }
 }
 
 
-static void InitPoints()
+static void Display::InitPoints()
 {
-    uint8 buffer[320][240];
+    Buffer<uint8> buffer(320 * 240);
 
-    Painter_DrawBigTextInBuffer(31, 70, 9, "МНИПИ", buffer);
+    Text::DrawBigTextInBuffer(31, 70, 9, "МНИПИ", buffer.Data());
 
     for (int x = 0; x < 320; x++)
     {
         for (int y = 0; y < 240; y++)
         {
-            if (buffer[x][y])
+            if (*(buffer.Data() + y * 320 + x))
             {
                 array[numPoints].x = (uint16)x;
                 array[numPoints].y = (uint8)y;

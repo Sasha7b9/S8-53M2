@@ -1,8 +1,12 @@
-// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+// (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-#include "defines.h"
-#include <stm32f4xx_hal.h>
 #include <ff.h>
+#include "Display/Display.h"
+#include "Hardware/FDrive/FDrive.h"
+
+
+#define FILE_NAME "S8-53M.bin"
+#define ENABLE_UPDATE
     
 
 // Key configuration
@@ -11,58 +15,34 @@
 #define KEY_VALUE           0xAAAA5555
 
 // Flash configuration
-#define MAIN_PROGRAM_START_ADDRESS  (uint)0x8020000
+
 #define MAIN_PROGRAM_PAGE_NUMBER    21
 #define NUM_OF_PAGES                256
 #define FLASH_PAGE_SIZE             2048
 
-#define TIME_WAIT   5000    // Время работы заставки
+#define TIME_WAIT   5    // Время работы заставки
 
 
-typedef enum
+struct State { enum E {
+    NoDrive,            // Стартовое значение. Если оно, то не обнаружена флешка
+    DriveDetected,      // Исходное состояние
+    DriveNeedMount,     // Требуется монтирование флешки
+    DriveIsMounted,     // Флешка примонтирована
+    WrongDrive,         // Флешка есть, но прочитать нельзя
+    FileNotFound,       // Если диск примонтирован, но обновления на нём нету
+    EraseSectors,       // Происходит стирание секторов
+    UpdateInProgress,   // Идёт процесс обновления
+    UpdateIsFinished    // Обновление удачно завершено
+};};
+
+
+struct MainStruct
 {
-    State_Start,            // Исходное состояние
-    State_Mount,            // Монтирование флешки
-    State_WrongFlash,       // Флешка есть, но прочитать нельзя
-    State_RequestAction,    // Что делать - апгрейдить или нет
-    State_NotFile,          // Если диск примонтирован, но обновления на нём нету
-    State_Upgrade,          // Процесс апгрейда
-    State_Ok                // Обновление удачно завершено
-} State;
+    static float percentUpdate;
+    static State::E state;
 
-typedef enum
-{
-    StateDisk_Idle,
-    StateDisk_Start
-} StateDisk;
-
-typedef struct
-{
-    bool isRun;
-    float value;
-    float direction;
-    uint timePrev;
-} Display;
-
-typedef struct
-{
-    FATFS USBDISKFatFS;
-    char USBDISKPath[4];
-    StateDisk state;
-    FIL file;
-    int connection;
-    int active;
-} FDrive;
-
-typedef struct
-{
-    FDrive drive;
-    Display display;
-    float percentUpdate;
-    State state;
-} MainStruct;
-
-
-// Данная структура используется во всех модулях программы для уменьшения расхода ОЗУ
-// Память для деё должна быть выделена с помощью malloc в начале программы и возвращена в момент перехода на основную программу
-extern MainStruct *ms;
+    static int sizeFirmware;        // Размер прошивки
+    static int sizeUpdated;         // Обновлено байт
+    static int speed;               // Скорость обновления в байтах/секунду
+    static int timeLeft;            // Осталось времени
+};

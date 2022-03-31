@@ -1,143 +1,166 @@
-// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+// (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+#include "defines.h"
+#include "common/Hardware/Memory/Sector_.h"
+#include "common/Utils/Containers/String_.h"
 #include "main.h"
-#include "globals.h"
-#include "FlashDrive/FlashDrive.h"
-#include "Hardware/Hardware.h"
-#include "Display/Painter.h"
+#include "Hardware/FDrive/FDrive.h"
 #include "Display/Display.h"
-#include "Hardware/Timer.h"
+#include "common/Hardware/Timer_.h"
 #include "Panel/Panel.h"
-#include "Hardware/FLASH.h"
+#include "common/Hardware/HAL/HAL_.h"
+#include "Settings/Settings.h"
+#include <cstdlib>
+#include <usbh_def.h>
+
+USBH_HandleTypeDef hUSBHost;
+
+static void Update();
+static void EraseSectors();
 
 
-/////////////////////////////
-#define FILE_NAME "S8-53.bin"
-
-typedef void(*pFunction)();
-
-
-
-MainStruct *ms;
+float MainStruct::percentUpdate = 0.0f;
+State::E MainStruct::state = State::NoDrive;
+int MainStruct::sizeFirmware = 0;
+int MainStruct::sizeUpdated = 0;
+int MainStruct::speed = 0;
+int MainStruct::timeLeft = 0;
 
 
-
-void Upgrade();
-
-
-/////////////////////////////
 int main()
 {
-    pFunction JumpToApplication;
+#ifndef ENABLE_UPDATE
+    HAL::JumpToApplication();
+#endif
+    
+    Settings::Load();
 
-    ms = (MainStruct *)malloc(sizeof(MainStruct));
-    ms->percentUpdate = 0.0f;
+    HAL::Init();
+ 
+    FDrive::Init();
+    
+    Display::Init();
 
-    Hardware_Init();
-
-    Timer_PauseOnTime(250);
-
-    ms->state = State_Start;
-
-    Display_Init();
-
-    Timer_Enable(kTemp, 10, Display_Update);
-
-    uint timeStart = HAL_GetTick();
-
-    FDrive_Init();
-
-    while (HAL_GetTick() - timeStart < TIME_WAIT && !FDrive_Update())
+    Timer::Enable(TypeTimer::DisplayUpdate, 10, Display::Update);
+    
+    if (MainStruct::state != State::NoDrive)
     {
-    }
+        uint timeStart = TIMER_MS;
 
-    if ((ms->drive.connection && ms->drive.active == 0) ||  // Если флеша подключена, но в активное состояние почему-то не перешла
-        (ms->drive.active && ms->state != State_Mount))     // или перешла в активное состояние, по почему-то не запустился процесс монтирования
-    {
-        free(ms);
-        NVIC_SystemReset();
-    }
-
-    if (ms->state == State_Mount)                           // Это означает, что диск удачно примонтирован
-    {
-        if (FDrive_FileExist(FILE_NAME))                    // Если на диске обнаружена прошивка
+        while ((TIMER_MS - timeStart < TIME_WAIT) &&
+            (MainStruct::state != State::DriveIsMounted) &&
+            (MainStruct::state != State::WrongDrive))
         {
-            ms->state = State_RequestAction;
+            FDrive::Update();
+        }
 
-            while (1)
+        if (MainStruct::state == State::DriveIsMounted)                    // Это означает, что диск удачно примонтирован
+        {
+            if (FDrive::FileExist(FILE_NAME))                       // Если на диске обнаружена прошивка
             {
-                PanelButton button = Panel_PressedButton();
-                if (button == B_F1)
-                {
-                    ms->state = State_Upgrade;
-                    Upgrade();
-                    break;
-                }
-                else if (button == B_F5)
-                {
-                    ms->state = State_Ok;
-                    break;
-                }
+                EraseSectors();
+
+                Update();
             }
         }
-        else
-        {
-            ms->state = State_NotFile;
-        }
+
+        MainStruct::state = State::UpdateIsFinished;
     }
-    else if (ms->state == State_WrongFlash) // Диск не удалось примонтировать
+    else
     {
-        Timer_PauseOnTime(5000);
+        HAL_TIM2::DelayMS(TIME_WAIT);
     }
-
-    ms->state = State_Ok;
-
-    Panel_DeInit();
-
-    Timer_Disable(kTemp);
-
-    while (Display_IsRun())
+    
+    Timer::Disable(TypeTimer::DisplayUpdate);
+    
+    while (Display::IsRunning())
     {
     }
+    
+    Display::Update();
 
-    Display_Update();
+    HAL::DeInit();
 
-    HAL_DeInit();
-
-    free(ms);
-
-    __disable_irq();
-    // Теперь переходим на основную программу
-    JumpToApplication = (pFunction)(*(__IO uint*)(MAIN_PROGRAM_START_ADDRESS + 4));
-    __set_MSP(*(__IO uint*)MAIN_PROGRAM_START_ADDRESS);
-    __enable_irq();
-    JumpToApplication();
+    HAL::JumpToApplication();
+    
+    return 0;
 }
 
 
-
-void Upgrade()
+static void EraseSectors()
 {
+    MainStruct::state = State::EraseSectors;
+
+    const int startSector = Sector::_05_FIRM_1;
+
+    MainStruct::percentUpdate = 0.0f;
+
+    int size = FDrive::OpenFileForRead(FILE_NAME);
+
+    FDrive::CloseOpenedFile();
+
+    int numSectors = size / (128 * 1024);
+
+    if (size % (128 * 1024) != 0)
+    {
+        numSectors++;
+    }
+
+    for (int sector = startSector; sector <= startSector + numSectors; sector++)
+    {
+        Display::Update();
+
+        Sector::Get((Sector::E)sector).Erase();
+
+        MainStruct::percentUpdate += 1.0f / (float)numSectors;
+
+        Display::Update();
+    }
+
+}
+
+
+static void Update()
+{
+    MainStruct::state = State::UpdateInProgress;
+
     const int sizeSector = 1 * 1024;
 
     uint8 buffer[sizeSector];
 
-    FLASH_Prepare();
+    int size = FDrive::OpenFileForRead(FILE_NAME);
+    const int fullSize = size;
+    uint address = 0x08020000U;
 
-    int size = FDrive_OpenFileForRead(FILE_NAME);
-    int fullSize = size;
-    uint address = ADDR_SECTOR_PROGRAM_0;
+    MainStruct::percentUpdate = 0.0f;
+
+    MainStruct::sizeFirmware = size;
+    MainStruct::sizeUpdated = 0;
+    MainStruct::speed = 0;
+    MainStruct::timeLeft = 0;
+
+    uint timeStart = TIMER_MS;
 
     while (size)
     {
-        int readedBytes = FDrive_ReadFromFile(sizeSector, buffer);
-        FLASH_WriteData(address, buffer, readedBytes);
+        uint readedBytes = FDrive::ReadFromFile(sizeSector, buffer);
+
+        HAL_ROM::WriteBufferBytes(address, buffer, readedBytes);
+
         size -= readedBytes;
         address += readedBytes;
 
-        ms->percentUpdate = 1.0f - (float)size / fullSize;
+        MainStruct::percentUpdate = 1.0F - (float)(size) / (float)(fullSize);
+
+        MainStruct::sizeUpdated += readedBytes;
+        MainStruct::speed = (int)(MainStruct::sizeUpdated * 1000.0f / (TIMER_MS - timeStart));
+
+        int timePassed = (int)(TIMER_MS - timeStart);       // Прошло времени
+        int timeNeed = fullSize / MainStruct::speed * 1000;
+
+        MainStruct::timeLeft = (timeNeed - timePassed) / 1000 + 1;
     }
 
-    FDrive_CloseOpenedFile();
+    FDrive::CloseOpenedFile();
 }
 
 
@@ -152,7 +175,7 @@ void Upgrade()
                     5 - 0x08020000
                     6 - 0x08040000
                     7 - 0x08060000
-                2. На их место записывается содержимое файла S8-53.bin
+                2. На их место записывается содержимое файла S8-53M.bin
         Если флешку примонтировать не удалось:
             Вывести сообщение "Не удалось примонтировать флешку. Убедитесь, что на ней файловая система fat32"
     Далее выполняется переход по адресу, указанному в 0x0802004
