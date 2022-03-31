@@ -1,13 +1,13 @@
 // (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "common/Hardware/Memory/Sector_.h"
-#include "common/Utils/Containers/String_.h"
+#include "Hardware/Memory/Sector.h"
+#include "Utils/Containers/String.h"
 #include "main.h"
 #include "Hardware/FDrive/FDrive.h"
 #include "Display/Display.h"
-#include "common/Hardware/Timer_.h"
+#include "Hardware/Timer.h"
 #include "Panel/Panel.h"
-#include "common/Hardware/HAL/HAL_.h"
+#include "Hardware/HAL/HAL.h"
 #include "Settings/Settings.h"
 #include <cstdlib>
 #include <usbh_def.h>

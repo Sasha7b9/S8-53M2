@@ -339,7 +339,7 @@
               <MiscControls>--cpp</MiscControls>
               <Define>USE_HAL_DRIVER, STM32F429xx, __cplusplus, LOADER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\src\Hardware\FDrive;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc;..\STM32Cube_FW_F4\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\STM32Cube_FW_F4\Drivers\CMSIS\Include;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc;.\src\Hardware\HAL;.\src;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src</IncludePath>
+              <IncludePath>.\src\Hardware\FDrive;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Inc;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Core\Inc;..\STM32Cube_FW_F4\Drivers\CMSIS\Device\ST\STM32F4xx\Include;..\STM32Cube_FW_F4\Drivers\CMSIS\Include;..\STM32Cube_FW_F4\Drivers\STM32F4xx_HAL_Driver\Inc;.\src\Hardware\HAL;.\src;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src;.\src\Hardware\FDrive</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -370,7 +370,7 @@
             <TextAddressRange>0x08000000</TextAddressRange>
             <DataAddressRange>0x20000000</DataAddressRange>
             <pXoBase></pXoBase>
-            <ScatterFile>.\DLoader.sct</ScatterFile>
+            <ScatterFile>.\Loader.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
             <Misc></Misc>
@@ -757,16 +757,6 @@
               <FilePath>.\src\Display\Display.cpp</FilePath>
             </File>
             <File>
-              <FileName>Animated.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Animated.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Animated.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Animated.h</FilePath>
-            </File>
-            <File>
               <FileName>Colors.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Colors.cpp</FilePath>
@@ -885,6 +875,16 @@
               <FileName>Text.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Painter\Text.h</FilePath>
+            </File>
+            <File>
+              <FileName>Animated.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Painter\Animated.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Animated.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Painter\Animated.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1731,16 +1731,6 @@
               <FilePath>.\src\Display\Display.cpp</FilePath>
             </File>
             <File>
-              <FileName>Animated.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Animated.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Animated.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Animated.h</FilePath>
-            </File>
-            <File>
               <FileName>Colors.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Colors.cpp</FilePath>
@@ -1859,6 +1849,16 @@
               <FileName>Text.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Painter\Text.h</FilePath>
+            </File>
+            <File>
+              <FileName>Animated.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Painter\Animated.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Animated.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Painter\Animated.h</FilePath>
             </File>
           </Files>
         </Group>

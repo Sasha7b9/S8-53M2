@@ -1,7 +1,7 @@
 // (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "common/Display/Colors_.h"
-#include "common/Display/Painter/Primitives_.h"
+#include "Display/Colors.h"
+#include "Display/Painter/Primitives.h"
 
 
 void MultiVPointLine::DrawVPointLine(int x, int y, int count, int delta)

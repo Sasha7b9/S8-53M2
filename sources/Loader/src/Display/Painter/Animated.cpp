@@ -1,8 +1,8 @@
 // 2021/07/02 9:35:01 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "common/Display/Painter/Animated_.h"
-#include "common/Display/Painter/Primitives_.h"
-#include "common/Hardware/HAL/HAL_.h"
+#include "Display/Painter/Animated.h"
+#include "Display/Painter/Primitives.h"
+#include "Hardware/HAL/HAL.h"
 
 
 ABorder::ABorder(int _w, int _h, DirectionRotate::E _rotate) : width(_w), height(_h), rotate(_rotate)

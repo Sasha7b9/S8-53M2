@@ -1,12 +1,12 @@
 // 2021/06/30 15:45:23 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "main.h"
-#include "common/Display/Painter/Animated_.h"
-#include "common/Display/Painter/Primitives_.h"
-#include "common/Display/Painter/Text_.h"
-#include "common/Hardware/HAL/HAL_.h"
-#include "common/Utils/Math_.h"
-#include "common/Utils/Containers/Buffer_.h"
+#include "Display/Painter/Animated.h"
+#include "Display/Painter/Primitives.h"
+#include "Display/Painter/Text.h"
+#include "Hardware/HAL/HAL.h"
+#include "Utils/Math.h"
+#include "Utils/Containers/Buffer.h"
 #include "Display/Display.h"
 #include <cmath>
 #include <cstring>

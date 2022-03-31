@@ -1,6 +1,6 @@
 // (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-#include "common/Utils/Containers/String_.h"
+#include "Utils/Containers/String.h"
 
 
 /*

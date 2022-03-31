@@ -1,8 +1,8 @@
 // 2021/06/24 14:59:27 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "ff_gen_drv.h"
-#include "usbh_diskio_.h"
-#include "common/Hardware/FDrive/USBH_.h"
+#include "usbh_diskio.h"
+#include "Hardware/FDrive/USBH.h"
 #include <stm32f4xx_hal.h>
 
 /* Private typedef -----------------------------------------------------------*/

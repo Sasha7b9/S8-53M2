@@ -1,8 +1,8 @@
 // (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "common/Display/Colors_.h"
-#include "common/Display/Painter/Primitives_.h"
-#include "common/Utils/Math_.h"
+#include "Display/Colors.h"
+#include "Display/Painter/Primitives.h"
+#include "Utils/Math.h"
 #include "Display/Display.h"
 
 

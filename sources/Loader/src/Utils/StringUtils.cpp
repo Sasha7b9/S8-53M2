@@ -1,6 +1,6 @@
 // (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "common/Utils/StringUtils_.h"
+#include "Utils/StringUtils.h"
 #include <cstring>
 #include <cstdlib>
 #include <cctype>

@@ -1,6 +1,6 @@
 // (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "common/Display/Font/Font_.h"
+#include "Display/Font/Font.h"
 
 #include "font8display.inc"
 #include "font5display.inc"

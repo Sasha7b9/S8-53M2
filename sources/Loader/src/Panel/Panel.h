@@ -1,6 +1,6 @@
 // (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once 
-#include "common/Panel/Controls_.h"
+#include "Panel/Controls.h"
 
 
 namespace Panel
