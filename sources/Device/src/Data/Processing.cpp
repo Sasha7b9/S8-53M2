@@ -1131,8 +1131,8 @@ String<> Processing::GetStringMeasure(Measure::E measure, Chan ch)
     {
         pFuncConvert func = measures[measure].FucnConvertate;
         float value = values[measure].value[ch];
-        String<> text = func(value, measures[measure].showSign);
-        result.Append(text.c_str());
+        String<> text = func(value, true);
+        result.Append(text);
     }
     else
     {

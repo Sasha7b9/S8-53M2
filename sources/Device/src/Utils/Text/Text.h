@@ -63,7 +63,7 @@ namespace SU
 
     String<> Voltage2String(float voltage, bool alwaysSign);
     String<> Time2String(float time, bool alwaysSign);
-    String<> Freq2String(float freq, bool alwaysSign);
+    String<> Freq2String(float freq, bool alwaysSign = false);
     String<> Phase2String(float phase, bool alwaysSign);
     String<> Float2Db(float value, int numDigits);
 

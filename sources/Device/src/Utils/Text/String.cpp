@@ -144,12 +144,14 @@ void String<capacity>::Append(pchar str)
     {
         LOG_ERROR_TRACE("Very small string buffer %d, need %d:", capacity, need_size);
 
-        int pointer = 0;
+        int pointer = Size();
 
-        while (!Filled())
+        while (pointer < capacity)
         {
             Append(str[pointer++]);
         }
+
+        buffer[capacity - 1] = '\0';
 
         LOG_WRITE(buffer);
     }

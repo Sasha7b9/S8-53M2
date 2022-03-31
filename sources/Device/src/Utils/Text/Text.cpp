@@ -878,8 +878,9 @@ String<> SU::Bin2String16(uint16 value)
 
 String<> SU::Float2String(float value, bool alwaysSign, int numDigits)
 {
-    char bufferOut[20];
-    char *pBuffer = bufferOut;
+    String<> result;
+
+    char *pBuffer = result.c_str();
 
     if (value == ERROR_VALUE_FLOAT)
     {
@@ -925,18 +926,16 @@ String<> SU::Float2String(float value, bool alwaysSign, int numDigits)
         {
             format[5] = '.';
         }
-
-        std::sprintf(pBuffer, format, value);
     }
 
     bool signExist = alwaysSign || value < 0;
 
-    while ((int)std::strlen(bufferOut) < numDigits + (signExist ? 2 : 1))
+    while (result.Size() < numDigits + (signExist ? 2 : 1))
     {
-        std::strcat(bufferOut, "0");
+        result.Append("0");
     }
 
-    return String<>(bufferOut);
+    return result;
 }
 
 
@@ -1072,24 +1071,21 @@ String<> SU::Time2String(float time, bool alwaysSign)
         suffix = LANG_RU ? "ñ" : "s";
     }
 
-    String<> result = String<>(SU::Float2String(time, alwaysSign, 4).c_str());
+    String<> result = SU::Float2String(time, alwaysSign, 4);
     result.Append(suffix);
 
     return result;
 }
 
 
-String<> SU::Freq2String(float freq, bool)
+String<> SU::Freq2String(float freq, bool log)
 {
-    String<> result;
-
-    char *suffix = 0;
-
     if (freq == ERROR_VALUE_FLOAT)
     {
-        result.Append(ERROR_STRING_VALUE);
-        return result;
+        return String<>(ERROR_STRING_VALUE);
     }
+
+    char *suffix = 0;
 
     if (freq >= 1e6f)
     {
@@ -1106,7 +1102,25 @@ String<> SU::Freq2String(float freq, bool)
         suffix = LANG_RU ? "Ãö" : "Hz";
     }
 
-    result.Append(SU::Float2String(freq, false, 4).c_str());
+    static int counter = 0;
+    
+    if(log)
+    {
+        counter++;
+    }
+    
+    if(counter == 2)
+    {
+        counter = counter;
+    }
+
+    String<> result = SU::Float2String(freq, false, 4);
+
+    if (result.Size() > 6)
+    {
+        LOG_WRITE(result.c_str());
+    }
+
     result.Append(suffix);
 
     return result;

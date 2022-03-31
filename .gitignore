@@ -1,6 +1,7 @@
 *.out
 archive.zip
 *.uvgui*.*
+*.scvd
 
 sources/Loader/DebugConfig/*
 sources/Loader/Listings/*
