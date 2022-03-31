@@ -163,7 +163,7 @@ int DataStruct::PrepareForNormalDrawP2P()
         pos /= 2;
     }
 
-    return pos - 1;
+    return pos;
 }
 
 
