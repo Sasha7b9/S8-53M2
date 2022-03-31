@@ -197,7 +197,11 @@ void Display::Update(bool endScene)
         Grid::Draw();
     }
 
+    DEBUG_POINT_0;
+
     DataPainter::DrawData();
+
+    DEBUG_POINT_0;
 
     if (needClear)
     {

@@ -107,6 +107,11 @@ int DataStruct::PrepareForNormalDrawP2P()
         return 0;
     }
 
+    if (!ds.valid)
+    {
+        return 0;
+    }
+
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
     int first = points.half_iword[0];           // Позиция первой выводимой точки
@@ -127,27 +132,53 @@ int DataStruct::PrepareForNormalDrawP2P()
 
     int pos = 0;
 
-    while (drawing_points-- > rec_points)
-    {
-        pos++;
-
-        if (pos == bytes_on_screen)
+//    if (SET_SELFRECORDER)
+//    {
+//        if (rec_points > 0)
+//        {
+//            if (rec_points <= bytes_on_screen)
+//            {
+//                for (int i = 0; i < rec_points; i++)
+//                {
+//                    screenA[pos] = A[i];
+//                    screenB[pos] = B[i];
+//                    pos++;
+//                }
+//            }
+//            else
+//            {
+//                for (int i = rec_points - bytes_on_screen; i < rec_points; i++)
+//                {
+//                    screenA[pos] = A[i];
+//                    screenB[pos] = B[i];
+//                }
+//            }
+//        }
+//  }
+//  else
+//  {
+        while (drawing_points-- > rec_points)
         {
-            pos = 0;
+            pos++;
+
+            if (pos == bytes_on_screen)
+            {
+                pos = 0;
+            }
         }
-    }
 
-    for (int i = 0; i < rec_points; i++)
-    {
-        screenA[pos] = A[i];
-        screenB[pos] = B[i];
-        pos++;
-
-        if (pos == bytes_on_screen)
+        for (int i = 0; i < rec_points; i++)
         {
-            pos = 0;
+            screenA[pos] = A[i];
+            screenB[pos] = B[i];
+            pos++;
+
+            if (pos == bytes_on_screen)
+            {
+                pos = 0;
+            }
         }
-    }
+//    }
 
     uint8 *a = screenA.Data();
     uint8 *b = screenB.Data();
