@@ -6,6 +6,7 @@
 #include "Menu/Pages/Definition.h"
 #include "Hardware/HAL/HAL.h"
 #include "Utils/Containers/Queue.h"
+#include "Display/Screen/Console.h"
 #include <cstring>
 
 
@@ -142,7 +143,7 @@ void FPGA::Calibrator::RunCalibrate()
     {
         Settings::CopyCalibrationSettings(ChA, set, set_cal);       // «агружаем найденные калибровки, если успешно
     }
-    else if (carriedOut[ChB] && !errorCalibration[ChB])
+    if (carriedOut[ChB] && !errorCalibration[ChB])
     {
         Settings::CopyCalibrationSettings(ChB, set, set_cal);
     }
@@ -223,6 +224,8 @@ static void FPGA::Calibrator::FunctionDraw()
         break;
     }
 
+    Console::Draw();
+
     Painter::EndScene();
 }
 
@@ -273,6 +276,11 @@ static bool FPGA::Calibrator::CalibrateRShift(Chan ch)
             float ave = Read1024PointsAve(ch);
 
             int addShift = CalculateAddRShift(ave);
+            
+            if(ch.IsA())
+            {
+                addShift = addShift;
+            }
 
             if (addShift < -50 || addShift > 50)
             {
@@ -396,38 +404,41 @@ void FPGA::Calibrator::Read1024PointsMinMax(Chan ch, float *min, float *max)
 
     Reader::Read1024Points(buffer, ch);
 
-    Queue<float> mins;
-    Queue<float> maxs;
+    Buffer<float, 1024> mins;
+    int num_mins = 0;
+
+    Buffer<float, 1024> maxs;
+    int num_maxs = 0;
 
     for (int i = 0; i < 1024; i++)
     {
         if (buffer[i] > 200)
         {
-            maxs.Push(buffer[i]);
+            maxs[num_maxs++] = buffer[i];
         }
         else if (buffer[i] < 50)
         {
-            mins.Push(buffer[i]);
+            mins[num_mins++] = buffer[i];
         }
     }
 
     *min = 0.0f;
 
-    for (int i = 0; i < mins.Size(); i++)
+    for (int i = 0; i < num_mins; i++)
     {
         *min += (float)mins[(int)i];
     }
 
-    *min = *min / mins.Size();
+    *min = *min / num_mins;
 
     *max = 0.0f;
 
-    for (int i = 0; i < maxs.Size(); i++)
+    for (int i = 0; i < num_maxs; i++)
     {
         *max += (float)maxs[(int)i];
     }
 
-    *max = *max / maxs.Size();
+    *max = *max / num_maxs;
 }
 
 
