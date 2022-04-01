@@ -56,6 +56,8 @@ void HAL::Init()
     HAL_ADC1::Init();           // АЦП рандомизатора
 
     HAL_SPI5::Init();           // Панель
+
+    Timer::Init();
 }
 
 

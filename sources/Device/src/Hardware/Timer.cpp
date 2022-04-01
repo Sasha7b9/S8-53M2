@@ -7,10 +7,15 @@
 
 namespace Timer
 {
-    void (*f[TypeTimer::Count])() = {0};
-    int  reactionTimeMS[TypeTimer::Count] = {0};
-    int  currentTimeMS[TypeTimer::Count] = {0};
-    bool isRun[TypeTimer::Count] = {false};
+    struct TimerStruct
+    {
+        void (*f)();
+        int  reactionTimeMS;
+        int  currentTimeMS;
+        bool isRun;
+    };
+
+    TimerStruct timers[TypeTimer::Count];
 
     uint timeStartLogging = 0;
     uint timePrevPoint = 0;
@@ -18,6 +23,15 @@ namespace Timer
     void Pause(TypeTimer);
     void Continue(TypeTimer);
     bool IsRun(TypeTimer);
+}
+
+
+void Timer::Init()
+{
+    for (int i = 0; i < TypeTimer::Count; i++)
+    {
+        timers[i].isRun = false;
+    }
 }
 
 
@@ -81,16 +95,16 @@ uint Timer::LogPointMS(char *name)
 
 void Timer::Enable(TypeTimer::E type, int timeInMS, pFuncVV eF)
 {
-    f[type] = eF;
-    reactionTimeMS[type] = timeInMS;
-    currentTimeMS[type] = timeInMS - 1;
-    isRun[type] = true;
+    timers[type].f = eF;
+    timers[type].reactionTimeMS = timeInMS;
+    timers[type].currentTimeMS = timeInMS - 1;
+    timers[type].isRun = true;
 }
 
 
 void Timer::Disable(TypeTimer::E type)
 {
-    isRun[type] = false;
+    timers[type].isRun = false;
 }
 
 
@@ -102,13 +116,13 @@ void Timer::Pause(TypeTimer::E type)
 
 void Timer::Continue(TypeTimer::E type)
 {
-    isRun[type] = true;
+    timers[type].isRun = true;
 }
 
 
 bool Timer::IsRun(TypeTimer::E type)
 {
-    return isRun[type];
+    return timers[type].isRun;
 };
 
 
@@ -116,13 +130,16 @@ void Timer::Update1ms()
 {
     for(int num = 0; num < TypeTimer::Count; num++)
     {
-        if(isRun[num])
+        TimerStruct &timer = timers[num];
+
+        if(timer.isRun)
         {
-            currentTimeMS[num]--;
-            if(currentTimeMS[num] < 0)
+            timer.currentTimeMS--;
+
+            if(timer.currentTimeMS < 0)
             {
-                f[num]();
-                currentTimeMS[num] = reactionTimeMS[num] - 1;
+                timer.f();
+                timer.currentTimeMS = timer.reactionTimeMS - 1;
             }
             
         }
@@ -134,13 +151,16 @@ void Timer::Update10ms()
 {
     for(int num = 0; num < TypeTimer::Count; num++)
     {
-        if(isRun[num])
+        TimerStruct &timer = timers[num];
+
+        if(timer.isRun)
         {
-            currentTimeMS[num] -= 10;
-            if(currentTimeMS[num] < 0)
+            timer.currentTimeMS -= 10;
+
+            if(timer.currentTimeMS < 0)
             {
-                f[num]();
-                currentTimeMS[num] = reactionTimeMS[num] - 1;
+                timer.f();
+                timer.currentTimeMS = timer.reactionTimeMS - 1;
             }
 
         }

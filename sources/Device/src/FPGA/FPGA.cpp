@@ -145,7 +145,7 @@ void FPGA::ProcessingData()
 {
     flag.Read();
 
-    if (flag.Trig())
+    if (flag.Trig() && !LED::Trig.dontFireTrig)
     {
         LED::Trig.Enable();
     }

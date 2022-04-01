@@ -859,55 +859,23 @@ void Panel::Init()
 
 void LED::Enable()
 {
-    if (type == _Trig)
-    {
-        Switch(true);
-    }
-    else
-    {
-        Panel::TransmitData((uint8)(type | 0x80));
-    }
+    Panel::TransmitData((uint8)(type | 0x80));
 }
 
 
 void LED::Disable()
 {
-    if (type == _Trig)
-    {
-        Switch(false);
-    }
-    else
-    {
-        Panel::TransmitData(type);
-    }
+    Panel::TransmitData(type);
 }
 
 
 void LED::Switch(bool enable)
 {
+    enable ? Enable() : Disable();
+
     if (type == _Trig)
     {
-        if (enable)
-        {
-            if (dontFireTrig)
-            {
-                return;
-            }
-
-            Timer::Disable(TypeTimer::DisableTrigLED);
-
-            Display::EnableTrigLabel(true);
-            Enable();
-        }
-        else
-        {
-            Display::EnableTrigLabel(false);
-            Disable();
-        }
-    }
-    else
-    {
-        enable ? Enable() : Disable();
+        Display::EnableTrigLabel(enable);
     }
 }
 

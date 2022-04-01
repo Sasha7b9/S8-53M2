@@ -33,6 +33,8 @@ struct TypeTimer
 
 namespace Timer
 {
+    void Init();
+
     // Задержка на timeMS миллисекунд
     void PauseOnTime(uint timeMS);
 
