@@ -13,6 +13,8 @@ namespace Timer
         int  reactionTimeMS;
         int  currentTimeMS;
         bool isRun;
+
+        void Update(uint dT);
     };
 
     TimerStruct timers[TypeTimer::Count];
@@ -126,23 +128,28 @@ bool Timer::IsRun(TypeTimer::E type)
 };
 
 
+void Timer::TimerStruct::Update(uint dT)
+{
+    if (isRun)
+    {
+        currentTimeMS -= dT;
+
+        if (currentTimeMS < 0)
+        {
+            f();
+            currentTimeMS = reactionTimeMS - 1;
+        }
+
+    }
+
+}
+
+
 void Timer::Update1ms()
 {
     for(int num = 0; num < TypeTimer::Count; num++)
     {
-        TimerStruct &timer = timers[num];
-
-        if(timer.isRun)
-        {
-            timer.currentTimeMS--;
-
-            if(timer.currentTimeMS < 0)
-            {
-                timer.f();
-                timer.currentTimeMS = timer.reactionTimeMS - 1;
-            }
-            
-        }
+        timers[num].Update(1);
     }
 }
 
@@ -151,19 +158,7 @@ void Timer::Update10ms()
 {
     for(int num = 0; num < TypeTimer::Count; num++)
     {
-        TimerStruct &timer = timers[num];
-
-        if(timer.isRun)
-        {
-            timer.currentTimeMS -= 10;
-
-            if(timer.currentTimeMS < 0)
-            {
-                timer.f();
-                timer.currentTimeMS = timer.reactionTimeMS - 1;
-            }
-
-        }
+        timers[num].Update(10);
     }
 }
 
