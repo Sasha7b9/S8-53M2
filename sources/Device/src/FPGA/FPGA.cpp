@@ -151,7 +151,7 @@ void FPGA::ProcessingData()
     }
     else if (_GET_BIT(flag.value, FL_DATA))
     {
-        led_Trig.Enable();
+        LED::Trig.Enable();
 
         Stop();
 
@@ -179,7 +179,7 @@ void FPGA::ProcessingData()
         }
     }
 
-    led_Trig.Switch(_GET_BIT(flag.value, FL_TRIG) ? true : false);
+    LED::Trig.Switch(_GET_BIT(flag.value, FL_TRIG) ? true : false);
 }
 
 

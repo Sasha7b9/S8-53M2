@@ -7,12 +7,18 @@
 class LED
 {
 public:
+
+    static LED Trig;
+    static LED RegSet;
+    static LED ChanA;
+    static LED ChanB;
+
     enum Type
     {
-        Trig     = 1,
-        RegSet   = 2,
-        ChannelA = 3,
-        ChannelB = 4,
+        _Trig     = 1,
+        _RegSet   = 2,
+        _ChannelA = 3,
+        _ChannelB = 4,
     };
 
     LED(Type _type) : type(_type) { }
@@ -22,12 +28,6 @@ public:
 private:
     Type type;
 };
-
-
-extern LED led_Trig;
-extern LED led_RegSet;
-extern LED led_ChanA;
-extern LED led_ChanB;
 
 
 namespace Panel
@@ -53,15 +53,6 @@ namespace Panel
 
     // Времени прошло после последнего события
     uint TimePassedAfterLastEvent();
-
-    namespace LED
-    {
-        // Включить/выключить светодиод КАНАЛ 1.
-        void EnableChannelA(bool enable);
-
-        // Включить/выключить светодиод КАНАЛ 2.
-        void EnableChannelB(bool enable);
-    }
 
     namespace Callback
     {

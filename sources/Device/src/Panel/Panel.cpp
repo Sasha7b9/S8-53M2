@@ -17,10 +17,10 @@
 #include "Utils/PasswordResolver.h"
 
 
-LED led_Trig(LED::Trig);
-LED led_RegSet(LED::RegSet);
-LED led_ChanA(LED::ChannelA);
-LED led_ChanB(LED::ChannelB);
+LED LED::Trig(LED::_Trig);
+LED LED::RegSet(LED::_RegSet);
+LED LED::ChanA(LED::_ChannelA);
+LED LED::ChanB(LED::_ChannelB);
 
 
 namespace Panel
@@ -822,32 +822,6 @@ Key::E Panel::WaitPressingButton()
 }
 
 
-void Panel::LED::EnableChannelA(bool enable)
-{
-    uint8 data = LED_CHAN_A;
-
-    if (enable)
-    {
-        data |= 0x80;
-    }
-
-    TransmitData(data);
-}
-
-
-void Panel::LED::EnableChannelB(bool enable)
-{
-    uint8 data = LED_CHAN_B;
-
-    if (enable)
-    {
-        data |= 0x80;
-    }
-
-    TransmitData(data);
-}
-
-
 void Panel::TransmitData(uint8 data)
 {
     if (data_for_send.Size() < 20)
@@ -877,14 +851,14 @@ void Panel::Enable()
 
 void Panel::Init()
 {
-    led_RegSet.Disable();
-    led_Trig.Disable();
+    LED::RegSet.Disable();
+    LED::Trig.Disable();
 }
 
 
 void LED::Enable()
 {
-    if (type == Trig)
+    if (type == _Trig)
     {
         Switch(true);
     }
@@ -897,7 +871,7 @@ void LED::Enable()
 
 void LED::Disable()
 {
-    if (type == Trig)
+    if (type == _Trig)
     {
         Switch(false);
     }
@@ -910,7 +884,7 @@ void LED::Disable()
 
 void LED::Switch(bool enable)
 {
-    if (type == Trig)
+    if (type == _Trig)
     {
         static uint timeEnable = 0;
         static bool first = true;

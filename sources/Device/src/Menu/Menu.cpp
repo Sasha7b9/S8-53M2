@@ -631,12 +631,12 @@ void Menu::SwitchSetLED()
     if (first)
     {
         first = false;
-        led_RegSet.Switch(state);
+        LED::RegSet.Switch(state);
         prevState = state;
     }
     else if (prevState != state)
     {
-        led_RegSet.Switch(state);
+        LED::RegSet.Switch(state);
         prevState = state;
     }
 }
