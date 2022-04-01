@@ -26,9 +26,6 @@ bool LED::dontFireTrig = false;
 
 namespace Panel
 {
-    const uint8 LED_CHAN_A   = 3;
-    const uint8 LED_CHAN_B   = 4;
-
     Key::E pressedKey = Key::None;
     volatile Key::E pressedButton = Key::None;      // Это используется для отслеживания нажатой кнопки при отключенной
                                                     // панели
