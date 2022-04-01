@@ -25,6 +25,10 @@ public:
     void Enable();
     void Disable();
     void Switch(bool enable);
+
+    // Если true, то не нунжно зажигать LED::Trig - произошёл автозапуск
+    static bool dontFireTrig;
+
 private:
     Type type;
 };

@@ -151,8 +151,6 @@ void FPGA::ProcessingData()
     }
     else if (flag.Data())
     {
-        LED::Trig.Enable();
-
         Stop();
 
         Reader::DataRead();

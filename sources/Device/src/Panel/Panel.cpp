@@ -21,6 +21,7 @@ LED LED::Trig(LED::_Trig);
 LED LED::RegSet(LED::_RegSet);
 LED LED::ChanA(LED::_ChannelA);
 LED LED::ChanB(LED::_ChannelB);
+bool LED::dontFireTrig = false;
 
 
 namespace Panel
