@@ -138,6 +138,7 @@ void FPGA::Update()
 void FPGA::DefferedTaskTrigLED()
 {
     LED::Trig.Disable();
+    Timer::Disable(TypeTimer::DisableTrigLED);
 }
 
 
@@ -148,6 +149,7 @@ void FPGA::ProcessingData()
     if (flag.Trig() && !LED::Trig.dontFireTrig)
     {
         LED::Trig.Enable();
+        Timer::Disable(TypeTimer::DisableTrigLED);
     }
 
     if (NEED_AUTO_TRIG)
@@ -162,6 +164,7 @@ void FPGA::ProcessingData()
         else if (flag.Trig())
         {
             NEED_AUTO_TRIG = false;
+            LED::dontFireTrig = false;
         }
     }
     else if (flag.Data())
@@ -176,10 +179,6 @@ void FPGA::ProcessingData()
         {
             Start();
             StateWorkFPGA::SetCurrent(StateWorkFPGA::Work);
-        }
-        else
-        {
-            Stop();
         }
     }
     else

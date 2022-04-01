@@ -859,6 +859,11 @@ void Panel::Init()
 
 void LED::Enable()
 {
+    if (type == _Trig)
+    {
+        LOG_WRITE("fire trig");
+    }
+
     Panel::TransmitData((uint8)(type | 0x80));
 }
 
