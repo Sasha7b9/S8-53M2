@@ -4,6 +4,32 @@
 #include "common/Panel/Controls.h"
 
 
+class LED
+{
+public:
+    enum Type
+    {
+        Trig     = 1,
+        RegSet   = 2,
+        ChannelA = 3,
+        ChannelB = 4,
+    };
+
+    LED(Type _type) : type(_type) { }
+    void Enable();
+    void Disable();
+    void Switch(bool enable);
+private:
+    Type type;
+};
+
+
+extern LED led_Trig;
+extern LED led_RegSet;
+extern LED led_ChanA;
+extern LED led_ChanB;
+
+
 namespace Panel
 {
     void Init();
@@ -30,16 +56,11 @@ namespace Panel
 
     namespace LED
     {
-        void EnableRegSet(bool enable);
-
         // Включить/выключить светодиод КАНАЛ 1.
         void EnableChannelA(bool enable);
 
         // Включить/выключить светодиод КАНАЛ 2.
         void EnableChannelB(bool enable);
-
-        // Включить/выключить светодиод СИНХР.
-        void EnableTrig(bool enable);
     }
 
     namespace Callback

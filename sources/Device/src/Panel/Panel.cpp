@@ -17,10 +17,14 @@
 #include "Utils/PasswordResolver.h"
 
 
+LED led_Trig(LED::Trig);
+LED led_RegSet(LED::RegSet);
+LED led_ChanA(LED::ChannelA);
+LED led_ChanB(LED::ChannelB);
+
+
 namespace Panel
 {
-    const uint8 LED_TRIG     = 1;
-    const uint8 LED_REG_SET  = 2;
     const uint8 LED_CHAN_A   = 3;
     const uint8 LED_CHAN_B   = 4;
 
@@ -844,43 +848,6 @@ void Panel::LED::EnableChannelB(bool enable)
 }
 
 
-void Panel::LED::EnableTrig(bool enable)
-{
-    static uint timeEnable = 0;
-    static bool first = true;
-    static bool fired = false;
-
-    if(first)
-    {
-        Panel::TransmitData(LED_TRIG);
-        Display::EnableTrigLabel(false);
-        timeEnable = TIME_MS;
-        first = false;
-    }
-
-    if(enable)
-    {
-        timeEnable = TIME_MS;
-    }
-
-    if(enable != fired)
-    {
-        if(enable)
-        {
-            Panel::TransmitData(LED_TRIG | 0x80);
-            Display::EnableTrigLabel(true);
-            fired = true;
-        }
-        else if(TIME_MS - timeEnable > 100)
-        {
-            Panel::TransmitData(LED_TRIG);
-            Display::EnableTrigLabel(false);
-            fired = false;
-        }
-    }
-}
-
-
 void Panel::TransmitData(uint8 data)
 {
     if (data_for_send.Size() < 20)
@@ -910,21 +877,78 @@ void Panel::Enable()
 
 void Panel::Init()
 {
-    LED::EnableRegSet(false);
-    LED::EnableTrig(false);
+    led_RegSet.Disable();
+    led_Trig.Disable();
 }
 
 
-void Panel::LED::EnableRegSet(bool enable)
+void LED::Enable()
 {
-    uint8 data = LED_REG_SET;
-
-    if (enable)
+    if (type == Trig)
     {
-        data |= 0x80;
+        Switch(true);
     }
+    else
+    {
+        Panel::TransmitData((uint8)(type | 0x80));
+    }
+}
 
-    TransmitData(data);
+
+void LED::Disable()
+{
+    if (type == Trig)
+    {
+        Switch(false);
+    }
+    else
+    {
+        Panel::TransmitData(type);
+    }
+}
+
+
+void LED::Switch(bool enable)
+{
+    if (type == Trig)
+    {
+        static uint timeEnable = 0;
+        static bool first = true;
+        static bool fired = false;
+
+        if (first)
+        {
+            Panel::TransmitData(type);
+            Display::EnableTrigLabel(false);
+            timeEnable = TIME_MS;
+            first = false;
+        }
+
+        if (enable)
+        {
+            timeEnable = TIME_MS;
+        }
+
+        if (enable != fired)
+        {
+            if (enable)
+            {
+                Panel::TransmitData((uint8)(type | 0x80));
+                Display::EnableTrigLabel(true);
+                fired = true;
+            }
+            else if (TIME_MS - timeEnable > 100)
+            {
+                Panel::TransmitData(type);
+                Display::EnableTrigLabel(false);
+                fired = false;
+            }
+        }
+    }
+    else
+    {
+        enable ? Enable() : Disable();
+    }
 }
 
 
