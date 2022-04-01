@@ -856,29 +856,29 @@ void Panel::Init()
 
 void LED::Enable()
 {
+    Panel::TransmitData((uint8)(type | 0x80));
+
     if (type == _Trig)
     {
-        LOG_WRITE("fire trig");
+        Display::EnableTrigLabel(true);
     }
-
-    Panel::TransmitData((uint8)(type | 0x80));
 }
 
 
 void LED::Disable()
 {
     Panel::TransmitData(type);
+
+    if (type == _Trig)
+    {
+        Display::EnableTrigLabel(false);
+    }
 }
 
 
 void LED::Switch(bool enable)
 {
     enable ? Enable() : Disable();
-
-    if (type == _Trig)
-    {
-        Display::EnableTrigLabel(enable);
-    }
 }
 
 
