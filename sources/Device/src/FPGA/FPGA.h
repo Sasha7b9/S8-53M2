@@ -66,6 +66,9 @@ namespace FPGA
         }
 
         bool FirstByte() { return _GET_BIT(value, FL_LAST_RECOR) == 1; }
+        bool Trig()      { return _GET_BIT(value, FL_TRIG) == 1; }
+        bool Data()      { return _GET_BIT(value, FL_DATA) == 1; }
+        bool Pred()      { return _GET_BIT(value, FL_PRED) == 1; }
     };
 
     extern Flag flag;

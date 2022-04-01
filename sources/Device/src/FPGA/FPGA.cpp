@@ -144,12 +144,12 @@ void FPGA::ProcessingData()
             TRIG_AUTO_FIND = true;
             NEED_AUTO_TRIG = false;
         }
-        else if (_GET_BIT(flag.value, FL_TRIG))
+        else if (flag.Trig())
         {
             NEED_AUTO_TRIG = false;
         }
     }
-    else if (_GET_BIT(flag.value, FL_DATA))
+    else if (flag.Data())
     {
         LED::Trig.Enable();
 
@@ -169,7 +169,7 @@ void FPGA::ProcessingData()
     }
     else
     {
-        if (flag.value & (1 << 2))
+        if (flag.Pred())
         {
             if (START_MODE_IS_AUTO)
             {
@@ -179,7 +179,7 @@ void FPGA::ProcessingData()
         }
     }
 
-    LED::Trig.Switch(_GET_BIT(flag.value, FL_TRIG) ? true : false);
+    LED::Trig.Switch(flag.Trig());
 }
 
 
