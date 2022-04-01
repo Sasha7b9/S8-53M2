@@ -594,7 +594,7 @@ static void PressSB_Cursors_100()
 static void DrawSB_Cursors_100(int x, int y)
 {
     Font::Set(TypeFont::_5);
-    String<>("100%").Draw(x + 2, y - 3);
+    String<>("100%%").Draw(x + 2, y - 3);
     Font::Set(TypeFont::_8);
 }
 
@@ -602,7 +602,7 @@ static void DrawSB_Cursors_100(int x, int y)
 static const SmallButton sbSet100
 (
     &mspSet, 0,
-    "100%", "100%",
+    "100%%", "100%%",
     "Используется для процентных измерений. Нажатие помечает расстояние между активными курсорами как 100%",
     "It is used for percentage measurements. Pressing marks distance between active cursors as 100%",
     PressSB_Cursors_100,

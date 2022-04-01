@@ -36,7 +36,7 @@ extern const char chanMultiplierEn[] = "Attenuation: \n\"x1\" - the signal is no
 
 void PageChannelB::OnChanged_Input(bool)
 {
-    Panel::EnableLEDChannelB(SET_ENABLED_B);
+    Panel::LED::EnableChannelB(SET_ENABLED_B);
 }
 
 
@@ -58,7 +58,7 @@ static const Choice mcInputA =
 
 void PageChannelA::OnChanged_Input(bool)
 {
-    Panel::EnableLEDChannelA(SET_ENABLED_A);
+    Panel::LED::EnableChannelA(SET_ENABLED_A);
 }
 
 

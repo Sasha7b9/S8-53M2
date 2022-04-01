@@ -10,17 +10,6 @@ namespace Panel
 
     void Update();
 
-    void EnableLEDRegSet(bool enable);
-
-    // Включить/выключить светодиод КАНАЛ 1.
-    void EnableLEDChannelA(bool enable);
-
-    // Включить/выключить светодиод КАНАЛ 2.
-    void EnableLEDChannelB(bool enable);
-
-    // Включить/выключить светодиод СИНХР.
-    void EnableLEDTrig(bool enable);
-
     // В отлюченном режиме панель лишь обновляет состояние переменной pressedButton, не выполняя больше никаких действий.
     void Disable();
 
@@ -38,6 +27,20 @@ namespace Panel
 
     // Времени прошло после последнего события
     uint TimePassedAfterLastEvent();
+
+    namespace LED
+    {
+        void EnableRegSet(bool enable);
+
+        // Включить/выключить светодиод КАНАЛ 1.
+        void EnableChannelA(bool enable);
+
+        // Включить/выключить светодиод КАНАЛ 2.
+        void EnableChannelB(bool enable);
+
+        // Включить/выключить светодиод СИНХР.
+        void EnableTrig(bool enable);
+    }
 
     namespace Callback
     {

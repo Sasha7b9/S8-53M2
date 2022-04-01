@@ -194,7 +194,7 @@ void FPGA::Reader::P2P::SavePoints()
 
 void FPGA::Reader::DataRead()
 {
-    Panel::EnableLEDTrig(false);
+    Panel::LED::EnableTrig(false);
 
     IN_PROCESS_READ = true;
 

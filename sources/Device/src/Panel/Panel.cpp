@@ -818,7 +818,7 @@ Key::E Panel::WaitPressingButton()
 }
 
 
-void Panel::EnableLEDChannelA(bool enable)
+void Panel::LED::EnableChannelA(bool enable)
 {
     uint8 data = LED_CHAN_A;
 
@@ -831,7 +831,7 @@ void Panel::EnableLEDChannelA(bool enable)
 }
 
 
-void Panel::EnableLEDChannelB(bool enable)
+void Panel::LED::EnableChannelB(bool enable)
 {
     uint8 data = LED_CHAN_B;
 
@@ -844,7 +844,7 @@ void Panel::EnableLEDChannelB(bool enable)
 }
 
 
-void Panel::EnableLEDTrig(bool enable)
+void Panel::LED::EnableTrig(bool enable)
 {
     static uint timeEnable = 0;
     static bool first = true;
@@ -910,12 +910,12 @@ void Panel::Enable()
 
 void Panel::Init()
 {
-    EnableLEDRegSet(false);
-    EnableLEDTrig(false);
+    LED::EnableRegSet(false);
+    LED::EnableTrig(false);
 }
 
 
-void Panel::EnableLEDRegSet(bool enable)
+void Panel::LED::EnableRegSet(bool enable)
 {
     uint8 data = LED_REG_SET;
 
