@@ -139,9 +139,7 @@ void Timer::TimerStruct::Update(uint dT)
             f();
             currentTimeMS = reactionTimeMS - 1;
         }
-
     }
-
 }
 
 
