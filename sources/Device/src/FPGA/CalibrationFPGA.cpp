@@ -67,7 +67,7 @@ namespace FPGA
         static void FunctionDraw();
 
         // Вывести информацию о найденных калибровочных коэффициентах
-        static void ShowCalibrationInfo(const int y, Chan);
+        void ShowCalibrationInfo(const int y, Chan);
 
         static bool CalibrateChannel(Chan);
 
@@ -114,12 +114,10 @@ void FPGA::Calibrator::RunCalibrate()
         errorCalibration[ChA] = false;
         carriedOut[ChA] = false;
 
-        if (Panel::WaitPressingButton() == Key::Start)
-        {
-            carriedOut[ChA] = true;
+        Panel::WaitPressingButton();
 
-            errorCalibration[ChA] = !CalibrateChannel(ChA);
-        }
+        carriedOut[ChA] = true;
+        errorCalibration[ChA] = !CalibrateChannel(ChA);
     }
 
     {
@@ -127,12 +125,10 @@ void FPGA::Calibrator::RunCalibrate()
         errorCalibration[ChB] = false;
         carriedOut[ChB] = false;
 
-        if (Panel::WaitPressingButton() == Key::Start)
-        {
-            carriedOut[ChB] = true;
+        Panel::WaitPressingButton();
 
-            errorCalibration[ChB] = !CalibrateChannel(ChB);
-        }
+        carriedOut[ChB] = true;
+        errorCalibration[ChB] = !CalibrateChannel(ChB);
     }
 
     Settings set_cal = set;                     // Сохраняем скалиброванные настройки
@@ -176,8 +172,8 @@ static void FPGA::Calibrator::FunctionDraw()
     case StateCalibration::WaitA:
     case StateCalibration::WaitB:
         {
-            String<>(LANG_RU ? "Подключите ко входу канала %d выход калибратора и нажмите кнопку ПУСК/СТОП. Если вы не хотите калибровать первый канала, нажмите любую другую кнопку." :
-                "Connect the output of the calibrator to channel %d input and press the START/STOP button. If you do not want to calibrate the first channel, press any other button.",
+            String<>(LANG_RU ? "Подключите ко входу канала %d выход калибратора и нажмите кнопку ПУСК/СТОП." :
+                "Connect the output of the calibrator to channel %d input and press the START/STOP button.",
                 (state == StateCalibration::WaitA) ? 1 : 2)
                 .DrawInRect(50, 80, SCREEN_WIDTH - 100, SCREEN_HEIGHT, 2);
         }
@@ -185,19 +181,11 @@ static void FPGA::Calibrator::FunctionDraw()
 
     case StateCalibration::RShiftA:
     case StateCalibration::RShiftB:
-        {
-            String<>(LANG_RU ? "Калибрую параметр 1 канала %d" : "Calibrate parameter 1 channel %d",
-                (state == StateCalibration::RShiftA) ? 1 : 2).Draw(85, 50);
-
-            progress.Draw(100);
-        }
-        break;
-
     case StateCalibration::StretchA:
     case StateCalibration::StretchB:
         {
-            String<>(LANG_RU ? "Калибрую параметр 2 канала %d" : "Calibrate parameter 2 channel %d",
-                (state == StateCalibration::StretchA) ? 1 : 2).Draw(85, 50);
+            String<>(LANG_RU ? "Идёт калибровка канала %d" : "Channel %d calibration in progress",
+                (state == StateCalibration::RShiftA) ? 1 : 2).Draw(85, 50);
 
             progress.Draw(100);
         }
@@ -217,9 +205,11 @@ static void FPGA::Calibrator::FunctionDraw()
 
             DrawResultCalibration(x, y2, ChB);
 
-            ShowCalibrationInfo(130, ChA);
+//            ShowCalibrationInfo(130, ChA);
 
-            ShowCalibrationInfo(185, ChB);
+//            ShowCalibrationInfo(185, ChB);
+
+            String<>(LANG_RU ? "Нажмите любую кнпоку" : "Press any button").DrawInCenterRect(0, 190, 320, 10, COLOR_FILL);
         }
         break;
     }
