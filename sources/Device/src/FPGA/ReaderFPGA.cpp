@@ -194,8 +194,6 @@ void FPGA::Reader::P2P::SavePoints()
 
 void FPGA::Reader::DataRead()
 {
-    LED::Trig.Disable();
-
     IN_PROCESS_READ = true;
 
     ReadPoints(ChA);
