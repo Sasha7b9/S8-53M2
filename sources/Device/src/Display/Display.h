@@ -27,7 +27,7 @@ namespace Display
 
     void RotateTrigLev();
 
-    void EnableTrigLabel(bool enable);
+    void SwitchTrigLabel(bool enable);
 
     void SetDrawMode(DrawMode::E, pFuncVV = nullptr);
 

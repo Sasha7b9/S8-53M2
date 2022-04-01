@@ -507,7 +507,7 @@ void TrigLev::DisableShowLevel()
 }
 
 
-void Display::EnableTrigLabel(bool enable)
+void Display::SwitchTrigLabel(bool enable)
 {
     TrigLev::fireLED = enable;
 }

@@ -860,7 +860,7 @@ void LED::Enable()
 
     if (type == _Trig)
     {
-        Display::EnableTrigLabel(true);
+        Display::SwitchTrigLabel(true);
     }
 }
 
@@ -871,7 +871,7 @@ void LED::Disable()
 
     if (type == _Trig)
     {
-        Display::EnableTrigLabel(false);
+        Display::SwitchTrigLabel(false);
     }
 }
 
