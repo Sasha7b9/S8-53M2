@@ -887,37 +887,22 @@ void LED::Switch(bool enable)
 {
     if (type == _Trig)
     {
-        static uint timeEnable = 0;
-        static bool first = true;
-        static bool fired = false;
-
-        if (first)
-        {
-            Panel::TransmitData(type);
-            Display::EnableTrigLabel(false);
-            timeEnable = TIME_MS;
-            first = false;
-        }
-
         if (enable)
         {
-            timeEnable = TIME_MS;
-        }
+            if (dontFireTrig)
+            {
+                return;
+            }
 
-        if (enable != fired)
+            Timer::Disable(TypeTimer::DisableTrigLED);
+
+            Display::EnableTrigLabel(true);
+            Enable();
+        }
+        else
         {
-            if (enable)
-            {
-                Panel::TransmitData((uint8)(type | 0x80));
-                Display::EnableTrigLabel(true);
-                fired = true;
-            }
-            else if (TIME_MS - timeEnable > 100)
-            {
-                Panel::TransmitData(type);
-                Display::EnableTrigLabel(false);
-                fired = false;
-            }
+            Display::EnableTrigLabel(false);
+            Disable();
         }
     }
     else

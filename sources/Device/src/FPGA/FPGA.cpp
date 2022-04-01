@@ -66,6 +66,9 @@ namespace FPGA
 
     void ProcessP2P();
 
+    // Отложенная задача по выключению лампочки синхронизации
+    void DefferedTaskTrigLED();
+
     namespace FreqMeter
     {
         void Update(uint16 flag);
@@ -132,15 +135,27 @@ void FPGA::Update()
 }
 
 
+void FPGA::DefferedTaskTrigLED()
+{
+    LED::Trig.Disable();
+}
+
+
 void FPGA::ProcessingData()
 {
     flag.Read();
+
+    if (flag.Trig())
+    {
+        LED::Trig.Enable();
+    }
 
     if (NEED_AUTO_TRIG)
     {
         if (TIME_MS - timeStart > 500)
         {
             SwitchingTrig();
+            LED::dontFireTrig = true;
             TRIG_AUTO_FIND = true;
             NEED_AUTO_TRIG = false;
         }
@@ -154,6 +169,8 @@ void FPGA::ProcessingData()
         Stop();
 
         Reader::DataRead();
+
+        Timer::Enable(TypeTimer::DisableTrigLED, 500, DefferedTaskTrigLED);
 
         if (!START_MODE_IS_SINGLE)
         {
@@ -176,8 +193,6 @@ void FPGA::ProcessingData()
             timeStart = TIME_MS;
         }
     }
-
-    LED::Trig.Switch(flag.Trig());
 }
 
 
@@ -224,6 +239,8 @@ void FPGA::Start()
     StateWorkFPGA::SetCurrent(StateWorkFPGA::Wait);
 
     NEED_AUTO_TRIG = false;
+
+    LED::dontFireTrig = false;
 }
 
 
