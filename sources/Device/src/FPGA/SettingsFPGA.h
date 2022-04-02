@@ -350,6 +350,9 @@ struct TrigLev
 
     static void DisableShowLevel();
 
+    // Найти и установить уровень синхронизации по последнему считанному сигналу
+    static void FindAndSet();
+
     // Нарисовать маркер уровня синхронизации.
     static void Draw();
 

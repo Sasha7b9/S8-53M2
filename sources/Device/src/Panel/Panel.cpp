@@ -110,7 +110,7 @@ namespace Panel
         {
             if (ENUM_ACCUM_IS_NONE)
             {
-                FPGA::TemporaryPause();
+                TrigLev::FindAndSet();
             }
             int count = CalculateCount(tMeter);
             int rShiftOld = SET_RSHIFT(ch);
@@ -412,7 +412,7 @@ namespace Panel
             }
             else
             {
-                FPGA::FindAndSetTrigLevel();
+                TrigLev::FindAndSet();
             }
         }
     }

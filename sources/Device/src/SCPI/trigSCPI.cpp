@@ -136,7 +136,7 @@ void SCPI::TRIGGER::FIND(uint8 *buffer)
     ENTER_ANALYSIS
         if (0 == value)         { TRIG_MODE_FIND = TrigModeFind::Hand; }
         else if (1 == value)    { TRIG_MODE_FIND = TrigModeFind::Auto; }
-        else if (2 == value)    { FPGA::FindAndSetTrigLevel(); }
+        else if (2 == value)    { TrigLev::FindAndSet(); }
         else if (3 == value)
         {
             SCPI_SEND(":TRIGGER:FIND %s", map[TRIG_MODE_FIND].key);

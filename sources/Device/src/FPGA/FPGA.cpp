@@ -288,18 +288,6 @@ void FPGA::OnTimerCanReadData()
 }
 
 
-void FPGA::FindAndSetTrigLevel()
-{
-
-}
-
-
-void FPGA::TemporaryPause()
-{
-
-}
-
-
 void FPGA::SetNumberMeasuresForGates(int number)
 {
     numberMeasuresForGates = number;

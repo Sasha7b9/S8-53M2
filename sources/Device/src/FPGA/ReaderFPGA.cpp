@@ -209,7 +209,7 @@ void FPGA::Reader::DataRead()
 
     if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)
     {
-        FPGA::FindAndSetTrigLevel();
+        TrigLev::FindAndSet();
 
         TRIG_AUTO_FIND = false;
     }

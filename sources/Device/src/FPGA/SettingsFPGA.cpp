@@ -1040,3 +1040,9 @@ void RShift::OnMarkersAutoHide()
     drawMarkers = false;
     Timer::Disable(TypeTimer::RShiftMarkersAutoHide);
 }
+
+
+void TrigLev::FindAndSet()
+{
+
+}
