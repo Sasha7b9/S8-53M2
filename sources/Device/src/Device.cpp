@@ -29,17 +29,17 @@ void Device::Init()
 
     FPGA::Init();
 
-    FPGA::OnPressStartStop();
-
     Display::Init();
 
     Panel::Init();
 
-    FDrive::Init();
-
     VCP::Init();
 
     LAN::Init();
+
+    FDrive::Init();
+
+    FPGA::OnPressStartStop();
 }
 
 
