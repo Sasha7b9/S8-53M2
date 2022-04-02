@@ -532,7 +532,15 @@ namespace Panel
     {
         if (action.IsDown())
         {
-            ((Page *)Item::Opened())->ShortPressOnItem(0);
+            if (Item::Opened()->IsPage())
+            {
+                Page *page = (Page *)Item::Opened();
+                if (page->IsSB())
+                {
+                    page->CloseOpened();
+                }
+            }
+
             Settings::SaveBeforePowerDown();
 
             if (TIME_MS > 1000)
