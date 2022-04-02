@@ -94,7 +94,7 @@ void FPGA::AutoFinder::FindSignal()
         }
     }
 
-    Display::SetDrawMode(DrawMode::Auto);
+    Display::SetDrawMode(DrawMode::Normal);
 
     SOUND_ENABLED = sound_enabled;
 

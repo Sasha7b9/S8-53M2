@@ -42,7 +42,7 @@ static void OnPress_ResetSettings()
         FPGA::Init();
     }
 
-    Display::SetDrawMode(DrawMode::Auto);
+    Display::SetDrawMode(DrawMode::Normal);
     Panel::Enable();
     if (running)
     {
@@ -866,7 +866,7 @@ static const Choice cModeLongPressButtonTrig =
 
 static void OnPress_Information_Exit()
 {
-    Display::SetDrawMode(DrawMode::Auto);
+    Display::SetDrawMode(DrawMode::Normal);
     Display::RemoveAddDrawFunction();
 }
 

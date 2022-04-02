@@ -24,9 +24,9 @@
 
 namespace Display
 {
-    pFuncVV funcOnHand       = 0;
-    pFuncVV funcAdditionDraw = 0;
-    pFuncVV funcAfterDraw    = 0;
+    pFuncVV funcOnHand       = nullptr;
+    pFuncVV funcAdditionDraw = nullptr;
+    pFuncVV funcAfterDraw    = nullptr;
 
     bool framesElapsed = false;
 
@@ -221,6 +221,8 @@ void Display::Update(bool endScene)
 
         if (funcAdditionDraw)
         {
+            LOG_WRITE("func draw");
+
             funcAdditionDraw();
         }
     }
@@ -532,7 +534,9 @@ void Display::SetAddDrawFunction(pFuncVV func)
 
 void Display::RemoveAddDrawFunction()
 {
-    funcAdditionDraw = 0;
+    LOG_WRITE("remove draw function");
+
+    funcAdditionDraw = nullptr;
 }
 
 

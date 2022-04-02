@@ -150,7 +150,7 @@ void FPGA::Calibrator::RunCalibrate()
 
     Panel::Enable();
 
-    Display::SetDrawMode(DrawMode::Auto);
+    Display::SetDrawMode(DrawMode::Normal);
 
     FPGA::Init();
 

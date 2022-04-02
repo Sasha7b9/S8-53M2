@@ -38,7 +38,7 @@ struct DrawMode
 {
     enum E
     {
-        Auto,
+        Normal,         // Стандартный режим отрисовки
         Hand
     };
 };
