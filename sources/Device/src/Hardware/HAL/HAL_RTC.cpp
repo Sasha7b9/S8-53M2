@@ -62,6 +62,8 @@ void HAL_RTC::Init()
         ERROR_HANDLER();
     }
 
+    __HAL_RCC_RTC_ENABLE();
+
     __HAL_RTC_RESET_HANDLE_STATE(&handle);
 
     if (HAL_RTC_Init((RTC_HandleTypeDef*)(&handle)) != HAL_OK)
@@ -69,13 +71,13 @@ void HAL_RTC::Init()
         ERROR_HANDLER();
     }
 
-//    if (HAL_RTCEx_BKUPRead((RTC_HandleTypeDef*)&handle, RTC_BKP_DR0) != VALUE_FOR_RTC)
-//    {
+    if (HAL_RTCEx_BKUPRead((RTC_HandleTypeDef*)&handle, RTC_BKP_DR0) != VALUE_FOR_RTC)
+    {
         if(SetTimeAndData(11, 11, 11, 11, 11, 11))
         {
             HAL_RTCEx_BKUPWrite((RTC_HandleTypeDef*)&handle, RTC_BKP_DR0, VALUE_FOR_RTC);
         }
-//    }
+    }
 }
 
 
