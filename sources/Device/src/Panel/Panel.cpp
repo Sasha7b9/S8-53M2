@@ -237,30 +237,36 @@ namespace Panel
 
     static void OnKeyboardEvent(KeyboardEvent event)
     {
-        if (event.IsDown())
+        if (Hint::show)
         {
-            Sound::ButtonPress();
-
-            if (Hint::show)
+            if (event.IsDown())
             {
+                Sound::ButtonPress();
                 Menu::ProcessButtonForHint(event.key);
             }
         }
-        else if (event.IsUp() || event.IsLong())
+        else
         {
-            Sound::ButtonRelease();
-        }
-        else if (event.IsLeft() || event.IsRight())
-        {
-            if (event.key == Key::RShiftA || event.key == Key::RShiftB || event.key == Key::TShift || event.key == Key::TrigLev)
+            if (event.IsDown())
             {
-                Sound::RegulatorShiftRotate();
+                Sound::ButtonPress();
             }
-            else
+            else if (event.IsUp() || event.IsLong())
             {
-                if (event.key != Key::Setting)
+                Sound::ButtonRelease();
+            }
+            else if (event.IsLeft() || event.IsRight())
+            {
+                if (event.key == Key::RShiftA || event.key == Key::RShiftB || event.key == Key::TShift || event.key == Key::TrigLev)
                 {
-                    Sound::RegulatorSwitchRotate();
+                    Sound::RegulatorShiftRotate();
+                }
+                else
+                {
+                    if (event.key != Key::Setting)
+                    {
+                        Sound::RegulatorSwitchRotate();
+                    }
                 }
             }
         }
