@@ -15,8 +15,7 @@ static bool FuncOfActiveExtMemFolder()
 
 static void PressSB_FM_Exit()
 {
-//    Display::SetDrawMode(DrawMode::Auto);
-    Display::RemoveAddDrawFunction();
+    Display::SetDrawMode(DrawMode::Normal);
 }
 
 

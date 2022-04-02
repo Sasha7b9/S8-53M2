@@ -1067,6 +1067,6 @@ void TrigLev::FindAndSet()
 
         int trig_lev = TrigLev::ZERO + scale * (ave - ValueFPGA::AVE) - (SET_RSHIFT(ch) - RShift::ZERO);
 
-        Set(ch, trig_lev);
+        Set(ch, (int16)trig_lev);
     }
 }

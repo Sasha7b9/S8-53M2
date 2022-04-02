@@ -24,7 +24,8 @@
 
 namespace Display
 {
-    pFuncVV funcOnTimer      = nullptr;
+    pFuncVV funcOnHand       = nullptr;
+
     pFuncVV funcAdditionDraw = nullptr;
     pFuncVV funcAfterDraw    = nullptr;
 
@@ -180,8 +181,9 @@ bool Display::NeedForClearScreen()
 
 void Display::Update(bool endScene)
 {
-    if (funcOnTimer != 0)
+    if (funcOnHand != 0)
     {
+        funcOnHand();
         return;
     }
 
@@ -221,8 +223,6 @@ void Display::Update(bool endScene)
 
         if (funcAdditionDraw)
         {
-            LOG_WRITE("func draw");
-
             funcAdditionDraw();
         }
     }
@@ -513,14 +513,19 @@ void Display::SwitchTrigLabel(bool enable)
 
 void Display::SetDrawMode(DrawMode::E mode, pFuncVV func)
 {
-    funcOnTimer = func;
-
-    if (mode == DrawMode::Timer)
+    if (mode == DrawMode::Normal)
     {
+        funcOnHand = nullptr;
+        Timer::Disable(TypeTimer::UpdateDisplay);
+    }
+    else if (mode == DrawMode::Timer)
+    {
+        funcOnHand = nullptr;
         Timer::Enable(TypeTimer::UpdateDisplay, 40, func);
     }
     else
     {
+        funcOnHand = func;
         Timer::Disable(TypeTimer::UpdateDisplay);
     }
 }
@@ -534,8 +539,6 @@ void Display::SetAddDrawFunction(pFuncVV func)
 
 void Display::RemoveAddDrawFunction()
 {
-    LOG_WRITE("remove draw function");
-
     funcAdditionDraw = nullptr;
 }
 
