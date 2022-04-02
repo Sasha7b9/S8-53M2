@@ -24,7 +24,7 @@
 
 namespace Display
 {
-    pFuncVV funcOnHand       = nullptr;
+    pFuncVV funcOnTimer      = nullptr;
     pFuncVV funcAdditionDraw = nullptr;
     pFuncVV funcAfterDraw    = nullptr;
 
@@ -180,7 +180,7 @@ bool Display::NeedForClearScreen()
 
 void Display::Update(bool endScene)
 {
-    if (funcOnHand != 0)
+    if (funcOnTimer != 0)
     {
         return;
     }
@@ -513,7 +513,7 @@ void Display::SwitchTrigLabel(bool enable)
 
 void Display::SetDrawMode(DrawMode::E mode, pFuncVV func)
 {
-    funcOnHand = func;
+    funcOnTimer = func;
 
     if (mode == DrawMode::Timer)
     {
