@@ -515,7 +515,7 @@ void Display::SetDrawMode(DrawMode::E mode, pFuncVV func)
 {
     funcOnHand = func;
 
-    if (mode == DrawMode::Hand)
+    if (mode == DrawMode::Timer)
     {
         Timer::Enable(TypeTimer::UpdateDisplay, 40, func);
     }

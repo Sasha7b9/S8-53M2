@@ -77,7 +77,7 @@ void FPGA::AutoFinder::FindSignal()
 
     waiter.Reset();
 
-    Display::SetDrawMode(DrawMode::Hand, FunctionDraw);
+    Display::SetDrawMode(DrawMode::Timer, FunctionDraw);
 
     Settings old = set;
 

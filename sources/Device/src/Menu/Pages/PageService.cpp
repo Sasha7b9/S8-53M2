@@ -34,7 +34,7 @@ static void OnPress_ResetSettings()
     bool running = FPGA::IsRunning();
     FPGA::Stop();
     Panel::Disable();
-    Display::SetDrawMode(DrawMode::Hand, FuncDraw);
+    Display::SetDrawMode(DrawMode::Timer, FuncDraw);
 
     if (Panel::WaitPressingButton() == Key::Start)
     {
@@ -931,7 +931,7 @@ static void Information_Draw()
 static void OnPress_Information()
 {
     PageService::Information::self->OpenAndSetCurrent();
-    Display::SetDrawMode(DrawMode::Hand, Information_Draw);
+    Display::SetDrawMode(DrawMode::Timer, Information_Draw);
 }
 
 

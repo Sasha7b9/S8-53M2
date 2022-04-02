@@ -103,7 +103,7 @@ void FPGA::Calibrator::RunCalibrate()
 
     FPGA::Stop();
 
-    Display::SetDrawMode(DrawMode::Hand, FunctionDraw);
+    Display::SetDrawMode(DrawMode::Timer, FunctionDraw);
 
     Settings old = set;
 
