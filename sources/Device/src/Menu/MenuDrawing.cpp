@@ -102,20 +102,14 @@ void Hint::DrawHintItem(int x, int y, int width)
         y -= 9;
     }
 
-    DEBUG_POINT_0;
-
     String<>("%s \"%s\"", names[type][lang], TITLE(page)).DrawStringInCenterRectAndBoundIt(x, y, width, 15, COLOR_BACK, COLOR_FILL);
-    DEBUG_POINT_0;
+
     y = String<1024>(HINT(page)).DrawInBoundedRectWithTransfers(x, y + 15, width, COLOR_BACK, COLOR_FILL);
-    DEBUG_POINT_0;
 
     if (page->type == TypeItem::SmallButton)
     {
-        DEBUG_POINT_0;
         Painter::DrawHintsForSmallButton(x, y, width, (void *)page);
-        DEBUG_POINT_0;
     }
-    DEBUG_POINT_0;
 }
 
 
@@ -139,8 +133,6 @@ void Menu::Draw()
 
     if (Hint::show)
     {
-        DEBUG_POINT_0;
-
         const int x = 0;
         int y = 0;
         int width = IsMinimize() ? 289 : 220;
@@ -157,12 +149,8 @@ void Menu::Draw()
         }
         else if (Hint::item)
         {
-            DEBUG_POINT_0;
             Hint::DrawHintItem(x + 1, y, width - 1); //-V2007
-            DEBUG_POINT_0;
         }
-
-        DEBUG_POINT_0;
     }
 }
 

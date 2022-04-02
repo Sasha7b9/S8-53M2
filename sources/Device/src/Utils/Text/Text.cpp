@@ -575,35 +575,26 @@ bool Text::GetHeightTextWithTransfers(int left, int top, int right, pchar text, 
 
 void Painter::DrawHintsForSmallButton(int x, int y, int width, void *smallButton)
 {
-    DEBUG_POINT_0;
     SmallButton *sb = (SmallButton*)smallButton;
-    DEBUG_POINT_0;
     Region(width, 239 - y).Fill(x, y, COLOR_BACK);
-    DEBUG_POINT_0;
     Rectangle(width, 239 - y).Draw(x, y, COLOR_FILL);
+
     if (sb->hintUGO)
     {
-        DEBUG_POINT_0;
         const StructHelpSmallButton *structHelp = &(*sb->hintUGO)[0];
-        DEBUG_POINT_0;
+
         x += 3;
         y += 3;
 
         while (structHelp->funcDrawUGO)
         {
-            DEBUG_POINT_0;
             Rectangle(WIDTH_SB, WIDTH_SB).Draw(x, y);
-            DEBUG_POINT_0;
             structHelp->funcDrawUGO(x, y);
-            DEBUG_POINT_0;
             int yNew = String<>(structHelp->helpUGO[LANG]).DrawInRectWithTransfers(x + 23, y + 1, width - 30, 20);
-            DEBUG_POINT_0;
             y = ((yNew - y) < 22) ? (y + 22) : yNew;
             structHelp++;
-            DEBUG_POINT_0;
         }
     }
-    DEBUG_POINT_0;
 }
 
 
