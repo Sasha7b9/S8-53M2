@@ -15,6 +15,7 @@ struct PackedTime
     uint year    : 7;
     uint month   : 4;
     uint day     : 5;
+    PackedTime() : hours(0), minutes(0), seconds(0), year(0), month(0), day(0) {}
 };
 
 

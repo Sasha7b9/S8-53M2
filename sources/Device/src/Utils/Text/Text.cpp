@@ -1088,7 +1088,7 @@ String<> SU::Time2String(float time, bool alwaysSign)
 }
 
 
-String<> SU::Freq2String(float freq, bool log)
+String<> SU::Freq2String(float freq, bool)
 {
     if (freq == ERROR_VALUE_FLOAT)
     {
@@ -1110,18 +1110,6 @@ String<> SU::Freq2String(float freq, bool log)
     else
     {
         suffix = LANG_RU ? "Ãö" : "Hz";
-    }
-
-    static int counter = 0;
-    
-    if(log)
-    {
-        counter++;
-    }
-    
-    if(counter == 2)
-    {
-        counter = counter;
     }
 
     String<> result = SU::Float2String(freq, false, 4);

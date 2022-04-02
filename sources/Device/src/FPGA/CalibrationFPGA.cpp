@@ -267,11 +267,6 @@ static bool FPGA::Calibrator::CalibrateRShift(Chan ch)
 
             int addShift = CalculateAddRShift(ave);
             
-            if(ch.IsA())
-            {
-                addShift = addShift;
-            }
-
             if (addShift < -50 || addShift > 50)
             {
                 return false;

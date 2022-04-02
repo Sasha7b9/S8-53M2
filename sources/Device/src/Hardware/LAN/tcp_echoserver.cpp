@@ -174,12 +174,9 @@ static err_t tcp_echoserver_recv(void *arg, struct tcp_pcb *tpcb, struct pbuf *p
     /* else : a non empty frame was received from client but for some reason err != ERR_OK */
     else if (err != ERR_OK)
     {
-        /* free received pbuf*/
-        if (p != NULL)
-        {
-            es->p = NULL;
-            pbuf_free(p);
-        }
+        es->p = NULL;
+        pbuf_free(p);
+
         ret_err = err;
     }
     else if (es->state == ES_ACCEPTED)
