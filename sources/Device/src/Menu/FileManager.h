@@ -16,8 +16,6 @@ namespace FM
 
     void Draw();
 
-    void Open();
-
     void PressLevelUp();
 
     void PressLevelDown();

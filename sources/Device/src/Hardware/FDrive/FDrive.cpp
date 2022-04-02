@@ -57,7 +57,6 @@ void USBH_UserProcess(USBH_HandleTypeDef *, uint8 id)
             break;
         case HOST_USER_CLASS_ACTIVE:
             FM::Init();
-            Menu::ChangeStateFlashDrive();
             if (f_mount(&USBDISKFatFs, (TCHAR const*)USBDISKPath, 0) != FR_OK)
             {
                 FDrive::isConnected = false;
@@ -66,6 +65,7 @@ void USBH_UserProcess(USBH_HandleTypeDef *, uint8 id)
             {
                 FDrive::isConnected = true;
             }
+            Menu::ChangeStateFlashDrive();
             break;
         case HOST_USER_CLASS_SELECTED:
             break;

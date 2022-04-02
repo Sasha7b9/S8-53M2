@@ -71,7 +71,8 @@ void Menu::UpdateInput()
     if (FM::needOpen)
     {
         FM::needOpen = false;
-        FM::Open();
+        PageMemory::FileManager::self->OpenAndSetCurrent();
+        PageMemory::OnPressExtFileManager();
     }
 };
 
@@ -638,10 +639,4 @@ void Menu::SwitchSetLED()
         LED::RegSet.Switch(state);
         prevState = state;
     }
-}
-
-
-void FM::Open()
-{
-    PageMemory::FileManager::self->OpenAndSetCurrent();
 }
