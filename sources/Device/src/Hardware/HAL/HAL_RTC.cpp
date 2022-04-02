@@ -23,7 +23,7 @@ namespace HAL_RTC
         #define RTC_SYNCH_PREDIV 0x00ff
     #endif
 
-    static const RTC_HandleTypeDef handle =
+    static RTC_HandleTypeDef handle =
     {
         RTC,
         {
@@ -40,18 +40,42 @@ namespace HAL_RTC
 
 void HAL_RTC::Init()
 {
+    RCC_OscInitTypeDef oscIS;
+    RCC_PeriphCLKInitTypeDef periphClkIS;
+
+    HAL_PWR_EnableBkUpAccess();
+
+    oscIS.OscillatorType = RCC_OSCILLATORTYPE_LSI | RCC_OSCILLATORTYPE_LSE;
+    oscIS.PLL.PLLState = RCC_PLL_NONE;
+    oscIS.LSEState = RCC_LSE_ON;
+    oscIS.LSIState = RCC_LSI_OFF;
+
+    if (HAL_RCC_OscConfig(&oscIS) != HAL_OK)
+    {
+        ERROR_HANDLER();
+    }
+
+    periphClkIS.PeriphClockSelection = RCC_PERIPHCLK_RTC;
+    periphClkIS.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
+    if (HAL_RCCEx_PeriphCLKConfig(&periphClkIS) != HAL_OK)
+    {
+        ERROR_HANDLER();
+    }
+
+    __HAL_RTC_RESET_HANDLE_STATE(&handle);
+
     if (HAL_RTC_Init((RTC_HandleTypeDef*)(&handle)) != HAL_OK)
     {
         ERROR_HANDLER();
     }
 
-    if (HAL_RTCEx_BKUPRead((RTC_HandleTypeDef*)&handle, RTC_BKP_DR0) != VALUE_FOR_RTC)
-    {
+//    if (HAL_RTCEx_BKUPRead((RTC_HandleTypeDef*)&handle, RTC_BKP_DR0) != VALUE_FOR_RTC)
+//    {
         if(SetTimeAndData(11, 11, 11, 11, 11, 11))
         {
             HAL_RTCEx_BKUPWrite((RTC_HandleTypeDef*)&handle, RTC_BKP_DR0, VALUE_FOR_RTC);
         }
-    }
+//    }
 }
 
 
