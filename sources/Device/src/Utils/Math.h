@@ -31,8 +31,8 @@ namespace Math
     float TimeCursor(float shiftCurT, TBase::E);
     void  DataExtrapolation(uint8 *data, uint8 *there, int size);
     uint8 GetMinFromArrayWithErrorCode(const uint8 *data, int firstPoint, int lastPoint);
-    uint8 GetMaxFromArray(const uint8 *data, int firstPoint, int lastPoint);
-    uint8 GetMinFromArray(const uint8 *data, int firstPoint, int lastPoint);
+    uint8 GetMaxFromArray(const uint8 *data, int first, int last);
+    uint8 GetMinFromArray(const uint8 *data, int first, int last);
     float MinFrom3float(float value1, float value2, float value3);
     int   MinInt(int val1, int val2);
     void  CalculateFFT(float *data, int numPoints, float *result, float *freq0, float *density0, float *freq1,

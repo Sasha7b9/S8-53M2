@@ -502,22 +502,14 @@ uint8 Math::GetMinFromArrayWithErrorCode(const uint8 *data, int firstPoint, int 
 
 uint8 Math::GetMinFromArray(const uint8 *data, int firstPoint, int lastPoint)
 {
-
 #define MIN_IF_LESS if(d < min) { min = d; }
 
     uint8 min = 255;
     const uint8 *pointer = &data[firstPoint];
 
-    for (int i = firstPoint; i < lastPoint; i += 2)
+    for (int i = firstPoint; i < lastPoint; i++)
     {
         uint8 d = *pointer++;
-        MIN_IF_LESS
-        d = *pointer++;
-        MIN_IF_LESS
-    }
-    if ((lastPoint - firstPoint + 1) & 1)
-    {
-        uint8 d = *pointer;
         MIN_IF_LESS
     }
 
@@ -526,23 +518,15 @@ uint8 Math::GetMinFromArray(const uint8 *data, int firstPoint, int lastPoint)
 
 uint8 Math::GetMaxFromArray(const uint8 *data, int firstPoint, int lastPoint)
 {
-
 #define MAX_IF_ABOVE if(d > max) { max = d; }
 
     uint8 max = 0;
     const uint8 *pointer = &data[firstPoint];
 
-    for (int i = firstPoint; i < lastPoint; i += 2)
+    for (int i = firstPoint; i < lastPoint; i++)
     {
         uint8 d = *pointer++;
         MAX_IF_ABOVE;
-        d = *pointer++;
-        MAX_IF_ABOVE;
-    }
-    if ((lastPoint - firstPoint + 1) & 1)
-    {
-        uint8 d = *pointer;
-        MAX_IF_ABOVE
     }
 
     return max;

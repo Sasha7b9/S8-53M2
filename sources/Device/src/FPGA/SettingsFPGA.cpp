@@ -14,6 +14,8 @@
 #include "Utils/Text/Warnings.h"
 #include "Utils/Text/Symbols.h"
 #include "Utils/Text/Text.h"
+#include "Data/Storage.h"
+#include "Utils/Math.h"
 #include <cstring>
 
 
@@ -1044,5 +1046,27 @@ void RShift::OnMarkersAutoHide()
 
 void TrigLev::FindAndSet()
 {
+    if (Storage::NumFrames() == 0 || TRIG_SOURCE_IS_EXT)
+    {
+        return;
+    }
+    else
+    {
+        Chan::E ch = (Chan::E)TRIG_SOURCE;
 
+        const DataStruct data = Storage::GetData(0);
+
+        const BufferFPGA &buffer = data.DataConst(ch);
+
+        uint8 max = Math::GetMinFromArray(buffer.DataConst(), 0, buffer.Size());
+        uint8 min = Math::GetMaxFromArray(buffer.DataConst(), 0, buffer.Size());
+
+        int ave = ((int)min + (int)max) / 2;
+
+        float scale = (float)(TrigLev::MAX - TrigLev::ZERO) / (float)(ValueFPGA::MAX - ValueFPGA::AVE) / 2.4f;
+
+        int trig_lev = TrigLev::ZERO + scale * (ave - ValueFPGA::AVE) - (SET_RSHIFT(ch) - RShift::ZERO);
+
+        Set(ch, trig_lev);
+    }
 }

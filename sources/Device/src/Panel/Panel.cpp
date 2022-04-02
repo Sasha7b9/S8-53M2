@@ -108,10 +108,6 @@ namespace Panel
 
         void ChangeRShift(TimeMeterMS *tMeter, void(*f)(Chan::E, int16), Chan::E ch, int16 relStep)
         {
-            if (ENUM_ACCUM_IS_NONE)
-            {
-                TrigLev::FindAndSet();
-            }
             int count = CalculateCount(tMeter);
             int rShiftOld = SET_RSHIFT(ch);
             int rshift = SET_RSHIFT(ch) + relStep * count;
