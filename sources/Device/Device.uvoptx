@@ -152,50 +152,99 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>2971</LineNumber>
+          <LineNumber>207</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134443774</Address>
+          <Address>134468930</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;1&gt;..\STM32Cube_FW_F4\Middlewares\Third_Party\FatFs\src\ff.c</Filename>
+          <Filename>&lt;2&gt;.\src\Menu\FileManager.cpp</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\S8_53\../STM32Cube_FW_F4/Middlewares/Third_Party/FatFs/src/ff.c\2971</Expression>
+          <Expression>\\S8_53\src/Menu/FileManager.cpp\207</Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>780</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134377000</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>&lt;1&gt;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\S8_53\../STM32Cube_FW_F4/Middlewares/ST/STM32_USB_Host_Library/Class/MSC/Src/usbh_msc.c\780</Expression>
+        </Bp>
+        <Bp>
+          <Number>2</Number>
+          <Type>0</Type>
+          <LineNumber>107</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134541076</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>&lt;2&gt;.\src\Hardware\FDrive\FDrive.cpp</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\S8_53\src/Hardware/FDrive/FDrive.cpp\107</Expression>
+        </Bp>
+        <Bp>
+          <Number>3</Number>
+          <Type>0</Type>
+          <LineNumber>782</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134377002</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>&lt;1&gt;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\S8_53\../STM32Cube_FW_F4/Middlewares/ST/STM32_USB_Host_Library/Class/MSC/Src/usbh_msc.c\782</Expression>
+        </Bp>
+        <Bp>
+          <Number>4</Number>
+          <Type>0</Type>
+          <LineNumber>556</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134422808</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>&lt;1&gt;..\STM32Cube_FW_F4\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\S8_53\../STM32Cube_FW_F4/Middlewares/ST/STM32_USB_Host_Library/Class/MSC/Src/usbh_msc.c\556</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>line,0x0A</ItemText>
+          <ItemText>hhcd</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>file</ItemText>
+          <ItemText>MSC_Handle</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>_item</ItemText>
-        </Ww>
-        <Ww>
-          <count>3</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>num_symbols,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>4</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>num_symbols</ItemText>
-        </Ww>
-        <Ww>
-          <count>5</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>sb</ItemText>
+          <ItemText>MSC_READ</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>
@@ -2772,7 +2821,7 @@
 
   <Group>
     <GroupName>Menu</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -3772,7 +3821,7 @@
 
   <Group>
     <GroupName>FatFS</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -3896,7 +3945,7 @@
 
   <Group>
     <GroupName>Utils/Text</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

@@ -104,7 +104,7 @@ void Directory::GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles)
     fno.fname[0] = '\0';
     fno.fsize = 0;
 
-    if (f_opendir(&dir, nameDir) == FR_OK)
+    if (f_opendir(&dir, "//") == FR_OK)
     {
         int numReadingElements = 0;
         bool alreadyNull = false;

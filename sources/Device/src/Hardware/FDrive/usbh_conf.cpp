@@ -23,13 +23,43 @@
 #include "Hardware/HAL/HAL.h"
 
 /* Private define ------------------------------------------------------------*/
-#define HOST_POWERSW_PORT                 GPIOC
-#define HOST_POWERSW_VBUS                 GPIO_PIN_4
+//#define HOST_POWERSW_PORT                 GPIOC
+//#define HOST_POWERSW_VBUS                 GPIO_PIN_4
 
 
 /*******************************************************************************
                        HCD BSP Routines
 *******************************************************************************/
+
+/**
+  * @brief  Initializes the HCD MSP.
+  * @param  hhcd: HCD handle
+  * @retval None
+  */
+void HAL_HCD_MspInit(HCD_HandleTypeDef *)
+{
+    /* Enable USB HS Clocks */
+    __HAL_RCC_USB_OTG_HS_CLK_ENABLE();
+
+    USBH_Delay(200);   /* Delay is need for stabilising the Vbus Low */
+
+    /* Set USBHS Interrupt to the lowest priority */
+    HAL_NVIC_SetPriority(OTG_HS_IRQn, 5, 0);
+
+    /* Enable USBFS Interrupt */
+    HAL_NVIC_EnableIRQ(OTG_HS_IRQn);
+}
+
+/**
+  * @brief  DeInitializes the HCD MSP.
+  * @param  hhcd: HCD handle
+  * @retval None
+  */
+void HAL_HCD_MspDeInit(HCD_HandleTypeDef *)
+{
+    /* Disable USB HS Clocks */
+    __HAL_RCC_USB_OTG_HS_CLK_DISABLE();
+}
 
 /*******************************************************************************
                        LL Driver Callbacks (HCD -> USB Host Library)
@@ -122,7 +152,7 @@ USBH_StatusTypeDef USBH_LL_Init(USBH_HandleTypeDef *phost)
     hhcd->Init.use_external_vbus = 1;
     /* Link The driver to the stack */
     hhcd->pData = phost;
-    phost->pData = &hhcd;
+    phost->pData = hhcd;
     /*Initialize LL Driver */
     if (HAL_HCD_Init(hhcd) != HAL_OK)
     {
@@ -337,28 +367,28 @@ USBH_URBStateTypeDef USBH_LL_GetURBState(USBH_HandleTypeDef *phost, uint8_t pipe
   */
 USBH_StatusTypeDef USBH_LL_DriverVBUS(USBH_HandleTypeDef *, uint8_t state)
 {
-  /*
-    On-chip 5 V VBUS generation is not supported. For this reason, a charge pump 
-    or, if 5 V are available on the application board, a basic power switch, must 
-    be added externally to drive the 5 V VBUS line. The external charge pump can 
-    be driven by any GPIO output. When the application decides to power on VBUS 
-    using the chosen GPIO, it must also set the port power bit in the host port 
-    control and status register (PPWR bit in OTG_FS_HPRT).
-    
-    Bit 12 PPWR: Port power
-    The application uses this field to control power to this port, and the core 
-    clears this bit on an overcurrent condition.
-  */
-  if (0 == state)
-  {
-    /* DISABLE is needed on output of the Power Switch */
-    HAL_GPIO_WritePin(HOST_POWERSW_PORT, HOST_POWERSW_VBUS, GPIO_PIN_SET);
-  }
-  else
-  {
-    /*ENABLE the Power Switch by driving the Enable LOW */
-    HAL_GPIO_WritePin(HOST_POWERSW_PORT, HOST_POWERSW_VBUS, GPIO_PIN_RESET);
-  }
+//  /*
+//    On-chip 5 V VBUS generation is not supported. For this reason, a charge pump 
+//    or, if 5 V are available on the application board, a basic power switch, must 
+//    be added externally to drive the 5 V VBUS line. The external charge pump can 
+//    be driven by any GPIO output. When the application decides to power on VBUS 
+//    using the chosen GPIO, it must also set the port power bit in the host port 
+//    control and status register (PPWR bit in OTG_FS_HPRT).
+//    
+//    Bit 12 PPWR: Port power
+//    The application uses this field to control power to this port, and the core 
+//    clears this bit on an overcurrent condition.
+//  */
+//  if (0 == state)
+//  {
+//    /* DISABLE is needed on output of the Power Switch */
+//    HAL_GPIO_WritePin(HOST_POWERSW_PORT, HOST_POWERSW_VBUS, GPIO_PIN_SET);
+//  }
+//  else
+//  {
+//    /*ENABLE the Power Switch by driving the Enable LOW */
+//    HAL_GPIO_WritePin(HOST_POWERSW_PORT, HOST_POWERSW_VBUS, GPIO_PIN_RESET);
+//  }
   
   HAL_Delay(200);
   return USBH_OK;  
