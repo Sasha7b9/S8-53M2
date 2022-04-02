@@ -1,11 +1,27 @@
-// 2021/06/24 14:59:27 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+/**
+  ******************************************************************************
+  * @file    usbh_diskio_dma.c
+  * @author  MCD Application Team
+  * @brief   USB Host Disk I/O driver (with internal DMA).
+  ******************************************************************************
+  * @attention
+  *
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by ST under Ultimate Liberty license
+  * SLA0044, the "License"; You may not use this file except in compliance with
+  * the License. You may obtain a copy of the License at:
+  *                             www.st.com/SLA0044
+  *
+  ******************************************************************************
+  */
+
+/* Includes ------------------------------------------------------------------*/
 #include "defines.h"
 #include "ff_gen_drv.h"
 #include "usbh_diskio.h"
 #include "Hardware/HAL/HAL.h"
-#include <stm32f4xx_hal.h>
-#include <usbh_def.h>
-#include <usbh_msc.h>
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -16,19 +32,19 @@
 static DWORD scratch[_MAX_SS / 4];
 
 /* Private function prototypes -----------------------------------------------*/
-DSTATUS USBH_initialize(BYTE);
-DSTATUS USBH_status(BYTE);
-DRESULT USBH_read(BYTE, BYTE *, DWORD, UINT);
+DSTATUS USBH_initialize (BYTE);
+DSTATUS USBH_status (BYTE);
+DRESULT USBH_read (BYTE, BYTE*, DWORD, UINT);
 
 #if _USE_WRITE == 1
-DRESULT USBH_write(BYTE, const BYTE *, DWORD, UINT);
+  DRESULT USBH_write (BYTE, const BYTE*, DWORD, UINT);
 #endif /* _USE_WRITE == 1 */
 
 #if _USE_IOCTL == 1
-DRESULT USBH_ioctl(BYTE, BYTE, void *);
+  DRESULT USBH_ioctl (BYTE, BYTE, void*);
 #endif /* _USE_IOCTL == 1 */
 
-Diskio_drvTypeDef  USBH_Driver =
+const Diskio_drvTypeDef  USBH_Driver =
 {
   USBH_initialize,
   USBH_status,
@@ -50,9 +66,9 @@ Diskio_drvTypeDef  USBH_Driver =
   */
 DSTATUS USBH_initialize(BYTE)
 {
-    /* CAUTION : USB Host library has to be initialized in the application */
+  /* CAUTION : USB Host library has to be initialized in the application */
 
-    return RES_OK;
+  return RES_OK;
 }
 
 /**
@@ -62,18 +78,18 @@ DSTATUS USBH_initialize(BYTE)
   */
 DSTATUS USBH_status(BYTE lun)
 {
-    DRESULT res = RES_ERROR;
+  DRESULT res = RES_ERROR;
 
-    if (USBH_MSC_UnitIsReady((USBH_HandleTypeDef *)HAL_USBH::handle, lun))
-    {
-        res = RES_OK;
-    }
-    else
-    {
-        res = RES_ERROR; //-V1048
-    }
+  if(USBH_MSC_UnitIsReady((USBH_HandleTypeDef *)HAL_USBH::handle, lun))
+  {
+    res = RES_OK;
+  }
+  else
+  {
+    res = RES_ERROR;
+  }
 
-    return (DSTATUS)res;
+  return res;
 }
 /**
   * @brief  Reads Sector(s)
@@ -85,55 +101,57 @@ DSTATUS USBH_status(BYTE lun)
   */
 DRESULT USBH_read(BYTE lun, BYTE *buff, DWORD sector, UINT count)
 {
-    DRESULT res = RES_ERROR;
-    MSC_LUNTypeDef info;
-    USBH_StatusTypeDef  status = USBH_OK;
+  DRESULT res = RES_ERROR;
+  MSC_LUNTypeDef info;
+  USBH_StatusTypeDef  status = USBH_OK;
 
-    if (((DWORD)buff & 3) && (((HCD_HandleTypeDef *)((USBH_HandleTypeDef *)HAL_USBH::handle)->pData)->Init.dma_enable))
+  USBH_HandleTypeDef *hUSBHost = (USBH_HandleTypeDef *)HAL_USBH::handle;
+
+  if (((DWORD)buff & 3) && (((HCD_HandleTypeDef *)hUSBHost->pData)->Init.dma_enable))
+  {
+    while ((count--)&&(status == USBH_OK))
     {
-        while ((count--) && (status == USBH_OK))
-        {
-            status = USBH_MSC_Read((USBH_HandleTypeDef *)HAL_USBH::handle, lun, sector + count, (uint8_t *)scratch, 1);
+      status = USBH_MSC_Read(hUSBHost, lun, sector + count, (uint8_t *)scratch, 1);
 
-            if (status == USBH_OK)
-            {
-                memcpy(&buff[count * _MAX_SS], scratch, _MAX_SS);
-            }
-            else
-            {
-                break;
-            }
-        }
+      if(status == USBH_OK)
+      {
+        memcpy (&buff[count * _MAX_SS] ,scratch, _MAX_SS);
+      }
+      else
+      {
+        break;
+      }
     }
-    else
+  }
+  else
+  {
+    status = USBH_MSC_Read(hUSBHost, lun, sector, buff, count);
+  }
+
+  if(status == USBH_OK)
+  {
+    res = RES_OK;
+  }
+  else
+  {
+    USBH_MSC_GetLUNInfo(hUSBHost, lun, &info);
+
+    switch (info.sense.asc)
     {
-        status = USBH_MSC_Read((USBH_HandleTypeDef *)HAL_USBH::handle, lun, sector, buff, count);
+    case SCSI_ASC_LOGICAL_UNIT_NOT_READY:
+    case SCSI_ASC_MEDIUM_NOT_PRESENT:
+    case SCSI_ASC_NOT_READY_TO_READY_CHANGE:
+      USBH_ErrLog ("USB Disk is not ready!");
+      res = RES_NOTRDY;
+      break;
+
+    default:
+      res = RES_ERROR;
+      break;
     }
+  }
 
-    if (status == USBH_OK)
-    {
-        res = RES_OK;
-    }
-    else
-    {
-        USBH_MSC_GetLUNInfo((USBH_HandleTypeDef *)HAL_USBH::handle, lun, &info);
-
-        switch (info.sense.asc)
-        {
-        case SCSI_ASC_LOGICAL_UNIT_NOT_READY:
-        case SCSI_ASC_MEDIUM_NOT_PRESENT:
-        case SCSI_ASC_NOT_READY_TO_READY_CHANGE:
-            USBH_ErrLog("USB Disk is not ready!");
-            res = RES_NOTRDY;
-            break;
-
-        default:
-            res = RES_ERROR; //-V1048
-            break;
-        }
-    }
-
-    return res;
+  return res;
 }
 
 /**
@@ -147,60 +165,60 @@ DRESULT USBH_read(BYTE lun, BYTE *buff, DWORD sector, UINT count)
 #if _USE_WRITE == 1
 DRESULT USBH_write(BYTE lun, const BYTE *buff, DWORD sector, UINT count)
 {
-    DRESULT res = RES_ERROR;
-    MSC_LUNTypeDef info;
-    USBH_StatusTypeDef  status = USBH_OK;
+  DRESULT res = RES_ERROR;
+  MSC_LUNTypeDef info;
+  USBH_StatusTypeDef  status = USBH_OK;
 
-    USBH_HandleTypeDef *handle = (USBH_HandleTypeDef *)HAL_USBH::handle;
+  USBH_HandleTypeDef *hUSBHost = (USBH_HandleTypeDef *)HAL_USBH::handle;
 
-    if (((DWORD)buff & 3) && (((HCD_HandleTypeDef *)handle->pData)->Init.dma_enable))
+  if (((DWORD)buff & 3) && (((HCD_HandleTypeDef *)hUSBHost->pData)->Init.dma_enable))
+  {
+
+    while (count--)
     {
+      memcpy (scratch, &buff[count * _MAX_SS], _MAX_SS);
 
-        while (count--)
-        {
-            memcpy(scratch, &buff[count * _MAX_SS], _MAX_SS);
-
-            status = USBH_MSC_Write((USBH_HandleTypeDef *)HAL_USBH::handle, lun, sector + count, (BYTE *)scratch, 1);
-            if (status == USBH_FAIL)
-            {
-                break;
-            }
-        }
+      status = USBH_MSC_Write(hUSBHost, lun, sector + count, (BYTE *)scratch, 1) ;
+      if(status == USBH_FAIL)
+      {
+        break;
+      }
     }
-    else
+  }
+  else
+  {
+    status = USBH_MSC_Write(hUSBHost, lun, sector, (BYTE *)buff, count);
+  }
+
+  if(status == USBH_OK)
+  {
+    res = RES_OK;
+  }
+  else
+  {
+    USBH_MSC_GetLUNInfo(hUSBHost, lun, &info);
+
+    switch (info.sense.asc)
     {
-        status = USBH_MSC_Write((USBH_HandleTypeDef *)HAL_USBH::handle, lun, sector, (BYTE *)buff, count);
+    case SCSI_ASC_WRITE_PROTECTED:
+      USBH_ErrLog("USB Disk is Write protected!");
+      res = RES_WRPRT;
+      break;
+
+    case SCSI_ASC_LOGICAL_UNIT_NOT_READY:
+    case SCSI_ASC_MEDIUM_NOT_PRESENT:
+    case SCSI_ASC_NOT_READY_TO_READY_CHANGE:
+      USBH_ErrLog("USB Disk is not ready!");
+      res = RES_NOTRDY;
+      break;
+
+    default:
+      res = RES_ERROR;
+      break;
     }
+  }
 
-    if (status == USBH_OK)
-    {
-        res = RES_OK;
-    }
-    else
-    {
-        USBH_MSC_GetLUNInfo((USBH_HandleTypeDef *)HAL_USBH::handle, lun, &info);
-
-        switch (info.sense.asc)
-        {
-        case SCSI_ASC_WRITE_PROTECTED:
-            USBH_ErrLog("USB Disk is Write protected!");
-            res = RES_WRPRT;
-            break;
-
-        case SCSI_ASC_LOGICAL_UNIT_NOT_READY:
-        case SCSI_ASC_MEDIUM_NOT_PRESENT:
-        case SCSI_ASC_NOT_READY_TO_READY_CHANGE:
-            USBH_ErrLog("USB Disk is not ready!");
-            res = RES_NOTRDY;
-            break;
-
-        default:
-            res = RES_ERROR; //-V1048
-            break;
-        }
-    }
-
-    return res;
+  return res;
 }
 #endif /* _USE_WRITE == 1 */
 
@@ -214,60 +232,63 @@ DRESULT USBH_write(BYTE lun, const BYTE *buff, DWORD sector, UINT count)
 #if _USE_IOCTL == 1
 DRESULT USBH_ioctl(BYTE lun, BYTE cmd, void *buff)
 {
-    DRESULT res = RES_ERROR;
-    MSC_LUNTypeDef info;
+  DRESULT res = RES_ERROR;
+  MSC_LUNTypeDef info;
 
-    switch (cmd)
+  switch (cmd)
+  {
+  /* Make sure that no pending write process */
+  case CTRL_SYNC:
+    res = RES_OK;
+    break;
+
+  /* Get number of sectors on the disk (DWORD) */
+  case GET_SECTOR_COUNT :
+    if(USBH_MSC_GetLUNInfo((USBH_HandleTypeDef *)HAL_USBH::handle, lun, &info) == USBH_OK)
     {
-        /* Make sure that no pending write process */
-    case CTRL_SYNC:
-        res = RES_OK;
-        break;
-
-        /* Get number of sectors on the disk (DWORD) */
-    case GET_SECTOR_COUNT:
-        if (USBH_MSC_GetLUNInfo((USBH_HandleTypeDef *)HAL_USBH::handle, lun, &info) == USBH_OK)
-        {
-            *(DWORD *)buff = info.capacity.block_nbr;
-            res = RES_OK;
-        }
-        else
-        {
-            res = RES_ERROR; //-V1048
-        }
-        break;
-
-        /* Get R/W sector size (WORD) */
-    case GET_SECTOR_SIZE:
-        if (USBH_MSC_GetLUNInfo((USBH_HandleTypeDef *)HAL_USBH::handle, lun, &info) == USBH_OK)
-        {
-            *(DWORD *)buff = info.capacity.block_size;
-            res = RES_OK;
-        }
-        else
-        {
-            res = RES_ERROR; //-V1048
-        }
-        break;
-
-        /* Get erase block size in unit of sector (DWORD) */
-    case GET_BLOCK_SIZE:
-
-        if (USBH_MSC_GetLUNInfo((USBH_HandleTypeDef *)HAL_USBH::handle, lun, &info) == USBH_OK)
-        {
-            *(DWORD *)buff = (DWORD)(info.capacity.block_size / USB_DEFAULT_BLOCK_SIZE);
-            res = RES_OK;
-        }
-        else
-        {
-            res = RES_ERROR; //-V1048
-        }
-        break;
-
-    default:
-        res = RES_PARERR;
+      *(DWORD*)buff = info.capacity.block_nbr;
+      res = RES_OK;
     }
+    else
+    {
+      res = RES_ERROR;
+    }
+    break;
 
-    return res;
+  /* Get R/W sector size (WORD) */
+  case GET_SECTOR_SIZE :
+    if(USBH_MSC_GetLUNInfo((USBH_HandleTypeDef *)HAL_USBH::handle, lun, &info) == USBH_OK)
+    {
+      *(DWORD*)buff = info.capacity.block_size;
+      res = RES_OK;
+    }
+    else
+    {
+      res = RES_ERROR;
+    }
+    break;
+
+    /* Get erase block size in unit of sector (DWORD) */
+  case GET_BLOCK_SIZE :
+
+    if(USBH_MSC_GetLUNInfo((USBH_HandleTypeDef *)HAL_USBH::handle, lun, &info) == USBH_OK)
+    {
+      *(DWORD*)buff = (DWORD)info.capacity.block_size / USB_DEFAULT_BLOCK_SIZE;
+      res = RES_OK;
+    }
+    else
+    {
+      res = RES_ERROR;
+    }
+    break;
+
+  default:
+    res = RES_PARERR;
+  }
+
+  return res;
 }
 #endif /* _USE_IOCTL == 1 */
+
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+

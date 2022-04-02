@@ -81,10 +81,9 @@ void USBH_UserProcess(USBH_HandleTypeDef *, uint8 id)
 
 void WriteToFile(FIL *file, char *string)
 {
-    //    uint bytesWritten;
+    uint bytesWritten;
     f_open(file, "list.txt", FA_OPEN_EXISTING);
-    //f_write(file, string, strlen(string), (void*)&bytesWritten);
-    f_puts(string, file);
+    f_write(file, string, strlen(string), &bytesWritten);
     f_close(file);
 }
 
