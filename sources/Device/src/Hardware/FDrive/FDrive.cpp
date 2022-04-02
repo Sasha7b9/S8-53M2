@@ -60,13 +60,11 @@ void USBH_UserProcess(USBH_HandleTypeDef *, uint8 id)
             Menu::ChangeStateFlashDrive();
             if (f_mount(&USBDISKFatFs, (TCHAR const*)USBDISKPath, 0) != FR_OK)
             {
-                LOG_ERROR_TRACE("Не могу примонтировать диск");
                 FDrive::isConnected = false;
             }
             else
             {
                 FDrive::isConnected = true;
-                LOG_WRITE("Диск успешно примонтирован");
             }
             break;
         case HOST_USER_CLASS_SELECTED:
