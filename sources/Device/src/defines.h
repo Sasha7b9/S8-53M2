@@ -7,6 +7,8 @@
 #else
     #define nullptr 0 //-V1059
     #pragma anon_unions
+
+    #pragma diag_suppress 2748
 #endif
 
 

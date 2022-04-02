@@ -217,7 +217,11 @@ void Display::Update(bool endScene)
         DrawStringNavigation();
     }
 
+    DEBUG_POINT_0;
+
     Menu::Draw();
+
+    DEBUG_POINT_0;
 
     if (needClear)
     {
@@ -256,6 +260,8 @@ void Display::Update(bool endScene)
         funcAfterDraw();
         funcAfterDraw = 0;
     }
+
+    DEBUG_POINT_0;
 }
 
 

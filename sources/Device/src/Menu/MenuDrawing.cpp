@@ -21,6 +21,9 @@
 Item *ItemsUnderKey::items[Key::Count];
 
 
+static void DrawHintItem(int x, int y, int width);
+
+
 namespace Menu
 {
     int ItemOpenedPosY(const Item *item);
@@ -97,17 +100,13 @@ static void DrawHintItem(int x, int y, int width)
     Lang::E lang = LANG;
     Page *item = (Page*)Hint::item;
 
-    const int SIZE = 100;
-    char title[SIZE];
-    std::snprintf(title, SIZE, "%s \"%s\"", names[type][lang], TITLE(item));
-
     if (item->type == TypeItem::SmallButton)
     {
         y -= 9;
     }
 
-    String<>(title).DrawStringInCenterRectAndBoundIt(x, y, width, 15, COLOR_BACK, COLOR_FILL);
-    y = String<>(HINT(item)).DrawInBoundedRectWithTransfers(x, y + 15, width, COLOR_BACK, COLOR_FILL);
+    String<>("%s \"%s\"", names[type][lang], TITLE(item)).DrawStringInCenterRectAndBoundIt(x, y, width, 15, COLOR_BACK, COLOR_FILL);
+    y = String<1024>(HINT(item)).DrawInBoundedRectWithTransfers(x, y + 15, width, COLOR_BACK, COLOR_FILL);
 
     if (item->type == TypeItem::SmallButton)
     {
@@ -136,6 +135,8 @@ void Menu::Draw()
 
     if (Hint::show)
     {
+        DEBUG_POINT_0;
+
         const int x = 0;
         int y = 0;
         int width = IsMinimize() ? 289 : 220;
@@ -152,8 +153,12 @@ void Menu::Draw()
         }
         else if (Hint::item)
         {
+            DEBUG_POINT_0;
             DrawHintItem(x + 1, y, width - 1); //-V2007
+            DEBUG_POINT_0;
         }
+
+        DEBUG_POINT_0;
     }
 }
 
