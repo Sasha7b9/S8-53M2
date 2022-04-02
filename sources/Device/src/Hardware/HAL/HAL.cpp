@@ -5,10 +5,6 @@
 #include <usbh_def.h>
 
 
-static PCD_HandleTypeDef handlePCD;
-void *HAL_PCD::handle = &handlePCD;
-
-
 namespace HAL
 {
     void SystemClock_Config();
@@ -19,15 +15,20 @@ namespace HAL
 namespace HAL_HCD
 {
     static HCD_HandleTypeDef handleHCD;
-
     void *handle = &handleHCD;
+}
+
+
+namespace HAL_PCD
+{
+    static PCD_HandleTypeDef handlePCD;
+    void *HAL_PCD::handle = &handlePCD;
 }
 
 
 namespace HAL_USBH
 {
-    USBH_HandleTypeDef handleUSBH;
-
+    static USBH_HandleTypeDef handleUSBH;
     void *handle = &handleUSBH;
 }
 
