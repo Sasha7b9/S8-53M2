@@ -59,7 +59,6 @@ namespace Menu
     // Возвращает true, если лампочка УСТАНОВКА должна гореть
     bool NeedForFireSetLED();
 
-    void OpenFileManager();
     // Обработка события таймера автоматического сокрытия меню.
     void OnTimerAutoHide();
 }
@@ -72,7 +71,7 @@ void Menu::UpdateInput()
     if (FM::needOpen)
     {
         FM::needOpen = false;
-        OpenFileManager();
+        FM::Open();
     }
 };
 
@@ -642,47 +641,7 @@ void Menu::SwitchSetLED()
 }
 
 
-void Menu::OpenFileManager()
+void FM::Open()
 {
-    for (int i = 0; i < 10; i++)
-    {
-        Panel::ProcessEvent(KeyboardEvent(Key::Menu, Action::Up));
-        Display::Update(false);
-    }
-
-    if (!IsShown())
-    {
-        Panel::ProcessEvent(KeyboardEvent(Key::Menu, Action::Up));
-        Display::Update(false);
-    }
-
-    for (int i = 0; i < 5 * 2 + 1; i++)
-    {
-        Panel::ProcessEvent(KeyboardEvent(Key::Setting, Action::Left));
-        Display::Update(false);
-    }
-
-    for (int i = 0; i < 2 * 2 + 1; i++)
-    {
-        Panel::ProcessEvent(KeyboardEvent(Key::Setting, Action::Right));
-        Display::Update(false);
-    }
-
-    Panel::ProcessEvent(KeyboardEvent(Key::F2, Action::Up));
-    Display::Update(false);
-
-    Panel::ProcessEvent(KeyboardEvent(Key::F4, Action::Up));
-    Display::Update(false);
-
-    for (int i = 0; i < 2 + 1; i++)
-    {
-        Panel::ProcessEvent(KeyboardEvent(Key::Setting, Action::Left));
-        Display::Update(false);
-    }
-
-    for (int i = 0; i < 2; i++)
-    {
-        Panel::ProcessEvent(KeyboardEvent(Key::F1, Action::Up));
-        Display::Update(false);
-    }
+    PageMemory::FileManager::self->OpenAndSetCurrent();
 }
