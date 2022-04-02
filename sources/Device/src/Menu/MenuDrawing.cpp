@@ -21,9 +21,6 @@
 Item *ItemsUnderKey::items[Key::Count];
 
 
-static void DrawHintItem(int x, int y, int width);
-
-
 namespace Menu
 {
     int ItemOpenedPosY(const Item *item);
@@ -72,9 +69,9 @@ Key::E GetFuncButtonFromY(int _y)
 }
 
 
-static void DrawHintItem(int x, int y, int width)
+void Hint::DrawHintItem(int x, int y, int width)
 {
-    if (!Hint::item)
+    if (!item)
     {
         return;
     }
@@ -96,22 +93,29 @@ static void DrawHintItem(int x, int y, int width)
         {"Êíîïêà",      "Button"}   // TypeItem::SmallButton
     };
 
-    TypeItem::E type = Hint::item->GetType();
+    TypeItem::E type = item->GetType();
     Lang::E lang = LANG;
-    Page *item = (Page*)Hint::item;
+    Page *page = (Page*)item;
 
-    if (item->type == TypeItem::SmallButton)
+    if (page->type == TypeItem::SmallButton)
     {
         y -= 9;
     }
 
-    String<>("%s \"%s\"", names[type][lang], TITLE(item)).DrawStringInCenterRectAndBoundIt(x, y, width, 15, COLOR_BACK, COLOR_FILL);
-    y = String<1024>(HINT(item)).DrawInBoundedRectWithTransfers(x, y + 15, width, COLOR_BACK, COLOR_FILL);
+    DEBUG_POINT_0;
 
-    if (item->type == TypeItem::SmallButton)
+    String<>("%s \"%s\"", names[type][lang], TITLE(page)).DrawStringInCenterRectAndBoundIt(x, y, width, 15, COLOR_BACK, COLOR_FILL);
+    DEBUG_POINT_0;
+    y = String<1024>(HINT(page)).DrawInBoundedRectWithTransfers(x, y + 15, width, COLOR_BACK, COLOR_FILL);
+    DEBUG_POINT_0;
+
+    if (page->type == TypeItem::SmallButton)
     {
-        Painter::DrawHintsForSmallButton(x, y, width, (void *)item);
+        DEBUG_POINT_0;
+        Painter::DrawHintsForSmallButton(x, y, width, (void *)page);
+        DEBUG_POINT_0;
     }
+    DEBUG_POINT_0;
 }
 
 
@@ -154,7 +158,7 @@ void Menu::Draw()
         else if (Hint::item)
         {
             DEBUG_POINT_0;
-            DrawHintItem(x + 1, y, width - 1); //-V2007
+            Hint::DrawHintItem(x + 1, y, width - 1); //-V2007
             DEBUG_POINT_0;
         }
 

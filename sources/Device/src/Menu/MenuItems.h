@@ -585,6 +585,8 @@ struct Hint
     static bool show;       // Если true, то при нажатии кнопки вместо выполнения её фунции выводится подсказка о её назначении
 
     static void ProcessButton(Key::E);
+
+    static void DrawHintItem(int x, int y, int width);
 };
 
 

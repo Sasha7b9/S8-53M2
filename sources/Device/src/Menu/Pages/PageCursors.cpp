@@ -606,7 +606,8 @@ static const SmallButton sbSet100
     "Используется для процентных измерений. Нажатие помечает расстояние между активными курсорами как 100%",
     "It is used for percentage measurements. Pressing marks distance between active cursors as 100%",
     PressSB_Cursors_100,
-    DrawSB_Cursors_100
+    DrawSB_Cursors_100,
+    nullptr
 );
 
 
