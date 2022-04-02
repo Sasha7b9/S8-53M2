@@ -31,6 +31,8 @@ static void FuncDraw()
 
 static void OnPress_ResetSettings()
 {
+    bool running = FPGA::IsRunning();
+    FPGA::Stop();
     Panel::Disable();
     Display::SetDrawMode(DrawMode::Hand, FuncDraw);
 
@@ -42,6 +44,10 @@ static void OnPress_ResetSettings()
 
     Display::SetDrawMode(DrawMode::Auto);
     Panel::Enable();
+    if (running)
+    {
+        FPGA::Start();
+    }
 }
 
 
