@@ -87,9 +87,13 @@ bool HAL_RTC::SetTimeAndData(int8 day, int8 month, int8 year, int8 hours, int8 m
         (uint8)year
     };
 
+    bool date_is_set = true;
+    bool time_is_set = true;
+
     if(HAL_RTC_SetDate((RTC_HandleTypeDef*)&handle, &dateStruct, FORMAT_BIN) != HAL_OK)
     {
-        return false;
+        LOG_ERROR("Can not set date");
+        date_is_set = false;
     };
 
     RTC_TimeTypeDef timeStruct =
@@ -104,8 +108,9 @@ bool HAL_RTC::SetTimeAndData(int8 day, int8 month, int8 year, int8 hours, int8 m
 
     if(HAL_RTC_SetTime((RTC_HandleTypeDef*)&handle, &timeStruct, FORMAT_BIN) != HAL_OK)
     {
-        return false;
+        LOG_ERROR("Can not set time");
+        time_is_set = false;
     };
     
-    return true;
+    return date_is_set && time_is_set;
 }
