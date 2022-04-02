@@ -642,7 +642,7 @@ bool Painter::SaveScreenToFlashDrive() {
     {
         0x42,
         0x4d,
-        14 + 40 + 1024 + 320 * 240 / 2,
+        14 + 40 + 1024 + 320 * 240,
         0,
         0,
         14 + 40 + 1024
@@ -666,7 +666,7 @@ bool Painter::SaveScreenToFlashDrive() {
         320,// width;
         240,// height;
         1,  // planes;
-        4,  // bitCount;
+        8,  // bitCount;
         0,  // compression;
         0,  // sizeImage;
         0,  // xPelsPerMeter;
@@ -689,7 +689,7 @@ bool Painter::SaveScreenToFlashDrive() {
     
     RGBQUAD colorStruct;    
 
-    for(int i = 0; i < 16; i++)
+    for(int i = 0; i < 32; i++)
     {
         uint color = COLOR(i);
         colorStruct.blue = B_FROM_COLOR(color);
@@ -698,7 +698,6 @@ bool Painter::SaveScreenToFlashDrive() {
         colorStruct.rgbReserved = 0;
         ((RGBQUAD*)(buffer))[i] = colorStruct;
     }
-    
 
     for(int i = 0; i < 4; i++)
     {
