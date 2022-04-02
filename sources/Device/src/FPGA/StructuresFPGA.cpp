@@ -78,7 +78,7 @@ uint16 FPGA::Reader::CalculateAddressRead()
     else
     {
         return (uint16)(HAL_FMC::Read(RD_ADDR_LAST_RECORD) -
-            ENUM_POINTS_FPGA::ToNumBytes() / 2 * FPGA::Compactor::Koeff() + shift[SET_ENUM_POINTS][SET_TPOS][SET_TBASE] - 1);
+            ENUM_POINTS_FPGA::ToNumBytes() / 2 * FPGA::Compactor::Koeff() + shift[SET_ENUM_POINTS][SET_TPOS][SET_TBASE] - 5);
     }
 }
 
@@ -118,12 +118,12 @@ void FPGA::Launch::Calculate()
     }
     else
     {
-        post += d_post[SET_TBASE];
-
         if (pred + post < num_bytes / 2)
         {
             post = num_bytes / 2 - pred;
         }
+
+        post += 4;
     }
 }
 
