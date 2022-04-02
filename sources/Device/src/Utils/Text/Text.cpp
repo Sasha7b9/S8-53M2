@@ -880,7 +880,7 @@ String<> SU::Float2String(float value, bool alwaysSign, int numDigits)
 {
     String<> result;
 
-    char *pBuffer = result.c_str();
+    char *buffer = result.c_str();
 
     if (value == ERROR_VALUE_FLOAT)
     {
@@ -891,14 +891,14 @@ String<> SU::Float2String(float value, bool alwaysSign, int numDigits)
     {
         if (value < 0)
         {
-            *pBuffer = '-';
-            pBuffer++;
+            *buffer = '-';
+            buffer++;
         }
     }
     else
     {
-        *pBuffer = value < 0 ? '-' : '+';
-        pBuffer++;
+        *buffer = value < 0 ? '-' : '+';
+        buffer++;
     }
 
     char format[] = "%4.2f\0\0";
@@ -913,14 +913,14 @@ String<> SU::Float2String(float value, bool alwaysSign, int numDigits)
         format[5] = '.';
     }
 
-    std::snprintf(pBuffer, 19, format, std::fabs(value));
+    std::snprintf(buffer, 19, format, std::fabs(value));
     
-    if((int)std::strlen(pBuffer) > numDigits + 1)        // Это затычка на то, что число -9.99999 выводится как -10.000, хотя должно быть четыре цифры - 2 цифры после запятой
+    if((int)std::strlen(buffer) > numDigits + 1)        // Это затычка на то, что число -9.99999 выводится как -10.000, хотя должно быть четыре цифры - 2 цифры после запятой
     {
-        pBuffer[numDigits + 1] = '\0';
+        buffer[numDigits + 1] = '\0';
     }
 
-    float val = std::atof(pBuffer);
+    float val = std::atof(buffer);
 
     if (NumDigitsInIntPart(val) != numDigitsInInt)
     {
