@@ -16,6 +16,7 @@
 #include <cctype>
 
 
+
 #define  SYMBOL(x) (*(*(x)))
 
 
@@ -882,7 +883,7 @@ String<> SU::Float2String(float value, bool alwaysSign, int numDigits)
 
     char *buffer = result.c_str();
 
-    if (value == ERROR_VALUE_FLOAT)
+    if (value == ERROR_VALUE_FLOAT || isnan(value) || isinf(value))
     {
         return String<>(ERROR_STRING_VALUE);
     }
@@ -1090,7 +1091,7 @@ String<> SU::Time2String(float time, bool alwaysSign)
 
 String<> SU::Freq2String(float freq, bool)
 {
-    if (freq == ERROR_VALUE_FLOAT)
+    if (freq == ERROR_VALUE_FLOAT || isnan(freq) || isinf(freq))
     {
         return String<>(ERROR_STRING_VALUE);
     }
