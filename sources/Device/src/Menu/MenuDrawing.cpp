@@ -149,7 +149,7 @@ void Menu::Draw()
 
         if (Hint::string)
         {
-            String<>(Hint::string).DrawInBoundedRectWithTransfers(x + 1, y, width - 1, COLOR_BACK, COLOR_FILL); //-V2007
+            String<1024>(Hint::string).DrawInBoundedRectWithTransfers(x + 1, y, width - 1, COLOR_BACK, COLOR_FILL); //-V2007
         }
         else if (Hint::item)
         {
