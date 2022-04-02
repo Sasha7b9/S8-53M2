@@ -203,7 +203,7 @@ void FM::Draw()
     {
         Painter::BeginScene(COLOR_BACK);
         Menu::Draw();
-        Rectangle(width, 239).Draw(1, 0, COLOR_FILL);
+        Rectangle(width, 239).Draw(0, 0, COLOR_FILL);
         Directory::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
         DrawNameCurrentDir(left + 1, top + 2);
         Painter::DrawVLine(left2col, top + 16, 239, COLOR_FILL);
@@ -212,7 +212,7 @@ void FM::Draw()
 
     if (needRedraw != 3)
     {
-        DrawDirs(left + 3, top + 18);
+        DrawDirs(left + 2, top + 18);
     }
 
     if (needRedraw != 2)
