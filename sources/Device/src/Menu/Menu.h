@@ -47,6 +47,4 @@ namespace Menu
 
     // Возвращает функцию обработки короткого нажатия на элемент меню item.
     void ExecuteFuncForShortPressOnItem(Item *);
-
-    void ProcessButtonForHint(Key::E);
 };

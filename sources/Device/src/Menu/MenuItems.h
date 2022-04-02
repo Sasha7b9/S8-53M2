@@ -3,6 +3,8 @@
 #include "Display/Display.h"
 #include "Display/Colors.h"
 #include "Utils/Text/String.h"
+#include "common/Panel/Controls.h"
+
 
 
 #define MAX_NUM_SUBITEMS_IN_CHOICE  12  // Максимальное количество вариантов выбора в элементе Choice.
@@ -581,6 +583,8 @@ struct Hint
     static pchar string;    // Строка подсказки, которую надо выводить в случае включённого режима подсказок.
 
     static bool show;       // Если true, то при нажатии кнопки вместо выполнения её фунции выводится подсказка о её назначении
+
+    static void ProcessButton(Key::E);
 };
 
 

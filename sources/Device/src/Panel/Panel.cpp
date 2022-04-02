@@ -235,38 +235,27 @@ namespace Panel
     }
 
 
-    static void OnKeyboardEvent(KeyboardEvent event)
+    static void SoundOnKeyboardEvent(KeyboardEvent event)
     {
-        if (Hint::show)
+        if (event.IsDown())
         {
-            if (event.IsDown())
-            {
-                Sound::ButtonPress();
-                Menu::ProcessButtonForHint(event.key);
-            }
+            Sound::ButtonPress();
         }
-        else
+        else if (event.IsUp() || event.IsLong())
         {
-            if (event.IsDown())
+            Sound::ButtonRelease();
+        }
+        else if (event.IsLeft() || event.IsRight())
+        {
+            if (event.key == Key::RShiftA || event.key == Key::RShiftB || event.key == Key::TShift || event.key == Key::TrigLev)
             {
-                Sound::ButtonPress();
+                Sound::RegulatorShiftRotate();
             }
-            else if (event.IsUp() || event.IsLong())
+            else
             {
-                Sound::ButtonRelease();
-            }
-            else if (event.IsLeft() || event.IsRight())
-            {
-                if (event.key == Key::RShiftA || event.key == Key::RShiftB || event.key == Key::TShift || event.key == Key::TrigLev)
+                if (event.key != Key::Setting)
                 {
-                    Sound::RegulatorShiftRotate();
-                }
-                else
-                {
-                    if (event.key != Key::Setting)
-                    {
-                        Sound::RegulatorSwitchRotate();
-                    }
+                    Sound::RegulatorSwitchRotate();
                 }
             }
         }
@@ -799,9 +788,16 @@ void Panel::ProcessEvent(KeyboardEvent event)
         return;
     }
 
-    OnKeyboardEvent(event);
+    SoundOnKeyboardEvent(event);
 
-    funcOnKey[event.key](event.action);
+    if (Hint::show && event.key != Key::Help && !event.IsFunctional())
+    {
+        Hint::ProcessButton(event.key);
+    }
+    else
+    {
+        funcOnKey[event.key](event.action);
+    }
 
     Flags::needFinishDraw = true;
 }

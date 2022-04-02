@@ -77,7 +77,7 @@ void Menu::UpdateInput()
 };
 
 
-void Menu::ProcessButtonForHint(Key::E button)
+void Hint::ProcessButton(Key::E button)
 {
     if (button == Key::Menu)
     {
