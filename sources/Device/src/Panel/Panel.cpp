@@ -274,19 +274,22 @@ namespace Panel
 
     static void OnFunctionalKey(Action action, Key::E key)
     {
-        if (action.IsDown())
-        {
-            Item::now_pressed = ItemsUnderKey::Get(key);
-        }
-        else if (action.IsUp() || action.IsLong())
+        if (Hint::show)
         {
             if (Menu::IsShown())
             {
-                if (Hint::show)
-                {
-                    Hint::SetItem(ItemsUnderKey::Get(key));
-                }
-                else
+                Hint::SetItem(ItemsUnderKey::Get(key));
+            }
+        }
+        else
+        {
+            if (action.IsDown())
+            {
+                Item::now_pressed = ItemsUnderKey::Get(key);
+            }
+            else if (action.IsUp() || action.IsLong())
+            {
+                if (Menu::IsShown())
                 {
                     if (action.IsUp())
                     {
@@ -452,23 +455,20 @@ namespace Panel
 
     static void BFuncHelp(Action action)
     {
-
-//        Hint::show = !Hint::show;
-//        Hint::string = nullptr;
-//        Hint::item = nullptr;
-
         if (action.IsUp())
         {
-            if (Hint::show)
+            if(!Hint::show)
             {
-
-            }
-            else
-            {
-                Hint::show = !Hint::show;
+                Hint::show = true;
                 Hint::string = nullptr;
                 Hint::item = nullptr;
             }
+        }
+        else if (action.IsLong())
+        {
+            Hint::show = !Hint::show;
+            Hint::string = nullptr;
+            Hint::item = nullptr;
         }
     }
 

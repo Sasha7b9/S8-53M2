@@ -164,11 +164,7 @@ void Choice::StartChange(int delta)
 
     Sound::GovernorChangedValue();
 
-    if (Hint::show)
-    {
-        Hint::SetItem((Item *)this);
-    }
-    else if (!((Item *)this)->IsActive())
+    if (!((Item *)this)->IsActive())
     {
         FuncOnChanged(false);
     }
