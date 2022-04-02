@@ -204,19 +204,19 @@ static const Settings defaultSettings =
         1,
         1,
         false,
-        ModeDrawMath::Disable,       // modeDrawMath
-        ModeRegSet::Range,           // modeRegSet
+        ModeDrawMath::Disable,          // modeDrawMath
+        ModeRegSet::Range,              // modeRegSet
         Range::_50mV,
         Divider::_1,
-        RShift::ZERO                  // rshift
+        RShift::ZERO                    // rshift
     },
     // service
     {
-        true,                       // screenWelcomeEnable
-        true,                       // soundEnable
-        CalibratorMode::Freq,       // calibratorEnable
-        0,                          // IP-адрес (временно)  WARN
-        ColorScheme::WhiteLetters    // colorScheme
+        true,                           // screenWelcomeEnable
+        false,                          // soundEnable
+        CalibratorMode::Freq,           // calibratorEnable
+        0,                              // IP-адрес (временно)  WARN
+        ColorScheme::WhiteLetters       // colorScheme
     },
     {
         0x8b, 0x2e, 0xaf, 0x8f, 0x13, 0x00, // mac
