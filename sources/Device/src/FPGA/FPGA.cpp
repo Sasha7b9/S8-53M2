@@ -139,6 +139,7 @@ void FPGA::DefferedTaskTrigLED()
 {
     LED::Trig.Disable();
     Timer::Disable(TypeTimer::DisableTrigLED);
+    FreqMeter::Reset();
 }
 
 
