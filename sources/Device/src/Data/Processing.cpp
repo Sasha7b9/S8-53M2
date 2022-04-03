@@ -478,38 +478,48 @@ float Processing::FindIntersectionWithHorLine(Chan ch, int numIntersection, bool
     int num = 0;
     int x = firstP;
     int compValue = lastP - 1;
+    int dx = 1;
+
+    if (out.ds.peak_det)
+    {
+        x *= 2;
+        compValue *= 2;
+        dx *= 2;
+    }
 
     uint8 *data = &out.Data(ch)[0];
 
     if(downToUp)
     {
-        while((num < numIntersection) && (x < compValue))
+        while ((num < numIntersection) && (x < compValue))
         {
-            if(data[x] < yLine && data[x + 1] >= yLine)
+            if (data[x] < yLine && data[x + dx] >= yLine)
             {
                 num++;
             }
-            x++;
+            x += dx;
         }
     }
     else
     {
         while((num < numIntersection) && (x < compValue))
         {
-            if(data[x] > yLine && data[x + 1] <= yLine)
+            if(data[x] > yLine && data[x + dx] <= yLine)
             {
                 num++;
             }
-            x++;
+            x += dx;
         }
     }
-    x--;
+
+    x -= dx;
 
     if (num < numIntersection)
     {
         return ERROR_VALUE_FLOAT;
     }
-    return Math::GetIntersectionWithHorizontalLine(x, data[x], x + 1, data[x + 1], yLine);
+
+    return Math::GetIntersectionWithHorizontalLine(x, data[x], x + dx, data[x + dx], yLine) / dx;
 }
 
 
