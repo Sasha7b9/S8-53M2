@@ -1067,6 +1067,16 @@
           <GroupName>FPGA</GroupName>
           <Files>
             <File>
+              <FileName>AutoFinder.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FPGA\AutoFinder.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>CalibrationFPGA.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FPGA\CalibrationFPGA.cpp</FilePath>
+            </File>
+            <File>
               <FileName>FPGA.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\FPGA\FPGA.h</FilePath>
@@ -1075,6 +1085,16 @@
               <FileName>FPGA.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\FPGA\FPGA.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FreqMeter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FPGA\FreqMeter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ReaderFPGA.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FPGA\ReaderFPGA.cpp</FilePath>
             </File>
             <File>
               <FileName>SettingsFPGA.h</FileName>
@@ -1087,29 +1107,9 @@
               <FilePath>.\src\FPGA\SettingsFPGA.cpp</FilePath>
             </File>
             <File>
-              <FileName>CalibrationFPGA.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\FPGA\CalibrationFPGA.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>TypesFPGA.h</FileName>
+              <FileName>StructuresFPGA.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\FPGA\TypesFPGA.h</FilePath>
-            </File>
-            <File>
-              <FileName>FreqMeter.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\FPGA\FreqMeter.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>AutoFinder.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\FPGA\AutoFinder.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>ReaderFPGA.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\FPGA\ReaderFPGA.cpp</FilePath>
+              <FilePath>.\src\FPGA\StructuresFPGA.h</FilePath>
             </File>
             <File>
               <FileName>StructuresFPGA.cpp</FileName>
@@ -1117,9 +1117,9 @@
               <FilePath>.\src\FPGA\StructuresFPGA.cpp</FilePath>
             </File>
             <File>
-              <FileName>StructuresFPGA.h</FileName>
+              <FileName>TypesFPGA.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\FPGA\StructuresFPGA.h</FilePath>
+              <FilePath>.\src\FPGA\TypesFPGA.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3057,6 +3057,16 @@
           <GroupName>FPGA</GroupName>
           <Files>
             <File>
+              <FileName>AutoFinder.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FPGA\AutoFinder.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>CalibrationFPGA.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FPGA\CalibrationFPGA.cpp</FilePath>
+            </File>
+            <File>
               <FileName>FPGA.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\FPGA\FPGA.h</FilePath>
@@ -3065,6 +3075,16 @@
               <FileName>FPGA.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\FPGA\FPGA.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FreqMeter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FPGA\FreqMeter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ReaderFPGA.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FPGA\ReaderFPGA.cpp</FilePath>
             </File>
             <File>
               <FileName>SettingsFPGA.h</FileName>
@@ -3077,29 +3097,9 @@
               <FilePath>.\src\FPGA\SettingsFPGA.cpp</FilePath>
             </File>
             <File>
-              <FileName>CalibrationFPGA.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\FPGA\CalibrationFPGA.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>TypesFPGA.h</FileName>
+              <FileName>StructuresFPGA.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\FPGA\TypesFPGA.h</FilePath>
-            </File>
-            <File>
-              <FileName>FreqMeter.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\FPGA\FreqMeter.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>AutoFinder.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\FPGA\AutoFinder.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>ReaderFPGA.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\FPGA\ReaderFPGA.cpp</FilePath>
+              <FilePath>.\src\FPGA\StructuresFPGA.h</FilePath>
             </File>
             <File>
               <FileName>StructuresFPGA.cpp</FileName>
@@ -3107,9 +3107,9 @@
               <FilePath>.\src\FPGA\StructuresFPGA.cpp</FilePath>
             </File>
             <File>
-              <FileName>StructuresFPGA.h</FileName>
+              <FileName>TypesFPGA.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\FPGA\StructuresFPGA.h</FilePath>
+              <FilePath>.\src\FPGA\TypesFPGA.h</FilePath>
             </File>
           </Files>
         </Group>
