@@ -466,7 +466,6 @@ void Send(struct tcp_pcb *_tpcb, struct State *_ss)
 }
 
 
-
 void LAN::SendBuffer(const void *buffer, int length)
 {
     struct pbuf *tcpBuffer = pbuf_alloc(PBUF_RAW, (uint16)length, PBUF_POOL);
@@ -477,4 +476,10 @@ void LAN::SendBuffer(const void *buffer, int length)
     ss->p = tcpBuffer;
     Send(client, ss);
     mem_free(ss);
+}
+
+
+void LAN::SendString(pchar string)
+{
+    SendBuffer(string, (int)std::strlen(string) + 1);
 }

@@ -29,6 +29,8 @@ template int  String<(int)DEFAULT_SIZE_STRING>::DrawStringInCenterRectAndBoundIt
 template void String<(int)DEFAULT_SIZE_STRING>::Append(char);
 template void String<(int)DEFAULT_SIZE_STRING>::DrawInCenterRectOnBackground(int x, int y, int width, int height, Color::E colorText,
     int widthBorder, Color::E colorBackground);
+template bool String<(int)DEFAULT_SIZE_STRING>::ToInt(int *);
+template void String<(int)DEFAULT_SIZE_STRING>::AppendBytes(void *, int);
 
 template      String<(int)1024>::String(pchar, ...);
 template int  String<(int)1024>::Draw(int, int, Color::E);
@@ -158,6 +160,24 @@ void String<capacity>::Append(pchar str)
     else
     {
         std::strcat(buffer, str);
+    }
+}
+
+
+template<int capacity>
+void String<capacity>::AppendBytes(void *bytes, int num_bytes)
+{
+    int need_size = Size() + num_bytes + 1;
+
+    if (need_size > capacity)
+    {
+        LOG_ERROR_TRACE("Very small string buffer %d, need %d:", capacity, need_size);
+        LOG_WRITE(c_str());
+    }
+    else
+    {
+        std::memcpy(buffer + Size(), bytes, (uint)num_bytes);
+        buffer[need_size - 1] = '\0';
     }
 }
 
@@ -415,3 +435,45 @@ void String<capacity>::DrawInCenterRectOnBackground(int x, int y, int width, int
     DrawInCenterRect(x, y, width, height, colorText);
 }
 
+
+template<int capacity>
+bool String<capacity>::ToInt(int *out)
+{
+    char *str = buffer;
+
+    int sign = str[0] == '-' ? -1 : 1;
+
+    if (str[0] < '0' || str[0] > '9')
+    {
+        ++str;
+    }
+
+    int length = (int)(std::strlen(str));
+
+    if (length == 0)
+    {
+        return false;
+    }
+
+    *out = 0;
+
+    int pow = 1;
+
+    for (int i = length - 1; i >= 0; i--)
+    {
+        int val = str[i] & (~(0x30));
+        if (val < 0 || val > 9)
+        {
+            return false;
+        }
+        *out += val * pow;
+        pow *= 10;
+    }
+
+    if (sign == -1)
+    {
+        *out *= -1;
+    }
+
+    return true;
+}

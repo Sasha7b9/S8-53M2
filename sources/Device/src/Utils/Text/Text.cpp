@@ -907,7 +907,7 @@ String<> SU::Float2String(float value, bool alwaysSign, int numDigits)
 
     if (value == ERROR_VALUE_FLOAT || isnan(value) || isinf(value))
     {
-        return String<>(ERROR_STRING_VALUE);
+        return EmptyString();
     }
 
     if (!alwaysSign)
@@ -1047,7 +1047,7 @@ String<> SU::Voltage2String(float voltage, bool alwaysSign)
 
     if (voltage == ERROR_VALUE_FLOAT)
     {
-        return String<>(ERROR_STRING_VALUE);
+        return EmptyString();
     }
     else if (std::fabs(voltage) + 0.5e-4f < 1e-3f)
     {
@@ -1082,7 +1082,7 @@ String<> SU::Time2String(float time, bool alwaysSign)
 
     if (time == ERROR_VALUE_FLOAT)
     {
-        return String<>(ERROR_STRING_VALUE);
+        return EmptyString();
     }
     else if (std::fabs(time) + 0.5e-10f < 1e-6f)
     {
@@ -1115,7 +1115,7 @@ String<> SU::Freq2String(float freq, bool)
 {
     if (freq == ERROR_VALUE_FLOAT || isnan(freq) || isinf(freq))
     {
-        return String<>(ERROR_STRING_VALUE);
+        return EmptyString();
     }
 
     char *suffix = 0;
@@ -1164,5 +1164,12 @@ String<> SU::Float2Db(float value, int numDigits)
 
     return result;
 }
+
+
+bool SU::IsDigit(char symbol)
+{
+    return (symbol >= '0') && (symbol <= '9');
+}
+
 
 #undef SYMBOL

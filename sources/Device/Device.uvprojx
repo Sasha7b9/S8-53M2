@@ -1832,6 +1832,16 @@
               <FileType>5</FileType>
               <FilePath>.\src\Utils\Containers\Buffer.h</FilePath>
             </File>
+            <File>
+              <FileName>Values.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Containers\Values.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Values.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Containers\Values.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1878,14 +1888,14 @@
               <FilePath>.\src\SCPI\trigSCPI.cpp</FilePath>
             </File>
             <File>
-              <FileName>Map.cpp</FileName>
+              <FileName>BufferSCPI.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\SCPI\Map.cpp</FilePath>
+              <FilePath>.\src\SCPI\BufferSCPI.cpp</FilePath>
             </File>
             <File>
-              <FileName>Map.h</FileName>
+              <FileName>BufferSCPI.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\SCPI\Map.h</FilePath>
+              <FilePath>.\src\SCPI\BufferSCPI.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3822,6 +3832,16 @@
               <FileType>5</FileType>
               <FilePath>.\src\Utils\Containers\Buffer.h</FilePath>
             </File>
+            <File>
+              <FileName>Values.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Containers\Values.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Values.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Containers\Values.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3868,14 +3888,14 @@
               <FilePath>.\src\SCPI\trigSCPI.cpp</FilePath>
             </File>
             <File>
-              <FileName>Map.cpp</FileName>
+              <FileName>BufferSCPI.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\SCPI\Map.cpp</FilePath>
+              <FilePath>.\src\SCPI\BufferSCPI.cpp</FilePath>
             </File>
             <File>
-              <FileName>Map.h</FileName>
+              <FileName>BufferSCPI.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\SCPI\Map.h</FilePath>
+              <FilePath>.\src\SCPI\BufferSCPI.h</FilePath>
             </File>
           </Files>
         </Group>

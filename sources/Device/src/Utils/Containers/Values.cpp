@@ -1,22 +1,23 @@
 // 2021/03/24 10:56:47 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "common/Utils/StringUtils_.h"
-#include "common/Utils/Containers/Values_.h"
 #include "Settings/Settings.h"
+#include "Utils/Containers/Values.h"
+#include "Utils/Text/String.h"
+#include "Utils/Text/Text.h"
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
 
 
-Text Float::ToText(bool always_sign, int num_digits)
+String<> Float::ToText(bool always_sign, int num_digits)
 {
     if (!IsValid())
     {
-        return EmptyText();
+        return EmptyString();
     }
 
-    Text result;
+    String<> result;
 
     if (!always_sign)
     {
@@ -63,7 +64,7 @@ Text Float::ToText(bool always_sign, int num_digits)
 }
 
 
-void Float::RemoveDigits(String &string, int max_digits)
+void Float::RemoveDigits(String<> &string, int max_digits)
 {
     int size = string.Size();
 
@@ -84,7 +85,7 @@ void Float::RemoveDigits(String &string, int max_digits)
 }
 
 
-void Float::ReplacePoints(const String &string)
+void Float::ReplacePoints(const String<> &string)
 {
     char *txt = string.c_str();
 
@@ -100,11 +101,11 @@ void Float::ReplacePoints(const String &string)
 }
 
 
-Text Voltage::ToText(bool always_sign)
+String<> Voltage::ToText(bool always_sign)
 {
     if (!IsValid())
     {
-        return EmptyText();
+        return EmptyString();
     }
 
     pchar suffix = nullptr;
@@ -131,19 +132,15 @@ Text Voltage::ToText(bool always_sign)
         voltage *= 1e-3F;
     }
 
-    Text result = Float(voltage).ToText(always_sign, 4);
-
-    result.Append(suffix);
-
-    return result;
+    return String<>("%s%s", Float(voltage).ToText(always_sign, 4).c_str(), suffix);
 }
 
 
-Text Time::ToText(bool always_sign)
+String<> Time::ToText(bool always_sign)
 {
     if (!IsValid())
     {
-        return EmptyText();
+        return EmptyString();
     }
 
     pchar suffix = nullptr;
@@ -170,15 +167,15 @@ Text Time::ToText(bool always_sign)
         suffix = LANG_RU ? "Ò" : "s";
     }
 
-    return Text("%s%s", Float(time).ToText(always_sign, 4).c_str(), suffix);
+    return String<>("%s%s", Float(time).ToText(always_sign, 4).c_str(), suffix);
 }
 
 
-Text Frequency::ToText()
+String<> Frequency::ToText()
 {
     if (!IsValid())
     {
-        return EmptyText();
+        return EmptyString();
     }
 
     pchar suffix = 0;
@@ -200,19 +197,19 @@ Text Frequency::ToText()
         suffix = LANG_RU ? "√ˆ" : "Hz";
     }
 
-    return Text("%s%s", Float(frequency).ToText(false, 4).c_str(), suffix);
+    return String<>("%s%s", Float(frequency).ToText(false, 4).c_str(), suffix);
 }
 
 
-Text Phase::ToText()
+String<> Phase::ToText()
 {
-    return Text("%s\xa8", Float(*this).ToText(false, 4).c_str());
+    return String<>("%s\xa8", Float(*this).ToText(false, 4).c_str());
 }
 
 
-Text Int::ToText(bool always_sign, int num_min_fields)
+String<> Int::ToText(bool always_sign, int num_min_fields)
 {
-    Text result;
+    String<> result;
 
     if (always_sign && value >= 0)
     {
@@ -246,16 +243,16 @@ Int::Int(pchar buffer) : ValueStruct(0)
         {
             std::memcpy(n, param.address, (uint)(param.numSymbols));
             n[param.numSymbols] = '\0';
-            valid = String(n).ToInt(&value);
+            valid = String<>(n).ToInt(&value);
             std::free(n);
         }
     }
 }
 
 
-String Uint8::ToStringBin()
+String<> Uint8::ToStringBin()
 {
-    String result("00000000");
+    String<> result("00000000");
 
     char *buffer = result.c_str();
 
@@ -268,9 +265,9 @@ String Uint8::ToStringBin()
 }
 
 
-String Uint8::ToStringHex()
+String<> Uint8::ToStringHex()
 {
-    String result("00");
+    String<> result("00");
 
     std::sprintf(&result[value < 16 ? 1 : 0], "%x", value);
 
@@ -278,9 +275,9 @@ String Uint8::ToStringHex()
 }
 
 
-String Uint16::ToStringHex()
+String<> Uint16::ToStringHex()
 {
-    String result("0000");
+    String<> result("0000");
 
     int index = 0;
 
@@ -294,9 +291,9 @@ String Uint16::ToStringHex()
 }
 
 
-String Uint32::ToStringHex()
+String<> Uint32::ToStringHex()
 {
-    String result("00000000");
+    String<> result("00000000");
 
     std::sprintf(&result[0], "%08x", value);
 
@@ -304,9 +301,9 @@ String Uint32::ToStringHex()
 }
 
 
-String Uint16::ToStringBin()
+String<> Uint16::ToStringBin()
 {
-    String result("000000000000000000");
+    String<> result("000000000000000000");
 
     std::strcpy(&result[0], Uint8((uint8)(value >> 8)).ToStringBin().c_str());
 
@@ -318,9 +315,9 @@ String Uint16::ToStringBin()
 }
 
 
-Text Decibel::ToText(int num_digits)
+String<> Decibel::ToText(int num_digits)
 {
-    return Text("%s‰¡", Float::ToText(false, num_digits).c_str());
+    return String<>("%s‰¡", Float::ToText(false, num_digits).c_str());
 }
 
 

@@ -51,6 +51,8 @@ namespace Text
 
 namespace SU
 {
+    bool IsDigit(char symbol);
+
     String<> Bin2String(uint8 value);
 
     String<> Bin2String16(uint16 value);

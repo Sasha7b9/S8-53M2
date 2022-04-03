@@ -115,7 +115,7 @@ struct StructRelAbs
 #define ERROR_VALUE_INT16   SHRT_MAX
 #define ERROR_VALUE_UINT8   255
 #define ERROR_VALUE_INT     INT_MAX
-#define ERROR_STRING_VALUE  "--.--"
+//#define ERROR_STRING_VALUE  "--.--"
 #define M_PI                3.14159265358979323846
 
 inline void EmptyFuncVV() { }

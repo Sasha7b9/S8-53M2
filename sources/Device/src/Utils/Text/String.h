@@ -69,6 +69,8 @@ public:
         return null_char;
     };
 
+    bool ToInt(int *out);
+
 private:
 
     char buffer[capacity];
@@ -78,4 +80,11 @@ private:
     int DrawSubString(int x, int y, char *text);
 
     int DrawSpaces(int x, int y, char *text, int *numSymbols);
+};
+
+
+class EmptyString : public String<>
+{
+public:
+    EmptyString() : String<>("--.--") { }
 };

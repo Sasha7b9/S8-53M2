@@ -565,3 +565,15 @@ void Display::RunAfterDraw(pFuncVV func)
 {
     funcAfterDraw = func;
 }
+
+
+void Display::Sender::SendPalette()
+{
+
+}
+
+
+void Display::Sender::SendFrame()
+{
+
+}
