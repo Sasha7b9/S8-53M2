@@ -28,8 +28,6 @@
 #define ENUM_ACCUM_IS_INFINITY      (ENUM_ACCUM == ENumAccumulation::Infinity)
 #define NUM_ACCUM                   (1 << (int)set.display.enumAccumulation)
 
-#define _MODE_AVE                    (set.display.modeAve)
-
 #define ENUM_MIN_MAX                (set.display.enumMinMax)
 #define NUM_MIN_MAX                 (1 << ENUM_MIN_MAX)
 
@@ -130,6 +128,10 @@ struct ModeAveraging
         Around,       // Усреднять приблизительно.
         Count
     };
+
+    static bool IsAccurately() { return Current() == Accurately; }
+    static bool IsAround()     { return Current() == Around;     }
+    static E Current();
 };
 
 // Количество измерений для расчёта минимального и максимального значений.

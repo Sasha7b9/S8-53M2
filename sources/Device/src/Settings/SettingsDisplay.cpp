@@ -106,3 +106,9 @@ int ENumAveraging::ToNumber()
 
     return num_ave;
 }
+
+
+ModeAveraging::E ModeAveraging::Current()
+{
+    return TBase::InModeRandomizer() ? ModeAveraging::Around : set.display.modeAve;
+}
