@@ -89,12 +89,12 @@ void Averager::Around::Append(const DataFrame &frame)
     }
     else
     {
-        int num_datas = Storage::SameSettings::GetCount();
+        int num_datas = Math::Limitation<int>(Storage::SameSettings::GetCount(), 0, ENumAveraging::ToNumber());
 
-        Math::Limitation<int>(num_datas, 0, ENumAveraging::ToNumber());
-
-        float ave_fless = (float)num_datas - 1.0f;
         float ave_inv = 1.0f / (float)num_datas;
+        float ave_fless = 1.0f - ave_inv;
+
+        LOG_WRITE("%f %f", ave_inv, ave_fless);
 
         float *out_a = ave_a.Data();
         float *out_b = ave_b.Data();
