@@ -341,6 +341,7 @@ float Processing::CalculateVoltageRMS(Chan ch)
     return std::sqrt(rms / period) * SET_DIVIDER_ABS(ch);
 }
 
+
 float Processing::CalculatePeriod(Chan ch)
 {
     static float period[2] = {0.0f, 0.0f};
@@ -511,25 +512,6 @@ float Processing::FindIntersectionWithHorLine(Chan ch, int numIntersection, bool
     return Math::GetIntersectionWithHorizontalLine(x, data[x], x + 1, data[x + 1], yLine);
 }
 
-float Processing::CalculateDurationPlus(Chan ch)
-{
-    float aveValue = CalculateAverageRel(ch);
-    EXIT_IF_ERROR_FLOAT(aveValue);
-
-    float firstIntersection = FindIntersectionWithHorLine(ch, 1, true, aveValue);
-    float secondIntersection = FindIntersectionWithHorLine(ch, 1, false, aveValue);
-
-    EXIT_IF_ERRORS_FLOAT(firstIntersection, secondIntersection);
-
-    if(secondIntersection < firstIntersection)
-    {
-        secondIntersection = FindIntersectionWithHorLine(ch, 2, false, aveValue);
-    }
-
-    EXIT_IF_ERROR_FLOAT(secondIntersection);
-
-    return TShift::ToAbs((secondIntersection - firstIntersection) / 2.0f, out.ds.tbase);
-}
 
 float Processing::CalculateDurationMinus(Chan ch)
 {
@@ -547,6 +529,33 @@ float Processing::CalculateDurationMinus(Chan ch)
     }
 
     EXIT_IF_ERROR_FLOAT(secondIntersection);
+
+    Marker::time[ch][0] = firstIntersection - SHIFT_IN_MEMORY;
+    Marker::time[ch][1] = secondIntersection - SHIFT_IN_MEMORY;
+
+    return TShift::ToAbs((secondIntersection - firstIntersection) / 2.0f, out.ds.tbase);
+}
+
+
+float Processing::CalculateDurationPlus(Chan ch)
+{
+    float aveValue = CalculateAverageRel(ch);
+    EXIT_IF_ERROR_FLOAT(aveValue);
+
+    float firstIntersection = FindIntersectionWithHorLine(ch, 1, true, aveValue);
+    float secondIntersection = FindIntersectionWithHorLine(ch, 1, false, aveValue);
+
+    EXIT_IF_ERRORS_FLOAT(firstIntersection, secondIntersection);
+
+    if (secondIntersection < firstIntersection)
+    {
+        secondIntersection = FindIntersectionWithHorLine(ch, 2, false, aveValue);
+    }
+
+    EXIT_IF_ERROR_FLOAT(secondIntersection);
+
+    Marker::time[ch][0] = firstIntersection - SHIFT_IN_MEMORY;
+    Marker::time[ch][1] = secondIntersection - SHIFT_IN_MEMORY;
 
     return TShift::ToAbs((secondIntersection - firstIntersection) / 2.0f, out.ds.tbase);
 }
