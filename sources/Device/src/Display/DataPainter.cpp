@@ -208,7 +208,7 @@ void DataPainter::DrawMarkersForMeasure(float scaleY, Chan ch)
     {
         int pos = Processing::Marker::GetU(ch, numMarker);
 
-        if (pos != ERROR_VALUE_INT && pos > 0 && pos < 200)
+        if (pos != ERROR_VALUE_INT && pos > 0 && pos < (ValueFPGA::MAX - ValueFPGA::MIN))
         {
             Painter::DrawDashedHLine((int)(Grid::FullBottom() - pos * scaleY), Grid::Left(), Grid::Right(), 3, 2, 0);
         }

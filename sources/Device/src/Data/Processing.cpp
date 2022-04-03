@@ -179,10 +179,6 @@ float Processing::CalculateVoltageMax(Chan ch)
 
     if(MEAS_MARKED == Measure::VoltageMax)
     {
-        if (ch.IsA())
-        {
-            LOG_WRITE("max = %f", max);
-        }
         Marker::volt[ch][1] = max;                           // Здесь не округляем, потому что max может быть только целым
     }
 
@@ -1166,14 +1162,7 @@ String<> Processing::GetStringMeasure(Measure::E measure, Chan ch)
 
 int Processing::Marker::GetU(Chan ch, int numMarker)
 {
-    int result = Marker::volt[ch][numMarker] - ValueFPGA::MIN;
-
-    if (ch.IsA() && numMarker == 1)
-    {
-        LOG_WRITE("%d = %d", numMarker, result);
-    }
-
-    return result;
+    return Marker::volt[ch][numMarker] - ValueFPGA::MIN;
 }
 
 int Processing::Marker::GetT(Chan ch, int numMarker)
