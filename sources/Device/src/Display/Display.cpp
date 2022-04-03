@@ -381,6 +381,11 @@ void Display::DrawMeasures()
         return;
     }
 
+    if (!SET_ENABLED_A && !SET_ENABLED_B)
+    {
+        return;
+    }
+
     Processing::CalculateMeasures();
 
     if(MEAS_FIELD_IS_HAND)

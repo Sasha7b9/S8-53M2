@@ -90,7 +90,7 @@ char Measures::GetChar(Measure::E measure)
 
 int Measures::GetDY()
 {
-    if(MEAS_SOURCE_IS_A_B)
+    if(MEAS_SOURCE_IS_A_B && SET_ENABLED_A && SET_ENABLED_B)
     {
         return 30;
     }
