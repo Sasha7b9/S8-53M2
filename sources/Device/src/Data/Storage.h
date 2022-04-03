@@ -21,6 +21,9 @@ struct FrameImitation
 
     // Создать для хранения данных при текущих настройках
     void CreateForCurrent();
+
+private:
+    void AppendByte(uint8, uint8);
 };
 
 

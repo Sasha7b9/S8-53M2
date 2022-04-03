@@ -198,6 +198,22 @@ int DataStruct::PrepareForNormalDrawP2P()
 
 void FrameImitation::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
 {
+    if (data.rec_points != 0)
+    {
+        AppendByte(pointsA.byte0, pointsB.byte0);               // Первую считанную точку выбрасываем
+    }
+
+    AppendByte(pointsA.byte1, pointsB.byte1);
+
+    if (data.rec_points % 2)
+    {
+        AppendByte(pointsA.byte1, pointsB.byte1);               // Количество считанных точек должно быть чётным.
+    }                                                           // Просто записываем то же самое значение
+}
+
+
+void FrameImitation::AppendByte(uint8 in_a, uint8 in_b)
+{
     DataSettings &ds = data.ds;
 
     int max_bytes = ds.BytesInChanReal();
@@ -207,27 +223,18 @@ void FrameImitation::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
 
     int &rec_points = data.rec_points;
 
-    if (rec_points == max_bytes - 1)
+    if (rec_points == max_bytes)
     {
         std::memmove(a, a + 1, (uint)(max_bytes - 1));
         std::memmove(b, b + 1, (uint)(max_bytes - 1));
-        rec_points = max_bytes - 2;
-    }
-    else if (rec_points == max_bytes)
-    {
-        std::memmove(a, a + 2, (uint)(max_bytes - 2));
-        std::memmove(b, b + 2, (uint)(max_bytes - 2));
-        rec_points = max_bytes - 2;
+        rec_points = max_bytes - 1;
     }
 
-    a[rec_points] = pointsA.byte0;
-    a[rec_points + 1] = pointsA.byte1;
+    a[rec_points] = in_a;
+    b[rec_points] = in_b;
 
-    b[rec_points] = pointsB.byte0;
-    b[rec_points + 1] = pointsB.byte1;
-
-    rec_points += 2;
-    data.all_points += 2;
+    rec_points++;
+    data.all_points++;
     ds.valid = 1;
 }
 
