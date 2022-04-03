@@ -197,6 +197,11 @@ void DataPainter::DrawMarkersForMeasure(float scaleY, Chan ch)
         return;
     }
 
+    if (MEAS_MARKED_IS_NONE)
+    {
+        return;
+    }
+
     Color::SetCurrent(ColorCursors(ch));
 
     for (int numMarker = 0; numMarker < 2; numMarker++)
