@@ -3,6 +3,7 @@
 #include "FPGA/FPGA.h"
 #include "Menu/Pages/Definition.h"
 #include "SCPI/SCPI.h"
+#include "Utils/Containers/Values.h"
 
 
 pchar SCPI::ProcessTBASE(pchar buffer)
@@ -64,7 +65,7 @@ pchar SCPI::TBASE_::RANGE_(pchar buffer)
 
     SCPI_CYCLE(TBase::Set((TBase::E)it->value));
 
-    IF_REQUEST(SCPI::SendFormat(":TBASE:RANGE%s", map[TBASE].value));
+    IF_REQUEST(SCPI::SendFormat(":TBASE:RANGE%s", map[SET_TBASE].value));
 
     return buffer;
 }
@@ -74,7 +75,7 @@ pchar SCPI::TBASE_::OFFSET(pchar buffer)
 {
     if FIRST_SYMBOLS("?")
     {
-        int shift = TSHIFT - 1024;
+        int shift = SET_TSHIFT - 1024;
         SCPI::SendFormat(":TBASE:OFFSET %d", shift);
     }
     else
@@ -101,9 +102,9 @@ pchar SCPI::TBASE_::SAMPLING(pchar buffer)
         {0}
     };
 
-    SCPI_CYCLE(SAMPLE_TYPE = (SampleType::E)it->value);
+    SCPI_CYCLE(SET_SAMPLE_TYPE = (SampleType::E)it->value);
 
-    IF_REQUEST(SCPI::SendFormat(":TBASE:SAMPLING%s", map[SAMPLE_TYPE].key));
+    IF_REQUEST(SCPI::SendFormat(":TBASE:SAMPLING%s", map[SET_SAMPLE_TYPE].key));
 
     return buffer;
 }
@@ -118,9 +119,9 @@ pchar SCPI::TBASE_::PEACKDET(pchar buffer)
         {0}
     };
 
-    SCPI_CYCLE(MODE_PEAK_DET = (PeakDetMode::E)it->value);
+    SCPI_CYCLE(SET_PEAKDET = (PeackDetMode::E)it->value);
 
-    IF_REQUEST(SCPI::SendFormat(":TBASE:PEACKDET%s", map[MODE_PEAK_DET].key));
+    IF_REQUEST(SCPI::SendFormat(":TBASE:PEACKDET%s", map[SET_PEAKDET].key));
 
     return buffer;
 }
@@ -136,9 +137,9 @@ pchar SCPI::TBASE_::TPOS_(pchar buffer)
         {0}
     };
 
-    SCPI_CYCLE(TPOS = (TPos::E)it->value; PageTime::OnChanged_TPos(true));
+    SCPI_CYCLE(SET_TPOS = (TPos::E)it->value; PageTime::OnChanged_TPos(true));
 
-    IF_REQUEST(SCPI::SendFormat(":TBASE:TPOS%s", map[TPOS].key));
+    IF_REQUEST(SCPI::SendFormat(":TBASE:TPOS%s", map[SET_TPOS].key));
 
     return buffer;
 }
@@ -146,10 +147,10 @@ pchar SCPI::TBASE_::TPOS_(pchar buffer)
 
 pchar SCPI::TBASE_::SELFRECORDER(pchar buffer)
 {
-    if      FIRST_SYMBOLS(" ON")  { SELF_RECORDER = true; }
-    else if FIRST_SYMBOLS(" OFF") { SELF_RECORDER = false; }
+    if      FIRST_SYMBOLS(" ON")  { SET_SELFRECORDER = true; }
+    else if FIRST_SYMBOLS(" OFF") { SET_SELFRECORDER = false; }
 
-    IF_REQUEST(SCPI::SendFormat(":TBASE:SELFRECORDER%s", PageTime::InSelfRecoredMode() ? "ON" : "OFF"));
+    IF_REQUEST(SCPI::SendFormat(":TBASE:SELFRECORDER%s", SET_SELFRECORDER ? "ON" : "OFF"));
 
     return buffer;
 }
@@ -164,9 +165,9 @@ pchar SCPI::TBASE_::FUNCTIMEDIV(pchar buffer)
         {0}
     };
 
-    SCPI_CYCLE(FUNCTION_REG_TIME = (FunctionTime::E)it->value);
+    SCPI_CYCLE(SET_TIME_DIV_XPOS = (FunctionTime::E)it->value);
 
-    IF_REQUEST(SCPI::SendFormat(":TBASE:FUNCTIMEDIV%s", map[FUNCTION_REG_TIME].key));
+    IF_REQUEST(SCPI::SendFormat(":TBASE:FUNCTIMEDIV%s", map[SET_TIME_DIV_XPOS].key));
 
     return buffer;
 }

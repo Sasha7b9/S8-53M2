@@ -4,6 +4,7 @@
 #include "FPGA/FPGA.h"
 #include "Hardware/LAN/LAN.h"
 #include "Menu/Pages/Definition.h"
+#include "Utils/Containers/Values.h"
 #include "SCPI/SCPI.h"
 
 
@@ -62,12 +63,12 @@ pchar SCPI::CHANNEL::COUPLE(pchar buffer)
 
 pchar SCPI::CHANNEL::FILTR_(pchar buffer)
 {
-    static const pFuncVB func[2] = {PageChannel::A::OnChanged_Filtr, PageChannel::B::OnChanged_Filtr};
+    static const pFuncVB func[2] = {PageChannelA::OnChanged_Filtr, PageChannelB::OnChanged_Filtr};
 
-    if      FIRST_SYMBOLS(" ON")  { FILTR(ch) = true; func[ch](true); }
-    else if FIRST_SYMBOLS(" OFF") { FILTR(ch) = false; func[ch](true); }
+    if      FIRST_SYMBOLS(" ON")  { SET_FILTR(ch) = true; func[ch](true); }
+    else if FIRST_SYMBOLS(" OFF") { SET_FILTR(ch) = false; func[ch](true); }
 
-    IF_REQUEST(SCPI::SendFormat(":CHANNEL%d:FILTR %s", ch.ToNumber(), FILTR(ch) ? "ON" : "OFF"));
+    IF_REQUEST(SCPI::SendFormat(":CHANNEL%d:FILTR %s", ch.ToNumber(), SET_FILTR(ch) ? "ON" : "OFF"));
 
     return buffer;
 }
@@ -75,10 +76,10 @@ pchar SCPI::CHANNEL::FILTR_(pchar buffer)
 
 pchar SCPI::CHANNEL::INVERSE(pchar buffer)
 {
-    if      FIRST_SYMBOLS(" ON")  { INVERSED(ch) = true; }
-    else if FIRST_SYMBOLS(" OFF") { INVERSED(ch) = false; }
+    if      FIRST_SYMBOLS(" ON")  { SET_INVERSE(ch) = true; }
+    else if FIRST_SYMBOLS(" OFF") { SET_INVERSE(ch) = false; }
 
-    IF_REQUEST(SCPI::SendFormat(":CHANNEL%d:SET_INVERSE %s", ch.ToNumber(), ch.IsInversed() ? "ON" : "OFF"));
+    IF_REQUEST(SCPI::SendFormat(":CHANNEL%d:SET_INVERSE %s", ch.ToNumber(), SET_INVERSE(ch) ? "ON" : "OFF"));
 
     return buffer;
 }
@@ -106,7 +107,7 @@ pchar SCPI::CHANNEL::RANGE_(pchar buffer)
 
     SCPI_CYCLE(Range::Set(ch, (Range::E)it->value));
 
-    IF_REQUEST(SCPI::SendFormat(":CHANNEL%d:SET_RANGE %s", ch.ToNumber(), map[RANGE(ch)].key));
+    IF_REQUEST(SCPI::SendFormat(":CHANNEL%d:SET_RANGE %s", ch.ToNumber(), map[SET_RANGE(ch)].key));
 
     return buffer;
 }
@@ -116,7 +117,7 @@ pchar SCPI::CHANNEL::OFFSET(pchar buffer)
 {
     if FIRST_SYMBOLS("?")
     {
-        int offset = (int)(0.5F * (RSHIFT(ch) - RShift::ZERO));
+        int offset = (int)(0.5F * (SET_RSHIFT(ch) - RShift::ZERO));
         SCPI::SendFormat(":CHANNNEL%d:OFFSET %d", ch.ToNumber(), offset);
     }
     else
@@ -136,10 +137,10 @@ pchar SCPI::CHANNEL::OFFSET(pchar buffer)
 
 pchar SCPI::CHANNEL::FACTOR(pchar buffer)
 {
-    if      FIRST_SYMBOLS(" X1")  { DIVIDER(ch) = Divider::_1; }
-    else if FIRST_SYMBOLS(" X10") { DIVIDER(ch) = Divider::_10; }
+    if      FIRST_SYMBOLS(" X1")  { SET_DIVIDER(ch) = Divider::_1; }
+    else if FIRST_SYMBOLS(" X10") { SET_DIVIDER(ch) = Divider::_10; }
 
-    IF_REQUEST(SCPI::SendFormat(":CHANNEL%d:PROBE %s", ch.ToNumber(), DIVIDER(ch) == Divider::_1 ? "X1" : "X10"));
+    IF_REQUEST(SCPI::SendFormat(":CHANNEL%d:PROBE %s", ch.ToNumber(), SET_DIVIDER(ch) == Divider::_1 ? "X1" : "X10"));
 
     return buffer;
 }

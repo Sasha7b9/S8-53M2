@@ -98,7 +98,7 @@ static const Choice mcPeakDet =
 };
 
 
-void OnChanged_TPos(bool)
+void PageTime::OnChanged_TPos(bool)
 {
     TPos::Set(SET_TPOS);
 }
@@ -117,7 +117,7 @@ static const Choice mcTPos =
         {"Центр",   "Center"},
         {"Право",   "Right"}
     },
-    (int8*)&SET_TPOS, OnChanged_TPos
+    (int8*)&SET_TPOS, PageTime::OnChanged_TPos
 };
 
 

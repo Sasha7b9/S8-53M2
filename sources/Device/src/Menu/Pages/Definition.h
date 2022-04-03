@@ -275,6 +275,8 @@ struct PageService
 struct PageTime
 {
     static const Page *self;
+
+    static void OnChanged_TPos(bool);
 };
 
 
