@@ -377,14 +377,14 @@ void Menu::FuncOnLongPressItemTime(Item *time)
         time->SetCurrent(true);
     }
 
-    if(time->IsOpened() && *((Time*)time)->curField == iSET)
+    if(time->IsOpened() && *((TimeControl *)time)->curField == iSET)
     {
-        ((Time *)time)->SetNewTime();
+        ((TimeControl *)time)->SetNewTime();
     }
 
     time->Open(!time->IsOpened());
 
-    ((Time *)time)->SetOpened();
+    ((TimeControl *)time)->SetOpened();
 }
 
 
@@ -393,12 +393,12 @@ void Menu::ShortPress_Time(Item *time)
     if(!time->IsOpened())
     {
         time->SetCurrent(true);
-        ((Time *)time)->SetOpened();
+        ((TimeControl *)time)->SetOpened();
         time->Open(true);
     }
     else
     {
-        ((Time *)time)->SelectNextPosition();
+        ((TimeControl *)time)->SelectNextPosition();
     }
 }
 
@@ -559,7 +559,7 @@ void Menu::ChangeStateFlashDrive()
 extern const Page pService;
 
 
-void Time::Open()
+void TimeControl::Open()
 {
     Warning::ShowGood(Warning::TimeNotSet);
     Panel::ProcessEvent(KeyboardEvent(Key::Service, Action::Up));

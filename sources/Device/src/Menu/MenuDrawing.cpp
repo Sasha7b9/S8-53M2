@@ -265,7 +265,7 @@ static void DrawSmallButton(void *item, int, int y)
 
 static void DrawTime(void *item, int x, int y)
 {
-    ((Time *)item)->Draw(x, y, false);
+    ((TimeControl *)item)->Draw(x, y, false);
 }
 
 
@@ -351,7 +351,7 @@ void Page::DrawOpened(int yTop)
         }
         else if (item->IsTime())
         {
-            ((Time *)item)->Draw(MP_X, Menu::ItemOpenedPosY(item), true);
+            ((TimeControl *)item)->Draw(MP_X, Menu::ItemOpenedPosY(item), true);
         }
         else if (item->IsIP())
         {

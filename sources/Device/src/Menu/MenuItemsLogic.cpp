@@ -212,7 +212,7 @@ void IPaddress::NextPosition() const
     Math::CircleIncrease<int8>(&IPaddress::cur_digit, 0, port == 0 ? 11 : 16);
 }
 
-void Time::SetOpened()
+void TimeControl::SetOpened()
 {
     PackedTime time = HAL_RTC::GetPackedTime();
     *(seconds) = (int8)time.seconds;
@@ -223,12 +223,12 @@ void Time::SetOpened()
     *(year) = (int8)time.year ;
 }
 
-void Time::SetNewTime() const
+void TimeControl::SetNewTime() const
 {
     HAL_RTC::SetTimeAndData(*day, *month, *year, *hours, *minutes, *seconds);
 }
 
-void Time::SelectNextPosition()
+void TimeControl::SelectNextPosition()
 {
     int prev = *curField;
     if (Math::CircleIncrease<int8>(curField, 0, 7) != prev)
@@ -237,7 +237,7 @@ void Time::SelectNextPosition()
     }
 }
 
-void Time::IncCurrentPosition() const
+void TimeControl::IncCurrentPosition() const
 {
     Sound::GovernorChangedValue();
     int8 position = *curField;
@@ -258,7 +258,7 @@ void Time::IncCurrentPosition() const
     }
 }
 
-void Time::DecCurrentPosition() const
+void TimeControl::DecCurrentPosition() const
 {
     Sound::GovernorChangedValue();
     static const int8 max[] = {0, 31, 12, 99, 23, 59, 59};

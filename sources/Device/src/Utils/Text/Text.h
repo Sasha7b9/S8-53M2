@@ -16,8 +16,8 @@ private:
 
 struct Word
 {
-    uint8 *address;
-    int8   numSymbols;
+    char *address;
+    int8  numSymbols;
 
     // Эта команда сразу преобразует к верхенму регистру слово.
     bool GetWord(pchar string, const int numWord);
@@ -76,7 +76,7 @@ namespace SU
     bool EqualsZeroStrings(char *str1, char *str2);
 
     // Возвращает количество слов в строке. Разделители - пробелы. Строка заканчивается байтами 0x0d, 0x0a.
-    int GetNumWordsInString(const uint8 *string);
+    int GetNumWordsInString(pchar string);
 
     void LogBufferU8(const uint8 *data, int num);
     void LogBufferU8(pchar label, const uint8 *data, int num);

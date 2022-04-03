@@ -820,7 +820,7 @@ static const Choice cLang =
 static int8 dServicetime = 0;
 static int8 hours = 0, minutes = 0, secondes = 0, year = 0, month = 0, day = 0;
 
-static const Time tTime =
+static const TimeControl tTime =
 {
     TypeItem::Time, PageService::self, 0,
     {

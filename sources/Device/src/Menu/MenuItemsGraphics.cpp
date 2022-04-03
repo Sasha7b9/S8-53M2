@@ -56,7 +56,7 @@ static void DrawGovernorChoiceColorFormulaHiPart(Item *item, int x, int y, bool 
         }
         else if (type == TypeItem::Time)
         {
-            Time *time = (Time*)item;
+            TimeControl *time = (TimeControl *)item;
             if ((Item::Opened() == item) && (*time->curField != iEXIT) && (*time->curField != iSET))
             {
                 symbol = Regulator::GetSymbol();
@@ -481,7 +481,7 @@ void Choice::DrawOpened(int x, int y)
     }
 }
 
-void Time::DrawOpened(int x, int y)
+void TimeControl::DrawOpened(int x, int y)
 {
     int width = MI_WIDTH_VALUE + 3;
     int height = 61;
@@ -649,7 +649,7 @@ void Choice::Draw(int x, int y, bool opened)
 }
 
 
-void Time::DrawClosed(int x, int y)
+void TimeControl::DrawClosed(int x, int y)
 {
     bool pressed = ((Item *)this)->IsPressed();
     bool shade = ((Item *)this)->IsShade();
@@ -678,7 +678,7 @@ void Time::DrawClosed(int x, int y)
     SU::Int2String((int)time.year, false, 2).Draw(x + startX + 2 * deltaField + 2 * deltaSeparator, y);
 }
 
-void Time::Draw(int x, int y, bool opened)
+void TimeControl::Draw(int x, int y, bool opened)
 {
     if(opened)
     {

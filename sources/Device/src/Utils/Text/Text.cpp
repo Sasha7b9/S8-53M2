@@ -673,7 +673,7 @@ static int SU::NumDigitsInIntPart(float value)
 }
 
 
-int SU::GetNumWordsInString(const uint8 *string)
+int SU::GetNumWordsInString(pchar string)
 {
     SU::ChooseSpaces(&string);
 
@@ -704,15 +704,15 @@ bool Word::GetWord(pchar string, const int numWord)
     {
         if (currentWord == numWord)
         {
-            address = (uint8 *)string;
+            address = (char *)string;
             SU::ChooseSymbols(&string);
             numSymbols = string - address;
 
-            uint8 *pointer = address;
+            char *pointer = address;
 
             for (int i = 0; i < numSymbols; i++)
             {
-                *pointer = (uint8)std::toupper((int8)*pointer);
+                *pointer = (char)std::toupper(*pointer);
                 pointer++;
             }
 
@@ -765,7 +765,7 @@ bool SU::WordEqualZeroString(Word *word, char *string)
 }
 
 
-bool SU::ChooseSymbols(const uint8 **string)
+bool SU::ChooseSymbols(pchar *string)
 {
     if (SYMBOL(string) == 0x0d && SYMBOL(string + 1) == 0x0a)
     {
@@ -781,7 +781,7 @@ bool SU::ChooseSymbols(const uint8 **string)
 }
 
 
-bool SU::ChooseSpaces(const uint8 **string)
+bool SU::ChooseSpaces(pchar *string)
 {
     if (SYMBOL(string) == 0x0d && SYMBOL(string + 1) == 0x0a)
     {

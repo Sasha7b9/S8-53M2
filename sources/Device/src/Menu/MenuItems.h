@@ -540,7 +540,7 @@ private:
 #define iSET    7
 
 // ”станавливает и показывает врем€.
-struct Time
+struct TimeControl
 {
     COMMON_PART_MENU_ITEM
     int8*       curField;       // “екущее поле установки. 0 - выход, 1 - сек, 2 - мин, 3 - часы, 4 - день, 5 - мес€ц, 6 - год, 7 - установить.

@@ -735,7 +735,7 @@ namespace Panel
                             else if (type == TypeItem::Time)
                             {
                                 Flags::needFinishDraw = true;
-                                (angle > 0) ? ((Time *)item)->IncCurrentPosition() : ((Time *)item)->DecCurrentPosition();
+                                (angle > 0) ? ((TimeControl *)item)->IncCurrentPosition() : ((TimeControl *)item)->DecCurrentPosition();
                                 Sound::RegulatorSwitchRotate();
                                 angle = 0;
                             }

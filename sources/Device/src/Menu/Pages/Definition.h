@@ -132,6 +132,13 @@ struct PageDisplay
 
         static void OnPress_Clear();
     };
+
+    struct Grid
+    {
+        static const Page *self;
+
+        static ColorType colorType;
+    };
 };
 
 

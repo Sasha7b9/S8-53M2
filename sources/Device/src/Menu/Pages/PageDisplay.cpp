@@ -12,7 +12,6 @@
 
 
 extern const Page mspAveraging;
-extern const Page mspGrid;
 extern const Page mspSettings;
 extern const Page mspSettings_Colors;
 
@@ -141,7 +140,7 @@ static const arrayItems itemsDisplay =
     (void *)&mcMinMax,
     (void *)&mcSmoothing,
     (void *)&mcRefreshFPS,
-    (void *)&mspGrid,
+    (void *)PageDisplay::Grid::self,
     (void *)&mcTypeShift,
     (void *)&mspSettings
 };
@@ -326,7 +325,7 @@ static const Page mspAveraging
 
 static const Choice mcGrid_Type =
 {
-    TypeItem::Choice, &mspGrid, 0,
+    TypeItem::Choice, PageDisplay::Grid::self, 0,
     {
         "Тип", "Type",
         "Выбор типа сетки.",
@@ -342,25 +341,25 @@ static const Choice mcGrid_Type =
 };
 
 
-ColorType colorTypeGrid = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, Color::GRID};
+ColorType PageDisplay::Grid::colorType = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, Color::GRID};
 
 void OnChanged_Grid_Brightness()
 {
-    colorTypeGrid.SetBrightness(BRIGHTNESS_GRID / 1e2f);
+    PageDisplay::Grid::colorType.SetBrightness(BRIGHTNESS_GRID / 1e2f);
     HAL_LTDC::LoadPalette();
 }
 
 
 static void BeforeDraw_Grid_Brightness()
 {
-    colorTypeGrid.Init();
-    BRIGHTNESS_GRID = (int16)(colorTypeGrid.brightness * 100.0f);
+    PageDisplay::Grid::colorType.Init();
+    BRIGHTNESS_GRID = (int16)(PageDisplay::Grid::colorType.brightness * 100.0f);
 }
 
 
 static const Governor mgGrid_Brightness
 (
-    &mspGrid, 0,
+    PageDisplay::Grid::self, 0,
     "Яркость", "Brightness",
     "Устанавливает яркость сетки.",
     "Adjust the brightness of the Grid::",
@@ -567,7 +566,7 @@ static const GovernorColor mgcSettings_Colors_Grid =
         "Устанавливает цвет сетки",
         "Sets the grid color"
     },
-    &colorTypeGrid
+    &PageDisplay::Grid::colorType
 };
 
 
@@ -590,3 +589,4 @@ static const Page mspSettings_Colors
 
 const Page *PageDisplay::self = &pDisplay;
 const Page *PageDisplay::Accumulation::self = &mspAccumulation;
+const Page *PageDisplay::Grid::self = &mspGrid;

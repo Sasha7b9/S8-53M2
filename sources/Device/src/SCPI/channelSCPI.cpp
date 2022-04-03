@@ -7,7 +7,7 @@
 #include "SCPI/SCPI.h"
 
 
-static Chan &ch = ChA;
+static Chan ch(ChA);
 
 
 pchar SCPI::ProcessCHANNEL(pchar buffer)
@@ -35,10 +35,10 @@ pchar SCPI::ProcessCHANNEL(pchar buffer)
 
 pchar SCPI::CHANNEL::INPUT(pchar buffer)
 {
-    if      FIRST_SYMBOLS(" ON")  { ENABLED(ch) = true; }
-    else if FIRST_SYMBOLS(" OFF") { ENABLED(ch) = false; }
+    if      FIRST_SYMBOLS(" ON")  { SET_ENABLED(ch) = true; }
+    else if FIRST_SYMBOLS(" OFF") { SET_ENABLED(ch) = false; }
 
-    IF_REQUEST(SCPI::SendFormat(":CHANNEL%d:INPUT %s", ch.ToNumber(), ch.IsEnabled() ? "ON" : "OFF"));
+    IF_REQUEST(SCPI::SendFormat(":CHANNEL%d:INPUT %s", ch.ToNumber(), ch.Enabled() ? "ON" : "OFF"));
 
     return buffer;
 }
@@ -53,7 +53,7 @@ pchar SCPI::CHANNEL::COUPLE(pchar buffer)
     if FIRST_SYMBOLS("?")
     {
         static pchar modes[3] = { " DC", " AC", " GND" };
-        SCPI::SendFormat(":CHANNEL%d:COUPLING %s", ch.ToNumber(), modes[MODE_COUPLE(ch)]);
+        SCPI::SendFormat(":CHANNEL%d:COUPLING %s", ch.ToNumber(), modes[SET_COUPLE(ch)]);
     }
 
     return buffer;

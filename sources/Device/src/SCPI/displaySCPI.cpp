@@ -4,6 +4,7 @@
 #include "Display/Display.h"
 #include "Menu/Pages/Definition.h"
 #include "Settings/Settings.h"
+#include "Utils/Containers/Values.h"
 #include "SCPI/SCPI.h"
 
 
@@ -243,10 +244,10 @@ pchar SCPI::DISPLAY::FPS(pchar buffer)
 
 pchar SCPI::DISPLAY::WINDOW(pchar buffer)
 {
-    if      FIRST_SYMBOLS(" STANDARD") { SHOW_FULL_MEMORY_WINDOW = true; }
-    else if FIRST_SYMBOLS(" SIMPLE")   { SHOW_FULL_MEMORY_WINDOW = false; }
+    if      FIRST_SYMBOLS(" STANDARD") { set.display.showFullMemoryWindow = true; }
+    else if FIRST_SYMBOLS(" SIMPLE")   { set.display.showFullMemoryWindow = false; }
 
-    IF_REQUEST(SCPI::SendFormat(":DISPLAY:WINDOW %s", SHOW_FULL_MEMORY_WINDOW ? "STANDARD" : "SIMPLE"));
+    IF_REQUEST(SCPI::SendFormat(":DISPLAY:WINDOW %s", set.display.showFullMemoryWindow ? "STANDARD" : "SIMPLE"));
 
     return buffer;
 }
@@ -256,8 +257,8 @@ pchar SCPI::DISPLAY::GRID_BRIGHTNESS(pchar buffer)
 {
     if FIRST_SYMBOLS("?")
     {
-        PageDisplay::PageGrid::colorType.Init();
-        SCPI::SendFormat(":DISPLAY:GRID:BRIGHTNESS %d", (int)(PageDisplay::PageGrid::colorType.brightness * 100.0F));
+        PageDisplay::Grid::colorType.Init();
+        SCPI::SendFormat(":DISPLAY:GRID:BRIGHTNESS %d", (int)(PageDisplay::Grid::colorType.brightness * 100.0F));
     }
     else
     {
@@ -265,7 +266,7 @@ pchar SCPI::DISPLAY::GRID_BRIGHTNESS(pchar buffer)
 
         if (value.IsValid() && value >= 0 && value <= 100)
         {
-            BRIGHTBESS_GRID = (int16)value;
+            BRIGHTNESS_GRID = (int16)value;
         }
     }
 
