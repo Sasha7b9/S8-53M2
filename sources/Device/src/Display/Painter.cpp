@@ -26,8 +26,8 @@ namespace Display
     static const int SIZE_BUFFER = WIDTH * HEIGHT;
     uint8 back[240][320];                                           // Здесь будем рисовать изображение
 
-    uint8 * const back_buffer = &back[0][0];
-    uint8 * const back_buffer_end = back_buffer + SIZE_BUFFER;      // Конец буфера отрисовки
+    uint8 *const back_buffer = &back[0][0];
+    uint8 *const back_buffer_end = back_buffer + SIZE_BUFFER;      // Конец буфера отрисовки
 }
 
 
@@ -154,7 +154,7 @@ void Painter::DrawDashedHLine(int y, int x0, int x1, int deltaFill, int deltaEmp
 void InterCom::Send(const uint8 *pointer, int size)
 {
     VCP::Send(pointer, size);
-    LAN::SendBuffer((pchar )pointer, size);
+    LAN::SendBuffer((pchar)pointer, size);
 }
 
 
@@ -333,7 +333,7 @@ Color::E Painter::GetColor(int x, int y)
 }
 
 
-void Painter::DrawMultiVPointLine(int numLines, const int y, const uint16 x[], int delta, int count, Color::E color) 
+void Painter::DrawMultiVPointLine(int numLines, const int y, const uint16 x[], int delta, int count, Color::E color)
 {
     numLines = Math::Limitation<int>(numLines, 0, 20);
 
@@ -541,11 +541,11 @@ void Painter::BeginScene(Color::E color)
         bool needForLoadFontsAndPalette = stateTransmit == StateTransmit::NeedForTransmitFirst;
         stateTransmit = StateTransmit::InProcess;
 
-        if(needForLoadFontsAndPalette) 
+        if (needForLoadFontsAndPalette)
         {
             HAL_LTDC::LoadPalette();
 
-            if(!noFonts)                // Если был запрос на загрузку шрифтов
+            if (!noFonts)                // Если был запрос на загрузку шрифтов
             {
                 Font::Load(TypeFont::_5);
                 Font::Load(TypeFont::_8);
@@ -643,24 +643,8 @@ bool Painter::SaveScreenToFlashDrive() {
         uint    clrUsed;        // 46
         uint    clrImportant;   // 50
         //uint    notUsed[15];
-    };
-    // 54
-#pragma pack(4)
-
-    File file;
-
-    String<> fileName = FM::GetNameForNewFile();
-
-    if (!fileName.Size())
-    {
-        return false;
     }
-    
-    file.OpenNewForWrite(fileName.c_str());
-
-    file.Write((uint8*)(&bmFH), 14);
-
-    BITMAPINFOHEADER bmIH =
+    bmIH =
     {
         40, // size;
         320,// width;
@@ -673,40 +657,55 @@ bool Painter::SaveScreenToFlashDrive() {
         0,  // yPelsPerMeter;
         0,  // clrUsed;
         0   // clrImportant;
-    };  
+    };
+    // 54
+#pragma pack(4)
 
-    file.Write((uint8*)(&bmIH), 40);
+    File file;
+
+    String<> fileName = FM::GetNameForNewFile();
+
+    if (!fileName.Size())
+    {
+        return false;
+    }
+
+    file.OpenNewForWrite(fileName.c_str());
+
+    file.Write((uint8 *)(&bmFH), 14);
+
+    file.Write((uint8 *)(&bmIH), 40);
 
     uint8 buffer[320 * 3] = {0};
-    
+
     struct RGBQUAD
     {
-        uint8    blue; 
-        uint8    green; 
-        uint8    red; 
-        uint8    rgbReserved; 
+        uint8    blue;
+        uint8    green;
+        uint8    red;
+        uint8    rgbReserved;
     };
-    
-    RGBQUAD colorStruct;    
 
-    for(int i = 0; i < 32; i++)
+    RGBQUAD colorStruct;
+
+    for (int i = 0; i < 16; i++)
     {
         uint color = COLOR(i);
         colorStruct.blue = B_FROM_COLOR(color);
         colorStruct.green = G_FROM_COLOR(color);
         colorStruct.red = R_FROM_COLOR(color);
         colorStruct.rgbReserved = 0;
-        ((RGBQUAD*)(buffer))[i] = colorStruct;
+        ((RGBQUAD *)(buffer))[i] = colorStruct;
     }
 
-    for(int i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++)
     {
         file.Write(buffer, 256);
     }
 
-    for(int y = 239; y >= 0; y--)
+    for (int y = 239; y >= 0; y--)
     {
-        for(int x = 1; x < 320; x += 2)
+        for (int x = 1; x < 320; x += 2)
         {
             uint8 color = (uint8)GetColor(x, y);
 
@@ -714,9 +713,9 @@ bool Painter::SaveScreenToFlashDrive() {
         }
         file.Write(buffer, 160);
     }
-    
+
     file.Close();
-    
+
     return true;
 }
 
