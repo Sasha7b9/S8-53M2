@@ -11,7 +11,7 @@
 static Chan ch(ChA);
 
 
-pchar SCPI::ProcessCHANNEL(pchar buffer)
+bool SCPI::ProcessCHANNEL(pchar buffer)
 {
     static const StructCommand commands[] =
     {
@@ -34,58 +34,59 @@ pchar SCPI::ProcessCHANNEL(pchar buffer)
 }
 
 
-pchar SCPI::CHANNEL::INPUT(pchar buffer)
+bool SCPI::CHANNEL::INPUT(pchar buffer)
 {
-    if      FIRST_SYMBOLS(" ON")  { SET_ENABLED(ch) = true; }
-    else if FIRST_SYMBOLS(" OFF") { SET_ENABLED(ch) = false; }
+    if      FIRST_SYMBOLS(" ON")  { SET_ENABLED(ch) = true;  return true; }
+    else if FIRST_SYMBOLS(" OFF") { SET_ENABLED(ch) = false; return true; }
 
     IF_REQUEST(SCPI::SendFormat(":CHANNEL%d:INPUT %s", ch.ToNumber(), ch.Enabled() ? "ON" : "OFF"));
 
-    return buffer;
+    return false;
 }
 
 
-pchar SCPI::CHANNEL::COUPLE(pchar buffer)
+bool SCPI::CHANNEL::COUPLE(pchar buffer)
 {
-    if      FIRST_SYMBOLS(" DC")  { ModeCouple::Set(ch, ModeCouple::DC); }
-    else if FIRST_SYMBOLS(" AC")  { ModeCouple::Set(ch, ModeCouple::AC); }
-    else if FIRST_SYMBOLS(" GND") { ModeCouple::Set(ch, ModeCouple::GND); }
+    if      FIRST_SYMBOLS(" DC")  { ModeCouple::Set(ch, ModeCouple::DC);  return true; }
+    else if FIRST_SYMBOLS(" AC")  { ModeCouple::Set(ch, ModeCouple::AC);  return true; }
+    else if FIRST_SYMBOLS(" GND") { ModeCouple::Set(ch, ModeCouple::GND); return true; }
 
     if FIRST_SYMBOLS("?")
     {
         static pchar modes[3] = { " DC", " AC", " GND" };
         SCPI::SendFormat(":CHANNEL%d:COUPLING %s", ch.ToNumber(), modes[SET_COUPLE(ch)]);
+        return true;
     }
 
-    return buffer;
+    return false;
 }
 
 
-pchar SCPI::CHANNEL::FILTR_(pchar buffer)
+bool SCPI::CHANNEL::FILTR_(pchar buffer)
 {
     static const pFuncVB func[2] = {PageChannelA::OnChanged_Filtr, PageChannelB::OnChanged_Filtr};
 
-    if      FIRST_SYMBOLS(" ON")  { SET_FILTR(ch) = true; func[ch](true); }
-    else if FIRST_SYMBOLS(" OFF") { SET_FILTR(ch) = false; func[ch](true); }
+    if      FIRST_SYMBOLS(" ON")  { SET_FILTR(ch) = true; func[ch](true);  return true; }
+    else if FIRST_SYMBOLS(" OFF") { SET_FILTR(ch) = false; func[ch](true); return true; }
 
     IF_REQUEST(SCPI::SendFormat(":CHANNEL%d:FILTR %s", ch.ToNumber(), SET_FILTR(ch) ? "ON" : "OFF"));
 
-    return buffer;
+    return false;
 }
 
 
-pchar SCPI::CHANNEL::INVERSE(pchar buffer)
+bool SCPI::CHANNEL::INVERSE(pchar buffer)
 {
-    if      FIRST_SYMBOLS(" ON")  { SET_INVERSE(ch) = true; }
-    else if FIRST_SYMBOLS(" OFF") { SET_INVERSE(ch) = false; }
+    if      FIRST_SYMBOLS(" ON")  { SET_INVERSE(ch) = true;  return true; }
+    else if FIRST_SYMBOLS(" OFF") { SET_INVERSE(ch) = false; return true; }
 
     IF_REQUEST(SCPI::SendFormat(":CHANNEL%d:SET_INVERSE %s", ch.ToNumber(), SET_INVERSE(ch) ? "ON" : "OFF"));
 
-    return buffer;
+    return false;
 }
 
 
-pchar SCPI::CHANNEL::RANGE_(pchar buffer)
+bool SCPI::CHANNEL::RANGE_(pchar buffer)
 {
     static const MapElement map[] = 
     {
@@ -109,16 +110,17 @@ pchar SCPI::CHANNEL::RANGE_(pchar buffer)
 
     IF_REQUEST(SCPI::SendFormat(":CHANNEL%d:SET_RANGE %s", ch.ToNumber(), map[SET_RANGE(ch)].key));
 
-    return buffer;
+    return false;
 }
 
 
-pchar SCPI::CHANNEL::OFFSET(pchar buffer)
+bool SCPI::CHANNEL::OFFSET(pchar buffer)
 {
     if FIRST_SYMBOLS("?")
     {
         int offset = (int)(0.5F * (SET_RSHIFT(ch) - RShift::ZERO));
         SCPI::SendFormat(":CHANNNEL%d:OFFSET %d", ch.ToNumber(), offset);
+        return true;
     }
     else
     {
@@ -128,19 +130,20 @@ pchar SCPI::CHANNEL::OFFSET(pchar buffer)
         {
             int rShift = RShift::ZERO + 2 * value;
             RShift::Set(ch, (int16)rShift);
+            return true;
         }
     }
 
-    return buffer;
+    return false;
 }
 
 
-pchar SCPI::CHANNEL::FACTOR(pchar buffer)
+bool SCPI::CHANNEL::FACTOR(pchar buffer)
 {
-    if      FIRST_SYMBOLS(" X1")  { SET_DIVIDER(ch) = Divider::_1; }
-    else if FIRST_SYMBOLS(" X10") { SET_DIVIDER(ch) = Divider::_10; }
+    if      FIRST_SYMBOLS(" X1")  { SET_DIVIDER(ch) = Divider::_1;  return true; }
+    else if FIRST_SYMBOLS(" X10") { SET_DIVIDER(ch) = Divider::_10; return true; }
 
     IF_REQUEST(SCPI::SendFormat(":CHANNEL%d:PROBE %s", ch.ToNumber(), SET_DIVIDER(ch) == Divider::_1 ? "X1" : "X10"));
 
-    return buffer;
+    return false;
 }

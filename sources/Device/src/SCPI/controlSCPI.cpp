@@ -4,7 +4,7 @@
 #include "SCPI/SCPI.h"
 
 
-pchar SCPI::CONTROL::KEY(pchar buffer)
+bool SCPI::CONTROL::KEY(pchar buffer)
 {
     static const MapElement keys[] =
     {
@@ -54,18 +54,18 @@ pchar SCPI::CONTROL::KEY(pchar buffer)
 
 //              Panel::ProcessingCommandFromPIC(code);
 
-                return buffer;
+                return true;
             }
             numKey++;
             name = keys[numKey].key;
         }
     }
 
-    return buffer;
+    return false;
 }
 
 
-pchar SCPI::CONTROL::GOVERNOR(pchar buffer)
+bool SCPI::CONTROL::GOVERNOR(pchar buffer)
 {
     static const MapElement governors[] =
     {
@@ -97,12 +97,12 @@ pchar SCPI::CONTROL::GOVERNOR(pchar buffer)
                 }
 
 //                Panel::ProcessingCommandFromPIC(code);
-                return buffer;
+                return true;
             }
             numGov++;
             name = governors[numGov].key;
         }
     }
 
-    return buffer;
+    return false;
 }

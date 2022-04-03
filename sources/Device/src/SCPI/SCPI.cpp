@@ -15,7 +15,7 @@
 
 namespace SCPI
 {
-	static pchar ParseNewCommand(pchar buffer);
+	static bool ParseNewCommand(pchar buffer);
 
 	static BufferSCPI input;
 }
@@ -35,22 +35,15 @@ void SCPI::Update()
     {
         String<> command = input.ExtractCommand();
 
-        for (int i = 0; i < command.Size(); i++)
+        if (!SCPI::ParseNewCommand(command.c_str()))
         {
-            command[i] = (char)(std::toupper((int8)(command[i])));
-        }
-
-        pchar result = SCPI::ParseNewCommand(command.c_str());
-
-        if (*result)
-        {
-            SCPI::SendFormat("Error !!! Invalid sequency \"%s\"", result);
+            SCPI::SendFormat("Error !!! Invalid sequency \"%s\"", command.c_str());
         }
     }
 }
 
 
-pchar SCPI::ParseNewCommand(pchar buffer)
+bool SCPI::ParseNewCommand(pchar buffer)
 {
     static const StructCommand commands[] =
     {
@@ -86,7 +79,7 @@ pchar SCPI::ParseNewCommand(pchar buffer)
 
 
 
-pchar SCPI::ProcessingCommand(const StructCommand *commands, pchar buffer)
+bool SCPI::ProcessingCommand(const StructCommand *commands, pchar buffer)
 {
     for (const StructCommand *command = commands; command->name != 0; command++)
     {
@@ -98,7 +91,7 @@ pchar SCPI::ProcessingCommand(const StructCommand *commands, pchar buffer)
         }
     }
 
-    return buffer;
+    return false;
 }
 
 

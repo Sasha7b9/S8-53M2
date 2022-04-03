@@ -3,6 +3,11 @@
 #include "SCPI/BufferSCPI.h"
 #include <cstring>
 #include <cstdlib>
+#include <cstring>
+#include <cstdlib>
+#include <cctype>
+#include <cstdarg>
+#include <cstdio>
 
 
 void BufferSCPI::Append(pchar data, int length)
@@ -91,6 +96,11 @@ String<> BufferSCPI::ExtractCommand()
     RemoveFirstBytes(pos_end);
 
     RemoveFirstDividers();
+
+    for (int i = 0; i < result.Size(); i++)
+    {
+        result[i] = (char)(std::toupper((int8)(result[i])));
+    }
 
     return result;
 }
