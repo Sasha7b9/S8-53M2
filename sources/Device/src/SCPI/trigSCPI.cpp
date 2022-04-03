@@ -3,6 +3,7 @@
 #include "FPGA/FPGA.h"
 #include "Menu/Pages/Definition.h"
 #include "SCPI/SCPI.h"
+#include "Utils/Containers/Values.h"
 
 
 /*
@@ -115,7 +116,7 @@ pchar SCPI::TRIGGER::OFFSET(pchar buffer)
 {
     if FIRST_SYMBOLS("?")
     {
-        int trig_lev = (int)(0.5F * (TRIG_LEV_CURRENT - RShift::ZERO));
+        int trig_lev = (int)(0.5F * (TRIG_LEVEL_SOURCE - RShift::ZERO));
         SCPI::SendFormat(":TRIGGER:OFFSET %d", trig_lev);
     }
     else

@@ -7,7 +7,7 @@
 #include "Menu/Pages/Definition.h"
 
 
-static void OnPress_Mode(bool)
+void PageTrig::OnPress_Mode(bool)
 {
     StartMode::Set(START_MODE);
 }
@@ -34,7 +34,7 @@ static const Choice mcMode =
         {"Ждущий",      "Wait"},
         {"Однократный", "Single"}
     },
-    (int8*)&START_MODE, OnPress_Mode
+    (int8*)&START_MODE, PageTrig::OnPress_Mode
 };
 
 
