@@ -8,7 +8,7 @@ class BufferSCPI : public Buffer<char, 1024>
 {
 public:
 
-    BufferSCPI() : Buffer<char, 1024>() { }
+    BufferSCPI() : Buffer<char, 1024>() { Realloc(0); }
 
     void Append(pchar data, int length);
 

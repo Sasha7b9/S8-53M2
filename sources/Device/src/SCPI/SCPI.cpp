@@ -35,8 +35,6 @@ void SCPI::Update()
     {
         String<> command = input.ExtractCommand();
 
-        String<> temp(command);
-
         for (int i = 0; i < command.Size(); i++)
         {
             command[i] = (char)(std::toupper((int8)(command[i])));
