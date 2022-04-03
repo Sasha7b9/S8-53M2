@@ -80,24 +80,24 @@ void PageCursors::Cursors_Update()
 
     if((lookMode0 == CursLookMode::Voltage || lookMode0 == CursLookMode::Both) && CURS_ACTIVE_IS_T)
     {
-        int posU0 = Processing::GetCursU(source, CURS_POS_T0(source));
+        int posU0 = Processing::Cursor::GetU(source, CURS_POS_T0(source));
         SetCursPosU(source, 0, posU0);
     }
     if((lookMode1 == CursLookMode::Voltage || lookMode1 == CursLookMode::Both)  && CURS_ACTIVE_IS_T)
     {
-        int posU1 = Processing::GetCursU(source, CURS_POS_T1(source));
+        int posU1 = Processing::Cursor::GetU(source, CURS_POS_T1(source));
         SetCursPosU(source, 1, posU1);
     }
     if((lookMode0 == CursLookMode::Time || lookMode0 == CursLookMode::Both) && CURS_ACTIVE_IS_U)
     {
         int posU0 = CURS_POS_U0(source);
-        posT0 = Processing::GetCursT(source, posU0, 0);
+        posT0 = Processing::Cursor::GetT(source, posU0, 0);
         SetCursPosT(source, 0, posT0);
     }
     if((lookMode1 == CursLookMode::Time || lookMode1 == CursLookMode::Both) && CURS_ACTIVE_IS_U)
     {
         int posU1 = CURS_POS_U1(source);
-        posT1 = Processing::GetCursT(source, posU1, 1);
+        posT1 = Processing::Cursor::GetT(source, posU1, 1);
         SetCursPosT(source, 1, posT1);
     }
 }

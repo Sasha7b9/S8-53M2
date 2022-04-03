@@ -947,7 +947,7 @@ float Processing::CalculatePhazaMinus(Chan::E ch)
 }
 
 
-float Processing::GetCursU(Chan ch, float posCurT)
+float Processing::Cursor::GetU(Chan ch, float posCurT)
 {
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
@@ -959,7 +959,7 @@ float Processing::GetCursU(Chan ch, float posCurT)
 }
 
 
-float Processing::GetCursT(Chan ch, float posCurU, int numCur)
+float Processing::Cursor::GetT(Chan ch, float posCurU, int numCur)
 {
     BitSet32 points = SettingsDisplay::PointsOnDisplay();
 
