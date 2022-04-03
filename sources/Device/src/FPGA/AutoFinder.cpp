@@ -81,6 +81,7 @@ void FPGA::AutoFinder::FindSignal()
 
     Settings old = set;
 
+    bool running = FPGA::IsRunning();
     FPGA::Stop();
 
     if (!FindWave(ChA))
@@ -98,7 +99,10 @@ void FPGA::AutoFinder::FindSignal()
 
     SOUND_ENABLED = sound_enabled;
 
-    FPGA::Start();
+    if (running)
+    {
+        FPGA::Start();
+    }
 }
 
 
