@@ -608,25 +608,6 @@ uint Painter::ReduceBrightness(uint colorValue, float newBrightness)
 
 bool Painter::SaveScreenToFlashDrive()
 {
-    File file;
-
-    if (file.OpenNewForWrite("test.fil"))
-    {
-        String<> test_string("Test string.");
-
-        file.Write(test_string.c_str(), test_string.Size());
-
-        file.Close();
-
-        return true;
-    }
-
-    return false;
-}
-
-
-bool Painter::_SaveScreenToFlashDrive()
-{
 
 #pragma pack(1)
     struct BITMAPFILEHEADER
@@ -687,55 +668,59 @@ bool Painter::_SaveScreenToFlashDrive()
 
     if (!fileName.Size())
     {
+        LOG_ERROR("Не получено имя для файла");
         return false;
     }
 
-    file.OpenNewForWrite(fileName.c_str());
-
-    file.Write((uint8 *)(&bmFH), 14);
-
-    file.Write((uint8 *)(&bmIH), 40);
-
-    uint8 buffer[320 * 3] = {0};
-
-    struct RGBQUAD
+    if (file.OpenNewForWrite(fileName.c_str()))
     {
-        uint8    blue;
-        uint8    green;
-        uint8    red;
-        uint8    rgbReserved;
-    };
+        file.Write((uint8 *)(&bmFH), 14);
 
-    RGBQUAD colorStruct;
+        file.Write((uint8 *)(&bmIH), 40);
 
-    for (int i = 0; i < 16; i++)
-    {
-        uint color = COLOR(i);
-        colorStruct.blue = B_FROM_COLOR(color);
-        colorStruct.green = G_FROM_COLOR(color);
-        colorStruct.red = R_FROM_COLOR(color);
-        colorStruct.rgbReserved = 0;
-        ((RGBQUAD *)(buffer))[i] = colorStruct;
-    }
+        uint8 buffer[320 * 3] = {0};
 
-    for (int i = 0; i < 4; i++)
-    {
-        file.Write(buffer, 256);
-    }
-
-    for (int y = 239; y >= 0; y--)
-    {
-        for (int x = 1; x < 320; x++)
+        struct RGBQUAD
         {
-            buffer[x] = (uint8)GetColor(x, y);
+            uint8    blue;
+            uint8    green;
+            uint8    red;
+            uint8    rgbReserved;
+        };
+
+        RGBQUAD colorStruct;
+
+        for (int i = 0; i < 16; i++)
+        {
+            uint color = COLOR(i);
+            colorStruct.blue = B_FROM_COLOR(color);
+            colorStruct.green = G_FROM_COLOR(color);
+            colorStruct.red = R_FROM_COLOR(color);
+            colorStruct.rgbReserved = 0;
+            ((RGBQUAD *)(buffer))[i] = colorStruct;
         }
 
-        file.Write(buffer, 320);
+        for (int i = 0; i < 4; i++)
+        {
+            file.Write(buffer, 256);
+        }
+
+        for (int y = 239; y >= 0; y--)
+        {
+            for (int x = 1; x < 320; x++)
+            {
+                buffer[x] = (uint8)GetColor(x, y);
+            }
+
+            file.Write(buffer, 320);
+        }
+
+        file.Close();
+
+        return true;
     }
 
-    file.Close();
-
-    return true;
+    return false;
 }
 
 

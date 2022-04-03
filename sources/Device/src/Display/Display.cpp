@@ -246,6 +246,7 @@ void Display::Update(bool endScene)
         {
             Warning::ShowGood(Warning::FileIsSaved);
         }
+
         FDrive::needSave = false;
     }
 
