@@ -79,18 +79,3 @@ void LAN::Update()
     // Handle timeouts
     sys_check_timeouts();
 }
-
-
-void LAN::SendFormat(pchar format, ...)
-{
-    const int SIZE_BUFFER = 1024;
-
-    static char buffer[SIZE_BUFFER];
-    std::va_list args;
-    va_start(args, format);
-    vsprintf(buffer, format, args);
-    va_end(args);
-    std::strcat(buffer, "\r\n");
-
-    SendBuffer(buffer, (int)std::strlen(buffer));
-}

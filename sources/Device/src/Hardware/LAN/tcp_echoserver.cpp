@@ -3,6 +3,8 @@
 #include "lwip/tcp.h"
 #include "Settings/Settings.h"
 #include "SCPI/SCPI.h"
+#include <cstring>
+#include <cstdarg>
 
 
 #if LWIP_TCP
@@ -466,16 +468,35 @@ void Send(struct tcp_pcb *_tpcb, struct State *_ss)
 }
 
 
+void LAN::SendFormat(pchar format, ...)
+{
+    const int SIZE_BUFFER = 1024;
+
+    static char buffer[SIZE_BUFFER];
+    std::va_list args;
+    va_start(args, format);
+    vsprintf(buffer, format, args);
+    va_end(args);
+    std::strcat(buffer, "\r\n");
+
+    SendBuffer(buffer, (int)std::strlen(buffer));
+}
+
+
+
 void LAN::SendBuffer(const void *buffer, int length)
 {
-    struct pbuf *tcpBuffer = pbuf_alloc(PBUF_RAW, (uint16)length, PBUF_POOL);
+    if (clientIsConnected)
+    {
+        struct pbuf *tcpBuffer = pbuf_alloc(PBUF_RAW, (uint16)length, PBUF_POOL);
 
-    tcpBuffer->flags = 1;
-    pbuf_take(tcpBuffer, buffer, (uint16)length);
-    struct State *ss = (struct State *)mem_malloc(sizeof(struct State));
-    ss->p = tcpBuffer;
-    Send(client, ss);
-    mem_free(ss);
+        tcpBuffer->flags = 1;
+        pbuf_take(tcpBuffer, buffer, (uint16)length);
+        struct State *ss = (struct State *)mem_malloc(sizeof(struct State));
+        ss->p = tcpBuffer;
+        Send(client, ss);
+        mem_free(ss);
+    }
 }
 
 
