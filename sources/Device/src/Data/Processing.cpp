@@ -1227,10 +1227,7 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
         {
             uint8 value = out_a[i];
 
-            if (value != ValueFPGA::NONE)
-            {
-                out_a[i] = (uint8)((int)(2 * ValueFPGA::AVE) - Math::Limitation<uint8>(value, ValueFPGA::MIN, ValueFPGA::MAX));
-            }
+            out_a[i] = (uint8)((int)(2 * ValueFPGA::AVE) - Math::Limitation<uint8>(value, ValueFPGA::MIN, ValueFPGA::MAX));
         }
     }
 
@@ -1240,10 +1237,7 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
         {
             uint8 value = out_b[i];
 
-            if (value != ValueFPGA::NONE)
-            {
-                out_b[i] = (uint8)((int)(2 * ValueFPGA::AVE) - Math::Limitation<uint8>(value, ValueFPGA::MIN, ValueFPGA::MAX));
-            }
+            out_b[i] = (uint8)((int)(2 * ValueFPGA::AVE) - Math::Limitation<uint8>(value, ValueFPGA::MIN, ValueFPGA::MAX));
         }
     }
  
