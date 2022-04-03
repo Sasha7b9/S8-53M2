@@ -111,10 +111,10 @@ void Averager::Around::Append(const DataFrame &frame)
 
             if (ia != ValueFPGA::NONE && oa != ValueFPGA::NONE)
             {
-                *out_a = ((*out_a) * ave_fless + (float)(*in_a++)) * ave_inv;
+                *out_a = (*out_a) * ave_fless + ((float)(*in_a++)) * ave_inv;
                 out_a++;
 
-                *out_b = ((*out_b) * ave_fless + (float)(*in_b++)) * ave_inv;
+                *out_b = (*out_b) * ave_fless + ((float)(*in_b++)) * ave_inv;
                 out_b++;
             }
             else if (ia != ValueFPGA::NONE)
