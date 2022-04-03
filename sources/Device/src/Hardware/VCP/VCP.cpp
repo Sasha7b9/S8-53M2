@@ -25,8 +25,10 @@ void VCP::Init()
 }
 
 
-void VCP::Send(const uint8 *buffer, int size)
+void VCP::SendBuffer(const void *_buffer, int size)
 {
+    const uint8 *buffer = (const uint8 *)_buffer;
+
 #ifdef GUI
 
     (void)size;
@@ -73,7 +75,7 @@ void VCP::Send(const uint8 *buffer, int size)
 }
 
 
-void VCP::SendFormat(char *format, ...)
+void VCP::SendFormat(pchar format, ...)
 {
     static const int SIZE_BUFFER = 1024;
     static char buffer[SIZE_BUFFER];
@@ -84,7 +86,7 @@ void VCP::SendFormat(char *format, ...)
     va_end(args);
     std::strcat(buffer, "\n");
 
-    Send((uint8 *)buffer, (int)std::strlen(buffer) + 1);
+    SendBuffer(buffer, (int)std::strlen(buffer) + 1);
 }
 
 
@@ -103,7 +105,7 @@ void VCP::SendFormatTrace(pchar module, pchar func, int line, char *format, ...)
 
     std::snprintf(message, SIZE_BUFFER, "%s                             %s:%s:%d", buffer, module, func, line);
 
-    Send((uint8 *)message, (int)std::strlen(message) + 1);
+    SendBuffer(message, (int)std::strlen(message) + 1);
 }
 
 
@@ -114,5 +116,5 @@ void VCP::DebugPoint(pchar module, pchar function, int line)
 
     std::sprintf(message, "%s:%s:%d", module, function, line);
 
-    Send((const uint8 *)message, (int)std::strlen(message) + 1);
+    SendBuffer(message, (int)std::strlen(message) + 1);
 }

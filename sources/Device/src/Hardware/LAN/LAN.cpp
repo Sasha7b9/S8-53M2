@@ -81,7 +81,7 @@ void LAN::Update()
 }
 
 
-void LAN::SendFormat(char *format, ...)
+void LAN::SendFormat(pchar format, ...)
 {
     const int SIZE_BUFFER = 1024;
 

@@ -1,8 +1,8 @@
 // (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Hardware/VCP/VCP_.h"
-#include "common/Utils/StringUtils_.h"
-#include "common/Utils/Containers/String_.h"
+#include "Hardware/VCP/VCP.h"
+#include "Utils/Text/Text.h"
+#include "Utils/Text/String.h"
 #include "Hardware/LAN/LAN.h"
 #include "SCPI/SCPI.h"
 #include "SCPI/BufferSCPI.h"
@@ -33,9 +33,9 @@ void SCPI::Update()
 
     while (input.ExistDivider())
     {
-        String command = input.ExtractCommand();
+        String<> command = input.ExtractCommand();
 
-        String temp(command);
+        String<> temp(command);
 
         for (int i = 0; i < command.Size(); i++)
         {
@@ -92,7 +92,7 @@ pchar SCPI::ProcessingCommand(const StructCommand *commands, pchar buffer)
 {
     for (const StructCommand *command = commands; command->name != 0; command++)
     {
-        uint size_name = std::strlen(command->name);
+        int size_name = (int)std::strlen(command->name);
 
         if (SU::EqualsStrings(buffer, command->name, size_name))
         {
@@ -142,9 +142,8 @@ void SCPI::SendFormat(pchar format, ...)
     va_end(args);
     std::strcat(buffer, "\n");
 
-    VCP::SendMessage(buffer);
-
-    LAN::SendMessage(buffer);
+    VCP::SendString(buffer);
+    LAN::SendString(buffer);
 }
 
 

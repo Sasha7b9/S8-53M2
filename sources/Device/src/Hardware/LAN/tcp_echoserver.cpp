@@ -190,7 +190,7 @@ static err_t tcp_echoserver_recv(void *arg, struct tcp_pcb *tpcb, struct pbuf *p
         /* initialize LwIP tcp_sent callback function */
         tcp_sent(tpcb, tcp_echoserver_sent);
 
-        SCPI::AddNewData((uint8 *)p->payload, p->len);
+        SCPI::AppendNewData((uint8 *)p->payload, p->len);
 
         /* send back the received data (echo) */
 //        tcp_echoserver_send(tpcb, es);
@@ -204,7 +204,7 @@ static err_t tcp_echoserver_recv(void *arg, struct tcp_pcb *tpcb, struct pbuf *p
         {
             es->p = p;
 
-            SCPI::AddNewData((uint8 *)p->payload, p->len);
+            SCPI::AppendNewData((uint8 *)p->payload, p->len);
 
             /* send back received data */
 //            tcp_echoserver_send(tpcb, es);
@@ -467,7 +467,7 @@ void Send(struct tcp_pcb *_tpcb, struct State *_ss)
 
 
 
-void LAN::SendBuffer(pchar buffer, int length)
+void LAN::SendBuffer(const void *buffer, int length)
 {
     struct pbuf *tcpBuffer = pbuf_alloc(PBUF_RAW, (uint16)length, PBUF_POOL);
 

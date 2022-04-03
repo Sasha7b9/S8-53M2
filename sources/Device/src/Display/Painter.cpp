@@ -153,8 +153,8 @@ void Painter::DrawDashedHLine(int y, int x0, int x1, int deltaFill, int deltaEmp
 
 void InterCom::Send(const uint8 *pointer, int size)
 {
-    VCP::Send(pointer, size);
-    LAN::SendBuffer((pchar)pointer, size);
+    VCP::SendBuffer(pointer, size);
+    LAN::SendBuffer(pointer, size);
 }
 
 

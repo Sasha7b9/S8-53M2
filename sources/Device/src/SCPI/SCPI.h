@@ -1,8 +1,8 @@
 // (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-#include "Hardware/VCP/VCP_.h"
+#include "Hardware/VCP/VCP.h"
 #include "Hardware/LAN/LAN.h"
-#include "common/Utils/StringUtils_.h"
+#include "Utils/Text/Text.h"
 
 
 #define FIRST_SYMBOLS(word) (FirstSymbols(&buffer, word))
@@ -30,6 +30,8 @@ namespace SCPI
 
     struct StructCommand
     {
+        typedef pchar(*pFuncCC)(pchar);
+
         char *name;
         pFuncCC  func;
     };

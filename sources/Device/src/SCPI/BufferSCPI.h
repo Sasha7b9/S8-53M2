@@ -1,6 +1,6 @@
 // 2022/01/21 16:38:54 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-#include "common/Utils/Containers/String_.h"
+#include "Utils/Text/String.h"
 
 
 class BufferSCPI
@@ -14,7 +14,7 @@ public:
     // true, если присутствует разделитель - должна быть команда, которую можно обработать
     bool ExistDivider() const;
 
-    String ExtractCommand();
+    String<> ExtractCommand();
 
     int Size() const { return size_data; }
 
@@ -23,7 +23,7 @@ public:
 
     void Free();
 
-    String ToString();
+    String<> ToString();
 
 private:
 

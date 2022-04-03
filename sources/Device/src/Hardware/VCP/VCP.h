@@ -10,9 +10,9 @@ namespace VCP
 {
     void Init();
 
-    void Send(const uint8 *buffer, int size);
-
-    void SendFormat(char *format, ...);
+    void SendBuffer(const void *buffer, int size);
+    void SendFormat(pchar format, ...);
+    void SendString(pchar);
 
     void SendFormatTrace(pchar module, pchar func, int line, char *format, ...);
 

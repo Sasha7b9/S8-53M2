@@ -20,7 +20,7 @@ void BufferSCPI::Append(const uint8 *data, int length)
         {
             Free();
 
-            TLOG_WRITE("Нет памяти");
+            LOG_ERROR("Нет памяти");
         }
         else
         {
@@ -66,17 +66,17 @@ void BufferSCPI::RemoveFirstDividers()
 }
 
 
-String BufferSCPI::ToString()
+String<> BufferSCPI::ToString()
 {
-    String result;
+    char temp[1024];
+    std::memcpy(temp, buffer, (uint)Size());
+    temp[Size()] = '\0';
 
-    result.Append((char *)buffer, Size());
-
-    return result;
+    return String<>(temp);
 }
 
 
-String BufferSCPI::ExtractCommand()
+String<> BufferSCPI::ExtractCommand()
 {
     int pos_start = 0;
 
@@ -105,12 +105,12 @@ String BufferSCPI::ExtractCommand()
 
     if (pos_end == -1)
     {
-        return String("");
+        return String<>("");
     }
 
-    String result;
+    String<> result;
 
-    result.Append((char *)&buffer[pos_start], pos_end - pos_start);
+    result.AppendBytes((char *)&buffer[pos_start], pos_end - pos_start);
 
     RemoveFirstBytes(pos_end);
 

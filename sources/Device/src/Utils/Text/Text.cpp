@@ -731,6 +731,23 @@ bool Word::GetWord(const uint8 *string, const int numWord)
 }
 
 
+bool Word::WordEqualZeroString(char *string)
+{
+    char *ch = string;
+    char *w = (char *)(address);
+
+    while (*ch != 0)
+    {
+        if (*ch++ != *w++)
+        {
+            return false;
+        }
+    }
+
+    return (ch - string) == numSymbols;
+}
+
+
 bool SU::WordEqualZeroString(Word *word, char *string)
 {
     char *ch = string;
@@ -780,7 +797,7 @@ bool SU::ChooseSpaces(const uint8 **string)
 }
 
 
-bool SU::EqualsStrings(char *str1, char *str2, int size)
+bool SU::EqualsStrings(pchar str1, char *str2, int size)
 {
     for (int i = 0; i < size; i++)
     {

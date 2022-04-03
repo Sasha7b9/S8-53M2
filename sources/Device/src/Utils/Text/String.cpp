@@ -414,3 +414,4 @@ void String<capacity>::DrawInCenterRectOnBackground(int x, int y, int width, int
     Region(w, h).Fill(eX - lenght - widthBorder, y - widthBorder + 1);
     DrawInCenterRect(x, y, width, height, colorText);
 }
+

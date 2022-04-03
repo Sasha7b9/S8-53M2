@@ -386,8 +386,6 @@ void FM::RotateRegSet(int angle)
 
 String<> FM::GetNameForNewFile()
 {
-    return String<>("screen.bmp");
-
     int number = 1;
 
 LabelNextNumber:

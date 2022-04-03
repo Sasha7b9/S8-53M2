@@ -27,6 +27,9 @@ public:
 
     void Append(const String<capacity> &rhs) { Append(rhs.c_str()); }
 
+    // Добавить байты. В конец дописать ноль
+    void AppendBytes(void *bytes, int num_bytes);
+
     bool Filled() const { return (Size() == capacity - 1); }
 
     int Draw(int x, int y, Color::E = Color::Count);
@@ -53,6 +56,18 @@ public:
     // widthBorder цвета colorBackground.
     void DrawInCenterRectOnBackground(int x, int y, int width, int height, Color::E colorText, int widthBorder,
         Color::E colorBackground);
+
+    char &operator[](int i)
+    {
+        if (i >= 0 && i < Size())
+        {
+            return buffer[i];
+        }
+
+        static char null_char = 0;
+
+        return null_char;
+    };
 
 private:
 
