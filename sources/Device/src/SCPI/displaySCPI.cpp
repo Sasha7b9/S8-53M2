@@ -1,7 +1,6 @@
 // (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "common/Display/Painter/Painter_.h"
-#include "Hardware/VCP/VCP_.h"
+#include "Hardware/VCP/VCP.h"
 #include "Display/Display.h"
 #include "Menu/Pages/Definition.h"
 #include "Settings/Settings.h"
@@ -131,7 +130,7 @@ pchar SCPI::DISPLAY::ACCUM_MODE(pchar buffer)
 
 pchar SCPI::DISPLAY::ACCUM_CLEAR(pchar buffer)
 {
-    PageDisplay::PageAccumulation::OnPress_Clear();
+    PageDisplay::Accumulation::OnPress_Clear();
 
     return buffer;
 }
@@ -154,7 +153,7 @@ pchar SCPI::DISPLAY::AVERAGE_NUMBER(pchar buffer)
         {0}
     };
 
-    SCPI_CYCLE(ENUM_AVERAGE = (ENumAveraging::E)it->value);
+    SCPI_CYCLE(ENUM_AVE = (ENumAveraging::E)it->value);
 
     IF_REQUEST(SCPI::SendFormat(":DISPLAY:AVERAGE:NUMBER%s", map[ENUM_AVERAGE].key));
 

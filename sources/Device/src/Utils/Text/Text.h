@@ -20,7 +20,7 @@ struct Word
     int8   numSymbols;
 
     // Эта команда сразу преобразует к верхенму регистру слово.
-    bool GetWord(const uint8 *string, const int numWord);
+    bool GetWord(pchar string, const int numWord);
 
     bool WordEqualZeroString(char *string);
 };

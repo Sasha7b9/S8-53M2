@@ -41,4 +41,10 @@ namespace Display
 
     // После отрисовки очередного экрана эта функция будет вызвана один раз.
     void RunAfterDraw(pFuncVV func);
+
+    namespace Sender
+    {
+        void SendPalette();
+        void SendFrame();
+    }
 };

@@ -915,7 +915,7 @@ static void Information_Draw()
 
     String<>(LANG_RU ? "Программное обеспечение:" : "Software:").Draw(x, y);
     y += dY;
-    String<>((pchar)(LANG_RU ? "версия %s" : "version %s"), NUM_VER).Draw(x, y);
+    String<>((pchar)(LANG_RU ? "версия %s" : "version %s"), NUMBER_VER).Draw(x, y);
     y += dY;
 
     String<>("CRC32 : %X", HAL::CalculateCRC32()).Draw(x, y, COLOR_FILL);

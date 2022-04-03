@@ -22,8 +22,8 @@
 
 namespace SU
 {
-    static bool ChooseSymbols(const uint8 **string);    // Возвращает false, если выбор невозможен - строка кончилась.
-    static bool ChooseSpaces(const uint8 **string);     // Возвращает false, если выбор невозможен - строка кончилась.
+    static bool ChooseSymbols(pchar *string);    // Возвращает false, если выбор невозможен - строка кончилась.
+    static bool ChooseSpaces(pchar *string);     // Возвращает false, если выбор невозможен - строка кончилась.
 
     static int NumDigitsInIntPart(float value);
 }
@@ -694,7 +694,7 @@ int SU::GetNumWordsInString(const uint8 *string)
 }
 
 
-bool Word::GetWord(const uint8 *string, const int numWord)
+bool Word::GetWord(pchar string, const int numWord)
 {
     SU::ChooseSpaces(&string);
 

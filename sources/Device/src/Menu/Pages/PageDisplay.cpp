@@ -11,8 +11,6 @@
 #include "Data/DataExtensions.h"
 
 
-extern const Page pDisplay;
-extern const Page mspAccumulation;
 extern const Page mspAveraging;
 extern const Page mspGrid;
 extern const Page mspSettings;
@@ -21,7 +19,7 @@ extern const Page mspSettings_Colors;
 
 static const Choice mcMapping =
 {
-    TypeItem::Choice, &pDisplay, 0,
+    TypeItem::Choice, PageDisplay::self, 0,
     {
         "Отображение", "View",
         "Задаёт режим отображения сигнала.",
@@ -43,7 +41,7 @@ static bool IsActive_MinMax() //-V524
 
 static const Choice mcMinMax =
 {
-    TypeItem::ChoiceReg, &pDisplay, IsActive_MinMax,
+    TypeItem::ChoiceReg, PageDisplay::self, IsActive_MinMax,
     {
         "Мин Макс", "Min Max"
         ,
@@ -68,7 +66,7 @@ static const Choice mcMinMax =
 
 static const Choice mcSmoothing =
 {
-    TypeItem::ChoiceReg, &pDisplay, 0,
+    TypeItem::ChoiceReg, PageDisplay::self, 0,
     {
         "Сглаживание", "Smoothing",
         "Устанавливает количество точек для расчёта сглаженного по соседним точкам сигнала.",
@@ -98,7 +96,7 @@ void OnChanged_RefreshFPS(bool)
 
 static const Choice mcRefreshFPS =
 {
-    TypeItem::Choice, &pDisplay, 0,
+    TypeItem::Choice, PageDisplay::self, 0,
     {
         "Частота обновл", "Refresh rate",
         "Задаёт максимальное число выводимых в секунду кадров.",
@@ -117,7 +115,7 @@ static const Choice mcRefreshFPS =
 
 static const Choice mcTypeShift =
 {
-    TypeItem::Choice, &pDisplay, 0,
+    TypeItem::Choice, PageDisplay::self, 0,
     {
         "Смещение", "Offset"
         ,
@@ -138,7 +136,7 @@ static const Choice mcTypeShift =
 static const arrayItems itemsDisplay =
 {
     (void *)&mcMapping,
-    (void *)&mspAccumulation,
+    (void *)PageDisplay::Accumulation::self,
     (void *)&mspAveraging,
     (void *)&mcMinMax,
     (void *)&mcSmoothing,
@@ -158,12 +156,9 @@ static const Page pDisplay                 // ДИСПЛЕЙ
 );
 
 
-const Page *PageDisplay::self = &pDisplay;
-
-
 static const Choice mcAccumulation_Number =
 {
-    TypeItem::ChoiceReg, &mspAccumulation, 0,
+    TypeItem::ChoiceReg, PageDisplay::Accumulation::self, 0,
     {
         "Количество", "Number"
         ,
@@ -192,7 +187,7 @@ static const Choice mcAccumulation_Number =
 
 static const Choice mcAccumulation_Mode =
 {
-    TypeItem::Choice, &mspAccumulation, 0,
+    TypeItem::Choice, PageDisplay::Accumulation::self, 0,
     {
         "Режим", "Mode"
         ,
@@ -220,7 +215,7 @@ static bool IsActive_Accumulation_Clear()
 }
 
 
-void OnPress_Accumulation_Clear()
+void PageDisplay::Accumulation::OnPress_Clear()
 {
     Flags::needFinishDraw = true;
 }
@@ -228,11 +223,11 @@ void OnPress_Accumulation_Clear()
 
 static const Button mcAccumulation_Clear
 (
-    &mspAccumulation, IsActive_Accumulation_Clear,
+    PageDisplay::Accumulation::self, IsActive_Accumulation_Clear,
     "Очистить", "Clear",
     "Очищает экран от накопленных сигналов.",
     "Clears the screen of the saved-up signals.",
-    OnPress_Accumulation_Clear
+    PageDisplay::Accumulation::OnPress_Clear
 );
 
 
@@ -592,3 +587,6 @@ static const Page mspSettings_Colors
     "The choice of colors display",
     NamePage::ServiceDisplayColors, &itemsSettings_Colors
 );
+
+const Page *PageDisplay::self = &pDisplay;
+const Page *PageDisplay::Accumulation::self = &mspAccumulation;

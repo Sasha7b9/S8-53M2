@@ -12,7 +12,10 @@
 #endif
 
 
-#define NUM_VER "1.3"
+#define NUMBER_VER "1.3.1"
+#define NAME_MODEL_RU "C8-53/1"
+#define NAME_MODEL_EN "S8-53/1"
+#define NAME_MODEL (LANG_RU ? NAME_MODEL_RU : NAME_MODEL_EN)
 
 
 typedef signed      char        int8;

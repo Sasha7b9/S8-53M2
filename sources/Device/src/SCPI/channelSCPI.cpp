@@ -1,6 +1,6 @@
 // (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Hardware/VCP/VCP_.h"
+#include "Hardware/VCP/VCP.h"
 #include "FPGA/FPGA.h"
 #include "Hardware/LAN/LAN.h"
 #include "Menu/Pages/Definition.h"
