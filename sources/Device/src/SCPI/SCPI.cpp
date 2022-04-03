@@ -23,7 +23,7 @@ namespace SCPI
 
 void SCPI::AppendNewData(const uint8 *data, int length)
 {
-    input.Append(data, length);
+    input.Append((pchar)data, length);
 }
 
 
