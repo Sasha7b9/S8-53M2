@@ -264,19 +264,6 @@ void DataFrame::FillDataChannelsFromFrame(DataFrame &frame)
 }
 
 
-void FrameImitation::Inverse(Chan ch)
-{
-    int num_bytes = data.ds.BytesInChanReal();
-
-    uint8 *dat = data.Data(ch).Data();
-
-    for (int i = 0; i < num_bytes; i++)
-    {
-        dat[i] = (uint8)((int)(2 * ValueFPGA::AVE) - Math::Limitation<uint8>(dat[i], ValueFPGA::MIN, ValueFPGA::MAX));
-    }
-}
-
-
 void DataSettings::Set(const DataSettings &ds)
 {
     *this = ds;

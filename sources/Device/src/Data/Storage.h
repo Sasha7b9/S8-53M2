@@ -15,8 +15,6 @@ struct FrameImitation
     // В режиме поточечного вывода - сбросить точки
     void PrepareForNewCycle();
 
-    void Inverse(Chan);
-
     void AppendPoints(BitSet16, BitSet16);
 
     // Создать для хранения данных при текущих настройках

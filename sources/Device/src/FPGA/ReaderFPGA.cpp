@@ -199,12 +199,6 @@ void FPGA::Reader::DataRead()
     ReadPoints(ChA);
     ReadPoints(ChB);
 
-    if (!TBase::InModeRandomizer())
-    {
-        if (SET_INVERSE_A) Storage::current.Inverse(ChA);
-        if (SET_INVERSE_B) Storage::current.Inverse(ChB);
-    }
-
     Storage::Append(Storage::current.data);
 
     if (TRIG_MODE_FIND_IS_AUTO && TRIG_AUTO_FIND)

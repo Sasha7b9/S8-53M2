@@ -1220,6 +1220,32 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
             out_b[index] = in_b[i];
         }
     }
+
+    if (SET_INVERSE_A)
+    {
+        for (int i = 0; i < num_bytes; i++)
+        {
+            uint8 value = out_a[i];
+
+            if (value != ValueFPGA::NONE)
+            {
+                out_a[i] = (uint8)((int)(2 * ValueFPGA::AVE) - Math::Limitation<uint8>(value, ValueFPGA::MIN, ValueFPGA::MAX));
+            }
+        }
+    }
+
+    if (SET_INVERSE_B)
+    {
+        for (int i = 0; i < num_bytes; i++)
+        {
+            uint8 value = out_b[i];
+
+            if (value != ValueFPGA::NONE)
+            {
+                out_b[i] = (uint8)((int)(2 * ValueFPGA::AVE) - Math::Limitation<uint8>(value, ValueFPGA::MIN, ValueFPGA::MAX));
+            }
+        }
+    }
  
     if ((out_struct.ds.range[0] != SET_RANGE_A || out_struct.ds.rshiftA != (uint)SET_RSHIFT_A))
     {
