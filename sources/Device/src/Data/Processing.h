@@ -28,16 +28,19 @@ namespace Processing
     // Расчитать все измерения.
     void CalculateMeasures();
 
-    // Возвращает значение горизонтального маркера. Если ERROR_VALUE_INT - маркер рисовать не нужно.
-    int GetMarkerVoltage(Chan, int numMarker);
-
-    // Возвращает значение вертикального маркера. Если ERROR_VALUE_INT - маркер рисовать не нужно.
-    int GetMarkerTime(Chan, int numMarker);
-
     // Обработать сигнал из in. Результат сохранён в Data::out
     // Если mode_p2p == true, то будет установлен признак поточечного фрейма
     void SetData(const DataStruct &in, bool mode_p2p = false);
 
     // Привести к текущим настройкам данные, из inA, inB. Данные сохраняются в out
     void CountedToCurrentSettings(const DataSettings &, const uint8 *inA, const uint8 *inB, DataStruct &out);
+
+    namespace Marker
+    {
+        // Возвращает значение горизонтального маркера. Если ERROR_VALUE_INT - маркер рисовать не нужно.
+        int GetVoltage(Chan, int numMarker);
+
+        // Возвращает значение вертикального маркера. Если ERROR_VALUE_INT - маркер рисовать не нужно.
+        int GetTime(Chan, int numMarker);
+    }
 };

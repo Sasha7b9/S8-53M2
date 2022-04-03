@@ -1142,12 +1142,12 @@ String<> Processing::GetStringMeasure(Measure::E measure, Chan ch)
     return result;
 }
 
-int Processing::GetMarkerVoltage(Chan ch, int numMarker)
+int Processing::Marker::GetVoltage(Chan ch, int numMarker)
 {
     return markerVolt[ch][numMarker] - ValueFPGA::MIN;
 }
 
-int Processing::GetMarkerTime(Chan ch, int numMarker)
+int Processing::Marker::GetTime(Chan ch, int numMarker)
 {
     return markerTime[ch][numMarker];
 }

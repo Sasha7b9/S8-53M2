@@ -201,14 +201,14 @@ void DataPainter::DrawMarkersForMeasure(float scaleY, Chan ch)
 
     for (int numMarker = 0; numMarker < 2; numMarker++)
     {
-        int pos = Processing::GetMarkerVoltage(ch, numMarker);
+        int pos = Processing::Marker::GetVoltage(ch, numMarker);
 
         if (pos != ERROR_VALUE_INT && pos > 0 && pos < 200)
         {
             Painter::DrawDashedHLine((int)(Grid::FullBottom() - pos * scaleY), Grid::Left(), Grid::Right(), 3, 2, 0);
         }
 
-        pos = Processing::GetMarkerTime(ch, numMarker);
+        pos = Processing::Marker::GetTime(ch, numMarker);
 
         if (pos != ERROR_VALUE_INT && pos > 0 && pos < Grid::Width())
         {
