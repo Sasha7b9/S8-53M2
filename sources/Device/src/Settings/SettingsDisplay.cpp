@@ -98,7 +98,7 @@ int ENumAveraging::ToNumber()
 
     if (TBase::InModeRandomizer())
     {
-        if ((1 << set.display.enumAve) < set.debug.numAveForRand)
+        if (num_ave < set.debug.numAveForRand)
         {
             num_ave = set.debug.numAveForRand;
         }
