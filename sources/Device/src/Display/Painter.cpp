@@ -617,6 +617,15 @@ bool Painter::SaveScreenToFlashDrive() {
         uint16  res1;       // 6
         uint16  res2;       // 8
         uint    offBits;    // 10
+    }
+    bmFH =
+    {
+        0x42,
+        0x4d,
+        14 + 40 + 1024 + 320 * 240,
+        0,
+        0,
+        14 + 40 + 1024
     };
     // 14
 
@@ -638,25 +647,16 @@ bool Painter::SaveScreenToFlashDrive() {
     // 54
 #pragma pack(4)
 
-    BITMAPFILEHEADER bmFH =
-    {
-        0x42,
-        0x4d,
-        14 + 40 + 1024 + 320 * 240,
-        0,
-        0,
-        14 + 40 + 1024
-    };
-
     File file;
-    char fileName[255];
-    
-    if(!FM::GetNameForNewFile(fileName))
+
+    String<> fileName = FM::GetNameForNewFile();
+
+    if (!fileName.Size())
     {
         return false;
     }
     
-    file.OpenNewForWrite(fileName);
+    file.OpenNewForWrite(fileName.c_str());
 
     file.Write((uint8*)(&bmFH), 14);
 

@@ -384,28 +384,27 @@ void FM::RotateRegSet(int angle)
 }
 
 
-bool FM::GetNameForNewFile(char name[255])
+String<> FM::GetNameForNewFile()
 {
     int number = 1;
 
 LabelNextNumber:
 
-    std::strcpy(name, currentDir);
-    std::strcat(name, "\\");
+    String<> result(currentDir);
+    result.Append("\\");
 
     int size = (int)std::strlen(FILE_NAME);
     if (size == 0)
     {
-        return false;
+        return String<>("");
     }
 
     if (FILE_NAMING_MODE_IS_HAND)
     {
         LIMITATION(size, size, 1, 95);
-        std::strcat(name, FILE_NAME);
-        std::strcat(name, ".");
-        std::strcat(name, MODE_SAVE_SIGNAL_IS_BMP ? "bmp" : "txt");
-        return true;
+        result.Append(FILE_NAME);
+        result.Append(".");
+        result.Append(MODE_SAVE_SIGNAL_IS_BMP ? "bmp" : "txt");
     }
     else
     {
@@ -414,28 +413,19 @@ LabelNextNumber:
         uint values[] = {0, time.year, time.month, time.day, time.hours, time.minutes, time.seconds};
 
         char *ch = FILE_NAME_MASK;
-        char *wr = name;
-
-        while (*wr != '\0')
-        {
-            wr++;
-        }
 
         while (*ch)
         {
             if (*ch >= 0x30)        // Если текстовый символ
             {
-                *wr = *ch;          // то записываем его в имя файла
-                wr++;
+                result.Append(*ch);          // то записываем его в имя файла
             }
             else
             {
                 if (*ch == 0x07)    // Если здесь надо записать порядковый номер
                 {
                     String<> number_str = SU::Int2String(number, false, *(ch + 1));
-
-                    std::strcpy(wr, number_str.c_str());
-                    wr += number_str.Size();
+                    result.Append(number_str);
                     ch++;
                 }
                 else
@@ -443,26 +433,21 @@ LabelNextNumber:
                     if (*ch >= 0x01 && *ch <= 0x06)
                     {
                         String<> value_str = SU::Int2String((int)values[*ch], false, 2);
-
-                        std::strcpy(wr, value_str.c_str());
-                        wr += value_str.Size();
+                        result.Append(value_str);
                     }
                 }
             }
             ch++;
         }
 
-        *wr = '.';
-        *(wr + 1) = '\0';
+        result.Append(MODE_SAVE_SIGNAL_IS_BMP ? ".bmp" : ".txt");
 
-        std::strcat(name, MODE_SAVE_SIGNAL_IS_BMP ? "bmp" : "txt");
-
-        if(FileIsExist(name))
+        if(FileIsExist(result.c_str()))
         {
             number++;
             goto LabelNextNumber;
         }
-
-        return true;
     }
+
+    return result;
 }
