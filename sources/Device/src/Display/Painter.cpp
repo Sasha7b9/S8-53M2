@@ -610,15 +610,18 @@ bool Painter::SaveScreenToFlashDrive()
 {
     File file;
 
-    file.OpenNewForWrite("test.file");
+    if (file.OpenNewForWrite("test.file"))
+    {
+        String<> test_string("Test string.");
 
-    String<> test_string("Test string.");
+        file.Write(test_string.c_str(), test_string.Size());
 
-    file.Write(test_string.c_str(), test_string.Size());
+        file.Close();
 
-    file.Close();
+        return true;
+    }
 
-    return true;
+    return false;
 }
 
 
