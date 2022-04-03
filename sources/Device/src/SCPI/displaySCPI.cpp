@@ -182,10 +182,10 @@ void SCPI::DISPLAY::AVERAGE_MODE(uint8 *buffer)
         {0}
     };
     ENTER_ANALYSIS
-        if (value <= 1) { MODE_AVE = (ModeAveraging::E)value; }
+        if (value <= 1) { _MODE_AVE = (ModeAveraging::E)value; }
         else if (2 == value)
         {
-            SCPI_SEND(":DISPLAY:AVARAGE:MODE %s", map[MODE_AVE].key);
+            SCPI_SEND(":DISPLAY:AVARAGE:MODE %s", map[_MODE_AVE].key);
         }
     LEAVE_ANALYSIS
 }

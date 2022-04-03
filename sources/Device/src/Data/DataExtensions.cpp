@@ -55,7 +55,7 @@ void Averager::Around::ProcessBeforeAdding(const DataFrame &frame)
     }
     else
     {
-        if (!ave_ds.Equal(*frame.ds) || (num_ave != ENumAveraging::ToNumber()) || (mode_ave != MODE_AVE))
+        if (!ave_ds.Equal(*frame.ds) || (num_ave != ENumAveraging::ToNumber()) || (mode_ave != _MODE_AVE))
         {
             added_datas = 0;
         }
@@ -64,7 +64,7 @@ void Averager::Around::ProcessBeforeAdding(const DataFrame &frame)
         {
             ave_ds.Set(*frame.ds);
             num_ave = ENumAveraging::ToNumber();
-            mode_ave = MODE_AVE;
+            mode_ave = _MODE_AVE;
             ave_a.Realloc(ave_ds.BytesInChanStored());
             ave_b.Realloc(ave_ds.BytesInChanStored());
         }
@@ -136,7 +136,7 @@ void Averager::Around::Append(const DataFrame &frame)
 
 void Averager::Append(const DataFrame &frame)
 {
-    if (MODE_AVE == ModeAveraging::Around)
+    if (_MODE_AVE == ModeAveraging::Around)
     {
         Around::ProcessBeforeAdding(frame);
 
@@ -147,11 +147,11 @@ void Averager::Append(const DataFrame &frame)
 
 const DataStruct &Averager::GetData()
 {
-    if (MODE_AVE == ModeAveraging::Accurately)
+    if (_MODE_AVE == ModeAveraging::Accurately)
     {
         return Accuracy::GetData();
     }
-    else if(MODE_AVE == ModeAveraging::Around)
+    else if(_MODE_AVE == ModeAveraging::Around)
     {
         return Around::GetData();
     }

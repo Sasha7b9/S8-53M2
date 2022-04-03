@@ -28,7 +28,7 @@
 #define ENUM_ACCUM_IS_INFINITY      (ENUM_ACCUM == ENumAccumulation::Infinity)
 #define NUM_ACCUM                   (1 << (int)set.display.enumAccumulation)
 
-#define MODE_AVE                    (set.display.modeAve)
+#define _MODE_AVE                    (set.display.modeAve)
 
 #define ENUM_MIN_MAX                (set.display.enumMinMax)
 #define NUM_MIN_MAX                 (1 << ENUM_MIN_MAX)

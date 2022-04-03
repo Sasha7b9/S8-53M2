@@ -302,7 +302,7 @@ static const Choice mcAveraging_Mode =
         {"Точно",           "Accurately"},
         {"Приблизительно",  "Around"}
     },
-    (int8 *)&MODE_AVE, nullptr, nullptr
+    (int8 *)&_MODE_AVE, nullptr, nullptr
 };
 
 
