@@ -70,10 +70,10 @@ void FPGA::FreqMeter::Update(uint16 fl)
     {
         BitSet32 freqSet = ReadRegFrequency();
 
-//        LOG_WRITE("Читаем частоту %d", freqSet.word);
-
         if (freqSet.word >= 1000)
         {
+//            LOG_WRITE("Вычисляем по частоте %d", freqSet.word);
+
             float fr = FromFrequencyCounter(freqSet);
 
             if (fr < prevFreq * 0.9f || fr > prevFreq * 1.1f)
@@ -89,7 +89,7 @@ void FPGA::FreqMeter::Update(uint16 fl)
             {
                 BitSet32 periodSet = ReadRegPeriod();
 
-//                LOG_WRITE("Читаем период %d", periodSet.word);
+//                LOG_WRITE("Вычисляем по периоду %d", periodSet.word);
 
                 float fr = FromPeriodCounter(periodSet);
 
