@@ -705,13 +705,12 @@ bool Painter::SaveScreenToFlashDrive() {
 
     for (int y = 239; y >= 0; y--)
     {
-        for (int x = 1; x < 320; x += 2)
+        for (int x = 1; x < 320; x++)
         {
-            uint8 color = (uint8)GetColor(x, y);
-
-            buffer[x / 2] = (uint8)(((color & 0x0f) << 4) + (color >> 4));
+            buffer[x] = (uint8)GetColor(x, y);
         }
-        file.Write(buffer, 160);
+
+        file.Write(buffer, 320);
     }
 
     file.Close();
