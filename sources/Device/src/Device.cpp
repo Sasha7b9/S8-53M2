@@ -3,20 +3,14 @@
 #include "Device.h"
 #include "Hardware/HAL/HAL.h"
 #include "Settings/Settings.h"
-#include "Data/Storage.h"
 #include "FPGA/FPGA.h"
-#include "FPGA/SettingsFPGA.h"
-#include "Data/Processing.h"
 #include "Hardware/VCP/VCP.h"
-#include "Hardware/Timer.h"
 #include "Hardware/FDrive/FDrive.h"
 #include "Menu/Menu.h"
 #include "Hardware/Sound.h"
 #include "Panel/Panel.h"
-#include "Menu/Pages/Definition.h"
-#include "Data/Data.h"
-#include "Data/DataExtensions.h"
 #include "Hardware/LAN/LAN.h"
+#include "SCPI/SCPI.h"
 
 
 void Device::Init()
@@ -66,6 +60,8 @@ void Device::Update()
     Display::Update();                   // Рисуем экран.
 
     Settings::SaveIfNeed();
+
+    SCPI::Update();
 
     LAN::Update();
 }
