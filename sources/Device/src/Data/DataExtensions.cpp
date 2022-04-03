@@ -94,8 +94,6 @@ void Averager::Around::Append(const DataFrame &frame)
         float ave_inv = 1.0f / (float)num_datas;
         float ave_fless = 1.0f - ave_inv;
 
-        LOG_WRITE("%f %f", ave_inv, ave_fless);
-
         float *out_a = ave_a.Data();
         float *out_b = ave_b.Data();
 
