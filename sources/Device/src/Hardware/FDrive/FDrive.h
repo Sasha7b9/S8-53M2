@@ -23,7 +23,7 @@ struct File
     // Функция создаст файл для записи. Если такой файл уже существует, сотрёт его, заменит новым нулевой длины и откроет его
     bool OpenNewForWrite(pchar  fullPathToFile);
 
-    bool Write(uint8 *data, int sizeData);
+    bool Write(void *data, int sizeData);
 
     bool Close();
 };

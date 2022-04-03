@@ -606,7 +606,24 @@ uint Painter::ReduceBrightness(uint colorValue, float newBrightness)
 }
 
 
-bool Painter::SaveScreenToFlashDrive() {
+bool Painter::SaveScreenToFlashDrive()
+{
+    File file;
+
+    file.OpenNewForWrite("test.file");
+
+    String<> test_string("Test string.");
+
+    file.Write(test_string.c_str(), test_string.Size());
+
+    file.Close();
+
+    return true;
+}
+
+
+bool Painter::_SaveScreenToFlashDrive()
+{
 
 #pragma pack(1)
     struct BITMAPFILEHEADER

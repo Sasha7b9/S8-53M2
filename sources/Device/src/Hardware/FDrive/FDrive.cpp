@@ -332,8 +332,10 @@ bool File::OpenNewForWrite(pchar  fullPathToFile)
 }
 
 
-bool File::Write(uint8* data, int size)
+bool File::Write(void *_data, int size)
 {
+    uint8 *data = (uint8 *)_data;
+
     while (size > 0)
     {
         int dataToCopy = size;

@@ -49,6 +49,7 @@ namespace Painter
 
     void DrawVLineArray(int x, int numLines, uint8 *y0y1, Color::E, uint8 transparency);
 
+    bool _SaveScreenToFlashDrive();
     bool SaveScreenToFlashDrive();
 
     void DrawHintsForSmallButton(int x, int y, int width, void *smallButton);
