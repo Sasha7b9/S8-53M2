@@ -233,8 +233,8 @@ DataStruct &Averager::Around::GetData()
 
     for (int i = 0; i < num_bytes; i++)
     {
-        out_a[i] = (uint8)in_a[i];
-        out_b[i] = (uint8)in_b[i];
+        out_a[i] = (uint8)(in_a[i] + 0.5f);
+        out_b[i] = (uint8)(in_b[i] + 0.5f);
     }
 
     result.ds.valid = 1;
