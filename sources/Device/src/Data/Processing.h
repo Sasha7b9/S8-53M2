@@ -41,9 +41,9 @@ namespace Processing
     namespace Marker
     {
         // ¬озвращает значение горизонтального маркера. ≈сли ERROR_VALUE_INT - маркер рисовать не нужно.
-        int GetVoltage(Chan, int numMarker);
+        int GetU(Chan, int numMarker);
 
         // ¬озвращает значение вертикального маркера. ≈сли ERROR_VALUE_INT - маркер рисовать не нужно.
-        int GetTime(Chan, int numMarker);
+        int GetT(Chan, int numMarker);
     }
 };
