@@ -1,137 +1,121 @@
-// 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+// (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-#include "Hardware/VCP/VCP.h"
+#include "Hardware/VCP/VCP_.h"
 #include "Hardware/LAN/LAN.h"
+#include "common/Utils/StringUtils_.h"
 
 
-#define ENTER_ANALYSIS                                  \
-    Word parameter;                                     \
-    if (parameter.GetWord(buffer, 0)) {                 \
-        uint8 value = map[0].GetValue(&parameter);      \
-        if (value < 255) {
+#define FIRST_SYMBOLS(word) (FirstSymbols(&buffer, word))
 
-#define LEAVE_ANALYSIS   }                              \
-        else {LOG_WRITE("Error");}                      \
+#define IF_REQUEST(sequence) if(FirstSymbols(&buffer, "?")) {sequence;}
+
+#define SCPI_CYCLE(func)                                \
+    const MapElement *it = map;                         \
+    while (it->key)                                     \
+    {                                                   \
+        if FIRST_SYMBOLS(it->key) { func; break; }      \
+        it++;                                           \
     }
 
 
-#define SCPI_SEND(...)                                  \
-    if(VCP::connectToHost)                              \
-    {                                                   \
-        VCP::SendFormat(__VA_ARGS__);                   \
-    }                                                   \
-    if (LAN::clientIsConnected)                         \
-    {                                                   \
-        LAN::SendFormat(__VA_ARGS__);                   \
-    }
-
-#define ENTER_PARSE_FUNC(funcName)                      \
-void funcName(uint8 *buffer)                            \
-{                                                       \
-    static const StructCommand commands[] =             \
-    {
-
-#define LEAVE_PARSE_FUNC                                \
-        {0}                                             \
-    };                                                  \
-    SCPI::ProcessingCommand(commands, buffer);          \
-}
-
-
-
-struct StructCommand
+namespace SCPI
 {
-    char        *name;
-    pFuncpU8    func;
-};
-
-
-
-class SCPI
-{
-public:
-    static void AddNewData(uint8 *buffer, uint length);
-
-private:
-    static void ParseNewCommand(uint8 *buffer);   // \todo Временно. Потом доделать
-    static void ProcessingCommand(const StructCommand *commands, uint8 *buffer);
-    static bool FirstIsInt(uint8 *buffer, int *value, int min, int max);
-    static void ProcessDISPLAY(uint8 *buffer);
-    static void ProcessCHANNEL(uint8 *buffer);
-    static void ProcessTRIG(uint8 *buffer);
-    static void ProcessTBASE(uint8 *buffer);
-
-    class COMMON
+    struct MapElement
     {
-    public:
-        static void IDN(uint8 *buffer);
-        static void RUN(uint8 *buffer);
-        static void STOP(uint8 *buffer);
-        static void RESET(uint8 *buffer);
-        static void AUTOSCALE(uint8 *buffer);
-        static void REQUEST(uint8 *buffer);
+        char *key;
+        uint8 value;
+
+        uint8 GetValue(Word *key) const;      // Если значение не найдено, возвращеется 255;
     };
 
-    class CONTROL
+    struct StructCommand
     {
-    public:
-        static void KEY(uint8 *buffer);
-        static void GOVERNOR(uint8 *buffer);
+        char *name;
+        pFuncCC  func;
     };
 
-    class CHANNEL
+    void AppendNewData(const uint8 *buffer, int length);
+    void Update();
+
+    void SendBuffer(const uint8 *buffer, int size);
+    void SendFormat(pchar format, ...);
+
+    pchar ProcessingCommand(const StructCommand *, pchar);
+
+    // Возвращает true, если первые символы в buffer повторяют word (без учёта завершающего нуля).
+    // В этом случае записывает по *buffer адрес следующего за одинаоковыми символами
+    bool FirstSymbols(pchar *buffer, pchar word);
+
+    pchar ProcessDISPLAY(pchar);
+    pchar ProcessCHANNEL(pchar);
+    pchar ProcessTRIG(pchar);
+    pchar ProcessTBASE(pchar);
+
+    namespace COMMON
     {
-    public:
-        static void INPUT(uint8 *buffer);
-        static void COUPLE(uint8 *buffer);
-        static void FILTR(uint8 *buffer);
-        static void INVERSE(uint8 *buffer);
-        static void RANGE(uint8 *buffer);
-        static void OFFSET(uint8 *buffer);
-        static void FACTOR(uint8 *buffer);
+        pchar IDN(pchar);
+        pchar RUN(pchar);
+        pchar STOP(pchar);
+        pchar RESET(pchar);
+        pchar AUTOSCALE(pchar);
+        pchar REQUEST(pchar);
     };
 
-    class DISPLAY
+    namespace CHANNEL
     {
-    public:
-        static void AUTOSEND(uint8 *buffer);
-        static void MAPPING(uint8 *buffer);
-        static void ACCUM(uint8 *buffer);
-        static void ACCUM_NUMBER(uint8 *buffer);
-        static void ACCUM_MODE(uint8 *buffer);
-        static void ACCUM_CLEAR(uint8 *buffer);
-        static void AVERAGE(uint8 *buffer);
-        static void AVERAGE_NUMBER(uint8 *buffer);
-        static void AVERAGE_MODE(uint8 *buffer);
-        static void MINMAX(uint8 *buffer);
-        static void FILTR(uint8 *buffer);
-        static void FPS(uint8 *buffer);
-        static void WINDOW(uint8 *buffer);
-        static void GRID(uint8 *buffer);
-        static void GRID_TYPE(uint8 *buffer);
-        static void GRID_BRIGHTNESS(uint8 *buffer);
+        pchar INPUT(pchar);
+        pchar COUPLE(pchar);
+        pchar FILTR_(pchar);
+        pchar INVERSE(pchar);
+        pchar RANGE_(pchar);
+        pchar OFFSET(pchar);
+        pchar FACTOR(pchar);
     };
 
-    class TBASE
+    namespace CONTROL
     {
-    public:
-        static void RANGE(uint8 *buffer);
-        static void OFFSET(uint8 *buffer);
-        static void SAMPLING(uint8 *buffer);
-        static void PEACKDET(uint8 *buffer);
-        static void TPOS(uint8 *buffer);
-        static void SELFRECORDER(uint8 *buffer);
-        static void FUNCTIMEDIV(uint8 *buffer);
+        pchar KEY(pchar);
+        pchar GOVERNOR(pchar);
     };
 
-    class TRIGGER
+    namespace DISPLAY
     {
-    public:
-        static void MODE(uint8 *buffer);
-        static void SOURCE(uint8 *buffer);
-        static void POLARITY(uint8 *buffer);
-        static void INPUT(uint8 *buffer);
-        static void FIND(uint8 *buffer);
-        static void OFFSET(uint8 *buffer);
+        pchar AUTOSEND(pchar);
+        pchar MAPPING(pchar);
+        pchar ACCUM(pchar);
+        pchar ACCUM_NUMBER(pchar);
+        pchar ACCUM_MODE(pchar);
+        pchar ACCUM_CLEAR(pchar);
+        pchar AVERAGE(pchar);
+        pchar AVERAGE_NUMBER(pchar);
+        pchar AVERAGE_MODE(pchar);
+        pchar MINMAX(pchar);
+        pchar FILTR_(pchar);
+        pchar FPS(pchar);
+        pchar WINDOW(pchar);
+        pchar GRID(pchar);
+        pchar GRID_TYPE(pchar);
+        pchar GRID_BRIGHTNESS(pchar);
+    };
+
+    namespace TBASE_
+    {
+        pchar RANGE_(pchar);
+        pchar OFFSET(pchar);
+        pchar SAMPLING(pchar);
+        pchar PEACKDET(pchar);
+        pchar TPOS_(pchar);
+        pchar SELFRECORDER(pchar);
+        pchar FUNCTIMEDIV(pchar);
+    };
+
+    namespace TRIGGER
+    {
+        pchar MODE(pchar);
+        pchar SOURCE(pchar);
+        pchar POLARITY(pchar);
+        pchar INPUT(pchar);
+        pchar FIND(pchar);
+        pchar OFFSET(pchar);
     };
 };
