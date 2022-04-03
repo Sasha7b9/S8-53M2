@@ -124,6 +124,8 @@ struct PageDisplay
 {
     static const Page *self;
 
+    static void OnChanged_RefreshFPS(bool);
+
     struct Accumulation
     {
         static const Page *self;

@@ -153,9 +153,9 @@ pchar SCPI::DISPLAY::AVERAGE_NUMBER(pchar buffer)
         {0}
     };
 
-    SCPI_CYCLE(ENUM_AVE = (ENumAveraging::E)it->value);
+    SCPI_CYCLE(set.display.enumAve = (ENumAveraging::E)it->value);
 
-    IF_REQUEST(SCPI::SendFormat(":DISPLAY:AVERAGE:NUMBER%s", map[ENUM_AVERAGE].key));
+    IF_REQUEST(SCPI::SendFormat(":DISPLAY:AVERAGE:NUMBER%s", map[set.display.enumAve].key));
 
     return buffer;
 }
@@ -163,11 +163,11 @@ pchar SCPI::DISPLAY::AVERAGE_NUMBER(pchar buffer)
 
 pchar SCPI::DISPLAY::AVERAGE_MODE(pchar buffer)
 {
-    if      FIRST_SYMBOLS(" ACCURACY")    { MODE_AVERAGE = ModeAveraging::Accurately; }
-    else if FIRST_SYMBOLS(" APPROXIMATE") { MODE_AVERAGE = ModeAveraging::Around; }
+    if      FIRST_SYMBOLS(" ACCURACY")    { set.display.modeAve = ModeAveraging::Accurately; }
+    else if FIRST_SYMBOLS(" APPROXIMATE") { set.display.modeAve = ModeAveraging::Around; }
 
     IF_REQUEST(SCPI::SendFormat(":DISPLAY:AVARAGE:MODE %s",
-        (MODE_AVERAGE == ModeAveraging::Accurately) ? "ACCURACY" : "APPROXIMATE"));
+        (set.display.modeAve == ModeAveraging::Accurately) ? "ACCURACY" : "APPROXIMATE"));
 
     return buffer;
 }
@@ -233,9 +233,9 @@ pchar SCPI::DISPLAY::FPS(pchar buffer)
         {0}
     };
 
-    SCPI_CYCLE(ENUM_FPS = (ENumSignalsInSec::E)it->value; PageDisplay::OnChanged_RefreshFPS(true));
+    SCPI_CYCLE(ENUM_SIGNALS_IN_SEC = (ENumSignalsInSec::E)it->value; PageDisplay::OnChanged_RefreshFPS(true));
 
-    IF_REQUEST(SCPI::SendFormat(":DISPLAY:FPS%s", map[ENUM_FPS].key));
+    IF_REQUEST(SCPI::SendFormat(":DISPLAY:FPS%s", map[ENUM_SIGNALS_IN_SEC].key));
 
     return buffer;
 }

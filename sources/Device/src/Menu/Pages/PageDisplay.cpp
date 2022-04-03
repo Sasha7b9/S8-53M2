@@ -88,7 +88,7 @@ static const Choice mcSmoothing =
 };
 
 
-void OnChanged_RefreshFPS(bool)
+void PageDisplay::OnChanged_RefreshFPS(bool)
 {
     FPGA::SetNumSignalsInSec(ENumSignalsInSec::ToNum(ENUM_SIGNALS_IN_SEC));
 }
@@ -109,7 +109,7 @@ static const Choice mcRefreshFPS =
         {"2",   "2"},
         {"1",   "1"}
     },
-    (int8 *)&ENUM_SIGNALS_IN_SEC, OnChanged_RefreshFPS
+    (int8 *)&ENUM_SIGNALS_IN_SEC, PageDisplay::OnChanged_RefreshFPS
 };
 
 
