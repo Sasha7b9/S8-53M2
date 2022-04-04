@@ -133,7 +133,7 @@ static bool FPGA::AutoFinder::FindWave(Chan ch)
 
 static bool FPGA::AutoFinder::FindRange(Chan ch)
 {
-    LOG_WRITE("channel %d", ch.ToNumber());
+//    LOG_WRITE("channel %d", ch.ToNumber());
 
     struct StructFindRange
     {
@@ -167,7 +167,7 @@ static bool FPGA::AutoFinder::FindRange(Chan ch)
 
         BitSet64 limits = data.GetBound();
 
-        LOG_WRITE("%s %d-%d", Range::ToName((Range::E)r), limits.iword[0], limits.iword[1]);
+//        LOG_WRITE("%s %d-%d", Range::ToName((Range::E)r), limits.iword[0], limits.iword[1]);
 
         if (limits.iword[0] < ValueFPGA::MIN || limits.iword[1] > ValueFPGA::MAX)
         {
@@ -175,7 +175,7 @@ static bool FPGA::AutoFinder::FindRange(Chan ch)
 
             result = true;
 
-            LOG_WRITE("finded %s", Range::ToName(structFind.range));
+//            LOG_WRITE("finded %s", Range::ToName(structFind.range));
 
             break;
         }
@@ -269,7 +269,7 @@ bool FPGA::AutoFinder::FindTBase()
     {
         if (meter.ElapsedTime() > 5000)
         {
-            LOG_WRITE("to long time");
+//            LOG_WRITE("to long time");
 
             Stop();
 
@@ -280,7 +280,7 @@ bool FPGA::AutoFinder::FindTBase()
 
         if (FreqMeter::GetFreq() != ERROR_VALUE_FLOAT)
         {
-            LOG_WRITE("find frequency %f", FreqMeter::GetFreq());
+//            LOG_WRITE("find frequency %f", FreqMeter::GetFreq());
 
             break;
         }
