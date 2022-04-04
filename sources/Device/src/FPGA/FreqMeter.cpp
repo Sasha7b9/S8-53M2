@@ -44,7 +44,52 @@ namespace FPGA
 
 void FPGA::FreqMeter::Init()
 {
+    struct TimeCounting
+    {
+        enum E
+        {
+            _100ms,
+            _1s,
+            _10s
+        };
+    };
+    
+    struct FreqClc
+    {
+        enum E
+        {
+            _100kHz,
+            _1MHz,
+            _10MHz,
+            _100MHz
+        };
+    };
 
+    struct NumberPeriods
+    {
+        enum E
+        {
+            _1,
+            _10,
+            _100
+        };
+    };
+
+    TimeCounting::E FREQ_METER_TIMECOUNTING = TimeCounting::_100ms;
+    FreqClc::E FREQ_METER_FREQ_CLC = FreqClc::_100MHz;
+    NumberPeriods::E FREQ_METER_NUM_PERIODS = NumberPeriods::_1;
+
+    uint16 data = 0;
+
+    const uint16 maskTime[3] = {0, 1, 2};
+    const uint16 maskFreqClc[4] = {0, (1 << 2), (1 << 3), ((1 << 3) + (1 << 2))};
+    const uint16 maskPeriods[3] = {0, (1 << 4), (1 << 5)};
+
+    data |= maskTime[FREQ_METER_TIMECOUNTING];
+    data |= maskFreqClc[FREQ_METER_FREQ_CLC];
+    data |= maskPeriods[FREQ_METER_NUM_PERIODS];
+
+    *WR_FREQ_METER_PARAMS = data;
 }
 
 
