@@ -33,7 +33,9 @@ void Device::Init()
 
     FDrive::Init();
 
-    FPGA::OnPressStartStop();
+    FPGA::Start();
+
+    TBase::Set(SET_TBASE);      // \todo Костыль на невключение процесса чтения при включении
 }
 
 

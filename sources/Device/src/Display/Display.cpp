@@ -87,6 +87,9 @@ void Display::Init()
     HAL_DAC1::SetBrightness(100);
 
 #endif
+
+    Painter::BeginScene(COLOR_BACK);
+    Painter::EndScene();
 }
 
 
