@@ -142,6 +142,8 @@ static bool FPGA::AutoFinder::FindRange(Chan ch)
     {
         Range::Set(ch, (Range::E)r);
 
+        Timer::PauseOnTime(100);
+
         DataFinder data;
 
         if (data.ReadDataWithSynchronization(ch, 1000))
