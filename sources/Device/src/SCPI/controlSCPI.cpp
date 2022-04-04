@@ -73,29 +73,29 @@ bool SCPI::CONTROL::GOVERNOR(pchar buffer)
 {
     static const MapElement governors[] =
     {
+        {" RANGE1",  19},
+        {" RANGE2",  20},
         {" RSHIFT1", 21},
-        {" RSHIFT2", 23},
-        {" RANGE1",  20},
-        {" RANGE2",  22},
-        {" SET",     27},
-        {" TSHIFT",  25},
-        {" TBASE",   24},
-        {" TRIGLEV", 26},
+        {" RSHIFT2", 22},
+        {" TBASE",   23},
+        {" TSHIFT",  24},
+        {" TRIGLEV", 25},
+        {" SETTING", 26},
         {0}
     };
 
-    Word command;
-    Word parameter;
+    Word governor;
+    Word action;
 
-    if (command.GetWord(buffer, 0) && parameter.GetWord(buffer, 1))
+    if (governor.GetWord(buffer, 0) && action.GetWord(buffer, 1))
     {
         int numGov = 0;
         char *name = governors[numGov].key;
         while (name != 0) {
-            if (command.WordEqualZeroString(name))
+            if (governor.WordEqualZeroString(name))
             {
                 uint16 code = governors[numGov].value;
-                if (parameter.WordEqualZeroString("RIGHT"))
+                if (action.WordEqualZeroString("RIGHT"))
                 {
                     code += 128;
                 }
