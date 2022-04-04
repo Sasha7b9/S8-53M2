@@ -13,7 +13,7 @@
 #include "SCPI/SCPI.h"
 
 
-void Device::Init()
+void Device::Init() 
 {
     HAL::Init();
 
@@ -34,8 +34,6 @@ void Device::Init()
     FDrive::Init();
 
     FPGA::Start();
-
-    TBase::Set(SET_TBASE);      // \todo Костыль на невключение процесса чтения при включении
 }
 
 

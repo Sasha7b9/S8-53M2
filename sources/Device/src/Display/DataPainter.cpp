@@ -114,6 +114,18 @@ void DataPainter::DrawInModeDirect()
     {
         DrawDataNormal();
     }
+
+    if (PageMemory::Internal::showAlways)
+    {
+        DataStruct data;
+
+        if (HAL_ROM::Data::Get(PageMemory::Internal::currentSignal, data))
+        {
+            Processing::SetData(data);
+
+            DrawDataNormal();
+        }
+    }
 }
 
 
@@ -127,9 +139,21 @@ void DataPainter::DrawInModeLatest()
 
 void DataPainter::DrawInModeInternal()
 {
-    if (MODE_SHOW_MEMINT_IS_DIRECT || MODE_SHOW_MEMINT_IS_BOTH)
+    if (PageMemory::Resolver::exitFromIntToLast)
     {
-        DrawInModeDirect();
+        if (MODE_SHOW_MEMINT_IS_DIRECT || MODE_SHOW_MEMINT_IS_BOTH)
+        {
+            Processing::SetData(Storage::GetData(PageMemory::Latest::current));
+
+            DrawDataNormal();
+        }
+    }
+    else
+    {
+        if (MODE_SHOW_MEMINT_IS_DIRECT || MODE_SHOW_MEMINT_IS_BOTH)
+        {
+            DrawInModeDirect();
+        }
     }
 
     if (MODE_SHOW_MEMINT_IS_SAVED || MODE_SHOW_MEMINT_IS_BOTH)

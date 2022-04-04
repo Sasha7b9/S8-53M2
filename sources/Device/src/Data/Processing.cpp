@@ -1373,7 +1373,12 @@ void Processing::SetDataForProcessing(ModeWork::E mode, bool for_window_memory)
     {
         if (for_window_memory)
         {
+            DataStruct data;
 
+            if (HAL_ROM::Data::Get(PageMemory::Internal::currentSignal, data))
+            {
+                SetData(data);
+            }
         }
     }
 }

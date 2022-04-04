@@ -213,7 +213,7 @@ static const Settings defaultSettings =
     // service
     {
         true,                           // screenWelcomeEnable
-        false,                          // soundEnable
+        true,                          // soundEnable
         CalibratorMode::Freq,           // calibratorEnable
         0,                              // IP-адрес (временно)  WARN
         ColorScheme::WhiteLetters       // colorScheme
