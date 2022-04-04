@@ -33,8 +33,6 @@ namespace DataPainter
 
     void DrawDataNormal();
 
-    void DrawDataInternal();
-
     void DrawDataInModeWorkLatestMemInt();
 
     void DrawDataChannel(DataStruct &, Chan, int minY, int maxY);
@@ -136,7 +134,14 @@ void DataPainter::DrawInModeInternal()
 
     if (MODE_SHOW_MEMINT_IS_SAVED || MODE_SHOW_MEMINT_IS_BOTH)
     {
-        DrawDataInternal();
+        DataStruct data;
+
+        if (HAL_ROM::Data::Get(PageMemory::Internal::currentSignal, data))
+        {
+            Processing::SetData(data);
+
+            DrawDataNormal();
+        }
     }
 }
 
@@ -519,19 +524,6 @@ void DataPainter::DrawDataNormal()
     if (NUM_MIN_MAX > 1)
     {
         DrawMinMax();
-    }
-}
-
-
-void DataPainter::DrawDataInternal()
-{
-    DataStruct data;
-
-    if (HAL_ROM::Data::Get(PageMemory::Internal::currentSignal, data))
-    {
-        Processing::SetData(data);
-
-        DrawDataNormal();
     }
 }
 

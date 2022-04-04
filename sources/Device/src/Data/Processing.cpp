@@ -1371,6 +1371,9 @@ void Processing::SetDataForProcessing(ModeWork::E mode, bool for_window_memory)
     }
     else if(mode == ModeWork::Internal)
     {
+        if (for_window_memory)
+        {
 
+        }
     }
 }
