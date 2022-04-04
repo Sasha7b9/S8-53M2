@@ -198,17 +198,13 @@ int DataStruct::PrepareForNormalDrawP2P()
 
 void FrameImitation::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
 {
-    if (data.rec_points != 0)
+    if (TBase::InModeP2P() && (data.rec_points == 0))
     {
-        AppendByte(pointsA.byte0, pointsB.byte0);               // Первую считанную точку выбрасываем
+        AppendByte(pointsA.byte0, pointsB.byte0);
     }
 
+    AppendByte(pointsA.byte0, pointsB.byte0);
     AppendByte(pointsA.byte1, pointsB.byte1);
-
-    if (data.rec_points % 2)
-    {
-        AppendByte(pointsA.byte1, pointsB.byte1);               // Количество считанных точек должно быть чётным.
-    }                                                           // Просто записываем то же самое значение
 }
 
 
