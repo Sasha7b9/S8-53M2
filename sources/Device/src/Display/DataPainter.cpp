@@ -673,7 +673,7 @@ void DataPainter::MemoryWindow::DrawChannel(int width, const uint8 *in, Chan ch,
         *iMin = in[firstElem];
         *iMax = in[firstElem];
 
-        if (in[firstElem] != ValueFPGA::NONE || in[firstElem] != ValueFPGA::NONE)
+        if (in[firstElem] != ValueFPGA::NONE)
         {
             last_valid_col = col;
         }
@@ -683,7 +683,7 @@ void DataPainter::MemoryWindow::DrawChannel(int width, const uint8 *in, Chan ch,
             SET_MIN_IF_LESS(in[elem], *iMin);
             SET_MAX_IF_LARGER(in[elem], *iMax);
 
-            if (in[firstElem] != ValueFPGA::NONE || in[firstElem] != ValueFPGA::NONE)
+            if (in[firstElem] != ValueFPGA::NONE)
             {
                 last_valid_col = col;
             }
