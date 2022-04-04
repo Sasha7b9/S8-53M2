@@ -116,7 +116,7 @@ static bool FPGA::AutoFinder::FindWave(Chan ch)
     TrigSource::Set(ch);
     TrigLev::Set(ch, TrigLev::ZERO);
     RShift::Set(ch, RShift::ZERO);
-    ModeCouple::Set(ch, ModeCouple::AC);
+    ModeCouple::Set(ch, ModeCouple::DC);
     TrigInput::Set(TrigInput::Full);
 
     if (FindRange(ch))
