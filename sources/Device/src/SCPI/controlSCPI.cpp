@@ -8,7 +8,6 @@ bool SCPI::CONTROL::KEY(pchar buffer)
 {
     static const MapElement keys[] =
     {
-        {" ",          0},
         {" 1",         1},
         {" 2",         2},
         {" 3",         3},
@@ -24,47 +23,45 @@ bool SCPI::CONTROL::KEY(pchar buffer)
         {" HELP",     13},
         {" START",    14},
         {" MEMORY",   15},
-        {" ", },
-        {" ", },
-        {" ", },
-
-
+        {" SERVICE",  16},
         {" MENU",     17},
-        {" CURS",     -},
-        {" MEAS",     -},
-        {" DISPL",    -},
-        {" MEM",      -},
-        {" SERVICE",  -},
-        {" SERV",     -},
-        {" CHAN1",    -},
-        {" CHAN2",    -},
-        {" TRIG",     -},
+        {" POWER",    18},
         {0}
     };
 
-    Word command;
-    Word parameter;
+    Word button;        // Здесь хранится принятое название кнопки
+    Word action;        // Здесь хранится принятое действие кнопки
 
-    if (command.GetWord(buffer, 0) && parameter.GetWord(buffer, 1))
+    if (button.GetWord(buffer, 0) && action.GetWord(buffer, 1))
     {
         int numKey = 0;
-        char *name = keys[numKey].key;
-        while (name != 0)
+        while (keys[numKey].key != 0)
         {
-            if (command.WordEqualZeroString(name))
+            if (button.WordEqualZeroString(keys[numKey].key))
             {
-                uint16 code = keys[numKey].value;
-                if (parameter.WordEqualZeroString("DOWN"))
+                uint8 data[3] = { 255, keys[numKey].value, 0 };
+
+                if (action.WordEqualZeroString("DOWN"))
                 {
-                    code += 128;
+                    data[2] = Action::Down;
+                }
+                else if (action.WordEqualZeroString("UP"))
+                {
+                    data[2] = Action::Up;
+                }
+                else if (action.WordEqualZeroString("LONG"))
+                {
+                    data[2] = Action::Long;
                 }
 
-//              Panel::ProcessingCommandFromPIC(code);
-
-                return true;
+                if (data[2])
+                {
+                    Panel::Callback::OnReceiveSPI5(data, 3);
+                    return true;
+                }
             }
+
             numKey++;
-            name = keys[numKey].key;
         }
     }
 
