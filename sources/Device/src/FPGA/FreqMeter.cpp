@@ -36,7 +36,7 @@ namespace FPGA
 
         float FromPeriodCounter(const BitSet32 &period)
         {
-            return (period.word == 0) ? 0.0f : 1e5f / period.word;
+            return (period.word == 0) ? 0.0f : 1e8f / period.word;
         }
     }
 }
