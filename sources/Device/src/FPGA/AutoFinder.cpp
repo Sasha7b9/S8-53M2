@@ -133,10 +133,21 @@ static bool FPGA::AutoFinder::FindWave(Chan ch)
 
 static bool FPGA::AutoFinder::FindRange(Chan ch)
 {
-    bool result = false;
+    struct StructFindRange
+    {
+        PeackDetMode::E peackDet;
+        Range::E range;
 
-    PeackDetMode::E peackDet = SET_PEAKDET;
-    Range::E range = SET_RANGE(ch);
+        StructFindRange(Chan ch) : peackDet(SET_PEAKDET), range(SET_RANGE(ch)) { }
+
+        void Restore(Chan ch)
+        {
+            Range::Set(ch, range);
+            PeackDetMode::Set(peackDet);
+        }
+    } structFind (ch);
+
+    bool result = false;
 
     FPGA::Stop();
 
@@ -156,7 +167,7 @@ static bool FPGA::AutoFinder::FindRange(Chan ch)
 
         if (limits.iword[0] < ValueFPGA::MIN || limits.iword[1] > ValueFPGA::MAX)
         {
-            range = (Range::E)Math::Limitation<int>(r + 1, 0, Range::_20V);
+            structFind.range = (Range::E)Math::Limitation<int>(r + 1, 0, Range::_20V);
 
             result = true;
 
@@ -164,8 +175,7 @@ static bool FPGA::AutoFinder::FindRange(Chan ch)
         }
     }
 
-    Range::Set(ch, range);
-    PeackDetMode::Set(peackDet);
+    structFind.Restore(ch);
 
     return result;
 }
