@@ -90,21 +90,27 @@ bool SCPI::CONTROL::GOVERNOR(pchar buffer)
     if (governor.GetWord(buffer, 0) && action.GetWord(buffer, 1))
     {
         int numGov = 0;
-        char *name = governors[numGov].key;
-        while (name != 0) {
-            if (governor.WordEqualZeroString(name))
+        while (governors[numGov].key != 0)
+        {
+            if (governor.WordEqualZeroString(governors[numGov].key))
             {
-                uint16 code = governors[numGov].value;
-                if (action.WordEqualZeroString("RIGHT"))
+                uint8 data[3] = {255, governors[numGov].value, 0};
+
+                if (action.WordEqualZeroString("LEFT"))
                 {
-                    code += 128;
+
+                }
+                else if (action.WordEqualZeroString("RIGHT"))
+                {
+
                 }
 
-//                Panel::ProcessingCommandFromPIC(code);
+                if(data[2])
+
                 return true;
             }
+
             numGov++;
-            name = governors[numGov].key;
         }
     }
 
