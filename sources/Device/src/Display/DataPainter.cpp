@@ -70,7 +70,7 @@ namespace DataPainter
         // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена
         // иниформация о максимумах.
         // указатель data передаётся на первую точку, startI, endI измеряются в точках для пикового детектора и нет
-        void DrawChannel(int timeWindowRectWidth, const uint8 *data, Chan, DataSettings &);
+        void DrawChannel(int timeWindowRectWidth, Chan, const DataStruct &);
     }
 }
 
@@ -579,15 +579,11 @@ void DataPainter::MemoryWindow::Draw()
 
             if (dat->A.Size() || dat->B.Size())
             {
-                Chan::E chanFirst = LAST_AFFECTED_CHANNEL_IS_A ? ChB : ChA;
-                Chan::E chanSecond = LAST_AFFECTED_CHANNEL_IS_A ? ChA : ChB;
+                Chan::E first = LAST_AFFECTED_CHANNEL_IS_A ? ChB : ChA;
+                Chan::E second = LAST_AFFECTED_CHANNEL_IS_A ? ChA : ChB;
 
-                const uint8 *dataFirst = LAST_AFFECTED_CHANNEL_IS_A ? dat->B.Data() : dat->A.Data();
-                const uint8 *dataSecond = LAST_AFFECTED_CHANNEL_IS_A ? dat->A.Data() : dat->B.Data();
-
-                DrawChannel(rightX - leftX, dataFirst, chanFirst, dat->ds);
-
-                DrawChannel(rightX - leftX, dataSecond, chanSecond, dat->ds);
+                DrawChannel(rightX - leftX, first, *dat);
+                DrawChannel(rightX - leftX, second, *dat);
             }
         }
         else
@@ -645,12 +641,16 @@ void DataPainter::MemoryWindow::Draw()
 }
 
 
-void DataPainter::MemoryWindow::DrawChannel(int width, const uint8 *in, Chan ch, DataSettings &ds)
+void DataPainter::MemoryWindow::DrawChannel(int width, Chan ch, const DataStruct &dat)
 {
+    const DataSettings ds = dat.ds;
+
     if (!ds.valid || !ch.Enabled())
     {
         return;
     }
+
+    const uint8 *in = dat.DataConst(ch).DataConst();
 
     int num_bytes = ds.BytesInChanReal();
 
