@@ -42,6 +42,12 @@ namespace FPGA
 }
 
 
+void FPGA::FreqMeter::Init()
+{
+
+}
+
+
 float FPGA::FreqMeter::GetFreq()
 {
     return frequency;

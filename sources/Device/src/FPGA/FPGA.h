@@ -22,10 +22,12 @@ namespace FPGA
 
     namespace FreqMeter
     {
+        void Init();
+
         // Получить значение частоты.
         float GetFreq();
 
-        void Update(uint16);
+        void Update(uint16 flag);
     }
 
     namespace AutoFinder

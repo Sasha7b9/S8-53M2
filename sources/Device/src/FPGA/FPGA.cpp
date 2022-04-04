@@ -88,7 +88,6 @@ namespace FPGA
 }
 
 
-
 void FPGA::Init()
 {
     Storage::Clear();
@@ -96,6 +95,7 @@ void FPGA::Init()
     FPGA::SetNumSignalsInSec(ENumSignalsInSec::ToNum(ENUM_SIGNALS_IN_SEC));
     FPGA::SetNumberMeasuresForGates(NUM_MEAS_FOR_GATES);
     FPGA::SetNumberMeasuresForGates(NUM_MEAS_FOR_GATES);
+    FreqMeter::Init();
 }
 
 
