@@ -159,7 +159,7 @@ static bool FPGA::AutoFinder::FindRange(Chan ch)
     {
         Range::Set(ch, (Range::E)r);
 
-        Timer::PauseOnTime(10);
+        Timer::PauseOnTime(100);
 
         DataFinder data;
 
@@ -264,6 +264,13 @@ bool FPGA::AutoFinder::FindTBase()
     HAL_FMC::Write(WR_PRED, (uint16)(~(10)));
     HAL_FMC::Write(WR_POST, (uint16)(~(10)));
     HAL_FMC::Write(WR_START, 1);
+
+    flag.Read();
+
+    while (!flag.Pred())
+    {
+        flag.Read();
+    }
 
     SwitchingTrig();
 
