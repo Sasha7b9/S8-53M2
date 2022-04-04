@@ -663,6 +663,8 @@ void DataPainter::MemoryWindow::DrawChannel(int width, const uint8 *in, Chan ch,
     uint8 *iMin = &min[0];
     uint8 *iMax = &max[0];
 
+    int last_valid_col = 0;                             // Последний столбик, который нужно отображать
+
     for (int col = 0; col < width; col++, iMin++, iMax++)
     {
         int firstElem = (int)(col * points_in_col);
@@ -671,10 +673,20 @@ void DataPainter::MemoryWindow::DrawChannel(int width, const uint8 *in, Chan ch,
         *iMin = in[firstElem];
         *iMax = in[firstElem];
 
+        if (in[firstElem] != ValueFPGA::NONE || in[firstElem] != ValueFPGA::NONE)
+        {
+            last_valid_col = col;
+        }
+
         for (int elem = firstElem + 1; elem <= lastElem; elem++)
         {
             SET_MIN_IF_LESS(in[elem], *iMin);
             SET_MAX_IF_LARGER(in[elem], *iMax);
+
+            if (in[firstElem] != ValueFPGA::NONE || in[firstElem] != ValueFPGA::NONE)
+            {
+                last_valid_col = col;
+            }
         }
     }
 
@@ -697,9 +709,7 @@ void DataPainter::MemoryWindow::DrawChannel(int width, const uint8 *in, Chan ch,
         points[i * 2 + 1] = ORDINATE(value0);
     }
 
-    uint8 transparency = ORDINATE(ValueFPGA::NONE);
-
-    Painter::DrawVLineArray(1, width, points.Data(), ColorChannel(ch), transparency);
+    Painter::DrawVLineArray(1, width, points.Data(), ColorChannel(ch), last_valid_col);
 }
 
 

@@ -45,9 +45,8 @@ namespace Painter
     uint ReduceBrightness(uint colorValue, float newBrightness);
 
     // Нарисовать массив вертикальных линий. Линии рисуются одна за другой. y0y1 - массив вертикальных координат.
-    // Значения y == trransparency выводиться не будут
-
-    void DrawVLineArray(int x, int numLines, uint8 *y0y1, Color::E, uint8 transparency);
+    // last_valid - последняя линия, которую нужно рисовать
+    void DrawVLineArray(int x, int numLines, uint8 *y0y1, Color::E, int last_valid);
 
     bool SaveScreenToFlashDrive();
 
