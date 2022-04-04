@@ -116,7 +116,7 @@ static bool FPGA::AutoFinder::FindWave(Chan ch)
     TrigSource::Set(ch);
     TrigLev::Set(ch, TrigLev::ZERO);
     RShift::Set(ch, RShift::ZERO);
-    ModeCouple::Set(ch, ModeCouple::AC);
+    ModeCouple::Set(ch, ModeCouple::DC);
     TrigInput::Set(TrigInput::Full);
 
     if (FindRange(ch))
@@ -159,7 +159,7 @@ static bool FPGA::AutoFinder::FindRange(Chan ch)
     {
         Range::Set(ch, (Range::E)r);
 
-        Timer::PauseOnTime(100);
+        Timer::PauseOnTime(10);
 
         DataFinder data;
 
@@ -257,9 +257,15 @@ bool FPGA::AutoFinder::FindTBase()
 {
     TrigInput::Set(TrigInput::Full);
 
+    Timer::PauseOnTime(100);
+
     FreqMeter::Reset();
 
-    Start();
+    HAL_FMC::Write(WR_PRED, (uint16)(~(10)));
+    HAL_FMC::Write(WR_POST, (uint16)(~(10)));
+    HAL_FMC::Write(WR_START, 1);
+
+    SwitchingTrig();
 
     flag.Read();
 
@@ -294,8 +300,10 @@ bool FPGA::AutoFinder::FindTBase()
     {
         frequency = FreqMeter::GetFreq();
 
-        if (meter.ElapsedTime() > 5000)
+        if (meter.ElapsedTime() > 20000)
         {
+            LOG_WRITE("не могу найти частоту");
+
             Stop();
             return false;
         }
