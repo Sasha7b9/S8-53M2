@@ -532,12 +532,17 @@ namespace Panel
     {
         if (action.IsDown())
         {
-            if (Item::Opened()->IsPage())
+            while (Item::Opened()->IsPage())
             {
                 Page *page = (Page *)Item::Opened();
+
                 if (page->IsSB())
                 {
-                    page->CloseOpened();
+                    Item::CloseOpened();
+                }
+                else
+                {
+                    break;
                 }
             }
 
