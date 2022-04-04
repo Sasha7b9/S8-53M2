@@ -198,7 +198,7 @@ int DataStruct::PrepareForNormalDrawP2P()
 
 void FrameImitation::AppendPoints(BitSet16 pointsA, BitSet16 pointsB)
 {
-    if (TBase::InModeP2P() && (data.rec_points == 0))
+    if (TBase::InModeP2P() && (data.rec_points == 0))   // В пиковом детекторе смещаем сигнал на одну точку вправо
     {
         AppendByte(pointsA.byte0, pointsB.byte0);
     }
