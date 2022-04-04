@@ -732,15 +732,7 @@ void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *in
 
     uint8 transparency = ORDINATE(ValueFPGA::NONE);
 
-    if (width < 256)
-    {
-        Painter::DrawVLineArray(x, width, points.Data(), ColorChannel(ch), transparency);
-    }
-    else
-    {
-        Painter::DrawVLineArray(x, 255, points.Data(), ColorChannel(ch), transparency);
-        Painter::DrawVLineArray(x + 255, width - 255, points.Data() + 255 * 2, ColorChannel(ch), transparency);
-    }
+    Painter::DrawVLineArray(x, width, points.Data(), ColorChannel(ch), transparency);
 }
 
 
