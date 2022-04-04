@@ -471,6 +471,10 @@ namespace Panel
             {
                 FPGA::OnPressStartStop();
             }
+            else if (MODE_WORK_IS_MEMINT && !PageMemory::Resolver::exitFromIntToLast)
+            {
+                FPGA::OnPressStartStop();
+            }
         }
     }
 
