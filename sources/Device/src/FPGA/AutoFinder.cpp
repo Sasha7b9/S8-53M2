@@ -255,10 +255,6 @@ BitSet64 FPGA::AutoFinder::DataFinder::GetBound()
 
 bool FPGA::AutoFinder::FindTBase()
 {
-    TrigInput::Set(TrigInput::Full);
-
-    Timer::PauseOnTime(100);
-
     FreqMeter::Reset();
 
     HAL_FMC::Write(WR_PRED, (uint16)(~(10)));
