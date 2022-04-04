@@ -67,10 +67,7 @@ namespace DataPainter
 
     namespace MemoryWindow
     {
-        // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена
-        // иниформация о максимумах.
-        // указатель data передаётся на первую точку, startI, endI измеряются в точках для пикового детектора и нет
-        void DrawChannel(int timeWindowRectWidth, Chan, const DataStruct &);
+        void DrawChannel(int x, int width, Chan, const DataStruct &);
     }
 }
 
@@ -582,8 +579,8 @@ void DataPainter::MemoryWindow::Draw()
                 Chan::E first = LAST_AFFECTED_CHANNEL_IS_A ? ChB : ChA;
                 Chan::E second = LAST_AFFECTED_CHANNEL_IS_A ? ChA : ChB;
 
-                DrawChannel(rightX - leftX, first, *dat);
-                DrawChannel(rightX - leftX, second, *dat);
+                DrawChannel(leftX + 1, rightX - leftX, first, *dat);
+                DrawChannel(leftX + 1, rightX - leftX, second, *dat);
             }
         }
         else
@@ -641,7 +638,7 @@ void DataPainter::MemoryWindow::Draw()
 }
 
 
-void DataPainter::MemoryWindow::DrawChannel(int width, Chan ch, const DataStruct &dat)
+void DataPainter::MemoryWindow::DrawChannel(int x, int width, Chan ch, const DataStruct &dat)
 {
     const DataSettings ds = dat.ds;
 
@@ -709,7 +706,7 @@ void DataPainter::MemoryWindow::DrawChannel(int width, Chan ch, const DataStruct
         points[i * 2 + 1] = ORDINATE(value0);
     }
 
-    Painter::DrawVLineArray(1, width, points.Data(), ColorChannel(ch), last_valid_col);
+    Painter::DrawVLineArray(x, width, points.Data(), ColorChannel(ch), last_valid_col);
 }
 
 
