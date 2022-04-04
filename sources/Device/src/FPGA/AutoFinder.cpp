@@ -21,7 +21,7 @@ namespace FPGA
             DataFinder() : Buffer1024<uint8>() { }
 
             // Читать данные с ожиданием импульса синхронизации
-            bool ReadDataWithSynchronization(Chan, uint timeWait);
+            bool ReadDataWithoutSynchronization(Chan);
 
             // Возвращает размах сигнала - разность между минимальным и максимальным значениями
             BitSet64 GetBound();
@@ -48,6 +48,10 @@ namespace FPGA
         // Чтение двух байт канала 2 (с калибровочными коэффициентами, само собой)
         BitSet16 ReadB();
     }
+
+    // Принудительно запустить синхронизацию.
+    void SwitchingTrig();
+
 }
 
 
@@ -146,18 +150,17 @@ static bool FPGA::AutoFinder::FindRange(Chan ch)
 
         DataFinder data;
 
-        if (data.ReadDataWithSynchronization(ch, 1000))
+        data.ReadDataWithoutSynchronization(ch);
+
+        BitSet64 limits = data.GetBound();
+
+        if (limits.iword[0] < ValueFPGA::MIN || limits.iword[1] > ValueFPGA::MAX)
         {
-            BitSet64 limits = data.GetBound();
+            range = (Range::E)Math::Limitation<int>(r + 1, 0, Range::_20V);
 
-            if (limits.iword[0] < ValueFPGA::MIN || limits.iword[1] > ValueFPGA::MAX)
-            {
-                range = (Range::E)Math::Limitation<int>(r + 1, 0, Range::_20V);
+            result = true;
 
-                result = true;
-
-                break;
-            }
+            break;
         }
     }
 
@@ -168,27 +171,17 @@ static bool FPGA::AutoFinder::FindRange(Chan ch)
 }
 
 
-bool FPGA::AutoFinder::DataFinder::ReadDataWithSynchronization(Chan ch, uint time_wait)
+bool FPGA::AutoFinder::DataFinder::ReadDataWithoutSynchronization(Chan ch)
 {
     Fill(ValueFPGA::NONE);
 
-    HAL_FMC::Write(WR_PRED, (uint16)(~(2)));
-    HAL_FMC::Write(WR_POST, (uint16)(~(Size() + 20)));
+    HAL_FMC::Write(WR_PRED, (uint16)(~(Size() / 2 + 20)));
+    HAL_FMC::Write(WR_POST, (uint16)(~(10)));
     HAL_FMC::Write(WR_START, 1);
 
     while (_GET_BIT(flag.Read(), FL_PRED) == 0) { }
 
-    TimeMeterMS localWaiter;
-
-    while(_GET_BIT(flag.Read(), FL_TRIG) == 0)
-    {
-        if (waiter.ElapsedTime() > time_wait)
-        {
-            FPGA::Stop();
-
-            return false;
-        }
-    }
+    SwitchingTrig();
 
     while(_GET_BIT(flag.Read(), FL_DATA) == 0) { }
 
