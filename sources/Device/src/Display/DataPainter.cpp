@@ -585,15 +585,9 @@ void DataPainter::MemoryWindow::Draw()
                 const uint8 *dataFirst = LAST_AFFECTED_CHANNEL_IS_A ? dat->B.Data() : dat->A.Data();
                 const uint8 *dataSecond = LAST_AFFECTED_CHANNEL_IS_A ? dat->A.Data() : dat->B.Data();
 
-                if (SET_ENABLED(chanFirst))
-                {
-                    DrawChannel(rightX - leftX, dataFirst, chanFirst, dat->ds);
-                }
+                DrawChannel(rightX - leftX, dataFirst, chanFirst, dat->ds);
 
-                if (SET_ENABLED(chanSecond))
-                {
-                    DrawChannel(rightX - leftX, dataSecond, chanSecond, dat->ds);
-                }
+                DrawChannel(rightX - leftX, dataSecond, chanSecond, dat->ds);
             }
         }
         else
@@ -653,7 +647,7 @@ void DataPainter::MemoryWindow::Draw()
 
 void DataPainter::MemoryWindow::DrawChannel(int width, const uint8 *in, Chan ch, DataSettings &ds)
 {
-    if (!ds.valid)
+    if (!ds.valid || !ch.Enabled())
     {
         return;
     }
