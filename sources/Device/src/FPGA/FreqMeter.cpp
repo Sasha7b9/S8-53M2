@@ -9,7 +9,7 @@ namespace FPGA
 {
     namespace FreqMeter
     {
-        float frequency = 0.0f;
+        float frequency = ERROR_VALUE_FLOAT;
         bool readPeriod = false;     // Установленный в true флаг означает, что частоту нужно считать по счётчику периода
         float prevFreq = 0.0f;
 
@@ -90,6 +90,14 @@ void FPGA::FreqMeter::Init()
     data |= maskPeriods[FREQ_METER_NUM_PERIODS];
 
     *WR_FREQ_METER_PARAMS = data;
+
+    Reset();
+}
+
+
+void FPGA::FreqMeter::Reset()
+{
+    frequency = ERROR_VALUE_FLOAT;
 }
 
 

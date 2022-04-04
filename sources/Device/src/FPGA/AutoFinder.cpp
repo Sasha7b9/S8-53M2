@@ -133,6 +133,8 @@ static bool FPGA::AutoFinder::FindWave(Chan ch)
 
 static bool FPGA::AutoFinder::FindRange(Chan ch)
 {
+    LOG_WRITE("channel %d", ch.ToNumber());
+
     struct StructFindRange
     {
         PeackDetMode::E peackDet;
@@ -165,11 +167,15 @@ static bool FPGA::AutoFinder::FindRange(Chan ch)
 
         BitSet64 limits = data.GetBound();
 
+        LOG_WRITE("%s %d-%d", Range::ToName((Range::E)r), limits.iword[0], limits.iword[1]);
+
         if (limits.iword[0] < ValueFPGA::MIN || limits.iword[1] > ValueFPGA::MAX)
         {
             structFind.range = (Range::E)Math::Limitation<int>(r + 1, 0, Range::_20V);
 
             result = true;
+
+            LOG_WRITE("finded %s", Range::ToName(structFind.range));
 
             break;
         }
@@ -251,62 +257,57 @@ bool FPGA::AutoFinder::FindTBase()
 {
     TrigInput::Set(TrigInput::Full);
 
-    Start();
-
-    while (_GET_BIT(FPGA::flag.Read(), FL_FREQ) == 0) { };
-
-    Stop();
-    float freq = FreqMeter::GetFreq();
-
-    TrigInput::Set(freq < 1e6f ? TrigInput::LPF : TrigInput::Full);
+    FreqMeter::Reset();
 
     Start();
 
-    while (_GET_BIT(FPGA::flag.Read(), FL_FREQ) == 0) { };
+    flag.Read();
+
+    TimeMeterMS meter;
+
+    while (!flag.Trig())
+    {
+        if (meter.ElapsedTime() > 5000)
+        {
+            LOG_WRITE("to long time");
+
+            Stop();
+
+            return false;
+        }
+
+        flag.Read();
+
+        if (FreqMeter::GetFreq() != ERROR_VALUE_FLOAT)
+        {
+            LOG_WRITE("find frequency %f", FreqMeter::GetFreq());
+
+            break;
+        }
+    }
+
+    meter.Reset();
+
+    float frequency = FreqMeter::GetFreq();
+
+    while (frequency == ERROR_VALUE_FLOAT)
+    {
+        frequency = FreqMeter::GetFreq();
+
+        if (meter.ElapsedTime() > 5000)
+        {
+            Stop();
+            return false;
+        }
+    }
+
+    TBase::E tbase = CalculateTBase(frequency);
+
+    TBase::Set(tbase);
 
     Stop();
-    freq = FreqMeter::GetFreq();
 
-    if (freq >= 50.0f)
-    {
-        TBase::E tbase = CalculateTBase(freq);
-
-        if (tbase >= TBase::MIN_P2P)
-        {
-            tbase = TBase::MIN_P2P;
-        }
-
-        TBase::Set(tbase);
-
-        Start();
-
-        TrigInput::Set(freq < 500e3f ? TrigInput::LPF : TrigInput::HPF);
-
-        return true;
-    }
-    else
-    {
-        TrigInput::Set(TrigInput::LPF);
-        freq = FreqMeter::GetFreq();
-
-        if (freq > 0.0f)
-        {
-            TBase::E tbase = CalculateTBase(freq);
-
-            if (tbase >= TBase::MIN_P2P)
-            {
-                tbase = TBase::MIN_P2P;
-            }
-
-            TBase::Set(tbase);
-            Timer::PauseOnTime(10);
-            Start();
-
-            return true;
-        }
-    }
-
-    return false;
+    return true;
 }
 
 

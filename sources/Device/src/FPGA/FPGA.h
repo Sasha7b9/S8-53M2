@@ -28,6 +28,8 @@ namespace FPGA
         float GetFreq();
 
         void Update(uint16 flag);
+
+        void Reset();
     }
 
     namespace AutoFinder
