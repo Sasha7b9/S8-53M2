@@ -170,6 +170,7 @@ void FPGA::FreqMeter::ReadFrequency()            // Чтение счётчика частоты прои
         }
         else
         {
+//            LOG_WRITE("вычисляем по частоте %d", freqSet);
             frequency = fr;
         }
 
@@ -189,6 +190,7 @@ void FPGA::FreqMeter::ReadPeriod()
     }
     else
     {
+//        LOG_WRITE("вычисляем по периоду %d", periodSet);
         frequency = fr;
     }
 
