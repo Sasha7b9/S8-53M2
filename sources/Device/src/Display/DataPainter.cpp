@@ -693,41 +693,21 @@ void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *in
     Buffer1024<uint8> min(width + 1, 255);
     Buffer1024<uint8> max(width + 1, 0);
 
-    if (ds.peak_det == 0)
+    uint8 *iMin = &min[0];
+    uint8 *iMax = &max[0];
+
+    for (int col = 0; col < width; col++, iMin++, iMax++)
     {
-        uint8 *iMin = &min[0];
-        uint8 *iMax = &max[0];
+        int firstElem = (int)(col * points_in_col);
+        int lastElem = (int)(firstElem + points_in_col - 1);
 
-        for (int col = 0; col < width; col++, iMin++, iMax++)
+        *iMin = in[firstElem];
+        *iMax = in[firstElem];
+
+        for (int elem = firstElem + 1; elem <= lastElem; elem++)
         {
-            int firstElem = (int)(col * points_in_col);
-            int lastElem = (int)(firstElem + points_in_col - 1);
-
-            *iMin = in[firstElem];
-            *iMax = in[firstElem];
-
-            for (int elem = firstElem + 1; elem <= lastElem; elem++)
-            {
-                SET_MIN_IF_LESS(in[elem], *iMin);
-                SET_MAX_IF_LARGER(in[elem], *iMax);
-            }
-        }
-    }
-    else
-    {
-        for (int col = 0; col < width; col++)
-        {
-            float first = col * points_in_col;
-            float last = first + points_in_col - 1;
-
-            max[col] = in[(int)first];
-            min[col] = in[(int)first + 1];
-
-            for (int elem = (int)(first + 2); elem < last; elem += 2)
-            {
-                SET_MAX_IF_LARGER(in[elem], max[col]);
-                SET_MIN_IF_LESS(in[elem + 1], max[col]);
-            }
+            SET_MIN_IF_LESS(in[elem], *iMin);
+            SET_MAX_IF_LARGER(in[elem], *iMax);
         }
     }
 
