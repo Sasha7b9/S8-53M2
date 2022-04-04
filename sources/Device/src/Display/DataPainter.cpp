@@ -70,12 +70,7 @@ namespace DataPainter
         // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена
         // иниформация о максимумах.
         // указатель data передаётся на первую точку, startI, endI измеряются в точках для пикового детектора и нет
-        void DrawChannel(int timeWindowRectWidth, int xVert0, int xVert1, int startI, int endI,
-            const uint8 *data, int rightX, Chan, DataSettings &);
-
-        // shiftForPeakDet - если рисуем информацию с пикового детектора - то через shiftForPeakDet точек расположена
-        // иниформация о максимумах.
-        void DrawDataInRect(int x, int width, const uint8 *data, int numElems, Chan ch, DataSettings &);
+        void DrawChannel(int timeWindowRectWidth, const uint8 *data, Chan, DataSettings &);
     }
 }
 
@@ -572,14 +567,9 @@ void DataPainter::MemoryWindow::Draw()
     int timeWindowRectWidth = (int)((rightX - leftX) * (282.0f / ENUM_POINTS_FPGA::ToNumPoints()));
     float scaleX = (float)(rightX - leftX + 1) / ENUM_POINTS_FPGA::ToNumPoints();
 
-    int startI = SHIFT_IN_MEMORY;
-    int endI = startI + 281;
-
     const int xVert0 = (int)(leftX + SHIFT_IN_MEMORY * scaleX);
     const int xVert1 = (int)(leftX + SHIFT_IN_MEMORY * scaleX + timeWindowRectWidth);
     bool showFull = set.display.showFullMemoryWindow;
-
-    Rectangle(xVert1 - xVert0, bottom - top - (showFull ? 0 : 2)).Draw(xVert0, top + (showFull ? 0 : 1), COLOR_FILL);
 
     if (Processing::out.ds.valid)
     {
@@ -597,14 +587,12 @@ void DataPainter::MemoryWindow::Draw()
 
                 if (SET_ENABLED(chanFirst))
                 {
-                    DrawChannel(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataFirst, rightX,
-                        chanFirst, dat->ds);
+                    DrawChannel(rightX - leftX, dataFirst, chanFirst, dat->ds);
                 }
 
                 if (SET_ENABLED(chanSecond))
                 {
-                    DrawChannel(timeWindowRectWidth, xVert0, xVert1, startI, endI, dataSecond, rightX,
-                        chanSecond, dat->ds);
+                    DrawChannel(rightX - leftX, dataSecond, chanSecond, dat->ds);
                 }
             }
         }
@@ -658,37 +646,22 @@ void DataPainter::MemoryWindow::Draw()
         Painter::DrawLine((int)(xShift + 1), 5, (int)(xShift + 3), 5);
         Painter::DrawLine((int)(xShift + 2), 6, (int)(xShift + 2), 7);
     }
+
+    Rectangle(xVert1 - xVert0, bottom - top - (showFull ? 0 : 2)).Draw(xVert0, top + (showFull ? 0 : 1), COLOR_FILL);
 }
 
 
-void DataPainter::MemoryWindow::DrawChannel(int timeWindowRectWidth, int xVert0, int xVert1, int startI,
-    int endI, const uint8 *data, int rightX, Chan ch, DataSettings &ds)
+void DataPainter::MemoryWindow::DrawChannel(int width, const uint8 *in, Chan ch, DataSettings &ds)
 {
-    int k = ds.peak_det ? 2 : 1;
-
-    DrawDataInRect(1, xVert0 - 1, &(data[0 * k]), startI, ch, ds);
-
-    DrawDataInRect(xVert0 + 2, timeWindowRectWidth - 2, &(data[startI * k]), 281, ch, ds);
-
-    DrawDataInRect(xVert1 + 2, rightX - xVert1 + 2, &(data[endI * k + 1]), ds.PointsInChannel() - endI, ch, ds);
-}
-
-
-void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *in, int num_points, Chan ch,
-    DataSettings &ds)
-{
-    if (num_points == 0)
+    if (!ds.valid)
     {
         return;
     }
 
-    if (ds.peak_det)
-    {
-        num_points *= 2;
-    }
+    int num_bytes = ds.BytesInChanReal();
 
     width--;
-    float points_in_col = (float)num_points / (float)width;
+    float points_in_col = (float)num_bytes / (float)width;
 
     Buffer1024<uint8> min(width + 1, 255);
     Buffer1024<uint8> max(width + 1, 0);
@@ -732,7 +705,7 @@ void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *in
 
     uint8 transparency = ORDINATE(ValueFPGA::NONE);
 
-    Painter::DrawVLineArray(x, width, points.Data(), ColorChannel(ch), transparency);
+    Painter::DrawVLineArray(1, width, points.Data(), ColorChannel(ch), transparency);
 }
 
 
