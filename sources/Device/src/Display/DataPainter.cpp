@@ -674,21 +674,21 @@ void DataPainter::MemoryWindow::DrawChannel(int timeWindowRectWidth, int xVert0,
 }
 
 
-void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *in, int numElems, Chan ch,
+void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *in, int num_points, Chan ch,
     DataSettings &ds)
 {
-    if (numElems == 0)
+    if (num_points == 0)
     {
         return;
     }
 
     if (ds.peak_det)
     {
-        numElems *= 2;
+        num_points *= 2;
     }
 
     width--;
-    float elemsInColumn = (float)numElems / (float)width;
+    float points_in_col = (float)num_points / (float)width;
 
     Buffer1024<uint8> min(width + 1, 255);
     Buffer1024<uint8> max(width + 1, 0);
@@ -700,8 +700,8 @@ void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *in
 
         for (int col = 0; col < width; col++, iMin++, iMax++)
         {
-            int firstElem = (int)(col * elemsInColumn);
-            int lastElem = (int)(firstElem + elemsInColumn - 1);
+            int firstElem = (int)(col * points_in_col);
+            int lastElem = (int)(firstElem + points_in_col - 1);
 
             *iMin = in[firstElem];
             *iMax = in[firstElem];
@@ -717,8 +717,8 @@ void DataPainter::MemoryWindow::DrawDataInRect(int x, int width, const uint8 *in
     {
         for (int col = 0; col < width; col++)
         {
-            float first = col * elemsInColumn;
-            float last = first + elemsInColumn - 1;
+            float first = col * points_in_col;
+            float last = first + points_in_col - 1;
 
             max[col] = in[(int)first];
             min[col] = in[(int)first + 1];
