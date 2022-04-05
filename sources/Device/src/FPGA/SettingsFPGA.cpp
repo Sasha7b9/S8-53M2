@@ -369,7 +369,6 @@ void RShift::Load(Chan ch)
     static const uint16 mask[2] = {0x2000, 0x6000};
 
     Range::E range = SET_RANGE(ch);
-    static const int index[3] = {0, 1, 1};
     int16 rshiftHand = RSHIFT_HAND(ch, range);
     int8 rshiftCal = CAL_RSHIFT(ch);
 
