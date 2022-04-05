@@ -1708,11 +1708,6 @@
               <FilePath>.\src\Settings\SettingsCursors.h</FilePath>
             </File>
             <File>
-              <FileName>SettingsDebug.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Settings\SettingsDebug.h</FilePath>
-            </File>
-            <File>
               <FileName>SettingsTrig.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Settings\SettingsTrig.h</FilePath>
@@ -1746,6 +1741,11 @@
               <FileName>SettingsMeasures.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Settings\SettingsMeasures.h</FilePath>
+            </File>
+            <File>
+              <FileName>SettingsNRST.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Settings\SettingsNRST.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3708,11 +3708,6 @@
               <FilePath>.\src\Settings\SettingsCursors.h</FilePath>
             </File>
             <File>
-              <FileName>SettingsDebug.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Settings\SettingsDebug.h</FilePath>
-            </File>
-            <File>
               <FileName>SettingsTrig.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Settings\SettingsTrig.h</FilePath>
@@ -3746,6 +3741,11 @@
               <FileName>SettingsMeasures.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Settings\SettingsMeasures.h</FilePath>
+            </File>
+            <File>
+              <FileName>SettingsNRST.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Settings\SettingsNRST.h</FilePath>
             </File>
           </Files>
         </Group>

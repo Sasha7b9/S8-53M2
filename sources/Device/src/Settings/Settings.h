@@ -10,7 +10,7 @@
 #include "SettingsTrig.h"
 #include "SettingsService.h"
 #include "SettingsCursors.h"
-#include "SettingsDebug.h"
+#include "SettingsNRST.h"
 #include "SettingsMemory.h"
 #include "SettingsMeasures.h"
 #include "SettingsMath.h"
