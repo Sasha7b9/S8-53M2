@@ -11,9 +11,6 @@ namespace Painter
 
     void EndScene(bool endScene = true);
 
-    // По умолчанию запрашиваем первый фрейм с шрифтами
-    void SendFrame(bool first, bool noFonts = false);
-
     void DrawHLine(int y, int x0, int x1, Color::E = Color::Count);
 
     void DrawVLine(int x, int y0, int y1, Color::E = Color::Count);

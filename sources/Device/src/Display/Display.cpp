@@ -63,6 +63,12 @@ namespace Display
 
     // Вывести значение уровня синхронизации. 
     void WriteValueTrigLevel();
+
+    namespace Sender
+    {
+        void SendPalette();
+        void SendFrame();
+    }
 }
 
 
@@ -564,26 +570,4 @@ void Display::ShiftScreen(int delta)
 void Display::RunAfterDraw(pFuncVV func)
 {
     funcAfterDraw = func;
-}
-
-
-void Display::Sender::SendPalette()
-{
-    if (!needSendPalette)
-    {
-        return;
-    }
-
-    needSendPalette = false;
-}
-
-
-void Display::Sender::SendFrame()
-{
-    if (!needSendFrame)
-    {
-        return;
-    }
-
-    needSendFrame = false;
 }

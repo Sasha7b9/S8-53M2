@@ -44,9 +44,6 @@ namespace Display
 
     namespace Sender
     {
-        void SendPalette();
-        void SendFrame();
-
         extern bool needSendPalette;
         extern bool needSendFrame;
     }

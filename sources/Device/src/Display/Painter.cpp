@@ -46,25 +46,12 @@ struct StateTransmit
 {
     enum E
     {
-        Free,
-        NeedForTransmitFirst,  // Это когда нужно передать первый кадр - передаются шрифты
-        NeedForTransmitSecond, // Это когда нужно передать второй и последующий кадры - шрифты не передаются
-        InProcess
+        Free,               // Нужно передавать
+        InProcess           // Не нужно передавать
     };
 };
 
 static StateTransmit::E stateTransmit = StateTransmit::Free;
-
-
-void Painter::SendFrame(bool first, bool noFonts_)
-{
-    noFonts = noFonts_;
-
-    if (stateTransmit == StateTransmit::Free)
-    {
-        stateTransmit = (first ? StateTransmit::NeedForTransmitFirst : StateTransmit::NeedForTransmitSecond);
-    }
-}
 
 
 void Color::CalculateColor()
@@ -533,23 +520,18 @@ void Painter::DrawVLineArray(int x, int num_lines, uint8 *y0y1, Color::E color, 
 
 void Painter::BeginScene(Color::E color)
 {
-    if (stateTransmit == StateTransmit::NeedForTransmitFirst || stateTransmit == StateTransmit::NeedForTransmitSecond)
+    if (Display::Sender::needSendPalette)
     {
-        bool needForLoadFontsAndPalette = stateTransmit == StateTransmit::NeedForTransmitFirst;
+        Display::Sender::needSendPalette = false;
+
+        // здесь нужно заслать палитру
+    }
+
+    if (Display::Sender::needSendFrame)
+    {
+        Display::Sender::needSendFrame = false;
+
         stateTransmit = StateTransmit::InProcess;
-
-        if (needForLoadFontsAndPalette)
-        {
-            HAL_LTDC::LoadPalette();
-
-            if (!noFonts)                // Если был запрос на загрузку шрифтов
-            {
-                Font::Load(TypeFont::_5);
-                Font::Load(TypeFont::_8);
-                Font::Load(TypeFont::UGO);
-                Font::Load(TypeFont::UGO2);
-            }
-        }
     }
 
     Region(319, 239).Fill(0, 0, color);
@@ -581,10 +563,7 @@ void Painter::EndScene(bool endScene)
         }
     }
 
-    if (stateTransmit == StateTransmit::InProcess)
-    {
-        stateTransmit = StateTransmit::Free;
-    }
+    stateTransmit = StateTransmit::Free;
 }
 
 
