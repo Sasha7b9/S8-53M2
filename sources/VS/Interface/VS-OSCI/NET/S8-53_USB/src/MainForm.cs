@@ -217,7 +217,7 @@ namespace S8_53_USB {
             if (data.Count != 0)
             {
                 byte[] bytes = data.ToArray();
-                if (bytes[data.Count - 1] == (byte)Command.END_SCENE && (bytes[0] == (byte)Command.SET_PALETTE || bytes[0] == (byte)Command.SET_COLOR))
+                if (bytes[data.Count - 1] == (byte)Command.END_SCENE && bytes[0] == (byte)Command.SET_COLOR)
                 {
                     RunData();
 
@@ -225,6 +225,10 @@ namespace S8_53_USB {
                     {
                         port.SendString(commands.Dequeue());
                     }
+                }
+                else if(bytes[0] == (byte)Command.SET_PALETTE)
+                {
+                    RunData();
                 }
                 else
                 {
@@ -307,7 +311,7 @@ namespace S8_53_USB {
             if (data.Count != 0)
             {
                 byte[] bytes = data.ToArray();
-                if (bytes[data.Count - 1] == (byte)Command.END_SCENE && (bytes[0] == (byte)Command.SET_PALETTE || bytes[0] == (byte)Command.SET_COLOR))
+                if (bytes[data.Count - 1] == (byte)Command.END_SCENE && bytes[0] == (byte)Command.SET_COLOR)
                 {
                     RunData();
 
@@ -321,6 +325,10 @@ namespace S8_53_USB {
                         }
                         Thread.Sleep(100);
                     }
+                }
+                else if (bytes[0] == (byte)Command.SET_PALETTE)
+                {
+                    RunData();
                 }
                 else
                 {
