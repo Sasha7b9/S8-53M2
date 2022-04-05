@@ -1,21 +1,22 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
+#include "Settings/SettingsTypes.h"
 
 
-#define NUM_STRINGS             (set.debug.numStrings)
-#define SIZE_FONT_CONSOLE       (set.debug.sizeFont)
-#define NUM_MEAS_FOR_GATES      (set.debug.numMeasuresForGates)
-#define SHOW_STATS              (set.debug.showStats)
+#define NUM_STRINGS             (nrst.numStrings)
+#define SIZE_FONT_CONSOLE       (nrst.sizeFont)
+#define NUM_MEAS_FOR_GATES      (nrst.numMeasuresForGates)
+#define SHOW_STATS              (nrst.showStats)
 
-#define SET_BALANCE_ADC(ch)     (set.debug.balanceADC[ch])
+#define SET_BALANCE_ADC(ch)     (nrst.balanceADC[ch])
 #define SET_BALANCE_ADC_A       (SET_BALANCE_ADC(ChA))
 #define SET_BALANCE_ADC_B       (SET_BALANCE_ADC(ChB))
 
-#define SET_FPGA_COMPACT        set.debug.fpga_compact
-#define FPGA_GATES_MIN          set.debug.fpga_gates_min
-#define FPGA_GATES_MAX          set.debug.fpga_gates_max
+#define SET_FPGA_COMPACT        nrst.fpga_compact
+#define FPGA_GATES_MIN          nrst.fpga_gates_min
+#define FPGA_GATES_MAX          nrst.fpga_gates_max
 
-#define RSHIFT_HAND(ch, range)  set.debug.hand_rshift[ch][range]
+#define RSHIFT_HAND(ch, range)  nrst.hand_rshift[ch][range]
 
 
 // Несбрасываемые настройки настройки.
@@ -41,5 +42,11 @@ struct SettingsNRST
     int16   hand_rshift[Chan::Count][3];    // Вручную устанавливаемое дополнительное смещение. Для закрытого входа и 2мВ, 5мВ, 10мВ
     uint    not_used;                       // Это поле всегда равно нулю. Для правильного подсчёта контрольной суммы
 
+    static void Load();
+    static void Save();
+
     uint CalculateCRC32();
 };
+
+
+extern SettingsNRST nrst;

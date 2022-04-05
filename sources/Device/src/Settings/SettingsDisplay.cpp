@@ -98,9 +98,9 @@ int ENumAveraging::ToNumber()
 
     if (TBase::InModeRandomizer())
     {
-        if (num_ave < set.debug.numAveForRand)
+        if (num_ave < nrst.numAveForRand)
         {
-            num_ave = set.debug.numAveForRand;
+            num_ave = nrst.numAveForRand;
         }
     }
 

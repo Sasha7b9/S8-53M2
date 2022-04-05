@@ -231,25 +231,6 @@ static const Settings defaultSettings =
         {0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f},
         {   0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0},
         0
-    },
-    // debug
-    {
-        0,                  // crc32
-        15,                 // numStrings
-        0,                  // נאחלונ רנטפעא - 5
-        1000,               // numMeasuresForGates
-        false,              // showStats
-        6,                  // numAveForRand
-        false,              // fpga_compact
-        0,                  // fpga_gates_min
-        0,                  // fpga_gates_max
-        0,                  // first_byte
-        {0,    0},          // balanceADC
-        {                   // hand_rshift
-            {0, 0, 0},
-            {0, 0, 0}
-        },
-        0                   // not_used
     }
 };
 
@@ -279,7 +260,12 @@ void Settings::Reset()
     Settings old = set;
 
     set = defaultSettings;
-    set.debug = old.debug;
+
+    set.chan[ChA].cal_stretch = old.chan[ChA].cal_stretch;
+    set.chan[ChB].cal_stretch = old.chan[ChB].cal_stretch;
+
+    std::memcpy(&set.chan[ChA].cal_rshift[0][0], &old.chan[ChA].cal_rshift[0][0], sizeof(set.chan[ChA].cal_rshift[0][0]) * Range::Count * ModeCouple::Count);
+    std::memcpy(&set.chan[ChB].cal_rshift[0][0], &old.chan[ChB].cal_rshift[0][0], sizeof(set.chan[ChB].cal_rshift[0][0]) * Range::Count * ModeCouple::Count);
 
     RunAfterLoad();
 }

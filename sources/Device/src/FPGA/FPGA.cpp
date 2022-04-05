@@ -365,12 +365,12 @@ int FPGA::ShiftRandomizerADC()
             return TShift::ERROR;
         }
 
-        if (rand > max - set.debug.fpga_gates_max)
+        if (rand > max - nrst.fpga_gates_max)
         {
             return TShift::ERROR;
         }
 
-        if (rand < min + set.debug.fpga_gates_min)
+        if (rand < min + nrst.fpga_gates_min)
         {
             return TShift::ERROR;
         }

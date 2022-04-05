@@ -278,7 +278,7 @@ static const Governor mgADC_FirstByte
     PageDebug::ADC::self, nullptr,
     "Первый байт", "First byte",
     "", "",
-    &set.debug.first_byte, -5, 5, nullptr, nullptr
+    &nrst.first_byte, -5, 5, nullptr, nullptr
 );
 
 
@@ -562,7 +562,7 @@ static const Governor mgRandomizer_Average
     "Усредн.", "Average",
     "",
     "",
-    &set.debug.numAveForRand, 1, 32
+    &nrst.numAveForRand, 1, 32
 );
 
 
