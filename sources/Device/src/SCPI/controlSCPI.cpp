@@ -8,24 +8,24 @@ bool SCPI::CONTROL::KEY(pchar buffer)
 {
     static const MapElement keys[] =
     {
-        {" 1",         1},
-        {" 2",         2},
-        {" 3",         3},
-        {" 4",         4},
-        {" 5",         5},
-        {" CHANNEL1",  6},
-        {" CHANNEL2",  7},
-        {" TIME",      8},
-        {" TRIG",      9},
-        {" CURSORS",  10},
-        {" MEASURES", 11},
-        {" DISPLAY",  12},
-        {" HELP",     13},
-        {" START",    14},
-        {" MEMORY",   15},
-        {" SERVICE",  16},
-        {" MENU",     17},
-        {" POWER",    18},
+        {":1",         1},
+        {":2",         2},
+        {":3",         3},
+        {":4",         4},
+        {":5",         5},
+        {":CHANNEL1",  6},
+        {":CHANNEL2",  7},
+        {":TIME",      8},
+        {":TRIG",      9},
+        {":CURSORS",  10},
+        {":MEASURES", 11},
+        {":DISPLAY",  12},
+        {":HELP",     13},
+        {":START",    14},
+        {":MEMORY",   15},
+        {":SERVICE",  16},
+        {":MENU",     17},
+        {":POWER",    18},
         {0}
     };
 
@@ -72,14 +72,14 @@ bool SCPI::CONTROL::GOVERNOR(pchar buffer)
 {
     static const MapElement governors[] =
     {
-        {" RANGE1",  19},
-        {" RANGE2",  20},
-        {" RSHIFT1", 21},
-        {" RSHIFT2", 22},
-        {" TBASE",   23},
-        {" TSHIFT",  24},
-        {" TRIGLEV", 25},
-        {" SETTING", 26},
+        {":RANGE1",  19},
+        {":RANGE2",  20},
+        {":RSHIFT1", 21},
+        {":RSHIFT2", 22},
+        {":TBASE",   23},
+        {":TSHIFT",  24},
+        {":TRIGLEV", 25},
+        {":SETTING", 26},
         {0}
     };
 
