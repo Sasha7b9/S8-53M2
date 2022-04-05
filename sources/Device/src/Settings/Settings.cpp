@@ -249,7 +249,8 @@ static const Settings defaultSettings =
     }
 };
 
-Settings set;
+
+Settings set = defaultSettings;
 
 
 void Settings::Load()
@@ -282,72 +283,12 @@ void Settings::Reset()
 
     set = defaultSettings;
 
-    CopyCalibrationSettings(ChA, set, old);
-    CopyCalibrationSettings(ChB, set, old);
+    set.debug = old.debug;
+
+    set.chan[ChA].cal_stretch = old.chan[ChB].cal_stretch;
+    set.chan[ChB].cal_stretch = old.chan[ChB].cal_stretch;
 
     RunAfterLoad();
-}
-
-
-void Settings::CopyCalibrationSettings(Chan ch, Settings &dest, Settings &src)
-{
-    if (src.chan[ch].cal_stretch < 0.75f || src.chan[ch].cal_stretch > 1.25f)
-    {
-        return;
-    }
-
-    for (int range = 0; range < Range::Count; range++)
-    {
-        for (int couple = 0; couple < ModeCouple::Count; couple++)
-        {
-            if (src.chan[ch].cal_rshift[range][couple] > 40 || src.chan[ch].cal_rshift[range][couple] < -40)
-            {
-                return;
-            }
-        }
-    }
-
-    if (src.debug.numStrings < 0 || src.debug.numStrings > 40)
-    {
-        return;
-    }
-
-    if (src.debug.sizeFont < 0 || src.debug.sizeFont > 1)
-    {
-        return;
-    }
-
-    if (src.debug.balanceADC[0] < 0 || src.debug.balanceADC[0] > 20)
-    {
-        return;
-    }
-
-    if (src.debug.balanceADC[1] < 0 || src.debug.balanceADC[1] > 20)
-    {
-        return;
-    }
-
-    dest.chan[ch].cal_stretch = src.chan[ch].cal_stretch;
-
-    for (int range = 0; range < Range::Count; range++)
-    {
-        for (int couple = 0; couple < ModeCouple::Count; couple++)
-        {
-            dest.chan[ch].cal_rshift[range][couple] = src.chan[ch].cal_rshift[range][couple];
-        }
-    }
-
-    dest.debug.numStrings = src.debug.numStrings;
-    dest.debug.sizeFont = src.debug.sizeFont;
-    dest.debug.numMeasuresForGates = src.debug.numAveForRand;
-    dest.debug.showStats = src.debug.showStats;
-    dest.debug.numAveForRand = src.debug.numAveForRand;
-    dest.debug.balanceADC[0] = src.debug.balanceADC[0];
-    dest.debug.balanceADC[1] = src.debug.balanceADC[1];
-    dest.debug.fpga_compact = src.debug.fpga_compact;
-    dest.debug.fpga_gates_min = src.debug.fpga_gates_min;
-    dest.debug.fpga_gates_max = src.debug.fpga_gates_max;
-    dest.debug.first_byte = src.debug.first_byte;
 }
 
 

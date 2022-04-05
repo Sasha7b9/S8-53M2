@@ -70,8 +70,6 @@ struct Settings
                                         // умолчанию, иначе пытается загрузить настройки из ПЗУ, а в случае неудачи -
                                         // тоже настройки по умолчанию.
     static void Reset();                // Сбросить настройки, сохранив калибровочные настройки
-    // Копировать калибровочные настройки и NRST из src в dest
-    static void CopyCalibrationSettings(Chan, Settings &dest, Settings &src);
     static void SaveBeforePowerDown();  // Сохранить настройки во флеш-память перед выключением
     static void NeedSave();             // Установить признак того, что настройки нуждаются в сохранении
     static void SaveIfNeed();           // Сохранить настройки, если нужно

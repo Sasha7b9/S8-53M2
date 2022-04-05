@@ -97,6 +97,14 @@ namespace FPGA
 }
 
 
+static void CopyCalibrationSettings(Chan ch, Settings &dest, const Settings &src)
+{
+    dest.chan[ch].cal_stretch = src.chan[ch].cal_stretch;
+
+
+}
+
+
 void FPGA::Calibrator::RunCalibrate()
 {
     bool isRunning = FPGA::IsRunning();
@@ -137,11 +145,11 @@ void FPGA::Calibrator::RunCalibrate()
 
     if (carriedOut[ChA] && !errorCalibration[ChA])
     {
-        Settings::CopyCalibrationSettings(ChA, set, set_cal);       // Загружаем найденные калибровки, если успешно
+        CopyCalibrationSettings(ChA, set, set_cal);
     }
     if (carriedOut[ChB] && !errorCalibration[ChB])
     {
-        Settings::CopyCalibrationSettings(ChB, set, set_cal);
+        CopyCalibrationSettings(ChB, set, set_cal);
     }
 
     state = StateCalibration::Finish;
@@ -317,6 +325,8 @@ static bool FPGA::Calibrator::CalibrateStretch(Chan ch)
     CAL_STRETCH(ch) = stretch;
 
     progress.SetValue(1);
+
+    LOG_WRITE("канал %d = %f", ch.ToNumber(), stretch);
 
     return true;
 }
