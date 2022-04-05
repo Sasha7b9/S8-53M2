@@ -235,7 +235,7 @@ static void OnPress_Math_Function_Type()
 
 static void Draw_Math_Function_Type_Sum(int x, int y)
 {
-    Painter::DrawHLine(y + 9, x + 4, x + 14);
+    Painter::DrawHLine(true, y + 9, x + 4, x + 14);
     Painter::DrawVLine(true, x + 9, y + 4, y + 14);
 }
 

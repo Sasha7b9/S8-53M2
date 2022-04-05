@@ -42,7 +42,7 @@ void HiPart::WriteCursors()
 
     if (PageCursors::NecessaryDrawCursors())
     {
-        Painter::DrawVLine(x, 1, GRID_TOP - 2, COLOR_FILL);
+        Painter::DrawVLine(true, x, 1, GRID_TOP - 2, COLOR_FILL);
         x += 3;
         Chan::E source = CURS_SOURCE;
         Color::E colorText = ColorChannel(source);
@@ -65,7 +65,7 @@ void HiPart::WriteCursors()
         }
 
         x = startX + 101;
-        Painter::DrawVLine(x, 1, GRID_TOP - 2, COLOR_FILL);
+        Painter::DrawVLine(true, x, 1, GRID_TOP - 2, COLOR_FILL);
         x += 3;
 
         if (!CURS_CNTRL_T_IS_DISABLE(source))
@@ -109,7 +109,7 @@ void HiPart::DrawHiRightPart()
 
     if (!MODE_WORK_IS_LATEST)
     {
-        Painter::DrawVLine(x, 1, GRID_TOP - 2, COLOR_FILL);
+        Painter::DrawVLine(true, x, 1, GRID_TOP - 2, COLOR_FILL);
 
         x += 2;
 
@@ -131,7 +131,7 @@ void HiPart::DrawHiRightPart()
     if (!MODE_WORK_IS_DIRECT)
     {
         x += 18;
-        Painter::DrawVLine(x, 1, GRID_TOP - 2, COLOR_FILL);
+        Painter::DrawVLine(true, x, 1, GRID_TOP - 2, COLOR_FILL);
         x += 2;
         String<>(LANG_RU ? "режим" : "mode").Draw(LANG_RU ? x : x + 3, -1);
         String<>(strings_[MODE_WORK][LANG]).DrawInCenterRect(x + 1, 9, 25, 8);
@@ -145,7 +145,7 @@ void HiPart::DrawHiRightPart()
     {
 
         x += 27;
-        Painter::DrawVLine(x, 1, GRID_TOP - 2, COLOR_FILL);
+        Painter::DrawVLine(true, x, 1, GRID_TOP - 2, COLOR_FILL);
 
         x += 2;
         y = 1;

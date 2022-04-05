@@ -113,7 +113,7 @@ static void DrawSB_MemInt_ModeShow_Both(int x, int y)
     Painter::DrawVLine(true, x + 14, y + 6, y + 12);
     Painter::DrawVLine(true, x + 17, y + 5, y + 12);
     Painter::DrawHLine(true, y + 9, x + 14, x + 17);
-    Painter::DrawHLine(y + 5, x + 15, x + 17);
+    Painter::DrawHLine(true, y + 5, x + 15, x + 17);
 }
 
 
