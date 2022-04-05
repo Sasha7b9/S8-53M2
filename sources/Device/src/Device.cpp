@@ -19,6 +19,8 @@ void Device::Init()
 
     Sound::Init();
 
+    SettingsNRST::Load();
+
     Settings::Load();
 
     FPGA::Init();
