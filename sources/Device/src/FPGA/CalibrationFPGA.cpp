@@ -90,6 +90,9 @@ namespace FPGA
 
         // Рассчитать коэффициент растяжки исходя из измеренных min и max
         static float CalculateStretch(float min, float max);
+
+        // Копировать найденные настройки калибровки из src в dest
+        static void CopyCalibrationSettings(Chan ch, Settings &dest, const Settings &src);
     }
 
     // Принудительно запустить синхронизацию.
@@ -97,9 +100,12 @@ namespace FPGA
 }
 
 
-static void CopyCalibrationSettings(Chan ch, Settings &dest, const Settings &src)
+void FPGA::Calibrator::CopyCalibrationSettings(Chan ch, Settings &dest, const Settings &src)
 {
     dest.debug.cal_stretch[ch] = src.debug.cal_stretch[ch];
+
+    std::memcpy(&dest.debug.cal_rshift[ch][0][0], &src.debug.cal_rshift[ch][0][0],
+        sizeof(src.debug.cal_rshift[0][0][0]) * Chan::Count * Range::Count * ModeCouple::Count);
 }
 
 
@@ -323,8 +329,6 @@ static bool FPGA::Calibrator::CalibrateStretch(Chan ch)
     CAL_STRETCH(ch) = stretch;
 
     progress.SetValue(1);
-
-    LOG_WRITE("канал %d = %f", ch.ToNumber(), stretch);
 
     return true;
 }
