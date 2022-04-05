@@ -133,8 +133,8 @@ void SCPI::SendFormat(pchar format, ...)
     va_end(args);
     std::strcat(buffer, "\n");
 
-    VCP::SendString(buffer);
-    LAN::SendString(buffer);
+    VCP::SendBuffer(buffer, (int)std::strlen(buffer));
+    LAN::SendBuffer(buffer, (int)std::strlen(buffer));
 }
 
 
