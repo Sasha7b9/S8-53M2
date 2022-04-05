@@ -41,12 +41,6 @@ void Device::Init()
 
 void Device::Update()
 {
-    if (Settings::needReset)
-    {
-        Settings::Reset();
-        Settings::needReset = false;
-    }
-
     Timer::StartMultiMeasurement();      // —брос таймера дл€ замера длительности временных интервалов в течение одной итерации цикла.
 
     FPGA::meterStart.Reset();
@@ -61,9 +55,13 @@ void Device::Update()
 
     Display::Update();                   // –исуем экран.
 
-    Settings::SaveIfNeed();
-
     SCPI::Update();
 
     LAN::Update();
+
+    if (Settings::needReset)
+    {
+        Settings::Reset();
+        Settings::needReset = false;
+    }
 }

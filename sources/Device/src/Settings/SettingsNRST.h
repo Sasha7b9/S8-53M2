@@ -43,6 +43,7 @@ struct SettingsNRST
     uint    not_used;                       // Это поле всегда равно нулю. Для правильного подсчёта контрольной суммы
 
     static void Load();
+
     static void Save();
 
     uint CalculateCRC32();
