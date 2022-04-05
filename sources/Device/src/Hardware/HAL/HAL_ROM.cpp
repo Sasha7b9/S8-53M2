@@ -505,6 +505,8 @@ void HAL_ROM::Settings::Save(bool verifyLoadede)
 
 void HAL_ROM::Settings::SaveNRST(SettingsNRST *_nrst)
 {
+    CLEAR_FLAGS;
+
     uint address = ADDR_SECTOR_NRST;
 
     while (READ_WORD(address) != MAX_UINT)
@@ -559,8 +561,6 @@ bool HAL_ROM::Settings::LoadNRST(SettingsNRST *_nrst)
             return true;
         }
     }
-
-    return false;
 }
 
 
@@ -718,6 +718,8 @@ bool OTP::SaveSerialNumber(char *serialNumber)
 void HAL_ROM::WriteBufferBytes(uint address, const void *buffer, int size)
 {
     uint8 *bufferU8 = (uint8 *)buffer;
+    
+    CLEAR_FLAGS;
 
     HAL_FLASH_Unlock();
 
