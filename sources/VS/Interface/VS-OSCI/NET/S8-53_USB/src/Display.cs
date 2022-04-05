@@ -222,20 +222,19 @@ namespace ControlLibraryS8_53
             }
         }
 
-        public static void SetPalette(byte numColor, UInt16 color)
+        public static void SetPalette(int numColor, UInt32 color)
         {
-            colors[numColor] = ColorFromUINT16(color);
+            colors[numColor] = ColorFromUINT32(color);
+
+            Console.WriteLine("set palette " + color + " " + colors[numColor]);
         }
 
-        private static Color ColorFromUINT16(UInt16 color)
+        private static Color ColorFromUINT32(UInt32 color)
         {
-            float kRed = 255.0f / 31;
-            float kGreen = 255.0f / 63;
-            float kBlue = 255.0f / 31;
-            int r = (color >> 11) & 31;
-            int g = (color >> 5) & 63;
-            int b = color & 31;
-            return Color.FromArgb((int)(r * kRed), (int)(g * kGreen), (int)(b * kBlue));
+            uint r = (color >> 16) & 0xFF;
+            uint g = (color >> 8) & 0xFF;
+            uint b = color & 0xFF;
+            return Color.FromArgb((int)r, (int)g, (int)b);
         }
     }
 }

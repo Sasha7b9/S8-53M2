@@ -386,13 +386,11 @@ namespace S8_53_USB {
 
                     if ((Command)command == Command.SET_COLOR)
                     {
-                        //Console.WriteLine("SET_COLOR ENTER");
                         Display.SetColor((uint)int8());
-                        //Console.WriteLine("SET_COLOR_LEAVE");
                     }
                     else if ((Command)command == Command.SET_PALETTE)
                     {
-                        Display.SetPalette((byte)int8(), (ushort)int16());
+                        Display.SetPalette(int8(), uint32());
                     }
                     else if ((Command)command == Command.FILL_REGION)
                     {
@@ -538,6 +536,11 @@ namespace S8_53_USB {
         private static int int16()
         {
             return int8() + (int8() << 8);
+        }
+
+        private static uint uint32()
+        {
+            return (uint)(int16() + (int16() << 16));
         }
 
         private static long CurrentTime()
