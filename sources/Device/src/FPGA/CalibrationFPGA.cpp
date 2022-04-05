@@ -104,8 +104,8 @@ void FPGA::Calibrator::CopyCalibrationSettings(Chan ch, Settings &dest, const Se
 {
     dest.chan[ch].cal_stretch = src.chan[ch].cal_stretch;
 
-    std::memcpy(&dest.debug.cal_rshift[ch][0][0], &src.debug.cal_rshift[ch][0][0],
-        sizeof(src.debug.cal_rshift[0][0][0]) * Chan::Count * Range::Count * ModeCouple::Count);
+    std::memcpy(&dest.chan[ch].cal_rshift[0][0], &src.chan[ch].cal_rshift[0][0],
+        sizeof(src.chan[ch].cal_rshift[0][0]) * Range::Count * ModeCouple::Count);
 }
 
 
@@ -451,7 +451,7 @@ void FPGA::Calibrator::ShowCalibrationInfo(const int y0, Chan ch)
     {
         for (int range = 0; range < Range::Count; range++)
         {
-            String<>("%d", set.debug.cal_rshift[ch][range][couple]).Draw(x0 + range * dX, y0 + couple * dY);
+            String<>("%d", set.chan[ch].cal_rshift[range][couple]).Draw(x0 + range * dX, y0 + couple * dY);
         }
     }
 

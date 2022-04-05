@@ -39,6 +39,10 @@
 #define CAL_STRETCH_A           (CAL_STRETCH(ChA))
 #define CAL_STRETCH_B           (CAL_STRETCH(ChB))
 
+#define CAL_RSHIFT(ch)          (set.chan[ch].cal_rshift[SET_RANGE(ch)][SET_COUPLE(ch)])
+#define CAL_RSHIFT_A            (CAL_RSHIFT(ChA))
+#define CAL_RSHIFT_B            (CAL_RSHIFT(ChB))
+
 
 // Настройки каналов
 struct SettingsChannel
@@ -52,4 +56,5 @@ struct SettingsChannel
     bool            filtr;          // Фильтр
 
     float           cal_stretch;    // Коэффицент растяжки (на него умножается сигнал)
+    int8            cal_rshift[Range::Count][ModeCouple::Count];   // Добавочное смещение, вычисляемое при калибровке
 };

@@ -74,7 +74,22 @@ static const Settings defaultSettings =
             true,                   // enable
             false,                  // inverse
             false,                  // filtr
-            1.0f                    // cal_stretch
+            1.0f,                   // cal_stretch
+            {                       // cal_rshift
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0}
+            }
         },
         {
             RShift::ZERO,
@@ -84,7 +99,22 @@ static const Settings defaultSettings =
             true,                   // enable
             false,                  // inverse
             false,                  // filtr
-            1.0f                    // cal_stretch
+            1.0f,                   // cal_stretch
+            {                       // cal_rshift
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0}
+            }
         }
     },
     // trig
@@ -215,38 +245,6 @@ static const Settings defaultSettings =
         0,                  // first_byte
         {0,    0},          // balanceADC
         {                   // hand_rshift
-            {
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0}
-            },
-            {
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0}
-            }
-        },
-        {                   // cal_rshift
             {
                 {0, 0, 0},
                 {0, 0, 0},
