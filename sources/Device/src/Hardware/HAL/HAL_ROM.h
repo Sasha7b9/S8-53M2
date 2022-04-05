@@ -29,6 +29,8 @@ namespace HAL_ROM
         void SaveNRST(SettingsNRST *);
 
         bool Load();
+
+        bool LoadNRST(SettingsNRST *);
     }
 }
 

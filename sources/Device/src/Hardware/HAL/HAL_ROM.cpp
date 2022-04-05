@@ -29,16 +29,16 @@ __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | F
 #define ADDR_SECTOR_1               ((uint)0x08004000)  //  1 16k
 #define ADDR_SECTOR_2               ((uint)0x08008000)  //  2 16k
 #define ADDR_SECTOR_3               ((uint)0x0800C000)  //  3 16k
-#define ADDR_SECTOR_4               ((uint)0x08010000)  //  4 64k  // SettingsNRST
+#define ADDR_SECTOR_NRST            ((uint)0x08010000)  //  4 64k  // SettingsNRST
+#define SIZE_SECTOR_NRST            (64 * 1024)
+#define END_SECTOR_NRST             (ADDR_SECTOR_NRST + SIZE_SECTOR_NRST)
 #define ADDR_FIRMWARE_1             ((uint)0x08020000)  //  5 128k \-
 #define ADDR_FIRMWARE_2             ((uint)0x08040000)  //  6 128k |- Основная прошивка
 #define ADDR_FIRMWARE_3             ((uint)0x08060000)  //  7 128k /-
 #define ADDR_SECTOR_8               ((uint)0x08080000)  //  8 128k
 #define ADDR_SECTOR_9               ((uint)0x080A0000)  //  9 128k
 #define ADDR_SECTOR_10              ((uint)0x080C0000)  // 10 128k
-
-// Настройки
-#define ADDR_SECTOR_SETTINGS        ((uint)0x080E0000)  // 11 128k
+#define ADDR_SECTOR_SETTINGS        ((uint)0x080E0000)  // 11 128k // Настройки
 #define SIZE_SECTOR_SETTINGS        (128 * 1024)
 
 #define ADDR_SECTOR_DATA_INFO       ((uint)0x08100000)  // 12 16k  Информация о сохранённых данных
@@ -505,7 +505,68 @@ void HAL_ROM::Settings::Save(bool verifyLoadede)
 
 void HAL_ROM::Settings::SaveNRST(SettingsNRST *nrst)
 {
+    if (sizeof(SettingsNRST) > SettingsNRST::SIZE_FIELD_RECORD)
+    {
+        LOG_ERROR("Не могу сохранить настройки. Размер поля слишком мал.");
+        return;
+    }
 
+    uint address = ADDR_SECTOR_NRST;
+
+    while (READ_WORD(address) != MAX_UINT)
+    {
+        address += SettingsNRST::SIZE_FIELD_RECORD;
+
+        if (address == END_SECTOR_NRST)
+        {
+            EraseSector(ADDR_SECTOR_NRST);
+            address = ADDR_SECTOR_NRST;
+            break;
+        }
+    }
+
+    nrst->crc32 = nrst->CalculateCRC32();
+
+    WriteBufferBytes(address, (uint8 *)nrst, sizeof(SettingsNRST));
+}
+
+
+bool HAL_ROM::Settings::LoadNRST(SettingsNRST *nrst)
+{
+    uint address = ADDR_SECTOR_NRST;
+
+    if (READ_WORD(address) == MAX_UINT)
+    {
+        return false;
+    }
+
+    while (READ_WORD(address) != MAX_UINT && address < END_SECTOR_NRST)
+    {
+        address += SettingsNRST::SIZE_FIELD_RECORD;
+    }
+
+    // Здесь у нас адрес первой пустой записи
+
+    while (true)
+    {
+        address -= SettingsNRST::SIZE_FIELD_RECORD;
+
+        if (address < ADDR_SECTOR_NRST)
+        {
+            return false;
+        }
+
+        SettingsNRST *src = (SettingsNRST *)address;
+
+        if (src->crc32 == src->CalculateCRC32())
+        {
+            *nrst = *src;
+
+            return true;
+        }
+    }
+
+    return false;
 }
 
 
@@ -594,6 +655,7 @@ uint HAL_ROM::GetSector(uint startAddress)
 {
     switch (startAddress)
     {
+    case ADDR_SECTOR_NRST:          return FLASH_SECTOR_4;
     case ADDR_SECTOR_SETTINGS:      return FLASH_SECTOR_11;
     case ADDR_SECTOR_DATA_INFO:     return FLASH_SECTOR_12;
     case ADDR_SECTOR_DATA_FIRST:    return FLASH_SECTOR_21;
@@ -677,4 +739,14 @@ void HAL_ROM::WriteBufferBytes(uint address, const void *buffer, int size)
     }
 
     HAL_FLASH_Lock();
+}
+
+
+uint SettingsNRST::CalculateCRC32()
+{
+    int num_words = (sizeof(*this)) / 4 - 2;      // Откидываем два слова : первое - собственно контрольная сумма, и второе - последнее (неиспользуемое) поле
+
+    uint *address = ((uint *)this) + 1;
+
+    return HAL_CRC32::Calculate(address, num_words);
 }

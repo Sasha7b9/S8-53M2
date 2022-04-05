@@ -60,6 +60,8 @@ void HAL::Init()
     
     HAL_RTC::Init();
 
+    HAL_CRC32::Init();
+
     Timer::Init();
 }
 

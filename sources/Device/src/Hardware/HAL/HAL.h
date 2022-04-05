@@ -167,3 +167,11 @@ namespace HAL_USBH
 {
     extern void *handle;
 }
+
+
+namespace HAL_CRC32
+{
+    void Init();
+
+    uint Calculate(uint *first_word, int num_words);
+}

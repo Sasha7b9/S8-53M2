@@ -234,6 +234,7 @@ static const Settings defaultSettings =
     },
     // debug
     {
+        0,                  // crc32
         15,                 // numStrings
         0,                  // נאחלונ רנטפעא - 5
         1000,               // numMeasuresForGates
@@ -247,7 +248,8 @@ static const Settings defaultSettings =
         {                   // hand_rshift
             {0, 0, 0},
             {0, 0, 0}
-        }
+        },
+        0                   // not_used
     }
 };
 
