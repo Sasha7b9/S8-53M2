@@ -187,6 +187,8 @@ bool Display::NeedForClearScreen()
 
 void Display::Update(bool endScene)
 {
+    TimeMeterMS meter;
+
     if (funcOnHand != 0)
     {
         funcOnHand();
@@ -232,6 +234,8 @@ void Display::Update(bool endScene)
             funcAdditionDraw();
         }
     }
+
+    LOG_WRITE("%d", meter.ElapsedTime());
 
     Console::Draw();
 
