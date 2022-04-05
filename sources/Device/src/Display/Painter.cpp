@@ -178,38 +178,6 @@ Color::E Color::GetCurrent()
 }
 
 
-void Painter::DrawHLine(int y, int x0, int x1, Color::E color)
-{
-    Color::SetCurrent(color);
-
-    if (y < 0 || y >= Display::HEIGHT)
-    {
-        return;
-    }
-
-    BoundingX(x0);
-    BoundingX(x1);
-
-    if (x0 > x1)
-    {
-        Math::Swap(&x0, &x1);
-    }
-
-    uint8 *start = Display::back_buffer + y * Display::WIDTH + x0;
-
-    std::memset(start, Color::GetCurrent(), (uint)(x1 - x0 + 1));
-
-    if (InterCom::TransmitGUIinProcess())
-    {
-        CommandBuffer<8> command(DRAW_HLINE);
-        command.PushByte(y);
-        command.PushHalfWord(x0);
-        command.PushHalfWord(x1);
-        command.Transmit(6);
-    }
-}
-
-
 void Painter::DrawVLine(int x, int y0, int y1, Color::E color)
 {
     Color::SetCurrent(color);
@@ -417,7 +385,39 @@ void Painter::DrawLine(int x0, int y0, int x1, int y1, Color::E color)
 }
 
 
-void Region::Fill(int x, int y, Color::E color)
+void Painter::DrawHLine(int y, int x0, int x1, Color::E color)
+{
+    Color::SetCurrent(color);
+
+    if (y < 0 || y >= Display::HEIGHT)
+    {
+        return;
+    }
+
+    Painter::BoundingX(x0);
+    Painter::BoundingX(x1);
+
+    if (x0 > x1)
+    {
+        Math::Swap(&x0, &x1);
+    }
+
+    uint8 *start = Display::back_buffer + y * Display::WIDTH + x0;
+
+    std::memset(start, Color::GetCurrent(), (uint)(x1 - x0 + 1));
+
+    if (InterCom::TransmitGUIinProcess())
+    {
+        CommandBuffer<8> command(DRAW_HLINE);
+        command.PushByte(y);
+        command.PushHalfWord(x0);
+        command.PushHalfWord(x1);
+        command.Transmit(6);
+    }
+}
+
+
+void Region::Fill(int _x, int _y, Color::E color)
 {
     Color::SetCurrent(color);
 
@@ -426,16 +426,36 @@ void Region::Fill(int x, int y, Color::E color)
         return;
     }
 
-    for (int i = y; i <= y + height; i++)
+    for (int i = _y; i <= _y + height; i++)
     {
-        Painter::DrawHLine(i, x, x + width);
+        if (i < 0 || i >= Display::HEIGHT)
+        {
+            continue;
+        }
+
+        int x0 = _x;
+        int x1 = _x + width;
+
+        Painter::BoundingX(x0);
+        Painter::BoundingX(x1);
+
+        if (x0 > x1)
+        {
+            Math::Swap(&x0, &x1);
+        }
+
+        uint8 *start = Display::back_buffer + i * Display::WIDTH + x0;
+
+        std::memset(start, Color::GetCurrent(), (uint)(x1 - x0 + 1));
+
+//        Painter::DrawHLine(i, _x, _x + width);
     }
 
     if (InterCom::TransmitGUIinProcess())
     {
         CommandBuffer<7> command(FILL_REGION);
-        command.PushHalfWord(x);
-        command.PushByte(y);
+        command.PushHalfWord(_x);
+        command.PushByte(_y);
         command.PushHalfWord(width);
         command.PushByte(height);
         command.Transmit();
