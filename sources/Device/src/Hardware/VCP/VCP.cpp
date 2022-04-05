@@ -3,6 +3,7 @@
 #include "Hardware/VCP/VCP.h"
 #include "Hardware/VCP/USBD.h"
 #include "Utils/Math.h"
+#include "Utils/Containers/Buffer.h"
 #ifdef GUI
     #include "GUI/ConsoleSCPI.h"
 #endif
@@ -19,6 +20,11 @@ namespace VCP
 
     TimeMeterMS meter;
     uint sended_bytes = 0;
+
+    namespace Buffer
+    {
+        Buffer2048 <uint8>buffer;
+    }
 }
 
 
@@ -87,6 +93,28 @@ void VCP::SendBuffer(const void *_buffer, int size)
     }
 
 #endif
+}
+
+
+void VCP::Buffer::Send(const void *buf, int size)
+{
+    if (buffer.Size() + size > buffer.Capacity())
+    {
+        Flush();
+    }
+
+    buffer.Append(buf, size);
+}
+
+
+void VCP::Buffer::Flush()
+{
+    if (buffer.Size())
+    {
+        SendBuffer(buffer.Data(), buffer.Size());
+    }
+
+    buffer.Realloc(0);
 }
 
 

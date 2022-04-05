@@ -95,6 +95,24 @@ public:
         return size;
     }
 
+    int Capacity() const
+    {
+        return size_buffer;
+    }
+
+    void Append(const void *data, int _size)
+    {
+        if (Size() + _size > Capacity())
+        {
+            LOG_ERROR("Íåò ìåñòà â áóôåğå");
+        }
+        else
+        {
+            std::memcpy(buffer, data, (uint)_size);
+            size += _size;
+        }
+    }
+
     T &operator[](uint i)
     {
         if ((int)i >= 0 && (int)i < Size())

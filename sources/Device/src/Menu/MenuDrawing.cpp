@@ -181,7 +181,7 @@ void Page::DrawTitle(int yTop)
             ColorMenuTitleBrighter(), ColorMenuTitleLessBright(), shade, false);
     }
 
-    Painter::DrawVLine(x, yTop, yTop + HeightOpened(), ColorBorderMenu(false));
+    Painter::DrawVLine(true, x, yTop, yTop + HeightOpened(), ColorBorderMenu(false));
     bool condDrawRSet = NumSubPages() > 1 && Item::Current()->GetType() != TypeItem::ChoiceReg &&
         Item::Current()->GetType() != TypeItem::Governor && Item::TypeOpened() == TypeItem::Page;
     int delta = condDrawRSet ? -10 : 0;

@@ -24,4 +24,10 @@ namespace VCP
 
     extern TimeMeterMS meter;
     extern uint sended_bytes;
+
+    namespace Buffer
+    {
+        void Send(const void *buffer, int size);
+        void Flush();
+    }
 };
