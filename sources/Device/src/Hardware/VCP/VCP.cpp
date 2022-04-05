@@ -16,6 +16,8 @@ namespace VCP
 {
     bool cableIsConnected = false;
     bool connectToHost = false;
+
+    TimeMeterMS meter;
 }
 
 
@@ -61,6 +63,8 @@ void VCP::SendBuffer(const void *_buffer, int size)
             portion = size;
         }
 
+        meter.Continue();
+
         while (!USBD::PrevSendingComplete())
         {
             if (!VCP::connectToHost)
@@ -68,6 +72,8 @@ void VCP::SendBuffer(const void *_buffer, int size)
                 return;
             }
         }
+
+        meter.Pause();
 
         std::memcpy(tr_buf, buffer, (uint)portion);
 

@@ -540,6 +540,12 @@ void Painter::BeginScene(Color::E color)
         stateTransmit = StateTransmit::InProcess;
     }
 
+    if (stateTransmit)
+    {
+        VCP::meter.Reset();
+        VCP::meter.Pause();
+    }
+
     Region(319, 239).Fill(0, 0, color);
 }
 
@@ -566,6 +572,8 @@ void Painter::EndScene(bool endScene)
         {
             CommandBuffer<1> command(END_SCENE);
             command.Transmit();
+
+            LOG_WRITE("время ожидания %d ms", VCP::meter.ElapsedTime());
         }
     }
 

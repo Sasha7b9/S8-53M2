@@ -170,6 +170,19 @@ TimeMeterMS::TimeMeterMS()
 void TimeMeterMS::Reset()
 {
     time_reset = TIME_MS;
+    time_pause = 0;
+}
+
+
+void TimeMeterMS::Pause()
+{
+    time_pause = TIME_MS;
+}
+
+
+void TimeMeterMS::Continue()
+{
+    time_reset += (TIME_MS - time_pause);
 }
 
 

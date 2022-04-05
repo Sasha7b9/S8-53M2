@@ -1,5 +1,6 @@
 // (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
+#include "Hardware/Timer.h"
 
 
 #define VCP_DEBUG_POINT()       VCP::DebugPoint(__MODULE__, __FUNCTION__, __LINE__)
@@ -20,4 +21,6 @@ namespace VCP
 
     extern bool cableIsConnected;       // true, если подсоединён кабель
     extern bool connectToHost;          // true, если есть подключение
+
+    extern TimeMeterMS meter;
 };
