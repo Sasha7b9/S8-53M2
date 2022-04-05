@@ -239,11 +239,11 @@ void Painter::DrawVLine(int x, int y0, int y1, Color::E color)
 
     if (InterCom::TransmitGUIinProcess())
     {
-        CommandBuffer<8> command(DRAW_VLINE);
+        CommandBuffer<5> command(DRAW_VLINE);
         command.PushHalfWord(x);
         command.PushByte(y0);
         command.PushByte(y1);
-        command.Transmit(5);
+        command.Transmit();
     }
 }
 

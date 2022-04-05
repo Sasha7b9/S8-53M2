@@ -225,8 +225,6 @@ namespace ControlLibraryS8_53
         public static void SetPalette(int numColor, UInt32 color)
         {
             colors[numColor] = ColorFromUINT32(color);
-
-            Console.WriteLine("set palette " + numColor + " " + colors[numColor]);
         }
 
         private static Color ColorFromUINT32(UInt32 color)
