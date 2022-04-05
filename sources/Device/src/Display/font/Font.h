@@ -44,9 +44,6 @@ struct Font
 
     static void Set(TypeFont::E);
 
-    // Загрузить шрифта в дисплей.
-    static void Load(TypeFont::E);
-
     static int GetSpacing();
 
     // Возвращает размер шрифта, которым нужно выводить сообщения в консоли.

@@ -83,30 +83,6 @@ void Font::Set(TypeFont::E typeFont)
 }
 
 
-void Font::Load(TypeFont::E typeFont)
-{
-    if (InterCom::TransmitGUIinProcess())
-    {
-        uint8 *pFont = (uint8 *)Font::fonts[typeFont];
-
-        CommandBuffer<2 + 4> command(LOAD_FONT);
-        command.PushByte(typeFont);
-        command.PushWord(Font::fonts[typeFont]->height);
-
-        command.Transmit(2 + 4);
-
-        pFont += 4;
-
-        for (int i = 0; i < 256; i++)
-        {
-            InterCom::Send(pFont, sizeof(Symbol));
-            pFont += sizeof(Symbol);
-            Timer::PauseOnTicks(10000);
-        }
-    }
-}
-
-
 bool Text::ByteFontNotEmpty(int eChar, int byte)
 {
     static const uint8 *bytes = 0;
