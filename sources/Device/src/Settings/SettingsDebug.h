@@ -15,7 +15,7 @@
 #define FPGA_GATES_MIN          set.debug.fpga_gates_min
 #define FPGA_GATES_MAX          set.debug.fpga_gates_max
 
-#define RSHIFT_HAND(ch, range, couple) set.debug.hand_rshift[ch][range][couple]
+#define RSHIFT_HAND(ch, range)  set.debug.hand_rshift[ch][range]
 
 
 // Несбрасываемые настройки настройки.
@@ -34,5 +34,5 @@ struct SettingsNRST
     int16   first_byte;
 
     int16   balanceADC[Chan::Count];        // Баланс АЦП (смещение первой точки относительно второй) для обоих каналов
-    int16   hand_rshift[Chan::Count][Range::Count][ModeCouple::Count];  // Вручную устанавливаемое дополнительное смещение
+    int16   hand_rshift[Chan::Count][3];    // Вручную устанавливаемое дополнительное смещение. Для закрытого входа и 2мВ, 5мВ, 10мВ
 };
