@@ -787,14 +787,14 @@ static const Page ppSerialNumber
 
 static const arrayItems itemsDebug =
 {
-    (void *)&mcStats,            // ОТЛАДКА - Статистика
-    (void *)&mpConsole,          // ОТЛАДКА - КОНСОЛЬ
-    (void *)&mpADC,              // ОТЛАДКА - АЦП
-    (void *)&mpRandomizer,       // ОТЛАДКА - РАНД-ТОР
-    (void *)&mcSizeSettings,     // ОТЛАДКА - Размер настроек
-    (void *)&mbSaveFirmware,     // ОТЛАДКА - Сохр. прошивку
-    (void *)&bEraseData,         // ОТЛАДКА - Стереть данные
-    (void *)&ppSerialNumber      // ОТЛАДКА - С/Н
+    (void *)&mcStats,
+    (void *)PageDebug::Console::self,
+    (void *)PageDebug::ADC::self,
+    (void *)PageDebug::Randomizer::self,
+    (void *)&mcSizeSettings,
+    (void *)&mbSaveFirmware,
+    (void *)&bEraseData,
+    (void *)PageDebug::SerialNumber::self
 };
 
 static const Page pDebug
