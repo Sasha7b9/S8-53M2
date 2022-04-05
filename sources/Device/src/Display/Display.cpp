@@ -187,8 +187,6 @@ bool Display::NeedForClearScreen()
 
 void Display::Update(bool endScene)
 {
-    TimeMeterMS meter;
-
     if (funcOnHand != 0)
     {
         funcOnHand();
@@ -263,8 +261,6 @@ void Display::Update(bool endScene)
         funcAfterDraw();
         funcAfterDraw = 0;
     }
-
-    LOG_WRITE("время отрисовки %d", meter.ElapsedTime());
 }
 
 
