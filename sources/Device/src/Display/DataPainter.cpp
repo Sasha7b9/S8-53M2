@@ -99,7 +99,7 @@ void DataPainter::DrawInModeDirect()
 
         if (x != 0)
         {
-            Painter::DrawVLine(Grid::Left() + x, GRID_TOP, Grid::ChannelBottom(), Color::GRID);
+            Painter::DrawVLine(true, Grid::Left() + x, GRID_TOP, Grid::ChannelBottom(), Color::GRID);
         }
     }
     else
@@ -326,7 +326,7 @@ void DataPainter::DrawSignalLined(const uint8 *in, const DataSettings &ds, int s
                     yMax = yMinNext - 1;
                 }
 
-                Painter::DrawVLine((int)x, yMin, yMax);
+                Painter::DrawVLine(false, (int)x, yMin, yMax);
             }
         }
     }
@@ -585,8 +585,8 @@ void DataPainter::MemoryWindow::Draw()
         }
         else
         {
-            Painter::DrawVLine(leftX - 2, top, bottom, COLOR_FILL);
-            Painter::DrawVLine(rightX + 2, top, bottom);
+            Painter::DrawVLine(true, leftX - 2, top, bottom, COLOR_FILL);
+            Painter::DrawVLine(true, rightX + 2, top, bottom);
             Painter::DrawHLine((bottom + top) / 2 - 3, leftX, xVert0 - 2);
             Painter::DrawHLine((bottom + top) / 2 + 3, leftX, xVert0 - 2);
             Painter::DrawHLine((bottom + top) / 2 + 3, xVert1 + 2, rightX);
@@ -728,11 +728,11 @@ void DataPainter::DrawSignal(const int _x, const uint8 data[281], bool modeLines
             }
             else if (y > y_prev)
             {
-                Painter::DrawVLine(x, y - 1, y_prev);
+                Painter::DrawVLine(false, x, y - 1, y_prev);
             }
             else
             {
-                Painter::DrawVLine(x, y_prev, y + 1);
+                Painter::DrawVLine(false, x, y_prev, y + 1);
             }
 
             y_prev = y;
@@ -769,7 +769,7 @@ void DataPainter::Spectrum::Draw()
         return;
     }
 
-    Painter::DrawVLine(Grid::Right(), Grid::ChannelBottom() + 1, Grid::MathBottom() - 1, COLOR_BACK);
+    Painter::DrawVLine(true, Grid::Right(), Grid::ChannelBottom() + 1, Grid::MathBottom() - 1, COLOR_BACK);
 
     if (MODE_WORK_IS_DIRECT)
     {
@@ -839,8 +839,8 @@ void DataPainter::Spectrum::DRAW_SPECTRUM(const uint8 *data, int numPoints, Chan
         Rectangle(s * 2, s * 2).Draw(FFT_POS_CURSOR_0 + Grid::Left() - s, y0 - s, color);
         Rectangle(s * 2, s * 2).Draw(FFT_POS_CURSOR_1 + Grid::Left() - s, y1 - s);
 
-        Painter::DrawVLine(Grid::Left() + FFT_POS_CURSOR_0, Grid::MathBottom(), y0 + s);
-        Painter::DrawVLine(Grid::Left() + FFT_POS_CURSOR_1, Grid::MathBottom(), y1 + s);
+        Painter::DrawVLine(true, Grid::Left() + FFT_POS_CURSOR_0, Grid::MathBottom(), y0 + s);
+        Painter::DrawVLine(true, Grid::Left() + FFT_POS_CURSOR_1, Grid::MathBottom(), y1 + s);
     }
 }
 
@@ -854,7 +854,7 @@ void DataPainter::Spectrum::DrawChannel(const float *spectrum, Color::E color)
 
     for (int i = 0; i < 256; i++)
     {
-        Painter::DrawVLine(gridLeft + i, gridBottom, (int)(gridBottom - gridHeight * spectrum[i]));
+        Painter::DrawVLine(true, gridLeft + i, gridBottom, (int)(gridBottom - gridHeight * spectrum[i]));
     }
 }
 

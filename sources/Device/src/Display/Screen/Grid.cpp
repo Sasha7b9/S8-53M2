@@ -220,7 +220,8 @@ void Grid::DrawGridSpectrum()
             }
         }
     }
-    Painter::DrawVLine(Grid::Left() + 256, Grid::MathTop(), Grid::MathBottom(), COLOR_FILL);
+
+    Painter::DrawVLine(true, Grid::Left() + 256, Grid::MathTop(), Grid::MathBottom(), COLOR_FILL);
 }
 
 
@@ -238,8 +239,8 @@ void Grid::DrawGrid(int left, int top, int width, int height)
 
         if (!Menu::IsMinimize() || !Menu::IsShown())
         {
-            Painter::DrawVLine(1, top + 2, bottom - 2);
-            Painter::DrawVLine(318, top + 2, bottom - 2);
+            Painter::DrawVLine(true, 1, top + 2, bottom - 2);
+            Painter::DrawVLine(true, 318, top + 2, bottom - 2);
         }
     }
 

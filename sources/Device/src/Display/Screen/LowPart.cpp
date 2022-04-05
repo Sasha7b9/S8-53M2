@@ -44,7 +44,7 @@ void LowPart::Draw()
 
     WriteTextVoltage(Chan::B, x + 2, y1);
 
-    Painter::DrawVLine(x + 95, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, COLOR_FILL);
+    Painter::DrawVLine(true, x + 95, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, COLOR_FILL);
 
     x += 98;
 
@@ -111,7 +111,7 @@ void LowPart::Draw()
         String<>("\xa5\x10%c", mode[START_MODE]).Draw(x + 63, y1);
     }
 
-    Painter::DrawVLine(x + 79, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, COLOR_FILL);
+    Painter::DrawVLine(true, x + 79, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, COLOR_FILL);
 
     Painter::DrawHLine(GRID_BOTTOM, GRID_RIGHT + 2, SCREEN_WIDTH - 2);
     Painter::DrawHLine(Grid::ChannelBottom(), GRID_RIGHT + 2, SCREEN_WIDTH - 2);
@@ -131,7 +131,7 @@ void LowPart::Draw()
     }
 
     x += 42;
-    Painter::DrawVLine(x, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2);
+    Painter::DrawVLine(true, x, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2);
 
     Font::Set(TypeFont::_8);
 
@@ -152,7 +152,7 @@ void LowPart::Draw()
 
     DrawTime(x + 3, GRID_BOTTOM + 11);
 
-    Painter::DrawVLine(x + 55, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2);
+    Painter::DrawVLine(true, x + 55, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2);
 
     Font::Set(TypeFont::UGO2);
 

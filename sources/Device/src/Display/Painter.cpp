@@ -78,12 +78,12 @@ void Rectangle::Draw(int x, int y, Color::E color)
     Color::SetCurrent(color);
 
     Painter::DrawHLine(y, x, x + width);
-    Painter::DrawVLine(x, y, y + height);
+    Painter::DrawVLine(false, x, y, y + height);
     Painter::DrawHLine(y + height, x, x + width);
 
     if (x + width < SCREEN_WIDTH)
     {
-        Painter::DrawVLine(x + width, y, y + height);
+        Painter::DrawVLine(false, x + width, y, y + height);
     }
 }
 
@@ -101,13 +101,13 @@ void Painter::DrawDashedVLine(int x, int y0, int y1, int deltaFill, int deltaEmt
         y += (deltaFill + deltaEmtpy - deltaStart);
         if (deltaStart < deltaFill)     // Если начало линии приходится на штрих
         {
-            DrawVLine(x, y0, y - 1);
+            DrawVLine(false, x, y0, y - 1);
         }
     }
 
     while (y < y1)
     {
-        DrawVLine(x, y, y + deltaFill - 1);
+        DrawVLine(false, x, y, y + deltaFill - 1);
         y += (deltaFill + deltaEmtpy);
     }
 }
@@ -178,7 +178,7 @@ Color::E Color::GetCurrent()
 }
 
 
-void Painter::DrawVLine(int x, int y0, int y1, Color::E color)
+void Painter::DrawVLine(bool send, int x, int y0, int y1, Color::E color)
 {
     Color::SetCurrent(color);
 
@@ -205,7 +205,7 @@ void Painter::DrawVLine(int x, int y0, int y1, Color::E color)
 
     } while (--counter > 0);
 
-    if (InterCom::TransmitGUIinProcess())
+    if (send && InterCom::TransmitGUIinProcess())
     {
         CommandBuffer<5> command(DRAW_VLINE);
         command.PushHalfWord(x);
@@ -376,7 +376,7 @@ void Painter::DrawLine(int x0, int y0, int x1, int y1, Color::E color)
 
     if (x0 == x1)
     {
-        DrawVLine(x0, y0, y1);
+        DrawVLine(true, x0, y0, y1);
     }
     else if (y0 == y1)
     {
@@ -476,8 +476,8 @@ void Painter::DrawVolumeButton(int x, int y, int width, int height, int thicknes
         for (int i = 0; i < thickness; i++)
         {
             DrawHLine(y + i, x + i, x + width - i, dark);
-            DrawVLine(x + i, y + 1 + i, y + height - i);
-            DrawVLine(x + width - i, y + 1 + i, y + height - i, bright);
+            DrawVLine(true, x + i, y + 1 + i, y + height - i);
+            DrawVLine(true, x + width - i, y + 1 + i, y + height - i, bright);
             DrawHLine(y + height - i, x + 1 + i, x + width - i);
         }
     }
@@ -486,8 +486,8 @@ void Painter::DrawVolumeButton(int x, int y, int width, int height, int thicknes
         for (int i = 0; i < thickness; i++)
         {
             DrawHLine(y + i, x + i, x + width - i, bright);
-            DrawVLine(x + i, y + 1 + i, y + height - i);
-            DrawVLine(x + width - i, y + 1 + i, y + height - i, dark);
+            DrawVLine(true, x + i, y + 1 + i, y + height - i);
+            DrawVLine(true, x + width - i, y + 1 + i, y + height - i, dark);
             DrawHLine(y + height - i, x + 1 + i, x + width - i);
         }
     }
@@ -531,7 +531,7 @@ void Painter::DrawVLineArray(int x, int num_lines, uint8 *y0y1, Color::E color, 
         int y0 = *y0y1++;
         int y1 = *y0y1++;
 
-        DrawVLine(x++, y0, y1);
+        DrawVLine(false, x++, y0, y1);
     }
 }
 

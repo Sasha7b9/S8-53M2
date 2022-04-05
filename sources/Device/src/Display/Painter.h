@@ -13,7 +13,8 @@ namespace Painter
 
     void DrawHLine(int y, int x0, int x1, Color::E = Color::Count);
 
-    void DrawVLine(int x, int y0, int y1, Color::E = Color::Count);
+    // Если send, то передавать в интерфейсы
+    void DrawVLine(bool send, int x, int y0, int y1, Color::E = Color::Count);
 
     void DrawVPointLine(int x, int y0, int y1, float delta, Color::E);
 

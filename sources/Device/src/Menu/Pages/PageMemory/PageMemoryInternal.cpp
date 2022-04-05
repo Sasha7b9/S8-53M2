@@ -107,11 +107,11 @@ static void DrawSB_MemInt_ModeShow_Both(int x, int y)
     Rectangle(4, 7).Draw(x + 2, y + 5);
 
     Rectangle(4, 4).Draw(x + 8, y + 8);
-    Painter::DrawVLine(x + 8, y + 8, y + 5);
+    Painter::DrawVLine(true, x + 8, y + 8, y + 5);
     Painter::DrawHLine(y + 5, x + 8, x + 12);
 
-    Painter::DrawVLine(x + 14, y + 6, y + 12);
-    Painter::DrawVLine(x + 17, y + 5, y + 12);
+    Painter::DrawVLine(true, x + 14, y + 6, y + 12);
+    Painter::DrawVLine(true, x + 17, y + 5, y + 12);
     Painter::DrawHLine(y + 9, x + 14, x + 17);
     Painter::DrawHLine(y + 5, x + 15, x + 17);
 }
