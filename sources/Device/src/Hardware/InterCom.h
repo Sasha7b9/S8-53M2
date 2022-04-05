@@ -38,16 +38,16 @@ struct CommandBuffer
     void PushWord(int word) { PushWord((uint)word); }
     void Transmit(int num_bytes)
     {
-        if (data[0] == SET_PALETTE || data[0] == SET_COLOR || data[0] == END_SCENE || data[0] == FILL_REGION)
-//            data[0] == DRAW_HLINE || data[0] == DRAW_VLINE)
+        if (data[0] == SET_PALETTE || data[0] == SET_COLOR || data[0] == END_SCENE || data[0] == FILL_REGION ||
+            data[0] == DRAW_VLINE)
         {
             InterCom::Send(Data(), num_bytes);
         }
     }
     void Transmit()
     {
-        if (data[0] == SET_PALETTE || data[0] == SET_COLOR || data[0] == END_SCENE || data[0] == FILL_REGION)
-//            data[0] == DRAW_HLINE || data[0] == DRAW_VLINE)
+        if (data[0] == SET_PALETTE || data[0] == SET_COLOR || data[0] == END_SCENE || data[0] == FILL_REGION ||
+            data[0] == DRAW_VLINE)
         {
             InterCom::Send(Data(), size);
         }

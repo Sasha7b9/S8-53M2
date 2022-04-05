@@ -447,8 +447,6 @@ void Region::Fill(int _x, int _y, Color::E color)
         uint8 *start = Display::back_buffer + i * Display::WIDTH + x0;
 
         std::memset(start, Color::GetCurrent(), (uint)(x1 - x0 + 1));
-
-//        Painter::DrawHLine(i, _x, _x + width);
     }
 
     if (InterCom::TransmitGUIinProcess())
