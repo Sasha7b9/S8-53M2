@@ -433,12 +433,12 @@ void Region::Fill(int x, int y, Color::E color)
 
     if (InterCom::TransmitGUIinProcess())
     {
-        CommandBuffer<8> command(FILL_REGION);
+        CommandBuffer<7> command(FILL_REGION);
         command.PushHalfWord(x);
         command.PushByte(y);
         command.PushHalfWord(width);
         command.PushByte(height);
-        command.Transmit(7);
+        command.Transmit();
     }
 }
 
