@@ -31,6 +31,7 @@ namespace VCP
 void VCP::Init()
 {
     USBD::Init();
+    Buffer::buffer.Realloc(0);
 }
 
 

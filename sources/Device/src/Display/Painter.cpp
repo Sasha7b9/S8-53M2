@@ -140,7 +140,7 @@ void Painter::DrawDashedHLine(int y, int x0, int x1, int deltaFill, int deltaEmp
 
 void InterCom::Send(const uint8 *pointer, int size)
 {
-    VCP::SendBuffer(pointer, size);
+    VCP::Buffer::Send(pointer, size);
     LAN::SendBuffer(pointer, size);
 }
 
@@ -591,6 +591,8 @@ void Painter::EndScene(bool endScene)
         {
             CommandBuffer<1> command(END_SCENE);
             command.Transmit();
+
+            VCP::Buffer::Flush();
 
             LOG_WRITE("время ожидания %d ms, байт передано %d", VCP::meter.ElapsedTime(), VCP::sended_bytes);
         }
