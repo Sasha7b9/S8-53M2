@@ -191,7 +191,7 @@ static const Button bResetShift
 
 static void OnDraw_ShiftADCA(int x, int y)
 {
-    String<>("%d", RSHIFT_HAND(ChA, Range::_2mV, ModeCouple::DC)).Draw(x + 5, y + 21, Color::BLACK);
+    String<>("%d", CAL_RSHIFT(ChA)).Draw(x + 5, y + 21, Color::BLACK);
 }
 
 
@@ -213,7 +213,7 @@ static const Choice mcShiftADCA =
 
 static void OnDraw_ShiftADCB(int x, int y)
 {
-    String<>("%d", RSHIFT_HAND(ChB, Range::_2mV, ModeCouple::DC)).Draw(x + 5, y + 21, Color::BLACK);
+    String<>("%d", CAL_RSHIFT(ChB)).Draw(x + 5, y + 21, Color::BLACK);
 }
 
 
@@ -426,12 +426,9 @@ static void OnPress_ADC_AltRShift_Reset()
 {
     for (int ch = 0; ch < 2; ch++)
     {
-        for (int mode = 0; mode < 2; mode++)
+        for (int range = 0; range < 3; range++)
         {
-            for (int range = 0; range < Range::Count; range++)
-            {
-                RSHIFT_HAND(ch, range, mode) = 0;
-            }
+            RSHIFT_HAND(ch, range) = 0;
         }
     }
 
@@ -461,7 +458,7 @@ static const Governor mbADC_AltRShift_2mV_DC_A
     "Ñì 1ê 2ìÂ ïîñò", "Shift 1ch 2mV DC",
     "",
     "",
-    &RSHIFT_HAND(Chan::A, Range::_2mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_A
+    &RSHIFT_HAND(Chan::A, Range::_2mV), -100, 100, OnChanged_ADC_AltRShift_A
 );
 
 
@@ -477,7 +474,7 @@ static const Governor mbADC_AltRShift_2mV_DC_B
     "Ñì 2ê 2ìÂ ïîñò", "Shift 2ch 2mV DC",
     "",
     "",
-    &RSHIFT_HAND(Chan::B, Range::_2mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_B
+    &RSHIFT_HAND(Chan::B, Range::_2mV), -100, 100, OnChanged_ADC_AltRShift_B
 );
 
 
@@ -487,7 +484,7 @@ static const Governor mbADC_AltRShift_5mV_DC_A
     "Ñì 1ê 5ìÂ ïîñò", "Shift 1ch 5mV DC",
     "",
     "",
-    &RSHIFT_HAND(Chan::A, Range::_5mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_A
+    &RSHIFT_HAND(Chan::A, Range::_5mV), -100, 100, OnChanged_ADC_AltRShift_A
 );
 
 
@@ -497,7 +494,7 @@ static const Governor mbADC_AltRShift_5mV_DC_B
     "Ñì 2ê 5ìÂ ïîñò", "Shift 2ch 5mV DC",
     "",
     "",
-    &RSHIFT_HAND(Chan::B, Range::_5mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_B
+    &RSHIFT_HAND(Chan::B, Range::_5mV), -100, 100, OnChanged_ADC_AltRShift_B
 );
 
 
@@ -507,7 +504,7 @@ static const Governor mbADC_AltRShift_10mV_DC_A
     "Ñì 1ê 10ìÂ ïîñò", "Shift 1ch 10mV DC",
     "",
     "",
-    &RSHIFT_HAND(Chan::A, Range::_10mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_A
+    &RSHIFT_HAND(Chan::A, Range::_10mV), -100, 100, OnChanged_ADC_AltRShift_A
 );
 
 
@@ -517,19 +514,19 @@ static const Governor mbADC_AltRShift_10mV_DC_B
     "Ñì 2ê 10ìÂ ïîñò", "Shift 2ch 10mV DC",
     "",
     "",
-    &RSHIFT_HAND(Chan::B, Range::_10mV, ModeCouple::DC), -100, 100, OnChanged_ADC_AltRShift_B
+    &RSHIFT_HAND(Chan::B, Range::_10mV), -100, 100, OnChanged_ADC_AltRShift_B
 );
 
 
 static const arrayItems itemsADC_AltRShift =
 {
-    (void*)&mbADC_AltRShift_Reset,          // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñáðîñ
-    (void*)&mbADC_AltRShift_2mV_DC_A,       // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 2ìÂ ïîñò
-    (void*)&mbADC_AltRShift_2mV_DC_B,       // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 2ìÂ ïîñò
-    (void*)&mbADC_AltRShift_5mV_DC_A,       // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 5ìÂ ïîñò
-    (void*)&mbADC_AltRShift_5mV_DC_B,       // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 5ìÂ ïîñò
-    (void*)&mbADC_AltRShift_10mV_DC_A,      // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 1ê 10ìÂ ïîñò
-    (void*)&mbADC_AltRShift_10mV_DC_B       // ÎÒËÀÄÊÀ - ÀÖÏ - ÄÎÏ ÑÌÅÙ - Ñì 2ê 10ìÂ ïîñò    
+    (void*)&mbADC_AltRShift_Reset,
+    (void*)&mbADC_AltRShift_2mV_DC_A,
+    (void*)&mbADC_AltRShift_2mV_DC_B,
+    (void*)&mbADC_AltRShift_5mV_DC_A,
+    (void*)&mbADC_AltRShift_5mV_DC_B,
+    (void*)&mbADC_AltRShift_10mV_DC_A,
+    (void*)&mbADC_AltRShift_10mV_DC_B
 };
 
 
