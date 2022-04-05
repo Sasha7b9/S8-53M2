@@ -46,5 +46,8 @@ namespace Display
     {
         void SendPalette();
         void SendFrame();
+
+        extern bool needSendPalette;
+        extern bool needSendFrame;
     }
 };

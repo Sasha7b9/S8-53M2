@@ -569,11 +569,21 @@ void Display::RunAfterDraw(pFuncVV func)
 
 void Display::Sender::SendPalette()
 {
+    if (!needSendPalette)
+    {
+        return;
+    }
 
+    needSendPalette = false;
 }
 
 
 void Display::Sender::SendFrame()
 {
+    if (!needSendFrame)
+    {
+        return;
+    }
 
+    needSendFrame = false;
 }

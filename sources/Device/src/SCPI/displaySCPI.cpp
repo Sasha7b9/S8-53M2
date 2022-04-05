@@ -75,9 +75,22 @@ bool SCPI::DISPLAY::AVERAGE(pchar buffer)
 
 bool SCPI::DISPLAY::AUTOSEND(pchar buffer)
 {
-    if      FIRST_SYMBOLS(" 1") { Display::Sender::SendPalette(); Display::Sender::SendFrame(); return true; } // Этот запрос для запроса первого фрейма с палитрой и шрифтами
-    else if FIRST_SYMBOLS(" 2") { Display::Sender::SendFrame(); return true; }                                 // Этот запрос для запроса последующих фреймов
-    else if FIRST_SYMBOLS(" 3") { Display::Sender::SendFrame(); return true; }                                 // Этот запрос для запроса первого фрейма без палитры и шрифтов
+    if FIRST_SYMBOLS(" 1")          // Этот запрос для запроса первого фрейма с палитрой и шрифтами
+    {
+        Display::Sender::needSendPalette = true;
+        Display::Sender::needSendFrame = true;
+        return true;
+    }
+    else if FIRST_SYMBOLS(" 2")     // Этот запрос для запроса последующих фреймов
+    {
+        Display::Sender::needSendFrame = true;
+        return true;
+    }
+    else if FIRST_SYMBOLS(" 3")     // Этот запрос для запроса первого фрейма без палитры и шрифтов
+    {
+        Display::Sender::needSendFrame = true;
+        return true;
+    }
 
     return false;
 }

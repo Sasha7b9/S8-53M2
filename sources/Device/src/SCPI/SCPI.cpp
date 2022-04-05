@@ -35,10 +35,12 @@ void SCPI::Update()
     {
         String<> command = input.ExtractCommand();
 
+        LOG_WRITE("command : %s", command.c_str());
+
         if (!SCPI::ParseNewCommand(command.c_str()))
         {
             SCPI::SendFormat("Error !!! Invalid sequency \"%s\"", command.c_str());
-            LOG_WRITE(command.c_str());
+            LOG_ERROR(command.c_str());
         }
     }
 }

@@ -66,9 +66,9 @@ namespace S8_53_USB {
         public MainForm() {
             InitializeComponent();
 
-            mapButtons.Add(btnChannel0,    "CHAN1");
+            mapButtons.Add(btnChannel0,    "CHANNEL1");
             mapButtons.Add(btnService,     "SERVICE");
-            mapButtons.Add(btnChannel1,    "CHAN2");
+            mapButtons.Add(btnChannel1,    "CHANNEL2");
             mapButtons.Add(btnDisplay,     "DISPLAY");
             mapButtons.Add(btnTime,        "TIME");
             mapButtons.Add(btnMemory,      "MEMORY");
@@ -100,7 +100,7 @@ namespace S8_53_USB {
             {
                 try
                 {
-                    commands.Enqueue("KEY:" + StringToSendForButton(sender) + " DOWN");
+                    commands.Enqueue(":KEY:" + StringToSendForButton(sender) + " DOWN");
                 }
                 catch (Exception e)
                 {
@@ -114,7 +114,7 @@ namespace S8_53_USB {
             {
                 try
                 {
-                    commands.Enqueue("KEY:" + StringToSendForButton(sender) + " UP");
+                    commands.Enqueue(":KEY:" + StringToSendForButton(sender) + " UP");
                 }
                 catch (Exception e)
                 {
