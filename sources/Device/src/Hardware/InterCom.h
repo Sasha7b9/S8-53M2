@@ -39,7 +39,7 @@ struct CommandBuffer
     void Transmit(int num_bytes)
     {
         if (data[0] == SET_PALETTE || data[0] == SET_COLOR || data[0] == END_SCENE || data[0] == FILL_REGION ||
-            data[0] == DRAW_VLINE)
+            data[0] == DRAW_VLINE || data[0] == DRAW_HLINE)
         {
             InterCom::Send(Data(), num_bytes);
         }
@@ -47,7 +47,7 @@ struct CommandBuffer
     void Transmit()
     {
         if (data[0] == SET_PALETTE || data[0] == SET_COLOR || data[0] == END_SCENE || data[0] == FILL_REGION ||
-            data[0] == DRAW_VLINE)
+            data[0] == DRAW_VLINE || data[0] == DRAW_HLINE)
         {
             InterCom::Send(Data(), size);
         }
