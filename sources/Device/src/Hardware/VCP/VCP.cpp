@@ -18,6 +18,7 @@ namespace VCP
     bool connectToHost = false;
 
     TimeMeterMS meter;
+    uint sended_bytes = 0;
 }
 
 
@@ -35,6 +36,8 @@ void VCP::SendString(pchar string)
 
 void VCP::SendBuffer(const void *_buffer, int size)
 {
+    sended_bytes += size;
+
     const uint8 *buffer = (const uint8 *)_buffer;
 
 #ifdef GUI

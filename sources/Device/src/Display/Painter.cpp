@@ -544,6 +544,7 @@ void Painter::BeginScene(Color::E color)
     {
         VCP::meter.Reset();
         VCP::meter.Pause();
+        VCP::sended_bytes = 0;
     }
 
     Region(319, 239).Fill(0, 0, color);
@@ -573,7 +574,7 @@ void Painter::EndScene(bool endScene)
             CommandBuffer<1> command(END_SCENE);
             command.Transmit();
 
-            LOG_WRITE("время ожидания %d ms", VCP::meter.ElapsedTime());
+            LOG_WRITE("время ожидания %d ms, байт передано %d", VCP::meter.ElapsedTime(), VCP::sended_bytes);
         }
     }
 

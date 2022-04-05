@@ -23,4 +23,5 @@ namespace VCP
     extern bool connectToHost;          // true, если есть подключение
 
     extern TimeMeterMS meter;
+    extern uint sended_bytes;
 };
