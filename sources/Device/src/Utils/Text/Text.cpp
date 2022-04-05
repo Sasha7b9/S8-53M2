@@ -767,12 +767,12 @@ bool SU::WordEqualZeroString(Word *word, char *string)
 
 bool SU::ChooseSymbols(pchar *string)
 {
-    if (SYMBOL(string) == 0x0d && SYMBOL(string + 1) == 0x0a)
+    if (SYMBOL(string) == 0)
     {
         return false;
     }
 
-    while (SYMBOL(string) != ' ' && SYMBOL(string) != 0x0d && SYMBOL(string + 1) != 0x0a)
+    while (SYMBOL(string) != ' ' && SYMBOL(string) != 0)
     {
         (*string)++;
     }
@@ -783,7 +783,7 @@ bool SU::ChooseSymbols(pchar *string)
 
 bool SU::ChooseSpaces(pchar *string)
 {
-    if (SYMBOL(string) == 0x0d && SYMBOL(string + 1) == 0x0a)
+    if (SYMBOL(string) == 0)
     {
         return false;
     }
