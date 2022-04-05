@@ -17,10 +17,6 @@
 
 #define RSHIFT_HAND(ch, range, couple) set.debug.hand_rshift[ch][range][couple]
 
-#define CAL_STRETCH(ch)         (set.debug.cal_stretch[ch])
-#define CAL_STRETCH_A           (CAL_STRETCH(ChA))
-#define CAL_STRETCH_B           (CAL_STRETCH(ChB))
-
 #define CAL_RSHIFT(ch)          (set.debug.cal_rshift[ch][SET_RANGE(ch)][SET_COUPLE(ch)])
 #define CAL_RSHIFT_A            (CAL_RSHIFT(ChA))
 #define CAL_RSHIFT_B            (CAL_RSHIFT(ChB))
@@ -42,7 +38,6 @@ struct SettingsNRST
     int16   first_byte;
 
     int16   balanceADC[Chan::Count];        // Баланс АЦП (смещение первой точки относительно второй) для обоих каналов
-    float   cal_stretch[Chan::Count];                                   // Коэффицент растяжки (на него умножается сигнал)
     int16   hand_rshift[Chan::Count][Range::Count][ModeCouple::Count];  // Вручную устанавливаемое дополнительное смещение
     int8    cal_rshift[Chan::Count][Range::Count][ModeCouple::Count];   // Добавочное смещение, вычисляемое при калибровке
 };

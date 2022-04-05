@@ -102,7 +102,7 @@ namespace FPGA
 
 void FPGA::Calibrator::CopyCalibrationSettings(Chan ch, Settings &dest, const Settings &src)
 {
-    dest.debug.cal_stretch[ch] = src.debug.cal_stretch[ch];
+    dest.chan[ch].cal_stretch = src.chan[ch].cal_stretch;
 
     std::memcpy(&dest.debug.cal_rshift[ch][0][0], &src.debug.cal_rshift[ch][0][0],
         sizeof(src.debug.cal_rshift[0][0][0]) * Chan::Count * Range::Count * ModeCouple::Count);

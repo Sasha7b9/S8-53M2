@@ -73,7 +73,8 @@ static const Settings defaultSettings =
             Range::_500mV,          // range
             true,                   // enable
             false,                  // inverse
-            false                   // filtr
+            false,                  // filtr
+            1.0f                    // cal_stretch
         },
         {
             RShift::ZERO,
@@ -82,7 +83,8 @@ static const Settings defaultSettings =
             Range::_500mV,          // range
             true,                   // enable
             false,                  // inverse
-            false                   // filtr
+            false,                  // filtr
+            1.0f                    // cal_stretch
         }
     },
     // trig
@@ -212,7 +214,6 @@ static const Settings defaultSettings =
         0,                  // fpga_gates_max
         0,                  // first_byte
         {0,    0},          // balanceADC
-        {1.0f, 1.0f},       // cal_stretch
         {                   // hand_rshift
             {
                 {0, 0, 0},
