@@ -66,8 +66,8 @@ namespace Display
 
     namespace Sender
     {
-        void SendPalette();
-        void SendFrame();
+        bool needSendPalette = false;
+        bool needSendFrame = false;
     }
 }
 

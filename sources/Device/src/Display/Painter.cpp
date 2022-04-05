@@ -524,15 +524,21 @@ void Painter::BeginScene(Color::E color)
     {
         Display::Sender::needSendPalette = false;
 
-        // здесь нужно заслать палитру
+        for (int i = 0; i < 16; i++)
+        {
+            CommandBuffer<6> command(SET_PALETTE);
+            command.PushByte(i);
+            command.PushWord(COLOR(i));
+            command.Transmit();
+        }
     }
 
-    if (Display::Sender::needSendFrame)
-    {
-        Display::Sender::needSendFrame = false;
-
-        stateTransmit = StateTransmit::InProcess;
-    }
+//    if (Display::Sender::needSendFrame)
+//    {
+//        Display::Sender::needSendFrame = false;
+//
+//        stateTransmit = StateTransmit::InProcess;
+//    }
 
     Region(319, 239).Fill(0, 0, color);
 }

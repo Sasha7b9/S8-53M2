@@ -29,12 +29,14 @@ struct CommandBuffer
         PushByte((uint8)(half_word >> 8));
     }
     void PushHalfWord(int half_word)    { PushHalfWord((uint16)half_word); }
-    void PushWord(int word)
+    void PushWord(uint word)
     {
         PushHalfWord((uint16)word);
         PushHalfWord((uint16)(word >> 16));
     }
+    void PushWord(int word) { PushWord((uint)word); }
     void Transmit(int num_bytes)        { InterCom::Send(Data(), num_bytes); }
+    void Transmit()                     { InterCom::Send(Data(), size); }
     uint8 *GetByte(int num_byte)        { return &data[num_byte]; }
 private:
     uint8 *Data() { return data; };
