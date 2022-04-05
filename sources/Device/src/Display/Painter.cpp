@@ -77,9 +77,9 @@ void Rectangle::Draw(int x, int y, Color::E color)
 {
     Color::SetCurrent(color);
 
-    Painter::DrawHLine(y, x, x + width);
+    Painter::DrawHLine(false, y, x, x + width);
     Painter::DrawVLine(false, x, y, y + height);
-    Painter::DrawHLine(y + height, x, x + width);
+    Painter::DrawHLine(false, y + height, x, x + width);
 
     if (x + width < SCREEN_WIDTH)
     {
@@ -126,13 +126,13 @@ void Painter::DrawDashedHLine(int y, int x0, int x1, int deltaFill, int deltaEmp
         x += (deltaFill + deltaEmpty - deltaStart);
         if (deltaStart < deltaFill)     // Если начало линии приходится на штрих
         {
-            DrawHLine(y, x0, x - 1);
+            DrawHLine(false, y, x0, x - 1);
         }
     }
 
     while (x < x1)
     {
-        DrawHLine(y, x, x + deltaFill - 1);
+        DrawHLine(false, y, x, x + deltaFill - 1);
         x += (deltaFill + deltaEmpty);
     }
 }
@@ -380,12 +380,12 @@ void Painter::DrawLine(int x0, int y0, int x1, int y1, Color::E color)
     }
     else if (y0 == y1)
     {
-        DrawHLine(y0, x0, x1);
+        DrawHLine(true, y0, x0, x1);
     }
 }
 
 
-void Painter::DrawHLine(int y, int x0, int x1, Color::E color)
+void Painter::DrawHLine(bool send, int y, int x0, int x1, Color::E color)
 {
     Color::SetCurrent(color);
 
@@ -406,7 +406,7 @@ void Painter::DrawHLine(int y, int x0, int x1, Color::E color)
 
     std::memset(start, Color::GetCurrent(), (uint)(x1 - x0 + 1));
 
-    if (InterCom::TransmitGUIinProcess())
+    if (send && InterCom::TransmitGUIinProcess())
     {
         CommandBuffer<8> command(DRAW_HLINE);
         command.PushByte(y);
@@ -475,20 +475,20 @@ void Painter::DrawVolumeButton(int x, int y, int width, int height, int thicknes
     {
         for (int i = 0; i < thickness; i++)
         {
-            DrawHLine(y + i, x + i, x + width - i, dark);
+            DrawHLine(true, y + i, x + i, x + width - i, dark);
             DrawVLine(true, x + i, y + 1 + i, y + height - i);
             DrawVLine(true, x + width - i, y + 1 + i, y + height - i, bright);
-            DrawHLine(y + height - i, x + 1 + i, x + width - i);
+            DrawHLine(true, y + height - i, x + 1 + i, x + width - i);
         }
     }
     else
     {
         for (int i = 0; i < thickness; i++)
         {
-            DrawHLine(y + i, x + i, x + width - i, bright);
+            DrawHLine(true, y + i, x + i, x + width - i, bright);
             DrawVLine(true, x + i, y + 1 + i, y + height - i);
             DrawVLine(true, x + width - i, y + 1 + i, y + height - i, dark);
-            DrawHLine(y + height - i, x + 1 + i, x + width - i);
+            DrawHLine(true, y + height - i, x + 1 + i, x + width - i);
         }
     }
 }

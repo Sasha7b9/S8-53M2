@@ -168,8 +168,8 @@ static void Draw_Math_Function_ModeDraw_Disable(int x, int y)
 static void Draw_Math_Function_ModeDraw_Separate(int x, int y)
 {
     Rectangle(13, 9).Draw(x + 3, y + 5);
-    Painter::DrawHLine(y + 9, x + 3, x + 16);
-    Painter::DrawHLine(y + 10, x + 3, x + 16);
+    Painter::DrawHLine(true, y + 9, x + 3, x + 16);
+    Painter::DrawHLine(true, y + 10, x + 3, x + 16);
 }
 
 

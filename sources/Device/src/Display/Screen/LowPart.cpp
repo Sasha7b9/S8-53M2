@@ -37,8 +37,8 @@ void LowPart::Draw()
     int y1 = SCREEN_HEIGHT - 10;
     int x = -1;
 
-    Painter::DrawHLine(Grid::ChannelBottom(), 1, Grid::Left() - Measures::GetDeltaGridLeft() - 2, COLOR_FILL);
-    Painter::DrawHLine(Grid::FullBottom(), 1, Grid::Left() - Measures::GetDeltaGridLeft() - 2);
+    Painter::DrawHLine(true, Grid::ChannelBottom(), 1, Grid::Left() - Measures::GetDeltaGridLeft() - 2, COLOR_FILL);
+    Painter::DrawHLine(true, Grid::FullBottom(), 1, Grid::Left() - Measures::GetDeltaGridLeft() - 2);
 
     WriteTextVoltage(Chan::A, x + 2, y0);
 
@@ -113,8 +113,8 @@ void LowPart::Draw()
 
     Painter::DrawVLine(true, x + 79, GRID_BOTTOM + 2, SCREEN_HEIGHT - 2, COLOR_FILL);
 
-    Painter::DrawHLine(GRID_BOTTOM, GRID_RIGHT + 2, SCREEN_WIDTH - 2);
-    Painter::DrawHLine(Grid::ChannelBottom(), GRID_RIGHT + 2, SCREEN_WIDTH - 2);
+    Painter::DrawHLine(true, GRID_BOTTOM, GRID_RIGHT + 2, SCREEN_WIDTH - 2);
+    Painter::DrawHLine(true, Grid::ChannelBottom(), GRID_RIGHT + 2, SCREEN_WIDTH - 2);
 
     x += 82;
     y0 = y0 - 3;

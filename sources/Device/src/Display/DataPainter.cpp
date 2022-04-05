@@ -587,10 +587,10 @@ void DataPainter::MemoryWindow::Draw()
         {
             Painter::DrawVLine(true, leftX - 2, top, bottom, COLOR_FILL);
             Painter::DrawVLine(true, rightX + 2, top, bottom);
-            Painter::DrawHLine((bottom + top) / 2 - 3, leftX, xVert0 - 2);
-            Painter::DrawHLine((bottom + top) / 2 + 3, leftX, xVert0 - 2);
-            Painter::DrawHLine((bottom + top) / 2 + 3, xVert1 + 2, rightX);
-            Painter::DrawHLine((bottom + top) / 2 - 3, xVert1 + 2, rightX);
+            Painter::DrawHLine(true, (bottom + top) / 2 - 3, leftX, xVert0 - 2);
+            Painter::DrawHLine(true, (bottom + top) / 2 + 3, leftX, xVert0 - 2);
+            Painter::DrawHLine(true, (bottom + top) / 2 + 3, xVert1 + 2, rightX);
+            Painter::DrawHLine(true, (bottom + top) / 2 - 3, xVert1 + 2, rightX);
         }
     }
 
@@ -802,8 +802,8 @@ void DataPainter::Spectrum::Draw()
         }
     }
 
-    Painter::DrawHLine(Grid::ChannelBottom(), Grid::Left(), Grid::Right(), COLOR_FILL);
-    Painter::DrawHLine(Grid::MathBottom(), Grid::Left(), Grid::Right());
+    Painter::DrawHLine(true, Grid::ChannelBottom(), Grid::Left(), Grid::Right(), COLOR_FILL);
+    Painter::DrawHLine(true, Grid::MathBottom(), Grid::Left(), Grid::Right());
 }
 
 

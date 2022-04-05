@@ -92,7 +92,7 @@ void FM::DrawHat(int x, int y, char *string, int num1, int num2)
 {
     Region(WIDTH_COL + 9, RECS_ON_PAGE * 9 + 11).Fill(x - 1, y, COLOR_BACK);
     String<>(string, num1, num2).Draw(x + 60, y, COLOR_FILL);
-    Painter::DrawHLine(y + 10, x + 2, x + 140);
+    Painter::DrawHLine(true, y + 10, x + 2, x + 140);
 }
 
 
@@ -206,8 +206,8 @@ void FM::Draw()
         Rectangle(width, 239).Draw(0, 0, COLOR_FILL);
         Directory::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
         DrawNameCurrentDir(left + 1, top + 2);
-        Painter::DrawVLine(left2col, top + 16, 239, COLOR_FILL);
-        Painter::DrawHLine(top + 15, 0, width);
+        Painter::DrawVLine(true, left2col, top + 16, 239, COLOR_FILL);
+        Painter::DrawHLine(true, top + 15, 0, width);
     }
 
     if (needRedraw != 3)

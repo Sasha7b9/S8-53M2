@@ -11,7 +11,7 @@ namespace Painter
 
     void EndScene(bool endScene = true);
 
-    void DrawHLine(int y, int x0, int x1, Color::E = Color::Count);
+    void DrawHLine(bool send, int y, int x0, int x1, Color::E = Color::Count);
 
     // Если send, то передавать в интерфейсы
     void DrawVLine(bool send, int x, int y0, int y1, Color::E = Color::Count);

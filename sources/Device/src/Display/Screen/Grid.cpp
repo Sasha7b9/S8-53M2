@@ -168,7 +168,7 @@ void Grid::Draw()
             DrawGrid(Grid::Left(), GRID_TOP + Grid::FullHeight() / 2, Grid::Width(), Grid::FullHeight() / 2);
         }
 
-        Painter::DrawHLine(GRID_TOP + Grid::FullHeight() / 2, Grid::Left(), Grid::Left() + Grid::Width(), COLOR_FILL);
+        Painter::DrawHLine(true, GRID_TOP + Grid::FullHeight() / 2, Grid::Left(), Grid::Left() + Grid::Width(), COLOR_FILL);
     }
     else
     {
@@ -189,7 +189,7 @@ void Grid::DrawGridSpectrum()
         for (int i = 1; i < numParts; i++)
         {
             int y = (int)(Grid::MathTop() + i * scale);
-            Painter::DrawHLine(y, Grid::Left(), Grid::Left() + 256, ColorGrid());
+            Painter::DrawHLine(true, y, Grid::Left(), Grid::Left() + 256, ColorGrid());
 
             if (!Menu::IsMinimize())
             {
@@ -212,7 +212,7 @@ void Grid::DrawGridSpectrum()
         for (int i = 1; i < 5; i++)
         {
             int y = (int)(Grid::MathTop() + i * scale);
-            Painter::DrawHLine(y, Grid::Left(), Grid::Left() + 256, ColorGrid());
+            Painter::DrawHLine(true, y, Grid::Left(), Grid::Left() + 256, ColorGrid());
 
             if (!Menu::IsMinimize())
             {
@@ -234,8 +234,8 @@ void Grid::DrawGrid(int left, int top, int width, int height)
 
     if (top == GRID_TOP)
     {
-        Painter::DrawHLine(top, 1, left - 2);
-        Painter::DrawHLine(top, right + 2, SCREEN_WIDTH - 2);
+        Painter::DrawHLine(true, top, 1, left - 2);
+        Painter::DrawHLine(true, top, right + 2, SCREEN_WIDTH - 2);
 
         if (!Menu::IsMinimize() || !Menu::IsShown())
         {
