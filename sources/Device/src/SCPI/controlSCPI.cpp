@@ -41,24 +41,23 @@ bool SCPI::CONTROL::KEY(pchar buffer)
             {
                 uint8 data[3] = { 255, keys[numKey].value, 0 };
 
-                if (action.WordEqualZeroString("DOWN"))
+                if (action.WordEqualZeroString("PRESS"))
                 {
                     data[2] = Action::Down;
-                }
-                else if (action.WordEqualZeroString("UP"))
-                {
+                    Panel::Callback::OnReceiveSPI5(data, 3);
+
                     data[2] = Action::Up;
+                    Panel::Callback::OnReceiveSPI5(data, 3);
+                    return true;
                 }
                 else if (action.WordEqualZeroString("LONG"))
                 {
                     data[2] = Action::Long;
-                }
-
-                if (data[2])
-                {
                     Panel::Callback::OnReceiveSPI5(data, 3);
                     return true;
                 }
+
+                return false;
             }
 
             numKey++;
@@ -98,16 +97,20 @@ bool SCPI::CONTROL::GOVERNOR(pchar buffer)
 
                 if (action.WordEqualZeroString("LEFT"))
                 {
-
+                    data[2] = Action::Left;
                 }
                 else if (action.WordEqualZeroString("RIGHT"))
                 {
-
+                    data[2] = Action::Right;
                 }
 
-                if(data[2])
+                if (data[2])
+                {
+                    Panel::Callback::OnReceiveSPI5(data, 3);
+                    return true;
+                }
 
-                return true;
+                return false;
             }
 
             numGov++;
