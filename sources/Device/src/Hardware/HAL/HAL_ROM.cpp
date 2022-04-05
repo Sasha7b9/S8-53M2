@@ -503,14 +503,8 @@ void HAL_ROM::Settings::Save(bool verifyLoadede)
 }
 
 
-void HAL_ROM::Settings::SaveNRST(SettingsNRST *nrst)
+void HAL_ROM::Settings::SaveNRST(SettingsNRST *_nrst)
 {
-    if (sizeof(SettingsNRST) > SettingsNRST::SIZE_FIELD_RECORD)
-    {
-        LOG_ERROR("Не могу сохранить настройки. Размер поля слишком мал.");
-        return;
-    }
-
     uint address = ADDR_SECTOR_NRST;
 
     while (READ_WORD(address) != MAX_UINT)
@@ -525,13 +519,13 @@ void HAL_ROM::Settings::SaveNRST(SettingsNRST *nrst)
         }
     }
 
-    nrst->crc32 = nrst->CalculateCRC32();
+    _nrst->crc32 = _nrst->CalculateCRC32();
 
-    WriteBufferBytes(address, (uint8 *)nrst, sizeof(SettingsNRST));
+    WriteBufferBytes(address, (uint8 *)_nrst, sizeof(SettingsNRST));
 }
 
 
-bool HAL_ROM::Settings::LoadNRST(SettingsNRST *nrst)
+bool HAL_ROM::Settings::LoadNRST(SettingsNRST *_nrst)
 {
     uint address = ADDR_SECTOR_NRST;
 
@@ -560,7 +554,7 @@ bool HAL_ROM::Settings::LoadNRST(SettingsNRST *nrst)
 
         if (src->crc32 == src->CalculateCRC32())
         {
-            *nrst = *src;
+            *_nrst = *src;
 
             return true;
         }

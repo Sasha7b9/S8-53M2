@@ -167,6 +167,22 @@ static const Button bEraseData
 );
 
 
+static void OnPress_SaveNRST()
+{
+    HAL_ROM::Settings::SaveNRST(&nrst);
+}
+
+
+static const Button bSaveNRST
+(
+    PageDebug::self, EmptyFuncBV,
+    "Сохранить", "Save",
+    "Сохранить калибровочные настройки",
+    "Save calibration settings",
+    OnPress_SaveNRST
+);
+
+
 void PageDebug::ADC::ResetCalRShift(Chan ch)
 {
     std::memset(&set.chan[ch].cal_rshift[0][0], 0, sizeof(set.chan[ch].cal_rshift[0][0]) * Range::Count * ModeCouple::Count);
@@ -784,14 +800,16 @@ static const Page ppSerialNumber
 
 static const arrayItems itemsDebug =
 {
-    (void *)&mcStats,
+    (void *)&bSaveNRST,
     (void *)PageDebug::Console::self,
     (void *)PageDebug::ADC::self,
     (void *)PageDebug::Randomizer::self,
+    (void *)&mcStats,
     (void *)&mcSizeSettings,
     (void *)&mbSaveFirmware,
     (void *)&bEraseData,
-    (void *)PageDebug::SerialNumber::self
+    (void *)PageDebug::SerialNumber::self,
+    nullptr
 };
 
 static const Page pDebug
