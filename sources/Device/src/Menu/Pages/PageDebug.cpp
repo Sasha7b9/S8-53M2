@@ -286,7 +286,7 @@ static const arrayItems itemsADC =
 {
     (void *)PageDebug::ADC::Balance::self,
     (void *)PageDebug::ADC::Stretch::self,
-    (void *)&mpADC_Shift,
+    (void *)PageDebug::ADC::Shift::self,
     (void *)PageDebug::ADC::AltShift::self,
     (void *)&mcADC_Compact,
     (void *)&mgADC_FirstByte
