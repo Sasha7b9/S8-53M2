@@ -1232,6 +1232,11 @@
               <FilePath>.\src\Hardware\HAL\HAL_ADC1.cpp</FilePath>
             </File>
             <File>
+              <FileName>HAL_CRC32.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_CRC32.cpp</FilePath>
+            </File>
+            <File>
               <FileName>HAL_DAC1.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_DAC1.cpp</FilePath>
@@ -3230,6 +3235,11 @@
               <FileName>HAL_ADC1.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_ADC1.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_CRC32.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_CRC32.cpp</FilePath>
             </File>
             <File>
               <FileName>HAL_DAC1.cpp</FileName>
