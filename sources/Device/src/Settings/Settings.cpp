@@ -303,13 +303,6 @@ void Settings::Load()
 
 void Settings::Reset()
 {
-    /*
-    * Сохраняемые настройки:
-    *   set.ch.cal_stretch
-    *   set.ch.cal_rshift
-    *   set.debug
-    */
-
     Settings old = set;
 
     set = defaultSettings;
