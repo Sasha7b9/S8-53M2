@@ -39,8 +39,6 @@ void Device::Init()
 
 void Device::Update()
 {
-    LOG_WRITE("%d", sizeof(SettingsNRST));
-
     if (Settings::needReset)
     {
         Settings::Reset();
