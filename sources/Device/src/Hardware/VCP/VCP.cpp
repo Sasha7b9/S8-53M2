@@ -99,7 +99,7 @@ void VCP::SendBuffer(const void *_buffer, int size)
 
 void VCP::Buffer::Send(const void *buf, int size)
 {
-    if (buffer.Size() + size > buffer.Capacity())
+    if (buffer.Size() + size >= buffer.Capacity())
     {
         Flush();
     }

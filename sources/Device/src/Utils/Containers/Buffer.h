@@ -108,7 +108,7 @@ public:
         }
         else
         {
-            std::memcpy(buffer, data, (uint)_size);
+            std::memcpy(&buffer[size], data, (uint)_size);
             size += _size;
         }
     }
