@@ -29,7 +29,7 @@ __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | F
 #define ADDR_SECTOR_1               ((uint)0x08004000)  //  1 16k
 #define ADDR_SECTOR_2               ((uint)0x08008000)  //  2 16k
 #define ADDR_SECTOR_3               ((uint)0x0800C000)  //  3 16k
-#define ADDR_SECTOR_4               ((uint)0x08010000)  //  4 64k
+#define ADDR_SECTOR_4               ((uint)0x08010000)  //  4 64k  // SettingsNRST
 #define ADDR_FIRMWARE_1             ((uint)0x08020000)  //  5 128k \-
 #define ADDR_FIRMWARE_2             ((uint)0x08040000)  //  6 128k |- Основная прошивка
 #define ADDR_FIRMWARE_3             ((uint)0x08060000)  //  7 128k /-
@@ -500,6 +500,12 @@ void HAL_ROM::Settings::Save(bool verifyLoadede)
     }
 
     WriteBufferBytes(address, (uint8 *)&set, sizeof(set));                      // И банально сохраняем настройки
+}
+
+
+void HAL_ROM::Settings::SaveNRST(SettingsNRST *nrst)
+{
+
 }
 
 
