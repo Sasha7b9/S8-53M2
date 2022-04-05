@@ -70,12 +70,37 @@ bool SCPI::ParseNewCommand(pchar buffer)
         {":TBASE",      ProcessTBASE},
         {":TBAS" ,      ProcessTBASE},
 
+        {":SPEEDTEST",  ProcessSpeedTest},
+
         {":KEY",        SCPI::CONTROL::KEY},
         {":GOVERNOR",   SCPI::CONTROL::GOVERNOR},
         {0}
     };
 
     return SCPI::ProcessingCommand(commands, buffer);
+}
+
+
+
+bool SCPI::ProcessSpeedTest(pchar)
+{
+    TimeMeterMS meter;
+
+    uint num_bytes = 0;
+
+    while (meter.ElapsedTime() < 1000)
+    {
+        const int SIZE_BUFFER = 1028;
+        static char buffer[SIZE_BUFFER];
+
+        VCP::SendBuffer(buffer, SIZE_BUFFER);
+
+        num_bytes += SIZE_BUFFER;
+    }
+
+    LOG_WRITE("Передано %d байт, скорость %f кб/сек", num_bytes, num_bytes / (float)meter.ElapsedTime());
+
+    return true;
 }
 
 

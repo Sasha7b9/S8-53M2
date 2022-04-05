@@ -52,6 +52,7 @@ namespace SCPI
     bool ProcessCHANNEL(pchar);
     bool ProcessTRIG(pchar);
     bool ProcessTBASE(pchar);
+    bool ProcessSpeedTest(pchar);
 
     namespace COMMON
     {
