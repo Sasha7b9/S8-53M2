@@ -4,15 +4,6 @@
 #include "FPGA/SettingsFPGA.h"
 
 
-#define CAL_STRETCH(ch)         (set.chan[ch].cal_stretch)
-#define CAL_STRETCH_A           (CAL_STRETCH(ChA))
-#define CAL_STRETCH_B           (CAL_STRETCH(ChB))
-
-#define CAL_RSHIFT(ch)          (set.chan[ch].cal_rshift[SET_RANGE(ch)][SET_COUPLE(ch)])
-#define CAL_RSHIFT_A            (CAL_RSHIFT(ChA))
-#define CAL_RSHIFT_B            (CAL_RSHIFT(ChB))
-
-
 #define SET_INVERSE(ch)         (set.chan[ch].inverse)          // SettingsChannel.inverse
 #define SET_INVERSE_A           (SET_INVERSE(Chan::A))          // set.chan[Chan::A].inverse
 #define SET_INVERSE_B           (SET_INVERSE(Chan::B))          // set.chan[Chan::B].inverse
@@ -48,9 +39,6 @@
 // Настройки каналов
 struct SettingsChannel
 { //-V802
-    float         cal_stretch;                                  // Коэффицент растяжки (на него умножается сигнал)
-    int8          cal_rshift[Range::Count][ModeCouple::Count];  // Добавочное смещение, вычисляемое при калибровке
-
     RShift        rshift;
     ModeCouple::E modeCouple;       // Режим по входу.
     Divider::E    divider;          // Множитель.

@@ -169,7 +169,8 @@ static const Button bEraseData
 
 void PageDebug::ADC::ResetCalRShift(Chan ch)
 {
-    std::memset(&set.chan[ch].cal_rshift[0][0], 0, sizeof(int8) * Range::Count * ModeCouple::Count);
+    std::memset(&set.debug.cal_rshift[ch][0][0], 0,
+        sizeof(set.debug.cal_rshift[0][0][0]) * Chan::Count * Range::Count * ModeCouple::Count);
 }
 
 
@@ -191,7 +192,7 @@ static const Button bResetShift
 
 static void OnDraw_ShiftADCA(int x, int y)
 {
-    String<>("%d", set.chan[ChA].cal_rshift[Range::_2mV][ModeCouple::DC]).Draw(x + 5, y + 21, Color::BLACK);
+    String<>("%d", set.debug.cal_rshift[ChA][Range::_2mV][ModeCouple::DC]).Draw(x + 5, y + 21, Color::BLACK);
 }
 
 
@@ -213,7 +214,7 @@ static const Choice mcShiftADCA =
 
 static void OnDraw_ShiftADCB(int x, int y)
 {
-    String<>("%d", set.chan[ChB].cal_rshift[Range::_2mV][ModeCouple::DC]).Draw(x + 5, y + 21, Color::BLACK);
+    String<>("%d", set.debug.cal_rshift[ChB][Range::_2mV][ModeCouple::DC]).Draw(x + 5, y + 21, Color::BLACK);
 }
 
 

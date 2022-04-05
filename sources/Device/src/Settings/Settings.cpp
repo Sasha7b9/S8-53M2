@@ -67,23 +67,6 @@ static const Settings defaultSettings =
     // channels
     {
         {
-            1.0f,                   // cal_stretch
-            {                       // cal_rshift
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0}
-            },
-
             RShift::ZERO,
             ModeCouple::AC,         // ModCouple
             Divider::_1,            // Divider
@@ -93,23 +76,6 @@ static const Settings defaultSettings =
             false                   // filtr
         },
         {
-            1.0f,                   // cal_stretch
-            {                       // cal_rshift
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0}
-            },
-
             RShift::ZERO,
             ModeCouple::AC,         // ModCouple
             Divider::_1,            // Divider
@@ -118,7 +84,6 @@ static const Settings defaultSettings =
             false,                  // inverse
             false                   // filtr
         }
-
     },
     // trig
     {
@@ -237,15 +202,81 @@ static const Settings defaultSettings =
     },
     // debug
     {
-        15,         // numStrings
-        0,          // נאחלונ רנטפעא - 5
-        1000,       // numMeasuresForGates
-        false,      // showStats
-        6,          // numAveForRand
-        {0, 0},     // balanceADC
-        false,      // fpga_compact
-        0,          // fpga_gates_min
-        0           // fpga_gates_max
+        15,                 // numStrings
+        0,                  // נאחלונ רנטפעא - 5
+        1000,               // numMeasuresForGates
+        false,              // showStats
+        6,                  // numAveForRand
+        false,              // fpga_compact
+        0,                  // fpga_gates_min
+        0,                  // fpga_gates_max
+        0,                  // first_byte
+        {0,    0},          // balanceADC
+        {1.0f, 1.0f},       // cal_stretch
+        {                   // hand_rshift
+            {
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0}
+            },
+            {
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0}
+            }
+        },
+        {                   // cal_rshift
+            {
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0}
+            },
+            {
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0},
+                {0, 0, 0}
+            }
+        }
     }
 };
 
@@ -282,11 +313,7 @@ void Settings::Reset()
     Settings old = set;
 
     set = defaultSettings;
-
     set.debug = old.debug;
-
-    set.chan[ChA].cal_stretch = old.chan[ChB].cal_stretch;
-    set.chan[ChB].cal_stretch = old.chan[ChB].cal_stretch;
 
     RunAfterLoad();
 }

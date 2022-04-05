@@ -99,9 +99,7 @@ namespace FPGA
 
 static void CopyCalibrationSettings(Chan ch, Settings &dest, const Settings &src)
 {
-    dest.chan[ch].cal_stretch = src.chan[ch].cal_stretch;
-
-
+    dest.debug.cal_stretch[ch] = src.debug.cal_stretch[ch];
 }
 
 
@@ -449,7 +447,7 @@ void FPGA::Calibrator::ShowCalibrationInfo(const int y0, Chan ch)
     {
         for (int range = 0; range < Range::Count; range++)
         {
-            String<>("%d", set.chan[ch].cal_rshift[range][couple]).Draw(x0 + range * dX, y0 + couple * dY);
+            String<>("%d", set.debug.cal_rshift[ch][range][couple]).Draw(x0 + range * dX, y0 + couple * dY);
         }
     }
 
