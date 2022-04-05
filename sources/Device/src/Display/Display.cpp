@@ -447,18 +447,25 @@ void Display::DrawMeasures()
                     String<>(Measures::Name(str, elem)).Draw(x + 4, y + 2, active ? COLOR_FILL : COLOR_BACK);
                 }
 
-                if(MEAS_SOURCE_IS_A)
+                int meas_x = x + 2;
+                int meas_y = y + 11;
+
+                bool need_a = (MEAS_SOURCE_IS_A || MEAS_SOURCE_IS_A_B) && SET_ENABLED_A;
+                bool need_b = (MEAS_SOURCE_IS_B || MEAS_SOURCE_IS_A_B) && SET_ENABLED_B;
+
+                if (need_a)
                 {
-                    Processing::GetStringMeasure(meas, Chan::A).Draw(x + 2, y + 11, ColorChannel(Chan::A));
+                    Processing::GetStringMeasure(meas, ChA).Draw(meas_x, meas_y, ColorChannel(ChA));
                 }
-                else if(MEAS_SOURCE_IS_B)
+                
+                if (need_b)
                 {
-                    Processing::GetStringMeasure(meas, Chan::B).Draw(x + 2, y + 11, ColorChannel(Chan::B));
-                }
-                else
-                {
-                    Processing::GetStringMeasure(meas, Chan::A).Draw(x + 2, y + 11, ColorChannel(Chan::A));
-                    Processing::GetStringMeasure(meas, Chan::B).Draw(x + 2, y + 20, ColorChannel(Chan::B));
+                    if (need_a)
+                    {
+                        meas_y += 9;
+                    }
+
+                    Processing::GetStringMeasure(meas, ChB).Draw(meas_x, meas_y, ColorChannel(ChB));
                 }
             }
         }
