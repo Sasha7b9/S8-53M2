@@ -1,5 +1,6 @@
 // 2022/2/11 22:18:49 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
+#include "Display/DisplayTypes.h"
 
 
 // Интерфейс коммуниаций с ПК по USB и LAN
@@ -35,8 +36,20 @@ struct CommandBuffer
         PushHalfWord((uint16)(word >> 16));
     }
     void PushWord(int word) { PushWord((uint)word); }
-    void Transmit(int num_bytes)        { InterCom::Send(Data(), num_bytes); }
-    void Transmit()                     { InterCom::Send(Data(), size); }
+    void Transmit(int num_bytes)
+    {
+        if (data[0] == SET_PALETTE || data[0] == SET_COLOR || data[0] == END_SCENE)
+        {
+            InterCom::Send(Data(), num_bytes);
+        }
+    }
+    void Transmit()
+    {
+        if (data[0] == SET_PALETTE || data[0] == SET_COLOR || data[0] == END_SCENE)
+        {
+            InterCom::Send(Data(), size);
+        }
+    }
     uint8 *GetByte(int num_byte)        { return &data[num_byte]; }
 private:
     uint8 *Data() { return data; };

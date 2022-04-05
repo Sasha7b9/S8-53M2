@@ -164,9 +164,9 @@ void Color::SetCurrent(Color::E color)
 
         if (InterCom::TransmitGUIinProcess())
         {
-            CommandBuffer<4> command(SET_COLOR);
+            CommandBuffer<2> command(SET_COLOR);
             command.PushByte(color);
-            command.Transmit(2);
+            command.Transmit();
         }
     }
 }
@@ -533,12 +533,12 @@ void Painter::BeginScene(Color::E color)
         }
     }
 
-//    if (Display::Sender::needSendFrame)
-//    {
-//        Display::Sender::needSendFrame = false;
-//
-//        stateTransmit = StateTransmit::InProcess;
-//    }
+    if (Display::Sender::needSendFrame)
+    {
+        Display::Sender::needSendFrame = false;
+
+        stateTransmit = StateTransmit::InProcess;
+    }
 
     Region(319, 239).Fill(0, 0, color);
 }
@@ -564,8 +564,8 @@ void Painter::EndScene(bool endScene)
     {
         if (InterCom::TransmitGUIinProcess())
         {
-            CommandBuffer<4> command(END_SCENE);
-            command.Transmit(1);
+            CommandBuffer<1> command(END_SCENE);
+            command.Transmit();
         }
     }
 

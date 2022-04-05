@@ -395,6 +395,7 @@ namespace S8_53_USB {
                     if ((Command)command == Command.SET_COLOR)
                     {
                         Display.SetColor((uint)int8());
+                        Console.WriteLine("Set color");
                     }
                     else if ((Command)command == Command.SET_PALETTE)
                     {
@@ -408,6 +409,7 @@ namespace S8_53_USB {
                     {
                         // Выводим нарисованную картинку
                         Display.EndScene();
+                        Console.WriteLine("End scene");
                         return;
                     }
                     else if ((Command)command == Command.DRAW_HLINE)
