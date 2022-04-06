@@ -563,8 +563,8 @@ void HAL_ROM::EraseSector(uint startAddress)
     flashITD.VoltageRange = VOLTAGE_RANGE_3;
 
     uint32_t error = 0;
-    while (Sound::isBeep) {};
-    while (!HAL_FLASHEx_Erase(&flashITD, &error) != HAL_OK)
+
+    while (HAL_FLASHEx_Erase(&flashITD, &error) != HAL_OK)
     {
     }
 
@@ -604,13 +604,10 @@ HAL_ROM::Settings::RecordConfig *HAL_ROM::Settings::RecordConfig::FirstEmpty()
 
 void HAL_ROM::WriteWord(uint address, uint word)
 {
-    while (Sound::isBeep) {};
-
     HAL_FLASH_Unlock();
 
-    if (HAL_FLASH_Program(TYPEPROGRAM_WORD, address, (uint64_t)word) != HAL_OK)
+    while (HAL_FLASH_Program(TYPEPROGRAM_WORD, address, (uint64_t)word) != HAL_OK)
     {
-        LOG_ERROR_TRACE("Не могу записать в память");
     }
 
     HAL_FLASH_Lock();
@@ -698,8 +695,6 @@ void HAL_ROM::WriteBufferBytes(uint address, const void *buffer, int size)
     uint8 *bufferU8 = (uint8 *)buffer;
     
     HAL_FLASH_Unlock();
-
-    while (Sound::isBeep) {};
 
     for (int i = 0; i < size; i++)
     {

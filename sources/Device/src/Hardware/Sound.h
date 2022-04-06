@@ -4,8 +4,6 @@
 
 namespace Sound
 {
-    extern volatile bool isBeep;
-
     void Init();
 
     void ButtonPress();
