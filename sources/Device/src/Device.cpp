@@ -21,7 +21,7 @@ void Device::Init()
 
     nrst.Load();
 
-    set.Load();
+    set.Reset();
 
     FPGA::Init();
 
@@ -58,4 +58,11 @@ void Device::Update()
     SCPI::Update();
 
     LAN::Update();
+
+//    TimeMeterMS meter;
+//
+//    nrst.Save();
+//    set.Save();
+//
+//    LOG_WRITE("%d", meter.ElapsedTime());
 }
