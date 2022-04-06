@@ -57,6 +57,11 @@ struct SettingsNRST
     uint CalculateCRC32();
 
     void ClearHandRShift(Chan);
+
+    // —охранить и очистить ручную добавку смещени€
+    void StoreAndClearHandRShift(Chan, Range::E);
+    void RestoreHandRShift(Chan, Range::E);
+    static int16 stored_rshift[Chan::Count][3];
 };
 
 

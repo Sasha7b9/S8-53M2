@@ -24,6 +24,8 @@ static SettingsNRST defaultNRST =
     0                   // not_used
 };
 
+int16 SettingsNRST::stored_rshift[Chan::Count][3];
+
 
 SettingsNRST nrst = defaultNRST;
 
@@ -59,4 +61,31 @@ int CAL::RShift(Chan ch, Range::E range)
 void SettingsNRST::ClearHandRShift(Chan ch)
 {
     std::memset(&hand_rshift[ch][0], 0, sizeof(hand_rshift[0][0]) * 3);
+}
+
+
+void SettingsNRST::StoreAndClearHandRShift(Chan ch, Range::E range)
+{
+    if ((ch.IsA() || ch.IsB()) && range <= Range::_10mV)
+    {
+        stored_rshift[ch][range] = hand_rshift[ch][range];
+        hand_rshift[ch][range] = 0;
+    }
+    else
+    {
+        LOG_ERROR_TRACE("ошибка диапазона");
+    }
+}
+
+
+void SettingsNRST::RestoreHandRShift(Chan ch, Range::E range)
+{
+    if ((ch.IsA() || ch.IsB()) && range <= Range::_10mV)
+    {
+        hand_rshift[ch][range] = stored_rshift[ch][range];
+    }
+    else
+    {
+        LOG_ERROR_TRACE("ошибка диапазона");
+    }
 }

@@ -272,7 +272,13 @@ static bool FPGA::Calibrator::CalibrateRShift(Chan ch)
     {
         for (int couple = 0; couple < ModeCouple::Count; couple++)
         {
+            if (range <= Range::_10mV && couple == ModeCouple::DC)
+            {
+                nrst.StoreAndClearHandRShift(ch, (Range::E)range);
+            }
+
             Range::Set(ch, (Range::E)range);
+            RShift::Set(ch, RShift::ZERO);
             ModeCouple::Set(ch, (ModeCouple::E)couple);
 
             float ave = Read1024PointsAve(ch);
@@ -287,6 +293,11 @@ static bool FPGA::Calibrator::CalibrateRShift(Chan ch)
             CAL_RSHIFT(ch) = (int8)addShift;
 
             progress.SetValue((float)++counter);
+
+            if (range <= Range::_10mV && couple == ModeCouple::DC)
+            {
+                nrst.RestoreHandRShift(ch, (Range::E)range);
+            }
         }
     }
 
