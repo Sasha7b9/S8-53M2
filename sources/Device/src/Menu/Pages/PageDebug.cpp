@@ -764,9 +764,6 @@ static void Draw_EnterSerialNumber()
 
 static void OnPress_SerialNumber()
 {
-    PageDebug::SerialNumber::self->OpenAndSetCurrent();
-    Display::SetAddDrawFunction(Draw_EnterSerialNumber);
-
     structSN.number = 01;
     structSN.year = 2022;
     structSN.curDigt = 0;
@@ -797,7 +794,7 @@ static const Page ppSerialNumber
     "С/Н", "S/N",
     "Запись серийного номера в OTP-память. ВНИМАНИЕ!!! ОТP-память - память с однократной записью.",
     "Serial number recording in OTP-memory. ATTENTION!!! OTP memory is a one-time programming memory.",
-    NamePage::SB_SerialNumber, &itemsSerialNumber, OnPress_SerialNumber, 0, OnRegSet_SerialNumber
+    NamePage::SB_SerialNumber, &itemsSerialNumber, OnPress_SerialNumber, Draw_EnterSerialNumber, OnRegSet_SerialNumber
 );
 
 
