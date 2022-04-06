@@ -197,7 +197,6 @@ static const Choice mcShowFreq =
 
 static void PressSB_Cursors_Exit()
 {
-    Display::RemoveAddDrawFunction();
 }
 
 

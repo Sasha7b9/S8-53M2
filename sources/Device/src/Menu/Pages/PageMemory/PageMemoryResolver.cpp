@@ -29,8 +29,6 @@ void PageMemory::Resolver::OnPress_MemoryLatestExit()
         FPGA::Start();
         runningFPGAbeforeOpen = false;
     }
-
-    Display::RemoveAddDrawFunction();
 }
 
 

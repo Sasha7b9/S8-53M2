@@ -12,8 +12,6 @@
 
 static void PressSB_SetName_Exit()
 {
-    Display::RemoveAddDrawFunction();
-
     if (EXIT_FROM_SET_NAME_TO_DIS_MENU)
     {
         Page::FromName(NamePage::SB_MemExtSetName)->ShortPressOnItem(0);
