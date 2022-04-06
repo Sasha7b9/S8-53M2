@@ -573,7 +573,7 @@ static const Governor mgRandomizer_Average
     "Усредн.", "Average",
     "",
     "",
-    &nrst.numAveForRand, 1, 32
+    &nrst.numAveForRand, 1, 512
 );
 
 

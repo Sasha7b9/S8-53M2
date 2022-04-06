@@ -51,7 +51,7 @@ int CAL::RShift(Chan ch, Range::E range)
 
     if (range <= Range::_10mV && SET_COUPLE(ch) == ModeCouple::DC)
     {
-        result += set.chan[ch].cal_rshift[range][SET_COUPLE(ch)];
+        result += RSHIFT_HAND(ch, range);
     }
 
     return result;

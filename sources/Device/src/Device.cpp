@@ -64,4 +64,6 @@ void Device::Update()
         Settings::Reset();
         Settings::needReset = false;
     }
+
+    Settings::SaveIfNeed();
 }
