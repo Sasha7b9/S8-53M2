@@ -58,7 +58,7 @@ static void DrawSB_MemLast_Prev(int x, int y)
 }
 
 
-static const SmallButton sbMemLatestPrev
+static const SmallButton sbPrev
 (
     PageMemory::Latest::self, 0,
     "Предыдущий", "Previous",
@@ -77,7 +77,7 @@ static void DrawSB_MemLast_IntEnter(int x, int y)
 }
 
 
-static const SmallButton sbMemLatestIntEnter
+static const SmallButton sbEnterInt
 (
     PageMemory::Latest::self, 0,
     "Внутр ЗУ", "Internal storage",
@@ -106,7 +106,7 @@ static void DrawSB_MemLast_SaveToFlash(int x, int y)
 }
 
 
-static const SmallButton sbMemLatestSaveToFlash
+static const SmallButton sbSaveToFlash
 (
     PageMemory::Latest::self, 0,
     "Сохранить", "Save",
@@ -147,9 +147,9 @@ static const arrayItems itemsMemLatest =
     (void *)&sbExitMemLatest,
     (void *)0,
     (void *)&sbNext,
-    (void *)&sbMemLatestPrev,
-    (void *)&sbMemLatestIntEnter,
-    (void *)&sbMemLatestSaveToFlash
+    (void *)&sbPrev,
+    (void *)&sbEnterInt,
+    (void *)&sbSaveToFlash
 };
 
 
