@@ -21,7 +21,7 @@ void Device::Init()
 
     nrst.Load();
 
-    Settings::Load();
+    set.Load();
 
     FPGA::Init();
 
@@ -58,10 +58,4 @@ void Device::Update()
     SCPI::Update();
 
     LAN::Update();
-
-    if (Settings::needReset)
-    {
-        Settings::Reset();
-        Settings::needReset = false;
-    }
 }

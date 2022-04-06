@@ -546,7 +546,7 @@ namespace Panel
                 }
             }
 
-            Settings::Save();
+            set.Save();
 
             if (TIME_MS > 1000)
             {

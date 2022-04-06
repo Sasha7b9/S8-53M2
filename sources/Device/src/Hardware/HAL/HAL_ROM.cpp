@@ -413,7 +413,7 @@ void HAL_ROM::Data::Save(int num, const DataStruct &data)
 }
 
 
-bool HAL_ROM::Settings::Load()
+bool HAL_ROM::Settings::Load(::Settings *_set)
 {
     /*
         1. Проверка на первое включение. Выполняется тем, что в первом слове сектора настроек хранится MAX_UINT, если настройки ещё не сохранялись.
@@ -429,28 +429,20 @@ bool HAL_ROM::Settings::Load()
 
     CLEAR_FLAGS;
 
-    if (TheFirstInclusion())                                         // Если это первое включение
-    {                                                               // то делаем предварительные приготовления
-        set.common.countErasedFlashSettings = 0;
-        set.common.countEnables = 0;
-        set.common.countErasedFlashData = 0;
-        set.common.workingTimeInSecs = 0;
-    }
-
     if (READ_WORD(ADDR_SECTOR_SETTINGS) == 0x12345)
     {
         EraseSector(ADDR_SECTOR_SETTINGS);
     }
-    else if (READ_WORD(ADDR_SECTOR_SETTINGS) == MARK_OF_FILLED)                             // Если старый алгоритм хранения настроек
+    else if (READ_WORD(ADDR_SECTOR_SETTINGS) == MARK_OF_FILLED)                                     // Если старый алгоритм хранения настроек
     {
         RecordConfig *record = RecordConfig::ForRead();
         if (record->sizeData + record->addrData >= (ADDR_SECTOR_SETTINGS + SIZE_SECTOR_SETTINGS))   // Если последние сохранённые настройки выходят
-        {                                                                                   // за пределы сектора (глюк предыдущей версии сохранения)
-            --record;                                                                       // то воспользуемся предыдущими сохранёнными настройками
+        {                                                                                           // за пределы сектора (глюк предыдущей версии сохранения)
+            --record;                                                                               // то воспользуемся предыдущими сохранёнными настройками
         }
-        std::memcpy(&set, (const void *)(record->addrData - 4), (uint)record->sizeData);               // Считываем их
-        EraseSector(ADDR_SECTOR_SETTINGS);                                                  // Стираем сектор настроек
-        HAL_ROM::Settings::Save(true);                                                           // И сохраняем настройки в новом формате
+        std::memcpy(_set, (const void *)(record->addrData - 4), (uint)record->sizeData);            // Считываем их
+        EraseSector(ADDR_SECTOR_SETTINGS);                                                          // Стираем сектор настроек
+        HAL_ROM::Settings::Save(_set, true);                                                        // И сохраняем настройки в новом формате
     }
     else
     {
@@ -465,16 +457,16 @@ bool HAL_ROM::Settings::Load()
 
         if (addressPrev != 0)                   // Если по этому адресу что-то записано
         {
-            std::memcpy(&set, (const void *)addressPrev, READ_WORD(addressPrev));    // Счтываем сохранённые настройки
+            std::memcpy(_set, (const void *)addressPrev, READ_WORD(addressPrev));    // Счтываем сохранённые настройки
             return true;
         }
     }
-    set.common.countEnables++;
+
     return false;
 }
 
 
-void HAL_ROM::Settings::Save(bool verifyLoadede)
+void HAL_ROM::Settings::Save(::Settings *_set, bool verifyLoadede)
 {
     if (!verifyLoadede && !::Settings::isLoaded)
     {
@@ -483,9 +475,9 @@ void HAL_ROM::Settings::Save(bool verifyLoadede)
 
     CLEAR_FLAGS;
 
-    set.size = sizeof(set);
+    _set->size = sizeof(::Settings);
 
-    uint address = ADDR_SECTOR_SETTINGS;                                        // Находим первый свободный байт
+    uint address = ADDR_SECTOR_SETTINGS;                                                // Находим первый свободный байт
 
     while (READ_WORD(address) != MAX_UINT)
     {
@@ -493,13 +485,13 @@ void HAL_ROM::Settings::Save(bool verifyLoadede)
     }
     // В этой точке address указывает на первый незаписанный байт
 
-    if (address + sizeof(set) >= (ADDR_SECTOR_SETTINGS + SIZE_SECTOR_SETTINGS)) // Если условие выполняется, то при записи данные выйдут за пределы
-    {                                                                           // сектора
-        EraseSector(ADDR_SECTOR_SETTINGS);                                      // В этом случае стираем сектор настроек
-        address = ADDR_SECTOR_SETTINGS;                                         // и сохранять настройки будем прямо в начало сектора
+    if (address + sizeof(::Settings) >= (ADDR_SECTOR_SETTINGS + SIZE_SECTOR_SETTINGS))  // Если условие выполняется, то при записи данные выйдут за пределы
+    {                                                                                   // сектора
+        EraseSector(ADDR_SECTOR_SETTINGS);                                              // В этом случае стираем сектор настроек
+        address = ADDR_SECTOR_SETTINGS;                                                 // и сохранять настройки будем прямо в начало сектора
     }
 
-    WriteBufferBytes(address, (uint8 *)&set, sizeof(set));                      // И банально сохраняем настройки
+    WriteBufferBytes(address, (uint8 *)_set, sizeof(::Settings));                       // И банально сохраняем настройки
 }
 
 

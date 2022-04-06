@@ -1,6 +1,6 @@
 #pragma once
 #include "Data/Data.h"
-#include "Settings/SettingsNRST.h"
+#include "Settings/Settings.h"
 
 
 namespace HAL_ROM
@@ -23,13 +23,12 @@ namespace HAL_ROM
 
     namespace Settings
     {
-        void Save(bool verifyLoaded = false);
+        // Сохранить настройки
+        void Save(::Settings *, bool verifyLoaded = false);
+        bool Load(::Settings *);
 
-        // Сохранить несбрасываемые настройки
+        // Сохранить отладочные настройки
         void SaveNRST(SettingsNRST *);
-
-        bool Load();
-
         bool LoadNRST(SettingsNRST *);
     }
 }

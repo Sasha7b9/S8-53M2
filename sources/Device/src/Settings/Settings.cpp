@@ -15,7 +15,6 @@
 
 
 bool Settings::isLoaded = false;
-bool Settings::needReset = false;
 
 
 static const Settings defaultSettings =
@@ -220,14 +219,11 @@ static const Settings defaultSettings =
         255, 255, 255, 0,                   // netmask
         192, 168, 1, 1                      // gateway
     },
-    // common
-    {
-        0
-    },
     // menu
     {
         {0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f},
         {   0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0},
+        Lang::Ru,
         0
     }
 };
@@ -238,7 +234,7 @@ Settings set = defaultSettings;
 
 void Settings::Load()
 {
-    if (!HAL_ROM::Settings::Load())
+    if (!HAL_ROM::Settings::Load(this))
     {
         Reset();
     }
@@ -285,7 +281,7 @@ void Settings::RunAfterLoad()
 
 void Settings::Save()
 {
-    HAL_ROM::Settings::Save();
+    HAL_ROM::Settings::Save(this);
 }
 
 
