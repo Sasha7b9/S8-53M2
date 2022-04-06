@@ -58,11 +58,4 @@ void Device::Update()
     SCPI::Update();
 
     LAN::Update();
-
-//    TimeMeterMS meter;
-//
-//    nrst.Save();
-//    gset.Save();
-//
-//    LOG_WRITE("%d", meter.ElapsedTime());
 }

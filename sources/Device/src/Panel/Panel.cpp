@@ -552,9 +552,14 @@ namespace Panel
             gset.Save();
             __enable_irq();
 
-            if (TIME_MS > 1000)
+            while (TIME_MS < 1000)
             {
-                Panel::TransmitData(0x05);
+            }
+
+            Panel::TransmitData(0x05);
+
+            while (true)
+            {
             }
         }
     }
