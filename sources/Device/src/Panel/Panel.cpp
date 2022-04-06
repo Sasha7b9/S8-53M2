@@ -546,7 +546,7 @@ namespace Panel
                 }
             }
 
-            Settings::SaveBeforePowerDown();
+            Settings::Save();
 
             if (TIME_MS > 1000)
             {
@@ -912,7 +912,6 @@ void Panel::Callback::OnReceiveSPI5(const uint8 *data, uint)
             input_buffer.Push(event);
         }
 
-        Settings::NeedSave();
         timeLastEvent = TIME_MS;
     }
 }

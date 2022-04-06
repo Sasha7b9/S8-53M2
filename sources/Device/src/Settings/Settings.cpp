@@ -14,8 +14,6 @@
 #include <cstring>
 
 
-bool Settings::need_save = false;
-uint Settings::time_save = 0;
 bool Settings::isLoaded = false;
 bool Settings::needReset = false;
 
@@ -285,29 +283,9 @@ void Settings::RunAfterLoad()
     isLoaded = true;
 }
 
-void Settings::SaveBeforePowerDown()
+void Settings::Save()
 {
-    if (need_save)
-    {
-        HAL_ROM::Settings::Save();
-    }
-}
-
-
-void Settings::NeedSave()
-{
-    need_save = true;
-    time_save = TIME_MS + 5000;
-}
-
-
-void Settings::SaveIfNeed()
-{
-    if (need_save && (TIME_MS >= time_save))
-    {
-        SaveBeforePowerDown();
-        need_save = false;
-    }
+    HAL_ROM::Settings::Save();
 }
 
 
