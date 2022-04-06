@@ -1,6 +1,7 @@
 #include "defines.h"
 #include "Settings/SettingsNRST.h"
 #include "Hardware/HAL/HAL.h"
+#include "Settings/Settings.h"
 
 
 static SettingsNRST defaultNRST =
@@ -39,4 +40,23 @@ void SettingsNRST::Load()
     {
         LOG_WRITE("Не загружены отладочные настройки");
     }
+}
+
+
+int CAL::RShift(Chan ch, Range::E range)
+{
+    int result = set.chan[ch].cal_rshift[range][SET_COUPLE(ch)];
+
+    if (range <= Range::_10mV && SET_COUPLE(ch) == ModeCouple::DC)
+    {
+        result += set.chan[ch].cal_rshift[range][SET_COUPLE(ch)];
+    }
+
+    return result;
+}
+
+
+void SettingsNRST::ClearHandRShift(Chan ch)
+{
+    std::memset(&hand_rshift[ch][0], 0, sizeof(hand_rshift[0][0]) * 3);
 }

@@ -1,6 +1,7 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "Settings/SettingsTypes.h"
+#include "FPGA/SettingsFPGA.h"
 
 
 #define NUM_STRINGS             (nrst.numStrings)
@@ -16,13 +17,13 @@
 #define FPGA_GATES_MIN          nrst.fpga_gates_min
 #define FPGA_GATES_MAX          nrst.fpga_gates_max
 
-#define _RSHIFT_HAND(ch, range)  nrst.hand_rshift[ch][range]
+#define RSHIFT_HAND(ch, range)  nrst.hand_rshift[ch][range]
 
 namespace CAL
 {
     // Значение калибровочного смещения. В диапазонах 2мВ, 5мВ, 10мВ здесь учитывается ручное смещение, а на остальных-
     // только автоматическая калибровка
-    int RShift();
+    int RShift(Chan, Range::E);
 }
 
 
@@ -54,6 +55,8 @@ struct SettingsNRST
     static void Save();
 
     uint CalculateCRC32();
+
+    void ClearHandRShift(Chan);
 };
 
 

@@ -440,13 +440,8 @@ static const Page mpADC_Stretch
 
 static void OnPress_ADC_AltRShift_Reset()
 {
-    for (int ch = 0; ch < 2; ch++)
-    {
-        for (int range = 0; range < 3; range++)
-        {
-            _RSHIFT_HAND(ch, range) = 0;
-        }
-    }
+    nrst.ClearHandRShift(ChA);
+    nrst.ClearHandRShift(ChB);
 
     RShift::Set(Chan::A, SET_RSHIFT_A);
     RShift::Set(Chan::B, SET_RSHIFT_B);
@@ -474,7 +469,7 @@ static const Governor mbADC_AltRShift_2mV_DC_A
     "—м 1к 2м¬ пост", "Shift 1ch 2mV DC",
     "",
     "",
-    &_RSHIFT_HAND(Chan::A, Range::_2mV), -100, 100, OnChanged_ADC_AltRShift_A
+    &RSHIFT_HAND(Chan::A, Range::_2mV), -100, 100, OnChanged_ADC_AltRShift_A
 );
 
 
@@ -490,7 +485,7 @@ static const Governor mbADC_AltRShift_2mV_DC_B
     "—м 2к 2м¬ пост", "Shift 2ch 2mV DC",
     "",
     "",
-    &_RSHIFT_HAND(Chan::B, Range::_2mV), -100, 100, OnChanged_ADC_AltRShift_B
+    &RSHIFT_HAND(Chan::B, Range::_2mV), -100, 100, OnChanged_ADC_AltRShift_B
 );
 
 
@@ -500,7 +495,7 @@ static const Governor mbADC_AltRShift_5mV_DC_A
     "—м 1к 5м¬ пост", "Shift 1ch 5mV DC",
     "",
     "",
-    &_RSHIFT_HAND(Chan::A, Range::_5mV), -100, 100, OnChanged_ADC_AltRShift_A
+    &RSHIFT_HAND(Chan::A, Range::_5mV), -100, 100, OnChanged_ADC_AltRShift_A
 );
 
 
@@ -510,7 +505,7 @@ static const Governor mbADC_AltRShift_5mV_DC_B
     "—м 2к 5м¬ пост", "Shift 2ch 5mV DC",
     "",
     "",
-    &_RSHIFT_HAND(Chan::B, Range::_5mV), -100, 100, OnChanged_ADC_AltRShift_B
+    &RSHIFT_HAND(Chan::B, Range::_5mV), -100, 100, OnChanged_ADC_AltRShift_B
 );
 
 
@@ -520,7 +515,7 @@ static const Governor mbADC_AltRShift_10mV_DC_A
     "—м 1к 10м¬ пост", "Shift 1ch 10mV DC",
     "",
     "",
-    &_RSHIFT_HAND(Chan::A, Range::_10mV), -100, 100, OnChanged_ADC_AltRShift_A
+    &RSHIFT_HAND(Chan::A, Range::_10mV), -100, 100, OnChanged_ADC_AltRShift_A
 );
 
 
@@ -530,7 +525,7 @@ static const Governor mbADC_AltRShift_10mV_DC_B
     "—м 2к 10м¬ пост", "Shift 2ch 10mV DC",
     "",
     "",
-    &_RSHIFT_HAND(Chan::B, Range::_10mV), -100, 100, OnChanged_ADC_AltRShift_B
+    &RSHIFT_HAND(Chan::B, Range::_10mV), -100, 100, OnChanged_ADC_AltRShift_B
 );
 
 
