@@ -21,7 +21,7 @@ void Device::Init()
 
     nrst.Load();
 
-    gset.Reset();
+    gset.Load();
 
     FPGA::Init();
 
