@@ -38,10 +38,7 @@ void SettingsNRST::Save()
 
 void SettingsNRST::Load()
 {
-    if (!HAL_ROM::Settings::LoadNRST(this))
-    {
-        LOG_ERROR("Не загружены отладочные настройки");
-    }
+    HAL_ROM::Settings::LoadNRST(this);
 }
 
 
