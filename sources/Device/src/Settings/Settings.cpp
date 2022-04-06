@@ -294,7 +294,7 @@ void Menu::Show(bool show)
 
 bool Menu::IsMinimize()
 {
-    return Item::TypeOpened() == TypeItem::Page && ((const Page *)Item::Opened())->GetName() >= NamePage::SB_Curs;
+    return (Item::TypeOpened() == TypeItem::Page && ((const Page *)Item::Opened())->GetName() >= NamePage::SB_Curs) || Menu::AdditionPage::current;
 }
 
 

@@ -61,6 +61,15 @@ namespace Menu
 
     // Обработка события таймера автоматического сокрытия меню.
     void OnTimerAutoHide();
+
+    namespace AdditionPage
+    {
+        const Page *current = nullptr;
+
+        void Set(const Page *page)  { current = page; }
+
+        void Remove()               { current = nullptr; }
+    }
 }
 
 

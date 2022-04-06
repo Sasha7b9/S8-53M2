@@ -47,4 +47,15 @@ namespace Menu
 
     // Возвращает функцию обработки короткого нажатия на элемент меню item.
     void ExecuteFuncForShortPressOnItem(Item *);
+
+    namespace AdditionPage
+    {
+        // Устанавливает страницу для отрисовки. При этом отрисовываться будет только эта страница, у которой нет родителя, но не основное меню
+        void Set(const Page *);
+
+        // Удаляет страницу для отрисовки
+        void Remove();
+
+        extern const Page *current;
+    }
 };

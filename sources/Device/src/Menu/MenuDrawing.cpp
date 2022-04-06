@@ -24,6 +24,11 @@ Item *ItemsUnderKey::items[Key::Count];
 namespace Menu
 {
     int ItemOpenedPosY(const Item *item);
+
+    namespace AdditionPage
+    {
+        extern const Page *current;
+    }
 }
 
 
@@ -115,7 +120,13 @@ void Hint::DrawHintItem(int x, int y, int width)
 
 void Menu::Draw()
 {
-    if (IsShown())
+    if (AdditionPage::current)
+    {
+        ItemsUnderKey::Reset();
+
+        ((Page *)AdditionPage::current)->DrawOpened(GRID_TOP);
+    }
+    else if (IsShown())
     {
         Item *item = Item::Opened();
 
