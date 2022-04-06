@@ -35,6 +35,8 @@ struct SettingsMenu
 // Струкура хранит все настройки прибора.
 struct Settings
 {
+    static const int SIZE_FIELD_RECORD = 1024;
+
     uint                crc32;
     SettingsDisplay     display;            // настройки изображения          (меню ДИСПЛЕЙ).
     SettingsChannel     chan[Chan::Count];  // настройки каналов              (меню КАНАЛ 1 и КАНАЛ 2).
@@ -56,6 +58,8 @@ struct Settings
 
     void Reset();                   // Сбросить настройки, сохранив калибровочные настройки
     void RunAfterLoad();            // После загрузки настроек нужно выполнить эти команды
+
+    uint CalculateCRC32();
 };
 
 extern Settings gset;

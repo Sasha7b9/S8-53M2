@@ -36,6 +36,7 @@
 #define ADDR_SECTOR_10              ((uint)0x080C0000)  // 10 128k
 #define ADDR_SECTOR_SETTINGS        ((uint)0x080E0000)  // 11 128k // Настройки
 #define SIZE_SECTOR_SETTINGS        (128 * 1024)
+#define END_SECTOR_SETTINGS         (ADDR_SECTOR_SETTINGS + SIZE_SECTOR_SETTINGS)
 
 #define ADDR_SECTOR_DATA_INFO       ((uint)0x08100000)  // 12 16k  Информация о сохранённых данных
 #define ADDR_SECTOR_13              ((uint)0x08104000)  // 13 16k
@@ -65,17 +66,17 @@ static const uint MAX_UINT = 0xffffffff;
 
 namespace HAL_ROM
 {
-    void WriteBufferBytes(uint address, const void *buffer, int size);
+    static void WriteBufferBytes(uint address, const void *buffer, int size);
 
     // Возвращает true, если это первое включение
-    bool TheFirstInclusion();
+    static bool TheFirstInclusion();
 
-    void EraseSector(uint startAddress);
+    static void EraseSector(uint startAddress);
 
-    void WriteWord(uint address, uint);
-    void WriteWord(void *address, uint);
+    static void WriteWord(uint address, uint);
+    static void WriteWord(void *address, uint);
 
-    uint GetSector(uint startAddress);
+    static uint GetSector(uint startAddress);
 
     namespace Settings
     {
@@ -289,7 +290,6 @@ namespace HAL_ROM
 
         // true, если в области данных есть место для сохранения DataStruct
         static bool ExistPlaceToSave(const DataStruct &);
-
     }
 }
 
@@ -462,23 +462,23 @@ bool HAL_ROM::Settings::Load(::Settings *_set)
 
 bool HAL_ROM::Settings::Save(::Settings *set)
 {
-    set->crc32 = sizeof(::Settings);
-
-    uint address = ADDR_SECTOR_SETTINGS;                                                // Находим первый свободный байт
+    uint address = ADDR_SECTOR_SETTINGS;
 
     while (READ_WORD(address) != MAX_UINT)
     {
-        address += READ_WORD(address);
-    }
-    // В этой точке address указывает на первый незаписанный байт
+        address += ::Settings::SIZE_FIELD_RECORD;
 
-    if (address + sizeof(::Settings) >= (ADDR_SECTOR_SETTINGS + SIZE_SECTOR_SETTINGS))  // Если условие выполняется, то при записи данные выйдут за пределы
-    {                                                                                   // сектора
-        EraseSector(ADDR_SECTOR_SETTINGS);                                              // В этом случае стираем сектор настроек
-        address = ADDR_SECTOR_SETTINGS;                                                 // и сохранять настройки будем прямо в начало сектора
+        if (address == END_SECTOR_SETTINGS)
+        {
+            EraseSector(ADDR_SECTOR_SETTINGS);
+            address = ADDR_SECTOR_SETTINGS;
+            break;
+        }
     }
 
-    WriteBufferBytes(address, (uint8 *)set, sizeof(::Settings));                       // И банально сохраняем настройки
+    set->crc32 = set->CalculateCRC32();
+
+    WriteBufferBytes(address, (uint8 *)set, sizeof(::Settings));
 
     return true;
 }
