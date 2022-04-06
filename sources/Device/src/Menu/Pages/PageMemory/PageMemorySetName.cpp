@@ -6,6 +6,7 @@
 #include "Utils/Text/Symbols.h"
 #include "Utils/Text/Text.h"
 #include "Utils/Text/Tables.h"
+#include "Display/Screen/Grid.h"
 #include <cstring>
 
 
@@ -179,13 +180,60 @@ static void OnMemExtSetNameRegSet(int angle)
 }
 
 
+static void DrawSetName()
+{
+    int x0 = Grid::Left() + 40;
+    int y0 = GRID_TOP + 60;
+    int width = Grid::Width() - 80;
+    int height = 80;
+
+    Rectangle(width, height).Draw(x0, y0, COLOR_FILL);
+    Region(width - 2, height - 2).Fill(x0 + 1, y0 + 1, COLOR_BACK);
+
+    int index = 0;
+    int position = 0;
+    int deltaX = 10;
+    int deltaY0 = 5;
+    int deltaY = 12;
+
+    // Рисуем большие буквы английского алфавита
+    while (Tables::symbolsAlphaBet[index][0] != ' ')
+    {
+        Tables::DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0);
+        index++;
+        position++;
+    }
+
+    // Теперь рисуем цифры и пробел
+    position = 0;
+    while (Tables::symbolsAlphaBet[index][0] != 'a')
+    {
+        Tables::DrawStr(index, x0 + deltaX + 50 + position * 7, y0 + deltaY0 + deltaY);
+        index++;
+        position++;
+    }
+
+    // Теперь рисуем малые буквы алфавита
+    position = 0;
+    while (Tables::symbolsAlphaBet[index][0] != '%')
+    {
+        Tables::DrawStr(index, x0 + deltaX + position * 7, y0 + deltaY0 + deltaY * 2);
+        index++;
+        position++;
+    }
+
+    int x = String<>(FILE_NAME).Draw(x0 + deltaX, y0 + 65, COLOR_FILL);
+    Region(5, 8).Fill(x, y0 + 65, Color::FLASH_10);
+}
+
+
 static const Page mpSetName
 (
     PageMemory::External::self, 0,
     "", "",
     "",
     "",
-    NamePage::SB_MemExtSetName, &itemsSetName, EmptyFuncVV, EmptyFuncVV, OnMemExtSetNameRegSet
+    NamePage::SB_MemExtSetName, &itemsSetName, EmptyFuncVV, DrawSetName, OnMemExtSetNameRegSet
 );
 
 
