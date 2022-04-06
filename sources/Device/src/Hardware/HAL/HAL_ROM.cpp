@@ -436,7 +436,7 @@ bool HAL_ROM::Settings::Load(::Settings *_set)
         }
         std::memcpy(_set, (const void *)(record->addrData - 4), (uint)record->sizeData);            // Считываем их
         EraseSector(ADDR_SECTOR_SETTINGS);                                                          // Стираем сектор настроек
-        HAL_ROM::Settings::Save(_set, true);                                                        // И сохраняем настройки в новом формате
+        HAL_ROM::Settings::Save(_set);                                                        // И сохраняем настройки в новом формате
     }
     else
     {
@@ -460,14 +460,9 @@ bool HAL_ROM::Settings::Load(::Settings *_set)
 }
 
 
-bool HAL_ROM::Settings::Save(::Settings *_set, bool verifyLoadede)
+bool HAL_ROM::Settings::Save(::Settings *set)
 {
-    if (!verifyLoadede)
-    {
-        return false;
-    }
-
-    _set->crc32 = sizeof(::Settings);
+    set->crc32 = sizeof(::Settings);
 
     uint address = ADDR_SECTOR_SETTINGS;                                                // Находим первый свободный байт
 
@@ -483,7 +478,7 @@ bool HAL_ROM::Settings::Save(::Settings *_set, bool verifyLoadede)
         address = ADDR_SECTOR_SETTINGS;                                                 // и сохранять настройки будем прямо в начало сектора
     }
 
-    WriteBufferBytes(address, (uint8 *)_set, sizeof(::Settings));                       // И банально сохраняем настройки
+    WriteBufferBytes(address, (uint8 *)set, sizeof(::Settings));                       // И банально сохраняем настройки
 
     return true;
 }

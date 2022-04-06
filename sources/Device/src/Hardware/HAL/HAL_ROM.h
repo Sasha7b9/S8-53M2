@@ -24,7 +24,7 @@ namespace HAL_ROM
     namespace Settings
     {
         // Сохранить настройки
-        bool Save(::Settings *, bool verifyLoaded = false);
+        bool Save(::Settings *);
         bool Load(::Settings *);
 
         // Сохранить отладочные настройки
