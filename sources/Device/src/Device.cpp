@@ -19,7 +19,7 @@ void Device::Init()
 
     Sound::Init();
 
-    SettingsNRST::Load();
+    nrst.Load();
 
     Settings::Load();
 

@@ -57,7 +57,7 @@ void HAL::Init()
     HAL_ADC1::Init();           // АЦП рандомизатора
 
     HAL_SPI5::Init();           // Панель
-    
+
     HAL_RTC::Init();
 
     HAL_CRC32::Init();

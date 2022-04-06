@@ -169,7 +169,7 @@ static const Button bEraseData
 
 static void OnPress_SaveNRST()
 {
-    HAL_ROM::Settings::SaveNRST(&nrst);
+    nrst.Save();
 }
 
 

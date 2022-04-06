@@ -50,9 +50,9 @@ struct SettingsNRST
     int16   hand_rshift[Chan::Count][3];    // ¬ручную устанавливаемое дополнительное смещение. ƒл€ закрытого входа и 2м¬, 5м¬, 10м¬
     uint    not_used;                       // Ёто поле всегда равно нулю. ƒл€ правильного подсчЄта контрольной суммы
 
-    static void Load();
+    void Load();
 
-    static void Save();
+    void Save();
 
     uint CalculateCRC32();
 
