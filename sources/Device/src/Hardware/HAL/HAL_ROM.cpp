@@ -54,9 +54,6 @@
 
 #define READ_WORD(address) (*((volatile uint*)(address)))
 
-// Признак того, что запись в этоу область флэш уже производилась. Если нулевое слово области (данных, ресурсов или настроек) имеет это значение, 
-// запись уже была произведена как минимум один раз
-static const uint MARK_OF_FILLED = 0x1234;
 static const uint MAX_UINT = 0xffffffff;
 
 
@@ -409,57 +406,6 @@ void HAL_ROM::Data::Save(int num, const DataStruct &data)
 }
 
 
-bool HAL_ROM::Settings::Load(::Settings *_set)
-{
-    /*
-        1. Проверка на первое включение. Выполняется тем, что в первом слове сектора настроек хранится MAX_UINT, если настройки ещё не сохранялись.
-        2. Проверка на старую версию хранения настроек. Определяется тем, что в старой версии в первом слове сектора настроек хранится значение
-        MARK_OF_FILLED, а в новой - размер структуры Settings (раньше этого поля не было в структуре Settings).
-        3. Если старая версия - чтение настроек и сохранение в новом формате.
-            1. Чтобы прочитать, нужно сначала найти адрес последних сохранённых настроек.
-            2. Если (адрес + sizeof(Settings) >= ADDR_SECTORSETTINGS + (1024 * 128)), то эти нстройки повреждены и нужно считывать предпоследние
-               сохранённые настройки.
-            3. Когда нашли адрес последних действующих настроек, читаем их по адресу &set.display, записываем в gset.size полный размер структуры
-            Settings и вызываем Flash_SaveSettings().
-    */
-
-    if (READ_WORD(ADDR_SECTOR_SETTINGS) == 0x12345)
-    {
-        EraseSector(ADDR_SECTOR_SETTINGS);
-    }
-    else if (READ_WORD(ADDR_SECTOR_SETTINGS) == MARK_OF_FILLED)                                     // Если старый алгоритм хранения настроек
-    {
-        RecordConfig *record = RecordConfig::ForRead();
-        if (record->sizeData + record->addrData >= (ADDR_SECTOR_SETTINGS + SIZE_SECTOR_SETTINGS))   // Если последние сохранённые настройки выходят
-        {                                                                                           // за пределы сектора (глюк предыдущей версии сохранения)
-            --record;                                                                               // то воспользуемся предыдущими сохранёнными настройками
-        }
-        std::memcpy(_set, (const void *)(record->addrData - 4), (uint)record->sizeData);            // Считываем их
-        EraseSector(ADDR_SECTOR_SETTINGS);                                                          // Стираем сектор настроек
-        HAL_ROM::Settings::Save(_set);                                                        // И сохраняем настройки в новом формате
-    }
-    else
-    {
-        uint addressPrev = 0;
-        uint address = ADDR_SECTOR_SETTINGS;
-        while (READ_WORD(address) != MAX_UINT)  // Пока по этому адресу есть значение, отличное от (-1) (сюда производилась запись)
-        {
-            addressPrev = address;              // сохраняем этот адрес
-            address += READ_WORD(address);      // И переходим к следующему прибавлением значения, хранящегося по этому адресу (первый элемент
-        }                                       // структуры Settings - её размер. Все настройки хранятся последовательно в памяти, одна структура
-                                                // за другой
-
-        if (addressPrev != 0)                   // Если по этому адресу что-то записано
-        {
-            std::memcpy(_set, (const void *)addressPrev, READ_WORD(addressPrev));    // Счтываем сохранённые настройки
-            return true;
-        }
-    }
-
-    return false;
-}
-
-
 bool HAL_ROM::Settings::Save(::Settings *set)
 {
     uint address = ADDR_SECTOR_SETTINGS;
@@ -506,6 +452,44 @@ bool HAL_ROM::Settings::SaveNRST(SettingsNRST *_nrst)
 
     return true;
 }
+
+
+bool HAL_ROM::Settings::Load(::Settings *set)
+{
+    uint address = ADDR_SECTOR_SETTINGS;
+
+    if (READ_WORD(address) == MAX_UINT)
+    {
+        return false;
+    }
+
+    while (READ_WORD(address) != MAX_UINT && address < END_SECTOR_NRST)
+    {
+        address += ::Settings::SIZE_FIELD_RECORD;
+    }
+
+    // Здесь у нас адрес первой пустой строки
+
+    while (true)
+    {
+        address -= ::Settings::SIZE_FIELD_RECORD;
+
+        if (address < ADDR_SECTOR_SETTINGS)
+        {
+            return false;
+        }
+
+        ::Settings *src = (::Settings *)address;
+
+        if (src->crc32 == src->CalculateCRC32())
+        {
+            *set = *src;
+
+            return true;
+        }
+    }
+}
+
 
 
 bool HAL_ROM::Settings::LoadNRST(SettingsNRST *_nrst)
@@ -710,6 +694,16 @@ void HAL_ROM::WriteBufferBytes(uint address, const void *buffer, int size)
 uint SettingsNRST::CalculateCRC32()
 {
     int num_words = (sizeof(*this)) / 4 - 2;      // Откидываем два слова : первое - собственно контрольная сумма, и второе - последнее (неиспользуемое) поле
+
+    uint *address = ((uint *)this) + 1;
+
+    return HAL_CRC32::Calculate(address, num_words);
+}
+
+
+uint Settings::CalculateCRC32()
+{
+    int num_words = (sizeof(*this)) / 4 - 2;
 
     uint *address = ((uint *)this) + 1;
 
