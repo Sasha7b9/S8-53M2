@@ -197,7 +197,7 @@ static void FPGA::Calibrator::FunctionDraw()
     case StateCalibration::StretchB:
         {
             String<>(LANG_RU ? "Идёт калибровка канала %d" : "Channel %d calibration in progress",
-                (state == StateCalibration::RShiftA) ? 1 : 2).Draw(85, 50);
+                (state == StateCalibration::RShiftA) ? 1 : 2).Draw(100, 50);
 
             progress.Draw(100);
         }

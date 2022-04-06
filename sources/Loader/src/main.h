@@ -20,7 +20,7 @@
 #define NUM_OF_PAGES                256
 #define FLASH_PAGE_SIZE             2048
 
-#define TIME_WAIT   1000   // Время работы заставки
+#define TIME_WAIT   5000   // Время работы заставки
 
 
 struct State { enum E {
