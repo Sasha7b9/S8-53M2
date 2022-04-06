@@ -81,7 +81,6 @@ const SmallButton sbHelpParagraphNext
 
 static void PressSB_Help_Exit()
 {
-    Display::RemoveAddDrawFunction();
 }
 
 const SmallButton sbExitHelp
