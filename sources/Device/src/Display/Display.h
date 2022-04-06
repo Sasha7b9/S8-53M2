@@ -31,8 +31,6 @@ namespace Display
 
     void SetDrawMode(DrawMode::E, pFuncVV = nullptr);
 
-    void SetAddDrawFunction(pFuncVV func);
-
     void RemoveAddDrawFunction();
 
     void Clear();

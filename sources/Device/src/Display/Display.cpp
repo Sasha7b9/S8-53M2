@@ -550,12 +550,6 @@ void Display::SetDrawMode(DrawMode::E mode, pFuncVV func)
 }
 
 
-void Display::SetAddDrawFunction(pFuncVV func)
-{
-    funcAdditionDraw = func;
-}
-
-
 void Display::RemoveAddDrawFunction()
 {
     funcAdditionDraw = nullptr;
