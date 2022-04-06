@@ -532,6 +532,11 @@ namespace Panel
 
     static void BFuncPower(Action action)
     {
+        if (TIME_MS < 2000)
+        {
+            return;
+        }
+
         if (action.IsDown())
         {
             while (Item::Opened()->IsPage())
@@ -551,10 +556,6 @@ namespace Panel
             __disable_irq();
             gset.Save();
             __enable_irq();
-
-            while (TIME_MS < 1000)
-            {
-            }
 
             Panel::TransmitData(0x05);
 

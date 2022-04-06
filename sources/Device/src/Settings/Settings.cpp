@@ -14,9 +14,6 @@
 #include <cstring>
 
 
-bool Settings::isLoaded = false;
-
-
 static const Settings defaultSettings =
 {
     0,                              // size
@@ -269,8 +266,6 @@ void Settings::RunAfterLoad()
     RShift::ChangedMarkers();
 
     PageMemory::OnChanged_NumPoints();
-
-    isLoaded = true;
 }
 
 bool Settings::Save()

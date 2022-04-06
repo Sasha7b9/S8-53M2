@@ -462,12 +462,12 @@ bool HAL_ROM::Settings::Load(::Settings *_set)
 
 bool HAL_ROM::Settings::Save(::Settings *_set, bool verifyLoadede)
 {
-    if (!verifyLoadede && !::Settings::isLoaded)
+    if (!verifyLoadede)
     {
         return false;
     }
 
-    _set->size = sizeof(::Settings);
+    _set->crc32 = sizeof(::Settings);
 
     uint address = ADDR_SECTOR_SETTINGS;                                                // Находим первый свободный байт
 
