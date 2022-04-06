@@ -16,7 +16,7 @@
 #define FPGA_GATES_MIN          nrst.fpga_gates_min
 #define FPGA_GATES_MAX          nrst.fpga_gates_max
 
-#define RSHIFT_HAND(ch, range)  nrst.hand_rshift[ch][range]
+#define _RSHIFT_HAND(ch, range)  nrst.hand_rshift[ch][range]
 
 namespace CAL
 {

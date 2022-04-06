@@ -444,7 +444,7 @@ static void OnPress_ADC_AltRShift_Reset()
     {
         for (int range = 0; range < 3; range++)
         {
-            RSHIFT_HAND(ch, range) = 0;
+            _RSHIFT_HAND(ch, range) = 0;
         }
     }
 
@@ -474,7 +474,7 @@ static const Governor mbADC_AltRShift_2mV_DC_A
     "—м 1к 2м¬ пост", "Shift 1ch 2mV DC",
     "",
     "",
-    &RSHIFT_HAND(Chan::A, Range::_2mV), -100, 100, OnChanged_ADC_AltRShift_A
+    &_RSHIFT_HAND(Chan::A, Range::_2mV), -100, 100, OnChanged_ADC_AltRShift_A
 );
 
 
@@ -490,7 +490,7 @@ static const Governor mbADC_AltRShift_2mV_DC_B
     "—м 2к 2м¬ пост", "Shift 2ch 2mV DC",
     "",
     "",
-    &RSHIFT_HAND(Chan::B, Range::_2mV), -100, 100, OnChanged_ADC_AltRShift_B
+    &_RSHIFT_HAND(Chan::B, Range::_2mV), -100, 100, OnChanged_ADC_AltRShift_B
 );
 
 
@@ -500,7 +500,7 @@ static const Governor mbADC_AltRShift_5mV_DC_A
     "—м 1к 5м¬ пост", "Shift 1ch 5mV DC",
     "",
     "",
-    &RSHIFT_HAND(Chan::A, Range::_5mV), -100, 100, OnChanged_ADC_AltRShift_A
+    &_RSHIFT_HAND(Chan::A, Range::_5mV), -100, 100, OnChanged_ADC_AltRShift_A
 );
 
 
@@ -510,7 +510,7 @@ static const Governor mbADC_AltRShift_5mV_DC_B
     "—м 2к 5м¬ пост", "Shift 2ch 5mV DC",
     "",
     "",
-    &RSHIFT_HAND(Chan::B, Range::_5mV), -100, 100, OnChanged_ADC_AltRShift_B
+    &_RSHIFT_HAND(Chan::B, Range::_5mV), -100, 100, OnChanged_ADC_AltRShift_B
 );
 
 
@@ -520,7 +520,7 @@ static const Governor mbADC_AltRShift_10mV_DC_A
     "—м 1к 10м¬ пост", "Shift 1ch 10mV DC",
     "",
     "",
-    &RSHIFT_HAND(Chan::A, Range::_10mV), -100, 100, OnChanged_ADC_AltRShift_A
+    &_RSHIFT_HAND(Chan::A, Range::_10mV), -100, 100, OnChanged_ADC_AltRShift_A
 );
 
 
@@ -530,7 +530,7 @@ static const Governor mbADC_AltRShift_10mV_DC_B
     "—м 2к 10м¬ пост", "Shift 2ch 10mV DC",
     "",
     "",
-    &RSHIFT_HAND(Chan::B, Range::_10mV), -100, 100, OnChanged_ADC_AltRShift_B
+    &_RSHIFT_HAND(Chan::B, Range::_10mV), -100, 100, OnChanged_ADC_AltRShift_B
 );
 
 
