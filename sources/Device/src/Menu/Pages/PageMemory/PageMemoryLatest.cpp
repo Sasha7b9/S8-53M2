@@ -33,7 +33,7 @@ static void DrawSB_MemLast_Next(int x, int y)
 }
 
 
-static const SmallButton sbMemLatestNext
+static const SmallButton sbNext
 (
     PageMemory::Latest::self, 0,
     "Следующий", "Next",
@@ -146,7 +146,7 @@ static const arrayItems itemsMemLatest =
 {
     (void *)&sbExitMemLatest,
     (void *)0,
-    (void *)&sbMemLatestNext,
+    (void *)&sbNext,
     (void *)&sbMemLatestPrev,
     (void *)&sbMemLatestIntEnter,
     (void *)&sbMemLatestSaveToFlash

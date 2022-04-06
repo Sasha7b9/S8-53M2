@@ -100,7 +100,7 @@ static void PressSB_SetName_Insert()
 {
     int size = (int)std::strlen(FILE_NAME);
 
-    if (size < MAX_SYMBOLS_IN_FILE_NAME - 1)
+    if (size < SettingsMemory::MAX_SYMBOLS_IN_FILE_NAME - 1)
     {
         FILE_NAME[size] = Tables::symbolsAlphaBet[INDEX_SYMBOL][0];
         FILE_NAME[size + 1] = '\0';
@@ -181,7 +181,7 @@ static void OnMemExtSetNameRegSet(int angle)
 
 static const Page mpSetName
 (
-    0, 0,
+    PageMemory::External::self, 0,
     "", "",
     "",
     "",

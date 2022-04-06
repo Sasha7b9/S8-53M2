@@ -487,7 +487,15 @@ namespace Panel
             if (MODE_BTN_MEMORY_IS_SAVE && FDrive::isConnected)
             {
                 PageMemory::SetName::exitTo = Menu::IsShown() ? RETURN_TO_MAIN_MENU : RETURN_TO_DISABLE_MENU;
-                PageMemory::SaveSignalToFlashDrive();
+
+                if (FILE_NAMING_MODE_IS_HAND)
+                {
+                    PageMemory::SetName::self->SetCurrent(true);
+                }
+                else
+                {
+                    PageMemory::SaveSignalToFlashDrive();
+                }
             }
             else
             {

@@ -92,7 +92,7 @@ static void PressSB_SetMask_Insert()
     int index = INDEX_SYMBOL;
     int size = (int)std::strlen(FILE_NAME_MASK);
 
-    if (size == MAX_SYMBOLS_IN_FILE_NAME - 1)
+    if (size == SettingsMemory::MAX_SYMBOLS_IN_FILE_NAME - 1)
     {
         return;
     }
@@ -107,7 +107,7 @@ static void PressSB_SetMask_Insert()
         index -= 0x40;
         if (index == 0x07)  // Для %nN - отдельный случай
         {
-            if (size < MAX_SYMBOLS_IN_FILE_NAME - 2 && size > 0)
+            if (size < SettingsMemory::MAX_SYMBOLS_IN_FILE_NAME - 2 && size > 0)
             {
                 if (FILE_NAME_MASK[size - 1] >= 0x30 && FILE_NAME_MASK[size - 1] <= 0x39) // Если ранее введено число
                 {
