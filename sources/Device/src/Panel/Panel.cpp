@@ -31,11 +31,11 @@ namespace Panel
     volatile Key::E pressedButton = Key::None;      // Это используется для отслеживания нажатой кнопки при отключенной
                                                     // панели
 
-    Queue<uint8> data_for_send;                     // Здесь данные для пересылки в панель
+    Queue<uint8, 10> data_for_send;                 // Здесь данные для пересылки в панель
 
-    StaticQueue<KeyboardEvent, 10> input_buffer;   // Основной буфер событий
-    StaticQueue<KeyboardEvent, 10> aux_buffer;     // Вспомогательный буфер - сюда помещаются события, если во время прерывания идёт
-                                // работа с основным буфером input_buffer
+    Queue<KeyboardEvent, 10> input_buffer;          // Основной буфер событий
+    Queue<KeyboardEvent, 10> aux_buffer;            // Вспомогательный буфер - сюда помещаются события, если во время
+                                                    // прерывания идёт работа с основным буфером input_buffer
     bool isRunning = true;
 
     uint timeLastEvent = 0;

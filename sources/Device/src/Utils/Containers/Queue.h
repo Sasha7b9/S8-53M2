@@ -5,71 +5,11 @@
 #include <cstring>
 
 
-template<typename T>
-class Queue
-{
-public:
-    Queue();
-
-    ~Queue();
-
-    void Push(T elem)
-    {
-        if (pointer == nullptr)
-        {
-            pointer = new T[1];
-            *pointer = elem;
-            iFront = 0;
-            iBack = 1;
-        }
-        else
-        {
-            T *temp = pointer;
-            int num = iBack - iFront + 1;
-            pointer = new T[(uint)(num)];
-            for (int i = 0; i < num - 1; i++)
-            {
-                pointer[i] = temp[i + iFront];
-            }
-            pointer[num - 1] = elem;
-            iFront = 0;
-            iBack = num;
-            delete[] temp;
-        }
-    }
-
-    T Front();
-
-    T Back();
-
-    void Clear();
-
-    int Size() const
-    {
-        return (iBack - iFront);
-    }
-
-    bool Empty() const;
-
-    T &operator[](int n);
-
-    T *Data();
-
-private:
-
-    void Destroy();
-    
-    T *pointer;         // Указатель на массив элементов
-    int iFront;         // Индекс первого элемента
-    int iBack;          // Индекс элемента за последним
-};
-
-
 // Очередь с фиксированым размером, который задаётся при создании объекта
 template<typename T, int size>
-struct StaticQueue
+struct Queue
 {
-    StaticQueue() : pointer(0) { }
+    Queue() : pointer(0) { }
 
     void Clear() { pointer = 0; }
 
@@ -79,7 +19,13 @@ struct StaticQueue
         {
             buffer[pointer++] = elem;
         }
+        else
+        {
+            LOG_ERROR_TRACE("буфер слишком мал");
+        }
     }
+
+    int Size() const { return pointer; }
 
     bool Empty() const { return (pointer == 0); }
 
@@ -87,7 +33,7 @@ struct StaticQueue
     {
         if (pointer == 0)
         {
-            return T();
+            return T(0);
         }
 
         T result = buffer[0];
@@ -97,6 +43,16 @@ struct StaticQueue
         pointer--;
 
         return result;
+    }
+
+    T Front()
+    {
+        if (pointer == 0)
+        {
+            return T(0);
+        }
+
+        return buffer[--pointer];
     }
 
     Mutex mutex;
