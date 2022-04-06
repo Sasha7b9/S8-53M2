@@ -6,7 +6,7 @@
 
 
 // Очередь с фиксированым размером, который задаётся при создании объекта
-template<typename T, int size>
+template<typename T, int capacity>
 struct Queue
 {
     Queue() : pointer(0) { }
@@ -15,7 +15,7 @@ struct Queue
 
     void Push(T elem)
     {
-        if (pointer < size)
+        if (pointer < capacity)
         {
             buffer[pointer++] = elem;
         }
@@ -27,8 +27,11 @@ struct Queue
 
     int Size() const { return pointer; }
 
+    int Capacity() const { return capacity; }
+
     bool Empty() const { return (pointer == 0); }
 
+    // Возвращает самый старый положенный элемент
     T Back()
     {
         if (pointer == 0)
@@ -45,6 +48,7 @@ struct Queue
         return result;
     }
 
+    // Возвращает самый новый положенный элемент
     T Front()
     {
         if (pointer == 0)
@@ -59,6 +63,6 @@ struct Queue
 
 private:
 
-    T buffer[size];
+    T buffer[capacity];
     int pointer;                        // Здесь позиция элемента, в который будет производиться сохранение
 };

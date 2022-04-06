@@ -31,9 +31,10 @@ namespace Panel
     volatile Key::E pressedButton = Key::None;      // Это используется для отслеживания нажатой кнопки при отключенной
                                                     // панели
 
-    Queue<uint8, 10> data_for_send;                 // Здесь данные для пересылки в панель
+    Queue<uint8, 10> data_for_send;                 // Здесь данные для пересылки в панель.
 
-    Queue<KeyboardEvent, 10> input_buffer;          // Основной буфер событий
+    Queue<KeyboardEvent, 10> input_buffer;          // Основной буфер событий. Отсюда панель берёт события для обработки.
+                                                    // И лочит мютекс, чтобы сообщить прерыванию о том, что буфер занят
     Queue<KeyboardEvent, 10> aux_buffer;            // Вспомогательный буфер - сюда помещаются события, если во время
                                                     // прерывания идёт работа с основным буфером input_buffer
     bool isRunning = true;
@@ -840,16 +841,48 @@ Key::E Panel::WaitPressingButton()
 
 void Panel::TransmitData(uint8 data)
 {
-    if (data_for_send.Size() < 20)
+    static Queue<uint8, 10> buffer;
+
+    if (data_for_send.mutex.Locked())
     {
-        data_for_send.Push(data);
+        buffer.Push(data);
+    }
+    else
+    {
+        data_for_send.mutex.Lock();
+
+        while (buffer.Size())
+        {
+            if (data_for_send.Size() < data_for_send.Capacity())
+            {
+                data_for_send.Push(buffer.Back());
+            }
+        }
+
+        if (data_for_send.Size() < data_for_send.Capacity())
+        {
+            data_for_send.Push(data);
+        }
+
+        data_for_send.mutex.Unlock();
     }
 }
 
 
 uint16 Panel::NextData()
 {
-    return data_for_send.Front();
+    uint16 result = 0;
+
+    if (!data_for_send.mutex.Locked())
+    {
+        data_for_send.mutex.Lock();
+
+        result = data_for_send.Back();
+
+        data_for_send.mutex.Unlock();
+    }
+
+    return result;
 }
 
 
