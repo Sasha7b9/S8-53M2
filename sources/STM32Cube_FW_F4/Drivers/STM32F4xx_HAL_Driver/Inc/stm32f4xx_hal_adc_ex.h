@@ -78,14 +78,14 @@ typedef struct
                                                       To use the injected group sequencer and convert several ranks, parameter 'ScanConvMode' must be enabled.
                                                       This parameter must be a number between Min_Data = 1 and Max_Data = 4.
                                                       Caution: this setting impacts the entire injected group. Therefore, call of HAL_ADCEx_InjectedConfigChannel() to 
-                                                               configure a channel on injected group can impact the configuration of other channels previously gset. */
+                                                               configure a channel on injected group can impact the configuration of other channels previously set. */
   FunctionalState InjectedDiscontinuousConvMode; /*!< Specifies whether the conversions sequence of injected group is performed in Complete-sequence/Discontinuous-sequence (main sequence subdivided in successive parts).
                                                       Discontinuous mode is used only if sequencer is enabled (parameter 'ScanConvMode'). If sequencer is disabled, this parameter is discarded.
                                                       Discontinuous mode can be enabled only if continuous mode is disabled. If continuous mode is enabled, this parameter setting is discarded.
                                                       This parameter can be set to ENABLE or DISABLE.
                                                       Note: For injected group, number of discontinuous ranks increment is fixed to one-by-one.
                                                       Caution: this setting impacts the entire injected group. Therefore, call of HAL_ADCEx_InjectedConfigChannel() to 
-                                                               configure a channel on injected group can impact the configuration of other channels previously gset. */
+                                                               configure a channel on injected group can impact the configuration of other channels previously set. */
   FunctionalState AutoInjectedConv;              /*!< Enables or disables the selected ADC automatic injected group conversion after regular one
                                                       This parameter can be set to ENABLE or DISABLE.      
                                                       Note: To use Automatic injected conversion, discontinuous mode must be disabled ('DiscontinuousConvMode' and 'InjectedDiscontinuousConvMode' set to DISABLE)
@@ -93,7 +93,7 @@ typedef struct
                                                       Note: In case of DMA used with regular group: if DMA configured in normal mode (single shot) JAUTO will be stopped upon DMA transfer complete.
                                                             To maintain JAUTO always enabled, DMA must be configured in circular mode.
                                                       Caution: this setting impacts the entire injected group. Therefore, call of HAL_ADCEx_InjectedConfigChannel() to
-                                                               configure a channel on injected group can impact the configuration of other channels previously gset. */
+                                                               configure a channel on injected group can impact the configuration of other channels previously set. */
   uint32_t ExternalTrigInjecConv;                /*!< Selects the external event used to trigger the conversion start of injected group.
                                                       If set to ADC_INJECTED_SOFTWARE_START, external triggers are disabled.
                                                       If set to external trigger source, triggering is on event rising edge.
@@ -101,12 +101,12 @@ typedef struct
                                                       Note: This parameter must be modified when ADC is disabled (before ADC start conversion or after ADC stop conversion).
                                                             If ADC is enabled, this parameter setting is bypassed without error reporting (as it can be the expected behaviour in case of another parameter update on the fly)
                                                       Caution: this setting impacts the entire injected group. Therefore, call of HAL_ADCEx_InjectedConfigChannel() to
-                                                               configure a channel on injected group can impact the configuration of other channels previously gset. */
+                                                               configure a channel on injected group can impact the configuration of other channels previously set. */
   uint32_t ExternalTrigInjecConvEdge;            /*!< Selects the external trigger edge of injected group.
                                                       This parameter can be a value of @ref ADCEx_External_trigger_edge_Injected.
                                                       If trigger is set to ADC_INJECTED_SOFTWARE_START, this parameter is discarded.
                                                       Caution: this setting impacts the entire injected group. Therefore, call of HAL_ADCEx_InjectedConfigChannel() to 
-                                                               configure a channel on injected group can impact the configuration of other channels previously gset. */
+                                                               configure a channel on injected group can impact the configuration of other channels previously set. */
 }ADC_InjectionConfTypeDef; 
 
 /** 

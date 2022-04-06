@@ -685,7 +685,7 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
   * @brief Simultaneously clears and sets specific bits of the handle State
   * @note: ADC_STATE_CLR_SET() macro is merely aliased to generic macro MODIFY_REG(),
   *        the first parameter is the ADC handle State, the second parameter is the
-  *        bit field to clear, the third and last parameter is the bit field to gset.
+  *        bit field to clear, the third and last parameter is the bit field to set.
   * @retval None
   */
 #define ADC_STATE_CLR_SET MODIFY_REG

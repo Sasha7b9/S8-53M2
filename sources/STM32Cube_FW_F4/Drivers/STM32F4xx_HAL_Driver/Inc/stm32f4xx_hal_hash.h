@@ -270,7 +270,7 @@ typedef  void (*pHASH_CallbackTypeDef)(HASH_HandleTypeDef *hhash);  /*!< pointer
   * @{
   */
 
-/** @brief  Check whether or not the specified HASH flag is gset.
+/** @brief  Check whether or not the specified HASH flag is set.
   * @param  __FLAG__ specifies the flag to check.
   *        This parameter can be one of the following values:
   *            @arg @ref HASH_FLAG_DINIS A new block can be entered into the input buffer.

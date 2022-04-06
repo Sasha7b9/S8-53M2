@@ -807,11 +807,11 @@ static const arrayItems itemsDebug =
     (void *)PageDebug::Console::self,
     (void *)PageDebug::ADC::self,
     (void *)PageDebug::Randomizer::self,
+    (void *)&bSaveSettings,
     (void *)&mcStats,
     (void *)&mbSaveFirmware,
     (void *)&bEraseData,
     (void *)PageDebug::SerialNumber::self,
-    (void *)&bSaveSettings,
     nullptr
 };
 
