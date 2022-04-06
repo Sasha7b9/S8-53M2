@@ -11,7 +11,7 @@ static SettingsNRST defaultNRST =
     0,                  // נאחלונ רנטפעא - 5
     1000,               // numMeasuresForGates
     false,              // showStats
-    6,                  // numAveForRand
+    32,                 // numAveForRand
     false,              // fpga_compact
     0,                  // fpga_gates_min
     0,                  // fpga_gates_max

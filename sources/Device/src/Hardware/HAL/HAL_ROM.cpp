@@ -705,7 +705,6 @@ void HAL_ROM::WriteBufferBytes(uint address, const void *buffer, int size)
     {
         while (HAL_FLASH_Program(TYPEPROGRAM_BYTE, address, (uint64_t)(bufferU8[i])) != HAL_OK)
         {
-            LOG_WRITE("Ошибка записи");
         }
         address++;
     }
