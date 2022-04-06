@@ -83,7 +83,7 @@ void FPGA::AutoFinder::FindSignal()
 
     Display::SetDrawMode(DrawMode::Timer, FunctionDraw);
 
-    Settings old = set;
+    Settings old = gset;
 
     bool running = FPGA::IsRunning();
     FPGA::Stop();
@@ -93,8 +93,8 @@ void FPGA::AutoFinder::FindSignal()
         if (!FindWave(ChB))
         {
             Warning::ShowBad(Warning::SignalNotFound);
-            set = old;
-            set.RunAfterLoad();
+            gset = old;
+            gset.RunAfterLoad();
             FPGA::Init();
         }
     }

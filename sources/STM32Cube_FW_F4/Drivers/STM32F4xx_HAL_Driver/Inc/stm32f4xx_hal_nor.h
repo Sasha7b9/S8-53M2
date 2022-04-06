@@ -90,7 +90,7 @@ typedef struct
 
   uint16_t Device_Code3;       /*!< Defines the device's codes used to identify the memory. 
                                     These codes can be accessed by performing read operations with specific 
-                                    control signals and addresses set.They can also be accessed by issuing 
+                                    control signals and addresses gset.They can also be accessed by issuing 
                                     an Auto Select command                                                   */
 }NOR_IDTypeDef;
 

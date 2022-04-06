@@ -117,7 +117,7 @@ void FPGA::Calibrator::RunCalibrate()
 
     Display::SetDrawMode(DrawMode::Timer, FunctionDraw);
 
-    Settings old = set;
+    Settings old = gset;
 
     Panel::Disable();
 
@@ -143,17 +143,17 @@ void FPGA::Calibrator::RunCalibrate()
         errorCalibration[ChB] = !CalibrateChannel(ChB);
     }
 
-    Settings set_cal = set;                     // Сохраняем скалиброванные настройки
+    Settings set_cal = gset;                     // Сохраняем скалиброванные настройки
 
-    set = old;                                  // Возвращаем настройки, которые были до калибровки
+    gset = old;                                  // Возвращаем настройки, которые были до калибровки
 
     if (carriedOut[ChA] && !errorCalibration[ChA])
     {
-        CopyCalibrationSettings(ChA, set, set_cal);
+        CopyCalibrationSettings(ChA, gset, set_cal);
     }
     if (carriedOut[ChB] && !errorCalibration[ChB])
     {
-        CopyCalibrationSettings(ChB, set, set_cal);
+        CopyCalibrationSettings(ChB, gset, set_cal);
     }
 
     state = StateCalibration::Finish;
@@ -462,7 +462,7 @@ void FPGA::Calibrator::ShowCalibrationInfo(const int y0, Chan ch)
     {
         for (int range = 0; range < Range::Count; range++)
         {
-            String<>("%d", set.chan[ch].cal_rshift[range][couple]).Draw(x0 + range * dX, y0 + couple * dY);
+            String<>("%d", gset.chan[ch].cal_rshift[range][couple]).Draw(x0 + range * dX, y0 + couple * dY);
         }
     }
 

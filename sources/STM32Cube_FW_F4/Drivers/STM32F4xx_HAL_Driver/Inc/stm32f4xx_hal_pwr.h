@@ -163,7 +163,7 @@ typedef struct
   *            @arg PWR_FLAG_PVDO: PVD Output. This flag is valid only if PVD is enabled 
   *                  by the HAL_PWR_EnablePVD() function. The PVD is stopped by Standby mode 
   *                  For this reason, this bit is equal to 0 after Standby or reset
-  *                  until the PVDE bit is set.
+  *                  until the PVDE bit is gset.
   *            @arg PWR_FLAG_BRR: Backup regulator ready flag. This bit is not reset 
   *                  when the device wakes up from Standby mode or by a system reset 
   *                  or power reset.  

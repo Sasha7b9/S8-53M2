@@ -127,7 +127,7 @@ static const Settings defaultSettings =
     // time
     {
         TBase::_200us,
-        0,                          // set.time.tShiftRel
+        0,                          // gset.time.tShiftRel
         FunctionTime::Time,
         TPos::Center,
         SampleType::Equal,
@@ -229,7 +229,7 @@ static const Settings defaultSettings =
 };
 
 
-Settings set = defaultSettings;
+Settings gset = defaultSettings;
 
 
 void Settings::Load()
@@ -245,15 +245,15 @@ void Settings::Load()
 
 void Settings::Reset()
 {
-    Settings old = set;
+    Settings old = *this;
 
-    set = defaultSettings;
+    *this = defaultSettings;
 
-    set.chan[ChA].cal_stretch = old.chan[ChA].cal_stretch;
-    set.chan[ChB].cal_stretch = old.chan[ChB].cal_stretch;
+    chan[ChA].cal_stretch = old.chan[ChA].cal_stretch;
+    chan[ChB].cal_stretch = old.chan[ChB].cal_stretch;
 
-    std::memcpy(&set.chan[ChA].cal_rshift[0][0], &old.chan[ChA].cal_rshift[0][0], sizeof(set.chan[ChA].cal_rshift[0][0]) * Range::Count * ModeCouple::Count);
-    std::memcpy(&set.chan[ChB].cal_rshift[0][0], &old.chan[ChB].cal_rshift[0][0], sizeof(set.chan[ChB].cal_rshift[0][0]) * Range::Count * ModeCouple::Count);
+    std::memcpy(&chan[ChA].cal_rshift[0][0], &old.chan[ChA].cal_rshift[0][0], sizeof(chan[ChA].cal_rshift[0][0]) * Range::Count * ModeCouple::Count);
+    std::memcpy(&chan[ChB].cal_rshift[0][0], &old.chan[ChB].cal_rshift[0][0], sizeof(chan[ChB].cal_rshift[0][0]) * Range::Count * ModeCouple::Count);
 
     RunAfterLoad();
 }
@@ -281,19 +281,19 @@ bool Settings::Save()
 
 int Page::NumCurrentSubPage() const
 {
-    return set.menu.currentSubPage[name];
+    return gset.menu.currentSubPage[name];
 }
 
 
 bool Menu::IsShown()
 {
-    return set.menu.isShown;
+    return gset.menu.isShown;
 }
 
 
 void Menu::Show(bool show)
 {
-    set.menu.isShown = show ? 1U : 0U;
+    gset.menu.isShown = show ? 1U : 0U;
     Menu::SetAutoHide(true);
 }
 

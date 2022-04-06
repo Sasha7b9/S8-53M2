@@ -44,7 +44,7 @@ void SettingsNRST::Load()
 
 int CAL::RShift(Chan ch, Range::E range)
 {
-    int result = set.chan[ch].cal_rshift[range][SET_COUPLE(ch)];
+    int result = gset.chan[ch].cal_rshift[range][SET_COUPLE(ch)];
 
     if (range <= Range::_10mV && SET_COUPLE(ch) == ModeCouple::DC)
     {

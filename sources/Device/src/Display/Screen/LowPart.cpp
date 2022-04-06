@@ -126,7 +126,7 @@ void LowPart::Draw()
     {
         int dy = -6;
         WriteStringAndNumber("накопл", x, y0 + dy, NUM_ACCUM);
-        WriteStringAndNumber("усредн", x, y1 + dy, (1 << set.display.enumAve));
+        WriteStringAndNumber("усредн", x, y1 + dy, (1 << gset.display.enumAve));
         WriteStringAndNumber("мн\x93мкс", x, y2 + dy, NUM_MIN_MAX);
     }
 

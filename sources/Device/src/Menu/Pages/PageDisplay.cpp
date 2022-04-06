@@ -274,7 +274,7 @@ static const Choice mcAveraging_Number =
         {"256",         "256"},
         {"512",         "512"}
     },
-    (int8 *)&set.display.enumAve, nullptr, nullptr
+    (int8 *)&gset.display.enumAve, nullptr, nullptr
 };
 
 
@@ -296,7 +296,7 @@ static const Choice mcAveraging_Mode =
         {"Точно",           "Accurately"},
         {"Приблизительно",  "Around"}
     },
-    (int8 *)&set.display.modeAve, nullptr, nullptr
+    (int8 *)&gset.display.modeAve, nullptr, nullptr
 };
 
 

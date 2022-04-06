@@ -21,7 +21,7 @@ void Device::Init()
 
     nrst.Load();
 
-    set.Reset();
+    gset.Reset();
 
     FPGA::Init();
 
@@ -62,7 +62,7 @@ void Device::Update()
 //    TimeMeterMS meter;
 //
 //    nrst.Save();
-//    set.Save();
+//    gset.Save();
 //
 //    LOG_WRITE("%d", meter.ElapsedTime());
 }

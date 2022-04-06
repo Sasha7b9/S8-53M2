@@ -167,9 +167,9 @@ bool SCPI::DISPLAY::AVERAGE_NUMBER(pchar buffer)
         {0}
     };
 
-    SCPI_CYCLE(set.display.enumAve = (ENumAveraging::E)it->value);
+    SCPI_CYCLE(gset.display.enumAve = (ENumAveraging::E)it->value);
 
-    IF_REQUEST(SCPI::SendFormat(":DISPLAY:AVERAGE:NUMBER%s", map[set.display.enumAve].key));
+    IF_REQUEST(SCPI::SendFormat(":DISPLAY:AVERAGE:NUMBER%s", map[gset.display.enumAve].key));
 
     return false;
 }
@@ -177,11 +177,11 @@ bool SCPI::DISPLAY::AVERAGE_NUMBER(pchar buffer)
 
 bool SCPI::DISPLAY::AVERAGE_MODE(pchar buffer)
 {
-    if      FIRST_SYMBOLS(" ACCURACY")    { set.display.modeAve = ModeAveraging::Accurately; return true; }
-    else if FIRST_SYMBOLS(" APPROXIMATE") { set.display.modeAve = ModeAveraging::Around;     return true; }
+    if      FIRST_SYMBOLS(" ACCURACY")    { gset.display.modeAve = ModeAveraging::Accurately; return true; }
+    else if FIRST_SYMBOLS(" APPROXIMATE") { gset.display.modeAve = ModeAveraging::Around;     return true; }
 
     IF_REQUEST(SCPI::SendFormat(":DISPLAY:AVARAGE:MODE %s",
-        (set.display.modeAve == ModeAveraging::Accurately) ? "ACCURACY" : "APPROXIMATE"));
+        (gset.display.modeAve == ModeAveraging::Accurately) ? "ACCURACY" : "APPROXIMATE"));
 
     return false;
 }
@@ -257,10 +257,10 @@ bool SCPI::DISPLAY::FPS(pchar buffer)
 
 bool SCPI::DISPLAY::WINDOW(pchar buffer)
 {
-    if      FIRST_SYMBOLS(" STANDARD") { set.display.showFullMemoryWindow = true;  return true; }
-    else if FIRST_SYMBOLS(" SIMPLE")   { set.display.showFullMemoryWindow = false; return true; }
+    if      FIRST_SYMBOLS(" STANDARD") { gset.display.showFullMemoryWindow = true;  return true; }
+    else if FIRST_SYMBOLS(" SIMPLE")   { gset.display.showFullMemoryWindow = false; return true; }
 
-    IF_REQUEST(SCPI::SendFormat(":DISPLAY:WINDOW %s", set.display.showFullMemoryWindow ? "STANDARD" : "SIMPLE"));
+    IF_REQUEST(SCPI::SendFormat(":DISPLAY:WINDOW %s", gset.display.showFullMemoryWindow ? "STANDARD" : "SIMPLE"));
 
     return false;
 }

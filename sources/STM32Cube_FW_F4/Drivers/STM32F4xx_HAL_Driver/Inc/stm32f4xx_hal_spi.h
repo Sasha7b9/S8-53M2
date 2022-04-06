@@ -69,7 +69,7 @@ typedef struct
                                      used to configure the transmit and receive SCK clock.
                                      This parameter can be a value of @ref SPI_BaudRate_Prescaler
                                      @note The communication clock is derived from the master
-                                     clock. The slave clock does not need to be set. */
+                                     clock. The slave clock does not need to be gset. */
 
   uint32_t FirstBit;            /*!< Specifies whether data transfers start from MSB or LSB bit.
                                      This parameter can be a value of @ref SPI_MSB_LSB_transmission */

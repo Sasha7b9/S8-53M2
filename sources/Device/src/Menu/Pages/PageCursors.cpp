@@ -454,8 +454,8 @@ static void DrawSB_Cursors_U(int x, int y)
             }
         }
         /*
-        if (set.cursors.lookMode[0] == CursLookMode_Voltage || set.cursors.lookMode[0] == CursLookMode_Both ||
-            set.cursors.lookMode[1] == CursLookMode_Voltage || set.cursors.lookMode[1] == CursLookMode_Both)
+        if (set.cursors.lookMode[0] == CursLookMode_Voltage || gset.cursors.lookMode[0] == CursLookMode_Both ||
+            gset.cursors.lookMode[1] == CursLookMode_Voltage || gset.cursors.lookMode[1] == CursLookMode_Both)
         {
             Font::Set(TypeFont::_5);
             Char().Draw(x + 10, y, 'c');

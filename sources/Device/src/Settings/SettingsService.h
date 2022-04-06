@@ -2,15 +2,15 @@
 #pragma once
 
 
-#define SOUND_ENABLED       (set.service.soundEnabled)
+#define SOUND_ENABLED       (gset.service.soundEnabled)
 
-#define CALIBRATOR          (set.service.calibrator)
+#define CALIBRATOR          (gset.service.calibrator)
 #define CALIBRATOR_IS_FREQ  (CALIBRATOR == CalibratorMode::Freq)
 #define CALIBRATOR_IS_DC    (CALIBRATOR == CalibratorMode::DC)
 
-#define IP_ADDRESS          (set.service.IPaddress)
+#define IP_ADDRESS          (gset.service.IPaddress)
 
-#define COLOR_SCHEME                    (set.service.colorScheme)
+#define COLOR_SCHEME                    (gset.service.colorScheme)
 #define IS_COLOR_SCHEME_WHITE_LETTERS   (COLOR_SCHEME == ColorScheme::WhiteLetters)
 
 
@@ -37,31 +37,31 @@ struct SettingsService
 
 
 
-#define MAC_ADDR0       (set.eth.mac0)
-#define MAC_ADDR1       (set.eth.mac1)
-#define MAC_ADDR2       (set.eth.mac2)
-#define MAC_ADDR3       (set.eth.mac3)
-#define MAC_ADDR4       (set.eth.mac4)
-#define MAC_ADDR5       (set.eth.mac5)
+#define MAC_ADDR0       (gset.eth.mac0)
+#define MAC_ADDR1       (gset.eth.mac1)
+#define MAC_ADDR2       (gset.eth.mac2)
+#define MAC_ADDR3       (gset.eth.mac3)
+#define MAC_ADDR4       (gset.eth.mac4)
+#define MAC_ADDR5       (gset.eth.mac5)
 
-#define IP_ADDR0        (set.eth.ip0)
-#define IP_ADDR1        (set.eth.ip1)
-#define IP_ADDR2        (set.eth.ip2)
-#define IP_ADDR3        (set.eth.ip3)
+#define IP_ADDR0        (gset.eth.ip0)
+#define IP_ADDR1        (gset.eth.ip1)
+#define IP_ADDR2        (gset.eth.ip2)
+#define IP_ADDR3        (gset.eth.ip3)
 
-#define LAN_PORT        (set.eth.port)
+#define LAN_PORT        (gset.eth.port)
 
-#define NETMASK_ADDR0   (set.eth.mask0)
-#define NETMASK_ADDR1   (set.eth.mask1)
-#define NETMASK_ADDR2   (set.eth.mask2)
-#define NETMASK_ADDR3   (set.eth.mask3)
+#define NETMASK_ADDR0   (gset.eth.mask0)
+#define NETMASK_ADDR1   (gset.eth.mask1)
+#define NETMASK_ADDR2   (gset.eth.mask2)
+#define NETMASK_ADDR3   (gset.eth.mask3)
 
-#define GW_ADDR0        (set.eth.gw0)
-#define GW_ADDR1        (set.eth.gw1)
-#define GW_ADDR2        (set.eth.gw2)
-#define GW_ADDR3        (set.eth.gw3)
+#define GW_ADDR0        (gset.eth.gw0)
+#define GW_ADDR1        (gset.eth.gw1)
+#define GW_ADDR2        (gset.eth.gw2)
+#define GW_ADDR3        (gset.eth.gw3)
 
-#define ETH_ENABLE      (set.eth.enable)
+#define ETH_ENABLE      (gset.eth.enable)
 
 struct SettingsEthernet
 {

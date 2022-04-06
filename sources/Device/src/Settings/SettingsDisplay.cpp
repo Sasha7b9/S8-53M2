@@ -94,7 +94,7 @@ int ENumSignalsInSec::ToNum(ENumSignalsInSec::E enumSignalsInSec)
 
 int ENumAveraging::ToNumber()
 {
-    int num_ave = (1 << set.display.enumAve);
+    int num_ave = (1 << gset.display.enumAve);
 
     if (TBase::InModeRandomizer())
     {
@@ -110,5 +110,5 @@ int ENumAveraging::ToNumber()
 
 ModeAveraging::E ModeAveraging::Current()
 {
-    return TBase::InModeRandomizer() ? ModeAveraging::Around : set.display.modeAve;
+    return TBase::InModeRandomizer() ? ModeAveraging::Around : gset.display.modeAve;
 }

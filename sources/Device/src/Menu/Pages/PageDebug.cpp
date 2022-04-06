@@ -170,7 +170,7 @@ static const Button bSaveNRST
 
 static void OnPress_SaveSettings()
 {
-    if (set.Save())
+    if (gset.Save())
     {
         Warning::ShowGood(Warning::SettingsSaved);
     }
@@ -193,7 +193,7 @@ static const Button bSaveSettings
 
 void PageDebug::ADC::ResetCalRShift(Chan ch)
 {
-    std::memset(&set.chan[ch].cal_rshift[0][0], 0, sizeof(set.chan[ch].cal_rshift[0][0]) * Range::Count * ModeCouple::Count);
+    std::memset(&gset.chan[ch].cal_rshift[0][0], 0, sizeof(gset.chan[ch].cal_rshift[0][0]) * Range::Count * ModeCouple::Count);
 }
 
 

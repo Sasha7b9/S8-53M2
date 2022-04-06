@@ -548,7 +548,7 @@ namespace Panel
             }
 
             __disable_irq();
-            set.Save();
+            gset.Save();
             __enable_irq();
 
             if (TIME_MS > 1000)

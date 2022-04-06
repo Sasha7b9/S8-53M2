@@ -566,7 +566,7 @@ void DataPainter::MemoryWindow::Draw()
 
     const int xVert0 = (int)(leftX + SHIFT_IN_MEMORY * scaleX);
     const int xVert1 = (int)(leftX + SHIFT_IN_MEMORY * scaleX + timeWindowRectWidth);
-    bool showFull = set.display.showFullMemoryWindow;
+    bool showFull = gset.display.showFullMemoryWindow;
 
     if (Processing::out.ds.valid)
     {

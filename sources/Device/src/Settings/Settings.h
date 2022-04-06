@@ -16,11 +16,11 @@
 #include "SettingsMath.h"
 
 
-#define LANG            (set.menu.lang)
+#define LANG            (gset.menu.lang)
 #define LANG_RU         (LANG == Lang::Ru)
 #define LANG_EN         (LANG == Lang::En)
 
-#define POS_ACT_ITEM(name_page) set.menu.posActItem[name_page]
+#define POS_ACT_ITEM(name_page) gset.menu.posActItem[name_page]
 
 
 struct SettingsMenu
@@ -62,5 +62,5 @@ struct Settings
                                     // программа успевает настроить настройки).
 };
 
-extern Settings set;
+extern Settings gset;
 

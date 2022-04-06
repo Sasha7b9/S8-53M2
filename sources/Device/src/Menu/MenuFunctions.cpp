@@ -175,17 +175,17 @@ void Page::ChangeSubPage(int delta) const
 {
     if (delta > 0)
     {
-        if (set.menu.currentSubPage[name] < NumSubPages() - 1)
+        if (gset.menu.currentSubPage[name] < NumSubPages() - 1)
         {
-            set.menu.currentSubPage[name]++;
+            gset.menu.currentSubPage[name]++;
             Regulator::RotateRight();
         }
     }
     else if (delta < 0)
     {
-        if (set.menu.currentSubPage[name] > 0)
+        if (gset.menu.currentSubPage[name] > 0)
         {
-            set.menu.currentSubPage[name]--;
+            gset.menu.currentSubPage[name]--;
             Regulator::RotateLeft();
         }
     }

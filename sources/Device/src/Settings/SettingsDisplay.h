@@ -5,53 +5,53 @@
 #include "Display/Colors.h"
 
 
-#define TIME_SHOW_LEVELS            (set.display.timeShowLevels)
+#define TIME_SHOW_LEVELS            (gset.display.timeShowLevels)
 
-#define SHIFT_IN_MEMORY             (set.display.shiftInMemory)
+#define SHIFT_IN_MEMORY             (gset.display.shiftInMemory)
 
-#define TIME_MESSAGES               (set.display.timeMessages)
+#define TIME_MESSAGES               (gset.display.timeMessages)
 
-#define BRIGHTNESS                  (set.display.brightness)
+#define BRIGHTNESS                  (gset.display.brightness)
 
-#define BRIGHTNESS_GRID             (set.display.brightnessGrid)
+#define BRIGHTNESS_GRID             (gset.display.brightnessGrid)
 
-#define MODE_DRAW_SIGNAL            (set.display.modeDrawSignal)
+#define MODE_DRAW_SIGNAL            (gset.display.modeDrawSignal)
 #define MODE_DRAW_IS_SIGNAL_LINES   (MODE_DRAW_SIGNAL == ModeDrawSignal::Lines)
 
-#define TYPE_GRID                   (set.display.typeGrid)
+#define TYPE_GRID                   (gset.display.typeGrid)
 #define TYPE_GRID_IS_1              (TYPE_GRID == TypeGrid::_1)
 #define TYPE_GRID_IS_2              (TYPE_GRID == TypeGrid::_2)
 #define TYPE_GRID_IS_3              (TYPE_GRID == TypeGrid::_3)
 
-#define ENUM_ACCUM                  (set.display.enumAccumulation)
+#define ENUM_ACCUM                  (gset.display.enumAccumulation)
 #define ENUM_ACCUM_IS_NONE          (ENUM_ACCUM == ENumAccumulation::_1)
 #define ENUM_ACCUM_IS_INFINITY      (ENUM_ACCUM == ENumAccumulation::Infinity)
-#define NUM_ACCUM                   (1 << (int)set.display.enumAccumulation)
+#define NUM_ACCUM                   (1 << (int)gset.display.enumAccumulation)
 
-#define ENUM_MIN_MAX                (set.display.enumMinMax)
+#define ENUM_MIN_MAX                (gset.display.enumMinMax)
 #define NUM_MIN_MAX                 (1 << ENUM_MIN_MAX)
 
-#define SMOOTHING                   (set.display.smoothing)
+#define SMOOTHING                   (gset.display.smoothing)
 #define SMOOTHING_IS_DISABLE        (SMOOTHING == Smoothing::Disable)
 
-#define ENUM_SIGNALS_IN_SEC         (set.display.enumSignalsInSec)
+#define ENUM_SIGNALS_IN_SEC         (gset.display.enumSignalsInSec)
 
-#define LAST_AFFECTED_CHANNEL       (set.display.lastAffectedChannel)
+#define LAST_AFFECTED_CHANNEL       (gset.display.lastAffectedChannel)
 #define LAST_AFFECTED_CHANNEL_IS_A  (LAST_AFFECTED_CHANNEL == Chan::A)
 #define LAST_AFFECTED_CHANNEL_IS_B  (LAST_AFFECTED_CHANNEL == Chan::B)
 
-#define MODE_ACCUM                  (set.display.modeAccumulation)
+#define MODE_ACCUM                  (gset.display.modeAccumulation)
 #define MODE_ACCUM_IS_RESET         (MODE_ACCUM == ModeAccumulation::Reset)
 #define MODE_ACCUM_IS_NORESET       (MODE_ACCUM == ModeAccumulation::NoReset)
 
-#define ALT_MARKERS                 (set.display.altMarkers)
+#define ALT_MARKERS                 (gset.display.altMarkers)
 #define ALT_MARKERS_HIDE            (ALT_MARKERS == AltMarkers::Hide)
 
-#define MENU_AUTO_HIDE              (set.display.menuAutoHide)
+#define MENU_AUTO_HIDE              (gset.display.menuAutoHide)
 
-#define SHOW_STRING_NAVIGATION      (set.display.showStringNavigation)
+#define SHOW_STRING_NAVIGATION      (gset.display.showStringNavigation)
 
-#define LINKING_RSHIFT              (set.display.linkingRShift)
+#define LINKING_RSHIFT              (gset.display.linkingRShift)
 #define LINKING_RSHIFT_IS_VOLTAGE   (LINKING_RSHIFT == LinkingRShift::Voltage)
 
 

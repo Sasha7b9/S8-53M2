@@ -102,4 +102,4 @@ pchar  NameColor(Color::E color);
 #define R_FROM_COLOR(color) ((uint8)(((uint)(color) >> 16) & (uint)0xFF))
 #define G_FROM_COLOR(color) ((uint8)(((uint)(color) >> 8) & (uint)0xFF))
 #define B_FROM_COLOR(color) ((uint8)((uint)(color) & 0xFF))
-#define COLOR(i) set.display.colors[i]
+#define COLOR(i)            gset.display.colors[i]
