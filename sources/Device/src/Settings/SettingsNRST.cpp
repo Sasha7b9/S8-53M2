@@ -30,9 +30,9 @@ int16 SettingsNRST::stored_rshift[Chan::Count][3];
 SettingsNRST nrst = defaultNRST;
 
 
-void SettingsNRST::Save()
+bool SettingsNRST::Save()
 {
-    HAL_ROM::Settings::SaveNRST(this);
+    return HAL_ROM::Settings::SaveNRST(this);
 }
 
 

@@ -21,9 +21,6 @@ namespace Sound
 
     void WarnBeepGood();
 
-    // Эту функцию надо вызывать перед записью/стиранием ППЗУ. Звук конфликтует с ППЗУ.
-    void WaitForCompletion();
-
     // Звук включения
     void DeviceEnabled();
 };

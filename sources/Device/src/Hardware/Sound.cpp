@@ -27,8 +27,6 @@ namespace Sound
     static float amplitude = 0.0F;
     static TypeWave::E typeWave = TypeWave::Sine;
 
-    volatile bool isBeep = false;
-
     static void Beep(TypeWave::E typeWave, float frequency, float amplitude, int duration, float mainVolume = 0.1f);
 
     static void Stop();
@@ -54,7 +52,6 @@ void Sound::Init()
 void Sound::Stop()
 {
     HAL_DAC2::StopDMA();
-    Sound::isBeep = false;
     Sound::warnIsBeep = false;
 }
 
@@ -87,8 +84,6 @@ void Sound::Beep(TypeWave::E _typeWave, float _frequency, float _amplitude, int 
 
     Stop();
     
-    Sound::isBeep = true;
-
     HAL_DAC2::StartDMA(points, POINTS_IN_PERIOD);
 
     Timer::Enable(TypeTimer::StopSound, duration, Stop);
@@ -211,13 +206,5 @@ void Sound::CalculateTriangle()
     for (int i = 0; i < POINTS_IN_PERIOD; i++)
     {
         points[i] = (uint8)(k * i * amplitude);
-    }
-}
-
-
-void Sound::WaitForCompletion()
-{
-    while (isBeep)
-    {
     }
 }

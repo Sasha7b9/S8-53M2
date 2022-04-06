@@ -24,11 +24,11 @@ namespace HAL_ROM
     namespace Settings
     {
         // Сохранить настройки
-        void Save(::Settings *, bool verifyLoaded = false);
+        bool Save(::Settings *, bool verifyLoaded = false);
         bool Load(::Settings *);
 
         // Сохранить отладочные настройки
-        void SaveNRST(SettingsNRST *);
+        bool SaveNRST(SettingsNRST *);
         bool LoadNRST(SettingsNRST *);
     }
 }

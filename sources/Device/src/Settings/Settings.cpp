@@ -273,9 +273,9 @@ void Settings::RunAfterLoad()
     isLoaded = true;
 }
 
-void Settings::Save()
+bool Settings::Save()
 {
-    HAL_ROM::Settings::Save(this);
+    return HAL_ROM::Settings::Save(this);
 }
 
 

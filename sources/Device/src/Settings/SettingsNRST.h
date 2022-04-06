@@ -52,7 +52,7 @@ struct SettingsNRST
 
     void Load();
 
-    void Save();
+    bool Save();
 
     uint CalculateCRC32();
 

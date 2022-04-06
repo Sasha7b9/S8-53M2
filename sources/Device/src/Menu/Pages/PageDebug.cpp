@@ -147,7 +147,14 @@ static const Button bEraseData
 
 static void OnPress_SaveNRST()
 {
-    nrst.Save();
+    if (nrst.Save())
+    {
+        Warning::ShowGood(Warning::SettingsSaved);
+    }
+    else
+    {
+        Warning::ShowBad(Warning::SettingsNotSaved);
+    }
 }
 
 
@@ -163,7 +170,14 @@ static const Button bSaveNRST
 
 static void OnPress_SaveSettings()
 {
-    set.Save();
+    if (set.Save())
+    {
+        Warning::ShowGood(Warning::SettingsSaved);
+    }
+    else
+    {
+        Warning::ShowBad(Warning::SettingsNotSaved);
+    }
 }
 
 

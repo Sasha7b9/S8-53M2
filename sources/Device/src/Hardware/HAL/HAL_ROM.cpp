@@ -460,11 +460,11 @@ bool HAL_ROM::Settings::Load(::Settings *_set)
 }
 
 
-void HAL_ROM::Settings::Save(::Settings *_set, bool verifyLoadede)
+bool HAL_ROM::Settings::Save(::Settings *_set, bool verifyLoadede)
 {
     if (!verifyLoadede && !::Settings::isLoaded)
     {
-        return;
+        return false;
     }
 
     _set->size = sizeof(::Settings);
@@ -484,10 +484,12 @@ void HAL_ROM::Settings::Save(::Settings *_set, bool verifyLoadede)
     }
 
     WriteBufferBytes(address, (uint8 *)_set, sizeof(::Settings));                       // И банально сохраняем настройки
+
+    return true;
 }
 
 
-void HAL_ROM::Settings::SaveNRST(SettingsNRST *_nrst)
+bool HAL_ROM::Settings::SaveNRST(SettingsNRST *_nrst)
 {
     uint address = ADDR_SECTOR_NRST;
 
@@ -506,6 +508,8 @@ void HAL_ROM::Settings::SaveNRST(SettingsNRST *_nrst)
     _nrst->crc32 = _nrst->CalculateCRC32();
 
     WriteBufferBytes(address, (uint8 *)_nrst, sizeof(SettingsNRST));
+
+    return true;
 }
 
 

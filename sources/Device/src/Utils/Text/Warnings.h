@@ -33,6 +33,8 @@ namespace Warning
         ImpossibleEnableFFT,
         FirmwareSaved,
         FullyCompletedOTP,
+        SettingsSaved,
+        SettingsNotSaved,
         Count
     };
 

@@ -169,7 +169,9 @@ pchar Warning::GetWarning(Warning::E warning)
         {"нрйкчвхре бшвхякемхе аот",        "DISCONNECT CALCULATION OF FFT"},
         {"нрйкчвхре люрелюрхвеяйсч тсмйжхч", "DISCONNECT MATHEMATICAL FUNCTION"},
         {"опньхбйю янупюмемю",              "FIRMWARE SAVED"},
-        {"оЮЛЪРЭ OTP ОНКМНЯРЭЧ ГЮОНКЕМЮ",   "OPT memory fully completed"}
+        {"оЮЛЪРЭ OTP ОНКМНЯРЭЧ ГЮОНКЕМЮ",   "OPT memory fully completed"},
+        {"мюярпнийх янупюмемш",             "SETTINGS SAVED"},
+        {"мюярпнийх ме янупюмемш",          "SETTINGS NOT SAVED"}
     };
     return warns[warning][LANG];
 }
