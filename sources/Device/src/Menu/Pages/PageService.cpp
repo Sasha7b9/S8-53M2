@@ -602,17 +602,11 @@ static const Page pppMath_FFT
 );
 
 
-static void OnPress_Math_FFT_Cursors_Exit()
-{
-    Display::RemoveAddDrawFunction();
-}
-
-
 static const SmallButton cMath_FFT_Cursors_Exit
 (
     PageService::Math::FFT::Cursors::self,
     COMMON_BEGIN_SB_EXIT,
-    OnPress_Math_FFT_Cursors_Exit,
+    EmptyFuncVV,
     DrawSB_Exit
 );
 
