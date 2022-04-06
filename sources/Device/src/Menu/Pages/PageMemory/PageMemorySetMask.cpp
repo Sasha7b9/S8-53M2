@@ -264,13 +264,6 @@ static void DrawSetMask()
 }
 
 
-static void OnPressMemoryExtMask()
-{
-    PageMemory::SetMask::self->OpenAndSetCurrent();
-    Display::SetAddDrawFunction(DrawSetMask);
-}
-
-
 void OnMemExtSetMaskNameRegSet(int angle, int maxIndex)
 {
     int8(*func[3])(int8 *, int8, int8) =
@@ -303,7 +296,7 @@ static const Page mspSetMask
     "МАСКА", "MASK",
     "Режим ввода маски для автоматического именования файлов",
     "Input mode mask for automatic file naming",
-    NamePage::SB_MemExtSetMask, &itemsSetMask, EmptyFuncVV, OnPressMemoryExtMask, OnMemExtSetMaskRegSet
+    NamePage::SB_MemExtSetMask, &itemsSetMask, EmptyFuncVV, DrawSetMask, OnMemExtSetMaskRegSet
 );
 
 
