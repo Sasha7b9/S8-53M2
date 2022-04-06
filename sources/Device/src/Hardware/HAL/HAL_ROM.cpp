@@ -20,8 +20,12 @@
 */
 
 
-#define CLEAR_FLAGS \
-__HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR)
+#define CLEAR_FLAGS() \
+    __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | \
+    FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR)
+
+
+
 
 
 // Программа и константные данные
@@ -427,7 +431,7 @@ bool HAL_ROM::Settings::Load(::Settings *_set)
             Settings и вызываем Flash_SaveSettings().
     */
 
-    CLEAR_FLAGS;
+    CLEAR_FLAGS();
 
     if (READ_WORD(ADDR_SECTOR_SETTINGS) == 0x12345)
     {
@@ -473,7 +477,7 @@ void HAL_ROM::Settings::Save(::Settings *_set, bool verifyLoadede)
         return;
     }
 
-    CLEAR_FLAGS;
+    CLEAR_FLAGS();
 
     _set->size = sizeof(::Settings);
 
@@ -497,7 +501,7 @@ void HAL_ROM::Settings::Save(::Settings *_set, bool verifyLoadede)
 
 void HAL_ROM::Settings::SaveNRST(SettingsNRST *_nrst)
 {
-    CLEAR_FLAGS;
+    CLEAR_FLAGS();
 
     uint address = ADDR_SECTOR_NRST;
 
@@ -564,8 +568,7 @@ bool HAL_ROM::TheFirstInclusion()
 
 void HAL_ROM::EraseSector(uint startAddress)
 {
-    __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR |
-        FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR);
+    CLEAR_FLAGS();
 
     HAL_FLASH_Unlock();
 
@@ -615,12 +618,11 @@ HAL_ROM::Settings::RecordConfig *HAL_ROM::Settings::RecordConfig::FirstEmpty()
 
 void HAL_ROM::WriteWord(uint address, uint word)
 {
-    __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR |
-        FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR);
-
-    HAL_FLASH_Unlock();
+    CLEAR_FLAGS();
 
     while (Sound::isBeep) {};
+
+    HAL_FLASH_Unlock();
 
     if (HAL_FLASH_Program(TYPEPROGRAM_WORD, address, (uint64_t)word) != HAL_OK)
     {
@@ -711,7 +713,7 @@ void HAL_ROM::WriteBufferBytes(uint address, const void *buffer, int size)
 {
     uint8 *bufferU8 = (uint8 *)buffer;
     
-    CLEAR_FLAGS;
+    CLEAR_FLAGS();
 
     HAL_FLASH_Unlock();
 

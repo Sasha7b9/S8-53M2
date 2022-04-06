@@ -88,28 +88,6 @@ static const Page mpConsole
 );
 
 
-static void OnDraw_SizeSettings(int x, int y)
-{
-    String<>("Размер %d", sizeof(Settings)).Draw(x + 5, y + 21, Color::BLACK);
-}
-
-
-static const Choice mcSizeSettings =
-{
-    TypeItem::Choice, PageDebug::self, 0,
-    {
-        "Размер настроек", "Size settings",
-        "Вывод размера структуры Settings",
-        "Show size of struct Settings"
-    },
-    {
-        {"Размер", "Size"},
-        {"Размер", "Size"}
-    },
-    0, 0, OnDraw_SizeSettings
-};
-
-
 static bool IsActive_SaveFirmware()
 {
     return FDrive::isConnected;
@@ -176,7 +154,7 @@ static void OnPress_SaveNRST()
 static const Button bSaveNRST
 (
     PageDebug::self, EmptyFuncBV,
-    "Сохранить", "Save",
+    "Сохранить калибровки", "Save",
     "Сохранить калибровочные настройки",
     "Save calibration settings",
     OnPress_SaveNRST
@@ -800,7 +778,6 @@ static const arrayItems itemsDebug =
     (void *)PageDebug::ADC::self,
     (void *)PageDebug::Randomizer::self,
     (void *)&mcStats,
-    (void *)&mcSizeSettings,
     (void *)&mbSaveFirmware,
     (void *)&bEraseData,
     (void *)PageDebug::SerialNumber::self,
