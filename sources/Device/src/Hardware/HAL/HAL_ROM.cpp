@@ -463,7 +463,7 @@ bool HAL_ROM::Settings::Load(::Settings *set)
         return false;
     }
 
-    while (READ_WORD(address) != MAX_UINT && address < END_SECTOR_NRST)
+    while (READ_WORD(address) != MAX_UINT && address < END_SECTOR_SETTINGS)
     {
         address += ::Settings::SIZE_FIELD_RECORD;
     }
