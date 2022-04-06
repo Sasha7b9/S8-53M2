@@ -75,10 +75,6 @@ int main()
 
         MainStruct::state = State::UpdateIsFinished;
     }
-    else
-    {
-        HAL_TIM2::DelayMS(TIME_WAIT);
-    }
 
     Timer::Disable(TypeTimer::DisplayUpdate);
 
