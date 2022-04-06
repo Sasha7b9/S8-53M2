@@ -624,17 +624,11 @@ static const Page mpRandomizer
 );
 
 
-static void OnPress_SerialNumber_Exit()
-{
-    Display::RemoveAddDrawFunction();
-}
-
-
 static const SmallButton bSerialNumber_Exit
 (
     PageDebug::SerialNumber::self,
     COMMON_BEGIN_SB_EXIT,
-    OnPress_SerialNumber_Exit,
+    EmptyFuncVV,
     DrawSB_Exit
 );
 

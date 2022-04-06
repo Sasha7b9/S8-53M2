@@ -861,7 +861,6 @@ static const Choice cModeLongPressButtonTrig =
 static void OnPress_Information_Exit()
 {
     Display::SetDrawMode(DrawMode::Normal);
-    Display::RemoveAddDrawFunction();
 }
 
 

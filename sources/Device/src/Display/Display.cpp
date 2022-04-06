@@ -26,7 +26,6 @@ namespace Display
 {
     pFuncVV funcOnHand       = nullptr;
 
-    pFuncVV funcAdditionDraw = nullptr;
     pFuncVV funcAfterDraw    = nullptr;
 
     bool framesElapsed = false;
@@ -226,11 +225,6 @@ void Display::Update(bool endScene)
     if (needClear)
     {
         Warning::DrawWarnings();
-
-        if (funcAdditionDraw)
-        {
-            funcAdditionDraw();
-        }
     }
 
     Console::Draw();
@@ -547,12 +541,6 @@ void Display::SetDrawMode(DrawMode::E mode, pFuncVV func)
         funcOnHand = func;
         Timer::Disable(TypeTimer::UpdateDisplay);
     }
-}
-
-
-void Display::RemoveAddDrawFunction()
-{
-    funcAdditionDraw = nullptr;
 }
 
 

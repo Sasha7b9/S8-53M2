@@ -31,8 +31,6 @@ namespace Display
 
     void SetDrawMode(DrawMode::E, pFuncVV = nullptr);
 
-    void RemoveAddDrawFunction();
-
     void Clear();
 
     void ShiftScreen(int delta);
