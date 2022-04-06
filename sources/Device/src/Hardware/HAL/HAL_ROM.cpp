@@ -20,14 +20,6 @@
 */
 
 
-#define CLEAR_FLAGS() \
-    __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | \
-    FLASH_FLAG_PGPERR | FLASH_FLAG_PGSERR)
-
-
-
-
-
 // Программа и константные данные
 #define ADDR_SECTOR_0               ((uint)0x08000000)  //  0 16k
 #define ADDR_SECTOR_1               ((uint)0x08004000)  //  1 16k
@@ -431,8 +423,6 @@ bool HAL_ROM::Settings::Load(::Settings *_set)
             Settings и вызываем Flash_SaveSettings().
     */
 
-    CLEAR_FLAGS();
-
     if (READ_WORD(ADDR_SECTOR_SETTINGS) == 0x12345)
     {
         EraseSector(ADDR_SECTOR_SETTINGS);
@@ -477,8 +467,6 @@ void HAL_ROM::Settings::Save(::Settings *_set, bool verifyLoadede)
         return;
     }
 
-    CLEAR_FLAGS();
-
     _set->size = sizeof(::Settings);
 
     uint address = ADDR_SECTOR_SETTINGS;                                                // Находим первый свободный байт
@@ -501,8 +489,6 @@ void HAL_ROM::Settings::Save(::Settings *_set, bool verifyLoadede)
 
 void HAL_ROM::Settings::SaveNRST(SettingsNRST *_nrst)
 {
-    CLEAR_FLAGS();
-
     uint address = ADDR_SECTOR_NRST;
 
     while (READ_WORD(address) != MAX_UINT)
@@ -568,8 +554,6 @@ bool HAL_ROM::TheFirstInclusion()
 
 void HAL_ROM::EraseSector(uint startAddress)
 {
-    CLEAR_FLAGS();
-
     HAL_FLASH_Unlock();
 
     FLASH_EraseInitTypeDef flashITD;
@@ -580,7 +564,9 @@ void HAL_ROM::EraseSector(uint startAddress)
 
     uint32_t error = 0;
     while (Sound::isBeep) {};
-    HAL_FLASHEx_Erase(&flashITD, &error);
+    while (!HAL_FLASHEx_Erase(&flashITD, &error) != HAL_OK)
+    {
+    }
 
     HAL_FLASH_Lock();
 }
@@ -618,8 +604,6 @@ HAL_ROM::Settings::RecordConfig *HAL_ROM::Settings::RecordConfig::FirstEmpty()
 
 void HAL_ROM::WriteWord(uint address, uint word)
 {
-    CLEAR_FLAGS();
-
     while (Sound::isBeep) {};
 
     HAL_FLASH_Unlock();
@@ -713,17 +697,15 @@ void HAL_ROM::WriteBufferBytes(uint address, const void *buffer, int size)
 {
     uint8 *bufferU8 = (uint8 *)buffer;
     
-    CLEAR_FLAGS();
-
     HAL_FLASH_Unlock();
 
     while (Sound::isBeep) {};
 
     for (int i = 0; i < size; i++)
     {
-        if (HAL_FLASH_Program(TYPEPROGRAM_BYTE, address, (uint64_t)(bufferU8[i])) != HAL_OK)
+        while (HAL_FLASH_Program(TYPEPROGRAM_BYTE, address, (uint64_t)(bufferU8[i])) != HAL_OK)
         {
-            ERROR_HANDLER();
+            LOG_WRITE("Ошибка записи");
         }
         address++;
     }
