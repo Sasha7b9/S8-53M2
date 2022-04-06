@@ -31,21 +31,31 @@ int main()
 #ifndef ENABLE_UPDATE
     HAL::JumpToApplication();
 #endif
-    
+
     Settings::Load();
 
     HAL::Init();
- 
+
     FDrive::Init();
-    
+
     Display::Init();
 
     Timer::Enable(TypeTimer::DisplayUpdate, 10, Display::Update);
-    
+
+    uint timeStart = TIMER_MS;
+
+    while (TIMER_MS - timeStart < TIME_WAIT)
+    {
+        FDrive::Update();
+
+        if (MainStruct::state != State::NoDrive)
+        {
+            break;
+        }
+    }
+
     if (MainStruct::state != State::NoDrive)
     {
-        uint timeStart = TIMER_MS;
-
         while ((TIMER_MS - timeStart < TIME_WAIT) &&
             (MainStruct::state != State::DriveIsMounted) &&
             (MainStruct::state != State::WrongDrive))
@@ -69,19 +79,19 @@ int main()
     {
         HAL_TIM2::DelayMS(TIME_WAIT);
     }
-    
+
     Timer::Disable(TypeTimer::DisplayUpdate);
-    
+
     while (Display::IsRunning())
     {
     }
-    
+
     Display::Update();
 
     HAL::DeInit();
 
     HAL::JumpToApplication();
-    
+
     return 0;
 }
 

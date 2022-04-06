@@ -87,7 +87,7 @@ void Display::Update()
     }
     else if (MainStruct::state == State::UpdateInProgress)
     {
-        DrawMessage("Подождите завершения", "установки программного обеспечения");
+        DrawMessage("Устанавливаю программное обеспечение...");
 
         DrawProgressBar();
 

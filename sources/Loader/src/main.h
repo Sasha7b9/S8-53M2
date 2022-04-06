@@ -5,7 +5,7 @@
 #include "Hardware/FDrive/FDrive.h"
 
 
-#define FILE_NAME "S8-53M.bin"
+#define FILE_NAME "S8-53.bin"
 #define ENABLE_UPDATE
     
 
@@ -20,7 +20,7 @@
 #define NUM_OF_PAGES                256
 #define FLASH_PAGE_SIZE             2048
 
-#define TIME_WAIT   5000   // Время работы заставки
+#define TIME_WAIT   3000   // Время работы заставки
 
 
 struct State { enum E {
