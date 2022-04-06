@@ -11,7 +11,6 @@
 
 static void PressSB_SetMask_Exit()
 {
-    Display::RemoveAddDrawFunction();
 }
 
 
