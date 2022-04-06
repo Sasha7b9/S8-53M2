@@ -239,12 +239,6 @@ void Settings::Load()
         Reset();
     }
 
-//    if (TBase::InModeP2P())         // \todo временая заглушка. Виснет при включении, если было выключено на поточечной развёртке
-//    {
-//        SET_SELFRECORDER = false;
-//        SET_TBASE = (TBase::E)(TBase::MIN_P2P - 1);
-//    }
-
     RunAfterLoad();
 }
 

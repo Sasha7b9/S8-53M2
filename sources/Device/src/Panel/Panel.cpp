@@ -15,6 +15,7 @@
 #include "Hardware/FDrive/FDrive.h"
 #include "Menu/Pages/Definition.h"
 #include "Utils/PasswordResolver.h"
+#include <stm32f4xx_hal.h>
 
 
 LED LED::Trig(LED::_Trig);
@@ -546,7 +547,9 @@ namespace Panel
                 }
             }
 
+            __disable_irq();
             set.Save();
+            __enable_irq();
 
             if (TIME_MS > 1000)
             {
