@@ -161,6 +161,22 @@ static const Button bSaveNRST
 );
 
 
+static void OnPress_SaveSettings()
+{
+    set.Save();
+}
+
+
+static const Button bSaveSettings
+(
+    PageDebug::self, EmptyFuncBV,
+    "Сохранить настройки", "Save settings",
+    "",
+    "",
+    OnPress_SaveSettings
+);
+
+
 void PageDebug::ADC::ResetCalRShift(Chan ch)
 {
     std::memset(&set.chan[ch].cal_rshift[0][0], 0, sizeof(set.chan[ch].cal_rshift[0][0]) * Range::Count * ModeCouple::Count);
@@ -781,6 +797,7 @@ static const arrayItems itemsDebug =
     (void *)&mbSaveFirmware,
     (void *)&bEraseData,
     (void *)PageDebug::SerialNumber::self,
+    (void *)&bSaveSettings,
     nullptr
 };
 
