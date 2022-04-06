@@ -338,7 +338,7 @@ float Processing::CalculateVoltageRMS(Chan ch)
         Marker::volt[ch][0] = ValueFPGA::FromVoltage(std::sqrt(rms / period), out.ds.range[ch], rshift);
     }
 
-    return std::sqrt(rms / period * 1.01f) * SET_DIVIDER_ABS(ch);
+    return std::sqrt(rms / period) * SET_DIVIDER_ABS(ch) * 1.01f;   // \todo поправочка введена в связи с тем, что RMS всегда занижает
 }
 
 
