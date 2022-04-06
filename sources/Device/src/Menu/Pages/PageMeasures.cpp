@@ -261,7 +261,6 @@ const Choice mcMeasuresFieldType =
 
 static void PressSB_MeasTune_Exit()
 {
-    Display::RemoveAddDrawFunction();
 }
 
 
