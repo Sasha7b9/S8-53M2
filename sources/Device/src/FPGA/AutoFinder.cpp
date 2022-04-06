@@ -133,8 +133,6 @@ static bool FPGA::AutoFinder::FindWave(Chan ch)
 
 static bool FPGA::AutoFinder::FindRange(Chan ch)
 {
-//    LOG_WRITE("channel %d", ch.ToNumber());
-
     struct StructFindRange
     {
         PeackDetMode::E peackDet;
