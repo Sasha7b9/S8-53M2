@@ -129,7 +129,7 @@ void Text::DrawCharInColorDisplay(int eX, int eY, uchar symbol)
             {
                 if (BitInFontIsExist(symbol, b, bit))
                 {
-                    Point().Set(x, y);
+                    Point().Set(false, x, y);
                 }
                 x++;
             }
@@ -158,7 +158,7 @@ int Text::DrawBigChar(int eX, int eY, int size, char symbol)
                     {
                         for (int j = 0; j < size; j++)
                         {
-                            Point().Set(x + i, y + j);
+                            Point().Set(false, x + i, y + j);
                         }
                     }
                 }
@@ -187,7 +187,7 @@ int Text::DrawCharHard(int eX, int eY, char symbol)
             {
                 if (BitInFontIsExist(symbol, b, bit))
                 {
-                    Point().Set(x, y);
+                    Point().Set(false, x, y);
                 }
                 x++;
             }
@@ -237,7 +237,7 @@ int Text::DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int l
                 {
                     if ((x >= limitX) && (x <= (limitX + limitWidth)) && (y >= limitY) && (y <= limitY + limitHeight))
                     {
-                        Point().Set(x, y);
+                        Point().Set(false, x, y);
                     }
                 }
                 x++;
@@ -247,24 +247,6 @@ int Text::DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int l
 
     return eX + width + 1;
 }
-
-
-//int DString::DrawWithLimitation(int x, int y, Color::E color, int limitX, int limitY, int limitWidth, int limitHeight)
-//{
-//    Color::SetCurrent(color);
-//    int retValue = x;
-//
-//    char *text = buffer;
-//
-//    while (*text)
-//    {
-//        x = Text::DrawCharWithLimitation(x, y, (uint8)*text, limitX, limitY, limitWidth, limitHeight);
-//        retValue += Font::GetLengthSymbol((uint8)*text);
-//        text++;
-//    }
-//
-//    return retValue + 1;
-//}
 
 
 bool Text::IsLetter(char symbol)

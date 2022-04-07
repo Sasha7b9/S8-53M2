@@ -78,5 +78,5 @@ struct Region
 
 struct Point
 {
-    void Set(int x, int y);
+    void Set(bool send, int x, int y);
 };

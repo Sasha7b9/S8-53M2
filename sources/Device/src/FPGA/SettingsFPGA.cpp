@@ -891,14 +891,14 @@ void RShift::Draw(Chan ch)
     if (y > Grid::ChannelBottom())
     {
         Char(SYMBOL_RSHIFT_LOWER).Draw((int)(x - 7), Grid::ChannelBottom() - 11, ColorChannel(ch));
-        Point().Set((int)(x - 5), Grid::ChannelBottom() - 2);
+        Point().Set(true, (int)(x - 5), Grid::ChannelBottom() - 2);
         y = (float)(Grid::ChannelBottom() - 7);
         x++;
     }
     else if (y < GRID_TOP)
     {
         Char(SYMBOL_RSHIFT_ABOVE).Draw((int)(x - 7), GRID_TOP + 2, ColorChannel(ch));
-        Point().Set((int)(x - 5), GRID_TOP + 2);
+        Point().Set(true, (int)(x - 5), GRID_TOP + 2);
         y = GRID_TOP + 7;
         x++;
     }
@@ -947,14 +947,14 @@ void TrigLev::Draw()
     if (y > Grid::ChannelBottom())
     {
         Char(SYMBOL_TRIG_LEV_LOWER).Draw(x + 3, Grid::ChannelBottom() - 11);
-        Point().Set(x + 5, Grid::ChannelBottom() - 2);
+        Point().Set(true, x + 5, Grid::ChannelBottom() - 2);
         y = Grid::ChannelBottom() - 7;
         x--;
     }
     else if (y < GRID_TOP)
     {
         Char(SYMBOL_TRIG_LEV_ABOVE).Draw(x + 3, GRID_TOP + 2);
-        Point().Set(x + 5, GRID_TOP + 2);
+        Point().Set(true, x + 5, GRID_TOP + 2);
         y = GRID_TOP + 7;
         x--;
     }

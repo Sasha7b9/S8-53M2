@@ -222,7 +222,7 @@ void Painter::DrawVPointLine(int x, int y0, int y1, float delta, Color::E color)
 
     for (int y = y0; y <= y1; y += (int)delta)
     {
-        Point().Set(x, y);
+        Point().Set(false, x, y);
     }
 }
 
@@ -231,7 +231,7 @@ void Painter::DrawHPointLineF(int y, int x0, int x1, float delta)
 {
     for (int x = x0; x <= x1; x += (int)delta)
     {
-        Point().Set(x, y);
+        Point().Set(false, x, y);
     }
 }
 
@@ -240,13 +240,13 @@ void Painter::DrawHPointLineI(int x, int y, int count, int delta)
 {
     for (int i = 0; i < count; i++)
     {
-        Point().Set(x, y);
+        Point().Set(false, x, y);
         x += delta;
     }
 }
 
 
-void Point::Set(int x, int y)
+void Point::Set(bool send, int x, int y)
 {
     if (x < 0 || y < 0 || (x > Display::WIDTH - 1) || (y > Display::HEIGHT - 1))
     {
@@ -260,7 +260,7 @@ void Point::Set(int x, int y)
         *address = (uint8)Color::GetCurrent();
     }
 
-    if (InterCom::TransmitGUIinProcess())
+    if (send && InterCom::TransmitGUIinProcess())
     {
         CommandBuffer<4> command(SET_POINT);
         command.PushHalfWord(x);
@@ -326,7 +326,7 @@ void Painter::DrawVPointLine(int x, int y, int count, int delta)
 {
     for (int i = 0; i < count; i++)
     {
-        Point().Set(x, y);
+        Point().Set(false, x, y);
         y += delta;
     }
 }
