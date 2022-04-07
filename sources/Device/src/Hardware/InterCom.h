@@ -39,7 +39,8 @@ struct CommandBuffer
     void Transmit(int num_bytes)
     {
         if (
-            data[0] == DRAW_TEXT
+            data[0] == DRAW_TEXT ||
+            data[0] == DRAW_VLINES_ARRAY
             )
         {
             InterCom::Send(Data(), num_bytes);
