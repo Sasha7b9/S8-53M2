@@ -515,6 +515,17 @@ namespace S8_53_USB {
                     {
                         int x0 = int16();
                         int y0 = int8();
+
+                        if(Display.currentFont == 0)            // 5
+                        {
+                            x0--;
+                            y0 += 6;
+                        }
+                        else if(Display.currentFont == 1)       // 8
+                        {
+                            x0--;
+                        }
+
                         int numSymbols = int8();
                         char[] str = new char[numSymbols];
                         for (int i = 0; i < numSymbols; i++)
