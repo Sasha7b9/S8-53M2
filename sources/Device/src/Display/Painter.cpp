@@ -77,13 +77,13 @@ void Rectangle::Draw(int x, int y, Color::E color)
 {
     Color::SetCurrent(color);
 
-    Painter::DrawHLine(false, y, x, x + width);
-    Painter::DrawVLine(false, x, y, y + height);
-    Painter::DrawHLine(false, y + height, x, x + width);
+    Painter::DrawHLine(true, y, x, x + width);
+    Painter::DrawVLine(true, x, y, y + height);
+    Painter::DrawHLine(true, y + height, x, x + width);
 
     if (x + width < SCREEN_WIDTH)
     {
-        Painter::DrawVLine(false, x + width, y, y + height);
+        Painter::DrawVLine(true, x + width, y, y + height);
     }
 }
 

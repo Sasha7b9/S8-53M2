@@ -1,6 +1,9 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 
+#define DEVELOPER_VERSION "1.0.1"
+
+
 #ifdef WIN32
     #define __attribute__(x)
     #define __packed__
@@ -23,8 +26,6 @@
 #define NAME_MODEL_RU "C8-53/1"
 #define NAME_MODEL_EN "S8-53/1"
 #define NAME_MODEL (LANG_RU ? NAME_MODEL_RU : NAME_MODEL_EN)
-
-#define DEVELOPER_VERSION "1.0.0"
 
 
 typedef signed      char        int8;
