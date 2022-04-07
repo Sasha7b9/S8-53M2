@@ -337,7 +337,7 @@ static bool FPGA::Calibrator::CalibrateStretch(Chan ch)
         return false;
     }
 
-    CAL_STRETCH(ch) = stretch;
+    CAL_STRETCH(ch) = stretch * 1.01f;
 
     progress.SetValue(1);
 
