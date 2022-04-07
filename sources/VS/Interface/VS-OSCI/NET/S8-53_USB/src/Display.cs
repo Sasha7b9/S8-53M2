@@ -144,7 +144,7 @@ namespace ControlLibraryS8_53
             Marshal.Copy(buffer, 0, bmData.Scan0, 320 * 240);
             bmp.UnlockBits(bmData);
             g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-            g.DrawImage(bmp, new Rectangle(0, 0, 639, 479), 0, 0, 319, 239, GraphicsUnit.Pixel);
+            g.DrawImage(bmp, new Rectangle(0, 0, 640, 480), 0, 0, 320, 240, GraphicsUnit.Pixel);
         }
 
         public static void FillRegion(int x, int y, int width, int height)
