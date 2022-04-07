@@ -594,7 +594,7 @@ void Painter::EndScene(bool endScene)
 
             VCP::Buffer::Flush();
 
-            LOG_WRITE("время ожидания %d ms, байт передано %d", VCP::_meter.ElapsedTime(), VCP::_sended_bytes);
+//            LOG_WRITE("время ожидания %d ms, байт передано %d", VCP::_meter.ElapsedTime(), VCP::_sended_bytes);
         }
     }
 
