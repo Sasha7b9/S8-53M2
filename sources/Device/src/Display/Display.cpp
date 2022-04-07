@@ -184,7 +184,7 @@ bool Display::NeedForClearScreen()
 }
 
 
-void Display::Update()
+void Display::Update1()
 {
     Painter::BeginScene(Color::BLACK);
 
@@ -205,7 +205,7 @@ void Display::Update()
 
 
 
-void Display::Update1(bool endScene)
+void Display::Update(bool endScene)
 {
     if (funcOnHand != 0)
     {
