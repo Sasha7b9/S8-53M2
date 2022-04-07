@@ -18,8 +18,8 @@ namespace VCP
     bool cableIsConnected = false;
     bool connectToHost = false;
 
-    TimeMeterMS meter;
-    uint sended_bytes = 0;
+    TimeMeterMS _meter;
+    uint _sended_bytes = 0;
 
     namespace Buffer
     {
@@ -43,7 +43,7 @@ void VCP::SendString(pchar string)
 
 void VCP::SendBuffer(const void *_buffer, int size)
 {
-    sended_bytes += size;
+    _sended_bytes += size;
 
     const uint8 *buffer = (const uint8 *)_buffer;
 
@@ -61,6 +61,8 @@ void VCP::SendBuffer(const void *_buffer, int size)
         return;
     }
 
+    _meter.Continue();
+
     const int SIZE_BUFFER = 64;
     static uint8 tr_buf[SIZE_BUFFER];
 
@@ -73,8 +75,6 @@ void VCP::SendBuffer(const void *_buffer, int size)
             portion = size;
         }
 
-        meter.Continue();
-
         while (!USBD::PrevSendingComplete())
         {
             if (!VCP::connectToHost)
@@ -83,8 +83,6 @@ void VCP::SendBuffer(const void *_buffer, int size)
             }
         }
 
-        meter.Pause();
-
         std::memcpy(tr_buf, buffer, (uint)portion);
 
         USBD::Transmit(tr_buf, portion);
@@ -92,6 +90,8 @@ void VCP::SendBuffer(const void *_buffer, int size)
         buffer += portion;
         size -= portion;
     }
+
+    _meter.Pause();
 
 #endif
 }

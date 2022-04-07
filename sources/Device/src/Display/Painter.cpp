@@ -265,7 +265,7 @@ void Point::Set(int x, int y)
         CommandBuffer<4> command(SET_POINT);
         command.PushHalfWord(x);
         command.PushByte(y);
-        command.Transmit(4);
+        command.Transmit();
     }
 }
 
@@ -560,9 +560,9 @@ void Painter::BeginScene(Color::E color)
 
     if (stateTransmit)
     {
-        VCP::meter.Reset();
-        VCP::meter.Pause();
-        VCP::sended_bytes = 0;
+        VCP::_meter.Reset();
+        VCP::_meter.Pause();
+        VCP::_sended_bytes = 0;
     }
 
     Region(319, 239).Fill(0, 0, color);
@@ -594,7 +594,7 @@ void Painter::EndScene(bool endScene)
 
             VCP::Buffer::Flush();
 
-//            LOG_WRITE("время ожидания %d ms, байт передано %d", VCP::meter.ElapsedTime(), VCP::sended_bytes);
+            LOG_WRITE("время ожидания %d ms, байт передано %d", VCP::_meter.ElapsedTime(), VCP::_sended_bytes);
         }
     }
 
