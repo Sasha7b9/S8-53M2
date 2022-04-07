@@ -40,7 +40,8 @@ struct CommandBuffer
     {
         if (
             data[0] == DRAW_TEXT ||
-            data[0] == DRAW_VLINES_ARRAY
+            data[0] == DRAW_VLINES_ARRAY ||
+            data[0] == DRAW_MULTI_HPOINT_LINES
             )
         {
             InterCom::Send(Data(), num_bytes);
