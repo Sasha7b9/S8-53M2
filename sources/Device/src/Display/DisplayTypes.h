@@ -47,15 +47,15 @@ struct DrawMode
 
 enum Command
 {
-    SET_COLOR                 = 1,    //     1 numColor:1
-    FILL_REGION               = 2,    //     2 x:2 y:1 width:2 height:1
-    END_SCENE                 = 3,    //     3
-    DRAW_HLINE                = 4,    //     4 y:1 x0:2 x1:2
-    DRAW_VLINE                = 5,    //     5 x:2 y0:1 y1:1
+    SET_COLOR                 = 1,    //  *  1 numColor:1
+    FILL_REGION               = 2,    //  *  2 x:2 y:1 width:2 height:1
+    END_SCENE                 = 3,    //  *  3
+    DRAW_HLINE                = 4,    //  *  4 y:1 x0:2 x1:2
+    DRAW_VLINE                = 5,    //  *  5 x:2 y0:1 y1:1
     SET_POINT                 = 6,    //     6 x:2 y:1
     DRAW_SIGNAL_LINES         = 7,    //     7 x:2 points:281
     DRAW_TEXT                 = 8,    //   
-    SET_PALETTE               = 9,    //     9 numColor:1 colorValue:2
+    SET_PALETTE               = 9,    //  *  9 numColor:1 colorValue:2
     SET_FONT                  = 10,   //     10 numFont:1
     DRAW_VLINES_ARRAY         = 11,   //     13 x0:2 numLines:1 lines:numLines * 2
     DRAW_SIGNAL_POINTS        = 12,   //     14 x:2 points:281

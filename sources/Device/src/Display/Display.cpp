@@ -188,10 +188,12 @@ void Display::Update()
 {
     Painter::BeginScene(Color::BLACK);
 
-    Region(1, 1).Fill(0, 0, Color::WHITE);
-    Region(1, 1).Fill(0, 238);
-    Region(1, 1).Fill(318, 0);
-    Region(1, 1).Fill(318, 238);
+    Color::SetCurrent(Color::WHITE);
+
+    Point().Set(true, 0, 0);
+    Point().Set(true, 0, 239);
+    Point().Set(true, 319, 0);
+    Point().Set(true, 319, 239);
 
     Painter::EndScene();
 }
