@@ -1206,6 +1206,16 @@
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\InterCom.h</FilePath>
             </File>
+            <File>
+              <FileName>ExternalGenerator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\ExternalGenerator.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ExternalGenerator.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\ExternalGenerator.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3210,6 +3220,16 @@
               <FileName>InterCom.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\InterCom.h</FilePath>
+            </File>
+            <File>
+              <FileName>ExternalGenerator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\ExternalGenerator.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ExternalGenerator.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\ExternalGenerator.h</FilePath>
             </File>
           </Files>
         </Group>
