@@ -627,45 +627,47 @@ HAL_ROM::Settings::RecordConfig *HAL_ROM::Settings::RecordConfig::FirstRecord()
 }
 
 
-int OTP::GetSerialNumber(char buffer[17])
+int OTP::GetSerialNumber(int *number, int *year)
 {
-    // \todo улучшить - нельзя разбрасываться байтами. Каждая запись должна занимать столько места, сколько в ней символов, а не 16, как сейчас.
-
-    const int allShotsMAX = 512 / 16;   // Максимальное число записей в OPT серийного номера.
-
-    uint8 *address = (uint8 *)FLASH_OTP_END - 15; //-V566
+    uint8 *address = (uint8 *)(FLASH_OTP_BASE + 512);
 
     do
     {
-        address -= 16;
-    } while (*address == 0xff && address > (uint8 *)FLASH_OTP_BASE); //-V566
+        address -= 2;
+    } while (*address == 0xff && address > (uint8 *)FLASH_OTP_BASE);
 
     if (*address == 0xff)   // Не нашли строки с информацией, дойдя до начального адреса OTP
     {
-        buffer[0] = 0;
-        return allShotsMAX;
+        *number = 0;
+        *year = 0;
+
+        return 512 / 2;
     }
 
-    std::strcpy(buffer, (char *)address);
+    *number = (int)*address;
+    *year = (int)*(address + 1);
 
-    return allShotsMAX - (address - (uint8 *)FLASH_OTP_BASE) / 16 - 1; //-V566
+    return (int)((FLASH_OTP_BASE + 512 - (int)address) / 2 - 1);
 }
 
 
-bool OTP::SaveSerialNumber(char *serialNumber)
+bool OTP::SaveSerialNumber(int number, int year)
 {
-    // Находим первую пустую строку длиной 16 байт в области OPT, начиная с начала.
-    uint8 *address = (uint8 *)FLASH_OTP_BASE; //-V566
+    // Сохраняется двумя подряд идущими байтами - перый номер, второй - (год - 2000)
 
-    while ((*address) != 0xff &&                // *address != 0xff означает, что запись в эту строку уже производилась
-        address < (uint8 *)FLASH_OTP_END - 16) //-V566
+    uint8 *address = (uint8 *)FLASH_OTP_BASE;
+
+    while ((*address) != 0xff &&
+        address < (uint8 *)(FLASH_OTP_BASE + 512))
     {
-        address += 16;
+        address += 2;
     }
 
-    if (address < (uint8 *)FLASH_OTP_END - 16) //-V566
+    if (address < (uint8 *)(FLASH_OTP_BASE + 512 - 1))
     {
-        HAL_ROM::WriteBufferBytes((uint)address, (uint8 *)serialNumber, (int)std::strlen(serialNumber) + 1);
+        HAL_ROM::WriteBufferBytes((uint)address, &number, 1);
+        HAL_ROM::WriteBufferBytes((uint)(address + 1), &year, 1);
+
         return true;
     }
 

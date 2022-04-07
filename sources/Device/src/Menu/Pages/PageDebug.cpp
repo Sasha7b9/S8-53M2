@@ -26,6 +26,8 @@ static struct StructForSN
     int number;     // Соответственно, порядковый номер.
     int year;       // Соответственно, год.
     int curDigt;    // Соответственно, номером (0) или годом (1) управляет ручка УСТАНОВКА.
+
+    StructForSN() : number(1), year(22), curDigt(0) {}
 } structSN;
 
 
@@ -663,11 +665,7 @@ static const SmallButton bSerialNumber_Change
 
 static void OnPress_SerialNumber_Save()
 {
-    char stringSN[20];
-
-    std::snprintf(stringSN, 19, "%02d %04d", structSN.number, structSN.year);
-
-    if (!OTP::SaveSerialNumber(stringSN))
+    if (!OTP::SaveSerialNumber(structSN.number, structSN.year))
     {
         Warning::ShowBad(Warning::FullyCompletedOTP);
     }
@@ -742,25 +740,18 @@ static void Draw_EnterSerialNumber()
     }
 
     Color::SetCurrent(colorText);
-    String<>("%04d", structSN.year).DrawOnBackground(x + 5, y, colorBackground);
+    String<>("%04d", structSN.year + 2000).DrawOnBackground(x + 5, y, colorBackground);
 
     // Теперь выведем информацию об оставшемся месте в OTP-памяти для записи
 
-    char buffer[20];
+    int number = 0;
+    int year = 0;
 
-    int allShots = OTP::GetSerialNumber(buffer);
+    int allShots = OTP::GetSerialNumber(&number, &year);
 
-    String<>("Текущий сохранённый номер %s", buffer[0] == 0 ? "-- ----" : buffer).Draw(x0 + deltaX, y0 + 130, COLOR_FILL);
+    String<>("Текущий сохранённый номер %02d %d", number, year + 2000).Draw(x0 + deltaX, y0 + 130, COLOR_FILL);
 
     String<>("Осталось места для %d попыток", allShots).Draw(x0 + deltaX, y0 + 100, COLOR_FILL);
-}
-
-
-static void OnPress_SerialNumber()
-{
-    structSN.number = 01;
-    structSN.year = 2022;
-    structSN.curDigt = 0;
 }
 
 
@@ -788,7 +779,7 @@ static const Page ppSerialNumber
     "С/Н", "S/N",
     "Запись серийного номера в OTP-память. ВНИМАНИЕ!!! ОТP-память - память с однократной записью.",
     "Serial number recording in OTP-memory. ATTENTION!!! OTP memory is a one-time programming memory.",
-    NamePage::SB_SerialNumber, &itemsSerialNumber, OnPress_SerialNumber, Draw_EnterSerialNumber, OnRegSet_SerialNumber
+    NamePage::SB_SerialNumber, &itemsSerialNumber, EmptyFuncVV, Draw_EnterSerialNumber, OnRegSet_SerialNumber
 );
 
 

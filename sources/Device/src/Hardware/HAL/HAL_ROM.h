@@ -36,7 +36,8 @@ namespace HAL_ROM
 
 namespace OTP
 {
-    bool SaveSerialNumber(char string[20]);
+    bool SaveSerialNumber(int number, int year);
 
-    int GetSerialNumber(char buffer[20]);
+    // Возвращает количество свободных мест для сохранений
+    int GetSerialNumber(int *number, int *year);
 }
