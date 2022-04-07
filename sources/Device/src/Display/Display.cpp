@@ -188,12 +188,17 @@ void Display::Update()
 {
     Painter::BeginScene(Color::BLACK);
 
-    Color::SetCurrent(Color::WHITE);
+    Rectangle(319, 239).Draw(0, 0, Color::WHITE);
 
-    Point().Set(true, 0, 0);
-    Point().Set(true, 0, 239);
-    Point().Set(true, 319, 0);
-    Point().Set(true, 319, 239);
+    Font::Set(TypeFont::_8);
+
+    String<>("TEST STRING").Draw(1, 0);
+
+    Painter::DrawHLine(true, 20, 0, 50);
+
+    Font::Set(TypeFont::_5);
+
+    String<>("TEST STRING").Draw(1, 11);
 
     Painter::EndScene();
 }
