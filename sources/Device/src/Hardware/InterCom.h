@@ -61,6 +61,7 @@ struct CommandBuffer
             data[0] == SET_POINT ||
             data[0] == DRAW_SIGNAL_LINES ||
             data[0] == SET_PALETTE ||
+            data[0] == SET_FONT ||
             data[0] == DRAW_SIGNAL_POINTS
             )
         {

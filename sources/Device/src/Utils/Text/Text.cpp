@@ -76,9 +76,9 @@ void Font::Set(TypeFont::E typeFont)
 
     if (InterCom::TransmitGUIinProcess())
     {
-        CommandBuffer<4> command(SET_FONT);
+        CommandBuffer<2> command(SET_FONT);
         command.PushByte(typeFont);
-        command.Transmit(2);
+        command.Transmit();
     }
 }
 
