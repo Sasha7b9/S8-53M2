@@ -188,10 +188,10 @@ void Display::Update()
 {
     Painter::BeginScene(Color::BLACK);
 
-    Rectangle(1, 1).Draw(0, 0, Color::WHITE);
-    Rectangle(0, 0).Draw(0, 239);
-    Rectangle(0, 0).Draw(319, 0);
-    Rectangle(0, 0).Draw(319, 239);
+    Region(1, 1).Fill(0, 0, Color::WHITE);
+    Region(1, 1).Fill(0, 238);
+    Region(1, 1).Fill(318, 0);
+    Region(1, 1).Fill(318, 238);
 
     Painter::EndScene();
 }
