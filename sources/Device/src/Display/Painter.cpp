@@ -408,11 +408,11 @@ void Painter::DrawHLine(bool send, int y, int x0, int x1, Color::E color)
 
     if (send && InterCom::TransmitGUIinProcess())
     {
-        CommandBuffer<8> command(DRAW_HLINE);
+        CommandBuffer<6> command(DRAW_HLINE);
         command.PushByte(y);
         command.PushHalfWord(x0);
         command.PushHalfWord(x1);
-        command.Transmit(6);
+        command.Transmit();
     }
 }
 
