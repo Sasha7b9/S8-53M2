@@ -755,7 +755,7 @@ static void Draw_EnterSerialNumber()
 
     String<>("Время сборки : %s %s", __DATE__, __TIME__).Draw(x0 + 10, y0 + 10);
 
-    String<>("Версия %s", DEVELOPER_VERSION).Draw(x0 + 10, y0 + 25);
+    String<>("Версия %s %s", DEVELOPER_VERSION, TYPE_BUILD).Draw(x0 + 10, y0 + 25);
 }
 
 

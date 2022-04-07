@@ -12,6 +12,13 @@
 #endif
 
 
+#ifdef DEBUG
+    #define TYPE_BUILD "Debug"
+#else
+    #define TYPE_BUILD "Release"
+#endif
+
+
 #define NUMBER_VER "1.3.1"
 #define NAME_MODEL_RU "C8-53/1"
 #define NAME_MODEL_EN "S8-53/1"
