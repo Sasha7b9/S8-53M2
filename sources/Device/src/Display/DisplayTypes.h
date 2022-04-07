@@ -63,10 +63,5 @@ enum Command
     DRAW_SIGNAL_POINTS        = 0x0e,   //  *  14 x:2 points:281
     DRAW_MULTI_HPOINT_LINES   = 0x11,   //  *  17 numLines:1 x:2 numPoints:1 dx:1 lines:numLines
     DRAW_MULTI_VPOINT_LINES   = 0x12,   //  *  18 numLines:1 y:1 numPoints:1 dy:1 empty:1 lines:numLines*2
-    DRAW_PICTURE              = 0x14,   // 
-    GET_POINT                 = 0x15,   // 
-    RUN_BUFFER                = 0x16,
-    SET_REINIT                = 0x17,
-    SET_ORIENTATION           = 0x18,   //      Установить ориентацию экрана. 0 - нормальная, 1 - обратная. Действительна только в С8-54
     NUM_COMMANDS
 };
