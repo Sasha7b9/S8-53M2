@@ -163,7 +163,7 @@ static void OnPress_SaveNRST()
 static const Button bSaveNRST
 (
     PageDebug::self, EmptyFuncBV,
-    "Сохранить калибровки", "Save",
+    "Сохр. калибр.", "Save",
     "Сохранить калибровочные настройки",
     "Save calibration settings",
     OnPress_SaveNRST
@@ -186,7 +186,7 @@ static void OnPress_SaveSettings()
 static const Button bSaveSettings
 (
     PageDebug::self, EmptyFuncBV,
-    "Сохранить настройки", "Save settings",
+    "Сохр. настр.", "Save settings",
     "",
     "",
     OnPress_SaveSettings
