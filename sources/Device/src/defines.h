@@ -17,6 +17,8 @@
 #define NAME_MODEL_EN "S8-53/1"
 #define NAME_MODEL (LANG_RU ? NAME_MODEL_RU : NAME_MODEL_EN)
 
+#define DEVELOPER_VERSION "1.0.0"
+
 
 typedef signed      char        int8;
 typedef signed      short   int int16;

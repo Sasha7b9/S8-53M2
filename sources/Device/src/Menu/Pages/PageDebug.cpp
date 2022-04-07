@@ -725,7 +725,7 @@ static void Draw_EnterSerialNumber()
         colorBackground = Color::FLASH_10;
     }
 
-    int y = y0 + 50;
+    int y = y0 + 80;
 
     Color::SetCurrent(colorText);
     int x = String<>("%02d", structSN.number).DrawOnBackground(x0 + deltaX, y, colorBackground);
@@ -753,7 +753,9 @@ static void Draw_EnterSerialNumber()
 
     String<>("Осталось места для %d попыток", allShots).Draw(x0 + deltaX, y0 + 100);
 
-    String<>("Время сборки : %s %s", __DATE__, __TIME__).Draw(x0 + 10, x0 + 10);
+    String<>("Время сборки : %s %s", __DATE__, __TIME__).Draw(x0 + 10, y0 + 10);
+
+    String<>("Версия %s", DEVELOPER_VERSION).Draw(x0 + 10, y0 + 25);
 }
 
 
