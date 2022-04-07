@@ -44,12 +44,6 @@ struct DrawMode
     };
 };
 
-enum SourceBuffer
-{
-    SB_Signals,
-    SB_Send,
-    SB_Intermediate
-};
 
 enum Command
 {
@@ -58,8 +52,8 @@ enum Command
     END_SCENE                 = 0x03,   //  *  3
     DRAW_HLINE                = 0x04,   //  *  4 y:1 x0:2 x1:2
     DRAW_VLINE                = 0x05,   //  *  5 x:2 y0:1 y1:1
-    SET_POINT                 = 0x06,   //     6 x:2 y:1
-    DRAW_SIGNAL_LINES         = 0x07,   //     7 x:2 points:281
+    SET_POINT                 = 0x06,   //  *  6 x:2 y:1
+    DRAW_SIGNAL_LINES         = 0x07,   //  *  7 x:2 points:281
     DRAW_TEXT                 = 0x08,   //     
     SET_PALETTE               = 0x09,   //  *  9 numColor:1 colorValue:2
     SET_FONT                  = 0x0a,   //     10 numFont:1

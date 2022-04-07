@@ -757,7 +757,7 @@ void DataPainter::DrawSignal(const int _x, const uint8 data[281], bool modeLines
             command.PushByte(data[i]);
         }
 
-        command.Transmit(284);
+        command.Transmit();
     }
 }
 
