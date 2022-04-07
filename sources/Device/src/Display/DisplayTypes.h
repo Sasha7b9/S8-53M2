@@ -53,15 +53,15 @@ enum SourceBuffer
 
 enum Command
 {
-    SET_COLOR                 = 0x01,   //     1 numColor:1
-    FILL_REGION               = 0x02,   //     2 x:2 y:1 width:2 height:1
-    END_SCENE                 = 0x03,   //     3
-    DRAW_HLINE                = 0x04,   //     4 y:1 x0:2 x1:2
-    DRAW_VLINE                = 0x05,   //     5 x:2 y0:1 y1:1
+    SET_COLOR                 = 0x01,   //  *  1 numColor:1
+    FILL_REGION               = 0x02,   //  *  2 x:2 y:1 width:2 height:1
+    END_SCENE                 = 0x03,   //  *  3
+    DRAW_HLINE                = 0x04,   //  *  4 y:1 x0:2 x1:2
+    DRAW_VLINE                = 0x05,   //  *  5 x:2 y0:1 y1:1
     SET_POINT                 = 0x06,   //     6 x:2 y:1
     DRAW_SIGNAL_LINES         = 0x07,   //     7 x:2 points:281
     DRAW_TEXT                 = 0x08,   //     
-    SET_PALETTE               = 0x09,   //     9 numColor:1 colorValue:2
+    SET_PALETTE               = 0x09,   //  *  9 numColor:1 colorValue:2
     SET_FONT                  = 0x0a,   //     10 numFont:1
     DRAW_HPOINT_LINE          = 0x0b,   //     
     DRAW_VPOINT_LINE          = 0x0c,   //     12 x:2 y0:1 delta:1 numPoints:1
