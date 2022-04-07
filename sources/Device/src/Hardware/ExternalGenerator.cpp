@@ -10,6 +10,7 @@ TIM_OC_InitTypeDef sConfigOC = {0};
 
 void ExternalGenerator::Init()
 {
+    /*
     __HAL_RCC_TIM8_CLK_ENABLE();
     __HAL_RCC_GPIOI_CLK_ENABLE();
 
@@ -23,8 +24,8 @@ void ExternalGenerator::Init()
     HAL_GPIO_Init(GPIOI, &GPIO_InitStruct);
 
     uint uhPrescalerValue = (uint32_t)(SystemCoreClock / (16000000 * 2)) - 1;
-#define  PERIOD_VALUE       (uint32_t)(4)  /* Period Value  */
-#define  PULSE1_VALUE       (uint32_t)(PERIOD_VALUE/2)        /* Capture Compare 1 Value  */
+#define  PERIOD_VALUE       (uint32_t)(4)  // Period Value
+#define  PULSE1_VALUE       (uint32_t)(PERIOD_VALUE/2)        // Capture Compare 1 Value
 
     LOG_WRITE("%d", HAL_RCC_GetSysClockFreq());
 
@@ -58,4 +59,5 @@ void ExternalGenerator::Init()
     {
         LOG_ERROR_TRACE("");
     }
+    */
 }
