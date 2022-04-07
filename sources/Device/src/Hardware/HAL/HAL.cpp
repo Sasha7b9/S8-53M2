@@ -1,6 +1,7 @@
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
+#include "Hardware/ExternalGenerator.h"
 #include <stm32f4xx_hal.h>
 #include <usbh_def.h>
 
@@ -63,6 +64,8 @@ void HAL::Init()
     HAL_CRC32::Init();
 
     Timer::Init();
+
+    ExternalGenerator::Init();
 }
 
 
