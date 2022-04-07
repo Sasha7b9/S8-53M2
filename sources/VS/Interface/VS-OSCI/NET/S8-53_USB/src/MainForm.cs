@@ -58,7 +58,7 @@ namespace S8_53_USB {
             SET_FONT = 10,
             DRAW_VLINES_ARRAY = 13,
             DRAW_SIGNAL_POINTS = 14,
-            DRAW_MULTI_HPOINT_LINES_2 = 17,
+            DRAW_MULTI_HPOINT_LINES = 17,
             DRAW_MULTI_VPOINT_LINES = 18,
             LOAD_FONT = 19
         };
@@ -444,7 +444,7 @@ namespace S8_53_USB {
                             prevX = nextX;
                         }
                     }
-                    else if ((Command)command == Command.DRAW_MULTI_HPOINT_LINES_2)
+                    else if ((Command)command == Command.DRAW_MULTI_HPOINT_LINES)
                     {
                         int numLines = int8();
                         int x0 = int16();
