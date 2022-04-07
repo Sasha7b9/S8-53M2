@@ -184,18 +184,21 @@ bool Display::NeedForClearScreen()
 }
 
 
-void Display::Update1()
+void Display::Update()
 {
     Painter::BeginScene(Color::BLACK);
 
-    Rectangle(5, 5).Draw(0, 0, Color::WHITE);
+    Rectangle(1, 1).Draw(0, 0, Color::WHITE);
+    Rectangle(0, 0).Draw(0, 239);
+    Rectangle(0, 0).Draw(319, 0);
+    Rectangle(0, 0).Draw(319, 239);
 
     Painter::EndScene();
 }
 
 
 
-void Display::Update(bool endScene)
+void Display::Update1(bool endScene)
 {
     if (funcOnHand != 0)
     {
