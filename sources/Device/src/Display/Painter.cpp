@@ -345,7 +345,7 @@ void Painter::DrawMultiHPointLine(int numLines, int x, const uint8 y[], int delt
 
     if (InterCom::TransmitGUIinProcess())
     {
-        CommandBuffer<30> command(DRAW_MULTI_HPOINT_LINES_2);
+        CommandBuffer<30> command(DRAW_MULTI_HPOINT_LINES);
         command.PushByte(numLines);
         command.PushHalfWord(x);
         command.PushByte(count);
