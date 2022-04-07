@@ -767,7 +767,7 @@ static void OnRegSet_SerialNumber(int angle)
     }
     else
     {
-        p(&structSN.year, 2014, 2050);
+        p(&structSN.year, 0, 99);
     }
     Sound::GovernorChangedValue();
 }
