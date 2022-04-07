@@ -22,14 +22,16 @@ void ExternalGenerator::Init()
     GPIO_InitStruct.Alternate = GPIO_AF3_TIM8;
     HAL_GPIO_Init(GPIOI, &GPIO_InitStruct);
 
-    uint uhPrescalerValue = (uint32_t)(SystemCoreClock / (16000000 * 4)) - 1;
-#define  PERIOD_VALUE       (uint32_t)(6 - 1)  /* Period Value  */
+    uint uhPrescalerValue = (uint32_t)(SystemCoreClock / (16000000 * 2)) - 1;
+#define  PERIOD_VALUE       (uint32_t)(4)  /* Period Value  */
 #define  PULSE1_VALUE       (uint32_t)(PERIOD_VALUE/2)        /* Capture Compare 1 Value  */
 
+    LOG_WRITE("%d", HAL_RCC_GetSysClockFreq());
+
     htim8.Instance = TIM8;
-    htim8.Init.Prescaler = uhPrescalerValue;
+    htim8.Init.Prescaler = 0;
     htim8.Init.CounterMode = TIM_COUNTERMODE_UP;
-    htim8.Init.Period = PERIOD_VALUE;
+    htim8.Init.Period = 4;
     htim8.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
     htim8.Init.RepetitionCounter = 0;
     htim8.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
@@ -40,7 +42,7 @@ void ExternalGenerator::Init()
 
 
     sConfigOC.OCMode = TIM_OCMODE_PWM1;
-    sConfigOC.Pulse = PULSE1_VALUE;
+    sConfigOC.Pulse = 1;
     sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
     sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
     sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
