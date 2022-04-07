@@ -751,7 +751,9 @@ static void Draw_EnterSerialNumber()
 
     String<>("Текущий сохранённый номер %02d %d", number, year + 2000).Draw(x0 + deltaX, y0 + 130, COLOR_FILL);
 
-    String<>("Осталось места для %d попыток", allShots).Draw(x0 + deltaX, y0 + 100, COLOR_FILL);
+    String<>("Осталось места для %d попыток", allShots).Draw(x0 + deltaX, y0 + 100);
+
+    String<>("Время сборки : %s %s", __DATE__, __TIME__).Draw(x0 + 10, x0 + 10);
 }
 
 
