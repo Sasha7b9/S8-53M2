@@ -61,7 +61,6 @@ enum Command
     DRAW_VPOINT_LINE          = 0x0c,   //     12 x:2 y0:1 delta:1 numPoints:1
     DRAW_VLINES_ARRAY         = 0x0d,   //  *  13 x0:2 numLines:1 lines:numLines * 2
     DRAW_SIGNAL_POINTS        = 0x0e,   //  *  14 x:2 points:281
-    SET_BRIGHTNESS            = 0x0f,   //     
     DRAW_MULTI_HPOINT_LINES   = 0x11,   //  *  17 numLines:1 x:2 numPoints:1 dx:1 lines:numLines
     DRAW_MULTI_VPOINT_LINES   = 0x12,   //  *  18 numLines:1 y:1 numPoints:1 dy:1 empty:1 lines:numLines*2
     DRAW_PICTURE              = 0x14,   // 
