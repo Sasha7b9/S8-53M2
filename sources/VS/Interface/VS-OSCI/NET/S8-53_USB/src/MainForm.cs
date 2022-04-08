@@ -224,11 +224,7 @@ namespace S8_53_USB {
 
                     while (commands.Count != 0)
                     {
-                        string command = commands.Dequeue();
-
-                        Console.WriteLine(command);
-
-                        port.SendString(command);
+                        port.SendString(commands.Dequeue());
                     }
                 }
                 else if(bytes[0] == (byte)Command.SET_PALETTE)

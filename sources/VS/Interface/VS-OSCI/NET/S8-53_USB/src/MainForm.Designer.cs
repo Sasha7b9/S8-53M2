@@ -435,7 +435,7 @@
             this.govSet.Size = new System.Drawing.Size(25, 25);
             this.govSet.TabIndex = 3;
             this.govSet.TypeGovernor = ControlLibraryS8_53.TypeGov.Small;
-            this.govSet.ValueToSend = "SET";
+            this.govSet.ValueToSend = "SETTING";
             this.govSet.RotateLeft += new System.EventHandler<System.EventArgs>(this.governor_RotateLeft);
             this.govSet.RotateRight += new System.EventHandler<System.EventArgs>(this.governor_RotateRight);
             // 
