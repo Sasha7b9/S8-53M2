@@ -127,7 +127,7 @@ namespace S8_53_USB {
         private void governor_RotateLeft(object sender, EventArgs args) {
             try
             {
-                commands.Enqueue("GOV:" + ((Governor)sender).ValueToSend + " LEFT");
+                commands.Enqueue("GOVERNOR:" + ((Governor)sender).ValueToSend + " LEFT");
             }
             catch(Exception e)
             {
@@ -138,7 +138,7 @@ namespace S8_53_USB {
         private void governor_RotateRight(object sender, EventArgs args) {
             try
             {
-                commands.Enqueue("GOV:" + ((Governor)sender).ValueToSend + " RIGHT");
+                commands.Enqueue("GOVERNOR:" + ((Governor)sender).ValueToSend + " RIGHT");
             }
             catch(Exception e)
             {
