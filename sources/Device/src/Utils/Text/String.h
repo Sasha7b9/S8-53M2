@@ -28,7 +28,7 @@ public:
     void Append(const String<capacity> &rhs) { Append(rhs.c_str()); }
 
     // Добавить байты. В конец дописать ноль
-    void AppendBytes(void *bytes, int num_bytes);
+    void AppendBytes(const void *bytes, int num_bytes);
 
     bool Filled() const { return (Size() == capacity - 1); }
 

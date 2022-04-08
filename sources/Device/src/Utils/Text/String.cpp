@@ -30,7 +30,7 @@ template void String<(int)DEFAULT_SIZE_STRING>::Append(char);
 template void String<(int)DEFAULT_SIZE_STRING>::DrawInCenterRectOnBackground(int x, int y, int width, int height, Color::E colorText,
     int widthBorder, Color::E colorBackground);
 template bool String<(int)DEFAULT_SIZE_STRING>::ToInt(int *);
-template void String<(int)DEFAULT_SIZE_STRING>::AppendBytes(void *, int);
+template void String<(int)DEFAULT_SIZE_STRING>::AppendBytes(const void *, int);
 
 template      String<(int)1024>::String(pchar, ...);
 template int  String<(int)1024>::Draw(int, int, Color::E);
@@ -158,7 +158,7 @@ void String<capacity>::Append(pchar str)
 
 
 template<int capacity>
-void String<capacity>::AppendBytes(void *bytes, int num_bytes)
+void String<capacity>::AppendBytes(const void *bytes, int num_bytes)
 {
     int need_size = Size() + num_bytes + 1;
 
