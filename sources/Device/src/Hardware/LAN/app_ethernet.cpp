@@ -8,7 +8,7 @@ void User_notification(struct netif *netif)
 {
     if (netif_is_up(netif))
     {
-        LOG_WRITE(ip4addr_ntoa((const ip4_addr_t *)&netif->ip_addr));
+//        LOG_WRITE(ip4addr_ntoa((const ip4_addr_t *)&netif->ip_addr));
     }
     else
     {

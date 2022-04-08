@@ -19,6 +19,8 @@
 #ifndef __LWIPOPTS_H__
 #define __LWIPOPTS_H__
 
+#define LWIP_HAVE_LOOPIF 1
+
 /**
  * NO_SYS==1: Provides VERY minimal functionality. Otherwise,
  * use lwIP facilities.
@@ -101,11 +103,11 @@ a lot of data that needs to be copied, this should be set high. */
 
 
 /* ---------- DHCP options ---------- */
-#define LWIP_DHCP               1
+#define LWIP_DHCP               0
 
 
 /* ---------- UDP options ---------- */
-#define LWIP_UDP                1
+#define LWIP_UDP                0
 #define UDP_TTL                 255
 
 
