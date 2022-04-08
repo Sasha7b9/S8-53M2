@@ -10,8 +10,4 @@ namespace LAN
     void Init();
 
     void Update();
-
-    void SendBuffer(const void *buffer, int length);
-    void SendFormat(pchar format, ...);
-    void SendString(pchar);
 }

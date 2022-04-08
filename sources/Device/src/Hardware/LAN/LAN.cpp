@@ -1,10 +1,11 @@
 // 2022/03/29 16:54:43 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Hardware/LAN/LAN.h"
+#include "Hardware/LAN/SocketTCP.h"
 #include "Hardware/LAN/ethernetif.h"
-#include "Hardware/LAN/tcp_echoserver.h"
 #include "Hardware/LAN/app_ethernet.h"
 #include "Settings/Settings.h"
+#include "SCPI/SCPI.h"
 #include <lwip/init.h>
 #include <lwip/netif.h>
 #include <lwip/timeouts.h>
@@ -64,7 +65,7 @@ void LAN::Init()
     Netif_Config();
 
     /* tcp echo server Init */
-    tcp_echoserver_init();
+    TCP::Init(SCPI::AppendNewData);
 
     /* Notify user about the netwoek interface config */
     User_notification(&gnetif);

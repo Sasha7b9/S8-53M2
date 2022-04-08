@@ -36,7 +36,7 @@ namespace SCPI
         pFuncBC  func;
     };
 
-    void AppendNewData(const uint8 *buffer, int length);
+    void AppendNewData(const void *buffer, int length);
     void Update();
 
     void SendBuffer(const uint8 *buffer, int size);

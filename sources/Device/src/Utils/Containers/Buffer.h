@@ -1,4 +1,5 @@
 #pragma once
+#include <cstring>
 
 
 template<class T, int size_buffer>
