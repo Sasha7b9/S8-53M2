@@ -7,18 +7,18 @@
 
 static SettingsNRST defaultNRST =
 {
-    0,                  // crc32
-    15,                 // numStrings
-    0,                  // נאחלונ רנטפעא - 5
-    1000,               // numMeasuresForGates
-    false,              // showStats
-    32,                 // numAveForRand
-    false,              // fpga_compact
-    0,                  // fpga_gates_min
-    0,                  // fpga_gates_max
-    0,                  // first_byte
-    {0,    0},          // balanceADC
-    {                   // hand_rshift
+    0,              // crc32
+    0,              // numStrings
+    0,              // נאחלונ רנטפעא - 5
+    1000,           // numMeasuresForGates
+    false,          // showStats
+    32,             // numAveForRand
+    false,          // fpga_compact
+    0,              // fpga_gates_min
+    0,              // fpga_gates_max
+    0,              // first_byte
+    {0,    0},      // balanceADC
+    {               // hand_rshift
         {0, 0, 0},
         {0, 0, 0}
     },
