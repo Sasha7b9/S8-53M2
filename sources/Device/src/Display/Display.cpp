@@ -19,6 +19,7 @@
 #include "Display/Screen/LowPart.h"
 #include "Utils/Text/Warnings.h"
 #include "Utils/Text/Text.h"
+#include "Utils/Text/Symbols.h"
 #include <cstdio>
 
 
@@ -196,9 +197,9 @@ void Display::Update()
 
     Char('0').Draw(true, 1, 8);
 
-    Font::Set(TypeFont::_8);
+    Font::Set(TypeFont::UGO2);
 
-    Char('0').Draw(true, 1, 20);
+    Text::Draw4SymbolsInRect(1, 20, SYMBOL_FLASH_DRIVE);
 
     Painter::EndScene();
 }

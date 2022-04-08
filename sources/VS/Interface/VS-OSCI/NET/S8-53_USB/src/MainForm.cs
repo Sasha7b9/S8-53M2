@@ -557,7 +557,8 @@ namespace S8_53_USB {
                         }
                         else if(Display.currentFont == 3)
                         {
-
+                            x--;
+                            y++;
                         }
 
                         char[] text = new char[2];
