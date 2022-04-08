@@ -50,6 +50,18 @@ bool SCPI::CONTROL::KEY(pchar buffer)
                     Panel::Callback::OnReceiveSPI5(data, 3);
                     return true;
                 }
+                else if (action.WordEqualZeroString("DOWN"))
+                {
+                    data[2] = Action::Down;
+                    Panel::Callback::OnReceiveSPI5(data, 3);
+                    return true;
+                }
+                else if (action.WordEqualZeroString("UP"))
+                {
+                    data[2] = Action::Up;
+                    Panel::Callback::OnReceiveSPI5(data, 3);
+                    return true;
+                }
                 else if (action.WordEqualZeroString("LONG"))
                 {
                     data[2] = Action::Long;

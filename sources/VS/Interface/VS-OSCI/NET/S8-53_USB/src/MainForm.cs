@@ -101,7 +101,7 @@ namespace S8_53_USB {
             {
                 try
                 {
-                    commands.Enqueue(":KEY:" + StringToSendForButton(sender) + " DOWN");
+                    commands.Enqueue("KEY:" + StringToSendForButton(sender) + " DOWN");
                 }
                 catch (Exception e)
                 {
@@ -115,7 +115,7 @@ namespace S8_53_USB {
             {
                 try
                 {
-                    commands.Enqueue(":KEY:" + StringToSendForButton(sender) + " UP");
+                    commands.Enqueue("KEY:" + StringToSendForButton(sender) + " UP");
                 }
                 catch (Exception e)
                 {
@@ -224,7 +224,11 @@ namespace S8_53_USB {
 
                     while (commands.Count != 0)
                     {
-                        port.SendString(commands.Dequeue());
+                        string command = commands.Dequeue();
+
+                        Console.WriteLine(command);
+
+                        port.SendString(command);
                     }
                 }
                 else if(bytes[0] == (byte)Command.SET_PALETTE)
