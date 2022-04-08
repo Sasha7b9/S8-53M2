@@ -62,6 +62,8 @@ struct SettingsNRST
     void StoreAndClearHandRShift(Chan, Range::E);
     void RestoreHandRShift(Chan, Range::E);
     static int16 stored_rshift[Chan::Count][3];
+
+    bool operator==(const SettingsNRST &);
 };
 
 

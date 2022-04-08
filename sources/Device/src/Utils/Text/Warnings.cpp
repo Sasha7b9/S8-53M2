@@ -171,7 +171,8 @@ pchar Warning::GetWarning(Warning::E warning)
         {"опньхбйю янупюмемю",              "FIRMWARE SAVED"},
         {"оЮЛЪРЭ OTP ОНКМНЯРЭЧ ГЮОНКМЕМЮ",   "OPT memory fully completed"},
         {"мюярпнийх янупюмемш",             "SETTINGS SAVED"},
-        {"мюярпнийх ме янупюмемш",          "SETTINGS NOT SAVED"}
+        {"мюярпнийх ме янупюмемш",          "SETTINGS NOT SAVED"},
+        {"опханп ме мюярпнем",              "INSTRUMENT NOT SET UP"}
     };
     return warns[warning][LANG];
 }

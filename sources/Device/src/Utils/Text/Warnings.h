@@ -35,6 +35,8 @@ namespace Warning
         FullyCompletedOTP,
         SettingsSaved,
         SettingsNotSaved,
+        InstrumentNotCalibrated,
+        DeviceNotConfigured,            // Прибор не настроен
         Count
     };
 

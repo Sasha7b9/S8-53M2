@@ -2,6 +2,7 @@
 #include "Settings/SettingsNRST.h"
 #include "Hardware/HAL/HAL.h"
 #include "Settings/Settings.h"
+#include "Utils/Text/Warnings.h"
 
 
 static SettingsNRST defaultNRST =
@@ -39,6 +40,17 @@ bool SettingsNRST::Save()
 void SettingsNRST::Load()
 {
     HAL_ROM::Settings::LoadNRST(this);
+
+    if (*this == defaultNRST)
+    {
+        Warning::ShowBad(Warning::InstrumentNotCalibrated);
+    }
+}
+
+
+bool SettingsNRST::operator==(const SettingsNRST &rhs)
+{
+    return std::memcmp(((uint8 *)&rhs) + 4, ((uint8 *)this) + 4, sizeof(rhs)) == 0;
 }
 
 
