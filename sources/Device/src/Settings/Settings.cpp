@@ -27,7 +27,7 @@ static const Settings defaultSettings =
         {
             Color::Make(0x00, 0x00, 0x00),   // Color::BLACK = 0x00,
             Color::Make(0xFF, 0xFF, 0xFF),   // Color::WHITE = 0x01,
-            Color::Make(0x80, 0x80, 0x80),   // Color::GRID = 0x02,
+            Color::Make(0x40, 0x40, 0x40),   // Color::GRID = 0x02,
             Color::Make(0x01, 0xCA, 0xFF),   // Color::DATA_A = 0x03,
             Color::Make(0x00, 0xFF, 0x00),   // COLOR_DATA_B = 0x04,
             Color::Make(0xD5, 0xDA, 0xD5),   // Color::MENU_FIELD = 0x05,
