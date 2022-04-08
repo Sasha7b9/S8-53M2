@@ -50,22 +50,7 @@ struct CommandBuffer
     }
     void Transmit()
     {
-        if (
-            data[0] == SET_COLOR ||
-            data[0] == FILL_REGION ||
-            data[0] == END_SCENE ||
-            data[0] == DRAW_HLINE ||
-            data[0] == DRAW_VLINE ||
-            data[0] == SET_POINT ||
-            data[0] == DRAW_SIGNAL_LINES ||
-            data[0] == SET_PALETTE ||
-            data[0] == SET_FONT ||
-            data[0] == DRAW_SIGNAL_POINTS
-            || data[0] == DRAW_CHAR
-            )
-        {
-            InterCom::Send(Data(), size);
-        }
+        InterCom::Send(Data(), size);
     }
     uint8 *GetByte(int num_byte)        { return &data[num_byte]; }
 private:
