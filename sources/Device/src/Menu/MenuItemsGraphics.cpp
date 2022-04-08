@@ -162,21 +162,21 @@ void Formula::WriteText(int x, int y, bool)
 
     if (koeff1 != 0)
     {
-       Char(koeff1 < 0 ? '-' : '+').Draw(x, y);
+       Char(koeff1 < 0 ? '-' : '+').Draw(true, x, y);
     }
 
-    Char((char)(koeff1 + 0x30)).Draw(x + 5, y);
-    Char('*').Draw(x + 10, y);
+    Char((char)(koeff1 + 0x30)).Draw(true, x + 5, y);
+    Char('*').Draw(true, x + 10, y);
     String<>("K1").Draw(x + 14, y);
-    Char(funcIsMul ? '*' : '+').Draw(x + 27, y);
+    Char(funcIsMul ? '*' : '+').Draw(true, x + 27, y);
 
     if (koeff2 != 0)
     {
-       Char(koeff2 < 0 ? '-' : '+').Draw(x + 30, y);
+       Char(koeff2 < 0 ? '-' : '+').Draw(true, x + 30, y);
     }
 
-    Char((char)(koeff2 + 0x30)).Draw(x + 39, y);
-    Char('*').Draw(x + 44, y);
+    Char((char)(koeff2 + 0x30)).Draw(true, x + 39, y);
+    Char('*').Draw(true, x + 44, y);
     String<>("K2").Draw(x + 48, y);
 }
 
@@ -247,11 +247,11 @@ static void DrawValueWithSelectedPosition(int x, int y, int value, int numDigits
 
         if (!(rest == 0 && value == 0) || (firstValue == 0 && i == 0))
         {
-            Char(rest + 48).Draw(x, y, (selPos == i) ? COLOR_BACK : COLOR_FILL);
+            Char(rest + 48).Draw(true, x, y, (selPos == i) ? COLOR_BACK : COLOR_FILL);
         }
         else
         {
-            Char('0').Draw(x, y, (selPos == i) ? COLOR_BACK : COLOR_FILL);
+            Char('0').Draw(true, x, y, (selPos == i) ? COLOR_BACK : COLOR_FILL);
         }
 
         if (hLine)
@@ -286,14 +286,14 @@ static void DrawIPvalue(int x, int y, IPaddress *ip)
         DrawValueWithSelectedPosition(x, y, bytes[i], 3, numIP == i ? selPos : -1, false);
         if (i != 3)
         {
-            Char('.').Draw(x + 5, y, COLOR_FILL);
+            Char('.').Draw(true, x + 5, y, COLOR_FILL);
         }
         x += 19;
     }
 
     if (ip->port != 0)
     {
-        Char(':').Draw(x - 13, y, COLOR_FILL);
+        Char(':').Draw(true, x - 13, y, COLOR_FILL);
         DrawValueWithSelectedPosition(x + 14, y, *ip->port, 5, numIP == 4 ? selPos : -1, false);
     }
 }
@@ -577,7 +577,7 @@ void Governor::DrawOpened(int x, int y)
 
     if (sign)
     {
-        Char(signGovernor < 0 ? '\x9b' : '\x9a').Draw(x + 39, y);
+        Char(signGovernor < 0 ? '\x9b' : '\x9a').Draw(true, x + 39, y);
     }
 }
 

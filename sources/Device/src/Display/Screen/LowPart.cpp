@@ -95,8 +95,8 @@ void LowPart::Draw()
     if (MODE_WORK_IS_DIRECT)
     {
         String<>("\xa5\x10%s\x10\xa5\x10%s\x10\xa5\x10", couple[TRIG_INPUT], polar[TRIG_POLARITY]).Draw(x + 18, y1);
-        Char(filtr[TRIG_INPUT][0]).Draw(x + 45, y1);
-        Char(filtr[TRIG_INPUT][1]).Draw(x + 53, y1);
+        Char(filtr[TRIG_INPUT][0]).Draw(true, x + 45, y1);
+        Char(filtr[TRIG_INPUT][1]).Draw(true, x + 53, y1);
     }
 
     const char mode[] =
@@ -177,8 +177,8 @@ void LowPart::Draw()
 
     if (!SET_PEAKDET_IS_DISABLED)
     {
-        Char('\x12').Draw(x + 38, GRID_BOTTOM + 11);
-        Char('\x13').Draw(x + 46, GRID_BOTTOM + 11);
+        Char('\x12').Draw(true, x + 38, GRID_BOTTOM + 11);
+        Char('\x13').Draw(true, x + 46, GRID_BOTTOM + 11);
     }
 
     if (MODE_WORK_IS_DIRECT)

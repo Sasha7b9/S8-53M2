@@ -282,7 +282,7 @@ static void OnPress_Math_Function_ModeRegSet()
 
 static void Draw_Math_Function_ModeRegSet_Range(int x, int y)
 {
-    Char(LANG_RU ? 'M' : 'S').Draw(x + 7, y + 5);
+    Char(LANG_RU ? 'M' : 'S').Draw(true, x + 7, y + 5);
 }
 
 
@@ -327,7 +327,7 @@ static void OnPress_Math_Function_RangeA()
 
 static void Draw_Math_Function_RangeA(int x, int y)
 {
-    Char('1').Draw(x + 8, y + 5);
+    Char('1').Draw(true, x + 8, y + 5);
 }
 
 
@@ -351,7 +351,7 @@ static void OnPress_Math_Function_RangeB()
 
 static void Draw_Math_Function_RangeB(int x, int y)
 {
-    Char('2').Draw(x + 8, y + 5);
+    Char('2').Draw(true, x + 8, y + 5);
 }
 
 

@@ -32,7 +32,7 @@ namespace SU
 namespace Text
 {
     // Отрисовка непосредственно символа
-    int DrawCharHard(int x, int y, char symbol);
+    int DrawCharHard(bool send, int x, int y, char symbol);
 
     int DrawCharWithLimitation(int eX, int eY, uchar symbol, int limitX, int limitY, int limitWidth, int limitHeight);
 
@@ -44,7 +44,7 @@ namespace Text
 
     bool BitInFontIsExist(int eChar, int numByte, int bit);
 
-    void DrawCharInColorDisplay(int eX, int eY, uchar symbol);
+    void DrawCharInColorDisplay(bool send, int eX, int eY, uchar symbol);
 
     int DrawBigChar(int eX, int eY, int size, char symbol);
 
@@ -113,7 +113,7 @@ bool Text::BitInFontIsExist(int eChar, int numByte, int bit)
 }
 
 
-void Text::DrawCharInColorDisplay(int eX, int eY, uchar symbol)
+void Text::DrawCharInColorDisplay(bool send, int eX, int eY, uchar symbol)
 {
     int8 width = (int8)Font::font->symbol[symbol].width;
     int8 height = (int8)Font::font->height;
@@ -134,6 +134,11 @@ void Text::DrawCharInColorDisplay(int eX, int eY, uchar symbol)
                 x++;
             }
         }
+    }
+
+    if (send && InterCom::TransmitGUIinProcess())
+    {
+        // need_send
     }
 }
 
@@ -171,7 +176,7 @@ int Text::DrawBigChar(int eX, int eY, int size, char symbol)
 }
 
 
-int Text::DrawCharHard(int eX, int eY, char symbol)
+int Text::DrawCharHard(bool send, int eX, int eY, char symbol)
 {
     int8 width = (int8)Font::font->symbol[(uint8)symbol].width;
     int8 height = (int8)Font::font->height;
@@ -194,25 +199,30 @@ int Text::DrawCharHard(int eX, int eY, char symbol)
         }
     }
 
+    if (send && InterCom::TransmitGUIinProcess())
+    {
+        // need_send
+    }
+
     return eX + width;
 }
 
 
-int Char::Draw(int x, int y, Color::E color)
+int Char::Draw(bool send, int x, int y, Color::E color)
 {
     Color::SetCurrent(color);
 
     if (Font::GetSize() == 5)
     {
-        Text::DrawCharHard(x, y + 3, symbol);
+        Text::DrawCharHard(send, x, y + 3, symbol);
     }
     else if (Font::GetSize() == 8)
     {
-        Text::DrawCharHard(x, y, symbol);
+        Text::DrawCharHard(send, x, y, symbol);
     }
     else
     {
-        Text::DrawCharInColorDisplay(x, y, (uint8)symbol);
+        Text::DrawCharInColorDisplay(send, x, y, (uint8)symbol);
     }
 
     return x + Font::GetLengthSymbol((uint8)symbol);
@@ -558,8 +568,8 @@ void Painter::DrawHintsForSmallButton(int x, int y, int width, void *smallButton
 
 void Text::Draw2Symbols(int x, int y, char symbol1, char symbol2, Color::E color1, Color::E color2)
 {
-    Char(symbol1).Draw(x, y, color1);
-    Char(symbol2).Draw(x, y, color2);
+    Char(symbol1).Draw(true, x, y, color1);
+    Char(symbol2).Draw(true, x, y, color2);
 }
 
 
@@ -569,8 +579,8 @@ void Text::Draw4SymbolsInRect(int x, int y, char eChar, Color::E color)
 
     for (int i = 0; i < 2; i++)
     {
-        Char((char)(eChar + i)).Draw(x + 8 * i, y);
-        Char((char)(eChar + i + 16)).Draw(x + 8 * i, y + 8);
+        Char((char)(eChar + i)).Draw(true, x + 8 * i, y);
+        Char((char)(eChar + i + 16)).Draw(true, x + 8 * i, y + 8);
     }
 }
 
@@ -579,8 +589,8 @@ void Text::Draw10SymbolsInRect(int x, int y, char eChar)
 {
     for (int i = 0; i < 5; i++)
     {
-        Char((char)(eChar + i)).Draw(x + 8 * i, y);
-        Char((char)(eChar + i + 16)).Draw(x + 8 * i, y + 8);
+        Char((char)(eChar + i)).Draw(true, x + 8 * i, y);
+        Char((char)(eChar + i + 16)).Draw(true, x + 8 * i, y + 8);
     }
 }
 

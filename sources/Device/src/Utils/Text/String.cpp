@@ -87,7 +87,7 @@ int String<capa>::Draw(int x, int y, Color::E color)
 
     while (*text != '\0')
     {
-        x = Char(*text).Draw(x, y) + 1;
+        x = Char(*text).Draw(false, x, y) + 1;
         text++;
     }
 
@@ -307,7 +307,7 @@ int String<capacity>::DrawSubString(int x, int y, char *text)
 
     while (((*text) != ' ') && ((*text) != '\0'))
     {
-        x = Char(*text).Draw(x, y);
+        x = Char(*text).Draw(true, x, y);
         numSymbols++;
         text++;
         x++;
@@ -324,7 +324,7 @@ int String<capacity>::DrawSpaces(int x, int y, char *text, int *numSymbols)
 
     while (*text == ' ')
     {
-        x = Char(*text).Draw(x, y);
+        x = Char(*text).Draw(true, x, y);
         text++;
         (*numSymbols)++;
     }
@@ -396,7 +396,7 @@ int String<capacity>::DrawInRectWithTransfers(int eX, int eY, int eWidth, int eH
                 {
                     continue;
                 }
-                x = Char(symbol).Draw(x, y);
+                x = Char(symbol).Draw(true, x, y);
             }
             else                                            // ј здесь найдено по крайней мере два буквенных символа, т.е. найдено слово
             {

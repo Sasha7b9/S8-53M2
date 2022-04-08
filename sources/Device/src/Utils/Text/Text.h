@@ -8,7 +8,7 @@ class Char
 {
 public:
     Char(char s) : symbol(s) {}
-    int Draw(int x, int y, Color::E = Color::Count);
+    int Draw(bool send, int x, int y, Color::E = Color::Count);
 private:
     char symbol;
 };

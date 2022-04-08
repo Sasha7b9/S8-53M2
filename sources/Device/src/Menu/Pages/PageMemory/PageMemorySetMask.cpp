@@ -170,15 +170,15 @@ static void DrawFileMask(int x, int y)
     {
         if (*ch >= 32)
         {
-            x = Char(*ch).Draw(x, y);
+            x = Char(*ch).Draw(true, x, y);
         }
         else
         {
             if (*ch == 0x07)
             {
-                x = Char('%').Draw(x, y);
-                x = Char((char)(0x30 | *(ch + 1))).Draw(x, y);
-                x = Char('N').Draw(x, y);
+                x = Char('%').Draw(true, x, y);
+                x = Char((char)(0x30 | *(ch + 1))).Draw(true, x, y);
+                x = Char('N').Draw(true, x, y);
                 ch++;
             }
             else
