@@ -184,28 +184,24 @@ bool Display::NeedForClearScreen()
 }
 
 
-void Display::Update1()
+void Display::Update()
 {
     Painter::BeginScene(Color::BLACK);
 
     Rectangle(319, 239).Draw(0, 0, Color::WHITE);
 
-    Font::Set(TypeFont::_8);
-
-    String<>("TEST STRING").Draw(1, 0);
-
     Painter::DrawHLine(true, 20, 0, 50);
 
-    Font::Set(TypeFont::_5);
+    Font::Set(TypeFont::UGO);
 
-    String<>("TEST STRING").Draw(1, 11);
+    Text::Draw10SymbolsInRect(1, 0, '\x20');
 
     Painter::EndScene();
 }
 
 
 
-void Display::Update(bool endScene)
+void Display::Update1(bool endScene)
 {
     if (funcOnHand != 0)
     {

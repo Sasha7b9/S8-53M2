@@ -540,6 +540,24 @@ namespace S8_53_USB {
                         int x = (int)int16();
                         int y = (int)int8();
 
+                        if(Display.currentFont == 0)
+                        {
+
+                        }
+                        else if(Display.currentFont == 1)
+                        {
+
+                        }
+                        else if(Display.currentFont == 2)
+                        {
+                            x--;
+                            y++;
+                        }
+                        else if(Display.currentFont == 3)
+                        {
+
+                        }
+
                         char[] text = new char[2];
                         text[0] = (char)int8();
                         text[1] = '\0';
