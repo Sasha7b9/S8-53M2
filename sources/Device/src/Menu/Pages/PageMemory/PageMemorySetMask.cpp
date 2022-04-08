@@ -156,12 +156,6 @@ static const arrayItems itemsSetMask =
 };
 
 
-static bool IsActiveMemoryExtSetMask()
-{
-    return FILE_NAMING_MODE_IS_MASK;
-}
-
-
 static void DrawFileMask(int x, int y)
 {
     char *ch = FILE_NAME_MASK;
@@ -295,7 +289,7 @@ static void OnMemExtSetMaskRegSet(int angle)
 
 static const Page mspSetMask
 (
-    PageMemory::External::self, IsActiveMemoryExtSetMask,
+    PageMemory::External::self, nullptr,
     "МАСКА", "MASK",
     "Режим ввода маски для автоматического именования файлов",
     "Input mode mask for automatic file naming",

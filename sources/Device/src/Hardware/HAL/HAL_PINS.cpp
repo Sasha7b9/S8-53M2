@@ -203,11 +203,7 @@ void HAL_PINS::Init()
     // Для определения подключения VCP без передёргивания шнура
     Pin pin(PinMode::_Output, PinPort::_A, PinPin::_12);
     pin.Init();
-    HAL_Delay(10);
-    pin.Set();
-    HAL_Delay(10);
     pin.Reset();
-    HAL_Delay(10);
 
     // VCP
     PinOTG_FS(A, 12).Init();    // DP
