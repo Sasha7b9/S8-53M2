@@ -196,9 +196,20 @@ void HAL_PINS::Init()
     Pin::LED.Init();
     Pin::DisplayReady.Init();
 
+    // Флешка
     PinOTG_HS(B, 15).Init();    // DP
     PinOTG_HS(B, 14).Init();    // DM
 
+    // Для определения подключения VCP без передёргивания шнура
+    Pin pin(PinMode::_Output, PinPort::_A, PinPin::_12);
+    pin.Init();
+    HAL_Delay(10);
+    pin.Set();
+    HAL_Delay(10);
+    pin.Reset();
+    HAL_Delay(10);
+
+    // VCP
     PinOTG_FS(A, 12).Init();    // DP
     PinOTG_FS(A, 11).Init();    // DM
     PinOTG_FS(A, 9).Init();     // VBUS
