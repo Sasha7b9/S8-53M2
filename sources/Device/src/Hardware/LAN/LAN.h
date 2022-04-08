@@ -5,6 +5,7 @@
 namespace LAN
 {
     extern bool cableIsConnected;
+    extern uint timeLastEthEvent;
 
     void Init();
 
