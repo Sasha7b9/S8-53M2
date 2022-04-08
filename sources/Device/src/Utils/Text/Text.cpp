@@ -205,11 +205,11 @@ int Text::DrawCharHard(bool send, int eX, int eY, char symbol)
 
     if (send && InterCom::TransmitGUIinProcess())
     {
-//        CommandBuffer<5> command(DRAW_CHAR);
-//        command.PushHalfWord(eX);
-//        command.PushByte(eY);
-//        command.PushByte(symbol);
-//        command.Transmit();
+        CommandBuffer<5> command(DRAW_CHAR);
+        command.PushHalfWord(eX);
+        command.PushByte(eY);
+        command.PushByte(symbol);
+        command.Transmit();
     }
 
     return eX + width;

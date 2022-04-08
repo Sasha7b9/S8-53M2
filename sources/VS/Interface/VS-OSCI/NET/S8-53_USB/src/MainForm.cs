@@ -60,8 +60,8 @@ namespace S8_53_USB {
             DRAW_SIGNAL_POINTS      = 12,
             DRAW_MULTI_HPOINT_LINES = 13,
             DRAW_MULTI_VPOINT_LINES = 14,
-            LOAD_FONT               = 15,
-            DRAW_CHAR               = 16
+            DRAW_CHAR               = 15,
+            LOAD_FONT               = 16,
         };
 
         public MainForm() {
