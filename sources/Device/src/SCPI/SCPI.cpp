@@ -23,11 +23,11 @@ namespace SCPI
 
 void SCPI::AppendNewData(const void *data, int length)
 {
-    String<> message;
-
-    message.AppendBytes(data, length);
-
-    LOG_WRITE(message.c_str());
+//    String<> message;
+//
+//    message.AppendBytes(data, length);
+//
+//    LOG_WRITE(message.c_str());
 
     input.Append((pchar)data, length);
 }
