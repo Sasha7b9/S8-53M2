@@ -85,7 +85,7 @@ void USBH_UserProcess(USBH_HandleTypeDef *, uint8 id)
 void WriteToFile(FIL *file, char *string)
 {
     uint bytesWritten;
-    f_open(file, (const TCHAR *)"list.txt", FA_OPEN_EXISTING);
+    f_open(file, "list.txt", FA_OPEN_EXISTING);
     f_write(file, string, strlen(string), &bytesWritten);
     f_close(file);
 }
@@ -107,7 +107,7 @@ void Directory::GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles)
     fno.fname[0] = '\0';
     fno.fsize = 0;
 
-    if (f_opendir(&dir, (const TCHAR *)"//") == FR_OK)
+    if (f_opendir(&dir, "//") == FR_OK)
     {
         int numReadingElements = 0;
         bool alreadyNull = false;
@@ -150,11 +150,11 @@ bool Directory::GetName(pchar fullPath, int numDir, char *nameDirOut)
     memcpy(nameDir, fullPath, strlen(fullPath));
     nameDir[strlen(fullPath)] = '\0';
 
-    strcpy((char *)fno.fname, lfn);
+    strcpy(fno.fname, lfn);
     fno.fsize = sizeof(lfn);
 
     DIR *pDir = &dir;
-    if (f_opendir(pDir, (const TCHAR *)nameDir) == FR_OK)
+    if (f_opendir(pDir, nameDir) == FR_OK)
     {
         int numDirs = 0;
         FILINFO *pFNO = &fno;
@@ -180,7 +180,7 @@ bool Directory::GetName(pchar fullPath, int numDir, char *nameDirOut)
 
             if (numDir == numDirs && (pFNO->fattrib & AM_DIR))
             {
-                strcpy(nameDirOut, (const char *)pFNO->fname);
+                strcpy(nameDirOut, pFNO->fname);
                 return true;
             }
             if ((pFNO->fattrib & AM_DIR) && (pFNO->fname[0] != '.'))
@@ -221,7 +221,7 @@ bool Directory::GetNextName(char *nameDirOut)
 
             if (pFNO->fattrib & AM_DIR)
             {
-                strcpy(nameDirOut, (pchar)pFNO->fname);
+                strcpy(nameDirOut, pFNO->fname);
                 return true;
             }
         }
@@ -240,13 +240,13 @@ bool Directory::GetNameFile(pchar fullPath, int numFile, char *nameFileOut)
     memcpy(nameDir, fullPath, strlen(fullPath));
     nameDir[strlen(fullPath)] = '\0';
 
-    strcpy((char *)fno.fname, lfn);
+    strcpy(fno.fname, lfn);
     fno.fsize = sizeof(lfn);
 
     DIR *pDir = &dir;
     FILINFO *pFNO = &fno;
 
-    if (f_opendir(pDir, (const TCHAR *)nameDir) == FR_OK)
+    if (f_opendir(pDir, nameDir) == FR_OK)
     {
         int numFiles = 0;
         bool alreadyNull = false;
@@ -271,7 +271,7 @@ bool Directory::GetNameFile(pchar fullPath, int numFile, char *nameFileOut)
 
             if (numFile == numFiles && (pFNO->fattrib & AM_DIR) == 0)
             {
-                strcpy(nameFileOut, (const char *)pFNO->fname);
+                strcpy(nameFileOut, pFNO->fname);
                 return true;
             }
             if ((pFNO->fattrib & AM_DIR) == 0 && (pFNO->fname[0] != '.'))
@@ -311,7 +311,7 @@ bool Directory::GetNextNameFile(char *nameFileOut)
         {
             if ((pFNO->fattrib & AM_DIR) == 0 && pFNO->fname[0] != '.')
             {
-                strcpy(nameFileOut, (const char *)pFNO->fname);
+                strcpy(nameFileOut, pFNO->fname);
                 return true;
             }
         }
@@ -321,7 +321,7 @@ bool Directory::GetNextNameFile(char *nameFileOut)
 
 bool File::OpenNewForWrite(pchar  fullPathToFile)
 {
-    if (f_open(&fileObj, (const TCHAR *)fullPathToFile, FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
+    if (f_open(&fileObj, fullPathToFile, FA_CREATE_ALWAYS | FA_WRITE) != FR_OK)
     {
         return false;
     }
@@ -384,7 +384,7 @@ bool File::Close()
     PackedTime time = HAL_RTC::GetPackedTime();
     fno.fdate = (WORD)(((time.year + 20) * 512) | (time.month * 32) | time.day);
     fno.ftime = (WORD)((time.hours * 2048) | (time.minutes * 32) | (time.seconds / 2));
-    f_utime((const TCHAR *)name, &fno);
+    f_utime(name, &fno);
 
     return true;
 }
