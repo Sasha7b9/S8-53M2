@@ -60,7 +60,8 @@ namespace S8_53_USB {
             DRAW_SIGNAL_POINTS      = 12,
             DRAW_MULTI_HPOINT_LINES = 13,
             DRAW_MULTI_VPOINT_LINES = 14,
-            LOAD_FONT               = 15
+            LOAD_FONT               = 15,
+            DRAW_CHAR               = 16
         };
 
         public MainForm() {
@@ -533,6 +534,17 @@ namespace S8_53_USB {
                             str[i] = (char)int8();
                         }
                         Display.DrawText(x0, y0, str);
+                    }
+                    else if((Command)command == Command.DRAW_CHAR)
+                    {
+                        int x = (int)int16();
+                        int y = (int)int8();
+
+                        char[] text = new char[2];
+                        text[0] = (char)int8();
+                        text[1] = '\0';
+
+                        Display.DrawText(x, y, text);
                     }
                     else
                     {

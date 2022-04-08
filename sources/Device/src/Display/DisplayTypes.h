@@ -61,5 +61,6 @@ enum Command
     DRAW_SIGNAL_POINTS        = 12,   //     14 x:2 points:281
     DRAW_MULTI_HPOINT_LINES   = 13,   //     17 numLines:1 x:2 numPoints:1 dx:1 lines:numLines
     DRAW_MULTI_VPOINT_LINES   = 14,   //     18 numLines:1 y:1 numPoints:1 dy:1 empty:1 lines:numLines*2
+    DRAW_CHAR                 = 15,
     NUM_COMMANDS
 };
