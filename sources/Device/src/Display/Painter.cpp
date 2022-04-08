@@ -301,7 +301,7 @@ void Painter::DrawMultiVPointLine(int numLines, const int y, const uint16 x[], i
 
     if (InterCom::TransmitGUIinProcess())
     {
-        CommandBuffer<60> command(DRAW_MULTI_VPOINT_LINES);
+        CommandBuffer<128> command(DRAW_MULTI_VPOINT_LINES);
         command.PushByte(numLines);
         command.PushByte(y);
         command.PushByte(count);
@@ -310,11 +310,6 @@ void Painter::DrawMultiVPointLine(int numLines, const int y, const uint16 x[], i
         for (int i = 0; i < numLines; i++)
         {
             command.PushHalfWord(x[i]);
-        }
-        int numBytes = 1 + 1 + 1 + numLines * 2 + 1 + 1;
-        while (numBytes % 4)
-        {
-            numBytes++;
         }
 
         command.Transmit(1 + 1 + 1 + 1 + 1 + 1 + numLines * 2);
@@ -345,7 +340,7 @@ void Painter::DrawMultiHPointLine(int numLines, int x, const uint8 y[], int delt
 
     if (InterCom::TransmitGUIinProcess())
     {
-        CommandBuffer<30> command(DRAW_MULTI_HPOINT_LINES);
+        CommandBuffer<128> command(DRAW_MULTI_HPOINT_LINES);
         command.PushByte(numLines);
         command.PushHalfWord(x);
         command.PushByte(count);
@@ -353,16 +348,6 @@ void Painter::DrawMultiHPointLine(int numLines, int x, const uint8 y[], int delt
         for (int i = 0; i < numLines; i++)
         {
             command.PushByte(y[i]);
-        }
-        int numBytes = 1 +      // command
-            1 +                 // numLines
-            2 +                 // x
-            numLines +          // numLines
-            1 +
-            1;
-        while (numBytes % 4)
-        {
-            numBytes++;
         }
 
         command.Transmit(1 + 1 + 2 + 1 + 1 + numLines);

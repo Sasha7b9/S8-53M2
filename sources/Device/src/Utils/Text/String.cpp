@@ -54,9 +54,7 @@ int String<capa>::Draw(int x, int y, Color::E color)
 
     if (InterCom::TransmitGUIinProcess())
     {
-        const int SIZE_BUFFER = 100;
-
-        CommandBuffer<SIZE_BUFFER> command(DRAW_TEXT);
+        CommandBuffer<2048> command(DRAW_TEXT);
         command.PushHalfWord(x);
         command.PushByte(y + 1);
         command.PushByte(0);
@@ -64,17 +62,12 @@ int String<capa>::Draw(int x, int y, Color::E color)
         uint8 length = 0;
 
         int counter = 0;
-        while (*text && length < (SIZE_BUFFER - 7))
+        while (*text && length < (2048 - 7))
         {
             command.PushByte(*text);
             text++;
             length++;
             counter++;
-        }
-
-        if (*text != 0)
-        {
-            LOG_WRITE("big string - %s", text);
         }
 
         command.PushByte(0);

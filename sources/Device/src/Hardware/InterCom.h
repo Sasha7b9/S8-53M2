@@ -38,15 +38,7 @@ struct CommandBuffer
     void PushWord(int word) { PushWord((uint)word); }
     void Transmit(int num_bytes)
     {
-        if (
-            data[0] == DRAW_TEXT ||
-            data[0] == DRAW_VLINES_ARRAY ||
-            data[0] == DRAW_MULTI_HPOINT_LINES ||
-            data[0] == DRAW_MULTI_VPOINT_LINES
-            )
-        {
-            InterCom::Send(Data(), num_bytes);
-        }
+        InterCom::Send(Data(), num_bytes);
     }
     void Transmit()
     {
