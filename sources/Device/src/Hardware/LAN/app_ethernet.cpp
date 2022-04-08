@@ -8,7 +8,11 @@ void User_notification(struct netif *netif)
 {
     if (netif_is_up(netif))
     {
-//        LOG_WRITE(ip4addr_ntoa((const ip4_addr_t *)&netif->ip_addr));
+        LOG_WRITE(ip4addr_ntoa((const ip4_addr_t *)&netif->ip_addr));
+    }
+    else
+    {
+        LOG_TRACE();
     }
 }
 
@@ -31,12 +35,14 @@ void ethernetif_notify_conn_changed(struct netif *netif)
 
         netif_set_addr(netif, &ipaddr, &netmask, &gw);
 
-//        LOG_WRITE("Static IP address: %s", ip4addr_ntoa((const ip4_addr_t *)&netif->ip_addr));
+        LOG_WRITE("Static IP address: %s", ip4addr_ntoa((const ip4_addr_t *)&netif->ip_addr));
 
         netif_set_up(netif);
     }
     else
     {
+        LOG_WRITE("disconnect");
+
         /*  When the netif link is down this function must be called.*/
         netif_set_down(netif);
     }
