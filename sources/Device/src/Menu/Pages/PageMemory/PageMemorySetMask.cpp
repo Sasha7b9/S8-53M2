@@ -166,6 +166,7 @@ static void DrawFileMask(int x, int y)
     char *ch = FILE_NAME_MASK;
 
     Color::SetCurrent(COLOR_FILL);
+
     while (*ch != '\0')
     {
         if (*ch >= 32)
@@ -187,7 +188,9 @@ static void DrawFileMask(int x, int y)
             }
         }
         ch++;
+        x++;
     }
+
     Region(5, 8).Fill(x, y, Color::FLASH_10);
 }
 
@@ -248,9 +251,9 @@ static void DrawSetMask()
 
     static pchar strings[] =
     {
-        "%y - год, %m - месяц, %d - день",
-        "%H - часы, %M - минуты, %S - секунды",
-        "%nN - порядковый номер, где",
+        "y - год, m - месяц, d - день",
+        "H - часы, M - минуты, S - секунды",
+        "nN - порядковый номер, где",
         "n - минимальное количество знаков для N"
     };
 
