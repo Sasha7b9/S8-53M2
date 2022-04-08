@@ -17,49 +17,49 @@
   ******************************************************************************
   */
 
-/*---------------------------------------------------------------------------/
-/  FatFs - FAT file system module configuration file
-/---------------------------------------------------------------------------*/
+  /*---------------------------------------------------------------------------/
+  /  FatFs - FAT file system module configuration file
+  /---------------------------------------------------------------------------*/
 
 #define _FFCONF 68300	/* Revision ID */
 
-/*---------------------------------------------------------------------------/
-/ Function Configurations
-/---------------------------------------------------------------------------*/
+  /*---------------------------------------------------------------------------/
+  / Function Configurations
+  /---------------------------------------------------------------------------*/
 
 #define _FS_READONLY	0
-/* This option switches read-only configuration. (0:Read/Write or 1:Read-only)
-/  Read-only configuration removes writing API functions, f_write(), f_sync(),
-/  f_unlink(), f_mkdir(), f_chmod(), f_rename(), f_truncate(), f_getfree()
-/  and optional writing functions as well. */
+  /* This option switches read-only configuration. (0:Read/Write or 1:Read-only)
+  /  Read-only configuration removes writing API functions, f_write(), f_sync(),
+  /  f_unlink(), f_mkdir(), f_chmod(), f_rename(), f_truncate(), f_getfree()
+  /  and optional writing functions as well. */
 
 
 #define _FS_MINIMIZE	1
-/* This option defines minimization level to remove some basic API functions.
-/
-/   0: All basic functions are enabled.
-/   1: f_stat(), f_getfree(), f_unlink(), f_mkdir(), f_truncate() and f_rename()
-/      are removed.
-/   2: f_opendir(), f_readdir() and f_closedir() are removed in addition to 1.
-/   3: f_lseek() function is removed in addition to 2. */
+  /* This option defines minimization level to remove some basic API functions.
+  /
+  /   0: All basic functions are enabled.
+  /   1: f_stat(), f_getfree(), f_unlink(), f_mkdir(), f_truncate() and f_rename()
+  /      are removed.
+  /   2: f_opendir(), f_readdir() and f_closedir() are removed in addition to 1.
+  /   3: f_lseek() function is removed in addition to 2. */
 
 
 #define	_USE_STRFUNC	0
-/* This option switches string functions, f_gets(), f_putc(), f_puts() and
-/  f_printf().
-/
-/  0: Disable string functions.
-/  1: Enable without LF-CRLF conversion.
-/  2: Enable with LF-CRLF conversion. */
+  /* This option switches string functions, f_gets(), f_putc(), f_puts() and
+  /  f_printf().
+  /
+  /  0: Disable string functions.
+  /  1: Enable without LF-CRLF conversion.
+  /  2: Enable with LF-CRLF conversion. */
 
 
 #define _USE_FIND		0
-/* This option switches filtered directory read functions, f_findfirst() and
-/  f_findnext(). (0:Disable, 1:Enable 2:Enable with matching altname[] too) */
+  /* This option switches filtered directory read functions, f_findfirst() and
+  /  f_findnext(). (0:Disable, 1:Enable 2:Enable with matching altname[] too) */
 
 
 #define	_USE_MKFS		1
-/* This option switches f_mkfs() function. (0:Disable or 1:Enable) */
+  /* This option switches f_mkfs() function. (0:Disable or 1:Enable) */
 
 
 #define	_USE_FASTSEEK	1
@@ -88,7 +88,7 @@
 / Locale and Namespace Configurations
 /---------------------------------------------------------------------------*/
 
-#define _CODE_PAGE	850
+#define _CODE_PAGE	866
 /* This option specifies the OEM code page to be used on the target system.
 /  Incorrect setting of the code page can cause a file open failure.
 /
@@ -117,7 +117,7 @@
 */
 
 
-#define	_USE_LFN	0
+#define	_USE_LFN	3
 #define	_MAX_LFN	255
 /* The _USE_LFN switches the support of long file name (LFN).
 /
