@@ -23,7 +23,7 @@ namespace VCP
 
     namespace Buffer
     {
-        Buffer2048 <uint8>buffer;
+        ::Buffer<uint8, 64> buffer;
     }
 }
 
@@ -99,23 +99,28 @@ void VCP::SendBuffer(const void *_buffer, int size)
 
 void VCP::Buffer::Send(const void *buf, int size)
 {
+    uint8 *pointer = (uint8 *)buf;
+
     while (size > 0)
     {
-        if (buffer.Size() + size >= buffer.Capacity())
+        if (buffer.Size() == buffer.Capacity())
         {
             Flush();
         }
 
         int portion = size;
 
-        if (portion > buffer.Capacity())
+        int rest_buffer = buffer.Capacity() - buffer.Size();
+
+        if (portion > rest_buffer)
         {
-            portion = buffer.Capacity();
+            portion = rest_buffer;
         }
 
-        size -= portion;
+        buffer.Append(pointer, portion);
 
-        buffer.Append(buf, portion);
+        pointer += portion;
+        size -= portion;
     }
 }
 
