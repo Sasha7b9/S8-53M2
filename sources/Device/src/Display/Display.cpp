@@ -192,9 +192,13 @@ void Display::Update()
 
     Painter::DrawHLine(true, 20, 0, 50);
 
-    Font::Set(TypeFont::UGO);
+    Font::Set(TypeFont::_5);
 
-    Text::Draw10SymbolsInRect(1, 0, '\x20');
+    Char('0').Draw(true, 1, 8);
+
+    Font::Set(TypeFont::_8);
+
+    Char('0').Draw(true, 1, 20);
 
     Painter::EndScene();
 }

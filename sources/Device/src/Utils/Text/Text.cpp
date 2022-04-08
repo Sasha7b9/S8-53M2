@@ -138,9 +138,9 @@ void Text::DrawCharInColorDisplay(bool send, int eX, int eY, uchar symbol)
 
     if (send && InterCom::TransmitGUIinProcess())
     {
-        CommandBuffer<5> command(DRAW_CHAR);
+        CommandBuffer<6> command(DRAW_CHAR);
         command.PushHalfWord(eX);
-        command.PushByte(eY);
+        command.PushHalfWord(eY);
         command.PushByte(symbol);
         command.Transmit();
     }
@@ -205,9 +205,9 @@ int Text::DrawCharHard(bool send, int eX, int eY, char symbol)
 
     if (send && InterCom::TransmitGUIinProcess())
     {
-        CommandBuffer<5> command(DRAW_CHAR);
+        CommandBuffer<6> command(DRAW_CHAR);
         command.PushHalfWord(eX);
-        command.PushByte(eY);
+        command.PushHalfWord(eY);
         command.PushByte(symbol);
         command.Transmit();
     }

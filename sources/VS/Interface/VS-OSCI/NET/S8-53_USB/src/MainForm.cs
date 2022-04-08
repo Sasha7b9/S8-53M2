@@ -538,15 +538,17 @@ namespace S8_53_USB {
                     else if((Command)command == Command.DRAW_CHAR)
                     {
                         int x = (int)int16();
-                        int y = (int)int8();
+                        int y = (int)int16();
 
                         if(Display.currentFont == 0)
                         {
-
+                            x--;
+                            y += 4;
                         }
                         else if(Display.currentFont == 1)
                         {
-
+                            x--;
+                            y++;
                         }
                         else if(Display.currentFont == 2)
                         {
