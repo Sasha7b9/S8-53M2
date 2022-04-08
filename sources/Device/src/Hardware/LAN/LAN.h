@@ -5,11 +5,12 @@
 namespace LAN
 {
     extern bool cableIsConnected;
-    extern bool clientIsConnected;
 
     void Init();
 
     void Update();
+
+    bool ClientIsConnected();
 
     void Init(void (*funcReciever)(const void *buffer, int length));
 

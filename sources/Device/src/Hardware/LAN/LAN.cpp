@@ -52,6 +52,12 @@ namespace LAN
 }
 
 
+bool LAN::ClientIsConnected()
+{
+    return (pcbClient != nullptr);
+}
+
+
 void LAN::CloseConnection(struct tcp_pcb *tpcb, struct State *ss)
 {
     tcp_arg(tpcb, NULL);

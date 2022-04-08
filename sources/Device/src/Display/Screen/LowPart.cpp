@@ -163,9 +163,9 @@ void LowPart::Draw()
     }
 
     // Ethernet
-    if ((LAN::clientIsConnected || LAN::cableIsConnected) && TIME_MS > 2000)
+    if ((LAN::ClientIsConnected() || LAN::cableIsConnected) && TIME_MS > 2000)
     {
-        Text::Draw4SymbolsInRect(x + 87, GRID_BOTTOM + 2, SYMBOL_ETHERNET, LAN::clientIsConnected ? COLOR_FILL : Color::FLASH_01);
+        Text::Draw4SymbolsInRect(x + 87, GRID_BOTTOM + 2, SYMBOL_ETHERNET, LAN::ClientIsConnected() ? COLOR_FILL : Color::FLASH_01);
     }
 
     if (VCP::connectToHost || VCP::cableIsConnected)
