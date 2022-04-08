@@ -220,6 +220,12 @@ namespace LibraryS8_53
         public byte[] ReadBytes(long timeWaitMS)
         {
             byte[] bytes = new byte[0];
+
+            if(socket == null)
+            {
+                return bytes;
+            }
+
             try
             {
                 long timeLast = CurrentTime();
