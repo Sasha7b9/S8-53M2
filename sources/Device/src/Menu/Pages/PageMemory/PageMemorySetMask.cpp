@@ -104,6 +104,7 @@ static void PressSB_SetMask_Insert()
     else
     {
         index -= 0x40;
+
         if (index == 0x07)  // Для %nN - отдельный случай
         {
             if (size < SettingsMemory::MAX_SYMBOLS_IN_FILE_NAME - 2 && size > 0)
