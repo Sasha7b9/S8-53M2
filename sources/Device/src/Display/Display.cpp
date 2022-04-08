@@ -185,28 +185,7 @@ bool Display::NeedForClearScreen()
 }
 
 
-void Display::Update()
-{
-    Painter::BeginScene(Color::BLACK);
-
-    Rectangle(319, 239).Draw(0, 0, Color::WHITE);
-
-    Painter::DrawHLine(true, 20, 0, 50);
-
-    Font::Set(TypeFont::_5);
-
-    Char('0').Draw(true, 1, 8);
-
-    Font::Set(TypeFont::UGO2);
-
-    Text::Draw4SymbolsInRect(1, 20, SYMBOL_FLASH_DRIVE);
-
-    Painter::EndScene();
-}
-
-
-
-void Display::Update1(bool endScene)
+void Display::Update(bool endScene)
 {
     if (funcOnHand != 0)
     {
