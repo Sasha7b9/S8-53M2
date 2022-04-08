@@ -99,12 +99,24 @@ void VCP::SendBuffer(const void *_buffer, int size)
 
 void VCP::Buffer::Send(const void *buf, int size)
 {
-    if (buffer.Size() + size >= buffer.Capacity())
+    while (size > 0)
     {
-        Flush();
-    }
+        if (buffer.Size() + size >= buffer.Capacity())
+        {
+            Flush();
+        }
 
-    buffer.Append(buf, size);
+        int portion = size;
+
+        if (portion > buffer.Capacity())
+        {
+            portion = buffer.Capacity();
+        }
+
+        size -= portion;
+
+        buffer.Append(buf, portion);
+    }
 }
 
 
