@@ -14,7 +14,6 @@
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/InterCom.h"
 #include "Display/Screen/Grid.h"
-#include "Hardware/LAN/SocketTCP.h"
 #include <cstring>
 
 
@@ -142,7 +141,7 @@ void Painter::DrawDashedHLine(int y, int x0, int x1, int deltaFill, int deltaEmp
 void InterCom::Send(const uint8 *pointer, int size)
 {
     VCP::Buffer::Send(pointer, size);
-    TCP::SendBuffer(pointer, size);
+    LAN::SendBuffer(pointer, size);
 }
 
 

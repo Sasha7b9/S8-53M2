@@ -10,4 +10,10 @@ namespace LAN
     void Init();
 
     void Update();
+
+    void Init(void (*funcReciever)(const void *buffer, int length));
+
+    void SendBuffer(const void *buffer, int length);
+
+    void SendString(char *format, ...);
 }

@@ -6,7 +6,6 @@
 #include "Hardware/LAN/LAN.h"
 #include "SCPI/SCPI.h"
 #include "SCPI/BufferSCPI.h"
-#include "Hardware/LAN/SocketTCP.h"
 #include <cstring>
 #include <cstdlib>
 #include <cctype>
@@ -152,8 +151,7 @@ bool SCPI::FirstSymbols(pchar *data, pchar word)
 void SCPI::SendBuffer(const uint8 *buffer, int size)
 {
     VCP::SendBuffer(buffer, size);
-
-    TCP::SendBuffer(buffer, size);
+    LAN::SendBuffer(buffer, size);
 }
 
 
@@ -167,7 +165,7 @@ void SCPI::SendFormat(pchar format, ...)
     std::strcat(buffer, "\n");
 
     VCP::SendBuffer(buffer, (int)std::strlen(buffer));
-    TCP::SendBuffer(buffer, (int)std::strlen(buffer));
+    LAN::SendBuffer(buffer, (int)std::strlen(buffer));
 }
 
 

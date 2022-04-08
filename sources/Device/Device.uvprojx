@@ -1411,16 +1411,6 @@
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\LAN\ethernetif.cpp</FilePath>
             </File>
-            <File>
-              <FileName>SocketTCP.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\LAN\SocketTCP.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SocketTCP.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\LAN\SocketTCP.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -3425,16 +3415,6 @@
               <FileName>ethernetif.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\LAN\ethernetif.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SocketTCP.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\LAN\SocketTCP.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SocketTCP.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\LAN\SocketTCP.h</FilePath>
             </File>
           </Files>
         </Group>
