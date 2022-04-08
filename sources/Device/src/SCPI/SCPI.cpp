@@ -44,7 +44,7 @@ void SCPI::Update()
         if (!SCPI::ParseNewCommand(command.c_str()))
         {
             SCPI::SendFormat("Error !!! Invalid sequency \"%s\"", command.c_str());
-            LOG_ERROR(command.c_str());
+//            LOG_ERROR(command.c_str());
         }
     }
 }
