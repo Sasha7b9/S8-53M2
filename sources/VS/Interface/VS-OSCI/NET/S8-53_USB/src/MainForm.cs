@@ -481,7 +481,7 @@ namespace S8_53_USB {
                     else if ((Command)command == Command.DRAW_VLINES_ARRAY)
                     {
                         int x0 = int16();
-                        int numLines = int8();
+                        int numLines = int16();
                         for (int i = 0; i < numLines; i++)
                         {
                             Display.DrawVLine(x0 + i, int8(), int8());

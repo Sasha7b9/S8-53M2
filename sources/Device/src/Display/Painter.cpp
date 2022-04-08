@@ -500,14 +500,8 @@ void Painter::DrawVLineArray(int x, int num_lines, uint8 *y0y1, Color::E color, 
 
     if (InterCom::TransmitGUIinProcess())
     {
-        CommandBuffer<255 * 2 + 4 + 4> command(DRAW_VLINES_ARRAY);
+        CommandBuffer<1024> command(DRAW_VLINES_ARRAY);
         command.PushHalfWord(x);
-
-        if (num_lines > 255)
-        {
-            num_lines = 255;
-        }
-
         command.PushHalfWord(num_lines);
 
         for (int i = 0; i < num_lines; i++)
@@ -516,14 +510,7 @@ void Painter::DrawVLineArray(int x, int num_lines, uint8 *y0y1, Color::E color, 
             command.PushByte(*(y0y1 + i * 2 + 1));
         }
 
-        int numBytes = num_lines * 2 + 4;
-
-        while (numBytes % 4)
-        {
-            numBytes++;
-        }
-
-        command.Transmit(1 + 2 + 1 + 2 * num_lines);
+        command.Transmit(1 + 2 + 2 + 2 * num_lines);
     }
 
     for (int i = 0; (i < num_lines) && (i < last_valid); i++)
