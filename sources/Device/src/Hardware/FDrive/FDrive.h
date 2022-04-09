@@ -12,23 +12,6 @@
 #define _WIN32
 #endif
 
-struct File
-{
-    static const int SIZE_FLASH_TEMP_BUFFER = 512;
-    uint8 tempBuffer[SIZE_FLASH_TEMP_BUFFER];
-    int sizeData;
-    FIL fileObj;
-    char name[255];
-
-    // Функция создаст файл для записи. Если такой файл уже существует, сотрёт его, заменит новым нулевой длины и откроет его
-    bool OpenNewForWrite(pchar  fullPathToFile);
-
-    bool Write(void *data, int sizeData);
-
-    bool Close();
-};
-
-
 class FileName : public String<>
 {
 public:
@@ -37,6 +20,23 @@ public:
 
     // Возвращает указатель на собственно имя файла, если имя включает в себя абсолютный путь
     pchar Extract();
+};
+
+
+struct File
+{
+    static const int SIZE_FLASH_TEMP_BUFFER = 512;
+    uint8 tempBuffer[SIZE_FLASH_TEMP_BUFFER];
+    int sizeData;
+    FIL fileObj;
+    FileName name;
+
+    // Функция создаст файл для записи. Если такой файл уже существует, сотрёт его, заменит новым нулевой длины и откроет его
+    bool OpenNewForWrite(pchar  fullPathToFile);
+
+    bool Write(void *data, int sizeData);
+
+    bool Close();
 };
 
 

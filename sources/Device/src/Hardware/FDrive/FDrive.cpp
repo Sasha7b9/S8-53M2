@@ -337,8 +337,9 @@ bool File::OpenNewForWrite(pchar  fullPathToFile)
         return false;
     }
 
-    strcpy(name, fullPathToFile);
+    name.SetFormat(fullPathToFile);
     sizeData = 0;
+
     return true;
 }
 
@@ -395,7 +396,7 @@ bool File::Close()
     PackedTime time = HAL_RTC::GetPackedTime();
     fno.fdate = (WORD)(((time.year + 20) * 512) | (time.month * 32) | time.day);
     fno.ftime = (WORD)((time.hours * 2048) | (time.minutes * 32) | (time.seconds / 2));
-    f_utime(name, &fno);
+    f_utime(name.c_str(), &fno);
 
     return true;
 }
