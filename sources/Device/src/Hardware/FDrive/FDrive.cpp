@@ -159,9 +159,7 @@ bool Directory::GetName(pchar fullPath, int numDir, char *nameDirOut)
     strcpy(fno.fname, lfn);
     fno.fsize = sizeof(lfn);
 
-    DIR *pDir = &dir;
-
-    if (f_opendir(pDir, nameDir) == FR_OK)
+    if (f_opendir(&dir, nameDir) == FR_OK)
     {
         int numDirs = 0;
         FILINFO *pFNO = &fno;
@@ -169,10 +167,10 @@ bool Directory::GetName(pchar fullPath, int numDir, char *nameDirOut)
 
         while (true)
         {
-            if (f_readdir(pDir, pFNO) != FR_OK)
+            if (f_readdir(&dir, pFNO) != FR_OK)
             {
                 *nameDirOut = '\0';
-                f_closedir(pDir);
+                f_closedir(&dir);
                 return false;
             }
 
@@ -181,7 +179,7 @@ bool Directory::GetName(pchar fullPath, int numDir, char *nameDirOut)
                 if (alreadyNull)
                 {
                     *nameDirOut = '\0';
-                    f_closedir(pDir);
+                    f_closedir(&dir);
                     return false;
                 }
 
@@ -201,7 +199,7 @@ bool Directory::GetName(pchar fullPath, int numDir, char *nameDirOut)
         }
     }
 
-    f_closedir(pDir);
+    f_closedir(&dir);
 
     return false;
 }
