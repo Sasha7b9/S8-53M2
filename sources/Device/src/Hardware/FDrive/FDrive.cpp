@@ -164,7 +164,6 @@ bool Directory::GetName(pchar fullPath, int numDir, char *nameDirOut)
             if (f_readdir(pDir, pFNO) != FR_OK)
             {
                 *nameDirOut = '\0';
-                FDrive::ConvertSymbols(nameDirOut);
                 f_closedir(pDir);
                 return false;
             }
@@ -173,7 +172,6 @@ bool Directory::GetName(pchar fullPath, int numDir, char *nameDirOut)
                 if (alreadyNull)
                 {
                     *nameDirOut = '\0';
-                    FDrive::ConvertSymbols(nameDirOut);
                     f_closedir(pDir);
                     return false;
                 }

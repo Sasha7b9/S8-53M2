@@ -152,9 +152,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>135</LineNumber>
+          <LineNumber>262</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134467180</Address>
+          <Address>134465812</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -163,23 +163,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>&lt;2&gt;.\src\Menu\FileManager.cpp</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\S8_53\src/Menu/FileManager.cpp\135</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>328</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134536666</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;2&gt;.\src\Hardware\FDrive\FDrive.cpp</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\S8_53\src/Hardware/FDrive/FDrive.cpp\328</Expression>
+          <Expression>\\S8_53\src/Menu/FileManager.cpp\262</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -230,7 +214,7 @@
         <Mm>
           <WinNumber>1</WinNumber>
           <SubType>256</SubType>
-          <ItemText>nameFileOut</ItemText>
+          <ItemText>nameDir</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>
