@@ -30,13 +30,13 @@ namespace FM
         int first_dir;        // Номер первого выведенного каталога в левой панели. Всего может быть выведено RECS_ON_PAGE каталогов
         int cur_dir;          // Номер подсвеченного каталога
         int first_file;       // Номер первого выведенного файла в правой панели. Всего может быть выведено RECS_ON_PAGE файлов.
+        int cur_file;         // Номер подсвеченного файла
 
-        State() : first_dir(0), cur_dir(0), first_file(0) {}
+        State() : first_dir(0), cur_dir(0), first_file(0), cur_file(0) {}
     };
 
     State s;
 
-    int numCurFile = 0;         // Номер подсвеченного файла
     int numDirs = 0;
     int numFiles = 0;
 
@@ -70,7 +70,7 @@ namespace FM
 void FM::Init()
 {
     std::strcpy(currentDir, "\\");
-    s.first_dir = s.first_file = s.cur_dir = numCurFile = 0;
+    s.first_dir = s.first_file = s.cur_dir = s.cur_file = 0;
 }
 
 
@@ -132,7 +132,7 @@ void FM::DrawDirs(int x, int y)
 void FM::DrawFiles(int x, int y)
 {
     Directory::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
-    DrawHat(x, y, "Файл : %d/%d", numCurFile + ((numFiles == 0) ? 0 : 1), numFiles);
+    DrawHat(x, y, "Файл : %d/%d", s.cur_file + ((numFiles == 0) ? 0 : 1), numFiles);
     char nameFile[256];
     Directory directory;
     y += 12;
@@ -140,12 +140,12 @@ void FM::DrawFiles(int x, int y)
     if (directory.GetNameFile(currentDir, s.first_file, nameFile))
     {
         int drawingFiles = 0;
-        DrawLongString(x, y, nameFile, !cursorInDirs && (s.first_file + drawingFiles == numCurFile));
+        DrawLongString(x, y, nameFile, !cursorInDirs && (s.first_file + drawingFiles == s.cur_file));
 
         while (drawingFiles < (RECS_ON_PAGE - 1) && directory.GetNextNameFile(nameFile))
         {
             drawingFiles++;
-            DrawLongString(x, y + drawingFiles * 9, nameFile, !cursorInDirs && (s.first_file + drawingFiles == numCurFile));
+            DrawLongString(x, y + drawingFiles * 9, nameFile, !cursorInDirs && (s.first_file + drawingFiles == s.cur_file));
         }
     }
 
@@ -281,7 +281,7 @@ void FM::PressLevelDown()
             directory.Close();
             std::strcat(currentDir, "\\");
             std::strcat(currentDir, nameDir);
-            s.first_dir = s.first_file = s.cur_dir = numCurFile = 0;
+            s.first_dir = s.first_file = s.cur_dir = s.cur_file = 0;
         }
 
     }
@@ -307,7 +307,7 @@ void FM::PressLevelUp()
     }
 
     *pointer = '\0';
-    s.first_dir = s.first_file = s.cur_dir = numCurFile = 0;
+    s.first_dir = s.first_file = s.cur_dir = s.cur_file = 0;
     cursorInDirs = true;
 }
 
@@ -356,13 +356,15 @@ void FM::IncCurrentFile()
 {
     if (numFiles > 1)
     {
-        numCurFile++;
-        if (numCurFile > numFiles - 1)
+        s.cur_file++;
+
+        if (s.cur_file > numFiles - 1)
         {
-            numCurFile = 0;
+            s.cur_file = 0;
             s.first_file = 0;
         }
-        if (numCurFile - s.first_file > RECS_ON_PAGE - 1)
+
+        if (s.cur_file - s.first_file > RECS_ON_PAGE - 1)
         {
             s.first_file++;
         }
@@ -374,15 +376,17 @@ void FM::DecCurrentFile()
 {
     if (numFiles > 1)
     {
-        numCurFile--;
-        if (numCurFile < 0)
+        s.cur_file--;
+
+        if (s.cur_file < 0)
         {
-            numCurFile = numFiles - 1;
-            LIMITATION(s.first_file, numFiles - RECS_ON_PAGE, 0, numCurFile);
+            s.cur_file = numFiles - 1;
+            LIMITATION(s.first_file, numFiles - RECS_ON_PAGE, 0, s.cur_file);
         }
-        if (numCurFile < s.first_file)
+
+        if (s.cur_file < s.first_file)
         {
-            s.first_file = numCurFile;
+            s.first_file = s.cur_file;
         }
     }
 }
