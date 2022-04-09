@@ -157,8 +157,7 @@ bool Directory::GetFirstName(pchar fullPath, int numDir, char *nameDirOut)
 {
     path.SetFormat(fullPath);
 
-    strcpy(fno.fname, lfn);
-    fno.fsize = sizeof(lfn);
+    strcpy(fno.fname, path.c_str());
 
     if (f_opendir(&dir, path.c_str()) == FR_OK)
     {
@@ -251,8 +250,7 @@ bool Directory::GetFirstNameFile(pchar fullPath, int numFile, char *nameFileOut)
 {
     path.SetFormat(fullPath);
 
-    strcpy(fno.fname, lfn);
-    fno.fsize = sizeof(lfn);
+    strcpy(fno.fname, path.c_str());
 
     if (f_opendir(&dir, path.c_str()) == FR_OK)
     {
