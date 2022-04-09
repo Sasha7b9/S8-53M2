@@ -168,14 +168,24 @@ bool FM::FileIsExist(char name[256])
 
     if(directory.GetFirstNameFile(currentDir, 0, nameFile))
     {
+        if (std::strcmp(name + 2, nameFile) == 0)
+        {
+            directory.Close();
+            return true;
+        }
+
         while(directory.GetNextNameFile(nameFile))
         {
             if(std::strcmp(name + 2, nameFile) == 0)
             {
+                directory.Close();
                 return true;
             }
         }
     }
+
+    directory.Close();
+
     return false;
 }
 
