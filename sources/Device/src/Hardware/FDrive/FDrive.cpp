@@ -409,15 +409,29 @@ void FDrive::ConvertSymbols(char *text)
 {
     while (*text)
     {
-        if (*text > 127)
+        char symbol = *text;
+
+        if (symbol > 127)
         {
-            if (*text == 240)
+            if (symbol == 240)
             {
                 *text = 'Å';
             }
-            else if (*text == 241)
+            else if (symbol == 241)
             {
                 *text = (char)0xb8;
+            }
+            else if (symbol == 226)
+            {
+                *text = 'ò';
+            }
+            else if (symbol == 224)
+            {
+                *text = 'ð';
+            }
+            else if (symbol == 239)
+            {
+                *text = 'ÿ';
             }
             else
             {

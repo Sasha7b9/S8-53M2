@@ -35,7 +35,7 @@ namespace FM
     int  needRedraw = 1;
     bool needOpen = false;
 
-    bool FileIsExist(char name[255]);
+    bool FileIsExist(char name[256]);
 
     void DrawLongString(int x, int y, char *string, bool hightlight);
 
@@ -100,7 +100,7 @@ void FM::DrawDirs(int x, int y)
 {
     Directory::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
     DrawHat(x, y, "Каталог : %d/%d", numCurDir + ((numDirs == 0) ? 0 : 1), numDirs);
-    char nameDir[255];
+    char nameDir[256];
     Directory directory;
     y += 12;
 
@@ -121,7 +121,7 @@ void FM::DrawDirs(int x, int y)
 void FM::DrawFiles(int x, int y)
 {
     DrawHat(x, y, "Файл : %d/%d", numCurFile + ((numFiles == 0) ? 0 : 1), numFiles);
-    char nameFile[255];
+    char nameFile[256];
     Directory directory;
     y += 12;
 
@@ -139,9 +139,9 @@ void FM::DrawFiles(int x, int y)
 }
 
 
-bool FM::FileIsExist(char name[255])
+bool FM::FileIsExist(char name[256])
 {
-    char nameFile[255];
+    char nameFile[256];
     Directory::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
     Directory directory;
 

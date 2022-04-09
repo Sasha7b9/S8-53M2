@@ -152,9 +152,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>135</LineNumber>
+          <LineNumber>133</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134467180</Address>
+          <Address>134467178</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -163,7 +163,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>&lt;2&gt;.\src\Menu\FileManager.cpp</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\S8_53\src/Menu/FileManager.cpp\135</Expression>
+          <Expression>\\S8_53\src/Menu/FileManager.cpp\133</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -214,7 +214,7 @@
         <Mm>
           <WinNumber>1</WinNumber>
           <SubType>256</SubType>
-          <ItemText>nameFile</ItemText>
+          <ItemText>nameFileOut</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>
