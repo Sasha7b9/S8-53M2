@@ -207,16 +207,15 @@ bool Directory::GetName(pchar fullPath, int numDir, char *nameDirOut)
 
 bool Directory::GetNextName(char *nameDirOut)
 {
-    DIR *pDir = &dir;
     FILINFO *pFNO = &fno;
     bool alreadyNull = false;
 
     while (true)
     {
-        if (f_readdir(pDir, pFNO) != FR_OK)
+        if (f_readdir(&dir, pFNO) != FR_OK)
         {
             *nameDirOut = '\0';
-            f_closedir(pDir);
+            f_closedir(&dir);
             return false;
         }
         else if (pFNO->fname[0] == 0)
@@ -224,7 +223,7 @@ bool Directory::GetNextName(char *nameDirOut)
             if (alreadyNull)
             {
                 *nameDirOut = '\0';
-                f_closedir(pDir);
+                f_closedir(&dir);
                 return false;
             }
             alreadyNull = true;
