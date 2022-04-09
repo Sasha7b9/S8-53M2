@@ -411,7 +411,18 @@ void FDrive::ConvertSymbols(char *text)
     {
         if (*text > 127)
         {
-            *text += 64;
+            if (*text == 240)
+            {
+                *text = 'Å';
+            }
+            else if (*text == 241)
+            {
+                *text = (char)0xb8;
+            }
+            else
+            {
+                *text += 64;
+            }
         }
 
         text++;
