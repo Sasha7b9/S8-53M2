@@ -28,13 +28,13 @@ namespace FM
     struct State
     {
         int first_dir;        // Номер первого выведенного каталога в левой панели. Всего может быть выведено RECS_ON_PAGE каталогов
+        int cur_dir;          // Номер подсвеченного каталога
 
-        State() : first_dir(0) {}
+        State() : first_dir(0), cur_dir(0) {}
     };
 
     State s;
 
-    int numCurDir = 0;          // Номер подсвеченного каталога
     int numFirstFile = 0;       // Номер первого выведенного файла в правой панели. Всего может быть выведено RECS_ON_PAGE файлов.
     int numCurFile = 0;         // Номер подсвеченного файла
     int numDirs = 0;
@@ -70,7 +70,7 @@ namespace FM
 void FM::Init()
 {
     std::strcpy(currentDir, "\\");
-    numFirstFile = numCurDir = numCurFile = 0;
+    s.first_dir = numFirstFile = s.cur_dir = numCurFile = 0;
 }
 
 
@@ -108,7 +108,7 @@ void FM::DrawHat(int x, int y, char *string, int num1, int num2)
 void FM::DrawDirs(int x, int y)
 {
     Directory::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
-    DrawHat(x, y, "Каталог : %d/%d", numCurDir + ((numDirs == 0) ? 0 : 1), numDirs);
+    DrawHat(x, y, "Каталог : %d/%d", s.cur_dir + ((numDirs == 0) ? 0 : 1), numDirs);
     char nameDir[256];
     Directory directory;
     y += 12;
@@ -116,12 +116,12 @@ void FM::DrawDirs(int x, int y)
     if (directory.GetName(currentDir, s.first_dir, nameDir))
     {
         int  drawingDirs = 0;
-        DrawLongString(x, y, nameDir, cursorInDirs && (s.first_dir + drawingDirs == numCurDir));
+        DrawLongString(x, y, nameDir, cursorInDirs && (s.first_dir + drawingDirs == s.cur_dir));
 
         while (drawingDirs < (RECS_ON_PAGE - 1) && directory.GetNextName(nameDir))
         {
             drawingDirs++;
-            DrawLongString(x, y + drawingDirs * 9, nameDir, cursorInDirs && (s.first_dir + drawingDirs == numCurDir));
+            DrawLongString(x, y + drawingDirs * 9, nameDir, cursorInDirs && (s.first_dir + drawingDirs == s.cur_dir));
         }
     }
 
@@ -274,14 +274,14 @@ void FM::PressLevelDown()
     char nameDir[100];
     Directory directory;
 
-    if (directory.GetName(currentDir, numCurDir, nameDir))
+    if (directory.GetName(currentDir, s.cur_dir, nameDir))
     {
         if (std::strlen(currentDir) + std::strlen(nameDir) < 250)
         {
             directory.Close();
             std::strcat(currentDir, "\\");
             std::strcat(currentDir, nameDir);
-            s.first_dir = numFirstFile = numCurDir = numCurFile = 0;
+            s.first_dir = numFirstFile = s.cur_dir = numCurFile = 0;
         }
 
     }
@@ -307,7 +307,7 @@ void FM::PressLevelUp()
     }
 
     *pointer = '\0';
-    s.first_dir = numFirstFile = numCurDir = numCurFile = 0;
+    s.first_dir = numFirstFile = s.cur_dir = numCurFile = 0;
     cursorInDirs = true;
 }
 
@@ -316,13 +316,15 @@ void FM::IncCurrentDir()
 {
     if (numDirs > 1)
     {
-        numCurDir++;
-        if (numCurDir > numDirs - 1)
+        s.cur_dir++;
+
+        if (s.cur_dir > numDirs - 1)
         {
-            numCurDir = 0;
+            s.cur_dir = 0;
             s.first_dir = 0;
         }
-        if (numCurDir - s.first_dir > RECS_ON_PAGE - 1)
+
+        if (s.cur_dir - s.first_dir > RECS_ON_PAGE - 1)
         {
             s.first_dir++;
         }
@@ -334,15 +336,17 @@ void FM::DecCurrentDir()
 {
     if (numDirs > 1)
     {
-        numCurDir--;
-        if (numCurDir < 0)
+        s.cur_dir--;
+
+        if (s.cur_dir < 0)
         {
-            numCurDir = numDirs - 1;
-            LIMITATION(s.first_dir, numDirs - RECS_ON_PAGE, 0, numCurDir);
+            s.cur_dir = numDirs - 1;
+            LIMITATION(s.first_dir, numDirs - RECS_ON_PAGE, 0, s.cur_dir);
         }
-        if (numCurDir < s.first_dir)
+
+        if (s.cur_dir < s.first_dir)
         {
-            s.first_dir = numCurDir;
+            s.first_dir = s.cur_dir;
         }
     }
 }
