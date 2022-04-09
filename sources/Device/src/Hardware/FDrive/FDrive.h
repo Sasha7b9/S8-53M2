@@ -56,4 +56,7 @@ namespace FDrive
     void Init();
 
     void Update();
+
+    // Преобразует символы кириллицы в читаемый вид
+    static void ConvertSymbols(char *text);
 };
