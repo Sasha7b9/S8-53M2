@@ -15,6 +15,7 @@
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
 #include "Utils/Text/Text.h"
+#include "Utils/Containers/Queue.h"
 #include <cstring>
 
 
@@ -32,8 +33,14 @@ namespace FM
         int first_file;       // Номер первого выведенного файла в правой панели. Всего может быть выведено RECS_ON_PAGE файлов.
         int cur_file;         // Номер подсвеченного файла
 
-        State() : first_dir(0), cur_dir(0), first_file(0), cur_file(0) {}
+        State(int v = 0) : first_dir(v), cur_dir(v), first_file(v), cur_file(v) {}
+        void Clear()
+        {
+            first_dir = cur_dir = first_file = cur_file = 0;
+        }
     };
+
+    Queue<State, 20> queue;     // Сюда будем сохранять состояния предыдущих каталогов по мере движения по дереву каталогов вглубь
 
     State s;
 
@@ -281,7 +288,8 @@ void FM::PressLevelDown()
             directory.Close();
             std::strcat(currentDir, "\\");
             std::strcat(currentDir, nameDir);
-            s.first_dir = s.first_file = s.cur_dir = s.cur_file = 0;
+            queue.Push(s);
+            s.Clear();
         }
 
     }
@@ -307,7 +315,7 @@ void FM::PressLevelUp()
     }
 
     *pointer = '\0';
-    s.first_dir = s.first_file = s.cur_dir = s.cur_file = 0;
+    s = queue.Front();
     cursorInDirs = true;
 }
 
