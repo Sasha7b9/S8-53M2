@@ -43,7 +43,7 @@ struct Directory
 
     bool GetNextNameFile(char *nameFileOut);
 
-    void CloseCurrent();
+    void Close();
 
     static void GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles);
 };

@@ -240,7 +240,7 @@ bool Directory::GetNextName(char *nameDirOut)
 }
 
 
-void Directory::CloseCurrent()
+void Directory::Close()
 {
     f_closedir(&dir);
 }

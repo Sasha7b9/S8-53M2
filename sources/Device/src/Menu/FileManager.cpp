@@ -115,6 +115,8 @@ void FM::DrawDirs(int x, int y)
             DrawLongString(x, y + drawingDirs * 9, nameDir, cursorInDirs && ( numFirstDir + drawingDirs == numCurDir));
         }
     }
+
+    directory.Close();
 }
 
 
@@ -137,6 +139,8 @@ void FM::DrawFiles(int x, int y)
             DrawLongString(x, y + drawingFiles * 9, nameFile, !cursorInDirs && (numFirstFile + drawingFiles == numCurFile));
         }
     }
+
+    directory.Close();
 }
 
 
@@ -265,7 +269,7 @@ void FM::PressLevelDown()
     {
         if (std::strlen(currentDir) + std::strlen(nameDir) < 250)
         {
-            directory.CloseCurrent();
+            directory.Close();
             std::strcat(currentDir, "\\");
             std::strcat(currentDir, nameDir);
             numFirstDir = numFirstFile = numCurDir = numCurFile = 0;
@@ -273,7 +277,7 @@ void FM::PressLevelDown()
 
     }
 
-    directory.CloseCurrent();
+    directory.Close();
 }
 
 
