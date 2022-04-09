@@ -75,7 +75,7 @@
       <OPTFL>
         <tvExp>1</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
-        <IsCurrentTarget>1</IsCurrentTarget>
+        <IsCurrentTarget>0</IsCurrentTarget>
       </OPTFL>
       <CpuCode>18</CpuCode>
       <DebugOpt>
@@ -152,9 +152,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>262</LineNumber>
+          <LineNumber>221</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134465812</Address>
+          <Address>134466610</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -163,7 +163,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>&lt;2&gt;.\src\Menu\FileManager.cpp</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\S8_53\src/Menu/FileManager.cpp\262</Expression>
+          <Expression>\\S8_53\src/Menu/FileManager.cpp\221</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -324,7 +324,7 @@
       <OPTFL>
         <tvExp>1</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
-        <IsCurrentTarget>0</IsCurrentTarget>
+        <IsCurrentTarget>1</IsCurrentTarget>
       </OPTFL>
       <CpuCode>18</CpuCode>
       <DebugOpt>

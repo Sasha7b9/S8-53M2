@@ -78,11 +78,11 @@ void FM::DrawLongString(int x, int y, char *string, bool hightlight)
 
     if (length <= WIDTH_COL)
     {
-        String<>(string).Draw(x, y, color);
+        DisplayString(string).Decode().Draw(x, y, color);
     }
     else
     {
-        String<>(string).DrawWithLimitation(x, y, color, x, y, WIDTH_COL, 10);
+        DisplayString(string).Decode().DrawWithLimitation(x, y, color, x, y, WIDTH_COL, 10);
         String<>("...").Draw(x + WIDTH_COL + 3, y);
     }
 }
@@ -120,6 +120,7 @@ void FM::DrawDirs(int x, int y)
 
 void FM::DrawFiles(int x, int y)
 {
+    Directory::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
     DrawHat(x, y, "Τΰιλ : %d/%d", numCurFile + ((numFiles == 0) ? 0 : 1), numFiles);
     char nameFile[256];
     Directory directory;
@@ -165,7 +166,7 @@ void FM::DrawNameCurrentDir(int left, int top)
     int length = Font::GetLengthText(currentDir);
     if (length < 277)
     {
-        String<>(currentDir).Draw(left + 1, top + 1);
+        DisplayString(currentDir).Decode().Draw(left + 1, top + 1);
     }
     else
     {
@@ -182,7 +183,8 @@ void FM::DrawNameCurrentDir(int left, int top)
             }
             length = Font::GetLengthText(++pointer);
         }
-        String<>(pointer).Draw(left + 1, top + 1);
+
+        DisplayString(pointer).Decode().Draw(left + 1, top + 1);
     }
 }
 

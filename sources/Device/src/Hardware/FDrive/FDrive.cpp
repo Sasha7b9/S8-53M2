@@ -107,7 +107,7 @@ void Directory::GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles)
     fno.fname[0] = '\0';
     fno.fsize = 0;
 
-    if (f_opendir(&dir, "//") == FR_OK)
+    if (f_opendir(&dir, nameDir) == FR_OK)
     {
         int numReadingElements = 0;
         bool alreadyNull = false;
@@ -181,7 +181,6 @@ bool Directory::GetName(pchar fullPath, int numDir, char *nameDirOut)
             if (numDir == numDirs && (pFNO->fattrib & AM_DIR))
             {
                 strcpy(nameDirOut, pFNO->fname);
-                FDrive::ConvertSymbols(nameDirOut);
                 return true;
             }
             if ((pFNO->fattrib & AM_DIR) && (pFNO->fname[0] != '.'))
@@ -205,7 +204,6 @@ bool Directory::GetNextName(char *nameDirOut)
         if (f_readdir(pDir, pFNO) != FR_OK)
         {
             *nameDirOut = '\0';
-            FDrive::ConvertSymbols(nameDirOut);
             f_closedir(pDir);
             return false;
         }
@@ -214,7 +212,6 @@ bool Directory::GetNextName(char *nameDirOut)
             if (alreadyNull)
             {
                 *nameDirOut = '\0';
-                FDrive::ConvertSymbols(nameDirOut);
                 f_closedir(pDir);
                 return false;
             }
@@ -226,7 +223,6 @@ bool Directory::GetNextName(char *nameDirOut)
             if (pFNO->fattrib & AM_DIR)
             {
                 strcpy(nameDirOut, pFNO->fname);
-                FDrive::ConvertSymbols(nameDirOut);
                 return true;
             }
         }
@@ -260,7 +256,6 @@ bool Directory::GetNameFile(pchar fullPath, int numFile, char *nameFileOut)
             if (f_readdir(pDir, pFNO) != FR_OK)
             {
                 *nameFileOut = '\0';
-                FDrive::ConvertSymbols(nameFileOut);
                 f_closedir(pDir);
                 return false;
             }
@@ -269,7 +264,6 @@ bool Directory::GetNameFile(pchar fullPath, int numFile, char *nameFileOut)
                 if (alreadyNull)
                 {
                     *nameFileOut = '\0';
-                    FDrive::ConvertSymbols(nameFileOut);
                     f_closedir(pDir);
                     return false;
                 }
@@ -279,7 +273,6 @@ bool Directory::GetNameFile(pchar fullPath, int numFile, char *nameFileOut)
             if (numFile == numFiles && (pFNO->fattrib & AM_DIR) == 0)
             {
                 strcpy(nameFileOut, pFNO->fname);
-                FDrive::ConvertSymbols(nameFileOut);
                 return true;
             }
             if ((pFNO->fattrib & AM_DIR) == 0 && (pFNO->fname[0] != '.'))
@@ -303,7 +296,6 @@ bool Directory::GetNextNameFile(char *nameFileOut)
         if (f_readdir(&dir, &fno) != FR_OK)
         {
             *nameFileOut = '\0';
-            FDrive::ConvertSymbols(nameFileOut);
             f_closedir(&dir);
             return false;
         }
@@ -312,7 +304,6 @@ bool Directory::GetNextNameFile(char *nameFileOut)
             if (alreadyNull)
             {
                 *nameFileOut = '\0';
-                FDrive::ConvertSymbols(nameFileOut);
                 f_closedir(&dir);
                 return false;
             }
@@ -323,7 +314,6 @@ bool Directory::GetNextNameFile(char *nameFileOut)
             if ((pFNO->fattrib & AM_DIR) == 0 && pFNO->fname[0] != '.')
             {
                 strcpy(nameFileOut, pFNO->fname);
-                FDrive::ConvertSymbols(nameFileOut);
                 return true;
             }
         }
@@ -403,8 +393,10 @@ bool File::Close()
 
 
 
-void FDrive::ConvertSymbols(char *text)
+String<> &DisplayString::Decode()
 {
+    char *text = c_str();
+
     while (*text)
     {
         char symbol = *text;
@@ -427,4 +419,6 @@ void FDrive::ConvertSymbols(char *text)
 
         text++;
     }
+
+    return *this;
 }

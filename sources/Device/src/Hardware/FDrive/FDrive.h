@@ -56,7 +56,13 @@ namespace FDrive
     void Init();
 
     void Update();
+};
 
-    // Преобразует символы кириллицы в читаемый вид
-    static void ConvertSymbols(char *text);
+
+class DisplayString : public String<>
+{
+public:
+    DisplayString(char *string) : String<>(string) {}
+
+    String<> &Decode();
 };
