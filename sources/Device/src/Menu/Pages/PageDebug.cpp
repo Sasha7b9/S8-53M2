@@ -170,29 +170,6 @@ static const Button bSaveNRST
 );
 
 
-static void OnPress_SaveSettings()
-{
-    if (gset.Save())
-    {
-        Warning::ShowGood(Warning::SettingsSaved);
-    }
-    else
-    {
-        Warning::ShowBad(Warning::SettingsNotSaved);
-    }
-}
-
-
-static const Button bSaveSettings
-(
-    PageDebug::self, EmptyFuncBV,
-    "Сохр. настр.", "Save settings",
-    "",
-    "",
-    OnPress_SaveSettings
-);
-
-
 void PageDebug::ADC::ResetCalRShift(Chan ch)
 {
     std::memset(&gset.chan[ch].cal_rshift[0][0], 0, sizeof(gset.chan[ch].cal_rshift[0][0]) * Range::Count * ModeCouple::Count);
@@ -793,11 +770,10 @@ static const arrayItems itemsDebug =
     (void *)PageDebug::Console::self,
     (void *)PageDebug::ADC::self,
     (void *)PageDebug::Randomizer::self,
-    (void *)&bSaveSettings,
+    (void *)PageDebug::SerialNumber::self,
     (void *)&mcStats,
     (void *)&mbSaveFirmware,
     (void *)&bEraseData,
-    (void *)PageDebug::SerialNumber::self,
     nullptr
 };
 
