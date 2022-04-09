@@ -2,7 +2,6 @@
 #include "defines.h"
 #include "Hardware/VCP/VCP.h"
 #include "Hardware/HAL/HAL.h"
-#include "device.h"
 #include "SCPI/SCPI.h"
 
 
