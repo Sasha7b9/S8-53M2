@@ -698,8 +698,6 @@ bool Painter::SaveScreenToFlashDrive()
             file.Write(buffer, 320);
         }
 
-        file.Close();
-
         return true;
     }
 

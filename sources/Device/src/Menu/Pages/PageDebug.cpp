@@ -115,8 +115,6 @@ static void OnPress_SaveFirmware()
         address += sizeBlock;
     }
 
-    file.Close();
-
     Warning::ShowGood(Warning::FirmwareSaved);
 }
 

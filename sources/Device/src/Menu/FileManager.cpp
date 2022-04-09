@@ -120,12 +120,12 @@ void FM::DrawDirs(int x, int y)
     Directory directory;
     y += 12;
 
-    if (directory.GetFirstName(currentDir.c_str(), s.first_dir, nameDir))
+    if (directory.GetFirstNameDir(currentDir.c_str(), s.first_dir, nameDir))
     {
         int  drawingDirs = 0;
         DrawLongString(x, y, nameDir, cursorInDirs && (s.first_dir + drawingDirs == s.cur_dir));
 
-        while (drawingDirs < (RECS_ON_PAGE - 1) && directory.GetNextName(nameDir))
+        while (drawingDirs < (RECS_ON_PAGE - 1) && directory.GetNextNameDir(nameDir))
         {
             drawingDirs++;
             DrawLongString(x, y + drawingDirs * 9, nameDir, cursorInDirs && (s.first_dir + drawingDirs == s.cur_dir));
@@ -284,7 +284,7 @@ void FM::PressLevelDown()
     char nameDir[256];
     Directory directory;
 
-    if (directory.GetFirstName(currentDir.c_str(), s.cur_dir, nameDir))
+    if (directory.GetFirstNameDir(currentDir.c_str(), s.cur_dir, nameDir))
     {
         if (currentDir.Size() + std::strlen(nameDir) < 256)
         {

@@ -25,18 +25,19 @@ public:
 
 struct File
 {
-    static const int SIZE_FLASH_TEMP_BUFFER = 512;
-    uint8 tempBuffer[SIZE_FLASH_TEMP_BUFFER];
-    int sizeData;
-    FIL fileObj;
+    static const int SIZE_BUFFER = 512;
+
+    uint8    buffer[SIZE_BUFFER];
+    int      sizeData;
+    FIL      fileObj;
     FileName name;
+
+    ~File();
 
     // Функция создаст файл для записи. Если такой файл уже существует, сотрёт его, заменит новым нулевой длины и откроет его
     bool OpenNewForWrite(pchar  fullPathToFile);
 
     bool Write(void *data, int sizeData);
-
-    bool Close();
 };
 
 
@@ -46,9 +47,9 @@ struct Directory
 
     ~Directory();
 
-    bool GetFirstName(pchar fuulPath, int numDir, char *nameDirOut);
+    bool GetFirstNameDir(pchar fuulPath, int numDir, char *nameDirOut);
 
-    bool GetNextName(char *nameDirOut);
+    bool GetNextNameDir(char *nameDirOut);
 
     bool GetFirstNameFile(pchar fullPath, int numFile, FileName &);
 

@@ -153,7 +153,7 @@ void Directory::GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles)
 }
 
 
-bool Directory::GetFirstName(pchar fullPath, int numDir, char *nameDirOut)
+bool Directory::GetFirstNameDir(pchar fullPath, int numDir, char *nameDirOut)
 {
     FILINFO fno;
 
@@ -203,7 +203,7 @@ bool Directory::GetFirstName(pchar fullPath, int numDir, char *nameDirOut)
 }
 
 
-bool Directory::GetNextName(char *nameDirOut)
+bool Directory::GetNextNameDir(char *nameDirOut)
 {
     bool alreadyNull = false;
 
@@ -352,20 +352,20 @@ bool File::Write(void *_data, int size)
     {
         int dataToCopy = size;
 
-        if (size + sizeData > SIZE_FLASH_TEMP_BUFFER)
+        if (size + sizeData > SIZE_BUFFER)
         {
-            dataToCopy = SIZE_FLASH_TEMP_BUFFER - sizeData;
+            dataToCopy = SIZE_BUFFER - sizeData;
         }
 
         size -= dataToCopy;
-        memcpy(tempBuffer + sizeData, data, (uint)dataToCopy);
+        memcpy(buffer + sizeData, data, (uint)dataToCopy);
         data += dataToCopy;
         sizeData += dataToCopy;
 
-        if (sizeData == SIZE_FLASH_TEMP_BUFFER)
+        if (sizeData == SIZE_BUFFER)
         {
             uint wr = 0;
-            if (f_write(&fileObj, tempBuffer, (uint)sizeData, &wr) != FR_OK || (uint)sizeData != wr)
+            if (f_write(&fileObj, buffer, (uint)sizeData, &wr) != FR_OK || (uint)sizeData != wr)
             {
                 return false;
             }
@@ -377,16 +377,16 @@ bool File::Write(void *_data, int size)
 }
 
 
-bool File::Close()
+File::~File()
 {
     if (sizeData != 0)
     {
         uint wr = 0;
 
-        if (f_write(&fileObj, tempBuffer, (uint)sizeData, &wr) != FR_OK || (uint)sizeData != wr)
+        if (f_write(&fileObj, buffer, (uint)sizeData, &wr) != FR_OK || (uint)sizeData != wr)
         {
             f_close(&fileObj);
-            return false;
+            return;
         }
     }
 
@@ -397,8 +397,6 @@ bool File::Close()
     fno.fdate = (WORD)(((time.year + 20) * 512) | (time.month * 32) | time.day);
     fno.ftime = (WORD)((time.hours * 2048) | (time.minutes * 32) | (time.seconds / 2));
     f_utime(name.c_str(), &fno);
-
-    return true;
 }
 
 
