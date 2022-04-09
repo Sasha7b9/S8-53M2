@@ -120,7 +120,7 @@ void FM::DrawDirs(int x, int y)
     Directory directory;
     y += 12;
 
-    if (directory.GetName(currentDir, s.first_dir, nameDir))
+    if (directory.GetFirstName(currentDir, s.first_dir, nameDir))
     {
         int  drawingDirs = 0;
         DrawLongString(x, y, nameDir, cursorInDirs && (s.first_dir + drawingDirs == s.cur_dir));
@@ -144,7 +144,7 @@ void FM::DrawFiles(int x, int y)
     Directory directory;
     y += 12;
 
-    if (directory.GetNameFile(currentDir, s.first_file, nameFile))
+    if (directory.GetFirstNameFile(currentDir, s.first_file, nameFile))
     {
         int drawingFiles = 0;
         DrawLongString(x, y, nameFile, !cursorInDirs && (s.first_file + drawingFiles == s.cur_file));
@@ -166,7 +166,7 @@ bool FM::FileIsExist(char name[256])
     Directory::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
     Directory directory;
 
-    if(directory.GetNameFile(currentDir, 0, nameFile))
+    if(directory.GetFirstNameFile(currentDir, 0, nameFile))
     {
         while(directory.GetNextNameFile(nameFile))
         {
@@ -281,7 +281,7 @@ void FM::PressLevelDown()
     char nameDir[100];
     Directory directory;
 
-    if (directory.GetName(currentDir, s.cur_dir, nameDir))
+    if (directory.GetFirstName(currentDir, s.cur_dir, nameDir))
     {
         if (std::strlen(currentDir) + std::strlen(nameDir) < 250)
         {

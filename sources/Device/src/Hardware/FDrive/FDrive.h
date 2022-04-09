@@ -35,11 +35,11 @@ struct Directory
     FILINFO fno;
     DIR dir;
 
-    bool GetName(pchar fuulPath, int numDir, char *nameDirOut);
+    bool GetFirstName(pchar fuulPath, int numDir, char *nameDirOut);
 
     bool GetNextName(char *nameDirOut);
 
-    bool GetNameFile(pchar fullPath, int numFile, char *nameFileOut);
+    bool GetFirstNameFile(pchar fullPath, int numFile, char *nameFileOut);
 
     bool GetNextNameFile(char *nameFileOut);
 

@@ -153,7 +153,7 @@ void Directory::GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles)
 }
 
 
-bool Directory::GetName(pchar fullPath, int numDir, char *nameDirOut)
+bool Directory::GetFirstName(pchar fullPath, int numDir, char *nameDirOut)
 {
     memcpy(nameDir, fullPath, strlen(fullPath));
     nameDir[strlen(fullPath)] = '\0';
@@ -248,7 +248,7 @@ void Directory::Close()
 }
 
 
-bool Directory::GetNameFile(pchar fullPath, int numFile, char *nameFileOut)
+bool Directory::GetFirstNameFile(pchar fullPath, int numFile, char *nameFileOut)
 {
     memcpy(nameDir, fullPath, strlen(fullPath));
     nameDir[strlen(fullPath)] = '\0';
