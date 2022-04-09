@@ -42,7 +42,6 @@ public:
 
 struct Directory
 {
-    String<256> path;
     DIR dir;
 
     bool GetFirstName(pchar fuulPath, int numDir, char *nameDirOut);
