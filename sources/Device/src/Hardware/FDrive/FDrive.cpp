@@ -413,30 +413,18 @@ void FDrive::ConvertSymbols(char *text)
 
         if (symbol > 127)
         {
-            if (symbol == 240)
-            {
-                *text = 'Å';
-            }
-            else if (symbol == 241)
-            {
-                *text = (char)0xb8;
-            }
-            else if (symbol == 226)
-            {
-                *text = 'ò';
-            }
-            else if (symbol == 224)
-            {
-                *text = 'ð';
-            }
-            else if (symbol == 239)
-            {
-                *text = 'ÿ';
-            }
-            else
-            {
-                *text += 64;
-            }
+            if (symbol == 224)      { *text = 'ð';        }
+            else if (symbol == 225) { *text = 'ñ';        }
+            else if (symbol == 226) { *text = 'ò';        }
+            else if (symbol == 227) { *text = 'ó';        }
+            else if (symbol == 228) { *text = 'ô';        }
+            else if (symbol == 230) { *text = 'ö';        }
+            else if (symbol == 231) { *text = '÷';        }
+            else if (symbol == 233) { *text = 'ù';        }
+            else if (symbol == 239) { *text = 'ÿ';        }
+            else if (symbol == 240) { *text = 'Å';        }
+            else if (symbol == 241) { *text = (char)0xb8; }
+            else                    { *text += 64;        }
         }
 
         text++;
