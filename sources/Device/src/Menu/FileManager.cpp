@@ -51,7 +51,7 @@ namespace FM
     int  needRedraw = 1;
     bool needOpen = false;
 
-    bool FileIsExist(char fullName[256]);
+    bool FileIsExist(FileName &);
 
     void DrawLongString(int x, int y, char *string, bool hightlight);
 
@@ -160,7 +160,7 @@ void FM::DrawFiles(int x, int y)
 }
 
 
-bool FM::FileIsExist(char fullName[256])
+bool FM::FileIsExist(FileName &_fileName)
 {
     char nameFile[256];
     Directory::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
@@ -168,7 +168,7 @@ bool FM::FileIsExist(char fullName[256])
 
     if(directory.GetFirstNameFile(currentDir, 0, nameFile))
     {
-        if (std::strcmp(fullName + 2, nameFile) == 0)
+        if (std::strcmp(_fileName.Extract(), nameFile) == 0)
         {
             directory.Close();
             return true;
@@ -176,7 +176,7 @@ bool FM::FileIsExist(char fullName[256])
 
         while(directory.GetNextNameFile(nameFile))
         {
-            if(std::strcmp(fullName + 2, nameFile) == 0)
+            if(std::strcmp(_fileName.Extract(), nameFile) == 0)
             {
                 directory.Close();
                 return true;
@@ -431,7 +431,7 @@ String<> FM::GetNameForNewFile()
 
 LabelNextNumber:
 
-    String<> result(currentDir);
+    FileName result(currentDir);
     result.Append("\\");
 
     int size = (int)std::strlen(FILE_NAME);
@@ -483,7 +483,7 @@ LabelNextNumber:
 
         result.Append(MODE_SAVE_SIGNAL_IS_BMP ? ".bmp" : ".txt");
 
-        if(FileIsExist(result.c_str()))
+        if(FileIsExist(result))
         {
             number++;
             goto LabelNextNumber;

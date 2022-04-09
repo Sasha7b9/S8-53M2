@@ -66,3 +66,13 @@ public:
 
     String<> &Decode();
 };
+
+
+class FileName : public String<>
+{
+public:
+    FileName(char *name) : String<>(name) {}
+
+    // Возвращает указатель на собственно имя файла, если имя включает в себя абсолютный путь
+    pchar Extract();
+};

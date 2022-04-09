@@ -446,3 +446,27 @@ void FDrive::ChangeState()
         FM::needOpen = true;
     }
 }
+
+
+pchar FileName::Extract()
+{
+    if (Size() == 0)
+    {
+        return nullptr;
+    }
+
+    pchar pointer = &c_str()[Size()];
+
+    do
+    {
+        pointer--;
+
+        if (*pointer == '\\' || *pointer == '/')
+        {
+            return pointer + 1;
+        }
+
+    } while (pointer != c_str());
+
+    return pointer;
+}
