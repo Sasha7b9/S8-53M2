@@ -43,7 +43,6 @@ public:
 struct Directory
 {
     String<256> path;
-    FILINFO fno;
     DIR dir;
 
     bool GetFirstName(pchar fuulPath, int numDir, char *nameDirOut);

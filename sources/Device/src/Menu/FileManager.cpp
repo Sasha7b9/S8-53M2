@@ -24,7 +24,7 @@ namespace FM
     const int RECS_ON_PAGE = 23;
     const int WIDTH_COL = 135;
 
-    char currentDir[255] = "\\";
+    String<256> currentDir("\\");
 
     struct State
     {
@@ -76,7 +76,7 @@ namespace FM
 
 void FM::Init()
 {
-    std::strcpy(currentDir, "\\");
+    currentDir.SetFormat("\\");
     s.first_dir = s.first_file = s.cur_dir = s.cur_file = 0;
 }
 
@@ -114,13 +114,13 @@ void FM::DrawHat(int x, int y, char *string, int num1, int num2)
 
 void FM::DrawDirs(int x, int y)
 {
-    Directory::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
+    Directory::GetNumDirsAndFiles(currentDir.c_str(), &numDirs, &numFiles);
     DrawHat(x, y, "Каталог : %d/%d", s.cur_dir + ((numDirs == 0) ? 0 : 1), numDirs);
     char nameDir[256];
     Directory directory;
     y += 12;
 
-    if (directory.GetFirstName(currentDir, s.first_dir, nameDir))
+    if (directory.GetFirstName(currentDir.c_str(), s.first_dir, nameDir))
     {
         int  drawingDirs = 0;
         DrawLongString(x, y, nameDir, cursorInDirs && (s.first_dir + drawingDirs == s.cur_dir));
@@ -138,13 +138,13 @@ void FM::DrawDirs(int x, int y)
 
 void FM::DrawFiles(int x, int y)
 {
-    Directory::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
+    Directory::GetNumDirsAndFiles(currentDir.c_str(), &numDirs, &numFiles);
     DrawHat(x, y, "Файл : %d/%d", s.cur_file + ((numFiles == 0) ? 0 : 1), numFiles);
     FileName nameFile;
     Directory directory;
     y += 12;
 
-    if (directory.GetFirstNameFile(currentDir, s.first_file, nameFile))
+    if (directory.GetFirstNameFile(currentDir.c_str(), s.first_file, nameFile))
     {
         int drawingFiles = 0;
         DrawLongString(x, y, nameFile.c_str(), !cursorInDirs && (s.first_file + drawingFiles == s.cur_file));
@@ -163,10 +163,10 @@ void FM::DrawFiles(int x, int y)
 bool FM::FileIsExist(FileName &_fileName)
 {
     FileName nameFile;
-    Directory::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
+    Directory::GetNumDirsAndFiles(currentDir.c_str(), &numDirs, &numFiles);
     Directory directory;
 
-    if(directory.GetFirstNameFile(currentDir, 0, nameFile))
+    if(directory.GetFirstNameFile(currentDir.c_str(), 0, nameFile))
     {
         if (std::strcmp(_fileName.Extract(), nameFile.c_str()) == 0)
         {
@@ -193,21 +193,22 @@ bool FM::FileIsExist(FileName &_fileName)
 void FM::DrawNameCurrentDir(int left, int top)
 {
     Color::SetCurrent(COLOR_FILL);
-    int length = Font::GetLengthText(currentDir);
+    int length = Font::GetLengthText(currentDir.c_str());
     if (length < 277)
     {
-        DisplayString(currentDir).Decode().Draw(left + 1, top + 1);
+        DisplayString(currentDir.c_str()).Decode().Draw(left + 1, top + 1);
     }
     else
     {
-        char *pointer = currentDir + 2;
+        char *pointer = currentDir.c_str() + 2;
+
         while (length > 277)
         {
-            while (*pointer != '\\' && pointer < currentDir + 255)
+            while (*pointer != '\\' && pointer < currentDir.c_str() + 255)
             {
                 pointer++;
             }
-            if (pointer >= currentDir + 255)
+            if (pointer >= currentDir.c_str() + 255)
             {
                 return;
             }
@@ -236,7 +237,7 @@ void FM::Draw()
         Painter::BeginScene(COLOR_BACK);
         Menu::Draw();
         Rectangle(width, 239).Draw(0, 0, COLOR_FILL);
-        Directory::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
+        Directory::GetNumDirsAndFiles(currentDir.c_str(), &numDirs, &numFiles);
         DrawNameCurrentDir(left + 1, top + 2);
         Painter::DrawVLine(true, left2col, top + 16, 239, COLOR_FILL);
         Painter::DrawHLine(true, top + 15, 0, width);
@@ -288,16 +289,16 @@ void FM::PressLevelDown()
         return;
     }
 
-    char nameDir[100];
+    char nameDir[256];
     Directory directory;
 
-    if (directory.GetFirstName(currentDir, s.cur_dir, nameDir))
+    if (directory.GetFirstName(currentDir.c_str(), s.cur_dir, nameDir))
     {
-        if (std::strlen(currentDir) + std::strlen(nameDir) < 250)
+        if (currentDir.Size() + std::strlen(nameDir) < 250)
         {
             directory.Close();
-            std::strcat(currentDir, "\\");
-            std::strcat(currentDir, nameDir);
+            currentDir.Append("\\");
+            currentDir.Append(nameDir);
             queue.Push(s);
             s.Clear();
         }
@@ -312,12 +313,12 @@ void FM::PressLevelUp()
 {
     needRedraw = 1;
 
-    if (std::strlen(currentDir) == 1)
+    if (currentDir.Size() == 1)
     {
         return;
     }
 
-    char *pointer = currentDir + std::strlen(currentDir);
+    char *pointer = currentDir.c_str() + currentDir.Size();
 
     while (*pointer != '\\')
     {
@@ -431,7 +432,7 @@ String<> FM::GetNameForNewFile()
 
 LabelNextNumber:
 
-    FileName result(currentDir);
+    FileName result(currentDir.c_str());
     result.Append("\\");
 
     int size = (int)std::strlen(FILE_NAME);

@@ -157,7 +157,7 @@ bool Directory::GetFirstName(pchar fullPath, int numDir, char *nameDirOut)
 {
     path.SetFormat(fullPath);
 
-    strcpy(fno.fname, path.c_str());
+    FILINFO fno;
 
     if (f_opendir(&dir, path.c_str()) == FR_OK)
     {
@@ -209,6 +209,8 @@ bool Directory::GetNextName(char *nameDirOut)
 {
     bool alreadyNull = false;
 
+    FILINFO fno;
+
     while (true)
     {
         if (f_readdir(&dir, &fno) != FR_OK)
@@ -250,7 +252,7 @@ bool Directory::GetFirstNameFile(pchar fullPath, int numFile, FileName &fileName
 {
     path.SetFormat(fullPath);
 
-    strcpy(fno.fname, path.c_str());
+    FILINFO fno;
 
     if (f_opendir(&dir, path.c_str()) == FR_OK)
     {
@@ -299,6 +301,8 @@ bool Directory::GetFirstNameFile(pchar fullPath, int numFile, FileName &fileName
 bool Directory::GetNextNameFile(FileName &fileName)
 {
     bool alreadyNull = false;
+
+    FILINFO fno;
 
     while (true)
     {
