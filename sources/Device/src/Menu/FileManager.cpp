@@ -131,8 +131,6 @@ void FM::DrawDirs(int x, int y)
             DrawLongString(x, y + drawingDirs * 9, nameDir, cursorInDirs && (s.first_dir + drawingDirs == s.cur_dir));
         }
     }
-
-    directory.Close();
 }
 
 
@@ -155,8 +153,6 @@ void FM::DrawFiles(int x, int y)
             DrawLongString(x, y + drawingFiles * 9, nameFile.c_str(), !cursorInDirs && (s.first_file + drawingFiles == s.cur_file));
         }
     }
-
-    directory.Close();
 }
 
 
@@ -170,7 +166,6 @@ bool FM::FileIsExist(FileName &_fileName)
     {
         if (std::strcmp(_fileName.Extract(), nameFile.c_str()) == 0)
         {
-            directory.Close();
             return true;
         }
 
@@ -178,13 +173,10 @@ bool FM::FileIsExist(FileName &_fileName)
         {
             if(std::strcmp(_fileName.Extract(), nameFile.c_str()) == 0)
             {
-                directory.Close();
                 return true;
             }
         }
     }
-
-    directory.Close();
 
     return false;
 }
@@ -296,16 +288,12 @@ void FM::PressLevelDown()
     {
         if (currentDir.Size() + std::strlen(nameDir) < 250)
         {
-            directory.Close();
             currentDir.Append("\\");
             currentDir.Append(nameDir);
             queue.Push(s);
             s.Clear();
         }
-
     }
-
-    directory.Close();
 }
 
 
