@@ -286,7 +286,7 @@ void FM::PressLevelDown()
 
     if (directory.GetFirstName(currentDir.c_str(), s.cur_dir, nameDir))
     {
-        if (currentDir.Size() + std::strlen(nameDir) < 250)
+        if (currentDir.Size() + std::strlen(nameDir) < 256)
         {
             currentDir.Append("\\");
             currentDir.Append(nameDir);
