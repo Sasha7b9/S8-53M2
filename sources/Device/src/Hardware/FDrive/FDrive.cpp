@@ -111,12 +111,14 @@ void Directory::GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles)
     {
         int numReadingElements = 0;
         bool alreadyNull = false;
+
         while (true)
         {
             if (f_readdir(&dir, &fno) != FR_OK)
             {
                 break;
             }
+
             if (fno.fname[0] == 0)
             {
                 if(alreadyNull)
@@ -126,6 +128,7 @@ void Directory::GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles)
                 alreadyNull = true;
                 continue;
             }
+
             numReadingElements++;
 
             if (fno.fname[0] != '.')
@@ -140,8 +143,11 @@ void Directory::GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles)
                 }
             }
         }
+
         f_closedir(&dir);
     }
+
+    f_closedir(&dir);
 }
 
 
@@ -154,11 +160,13 @@ bool Directory::GetName(pchar fullPath, int numDir, char *nameDirOut)
     fno.fsize = sizeof(lfn);
 
     DIR *pDir = &dir;
+
     if (f_opendir(pDir, nameDir) == FR_OK)
     {
         int numDirs = 0;
         FILINFO *pFNO = &fno;
         bool alreadyNull = false;
+
         while (true)
         {
             if (f_readdir(pDir, pFNO) != FR_OK)
@@ -167,6 +175,7 @@ bool Directory::GetName(pchar fullPath, int numDir, char *nameDirOut)
                 f_closedir(pDir);
                 return false;
             }
+
             if (pFNO->fname[0] == 0)
             {
                 if (alreadyNull)
@@ -175,6 +184,7 @@ bool Directory::GetName(pchar fullPath, int numDir, char *nameDirOut)
                     f_closedir(pDir);
                     return false;
                 }
+
                 alreadyNull = true;
             }
 
@@ -183,12 +193,15 @@ bool Directory::GetName(pchar fullPath, int numDir, char *nameDirOut)
                 strcpy(nameDirOut, pFNO->fname);
                 return true;
             }
+
             if ((pFNO->fattrib & AM_DIR) && (pFNO->fname[0] != '.'))
             {
                 numDirs++;
             }
         }
     }
+
+    f_closedir(pDir);
 
     return false;
 }
@@ -251,6 +264,7 @@ bool Directory::GetNameFile(pchar fullPath, int numFile, char *nameFileOut)
     {
         int numFiles = 0;
         bool alreadyNull = false;
+
         while (true)
         {
             if (f_readdir(pDir, pFNO) != FR_OK)
@@ -259,6 +273,7 @@ bool Directory::GetNameFile(pchar fullPath, int numFile, char *nameFileOut)
                 f_closedir(pDir);
                 return false;
             }
+
             if (pFNO->fname[0] == 0)
             {
                 if (alreadyNull)
@@ -267,6 +282,7 @@ bool Directory::GetNameFile(pchar fullPath, int numFile, char *nameFileOut)
                     f_closedir(pDir);
                     return false;
                 }
+
                 alreadyNull = true;
             }
 
@@ -281,6 +297,8 @@ bool Directory::GetNameFile(pchar fullPath, int numFile, char *nameFileOut)
             }
         }
     }
+
+    f_closedir(pDir);
 
     return false;
 }
