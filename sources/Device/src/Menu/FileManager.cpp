@@ -142,12 +142,12 @@ void FM::DrawFiles(int x, int y)
     Directory directory;
     y += 12;
 
-    if (directory.GetFirstNameFile(currentDir.c_str(), s.first_file, nameFile))
+    if (directory.GetFirstFile(currentDir.c_str(), s.first_file, nameFile))
     {
         int drawingFiles = 0;
         DrawLongString(x, y, nameFile.c_str(), !cursorInDirs && (s.first_file + drawingFiles == s.cur_file));
 
-        while (drawingFiles < (RECS_ON_PAGE - 1) && directory.GetNextNameFile(nameFile))
+        while (drawingFiles < (RECS_ON_PAGE - 1) && directory.GetNextFile(nameFile))
         {
             drawingFiles++;
             DrawLongString(x, y + drawingFiles * 9, nameFile.c_str(), !cursorInDirs && (s.first_file + drawingFiles == s.cur_file));
@@ -162,14 +162,14 @@ bool FM::FileIsExist(FileName &_fileName)
     Directory::GetNumDirsAndFiles(currentDir.c_str(), &numDirs, &numFiles);
     Directory directory;
 
-    if(directory.GetFirstNameFile(currentDir.c_str(), 0, nameFile))
+    if(directory.GetFirstFile(currentDir.c_str(), 0, nameFile))
     {
         if (std::strcmp(_fileName.Extract(), nameFile.c_str()) == 0)
         {
             return true;
         }
 
-        while(directory.GetNextNameFile(nameFile))
+        while(directory.GetNextFile(nameFile))
         {
             if(std::strcmp(_fileName.Extract(), nameFile.c_str()) == 0)
             {

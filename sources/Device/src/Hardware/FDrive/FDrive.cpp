@@ -246,7 +246,7 @@ Directory::~Directory()
 }
 
 
-bool Directory::GetFirstNameFile(pchar fullPath, int numFile, FileName &fileName)
+bool Directory::GetFirstFile(pchar fullPath, int numFile, FileName &fileName)
 {
     FILINFO fno;
 
@@ -294,7 +294,7 @@ bool Directory::GetFirstNameFile(pchar fullPath, int numFile, FileName &fileName
 }
 
 
-bool Directory::GetNextNameFile(FileName &fileName)
+bool Directory::GetNextFile(FileName &fileName)
 {
     bool alreadyNull = false;
 

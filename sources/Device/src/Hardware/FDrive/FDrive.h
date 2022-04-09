@@ -51,9 +51,9 @@ struct Directory
 
     bool GetNextDir(char *nameDirOut);
 
-    bool GetFirstNameFile(pchar fullPath, int numFile, FileName &);
+    bool GetFirstFile(pchar fullPath, int numFile, FileName &);
 
-    bool GetNextNameFile(FileName &);
+    bool GetNextFile(FileName &);
 
     static void GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles);
 };
