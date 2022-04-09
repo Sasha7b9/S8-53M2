@@ -47,9 +47,9 @@ struct Directory
 
     ~Directory();
 
-    bool GetFirstNameDir(pchar fuulPath, int numDir, char *nameDirOut);
+    bool GetFirstDir(pchar fuulPath, int numDir, char *nameDirOut);
 
-    bool GetNextNameDir(char *nameDirOut);
+    bool GetNextDir(char *nameDirOut);
 
     bool GetFirstNameFile(pchar fullPath, int numFile, FileName &);
 

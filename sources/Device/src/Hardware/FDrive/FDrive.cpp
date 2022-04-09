@@ -153,7 +153,7 @@ void Directory::GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles)
 }
 
 
-bool Directory::GetFirstNameDir(pchar fullPath, int numDir, char *nameDirOut)
+bool Directory::GetFirstDir(pchar fullPath, int numDir, char *nameDirOut)
 {
     FILINFO fno;
 
@@ -203,7 +203,7 @@ bool Directory::GetFirstNameDir(pchar fullPath, int numDir, char *nameDirOut)
 }
 
 
-bool Directory::GetNextNameDir(char *nameDirOut)
+bool Directory::GetNextDir(char *nameDirOut)
 {
     bool alreadyNull = false;
 
