@@ -155,13 +155,12 @@ void Directory::GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles)
 
 bool Directory::GetFirstName(pchar fullPath, int numDir, char *nameDirOut)
 {
-    memcpy(nameDir, fullPath, strlen(fullPath));
-    nameDir[strlen(fullPath)] = '\0';
+    path.SetFormat(fullPath);
 
     strcpy(fno.fname, lfn);
     fno.fsize = sizeof(lfn);
 
-    if (f_opendir(&dir, nameDir) == FR_OK)
+    if (f_opendir(&dir, path.c_str()) == FR_OK)
     {
         int numDirs = 0;
         FILINFO *pFNO = &fno;
@@ -250,13 +249,12 @@ void Directory::Close()
 
 bool Directory::GetFirstNameFile(pchar fullPath, int numFile, char *nameFileOut)
 {
-    memcpy(nameDir, fullPath, strlen(fullPath));
-    nameDir[strlen(fullPath)] = '\0';
+    path.SetFormat(fullPath);
 
     strcpy(fno.fname, lfn);
     fno.fsize = sizeof(lfn);
 
-    if (f_opendir(&dir, nameDir) == FR_OK)
+    if (f_opendir(&dir, path.c_str()) == FR_OK)
     {
         int numFiles = 0;
         bool alreadyNull = false;

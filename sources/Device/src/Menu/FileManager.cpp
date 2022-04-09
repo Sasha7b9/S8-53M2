@@ -51,7 +51,7 @@ namespace FM
     int  needRedraw = 1;
     bool needOpen = false;
 
-    bool FileIsExist(char name[256]);
+    bool FileIsExist(char fullName[256]);
 
     void DrawLongString(int x, int y, char *string, bool hightlight);
 
@@ -160,7 +160,7 @@ void FM::DrawFiles(int x, int y)
 }
 
 
-bool FM::FileIsExist(char name[256])
+bool FM::FileIsExist(char fullName[256])
 {
     char nameFile[256];
     Directory::GetNumDirsAndFiles(currentDir, &numDirs, &numFiles);
@@ -168,7 +168,7 @@ bool FM::FileIsExist(char name[256])
 
     if(directory.GetFirstNameFile(currentDir, 0, nameFile))
     {
-        if (std::strcmp(name + 2, nameFile) == 0)
+        if (std::strcmp(fullName + 2, nameFile) == 0)
         {
             directory.Close();
             return true;
@@ -176,7 +176,7 @@ bool FM::FileIsExist(char name[256])
 
         while(directory.GetNextNameFile(nameFile))
         {
-            if(std::strcmp(name + 2, nameFile) == 0)
+            if(std::strcmp(fullName + 2, nameFile) == 0)
             {
                 directory.Close();
                 return true;

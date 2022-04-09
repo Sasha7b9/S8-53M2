@@ -30,7 +30,7 @@ struct File
 
 struct Directory
 {
-    char nameDir[_MAX_LFN + 1];
+    String<256> path;
     char lfn[(_MAX_LFN + 1)];
     FILINFO fno;
     DIR dir;
