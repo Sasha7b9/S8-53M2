@@ -210,6 +210,7 @@ bool Directory::GetNextName(char *nameDirOut)
     DIR *pDir = &dir;
     FILINFO *pFNO = &fno;
     bool alreadyNull = false;
+
     while (true)
     {
         if (f_readdir(pDir, pFNO) != FR_OK)
@@ -255,48 +256,45 @@ bool Directory::GetNameFile(pchar fullPath, int numFile, char *nameFileOut)
     strcpy(fno.fname, lfn);
     fno.fsize = sizeof(lfn);
 
-    DIR *pDir = &dir;
-    FILINFO *pFNO = &fno;
-
-    if (f_opendir(pDir, nameDir) == FR_OK)
+    if (f_opendir(&dir, nameDir) == FR_OK)
     {
         int numFiles = 0;
         bool alreadyNull = false;
 
         while (true)
         {
-            if (f_readdir(pDir, pFNO) != FR_OK)
+            if (f_readdir(&dir, &fno) != FR_OK)
             {
                 *nameFileOut = '\0';
-                f_closedir(pDir);
+                f_closedir(&dir);
                 return false;
             }
 
-            if (pFNO->fname[0] == 0)
+            if (fno.fname[0] == 0)
             {
                 if (alreadyNull)
                 {
                     *nameFileOut = '\0';
-                    f_closedir(pDir);
+                    f_closedir(&dir);
                     return false;
                 }
 
                 alreadyNull = true;
             }
 
-            if (numFile == numFiles && (pFNO->fattrib & AM_DIR) == 0)
+            if (numFile == numFiles && (fno.fattrib & AM_DIR) == 0)
             {
-                strcpy(nameFileOut, pFNO->fname);
+                strcpy(nameFileOut, fno.fname);
                 return true;
             }
-            if ((pFNO->fattrib & AM_DIR) == 0 && (pFNO->fname[0] != '.'))
+            if ((fno.fattrib & AM_DIR) == 0 && (fno.fname[0] != '.'))
             {
                 numFiles++;
             }
         }
     }
 
-    f_closedir(pDir);
+    f_closedir(&dir);
 
     return false;
 }
