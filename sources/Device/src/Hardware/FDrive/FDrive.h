@@ -28,6 +28,18 @@ struct File
     bool Close();
 };
 
+
+class FileName : public String<>
+{
+public:
+    FileName() : String() { }
+    FileName(char *name) : String<>(name) { }
+
+    // Возвращает указатель на собственно имя файла, если имя включает в себя абсолютный путь
+    pchar Extract();
+};
+
+
 struct Directory
 {
     String<256> path;
@@ -38,14 +50,15 @@ struct Directory
 
     bool GetNextName(char *nameDirOut);
 
-    bool GetFirstNameFile(pchar fullPath, int numFile, char *nameFileOut);
+    bool GetFirstNameFile(pchar fullPath, int numFile, FileName &);
 
-    bool GetNextNameFile(char *nameFileOut);
+    bool GetNextNameFile(FileName &);
 
     void Close();
 
     static void GetNumDirsAndFiles(pchar  fullPath, int *numDirs, int *numFiles);
 };
+
 
 namespace FDrive
 {
@@ -65,14 +78,4 @@ public:
     DisplayString(char *string) : String<>(string) {}
 
     String<> &Decode();
-};
-
-
-class FileName : public String<>
-{
-public:
-    FileName(char *name) : String<>(name) {}
-
-    // Возвращает указатель на собственно имя файла, если имя включает в себя абсолютный путь
-    pchar Extract();
 };

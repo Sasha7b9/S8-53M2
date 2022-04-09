@@ -246,7 +246,7 @@ void Directory::Close()
 }
 
 
-bool Directory::GetFirstNameFile(pchar fullPath, int numFile, char *nameFileOut)
+bool Directory::GetFirstNameFile(pchar fullPath, int numFile, FileName &fileName)
 {
     path.SetFormat(fullPath);
 
@@ -261,7 +261,7 @@ bool Directory::GetFirstNameFile(pchar fullPath, int numFile, char *nameFileOut)
         {
             if (f_readdir(&dir, &fno) != FR_OK)
             {
-                *nameFileOut = '\0';
+                fileName.SetFormat("");
                 f_closedir(&dir);
                 return false;
             }
@@ -270,7 +270,7 @@ bool Directory::GetFirstNameFile(pchar fullPath, int numFile, char *nameFileOut)
             {
                 if (alreadyNull)
                 {
-                    *nameFileOut = '\0';
+                    fileName.SetFormat("");
                     f_closedir(&dir);
                     return false;
                 }
@@ -280,7 +280,7 @@ bool Directory::GetFirstNameFile(pchar fullPath, int numFile, char *nameFileOut)
 
             if (numFile == numFiles && (fno.fattrib & AM_DIR) == 0)
             {
-                strcpy(nameFileOut, fno.fname);
+                fileName.SetFormat(fno.fname);
                 return true;
             }
             if ((fno.fattrib & AM_DIR) == 0 && (fno.fname[0] != '.'))
@@ -296,16 +296,15 @@ bool Directory::GetFirstNameFile(pchar fullPath, int numFile, char *nameFileOut)
 }
 
 
-bool Directory::GetNextNameFile(char *nameFileOut)
+bool Directory::GetNextNameFile(FileName &fileName)
 {
-    FILINFO *pFNO = &fno;
     bool alreadyNull = false;
 
     while (true)
     {
         if (f_readdir(&dir, &fno) != FR_OK)
         {
-            *nameFileOut = '\0';
+            fileName.SetFormat("");
             f_closedir(&dir);
             return false;
         }
@@ -313,7 +312,7 @@ bool Directory::GetNextNameFile(char *nameFileOut)
         {
             if (alreadyNull)
             {
-                *nameFileOut = '\0';
+                fileName.SetFormat("");
                 f_closedir(&dir);
                 return false;
             }
@@ -321,9 +320,9 @@ bool Directory::GetNextNameFile(char *nameFileOut)
         }
         else
         {
-            if ((pFNO->fattrib & AM_DIR) == 0 && pFNO->fname[0] != '.')
+            if ((fno.fattrib & AM_DIR) == 0 && fno.fname[0] != '.')
             {
-                strcpy(nameFileOut, pFNO->fname);
+                fileName.SetFormat(fno.fname);
                 return true;
             }
         }
