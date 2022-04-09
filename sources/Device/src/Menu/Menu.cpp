@@ -549,25 +549,6 @@ void Menu::ExecuteFuncForLongPressureOnItem(Item *item)
 }
 
 
-void Menu::ChangeStateFlashDrive()
-{
-    if(!FDrive::isConnected)
-    {
-        if(Page::NameOpened() == NamePage::SB_FileManager)
-        {
-            Item::Opened()->CloseOpened();
-        }
-    }
-    else if(FLASH_AUTOCONNECT)
-    {
-        FM::needOpen = true;
-    }
-}
-
-
-extern const Page pService;
-
-
 void TimeControl::Open()
 {
     Warning::ShowGood(Warning::TimeNotSet);

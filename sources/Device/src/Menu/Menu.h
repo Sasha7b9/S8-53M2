@@ -34,8 +34,6 @@ namespace Menu
     // Возвращает путь к текущему пункту меню в текстовом виде, готовом к выводу на экран.
     String<> StringNavigation();
 
-    void ChangeStateFlashDrive();
-
     // Отображено ли меню на экране.
     bool IsShown();
 

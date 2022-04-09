@@ -25,6 +25,8 @@ namespace FDrive
 {
     bool isConnected = false;
     bool needSave = false;
+
+    void ChangeState();
 }
 
 
@@ -65,7 +67,7 @@ void USBH_UserProcess(USBH_HandleTypeDef *, uint8 id)
             {
                 FDrive::isConnected = true;
             }
-            Menu::ChangeStateFlashDrive();
+            FDrive::ChangeState();
             break;
         case HOST_USER_CLASS_SELECTED:
             break;
@@ -74,7 +76,7 @@ void USBH_UserProcess(USBH_HandleTypeDef *, uint8 id)
             break;
         case HOST_USER_DISCONNECTION:
             FDrive::isConnected = false;
-            Menu::ChangeStateFlashDrive();
+            FDrive::ChangeState();
             break;
         default:
             break;
@@ -431,4 +433,20 @@ String<> &DisplayString::Decode()
     }
 
     return *this;
+}
+
+
+void FDrive::ChangeState()
+{
+    if (!FDrive::isConnected)
+    {
+        if (Page::NameOpened() == NamePage::SB_FileManager)
+        {
+            Item::Opened()->CloseOpened();
+        }
+    }
+    else if (FLASH_AUTOCONNECT)
+    {
+        FM::needOpen = true;
+    }
 }
