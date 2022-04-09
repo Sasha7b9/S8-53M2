@@ -59,6 +59,7 @@ namespace FDrive
 };
 
 
+// Класс для преобразования символов названий файлов в читаемые файлы
 class DisplayString : public String<>
 {
 public:
