@@ -36,7 +36,7 @@ namespace FDrive
     static void SaveAsBMP(pchar fileName);
 
     static void SaveAsText(pchar fileName);
-    static void SaveChannel(Chan::E, File &);
+    static void SaveChannel(const DataStruct &, Chan, File &);
 }
 
 
@@ -654,18 +654,48 @@ void FDrive::SaveAsText(pchar fileName)
 
         file.WriteString(String<>("Channel 1:"));
 
-        SaveChannel(ChA, file);
+        SaveChannel(data, ChA, file);
 
         file.WriteString(String<>("Channel 2:"));
 
-        SaveChannel(ChB, file);
+        SaveChannel(data, ChB, file);
 
         Warning::ShowGood(Warning::FileIsSaved);
     }
 }
 
 
-void FDrive::SaveChannel(Chan::E ch, File &file)
+void FDrive::SaveChannel(const DataStruct &data, Chan ch, File &file)
 {
+    const DataSettings &ds = data.ds;
 
+    const uint8 *out = data.DataConst(ch).DataConst();
+
+    int num_points = ds.PointsInChannel();
+
+    int16 rshift = (int16)(ch.IsA() ? ds.rshiftA : ds.rshiftB);
+
+    float divider = Divider::ToAbs(ch.IsA() ? ds.div_a : ds.div_b);
+
+    Range::E range = ds.range[ch];
+
+    if (ds.peak_det)
+    {
+        for (int i = 0; i < num_points; i++)
+        {
+            float value1 = ValueFPGA::ToVoltage(out[i * 2], range, rshift) * divider;
+            float value2 = ValueFPGA::ToVoltage(out[i * 2 + 1], range, rshift) * divider;
+
+            file.WriteString(String<>("%d : %f %f", i, value1, value2));
+        }
+    }
+    else
+    {
+        for (int i = 0; i < num_points; i++)
+        {
+            float value = ValueFPGA::ToVoltage(out[i], range, rshift) * divider;
+
+            file.WriteString(String<>("%d : %f", i, value));
+        }
+    }
 }
