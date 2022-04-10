@@ -68,7 +68,7 @@ namespace FDrive
 
     void Update();
 
-    bool SaveScreenToFlashDrive();
+    bool SaveSignal();
 };
 
 

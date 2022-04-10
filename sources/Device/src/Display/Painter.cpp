@@ -589,7 +589,7 @@ uint Painter::ReduceBrightness(uint colorValue, float newBrightness)
 }
 
 
-bool FDrive::SaveScreenToFlashDrive()
+bool FDrive::SaveSignal()
 {
 
 #pragma pack(1)
