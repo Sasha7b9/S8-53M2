@@ -80,19 +80,19 @@ pchar Range::ToName(Range::E range)
 {
     static pchar  names[Range::Count] =
     {
-        "Range::_2mV",
-        "Range::_5mV",
-        "Range::_10mV",
-        "Range::_20mV",
-        "Range::_50mV",
-        "Range::_100mV",
-        "Range::_200mV",
-        "Range::_500mV",
-        "Range::_1V",
-        "Range::_2V",
-        "Range::_5V",
-        "Range::_10V",
-        "Range::_20V"
+        "2mV",
+        "5mV",
+        "10mV",
+        "20mV",
+        "50mV",
+        "100mV",
+        "200mV",
+        "500mV",
+        "1V",
+        "2V",
+        "5V",
+        "10V",
+        "20V"
     };
     return names[range];
 }
