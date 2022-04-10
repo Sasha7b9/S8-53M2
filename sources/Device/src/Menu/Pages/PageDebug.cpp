@@ -168,7 +168,7 @@ static const Button bSaveNRST
 );
 
 
-void PageDebug::ADC::ResetCalRShift(Chan ch)
+void PageDebug::_ADC::ResetCalRShift(Chan ch)
 {
     std::memset(&gset.chan[ch].cal_rshift[0][0], 0, sizeof(gset.chan[ch].cal_rshift[0][0]) * Range::Count * ModeCouple::Count);
 }
@@ -176,14 +176,14 @@ void PageDebug::ADC::ResetCalRShift(Chan ch)
 
 static void OnPress_RestRShift()
 {
-    PageDebug::ADC::ResetCalRShift(ChA);
-    PageDebug::ADC::ResetCalRShift(ChB);
+    PageDebug::_ADC::ResetCalRShift(ChA);
+    PageDebug::_ADC::ResetCalRShift(ChB);
 }
 
 
 static const Button bResetShift
 (
-    PageDebug::ADC::Stretch::self, nullptr,
+    PageDebug::_ADC::Stretch::self, nullptr,
     "Сброс", "Reset",
     "Сброс коэффициента растяжки в 1", "Сброс коэффициента растяжки в 1",
     OnPress_RestRShift
@@ -198,7 +198,7 @@ static void OnDraw_ShiftADCA(int x, int y)
 
 static const Choice mcShiftADCA =
 {
-    TypeItem::Choice, PageDebug::ADC::Shift::self, nullptr,
+    TypeItem::Choice, PageDebug::_ADC::Shift::self, nullptr,
     {
         "Смещение к1", "Shift ch1",
         "Смещение первого канала",
@@ -220,7 +220,7 @@ static void OnDraw_ShiftADCB(int x, int y)
 
 static const Choice mcShiftADCB =
 {
-    TypeItem::Choice, PageDebug::ADC::Shift::self, nullptr,
+    TypeItem::Choice, PageDebug::_ADC::Shift::self, nullptr,
     {
         "Смещение к1", "Shift ch1",
         "Смещение первого канала",
@@ -244,7 +244,7 @@ static const arrayItems itemsADC_Shift =
 
 static const Page mpADC_Shift
 (
-    PageDebug::ADC::self, 0,
+    PageDebug::_ADC::self, 0,
     "СМЕЩЕНИЕ", "SHIFT",
     "",
     "",
@@ -260,7 +260,7 @@ void OnChanged_Compact(bool)
 
 static const Choice mcADC_Compact =
 {
-    TypeItem::Choice, PageDebug::ADC::self, nullptr,
+    TypeItem::Choice, PageDebug::_ADC::self, nullptr,
     {
         "Уплотнение", "Compress",
         "При включении считывается больше точек",
@@ -276,7 +276,7 @@ static const Choice mcADC_Compact =
 
 static const Governor mgADC_FirstByte
 (
-    PageDebug::ADC::self, nullptr,
+    PageDebug::_ADC::self, nullptr,
     "Первый байт", "First byte",
     "", "",
     &nrst.first_byte, -5, 5, nullptr, nullptr
@@ -285,10 +285,10 @@ static const Governor mgADC_FirstByte
 
 static const arrayItems itemsADC =
 {
-    (void *)PageDebug::ADC::Balance::self,
-    (void *)PageDebug::ADC::Stretch::self,
-    (void *)PageDebug::ADC::Shift::self,
-    (void *)PageDebug::ADC::AltShift::self,
+    (void *)PageDebug::_ADC::Balance::self,
+    (void *)PageDebug::_ADC::Stretch::self,
+    (void *)PageDebug::_ADC::Shift::self,
+    (void *)PageDebug::_ADC::AltShift::self,
     (void *)&mcADC_Compact,
     (void *)&mgADC_FirstByte
 };
@@ -306,7 +306,7 @@ static const Page mpADC
 
 static const Governor mgADC_Balance_ShiftA
 (
-    PageDebug::ADC::Balance::self, nullptr,
+    PageDebug::_ADC::Balance::self, nullptr,
     "Смещение 1", "Offset 1",
     "",
     "",
@@ -316,7 +316,7 @@ static const Governor mgADC_Balance_ShiftA
 
 static const Governor mgADC_Balance_ShiftB
 (
-    PageDebug::ADC::Balance::self, nullptr,
+    PageDebug::_ADC::Balance::self, nullptr,
     "Смещение 2", "Offset 2",
     "",
     "",
@@ -340,7 +340,7 @@ static const Page mpADC_Balance
 );
 
 
-void PageDebug::ADC::ResetCalStretch(Chan ch)
+void PageDebug::_ADC::ResetCalStretch(Chan ch)
 {
     CAL_STRETCH(ch) = 1.0f;
 }
@@ -348,14 +348,14 @@ void PageDebug::ADC::ResetCalStretch(Chan ch)
 
 static void OnPress_ResetStretch()
 {
-    PageDebug::ADC::ResetCalStretch(ChA);
-    PageDebug::ADC::ResetCalStretch(ChB);
+    PageDebug::_ADC::ResetCalStretch(ChA);
+    PageDebug::_ADC::ResetCalStretch(ChB);
 }
 
 
 static const Button bResetStretch
 (
-    PageDebug::ADC::Stretch::self, nullptr,
+    PageDebug::_ADC::Stretch::self, nullptr,
     "Сброс", "Reset",
     "Сброс коэффициента растяжки в 1", "Сброс коэффициента растяжки в 1",
     OnPress_ResetStretch
@@ -370,7 +370,7 @@ static void OnDraw_StretchADCA(int x, int y)
 
 static const Choice mcStretchADCA =
 {
-    TypeItem::Choice, PageDebug::ADC::Stretch::self, nullptr,
+    TypeItem::Choice, PageDebug::_ADC::Stretch::self, nullptr,
     {
         "Растяжка к1", "Stretch ch1",
         "Растяжка первого канала",
@@ -392,7 +392,7 @@ static void OnDraw_StretchADCB(int x, int y)
 
 static const Choice mcStretchADCB =
 {
-    TypeItem::Choice, PageDebug::ADC::Stretch::self, nullptr,
+    TypeItem::Choice, PageDebug::_ADC::Stretch::self, nullptr,
     {
         "Растяжка к2", "Stretch ch2",
         "Растяжка первого канала",
@@ -435,7 +435,7 @@ static void OnPress_ADC_AltRShift_Reset()
 
 static const Button mbADC_AltRShift_Reset
 (
-    PageDebug::ADC::AltShift::self, 0,
+    PageDebug::_ADC::AltShift::self, 0,
     "Сброс", "Reset",
     "", "",
     OnPress_ADC_AltRShift_Reset
@@ -450,7 +450,7 @@ static void OnChanged_ADC_AltRShift_A()
 
 static const Governor mbADC_AltRShift_2mV_DC_A
 (
-    PageDebug::ADC::AltShift::self, 0,
+    PageDebug::_ADC::AltShift::self, 0,
     "См 1к 2мВ пост", "Shift 1ch 2mV DC",
     "",
     "",
@@ -466,7 +466,7 @@ static void OnChanged_ADC_AltRShift_B()
 
 static const Governor mbADC_AltRShift_2mV_DC_B
 (
-    PageDebug::ADC::AltShift::self, 0,
+    PageDebug::_ADC::AltShift::self, 0,
     "См 2к 2мВ пост", "Shift 2ch 2mV DC",
     "",
     "",
@@ -476,7 +476,7 @@ static const Governor mbADC_AltRShift_2mV_DC_B
 
 static const Governor mbADC_AltRShift_5mV_DC_A
 (
-    PageDebug::ADC::AltShift::self, 0,
+    PageDebug::_ADC::AltShift::self, 0,
     "См 1к 5мВ пост", "Shift 1ch 5mV DC",
     "",
     "",
@@ -486,7 +486,7 @@ static const Governor mbADC_AltRShift_5mV_DC_A
 
 static const Governor mbADC_AltRShift_5mV_DC_B
 (
-    PageDebug::ADC::AltShift::self, 0,
+    PageDebug::_ADC::AltShift::self, 0,
     "См 2к 5мВ пост", "Shift 2ch 5mV DC",
     "",
     "",
@@ -496,7 +496,7 @@ static const Governor mbADC_AltRShift_5mV_DC_B
 
 static const Governor mbADC_AltRShift_10mV_DC_A
 (
-    PageDebug::ADC::AltShift::self, 0,
+    PageDebug::_ADC::AltShift::self, 0,
     "См 1к 10мВ пост", "Shift 1ch 10mV DC",
     "",
     "",
@@ -506,7 +506,7 @@ static const Governor mbADC_AltRShift_10mV_DC_A
 
 static const Governor mbADC_AltRShift_10mV_DC_B
 (
-    PageDebug::ADC::AltShift::self, 0,
+    PageDebug::_ADC::AltShift::self, 0,
     "См 2к 10мВ пост", "Shift 2ch 10mV DC",
     "",
     "",
@@ -766,7 +766,7 @@ static const arrayItems itemsDebug =
 {
     (void *)&bSaveNRST,
     (void *)PageDebug::Console::self,
-    (void *)PageDebug::ADC::self,
+    (void *)PageDebug::_ADC::self,
     (void *)PageDebug::Randomizer::self,
     (void *)PageDebug::SerialNumber::self,
     (void *)&mcStats,
@@ -787,10 +787,10 @@ static const Page pDebug
 
 const Page *PageDebug::self = &pDebug;
 const Page *PageDebug::Console::self = &mpConsole;
-const Page *PageDebug::ADC::self = &mpADC;
-const Page *PageDebug::ADC::Balance::self = &mpADC_Balance;
-const Page *PageDebug::ADC::Stretch::self = &mpADC_Stretch;
-const Page *PageDebug::ADC::Shift::self = &mpADC_Shift;
-const Page *PageDebug::ADC::AltShift::self = &mpADC_AltRShift;
+const Page *PageDebug::_ADC::self = &mpADC;
+const Page *PageDebug::_ADC::Balance::self = &mpADC_Balance;
+const Page *PageDebug::_ADC::Stretch::self = &mpADC_Stretch;
+const Page *PageDebug::_ADC::Shift::self = &mpADC_Shift;
+const Page *PageDebug::_ADC::AltShift::self = &mpADC_AltRShift;
 const Page *PageDebug::SerialNumber::self = &ppSerialNumber;
 const Page *PageDebug::Randomizer::self = &mpRandomizer;

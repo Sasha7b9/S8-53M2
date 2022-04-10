@@ -13,6 +13,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Display/Painter.h"
 #include "Utils/Text/Warnings.h"
+#include "Menu/Pages/Definition.h"
 
 
 static FATFS USBDISKFatFs;
@@ -616,5 +617,4 @@ void FDrive::SaveAsBMP()
 
 void FDrive::SaveAsText()
 {
-
 }

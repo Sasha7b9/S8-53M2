@@ -83,7 +83,7 @@ struct PageDebug
         static const Page *self;
     };
 
-    struct ADC
+    struct _ADC
     {
         // —бросить калибровочные коэффициенты смещени€ канала
         static void ResetCalRShift(Chan);
