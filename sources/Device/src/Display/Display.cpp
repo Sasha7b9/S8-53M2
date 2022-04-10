@@ -243,7 +243,7 @@ void Display::Update(bool endScene)
 
     if (FDrive::needSave)
     {
-        if (Painter::SaveScreenToFlashDrive())
+        if (FDrive::SaveScreenToFlashDrive())
         {
             Warning::ShowGood(Warning::FileIsSaved);
         }

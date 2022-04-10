@@ -46,8 +46,6 @@ namespace Painter
     // last_valid - последняя линия, которую нужно рисовать
     void DrawVLineArray(int x, int numLines, uint8 *y0y1, Color::E, int last_valid);
 
-    bool SaveScreenToFlashDrive();
-
     void DrawHintsForSmallButton(int x, int y, int width, void *smallButton);
 
     void DrawScaleLine(int x, bool forTrigLev);

@@ -589,7 +589,7 @@ uint Painter::ReduceBrightness(uint colorValue, float newBrightness)
 }
 
 
-bool Painter::SaveScreenToFlashDrive()
+bool FDrive::SaveScreenToFlashDrive()
 {
 
 #pragma pack(1)
@@ -692,7 +692,7 @@ bool Painter::SaveScreenToFlashDrive()
         {
             for (int x = 1; x < 320; x++)
             {
-                buffer[x] = (uint8)GetColor(x, y);
+                buffer[x] = (uint8)Painter::GetColor(x, y);
             }
 
             file.Write(buffer, 320);
