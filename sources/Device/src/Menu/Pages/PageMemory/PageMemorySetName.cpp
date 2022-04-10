@@ -7,14 +7,17 @@
 #include "Utils/Text/Text.h"
 #include "Utils/Text/Tables.h"
 #include "Display/Screen/Grid.h"
+#include "Menu/Menu.h"
 #include <cstring>
 
 
 static void PressSB_SetName_Exit()
 {
+    Menu::AdditionPage::Remove();
+
     if (EXIT_FROM_SET_NAME_TO_DIS_MENU)
     {
-        Page::FromName(NamePage::SB_MemExtSetName)->ShortPressOnItem(0);
+//        Page::FromName(NamePage::SB_MemExtSetName)->ShortPressOnItem(0);
     }
     else if (EXIT_FROM_SET_NAME_TO_LAST)
     {

@@ -66,7 +66,15 @@ namespace Menu
     {
         const Page *current = nullptr;
 
-        void Set(const Page *page)  { current = page; }
+        void Set(const Page *page)
+        {
+            current = page;
+
+            if (current->funcOnPress)
+            {
+                current->funcOnPress();
+            }
+        }
 
         void Remove()               { current = nullptr; }
     }
