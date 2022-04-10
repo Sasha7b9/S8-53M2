@@ -15,6 +15,7 @@
 #include "Utils/Text/Warnings.h"
 #include "Menu/Pages/Definition.h"
 #include "Data/Storage.h"
+#include "Data/Processing.h"
 #include "FPGA/SettingsFPGA.h"
 
 
@@ -632,15 +633,21 @@ void FDrive::SaveAsText(pchar fileName)
 {
     File file;
 
-    const DataStruct &data = Storage::GetLatest();
+    const DataStruct &data = Processing::out;
     const DataSettings &ds = data.ds;
 
     if (file.OpenNewForWrite(fileName))
     {
         file.WriteString(String<>("points : %d", ds.PointsInChannel()));
         file.WriteString(String<>("peak det : %s", ds.peak_det ? "on" : "off"));
+
         file.WriteString(String<>("range 1 : %s", Range::ToName(ds.range[ChA])));
-        file.WriteString(String<>("rshift 1 : %f V", RShift(ds.rshiftA).ToAbs(ds.range[ChA])));
+        file.WriteString(String<>("divider 1 : %d", Divider::ToAbs(ds.div_a)));
+        file.WriteString(String<>("rshift 1 : %f V", RShift((int16)ds.rshiftA).ToAbs(ds.range[ChA]) * (float)Divider::ToAbs(ds.div_a)));
+        
+        file.WriteString(String<>("range 2 : %s", Range::ToName(ds.range[ChB])));
+        file.WriteString(String<>("divider 2 : %d", Divider::ToAbs(ds.div_b)));
+        file.WriteString(String<>("rshift 2 : %f V", RShift((int16)ds.rshiftB).ToAbs(ds.range[ChB]) * (float)Divider::ToAbs(ds.div_b)));
 
         Warning::ShowGood(Warning::FileIsSaved);
     }
