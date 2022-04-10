@@ -241,15 +241,7 @@ void Display::Update(bool endScene)
 
     Painter::EndScene(endScene);
 
-    if (FDrive::needSave)
-    {
-        if (FDrive::SaveSignal())
-        {
-            Warning::ShowGood(Warning::FileIsSaved);
-        }
-
-        FDrive::needSave = false;
-    }
+    FDrive::SaveSignal();
 
     if (funcAfterDraw)
     {

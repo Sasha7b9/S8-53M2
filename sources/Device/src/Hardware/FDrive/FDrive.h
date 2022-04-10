@@ -68,7 +68,7 @@ namespace FDrive
 
     void Update();
 
-    bool SaveSignal();
+    void SaveSignal();
 };
 
 

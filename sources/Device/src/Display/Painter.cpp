@@ -14,6 +14,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/InterCom.h"
 #include "Display/Screen/Grid.h"
+#include "Utils/Text/Warnings.h"
 #include <cstring>
 
 
@@ -589,8 +590,14 @@ uint Painter::ReduceBrightness(uint colorValue, float newBrightness)
 }
 
 
-bool FDrive::SaveSignal()
+void FDrive::SaveSignal()
 {
+    if (!needSave)
+    {
+        return;
+    }
+
+    needSave = false;
 
 #pragma pack(1)
     struct BITMAPFILEHEADER
@@ -652,7 +659,7 @@ bool FDrive::SaveSignal()
     if (!fileName.Size())
     {
         LOG_ERROR("Не получено имя для файла");
-        return false;
+        return;
     }
 
     if (file.OpenNewForWrite(fileName.c_str()))
@@ -698,10 +705,8 @@ bool FDrive::SaveSignal()
             file.Write(buffer, 320);
         }
 
-        return true;
+        Warning::ShowGood(Warning::FileIsSaved);
     }
-
-    return false;
 }
 
 
