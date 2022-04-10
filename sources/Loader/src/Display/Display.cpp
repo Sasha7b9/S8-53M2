@@ -59,25 +59,13 @@ void Display::Update()
 
     BeginFrame(Color::BLACK);
 
-    if (MainStruct::state != State::NoDrive)
-    {
-        Text("%d сек", TIMER_MS / 1000).Draw(20, 20, Color::WHITE);
-    }
-
     Rectangle(Display::WIDTH, Display::HEIGHT).Draw(0, 0, Color::WHITE);
     border1.Draw(2, 2);
     Rectangle(Display::WIDTH - 8, Display::HEIGHT - 8).Draw(4, 4);
-//    border2.Draw(6, 6);
-//    Rectangle(Display::WIDTH - 16, Display::HEIGHT - 16).Draw(8, 8);
 
-    if (MainStruct::state == State::NoDrive)
+    if (MainStruct::state < State::EraseSectors)
     {
         Text("МНИПИ").DrawBig(30, 80, 9);
-//        DrawBigMNIPI();
-    }
-    else if (MainStruct::state == State::DriveDetected)
-    {
-        DrawMessage("Обнаружен диск. Попытка подключения...");
     }
     else if (MainStruct::state == State::EraseSectors)
     {

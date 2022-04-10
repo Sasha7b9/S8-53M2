@@ -48,32 +48,19 @@ int main()
     {
         FDrive::Update();
 
-        if (MainStruct::state != State::NoDrive)
+        if (MainStruct::state == State::DriveIsMounted)
         {
-            break;
-        }
-    }
-
-    if (MainStruct::state != State::NoDrive)
-    {
-        while ((TIMER_MS - timeStart < TIME_WAIT) &&
-            (MainStruct::state != State::DriveIsMounted) &&
-            (MainStruct::state != State::WrongDrive))
-        {
-            FDrive::Update();
-        }
-
-        if (MainStruct::state == State::DriveIsMounted)                    // Это означает, что диск удачно примонтирован
-        {
-            if (FDrive::FileExist(FILE_NAME))                       // Если на диске обнаружена прошивка
+            if (FDrive::FileExist(FILE_NAME))
             {
                 EraseSectors();
 
                 Update();
+
+                MainStruct::state = State::UpdateIsFinished;
+
+                break;
             }
         }
-
-        MainStruct::state = State::UpdateIsFinished;
     }
 
     Timer::Disable(TypeTimer::DisplayUpdate);
