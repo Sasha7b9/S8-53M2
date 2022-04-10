@@ -76,7 +76,10 @@ namespace Menu
             }
         }
 
-        void Remove()               { current = nullptr; }
+        void Remove()
+        {
+            current = nullptr;
+        }
     }
 }
 
