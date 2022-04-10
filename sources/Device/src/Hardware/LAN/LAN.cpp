@@ -20,7 +20,7 @@ struct netif gnetif;
 namespace LAN
 {
     bool cableIsConnected = false;
-    uint timeLastEthEvent = 5000;
+    uint timeLastEthEvent = (uint)(-1);
 
     static struct tcp_pcb *pcbClient = nullptr;      // 0, если клиент не приконнекчен
 
@@ -448,7 +448,10 @@ void LAN::Update()
     // Read a received packet from the Ethernet buffers and send it to the lwIP for handling
     ethernetif_input(&gnetif);
 
-    cableIsConnected = (TIME_MS - timeLastEthEvent) < 5000;
+    if (timeLastEthEvent != (uint)(-1))
+    {
+        cableIsConnected = (TIME_MS - timeLastEthEvent) < 5000;
+    }
 
     // Handle timeouts
     sys_check_timeouts();
