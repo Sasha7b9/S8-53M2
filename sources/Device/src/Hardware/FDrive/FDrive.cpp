@@ -14,6 +14,8 @@
 #include "Display/Painter.h"
 #include "Utils/Text/Warnings.h"
 #include "Menu/Pages/Definition.h"
+#include "Data/Storage.h"
+#include "FPGA/SettingsFPGA.h"
 
 
 static FATFS USBDISKFatFs;
@@ -30,9 +32,9 @@ namespace FDrive
 
     void ChangeState();
 
-    void SaveAsBMP();
+    void SaveAsBMP(pchar fileName);
 
-    void SaveAsText();
+    void SaveAsText(pchar fileName);
 }
 
 
@@ -356,7 +358,7 @@ bool File::OpenNewForWrite(pchar  fullPathToFile)
 }
 
 
-bool File::Write(void *_data, int size)
+bool File::Write(const void *_data, int size)
 {
     uint8 *data = (uint8 *)_data;
 
@@ -386,6 +388,17 @@ bool File::Write(void *_data, int size)
     }
 
     return true;
+}
+
+
+bool File::WriteString(const String<> &string)
+{
+    if (Write(string.c_str(), string.Size()))
+    {
+        return Write("\x0d\x0a", 2);
+    }
+
+    return false;
 }
 
 
@@ -491,18 +504,26 @@ void FDrive::SaveSignal()
 
     needSave = false;
 
+    String<> fileName = FM::GetNameForNewFile();
+
+    if (!fileName.Size())
+    {
+        LOG_ERROR("Не получено имя для файла");
+        return;
+    }
+
     if (MODE_SAVE_SIGNAL_IS_BMP)
     {
-        SaveAsBMP();
+        SaveAsBMP(fileName.c_str());
     }
     else
     {
-        SaveAsText();
+        SaveAsText(fileName.c_str());
     }
 }
 
 
-void FDrive::SaveAsBMP()
+void FDrive::SaveAsBMP(pchar fileName)
 {
 #pragma pack(1)
     struct BITMAPFILEHEADER
@@ -559,15 +580,7 @@ void FDrive::SaveAsBMP()
 
     File file;
 
-    String<> fileName = FM::GetNameForNewFile();
-
-    if (!fileName.Size())
-    {
-        LOG_ERROR("Не получено имя для файла");
-        return;
-    }
-
-    if (file.OpenNewForWrite(fileName.c_str()))
+    if (file.OpenNewForWrite(fileName))
     {
         file.Write((uint8 *)(&bmFH), 14);
 
@@ -615,6 +628,20 @@ void FDrive::SaveAsBMP()
 }
 
 
-void FDrive::SaveAsText()
+void FDrive::SaveAsText(pchar fileName)
 {
+    File file;
+
+    const DataStruct &data = Storage::GetLatest();
+    const DataSettings &ds = data.ds;
+
+    if (file.OpenNewForWrite(fileName))
+    {
+        file.WriteString(String<>("points : %d", ds.PointsInChannel()));
+        file.WriteString(String<>("peak det : %s", ds.peak_det ? "on" : "off"));
+        file.WriteString(String<>("range 1 : %s", Range::ToName(ds.range[ChA])));
+        file.WriteString(String<>("rshift 1 : %f V", RShift(ds.rshiftA).ToAbs(ds.range[ChA])));
+
+        Warning::ShowGood(Warning::FileIsSaved);
+    }
 }

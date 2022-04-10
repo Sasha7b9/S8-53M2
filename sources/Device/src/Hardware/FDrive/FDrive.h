@@ -37,7 +37,10 @@ struct File
     // Функция создаст файл для записи. Если такой файл уже существует, сотрёт его, заменит новым нулевой длины и откроет его
     bool OpenNewForWrite(pchar  fullPathToFile);
 
-    bool Write(void *data, int sizeData);
+    bool Write(const void *data, int sizeData);
+
+    // Записывает стоку в файл с заменой завершающего нуля символами конца строки и перевода каретки
+    bool WriteString(const String<> &string);
 };
 
 
