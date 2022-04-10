@@ -33,9 +33,10 @@ namespace FDrive
 
     void ChangeState();
 
-    void SaveAsBMP(pchar fileName);
+    static void SaveAsBMP(pchar fileName);
 
-    void SaveAsText(pchar fileName);
+    static void SaveAsText(pchar fileName);
+    static void SaveChannel(Chan::E, File &);
 }
 
 
@@ -651,6 +652,20 @@ void FDrive::SaveAsText(pchar fileName)
         file.WriteString(String<>("divider 2 : %d", Divider::ToAbs(ds.div_b)));
         file.WriteString(String<>("rshift 2 : %f V", RShift((int16)ds.rshiftB).ToAbs(ds.range[ChB]) * (float)Divider::ToAbs(ds.div_b)));
 
+        file.WriteString(String<>("Channel 1:"));
+
+        SaveChannel(ChA, file);
+
+        file.WriteString(String<>("Channel 2:"));
+
+        SaveChannel(ChB, file);
+
         Warning::ShowGood(Warning::FileIsSaved);
     }
+}
+
+
+void FDrive::SaveChannel(Chan::E ch, File &file)
+{
+
 }
