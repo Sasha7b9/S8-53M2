@@ -684,8 +684,6 @@ int RShift::ToRel(float rShiftAbs, Range::E range)
 
 void DataSettings::FillFromCurrentSettings()
 {
-    inv_a = SET_INVERSE_A ? 1U : 0U;
-    inv_b = SET_INVERSE_B ? 1U : 0U;
     range[0] = SET_RANGE_A;
     range[1] = SET_RANGE_B;
     rshiftA = (uint)SET_RSHIFT_A;
@@ -808,9 +806,7 @@ float Range::MaxOnScreen(Range::E range)
 
 bool DataSettings::Equal(const DataSettings &ds) const
 {
-    return  (inv_a    == ds.inv_a) &&
-            (inv_b    == ds.inv_b) &&
-            (range[0] == ds.range[0]) &&
+    return  (range[0] == ds.range[0]) &&
             (range[1] == ds.range[1]) &&
             (rshiftA  == ds.rshiftA) &&
             (rshiftB  == ds.rshiftB) &&

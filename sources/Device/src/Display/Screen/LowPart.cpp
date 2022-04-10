@@ -256,7 +256,6 @@ void LowPart::WriteTextVoltage(Chan ch, int x, int y)
 
         if (ds.valid)
         {
-            inverse = ch.IsA() ? ds.inv_a : ds.inv_b;
             modeCouple = ch.IsA() ? ds.coupleA : ds.coupleB;
             multiplier = ch.IsA() ? ds.div_a : ds.div_b;
             range = ds.range[ch];

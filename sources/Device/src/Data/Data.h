@@ -39,8 +39,6 @@ struct DataSettings
     TBase::E            tbase               : 5;    // Масштаб по времени
     ModeCouple::E       coupleA             : 2;    // Режим канала по входу
     uint                peak_det            : 2;    // Включен ли пиковый детектор
-    uint                inv_a               : 1;
-    uint                inv_b               : 1;
     Divider::E          div_a               : 1;
     Divider::E          div_b               : 1;
     uint                valid               : 1;
