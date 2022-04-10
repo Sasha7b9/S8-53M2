@@ -641,6 +641,8 @@ void FDrive::SaveAsText(pchar fileName)
         file.WriteString(String<>("points : %d", ds.PointsInChannel()));
         file.WriteString(String<>("peak det : %s", ds.peak_det ? "on" : "off"));
 
+        file.WriteString(String<>("tbase : %s", TBase::ToString(ds.tbase)));
+
         file.WriteString(String<>("range 1 : %s", Range::ToName(ds.range[ChA])));
         file.WriteString(String<>("divider 1 : %d", Divider::ToAbs(ds.div_a)));
         file.WriteString(String<>("rshift 1 : %f V", RShift((int16)ds.rshiftA).ToAbs(ds.range[ChA]) * (float)Divider::ToAbs(ds.div_a)));
