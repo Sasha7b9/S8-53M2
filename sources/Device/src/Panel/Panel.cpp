@@ -525,7 +525,14 @@ namespace Panel
             Menu::SetAutoHide(true);
             Flags::needFinishDraw = true;
 
-            Menu::Show(!Menu::IsShown());
+            if (Menu::AdditionPage::current)
+            {
+                Item::CloseOpened();
+            }
+            else
+            {
+                Menu::Show(!Menu::IsShown());
+            }
         }
     }
 

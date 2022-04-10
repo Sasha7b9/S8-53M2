@@ -282,7 +282,7 @@ int Page::NumCurrentSubPage() const
 
 bool Menu::IsShown()
 {
-    return gset.menu.isShown;
+    return gset.menu.isShown || (AdditionPage::current != nullptr);
 }
 
 
