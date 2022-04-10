@@ -111,10 +111,17 @@ TypeItem::E Item::TypeOpened()
 }
 
 
-Item* Item::Opened()
+Item *Item::Opened()
 {
-    TypeItem::E type = TypeItem::None;
-    return (Item *)Menu::RetLastOpened((Page*)PageMain::self, &type);
+    if (Menu::AdditionPage::current)
+    {
+        return (Item *)Menu::AdditionPage::current;
+    }
+    else
+    {
+        TypeItem::E type = TypeItem::None;
+        return (Item *)Menu::RetLastOpened((Page *)PageMain::self, &type);
+    }
 }
 
 
