@@ -440,7 +440,7 @@ HAL_StatusTypeDef HAL_ETH_Init(ETH_HandleTypeDef *heth)
       (heth->Init).DuplexMode = ETH_MODE_HALFDUPLEX;           
     }
     /* Configure the MAC with the speed fixed by the auto-negotiation process */
-    if((phyreg & PHY_SPEED_STATUS) == PHY_SPEED_STATUS)
+    if((phyreg & PHY_SR_SPEED_STATUS) == PHY_SR_SPEED_STATUS)
     {  
       /* Set Ethernet speed to 10M following the auto-negotiation */
       (heth->Init).Speed = ETH_SPEED_10M; 

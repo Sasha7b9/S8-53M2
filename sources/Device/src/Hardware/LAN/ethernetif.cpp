@@ -514,7 +514,7 @@ void ethernetif_update_config(struct netif *netif)
                 EthHandle.Init.DuplexMode = ETH_MODE_HALFDUPLEX;
             }
             /* Configure the MAC with the speed fixed by the auto-negotiation process */
-            if (regvalue & PHY_SPEED_STATUS)
+            if (regvalue & PHY_SR_SPEED_STATUS)
             {
                 /* Set Ethernet speed to 10M following the auto-negotiation */
                 EthHandle.Init.Speed = ETH_SPEED_10M;
