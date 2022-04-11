@@ -29,21 +29,36 @@ static void FuncDraw()
 }
 
 
-void PageService::OnPress_ResetSettings()
+static void OnPress_ResetSettings()
 {
-    bool running = FPGA::IsRunning();
-    FPGA::Stop();
-    Panel::Disable();
-    Display::SetDrawMode(DrawMode::Timer, FuncDraw);
+    PageService::ResetSettings(true);
+}
 
-    if (Panel::WaitPressingButton() == Key::Start)
+
+void PageService::ResetSettings(bool wait_key)
+{
+    if (wait_key)
     {
-        gset.Reset();
-        FPGA::Init();
+        Panel::Disable();
+        Display::SetDrawMode(DrawMode::Timer, FuncDraw);
+
+        if (Panel::WaitPressingButton() != Key::Start)
+        {
+            Display::SetDrawMode(DrawMode::Normal);
+            Panel::Enable();
+
+            return;
+        }
+
+        Display::SetDrawMode(DrawMode::Normal);
+        Panel::Enable();
     }
 
-    Display::SetDrawMode(DrawMode::Normal);
-    Panel::Enable();
+    bool running = FPGA::IsRunning();
+    FPGA::Stop();
+
+    gset.Reset();
+    FPGA::Init();
 
     if (running)
     {
@@ -58,7 +73,7 @@ const Button bResetSettings
     "—брос настроек", "Reset settings",
     "—брос настроек на настройки по умолчанию",
     "Reset to default settings",
-    PageService::OnPress_ResetSettings
+    OnPress_ResetSettings
 );
 
 

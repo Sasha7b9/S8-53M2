@@ -40,15 +40,7 @@ bool SCPI::COMMON::STOP(pchar)
 
 bool SCPI::COMMON::RESET(pchar)
 {
-    PageService::OnPress_ResetSettings();
-
-    uint8 buffer[3] = {0xFF, Key::Start, Action::Down };
-
-    Panel::Callback::OnReceiveSPI5(buffer, 3);
-
-    buffer[2] = Action::Up;
-
-    Panel::Callback::OnReceiveSPI5(buffer, 3);
+    PageService::ResetSettings(false);
 
     return true;
 }

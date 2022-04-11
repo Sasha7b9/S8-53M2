@@ -236,7 +236,8 @@ struct PageService
 {
     static const Page *self;
 
-    static void OnPress_ResetSettings();
+    // Если wait_key, то нужно ждать нажатия клавиши ПУСК
+    static void ResetSettings(bool wait_key);
 
     static void OnPress_AutoSearch();
 
