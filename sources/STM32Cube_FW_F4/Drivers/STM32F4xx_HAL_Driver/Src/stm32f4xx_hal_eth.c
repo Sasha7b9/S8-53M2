@@ -410,7 +410,7 @@ HAL_StatusTypeDef HAL_ETH_Init(ETH_HandleTypeDef *heth)
         return HAL_TIMEOUT;
       }
       
-    } while (((phyreg & PHY_AUTONEGO_COMPLETE) != PHY_AUTONEGO_COMPLETE));
+    } while (((phyreg & PHY_BSR_AUTONEGO_COMPLETE) != PHY_BSR_AUTONEGO_COMPLETE));
     
     /* Read the result of the auto-negotiation */
     if((HAL_ETH_ReadPHYRegister(heth, PHY_SR, &phyreg)) != HAL_OK)

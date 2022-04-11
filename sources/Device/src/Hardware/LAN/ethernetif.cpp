@@ -497,7 +497,7 @@ void ethernetif_update_config(struct netif *netif)
                     goto error;
                 }
 
-            } while (((regvalue & PHY_AUTONEGO_COMPLETE) != PHY_AUTONEGO_COMPLETE));
+            } while (((regvalue & PHY_BSR_AUTONEGO_COMPLETE) != PHY_BSR_AUTONEGO_COMPLETE));
 
             /* Read the result of the auto-negotiation */
             HAL_ETH_ReadPHYRegister(&EthHandle, PHY_SR, &regvalue);

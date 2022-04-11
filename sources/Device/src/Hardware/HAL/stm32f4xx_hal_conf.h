@@ -166,9 +166,9 @@
 #define PHY_BCR_RESET                   ((uint16_t)0x8000)  /*!< PHY Reset */
 
 #define PHY_BSR                         ((uint16_t)0x01)    /*!< Transceiver Basic Status Register    */    // Basic Mode Status Register
+#define PHY_BSR_AUTONEGO_COMPLETE       ((uint16_t)0x0020)  /*!< Auto-Negotiation process completed   */
 
 
-#define PHY_AUTONEGO_COMPLETE           ((uint16_t)0x0020)  /*!< Auto-Negotiation process completed   */
 #define PHY_LINKED_STATUS               ((uint16_t)0x0004)  /*!< Valid link established               */
 
 #define PHY_SR                          ((uint16_t)0x10)    /*!< PHY status register Offset                      */ // Register 16 Nway Setup Register
