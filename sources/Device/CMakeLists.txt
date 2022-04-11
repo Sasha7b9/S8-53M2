@@ -110,7 +110,7 @@ source_group(libs/HAL              FILES $${LIBS_HAL})
 set_source_files_properties(src/Hardware/LAN/ethernetif.cpp
                             src/Menu/Pages/PageHelp.cpp
                             src/Panel/PanelFunctions.cpp
-                            $${LIBS_HAL}
+                            ${LIBS_HAL}
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
 add_library(${PROJECT_NAME} ${SRC} ${DISPLAY}
