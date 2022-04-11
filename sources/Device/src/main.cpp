@@ -30,7 +30,7 @@ int main()
 
     VCP::Init();
 
-    LAN::Init();
+//    LAN::Init();
 
     FDrive::Init();
 

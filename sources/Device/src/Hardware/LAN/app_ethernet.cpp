@@ -12,7 +12,7 @@ void User_notification(struct netif *netif)
     }
     else
     {
-        LOG_TRACE();
+//        LOG_TRACE();
     }
 }
 

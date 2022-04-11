@@ -22,6 +22,8 @@ namespace LAN
     bool cableIsConnected = false;
     uint timeLastEthEvent = (uint)(-1);
 
+    bool isInit = false;
+
     static struct tcp_pcb *pcbClient = nullptr;      // 0, если клиент не приконнекчен
 
 
@@ -412,6 +414,8 @@ static void Netif_Config(void)
 
 void LAN::Init()
 {
+    isInit = true;
+
     /* Initialize the LwIP stack */
     lwip_init();
 
@@ -445,6 +449,11 @@ void LAN::Init()
 
 void LAN::Update()
 {
+    if (!isInit)
+    {
+        return;
+    }
+
     // Read a received packet from the Ethernet buffers and send it to the lwIP for handling
     ethernetif_input(&gnetif);
 
