@@ -322,7 +322,7 @@ HAL_StatusTypeDef HAL_ETH_Init(ETH_HandleTypeDef *heth)
   
   /*-------------------- PHY initialization and configuration ----------------*/
   /* Put the PHY in reset mode */
-  if((HAL_ETH_WritePHYRegister(heth, PHY_BCR, PHY_RESET)) != HAL_OK)
+  if((HAL_ETH_WritePHYRegister(heth, PHY_BCR, PHY_BCR_RESET)) != HAL_OK)
   {
     /* In case of write timeout */
     err = ETH_ERROR;
@@ -370,7 +370,7 @@ HAL_StatusTypeDef HAL_ETH_Init(ETH_HandleTypeDef *heth)
 
     
     /* Enable Auto-Negotiation */
-    if((HAL_ETH_WritePHYRegister(heth, PHY_BCR, PHY_AUTONEGOTIATION)) != HAL_OK)
+    if((HAL_ETH_WritePHYRegister(heth, PHY_BCR, PHY_BCR_AUTONEGOTIATION)) != HAL_OK)
     {
       /* In case of write timeout */
       err = ETH_ERROR;

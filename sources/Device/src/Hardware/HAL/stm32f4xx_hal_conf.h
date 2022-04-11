@@ -151,8 +151,6 @@
 /* ################## Ethernet peripheral configuration ##################### */
 
 /* Definition of the Ethernet driver buffers size and count */   
-//#define ETH_RX_BUF_SIZE                ETH_MAX_PACKET_SIZE /* buffer size for receive               */
-//#define ETH_TX_BUF_SIZE                ETH_MAX_PACKET_SIZE /* buffer size for transmit              */
 //#define ETH_RXBUFNB                    (4U)       /* 4 Rx buffers of size ETH_RX_BUF_SIZE  */
 //#define ETH_TXBUFNB                    (4U)       /* 4 Tx buffers of size ETH_TX_BUF_SIZE  */
 
@@ -164,10 +162,11 @@
 #define PHY_WRITE_TO                    (0x0000FFFFU)
 
 #define PHY_BCR                         ((uint16_t)0x00)    /*!< Transceiver Basic Item Register   */       // Basic Mode Control Register
+#define PHY_BCR_AUTONEGOTIATION         ((uint16_t)0x1000)  /*!< Enable auto-negotiation function     */
+#define PHY_BCR_RESET                   ((uint16_t)0x8000)  /*!< PHY Reset */
+
 #define PHY_BSR                         ((uint16_t)0x01)    /*!< Transceiver Basic Status Register    */    // Basic Mode Status Register
 
-#define PHY_RESET                       ((uint16_t)0x8000)  /*!< PHY Reset */
-#define PHY_AUTONEGOTIATION             ((uint16_t)0x1000)  /*!< Enable auto-negotiation function     */
 
 #define PHY_AUTONEGO_COMPLETE           ((uint16_t)0x0020)  /*!< Auto-Negotiation process completed   */
 #define PHY_LINKED_STATUS               ((uint16_t)0x0004)  /*!< Valid link established               */

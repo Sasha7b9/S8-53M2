@@ -480,7 +480,7 @@ void ethernetif_update_config(struct netif *netif)
         if (EthHandle.Init.AutoNegotiation != ETH_AUTONEGOTIATION_DISABLE)
         {
             /* Enable Auto-Negotiation */
-            HAL_ETH_WritePHYRegister(&EthHandle, PHY_BCR, PHY_AUTONEGOTIATION);
+            HAL_ETH_WritePHYRegister(&EthHandle, PHY_BCR, PHY_BCR_AUTONEGOTIATION);
 
             /* Get tick */
             tickstart = HAL_GetTick();
