@@ -29,7 +29,7 @@ static void FuncDraw()
 }
 
 
-static void OnPress_ResetSettings()
+void PageService::OnPress_ResetSettings()
 {
     bool running = FPGA::IsRunning();
     FPGA::Stop();
@@ -44,6 +44,7 @@ static void OnPress_ResetSettings()
 
     Display::SetDrawMode(DrawMode::Normal);
     Panel::Enable();
+
     if (running)
     {
         FPGA::Start();
@@ -57,11 +58,11 @@ const Button bResetSettings
     "Сброс настроек", "Reset settings",
     "Сброс настроек на настройки по умолчанию",
     "Reset to default settings",
-    OnPress_ResetSettings
+    PageService::OnPress_ResetSettings
 );
 
 
-static void OnPress_AutoSearch()
+void PageService::OnPress_AutoSearch()
 {
     FPGA::AutoFinder::FindSignal();
 };
@@ -73,7 +74,7 @@ static const Button bAutoSearch
     "Поиск сигнала", "Find signal",
     "Устанавливает оптимальные установки осциллографа для сигнала в канале 1",
     "Sets optimal settings for the oscilloscope signal on channel 1",
-    OnPress_AutoSearch
+    PageService::OnPress_AutoSearch
 );
 
 

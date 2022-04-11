@@ -52,8 +52,8 @@ int main()
 
         Display::Update();                   // Рисуем экран.
 
-        SCPI::Update();
-
         LAN::Update();
+
+        SCPI::Update();
     }
 }

@@ -236,6 +236,10 @@ struct PageService
 {
     static const Page *self;
 
+    static void OnPress_ResetSettings();
+
+    static void OnPress_AutoSearch();
+
     struct Math
     {
         static bool Enabled();
