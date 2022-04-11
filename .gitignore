@@ -2,6 +2,7 @@
 archive.zip
 *.uvgui*.*
 *.scvd
+*~*.*
 
 sources/VS/Interface/.vs/*
 sources/VS/Interface/VS-OSCI/NET/ControlLibraryS8-53/bin/*
