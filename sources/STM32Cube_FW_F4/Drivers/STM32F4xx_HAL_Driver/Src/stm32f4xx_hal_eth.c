@@ -1342,6 +1342,8 @@ HAL_StatusTypeDef HAL_ETH_ReadPHYRegister(ETH_HandleTypeDef *heth, uint16_t PHYR
     
     tmpreg1 = heth->Instance->MACMIIAR;
   }
+
+  HAL_Delay(1);
   
   /* Get MACMIIDR value */
   *RegValue = (uint16_t)(heth->Instance->MACMIIDR);

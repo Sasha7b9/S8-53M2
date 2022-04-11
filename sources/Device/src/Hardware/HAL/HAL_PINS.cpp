@@ -214,10 +214,10 @@ void HAL_PINS::Init()
     PinETH(C, 1).Init();        // MDC
     PinETH(H, 6).Init();        // RXD2
     PinETH(B, 1).Init();        // RXD3
-    PinETH(C, 3).Init();        // TX_CLK
+    PinETH(C, 3).Init();        // TX_CLK       35
     PinETH(C, 2).Init();        // TXD2
     PinETH(B, 8).Init();        // TXD3
-    PinETH(A, 1).Init();        // RX_CLK
+    PinETH(A, 1).Init();        // RX_CLK       41
     PinETH(A, 7).Init();        // RX_DV
     PinETH(C, 4).Init();        // RXD0
     PinETH(C, 5).Init();        // RXD1

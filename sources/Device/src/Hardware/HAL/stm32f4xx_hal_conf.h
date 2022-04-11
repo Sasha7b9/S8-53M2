@@ -166,7 +166,7 @@
 /* Section 2: PHY configuration section */
 
 /* DP83848 PHY Address*/ 
-#define DP83848_PHY_ADDRESS             0x01U
+#define DP83848_PHY_ADDRESS             3
 /* PHY Reset delay these values are based on a 1 ms Systick interrupt*/ 
 #define PHY_RESET_DELAY                 (0x000000FFU)
 /* PHY Configuration delay */
@@ -177,8 +177,8 @@
 
 /* Section 3: Common PHY Registers */
 
-#define PHY_BCR                         ((uint16_t)0x00)    /*!< Transceiver Basic Item Register   */
-#define PHY_BSR                         ((uint16_t)0x01)    /*!< Transceiver Basic Status Register    */
+#define PHY_BCR                         ((uint16_t)0x00)    /*!< Transceiver Basic Item Register   */       // Basic Mode Control Register
+#define PHY_BSR                         ((uint16_t)0x01)    /*!< Transceiver Basic Status Register    */    // Basic Mode Status Register
  
 #define PHY_RESET                       ((uint16_t)0x8000)  /*!< PHY Reset */
 #define PHY_LOOPBACK                    ((uint16_t)0x4000)  /*!< Select loop-back mode */
@@ -197,8 +197,8 @@
   
 /* Section 4: Extended PHY Registers */
 
-#define PHY_SR                          ((uint16_t)0x10)    /*!< PHY status register Offset                      */
-#define PHY_MICR                        ((uint16_t)0x11)    /*!< MII Interrupt Item Register                  */
+#define PHY_SR                          ((uint16_t)0x10)    /*!< PHY status register Offset                      */ // Register 16 Nway Setup Register
+#define PHY_MICR                        ((uint16_t)0x11)    /*!< MII Interrupt Item Register                  */    // 
 #define PHY_MISR                        ((uint16_t)0x12)    /*!< MII Interrupt Status and Misc. Item Register */
  
 #define PHY_LINK_STATUS                 ((uint16_t)0x0001)  /*!< PHY Link mask                                   */

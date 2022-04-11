@@ -89,14 +89,18 @@ static void low_level_init(struct netif *netif)
     EthHandle.Init.PhyAddress = DP83848_PHY_ADDRESS;
 
     /* configure ethernet peripheral (GPIOs, clocks, MAC, DMA) */
-    if (HAL_ETH_Init(&EthHandle) == HAL_OK)
+
+    HAL_StatusTypeDef result = HAL_ETH_Init(&EthHandle);
+
+    if (result == HAL_OK)
     {
         /* Set netif link flag */
         netif->flags |= NETIF_FLAG_LINK_UP;
+        LOG_WRITE("HAL init is OK");
     }
     else
     {
-        LOG_WRITE("Can not init ETH");
+        LOG_WRITE("Can not init ETH with code %d, state %d", result, EthHandle.State);
     }
 
     /* Initialize Tx Descriptors list: Chain Mode */
@@ -130,6 +134,8 @@ static void low_level_init(struct netif *netif)
     /* Read Register Configuration */
     HAL_ETH_ReadPHYRegister(&EthHandle, PHY_MICR, &regvalue);
 
+    LOG_WRITE("regvalue = %d", regvalue);
+
     regvalue |= (PHY_MICR_INT_EN | PHY_MICR_INT_OE);
 
     /* Enable Interrupts */
@@ -138,10 +144,21 @@ static void low_level_init(struct netif *netif)
     /* Read Register Configuration */
     HAL_ETH_ReadPHYRegister(&EthHandle, PHY_MISR, &regvalue);
 
+    LOG_WRITE("regvalue = %d", regvalue);
+
     regvalue |= PHY_MISR_LINK_INT_EN;
 
     /* Enable Interrupt on change of link status */
     HAL_ETH_WritePHYRegister(&EthHandle, PHY_MISR, regvalue);
+
+    for (uint16 i = 0; i < 5; i++)
+    {
+        uint value = 0;
+
+        HAL_ETH_ReadPHYRegister(&EthHandle, i, &value);
+
+        LOG_WRITE("%d : %d", i, value);
+    }
 }
 
 /**
