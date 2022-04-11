@@ -94,6 +94,10 @@ static void low_level_init(struct netif *netif)
         /* Set netif link flag */
         netif->flags |= NETIF_FLAG_LINK_UP;
     }
+    else
+    {
+        LOG_WRITE("Can not init ETH");
+    }
 
     /* Initialize Tx Descriptors list: Chain Mode */
     HAL_ETH_DMATxDescListInit(&EthHandle, DMATxDscrTab, &Tx_Buff[0][0], ETH_TXBUFNB);

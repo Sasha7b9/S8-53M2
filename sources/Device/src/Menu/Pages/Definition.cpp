@@ -122,7 +122,7 @@ static arrayItems itemsMainPage =
     (void *)PageMemory::self,
     (void *)PageMeasures::self,
     (void *)PageService::self,
-    (void *)PageHelp::self,
+//    (void *)PageHelp::self,
     (void *)PageDebug::self
 };
 
