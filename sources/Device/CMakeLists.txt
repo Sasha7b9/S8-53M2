@@ -83,6 +83,7 @@ file(GLOB UTILS                    src/Utils/*.*)
 file(GLOB UTILS_CONTAINERS         src/Utils/Containers/*.*)
 file(GLOB UTILS_TEXT               src/Utils/Text/*.*)
 file(GLOB SCPI                     src/SCPI/*.*)
+file(GLOB LIBS_HAL                 ../STM32Cube_FW_F4/Drivers/STM32F4xx_HAL_Driver/Src/*.*)
 
 source_group(src                   FILES ${SRC})
 source_group(Data                  FILES ${DATA})
@@ -104,10 +105,12 @@ source_group(Utils                 FILES ${UTILS})
 source_group(Utils/Containers      FILES ${UTILS_CONTAINERS})
 source_group(Utils/Text            FILES ${UTILS_TEXT})
 source_group(SCPI                  FILES ${SCPI})
+source_group(libs/HAL              FILES $${LIBS_HAL})
 
 set_source_files_properties(src/Hardware/LAN/ethernetif.cpp
                             src/Menu/Pages/PageHelp.cpp
                             src/Panel/PanelFunctions.cpp
+                            $${LIBS_HAL}
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
 add_library(${PROJECT_NAME} ${SRC} ${DISPLAY}
@@ -119,4 +122,6 @@ add_library(${PROJECT_NAME} ${SRC} ${DISPLAY}
                             ${MENU} ${MENU_PAGES} ${MENU_PAGES_MEMORY}
                             ${PANEL} ${SETTINGS}
                             ${UTILS} ${UTILS_CONTAINERS} ${UTILS_TEXT}
-                            ${SCPI})
+                            ${SCPI}
+                            ${LIBS_HAL}
+)
