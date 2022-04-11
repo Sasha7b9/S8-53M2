@@ -23,12 +23,6 @@ namespace SCPI
 
 void SCPI::AppendNewData(const void *data, int length)
 {
-//    String<> message;
-//
-//    message.AppendBytes(data, length);
-//
-//    LOG_WRITE(message.c_str());
-
     input.Append((pchar)data, length);
 }
 
@@ -44,7 +38,6 @@ void SCPI::Update()
         if (!SCPI::ParseNewCommand(command.c_str()))
         {
             SCPI::SendFormat("Error !!! Invalid sequency \"%s\"", command.c_str());
-//            LOG_ERROR(command.c_str());
         }
     }
 }

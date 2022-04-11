@@ -15,7 +15,7 @@ bool SCPI::ProcessDISPLAY(pchar buffer)
         {":AUTOSEND",    SCPI::DISPLAY::AUTOSEND},
         {":MAPPING",     SCPI::DISPLAY::MAPPING},    // Отображение
         {":MAP",         SCPI::DISPLAY::MAPPING},
-        {":ACCUMULATION",SCPI::DISPLAY::ACCUM},      // Накопление
+        {":ACCUMULATE",  SCPI::DISPLAY::ACCUM},      // Накопление
         {":ACCUM",       SCPI::DISPLAY::ACCUM},
         {":AVERAGE",     SCPI::DISPLAY::AVERAGE},    // Усреднение
         {":AVE",         SCPI::DISPLAY::AVERAGE},
