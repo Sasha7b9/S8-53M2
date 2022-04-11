@@ -366,7 +366,7 @@ HAL_StatusTypeDef HAL_ETH_Init(ETH_HandleTypeDef *heth)
     
         return HAL_TIMEOUT;
       }
-    } while (((phyreg & PHY_LINKED_STATUS) != PHY_LINKED_STATUS));
+    } while (((phyreg & PHY_BSR_LINKED_STATUS) != PHY_BSR_LINKED_STATUS));
 
     
     /* Enable Auto-Negotiation */
