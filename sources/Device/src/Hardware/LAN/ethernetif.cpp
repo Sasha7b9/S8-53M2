@@ -450,7 +450,7 @@ void ethernetif_set_link(struct netif *netif)
         HAL_ETH_ReadPHYRegister(&EthHandle, PHY_SR, &regvalue);
 
         /* Check whether the link is up or down*/
-        if ((regvalue & PHY_LINK_STATUS) != (uint16_t)RESET)
+        if ((regvalue & PHY_SR_LINK_STATUS) != (uint16_t)RESET)
         {
             netif_set_link_up(netif);
         }

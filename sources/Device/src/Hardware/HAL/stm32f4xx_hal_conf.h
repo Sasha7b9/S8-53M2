@@ -169,14 +169,13 @@
 #define PHY_BSR_LINKED_STATUS           ((uint16_t)0x0004)  /*!< Valid link established               */
 #define PHY_BSR_AUTONEGO_COMPLETE       ((uint16_t)0x0020)  /*!< Auto-Negotiation process completed   */
 
-
-
-
 #define PHY_SR                          ((uint16_t)0x10)    /*!< PHY status register Offset                      */ // Register 16 Nway Setup Register
+#define PHY_SR_LINK_STATUS              ((uint16_t)0x0001)  /*!< PHY Link mask                                   */
+
 #define PHY_MICR                        ((uint16_t)0x11)    /*!< MII Interrupt Item Register                  */    // 
+
 #define PHY_MISR                        ((uint16_t)0x12)    /*!< MII Interrupt Status and Misc. Item Register */
 
-#define PHY_LINK_STATUS                 ((uint16_t)0x0001)  /*!< PHY Link mask                                   */
 #define PHY_SPEED_STATUS                ((uint16_t)0x0002)  /*!< PHY Speed mask                                  */
 #define PHY_DUPLEX_STATUS               ((uint16_t)0x0004)  /*!< PHY Duplex mask                                 */
 
