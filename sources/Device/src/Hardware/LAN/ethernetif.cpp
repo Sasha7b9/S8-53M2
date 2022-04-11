@@ -444,7 +444,7 @@ void ethernetif_set_link(struct netif *netif)
     HAL_ETH_ReadPHYRegister(&EthHandle, PHY_MISR, &regvalue);
 
     /* Check whether the link interrupt has occurred or not */
-    if ((regvalue & PHY_LINK_INTERRUPT) != (uint16_t)RESET)
+    if ((regvalue & PHY_MISR_LINK_INTERRUPT) != (uint16_t)RESET)
     {
         /* Read PHY_SR*/
         HAL_ETH_ReadPHYRegister(&EthHandle, PHY_SR, &regvalue);
