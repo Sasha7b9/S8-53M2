@@ -429,7 +429,7 @@ HAL_StatusTypeDef HAL_ETH_Init(ETH_HandleTypeDef *heth)
     }
     
     /* Configure the MAC with the Duplex Mode fixed by the auto-negotiation process */
-    if((phyreg & PHY_DUPLEX_STATUS) != (uint32_t)RESET)
+    if((phyreg & PHY_SR_DUPLEX_STATUS) != (uint32_t)RESET)
     {
       /* Set Ethernet duplex mode to Full-duplex following the auto-negotiation */
       (heth->Init).DuplexMode = ETH_MODE_FULLDUPLEX;  

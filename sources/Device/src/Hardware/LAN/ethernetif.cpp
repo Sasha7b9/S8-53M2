@@ -503,7 +503,7 @@ void ethernetif_update_config(struct netif *netif)
             HAL_ETH_ReadPHYRegister(&EthHandle, PHY_SR, &regvalue);
 
             /* Configure the MAC with the Duplex Mode fixed by the auto-negotiation process */
-            if ((regvalue & PHY_DUPLEX_STATUS) != (uint32_t)RESET)
+            if ((regvalue & PHY_SR_DUPLEX_STATUS) != (uint32_t)RESET)
             {
                 /* Set Ethernet duplex mode to Full-duplex following the auto-negotiation */
                 EthHandle.Init.DuplexMode = ETH_MODE_FULLDUPLEX;
