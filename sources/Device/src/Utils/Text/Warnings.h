@@ -47,6 +47,4 @@ namespace Warning
     void ShowBad(E warning);
 
     void ShowGood(E warning);
-
-    void Clear();
 };

@@ -13,7 +13,7 @@ namespace Warning
 {
     static const int  NUM_WARNINGS = 10;
     static const char *warnings[NUM_WARNINGS] = {0};       // Здесь предупреждающие сообщения.
-    static uint       timeWarnings[NUM_WARNINGS] = {0};   // Здесь время, когда предупреждающее сообщение поступило на экран.
+    static uint        timeWarnings[NUM_WARNINGS] = {0};   // Здесь время, когда предупреждающее сообщение поступило на экран.
     static void OnTimerShowWarning();
     static void DrawStringInRectangle(int x, int y, char const *text);
     static void ShowWarn(pchar);
@@ -76,6 +76,7 @@ void Warning::OnTimerShowWarning()
         {
             warnings[pointer] = warnings[i];
             timeWarnings[pointer] = timeWarnings[i];
+
             if (pointer != i)
             {
                 timeWarnings[i] = 0;
@@ -88,18 +89,6 @@ void Warning::OnTimerShowWarning()
     if (pointer == 0)
     {
         Timer::Disable(TypeTimer::ShowMessages);
-    }
-}
-
-
-void Warning::Clear()
-{
-    Timer::Disable(TypeTimer::ShowMessages);
-
-    for (int i = 0; i < NUM_WARNINGS; i++)
-    {
-        warnings[i] = 0;
-        timeWarnings[i] = 0;
     }
 }
 
