@@ -3,7 +3,7 @@
   * @file    stm32f4xx_hal_eth.c
   * @author  MCD Application Team
   * @brief   ETH HAL module driver.
-  *          This file provides firmware functions to manage the following 
+  *          This file provides firmware functions to manage the following  
   *          functionalities of the Ethernet (ETH) peripheral:
   *           + Initialization and de-initialization functions
   *           + IO operation functions
@@ -1342,8 +1342,6 @@ HAL_StatusTypeDef HAL_ETH_ReadPHYRegister(ETH_HandleTypeDef *heth, uint16_t PHYR
     
     tmpreg1 = heth->Instance->MACMIIAR;
   }
-
-  HAL_Delay(1);
   
   /* Get MACMIIDR value */
   *RegValue = (uint16_t)(heth->Instance->MACMIIDR);
