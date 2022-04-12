@@ -102,11 +102,6 @@ static void low_level_init(struct netif *netif)
     {
         /* Set netif link flag */
         netif->flags |= NETIF_FLAG_LINK_UP;
-        LOG_WRITE("ETH init is OK");
-    }
-    else
-    {
-        LOG_WRITE("Can not init ETH with code %d, state %d", result, EthHandle.State);
     }
 
     /* Initialize Tx Descriptors list: Chain Mode */
@@ -140,8 +135,6 @@ static void low_level_init(struct netif *netif)
     /* Read Register Configuration */
     HAL_ETH_ReadPHYRegister(&EthHandle, PHY_MICR, &regvalue);
 
-    LOG_WRITE("%x", regvalue);
-
     regvalue |= (PHY_MICR_INT_EN | PHY_MICR_INT_OE);
 
     /* Enable Interrupts */
@@ -154,12 +147,6 @@ static void low_level_init(struct netif *netif)
 
     /* Enable Interrupt on change of link status */
     HAL_ETH_WritePHYRegister(&EthHandle, PHY_MISR, regvalue);
-
-    for (int i = 0; i < 5; i++)
-    {
-        HAL_ETH_ReadPHYRegister(&EthHandle, i, &regvalue);
-        LOG_WRITE("%d : %x", i, regvalue);
-    }
 }
 
 /**
