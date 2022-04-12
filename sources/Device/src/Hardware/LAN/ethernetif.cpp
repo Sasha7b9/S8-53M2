@@ -90,6 +90,12 @@ static void low_level_init(struct netif *netif)
 
     /* configure ethernet peripheral (GPIOs, clocks, MAC, DMA) */
 
+    HAL_ETH_ReadPHYRegister(&EthHandle, 0, &regvalue);
+
+    regvalue |= (1 << 15);
+
+    HAL_ETH_WritePHYRegister(&EthHandle, 0, regvalue);
+
     HAL_StatusTypeDef result = HAL_ETH_Init(&EthHandle);
 
     if (result == HAL_OK)
