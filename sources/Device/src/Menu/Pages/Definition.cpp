@@ -97,83 +97,8 @@ void DrawSB_Exit(int x, int y)
 #include "PageHelp.cpp"
 
 
-/*
-static int8 choiceLAN = 0;
-
-static void FuncOnDraw(int, int)
-{
-    extern ETH_HandleTypeDef EthHandle;
-
-    if (choiceLAN == 0)
-    {
-        static uint16 value = 0;
-
-        HAL_ETH_WritePHYRegister(&EthHandle, 0, value++);
-    }
-    else if (choiceLAN == 1)
-    {
-        static uint value = 0;
-
-        HAL_ETH_ReadPHYRegister(&EthHandle, 0, &value);
-    }
-}
-
-static const Choice mcLAN =
-{
-    TypeItem::Choice, PageMemory::self, nullptr,
-    {
-        "LAN", "LAN",
-        "",
-        ""
-    },
-    {
-        {"Запись", ""},
-        {"Чтение", ""},
-        {"Ничего", ""}
-    },
-    &choiceLAN, nullptr, FuncOnDraw
-};
-
-*/
-
-static void OnPress_Reset()
-{
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
-    
-    HAL_Delay(5000);
-
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
-}
-
-
-const Button bResetLAN
-(
-    PageMain::self, nullptr,
-    "Сброс LAN", "",
-    "", "",
-    OnPress_Reset
-);
-
-
-static void OnPress_Init()
-{
-    LAN::Init();
-}
-
-const Button bInitLAN
-(
-    PageMain::self, nullptr,
-    "Init LAN", "Init LAN",
-    "", "",
-    OnPress_Init
-);
-
-
-
 static arrayItems itemsMainPage =
 {
-    (void *)&bResetLAN,
-    (void *)&bInitLAN,
     (void *)PageDisplay::self,
     (void *)PageChannelA::self,
     (void *)PageChannelB::self,
@@ -182,8 +107,8 @@ static arrayItems itemsMainPage =
     (void *)PageCursors::self,
     (void *)PageMemory::self,
     (void *)PageMeasures::self,
-//    (void *)PageService::self,
-//    (void *)PageHelp::self,
+    (void *)PageService::self,
+    (void *)PageHelp::self,
     (void *)PageDebug::self
 };
 

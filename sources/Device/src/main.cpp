@@ -17,17 +17,6 @@ int main()
 {
     HAL::Init();
 
-    GPIO_InitTypeDef isGPIO;
-
-    isGPIO.Pin = GPIO_PIN_13;
-    isGPIO.Pull = GPIO_PULLUP;
-    isGPIO.Mode = GPIO_MODE_OUTPUT_PP;
-    isGPIO.Speed = GPIO_SPEED_HIGH;
-
-    HAL_GPIO_Init(GPIOC, &isGPIO);
-
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
-
     Sound::Init();
 
     nrst.Load();
@@ -42,7 +31,7 @@ int main()
 
     VCP::Init();
 
-//    LAN::Init();
+    LAN::Init();
 
     FDrive::Init();
 
