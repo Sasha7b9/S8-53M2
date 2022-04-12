@@ -134,6 +134,8 @@ static void low_level_init(struct netif *netif)
     /* Read Register Configuration */
     HAL_ETH_ReadPHYRegister(&EthHandle, PHY_MICR, &regvalue);
 
+    LOG_WRITE("%x", regvalue);
+
     regvalue |= (PHY_MICR_INT_EN | PHY_MICR_INT_OE);
 
     /* Enable Interrupts */
@@ -146,6 +148,12 @@ static void low_level_init(struct netif *netif)
 
     /* Enable Interrupt on change of link status */
     HAL_ETH_WritePHYRegister(&EthHandle, PHY_MISR, regvalue);
+
+    for (int i = 0; i < 5; i++)
+    {
+        HAL_ETH_ReadPHYRegister(&EthHandle, i, &regvalue);
+        LOG_WRITE("%d : %x", i, regvalue);
+    }
 }
 
 /**
