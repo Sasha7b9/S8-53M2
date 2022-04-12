@@ -155,8 +155,8 @@
 //#define ETH_TXBUFNB                    (4U)       /* 4 Tx buffers of size ETH_TX_BUF_SIZE  */
 
 #define DP83848_PHY_ADDRESS             31
-#define PHY_RESET_DELAY                 (0x000000FFFU)
-#define PHY_CONFIG_DELAY                (0x00000FFFFU)
+#define PHY_RESET_DELAY                 (0x000000FFU)
+#define PHY_CONFIG_DELAY                (0x00000FFFU)
 
 #define PHY_READ_TO                     (0x0000FFFFU)
 #define PHY_WRITE_TO                    (0x0000FFFFU)
