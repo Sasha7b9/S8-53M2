@@ -422,6 +422,28 @@ void LAN::Init()
 
     isInit = true;
 
+    {
+        GPIO_InitTypeDef isGPIO;
+        isGPIO.Pin = GPIO_PIN_13;
+        isGPIO.Mode = GPIO_MODE_OUTPUT_PP;
+        isGPIO.Speed = GPIO_SPEED_HIGH;
+        isGPIO.Pull = GPIO_PULLUP;
+
+        HAL_GPIO_Init(GPIOC, &isGPIO);
+
+        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
+
+        HAL_Delay(50);
+
+        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+
+        HAL_Delay(50);
+
+        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
+
+        HAL_Delay(500);
+    }
+
     /* Initialize the LwIP stack */
     lwip_init();
 

@@ -92,6 +92,8 @@ static void low_level_init(struct netif *netif)
 
     HAL_ETH_ReadPHYRegister(&EthHandle, 0, &regvalue);
 
+    LOG_WRITE("%x", regvalue);
+
     regvalue |= (1 << 15);
 
     HAL_ETH_WritePHYRegister(&EthHandle, 0, regvalue);
