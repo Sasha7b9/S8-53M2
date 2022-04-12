@@ -140,7 +140,7 @@ static void OnPress_Reset()
 {
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
     
-    HAL_Delay(20);
+    HAL_Delay(5000);
 
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
 }
