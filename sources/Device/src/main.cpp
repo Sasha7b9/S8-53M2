@@ -37,6 +37,8 @@ int main()
 
     FPGA::Start();
 
+    LOG_WRITE("%d", TIME_MS);
+
     while(1)
     {
         Timer::StartMultiMeasurement();      // —брос таймера дл€ замера длительности временных интервалов в течение одной итерации цикла.
