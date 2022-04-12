@@ -416,6 +416,8 @@ void LAN::Init()
 {
     isInit = true;
 
+    HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_HSE, RCC_MCODIV_1);
+
     /* Initialize the LwIP stack */
     lwip_init();
 

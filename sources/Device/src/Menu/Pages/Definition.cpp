@@ -12,6 +12,7 @@
 #include "Utils/Text/Text.h"
 #include "Utils/Text/Warnings.h"
 #include "Hardware/LAN/LAN.h"
+#include <stm32f4xx.h>
 
 
 int16 PageMemory::Latest::current = 0;
@@ -96,8 +97,46 @@ void DrawSB_Exit(int x, int y)
 #include "PageHelp.cpp"
 
 
+static int8 choiceLAN = 0;
+
+static void FuncOnDraw(int, int)
+{
+    extern ETH_HandleTypeDef EthHandle;
+
+    if (choiceLAN == 0)
+    {
+        static uint16 value = 0;
+
+        HAL_ETH_WritePHYRegister(&EthHandle, 0, value++);
+    }
+    else if (choiceLAN == 1)
+    {
+        static uint value = 0;
+
+        HAL_ETH_ReadPHYRegister(&EthHandle, 0, &value);
+    }
+}
+
+static const Choice mcLAN =
+{
+    TypeItem::Choice, PageMemory::self, nullptr,
+    {
+        "LAN", "LAN",
+        "",
+        ""
+    },
+    {
+        {"Запись", ""},
+        {"Чтение", ""},
+        {"Ничего", ""}
+    },
+    &choiceLAN, nullptr, FuncOnDraw
+};
+
+
 static arrayItems itemsMainPage =
 {
+    (void *)&mcLAN,
     (void *)PageDisplay::self,
     (void *)PageChannelA::self,
     (void *)PageChannelB::self,
@@ -107,7 +146,7 @@ static arrayItems itemsMainPage =
     (void *)PageMemory::self,
     (void *)PageMeasures::self,
     (void *)PageService::self,
-    (void *)PageHelp::self,
+//    (void *)PageHelp::self,
     (void *)PageDebug::self
 };
 

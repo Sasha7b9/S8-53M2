@@ -302,6 +302,7 @@ void Pin::Init()
         isGPIO.Mode = GPIO_MODE_AF_PP;
         isGPIO.Speed = GPIO_SPEED_HIGH;
         isGPIO.Alternate = GPIO_AF11_ETH;
+        isGPIO.Pull = GPIO_NOPULL;
     }
     else if (mode == PinMode::_OTG_HS_FS)
     {
