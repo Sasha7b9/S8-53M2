@@ -91,7 +91,7 @@ void DrawSB_Exit(int x, int y)
     Font::Set(TypeFont::UGO2);
     Text::Draw4SymbolsInRect(x + 2, y + 1, '\x2e');
     Font::Set(TypeFont::_8);
-}
+} 
 
 
 #include "PageHelp.cpp"
