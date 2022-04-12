@@ -37,6 +37,7 @@ namespace Warning
         SettingsNotSaved,
         InstrumentNotCalibrated,
         DeviceNotConfigured,            // Прибор не настроен
+        DontWorkLAN,
         Count
     };
 

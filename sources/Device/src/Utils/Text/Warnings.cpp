@@ -172,7 +172,8 @@ pchar Warning::GetWarning(Warning::E warning)
         {"оЮЛЪРЭ OTP ОНКМНЯРЭЧ ГЮОНКМЕМЮ",   "OPT memory fully completed"},
         {"мюярпнийх янупюмемш",             "SETTINGS SAVED"},
         {"мюярпнийх ме янупюмемш",          "SETTINGS NOT SAVED"},
-        {"опханп ме мюярпнем",              "INSTRUMENT NOT SET UP"}
+        {"опханп ме мюярпнем",              "INSTRUMENT NOT SET UP"},
+        {"ме пюанрюер LAN",                 "DONT WORK LAN"}
     };
     return warns[warning][LANG];
 }

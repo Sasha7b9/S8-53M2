@@ -5,6 +5,7 @@
 #include "Hardware/LAN/app_ethernet.h"
 #include "Settings/Settings.h"
 #include "SCPI/SCPI.h"
+#include "Utils/Text/Warnings.h"
 #include <stm32f4xx_hal.h>
 #include <lwip/tcp.h>
 #include <lwip/init.h>
@@ -22,8 +23,6 @@ namespace LAN
 {
     bool cableIsConnected = false;
     uint timeLastEthEvent = (uint)(-1);
-
-    bool isInit = false;
 
     static struct tcp_pcb *pcbClient = nullptr;      // 0, если клиент не приконнекчен
 
@@ -415,12 +414,7 @@ static void Netif_Config(void)
 
 void LAN::Init()
 {
-    if (isInit)
-    {
-        return;
-    }
-
-    isInit = true;
+    TimeMeterMS meter;
 
     /* Initialize the LwIP stack */
     lwip_init();
@@ -450,16 +444,16 @@ void LAN::Init()
     pcbClient = 0;
     /* Notify user about the netwoek interface config */
     User_notification(&gnetif);
+
+    if (meter.ElapsedTime() > 1000)
+    {
+        Warning::ShowBad(Warning::DontWorkLAN);
+    }
 }
 
 
 void LAN::Update()
 {
-    if (!isInit)
-    {
-        return;
-    }
-
     // Read a received packet from the Ethernet buffers and send it to the lwIP for handling
     ethernetif_input(&gnetif);
 
