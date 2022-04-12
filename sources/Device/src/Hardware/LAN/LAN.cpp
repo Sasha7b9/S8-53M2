@@ -415,23 +415,12 @@ static void Netif_Config(void)
 
 void LAN::Init()
 {
+    if (isInit)
+    {
+        return;
+    }
+
     isInit = true;
-
-    GPIO_InitTypeDef isGPIO;
-
-    isGPIO.Pin = GPIO_PIN_13;
-    isGPIO.Pull = GPIO_PULLUP;
-    isGPIO.Mode = GPIO_MODE_OUTPUT_PP;
-    isGPIO.Speed = GPIO_SPEED_HIGH;
-
-    HAL_GPIO_Init(GPIOC, &isGPIO);
-
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
-
-    HAL_Delay(100);
-
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
-
 
     /* Initialize the LwIP stack */
     lwip_init();

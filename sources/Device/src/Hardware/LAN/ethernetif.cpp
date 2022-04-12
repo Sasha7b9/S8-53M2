@@ -96,7 +96,7 @@ static void low_level_init(struct netif *netif)
     {
         /* Set netif link flag */
         netif->flags |= NETIF_FLAG_LINK_UP;
-        LOG_WRITE("HAL init is OK");
+        LOG_WRITE("ETH init is OK");
     }
     else
     {
@@ -134,8 +134,6 @@ static void low_level_init(struct netif *netif)
     /* Read Register Configuration */
     HAL_ETH_ReadPHYRegister(&EthHandle, PHY_MICR, &regvalue);
 
-    LOG_WRITE("regvalue = %d", regvalue);
-
     regvalue |= (PHY_MICR_INT_EN | PHY_MICR_INT_OE);
 
     /* Enable Interrupts */
@@ -144,21 +142,10 @@ static void low_level_init(struct netif *netif)
     /* Read Register Configuration */
     HAL_ETH_ReadPHYRegister(&EthHandle, PHY_MISR, &regvalue);
 
-    LOG_WRITE("regvalue = %d", regvalue);
-
     regvalue |= PHY_MISR_LINK_INT_EN;
 
     /* Enable Interrupt on change of link status */
     HAL_ETH_WritePHYRegister(&EthHandle, PHY_MISR, regvalue);
-
-    for (uint16 i = 0; i < 5; i++)
-    {
-        uint value = 0;
-
-        HAL_ETH_ReadPHYRegister(&EthHandle, i, &value);
-
-        LOG_WRITE("%d : %d", i, value);
-    }
 }
 
 /**

@@ -6,7 +6,7 @@
 
 
 #define FILE_NAME "S8-53.bin"
-#define ENABLE_UPDATE
+// #define ENABLE_UPDATE
     
 
 // Key configuration
