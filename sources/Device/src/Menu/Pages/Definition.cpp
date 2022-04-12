@@ -96,23 +96,8 @@ void DrawSB_Exit(int x, int y)
 #include "PageHelp.cpp"
 
 
-static void OnPress_Init()
-{
-    LAN::Init();
-}
-
-const Button bInitLAN
-(
-    PageMain::self, nullptr,
-    "Init LAN", "Init LAN",
-    "", "",
-    OnPress_Init
-);
-
-
 static arrayItems itemsMainPage =
 {
-    (void *)&bInitLAN,
     (void *)PageDisplay::self,
     (void *)PageChannelA::self,
     (void *)PageChannelB::self,
@@ -122,7 +107,7 @@ static arrayItems itemsMainPage =
     (void *)PageMemory::self,
     (void *)PageMeasures::self,
     (void *)PageService::self,
-//    (void *)PageHelp::self,
+    (void *)PageHelp::self,
     (void *)PageDebug::self
 };
 
