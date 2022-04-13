@@ -96,12 +96,20 @@ static void low_level_init(struct netif *netif)
 
     HAL_ETH_WritePHYRegister(&EthHandle, 0, regvalue);
 
-    HAL_StatusTypeDef result = HAL_ETH_Init(&EthHandle);
-
-    if (result == HAL_OK)
+    if (HAL_ETH_Init(&EthHandle) == HAL_OK)
     {
         /* Set netif link flag */
         netif->flags |= NETIF_FLAG_LINK_UP;
+    }
+    else
+    {
+        HAL_ETH_DeInit(&EthHandle);
+
+        if (HAL_ETH_Init(&EthHandle) == HAL_OK)
+        {
+            /* Set netif link flag */
+            netif->flags |= NETIF_FLAG_LINK_UP;
+        }
     }
 
     /* Initialize Tx Descriptors list: Chain Mode */
