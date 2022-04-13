@@ -21,7 +21,7 @@ public:
         _ChannelB = 4,
     };
 
-    LED(Type _type) : type(_type) { }
+    LED(Type _type) : type(_type), prev_data(0xFF) { }
     void Enable();
     void Disable();
     void Switch(bool enable);
@@ -31,6 +31,8 @@ public:
 
 private:
     Type type;
+
+    uint8 prev_data;
 };
 
 

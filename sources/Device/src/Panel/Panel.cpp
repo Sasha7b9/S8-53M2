@@ -926,7 +926,13 @@ void Panel::Init()
 
 void LED::Enable()
 {
-    Panel::TransmitData((uint8)(type | 0x80));
+    uint8 data = (uint8)(type | 0x80);
+
+    if (data != prev_data)
+    {
+        Panel::TransmitData(data);
+        prev_data = data;
+    }
 
     if (type == _Trig)
     {
@@ -937,7 +943,13 @@ void LED::Enable()
 
 void LED::Disable()
 {
-    Panel::TransmitData(type);
+    uint8 data = type;
+
+    if (data != prev_data)
+    {
+        Panel::TransmitData(data);
+        prev_data = data;
+    }
 
     if (type == _Trig)
     {

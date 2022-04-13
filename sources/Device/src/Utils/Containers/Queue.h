@@ -39,11 +39,17 @@ struct Queue
             return T(0);
         }
 
+        if (pointer == 1)
+        {
+            pointer = 0;
+            return buffer[0];
+        }
+
         T result = buffer[0];
 
-        std::memmove(&buffer[0], &buffer[1], sizeof(T) * pointer);
-
         pointer--;
+
+        std::memmove(&buffer[0], &buffer[1], sizeof(T) * pointer);
 
         return result;
     }

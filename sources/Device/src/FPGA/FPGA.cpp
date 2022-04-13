@@ -130,10 +130,14 @@ void FPGA::Update()
     {
         ProcessingData();
 
-        if (Flags::needFinishRead || Panel::Data::Exist())
+        if (Flags::needFinishRead)
         {
             Flags::needFinishRead = false;
+            break;
+        }
 
+        if (Panel::Data::Exist())
+        {
             break;
         }
     }
