@@ -536,38 +536,34 @@ namespace Panel
         }
     }
 
-    static void BFuncPower(Action action)
+    static void BFuncPower(Action)
     {
         if (TIME_MS < 2000)
         {
             return;
         }
 
-        if (action.IsDown())
+        while (Item::Opened()->IsPage())
         {
-            while (Item::Opened()->IsPage())
+            Page *page = (Page *)Item::Opened();
+
+            if (page->IsSB())
             {
-                Page *page = (Page *)Item::Opened();
-
-                if (page->IsSB())
-                {
-                    Item::CloseOpened();
-                }
-                else
-                {
-                    break;
-                }
+                Item::CloseOpened();
             }
+            else
+            {
+                break;
+            }
+        }
 
-            __disable_irq();
-            gset.Save();
-            __enable_irq();
+        __disable_irq();
+        gset.Save();
+        __enable_irq();
 
+        while (true)
+        {
             Panel::TransmitData(0x05);
-
-            while (true)
-            {
-            }
         }
     }
 
