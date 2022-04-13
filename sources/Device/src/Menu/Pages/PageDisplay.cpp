@@ -240,8 +240,7 @@ static const arrayItems itemsAccumulation =
 
 static bool IsActive_Accumulation() //-V524
 {
-    return true;
-//    return !TBase::InModeRandomizer();
+    return !TBase::InModeRandomizer();
 }
 
 
