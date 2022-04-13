@@ -129,6 +129,13 @@ void FPGA::Update()
     for (int i = 0; i < TBase::StretchRand(); i++)
     {
         ProcessingData();
+
+        if (Flags::needFinishRead)
+        {
+            Flags::needFinishRead = false;
+
+            break;
+        }
     }
 
     CAN_READ_DATA = false;

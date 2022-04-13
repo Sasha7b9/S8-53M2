@@ -6,4 +6,7 @@ namespace Flags
 {
     // Если true, то дисплей нуждается в перерисовке
     extern bool needFinishDraw;
+
+    // Прекратить чтение данных
+    extern bool needFinishRead;
 };

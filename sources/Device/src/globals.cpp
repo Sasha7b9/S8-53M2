@@ -6,4 +6,6 @@
 namespace Flags
 {
     bool needFinishDraw = true;
+
+    bool needFinishRead = false;
 }

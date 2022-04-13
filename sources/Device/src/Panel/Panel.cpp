@@ -957,6 +957,8 @@ void Panel::Callback::OnReceiveSPI5(const uint8 *data, uint)
         }
 
         timeLastEvent = TIME_MS;
+
+        Flags::needFinishRead = true;
     }
 }
 
