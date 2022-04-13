@@ -414,8 +414,6 @@ static void Netif_Config(void)
 
 void LAN::Init()
 {
-    TimeMeterMS meter;
-
     /* Initialize the LwIP stack */
     lwip_init();
 
@@ -444,11 +442,6 @@ void LAN::Init()
     pcbClient = 0;
     /* Notify user about the netwoek interface config */
     User_notification(&gnetif);
-
-    if (meter.ElapsedTime() > 1000)
-    {
-        Warning::ShowBad(Warning::DontWorkLAN);
-    }
 }
 
 

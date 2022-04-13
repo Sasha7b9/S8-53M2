@@ -162,7 +162,6 @@ pchar Warning::GetWarning(Warning::E warning)
         {"Õ¿—“–Œ… » —Œ’–¿Õ≈Õ€",             "SETTINGS SAVED"},
         {"Õ¿—“–Œ… » Õ≈ —Œ’–¿Õ≈Õ€",          "SETTINGS NOT SAVED"},
         {"œ–»¡Œ– Õ≈ Õ¿—“–Œ≈Õ",              "INSTRUMENT NOT SET UP"},
-        {"Õ≈ –¿¡Œ“¿≈“ LAN",                 "DONT WORK LAN"}
     };
     return warns[warning][LANG];
 }
