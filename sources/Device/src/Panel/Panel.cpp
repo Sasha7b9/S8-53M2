@@ -328,7 +328,7 @@ namespace Panel
     {
         if (action.IsUp())
         {
-            if (Item::Opened() == PageChannelA::self)
+            if (Item::Opened() == PageChannelA::self && Menu::IsShown())
             {
                 SET_ENABLED_A = !SET_ENABLED_A;
                 PageChannelA::OnChanged_Input(true);
@@ -353,7 +353,7 @@ namespace Panel
     {
         if (action.IsUp())
         {
-            if (Item::Opened() == PageChannelB::self)
+            if (Item::Opened() == PageChannelB::self && Menu::IsShown())
             {
                 SET_ENABLED_B = !SET_ENABLED_B;
                 PageChannelB::OnChanged_Input(true);
