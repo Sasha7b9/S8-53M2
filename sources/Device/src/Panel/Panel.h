@@ -50,13 +50,19 @@ namespace Panel
 
     void ProcessEvent(KeyboardEvent);
 
-    uint16 NextData();
-
     // Передать даннные в мк панели управления.
     void TransmitData(uint8 data);
 
     // Времени прошло после последнего события
     uint TimePassedAfterLastEvent();
+
+    namespace Data
+    {
+        uint16 Next();
+
+        // Есть данные для передачи
+        bool Exist();
+    }
 
     namespace Callback
     {

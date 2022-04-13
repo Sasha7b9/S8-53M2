@@ -877,7 +877,7 @@ void Panel::TransmitData(uint8 data)
 }
 
 
-uint16 Panel::NextData()
+uint16 Panel::Data::Next()
 {
     uint16 result = 0;
 
@@ -891,6 +891,17 @@ uint16 Panel::NextData()
     }
 
     return result;
+}
+
+
+bool Panel::Data::Exist()
+{
+    if (!data_for_send.mutex.Locked())
+    {
+        return data_for_send.Size() != 0;
+    }
+
+    return false;
 }
 
 

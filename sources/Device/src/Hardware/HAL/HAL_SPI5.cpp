@@ -76,7 +76,7 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi) //-V2009
 
         HAL_SPI_Receive_IT(&handleSPI5, buffer_in, SIZE_PACKET);
 
-        SPI5->DR = Panel::NextData();
+        SPI5->DR = Panel::Data::Next();
     }
 }
 
