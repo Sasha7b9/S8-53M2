@@ -255,7 +255,16 @@ void Display::WriteValueTrigLevel()
 {
     if (TrigLev::showLevel && MODE_WORK_IS_DIRECT)
     {
-        float trigLev = TRIG_LEVEL_SOURCE.ToAbs(SET_RANGE(TRIG_SOURCE));     // WARN Здесь для внешней синхронизации неправильно рассчитывается уровень.
+        float trig_lev = 0.0f;
+
+        if (TRIG_SOURCE == TrigSource::Ext)
+        {
+            trig_lev = -5.0f + (float)(TRIG_LEVEL_SOURCE - TrigLev::MIN) / (float)(TrigLev::MAX - TrigLev::MIN) * 10.0f;
+        }
+        else
+        {
+            trig_lev = TRIG_LEVEL_SOURCE.ToAbs(SET_RANGE(TRIG_SOURCE));
+        }
 
         TrigSource::E trigSource = TRIG_SOURCE;
 
@@ -263,7 +272,7 @@ void Display::WriteValueTrigLevel()
         {
             RShift rshift = SET_RSHIFT((Chan::E)trigSource);
             float rShiftAbs = rshift.ToAbs(SET_RANGE(trigSource));
-            trigLev += rShiftAbs;
+            trig_lev += rShiftAbs;
         }
 
         int width = 96;
@@ -273,7 +282,7 @@ void Display::WriteValueTrigLevel()
         Region(width - 2, 8).Fill(x + 1, y + 1, COLOR_BACK);
 
         String<> string(LANG_RU ? "Ур синхр = " : "Trig lvl = ");
-        string.Append(SU::Voltage2String(trigLev, true));
+        string.Append(SU::Voltage2String(trig_lev, true));
         string.Draw(x + 2, y + 1, COLOR_FILL);
     }
 }
