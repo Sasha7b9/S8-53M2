@@ -100,15 +100,15 @@ struct Sector
     void Erase() const;
     
     // true означает, что в сектор не записан ни один пакет
-    bool ExistPackets() const;
+//    bool ExistPackets() const;
 
-    const PacketROM *FirstFreePacket() const;
+//    const PacketROM *FirstFreePacket() const;
 
-    const PacketROM *WriteData(uint numInROM, const DataSettings *ds) const;
+//    const PacketROM *WriteData(uint numInROM, const DataSettings *ds) const;
 
-    const ReadingFrame *ReadData(uint numInROM) const;
+//    const ReadingFrame *ReadData(uint numInROM) const;
 
-    const PacketROM *DeleteData(uint numInROM) const;
+//    const PacketROM *DeleteData(uint numInROM) const;
     
     // Получить информацию о сохранённх в секторе данных
     void GetDataInfo(bool existData[ROM::Data::MAX_NUM_SAVED_WAVES]) const;
