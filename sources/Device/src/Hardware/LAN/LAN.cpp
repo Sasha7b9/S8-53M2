@@ -114,7 +114,7 @@ void LAN::Send(struct tcp_pcb *_tpcb, struct State *_ss)
         else if (wr_err == ERR_MEM)
         {
             // we are low on memory, try later / harder, defer to poll
-            _ss->p = ptr;
+            //_ss->p = ptr;
         }
         else
         {
@@ -191,11 +191,11 @@ err_t LAN::CallbackOnRecieve(void *_arg, struct tcp_pcb *_tpcb, struct pbuf *_p,
     else if (_err != ERR_OK)
     {
         // cleanup, for unkown reason
-        if (_p != NULL)
-        {
-            ss->p = NULL;
-            pbuf_free(_p);
-        }
+//        if (_p != NULL)
+//        {
+        ss->p = NULL;
+        pbuf_free(_p);
+//        }
         ret_err = _err;
     }
     else if (ss->state == S_ACCEPTED)
