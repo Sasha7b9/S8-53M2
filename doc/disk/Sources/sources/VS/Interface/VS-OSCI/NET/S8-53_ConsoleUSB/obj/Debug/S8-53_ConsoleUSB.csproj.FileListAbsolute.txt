@@ -1,0 +1,10 @@
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_ConsoleUSB\bin\Debug\S8-53_ConsoleUSB.exe.config
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_ConsoleUSB\bin\Debug\S8-53_ConsoleUSB.exe
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_ConsoleUSB\bin\Debug\S8-53_ConsoleUSB.pdb
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_ConsoleUSB\bin\Debug\LibraryS8_53.dll
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_ConsoleUSB\bin\Debug\LibraryS8_53.pdb
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_ConsoleUSB\obj\Debug\S8-53_ConsoleUSB.csproj.AssemblyReference.cache
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_ConsoleUSB\obj\Debug\S8-53_ConsoleUSB.csproj.CoreCompileInputs.cache
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_ConsoleUSB\obj\Debug\S8-53_ConsoleUSB.csproj.CopyComplete
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_ConsoleUSB\obj\Debug\S8-53_ConsoleUSB.exe
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_ConsoleUSB\obj\Debug\S8-53_ConsoleUSB.pdb

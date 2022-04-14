@@ -1,0 +1,12 @@
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_ConsoleLAN\bin\Release\S8-53_ConsoleLAN.exe.config
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_ConsoleLAN\bin\Release\S8-53_ConsoleLAN.exe
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_ConsoleLAN\bin\Release\S8-53_ConsoleLAN.pdb
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_ConsoleLAN\bin\Release\LibraryS8_53.dll
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_ConsoleLAN\bin\Release\LibraryS8_53.pdb
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_ConsoleLAN\obj\Release\S8-53_ConsoleLAN.csproj.AssemblyReference.cache
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_ConsoleLAN\obj\Release\S8_53_ConsoleLAN.Properties.Resources.resources
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_ConsoleLAN\obj\Release\S8-53_ConsoleLAN.csproj.GenerateResource.cache
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_ConsoleLAN\obj\Release\S8-53_ConsoleLAN.csproj.CoreCompileInputs.cache
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_ConsoleLAN\obj\Release\S8-53_ConsoleLAN.csproj.CopyComplete
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_ConsoleLAN\obj\Release\S8-53_ConsoleLAN.exe
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_ConsoleLAN\obj\Release\S8-53_ConsoleLAN.pdb

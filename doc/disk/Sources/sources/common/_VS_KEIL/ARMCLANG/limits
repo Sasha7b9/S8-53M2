@@ -1,0 +1,21 @@
+#pragma once
+
+#define UINT_MAX  0xffffffffU
+#define INT_MAX   0x7fffffff
+#define SHRT_MAX  0x7fff
+
+namespace std //-V1061
+{
+#include "math.h"
+
+    template<class T>
+    class numeric_limits
+    {
+    public:
+        static float epsilon();
+        static float quiet_NaN();
+        static float infinity();
+        static float max();
+    };
+
+}

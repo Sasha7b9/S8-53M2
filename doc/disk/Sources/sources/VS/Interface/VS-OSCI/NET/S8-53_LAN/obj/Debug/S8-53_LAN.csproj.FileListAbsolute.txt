@@ -1,0 +1,17 @@
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_LAN\bin\Debug\S8-53_LAN.exe.config
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_LAN\bin\Debug\S8-53_LAN.exe
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_LAN\bin\Debug\S8-53_LAN.pdb
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_LAN\bin\Debug\ControlLibraryS8_53.dll
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_LAN\bin\Debug\LibraryS8_53.dll
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_LAN\bin\Debug\ControlLibraryS8_53.pdb
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_LAN\bin\Debug\LibraryS8_53.pdb
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_LAN\obj\Debug\S8-53_LAN.csproj.AssemblyReference.cache
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_LAN\obj\Debug\S8_53_LAN.src.LineEditID.resources
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_LAN\obj\Debug\Controller_S8_53.MainForm.resources
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_LAN\obj\Debug\S8_53_LAN.Properties.Resources.resources
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_LAN\obj\Debug\S8_53_LAN.src.TextBoxIP.resources
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_LAN\obj\Debug\S8-53_LAN.csproj.GenerateResource.cache
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_LAN\obj\Debug\S8-53_LAN.csproj.CoreCompileInputs.cache
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_LAN\obj\Debug\S8-53_LAN.csproj.CopyComplete
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_LAN\obj\Debug\S8-53_LAN.exe
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_LAN\obj\Debug\S8-53_LAN.pdb

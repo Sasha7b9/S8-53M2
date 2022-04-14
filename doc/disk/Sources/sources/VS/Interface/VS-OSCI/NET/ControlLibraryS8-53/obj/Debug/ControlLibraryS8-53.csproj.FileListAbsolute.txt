@@ -1,0 +1,12 @@
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\ControlLibraryS8-53\bin\Debug\ControlLibraryS8_53.dll
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\ControlLibraryS8-53\bin\Debug\ControlLibraryS8_53.pdb
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\ControlLibraryS8-53\bin\Debug\LibraryS8_53.dll
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\ControlLibraryS8-53\bin\Debug\LibraryS8_53.pdb
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\ControlLibraryS8-53\obj\Debug\ControlLibraryS8-53.csproj.AssemblyReference.cache
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\ControlLibraryS8-53\obj\Debug\ControlLibraryS8_53.src.Display.resources
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\ControlLibraryS8-53\obj\Debug\ControlLibraryS8_53.src.Governor.resources
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\ControlLibraryS8-53\obj\Debug\ControlLibraryS8-53.csproj.GenerateResource.cache
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\ControlLibraryS8-53\obj\Debug\ControlLibraryS8-53.csproj.CoreCompileInputs.cache
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\ControlLibraryS8-53\obj\Debug\ControlLibraryS8-53.csproj.CopyComplete
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\ControlLibraryS8-53\obj\Debug\ControlLibraryS8_53.dll
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\ControlLibraryS8-53\obj\Debug\ControlLibraryS8_53.pdb

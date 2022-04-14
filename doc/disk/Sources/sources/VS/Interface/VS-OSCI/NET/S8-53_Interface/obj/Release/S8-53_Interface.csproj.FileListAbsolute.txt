@@ -1,0 +1,6 @@
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_Interface\bin\Release\S8-53_Interface.exe.config
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_Interface\bin\Release\S8-53_Interface.exe
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_Interface\bin\Release\S8-53_Interface.pdb
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_Interface\obj\Release\S8-53_Interface.csproj.CoreCompileInputs.cache
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_Interface\obj\Release\S8-53_Interface.exe
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_Interface\obj\Release\S8-53_Interface.pdb

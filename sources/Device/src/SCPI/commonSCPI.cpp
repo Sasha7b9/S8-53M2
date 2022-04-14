@@ -10,7 +10,7 @@
 
 bool SCPI::COMMON::IDN(pchar)
 {
-    SCPI::SendFormat("MNIPI, %s, V%s", NAME_MODEL_EN, NUMBER_VER);
+    SCPI::SendFormat("MNIPI, %s, V%s, %X", NAME_MODEL_EN, NUMBER_VER, HAL::CalculateCRC32());
 
     return true;
 }

@@ -1,0 +1,8 @@
+// 2022/01/25 15:35:07 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+#pragma once
+
+
+namespace std //-V1061
+{
+#include <ctype.h>
+}

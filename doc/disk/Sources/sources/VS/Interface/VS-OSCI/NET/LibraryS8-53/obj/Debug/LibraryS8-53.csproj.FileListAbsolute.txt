@@ -1,0 +1,6 @@
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\LibraryS8-53\bin\Debug\LibraryS8_53.dll
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\LibraryS8-53\bin\Debug\LibraryS8_53.pdb
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\LibraryS8-53\obj\Debug\LibraryS8-53.csproj.AssemblyReference.cache
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\LibraryS8-53\obj\Debug\LibraryS8-53.csproj.CoreCompileInputs.cache
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\LibraryS8-53\obj\Debug\LibraryS8_53.dll
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\LibraryS8-53\obj\Debug\LibraryS8_53.pdb

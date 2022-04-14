@@ -1,0 +1,12 @@
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_USB\bin\Debug\S8-53_Interface.exe.config
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_USB\bin\Debug\S8-53_Interface.exe
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_USB\bin\Debug\S8-53_Interface.pdb
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_USB\obj\Debug\S8-53_USB.csproj.AssemblyReference.cache
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_USB\obj\Debug\S8_53_USB.src.Display.resources
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_USB\obj\Debug\S8_53_USB.src.Governor.resources
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_USB\obj\Debug\S8_53_USB.MainForm.resources
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_USB\obj\Debug\S8_53_USB.Properties.Resources.resources
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_USB\obj\Debug\S8-53_USB.csproj.GenerateResource.cache
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_USB\obj\Debug\S8-53_USB.csproj.CoreCompileInputs.cache
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_USB\obj\Debug\S8-53_Interface.exe
+c:\Projects\S8-53M2\sources\VS\Interface\VS-OSCI\NET\S8-53_USB\obj\Debug\S8-53_Interface.pdb

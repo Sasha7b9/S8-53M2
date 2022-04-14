@@ -1,0 +1,124 @@
+#pragma once
+
+
+/** @file FPGA_Types.h
+    @brief Файл содержит макросы, адреса и и константы, необходимые для работы с прибором
+    @verbatim
+    После каждого включения прибора необходимо выполнять засылки 2-15
+    Засылка WR_START выполняется каждый раз для запуска цикла преобразования
+    Засылка WR_STOP выполняется для прекращения цикла преобразования перед новым циклом
+
+
+    Для управления режимами каналов и синхронизации, смещениями каналов и синхронизации используются выводы PG2, PG3, PG5, PG7
+    PG5 - выбор режимов (чипселект)
+    PG7 - выбор смещений (чипселект)
+    PG2 - тактовые импульсы
+    PG3 - данные
+
+    Активный уровень выбора - низкий.
+    Перед подачей чипселекта уровень тактового импульса должен быть равен нулю.
+    Данные передаются по срезу тактового импульса.
+    Микросхема AD5314.
+                            __      __      __      __         __      __      __      __      __
+                           /  \    /  \    /  \    /  \       /  \    /  \    /  \    /  \    /  \
+    PG2       ____________/    \__/    \__/    \__/    \__/  /    \__/    \__/    \__/    \__/    \_____________
+              _________                                                                                _________
+    PG5 (PG7)          \___________________________________   ________________________________________/
+                             ____    ____    ____    ____       ____    ____    ____    ____    ____                                                              
+    PG3       ______________/    \__/    \__/    \__/    \_   _/    \__/    \__/    \__/    \__/    \___________
+                            \____/  \____/  \____/  \____/     \____/  \____/  \____/  \____/  \____/                                                    
+                             DB15    DB14    DB13    DB12       DB4     DB3     DB2     DB1     DB0
+
+    @endverbatim 
+*/
+
+
+/*
+* Эти использовались только в С8-53/1. В С8-53М использоваться не должны *******************************
+*/
+#define WR_CAL_A        ((uint8 *)12)            //    Калибровочный коэффициент канала 1.
+#define WR_CAL_B        ((uint8 *)13)            //    Калибровочный коэффициент канала 2.
+/*
+* ******************************************************************************************************
+*/
+
+
+#define WR_START                (HAL_FMC::ADDR_FPGA + 0x00)    // Запуск цикла измерения. Для запуска нужно записать 1.
+#define WR_RAZV                 (HAL_FMC::ADDR_FPGA + 0x01)    // Установка частоты дискретизации. Используется в TBase::Load().
+#define WR_PRED                 (HAL_FMC::ADDR_FPGA + 0x02)
+#define WR_POST                 (HAL_FMC::ADDR_FPGA + 0x03)
+#define WR_TRIG                 (HAL_FMC::ADDR_FPGA + 0x04)
+#define WR_UPR                  (HAL_FMC::ADDR_FPGA + 0x05)
+    #define UPR_BIT_RAND                    0   // Включается на рандомизаторе
+    #define UPR_BIT_PEAKDET                 1   // пиковый детектор - 0/1 выкл/вкл
+    #define UPR_BIT_CALIBRATOR_AC_DC        2   // постоянное/переменное
+    #define UPR_BIT_CALIBRATOR_VOLTAGE      3   // 0/4В
+    #define UPR_BIT_RECORDER                4   // 0 - обычный режим, 1 - регистратор
+#define WR_ADDR_READ            (HAL_FMC::ADDR_FPGA + 0x06) // Эта команда записывает адрес чтения в регистр предзапуска
+#define WR_FREQ_METER_PARAMS    (HAL_FMC::ADDR_FPGA + 0x0a)
+#define WR_STOP                 (HAL_FMC::ADDR_FPGA + 0x1f)
+
+#define RD_ADC_A                (HAL_FMC::ADDR_FPGA + 0x00)
+#define RD_ADC_B                (HAL_FMC::ADDR_FPGA + 0x02)
+#define RD_ADDR_LAST_RECORD     (HAL_FMC::ADDR_FPGA + 0x08) // Чтение адреса последней записи
+#define RD_FREQ_LOW             (HAL_FMC::ADDR_FPGA + 0x10)
+#define RD_FREQ_HI              (HAL_FMC::ADDR_FPGA + 0x18)
+#define RD_PERIOD_LOW           (HAL_FMC::ADDR_FPGA + 0x20)
+#define RD_PERIOD_HI            (HAL_FMC::ADDR_FPGA + 0x28)
+#define RD_FL                   (HAL_FMC::ADDR_FPGA + 0x30)
+    #define FL_DATA             0   // 0 - данные готовы
+    #define FL_TRIG             1   // 1 - наличие синхроимпульса
+    #define FL_PRED             2   // 2 - окончание счета предзапуска
+    #define FL_POINT            3   // 3 - признак того, что точка готова (в поточечном выводе)
+    #define FL_FREQ             4   // 4 - можно считывать частоту
+    #define FL_PERIOD           5   // 5 - можно считывать период
+    #define FL_LAST_RECOR       6   // 6 - признак последней записи - определяет, какой бит ставить первым
+    #define FL_OVERFLOW_FREQ    8   // 8 - признак переполнения счётчика частоты
+    #define FL_OVERFLOW_PERIOD  9   // 9 - признак переполнения счётчика периода
+
+struct TypeWriteAnalog
+{
+    enum E
+    {
+        All,
+        RangeA,
+        RangeB,
+        TrigParam,
+        ChanParam0,
+        ChanParam1
+    };
+};
+
+
+struct TypeWriteDAC
+{
+    enum E
+    {
+        RShiftA,
+        RShiftB,
+        TrigLev
+    };
+};
+
+
+// Это значение входного сигнала, считанное с АЦП, соответствует нижней границе сетки (-5 клеток от центра). Если
+// значение == 0, значит, его нет. Это нужно для режимов рандомизатора и поточечного вывода p2p, а также для tshift
+// ранее считанного сигнала.
+struct ValueFPGA
+{
+    static const uint8 NONE = 0;
+
+    static const uint8 MIN = 2;
+    static const uint8 AVE = 127;   // Это значение входного сигнала, считанное с АЦП, соответствует центру сетки.
+                                    // Если значение == 0, значит, его нет. Это нужно для режимов рандомизатора и
+                                    // поточечного вывода p2p, а также для tshift ранее считанного сигнала.
+    static const uint8 MAX = 252;   // Это значение входного сигнала, считанное с АЦП, соответствует верхней границе
+                                    // сетки (+5 клеток от центра). Если значение == 0, значит, его нет. Это нужно для
+                                    // режимов рандомизатора и поточечного вывода p2p, а также для tshift ранее
+                                    // считанного сигнала.
+
+    static float ToVoltage(uint8 value, Range::E, RShift);
+    static uint8 FromVoltage(float voltage, Range::E, RShift);
+    static void ToVoltageArray(const uint8 *points, int numPoints, Range::E, RShift, float *voltage);
+    static void FromVoltageArray(const float *in, int numPoints, Range::E, RShift, uint8 *out);
+};
