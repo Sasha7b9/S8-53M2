@@ -31,16 +31,16 @@ struct DataSettings
     uint                rshiftB             : 10;
     uint                trigLevA            : 10;   // Уровень синхронизации
     int                 tshift;                     // Смещение по времени
-    ModeCouple::E       coupleB             : 2;
+    ModeCouple::E       coupleB             : 3;
     Range::E            range[2];                   // Масштаб по напряжению обоих каналов.
 
     uint                trigLevB            : 10;
-    ENUM_POINTS_FPGA::E e_points_in_channel : 2;    // Точек в канале
-    TBase::E            tbase               : 5;    // Масштаб по времени
-    ModeCouple::E       coupleA             : 2;    // Режим канала по входу
+    ENUM_POINTS_FPGA::E e_points_in_channel : 3;    // Точек в канале
+    TBase::E            tbase               : 6;    // Масштаб по времени
+    ModeCouple::E       coupleA             : 3;    // Режим канала по входу
     uint                peak_det            : 2;    // Включен ли пиковый детектор
-    Divider::E          div_a               : 1;
-    Divider::E          div_b               : 1;
+    Divider::E          div_a               : 2;
+    Divider::E          div_b               : 2;
     uint                valid               : 1;
     PackedTime          time;
 
