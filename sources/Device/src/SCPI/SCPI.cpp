@@ -29,18 +29,23 @@ void SCPI::AppendNewData(const void *data, int length)
 
 void SCPI::Update()
 {
-    input.RemoveFirstDividers();
-
-    while (input.ExistDivider())
+    if (input.Size())
     {
-        String<> command = input.ExtractCommand();
+        input.RemoveFirstDividers();
 
-        pchar result = SCPI::ParseNewCommand(command.c_str());
-
-        if(result != nullptr)
+        while (input.ExistDivider())
         {
-            SCPI::SendFormat0D("Error !!! Invalid sequency \"%s\"", result);
+            String<> command = input.ExtractCommand();
+
+            pchar result = SCPI::ParseNewCommand(command.c_str());
+
+            if (result != nullptr)
+            {
+                SCPI::SendFormat0D("Error !!! Invalid sequency \"%s\"", result);
+            }
         }
+
+        Flush();
     }
 }
 
