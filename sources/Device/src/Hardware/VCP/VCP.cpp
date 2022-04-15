@@ -35,12 +35,6 @@ void VCP::Init()
 }
 
 
-void VCP::SendString(pchar string)
-{
-    SendBuffer(string, (int)std::strlen(string) + 1);
-}
-
-
 void VCP::SendBuffer(const void *_buffer, int size)
 {
     _sended_bytes += size;

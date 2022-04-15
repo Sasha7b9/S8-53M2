@@ -13,7 +13,6 @@ namespace VCP
 
     void SendBuffer(const void *buffer, int size);
     void SendFormat(pchar format, ...);
-    void SendString(pchar);
 
     void SendFormatTrace(pchar module, pchar func, int line, char *format, ...);
 
