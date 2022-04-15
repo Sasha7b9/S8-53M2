@@ -8,7 +8,7 @@
 #include "SCPI/SCPI.h"
 
 
-bool SCPI::ProcessDISPLAY(pchar buffer)
+pchar SCPI::ProcessDISPLAY(pchar buffer)
 {
     static const StructCommand commands[] =
     {
@@ -31,7 +31,7 @@ bool SCPI::ProcessDISPLAY(pchar buffer)
 }
 
 
-bool SCPI::DISPLAY::GRID(pchar buffer)
+pchar SCPI::DISPLAY::GRID(pchar buffer)
 {
     static const StructCommand commands[] =
     {
@@ -44,7 +44,7 @@ bool SCPI::DISPLAY::GRID(pchar buffer)
 }
 
 
-bool SCPI::DISPLAY::ACCUM(pchar buffer)
+pchar SCPI::DISPLAY::ACCUM(pchar buffer)
 {
     static const StructCommand commands[] =
     {
@@ -59,7 +59,7 @@ bool SCPI::DISPLAY::ACCUM(pchar buffer)
 }
 
 
-bool SCPI::DISPLAY::AVERAGE(pchar buffer)
+pchar SCPI::DISPLAY::AVERAGE(pchar buffer)
 {
     static const StructCommand commands[] =
     {
@@ -73,41 +73,38 @@ bool SCPI::DISPLAY::AVERAGE(pchar buffer)
 }
 
 
-bool SCPI::DISPLAY::AUTOSEND(pchar buffer)
+pchar SCPI::DISPLAY::AUTOSEND(pchar buffer)
 {
     if FIRST_SYMBOLS(" 1")          // Этот запрос для запроса первого фрейма с палитрой и шрифтами
     {
         Display::Sender::needSendPalette = true;
         Display::Sender::needSendFrame = true;
-        return true;
     }
     else if FIRST_SYMBOLS(" 2")     // Этот запрос для запроса последующих фреймов
     {
         Display::Sender::needSendFrame = true;
-        return true;
     }
     else if FIRST_SYMBOLS(" 3")     // Этот запрос для запроса первого фрейма без палитры и шрифтов
     {
         Display::Sender::needSendFrame = true;
-        return true;
     }
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::DISPLAY::MAPPING(pchar buffer)
+pchar SCPI::DISPLAY::MAPPING(pchar buffer)
 {
-    if      FIRST_SYMBOLS(" POINTS") { MODE_DRAW_SIGNAL = ModeDrawSignal::Points; return true; }
-    else if FIRST_SYMBOLS(" LINES")  { MODE_DRAW_SIGNAL = ModeDrawSignal::Lines;  return true; }
+    if      FIRST_SYMBOLS(" POINTS") { MODE_DRAW_SIGNAL = ModeDrawSignal::Points; }
+    else if FIRST_SYMBOLS(" LINES")  { MODE_DRAW_SIGNAL = ModeDrawSignal::Lines;  }
 
     IF_REQUEST(SCPI::SendFormat(":DISPLAY:MAPPING %s", MODE_DRAW_SIGNAL ? "LINES" : "POINTS"));
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::DISPLAY::ACCUM_NUMBER(pchar buffer)
+pchar SCPI::DISPLAY::ACCUM_NUMBER(pchar buffer)
 {
     static const MapElement map[] =
     {
@@ -127,7 +124,7 @@ bool SCPI::DISPLAY::ACCUM_NUMBER(pchar buffer)
 
     IF_REQUEST(SCPI::SendFormat(":DISPLAY:ACCUMULATION:NUMBER %s", map[ENUM_ACCUM].key));
 
-    return false;
+    return buffer;
 }
 
 

@@ -15,7 +15,7 @@
 
 namespace SCPI
 {
-    static bool ParseNewCommand(pchar buffer);
+    static pchar ParseNewCommand(pchar buffer);
 
     static BufferSCPI input;
 }
@@ -43,7 +43,7 @@ void SCPI::Update()
 }
 
 
-bool SCPI::ParseNewCommand(pchar buffer)
+pchar SCPI::ParseNewCommand(pchar buffer)
 {
     static const StructCommand commands[] =
     {
@@ -81,7 +81,7 @@ bool SCPI::ParseNewCommand(pchar buffer)
 
 
 
-bool SCPI::ProcessSpeedTest(pchar)
+pchar SCPI::ProcessSpeedTest(pchar)
 {
     TimeMeterMS meter;
 
@@ -99,12 +99,12 @@ bool SCPI::ProcessSpeedTest(pchar)
 
     LOG_WRITE("Передано %d байт, скорость %f кб/сек", num_bytes, num_bytes / (float)meter.ElapsedTime());
 
-    return true;
+    return nullptr;
 }
 
 
 
-bool SCPI::ProcessingCommand(const StructCommand *commands, pchar buffer)
+pchar SCPI::ProcessingCommand(const StructCommand *commands, pchar buffer)
 {
     for (const StructCommand *command = commands; command->name != 0; command++)
     {
@@ -116,7 +116,7 @@ bool SCPI::ProcessingCommand(const StructCommand *commands, pchar buffer)
         }
     }
 
-    return false;
+    return buffer;
 }
 
 

@@ -8,41 +8,53 @@
 #include "Panel/Panel.h"
 
 
-bool SCPI::COMMON::IDN(pchar)
+pchar SCPI::COMMON::IDN(pchar buffer)
 {
-    SCPI::SendFormat("MNIPI, %s, V%s, %X", NAME_MODEL_EN, NUMBER_VER, HAL::CalculateCRC32());
-
-    return true;
-}
-
-
-bool SCPI::COMMON::RUN(pchar)
-{
-    if (!FPGA::IsRunning())
+    if (buffer == nullptr)
     {
-        FPGA::Start();
+        SCPI::SendFormat("MNIPI, %s, V%s, %X", NAME_MODEL_EN, NUMBER_VER, HAL::CalculateCRC32());
     }
 
-    return true;
+    return buffer;
 }
 
 
-bool SCPI::COMMON::STOP(pchar)
+pchar SCPI::COMMON::RUN(pchar buffer)
 {
-    if (FPGA::IsRunning())
+    if (buffer == nullptr)
     {
-        FPGA::Stop();
+        if (!FPGA::IsRunning())
+        {
+            FPGA::Start();
+        }
     }
 
-    return true;
+    return buffer;
 }
 
 
-bool SCPI::COMMON::RESET(pchar)
+pchar SCPI::COMMON::STOP(pchar buffer)
 {
-    PageService::ResetSettings(false);
+    if (buffer == nullptr)
+    {
+        if (FPGA::IsRunning())
+        {
+            FPGA::Stop();
+        }
+    }
 
-    return true;
+    return buffer;
+}
+
+
+pchar SCPI::COMMON::RESET(pchar buffer)
+{
+    if (buffer == nullptr)
+    {
+        PageService::ResetSettings(false);
+    }
+
+    return buffer;
 }
 
 

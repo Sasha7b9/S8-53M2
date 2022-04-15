@@ -4,7 +4,7 @@
 #include "SCPI/SCPI.h"
 
 
-bool SCPI::CONTROL::KEY(pchar buffer)
+pchar SCPI::CONTROL::KEY(pchar buffer)
 {
     static const MapElement keys[] =
     {
@@ -48,39 +48,39 @@ bool SCPI::CONTROL::KEY(pchar buffer)
 
                     data[2] = Action::Up;
                     Panel::Callback::OnReceiveSPI5(data, 3);
-                    return true;
+                    return nullptr;
                 }
                 else if (action.WordEqualZeroString("DOWN"))
                 {
                     data[2] = Action::Down;
                     Panel::Callback::OnReceiveSPI5(data, 3);
-                    return true;
+                    return nullptr;
                 }
                 else if (action.WordEqualZeroString("UP"))
                 {
                     data[2] = Action::Up;
                     Panel::Callback::OnReceiveSPI5(data, 3);
-                    return true;
+                    return nullptr;
                 }
                 else if (action.WordEqualZeroString("LONG"))
                 {
                     data[2] = Action::Long;
                     Panel::Callback::OnReceiveSPI5(data, 3);
-                    return true;
+                    return nullptr;
                 }
 
-                return false;
+                return buffer;
             }
 
             numKey++;
         }
     }
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::CONTROL::GOVERNOR(pchar buffer)
+pchar SCPI::CONTROL::GOVERNOR(pchar buffer)
 {
     static const MapElement governors[] =
     {
@@ -119,15 +119,15 @@ bool SCPI::CONTROL::GOVERNOR(pchar buffer)
                 if (data[2])
                 {
                     Panel::Callback::OnReceiveSPI5(data, 3);
-                    return true;
+                    return nullptr;
                 }
 
-                return false;
+                return buffer;
             }
 
             numGov++;
         }
     }
 
-    return false;
+    return buffer;
 }
