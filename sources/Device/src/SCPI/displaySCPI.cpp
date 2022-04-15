@@ -78,16 +78,16 @@ pchar SCPI::DISPLAY::AUTOSEND(pchar buffer)
 {
     if FIRST_SYMBOLS(" 1")          // Этот запрос для запроса первого фрейма с палитрой и шрифтами
     {
-        Display::Sender::needSendPalette = true;
-        Display::Sender::needSendFrame = true;
+        InterCom::Sender::needSendPalette = true;
+        InterCom::Sender::needSendFrame = true;
     }
     else if FIRST_SYMBOLS(" 2")     // Этот запрос для запроса последующих фреймов
     {
-        Display::Sender::needSendFrame = true;
+        InterCom::Sender::needSendFrame = true;
     }
     else if FIRST_SYMBOLS(" 3")     // Этот запрос для запроса первого фрейма без палитры и шрифтов
     {
-        Display::Sender::needSendFrame = true;
+        InterCom::Sender::needSendFrame = true;
     }
 
     return buffer;

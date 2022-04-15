@@ -3,6 +3,7 @@
 #include "Hardware/VCP/VCP.h"
 #include "Hardware/LAN/LAN.h"
 #include "Display/Display.h"
+#include "Settings/Settings.h"
 #include <cstdarg>
 #include <cstring>
 #include <cstdio>
@@ -20,14 +21,33 @@ namespace InterCom
     };
 
     static StateTransmit::E stateTransmit = StateTransmit::Free;
+
+    namespace Sender
+    {
+        bool needSendPalette = false;
+        bool needSendFrame = false;
+    }
 }
 
 
 void InterCom::BeginScene()
 {
-    if (Display::Sender::needSendFrame)
+    if (Sender::needSendPalette)
     {
-        Display::Sender::needSendFrame = false;
+        Sender::needSendPalette = false;
+
+        for (int i = 0; i < 16; i++)
+        {
+            CommandBuffer<6> command(SET_PALETTE);
+            command.PushByte(i);
+            command.PushWord(COLOR(i));
+            command.Transmit();
+        }
+    }
+
+    if (Sender::needSendFrame)
+    {
+        Sender::needSendFrame = false;
 
         stateTransmit = StateTransmit::InProcess;
     }

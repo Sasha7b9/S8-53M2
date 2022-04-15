@@ -485,21 +485,6 @@ void Painter::DrawVLineArray(int x, int num_lines, uint8 *y0y1, Color::E color, 
 
 void Painter::BeginScene(Color::E color)
 {
-    if (Display::Sender::needSendPalette)
-    {
-        Display::Sender::needSendPalette = false;
-
-        for (int i = 0; i < 16; i++)
-        {
-            CommandBuffer<6> command(SET_PALETTE);
-            command.PushByte(i);
-            command.PushWord(COLOR(i));
-            command.Transmit();
-        }
-    }
-
-    InterCom::BeginScene();
-
     Region(319, 239).Fill(0, 0, color);
 }
 
@@ -521,6 +506,8 @@ void Painter::EndScene()
     HAL_LTDC::ToggleBuffers();
 
     InterCom::EndScene();
+
+    InterCom::BeginScene();
 }
 
 

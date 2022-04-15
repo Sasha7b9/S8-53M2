@@ -37,10 +37,4 @@ namespace Display
 
     // После отрисовки очередного экрана эта функция будет вызвана один раз.
     void RunAfterDraw(pFuncVV func);
-
-    namespace Sender
-    {
-        extern bool needSendPalette;
-        extern bool needSendFrame;
-    }
 };

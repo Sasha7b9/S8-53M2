@@ -15,6 +15,12 @@ namespace InterCom
     void Send(const void *, int);
     void SendFormat0D(pchar format, ...);
     void Flush();
+
+    namespace Sender
+    {
+        extern bool needSendPalette;
+        extern bool needSendFrame;
+    }
 }
 
 

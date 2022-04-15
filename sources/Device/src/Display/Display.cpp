@@ -63,12 +63,6 @@ namespace Display
 
     // Вывести значение уровня синхронизации. 
     void WriteValueTrigLevel();
-
-    namespace Sender
-    {
-        bool needSendPalette = false;
-        bool needSendFrame = false;
-    }
 }
 
 
