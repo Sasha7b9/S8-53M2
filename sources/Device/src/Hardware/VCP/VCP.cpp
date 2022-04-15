@@ -130,7 +130,7 @@ void VCP::Buffer::Flush()
 }
 
 
-void VCP::SendFormat(pchar format, ...)
+void VCP::SendFormat0D(pchar format, ...)
 {
     static const int SIZE_BUFFER = 1024;
     static char buffer[SIZE_BUFFER];
