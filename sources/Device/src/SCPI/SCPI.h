@@ -39,10 +39,6 @@ namespace SCPI
     void AppendNewData(const void *buffer, int length);
     void Update();
 
-    void SendBuffer(const uint8 *buffer, int size);
-    void SendFormat0D(pchar format, ...);
-    void Flush();
-
     pchar ProcessingCommand(const StructCommand *, pchar);
 
     // Возвращает true, если первые символы в buffer повторяют word (без учёта завершающего нуля).

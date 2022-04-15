@@ -6,6 +6,7 @@
 #include "Hardware/LAN/LAN.h"
 #include "SCPI/SCPI.h"
 #include "SCPI/BufferSCPI.h"
+#include "Hardware/InterCom.h"
 #include <cstring>
 #include <cstdlib>
 #include <cctype>
@@ -41,11 +42,11 @@ void SCPI::Update()
 
             if (*result != '\0')
             {
-                SCPI::SendFormat0D("Error !!! Invalid sequency \"%s\"", result);
+                InterCom::SendFormat0D("Error !!! Invalid sequency \"%s\"", result);
             }
         }
 
-        Flush();
+        InterCom::Flush();
     }
 }
 
@@ -145,33 +146,6 @@ bool SCPI::FirstSymbols(pchar *data, pchar word)
     *data = buffer;
 
     return true;
-}
-
-
-void SCPI::SendBuffer(const uint8 *buffer, int size)
-{
-    VCP::Buffer::Send(buffer, size);
-    LAN::SendBuffer(buffer, size);
-}
-
-
-void SCPI::SendFormat0D(pchar format, ...)
-{
-    char buffer[128];
-    std::va_list args;
-    va_start(args, format);
-    std::vsprintf(buffer, format, args);
-    va_end(args);
-    std::strcat(buffer, "\n");
-
-    VCP::Buffer::Send(buffer, (int)std::strlen(buffer));
-    LAN::SendBuffer(buffer, (int)std::strlen(buffer));
-}
-
-
-void SCPI::Flush()
-{
-    VCP::Buffer::Flush();
 }
 
 

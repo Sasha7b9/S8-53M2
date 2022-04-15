@@ -6,6 +6,7 @@
 #include "Settings/Settings.h"
 #include "Utils/Containers/Values.h"
 #include "SCPI/SCPI.h"
+#include "Hardware/InterCom.h"
 
 
 pchar SCPI::ProcessDISPLAY(pchar buffer)
@@ -98,7 +99,7 @@ pchar SCPI::DISPLAY::MAPPING(pchar buffer)
     if      FIRST_SYMBOLS(" POINTS") { MODE_DRAW_SIGNAL = ModeDrawSignal::Points; }
     else if FIRST_SYMBOLS(" LINES")  { MODE_DRAW_SIGNAL = ModeDrawSignal::Lines;  }
 
-    IF_REQUEST(SCPI::SendFormat0D(":DISPLAY:MAPPING %s", MODE_DRAW_SIGNAL ? "LINES" : "POINTS"));
+    IF_REQUEST(InterCom::SendFormat0D(":DISPLAY:MAPPING %s", MODE_DRAW_SIGNAL ? "LINES" : "POINTS"));
 
     return buffer;
 }
@@ -122,7 +123,7 @@ pchar SCPI::DISPLAY::ACCUM_NUMBER(pchar buffer)
 
     SCPI_CYCLE(ENUM_ACCUM = (ENumAccumulation::E)it->value);
 
-    IF_REQUEST(SCPI::SendFormat0D(":DISPLAY:ACCUMULATION:NUMBER %s", map[ENUM_ACCUM].key));
+    IF_REQUEST(InterCom::SendFormat0D(":DISPLAY:ACCUMULATION:NUMBER %s", map[ENUM_ACCUM].key));
 
     return buffer;
 }
@@ -133,7 +134,7 @@ pchar SCPI::DISPLAY::ACCUM_MODE(pchar buffer)
     if      FIRST_SYMBOLS(" NORESET") { MODE_ACCUM = ModeAccumulation::NoReset; }
     else if FIRST_SYMBOLS(" RESET")   { MODE_ACCUM = ModeAccumulation::Reset;   }
 
-    IF_REQUEST(SCPI::SendFormat0D(":DISPLAY:ACCUMULATION:MODE %s", MODE_ACCUM_IS_RESET ? "RESET" : "NORESET"));
+    IF_REQUEST(InterCom::SendFormat0D(":DISPLAY:ACCUMULATION:MODE %s", MODE_ACCUM_IS_RESET ? "RESET" : "NORESET"));
 
     return buffer;
 }
@@ -166,7 +167,7 @@ pchar SCPI::DISPLAY::AVERAGE_NUMBER(pchar buffer)
 
     SCPI_CYCLE(gset.display.enumAve = (ENumAveraging::E)it->value);
 
-    IF_REQUEST(SCPI::SendFormat0D(":DISPLAY:AVERAGE:NUMBER%s", map[gset.display.enumAve].key));
+    IF_REQUEST(InterCom::SendFormat0D(":DISPLAY:AVERAGE:NUMBER%s", map[gset.display.enumAve].key));
 
     return buffer;
 }
@@ -177,7 +178,7 @@ pchar SCPI::DISPLAY::AVERAGE_MODE(pchar buffer)
     if      FIRST_SYMBOLS(" ACCURACY")    { gset.display.modeAve = ModeAveraging::Accurately; }
     else if FIRST_SYMBOLS(" APPROXIMATE") { gset.display.modeAve = ModeAveraging::Around;     }
 
-    IF_REQUEST(SCPI::SendFormat0D(":DISPLAY:AVARAGE:MODE %s",
+    IF_REQUEST(InterCom::SendFormat0D(":DISPLAY:AVARAGE:MODE %s",
         (gset.display.modeAve == ModeAveraging::Accurately) ? "ACCURACY" : "APPROXIMATE"));
 
     return buffer;
@@ -201,7 +202,7 @@ pchar SCPI::DISPLAY::MINMAX(pchar buffer)
 
     SCPI_CYCLE(ENUM_MIN_MAX = (ENumMinMax::E)it->value);
 
-    IF_REQUEST(SCPI::SendFormat0D(":DISPLAY:MINMAX%s", map[ENUM_MIN_MAX].key));
+    IF_REQUEST(InterCom::SendFormat0D(":DISPLAY:MINMAX%s", map[ENUM_MIN_MAX].key));
 
     return buffer;
 }
@@ -226,7 +227,7 @@ pchar SCPI::DISPLAY::FILTR_(pchar buffer)
 
     SCPI_CYCLE(SMOOTHING = (Smoothing::E)it->value);
 
-    IF_REQUEST(SCPI::SendFormat0D(":DISPLAY:FILTR%s", map[SMOOTHING].key));
+    IF_REQUEST(InterCom::SendFormat0D(":DISPLAY:FILTR%s", map[SMOOTHING].key));
 
     return buffer;
 }
@@ -246,7 +247,7 @@ pchar SCPI::DISPLAY::FPS(pchar buffer)
 
     SCPI_CYCLE(ENUM_SIGNALS_IN_SEC = (ENumSignalsInSec::E)it->value; PageDisplay::OnChanged_RefreshFPS(true));
 
-    IF_REQUEST(SCPI::SendFormat0D(":DISPLAY:FPS%s", map[ENUM_SIGNALS_IN_SEC].key));
+    IF_REQUEST(InterCom::SendFormat0D(":DISPLAY:FPS%s", map[ENUM_SIGNALS_IN_SEC].key));
 
     return buffer;
 }
@@ -257,7 +258,7 @@ pchar SCPI::DISPLAY::WINDOW(pchar buffer)
     if      FIRST_SYMBOLS(" STANDARD") { gset.display.showFullMemoryWindow = true;  }
     else if FIRST_SYMBOLS(" SIMPLE")   { gset.display.showFullMemoryWindow = false; }
 
-    IF_REQUEST(SCPI::SendFormat0D(":DISPLAY:WINDOW %s", gset.display.showFullMemoryWindow ? "STANDARD" : "SIMPLE"));
+    IF_REQUEST(InterCom::SendFormat0D(":DISPLAY:WINDOW %s", gset.display.showFullMemoryWindow ? "STANDARD" : "SIMPLE"));
 
     return buffer;
 }
@@ -268,7 +269,7 @@ pchar SCPI::DISPLAY::GRID_BRIGHTNESS(pchar buffer)
     if FIRST_SYMBOLS("?")
     {
         PageDisplay::Grid::colorType.Init();
-        SCPI::SendFormat0D(":DISPLAY:GRID:BRIGHTNESS %d", (int)(PageDisplay::Grid::colorType.brightness * 100.0F));
+        InterCom::SendFormat0D(":DISPLAY:GRID:BRIGHTNESS %d", (int)(PageDisplay::Grid::colorType.brightness * 100.0F));
     }
     else
     {
@@ -297,7 +298,7 @@ pchar SCPI::DISPLAY::GRID_TYPE(pchar buffer)
 
     SCPI_CYCLE(TYPE_GRID = (TypeGrid::E)it->value);
 
-    IF_REQUEST(SCPI::SendFormat0D(":DISPLAY:GRID:TYPE%s", map[TYPE_GRID].key));
+    IF_REQUEST(InterCom::SendFormat0D(":DISPLAY:GRID:TYPE%s", map[TYPE_GRID].key));
 
     return buffer;
 }

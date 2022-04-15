@@ -4,6 +4,7 @@
 #include "Menu/Pages/Definition.h"
 #include "SCPI/SCPI.h"
 #include "Utils/Containers/Values.h"
+#include "Hardware/InterCom.h"
 
 
 /*
@@ -46,7 +47,7 @@ pchar SCPI::TRIGGER::MODE(pchar buffer)
 
     SCPI_CYCLE(START_MODE = (StartMode::E)it->value; PageTrig::OnPress_Mode(true));
 
-    IF_REQUEST(SCPI::SendFormat0D(":TRIGGER:MODE%s", map[START_MODE].key));
+    IF_REQUEST(InterCom::SendFormat0D(":TRIGGER:MODE%s", map[START_MODE].key));
 
     return buffer;
 }
@@ -64,7 +65,7 @@ pchar SCPI::TRIGGER::SOURCE(pchar buffer)
 
     SCPI_CYCLE(TrigSource::Set((TrigSource::E)it->value));
 
-    IF_REQUEST(SCPI::SendFormat0D(":TRIGGER:SOUCRE%s", map[TRIG_SOURCE].key));
+    IF_REQUEST(InterCom::SendFormat0D(":TRIGGER:SOUCRE%s", map[TRIG_SOURCE].key));
 
     return buffer;
 }
@@ -75,7 +76,7 @@ pchar SCPI::TRIGGER::POLARITY(pchar buffer)
     if      FIRST_SYMBOLS(" FRONT") { TrigPolarity::Set(TrigPolarity::Front); }
     else if FIRST_SYMBOLS(" BACK")  { TrigPolarity::Set(TrigPolarity::Back);  }
 
-    IF_REQUEST(SCPI::SendFormat0D(":TRIGGER:POLARITY %s", TRIG_POLARITY_IS_FRONT ? "FRONT" : "BACK"));
+    IF_REQUEST(InterCom::SendFormat0D(":TRIGGER:POLARITY %s", TRIG_POLARITY_IS_FRONT ? "FRONT" : "BACK"));
 
     return buffer;
 }
@@ -94,7 +95,7 @@ pchar SCPI::TRIGGER::INPUT(pchar buffer)
 
     SCPI_CYCLE(TrigInput::Set((TrigInput::E)it->value));
 
-    IF_REQUEST(SCPI::SendFormat0D(":TRIGGER:INPUT%s", map[TRIG_INPUT].key));
+    IF_REQUEST(InterCom::SendFormat0D(":TRIGGER:INPUT%s", map[TRIG_INPUT].key));
 
     return buffer;
 }
@@ -106,7 +107,7 @@ pchar SCPI::TRIGGER::FIND(pchar buffer)
     else if FIRST_SYMBOLS(" AUTO") { TRIG_MODE_FIND = TrigModeFind::Auto; }
     else if FIRST_SYMBOLS(" FIND") { TrigLev::FindAndSet();               }
 
-    IF_REQUEST(SCPI::SendFormat0D(":TRIGGER:FIND %s", TRIG_MODE_FIND_IS_HAND ? "HAND" : "AUTO"));
+    IF_REQUEST(InterCom::SendFormat0D(":TRIGGER:FIND %s", TRIG_MODE_FIND_IS_HAND ? "HAND" : "AUTO"));
 
     return buffer;
 }
@@ -117,7 +118,7 @@ pchar SCPI::TRIGGER::OFFSET(pchar buffer)
     if FIRST_SYMBOLS("?")
     {
         int trig_lev = (int)(0.5F * (TRIG_LEVEL_SOURCE - RShift::ZERO));
-        SCPI::SendFormat0D(":TRIGGER:OFFSET %d", trig_lev);
+        InterCom::SendFormat0D(":TRIGGER:OFFSET %d", trig_lev);
     }
     else
     {
