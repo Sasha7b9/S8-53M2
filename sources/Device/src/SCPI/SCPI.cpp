@@ -35,7 +35,9 @@ void SCPI::Update()
     {
         String<> command = input.ExtractCommand();
 
-        if (!SCPI::ParseNewCommand(command.c_str()))
+        pchar result = SCPI::ParseNewCommand(command.c_str());
+
+        if(result != nullptr)
         {
             SCPI::SendFormat("Error !!! Invalid sequency \"%s\"", command.c_str());
         }
