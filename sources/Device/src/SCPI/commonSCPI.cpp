@@ -10,7 +10,7 @@
 
 pchar SCPI::COMMON::IDN(pchar buffer)
 {
-    SCPI::SendFormat("MNIPI, %s, V%s, %X", NAME_MODEL_EN, NUMBER_VER, HAL::CalculateCRC32());
+    SCPI::SendFormat0D("MNIPI, %s, V%s, %X", NAME_MODEL_EN, NUMBER_VER, HAL::CalculateCRC32());
 
     return buffer;
 }
@@ -56,7 +56,7 @@ pchar SCPI::COMMON::AUTOSCALE(pchar buffer)
 
 pchar SCPI::COMMON::REQUEST(pchar buffer)
 {
-    SCPI::SendFormat("S8-53/1");
+    SCPI::SendFormat0D("S8-53/1");
 
     return buffer;
 }

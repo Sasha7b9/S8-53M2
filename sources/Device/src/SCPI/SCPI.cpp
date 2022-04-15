@@ -39,7 +39,7 @@ void SCPI::Update()
 
         if(result != nullptr)
         {
-            SCPI::SendFormat("Error !!! Invalid sequency \"%s\"", result);
+            SCPI::SendFormat0D("Error !!! Invalid sequency \"%s\"", result);
         }
     }
 }
@@ -150,7 +150,7 @@ void SCPI::SendBuffer(const uint8 *buffer, int size)
 }
 
 
-void SCPI::SendFormat(pchar format, ...)
+void SCPI::SendFormat0D(pchar format, ...)
 {
     char buffer[128];
     std::va_list args;

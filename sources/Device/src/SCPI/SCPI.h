@@ -40,7 +40,7 @@ namespace SCPI
     void Update();
 
     void SendBuffer(const uint8 *buffer, int size);
-    void SendFormat(pchar format, ...);
+    void SendFormat0D(pchar format, ...);
 
     pchar ProcessingCommand(const StructCommand *, pchar);
 

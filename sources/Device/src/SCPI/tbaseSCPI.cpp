@@ -65,7 +65,7 @@ pchar SCPI::TBASE_::RANGE_(pchar buffer)
 
     SCPI_CYCLE(TBase::Set((TBase::E)it->value));
 
-    IF_REQUEST(SCPI::SendFormat(":TBASE:RANGE%s", map[SET_TBASE].value));
+    IF_REQUEST(SCPI::SendFormat0D(":TBASE:RANGE%s", map[SET_TBASE].value));
 
     return false;
 }
@@ -76,7 +76,7 @@ pchar SCPI::TBASE_::OFFSET(pchar buffer)
     if FIRST_SYMBOLS("?")
     {
         int shift = SET_TSHIFT - 1024;
-        SCPI::SendFormat(":TBASE:OFFSET %d", shift);
+        SCPI::SendFormat0D(":TBASE:OFFSET %d", shift);
     }
     else
     {
@@ -104,7 +104,7 @@ pchar SCPI::TBASE_::SAMPLING(pchar buffer)
 
     SCPI_CYCLE(SET_SAMPLE_TYPE = (SampleType::E)it->value);
 
-    IF_REQUEST(SCPI::SendFormat(":TBASE:SAMPLING%s", map[SET_SAMPLE_TYPE].key));
+    IF_REQUEST(SCPI::SendFormat0D(":TBASE:SAMPLING%s", map[SET_SAMPLE_TYPE].key));
 
     return buffer;
 }
@@ -121,7 +121,7 @@ pchar SCPI::TBASE_::PEACKDET(pchar buffer)
 
     SCPI_CYCLE(SET_PEAKDET = (PeackDetMode::E)it->value);
 
-    IF_REQUEST(SCPI::SendFormat(":TBASE:PEACKDET%s", map[SET_PEAKDET].key));
+    IF_REQUEST(SCPI::SendFormat0D(":TBASE:PEACKDET%s", map[SET_PEAKDET].key));
 
     return buffer;
 }
@@ -139,7 +139,7 @@ pchar SCPI::TBASE_::TPOS_(pchar buffer)
 
     SCPI_CYCLE(SET_TPOS = (TPos::E)it->value; PageTime::OnChanged_TPos(true));
 
-    IF_REQUEST(SCPI::SendFormat(":TBASE:TPOS%s", map[SET_TPOS].key));
+    IF_REQUEST(SCPI::SendFormat0D(":TBASE:TPOS%s", map[SET_TPOS].key));
 
     return buffer;
 }
@@ -150,7 +150,7 @@ pchar SCPI::TBASE_::SELFRECORDER(pchar buffer)
     if      FIRST_SYMBOLS(" ON")  { SET_SELFRECORDER = true; }
     else if FIRST_SYMBOLS(" OFF") { SET_SELFRECORDER = false; }
 
-    IF_REQUEST(SCPI::SendFormat(":TBASE:SELFRECORDER%s", SET_SELFRECORDER ? "ON" : "OFF"));
+    IF_REQUEST(SCPI::SendFormat0D(":TBASE:SELFRECORDER%s", SET_SELFRECORDER ? "ON" : "OFF"));
 
     return buffer;
 }
@@ -167,7 +167,7 @@ pchar SCPI::TBASE_::FUNCTIMEDIV(pchar buffer)
 
     SCPI_CYCLE(SET_TIME_DIV_XPOS = (FunctionTime::E)it->value);
 
-    IF_REQUEST(SCPI::SendFormat(":TBASE:FUNCTIMEDIV%s", map[SET_TIME_DIV_XPOS].key));
+    IF_REQUEST(SCPI::SendFormat0D(":TBASE:FUNCTIMEDIV%s", map[SET_TIME_DIV_XPOS].key));
 
     return buffer;
 }
