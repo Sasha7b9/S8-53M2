@@ -6,7 +6,7 @@
 #include "Utils/Containers/Values.h"
 
 
-bool SCPI::ProcessTBASE(pchar buffer)
+pchar SCPI::ProcessTBASE(pchar buffer)
 {
     static const StructCommand commands[] =
     {
@@ -26,7 +26,7 @@ bool SCPI::ProcessTBASE(pchar buffer)
 }
 
 
-bool SCPI::TBASE_::RANGE_(pchar buffer)
+pchar SCPI::TBASE_::RANGE_(pchar buffer)
 {
     static const MapElement map[] = 
     {
@@ -71,13 +71,12 @@ bool SCPI::TBASE_::RANGE_(pchar buffer)
 }
 
 
-bool SCPI::TBASE_::OFFSET(pchar buffer)
+pchar SCPI::TBASE_::OFFSET(pchar buffer)
 {
     if FIRST_SYMBOLS("?")
     {
         int shift = SET_TSHIFT - 1024;
         SCPI::SendFormat(":TBASE:OFFSET %d", shift);
-        return true;
     }
     else
     {
@@ -87,15 +86,14 @@ bool SCPI::TBASE_::OFFSET(pchar buffer)
         {
             int shift = value + 1024;
             TShift::Set(shift);
-            return true;
         }
     }
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::TBASE_::SAMPLING(pchar buffer)
+pchar SCPI::TBASE_::SAMPLING(pchar buffer)
 {
     static const MapElement map[] =
     {
@@ -108,11 +106,11 @@ bool SCPI::TBASE_::SAMPLING(pchar buffer)
 
     IF_REQUEST(SCPI::SendFormat(":TBASE:SAMPLING%s", map[SET_SAMPLE_TYPE].key));
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::TBASE_::PEACKDET(pchar buffer)
+pchar SCPI::TBASE_::PEACKDET(pchar buffer)
 {
     static const MapElement map[] =
     {
@@ -125,11 +123,11 @@ bool SCPI::TBASE_::PEACKDET(pchar buffer)
 
     IF_REQUEST(SCPI::SendFormat(":TBASE:PEACKDET%s", map[SET_PEAKDET].key));
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::TBASE_::TPOS_(pchar buffer)
+pchar SCPI::TBASE_::TPOS_(pchar buffer)
 {
     static const MapElement map[] =
     {
@@ -143,22 +141,22 @@ bool SCPI::TBASE_::TPOS_(pchar buffer)
 
     IF_REQUEST(SCPI::SendFormat(":TBASE:TPOS%s", map[SET_TPOS].key));
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::TBASE_::SELFRECORDER(pchar buffer)
+pchar SCPI::TBASE_::SELFRECORDER(pchar buffer)
 {
     if      FIRST_SYMBOLS(" ON")  { SET_SELFRECORDER = true; }
     else if FIRST_SYMBOLS(" OFF") { SET_SELFRECORDER = false; }
 
     IF_REQUEST(SCPI::SendFormat(":TBASE:SELFRECORDER%s", SET_SELFRECORDER ? "ON" : "OFF"));
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::TBASE_::FUNCTIMEDIV(pchar buffer)
+pchar SCPI::TBASE_::FUNCTIMEDIV(pchar buffer)
 {
     static const MapElement map[] =
     {
@@ -171,5 +169,5 @@ bool SCPI::TBASE_::FUNCTIMEDIV(pchar buffer)
 
     IF_REQUEST(SCPI::SendFormat(":TBASE:FUNCTIMEDIV%s", map[SET_TIME_DIV_XPOS].key));
 
-    return false;
+    return buffer;
 }

@@ -16,7 +16,7 @@
 */
 
 
-bool SCPI::ProcessTRIG(pchar buffer)
+pchar SCPI::ProcessTRIG(pchar buffer)
 {
     static const StructCommand commands[] =
     {
@@ -34,7 +34,7 @@ bool SCPI::ProcessTRIG(pchar buffer)
 }
 
 
-bool SCPI::TRIGGER::MODE(pchar buffer)
+pchar SCPI::TRIGGER::MODE(pchar buffer)
 {
     static const MapElement map[] =
     {
@@ -48,11 +48,11 @@ bool SCPI::TRIGGER::MODE(pchar buffer)
 
     IF_REQUEST(SCPI::SendFormat(":TRIGGER:MODE%s", map[START_MODE].key));
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::TRIGGER::SOURCE(pchar buffer)
+pchar SCPI::TRIGGER::SOURCE(pchar buffer)
 {
     static const MapElement map[] =
     {
@@ -66,22 +66,22 @@ bool SCPI::TRIGGER::SOURCE(pchar buffer)
 
     IF_REQUEST(SCPI::SendFormat(":TRIGGER:SOUCRE%s", map[TRIG_SOURCE].key));
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::TRIGGER::POLARITY(pchar buffer)
+pchar SCPI::TRIGGER::POLARITY(pchar buffer)
 {
-    if      FIRST_SYMBOLS(" FRONT") { TrigPolarity::Set(TrigPolarity::Front); return true; }
-    else if FIRST_SYMBOLS(" BACK")  { TrigPolarity::Set(TrigPolarity::Back);  return true; }
+    if      FIRST_SYMBOLS(" FRONT") { TrigPolarity::Set(TrigPolarity::Front); }
+    else if FIRST_SYMBOLS(" BACK")  { TrigPolarity::Set(TrigPolarity::Back);  }
 
     IF_REQUEST(SCPI::SendFormat(":TRIGGER:POLARITY %s", TRIG_POLARITY_IS_FRONT ? "FRONT" : "BACK"));
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::TRIGGER::INPUT(pchar buffer)
+pchar SCPI::TRIGGER::INPUT(pchar buffer)
 {
     static const MapElement map[] =
     {
@@ -96,29 +96,28 @@ bool SCPI::TRIGGER::INPUT(pchar buffer)
 
     IF_REQUEST(SCPI::SendFormat(":TRIGGER:INPUT%s", map[TRIG_INPUT].key));
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::TRIGGER::FIND(pchar buffer)
+pchar SCPI::TRIGGER::FIND(pchar buffer)
 {
-    if      FIRST_SYMBOLS(" HAND") { TRIG_MODE_FIND = TrigModeFind::Hand; return true; }
-    else if FIRST_SYMBOLS(" AUTO") { TRIG_MODE_FIND = TrigModeFind::Auto; return true; }
-    else if FIRST_SYMBOLS(" FIND") { TrigLev::FindAndSet();               return true; }
+    if      FIRST_SYMBOLS(" HAND") { TRIG_MODE_FIND = TrigModeFind::Hand; }
+    else if FIRST_SYMBOLS(" AUTO") { TRIG_MODE_FIND = TrigModeFind::Auto; }
+    else if FIRST_SYMBOLS(" FIND") { TrigLev::FindAndSet();               }
 
     IF_REQUEST(SCPI::SendFormat(":TRIGGER:FIND %s", TRIG_MODE_FIND_IS_HAND ? "HAND" : "AUTO"));
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::TRIGGER::OFFSET(pchar buffer)
+pchar SCPI::TRIGGER::OFFSET(pchar buffer)
 {
     if FIRST_SYMBOLS("?")
     {
         int trig_lev = (int)(0.5F * (TRIG_LEVEL_SOURCE - RShift::ZERO));
         SCPI::SendFormat(":TRIGGER:OFFSET %d", trig_lev);
-        return true;
     }
     else
     {
@@ -128,9 +127,8 @@ bool SCPI::TRIGGER::OFFSET(pchar buffer)
         {
             int trig_lev = RShift::ZERO + 2 * value;
             TrigLev::Set(TRIG_SOURCE, (int16)trig_lev);
-            return true;
         }
     }
 
-    return false;
+    return buffer;
 }

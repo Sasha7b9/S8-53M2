@@ -74,18 +74,18 @@ pchar SCPI::CHANNEL::FILTR_(pchar buffer)
 }
 
 
-bool SCPI::CHANNEL::INVERSE(pchar buffer)
+pchar SCPI::CHANNEL::INVERSE(pchar buffer)
 {
-    if      FIRST_SYMBOLS(" ON")  { SET_INVERSE(ch) = true;  return true; }
-    else if FIRST_SYMBOLS(" OFF") { SET_INVERSE(ch) = false; return true; }
+    if      FIRST_SYMBOLS(" ON")  { SET_INVERSE(ch) = true;  }
+    else if FIRST_SYMBOLS(" OFF") { SET_INVERSE(ch) = false; }
 
     IF_REQUEST(SCPI::SendFormat(":CHANNEL%d:SET_INVERSE %s", ch.ToNumber(), SET_INVERSE(ch) ? "ON" : "OFF"));
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::CHANNEL::RANGE_(pchar buffer)
+pchar SCPI::CHANNEL::RANGE_(pchar buffer)
 {
     static const MapElement map[] = 
     {
@@ -109,17 +109,16 @@ bool SCPI::CHANNEL::RANGE_(pchar buffer)
 
     IF_REQUEST(SCPI::SendFormat(":CHANNEL%d:SET_RANGE %s", ch.ToNumber(), map[SET_RANGE(ch)].key));
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::CHANNEL::OFFSET(pchar buffer)
+pchar SCPI::CHANNEL::OFFSET(pchar buffer)
 {
     if FIRST_SYMBOLS("?")
     {
         int offset = (int)(0.5F * (SET_RSHIFT(ch) - RShift::ZERO));
         SCPI::SendFormat(":CHANNNEL%d:OFFSET %d", ch.ToNumber(), offset);
-        return true;
     }
     else
     {
@@ -129,20 +128,19 @@ bool SCPI::CHANNEL::OFFSET(pchar buffer)
         {
             int rShift = RShift::ZERO + 2 * value;
             RShift::Set(ch, (int16)rShift);
-            return true;
         }
     }
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::CHANNEL::FACTOR(pchar buffer)
+pchar SCPI::CHANNEL::FACTOR(pchar buffer)
 {
-    if      FIRST_SYMBOLS(" X1")  { SET_DIVIDER(ch) = Divider::_1;  return true; }
-    else if FIRST_SYMBOLS(" X10") { SET_DIVIDER(ch) = Divider::_10; return true; }
+    if      FIRST_SYMBOLS(" X1")  { SET_DIVIDER(ch) = Divider::_1;  }
+    else if FIRST_SYMBOLS(" X10") { SET_DIVIDER(ch) = Divider::_10; }
 
     IF_REQUEST(SCPI::SendFormat(":CHANNEL%d:PROBE %s", ch.ToNumber(), SET_DIVIDER(ch) == Divider::_1 ? "X1" : "X10"));
 
-    return false;
+    return buffer;
 }

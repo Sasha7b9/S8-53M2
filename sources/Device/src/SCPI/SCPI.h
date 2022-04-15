@@ -9,12 +9,12 @@
 
 #define IF_REQUEST(sequence) if(FirstSymbols(&buffer, "?")) { sequence; }
 
-#define SCPI_CYCLE(func)                                    \
-    const MapElement *it = map;                             \
-    while (it->key)                                         \
-    {                                                       \
-        if FIRST_SYMBOLS(it->key) { func; return buffer; }  \
-        it++;                                               \
+#define SCPI_CYCLE(func)                                \
+    const MapElement *it = map;                         \
+    while (it->key)                                     \
+    {                                                   \
+        if FIRST_SYMBOLS(it->key) { func; break; }      \
+        it++;                                           \
     }
 
 

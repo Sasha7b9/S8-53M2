@@ -128,26 +128,26 @@ pchar SCPI::DISPLAY::ACCUM_NUMBER(pchar buffer)
 }
 
 
-bool SCPI::DISPLAY::ACCUM_MODE(pchar buffer)
+pchar SCPI::DISPLAY::ACCUM_MODE(pchar buffer)
 {
-    if      FIRST_SYMBOLS(" NORESET") { MODE_ACCUM = ModeAccumulation::NoReset; return true; }
-    else if FIRST_SYMBOLS(" RESET")   { MODE_ACCUM = ModeAccumulation::Reset;   return true; }
+    if      FIRST_SYMBOLS(" NORESET") { MODE_ACCUM = ModeAccumulation::NoReset; }
+    else if FIRST_SYMBOLS(" RESET")   { MODE_ACCUM = ModeAccumulation::Reset;   }
 
     IF_REQUEST(SCPI::SendFormat(":DISPLAY:ACCUMULATION:MODE %s", MODE_ACCUM_IS_RESET ? "RESET" : "NORESET"));
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::DISPLAY::ACCUM_CLEAR(pchar)
+pchar SCPI::DISPLAY::ACCUM_CLEAR(pchar buffer)
 {
     PageDisplay::Accumulation::OnPress_Clear();
 
-    return true;
+    return buffer;
 }
 
 
-bool SCPI::DISPLAY::AVERAGE_NUMBER(pchar buffer)
+pchar SCPI::DISPLAY::AVERAGE_NUMBER(pchar buffer)
 {
     static const MapElement map[] =
     {
@@ -168,34 +168,34 @@ bool SCPI::DISPLAY::AVERAGE_NUMBER(pchar buffer)
 
     IF_REQUEST(SCPI::SendFormat(":DISPLAY:AVERAGE:NUMBER%s", map[gset.display.enumAve].key));
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::DISPLAY::AVERAGE_MODE(pchar buffer)
+pchar SCPI::DISPLAY::AVERAGE_MODE(pchar buffer)
 {
-    if      FIRST_SYMBOLS(" ACCURACY")    { gset.display.modeAve = ModeAveraging::Accurately; return true; }
-    else if FIRST_SYMBOLS(" APPROXIMATE") { gset.display.modeAve = ModeAveraging::Around;     return true; }
+    if      FIRST_SYMBOLS(" ACCURACY")    { gset.display.modeAve = ModeAveraging::Accurately; }
+    else if FIRST_SYMBOLS(" APPROXIMATE") { gset.display.modeAve = ModeAveraging::Around;     }
 
     IF_REQUEST(SCPI::SendFormat(":DISPLAY:AVARAGE:MODE %s",
         (gset.display.modeAve == ModeAveraging::Accurately) ? "ACCURACY" : "APPROXIMATE"));
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::DISPLAY::MINMAX(pchar buffer)
+pchar SCPI::DISPLAY::MINMAX(pchar buffer)
 {
     static const MapElement map[] =
     {
+        {" 128", 7},
+        {" 16",  4},
         {" 1",   0},
         {" 2",   1},
         {" 4",   2},
         {" 8",   3},
-        {" 16",  4},
         {" 32",  5},
         {" 64",  6},
-        {" 128", 7},
         {0}
     };
 
@@ -203,14 +203,15 @@ bool SCPI::DISPLAY::MINMAX(pchar buffer)
 
     IF_REQUEST(SCPI::SendFormat(":DISPLAY:MINMAX%s", map[ENUM_MIN_MAX].key));
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::DISPLAY::FILTR_(pchar buffer)
+pchar SCPI::DISPLAY::FILTR_(pchar buffer)
 {
     static const MapElement map[] =
     {
+        {" 10", 9},
         {" 1", 0},
         {" 2", 1},
         {" 3", 2},
@@ -220,7 +221,6 @@ bool SCPI::DISPLAY::FILTR_(pchar buffer)
         {" 7", 6},
         {" 8", 7},
         {" 9", 8},
-        {" 10", 9},
         {0}
     };
 
@@ -228,11 +228,11 @@ bool SCPI::DISPLAY::FILTR_(pchar buffer)
 
     IF_REQUEST(SCPI::SendFormat(":DISPLAY:FILTR%s", map[SMOOTHING].key));
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::DISPLAY::FPS(pchar buffer)
+pchar SCPI::DISPLAY::FPS(pchar buffer)
 {
     static const MapElement map[] =
     {
@@ -248,28 +248,27 @@ bool SCPI::DISPLAY::FPS(pchar buffer)
 
     IF_REQUEST(SCPI::SendFormat(":DISPLAY:FPS%s", map[ENUM_SIGNALS_IN_SEC].key));
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::DISPLAY::WINDOW(pchar buffer)
+pchar SCPI::DISPLAY::WINDOW(pchar buffer)
 {
-    if      FIRST_SYMBOLS(" STANDARD") { gset.display.showFullMemoryWindow = true;  return true; }
-    else if FIRST_SYMBOLS(" SIMPLE")   { gset.display.showFullMemoryWindow = false; return true; }
+    if      FIRST_SYMBOLS(" STANDARD") { gset.display.showFullMemoryWindow = true;  }
+    else if FIRST_SYMBOLS(" SIMPLE")   { gset.display.showFullMemoryWindow = false; }
 
     IF_REQUEST(SCPI::SendFormat(":DISPLAY:WINDOW %s", gset.display.showFullMemoryWindow ? "STANDARD" : "SIMPLE"));
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::DISPLAY::GRID_BRIGHTNESS(pchar buffer)
+pchar SCPI::DISPLAY::GRID_BRIGHTNESS(pchar buffer)
 {
     if FIRST_SYMBOLS("?")
     {
         PageDisplay::Grid::colorType.Init();
         SCPI::SendFormat(":DISPLAY:GRID:BRIGHTNESS %d", (int)(PageDisplay::Grid::colorType.brightness * 100.0F));
-        return true;
     }
     else
     {
@@ -278,15 +277,14 @@ bool SCPI::DISPLAY::GRID_BRIGHTNESS(pchar buffer)
         if (value.IsValid() && value >= 0 && value <= 100)
         {
             BRIGHTNESS_GRID = (int16)value;
-            return true;
         }
     }
 
-    return false;
+    return buffer;
 }
 
 
-bool SCPI::DISPLAY::GRID_TYPE(pchar buffer)
+pchar SCPI::DISPLAY::GRID_TYPE(pchar buffer)
 {
     static const MapElement map[] =
     {
@@ -301,5 +299,5 @@ bool SCPI::DISPLAY::GRID_TYPE(pchar buffer)
 
     IF_REQUEST(SCPI::SendFormat(":DISPLAY:GRID:TYPE%s", map[TYPE_GRID].key));
 
-    return false;
+    return buffer;
 }

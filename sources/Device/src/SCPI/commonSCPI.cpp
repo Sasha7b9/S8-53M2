@@ -10,10 +10,7 @@
 
 pchar SCPI::COMMON::IDN(pchar buffer)
 {
-    if (buffer == nullptr)
-    {
-        SCPI::SendFormat("MNIPI, %s, V%s, %X", NAME_MODEL_EN, NUMBER_VER, HAL::CalculateCRC32());
-    }
+    SCPI::SendFormat("MNIPI, %s, V%s, %X", NAME_MODEL_EN, NUMBER_VER, HAL::CalculateCRC32());
 
     return buffer;
 }
@@ -21,12 +18,9 @@ pchar SCPI::COMMON::IDN(pchar buffer)
 
 pchar SCPI::COMMON::RUN(pchar buffer)
 {
-    if (buffer == nullptr)
+    if (!FPGA::IsRunning())
     {
-        if (!FPGA::IsRunning())
-        {
-            FPGA::Start();
-        }
+        FPGA::Start();
     }
 
     return buffer;
@@ -35,12 +29,9 @@ pchar SCPI::COMMON::RUN(pchar buffer)
 
 pchar SCPI::COMMON::STOP(pchar buffer)
 {
-    if (buffer == nullptr)
+    if (FPGA::IsRunning())
     {
-        if (FPGA::IsRunning())
-        {
-            FPGA::Stop();
-        }
+        FPGA::Stop();
     }
 
     return buffer;
@@ -49,26 +40,23 @@ pchar SCPI::COMMON::STOP(pchar buffer)
 
 pchar SCPI::COMMON::RESET(pchar buffer)
 {
-    if (buffer == nullptr)
-    {
-        PageService::ResetSettings(false);
-    }
+    PageService::ResetSettings(false);
 
     return buffer;
 }
 
 
-bool SCPI::COMMON::AUTOSCALE(pchar)
+pchar SCPI::COMMON::AUTOSCALE(pchar buffer)
 {
     PageService::OnPress_AutoSearch();
 
-    return true;
+    return buffer;
 }
 
 
-bool SCPI::COMMON::REQUEST(pchar)
+pchar SCPI::COMMON::REQUEST(pchar buffer)
 {
     SCPI::SendFormat("S8-53/1");
 
-    return true;
+    return buffer;
 }
