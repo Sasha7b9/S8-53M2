@@ -51,13 +51,6 @@ void InterCom::BeginScene()
 
         stateTransmit = StateTransmit::InProcess;
     }
-
-    if (stateTransmit)
-    {
-        VCP::_meter.Reset();
-        VCP::_meter.Pause();
-        VCP::_sended_bytes = 0;
-    }
 }
 
 
@@ -69,8 +62,6 @@ void InterCom::EndScene()
         command.Transmit();
 
         Flush();
-
-        // LOG_WRITE("время ожидания %d ms, байт передано %d", VCP::_meter.ElapsedTime(), VCP::_sended_bytes);
     }
 
     stateTransmit = StateTransmit::Free;

@@ -18,9 +18,6 @@ namespace VCP
     bool cableIsConnected = false;
     bool connectToHost = false;
 
-    TimeMeterMS _meter;
-    uint _sended_bytes = 0;
-
     void SendBuffer(const void* buffer, int size);
 
     namespace Buffer
@@ -39,8 +36,6 @@ void VCP::Init()
 
 void VCP::SendBuffer(const void *_buffer, int size)
 {
-    _sended_bytes += size;
-
     const uint8 *buffer = (const uint8 *)_buffer;
 
 #ifdef GUI
@@ -56,8 +51,6 @@ void VCP::SendBuffer(const void *_buffer, int size)
     {
         return;
     }
-
-    _meter.Continue();
 
     const int SIZE_BUFFER = 64;
     static uint8 tr_buf[SIZE_BUFFER];
@@ -86,8 +79,6 @@ void VCP::SendBuffer(const void *_buffer, int size)
         buffer += portion;
         size -= portion;
     }
-
-    _meter.Pause();
 
 #endif
 }

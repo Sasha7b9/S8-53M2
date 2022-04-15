@@ -18,9 +18,6 @@ namespace VCP
     extern bool cableIsConnected;       // true, если подсоединён кабель
     extern bool connectToHost;          // true, если есть подключение
 
-    extern TimeMeterMS _meter;
-    extern uint _sended_bytes;
-
     namespace Buffer
     {
         // Послать форматированную строку с завершающим символом '\n'
