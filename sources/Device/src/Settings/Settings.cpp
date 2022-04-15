@@ -229,12 +229,6 @@ static const Settings defaultSettings =
 Settings gset = defaultSettings;
 
 
-void Settings::Log()
-{
-    LOG_WRITE("%d %d %d", gset.display.brightness, gset.display.brightnessGrid, defaultSettings.display.brightnessGrid);
-}
-
-
 void Settings::Load()
 {
     if (!HAL_ROM::Settings::Load(this))

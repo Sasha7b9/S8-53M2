@@ -56,7 +56,5 @@ int main()
         LAN::Update();
 
         SCPI::Update();
-
-        gset.Log();
     }
 }

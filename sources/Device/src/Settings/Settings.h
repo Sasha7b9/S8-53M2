@@ -60,8 +60,6 @@ struct Settings
     void RunAfterLoad();            // После загрузки настроек нужно выполнить эти команды
 
     uint CalculateCRC32();
-
-    void Log();
 };
 
 extern Settings gset;
