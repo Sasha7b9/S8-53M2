@@ -39,7 +39,7 @@ void SCPI::Update()
 
             pchar result = SCPI::ParseNewCommand(command.c_str());
 
-            if (result != nullptr)
+            if (*result != '\0')
             {
                 SCPI::SendFormat0D("Error !!! Invalid sequency \"%s\"", result);
             }

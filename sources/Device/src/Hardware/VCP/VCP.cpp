@@ -135,15 +135,15 @@ void VCP::Buffer::Flush()
 void VCP::Buffer::SendFormat0D(pchar format, ...)
 {
     static const int SIZE_BUFFER = 1024;
-    static char buffer[SIZE_BUFFER];
+    static char message[SIZE_BUFFER];
 
     std::va_list args;
     va_start(args, format);
-    vsprintf(buffer, format, args);
+    vsprintf(message, format, args);
     va_end(args);
-    std::strcat(buffer, "\n");
+    std::strcat(message, "\n");
 
-    Send(buffer, (int)std::strlen(buffer) + 1);
+    Send(message, (int)std::strlen(message) + 1);
 }
 
 
