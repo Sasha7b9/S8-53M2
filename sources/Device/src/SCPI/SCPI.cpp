@@ -94,7 +94,7 @@ pchar SCPI::ProcessSpeedTest(pchar)
         const int SIZE_BUFFER = 1028;
         static char buffer[SIZE_BUFFER];
 
-        VCP::SendBuffer(buffer, SIZE_BUFFER);
+        VCP::Buffer::Send(buffer, SIZE_BUFFER);
 
         num_bytes += SIZE_BUFFER;
     }
@@ -145,7 +145,7 @@ bool SCPI::FirstSymbols(pchar *data, pchar word)
 
 void SCPI::SendBuffer(const uint8 *buffer, int size)
 {
-    VCP::SendBuffer(buffer, size);
+    VCP::Buffer::Send(buffer, size);
     LAN::SendBuffer(buffer, size);
 }
 
@@ -159,8 +159,14 @@ void SCPI::SendFormat0D(pchar format, ...)
     va_end(args);
     std::strcat(buffer, "\n");
 
-    VCP::SendBuffer(buffer, (int)std::strlen(buffer));
+    VCP::Buffer::Send(buffer, (int)std::strlen(buffer));
     LAN::SendBuffer(buffer, (int)std::strlen(buffer));
+}
+
+
+void SCPI::Flush()
+{
+    VCP::Buffer::Flush();
 }
 
 

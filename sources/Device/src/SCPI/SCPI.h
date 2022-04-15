@@ -41,6 +41,7 @@ namespace SCPI
 
     void SendBuffer(const uint8 *buffer, int size);
     void SendFormat0D(pchar format, ...);
+    void Flush();
 
     pchar ProcessingCommand(const StructCommand *, pchar);
 

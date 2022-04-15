@@ -11,8 +11,6 @@ namespace VCP
 {
     void Init();
 
-    void SendBuffer(const void *buffer, int size);
-
     // Послать форматированную строку с завершающим символом '\n'
     void SendFormat0D(pchar format, ...);
 

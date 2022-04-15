@@ -21,6 +21,8 @@ namespace VCP
     TimeMeterMS _meter;
     uint _sended_bytes = 0;
 
+    void SendBuffer(const void* buffer, int size);
+
     namespace Buffer
     {
         ::Buffer<uint8, 64> buffer;
