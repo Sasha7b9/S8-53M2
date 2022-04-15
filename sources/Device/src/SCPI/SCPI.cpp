@@ -39,7 +39,7 @@ void SCPI::Update()
 
         if(result != nullptr)
         {
-            SCPI::SendFormat("Error !!! Invalid sequency \"%s\"", command.c_str());
+            SCPI::SendFormat("Error !!! Invalid sequency \"%s\"", result);
         }
     }
 }
