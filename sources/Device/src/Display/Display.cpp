@@ -185,7 +185,7 @@ bool Display::NeedForClearScreen()
 }
 
 
-void Display::Update(bool endScene)
+void Display::Update()
 {
     if (funcOnHand != 0)
     {
@@ -239,7 +239,7 @@ void Display::Update(bool endScene)
 
     Color::SetCurrent(COLOR_FILL);
 
-    Painter::EndScene(endScene);
+    Painter::EndScene(true);
 
     FDrive::SaveSignal();
 

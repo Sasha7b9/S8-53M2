@@ -21,7 +21,7 @@ namespace Display
 
     void Init();
 
-    void Update(bool endScene = true);
+    void Update();
 
     void RotateRShift(Chan);
 
