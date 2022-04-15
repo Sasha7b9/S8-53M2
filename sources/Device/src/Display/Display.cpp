@@ -239,7 +239,7 @@ void Display::Update()
 
     Color::SetCurrent(COLOR_FILL);
 
-    Painter::EndScene(true);
+    Painter::EndScene();
 
     FDrive::SaveSignal();
 

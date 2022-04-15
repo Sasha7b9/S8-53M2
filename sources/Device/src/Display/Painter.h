@@ -9,7 +9,7 @@ namespace Painter
 {
     void BeginScene(Color::E color);
 
-    void EndScene(bool endScene = true);
+    void EndScene();
 
     void DrawHLine(bool send, int y, int x0, int x1, Color::E = Color::Count);
 

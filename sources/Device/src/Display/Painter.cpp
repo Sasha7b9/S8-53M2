@@ -504,7 +504,7 @@ void Painter::BeginScene(Color::E color)
 }
 
 
-void Painter::EndScene(bool endScene)
+void Painter::EndScene()
 {
     if (Display::framesElapsed != 1)
     {
@@ -519,19 +519,6 @@ void Painter::EndScene(bool endScene)
 #endif
 
     HAL_LTDC::ToggleBuffers();
-
-    if (endScene)
-    {
-        if (InterCom::TransmitGUIinProcess())
-        {
-            CommandBuffer<1> command(END_SCENE);
-            command.Transmit();
-
-            InterCom::Flush();
-
-//            LOG_WRITE("время ожидания %d ms, байт передано %d", VCP::_meter.ElapsedTime(), VCP::_sended_bytes);
-        }
-    }
 
     InterCom::EndScene();
 }

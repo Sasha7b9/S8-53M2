@@ -43,6 +43,16 @@ void InterCom::BeginScene()
 
 void InterCom::EndScene()
 {
+    if (TransmitGUIinProcess())
+    {
+        CommandBuffer<1> command(END_SCENE);
+        command.Transmit();
+
+        Flush();
+
+        // LOG_WRITE("время ожидания %d ms, байт передано %d", VCP::_meter.ElapsedTime(), VCP::_sended_bytes);
+    }
+
     stateTransmit = StateTransmit::Free;
 }
 
