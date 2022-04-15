@@ -2,9 +2,55 @@
 #include "Hardware/InterCom.h"
 #include "Hardware/VCP/VCP.h"
 #include "Hardware/LAN/LAN.h"
+#include "Display/Display.h"
 #include <cstdarg>
 #include <cstring>
 #include <cstdio>
+
+
+namespace InterCom
+{
+    struct StateTransmit
+    {
+        enum E
+        {
+            Free,               // Нужно передавать
+            InProcess           // Не нужно передавать
+        };
+    };
+
+    static StateTransmit::E stateTransmit = StateTransmit::Free;
+}
+
+
+void InterCom::BeginScene()
+{
+    if (Display::Sender::needSendFrame)
+    {
+        Display::Sender::needSendFrame = false;
+
+        stateTransmit = StateTransmit::InProcess;
+    }
+
+    if (stateTransmit)
+    {
+        VCP::_meter.Reset();
+        VCP::_meter.Pause();
+        VCP::_sended_bytes = 0;
+    }
+}
+
+
+void InterCom::EndScene()
+{
+    stateTransmit = StateTransmit::Free;
+}
+
+
+bool InterCom::TransmitGUIinProcess()
+{
+    return (stateTransmit == StateTransmit::InProcess);
+}
 
 
 void InterCom::Send(const void* pointer, int size)

@@ -42,18 +42,6 @@ namespace Painter
 }
 
 
-struct StateTransmit
-{
-    enum E
-    {
-        Free,               // Нужно передавать
-        InProcess           // Не нужно передавать
-    };
-};
-
-static StateTransmit::E stateTransmit = StateTransmit::Free;
-
-
 void Color::CalculateColor()
 {
     if (current == Color::FLASH_10)
@@ -135,12 +123,6 @@ void Painter::DrawDashedHLine(int y, int x0, int x1, int deltaFill, int deltaEmp
         DrawHLine(false, y, x, x + deltaFill - 1);
         x += (deltaFill + deltaEmpty);
     }
-}
-
-
-bool InterCom::TransmitGUIinProcess()
-{
-    return (stateTransmit == StateTransmit::InProcess);
 }
 
 
@@ -516,19 +498,7 @@ void Painter::BeginScene(Color::E color)
         }
     }
 
-    if (Display::Sender::needSendFrame)
-    {
-        Display::Sender::needSendFrame = false;
-
-        stateTransmit = StateTransmit::InProcess;
-    }
-
-    if (stateTransmit)
-    {
-        VCP::_meter.Reset();
-        VCP::_meter.Pause();
-        VCP::_sended_bytes = 0;
-    }
+    InterCom::BeginScene();
 
     Region(319, 239).Fill(0, 0, color);
 }
@@ -557,13 +527,13 @@ void Painter::EndScene(bool endScene)
             CommandBuffer<1> command(END_SCENE);
             command.Transmit();
 
-            VCP::Buffer::Flush();
+            InterCom::Flush();
 
 //            LOG_WRITE("время ожидания %d ms, байт передано %d", VCP::_meter.ElapsedTime(), VCP::_sended_bytes);
         }
     }
 
-    stateTransmit = StateTransmit::Free;
+    InterCom::EndScene();
 }
 
 
