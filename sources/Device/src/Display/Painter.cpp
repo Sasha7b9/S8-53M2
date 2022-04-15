@@ -152,13 +152,6 @@ void InterCom::Send(const uint8 *pointer, int size)
 }
 
 
-void InterCom::SendBuffer(const uint8* buffer, int size)
-{
-    VCP::Buffer::Send(buffer, size);
-    LAN::SendBuffer(buffer, size);
-}
-
-
 void InterCom::SendFormat0D(pchar format, ...)
 {
     char buffer[128];

@@ -10,7 +10,6 @@ namespace InterCom
     bool TransmitGUIinProcess();
 
     void Send(const uint8 *, int);
-    void SendBuffer(const uint8* buffer, int size);
     void SendFormat0D(pchar format, ...);
     void Flush();
 }
