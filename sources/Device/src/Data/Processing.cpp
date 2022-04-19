@@ -1241,40 +1241,78 @@ void Processing::CountedToCurrentSettings(const DataSettings &ds, const uint8 *d
         }
     }
  
-    if ((out_struct.ds.range[0] != SET_RANGE_A || out_struct.ds.rshiftA != (uint)SET_RSHIFT_A))
+    if((out_struct.ds.rshiftA != (uint)SET_RSHIFT_A) || (out_struct.ds.range[0] != SET_RANGE_A))
     {
-        Range::E range = SET_RANGE_A;
-        RShift rshift = SET_RSHIFT_A;
-
-        for (int i = 0; i < num_bytes; i++)
+        if (out_struct.ds.range[0] != SET_RANGE_A)
         {
-            if(out_struct.A[i] != ValueFPGA::NONE)
-            {
-                float abs = ValueFPGA::ToVoltage(out_a[i], out_struct.ds.range[0], (int16)out_struct.ds.rshiftA);
-                int rel = (abs + Range::MaxOnScreen(range) + rshift.ToAbs(range)) / Range::voltsInPoint[range] + ValueFPGA::MIN;
+            Range::E range = SET_RANGE_A;
+            RShift rshift = SET_RSHIFT_A;
 
-                if (rel < ValueFPGA::MIN)      { out_a[i] = ValueFPGA::MIN; }
-                else if (rel > ValueFPGA::MAX) { out_a[i] = ValueFPGA::MAX; }
-                else                           { out_a[i] = (uint8)rel; }
+            for (int i = 0; i < num_bytes; i++)
+            {
+                if (out_struct.A[i] != ValueFPGA::NONE)
+                {
+                    float abs = ValueFPGA::ToVoltage(out_a[i], out_struct.ds.range[0], (int16)out_struct.ds.rshiftA);
+                    int rel = (abs + Range::MaxOnScreen(range) + rshift.ToAbs(range)) / Range::voltsInPoint[range] + ValueFPGA::MIN;
+
+                    if (rel < ValueFPGA::MIN) { out_a[i] = ValueFPGA::MIN; }
+                    else if (rel > ValueFPGA::MAX) { out_a[i] = ValueFPGA::MAX; }
+                    else { out_a[i] = (uint8)rel; }
+                }
+            }
+        }
+        else
+        {
+            float delta_shift = (out_struct.ds.rshiftA - SET_RSHIFT_A) / 1.6f;
+
+            for (int i = 0; i < num_bytes; i++)
+            {
+                if (out_struct.A[i] != ValueFPGA::NONE)
+                {
+                    int value = (int)out_a[i] - delta_shift;
+
+                    if (value < ValueFPGA::MIN)      { out_a[i] = ValueFPGA::MIN; }
+                    else if (value > ValueFPGA::MAX) { out_a[i] = ValueFPGA::MAX; }
+                    else                             { out_a[i] = (uint8)value;   }
+                }
             }
         }
     }
 
-    if ((out_struct.ds.range[1] != SET_RANGE_B || out_struct.ds.rshiftB != (uint)SET_RSHIFT_B))
+    if ((out_struct.ds.rshiftB != (uint)SET_RSHIFT_B) || (out_struct.ds.range[1] != SET_RANGE_B))
     {
-        Range::E range = SET_RANGE_B;
-        RShift rshift = SET_RSHIFT_B;
-
-        for (int i = 0; i < num_bytes; i++)
+        if (out_struct.ds.range[1] != SET_RANGE_B)
         {
-            if (out_struct.B[i] != ValueFPGA::NONE)
-            {
-                float abs = ValueFPGA::ToVoltage(out_b[i], out_struct.ds.range[1], (int16)out_struct.ds.rshiftB);
-                int rel = (abs + Range::MaxOnScreen(range) + rshift.ToAbs(range)) / Range::voltsInPoint[range] + ValueFPGA::MIN;
+            Range::E range = SET_RANGE_B;
+            RShift rshift = SET_RSHIFT_B;
 
-                if (rel < ValueFPGA::MIN)      { out_b[i] = ValueFPGA::MIN; }
-                else if (rel > ValueFPGA::MAX) { out_b[i] = ValueFPGA::MAX; }
-                else                           { out_b[i] = (uint8)rel; }
+            for (int i = 0; i < num_bytes; i++)
+            {
+                if (out_struct.B[i] != ValueFPGA::NONE)
+                {
+                    float abs = ValueFPGA::ToVoltage(out_b[i], out_struct.ds.range[1], (int16)out_struct.ds.rshiftB);
+                    int rel = (abs + Range::MaxOnScreen(range) + rshift.ToAbs(range)) / Range::voltsInPoint[range] + ValueFPGA::MIN;
+
+                    if (rel < ValueFPGA::MIN) { out_b[i] = ValueFPGA::MIN; }
+                    else if (rel > ValueFPGA::MAX) { out_b[i] = ValueFPGA::MAX; }
+                    else { out_b[i] = (uint8)rel; }
+                }
+            }
+        }
+        else
+        {
+            float delta_shift = (out_struct.ds.rshiftB - SET_RSHIFT_B) / 1.6f;
+
+            for (int i = 0; i < num_bytes; i++)
+            {
+                if (out_struct.B[i] != ValueFPGA::NONE)
+                {
+                    int value = (int)out_b[i] - delta_shift;
+
+                    if (value < ValueFPGA::MIN)      { out_b[i] = ValueFPGA::MIN; }
+                    else if (value > ValueFPGA::MAX) { out_b[i] = ValueFPGA::MAX; }
+                    else                             { out_b[i] = (uint8)value;   }
+                }
             }
         }
     }
