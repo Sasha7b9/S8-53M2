@@ -1,0 +1,55 @@
+
+| 1  - SPI4_SCK     | 45 - STR_ADC      | 89  - R6           | 133 - SPI2_CS1
+| 2  - A19          | 46 - SPI5_NSS     | 90  - VSS          | 134 - SPI2_MOSI
+| 3  - A20          | 47 - B5           | 91  - VDD          | 135 - VSS
+| 4  -              | 48 - BYPASS_REG   | 92  - MII_TXD0     | 136 - VDD
+| 5  - SPI4_MOSI    | 49 - VDD          | 93  - OTG_HS_VBUS  | 137 - SYS_JTCK
+| 6  - VBAT         | 50 - LTDC_DAC     | 94  - OTG_HS_DP    | 138 - JTDI
+| 7  -              | 51 - DAC          | 95  - OTG_HS_DM    | 139 - SPI3_SCK
+| 8  -              | 52 - G2           | 96  - D13          | 140 - SPI3_MI
+| 9  - OSC32_IN     | 53 - MII_RX_DV    | 97  - D14          | 141 - SPI3_MO
+| 10 - OSC32_OUT    | 54 - MII_RXD0     | 98  - D15          | 142 - D2
+| 11 - VSYNC        | 55 - MII_RXD1     | 99  - A16          | 143 - D3
+| 12 - MII_RX_ER    | 56 - R3           | 100 - A17          | 144 - 
+| 13 - SPI5_CS4     | 57 - MII_RXD3     | 101 - A18          | 145 - G7
+| 14 - VSS          | 58 -              | 102 - VSS          | 146 - NOE
+| 15 - VDD          | 59 - SPI5_MOSI    | 103 - VDD          | 147 - NWE
+| 16 - A0           | 60 - A6           | 104 - D0           | 148 - VSS
+| 17 - A1           | 61 - VSS          | 105 - D1           | 149 - VDD
+| 18 - A2           | 62 - VDD          | 106 - A12          | 150 - B2
+| 19 - A3           | 63 - A7           | 107 - A13          | 151 - NE1
+| 20 - A4           | 64 - A8           | 108 - A14          | 152 - NE2
+| 21 - A5           | 65 - A9           | 109 - A15          | 153 - 
+| 22 - VSS          | 66 - A10          | 110 - R7           | 154 - B3
+| 23 - VDD          | 67 - A11          | 111 - LTDC_CLK     | 155 - B4
+| 24 - SPI5_NSS     | 68 - D4           | 112 -              | 156 - 
+| 25 - SPI5_SCK     | 69 - D5           | 113 - VSS          | 157 - MII_TXD1
+| 26 - SPI5_MISO    | 70 - D6           | 114 - VDD          | 158 - VSS
+| 27 - SPI5_MOSI    | 71 - VSS          | 115 - LTDC_HSYNC   | 159 - VDD
+| 28 - LTDC_DE      | 72 - VDd          | 116 - G6           | 160 - 
+| 29 - OSC_IN       | 73 - D7           | 117 -              | 161 - SYS_JTDO
+| 30 - OSC_OUT      | 74 - D8           | 118 -              | 162 - SYS_JTRST
+| 31 - NRST         | 75 - D9           | 119 -              | 163 - 
+| 32 -              | 76 - D10          | 120 - OTG_FS_VBUS  | 164 - 
+| 33 - MII_MDC      | 77 - D11          | 121 -              | 165 - 
+| 34 - MII_TXD2     | 78 - D12          | 122 - OTG_FS_DM    | 166 - BOOT0
+| 35 - MII_TX_CLK   | 79 - G4           | 123 - OTG_FS_DP    | 167 - ETH_TXD3
+| 36 - VDD          | 80 - MII_TX_EN    | 124 - SYS_JTMS     | 168 - B7
+| 37 - VSSA         | 81 - VCAP_1       | 125 - VCAP_2       | 169 - 
+| 38 - VREF+        | 82 - VDD          | 126 - VSS          | 170 - 
+| 39 - VDDA         | 83 - MII_RXD2     | 127 - VDD          | 171 - PDR_ON
+| 40 - ADC_INT      | 84 -              | 128 -              | 172 - VDD
+| 41 - MII_RX_CLK   | 85 - R2           | 129 - G3           | 173 - 
+| 42 - MII_MDIO     | 86 -              | 130 - SPI2_CS2     | 174 - 
+| 43 - MII_CRS      | 87 - R4           | 131 - G5           | 175 - LTDC_B6
+| 44 - MII_COL      | 88 - R5           | 132 - SPI2_SCK     | 176 - 
+
+TIM14 - PWM - 27
+
+
+*** SPI5 ***
+SCK  25
+CS2  26
+CS1  32
+CS3  24
+MOSI 59
