@@ -1,7 +1,7 @@
 // 2022/2/11 19:49:30 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 
-#define DEVELOPER_VERSION "1.0.18"
+#define DEVELOPER_VERSION "1.0.19"
 
 
 #ifdef WIN32
