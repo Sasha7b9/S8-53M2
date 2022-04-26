@@ -28,8 +28,9 @@ namespace FPGA
 
         namespace P2P
         {
-            BitSet16 bufferA[10];
-            BitSet16 bufferB[10];
+            static const int SIZE_BUFFER = 10;
+            BitSet16 bufferA[SIZE_BUFFER];
+            BitSet16 bufferB[SIZE_BUFFER];
             int pointer = 0;
 
             Mutex mutex;        // ћьютекс лочитс€ в основном потоке. » если по прерыванию приходит запрос на чтение
@@ -158,9 +159,17 @@ void FPGA::Reader::P2P::ReadPoints()
 
         if (_GET_BIT(flag.value, FL_POINT))
         {
-            bufferA[pointer] = Reader::ReadA();
-            bufferB[pointer] = Reader::ReadB();
-            pointer++;
+            if (pointer < SIZE_BUFFER)
+            {
+                bufferA[pointer] = Reader::ReadA();
+                bufferB[pointer] = Reader::ReadB();
+                pointer++;
+            }
+            else
+            {
+                Reader::ReadA();
+                Reader::ReadB();
+            }
 
             if (SET_SELFRECORDER)
             {
