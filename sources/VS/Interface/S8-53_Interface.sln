@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlLibraryS8-53", "VS-O
 		{99FAFEEF-151B-4355-8BCF-D36BBE29D92F} = {99FAFEEF-151B-4355-8BCF-D36BBE29D92F}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebubPanel", "VS-OSCI\NET\DebugPanel\DebubPanel.csproj", "{8F77D036-9CEA-4D3D-B913-838EA0D774C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,10 @@ Global
 		{8F90645A-B5C2-4881-A684-67A634578722}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F90645A-B5C2-4881-A684-67A634578722}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F90645A-B5C2-4881-A684-67A634578722}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F77D036-9CEA-4D3D-B913-838EA0D774C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F77D036-9CEA-4D3D-B913-838EA0D774C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F77D036-9CEA-4D3D-B913-838EA0D774C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F77D036-9CEA-4D3D-B913-838EA0D774C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
