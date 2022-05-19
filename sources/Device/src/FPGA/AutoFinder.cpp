@@ -157,7 +157,7 @@ static bool FPGA::AutoFinder::FindRange(Chan ch)
     {
         Range::Set(ch, (Range::E)r);
 
-        Timer::PauseOnTime(500);
+        Timer::PauseOnTime(100);
 
         DataFinder data;
 
