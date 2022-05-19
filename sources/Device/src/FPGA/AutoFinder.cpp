@@ -112,7 +112,7 @@ void FPGA::AutoFinder::FindSignal()
 
 static bool FPGA::AutoFinder::FindWave(Chan ch)
 {
-    TBase::Set((TBase::E)(TBase::MIN_P2P - 1));
+    TBase::Set((TBase::E)(TBase::MIN_P2P));
     TrigSource::Set(ch);
     TrigLev::Set(ch, TrigLev::ZERO);
     RShift::Set(ch, RShift::ZERO);
@@ -157,7 +157,7 @@ static bool FPGA::AutoFinder::FindRange(Chan ch)
     {
         Range::Set(ch, (Range::E)r);
 
-        Timer::PauseOnTime(100);
+        Timer::PauseOnTime(500);
 
         DataFinder data;
 
@@ -165,15 +165,11 @@ static bool FPGA::AutoFinder::FindRange(Chan ch)
 
         BitSet64 limits = data.GetBound();
 
-//        LOG_WRITE("%s %d-%d", Range::ToName((Range::E)r), limits.iword[0], limits.iword[1]);
-
         if (limits.iword[0] < ValueFPGA::MIN || limits.iword[1] > ValueFPGA::MAX)
         {
             structFind.range = (Range::E)Math::Limitation<int>(r + 1, 0, Range::_20V);
 
             result = true;
-
-//            LOG_WRITE("finded %s", Range::ToName(structFind.range));
 
             break;
         }
@@ -190,7 +186,7 @@ bool FPGA::AutoFinder::DataFinder::ReadDataWithoutSynchronization(Chan ch)
     Fill(ValueFPGA::NONE);
 
     HAL_FMC::Write(WR_PRED, (uint16)(~(Size() / 2 + 20)));
-    HAL_FMC::Write(WR_POST, (uint16)(~(10)));
+    HAL_FMC::Write(WR_POST, (uint16)(~(Size() / 2 + 20)));
     HAL_FMC::Write(WR_START, 1);
 
     while (_GET_BIT(flag.Read(), FL_PRED) == 0) { }
