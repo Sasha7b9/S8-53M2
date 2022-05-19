@@ -61,9 +61,9 @@ static const Settings defaultSettings =
     {
         { CursCntrl::Disabled, CursCntrl::Disabled }, // CursCntrl U
         { CursCntrl::Disabled, CursCntrl::Disabled }, // CursCntrl T
-        Chan::A,                                   // source
-        { 60.0F,  140.0F, 60.0F, 140.0F },            // posCur U
-        { 80.0F,  200.0F, 80.0F, 200.0F },            // posCur T
+        Chan::A,                                      // source
+        { { 60.0F,  140.0F }, { 60.0F, 140.0F } },    // posCur U
+        { { 80.0F,  200.0F }, { 80.0F, 200.0F } },    // posCur T
         { 80.0F,  80.0F },                            // расстояние между курсорами напряжения для 100%
         { 120.0F, 120.0F },                           // расстояние между курсорами времени для 100%
         CursMovement::Points,                         // CursMovement

@@ -59,10 +59,10 @@ static void DrawSB_MemInt_ShowSignalAlways(int x, int y)
 
 static const arrayHints hintsMemIntShowSignalAlways =
 {
-    {DrawSB_MemInt_ShowSignalAllways_Yes, "показывать выбранный сигнал из внутренней памяти поверх текущего",
-                                          "to show the chosen signal from internal memory over the current"},
-    {DrawSB_MemInt_ShowSignalAllways_No,  "сигнал из внутренней памяти виден только в режиме работы с внутренним запоминающим устройством",
-                                          "the signal from internal memory is visible only in an operating mode with an internal memory"}
+    {DrawSB_MemInt_ShowSignalAllways_Yes, { "показывать выбранный сигнал из внутренней памяти поверх текущего",
+                                            "to show the chosen signal from internal memory over the current" } },
+    {DrawSB_MemInt_ShowSignalAllways_No,  { "сигнал из внутренней памяти виден только в режиме работы с внутренним запоминающим устройством",
+                                            "the signal from internal memory is visible only in an operating mode with an internal memory" } }
 };
 
 
@@ -138,9 +138,9 @@ static void DrawSB_MemInt_ModeShow(int x, int y)
 
 static const arrayHints hintsMemIntModeShow =
 {
-    { DrawSB_MemInt_ModeShow_Direct, "на дисплее текущий сигнал",     "on the display current signal" },
-    { DrawSB_MemInt_ModeShow_Saved,  "на дисплее сохранённый сигнал", "on the display the kept signal" },
-    { DrawSB_MemInt_ModeShow_Both,   "на дисплее оба сигнала",        "on the display the both signals" }
+    { DrawSB_MemInt_ModeShow_Direct, { "на дисплее текущий сигнал",     "on the display current signal"   } },
+    { DrawSB_MemInt_ModeShow_Saved,  { "на дисплее сохранённый сигнал", "on the display the kept signal"  } },
+    { DrawSB_MemInt_ModeShow_Both,   { "на дисплее оба сигнала",        "on the display the both signals" } }
 };
 
 

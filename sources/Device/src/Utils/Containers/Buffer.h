@@ -149,6 +149,16 @@ protected:
 
 
 template<class T>
+class Buffer512 : public Buffer<T, 512>
+{
+public:
+    Buffer512() : Buffer<T, 512>() { };
+    Buffer512(int size) : Buffer<T, 512>(size) { };
+    Buffer512(int size, T value) : Buffer<T, 512>(size, value) { };
+};
+
+
+template<class T>
 class Buffer1024 : public Buffer<T, 1024>
 {
 public:

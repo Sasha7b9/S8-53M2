@@ -236,7 +236,7 @@ static void DrawSB_Cursors_Source(int x, int y)
 
 static const arrayHints hintsSetSource =
 {
-    { DrawSB_Cursors_SourceA, "канал 1", "channel 1" }, { DrawSB_Cursors_SourceB, "канал 2", "channel 2" }
+    { DrawSB_Cursors_SourceA, { "канал 1", "channel 1" } }, { DrawSB_Cursors_SourceB, { "канал 2", "channel 2" } }
 };
 
 
@@ -397,16 +397,16 @@ static void DrawSB_Cursors_U_Both_Enable(int x, int y)
 
 static const arrayHints hintsSetU =
 {
-    { DrawSB_Cursors_U_Disable,     "курсоры напряжения выключены",
-                                    "cursors of tension are switched off" },
-    { DrawSB_Cursors_U_Both_Disable,"курсоры напряжения включены",
-                                    "cursors of tension are switched on" },
-    { DrawSB_Cursors_U_Upper,       "курсоры напряжения включены, управление верхним курсором",
-                                    "cursors of tension are switched on, control of the top cursor" },
-    { DrawSB_Cursors_U_Lower,       "курсоры напряжения включены, управление нижним курсором",
-                                    "cursors of tension are switched on, control of the lower cursor" },
-    { DrawSB_Cursors_U_Both_Enable, "курсоры напряжения включены, управление обоими курсорами",
-                                    "cursors of tension are switched on, control of both cursors" }
+    { DrawSB_Cursors_U_Disable,     { "курсоры напряжения выключены",
+                                      "cursors of tension are switched off" } },
+    { DrawSB_Cursors_U_Both_Disable,{ "курсоры напряжения включены",
+                                      "cursors of tension are switched on" } },
+    { DrawSB_Cursors_U_Upper,       { "курсоры напряжения включены, управление верхним курсором",
+                                      "cursors of tension are switched on, control of the top cursor" } },
+    { DrawSB_Cursors_U_Lower,       { "курсоры напряжения включены, управление нижним курсором",
+                                      "cursors of tension are switched on, control of the lower cursor" } },
+    { DrawSB_Cursors_U_Both_Enable, { "курсоры напряжения включены, управление обоими курсорами",
+                                      "cursors of tension are switched on, control of both cursors" } }
 };
 
 
@@ -505,16 +505,16 @@ static void DrawSB_Cursors_T_Both_Enable(int x, int y)
 
 static const arrayHints hintsSetT =
 {
-    { DrawSB_Cursors_T_Disable,         "курсоры времени выключены",
-                                        "cursors of time are switched off" },
-    { DrawSB_Cursors_T_Both_Disable,    "курсоры времени включены",
-                                        "cursors of time are switched on" },
-    { DrawSB_Cursors_T_Left,            "курсоры времени включены, управление левым курсором",
-                                        "cursors of time are switched on, control of the left cursor" },
-    { DrawSB_Cursors_T_Right,           "курсоры времени включены, управление правым курсором",
-                                        "cursors of time are switched on, control of the right cursor" },
-    { DrawSB_Cursors_T_Both_Enable,     "курсоры времени включены, управление обоими курсорами",
-                                        "cursors of time are switched on, control of both cursors" }    
+    { DrawSB_Cursors_T_Disable,       { "курсоры времени выключены",
+                                        "cursors of time are switched off" } },
+    { DrawSB_Cursors_T_Both_Disable,  { "курсоры времени включены",
+                                        "cursors of time are switched on" } },
+    { DrawSB_Cursors_T_Left,          { "курсоры времени включены, управление левым курсором",
+                                        "cursors of time are switched on, control of the left cursor" } },
+    { DrawSB_Cursors_T_Right,         { "курсоры времени включены, управление правым курсором",
+                                        "cursors of time are switched on, control of the right cursor" } },
+    { DrawSB_Cursors_T_Both_Enable,   { "курсоры времени включены, управление обоими курсорами",
+                                        "cursors of time are switched on, control of both cursors" } }
 };
 
 
@@ -626,10 +626,10 @@ static void DrawSB_Cursors_PointsPercents_Points(int x, int y)
 
 static const arrayHints hintsSetPointsPercents =
 {
-    { DrawSB_Cursors_PointsPercents_Percents,   "шаг перемещения курсоров кратен одному проценту",
-                                                "the step of movement of cursors is multiple to one percent" },
-    { DrawSB_Cursors_PointsPercents_Points,     "шаг перемещения курсора кратен одному пикселю",
-                                                "the step of movement of the cursor is multiple to one pixel" }
+    { DrawSB_Cursors_PointsPercents_Percents, { "шаг перемещения курсоров кратен одному проценту",
+                                                "the step of movement of cursors is multiple to one percent" } },
+    { DrawSB_Cursors_PointsPercents_Points,   { "шаг перемещения курсора кратен одному пикселю",
+                                                "the step of movement of the cursor is multiple to one pixel" } }
 };
 
 

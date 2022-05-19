@@ -136,13 +136,13 @@ static const Settings defaultSettings =
         { CursCntrl::Disable, CursCntrl::Disable },     // CursCntrl U
         { CursCntrl::Disable, CursCntrl::Disable },     // CursCntrl T
         Chan::A,                                        // source
-        { 60.0f,  140.0f, 60.0f, 140.0f },              // posCur U
-        { 80.0f,  200.0f, 80.0f, 200.0f },              // posCur T
+        { { 60.0f,  140.0f }, { 60.0f, 140.0f } },      // posCur U
+        { { 80.0f,  200.0f }, { 80.0f, 200.0f } },      // posCur T
         { 80.0f,  80.0f },                              // расстояние между курсорами напряжения для 100%
         { 120.0f, 120.0f },                             // расстояние между курсорами времени для 100%
         CursMovement::Points,                           // CursMovement
         CursActive::None,                               // CursActive
-        { CursLookMode::None, CursLookMode::None },       // Режим слежения курсоров.
+        { CursLookMode::None, CursLookMode::None },     // Режим слежения курсоров.
         false,                                          // showFreq
         false                                           // showCursors
     },

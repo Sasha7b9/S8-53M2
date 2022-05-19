@@ -197,12 +197,12 @@ static void Draw_Math_Function_ModeDraw_Together(int x, int y)
 
 static const arrayHints hintsMath_Function_ModeDraw =
 {
-    {Draw_Math_Function_ModeDraw_Disable,  "Вывод математической функции отключён",
-                                            "The conclusion of mathematical function is disconnected"},
-    {Draw_Math_Function_ModeDraw_Separate, "Сигналы и математическая функция выводятся в разных окнах",
-                                            "Signals and mathematical function are removed in different windows"},
-    {Draw_Math_Function_ModeDraw_Together, "Сигналы и математическая функция выводятся в одном окне",
-                                            "Signals and mathematical function are removed in one window"}
+    {Draw_Math_Function_ModeDraw_Disable,  { "Вывод математической функции отключён",
+                                             "The conclusion of mathematical function is disconnected" } },
+    {Draw_Math_Function_ModeDraw_Separate, { "Сигналы и математическая функция выводятся в разных окнах",
+                                             "Signals and mathematical function are removed in different windows" } },
+    {Draw_Math_Function_ModeDraw_Together, { "Сигналы и математическая функция выводятся в одном окне",
+                                             "Signals and mathematical function are removed in one window" } }
 };
 
 
@@ -273,8 +273,8 @@ static void Draw_Math_Function_Type(int x, int y)
 
 static const arrayHints hintsMath_Function_Type =
 {
-    { Draw_Math_Function_Type_Sum,      "Сложение",     "Addition"       },
-    { Draw_Math_Function_Type_Mul,      "Умножение",    "Multiplication" }
+    { Draw_Math_Function_Type_Sum,   { "Сложение",     "Addition"       } },
+    { Draw_Math_Function_Type_Mul,   { "Умножение",    "Multiplication" } }
 };
 
 
@@ -317,8 +317,8 @@ static void Draw_Math_Function_ModeRegSet(int x, int y)
 
 static const arrayHints hintsMath_Function_ModeRegSet =
 {
-    {Draw_Math_Function_ModeRegSet_Range,  "Управление масштабом", "Management of scale"},
-    {Draw_Math_Function_ModeRegSet_RShift, "Управление смещением", "Management of shift"}
+    {Draw_Math_Function_ModeRegSet_Range,  { "Управление масштабом", "Management of scale" } },
+    {Draw_Math_Function_ModeRegSet_RShift, { "Управление смещением", "Management of shift" } }
 };
 
 

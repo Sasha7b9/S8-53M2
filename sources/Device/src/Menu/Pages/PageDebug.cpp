@@ -40,8 +40,8 @@ static const Choice mcStats =
         "To show/not to show a time/shot, frames per second, quantity of signals with the last settings in memory/quantity of the signals kept in memory"
     },
     {
-        "Не показывать",    "Hide",
-        "Показывать",       "Show"
+        { "Не показывать",  "Hide" },
+        { "Показывать",     "Show" }
     },
     (int8 *)&SHOW_STATS
 };
@@ -66,8 +66,8 @@ static const Choice mcConsole_SizeFont =
         ""
     },
     {
-        "5",    "5",
-        "8",    "8"
+        { "5",    "5" },
+        { "8",    "8" }
     },
     (int8 *)&SIZE_FONT_CONSOLE
 };

@@ -121,8 +121,12 @@ static bool FPGA::AutoFinder::FindWave(Chan ch)
 
     if (FindRange(ch))
     {
+        LOG_WRITE("range(%d) = %s", ch.value, Range::ToName(SET_RANGE(ch)));
+
         if (FindTBase())
         {
+            LOG_WRITE("tbase = %s", TBase::ToString(SET_TBASE));
+
             return true;
         }
     }
