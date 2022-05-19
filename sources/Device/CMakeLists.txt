@@ -21,7 +21,7 @@ include_directories(../common/_VS_KEIL/ARMCLANG
                     src/Hardware/FDrive
                     ..)
 
-add_definitions(-DSTM32F429xx -DUSE_HAL_DRIVER -DDEVICE)
+add_definitions(-DSTM32F429xx -DUSE_HAL_DRIVER -DDEVICE -DUSE_FULL_LL_DRIVER)
 
 if(WIN32)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")

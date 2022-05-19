@@ -9,6 +9,8 @@
 #include "Hardware/Sound.h"
 #include "Utils/Debug.h"
 #include "Hardware/VCP/usbd_cdc_interface.h"
+#include <stm32f4xx_hal.h>
+#include <stm32f4xx_ll_dac.h>
 
 
 #ifdef __cplusplus
@@ -101,10 +103,22 @@ extern "C" {
         HAL_SPI_IRQHandler((SPI_HandleTypeDef *)HAL_SPI5::handle);
     }
 
-
     void TIM6_DAC_IRQHandler()
     {
         HAL_TIM6::CallbackOnIRQ();
+
+        /* Check whether DAC channel1 underrun caused the DAC interruption */
+        if (LL_DAC_IsActiveFlag_DMAUDR1(DAC1) != 0)
+        {
+            /* Clear flag DAC channel1 underrun */
+            LL_DAC_ClearFlag_DMAUDR1(DAC1);
+
+            /* Note: Disable DAC interruption that caused this error before entering in */
+            /*       infinite loop below.                                               */
+
+            /* Disable interruption DAC channel1 underrun */
+            LL_DAC_DisableIT_DMAUDR1(DAC1);
+        }
     }
 
 
