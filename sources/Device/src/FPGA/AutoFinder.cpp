@@ -116,16 +116,16 @@ static bool FPGA::AutoFinder::FindWave(Chan ch)
     TrigSource::Set(ch);
     TrigLev::Set(ch, TrigLev::ZERO);
     RShift::Set(ch, RShift::ZERO);
-    ModeCouple::Set(ch, ModeCouple::DC);
+    ModeCouple::Set(ch, ModeCouple::AC);
     TrigInput::Set(TrigInput::Full);
 
     if (FindRange(ch))
     {
-        LOG_WRITE("range(%d) = %s", ch.value, Range::ToName(SET_RANGE(ch)));
+//        LOG_WRITE("range(%d) = %s", ch.value, Range::ToName(SET_RANGE(ch)));
 
         if (FindTBase())
         {
-            LOG_WRITE("tbase = %s", TBase::ToString(SET_TBASE));
+//            LOG_WRITE("tbase = %s", TBase::ToString(SET_TBASE));
 
             return true;
         }
