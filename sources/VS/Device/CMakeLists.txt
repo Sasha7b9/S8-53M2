@@ -16,6 +16,8 @@ include_directories(../../common/_VS_GUI/CMSIS
 
                     ../../Device/src
                     ../../Device/src/libs
+                    ../../Device/src/Hardware/HAL
+                    ../..
                     )
 
 link_directories(../../generated/ThirdParty/lib/vc_dll)
