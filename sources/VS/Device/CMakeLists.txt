@@ -17,6 +17,7 @@ include_directories(../../common/_VS_GUI/CMSIS
                     ../../Device/src
                     ../../Device/src/libs
                     ../../Device/src/Hardware/HAL
+                    ../../Device/src/Hardware/FDrive
                     ../..
                     )
 
@@ -26,7 +27,8 @@ add_definitions(-DSTM32F429xx -DWXUSINGDLL -DGUI -DDEVICE)
 
 if(WIN32)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
-    
+
+    add_compile_options(/wd4062)
     add_compile_options(/wd4201)    # nonstandard extension used : nameless struct/union
     add_compile_options(/wd4127)    # conditional expression is constant
     add_compile_options(/wd4211)    # nonstandard extension used : redefined extern to static
@@ -57,6 +59,7 @@ if(WIN32)
     add_compile_options(/wd5220)    # a non-static data member with a volatile qualified type no longer implies that
                                     # compiler generated copy/move constructors and copy/move assignment operators are not
                                     # trivial
+    add_compile_options(/wd5264)
     add_compile_options(/wd26812)   # the enum type 'xxx' is unscoped. Prefer 'enum class' over 'enum'
 endif()
 
@@ -83,6 +86,7 @@ set_source_files_properties(resources/*
 
 set_source_files_properties(../../Device/src/FPGA/FPGA_old.cpp
                             ../../Device/src/FPGA/CalibrationFPGA_old.cpp
+                            ../../Device/src/Hardware/HAL/HAL_IT.cpp
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
 source_group(src                        FILES ${SRC})
@@ -114,7 +118,7 @@ add_executable( ${PROJECT_NAME}
                 ${RESOURCES}
                 )
 
-target_link_libraries(${PROJECT_NAME} wxbase31ud wxmsw31ud_core)
+target_link_libraries(${PROJECT_NAME} wxbase32ud wxmsw32ud_core)
 
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND copy ..\\..\\ThirdParty\\lib\\vc_dll\\wxbase315ud_vc_custom.dll $(OutputPath) /Y)
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND copy ..\\..\\ThirdParty\\lib\\vc_dll\\wxmsw315ud_core_vc_custom.dll $(OutputPath) /Y)
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND copy ..\\..\\ThirdParty\\lib\\vc_dll\\wxbase32ud_vc_custom.dll $(OutputPath) /Y)
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND copy ..\\..\\ThirdParty\\lib\\vc_dll\\wxmsw32ud_core_vc_custom.dll $(OutputPath) /Y)
