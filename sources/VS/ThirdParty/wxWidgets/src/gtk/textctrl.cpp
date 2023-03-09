@@ -32,6 +32,12 @@
 #include "wx/gtk/private.h"
 #include "wx/gtk/private/gtk3-compat.h"
 
+#if wxUSE_SPELLCHECK && defined(__WXGTK3__)
+extern "C" {
+#include <gspell-1/gspell/gspell.h>
+}
+#endif // wxUSE_SPELLCHECK && __WXGTK3__
+
 // ----------------------------------------------------------------------------
 // helpers
 // ----------------------------------------------------------------------------
@@ -787,7 +793,7 @@ bool wxTextCtrl::Create( wxWindow *parent,
         gtk_entry_set_width_chars((GtkEntry*)m_text, 1);
 
         // work around probable bug in GTK+ 2.18 when calling WriteText on a
-        // new, empty control, see https://trac.wxwidgets.org/ticket/11409
+        // new, empty control, see https://github.com/wxWidgets/wxWidgets/issues/11409
         gtk_entry_get_text((GtkEntry*)m_text);
 
 #ifndef __WXGTK3__
@@ -823,7 +829,7 @@ bool wxTextCtrl::Create( wxWindow *parent,
 
         // The call to SetInitialSize() from inside PostCreation() didn't take
         // the value into account because it hadn't been set yet when it was
-        // called (and setting it earlier wouldn't have been correct neither,
+        // called (and setting it earlier wouldn't have been correct either,
         // as the appropriate size depends on the presence of the borders,
         // which are configured in PostCreation()), so recompute the initial
         // size again now that we have set it.
@@ -1016,6 +1022,64 @@ void wxTextCtrl::GTKSetJustification()
         gtk_entry_set_alignment(GTK_ENTRY(m_text), align);
     }
 }
+
+#if wxUSE_SPELLCHECK && defined(__WXGTK3__)
+
+bool wxTextCtrl::EnableProofCheck(const wxTextProofOptions& options)
+{
+    if ( IsMultiLine() )
+    {
+        GtkTextView *textview = GTK_TEXT_VIEW(m_text);
+        wxCHECK_MSG( textview, false, wxS("wxTextCtrl is not a GtkTextView") );
+
+        GspellTextView *spell = gspell_text_view_get_from_gtk_text_view (textview);
+        if ( !spell )
+            return false;
+
+        gspell_text_view_basic_setup(spell);
+        gspell_text_view_set_inline_spell_checking(spell, options.IsSpellCheckEnabled());
+        gspell_text_view_set_enable_language_menu(spell, options.IsSpellCheckEnabled());
+    }
+    else
+    {
+        GtkEntry *entry = GTK_ENTRY(m_text);
+        wxCHECK_MSG( entry, false, wxS("wxTextCtrl is not a GtkEntry") );
+
+        GspellEntry *spell = gspell_entry_get_from_gtk_entry(entry);
+        if ( !spell )
+            return false;
+
+        gspell_entry_basic_setup(spell);
+        gspell_entry_set_inline_spell_checking(spell, options.IsSpellCheckEnabled());
+    }
+
+    return GetProofCheckOptions().IsSpellCheckEnabled();
+}
+
+wxTextProofOptions wxTextCtrl::GetProofCheckOptions() const
+{
+    wxTextProofOptions opts = wxTextProofOptions::Disable();
+
+    if ( IsMultiLine() )
+    {
+        GtkTextView *textview = GTK_TEXT_VIEW(m_text);
+
+        if ( textview && gspell_text_view_get_from_gtk_text_view(textview) )
+            opts.SpellCheck();
+    }
+
+    else
+    {
+        GtkEntry *entry = GTK_ENTRY(m_text);
+
+        if ( entry && gspell_entry_get_from_gtk_entry(entry) )
+            opts.SpellCheck();
+    }
+
+    return opts;
+}
+
+#endif // wxUSE_SPELLCHECK && __WXGTK3__
 
 void wxTextCtrl::SetWindowStyleFlag(long style)
 {
@@ -2092,14 +2156,13 @@ wxSize wxTextCtrl::DoGetSizeFromTextSize(int xlen, int ylen) const
 {
     wxASSERT_MSG( m_widget, wxS("GetSizeFromTextSize called before creation") );
 
-    wxSize tsize(xlen, 0);
     int cHeight = GetCharHeight();
+    wxSize tsize(xlen, cHeight);
 
     if ( IsSingleLine() )
     {
         if ( HasFlag(wxBORDER_NONE) )
         {
-            tsize.y = cHeight;
 #ifdef __WXGTK3__
             tsize.IncBy(9, 0);
 #else
@@ -2110,10 +2173,16 @@ wxSize wxTextCtrl::DoGetSizeFromTextSize(int xlen, int ylen) const
         {
             // default height
             tsize.y = GTKGetPreferredSize(m_widget).y;
-            // Add the margins we have previously set, but only the horizontal border
-            // as vertical one has been taken account at GTKGetPreferredSize().
-            // Also get other GTK+ margins.
-            tsize.IncBy( GTKGetEntryMargins(GetEntry()).x, 0);
+#ifdef __WXGTK3__
+            // Add the margins we have previously set.
+            tsize.IncBy( GTKGetEntryMargins(GetEntry()) );
+#else
+            // For GTK 2 these margins are too big, so hard code something more
+            // reasonable, this is not great but should be fine considering
+            // that it's very unlikely that GTK 2 is going to evolve, making
+            // this inappropriate.
+            tsize.IncBy(20, 0);
+#endif
         }
     }
 
@@ -2125,7 +2194,6 @@ wxSize wxTextCtrl::DoGetSizeFromTextSize(int xlen, int ylen) const
             tsize.IncBy(GTKGetPreferredSize(GTK_WIDGET(m_scrollBar[1])).x + 3, 0);
 
         // height
-        tsize.y = cHeight;
         if ( ylen <= 0 )
         {
             tsize.y = 1 + cHeight * wxMax(wxMin(GetNumberOfLines(), 10), 2);
@@ -2141,10 +2209,9 @@ wxSize wxTextCtrl::DoGetSizeFromTextSize(int xlen, int ylen) const
         }
     }
 
-    // Perhaps the user wants something different from CharHeight, or ylen
-    // is used as the height of a multiline text.
-    if ( ylen > 0 )
-        tsize.IncBy(0, ylen - cHeight);
+    // We should always use at least the specified height if it's valid.
+    if ( ylen > tsize.y )
+        tsize.y = ylen;
 
     return tsize;
 }

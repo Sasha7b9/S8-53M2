@@ -155,7 +155,17 @@ bool wxMenu::DoInsertOrAppend(wxMenuItem *item, size_t pos)
 #if wxUSE_MENUBAR
     // if we're already attached to the menubar, we must update it
     if ( IsAttached() && GetMenuBar()->IsAttached() )
+    {
+        if ( item->IsSubMenu() )
+        {
+            item->GetSubMenu()->SetupBitmaps();
+        }
+        if ( !item->IsSeparator() )
+        {
+            item->UpdateItemBitmap();
+        }
         GetMenuBar()->Refresh();
+    }
 #endif // wxUSE_MENUBAR
 
     if ( check )
@@ -211,6 +221,10 @@ wxMenuItem *wxMenu::DoRemove(wxMenuItem *item)
 
     wxOSXMenuRemoveItem(m_hMenu , pos );
     */
+#if wxUSE_ACCEL
+    // we need to remove all hidden menu items related to this one
+    item->RemoveHiddenItems();
+#endif
     GetPeer()->Remove( item );
     // and from internal data structures
     return wxMenuBase::DoRemove(item);
@@ -345,23 +359,28 @@ bool wxMenu::HandleCommandUpdateStatus( wxMenuItem* item )
 
 bool wxMenu::HandleCommandProcess( wxMenuItem* item )
 {
-    int menuid = item ? item->GetId() : 0;
+    wxCHECK_MSG( item, false, "must have a valid item" );
+
+    int menuid = item->GetId();
     bool processed = false;
     if (item->IsCheckable())
         item->Check( !item->IsChecked() ) ;
 
-    if ( SendEvent( menuid , item->IsCheckable() ? item->IsChecked() : -1 ) )
-        processed = true ;
-
-    if(!processed && item)
-    {
-        processed = item->GetPeer()->DoDefault();  
-    }
-    
+    // A bit counterintuitively, we call OSXAfterMenuEvent() _before_ calling
+    // the user defined handler. This is done to account for the case when this
+    // handler deletes the window, as it can possibly do.
     if (wxWindow* const w = GetInvokingWindow())
     {
         // Let the invoking window update itself if necessary.
         w->OSXAfterMenuEvent();
+    }
+
+    if ( SendEvent( menuid , item->IsCheckable() ? item->IsChecked() : -1 ) )
+        processed = true ;
+
+    if(!processed)
+    {
+        processed = item->GetPeer()->DoDefault();  
     }
 
     return processed;
@@ -393,6 +412,44 @@ void wxMenu::HandleMenuOpened()
 void wxMenu::HandleMenuClosed()
 {
     DoHandleMenuOpenedOrClosed(wxEVT_MENU_CLOSE);
+}
+
+#if wxUSE_MENUBAR
+void wxMenu::Attach(wxMenuBarBase *menubar)
+{
+    wxMenuBase::Attach(menubar);
+
+    if (menubar->IsAttached())
+    {
+        SetupBitmaps();
+    }
+}
+#endif
+
+void wxMenu::SetInvokingWindow(wxWindow* win)
+{
+    wxMenuBase::SetInvokingWindow(win);
+
+    if ( win )
+        SetupBitmaps();
+}
+
+void wxMenu::SetupBitmaps()
+{
+    for ( wxMenuItemList::compatibility_iterator node = m_items.GetFirst();
+          node;
+          node = node->GetNext() )
+    {
+        wxMenuItem *item = node->GetData();
+        if ( item->IsSubMenu() )
+        {
+            item->GetSubMenu()->SetupBitmaps();
+        }
+        if ( !item->IsSeparator() )
+        {
+            item->UpdateItemBitmap();
+        }
+    }
 }
 
 #if wxUSE_MENUBAR
@@ -436,9 +493,10 @@ static wxMenu *CreateAppleMenu()
     {
         wxString aboutLabel;
         if ( wxTheApp )
-            aboutLabel.Printf(_("About %s"), wxTheApp->GetAppDisplayName());
+            aboutLabel.Printf(wxGETTEXT_IN_CONTEXT("macOS menu item", "About %s"),
+                              wxTheApp->GetAppDisplayName());
         else
-            aboutLabel = _("About...");
+            aboutLabel = wxGETTEXT_IN_CONTEXT("macOS menu item", "About...");
         appleMenu->Append( wxApp::s_macAboutMenuItemId, aboutLabel);
         appleMenu->AppendSeparator();
     }
@@ -446,24 +504,36 @@ static wxMenu *CreateAppleMenu()
     if ( wxApp::s_macPreferencesMenuItemId != wxID_NONE )
     {
         appleMenu->Append( wxApp::s_macPreferencesMenuItemId,
-                           _("Preferences...") + "\tCtrl+," );
+                           wxGETTEXT_IN_CONTEXT("macOS menu item", "Preferences...")
+                           + "\tCtrl+," );
         appleMenu->AppendSeparator();
     }
 
-    appleMenu->Append(wxID_OSX_SERVICES, _("Services"), new wxMenu());
+    appleMenu->Append(wxID_OSX_SERVICES, wxGETTEXT_IN_CONTEXT("macOS menu item", "Services"),
+                      new wxMenu());
     appleMenu->AppendSeparator();
 
     // standard menu items, handled in wxMenu::HandleCommandProcess(), see above:
     wxString hideLabel;
-    hideLabel = wxString::Format(_("Hide %s"), wxTheApp ? wxTheApp->GetAppDisplayName() : _("Application"));
+    if ( wxTheApp )
+        hideLabel = wxString::Format(wxGETTEXT_IN_CONTEXT("macOS menu item", "Hide %s"),
+                                     wxTheApp->GetAppDisplayName());
+    else
+        hideLabel = wxGETTEXT_IN_CONTEXT("macOS menu item", "Hide Application");
     appleMenu->Append( wxID_OSX_HIDE, hideLabel + "\tCtrl+H" );
-    appleMenu->Append( wxID_OSX_HIDEOTHERS, _("Hide Others")+"\tAlt+Ctrl+H" );
-    appleMenu->Append( wxID_OSX_SHOWALL, _("Show All") );
+    appleMenu->Append( wxID_OSX_HIDEOTHERS,
+                       wxGETTEXT_IN_CONTEXT("macOS menu item", "Hide Others")+"\tAlt+Ctrl+H" );
+    appleMenu->Append( wxID_OSX_SHOWALL,
+                       wxGETTEXT_IN_CONTEXT("macOS menu item", "Show All") );
     appleMenu->AppendSeparator();
     
     // Do always add "Quit" item unconditionally however, it can't be disabled.
     wxString quitLabel;
-    quitLabel = wxString::Format(_("Quit %s"), wxTheApp ? wxTheApp->GetAppDisplayName() : _("Application"));
+    if ( wxTheApp )
+        quitLabel = wxString::Format(wxGETTEXT_IN_CONTEXT("macOS menu item", "Quit %s"),
+                                     wxTheApp->GetAppDisplayName());
+    else
+        quitLabel = wxGETTEXT_IN_CONTEXT("macOS menu item", "Quit Application");
     appleMenu->Append( wxApp::s_macExitMenuItemId, quitLabel + "\tCtrl+Q" );
 
     return appleMenu;
@@ -619,6 +689,21 @@ wxString wxMenuBar::GetMenuLabel(size_t pos) const
                  wxT("invalid menu index in wxMenuBar::GetMenuLabel") );
 
     return GetMenu(pos)->GetTitle();
+}
+
+void wxMenuBar::SetupBitmaps()
+{
+    for ( wxMenuList::const_iterator it = m_menus.begin(); it != m_menus.end(); ++it )
+    {
+        (*it)->SetupBitmaps();
+    }
+}
+
+void wxMenuBar::Attach(wxFrame *frame)
+{
+    wxMenuBarBase::Attach(frame);
+
+    SetupBitmaps();
 }
 
 // ---------------------------------------------------------------------------
